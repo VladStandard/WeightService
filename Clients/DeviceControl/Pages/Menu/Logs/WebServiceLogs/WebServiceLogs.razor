@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.LogWebView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewWebLogModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.WebService.Name"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@LogWebView"
+  TItem="@WsSqlViewWebLogModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@LogWebView">
+    <TItemContent TItem="@WsSqlViewWebLogModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%"
                             FormatString="@StrUtils.FormatDtLong"/>

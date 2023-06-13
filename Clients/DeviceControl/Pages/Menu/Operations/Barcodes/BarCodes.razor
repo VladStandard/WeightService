@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.BarcodeView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewBarcodeModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBarCodes"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@BarcodeView"
+  TItem="@WsSqlViewBarcodeModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@BarcodeView">
+    <TItemContent TItem="@WsSqlViewBarcodeModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>

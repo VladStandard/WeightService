@@ -6,37 +6,13 @@ using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Devices.Hosts;
 
-public sealed partial class Devices : SectionBase<DeviceView>
+public sealed partial class Devices : SectionBase<WsSqlViewDeviceModel>
 {
     #region Public and private methods
 
     protected override void SetSqlSectionCast()
     {
-        var query = WsSqlQueriesDiags.Tables.Views.GetDevices(SqlCrudConfigSection.SelectTopRowsCount,
-            SqlCrudConfigSection.IsMarked);
-        object[] objects = ContextManager.AccessManager.AccessList.GetArrayObjectsNotNullable(query);
-        List<DeviceView> items = new();
-        foreach (var obj in objects)
-        {
-            if (obj is not object[] { Length: 8 } item)
-                continue;
-            if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
-            {
-                items.Add(new()
-                {
-                    IdentityValueUid = uid,
-                    IsMarked = Convert.ToBoolean(item[1]),
-                    LoginDate = Convert.ToDateTime(item[2]),
-                    LogoutDate = Convert.ToDateTime(item[3]),
-                    Name = item[4] as string ?? string.Empty,
-                    TypeName = item[5] as string ?? string.Empty,
-                    Ip = item[6] as string ?? string.Empty,
-                    Mac = item[7] as string ?? string.Empty
-                });
-            }
-        }
-
-        SqlSectionCast = items;
+        SqlSectionCast = ContextViewHelper.GetListViewDevices(SqlCrudConfigSection);
     }
 
     #endregion

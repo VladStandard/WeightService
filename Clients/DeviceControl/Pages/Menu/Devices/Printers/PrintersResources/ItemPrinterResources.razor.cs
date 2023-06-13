@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 
-namespace DeviceControl.Pages.Menu.Devices.PrintersResources;
+namespace DeviceControl.Pages.Menu.Devices.Printers.PrintersResources;
 
 public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResourceFkModel>
 {

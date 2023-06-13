@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class LogWebView : WsSqlTableBase
+public class WsSqlViewWebLogModel : WsSqlTableBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -18,7 +18,7 @@ public class LogWebView : WsSqlTableBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogWebView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewWebLogModel() : base(WsSqlFieldIdentity.Uid)
 	{
 		RequestUrl = string.Empty;
 		RequestCountAll = 0;

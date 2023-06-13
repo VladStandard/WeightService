@@ -7,14 +7,14 @@ using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.Scales;
 
-namespace DeviceControl.Pages.Menu.Devices.PlusLines;
+namespace DeviceControl.Pages.Menu.Devices.Lines.PlusLines;
 
 public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
     [Parameter] public WsSqlScaleModel Scale { get; set; }
-    public bool HideNoneActivePlu { get; set; }
+    private bool HideNoneActivePlu { get; set; }
 
     public PlusLines() : base()
     {
@@ -42,13 +42,6 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
         SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Line), Scale);
         base.SetSqlSectionCast();
         SqlSectionCast = SqlSectionCast.OrderBy(scale => scale.Plu.Number).ToList();
-    }
-
-    private string GetPluPackagesCount(WsSqlPluModel plu)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluScaleModel.Plu),
-            WsSqlIsMarked.ShowAll, true, false, false);
-        return ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Count.ToString();
     }
 
     #endregion

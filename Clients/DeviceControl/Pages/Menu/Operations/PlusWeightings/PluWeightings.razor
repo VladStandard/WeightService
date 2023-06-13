@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.PluWeightingView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewPluWeighting>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusWeightings"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@PluWeightingView"
+  TItem="@WsSqlViewPluWeighting"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@PluWeightingView">
+    <TItemContent TItem="@WsSqlViewPluWeighting">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
                             FormatString="@StrUtils.FormatDtDefault"/>

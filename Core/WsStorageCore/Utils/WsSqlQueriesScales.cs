@@ -111,20 +111,6 @@ LEFT JOIN [DB_SCALES].[DEVICES] [D] ON [DFK].[DEVICE_UID]=[D].[UID]
 GROUP BY CAST([PL].[CHANGE_DT] AS DATE), [S].[DESCRIPTION], [D].[NAME], [P].[NAME]
 ORDER BY [PL_CHANGE_DT] DESC;");
         }
-
-        public static class PluWeighings
-        {
-            public static string GetWeighingsAggr(int topRecords) => WsSqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
--- VIEW_AGGR_WEIGHTINGS | АГРЕГИРОВАННЫЕ ВЗВЕШИВАНИЯ БЕЗ ПЛУ
-SELECT {WsSqlQueries.GetTopRecords(topRecords)}
-		 [CHANGE_DT]
-		,[COUNT]
-		,[LINE]
-        ,[PLU]
-FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
-ORDER BY [CHANGE_DT] DESC;");
-        }
     }
 
     public static class Functions

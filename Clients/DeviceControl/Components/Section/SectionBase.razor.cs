@@ -8,6 +8,7 @@ using Radzen.Blazor;
 using WsBlazorCore.Settings;
 using WsLocalizationCore.Utils;
 using WsStorageCore.Common;
+using WsStorageCore.Helpers;
 
 namespace DeviceControl.Components.Section;
 
@@ -19,7 +20,8 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
     [Inject] protected RouteService RouteService { get; set; }
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService? ContextMenuService { get; set; }
-
+    
+    protected WsSqlContextViewHelper ContextViewHelper = WsSqlContextViewHelper.Instance;
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     protected List<TItem> SqlSectionSave { get; set; }

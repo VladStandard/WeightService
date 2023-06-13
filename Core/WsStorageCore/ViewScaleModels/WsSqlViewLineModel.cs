@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class LineView : WsSqlTableBase
+public class WsSqlViewLineModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     public virtual int Number { get; set; }
@@ -16,7 +16,7 @@ public class LineView : WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public LineView() : base(WsSqlFieldIdentity.Id)
+	public WsSqlViewLineModel() : base(WsSqlFieldIdentity.Id)
 	{
         Number = 0;
         HostName = string.Empty;

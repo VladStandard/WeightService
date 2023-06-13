@@ -22,12 +22,12 @@
 </MudPaper>
 
 <RzDataGrid
-  TItem="@WsSqlPluAggrModel"
+  TItem="@WsSqlViewWeightingAggrModel"
   Data="@PluWeightAggrs">
   <Columns>
-    <TItemContent TItem="@WsSqlPluAggrModel">
+    <TItemContent TItem="@WsSqlViewWeightingAggrModel">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn TItem="@WsSqlPluAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn TItem="@WsSqlViewWeightingAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @EnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
         </Template>

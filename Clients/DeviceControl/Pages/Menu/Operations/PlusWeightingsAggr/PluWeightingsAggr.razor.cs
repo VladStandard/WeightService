@@ -16,7 +16,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
     private string SqlListCountResult =>
         $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
 
-    private List<WsSqlPluAggrModel> PluWeightAggrs { get; set; }
+    private List<WsSqlViewWeightingAggrModel> PluWeightAggrs { get; set; }
 
     public PluWeightingsAggr()
     {
@@ -40,24 +40,7 @@ public sealed partial class PluWeightingsAggr : LayoutComponentBase
 
     private void GetSectionData()
     {
-        PluWeightAggrs = new();
-        object[] sql_objects =
-            WsSqlContextManagerHelper.Instance.AccessManager.AccessList.GetArrayObjectsNotNullable(
-                WsSqlQueriesScales.Tables.PluWeighings.GetWeighingsAggr(200)
-            );
-        foreach (object obj in sql_objects)
-        {
-            if (obj is object[] { Length: 4 } item)
-            {
-                PluWeightAggrs.Add(new(
-                    Convert.ToDateTime(item[0]),
-                    Convert.ToInt32(item[1]),
-                    Convert.ToString(item[2]) ?? string.Empty,
-                    Convert.ToString(item[3]) ?? string.Empty)
-                );
-            }
-        }
-
+        PluWeightAggrs = WsSqlContextViewHelper.Instance.GetListViewWeightingsAggr(200);
         StateHasChanged();
     }
 

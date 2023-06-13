@@ -5,46 +5,14 @@ namespace WsStorageCore.Utils;
 
 public static class WsSqlQueriesDiags
 {
-    public static class Tables
-    {
-        public static string GetErrors(int topRecords) => WsSqlQueries.TrimQuery($@"
-SELECT {WsSqlQueries.GetTopRecords(topRecords)}
-[Id]
-,[CreatedDate]
-,[ModifiedDate]
-,[FilePath]
-,[LineNumber]
-,[MemberName]
-,[Exception]
-,[InnerException]
-FROM [db_scales].[Errors]
-ORDER BY [CreatedDate] DESC;");
-
-        public static string AddLogType => WsSqlQueries.TrimQuery(@"
-insert into [db_scales].[LOG_TYPES]([NUMBER],[ICON]) 
-values (@number,@icon)");
-
-        public static string GetLogTypes => WsSqlQueries.TrimQuery(@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
--- Table LOG_TYPES
-select 
-[UID]
-,[NUMBER]
-,[ICON]
-from [db_scales].[LOG_TYPES]
-order by [NUMBER]");
-
-        /// <summary>
-        /// Представления.
-        /// </summary>
-        public static class Views
+    public static class Views
         {
             /// <summary>
             /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
             /// </summary>
             /// <param name="topRecords"></param>
             /// <returns></returns>
-            public static string GetViewLogsMemories(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewLogsMemory(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [UID]
@@ -54,7 +22,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[SCALE_NAME]
 	,[SIZE_APP_MB]
 	,[SIZE_FREE_MB]
-FROM [diag].[VIEW_LOGS_MEMORIES]
+FROM [diag].[VIEW_LOGS_MEMORY]
 ORDER BY [CREATE_DT] DESC;");
 
             /// <summary>
@@ -306,6 +274,17 @@ select {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [db_scales].[VIEW_DEVICES]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");
+            
+            public static string GetWeightingsAggr(int topRecords) => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+		 [CHANGE_DT]
+		,[COUNT]
+		,[LINE]
+        ,[PLU]
+FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
+ORDER BY [CHANGE_DT] DESC;");
+            
         }
-    }
+    
 }

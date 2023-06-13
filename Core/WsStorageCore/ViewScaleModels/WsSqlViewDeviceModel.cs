@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class DeviceView : WsSqlTableBase
+public class WsSqlViewDeviceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
@@ -32,7 +32,7 @@ public class DeviceView : WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public DeviceView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewDeviceModel() : base(WsSqlFieldIdentity.Uid)
 	{
         LoginDate = new();
         LogoutDate = new();
