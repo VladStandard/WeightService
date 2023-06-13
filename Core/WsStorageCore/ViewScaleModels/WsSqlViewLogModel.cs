@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class LogView : WsSqlTableBase
+public class WsSqlViewLogModel : WsSqlTableBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -22,7 +22,7 @@ public class LogView : WsSqlTableBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public LogView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewLogModel() : base(WsSqlFieldIdentity.Uid)
 	{
 		Line = string.Empty;
 		Host = string.Empty;

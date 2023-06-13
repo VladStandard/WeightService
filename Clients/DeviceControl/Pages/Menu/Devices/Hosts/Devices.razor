@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.DeviceView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewDeviceModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionHosts"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@DeviceView"
+  TItem="@WsSqlViewDeviceModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@DeviceView">
+    <TItemContent TItem="@WsSqlViewDeviceModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>

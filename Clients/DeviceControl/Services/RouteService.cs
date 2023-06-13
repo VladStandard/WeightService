@@ -120,13 +120,13 @@ public class RouteService
             WsSqlVersionModel => WsLocaleCore.DeviceControl.RouteSectionVersions,
             WsSqlWorkShopModel => WsLocaleCore.DeviceControl.RouteSectionWorkShops,
 
-            LogView => WsLocaleCore.DeviceControl.RouteSectionLogs,
-            LineView => WsLocaleCore.DeviceControl.RouteSectionScales,
-            BarcodeView => WsLocaleCore.DeviceControl.RouteSectionBarCodes,
-            PlusLabelView => WsLocaleCore.DeviceControl.RouteSectionPlusLabels,
-            PluWeightingView => WsLocaleCore.DeviceControl.RouteSectionPlusWeighings,
-            DeviceView => WsLocaleCore.DeviceControl.RouteSectionDevices,
-            LogWebView => WsLocaleCore.DeviceControl.RouteSectionLogsWebService,
+            WsSqlViewLogModel => WsLocaleCore.DeviceControl.RouteSectionLogs,
+            WsSqlViewLineModel => WsLocaleCore.DeviceControl.RouteSectionScales,
+            WsSqlViewBarcodeModel => WsLocaleCore.DeviceControl.RouteSectionBarCodes,
+            WsSqlViewPluLabelModel => WsLocaleCore.DeviceControl.RouteSectionPlusLabels,
+            WsSqlViewPluWeighting => WsLocaleCore.DeviceControl.RouteSectionPlusWeighings,
+            WsSqlViewDeviceModel => WsLocaleCore.DeviceControl.RouteSectionDevices,
+            WsSqlViewWebLogModel => WsLocaleCore.DeviceControl.RouteSectionLogsWebService,
             _ => string.Empty
         };
     }

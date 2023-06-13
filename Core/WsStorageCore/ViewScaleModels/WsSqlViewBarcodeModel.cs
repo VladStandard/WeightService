@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class BarcodeView: WsSqlTableBase
+public class WsSqlViewBarcodeModel: WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
@@ -16,7 +16,7 @@ public class BarcodeView: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public BarcodeView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewBarcodeModel() : base(WsSqlFieldIdentity.Uid)
 	{
         PluNumber = 0;
         ValueTop = string.Empty;

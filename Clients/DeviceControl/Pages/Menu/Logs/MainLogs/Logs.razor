@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.LogView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewLogModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.System.SystemLogs"
@@ -33,7 +33,7 @@
 </div>
 
 <RzDataGrid
-  TItem="@LogView"
+  TItem="@WsSqlViewLogModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -41,7 +41,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@LogView">
+    <TItemContent TItem="@WsSqlViewLogModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="14%"
                             FormatString="@StrUtils.FormatDtLong"/>

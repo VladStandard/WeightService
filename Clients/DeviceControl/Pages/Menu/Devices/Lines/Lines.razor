@@ -3,7 +3,7 @@
 @using WsStorageCore.ViewScaleModels
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.LineView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewLineModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionScales"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@LineView"
+  TItem="@WsSqlViewLineModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@LineView">
+    <TItemContent TItem="@WsSqlViewLineModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Number" Property="Number" Width="10%"/>

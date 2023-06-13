@@ -4,7 +4,7 @@
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.PlusLabelView>
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewPluLabelModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionLabels"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@PlusLabelView"
+  TItem="@WsSqlViewPluLabelModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +24,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@PlusLabelView">
+    <TItemContent TItem="@WsSqlViewPluLabelModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="8%"
                             FormatString="@StrUtils.FormatDtDefault"/>

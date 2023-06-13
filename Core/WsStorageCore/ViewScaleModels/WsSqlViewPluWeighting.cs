@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluWeightingView: WsSqlTableBase
+public class WsSqlViewPluWeighting: WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
@@ -17,7 +17,7 @@ public class PluWeightingView: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public PluWeightingView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewPluWeighting() : base(WsSqlFieldIdentity.Uid)
 	{
         PluNumber = 0;
         PluName = string.Empty;

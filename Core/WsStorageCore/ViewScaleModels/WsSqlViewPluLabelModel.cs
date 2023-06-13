@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewScaleModels;
 
 [DebuggerDisplay("{ToString()}")]
-public class PlusLabelView: WsSqlTableBase
+public class WsSqlViewPluLabelModel: WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
@@ -19,7 +19,7 @@ public class PlusLabelView: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public PlusLabelView() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewPluLabelModel() : base(WsSqlFieldIdentity.Uid)
 	{
         PluNumber = 0;
         ExpirationDate = new();

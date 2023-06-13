@@ -5,7 +5,7 @@ using DeviceControl.Components.Item;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.PlusScales;
 
-namespace DeviceControl.Pages.Menu.Devices.PlusLines;
+namespace DeviceControl.Pages.Menu.Devices.Lines.PlusLines;
 
 public sealed partial class ItemPlusLines : ItemBase<WsSqlPluScaleModel>
 {

@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.Aggregations;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlPluAggrModel
+public sealed record WsSqlViewWeightingAggrModel
 {
     #region Public and private fields, properties, constructor
 
@@ -16,7 +16,7 @@ public sealed record WsSqlPluAggrModel
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsSqlPluAggrModel() : this(DateTime.MinValue)
+    public WsSqlViewWeightingAggrModel() : this(DateTime.MinValue)
     {
         //
     }
@@ -29,7 +29,7 @@ public sealed record WsSqlPluAggrModel
     /// <param name="line"></param>
     /// <param name="device"></param>
     /// <param name="plu"></param>
-    public WsSqlPluAggrModel(DateTime changeDt, int count = 0, string line = "", string plu = "")
+    public WsSqlViewWeightingAggrModel(DateTime changeDt, int count = 0, string line = "", string plu = "")
     {
         ChangeDt = changeDt;
         Count = count;
