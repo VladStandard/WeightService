@@ -25,7 +25,7 @@ public sealed class GetListViewTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewTableSizeMemoryModel> items = 
+            List<WsSqlViewTableSizeModel> items = 
                 WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewTablesSizes(200);
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items);

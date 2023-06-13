@@ -70,7 +70,13 @@ public sealed class WsSqlContextCacheHelper
     /// </summary>
     public void Load(WsSqlTableName tableName)
     {
-        // Tables.
+        // Умная оптимизация.
+        if (tableName.Equals(WsSqlTableName.None))
+        {
+            List<WsSqlViewTableSizeModel> tableSize = ContextManager.ContextView.GetListViewTablesSizes();
+        }
+
+        // Таблицы.
         if (!Areas.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Areas))
             Areas = ContextManager.ContextList.GetListNotNullableAreas(SqlCrudConfig);
         if (!WorkShops.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.WorkShops))
@@ -106,7 +112,7 @@ public sealed class WsSqlContextCacheHelper
         if (!Brands.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.Brands)) 
             Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
         
-        // Views.
+        // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusLines))
             ViewPlusLines = ContextManager.ContextView.GetListViewPlusScales();
         if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusStorageMethods))
@@ -114,7 +120,7 @@ public sealed class WsSqlContextCacheHelper
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlTableName.All) || Equals(tableName, WsSqlTableName.ViewPlusNesting))
             ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
         
-        // Optimize.
+        // Оптимизация.
         if (TableName.Equals(WsSqlTableName.All))
             TableName = WsSqlTableName.None;
     }

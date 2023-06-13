@@ -48,6 +48,7 @@ global using WsFileSystemCore.Helpers;
 global using WsLocalizationCore.Models;
 global using WsLocalizationCore.Utils;
 global using WsPrintCore.Zpl;
+global using WsStorageCore.Common;
 global using WsStorageCore.Enums;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;

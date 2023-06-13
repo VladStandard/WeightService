@@ -76,7 +76,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     {
         try
         {
-            ZebraConnection ??= ZebraConnectionBuilder.Build($"TCP_STATUS:{Printer.Ip}");
+            ZebraConnection ??= ZebraConnectionBuilder.Build($"TCP_MULTI:{Printer.Ip}");
             if (!ZebraConnection.Connected)
             {
                 ZebraConnection.Open();

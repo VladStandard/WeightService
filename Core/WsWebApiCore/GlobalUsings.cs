@@ -47,5 +47,7 @@ global using WsStorageCore.TableScaleModels.Plus;
 global using WsStorageCore.TableScaleModels.PlusCharacteristics;
 global using WsStorageCore.TableScaleModels.PlusGroups;
 global using WsStorageCore.Utils;
+global using WsStorageCore.ViewRefModels;
+global using WsWebApiCore.Common;
 global using WsWebApiCore.Models;
 global using WsWebApiCore.Utils;

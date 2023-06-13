@@ -49,9 +49,9 @@ public sealed class WsSqlContextViewHelper
     /// Получить логи размеров таблиц из представления [diag].[VIEW_TABLES_SIZES].
     /// </summary>
     /// <returns></returns>
-    public List<WsSqlViewTableSizeMemoryModel> GetListViewTablesSizes(int topRecords = 0)
+    public List<WsSqlViewTableSizeModel> GetListViewTablesSizes(int topRecords = 0)
     {
-        List<WsSqlViewTableSizeMemoryModel> result = new();
+        List<WsSqlViewTableSizeModel> result = new();
         string query = WsSqlQueriesDiags.Tables.Views.GetViewTablesSizes(topRecords);
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)

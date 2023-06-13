@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiScales.Controllers;
+namespace WsWebApiScales.Helpers;
 
 /// <summary>
 /// Brands controller.
@@ -33,7 +33,8 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsSqlAcceptVersion.V2 => // Новый ответ 1С - не найдено.
+            // Новый ответ 1С - не найдено.
+            WsSqlAcceptVersion.V2 => 
                 GetContentResult(() => NewResponse1CIsNotFound(
                     $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
