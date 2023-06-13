@@ -56,7 +56,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlPluCharacteristicsFkModel) => GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluClipFkModel) => GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluFkModel) => GetListNotNullablePlusFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluGroupFkModel) => GetListNotNullablePlusGroupFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPluGroupFkModel) => GetListNotNullablePlusGroupsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluGroupModel) => GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlPluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
@@ -71,7 +71,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlPrinterTypeModel) => GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlProductionFacilityModel) => GetListNotNullableAreas(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlProductSeriesModel) => GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlScaleModel) => GetListNotNullableScales(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlScaleModel) => GetListNotNullableLines(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlScaleScreenShotModel) => GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlTaskModel) => GetListNotNullableTasks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlTaskTypeModel) => GetListNotNullableTasksTypes(sqlCrudConfig).Cast<T>().ToList(),
@@ -81,7 +81,7 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlWorkShopModel) => GetListNotNullableWorkShops(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlAccessModel) => GetListNotNullableAccesses(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlAppModel) => GetListNotNullableApps(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPlu1CFkModel) => GetListNotNullablePlus1cFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlPlu1CFkModel) => GetListNotNullablePlus1CFks(sqlCrudConfig).Cast<T>().ToList(),
         _ => new()
     };
 
@@ -290,7 +290,7 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<WsSqlPluGroupFkModel> GetListNotNullablePlusGroupFks(WsSqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPluGroupFkModel> GetListNotNullablePlusGroupsFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
@@ -360,7 +360,7 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<WsSqlPlu1CFkModel> GetListNotNullablePlus1cFks(WsSqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlPlu1CFkModel> GetListNotNullablePlus1CFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPlu1CFkModel> list = GetListNotNullableCore<WsSqlPlu1CFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
@@ -622,7 +622,7 @@ public sealed class WsSqlContextListHelper
         return list;
     }
 
-    public List<WsSqlScaleModel> GetListNotNullableScales(WsSqlCrudConfigModel sqlCrudConfig)
+    public List<WsSqlScaleModel> GetListNotNullableLines(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Description) });

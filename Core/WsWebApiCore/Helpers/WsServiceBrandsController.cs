@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -48,7 +50,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, brandXml, true))
                 // Обновить список БД.
-                Cache.Load(WsSqlTableName.Brands);
+                Cache.Load(WsSqlEnumTableName.Brands);
         }
         catch (Exception ex)
         {

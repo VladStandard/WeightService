@@ -15,7 +15,7 @@ public sealed class DataAccessExtTests
 		{
 			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlIsMarked.ShowAll, true);
 			// Arrange.
-			List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableScales(sqlCrudConfig);
+			List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableLines(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
 			// Assert.
 			Assert.IsTrue(scales.Count > 0);

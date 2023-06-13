@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -41,13 +43,13 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicModel? itemDb = Cache.PluCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            WsSqlPluCharacteristicModel? itemDb = Cache.PlusCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicXml, true))
                 // Обновить список БД.
-                Cache.Load(WsSqlTableName.PluCharacteristics);
+                Cache.Load(WsSqlEnumTableName.PluCharacteristics);
         }
         catch (Exception ex)
         {
@@ -80,7 +82,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PluCharacteristicsFks.Find(item =>
+            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PlusCharacteristicsFks.Find(item =>
                 Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
                 Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,
@@ -89,7 +91,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C))
                 // Обновить список БД.
-                Cache.Load(WsSqlTableName.PluCharacteristicsFks);
+                Cache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {

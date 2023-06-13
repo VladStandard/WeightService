@@ -31,10 +31,10 @@ public sealed class WsSqlLineController
 
     public WsSqlScaleModel GetItem(Guid uid) => AccessItem.GetItemNotNullable<WsSqlScaleModel>(uid);
 
-    public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableScales(new());
+    public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(new());
 
     public List<WsSqlScaleModel> GetList(WsSqlIsMarked isMarked) =>
-        ContextList.GetListNotNullableScales(new() { IsMarked = isMarked, IsResultOrder = true });
+        ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
 
     #endregion
 }

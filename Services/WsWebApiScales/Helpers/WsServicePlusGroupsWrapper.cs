@@ -37,7 +37,7 @@ public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
             WsSqlAcceptVersion.V2 => GetContentResult(() => 
                 NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             // Находится в разработке, свяжитесь с разработчиком.
-            _ => NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
+            _ => NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
             //_ => GetContentResult(() => PlusGroupsController.NewResponsePluGroups(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclaturesGroups,

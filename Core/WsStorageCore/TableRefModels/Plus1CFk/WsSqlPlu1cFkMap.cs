@@ -14,7 +14,7 @@ public sealed class WsSqlPlu1CFkMap : ClassMap<WsSqlPlu1CFkModel>
     public WsSqlPlu1CFkMap()
     {
         Schema(WsSqlSchemasUtils.Ref);
-        Table(WsSqlTablesUtils.Plus1cFk);
+        Table(WsSqlTablesUtils.Plus1CFks);
         LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
