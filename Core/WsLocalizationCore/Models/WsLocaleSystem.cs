@@ -18,7 +18,7 @@ public sealed class WsLocaleSystem : WsLocaleBase
     public string SystemAccess => Lang == WsEnumLanguage.English ? "Access" : "Доступ";
     public string SystemAccount => Lang == WsEnumLanguage.English ? "Account" : "Аккаунт";
     public string SystemErrors => Lang == WsEnumLanguage.English ? "Errors" : "Ошибки";
-    public string SystemIdentityData => Lang == WsEnumLanguage.English ? "Data" : "Данные";
+    public string DatabaseInfo => Lang == WsEnumLanguage.English ? "Database info" : "База данных";
     public string SystemIdentityDataFull => Lang == WsEnumLanguage.English ? "Identity data" : "Идентификационные данные";
     public string SystemIdentityNotAuthorized => Lang == WsEnumLanguage.English ? "User is not authorized" : "Пользователь не авторизован";
     public string SystemInfo => Lang == WsEnumLanguage.English ? "System info" : "Системная информация";

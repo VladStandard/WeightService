@@ -180,6 +180,7 @@ public sealed class WsLocaleDeviceControl : WsLocaleBase
     public string RouteSectionVersions => "/section/versions";
     public string RouteSectionWorkShops => "/section/workshops";
     public string RouteSystemAppInfo => "/system/appinfo";
+    public string RouteDatabaseInfo => "/system/sql";
     public string RouteSystemIdentityData => "/profile";
     public string RouteSystemRoot => "/";
     public string RouteSectionDevices => "/section/devices";

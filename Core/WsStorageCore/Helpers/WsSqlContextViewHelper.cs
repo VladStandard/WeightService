@@ -56,7 +56,7 @@ public sealed class WsSqlContextViewHelper
         object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 7 } item) break;
+            if (obj is not object[] { Length: 8 } item) break;
             result.Add(new(
                 Convert.ToString(item[0]),
                 Convert.ToString(item[1]),
@@ -64,7 +64,8 @@ public sealed class WsSqlContextViewHelper
                 Convert.ToUInt32(item[3]),
                 Convert.ToUInt16(item[4]),
                 Convert.ToUInt16(item[5]),
-                Convert.ToUInt16(item[6])
+                Convert.ToUInt16(item[6]),
+                Convert.ToString(item[7])
             ));
         }
         return result;

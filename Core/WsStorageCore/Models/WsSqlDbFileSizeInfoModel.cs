@@ -19,6 +19,7 @@ public sealed record WsSqlDbFileSizeInfoModel
     public ushort MaxSizeMb { get; init; }
     public string DisplayName => $"{SizeMb} из {MaxSizeMb} MB";
     public double DbFillSize => Math.Round(((double)SizeMb / MaxSizeMb) * 100, 2);
+    public List<WsSqlViewTableSizeMemoryModel> Tables { get; set; }
     
     public WsSqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
     {
@@ -26,6 +27,7 @@ public sealed record WsSqlDbFileSizeInfoModel
         FileName = fileName;
         SizeMb = sizeMb;
         MaxSizeMb = maxSizeMb;
+        Tables = new();
     }
 
     #endregion
