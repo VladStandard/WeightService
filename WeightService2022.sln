@@ -202,6 +202,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{600611A1-0
 		Docs\GS1-128.md = Docs\GS1-128.md
 		Docs\Publish Lifecycle.md = Docs\Publish Lifecycle.md
 		Docs\Publish Resources.md = Docs\Publish Resources.md
+		Docs\Publish Tests Logs.md = Docs\Publish Tests Logs.md
 		Docs\Publish Tests.md = Docs\Publish Tests.md
 		Docs\StorageCore.md = Docs\StorageCore.md
 		Docs\Service Time.md = Docs\Service Time.md

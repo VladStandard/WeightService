@@ -54,7 +54,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluNotSelect);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluNotSelect);
+            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.PluNotSelect);
             return false;
         }
         return true;
@@ -119,7 +119,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightIsZero);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.CheckWeightIsZero);
+            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightIsZero);
             return false;
         }
 
@@ -128,7 +128,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
+            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
             return false;
         }
         return true;
