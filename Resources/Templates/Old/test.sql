@@ -28,7 +28,7 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 </xsl:text>
 
 
-<!-- размер этикеток
+<!-- СЂР°Р·РјРµСЂ СЌС‚РёРєРµС‚РѕРє
  6 dots = 1 mm, 152 dots = 1 inch
  8 dots = 1 mm, 203 dots = 1 inch
  11.8 dots = 1 mm, 300 dots = 1 inch
@@ -51,9 +51,9 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFZ,24,20
 ^FB1100,4,0,C,0
 </xsl:text>
-<!-- адрес предприятия -->
+<!-- Р°РґСЂРµСЃ РїСЂРµРґРїСЂРёСЏС‚РёСЏ -->
 <xsl:text>^FH^FD</xsl:text>
-<xsl:text>Изготовитель: ООО "Владимирский стандарт" Россия, 600910 Владимирская обл. г.Радужный квартал 13/13 дом 20</xsl:text>
+<xsl:text>РР·РіРѕС‚РѕРІРёС‚РµР»СЊ: РћРћРћ "Р’Р»Р°РґРёРјРёСЂСЃРєРёР№ СЃС‚Р°РЅРґР°СЂС‚" Р РѕСЃСЃРёСЏ, 600910 Р’Р»Р°РґРёРјРёСЂСЃРєР°СЏ РѕР±Р». Рі.Р Р°РґСѓР¶РЅС‹Р№ РєРІР°СЂС‚Р°Р» 13/13 РґРѕРј 20</xsl:text>
 <xsl:text>^FS</xsl:text>
 
 <xsl:text>
@@ -61,7 +61,7 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFE,44,34
 ^FB910,4,0,J,0
 </xsl:text>
-<!-- полное наименование номенклатуры -->
+<!-- РїРѕР»РЅРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ -->
 <xsl:text>^FH^FD</xsl:text>
 
 <xsl:variable name="GoodsFullName">
@@ -80,18 +80,18 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFZ,36,20
 ^FB800,4,0,J,0
 </xsl:text>
-<!-- описание номенклатуры -->
+<!-- РѕРїРёСЃР°РЅРёРµ РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹ -->
 <xsl:text>^FH^FD</xsl:text>
 <xsl:value-of select="/WeighingFactEntity/PLU/GoodsDescription"/>
 <xsl:text>^FS</xsl:text>
 
-<!-- дата производства -->
+<!-- РґР°С‚Р° РїСЂРѕРёР·РІРѕРґСЃС‚РІР° -->
 <xsl:text>
 ^FO320,50
 ^CFZ,25,20
 ^FB270,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDДата изготовления: </xsl:text>
+<xsl:text>^FH^FDР”Р°С‚Р° РёР·РіРѕС‚РѕРІР»РµРЅРёСЏ: </xsl:text>
 <xsl:text>^FS</xsl:text>
 
 <xsl:text>
@@ -105,13 +105,13 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 <xsl:text/>
 <xsl:text>^FS</xsl:text>
 
-<!-- срок годности -->
+<!-- СЃСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё -->
 <xsl:text>
 ^FO320,360
 ^CFZ,25,20
 ^FB270,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDГоден до: </xsl:text>
+<xsl:text>^FH^FDР“РѕРґРµРЅ РґРѕ: </xsl:text>
 <xsl:text>^FS</xsl:text>
 
 <xsl:text>
@@ -126,13 +126,13 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 <xsl:text>^FS</xsl:text>
 
 
-<!-- вес нетто 
+<!-- РІРµСЃ РЅРµС‚С‚Рѕ 
 <xsl:text>
 ^FO320,760
 ^CFZ,25,20
 ^FB100,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDКол-во:^FS</xsl:text>
+<xsl:text>^FH^FDРљРѕР»-РІРѕ:^FS</xsl:text>
 
 <xsl:text>
 ^FO270,760
@@ -148,17 +148,17 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFM,42,38
 ^FB100,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDШТ^FS</xsl:text>
+<xsl:text>^FH^FDРЁРў^FS</xsl:text>
 -->
 
 
-<!-- вес нетто -->
+<!-- РІРµСЃ РЅРµС‚С‚Рѕ -->
 <xsl:text>
 ^FO320,700
 ^CFZ,25,20
 ^FB100,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDВес нетто: ^FS</xsl:text>
+<xsl:text>^FH^FDР’РµСЃ РЅРµС‚С‚Рѕ: ^FS</xsl:text>
 
 <xsl:text>
 ^FO270,700
@@ -175,7 +175,7 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFK,56,38
 ^FB100,1,0,L,0
 </xsl:text>
-<xsl:text>^FH^FDкг^FS</xsl:text>
+<xsl:text>^FH^FDРєРі^FS</xsl:text>
 
 
 
@@ -184,8 +184,8 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFZ,25,20
 ^FB200,1,0,L,0
 </xsl:text>
-<!-- замес -->
-<xsl:text>^FH^FDЗамес: </xsl:text>
+<!-- Р·Р°РјРµСЃ -->
+<xsl:text>^FH^FDР—Р°РјРµСЃ: </xsl:text>
 <xsl:value-of select="/WeighingFactEntity/KneadingNumber"/>
 <xsl:text>^FS</xsl:text>
 
@@ -194,13 +194,13 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 ^CFZ,25,20
 ^FB450,1,0,L,0
 </xsl:text>
-<!-- цех - линия - весовой пост -->
-<xsl:text>^FH^FDЦех/Линия: </xsl:text>
+<!-- С†РµС… - Р»РёРЅРёСЏ - РІРµСЃРѕРІРѕР№ РїРѕСЃС‚ -->
+<xsl:text>^FH^FDР¦РµС…/Р›РёРЅРёСЏ: </xsl:text>
 <xsl:value-of select="/WeighingFactEntity/Scale/Description"/>
 <xsl:text>^FS
 </xsl:text>
 
-<!-- штрихкод CODE128 299 -->
+<!-- С€С‚СЂРёС…РєРѕРґ CODE128 299 -->
 <xsl:text>
 ^FO200,1000
 ^BCN,120,Y,N,N
@@ -208,16 +208,16 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 </xsl:text>
 <xsl:text>^FD</xsl:text>
 <xsl:text>299</xsl:text>
-<!-- терминал -->
+<!-- С‚РµСЂРјРёРЅР°Р» -->
 <xsl:variable name="deviceid" select="/WeighingFactEntity/Scale/DeviceId"/>
 <xsl:value-of select="substring(concat(''00000'',$deviceid),string-length($deviceid)+1,5)"/>
-<!-- регистрация  -->
+<!-- СЂРµРіРёСЃС‚СЂР°С†РёСЏ  -->
 <xsl:variable name="unitid" select="/WeighingFactEntity/Sscc/UnitID"/>
 <xsl:value-of select="substring(concat(''00000000'',$unitid),string-length($unitid)+1,8)"/>
 <xsl:text>^FS
 </xsl:text>
 
-<!-- штрихкод Code128  -->
+<!-- С€С‚СЂРёС…РєРѕРґ Code128  -->
 <xsl:text>
 ^FO740,50
 ^BY2
@@ -227,24 +227,24 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 <xsl:text>^FD</xsl:text>
 <xsl:text>298</xsl:text>
 
-<!-- терминал -->
+<!-- С‚РµСЂРјРёРЅР°Р» -->
 <xsl:value-of select="substring(concat(''00000'',$deviceid),string-length($deviceid)+1,5)"/>
-<!-- регистрация  -->
+<!-- СЂРµРіРёСЃС‚СЂР°С†РёСЏ  -->
 <xsl:value-of select="substring(concat(''00000000'',$unitid),string-length($unitid)+1,8)"/>
-<!-- дата -->
+<!-- РґР°С‚Р° -->
 <xsl:variable name="dt2" select="/WeighingFactEntity/ProductDate"/>
 <xsl:value-of select="concat(substring($dt2,3,2), substring($dt2,6,2), substring($dt2,9,2) )"/>
-<!-- время -->
+<!-- РІСЂРµРјСЏ -->
 <xsl:variable name="tm" select="/WeighingFactEntity/RegDate"/>
 <xsl:value-of select="concat(substring($tm,12,2), substring($tm,15,2), substring($tm,18,2) )"/>
-<!-- плу -->
+<!-- РїР»Сѓ -->
 <xsl:variable name="plu" select="/WeighingFactEntity/PLU/PLU"/>
 <xsl:value-of select="substring(concat(''000'',$plu),string-length($plu)+1,3)"/>
 
 <!-- ScaleFactor -->
 <xsl:variable name="sf" select="/WeighingFactEntity/ScaleFactor"/>
 
-<!-- нетто -->
+<!-- РЅРµС‚С‚Рѕ -->
 <xsl:variable name="nw" select="/WeighingFactEntity/NetWeight"/>
 <xsl:value-of select="substring(concat(''00000'',$nw * $sf),string-length($nw*$sf)+1,5)"/>
 
@@ -254,7 +254,7 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 <xsl:text>^FS
 </xsl:text>
 
-<!-- штрихкод GS1 -->
+<!-- С€С‚СЂРёС…РєРѕРґ GS1 -->
 <xsl:text>
 ^FO50,50
 ^BCR,120,Y,N,Y,D
@@ -266,13 +266,13 @@ DECLARE @xslInput nvarchar(max)= N'<?xml version="1.0" encoding="UTF-16"?>
 <xsl:variable name="xt" select="/WeighingFactEntity/ProductDate"/>
 <xsl:text>(11)</xsl:text><xsl:value-of select="concat(substring($xt,3,2), substring($xt,6,2), substring($xt,9,2) )"/>
 <xsl:text>(10)</xsl:text><xsl:value-of select="concat(substring($xt,6,2), substring($xt,9,2) )"/><xsl:text>&gt;8</xsl:text>
-<!-- номер по порядку 
+<!-- РЅРѕРјРµСЂ РїРѕ РїРѕСЂСЏРґРєСѓ 
 <xsl:text>(21)</xsl:text><xsl:value-of select="substring(concat(''000000000'',$unitid),string-length($unitid)+1,9)"/><xsl:text>&gt;8</xsl:text>
 -->
 <xsl:text>^FS
 </xsl:text>
 
-<!-- логотипы -->
+<!-- Р»РѕРіРѕС‚РёРїС‹ -->
 <xsl:text>
 ^FO200,888
 ^XGE:EAC.GRF,1,1^FS
@@ -316,7 +316,7 @@ DECLARE @xmlInput nvarchar(max) = N'<?xml version="1.0" encoding="utf-16"?>
 	<Scale>
 		<DeviceId>13</DeviceId>
 		<RRefID>E3ED0806-DBCA-11EA-BC43-AC1F6B02AD52</RRefID>
-		<Description>Line 13 (ОП01)</Description>
+		<Description>Line 13 (РћРџ01)</Description>
 		<DeviceIP>192.168.0.243</DeviceIP>
 		<DeviceMAC>4CCC6A93A440</DeviceMAC>
 		<DevicePort>5100</DevicePort>
@@ -334,9 +334,9 @@ DECLARE @xmlInput nvarchar(max) = N'<?xml version="1.0" encoding="utf-16"?>
 		<PLU>130</PLU>
 		<RRefGoods>55EA4A26-C376-11E6-80D0-A4BF01016D50</RRefGoods>
 		<ScaleId>E3ED0806-DBCA-11EA-BC43-AC1F6B02AD52</ScaleId>
-		<GoodsName>Коньячный в.к.</GoodsName>
-		<GoodsDescription>Срок годности: 30 суток при температуре от 0°С до +6°С и относительной влажности воздуха 75%-78%. Упаковано под вакуумом.</GoodsDescription>
-		<GoodsFullName>Изделия колбасные варено-копченые. Продукт мясной категории В. Колбаса варено-копченая "Сервелат Коньячный" охлажденная ТУ 10.13.14-003-91005552-2015</GoodsFullName>
+		<GoodsName>РљРѕРЅСЊСЏС‡РЅС‹Р№ РІ.Рє.</GoodsName>
+		<GoodsDescription>РЎСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё: 30 СЃСѓС‚РѕРє РїСЂРё С‚РµРјРїРµСЂР°С‚СѓСЂРµ РѕС‚ 0В°РЎ РґРѕ +6В°РЎ Рё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕР№ РІР»Р°Р¶РЅРѕСЃС‚Рё РІРѕР·РґСѓС…Р° 75%-78%. РЈРїР°РєРѕРІР°РЅРѕ РїРѕРґ РІР°РєСѓСѓРјРѕРј.</GoodsDescription>
+		<GoodsFullName>РР·РґРµР»РёСЏ РєРѕР»Р±Р°СЃРЅС‹Рµ РІР°СЂРµРЅРѕ-РєРѕРїС‡РµРЅС‹Рµ. РџСЂРѕРґСѓРєС‚ РјСЏСЃРЅРѕР№ РєР°С‚РµРіРѕСЂРёРё Р’. РљРѕР»Р±Р°СЃР° РІР°СЂРµРЅРѕ-РєРѕРїС‡РµРЅР°СЏ "РЎРµСЂРІРµР»Р°С‚ РљРѕРЅСЊСЏС‡РЅС‹Р№" РѕС…Р»Р°Р¶РґРµРЅРЅР°СЏ РўРЈ 10.13.14-003-91005552-2015</GoodsFullName>
 		<GTIN>02600108000001</GTIN>
 		<GoodsShelfLifeDays>30</GoodsShelfLifeDays>
 		<GoodsTareWeight>0.735</GoodsTareWeight>
@@ -368,7 +368,7 @@ DECLARE @xmlInput nvarchar(max) = N'<?xml version="1.0" encoding="utf-16"?>
 </WeighingFactEntity>'
 
 
--- TODO: задайте здесь значения параметров.
+-- TODO: РёСЃРїСЂР°РІРёС‚СЊ Р·РґРµСЃСЊ | Р·Р°РґР°Р№С‚Рµ Р·РґРµСЃСЊ Р·РЅР°С‡РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ.
 
 EXECUTE [db_scales].[XSLTTransform] 
    @xslInput

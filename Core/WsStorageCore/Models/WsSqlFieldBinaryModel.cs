@@ -60,7 +60,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
         return Equals((WsSqlFieldBinaryModel)obj);
     }
 
-    public override int GetHashCode() => Value.GetHashCode();
+    public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
 
     public override bool EqualsNew() => Equals(new());
 
@@ -70,7 +70,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
     {
         WsSqlFieldBinaryModel item = new()
         {
-            Value = DataUtils.ByteClone(Value)
+            Value = Value is not null ? DataUtils.ByteClone(Value) : Array.Empty<byte>()
         };
         return item;
     }

@@ -82,7 +82,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
     /// Кол-во вложений.
     /// </summary>
     [XmlElement] public virtual short AttachmentsCount { get; set; }
-    [XmlIgnore] public virtual string DisplayName => $"{Number} | {Name}";
+    [XmlIgnore] public override string DisplayName => $"{Number} | {Name}";
     
     /// <summary>
     /// Constructor.

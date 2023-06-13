@@ -180,7 +180,7 @@ SET @zplCommand = '! U1 getvar "odometer.user_label_count"\n'
 
 
 
--- TODO: Set parameter values here.
+-- TODO: исправить здесь | Set parameter values here.
 
 EXECUTE [db_scales].[ZplPipe] 
    @ip

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using WsDataCore.Common;
 using WsStorageCore.Common;
 
@@ -95,6 +96,8 @@ public class WsServiceControllerBase : ControllerBase
     public async Task LogWebServiceFk(string appName, string url, DateTime requestStampDt, string requestData,
         string responseData, string format, string host, string version)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
         DateTime responseStampDt = DateTime.Now;
         // Parse counts.
         int countAll = WsServiceContentUtils.GetAttributeValueAsInt(requestData, "Count");
@@ -871,10 +874,10 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
+    // TODO: исправить здесь
     internal bool UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml,
         WsSqlViewPluNestingModel? itemDb, bool isCounter)
     {
-        throw new Exception("FIX HERE");
         //if (itemDb is null || itemDb.IsNew) return false;
         //itemDb.UpdateProperties(itemXml);
         //WsSqlCrudResultModel dbResult = ContextManager.ContextPluNesting.Update(itemDb);

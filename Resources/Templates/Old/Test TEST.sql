@@ -27,7 +27,7 @@ DECLARE @zplCommand nvarchar(max)='^XA
 
 ^XZ';
 
--- TODO: Set parameter values here.
+-- TODO: исправить здесь | Set parameter values here.
 
 EXECUTE [db_scales].[ZplPipe] 
    @ip

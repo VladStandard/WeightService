@@ -539,21 +539,21 @@ internal sealed class WsSqlAccessCoreHelper
         return dbResult;
     }
 
-    public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
-    {
-        throw new Exception("FIX HERE!");
-        bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            int saveCount = JsonSettings.Local.SelectTopRowsCount;
-            JsonSettings.Local.SelectTopRowsCount = 1;
-            ICriteria criteria = GetCriteriaFirst<T>(session, sqlCrudConfig);
-            result = criteria.IsAny();
-            JsonSettings.Local.SelectTopRowsCount = saveCount;
-        });
-        if (!dbResult.IsOk) result = false;
-        return result;
-    }
+    // TODO: исправить здесь
+    //public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    //{
+    //    bool result = false;
+    //    WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+    //    {
+    //        int saveCount = JsonSettings.Local.SelectTopRowsCount;
+    //        JsonSettings.Local.SelectTopRowsCount = 1;
+    //        ICriteria criteria = GetCriteriaFirst<T>(session, sqlCrudConfig);
+    //        result = criteria.IsAny();
+    //        JsonSettings.Local.SelectTopRowsCount = saveCount;
+    //    });
+    //    if (!dbResult.IsOk) result = false;
+    //    return result;
+    //}
 
     public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
     {
