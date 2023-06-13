@@ -4,7 +4,7 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewTableSizeMemoryModel
+public sealed record WsSqlViewTableSizeModel
 {
     public string SchemaTable { get; init; }
     public string Schema { get; init; }
@@ -17,10 +17,10 @@ public sealed record WsSqlViewTableSizeMemoryModel
     
     #region Public and private fields, properties, constructor
     
-    public WsSqlViewTableSizeMemoryModel() : this(string.Empty, string.Empty, string.Empty, 
+    public WsSqlViewTableSizeModel() : this(string.Empty, string.Empty, string.Empty, 
         default, default, default, default, string.Empty) { }
     
-    public WsSqlViewTableSizeMemoryModel(string schemaTable, string schema, string table, uint rowsCount,
+    public WsSqlViewTableSizeModel(string schemaTable, string schema, string table, uint rowsCount,
         ushort usedSpaceMb, ushort unusedSpaceMb, ushort totalSpaceMb, string fileName)
     {
         SchemaTable = schemaTable;

@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiScales.Controllers;
+namespace WsWebApiScales.Helpers;
 
 /// <summary>
 /// Nomenclatures groups controller.
@@ -33,9 +33,12 @@ public sealed class WsServicePlusGroupsWrapper : WsServiceControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = GetAcceptVersion(version) switch
         {
-            WsSqlAcceptVersion.V2 => GetContentResult(() => // Новый ответ 1С - не найдено.
+            // Новый ответ 1С - не найдено.
+            WsSqlAcceptVersion.V2 => GetContentResult(() => 
                 NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => PlusGroupsController.NewResponsePluGroups(xml, format, isDebug, SessionFactory), format)
+            // Находится в разработке, свяжитесь с разработчиком.
+            _ => NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
+            //_ => GetContentResult(() => PlusGroupsController.NewResponsePluGroups(xml, format, isDebug, SessionFactory), format)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclaturesGroups,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

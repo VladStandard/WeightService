@@ -3,9 +3,8 @@
 
 using WsDataCore.Common;
 using WsStorageCore.Common;
-using WsStorageCore.ViewRefModels;
 
-namespace WsWebApiCore.Controllers;
+namespace WsWebApiCore.Common;
 
 /// <summary>
 /// Базовый класс веб-контроллера.
@@ -537,7 +536,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid"></param>
     /// <param name="exceptionMessage"></param>
     /// <param name="innerExceptionMessage"></param>
-    internal void AddResponseExceptionString(WsResponse1CShortModel response, Guid uid, string exceptionMessage, 
+    internal void AddResponseExceptionString(WsResponse1CShortModel response, Guid uid, string exceptionMessage,
         string? innerExceptionMessage = "")
     {
         WsResponse1CErrorModel responseRecord = new(uid,
@@ -602,7 +601,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="isCounter"></param>
     /// <param name="description"></param>
     /// <returns></returns>
-    internal bool UpdateItemDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "") 
+    internal bool UpdateItemDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "")
         where T : WsSqlTable1CBase
     {
         if (itemDb is null || itemDb.IsNew) return false;
@@ -846,7 +845,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="isCounter"></param>
     /// <param name="pluNumber"></param>
     /// <returns></returns>
-    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml, 
+    internal bool UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml,
         WsSqlPluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
     {
         if (itemDb is null || itemDb.IsNew) return false;
@@ -908,7 +907,7 @@ public class WsServiceControllerBase : ControllerBase
     public bool IsCorrectPluNumberForNonGroup(WsSqlPluModel pluXml, bool isGenerateException)
     {
         if (pluXml is { IsGroup: true, Number: 0 }) return true;
-        if (pluXml is { IsGroup: false, Number: >0 }) return true;
+        if (pluXml is { IsGroup: false, Number: > 0 }) return true;
         if (isGenerateException)
         {
             pluXml.ParseResult.Status = WsEnumParseStatus.Error;
@@ -995,7 +994,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="response"></param>
     /// <param name="record"></param>
     /// <param name="plu1CFkDb"></param>
-    private void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record, WsSqlPlu1CFkModel plu1CFkDb) 
+    private void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> record, WsSqlPlu1CFkModel plu1CFkDb)
         where T : WsSqlTable1CBase, new()
     {
         plu1CFkDb.UpdateProperties(record.Content);

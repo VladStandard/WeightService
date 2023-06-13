@@ -237,6 +237,34 @@
         "LabelPrint": {
             "en": "Label print",
             "ru": "Печать этикетки"
+        },
+        "PluginDefault": {
+            "en": "Default plugin",
+            "ru": "Плагин по-умолчанию"
+        },
+        "PluginLabel": {
+            "en": "Label plugin",
+            "ru": "Плагин меток"
+        },
+        "PluginMassa": {
+            "en": "Massa-K plugin",
+            "ru": "Плагин Масса-К"
+        },
+        "PluginMemory": {
+            "en": "Memory plugin",
+            "ru": "Плагин памяти"
+        },
+        "PluginPrint": {
+            "en": "Printer plugin",
+            "ru": "Плагин принтера"
+        },
+        "PluginPrintTsc": {
+            "en": "Printer TSC plugin",
+            "ru": "Плагин принтера TSC"
+        },
+        "PluginPrintZebra": {
+            "en": "Printer Zebra plugin",
+            "ru": "Плагин принтера Zebra"
         }
     }
 }

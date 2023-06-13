@@ -1,10 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Net.Sockets;
-using WsLocalizationCore.Utils;
-
-namespace WsLabelCore.Helpers;
+namespace WsLabelCore.Models;
 
 /// <summary>
 /// Плагин принтера ZEBRA.
@@ -63,7 +60,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         }
         catch (Exception ex)
         {
-            WsFormNavigationUtils.CatchExceptionSimple(ex);
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
         }
     }
 
@@ -72,52 +69,39 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         base.Execute();
         //ReopenItem.Execute(ReopenZebra);
         RequestItem.Execute(RequestZebra);
-        ResponseItem.Execute(ResponseZebra);
+        //ResponseItem.Execute(ResponseZebra);
     }
 
     public void ReopenZebra()
     {
         try
         {
-            //if (!IsConnected)
-            //    WsTcpClient.ConnectWithRetries(ReopenItem.Config.WaitExecute);
+            ZebraConnection ??= ZebraConnectionBuilder.Build($"TCP_MULTI:{Printer.Ip}");
+            if (!ZebraConnection.Connected)
+            {
+                ZebraConnection.Open();
+            }
+            if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
+                ZebraStatus = null;
+            else
+            {
+                ZebraStatus = ZebraDriver.GetCurrentStatus();
+            }
         }
         catch (Exception ex)
         {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
+            //SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
         }
     }
 
     private void RequestZebra()
     {
-        // Метка.
+        // Метки.
         MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
-
-        ZebraConnection ??= ZebraConnectionBuilder.Build(Printer.Ip);
-        if (!ZebraConnection.Connected)
-            ZebraConnection.Open();
-        if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
-            ZebraStatus = null;
-        else
-        {
-            try
-            {
-                ZebraStatus = ZebraDriver.GetCurrentStatus();
-            }
-            catch (Exception ex)
-            {
-                WsFormNavigationUtils.CatchExceptionSimple(ex);
-                SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
-            }
-        }
-    }
-
-    private void ResponseZebra()
-    {
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
                 LabelSession.Line.LabelCounter, GetDeviceStatusZebra(), LabelPrintedCount, GetLabelCount()));
-        //MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 
     public string GetDeviceStatusZebra()
@@ -177,14 +161,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         return WsLocaleCore.Print.ModeUnknown;
     }
 
-    public void SendCmd(WsSqlPluLabelModel pluLabel)
-    {
-        if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
-
-        SendCmdToZebra(pluLabel.Zpl);
-    }
-
-    private void SendCmdToZebra(string cmd)
+    public void SendCmdToZebra(string cmd)
     {
         if (ZebraDriver is null || GetDeviceStatusZebra() != WsLocaleCore.Print.StatusIsReadyToPrint)
             return;
@@ -209,7 +186,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         }
         catch (Exception ex)
         {
-            WsFormNavigationUtils.CatchExceptionSimple(ex);
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
         }
     }
 

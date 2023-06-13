@@ -1,9 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Utils;
-
-namespace WsLabelCore.Helpers;
+namespace WsLabelCore.Models;
 
 /// <summary>
 /// Плагин принтера TSC.
@@ -43,6 +41,11 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     }
     public bool IsConnected => _wsTcpClient is not null && _wsTcpClient.IsConnected;
 
+    ~WsPluginPrintTscModel()
+    {
+        Close();
+    }
+
     #endregion
 
     #region Public and private methods
@@ -70,7 +73,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         }
         catch (Exception ex)
         {
-            WsFormNavigationUtils.CatchExceptionSimple(ex);
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintTsc);
         }
     }
 
@@ -79,7 +82,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         base.Execute();
         //ReopenItem.Execute(ReopenTsc);
         RequestItem.Execute(RequestTsc);
-        ResponseItem.Execute(ResponseTsc);
+        //ResponseItem.Execute(ResponseTsc);
     }
 
     public void ReopenTsc()
@@ -91,43 +94,25 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         }
         catch (Exception ex)
         {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, PluginType.ToString());
+            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintTsc);
         }
     }
 
     private void RequestTsc()
     {
+        // Метки.
         MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
-    }
-
-    private void ResponseTsc()
-    {
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
                 LabelSession.Line.LabelCounter, GetDeviceStatusTsc(), LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 
-    //private void SendCmdToTsc(string cmd)
-    //{
-    //    try
-    //    {
-    //        cmd = cmd.Replace("|", "\\&");
-    //        if (!cmd.Equals("^XA~JA^XZ") && !cmd.Contains("odometer.user_label_count"))
-    //        {
-    //            TscDriver.SendCmd(cmd);
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        WsWinFormNavigationUtils.CatchException(ex, true, true);
-    //    }
-    //}
-
     private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} connected");
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
+            $"Server {e.IpPort} connected", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
     private void WsTcpClientDataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
@@ -135,26 +120,29 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         if (!WsDebugHelper.Instance.IsDevelop) return;
         string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
         received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data received {received}");
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
+            $"Server {e.IpPort} data received {received}", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
     private void WsTcpClientDataSent(object sender, DataSentEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} data sent {e.BytesSent} bytes");
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
+            $"Server {e.IpPort} data sent {e.BytesSent} bytes", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
     private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation($"Server {e.IpPort} disconnected by {e.Reason} reason");
+        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
+            $"Server {e.IpPort} disconnected by {e.Reason} reason", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
-    public string GetDeviceStatusTsc() => GetPrinterStatusDescription(WsLocaleCore.Lang, TscWmiPrinter.PrinterStatus);
+    private string GetDeviceStatusTsc() => GetPrinterStatusDescription(WsLocaleCore.Lang, TscWmiPrinter.PrinterStatus);
 
     public bool CheckDeviceStatusTsc() => GetDeviceStatusTsc() == WsLocaleCore.Print.StatusIsReadyToPrint;
 
-    public void SendCmd(WsSqlPluLabelModel pluLabel)
+    public void SendCmdToTsc(WsSqlPluLabelModel pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
         ReopenTsc();
@@ -179,6 +167,6 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
             WsTcpClient.Dispose();
         }
     }
-
+    
     #endregion
 }

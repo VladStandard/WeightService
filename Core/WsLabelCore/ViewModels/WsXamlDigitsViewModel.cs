@@ -14,7 +14,7 @@ public class WsXamlDigitsViewModel : WsXamlBaseViewModel, IWsViewModel
 
     public WsXamlDigitsViewModel()
     {
-        FormUserControl = WsEnumNavigationPage.PinCode;
+        FormUserControl = WsEnumNavigationPage.Digit;
     }
 
     #endregion

@@ -1,9 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.ViewRefModels;
-
-namespace WsWebApiCore.Controllers;
+namespace WsWebApiCore.Helpers;
 
 /// <summary>
 /// Веб-контроллер номенклатур.
@@ -167,7 +165,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             //if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Найдено по Number -> Обновить найденную запись.
-            WsSqlPluModel pluDb = Cache.Plus.Find(item => 
+            WsSqlPluModel pluDb = Cache.Plus.Find(item =>
                 Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlus.GetNewItem();
             if (UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
@@ -490,7 +488,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 if (Cache.PluBundlesFks.Any())
                 {
                     pluBundleFk = Cache.PluBundlesFks.Find(
-                        item => Equals(item.Plu.Number, pluXml.Number) && 
+                        item => Equals(item.Plu.Number, pluXml.Number) &&
                         Equals(item.Plu.Uid1C, pluXml.Uid1C)) ?? new();
                 }
             }
