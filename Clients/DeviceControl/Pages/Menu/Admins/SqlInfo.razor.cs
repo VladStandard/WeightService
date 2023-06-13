@@ -11,7 +11,7 @@ public sealed partial class SqlInfo : LayoutComponentBase
     #region Public and private fields, properties, constructor
     
     private List<WsSqlDbFileSizeInfoModel> DbFiles { get; set; }
-    private List<WsSqlViewTableSizeMemoryModel> DbTables { get; set; }
+    private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
     private string SqlConnectionString => $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +

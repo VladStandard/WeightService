@@ -25,12 +25,12 @@
   RowRender="@RowRender">
   <Template Context="table">
     <RzDataGrid
-      TItem="@WsSqlViewTableSizeMemoryModel"
+      TItem="@WsSqlViewTableSizeModel"
       Data="@table.Tables"
       PageSize="10"
       PagerPosition="PagerPosition.Bottom">
         <Columns>
-          <TItemContent TItem="@WsSqlViewTableSizeMemoryModel">
+          <TItemContent TItem="@WsSqlViewTableSizeModel">
             <RadzenDataGridColumn Title="@WsLocaleCore.Table.Schema" Property="Schema" Width="25%" />
             <RadzenDataGridColumn Title="@WsLocaleCore.Table.Table" Property="Table" Width="25%"/>
             <RadzenDataGridColumn Title="@WsLocaleCore.Table.RowCount" Property="RowsCount" />
