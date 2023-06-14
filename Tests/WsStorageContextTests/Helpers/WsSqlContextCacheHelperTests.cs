@@ -49,6 +49,7 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_lines() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusLines);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusLines, 10);
@@ -76,6 +77,7 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_nesting() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting, 10);
@@ -112,6 +114,7 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_storage_methods() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusStorageMethods);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods, 10);

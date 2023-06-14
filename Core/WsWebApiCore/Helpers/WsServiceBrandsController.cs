@@ -43,13 +43,13 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
             brandDb = Cache.Brands.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
-            // Найдено по Name -> Обновить найденную запись.
-            brandDb = Cache.Brands.Find(item => Equals(item.Name, brandXml.Name));
-            if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
+            //// Найдено по Name -> Обновить найденную запись.
+            //brandDb = Cache.Brands.Find(item => Equals(item.Name, brandXml.Name));
+            //if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, brandXml, true))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.Brands);
         }
         catch (Exception ex)

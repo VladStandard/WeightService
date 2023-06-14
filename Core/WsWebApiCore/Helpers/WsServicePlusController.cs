@@ -173,7 +173,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluXml, true))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.Plus);
         }
         catch (Exception ex)
@@ -217,7 +217,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluFk, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluFks);
         }
         catch (Exception ex)
@@ -261,7 +261,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             boxDb = new();
             boxDb.UpdateProperties(pluXml);
             if (SaveItemDb(response, boxDb, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.Boxes);
         }
         catch (Exception ex)
@@ -305,7 +305,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             bundleDb = new();
             bundleDb.UpdateProperties(pluXml);
             if (SaveItemDb(response, bundleDb, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.Bundles);
         }
         catch (Exception ex)
@@ -343,7 +343,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluBrandsFks);
         }
         catch (Exception ex)
@@ -387,7 +387,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             clipDb = new();
             clipDb.UpdateProperties(pluXml);
             if (SaveItemDb(response, clipDb, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.Clips);
         }
         catch (Exception ex)
@@ -425,7 +425,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluClipFk, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluClipsFks);
         }
         catch (Exception ex)
@@ -465,7 +465,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluBundleFk, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluBundlesFks);
         }
         catch (Exception ex)
@@ -518,7 +518,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.ViewPlusNesting);
         }
         catch (Exception ex)

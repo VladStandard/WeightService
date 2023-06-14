@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\install\VSSoft\Scales-2-Preview-16-Stend\</PublishUrl>
+    <PublishUrl>\\palych\install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -214,9 +214,7 @@
     <Compile Include="Forms\WsMainFormNaviPluLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviKneading.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\WsMainFormNaviKneading.cs" />
     <Compile Include="Forms\WsMainFormNaviLine.cs">
       <SubType>Form</SubType>
     </Compile>

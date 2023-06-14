@@ -15,10 +15,11 @@ public sealed partial class ItemPlusLines : ItemBase<WsSqlPluScaleModel>
     
     #region Public and private methods
 
+    // TODO: Fix long loading
     protected override void SetSqlItemCast()
     {
-        //TODO: Fix long loading
         base.SetSqlItemCast();
+        // Обновить кэш.
         ContextCache.Load(WsSqlEnumTableName.Plus);
         ContextCache.Load(WsSqlEnumTableName.Lines);
     }

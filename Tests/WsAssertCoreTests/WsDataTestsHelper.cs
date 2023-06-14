@@ -262,7 +262,6 @@ public class WsDataTestsHelper
                     TestContext.WriteLine($"{nameof(item)}: {item}");
                     TestContext.WriteLine($"{nameof(validationResult)}: {validationResult}");
                 }
-
                 if (!validationResult.IsValid)
                     TestContext.WriteLine($"{item} | {validationResult.Errors}");
                 Assert.IsTrue(validationResult.IsValid);

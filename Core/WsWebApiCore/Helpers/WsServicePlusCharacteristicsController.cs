@@ -48,7 +48,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicXml, true))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluCharacteristics);
         }
         catch (Exception ex)
@@ -90,7 +90,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)

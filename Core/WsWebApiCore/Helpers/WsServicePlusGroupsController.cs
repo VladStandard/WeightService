@@ -21,6 +21,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
 
     #region Public and private methods
 
+    /// <summary>
+    /// Получить список групп из XML.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <returns></returns>
     private List<WsXmlContentRecord<WsSqlPluGroupModel>> GetXmlPluGroupsList(XElement xml) =>
         WsServiceContentUtils.GetNodesListCore<WsSqlPluGroupModel>(xml, WsLocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
         {
@@ -39,12 +44,17 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
         });
 
+    /// <summary>
+    /// Добавить связь группы в таблицу БД.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluGroupXml"></param>
     private void AddResponsePluGroupsFks(WsResponse1CShortModel response, WsSqlPluGroupModel pluGroupXml)
     {
         try
         {
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
-
+            // Родитель.
             WsSqlPluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
             parent = AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
             if (parent.IsNew)
@@ -52,6 +62,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return;
             }
+            // Группа.
             WsSqlPluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
             pluGroup = AccessManager.AccessItem.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
@@ -59,7 +70,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return;
             }
-
+            // Связь группы.
             WsSqlPluGroupFkModel itemGroupFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
@@ -67,7 +78,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 Parent = parent
             };
 
-            // Найдено по Identity -> Обновить найденную запись.
+            // Найдено по UID -> Обновить найденную запись.
             WsSqlPluGroupFkModel? itemDb = Cache.PlusGroupsFks.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
@@ -75,7 +86,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluGroupsFks);
         }
         catch (Exception ex)
@@ -84,6 +95,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
     }
 
+    /// <summary>
+    /// Добавить группу в таблицу БД.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluGroupXml"></param>
     private void AddResponsePluGroups(WsResponse1CShortModel response, WsSqlPluGroupModel pluGroupXml)
     {
         try
@@ -97,12 +113,12 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
-            pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Name, pluGroupXml.Name));
-            if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            //pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Name, pluGroupXml.Name));
+            //if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluGroupXml, true))
-                // Обновить список БД.
+                // Обновить кэш.
                 Cache.Load(WsSqlEnumTableName.PluGroups);
         }
         catch (Exception ex)
@@ -124,6 +140,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         {
             // Загрузить кэш.
             Cache.Load();
+            // Получить список групп из XML.
             List<WsXmlContentRecord<WsSqlPluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
             foreach (WsXmlContentRecord<WsSqlPluGroupModel> record in itemsXml)
             {
@@ -131,7 +148,9 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 switch (pluGroup.ParseResult.Status)
                 {
                     case WsEnumParseStatus.Success:
+                        // Добавить группу в таблицу БД.
                         AddResponsePluGroups(response, pluGroup);
+                        // Добавить связь группы в таблицу БД.
                         AddResponsePluGroupsFks(response, pluGroup);
                         break;
                     case WsEnumParseStatus.Error:
