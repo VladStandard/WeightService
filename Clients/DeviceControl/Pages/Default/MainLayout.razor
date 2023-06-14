@@ -1,3 +1,4 @@
+@using DeviceControl.Utils
 @inherits RazorComponentBase
 
 <MudThemeProvider/>
@@ -18,11 +19,11 @@
         <RadzenMenuItem
           Icon="people"
           Text="@User?.Identity?.Name"
-          Path=@($"{WsLocaleCore.DeviceControl.RouteSystemIdentityData}")/>
+          Path=@($"{RouteUtil.RouteSystemIdentityData}")/>
         <AuthorizeView Roles="@UserAccessStr.Admin">
           <RadzenMenuItem
             Text="@VerBlazor"
-            Path=@($"{WsLocaleCore.DeviceControl.RouteSystemAppInfo}")/>
+            Path=@($"{RouteUtil.RouteSystemAppInfo}")/>
         </AuthorizeView>
       </RadzenMenu>
     </div>
