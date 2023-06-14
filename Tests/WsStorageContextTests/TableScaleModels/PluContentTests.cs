@@ -11,6 +11,7 @@ public sealed class PluContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            // Получить список ПЛУ по номеру.
             List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlus.GetListByNumber(301);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plus, 10, true, true);
@@ -45,6 +46,7 @@ public sealed class PluContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            // Получить список ПЛУ по UID_1C.
             List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlus.GetListByUid1C(Guid.Parse("B912B17D-E328-11EC-BD1B-00155D8A460F"));
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plus, 10, true, true);

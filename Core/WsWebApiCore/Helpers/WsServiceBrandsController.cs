@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Common;
-
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -36,11 +34,11 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBrandModel? brandDb = Cache.Brands.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
+            WsSqlBrandModel? brandDb = ContextCache.Brands.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            brandDb = Cache.Brands.Find(item => Equals(item.Code, brandXml.Code));
+            brandDb = ContextCache.Brands.Find(item => Equals(item.Code, brandXml.Code));
             if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             //// Найдено по Name -> Обновить найденную запись.
@@ -50,7 +48,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, brandXml, true))
                 // Обновить кэш.
-                Cache.Load(WsSqlEnumTableName.Brands);
+                ContextCache.Load(WsSqlEnumTableName.Brands);
         }
         catch (Exception ex)
         {
@@ -70,7 +68,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Загрузить кэш.
-            Cache.Load();
+            ContextCache.Load();
             List<WsXmlContentRecord<WsSqlBrandModel>> itemsXml = GetXmlBrandList(xml);
             foreach (WsXmlContentRecord<WsSqlBrandModel> record in itemsXml)
             {

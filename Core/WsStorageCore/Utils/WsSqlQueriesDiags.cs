@@ -22,7 +22,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[SCALE_NAME]
 	,[SIZE_APP_MB]
 	,[SIZE_FREE_MB]
-FROM [diag].[VIEW_LOGS_MEMORY]
+FROM [diag].[VIEW_LOGS_MEMORIES]
 ORDER BY [CREATE_DT] DESC;");
 
             /// <summary>

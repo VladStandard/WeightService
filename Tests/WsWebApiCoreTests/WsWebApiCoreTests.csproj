@@ -11,20 +11,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Models\" />
-    <Folder Include="Controllers\" />
+    <Compile Remove="Enums\**" />
+    <Compile Remove="Helpers\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Enums\**" />
+    <None Remove="Helpers\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageReference Include="NSubstitute" Version="5.0.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
+    <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     <ProjectReference Include="..\..\Core\WsWebApiCore\WsWebApiCore.csproj" />
+    <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -41,7 +41,7 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlProductionFacilityModel> Areas { get; private set; } = new();
     public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
     public List<WsSqlScaleModel> Lines { get; private set; } = new();
-    
+
     #endregion
 
     #region Public and private fields, properties, constructor - Глобальный кэш представлений

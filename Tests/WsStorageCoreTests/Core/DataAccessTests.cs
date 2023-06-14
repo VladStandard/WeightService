@@ -46,7 +46,9 @@ public sealed class DataAccessTests
 	        List<WsSqlDeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList
                 .GetListDevicesTypes(WsSqlIsMarked.ShowAll, false, false);
 	        foreach (WsSqlDeviceTypeModel deviceType in deviceTypes)
-	        {
+            {
+                if (!GetDeviceTypesEnums().Contains(deviceType.Name))
+                    TestContext.WriteLine($"{deviceType.Name} is not registered at {nameof(GetDeviceTypesEnums)}!");
 		        Assert.That(GetDeviceTypesEnums().Contains(deviceType.Name), Is.EqualTo(true));
 	        }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

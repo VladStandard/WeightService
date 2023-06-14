@@ -45,6 +45,11 @@ public sealed class WsSqlPluController
 
     public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(new());
 
+    /// <summary>
+    /// Получить список ПЛУ по номеру.
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
     public List<WsSqlPluModel> GetListByNumber(short number)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
@@ -74,6 +79,11 @@ public sealed class WsSqlPluController
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
 
+    /// <summary>
+    /// Получить список ПЛУ по UID_1C.
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <returns></returns>
     public List<WsSqlPluModel> GetListByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
@@ -83,7 +93,12 @@ public sealed class WsSqlPluController
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
 
-    public List<string> ValidateViewPluLine(WsSqlViewPluLineModel viewPluLine)
+    /// <summary>
+    /// Получить список валидаторов ПЛУ линии.
+    /// </summary>
+    /// <param name="viewPluLine"></param>
+    /// <returns></returns>
+    public List<string> GetListValidatesViewPluLine(WsSqlViewPluLineModel viewPluLine)
     {
         List<string> validates = new();
         if (string.IsNullOrEmpty(viewPluLine.TemplateName)) validates.Add(WsLocaleCore.LabelPrint.PluTemplateNotSet);

@@ -84,8 +84,15 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
     public virtual void UpdateProperties(string requestDataString)
     {
         // Get properties from /api/send_nomenclatures/.
-        if (string.IsNullOrEmpty(requestDataString)) throw new ArgumentException();
         RequestDataString = requestDataString;
+    }
+
+    public virtual void UpdateProperties(WsSqlPlu1CFkModel wsSqlPlu)
+    {
+        // Get properties from /api/send_nomenclatures/.
+        Plu = wsSqlPlu.Plu;
+        IsEnabled = wsSqlPlu.IsEnabled;
+        RequestDataString = wsSqlPlu.RequestDataString;
     }
 
     public override void FillProperties()

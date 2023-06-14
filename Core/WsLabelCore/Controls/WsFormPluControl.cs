@@ -78,7 +78,7 @@ public sealed class WsFormPluControl : UserControl
     /// <returns></returns>
     private Label CreateLabelPluTemplate(WsSqlViewPluLineModel viewPluScale)
     {
-        List<string> validates = WsSqlPluController.Instance.ValidateViewPluLine(viewPluScale);
+        List<string> validates = WsSqlPluController.Instance.GetListValidatesViewPluLine(viewPluScale);
         return new()
         {
             Font = FontsSettings.FontMinimum,

@@ -36,9 +36,9 @@ public sealed class WsServicePlusCharacteristicsWrapper : WsServiceControllerBas
             // Новый ответ 1С - не найдено.
             WsSqlAcceptVersion.V2 => GetContentResult(() => 
                 NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+            _ => GetContentResult(() => PlusCharacteristicsController.NewResponsePluCharacteristics(xml, format, isDebug, SessionFactory), format)
             // Находится в разработке, свяжитесь с разработчиком.
-            _ => NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
-            //_ => GetContentResult(() => PlusCharacteristicsController.NewResponsePluCharacteristics(xml, format, isDebug, SessionFactory), format)
+            //_ => NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
         };
         LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclaturesCharacteristics,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);

@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Common;
-
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -21,6 +19,11 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
 
     #region Public and private methods
 
+    /// <summary>
+    /// Заполнить список характеристик ПЛУ из XML.
+    /// </summary>
+    /// <param name="xml"></param>
+    /// <returns></returns>
     private List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
         WsServiceContentUtils.GetNodesListCore<WsSqlPluCharacteristicModel>(xml, WsLocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
         {
@@ -43,13 +46,13 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         try
         {
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicModel? itemDb = Cache.PlusCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
+            WsSqlPluCharacteristicModel? itemDb = ContextCache.PlusCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
             if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
 
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicXml, true))
                 // Обновить кэш.
-                Cache.Load(WsSqlEnumTableName.PluCharacteristics);
+                ContextCache.Load(WsSqlEnumTableName.PluCharacteristics);
         }
         catch (Exception ex)
         {
@@ -82,7 +85,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             };
 
             // Найдено по Identity -> Обновить найденную запись.
-            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = Cache.PlusCharacteristicsFks.Find(item =>
+            WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = ContextCache.PlusCharacteristicsFks.Find(item =>
                 Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
                 Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
             if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,
@@ -91,7 +94,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C))
                 // Обновить кэш.
-                Cache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
+                ContextCache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {
@@ -107,27 +110,33 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     /// <param name="isDebug"></param>
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
-    public ContentResult NewResponsePluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
-        NewResponse1CCore<WsResponse1CShortModel>(response =>
+    public ContentResult NewResponsePluCharacteristics(XElement xml, string format, bool isDebug, 
+        ISessionFactory sessionFactory) => NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
+            // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
+            FillPlus1CFksDb();
             // Загрузить кэш.
-            Cache.Load();
+            ContextCache.Load();
+            // Заполнить список характеристик ПЛУ из XML.
             List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
-            foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> record in pluCharacteristicsXml)
+            foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> recordXml in pluCharacteristicsXml)
             {
-                WsSqlPluCharacteristicModel itemXml = record.Item;
-                // Обновить данные в таблице связей обмена номенклатуры 1С.
-                List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
-                WsSqlPluModel pluDb = ContextManager.ContextPlus.GetItemByUid1C(record.Item.NomenclatureGuid);
-                // Проверить номер ПЛУ в списке доступа к выгрузке.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    CheckIsEnabledPlu(itemXml, plus1CFksDb);
-                // Добавить характеристику ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponsePluCharacteristics(response, itemXml, pluDb);
-                // Добавить связь характеристики ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    AddResponsePluCharacteristicsFks(response, itemXml);
+                WsSqlPluCharacteristicModel itemXml = recordXml.Item;
+                // Обновить таблицу связей ПЛУ для обмена.
+                List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, recordXml);
+                WsSqlPluModel pluDb = ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
+                // TODO: заглушка
+                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
+                itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
+                //// Проверить номер ПЛУ в списке доступа к выгрузке.
+                //if (itemXml.ParseResult.IsStatusSuccess)
+                //    CheckIsEnabledPlu(itemXml, plus1CFksDb);
+                //// Добавить характеристику ПЛУ.
+                //if (itemXml.ParseResult.IsStatusSuccess)
+                //    AddResponsePluCharacteristics(response, itemXml, pluDb);
+                //// Добавить связь характеристики ПЛУ.
+                //if (itemXml.ParseResult.IsStatusSuccess)
+                //    AddResponsePluCharacteristicsFks(response, itemXml);
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
                     AddResponseExceptionString(response, itemXml.Uid1C,

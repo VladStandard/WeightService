@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Common;
-
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -79,7 +77,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             };
 
             // Найдено по UID -> Обновить найденную запись.
-            WsSqlPluGroupFkModel? itemDb = Cache.PlusGroupsFks.Find(x =>
+            WsSqlPluGroupFkModel? itemDb = ContextCache.PlusGroupsFks.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false)) return;
@@ -87,7 +85,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C))
                 // Обновить кэш.
-                Cache.Load(WsSqlEnumTableName.PluGroupsFks);
+                ContextCache.Load(WsSqlEnumTableName.PluGroupsFks);
         }
         catch (Exception ex)
         {
@@ -105,11 +103,11 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         try
         {
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlPluGroupModel? pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
+            WsSqlPluGroupModel? pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Code -> Обновить найденную запись.
-            pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Code, pluGroupXml.Code));
+            pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Code, pluGroupXml.Code));
             if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Найдено по Name -> Обновить найденную запись.
@@ -119,7 +117,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             // Не найдено -> Добавить новую запись.
             if (SaveItemDb(response, pluGroupXml, true))
                 // Обновить кэш.
-                Cache.Load(WsSqlEnumTableName.PluGroups);
+                ContextCache.Load(WsSqlEnumTableName.PluGroups);
         }
         catch (Exception ex)
         {
@@ -139,7 +137,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Загрузить кэш.
-            Cache.Load();
+            ContextCache.Load();
             // Получить список групп из XML.
             List<WsXmlContentRecord<WsSqlPluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
             foreach (WsXmlContentRecord<WsSqlPluGroupModel> record in itemsXml)
