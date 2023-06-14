@@ -36,7 +36,7 @@ public static class WsSqlTablesUtils
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";
     public static string Plus => "PLUS";
-    public static string Plus1cFk => "PLUS_1C_FK";
+    public static string Plus1CFks => "PLUS_1C_FK";
     public static string PlusBrandsFks => "PLUS_BRANDS_FK";
     public static string PlusBundlesFks => "PLUS_BUNDLES_FK";
     public static string PlusCharacteristics => "PLUS_CHARACTERISTICS";

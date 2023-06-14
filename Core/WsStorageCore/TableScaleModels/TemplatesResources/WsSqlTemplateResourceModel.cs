@@ -14,7 +14,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
 
     [XmlElement] public virtual string Type { get; set; }
     [XmlElement] public virtual WsSqlFieldBinaryModel Data { get; set; }
-    [XmlIgnore] public virtual byte[] DataValue { get => Data.Value; set => Data.Value = value; }
+    [XmlIgnore] public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
 
     /// <summary>
     /// Constructor.

@@ -40,7 +40,7 @@ public sealed class WsLocaleWebService : WsLocaleBase
     public string Name => Lang == WsEnumLanguage.English ? "WebService 1C" : "ВебСервис 1С";
     public string Node => Lang == WsEnumLanguage.English ? "node" : "узел";
     public string PackageZero => Lang == WsEnumLanguage.English ? "Without the package" : "Без пакета";
-    public string Underdevelopment => Lang == WsEnumLanguage.English ? "Under development, contact the developer." : "Находится в разработке, свяжитесь с разработчиком.";
+    public string Underdevelopment => Lang == WsEnumLanguage.English ? "Under development, contact the developer" : "Находится в разработке, свяжитесь с разработчиком";
     public string With => Lang == WsEnumLanguage.English ? "with" : "с";
     public string WithFieldCode => Lang == WsEnumLanguage.English ? "with code" : "с кодом";
     public string WithFieldNumber => Lang == WsEnumLanguage.English ? "with number" : "с номером";

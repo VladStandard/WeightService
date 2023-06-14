@@ -29,7 +29,7 @@ public sealed class WsSqlPlu1CController
 
     public WsSqlPlu1CFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1CFkModel>();
 
-    public List<WsSqlPlu1CFkModel> GetList() => ContextList.GetListNotNullablePlus1cFks(new());
+    public List<WsSqlPlu1CFkModel> GetList() => ContextList.GetListNotNullablePlus1CFks(new());
 
     public List<WsSqlPlu1CFkModel> GetNewList() => new();
 

@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -199,16 +200,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{600611A1-0
 		Docs\ConnectionString.md = Docs\ConnectionString.md
 		Docs\Converts.md = Docs\Converts.md
 		Docs\GS1-128.md = Docs\GS1-128.md
-		Docs\Publish lifecycle.md = Docs\Publish lifecycle.md
-		Docs\Publish resources.md = Docs\Publish resources.md
-		Docs\Publish tests.md = Docs\Publish tests.md
-		Docs\Service time.md = Docs\Service time.md
+		Docs\Publish Lifecycle.md = Docs\Publish Lifecycle.md
+		Docs\Publish Resources.md = Docs\Publish Resources.md
+		Docs\Publish Tests Logs.md = Docs\Publish Tests Logs.md
+		Docs\Publish Tests.md = Docs\Publish Tests.md
+		Docs\Service Time.md = Docs\Service Time.md
 		Docs\StorageCore.md = Docs\StorageCore.md
 		Docs\Technology Stack.md = Docs\Technology Stack.md
-		Docs\To-do list.md = Docs\To-do list.md
+		Docs\To-do List.md = Docs\To-do List.md
 		Docs\TroubleShooting.md = Docs\TroubleShooting.md
 		Docs\Web URLs.md = Docs\Web URLs.md
 		Docs\WebApiScales.md = Docs\WebApiScales.md
+		Docs\Zebra Password Reset.md = Docs\Zebra Password Reset.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalizationCoreTests", "Tests\WsLocalizationCoreTests\WsLocalizationCoreTests.csproj", "{3EBB426C-C1DC-42E3-87A5-C139BA1FB2A9}"

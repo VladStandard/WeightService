@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -23,7 +25,7 @@ public partial class WsMainForm
             // Проверить наличие ПЛУ.
             if (!ActionCheckPluIsNew()) return;
             // Обновить кэш.
-            ContextCache.Load(WsSqlTableName.ViewPlusNesting);
+            ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             // Навигация в контрол смены вложенности ПЛУ.
             WsFormNavigationUtils.NavigateToExistsPlusNesting(ShowFormUserControl);
         });

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Item;
+using WsStorageCore.Common;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.PlusScales;
 
@@ -18,8 +19,8 @@ public sealed partial class ItemPlusLines : ItemBase<WsSqlPluScaleModel>
     {
         //TODO: Fix long loading
         base.SetSqlItemCast();
-        ContextCache.Load(WsSqlTableName.Plus);
-        ContextCache.Load(WsSqlTableName.Lines);
+        ContextCache.Load(WsSqlEnumTableName.Plus);
+        ContextCache.Load(WsSqlEnumTableName.Lines);
     }
 
     #endregion

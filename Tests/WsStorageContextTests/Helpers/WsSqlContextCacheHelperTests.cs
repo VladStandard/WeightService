@@ -1,25 +1,61 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageContextTests.Helpers;
 
 [TestFixture]
 public sealed class WsSqlContextCacheHelperTests
 {
     [Test]
-    public void Get_cache_view_plus_lines()
-    {
+    public void Get_cache_table_brands() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
+            {
+                WsTestsUtils.DataTests.ContextCache.Clear();
+                Assert.IsFalse(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                WsTestsUtils.DataTests.ContextCache.SmartLoad();
+                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.Brands, 10);
+            }, false,
+            new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+
+    [Test]
+    public void Measure_cache_smart_load_table() =>
+        WsTestsUtils.DataTests.AssertAction(() =>
+            {
+                WsTestsUtils.DataTests.ContextCache.Clear();
+                Assert.IsFalse(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                WsTestsUtils.DataTests.ContextCache.SmartLoad();
+                TimeSpan elapsedFirst = stopwatch.Elapsed;
+                stopwatch.Stop();
+                TestContext.WriteLine($"First {nameof(stopwatch.Elapsed)}: {elapsedFirst}");
+                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+
+                stopwatch.Restart();
+                WsTestsUtils.DataTests.ContextCache.SmartLoad();
+                TimeSpan elapsedSecond = stopwatch.Elapsed;
+                stopwatch.Stop();
+                TestContext.WriteLine($"Second {nameof(stopwatch.Elapsed)}: {elapsedSecond}");
+               
+                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                Assert.IsTrue(elapsedFirst > elapsedSecond);
+            }, false,
+            new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+
+    [Test]
+    public void Get_cache_view_plus_lines() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataTests.ContextCache.Load(WsSqlTableName.ViewPlusLines);
+            WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusLines);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusLines, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
 
     [Test]
-    public void Get_cache_view_plus_lines_current()
-    {
+    public void Get_cache_view_plus_lines_current() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextLines.GetList();
@@ -35,18 +71,15 @@ public sealed class WsSqlContextCacheHelperTests
                 WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines, 10);
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
 
     [Test]
-    public void Get_cache_view_plus_nesting()
-    {
+    public void Get_cache_view_plus_nesting() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataTests.ContextCache.Load(WsSqlTableName.ViewPlusNesting);
+            WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
 
     //[Test]
     //public void Get_cache_view_plus_nesting_current()
@@ -76,13 +109,11 @@ public sealed class WsSqlContextCacheHelperTests
     //}
 
     [Test]
-    public void Get_cache_view_plus_storage_methods()
-    {
+    public void Get_cache_view_plus_storage_methods() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsTestsUtils.DataTests.ContextCache.Load(WsSqlTableName.ViewPlusStorageMethods);
+            WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusStorageMethods);
             Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods.Any());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
 }

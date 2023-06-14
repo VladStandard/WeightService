@@ -173,7 +173,7 @@ public sealed class WsSqlContextManagerHelper
             }
 
             AccessCore.SetupSessionFactory(isShowSql); // DebugHelper.Instance.IsDevelop
-            ContextItem.SetupLog(appName);
+            ContextItem.SetupLog(appName ?? string.Empty);
             ContextItem.SaveLogInformation(WsLocaleCore.DeviceControl.WebAppIsStarted);
         }
         catch (Exception ex)
