@@ -110,7 +110,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
     public ContentResult NewResponsePluCharacteristics(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
-            // Прогреть кэш.
+            // Загрузить кэш.
             Cache.Load();
             List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> pluCharacteristicsXml = GetXmlPluCharacteristicsList(xml);
             foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> record in pluCharacteristicsXml)

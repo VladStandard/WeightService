@@ -61,11 +61,6 @@ public sealed class WsSqlContextCacheHelper
     #region Public and private methods - Глобальный кэш
 
     /// <summary>
-    /// Прогреть кэш.
-    /// </summary>
-    public void Load() => Load(TableName);
-
-    /// <summary>
     /// Загрузить кэш по-умному.
     /// Умная оптимизация на базе сравнения представления кол-ва строк таблиц.
     /// </summary>
@@ -142,6 +137,11 @@ public sealed class WsSqlContextCacheHelper
         if (Lines.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Lines.Count))
             Lines = ContextManager.ContextList.GetListNotNullableLines(SqlCrudConfig);
     }
+
+    /// <summary>
+    /// Загрузить кэш.
+    /// </summary>
+    public void Load() => Load(TableName);
 
     /// <summary>
     /// Загрузить кэш.

@@ -566,7 +566,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     public ContentResult NewResponsePlus(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
-            // Прогреть кэш.
+            // Загрузить кэш.
             Cache.Load();
             List<WsXmlContentRecord<WsSqlPluModel>> plusXml = GetXmlPluList(xml);
             WsSqlPluValidator pluValidator = new(false, false);

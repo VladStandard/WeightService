@@ -69,7 +69,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
     public ContentResult NewResponseBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
-            // Прогреть кэш.
+            // Загрузить кэш.
             Cache.Load();
             List<WsXmlContentRecord<WsSqlBrandModel>> itemsXml = GetXmlBrandList(xml);
             foreach (WsXmlContentRecord<WsSqlBrandModel> record in itemsXml)

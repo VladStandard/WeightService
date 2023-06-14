@@ -122,7 +122,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
     public ContentResult NewResponsePluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
         NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
-            // Прогреть кэш.
+            // Загрузить кэш.
             Cache.Load();
             List<WsXmlContentRecord<WsSqlPluGroupModel>> itemsXml = GetXmlPluGroupsList(xml);
             foreach (WsXmlContentRecord<WsSqlPluGroupModel> record in itemsXml)
