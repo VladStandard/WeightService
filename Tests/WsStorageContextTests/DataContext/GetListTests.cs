@@ -1,13 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageContextTests.DataContext;
 
 [TestFixture]
 public sealed class GetListTests
 {
-    private static WsSqlCrudConfigModel SqlCrudConfig => new(WsSqlIsMarked.ShowAll, true, false, true, false);
-    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlIsMarked.ShowAll, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfig => new(WsSqlEnumIsMarked.ShowAll, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlEnumIsMarked.ShowAll, true, false, true, false);
     private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
     private static readonly List<WsEnumConfiguration> ConfigurationsDev = new() { WsEnumConfiguration.DevelopVS };
 

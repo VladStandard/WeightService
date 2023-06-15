@@ -3,6 +3,7 @@
 
 using WsBlazorCore.Settings;
 using WsLocalizationCore.Utils;
+using WsStorageCore.Common;
 
 namespace DeviceControl.Components.Section;
 
@@ -18,11 +19,11 @@ public partial class SectionTopBar : LayoutComponentBase
     [Parameter] public int SectionCount { get; set; }
     private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
 
-    private static Dictionary<string, WsSqlIsMarked> MarkedDict => new()
+    private static Dictionary<string, WsSqlEnumIsMarked> MarkedDict => new()
     {
-        { "Актуальные", WsSqlIsMarked.ShowOnlyActual },
-        { "Cкрытые", WsSqlIsMarked.ShowOnlyHide },
-        { "Все", WsSqlIsMarked.ShowAll }
+        { "Актуальные", WsSqlEnumIsMarked.ShowOnlyActual },
+        { "Cкрытые", WsSqlEnumIsMarked.ShowOnlyHide },
+        { "Все", WsSqlEnumIsMarked.ShowAll }
     };
 
     private List<int> _rowCountList = new() { 0, 200, 400, 600, 800, 1000 };

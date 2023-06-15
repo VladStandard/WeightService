@@ -15,3 +15,4 @@ global using WsLocalizationCore.Utils;
 global using WsStorageCore.Enums;
 global using WsStorageCore.Models;
 global using WsStorageCore.Utils;
+global using WsStorageCore.Common;

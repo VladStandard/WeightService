@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsLabelCoreTests.Helpers;
 
 [TestFixture]
@@ -23,7 +25,7 @@ public sealed class WsUserSessionHelperTests
     {
         WsTestsUtils.DataCore.AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlIsMarked.ShowAll, true, true, true, true);
+            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlEnumIsMarked.ShowAll, true, true, true, true);
             List<WsSqlDeviceModel> devices = ContextManager.ContextList.GetListNotNullableDevices(sqlCrudConfig);
             Assert.Greater(devices.Count, 0);
         }, false);

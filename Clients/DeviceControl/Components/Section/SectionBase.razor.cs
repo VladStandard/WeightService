@@ -38,7 +38,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         SelectedRow = new List<TItem>();
         SqlSectionSave = new List<TItem>();
 
-        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowOnlyActual);
+        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
 

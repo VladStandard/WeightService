@@ -11,7 +11,7 @@ public class WsSqlTableControllerBase
     #region Public and private fields, properties, constructor
 
     public WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
-            WsSqlIsMarked.ShowAll, false, false, true, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, true, false);
 
     #endregion
 }

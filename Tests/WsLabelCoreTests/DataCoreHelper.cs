@@ -106,7 +106,7 @@ public sealed class DataCoreHelper
 		}
 	}
 
-    public void AssertSqlDbContentValidate<T>(WsSqlIsMarked isMarked = WsSqlIsMarked.ShowAll) where T : WsSqlTableBase, new()
+    public void AssertSqlDbContentValidate<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
@@ -142,7 +142,7 @@ public sealed class DataCoreHelper
     {
         AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlIsMarked.ShowAll);
+            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowAll);
             List<T> items = ContextManager.AccessList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true, true);

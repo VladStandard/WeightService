@@ -12,7 +12,7 @@ public class WsSqlCrudConfigModel : ICloneable
     #region Public and private fields, properties, constructor
 
     private int _selectTopRowsCount;
-    private WsSqlIsMarked _isMarked;
+    private WsSqlEnumIsMarked _isMarked;
     
     public string NativeQuery { get; set; }
     public bool IsFillReferences { get; set; }
@@ -35,7 +35,7 @@ public class WsSqlCrudConfigModel : ICloneable
     /// <summary>
     /// Помеченные на удаление записи.
     /// </summary>
-    public WsSqlIsMarked IsMarked
+    public WsSqlEnumIsMarked IsMarked
     {
         get => _isMarked; 
         set
@@ -43,15 +43,15 @@ public class WsSqlCrudConfigModel : ICloneable
             _isMarked = value;
             switch (_isMarked)
             {
-                case WsSqlIsMarked.ShowAll:
+                case WsSqlEnumIsMarked.ShowAll:
                     RemoveFilters(GetFiltersIsMarked(false));
                     RemoveFilters(GetFiltersIsMarked(true));
                     break;
-                case WsSqlIsMarked.ShowOnlyActual:
+                case WsSqlEnumIsMarked.ShowOnlyActual:
                     RemoveFilters(GetFiltersIsMarked(true));
                     AddFilters(GetFiltersIsMarked(false));
                     break;
-                case WsSqlIsMarked.ShowOnlyHide:
+                case WsSqlEnumIsMarked.ShowOnlyHide:
                     RemoveFilters(GetFiltersIsMarked(false));
                     AddFilters(GetFiltersIsMarked(true));
                     break;
@@ -71,7 +71,7 @@ public class WsSqlCrudConfigModel : ICloneable
         IsFillReferences = true;
         Filters = new();
         Orders = new();
-        IsMarked = WsSqlIsMarked.ShowAll;
+        IsMarked = WsSqlEnumIsMarked.ShowAll;
         
         IsGuiShowFilterMarked = false;
 
@@ -99,7 +99,7 @@ public class WsSqlCrudConfigModel : ICloneable
     }
 
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
-        WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) : this()
+        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) : this()
     {
         Filters = filters;
         Orders = orders;
@@ -111,18 +111,18 @@ public class WsSqlCrudConfigModel : ICloneable
     }
 
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters,
-        WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(filters, new(), isMarked, isShowOnlyTop, isAddFieldEmpty,
             isOrder, isReadUncommitted)
     { }
 
     public WsSqlCrudConfigModel(List<WsSqlFieldOrderModel> orders,
-        WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(new(), orders, isMarked, isShowOnlyTop,
             isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
-    public WsSqlCrudConfigModel(WsSqlIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
+    public WsSqlCrudConfigModel(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(new(), new(), isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
 
@@ -251,9 +251,9 @@ public class WsSqlCrudConfigModel : ICloneable
 
         string isMarked = IsMarked switch
         {
-            WsSqlIsMarked.ShowAll => "Show all records",
-            WsSqlIsMarked.ShowOnlyActual => "Show only actual records",
-            WsSqlIsMarked.ShowOnlyHide => "Show only hide records",
+            WsSqlEnumIsMarked.ShowAll => "Show all records",
+            WsSqlEnumIsMarked.ShowOnlyActual => "Show only actual records",
+            WsSqlEnumIsMarked.ShowOnlyHide => "Show only hide records",
             _ => string.Empty
         };
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isMarked)) result += $" | {isMarked}";

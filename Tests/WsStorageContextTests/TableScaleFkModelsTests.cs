@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageContextTests;
 
 [TestFixture]
@@ -21,7 +23,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_log_web_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebFkModel>(WsSqlIsMarked.ShowAll);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlLogWebFkModel>(WsSqlEnumIsMarked.ShowAll);
     }
 
     [Test]
@@ -69,7 +71,7 @@ public sealed class TableScaleFkModelsTests
     [Test]
     public void Validate_list_of_plu_storage_method_fk()
     {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(WsSqlIsMarked.ShowAll);
+        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(WsSqlEnumIsMarked.ShowAll);
     }
 
     [Test]

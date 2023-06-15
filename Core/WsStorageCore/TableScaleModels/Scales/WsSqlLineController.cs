@@ -33,7 +33,7 @@ public sealed class WsSqlLineController : WsSqlTableControllerBase
 
     public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
 
-    public List<WsSqlScaleModel> GetList(WsSqlIsMarked isMarked) =>
+    public List<WsSqlScaleModel> GetList(WsSqlEnumIsMarked isMarked) =>
         ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
 
     #endregion

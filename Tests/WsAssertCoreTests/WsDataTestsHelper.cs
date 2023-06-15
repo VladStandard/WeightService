@@ -135,7 +135,7 @@ public class WsDataTestsHelper
         }
     }
 
-    public void AssertSqlDbContentValidate<T>(WsSqlIsMarked isMarked = WsSqlIsMarked.ShowAll) where T : WsSqlTableBase, new()
+    public void AssertSqlDbContentValidate<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {
@@ -149,7 +149,7 @@ public class WsDataTestsHelper
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
         AssertSqlTablesValidate(item, assertResult);
 
-    public void AssertSqlDbContentSerialize<T>(WsSqlIsMarked isMarked = WsSqlIsMarked.ShowAll) where T : WsSqlTableBase, new()
+    public void AssertSqlDbContentSerialize<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
     {
         AssertAction(() =>
         {

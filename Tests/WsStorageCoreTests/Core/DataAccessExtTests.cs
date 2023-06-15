@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageCoreTests.Core;
 
 [TestFixture]
@@ -13,7 +15,7 @@ public sealed class DataAccessExtTests
 	{
         WsTestsUtils.DataTests.AssertAction(() =>
 		{
-			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlIsMarked.ShowAll, true);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlEnumIsMarked.ShowAll, true);
 			// Arrange.
 			List<WsSqlScaleModel> scales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullableLines(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(scales)}.{nameof(scales.Count)}: {scales.Count}");
@@ -25,7 +27,7 @@ public sealed class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
 					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(WsSqlPluScaleModel.Line),
-                        WsSqlIsMarked.ShowAll, true, false, false);
+                        WsSqlEnumIsMarked.ShowAll, true, false, false);
 					List<WsSqlPluScaleModel> pluScales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
@@ -39,7 +41,7 @@ public sealed class DataAccessExtTests
 	{
 		WsTestsUtils.DataTests.AssertAction(() =>
 		{
-			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlIsMarked.ShowAll, true);
+			WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlEnumIsMarked.ShowAll, true);
 			// Arrange.
 			List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
 			TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
@@ -51,7 +53,7 @@ public sealed class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
 					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu),
-                        WsSqlIsMarked.ShowAll, true, false, false);
+                        WsSqlEnumIsMarked.ShowAll, true, false, false);
                     List<WsSqlPluBundleFkModel> pluPackages = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");

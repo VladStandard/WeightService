@@ -464,7 +464,7 @@ internal sealed class WsSqlAccessCoreHelper
     public WsSqlAppModel GetItemAppOrCreateNew(string appName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), appName, WsSqlIsMarked.ShowAll, false);
+            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
         WsSqlAppModel app = GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
         if (app.IsNew)
         {
@@ -487,7 +487,7 @@ internal sealed class WsSqlAccessCoreHelper
     public WsSqlAppModel? GetItemAppNullable(string appName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), appName, WsSqlIsMarked.ShowAll, false);
+            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
         return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
@@ -495,7 +495,7 @@ internal sealed class WsSqlAccessCoreHelper
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
-            WsSqlIsMarked.ShowAll, true, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, true, false, false, false);
         return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
@@ -505,8 +505,8 @@ internal sealed class WsSqlAccessCoreHelper
     public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>(),
-            WsSqlIsMarked.ShowAll, false, false, true, false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlOrderDirection.Asc });
+            WsSqlEnumIsMarked.ShowAll, false, false, true, false);
+        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlEnumOrder.Asc });
         return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
@@ -532,9 +532,9 @@ internal sealed class WsSqlAccessCoreHelper
         WsSqlCrudConfigModel? sqlCrudConfig = value switch
         {
             Guid uid => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
-                WsSqlIsMarked.ShowAll, false, false, false, false),
+                WsSqlEnumIsMarked.ShowAll, false, false, false, false),
             long id => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
-                WsSqlIsMarked.ShowAll, false, false, false, false),
+                WsSqlEnumIsMarked.ShowAll, false, false, false, false),
             _ => null
         };
         return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;

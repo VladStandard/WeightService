@@ -33,7 +33,7 @@ public sealed class WsSqlAccessController : WsSqlTableControllerBase
 
     public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(SqlCrudConfig);
 
-    public List<WsSqlAccessModel> GetList(WsSqlIsMarked isMarked) =>
+    public List<WsSqlAccessModel> GetList(WsSqlEnumIsMarked isMarked) =>
         ContextList.GetListNotNullableAccesses(new() { IsMarked = isMarked, IsResultOrder = true });
 
     #endregion

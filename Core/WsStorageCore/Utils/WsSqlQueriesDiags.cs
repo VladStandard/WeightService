@@ -198,7 +198,7 @@ select {WsSqlQueries.GetTopRecords(topRecords)}
 FROM [diag].[VIEW_LOGS_WEBS]
 order by [CREATE_DT] DESC");
 
-            public static string GetLines(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetLines(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
 	 [ID]
@@ -213,7 +213,7 @@ FROM [db_scales].[VIEW_LINES]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");
 
-            public static string GetBarcodes(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetBarcodes(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
 	 [UID]
@@ -227,7 +227,7 @@ FROM [db_scales].[VIEW_BARCODES]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");
 
-            public static string GetPluLabels(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetPluLabels(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
@@ -245,7 +245,7 @@ FROM [db_scales].[VIEW_PLUS_LABELS]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");
 
-            public static string GetPluWeightings(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetPluWeightings(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
 		 [UID]
@@ -260,7 +260,7 @@ FROM [db_scales].[VIEW_PLUS_WEIGHTINGS]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");
 
-            public static string GetDevices(int topRecords, WsSqlIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
+            public static string GetDevices(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(topRecords)}
 	 [UID]

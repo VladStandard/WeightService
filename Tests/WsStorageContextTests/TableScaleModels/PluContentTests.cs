@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageContextTests.TableScaleModels;
 
 [TestFixture]
@@ -24,7 +26,7 @@ public sealed class PluContentTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlus.GetListByNumbers(new() { 301, 1301 }, 
-                WsSqlIsMarked.ShowAll);
+                WsSqlEnumIsMarked.ShowAll);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
             WsTestsUtils.DataTests.PrintTopRecords(plus, 10, true, true);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });

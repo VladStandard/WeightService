@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageCoreTests.Models;
 
 [TestFixture]
@@ -15,7 +17,7 @@ public sealed class WsSqlCrudConfigModelTests
         {
 			WsSqlCrudConfigModel sqlCrudConfig = new();
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlIsMarked.ShowAll);
+            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowAll);
             Assert.IsTrue(sqlCrudConfig.Filters.Count == 0);
             TestContext.WriteLine(sqlCrudConfig);
         });
@@ -28,9 +30,9 @@ public sealed class WsSqlCrudConfigModelTests
         {
 			WsSqlCrudConfigModel sqlCrudConfig = new();
             
-            sqlCrudConfig.IsMarked = WsSqlIsMarked.ShowOnlyHide;
+            sqlCrudConfig.IsMarked = WsSqlEnumIsMarked.ShowOnlyHide;
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlIsMarked.ShowOnlyHide);
+            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowOnlyHide);
             Assert.IsTrue(sqlCrudConfig.Filters.Count == 1);
             TestContext.WriteLine(sqlCrudConfig);
         });
@@ -43,9 +45,9 @@ public sealed class WsSqlCrudConfigModelTests
         {
 			WsSqlCrudConfigModel sqlCrudConfig = new();
             
-            sqlCrudConfig.IsMarked = WsSqlIsMarked.ShowOnlyActual;
+            sqlCrudConfig.IsMarked = WsSqlEnumIsMarked.ShowOnlyActual;
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlIsMarked.ShowOnlyActual);
+            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowOnlyActual);
             Assert.IsTrue(sqlCrudConfig.Filters.Count == 1);
             TestContext.WriteLine(sqlCrudConfig);
         });

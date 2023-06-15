@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageContextTests.TableScaleModels;
 
 [TestFixture]
@@ -11,7 +13,7 @@ public sealed class PluStorageMethodContentTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlIsMarked.ShowAll, false, false, false, false);
+            WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlEnumIsMarked.ShowAll, false, false, false, false);
             List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.ContextPlusStorages.GetListFks(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
