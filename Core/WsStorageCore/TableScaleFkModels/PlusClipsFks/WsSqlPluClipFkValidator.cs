@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 
 /// <summary>
-/// Table validation "PLUS_CLIP_FK".
+/// Валидатор таблицы связей клипс и ПЛУ.
 /// </summary>
 public sealed class WsSqlPluClipFkValidator : WsSqlTableValidator<WsSqlPluClipFkModel>
 {

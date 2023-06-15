@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Bundles;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы BUNDLES.
+/// SQL-контроллер таблицы BUNDLES.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlBundleController
+public sealed class WsSqlBundleController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -32,7 +32,7 @@ public sealed class WsSqlBundleController
 
     public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
 
-    public List<WsSqlBundleModel> GetList() => ContextList.GetListNotNullableBundles(new());
+    public List<WsSqlBundleModel> GetList() => ContextList.GetListNotNullableBundles(SqlCrudConfig);
 
     #endregion
 }

@@ -577,16 +577,19 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 WsSqlPluModel itemXml = record.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, record);
-                // TODO: заглушка
-                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
-                //// Проверить корректность группы и номера ПЛУ.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    IsCorrectPluNumberForNonGroup(itemXml, true);
-                //// Проверить номер ПЛУ в списке доступа к выгрузке.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    CheckIsEnabledPlu(itemXml, plus1CFksDb);
-                //// Проверить валидацию ПЛУ.
+                // Проверить корректность группы и номера ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    IsCorrectPluNumberForNonGroup(itemXml);
+                // Проверить разрешение обмена для ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckIsEnabledPlu(itemXml, plus1CFksDb);
+                // TODO: FIX HERE
+                if (itemXml.ParseResult.IsStatusSuccess)
+                {
+                    itemXml.ParseResult.Status = WsEnumParseStatus.Error;
+                    itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
+                }
+                // Проверить валидацию ПЛУ.
                 //if (itemXml.ParseResult.IsStatusSuccess)
                 //    CheckPluValidation(itemXml, pluValidator);
                 //// Проверить дубликат номера ПЛУ для не групп.

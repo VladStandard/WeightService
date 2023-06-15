@@ -4,7 +4,7 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// SQL-помощник табличных списков.
+/// SQL-контроллер таблицы списков.
 /// Клиентский слой доступа к БД.
 /// </summary>
 public sealed class WsSqlContextListHelper

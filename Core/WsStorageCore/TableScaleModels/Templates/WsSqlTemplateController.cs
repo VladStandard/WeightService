@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Templates;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы Templates.
+/// SQL-контроллер таблицы Templates.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlTemplateController
+public sealed class WsSqlTemplateController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -37,7 +37,7 @@ public sealed class WsSqlTemplateController
         return AccessItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
     }
 
-    public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(new());
+    public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(SqlCrudConfig);
 
     #endregion
 }

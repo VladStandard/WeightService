@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsWebApiScales.Helpers;
 
 /// <summary>
@@ -34,7 +36,7 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
         ContentResult result = GetAcceptVersion(version) switch
         {
             // Новый ответ 1С - не найдено.
-            WsSqlAcceptVersion.V2 => GetContentResult(() => 
+            WsSqlEnumAcceptVersion.V2 => GetContentResult(() => 
                 NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
             // Находится в разработке, свяжитесь с разработчиком.

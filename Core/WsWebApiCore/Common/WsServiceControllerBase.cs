@@ -500,12 +500,12 @@ public class WsServiceControllerBase : ControllerBase
     /// Get AcceptVersion from string value.
     /// </summary>
     /// <returns></returns>
-    protected WsSqlAcceptVersion GetAcceptVersion(string value) =>
+    protected WsSqlEnumAcceptVersion GetAcceptVersion(string value) =>
         value.ToUpper() switch
         {
-            "V2" => WsSqlAcceptVersion.V2,
-            "V3" => WsSqlAcceptVersion.V3,
-            _ => WsSqlAcceptVersion.V1
+            "V2" => WsSqlEnumAcceptVersion.V2,
+            "V3" => WsSqlEnumAcceptVersion.V3,
+            _ => WsSqlEnumAcceptVersion.V1
         };
 
     internal void AddResponseException(WsResponse1CShortModel response, WsSqlBrandModel brand)
@@ -891,27 +891,22 @@ public class WsServiceControllerBase : ControllerBase
     /// Проверить некорректность группы и номера ПЛУ.
     /// </summary>
     /// <param name="pluXml">Номенклатура</param>
-    /// <param name="isGenerateException">Генерировать исключение</param>
-    public bool IsUnCorrectPluNumberForNonGroup(WsSqlPluModel pluXml, bool isGenerateException) =>
+    public bool IsUnCorrectPluNumberForNonGroup(WsSqlPluModel pluXml) =>
         // Проверить корректность группы и номера ПЛУ.
-        !IsCorrectPluNumberForNonGroup(pluXml, isGenerateException);
+        !IsCorrectPluNumberForNonGroup(pluXml);
 
     /// <summary>
     /// Проверить корректность группы и номера ПЛУ.
     /// </summary>
     /// <param name="pluXml">Номенклатура</param>
-    /// <param name="isGenerateException">Генерировать исключение</param>
-    public bool IsCorrectPluNumberForNonGroup(WsSqlPluModel pluXml, bool isGenerateException)
+    public bool IsCorrectPluNumberForNonGroup(WsSqlPluModel pluXml)
     {
         if (pluXml is { IsGroup: true, Number: 0 }) return true;
         if (pluXml is { IsGroup: false, Number: > 0 }) return true;
-        if (isGenerateException)
-        {
-            pluXml.ParseResult.Status = WsEnumParseStatus.Error;
-            pluXml.ParseResult.Exception =
-                $"{WsLocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
-                $"{WsLocaleCore.WebService.ForDbRecord} {WsLocaleCore.WebService.With} {WsLocaleCore.WebService.FieldCode} '{pluXml.Code}'";
-        }
+        pluXml.ParseResult.Status = WsEnumParseStatus.Error;
+        pluXml.ParseResult.Exception =
+            $"{WsLocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
+            $"{WsLocaleCore.WebService.ForDbRecord} {WsLocaleCore.WebService.With} {WsLocaleCore.WebService.FieldCode} '{pluXml.Code}'";
         return false;
     }
 
@@ -928,9 +923,9 @@ public class WsServiceControllerBase : ControllerBase
         
         foreach (WsSqlPluModel plu in plusDb)
         {
-            WsSqlPlu1CFkModel? plu1CFk = 
-                ContextCache.Plus1CFks.Find(item => item.Plu.Uid1C.Equals(plu.Uid1C));
-            if (plu1CFk is null || plu1CFk.IsNotExists)
+            WsSqlPlu1CFkModel plu1CFk = 
+                ContextCache.Plus1CFks.Find(item => item.Plu.Uid1C.Equals(plu.Uid1C)) ?? new();
+            if (plu1CFk.IsNotExists)
                 return false;
         }
         return true;
@@ -967,72 +962,51 @@ public class WsServiceControllerBase : ControllerBase
         WsXmlContentRecord<T> recordXml) where T : WsSqlTable1CBase, new()
     {
         List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        // ПЛУ в XML.
-        if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
+        switch (recordXml)
         {
-            // Проверить корректность группы и номера ПЛУ.
-            if (IsCorrectPluNumberForNonGroup(pluXml.Item, false))
+            // ПЛУ.
+            case WsXmlContentRecord<WsSqlPluModel> pluXml:
                 plus1CFksDb = GetPlus1CFksByGuid1C(pluXml.Item.Uid1C);
+                break;
+            // Характеристика ПЛУ.
+            case WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml:
+                plus1CFksDb = GetPlus1CFksByGuid1C(pluCharacteristicXml.Item.NomenclatureGuid);
+                break;
         }
-        // Характеристика ПЛУ в XML.
-        else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
-            plus1CFksDb = GetPlus1CFksByGuid1C(pluCharacteristicXml.Item.NomenclatureGuid);
         // Обновить таблицу связей ПЛУ для обмена.
-        foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
-            UpdatePlu1CFkDbCore(response, recordXml, plu1CFkDb);
+        plus1CFksDb.ForEach(item => UpdatePlu1CFkDbCore(response, recordXml, item));
         return plus1CFksDb;
     }
 
     /// <summary>
-    /// Получить список связей обмена номенклатуры 1С по номеру.
-    /// </summary>
-    /// <param name="pluXml"></param>
-    private List<WsSqlPlu1CFkModel> GetPlus1CFksByNumber(WsXmlContentRecord<WsSqlPluModel> pluXml)
-    {
-        List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        // Получить список ПЛУ по номеру.
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByNumber(pluXml.Item.Number);
-        foreach (WsSqlPluModel pluDb in plusDb)
-        {
-            WsSqlPlu1CFkModel plu1CFkDb = 
-                ContextCache.Plus1CFks.Find(item => Equals(item.Plu.Number, pluDb.Number))
-                ?? ContextManager.ContextPlu1CFk.GetNewItem();
-            if (plu1CFkDb.IsNotExists)
-                plu1CFkDb.Plu = pluDb;
-            plus1CFksDb.Add(plu1CFkDb);
-        }
-        return plus1CFksDb;
-    }
-
-    /// <summary>
-    /// Получить список связей обмена номенклатуры 1С по GUID_1C.
+    /// Получить список связей обмена ПЛУ 1С по GUID_1C.
     /// </summary>
     /// <param name="uid1C"></param>
-    private List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
+    public List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
-        List<WsSqlPlu1CFkModel> plus1CFksDb = new();
+        List<WsSqlPlu1CFkModel> plus1CFks = new();
+        ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ по UID_1C.
         List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByUid1C(uid1C);
         foreach (WsSqlPluModel pluDb in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFkDb = ContextCache.Plus1CFks.Find(
-                item => Equals(item.Plu.Number, pluDb.Number) && Equals(item.Plu.Uid1C, uid1C))
+            WsSqlPlu1CFkModel plu1CFk = ContextCache.Plus1CFks.Find(
+                itemCache => Equals(itemCache.Plu.IdentityValueUid, pluDb.IdentityValueUid))
                 ?? ContextManager.ContextPlu1CFk.GetNewItem();
-            if (plu1CFkDb.IsNotExists)
-                plu1CFkDb.Plu = pluDb;
-            plus1CFksDb.Add(plu1CFkDb);
+            if (plu1CFk.IsExists)
+                plus1CFks.Add(plu1CFk);
         }
-        return plus1CFksDb;
+        return plus1CFks;
     }
 
     public void SavePlu1CFk(WsSqlPlu1CFkModel plu1CFk)
     {
         WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Save(plu1CFk);
         if (dbResult is { IsOk: false, Exception: { } })
-            throw new($"Exception at SavePlu1CFk. Check PLU {plu1CFk}!");
+            throw new($"Exception at SavePlu1CFk.{Environment.NewLine}{dbResult.Exception}{Environment.NewLine}Check PLU {plu1CFk}!");
     }
 
-    public void SavePlu1CFk<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
+    private void SavePlu1CFk<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
         WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
     {
         WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Save(plu1CFk);
@@ -1046,7 +1020,7 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
-    /// Обновить данные записи в таблице связей обмена номенклатуры 1С.
+    /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
@@ -1055,10 +1029,10 @@ public class WsServiceControllerBase : ControllerBase
     private void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
         WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
     {
-        WsSqlPlu1CFkModel? plu1CFkCache =
-            ContextCache.Plus1CFks.Find(item => item.IdentityValueUid.Equals(plu1CFk.IdentityValueUid));
+        WsSqlPlu1CFkModel plu1CFkCache =
+            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid)) ?? new();
         // В кэше не найдено - сохранить.
-        if (plu1CFkCache is null)
+        if (plu1CFkCache.IsNotExists)
         {
             plu1CFk.UpdateProperties(recordXml.Content);
             SavePlu1CFk(response, recordXml, plu1CFk);
@@ -1096,15 +1070,15 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
-    /// Обновить данные записи в таблице связей обмена номенклатуры 1С.
+    /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
     /// </summary>
     /// <param name="plu1CFk"></param>
     private Exception? UpdatePlu1CFkDbCore(WsSqlPlu1CFkModel plu1CFk)
     {
-        WsSqlPlu1CFkModel? plu1CFkCache = 
-            ContextCache.Plus1CFks.Find(item => item.IdentityValueUid.Equals(plu1CFk.IdentityValueUid));
+        WsSqlPlu1CFkModel plu1CFkCache =
+            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid)) ?? new();
         // В кэше не найдено - сохранить.
-        if (plu1CFkCache is null)
+        if (plu1CFkCache.IsNotExists)
         {
             SavePlu1CFk(plu1CFk);
             // Загрузить кэш.
@@ -1130,15 +1104,12 @@ public class WsServiceControllerBase : ControllerBase
     #region Public and private methods - Проверка ПЛУ
 
     /// <summary>
-    /// Проверить номер ПЛУ в списке доступа к выгрузке.
+    /// Проверить разрешение обмена для ПЛУ.
     /// </summary>
     /// <param name="itemXml"></param>
-    /// <param name="plus1CFksDb"></param>
-    internal void CheckIsEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1CFksDb)
-    {
-        foreach (WsSqlPlu1CFkModel plu1CFkDb in plus1CFksDb)
-            CheckIsEnabledPluForItem(itemXml, plu1CFkDb);
-    }
+    /// <param name="plus1CFks"></param>
+    internal void CheckIsEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1CFks) => 
+        plus1CFks.ForEach(item => CheckIsEnabledPluForItem(itemXml, item));
 
     /// <summary>
     /// Проверить номер ПЛУ в списке доступа к выгрузке.
@@ -1148,7 +1119,7 @@ public class WsServiceControllerBase : ControllerBase
     private void CheckIsEnabledPluForItem(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
         // Пропуск групп с нулевым номером.
-        if (IsUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu, true)) return;
+        if (IsUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
         {

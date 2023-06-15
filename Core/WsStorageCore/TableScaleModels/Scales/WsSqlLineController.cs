@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы SCALES.
+/// SQL-контроллер таблицы SCALES.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlLineController
+public sealed class WsSqlLineController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -31,7 +31,7 @@ public sealed class WsSqlLineController
 
     public WsSqlScaleModel GetItem(Guid uid) => AccessItem.GetItemNotNullable<WsSqlScaleModel>(uid);
 
-    public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(new());
+    public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
 
     public List<WsSqlScaleModel> GetList(WsSqlIsMarked isMarked) =>
         ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });

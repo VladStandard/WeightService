@@ -1,19 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.TableRefModels.Plus1CFk;
+namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 
 /// <summary>
-/// Контроллер таблицы REF.PLUS_1C_FK.
+/// SQL-контроллер таблицы связей клипс и ПЛУ.
+/// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPlu1CController : WsSqlTableControllerBase
+public sealed class WsSqlPluClipFkController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPlu1CController _instance;
+    private static WsSqlPluClipFkController _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPlu1CController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluClipFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -27,11 +28,14 @@ public sealed class WsSqlPlu1CController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlPlu1CFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPlu1CFkModel>();
+    public WsSqlPluClipFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluClipFkModel>();
 
-    public List<WsSqlPlu1CFkModel> GetList() => ContextList.GetListNotNullablePlus1CFks(SqlCrudConfig);
+    public WsSqlPluClipFkModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu);
 
-    public List<WsSqlPlu1CFkModel> GetNewList() => new();
+    public List<WsSqlPluClipFkModel> GetList() => ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+
+    public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
+        ContextList.GetListNotNullablePlusClipsFks(sqlCrudConfig);
 
     #endregion
 }

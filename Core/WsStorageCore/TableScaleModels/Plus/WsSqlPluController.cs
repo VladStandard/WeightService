@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Plus;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS.
+/// SQL-контроллер таблицы PLUS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluController
+public sealed class WsSqlPluController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -43,7 +43,7 @@ public sealed class WsSqlPluController
 
     public WsSqlPluModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluModel>();
 
-    public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(new());
+    public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(SqlCrudConfig);
 
     /// <summary>
     /// Получить список ПЛУ по номеру.

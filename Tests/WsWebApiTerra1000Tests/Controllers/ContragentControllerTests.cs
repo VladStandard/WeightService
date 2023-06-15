@@ -11,7 +11,7 @@ public sealed class ContragentControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WsWebRequestTerra1000().GetListContragent(WsSqlServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListContragent(WsSqlEnumServerType.All))
             {
                 foreach (long id in WsServiceTestsUtils.GetListContragentId)
                 {
@@ -28,7 +28,7 @@ public sealed class ContragentControllerTests
     {
         Assert.DoesNotThrowAsync(async () =>
         {
-            foreach (string url in new WsWebRequestTerra1000().GetListContragentV2(WsSqlServerType.All))
+            foreach (string url in new WsWebRequestTerra1000().GetListContragentV2(WsSqlEnumServerType.All))
             {
                 foreach (long id in WsServiceTestsUtils.GetListContragentId)
                 {

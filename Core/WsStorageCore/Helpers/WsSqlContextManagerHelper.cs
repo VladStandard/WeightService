@@ -20,34 +20,32 @@ public sealed class WsSqlContextManagerHelper
 
     #region Public and private fields, properties, constructor
 
+    private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
+    private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
     private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
+    public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
+    public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
     public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
     public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
     public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
-    
-    public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
-    
-    public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
     public WsSqlAreaController ContextAreas => WsSqlAreaController.Instance;
     public WsSqlBoxController ContextBoxes => WsSqlBoxController.Instance;
     public WsSqlBundleController ContextBundles => WsSqlBundleController.Instance;
     public WsSqlClipController ContextClips => WsSqlClipController.Instance;
+    public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+    public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
     public WsSqlDeviceLineFkController ContextDevicesLines => WsSqlDeviceLineFkController.Instance;
     public WsSqlLineController ContextLines => WsSqlLineController.Instance;
     public WsSqlPlu1CController ContextPlu1CFk => WsSqlPlu1CController.Instance;
+    public WsSqlPluClipFkController ContextPlusClipsFk => WsSqlPluClipFkController.Instance;
     public WsSqlPluController ContextPlus => WsSqlPluController.Instance;
     public WsSqlPluLineController ContextPlusLines => WsSqlPluLineController.Instance;
     public WsSqlPluNestingFkController ContextPlusNesting => WsSqlPluNestingFkController.Instance;
     public WsSqlPluStorageMethodFkController ContextPlusStorages => WsSqlPluStorageMethodFkController.Instance;
     public WsSqlPluWeighingController ContextPlusWeighing => WsSqlPluWeighingController.Instance;
     public WsSqlTemplateController ContextTemplates => WsSqlTemplateController.Instance;
-    
-    public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
-    private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
-    private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => AccessCore.SqlConfiguration;
 
     #endregion

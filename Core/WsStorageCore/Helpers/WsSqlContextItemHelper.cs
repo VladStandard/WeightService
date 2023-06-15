@@ -4,7 +4,7 @@
 namespace WsStorageCore.Helpers;
 
 /// <summary>
-/// SQL-помощник табличных записей.
+/// SQL-контроллер таблицы записей.
 /// Клиентский слой доступа к БД.
 /// </summary>
 public sealed class WsSqlContextItemHelper
@@ -389,7 +389,7 @@ public sealed class WsSqlContextItemHelper
             CountSuccess = countSuccess,
             CountErrors = countErrors,
         };
-        AccessManager.AccessItem.Save(logWebRequest);
+        AccessManager.AccessItem.SaveAsync(logWebRequest);
 
         WsSqlLogWebModel logWebResponse = new()
         {
@@ -407,7 +407,7 @@ public sealed class WsSqlContextItemHelper
             CountSuccess = countSuccess,
             CountErrors = countErrors,
         };
-        AccessManager.AccessItem.Save(logWebResponse);
+        AccessManager.AccessItem.SaveAsync(logWebResponse);
 
         WsSqlLogTypeModel logTypeItem = AccessCore.GetItemLogTypeNotNullable(logType);
         WsSqlLogWebFkModel logWebFk = new()

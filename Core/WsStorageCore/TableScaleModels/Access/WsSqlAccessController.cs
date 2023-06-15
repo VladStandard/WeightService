@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Access;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы ACCESS.
+/// SQL-контроллер таблицы ACCESS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAccessController
+public sealed class WsSqlAccessController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -31,7 +31,7 @@ public sealed class WsSqlAccessController
 
     public WsSqlAccessModel GetItem(Guid uid) => AccessItem.GetItemNotNullable<WsSqlAccessModel>(uid);
 
-    public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(new());
+    public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(SqlCrudConfig);
 
     public List<WsSqlAccessModel> GetList(WsSqlIsMarked isMarked) =>
         ContextList.GetListNotNullableAccesses(new() { IsMarked = isMarked, IsResultOrder = true });

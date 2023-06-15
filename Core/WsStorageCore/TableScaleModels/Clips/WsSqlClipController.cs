@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Clips;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы CLIPS.
+/// SQL-контроллер таблицы CLIPS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlClipController
+public sealed class WsSqlClipController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -32,7 +32,7 @@ public sealed class WsSqlClipController
 
     public WsSqlClipModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
 
-    public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(new());
+    public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(SqlCrudConfig);
 
     #endregion
 }

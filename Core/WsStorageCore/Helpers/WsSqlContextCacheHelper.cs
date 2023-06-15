@@ -174,7 +174,7 @@ public sealed class WsSqlContextCacheHelper
         if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips)) 
             Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks)) 
-            PlusClipsFks = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+            PlusClipsFks = ContextManager.ContextPlusClipsFk.GetList(SqlCrudConfig);
         if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks)) 
             Plus1CFks = ContextManager.ContextPlu1CFk.GetList();
         if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics)) 

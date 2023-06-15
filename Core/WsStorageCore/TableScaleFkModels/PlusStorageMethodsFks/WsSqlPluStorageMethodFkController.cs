@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleFkModels.PlusStorageMethodsFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблиц PLUS_STORAGE_METHODS, PLUS_STORAGE_METHODS_FK.
+/// SQL-контроллер таблицы записей таблиц PLUS_STORAGE_METHODS, PLUS_STORAGE_METHODS_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluStorageMethodFkController
+public sealed class WsSqlPluStorageMethodFkController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 

@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.Boxes;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы BOXES.
+/// SQL-контроллер таблицы BOXES.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlBoxController
+public sealed class WsSqlBoxController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -32,7 +32,7 @@ public sealed class WsSqlBoxController
 
     //public WsSqlBoxModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu);
 
-    public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(new());
+    public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(SqlCrudConfig);
 
     #endregion
 }

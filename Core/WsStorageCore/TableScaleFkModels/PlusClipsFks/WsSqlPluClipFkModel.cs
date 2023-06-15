@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 
 /// <summary>
-/// Table "PLUS_CLIPS_FK".
+/// Доменная модель таблицы связей клипс и ПЛУ.
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]

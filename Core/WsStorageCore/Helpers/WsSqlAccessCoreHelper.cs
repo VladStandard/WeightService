@@ -89,6 +89,7 @@ internal sealed class WsSqlAccessCoreHelper
     }
     
     private ISession? _sessionSelect;
+    private readonly object _lockerSessionSelect = new();
     private ISession SessionSelect
     {
         get
@@ -101,8 +102,8 @@ internal sealed class WsSqlAccessCoreHelper
             return _sessionSelect;
         }
     }
-    private readonly object _lockerSessionSelect = new();
     private ISession? _sessionExecute;
+    private readonly object _lockerSessionExecute = new();
     private ISession SessionExecute
     {
         get
@@ -115,7 +116,6 @@ internal sealed class WsSqlAccessCoreHelper
             return _sessionExecute;
         }
     }
-    private readonly object _lockerSessionExecute = new();
 
     private void Close()
     {
@@ -281,13 +281,45 @@ internal sealed class WsSqlAccessCoreHelper
     {
         lock (_lockerSessionExecute)
         {
-            ITransaction transaction = SessionExecute.BeginTransaction();
+            using ITransaction transaction = SessionExecute.BeginTransaction();
             try
             {
                 action(SessionExecute);
                 SessionExecute.Flush();
                 transaction.Commit();
                 SessionExecute.Clear();
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                return new(ex);
+            }
+            finally
+            {
+                transaction.Dispose();
+            }
+            return new(true);
+        }
+    }
+
+    /// <summary>
+    /// New transaction with action.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    private WsSqlCrudResultModel ExecuteTransactionIsolatedCore(Action<ISession> action)
+    {
+        lock (_lockerSessionExecute)
+        {
+            using ISession session = SessionFactory.OpenSession();
+            session.FlushMode = FlushMode.Commit;
+            using ITransaction transaction = session.BeginTransaction();
+            try
+            {
+                action(session);
+                session.Flush();
+                transaction.Commit();
+                session.Clear();
             }
             catch (Exception ex)
             {
@@ -347,16 +379,43 @@ internal sealed class WsSqlAccessCoreHelper
     public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new(new ArgumentException());
+
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
         return ExecuteTransactionCore(session => session.Save(item));
     }
 
-    public async Task<WsSqlCrudResultModel> SaveAsync<T>(T? item) where T : WsSqlTableBase
+    public WsSqlCrudResultModel SaveIsolated<T>(T? item) where T : WsSqlTableBase
     {
+        if (item is null) return new(new ArgumentException());
+
+        item.ClearNullProperties();
+        item.CreateDt = DateTime.Now;
+        item.ChangeDt = DateTime.Now;
+        return ExecuteTransactionIsolatedCore(session => session.Save(item));
+    }
+
+    public async Task SaveAsync<T>(T? item) where T : WsSqlTableBase
+    {
+        if (item is null) return;
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        return Save(item);
+
+        item.ClearNullProperties();
+        item.CreateDt = DateTime.Now;
+        item.ChangeDt = DateTime.Now;
+        ExecuteTransactionCore(session => session.SaveAsync(item));
+    }
+
+    public async Task SaveIsolatedAsync<T>(T? item) where T : WsSqlTableBase
+    {
+        if (item is null) return;
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+        item.ClearNullProperties();
+        item.CreateDt = DateTime.Now;
+        item.ChangeDt = DateTime.Now;
+        ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
     }
 
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase

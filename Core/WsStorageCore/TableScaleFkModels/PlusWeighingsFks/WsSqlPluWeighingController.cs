@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS_WEIGHINGS.
+/// SQL-контроллер таблицы PLUS_WEIGHINGS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluWeighingController
+public sealed class WsSqlPluWeighingController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -33,7 +33,7 @@ public sealed class WsSqlPluWeighingController
 
     public WsSqlPluWeighingModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
 
-    public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(new());
+    public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(SqlCrudConfig);
 
     #endregion
 }

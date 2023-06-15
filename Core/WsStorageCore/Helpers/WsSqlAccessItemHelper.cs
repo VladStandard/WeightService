@@ -65,6 +65,8 @@ public sealed class WsSqlAccessItemHelper
 
     public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save<T>(item);
 
+    public void SaveAsync<T>(T? item) where T : WsSqlTableBase => AccessCore.SaveAsync<T>(item).ConfigureAwait(false);
+    
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
 

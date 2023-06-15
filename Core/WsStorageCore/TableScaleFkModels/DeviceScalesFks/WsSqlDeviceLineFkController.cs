@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы DEVICES_SCALES_FK.
+/// SQL-контроллер таблицы DEVICES_SCALES_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlDeviceLineFkController
+public sealed class WsSqlDeviceLineFkController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -33,7 +33,7 @@ public sealed class WsSqlDeviceLineFkController
 
     public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
 
-    public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(new());
+    public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(SqlCrudConfig);
 
     #endregion
 }

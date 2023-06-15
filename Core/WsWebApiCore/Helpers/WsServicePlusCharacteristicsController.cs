@@ -125,13 +125,16 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = UpdatePlus1CFksDb(response, recordXml);
                 WsSqlPluModel pluDb = ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
-                // TODO: заглушка
-                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
-                //// Проверить номер ПЛУ в списке доступа к выгрузке.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    CheckIsEnabledPlu(itemXml, plus1CFksDb);
-                //// Добавить характеристику ПЛУ.
+                // Проверить разрешение обмена для ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckIsEnabledPlu(itemXml, plus1CFksDb);
+                // TODO: FIX HERE
+                if (itemXml.ParseResult.IsStatusSuccess)
+                {
+                    itemXml.ParseResult.Status = WsEnumParseStatus.Error;
+                    itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
+                }
+                // Добавить характеристику ПЛУ.
                 //if (itemXml.ParseResult.IsStatusSuccess)
                 //    AddResponsePluCharacteristics(response, itemXml, pluDb);
                 //// Добавить связь характеристики ПЛУ.

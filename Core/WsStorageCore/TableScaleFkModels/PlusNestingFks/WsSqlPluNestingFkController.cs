@@ -6,7 +6,7 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// <summary>
 /// Контроллер таблицы PLUS_NESTING_FK.
 /// </summary>
-public sealed class WsSqlPluNestingFkController
+public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -86,7 +86,7 @@ public sealed class WsSqlPluNestingFkController
     /// <returns></returns>
     public short GetPluNestingFkBundleCount(WsSqlPluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
-    public List<WsSqlPluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(new());
+    public List<WsSqlPluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
 
     public List<WsSqlPluNestingFkModel> GetListByUid(Guid? uid)
     {

@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.PlusScales;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS_SCALES.
+/// SQL-контроллер таблицы PLUS_SCALES.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluLineController
+public sealed class WsSqlPluLineController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -40,7 +40,7 @@ public sealed class WsSqlPluLineController
         return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
     }
 
-    public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(new());
+    public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(SqlCrudConfig);
 
     #endregion
 }

@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 
 /// <summary>
-/// Table map "PLUS_CLIPS_FK".
+/// Маппинг таблицы связей клипс и ПЛУ.
 /// </summary>
 public sealed class WsSqlPluClipFkMap : ClassMap<WsSqlPluClipFkModel>
 {

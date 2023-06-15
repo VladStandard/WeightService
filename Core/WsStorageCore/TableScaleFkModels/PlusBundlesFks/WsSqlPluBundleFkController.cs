@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы PLUS_BUNDLES_FK.
+/// SQL-контроллер таблицы PLUS_BUNDLES_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluBundleFkController
+public sealed class WsSqlPluBundleFkController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -37,7 +37,7 @@ public sealed class WsSqlPluBundleFkController
         return item;
     }
 
-    public List<WsSqlPluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(new());
+    public List<WsSqlPluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
 
     #endregion
 }

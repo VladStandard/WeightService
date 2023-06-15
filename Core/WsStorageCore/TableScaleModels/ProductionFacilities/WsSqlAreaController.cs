@@ -4,10 +4,10 @@
 namespace WsStorageCore.TableScaleModels.ProductionFacilities;
 
 /// <summary>
-/// SQL-помощник табличных записей таблицы ProductionFacility.
+/// SQL-контроллер таблицы ProductionFacility.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAreaController
+public sealed class WsSqlAreaController : WsSqlTableControllerBase
 {
     #region Design pattern "Lazy Singleton"
 
@@ -33,7 +33,7 @@ public sealed class WsSqlAreaController
 
     public WsSqlProductionFacilityModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
 
-    public List<WsSqlProductionFacilityModel> GetList() => ContextList.GetListNotNullableAreas(new());
+    public List<WsSqlProductionFacilityModel> GetList() => ContextList.GetListNotNullableAreas(SqlCrudConfig);
 
     #endregion
 }
