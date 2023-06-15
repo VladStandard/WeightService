@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -247,7 +249,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
         if (LabelSession.PluWeighing.IsNew)
-            ContextManager.AccessItem.Save(LabelSession.PluWeighing);
+            ContextManager.AccessItem.Save(LabelSession.PluWeighing, WsSqlEnumSessionType.Direct);
         else
             ContextManager.AccessItem.Update(LabelSession.PluWeighing);
     }

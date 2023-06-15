@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsStorageCore.Common;
 
 namespace WsLabelCore.Utils;
 
@@ -326,7 +327,7 @@ public static class WsFormNavigationUtils
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
-                AccessManager.AccessItem.Save(device);
+                AccessManager.AccessItem.Save(device, WsSqlEnumSessionType.Direct);
             }
         }
         else
@@ -393,7 +394,7 @@ public static class WsFormNavigationUtils
         using Image img = bitmap;
         img.Save(memoryStream, ImageFormat.Png);
         WsSqlScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        AccessManager.AccessItem.Save(scaleScreenShot);
+        AccessManager.AccessItem.Save(scaleScreenShot, WsSqlEnumSessionType.Direct);
     }
 
     public static void ActionTryCatch(Action action)

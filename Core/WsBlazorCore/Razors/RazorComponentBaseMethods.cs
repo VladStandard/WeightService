@@ -48,7 +48,7 @@ public partial class RazorComponentBase
         if (item is null || !SqlItemValidate(item)) 
             return false;
         if (item.IsNew)
-            ContextManager.AccessManager.AccessItem.Save(item);
+            ContextManager.AccessManager.AccessItem.Save(item, WsSqlEnumSessionType.Direct);
         else 
             ContextManager.AccessManager.AccessItem.Update(item);
         return true;

@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -340,7 +342,7 @@ public sealed class WsPrintSessionHelper
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
-        ContextManager.AccessItem.Save(pluLabel);
+        ContextManager.AccessItem.Save(pluLabel, WsSqlEnumSessionType.Direct);
 
         return (pluLabel, pluLabelContext);
     }
@@ -374,7 +376,7 @@ public sealed class WsPrintSessionHelper
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);
-        ContextManager.AccessItem.Save(barCode);
+        ContextManager.AccessItem.Save(barCode, WsSqlEnumSessionType.Direct);
     }
 
     #endregion

@@ -63,7 +63,7 @@ public sealed class WsSqlAccessItemHelper
     public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         AccessCore.ExecQueryNative(query, parameter);
 
-    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save(item);
+    //public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save(item);
 
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);

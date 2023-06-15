@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -133,7 +135,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 // DeviceTypeFk.
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
-                ContextManager.AccessItem.Save(deviceTypeFk);
+                ContextManager.AccessItem.Save(deviceTypeFk, WsSqlEnumSessionType.Direct);
             }
             // DeviceTypeFk.
             DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);

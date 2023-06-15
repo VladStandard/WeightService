@@ -1001,22 +1001,13 @@ public class WsServiceControllerBase : ControllerBase
 
     public void SavePlu1CFk(WsSqlPlu1CFkModel plu1CFk)
     {
-        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Save(plu1CFk);
-        if (dbResult is { IsOk: false, Exception: { } })
-            throw new($"Exception at SavePlu1CFk.{Environment.NewLine}{dbResult.Exception}{Environment.NewLine}Check PLU {plu1CFk}!");
+        AccessManager.AccessItem.Save(plu1CFk, WsSqlEnumSessionType.Direct);
     }
 
     private void SavePlu1CFk<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
         WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
     {
-        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Save(plu1CFk);
-        if (dbResult is { IsOk: false, Exception: { } })
-        {
-            if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
-                AddResponseException(response, pluXml.Item.Uid1C, dbResult.Exception);
-            else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
-                AddResponseException(response, pluCharacteristicXml.Item.NomenclatureGuid, dbResult.Exception);
-        }
+        AccessManager.AccessItem.Save(plu1CFk, WsSqlEnumSessionType.Direct);
     }
 
     /// <summary>
