@@ -12,7 +12,7 @@ public sealed record WsSqlFieldFilterModel
     #region Public and private fields, properties, constructor
 
     public string Name { get; init; } = "";
-    public WsSqlFieldComparer Comparer { get; init; } = WsSqlFieldComparer.Equal;
+    public WsSqlEnumFieldComparer Comparer { get; init; } = WsSqlEnumFieldComparer.Equal;
     public object? Value { get; init; }
     public List<object> Values { get; init; } = new();
 

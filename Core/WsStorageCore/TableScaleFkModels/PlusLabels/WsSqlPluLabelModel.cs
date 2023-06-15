@@ -29,7 +29,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluLabelModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PluWeighing = null;
         PluScale = new();

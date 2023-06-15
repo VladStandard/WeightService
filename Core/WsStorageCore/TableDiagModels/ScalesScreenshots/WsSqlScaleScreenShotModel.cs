@@ -19,7 +19,7 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlScaleScreenShotModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlScaleScreenShotModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Scale = new();
         ScreenShot = Array.Empty<byte>();

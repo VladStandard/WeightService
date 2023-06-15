@@ -14,7 +14,7 @@ public class WsXmlDeviceModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsXmlDeviceModel() : base(WsSqlFieldIdentity.Id)
+    public WsXmlDeviceModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Scale = new();
     }

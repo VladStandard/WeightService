@@ -87,7 +87,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         BoxTypeGuid = Guid.Empty;
         BoxTypeName = string.Empty;

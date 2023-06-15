@@ -18,7 +18,7 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluBundleFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluBundleFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Bundle = new();
         Plu = new();

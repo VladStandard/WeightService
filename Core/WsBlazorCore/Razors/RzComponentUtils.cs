@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsLocalizationCore.Utils;
+using WsStorageCore.Common;
 
 namespace WsBlazorCore.Razors;
 
@@ -15,5 +16,5 @@ public static class RzComponentUtils
         new() { WsLocaleCore.Strings.SettingName, WsLocaleCore.Strings.SettingValue },
         "blue", "12px", "center");
 
-    public static CssStyleTableBodyModel GetTableBodyStyle(WsSqlFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
+    public static CssStyleTableBodyModel GetTableBodyStyle(WsSqlEnumFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

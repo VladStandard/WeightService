@@ -243,8 +243,8 @@ public class WsServiceControllerBase : ControllerBase
         {
             List<WsSqlFieldFilterModel> sqlFilters = new()
             {
-                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = dtStart },
-                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlFieldComparer.LessOrEqual, Value = dtEnd },
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = dtStart },
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = dtEnd },
             };
             WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);

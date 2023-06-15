@@ -18,7 +18,7 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlBrandModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlBrandModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Code = string.Empty;
     }

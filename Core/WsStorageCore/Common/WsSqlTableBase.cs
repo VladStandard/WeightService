@@ -34,13 +34,13 @@ public class WsSqlTableBase : SerializeBase, ICloneable
     /// </summary>
     public WsSqlTableBase()
     {
-        Identity = new(WsSqlFieldIdentity.Empty);
+        Identity = new(WsSqlEnumFieldIdentity.Empty);
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableBase(WsSqlFieldIdentity identityName) : this()
+    public WsSqlTableBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }

@@ -20,7 +20,7 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceTypeFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlDeviceTypeFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = new();
         Type = new();

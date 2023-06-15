@@ -17,7 +17,7 @@ public class WsSqlViewPluWeighting: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewPluWeighting() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewPluWeighting() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;
         PluName = string.Empty;

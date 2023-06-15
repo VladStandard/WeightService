@@ -19,7 +19,7 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluStorageMethodModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluStorageMethodModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         MinTemp = default;
         MaxTemp = default;

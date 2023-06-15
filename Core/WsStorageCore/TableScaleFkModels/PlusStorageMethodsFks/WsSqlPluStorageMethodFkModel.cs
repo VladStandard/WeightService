@@ -19,7 +19,7 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluStorageMethodFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluStorageMethodFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         Method = new();

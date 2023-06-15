@@ -24,7 +24,7 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluWeighingModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluWeighingModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PluScale = new();
         Series = null;

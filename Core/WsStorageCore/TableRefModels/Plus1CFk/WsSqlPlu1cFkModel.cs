@@ -20,7 +20,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPlu1CFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPlu1CFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         IsEnabled = false;

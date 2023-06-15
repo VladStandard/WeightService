@@ -21,7 +21,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogMemoryModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogMemoryModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         SizeAppMb = default;
         SizeFreeMb = default;

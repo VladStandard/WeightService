@@ -1,5 +1,4 @@
 using DeviceControl.Utils;
-using WsStorageCore.Common;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
@@ -71,8 +70,8 @@ public class RouteService
         string page = GetSectionRoute(item);
         return item.Identity.Name switch
         {
-            WsSqlFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            WsSqlFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            WsSqlEnumFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            WsSqlEnumFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
     }

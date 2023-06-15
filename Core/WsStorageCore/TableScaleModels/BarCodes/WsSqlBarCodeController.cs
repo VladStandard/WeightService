@@ -83,15 +83,15 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
         return (10 - sum % 10) % 10;
     }
 
-    public string GetGtinWithCheckDigit(string code, WsSqlGtinVariant gtinVariant = WsSqlGtinVariant.Var3)
+    public string GetGtinWithCheckDigit(string code, WsSqlEnumGtinVariant gtinVariant = WsSqlEnumGtinVariant.Var3)
     {
         if (string.IsNullOrEmpty(code))
             return string.Empty;
 
         return gtinVariant switch
         {
-            WsSqlGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
-            WsSqlGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
+            WsSqlEnumGtinVariant.Var1 => $"{code}{GetGtinCheckDigitV3(code)}",
+            WsSqlEnumGtinVariant.Var2 => $"{code}{GetGtinCheckDigitV2(code)}",
             _ => $"{code}{GetGtinCheckDigitV3(code)}"
         };
     }

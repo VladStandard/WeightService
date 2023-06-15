@@ -19,7 +19,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTemplateResourceModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlTemplateResourceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Type = string.Empty;
         Data = new();

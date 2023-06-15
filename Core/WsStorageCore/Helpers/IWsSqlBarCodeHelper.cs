@@ -12,5 +12,5 @@ public interface IWsSqlBarCodeHelper
     int GetGtinCheckDigitV1(string code);
     int GetGtinCheckDigitV2(string code);
     int GetGtinCheckDigitV3(string code);
-    string GetGtinWithCheckDigit(string code, WsSqlGtinVariant gtinVariant = WsSqlGtinVariant.Var3);
+    string GetGtinWithCheckDigit(string code, WsSqlEnumGtinVariant gtinVariant = WsSqlEnumGtinVariant.Var3);
 }

@@ -16,7 +16,7 @@ public class WsSqlViewLineModel : WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewLineModel() : base(WsSqlFieldIdentity.Id)
+	public WsSqlViewLineModel() : base(WsSqlEnumFieldIdentity.Id)
 	{
         Number = 0;
         HostName = string.Empty;

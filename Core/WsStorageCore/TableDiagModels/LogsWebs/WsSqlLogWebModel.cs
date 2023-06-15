@@ -27,7 +27,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogWebModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogWebModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Version = string.Empty;
         Direction = default;

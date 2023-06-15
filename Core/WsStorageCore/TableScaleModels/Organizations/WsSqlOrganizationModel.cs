@@ -17,7 +17,7 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrganizationModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlOrganizationModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Gln = 0;
     }

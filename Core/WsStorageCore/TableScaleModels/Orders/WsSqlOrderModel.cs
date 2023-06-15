@@ -21,7 +21,7 @@ public class WsSqlOrderModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrderModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlOrderModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         BeginDt = DateTime.MinValue;
         ProdDt = DateTime.MinValue;

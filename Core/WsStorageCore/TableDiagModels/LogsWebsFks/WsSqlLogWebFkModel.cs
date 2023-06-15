@@ -28,7 +28,7 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogWebFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogWebFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _logWebRequest = new();
         _logWebResponse = new();

@@ -19,7 +19,7 @@ public class WsSqlAccessModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlAccessModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlAccessModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;
         Rights = 0x00;

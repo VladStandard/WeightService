@@ -19,7 +19,7 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluGroupModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluGroupModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         IsGroup = false;
         Code = string.Empty;

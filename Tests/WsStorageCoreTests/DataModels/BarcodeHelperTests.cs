@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsStorageCoreTests.DataModels;
 
 [TestFixture]
@@ -109,19 +111,19 @@ public sealed class BarcodeHelperTests
     {
         Assert.DoesNotThrow(() =>
         {
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlGtinVariant.Var1), Is.EqualTo("46071002354776"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358736"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlGtinVariant.Var1), Is.EqualTo("46071002358590"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlGtinVariant.Var1), Is.EqualTo("46071002348690"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002354776"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002358736"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002358590"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlEnumGtinVariant.Var1), Is.EqualTo("46071002348690"));
 
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlGtinVariant.Var2), Is.EqualTo("46071002354776"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358668"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358736"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlGtinVariant.Var2), Is.EqualTo("46071002358590"));
-            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlGtinVariant.Var2), Is.EqualTo("46071002348690"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002354776"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002358668"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235873", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002358736"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100235859", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002358590"));
+            Assert.That(Barcode.GetGtinWithCheckDigit("4607100234869", WsSqlEnumGtinVariant.Var2), Is.EqualTo("46071002348690"));
 
             Assert.That(Barcode.GetGtinWithCheckDigit("4607100235477"), Is.EqualTo("46071002354776"));
             Assert.That(Barcode.GetGtinWithCheckDigit("4607100235866"), Is.EqualTo("46071002358668"));

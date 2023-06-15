@@ -24,7 +24,7 @@ public class WsSqlLogModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = null;
         App = null;

@@ -25,7 +25,7 @@ public class WsSqlTable1CBase : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTable1CBase(WsSqlFieldIdentity identityName) : base(identityName)
+    public WsSqlTable1CBase(WsSqlEnumFieldIdentity identityName) : base(identityName)
     {
         Uid1C = Guid.Empty;
     }

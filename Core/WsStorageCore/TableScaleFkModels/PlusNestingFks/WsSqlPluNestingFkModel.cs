@@ -25,7 +25,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluNestingFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluNestingFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Box = new();
         //Plu = new();

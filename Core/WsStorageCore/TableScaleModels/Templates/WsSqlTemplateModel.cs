@@ -19,7 +19,7 @@ public class WsSqlTemplateModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTemplateModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlTemplateModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         CategoryId = string.Empty;
         Title = string.Empty;

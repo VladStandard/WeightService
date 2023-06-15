@@ -17,7 +17,7 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceTypeModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlDeviceTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PrettyName = string.Empty;
     }

@@ -5,7 +5,7 @@ global using NUnit.Framework;
 global using WsAssertCoreTests;
 global using WsBlazorCore.CssStyles;
 global using WsLocalizationCore.Models;
-global using WsStorageCore.Enums;
+global using WsStorageCore.Common;
 global using WsStorageCore.TableDiagModels.Logs;
 global using WsStorageCore.TableDiagModels.LogsTypes;
 global using WsStorageCore.TableScaleFkModels.DeviceScalesFks;

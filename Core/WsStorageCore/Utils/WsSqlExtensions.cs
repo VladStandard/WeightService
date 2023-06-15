@@ -33,13 +33,13 @@ public static class WsSqlExtensions
         {
             criteria.Add(filter.Comparer switch
             {
-                WsSqlFieldComparer.Less => Restrictions.Lt(filter.Name, filter.Value),
-                WsSqlFieldComparer.More => Restrictions.Gt(filter.Name, filter.Value),
-                WsSqlFieldComparer.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
-                WsSqlFieldComparer.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
-                WsSqlFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
-                WsSqlFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
-                WsSqlFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
+                WsSqlEnumFieldComparer.Less => Restrictions.Lt(filter.Name, filter.Value),
+                WsSqlEnumFieldComparer.More => Restrictions.Gt(filter.Name, filter.Value),
+                WsSqlEnumFieldComparer.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
+                WsSqlEnumFieldComparer.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
+                WsSqlEnumFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
+                WsSqlEnumFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
+                WsSqlEnumFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
                 _ => throw new ArgumentOutOfRangeException(nameof(filter.Comparer), filter.Comparer.ToString())
             });
         }

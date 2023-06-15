@@ -426,7 +426,7 @@ internal sealed class WsSqlAccessCoreHelper
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
         object? id = identity?.GetValueAsObjectNullable();
-        if (Equals(identity?.Name, WsSqlFieldIdentity.Uid) && Equals(id, Guid.Empty))
+        if (Equals(identity?.Name, WsSqlEnumFieldIdentity.Uid) && Equals(id, Guid.Empty))
             id = Guid.NewGuid();
         return id is null
             ? ExecuteTransactionCore(session => session.Save(item))
@@ -560,8 +560,8 @@ internal sealed class WsSqlAccessCoreHelper
     public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         identity.Name switch
         {
-            WsSqlFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
-            WsSqlFieldIdentity.Id => GetItemNullable<T>(identity.Id),
+            WsSqlEnumFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
+            WsSqlEnumFieldIdentity.Id => GetItemNullable<T>(identity.Id),
             _ => new()
         };
 

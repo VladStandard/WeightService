@@ -132,7 +132,7 @@ public class WsSqlCrudConfigModel : ICloneable
 
     public static List<WsSqlFieldFilterModel> GetFilters(string className, WsSqlTableBase? item) =>
         item is null || string.IsNullOrEmpty(className) ? new()
-            : GetFiltersIdentity(className, item.Identity.Name == WsSqlFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
+            : GetFiltersIdentity(className, item.Identity.Name == WsSqlEnumFieldIdentity.Uid ? item.IdentityValueUid : item.IdentityValueId);
 
     public static List<WsSqlFieldFilterModel> GetFilters(string className, object? value) =>
         new() { new() { Name = className, Value = value } };

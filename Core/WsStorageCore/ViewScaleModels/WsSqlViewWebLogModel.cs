@@ -18,7 +18,7 @@ public class WsSqlViewWebLogModel : WsSqlTableBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewWebLogModel() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewWebLogModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
 		RequestUrl = string.Empty;
 		RequestCountAll = 0;

@@ -18,7 +18,7 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterResourceFkModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlPrinterResourceFkModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Printer = new();
         TemplateResource = new();

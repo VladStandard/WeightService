@@ -14,7 +14,7 @@ public class WsSqlClipModel : WsSqlTable1CBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public WsSqlClipModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlClipModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Weight = 0;
     }

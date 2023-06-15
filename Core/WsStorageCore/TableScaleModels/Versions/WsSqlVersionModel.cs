@@ -18,7 +18,7 @@ public class WsSqlVersionModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlVersionModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlVersionModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         ReleaseDt = DateTime.MinValue;
         Version = 0;

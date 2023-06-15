@@ -11,29 +11,29 @@ public record WsSqlViewIdentityModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlFieldIdentity Name { get; init; }
+    public WsSqlEnumFieldIdentity Name { get; init; }
     public Guid Uid { get; init; }
     public long Id { get; init; }
-    public bool IsUid => Equals(Name, WsSqlFieldIdentity.Uid);
-    public bool IsId => Equals(Name, WsSqlFieldIdentity.Id);
+    public bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
+    public bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
 
     public WsSqlViewIdentityModel(Guid uid)
     {
-        Name = WsSqlFieldIdentity.Uid;
+        Name = WsSqlEnumFieldIdentity.Uid;
         Uid = uid;
         Id = default;
     }
 
     public WsSqlViewIdentityModel(long id)
     {
-        Name = WsSqlFieldIdentity.Id;
+        Name = WsSqlEnumFieldIdentity.Id;
         Id = id;
         Uid = Guid.Empty;
     }
 
     protected WsSqlViewIdentityModel(SerializationInfo info, StreamingContext context)
     {
-        Name = (WsSqlFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlFieldIdentity));
+        Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
         Id = info.GetInt64(nameof(Id));
     }
@@ -43,7 +43,7 @@ public record WsSqlViewIdentityModel
     #region Public and private methods - override
 
     public override string ToString() =>
-        Name.Equals(WsSqlFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
+        Name.Equals(WsSqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
 
     #endregion
 }

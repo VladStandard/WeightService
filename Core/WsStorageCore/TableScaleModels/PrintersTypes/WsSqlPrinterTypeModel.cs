@@ -15,7 +15,7 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterTypeModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlPrinterTypeModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         //
     }

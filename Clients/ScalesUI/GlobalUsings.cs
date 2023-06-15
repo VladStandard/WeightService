@@ -38,7 +38,6 @@ global using WsLocalizationCore.Utils;
 global using WsPrintCore.Common;
 global using WsScheduleCore.Helpers;
 global using WsScheduleCore.Utils;
-global using WsStorageCore.Enums;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.TableScaleModels.Plus;
 global using WsStorageCore.TableScaleModels.PlusScales;

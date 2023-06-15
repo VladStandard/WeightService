@@ -19,7 +19,7 @@ public class WsSqlViewPluLabelModel: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewPluLabelModel() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;
         ExpirationDate = new();

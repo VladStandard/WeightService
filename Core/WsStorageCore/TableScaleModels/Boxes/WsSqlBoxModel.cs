@@ -14,7 +14,7 @@ public class WsSqlBoxModel : WsSqlTable1CBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public WsSqlBoxModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlBoxModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Weight = 0;
     }

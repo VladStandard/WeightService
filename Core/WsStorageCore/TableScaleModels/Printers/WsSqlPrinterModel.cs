@@ -33,7 +33,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlPrinterModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Ip = string.Empty;
         Port = 0;

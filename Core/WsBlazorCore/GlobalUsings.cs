@@ -19,4 +19,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using WsBlazorCore.CssStyles;
 global using WsDataCore.Utils;
 global using WsLocalizationCore.Models;
-global using WsStorageCore.Enums;
+global using WsStorageCore.Common;

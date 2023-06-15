@@ -15,7 +15,7 @@ public class WsSqlAppModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlAppModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlAppModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         //
     }

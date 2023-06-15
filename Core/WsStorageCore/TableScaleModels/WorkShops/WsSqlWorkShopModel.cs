@@ -17,7 +17,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlWorkShopModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlWorkShopModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         ProductionFacility = new();
     }

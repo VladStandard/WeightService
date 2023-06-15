@@ -18,7 +18,7 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrderWeighingModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlOrderWeighingModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Order = new();
         PluWeighing = new();

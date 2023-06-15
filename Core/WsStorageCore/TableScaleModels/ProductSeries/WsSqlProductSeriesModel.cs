@@ -20,7 +20,7 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlProductSeriesModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlProductSeriesModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Scale = new();
         IsClose = false;

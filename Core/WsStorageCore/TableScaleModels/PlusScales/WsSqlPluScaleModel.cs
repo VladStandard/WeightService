@@ -20,7 +20,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluScaleModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluScaleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         IsActive = false;
         Plu = new();

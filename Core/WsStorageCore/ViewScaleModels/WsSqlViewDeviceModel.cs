@@ -32,7 +32,7 @@ public class WsSqlViewDeviceModel : WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewDeviceModel() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewDeviceModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         LoginDate = new();
         LogoutDate = new();

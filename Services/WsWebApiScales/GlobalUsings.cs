@@ -12,7 +12,7 @@ global using System.Runtime.CompilerServices;
 global using System.Xml.Linq;
 global using WsDataCore.Enums;
 global using WsLocalizationCore.Utils;
-global using WsStorageCore.Enums;
+global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Utils;
 global using WsStorageCore.WebApiModels.BarCodes;

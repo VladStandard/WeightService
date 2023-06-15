@@ -20,7 +20,7 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluGroupFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluGroupFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _pluGroup = new();
         _parent = new();

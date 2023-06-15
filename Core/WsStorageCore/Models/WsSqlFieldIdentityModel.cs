@@ -12,26 +12,26 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlFieldIdentity Name { get; private set; }
+    [XmlElement] public virtual WsSqlEnumFieldIdentity Name { get; private set; }
     [XmlElement] public virtual Guid Uid { get; private set; }
     [XmlElement] public virtual long Id { get; private set; }
-    [XmlIgnore] public virtual bool IsUid => Equals(Name, WsSqlFieldIdentity.Uid);
-    [XmlIgnore] public virtual bool IsId => Equals(Name, WsSqlFieldIdentity.Id);
+    [XmlIgnore] public virtual bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
+    [XmlIgnore] public virtual bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
 
     public WsSqlFieldIdentityModel()
     {
         FieldName = nameof(WsSqlFieldIdentityModel);
-        Name = WsSqlFieldIdentity.Empty;
+        Name = WsSqlEnumFieldIdentity.Empty;
         Id = 0;
         Uid = Guid.Empty;
     }
 
-    public WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName) : this()
+    public WsSqlFieldIdentityModel(WsSqlEnumFieldIdentity identityName) : this()
     {
         Name = identityName;
     }
 
-    private WsSqlFieldIdentityModel(WsSqlFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
+    private WsSqlFieldIdentityModel(WsSqlEnumFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
     {
         Uid = identityUid;
         Id = identityId;
@@ -39,7 +39,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     protected WsSqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Name = (WsSqlFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlFieldIdentity));
+        Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
         Id = info.GetInt64(nameof(Id));
     }
@@ -49,12 +49,12 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        Name.Equals(WsSqlFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
+        Name.Equals(WsSqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
 
     public virtual object? GetValueAsObjectNullable() => Name switch
     {
-        WsSqlFieldIdentity.Id => Id,
-        WsSqlFieldIdentity.Uid => Uid,
+        WsSqlEnumFieldIdentity.Id => Id,
+        WsSqlEnumFieldIdentity.Uid => Uid,
         _ => null
     };
 
@@ -68,8 +68,8 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public override int GetHashCode() => Name switch
     {
-        WsSqlFieldIdentity.Id => Id.GetHashCode(),
-        WsSqlFieldIdentity.Uid => Uid.GetHashCode(),
+        WsSqlEnumFieldIdentity.Id => Id.GetHashCode(),
+        WsSqlEnumFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
 
@@ -106,15 +106,15 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public virtual bool IsNotExists => Name switch
     {
-        WsSqlFieldIdentity.Id => Equals(Id, default(long)),
-        WsSqlFieldIdentity.Uid => Equals(Uid, Guid.Empty),
+        WsSqlEnumFieldIdentity.Id => Equals(Id, default(long)),
+        WsSqlEnumFieldIdentity.Uid => Equals(Uid, Guid.Empty),
         _ => default
     };
 
     public virtual bool IsExists => Name switch
     {
-        WsSqlFieldIdentity.Id => !Equals(Id, default(long)),
-        WsSqlFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
+        WsSqlEnumFieldIdentity.Id => !Equals(Id, default(long)),
+        WsSqlEnumFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
         _ => default
     };
 

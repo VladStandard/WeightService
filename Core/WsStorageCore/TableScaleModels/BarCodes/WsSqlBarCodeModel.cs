@@ -23,7 +23,7 @@ public class WsSqlBarCodeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlBarCodeModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlBarCodeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         TypeTop = string.Empty;
         ValueTop = string.Empty;

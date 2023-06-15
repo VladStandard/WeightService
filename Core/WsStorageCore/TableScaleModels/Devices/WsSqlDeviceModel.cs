@@ -30,7 +30,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlDeviceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;
         LogoutDt = DateTime.MinValue;

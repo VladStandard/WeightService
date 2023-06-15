@@ -20,7 +20,7 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluBrandFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluBrandFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         Brand = new();

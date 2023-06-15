@@ -18,21 +18,21 @@ public class WsSqlTableUniversalBase : SerializeBase
     [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
     [XmlIgnore] public virtual bool IsNew => IsNotExists;
     [XmlIgnore] public virtual bool IsNotNew => IsExists;
-    [XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlFieldIdentity.Id);
-    [XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlFieldIdentity.Uid);
+    [XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlEnumFieldIdentity.Id);
+    [XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlEnumFieldIdentity.Uid);
 
     /// <summary>
     /// Constructor.
     /// </summary>
     public WsSqlTableUniversalBase()
     {
-        Identity = new(WsSqlFieldIdentity.Empty);
+        Identity = new(WsSqlEnumFieldIdentity.Empty);
     }
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTableUniversalBase(WsSqlFieldIdentity identityName) : this()
+    public WsSqlTableUniversalBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }

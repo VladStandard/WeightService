@@ -18,7 +18,7 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluClipFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluClipFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Clip = new();
         Plu = new();

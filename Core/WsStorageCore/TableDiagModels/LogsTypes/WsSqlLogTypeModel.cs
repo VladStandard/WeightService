@@ -18,7 +18,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogTypeModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlLogTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Number = 0x00;
         Icon = string.Empty;

@@ -18,7 +18,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlProductionFacilityModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlProductionFacilityModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Address = string.Empty;
     }

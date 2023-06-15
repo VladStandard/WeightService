@@ -14,11 +14,11 @@ public class WsSqlFieldIdentityValidator : AbstractValidator<WsSqlFieldIdentityM
             .NotEmpty()
             .NotNull()
             .NotEqual(0)
-            .When(item => item.Name == WsSqlFieldIdentity.Id);
+            .When(item => item.Name == WsSqlEnumFieldIdentity.Id);
         RuleFor(item => item.Uid)
             .NotEmpty()
             .NotNull()
             .NotEqual(Guid.Empty)
-            .When(item => item.Name == WsSqlFieldIdentity.Uid);
+            .When(item => item.Name == WsSqlEnumFieldIdentity.Uid);
     }
 }

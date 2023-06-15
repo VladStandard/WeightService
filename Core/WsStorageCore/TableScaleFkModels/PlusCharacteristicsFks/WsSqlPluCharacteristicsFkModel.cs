@@ -18,7 +18,7 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluCharacteristicsFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluCharacteristicsFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         Characteristic = new();

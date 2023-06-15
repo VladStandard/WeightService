@@ -21,7 +21,7 @@ public class WsSqlContragentModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlContragentModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlContragentModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         FullName = string.Empty;
         IdRRef = Guid.Empty;

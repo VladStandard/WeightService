@@ -62,7 +62,7 @@ public sealed class WsSqlPluController : WsSqlTableControllerBase
     public List<WsSqlPluModel> GetListByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.In,
+            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
                 Values = numbers.Cast<object>().ToList() } },
             isMarked, false, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
@@ -72,9 +72,9 @@ public sealed class WsSqlPluController : WsSqlTableControllerBase
     public List<WsSqlPluModel> GetListByNumbers(short minNumber, short maxNumber)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
-            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.MoreOrEqual, Value = minNumber } },
+            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlFieldComparer.LessOrEqual, Value = maxNumber });
+        sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber });
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }

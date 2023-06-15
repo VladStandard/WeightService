@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Common;
+
 namespace WsBlazorCoreTests;
 
 [TestFixture]
@@ -36,7 +38,7 @@ public sealed class CssStylesTests
         CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
         WsTestsUtils.DataTests.AssertBlazorCssStylesValidate(item, false);
 
-        item.IdentityName = WsSqlFieldIdentity.Empty;
+        item.IdentityName = WsSqlEnumFieldIdentity.Empty;
         WsTestsUtils.DataTests.AssertBlazorCssStylesValidate(item, false);
     }
 
@@ -45,7 +47,7 @@ public sealed class CssStylesTests
     {
         CssStyleTableBodyModel item = Substitute.For<CssStyleTableBodyModel>();
 
-        item.IdentityName = WsSqlFieldIdentity.Uid;
+        item.IdentityName = WsSqlEnumFieldIdentity.Uid;
         item.IsShowMarked = true;
 
         WsTestsUtils.DataTests.AssertBlazorCssStylesValidate(item, true);

@@ -14,7 +14,7 @@ public class WsSqlBundleModel : WsSqlTable1CBase
 
     [XmlElement] public virtual decimal Weight { get; set; }
 
-    public WsSqlBundleModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlBundleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
        Weight = 0;
     }

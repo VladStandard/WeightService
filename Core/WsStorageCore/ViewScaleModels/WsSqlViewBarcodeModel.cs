@@ -16,7 +16,7 @@ public class WsSqlViewBarcodeModel: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewBarcodeModel() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewBarcodeModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;
         ValueTop = string.Empty;

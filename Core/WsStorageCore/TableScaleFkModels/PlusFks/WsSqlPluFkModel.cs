@@ -22,7 +22,7 @@ public class WsSqlPluFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _plu = new();
         _parent = new();

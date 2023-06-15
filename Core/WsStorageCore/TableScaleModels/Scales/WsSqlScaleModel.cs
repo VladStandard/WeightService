@@ -38,7 +38,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlScaleModel() : base(WsSqlFieldIdentity.Id)
+    public WsSqlScaleModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         WorkShop = null;
         PrinterMain = null;

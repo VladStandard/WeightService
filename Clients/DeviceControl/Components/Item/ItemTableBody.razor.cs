@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsLocalizationCore.Utils;
-using WsStorageCore.Common;
 
 namespace DeviceControl.Components.Item;
 
@@ -20,16 +19,16 @@ public sealed partial class ItemTableBody : LayoutComponentBase
     private string IdentityName =>
         SqlItem.Identity.Name switch
         {
-            WsSqlFieldIdentity.Id => WsLocaleCore.Table.Id,
-            WsSqlFieldIdentity.Uid => WsLocaleCore.Table.Uid,
+            WsSqlEnumFieldIdentity.Id => WsLocaleCore.Table.Id,
+            WsSqlEnumFieldIdentity.Uid => WsLocaleCore.Table.Uid,
             _ => string.Empty
         };
 
     private string IdentityNameId =>
         SqlItem.Identity.Name switch
         {
-            WsSqlFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
-            WsSqlFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
+            WsSqlEnumFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
+            WsSqlEnumFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
             _ => $"{Guid.Empty}"
         };
 

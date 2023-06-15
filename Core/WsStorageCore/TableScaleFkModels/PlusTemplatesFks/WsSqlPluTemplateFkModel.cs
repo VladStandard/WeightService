@@ -18,7 +18,7 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluTemplateFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluTemplateFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         Template = new();

@@ -22,7 +22,7 @@ public class WsSqlViewLogModel : WsSqlTableBase
 	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewLogModel() : base(WsSqlFieldIdentity.Uid)
+	public WsSqlViewLogModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
 		Line = string.Empty;
 		Host = string.Empty;

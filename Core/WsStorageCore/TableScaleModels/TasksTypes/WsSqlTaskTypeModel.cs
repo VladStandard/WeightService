@@ -15,7 +15,7 @@ public class WsSqlTaskTypeModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTaskTypeModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlTaskTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         //
     }

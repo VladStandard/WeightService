@@ -20,7 +20,7 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceScaleFkModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlDeviceScaleFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = new();
         Scale = new();

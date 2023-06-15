@@ -271,8 +271,8 @@ public class WsDataTestsHelper
 
     public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlTableBase, new()
     {
-        WsSqlFieldIdentityModel fieldIdentity = Substitute.For<WsSqlFieldIdentityModel>(WsSqlFieldIdentity.Empty);
-        fieldIdentity.Name.Returns(WsSqlFieldIdentity.Test);
+        WsSqlFieldIdentityModel fieldIdentity = Substitute.For<WsSqlFieldIdentityModel>(WsSqlEnumFieldIdentity.Empty);
+        fieldIdentity.Name.Returns(WsSqlEnumFieldIdentity.Test);
         fieldIdentity.Uid.Returns(Guid.NewGuid());
         fieldIdentity.Id.Returns(-1);
 

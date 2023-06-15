@@ -7,7 +7,7 @@ global using NUnit.Framework;
 global using WsAssertCoreTests;
 global using WsDataCore.Enums;
 global using WsDataCore.Utils;
-global using WsStorageCore.Enums;
+global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.TableDiagModels.Logs;

@@ -19,7 +19,7 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     [XmlIgnore] public virtual Guid NomenclatureGuid{ get; set; }
 
 
-    public WsSqlPluCharacteristicModel() : base(WsSqlFieldIdentity.Uid)
+    public WsSqlPluCharacteristicModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
         NomenclatureGuid = Guid.Empty;
