@@ -63,12 +63,13 @@ public sealed class WsSqlAccessItemHelper
     public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         AccessCore.ExecQueryNative(query, parameter);
 
-    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save<T>(item);
+    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase => AccessCore.Save(item);
 
-    public void SaveAsync<T>(T? item) where T : WsSqlTableBase => AccessCore.SaveAsync<T>(item).ConfigureAwait(false);
-    
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase =>
         AccessCore.Save(item, identity);
+    
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType) where T : WsSqlTableBase => 
+        AccessCore.Save(item, sessionType);
 
     public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase => AccessCore.Update(item);
 

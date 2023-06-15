@@ -262,7 +262,7 @@ public sealed class WsSqlContextItemHelper
             Member = memberName,
             Message = message
         };
-        AccessCore.SaveAsync(log).ConfigureAwait(false);
+        AccessCore.Save(log, WsSqlEnumSessionType.IsolatedAsync);
     }
 
     public void SaveLogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
@@ -349,7 +349,7 @@ public sealed class WsSqlContextItemHelper
             App = App,
             Device = Device,
         };
-        AccessCore.SaveAsync(logMemory).ConfigureAwait(false);
+        AccessCore.Save(logMemory, WsSqlEnumSessionType.IsolatedAsync);
     }
 
     #endregion
@@ -389,7 +389,7 @@ public sealed class WsSqlContextItemHelper
             CountSuccess = countSuccess,
             CountErrors = countErrors,
         };
-        AccessManager.AccessItem.SaveAsync(logWebRequest);
+        AccessCore.Save(logWebRequest, WsSqlEnumSessionType.IsolatedAsync);
 
         WsSqlLogWebModel logWebResponse = new()
         {
@@ -407,7 +407,7 @@ public sealed class WsSqlContextItemHelper
             CountSuccess = countSuccess,
             CountErrors = countErrors,
         };
-        AccessManager.AccessItem.SaveAsync(logWebResponse);
+        AccessCore.Save(logWebResponse, WsSqlEnumSessionType.IsolatedAsync);
 
         WsSqlLogTypeModel logTypeItem = AccessCore.GetItemLogTypeNotNullable(logType);
         WsSqlLogWebFkModel logWebFk = new()
@@ -418,7 +418,7 @@ public sealed class WsSqlContextItemHelper
             LogType = logTypeItem,
             Device = Device,
         };
-        AccessCore.SaveAsync(logWebFk).ConfigureAwait(false);
+        AccessCore.Save(logWebFk, WsSqlEnumSessionType.IsolatedAsync);
     }
 
     #endregion
@@ -466,7 +466,7 @@ public sealed class WsSqlContextItemHelper
                 LogoutDt = DateTime.Now,
                 Ipv4 = MdNetUtils.GetLocalIpAddress()
             };
-            AccessManager.AccessItem.Save(device);
+            AccessManager.AccessItem.Save(device, WsSqlEnumSessionType.Direct);
         }
         else
         {

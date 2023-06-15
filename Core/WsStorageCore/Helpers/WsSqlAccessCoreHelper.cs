@@ -386,14 +386,30 @@ internal sealed class WsSqlAccessCoreHelper
         return ExecuteTransactionCore(session => session.Save(item));
     }
 
-    public WsSqlCrudResultModel SaveIsolated<T>(T? item) where T : WsSqlTableBase
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType) where T : WsSqlTableBase
     {
-        if (item is null) return new(new ArgumentException());
+        if (item is null) throw new ArgumentException();
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransactionIsolatedCore(session => session.Save(item));
+        switch (sessionType)
+        {
+            case WsSqlEnumSessionType.Direct:
+                ExecuteTransactionCore(session => session.Save(item));
+                break;
+            case WsSqlEnumSessionType.Isolated:
+                ExecuteTransactionIsolatedCore(session => session.Save(item));
+                break;
+            case WsSqlEnumSessionType.Async:
+                ExecuteTransactionCore(session => session.SaveAsync(item));
+                break;
+            case WsSqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
 
     public async Task SaveAsync<T>(T? item) where T : WsSqlTableBase

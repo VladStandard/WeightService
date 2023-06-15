@@ -24,7 +24,7 @@ public class UserRightsService : IUserRightsService
         WsSqlAccessModel? access = ContextManager.ContextItem.GetItemAccessNullable(username);
         if (access == null)
         {
-            access = new WsSqlAccessModel
+            access = new()
             {
                 LoginDt = DateTime.Now,
                 Name = username,
@@ -62,7 +62,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         ClaimsPrincipal? user = _httpContextAccessor.HttpContext?.User;
 
         if (user?.Identity?.IsAuthenticated != true || user.Identity.Name == null)
-            return new AuthenticationState(new ClaimsPrincipal());
+            return new(new());
 
         ClaimsIdentity claimsIdentity = new(user.Claims, "Windows");
 
@@ -71,14 +71,14 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         if (!_cache.TryGetValue(user.Identity.Name, out userRights))
         {
             userRights = await _userRightsService.GetUserRightsAsync(user.Identity.Name);
-            MemoryCacheEntryOptions cacheLifTime = new MemoryCacheEntryOptions
+            MemoryCacheEntryOptions cacheLifTime = new()
             {
                 AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2),
             };
             _cache.Set(user.Identity.Name, userRights, cacheLifTime);
         }
         foreach (string right in userRights)
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, right));
-        return new AuthenticationState(new ClaimsPrincipal(claimsIdentity));
+            claimsIdentity.AddClaim(new(ClaimTypes.Role, right));
+        return new(new(claimsIdentity));
     }
 }
