@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocalizationLabelPrint : WsLocaleBase
+public sealed class WsLocalizationLabelPrint : WsLocalizationBase
 {
     #region CodingSeb.Localization
 

@@ -4,16 +4,18 @@
 namespace WsLocalizationCoreTests.Models;
 
 [TestFixture]
-public sealed class WsLocalizationLabelPrintTests
+public sealed class WsLocalizationManagerTests
 {
     [Test]
     public void Check_default_language()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsLocalizationLabelPrint wsLocalization = new();
+            WsLocalizationManager wsLocalization = new();
             Assert.That(wsLocalization.Lang, Is.EqualTo(WsEnumLanguage.Russian));
             Assert.That(wsLocalization.Locale.CurrentLanguage, Is.EqualTo("ru"));
+            Assert.That(wsLocalization.LabelPrint.Lang, Is.EqualTo(WsEnumLanguage.Russian));
+            Assert.That(wsLocalization.LabelPrint.Locale.CurrentLanguage, Is.EqualTo("ru"));
         });
     }
     
@@ -22,36 +24,33 @@ public sealed class WsLocalizationLabelPrintTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsLocalizationLabelPrint wsLocalization = new();
+            WsLocalizationManager wsLocalization = new();
             wsLocalization.Lang = WsEnumLanguage.English;
             Assert.That(wsLocalization.Lang, Is.EqualTo(WsEnumLanguage.English));
             Assert.That(wsLocalization.Locale.CurrentLanguage, Is.EqualTo("en"));
+            Assert.That(wsLocalization.LabelPrint.Lang, Is.EqualTo(WsEnumLanguage.English));
+            Assert.That(wsLocalization.LabelPrint.Locale.CurrentLanguage, Is.EqualTo("en"));
         });
     }
-    
+
     [Test]
     public void Using_multiplayer()
     {
         Assert.DoesNotThrow(() =>
         {
-            WsLocalizationLabelPrint wsLocalization1 = new();
-            WsLocalizationLabelPrint wsLocalization2 = new();
+            WsLocalizationManager wsLocalization1 = new();
+            WsLocalizationManager wsLocalization2 = new();
             TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
             TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
 
             wsLocalization1.Lang = WsEnumLanguage.English;
             TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
             TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
-            TestContext.WriteLine($"{nameof(wsLocalization1.AppLoad)}: {wsLocalization1.AppLoad}");
-            TestContext.WriteLine($"{nameof(wsLocalization2.AppLoad)}: {wsLocalization2.AppLoad}");
 
             Assert.That(wsLocalization1.Lang, Is.EqualTo(WsEnumLanguage.English));
             Assert.That(wsLocalization1.Locale.CurrentLanguage, Is.EqualTo("en"));
             Assert.That(wsLocalization2.Lang, Is.EqualTo(WsEnumLanguage.Russian));
             Assert.That(wsLocalization2.Locale.CurrentLanguage, Is.EqualTo("ru"));
-            
-            Assert.That(wsLocalization1.AppLoad, Is.EqualTo("Loading"));
-            Assert.That(wsLocalization2.AppLoad, Is.EqualTo("Загрузка"));
         });
     }
 }

@@ -4,17 +4,17 @@
 namespace WsLocalizationCore.Models;
 
 /// <summary>
-/// Локализация.
+/// Менеджер локализации.
 /// </summary>
-public class WsLocalizationModel : WsLocaleBase
+public sealed class WsLocalizationManager : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 
     public WsLocalizationLabelPrint LabelPrint { get; } = new();
 
-    public WsLocalizationModel()
+    public WsLocalizationManager()
     {
-        LabelPrint.Locale = Locale;
+        LabelPrint.SetLocale(Locale);
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
         LocalizationLoader.Instance.AddDirectory(@"Locales");
     }

@@ -17,5 +17,5 @@
 	<localization:WsLocaleSystem x:Key="LocaleSystem" />
 	<localization:WsLocaleTable x:Key="LocaleTable" />
 	<localization:WsLocalizationLabelPrint x:Key="LocalizationLabelPrint" />
-	<localization:WsLocalizationModel x:Key="LocalizationModel" />
+	<localization:WsLocalizationManager x:Key="LocalizationManager" />
 </ResourceDictionary>

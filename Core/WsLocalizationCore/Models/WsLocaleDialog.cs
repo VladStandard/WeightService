@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleDialog : WsLocaleBase
+public sealed class WsLocaleDialog : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 

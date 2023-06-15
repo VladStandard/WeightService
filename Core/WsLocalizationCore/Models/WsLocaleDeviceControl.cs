@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleDeviceControl : WsLocaleBase
+public sealed class WsLocaleDeviceControl : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 

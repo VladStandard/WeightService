@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleSql : WsLocaleBase
+public sealed class WsLocaleSql : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 

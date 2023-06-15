@@ -54,7 +54,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public bool IsIncrementCounter { get; private set; } = true;
 
-    public WsLocalizationModel Localization { get; set; } = new();
+    public WsLocalizationManager Localization { get; set; } = new();
 
 
     public WsLabelSessionHelper()

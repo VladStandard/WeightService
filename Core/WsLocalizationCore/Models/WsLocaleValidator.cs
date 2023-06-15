@@ -3,7 +3,7 @@
 
 namespace WsLocalizationCore.Models;
 
-public sealed class WsLocaleValidator : WsLocaleBase
+public sealed class WsLocaleValidator : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 

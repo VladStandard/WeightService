@@ -4,28 +4,24 @@
 namespace WsLocalizationCore.Common;
 
 /// <summary>
-/// Base class for localization.
+/// Базовый класс локализации.
 /// </summary>
-public class WsLocaleBase : INotifyPropertyChanged
+public class WsLocalizationBase : INotifyPropertyChanged
 {
     #region INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    //private void OnPropertyChanged([CallerMemberName] string memberName = "")
-    //{
-    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
-    //}
-
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    public Loc Locale { get; set; } = Loc.Instance;
+    public Loc Locale { get; private set; } = Loc.Instance;
+    //public Loc Locale { get; private set; } = new();
     private WsEnumLanguage _lang;
-    public WsEnumLanguage Lang { get => _lang; private set { _lang = value; SetLanguage(_lang); } }
+    public WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
 
-    protected WsLocaleBase()
+    public WsLocalizationBase()
     {
         Lang = WsEnumLanguage.Russian;
     }
@@ -33,6 +29,15 @@ public class WsLocaleBase : INotifyPropertyChanged
     #endregion
 
     #region Public and private methods
+
+    /// <summary>
+    /// Задать локаль.
+    /// </summary>
+    /// <param name="loc"></param>
+    public void SetLocale(Loc loc)
+    {
+        Locale = loc;
+    }
 
     /// <summary>
     /// Сменить язык.
