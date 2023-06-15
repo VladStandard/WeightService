@@ -53,10 +53,10 @@ public static class WsSqlExtensions
         {
             switch (order.Direction)
             {
-                case WsSqlOrderDirection.Asc:
+                case WsSqlEnumOrder.Asc:
                     criteria.AddOrder(Order.Asc(order.Name));
                     break;
-                case WsSqlOrderDirection.Desc:
+                case WsSqlEnumOrder.Desc:
                     criteria.AddOrder(Order.Desc(order.Name));
                     break;
             }

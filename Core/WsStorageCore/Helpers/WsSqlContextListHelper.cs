@@ -88,7 +88,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlAccessModel> GetListNotNullableAccesses(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name), Direction = WsSqlOrderDirection.Asc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name), Direction = WsSqlEnumOrder.Asc });
         List<WsSqlAccessModel> list = GetListNotNullableCore<WsSqlAccessModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Name).ToList();
@@ -108,7 +108,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlBarCodeModel> GetListNotNullableBarCodes(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlBarCodeModel> list = GetListNotNullableCore<WsSqlBarCodeModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -224,7 +224,7 @@ public sealed class WsSqlContextListHelper
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlLogModel> list = GetListNotNullableCore<WsSqlLogModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.CreateDt).ToList();
@@ -235,7 +235,7 @@ public sealed class WsSqlContextListHelper
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlLogMemoryModel> list = GetListNotNullableCore<WsSqlLogMemoryModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.CreateDt).ToList();
@@ -305,7 +305,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlOrderModel> GetListNotNullableOrders(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlOrderModel> list = GetListNotNullableCore<WsSqlOrderModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -315,7 +315,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlOrderWeighingModel> GetListNotNullableOrdersWeighings(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlOrderWeighingModel> list = GetListNotNullableCore<WsSqlOrderWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -335,7 +335,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluLabelModel> GetListNotNullablePluLabels(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlPluLabelModel> list = GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -470,7 +470,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluWeighingModel> GetListNotNullablePlusWeighings(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlPluWeighingModel> list = GetListNotNullableCore<WsSqlPluWeighingModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -615,7 +615,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlProductSeriesModel> GetListNotNullableProductSeries(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlProductSeriesModel> list = GetListNotNullableCore<WsSqlProductSeriesModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.CreateDt).ToList();
@@ -636,7 +636,7 @@ public sealed class WsSqlContextListHelper
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlScaleScreenShotModel> list = GetListNotNullableCore<WsSqlScaleScreenShotModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.ChangeDt).ToList();
@@ -688,7 +688,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlVersionModel> GetListNotNullableVersions(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlOrderDirection.Desc });
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc });
         List<WsSqlVersionModel> list = GetListNotNullableCore<WsSqlVersionModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderByDescending(item => item.Version).ToList();
@@ -801,7 +801,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluLabelModel> GetListPluLabels(WsSqlIsMarked isMarked, bool isShowOnlyTop)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
-        sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlOrderDirection.Desc });
+        sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         return GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
     }
 
@@ -823,7 +823,7 @@ public sealed class WsSqlContextListHelper
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlOrderDirection.Asc },
+            new WsSqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlEnumOrder.Asc },
             isMarked, isShowOnlyTop);
         result.AddRange(GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig));
         result = result.OrderBy(item => item.Bundle.Name).ToList();
@@ -835,7 +835,7 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlOrderDirection.Asc },
+            new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlEnumOrder.Asc },
             isMarked, isShowOnlyTop);
         return GetListNotNullableCore<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
     }
@@ -843,7 +843,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPrinterTypeModel> GetListPrinterTypes(WsSqlIsMarked isMarked, bool isShowOnlyTop)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlPrinterTypeModel.Name), Direction = WsSqlOrderDirection.Asc }, isMarked, isShowOnlyTop);
+            new WsSqlFieldOrderModel { Name = nameof(WsSqlPrinterTypeModel.Name), Direction = WsSqlEnumOrder.Asc }, isMarked, isShowOnlyTop);
         return GetListNotNullableCore<WsSqlPrinterTypeModel>(sqlCrudConfig);
     }
 

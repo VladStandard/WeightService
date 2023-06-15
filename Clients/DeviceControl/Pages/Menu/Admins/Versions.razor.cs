@@ -3,6 +3,7 @@
 
 using DeviceControl.Components.Section;
 using WsBlazorCore.Settings;
+using WsStorageCore.Common;
 using WsStorageCore.TableScaleModels.Versions;
 
 namespace DeviceControl.Pages.Menu.Admins;
@@ -15,7 +16,7 @@ public sealed partial class Versions : SectionBase<WsSqlVersionModel>
     {
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.AddOrders(
-            new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlOrderDirection.Desc }
+            new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc }
         );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }

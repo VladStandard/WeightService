@@ -3,6 +3,7 @@
 
 using DeviceControl.Components.Section;
 using WsBlazorCore.Settings;
+using WsStorageCore.Common;
 using WsStorageCore.TableScaleModels.Plus;
 
 namespace DeviceControl.Pages.Menu.References1C.Plus;
@@ -15,7 +16,7 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
     {
         SqlCrudConfigSection.IsResultOrder = false;
         SqlCrudConfigSection.AddOrders(
-            new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlOrderDirection.Asc }
+            new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlEnumOrder.Asc }
         );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }

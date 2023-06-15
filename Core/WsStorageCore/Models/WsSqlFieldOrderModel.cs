@@ -10,7 +10,7 @@ namespace WsStorageCore.Models;
 public sealed record WsSqlFieldOrderModel
 {
     public string Name { get; init; } = "";
-    public WsSqlOrderDirection Direction { get; init; } = WsSqlOrderDirection.Asc;
+    public WsSqlEnumOrder Direction { get; init; } = WsSqlEnumOrder.Asc;
 
     public override int GetHashCode() => (Name.ToUpper(), Direction).GetHashCode();
 
