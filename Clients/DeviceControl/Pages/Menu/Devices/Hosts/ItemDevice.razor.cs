@@ -31,14 +31,14 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
         base.SetSqlItemCast();
         DeviceTypeFkModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceTypeModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
-        DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.AccessItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
+        DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.AccessManager.SqlCoreItem.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     }
 
     protected override void SqlItemSaveAdditional()
     {
         if (DeviceType.IsNew)
         {
-            ContextManager.AccessManager.AccessItem.Delete(DeviceTypeFk);
+            ContextManager.AccessManager.SqlCoreItem.Delete(DeviceTypeFk);
             return;
         }
         DeviceTypeFk.Type = DeviceType;

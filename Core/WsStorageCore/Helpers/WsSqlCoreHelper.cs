@@ -9,14 +9,14 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа.
 /// Базовый слой доступа к БД.
 /// </summary>
-internal sealed class WsSqlAccessCoreHelper
+internal sealed class WsSqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAccessCoreHelper _instance;
+    private static WsSqlCoreHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAccessCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
@@ -40,19 +40,6 @@ internal sealed class WsSqlAccessCoreHelper
 
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
 
-    // Be careful. If setup SqlConfiguration.DefaultSchema, this line will make an Exception!
-    private void SetSqlConfiguration(bool isShowSql)
-    {
-        string connectionString = GetConnectionString();
-        if (string.IsNullOrEmpty(connectionString))
-            throw new ArgumentNullException(nameof(connectionString));
-
-        SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
-        if (isShowSql)
-            SqlConfiguration.ShowSql();
-        SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
-    }
-
     private FluentConfiguration? _fluentConfiguration;
     private FluentConfiguration FluentConfiguration
     {
@@ -65,45 +52,60 @@ internal sealed class WsSqlAccessCoreHelper
         set => _fluentConfiguration = value;
     }
 
-    // Be careful. If there are errors in the mapping, this line will make an Exception!
-    private void SetupFluentConfiguration()
+    private void SetFluentConfiguration()
     {
         if (SqlConfiguration is null)
             throw new ArgumentNullException(nameof(SqlConfiguration));
 
         FluentConfiguration = Fluently.Configure().Database(SqlConfiguration);
         AddConfigurationMappings(FluentConfiguration);
+        // Будь осторожен. Ошибки маппингов ведут к Exception!
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
         //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
-    public void SetupSessionFactory(bool isShowSql, ISessionFactory? sessionFactory = null)
+    public void SetSessionFactory(bool isShowSql)
     {
         lock (_lockerSessionFactory)
         {
             SetSqlConfiguration(isShowSql);
-            SetupFluentConfiguration();
-            SessionFactory = sessionFactory ?? FluentConfiguration.BuildSessionFactory();
+            SetFluentConfiguration();
+            SessionFactory = FluentConfiguration.BuildSessionFactory();
         }
     }
-    
-    private ISession? _sessionSelect;
-    private readonly object _lockerSessionSelect = new();
-    private ISession SessionSelect
+
+    // Будь осторожен. Настройка SqlConfiguration.DefaultSchema ведёт к Exception!
+    // Вместо dbo используются: db_scales, ref, diag.
+    private void SetSqlConfiguration(bool isShowSql)
     {
-        get
-        {
-            if (_sessionSelect is null || !_sessionSelect.IsOpen)
-            {
-                _sessionSelect = SessionFactory.OpenSession();
-                _sessionSelect.FlushMode = FlushMode.Manual;
-            }
-            return _sessionSelect;
-        }
+        string connectionString = GetConnectionString();
+        if (string.IsNullOrEmpty(connectionString))
+            throw new ArgumentNullException(nameof(connectionString));
+
+        SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
+        if (isShowSql)
+            SqlConfiguration.ShowSql();
+        SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
     }
+
+    private object LockerSelect { get; } = new();
+    private object LockerExecute { get; } = new();
+    //private ISession? _sessionSelect;
+    //private ISession SessionSelect
+    //{
+    //    get
+    //    {
+    //        if (_sessionSelect is null || !_sessionSelect.IsOpen)
+    //        {
+    //            _sessionSelect = SessionFactory.OpenSession();
+    //            _sessionSelect.FlushMode = FlushMode.Manual;
+    //        }
+    //        return _sessionSelect;
+    //    }
+    //}
+
     private ISession? _sessionExecute;
-    private readonly object _lockerSessionExecute = new();
     private ISession SessionExecute
     {
         get
@@ -119,20 +121,6 @@ internal sealed class WsSqlAccessCoreHelper
 
     private void Close()
     {
-        lock (_lockerSessionSelect)
-        {
-            SessionSelect.Disconnect();
-            SessionSelect.Close();
-            SessionSelect.Dispose();
-        }
-
-        lock (_lockerSessionExecute)
-        {
-            SessionExecute.Disconnect();
-            SessionExecute.Close();
-            SessionExecute.Dispose();
-        }
-
         lock (_lockerSessionFactory)
         {
             SessionFactory.Close();
@@ -140,7 +128,7 @@ internal sealed class WsSqlAccessCoreHelper
         }
     }
 
-    ~WsSqlAccessCoreHelper()
+    ~WsSqlCoreHelper()
     {
         Close();
     }
@@ -149,6 +137,10 @@ internal sealed class WsSqlAccessCoreHelper
 
     #region Public and private methods - Base
 
+    /// <summary>
+    /// Получить строку подключения к БД.
+    /// </summary>
+    /// <returns></returns>
     private string GetConnectionString() =>
         JsonSettings.IsRemote
         ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
@@ -254,16 +246,18 @@ internal sealed class WsSqlAccessCoreHelper
     }
 
     /// <summary>
-    /// Quick select in one session.
+    /// Select in isolated session.
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    private WsSqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
+    private WsSqlCrudResultModel ExecuteSelectIsolatedCore(Action<ISession> action)
     {
         try
         {
-            action(SessionSelect);
-            SessionSelect.Clear();
+            using ISession session = SessionFactory.OpenSession();
+            session.FlushMode = FlushMode.Commit;
+            action(session);
+            session.Clear();
         }
         catch (Exception ex)
         {
@@ -279,7 +273,7 @@ internal sealed class WsSqlAccessCoreHelper
     /// <returns></returns>
     private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
     {
-        lock (_lockerSessionExecute)
+        lock (LockerExecute)
         {
             using ITransaction transaction = SessionExecute.BeginTransaction();
             try
@@ -297,6 +291,9 @@ internal sealed class WsSqlAccessCoreHelper
             finally
             {
                 transaction.Dispose();
+                SessionExecute.Disconnect();
+                SessionExecute.Close();
+                SessionExecute.Dispose();
             }
             return new(true);
         }
@@ -309,7 +306,7 @@ internal sealed class WsSqlAccessCoreHelper
     /// <returns></returns>
     private WsSqlCrudResultModel ExecuteTransactionIsolatedCore(Action<ISession> action)
     {
-        lock (_lockerSessionExecute)
+        lock (LockerExecute)
         {
             using ISession session = SessionFactory.OpenSession();
             session.FlushMode = FlushMode.Commit;
@@ -337,7 +334,7 @@ internal sealed class WsSqlAccessCoreHelper
     public bool IsConnected()
     {
         bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             result = session.IsConnected;
         });
@@ -402,36 +399,22 @@ internal sealed class WsSqlAccessCoreHelper
                 ExecuteTransactionIsolatedCore(session => session.Save(item));
                 break;
             case WsSqlEnumSessionType.Async:
-                ExecuteTransactionCore(session => session.SaveAsync(item));
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    ExecuteTransactionCore(session => session.SaveAsync(item));
+                }).ConfigureAwait(true);
                 break;
             case WsSqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
+                }).ConfigureAwait(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
         }
-    }
-
-    public async Task SaveAsync<T>(T? item) where T : WsSqlTableBase
-    {
-        if (item is null) return;
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        item.ClearNullProperties();
-        item.CreateDt = DateTime.Now;
-        item.ChangeDt = DateTime.Now;
-        ExecuteTransactionCore(session => session.SaveAsync(item));
-    }
-
-    public async Task SaveIsolatedAsync<T>(T? item) where T : WsSqlTableBase
-    {
-        if (item is null) return;
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        item.ClearNullProperties();
-        item.CreateDt = DateTime.Now;
-        item.ChangeDt = DateTime.Now;
-        ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
     }
 
     public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase
@@ -533,7 +516,7 @@ internal sealed class WsSqlAccessCoreHelper
     public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
@@ -596,13 +579,14 @@ internal sealed class WsSqlAccessCoreHelper
     public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         GetItemNullableById<T>(id) ?? new();
 
+    // TODO: исправить здесь
     public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase
     {
         if (item is null) return new(false);
         bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
-            result = session.Query<T>().Any(item => item.IsAny(item));
+            result = session.Query<T>().Any(item2 => item2.IsAny(item));
 
             //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
 
@@ -644,7 +628,7 @@ internal sealed class WsSqlAccessCoreHelper
     public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T[]? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>().ToArray();
@@ -660,7 +644,7 @@ internal sealed class WsSqlAccessCoreHelper
     public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T[]? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -676,7 +660,7 @@ internal sealed class WsSqlAccessCoreHelper
     public T? GetNativeItemNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -693,7 +677,7 @@ internal sealed class WsSqlAccessCoreHelper
     private object[]? GetNativeArrayObjectsNullable(string query, List<SqlParameter> parameters)
     {
         object[]? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)

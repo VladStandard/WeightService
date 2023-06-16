@@ -18,26 +18,17 @@ public sealed class WsSqlPluLineController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlPluScaleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluScaleModel>();
+    public WsSqlPluScaleModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluScaleModel>();
 
-    public WsSqlPluScaleModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(uid);
+    public WsSqlPluScaleModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(uid);
 
     public WsSqlPluScaleModel GetItem(long scaleId, ushort pluNumber)
     {
         WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(
             item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
-        return AccessItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
+        return SqlCoreItem.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
     }
 
     public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(SqlCrudConfig);

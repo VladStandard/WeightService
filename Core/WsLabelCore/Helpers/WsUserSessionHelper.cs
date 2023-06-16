@@ -249,9 +249,9 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
         if (LabelSession.PluWeighing.IsNew)
-            ContextManager.AccessItem.Save(LabelSession.PluWeighing, WsSqlEnumSessionType.Direct);
+            ContextManager.SqlCoreItem.Save(LabelSession.PluWeighing, WsSqlEnumSessionType.Direct);
         else
-            ContextManager.AccessItem.Update(LabelSession.PluWeighing);
+            ContextManager.SqlCoreItem.Update(LabelSession.PluWeighing);
     }
 
     /// <summary>

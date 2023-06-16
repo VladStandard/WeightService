@@ -20,35 +20,34 @@ internal sealed class WsSqlContextCoreHelper
 
     #region Public and private fields, properties, constructor
 
-    public WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
-    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     #endregion
 
     #region Public and private methods
 
-    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new() => AccessCore.GetItemNullable<T>(value);
+    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new() => SqlCore.GetItemNullable<T>(value);
 
     [Obsolete(@"Use GetItemNotNullable(SqlFieldIdentityModel) or GetItemNullableByUid(Guid?) or GetItemNullableById(long?)")]
-    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() => AccessCore.GetItemNotNullable<T>(value);
+    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() => SqlCore.GetItemNotNullable<T>(value);
 
     public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNullable<T>(identity);
+        SqlCore.GetItemNullable<T>(identity);
 
     public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNotNullable<T>(identity);
+        SqlCore.GetItemNotNullable<T>(identity);
 
     public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNullableByUid<T>(uid);
+        SqlCore.GetItemNullableByUid<T>(uid);
 
     public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNotNullableByUid<T>(uid);
+        SqlCore.GetItemNotNullableByUid<T>(uid);
 
     public T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNullableById<T>(id);
+        SqlCore.GetItemNullableById<T>(id);
 
     public T GetItemNotNullableById<T>(long id) where T : WsSqlTableBase, new() =>
-        AccessCore.GetItemNotNullableById<T>(id);
+        SqlCore.GetItemNotNullableById<T>(id);
 
     /// <summary>
     /// List of tables models.
@@ -312,7 +311,7 @@ internal sealed class WsSqlContextCoreHelper
     public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos()
     {
         List<WsSqlDbFileSizeInfoModel> result = new();
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(WsSqlQueriesSystem.Properties.GetDbFileSizes);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(WsSqlQueriesSystem.Properties.GetDbFileSizes);
         foreach (object obj in objects)
         {
             if (obj is object[] { Length: 4 } item)

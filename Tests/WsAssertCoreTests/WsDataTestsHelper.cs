@@ -1,11 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsBlazorCore.CssStyles;
-using WsBlazorCore.Utils;
-using WsLocalizationCore.Utils;
-using WsStorageCore.Common;
-
 namespace WsAssertCoreTests;
 
 public class WsDataTestsHelper
@@ -142,7 +137,7 @@ public class WsDataTestsHelper
             WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
-            PrintTopRecords(items, 5, true);
+            PrintTopRecords(items, 0, true);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 

@@ -18,18 +18,11 @@ public sealed class WsSqlLineController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlScaleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlScaleModel>();
+    public WsSqlScaleModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlScaleModel>();
 
-    public WsSqlScaleModel GetItem(Guid uid) => AccessItem.GetItemNotNullable<WsSqlScaleModel>(uid);
+    public WsSqlScaleModel GetItem(Guid uid) => SqlCoreItem.GetItemNotNullable<WsSqlScaleModel>(uid);
 
     public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
 

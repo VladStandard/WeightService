@@ -10,7 +10,15 @@ public class WsSqlTableControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
+    protected WsSqlCoreItemHelper SqlCoreItem => WsSqlCoreItemHelper.Instance;
+    
+    protected WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
+
+    protected WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+
+    protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+
+    protected WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
             WsSqlEnumIsMarked.ShowAll, false, false, true, false);
 
     #endregion

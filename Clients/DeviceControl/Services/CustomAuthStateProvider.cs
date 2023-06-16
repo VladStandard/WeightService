@@ -30,12 +30,12 @@ public class UserRightsService : IUserRightsService
                 Name = username,
                 Rights = (byte)WsEnumAccessRights.None
             };
-            ContextManager.AccessItem.Save(access, WsSqlEnumSessionType.Direct);
+            ContextManager.SqlCoreItem.Save(access, WsSqlEnumSessionType.Direct);
         }
         else
         {
             access.LoginDt = DateTime.Now;
-            ContextManager.AccessItem.Update(access);
+            ContextManager.SqlCoreItem.Update(access);
         }
         for (int i = access.Rights; i >= 0; --i)
             rights.Add($"{i}");

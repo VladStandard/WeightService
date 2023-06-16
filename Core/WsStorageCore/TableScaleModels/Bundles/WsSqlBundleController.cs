@@ -18,17 +18,9 @@ public sealed class WsSqlBundleController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlBundleModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBundleModel>();
+    public WsSqlBundleModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlBundleModel>();
 
     public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
 

@@ -20,8 +20,6 @@ public sealed class WsSqlPluBundleFkController : WsSqlTableControllerBase
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlBundleController ContextBundle => WsSqlBundleController.Instance;
     private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
 
@@ -31,7 +29,7 @@ public sealed class WsSqlPluBundleFkController : WsSqlTableControllerBase
 
     public WsSqlPluBundleFkModel GetNewItem()
     {
-        WsSqlPluBundleFkModel item = AccessItem.GetItemNewEmpty<WsSqlPluBundleFkModel>();
+        WsSqlPluBundleFkModel item = SqlCoreItem.GetItemNewEmpty<WsSqlPluBundleFkModel>();
         item.Plu = ContextPlu.GetNewItem();
         item.Bundle = ContextBundle.GetNewItem();
         return item;

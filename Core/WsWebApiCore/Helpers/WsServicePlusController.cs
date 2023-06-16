@@ -23,7 +23,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (boxDb is null || boxDb.IsNew) return false;
         boxDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(boxDb);
+        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(boxDb);
         if (dbResult.IsOk)
         {
             if (isCounter)
@@ -41,7 +41,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (bundleDb is null || bundleDb.IsNew) return false;
         bundleDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(bundleDb);
+        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(bundleDb);
         if (dbResult.IsOk)
         {
             if (isCounter)
@@ -59,7 +59,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (clipDb is null || clipDb.IsNew) return false;
         clipDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.AccessItem.Update(clipDb);
+        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(clipDb);
         if (dbResult.IsOk)
         {
             if (isCounter)
@@ -79,7 +79,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     //    pluDb.Identity = pluXml.Identity;
     //    pluDb.UpdateProperties(pluXml);
     //    // Native update -> Be careful, good luck.
-    //    SqlCrudResultModel dbResult = AccessManager.AccessItem.ExecQueryNative(
+    //    SqlCrudResultModel dbResult = AccessManager.SqlCoreItem.ExecQueryNative(
     //        WsWebSqlQueries.UpdatePlu, new List<SqlParameter>
     //        {
     //            new("uid", pluXml.IdentityValueUid),

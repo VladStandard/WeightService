@@ -18,23 +18,15 @@ public sealed class WsSqlTemplateController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlTemplateModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlTemplateModel>();
+    public WsSqlTemplateModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlTemplateModel>();
 
     public WsSqlTemplateModel GetItem(ushort pluNumber)
     {
-        WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(item => Equals(item.PluNumber, (ushort)pluNumber));
-        return AccessItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
+        WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(item => 
+            Equals(item.PluNumber, pluNumber));
+        return SqlCoreItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
     }
 
     public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(SqlCrudConfig);

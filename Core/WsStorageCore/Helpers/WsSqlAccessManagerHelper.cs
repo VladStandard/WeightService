@@ -20,15 +20,15 @@ public sealed class WsSqlAccessManagerHelper
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
-    public WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    public WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
-    public ISessionFactory SessionFactory => AccessCore.SessionFactory;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    public WsSqlCoreItemHelper SqlCoreItem => WsSqlCoreItemHelper.Instance;
+    public WsSqlCoreListHelper SqlCoreList => WsSqlCoreListHelper.Instance;
+    public ISessionFactory SessionFactory => SqlCore.SessionFactory;
 
     #endregion
 
-    public bool IsConnected() => AccessCore.IsConnected();
+    public bool IsConnected() => SqlCore.IsConnected();
 
     public void AddConfigurationMappings(FluentConfiguration fluentConfiguration) =>
-        AccessCore.AddConfigurationMappings(fluentConfiguration);
+        SqlCore.AddConfigurationMappings(fluentConfiguration);
 }

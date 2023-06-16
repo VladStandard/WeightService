@@ -18,20 +18,11 @@ public sealed class WsSqlAreaController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlProductionFacilityModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
+    public WsSqlProductionFacilityModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
 
-    public WsSqlProductionFacilityModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
+    public WsSqlProductionFacilityModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
 
     public List<WsSqlProductionFacilityModel> GetList() => ContextList.GetListNotNullableAreas(SqlCrudConfig);
 

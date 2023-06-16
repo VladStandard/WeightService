@@ -18,14 +18,6 @@ public sealed class WsSqlPluStorageMethodFkController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private static WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private static WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     /// <summary>

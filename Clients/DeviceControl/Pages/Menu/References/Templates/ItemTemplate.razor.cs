@@ -24,7 +24,7 @@ public sealed partial class ItemTemplate : ItemBase<WsSqlTemplateModel>
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlTemplateModel>(Id);
+        SqlItemCast = ContextManager.AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlTemplateModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNewEmpty<WsSqlTemplateModel>();
     }

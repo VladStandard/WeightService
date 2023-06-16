@@ -180,7 +180,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
-                ContextManager.AccessManager.AccessItem.Update(item);
+                ContextManager.AccessManager.SqlCoreItem.Update(item);
             SqlSectionSave.Clear();
         });
     }
@@ -194,7 +194,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
         RunActionsWithQuestion(WsLocaleCore.Table.TableDelete, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
-            ContextManager.AccessManager.AccessItem.Delete(SqlItem);
+            ContextManager.AccessManager.SqlCoreItem.Delete(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }
@@ -207,7 +207,7 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
 
         RunActionsWithQuestion(WsLocaleCore.Table.TableMark, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
-            ContextManager.AccessManager.AccessItem.Mark(SqlItem);
+            ContextManager.AccessManager.SqlCoreItem.Mark(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }

@@ -19,10 +19,6 @@ public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlAccessListHelper AccessList => WsSqlAccessListHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     private WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
     private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
     private WsSqlPluBundleFkController ContextPluBundle => WsSqlPluBundleFkController.Instance;
@@ -33,7 +29,7 @@ public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
 
     public WsSqlPluNestingFkModel GetNewItem()
     {
-        WsSqlPluNestingFkModel item = AccessItem.GetItemNewEmpty<WsSqlPluNestingFkModel>();
+        WsSqlPluNestingFkModel item = SqlCoreItem.GetItemNewEmpty<WsSqlPluNestingFkModel>();
         item.Box = ContextBox.GetNewItem();
         item.PluBundle = ContextPluBundle.GetNewItem();
         return item;
@@ -106,9 +102,9 @@ public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
         return GetListByUid(plu.IdentityValueUid);
     }
 
-    public WsSqlCrudResultModel Update(WsSqlPluNestingFkModel item) => AccessItem.Update(item);
+    public WsSqlCrudResultModel Update(WsSqlPluNestingFkModel item) => SqlCoreItem.Update(item);
 
-    public WsSqlCrudResultModel UpdateWithCheck(WsSqlPluNestingFkModel item) => AccessItem.UpdateWithCheck(item);
+    public WsSqlCrudResultModel UpdateWithCheck(WsSqlPluNestingFkModel item) => SqlCoreItem.UpdateWithCheck(item);
 
     #endregion
 }

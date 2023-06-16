@@ -7,39 +7,39 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа к табличным спискам.
 /// Базовый слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAccessListHelper
+public sealed class WsSqlCoreListHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAccessListHelper _instance;
+    private static WsSqlCoreListHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAccessListHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlCoreListHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private static WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
+    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     #endregion
 
     #region Public and private methods
 
     public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
-        AccessCore.GetArrayNullable<T>(sqlCrudConfig);
+        SqlCore.GetArrayNullable<T>(sqlCrudConfig);
 
     public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
-        AccessCore.GetListNotNullable<T>(sqlCrudConfig);
+        SqlCore.GetListNotNullable<T>(sqlCrudConfig);
 
     public object[] GetArrayObjectsNotNullable(string query) =>
-        AccessCore.GetArrayObjectsNotNullable(query);
+        SqlCore.GetArrayObjectsNotNullable(query);
 
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
-        AccessCore.GetArrayObjectsNotNullable(query, parameters);
+        SqlCore.GetArrayObjectsNotNullable(query, parameters);
 
     public object[] GetArrayObjectsNotNullable(WsSqlCrudConfigModel sqlCrudConfig) =>
-        AccessCore.GetArrayObjectsNotNullable(sqlCrudConfig);
+        SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
 
     #endregion
 }

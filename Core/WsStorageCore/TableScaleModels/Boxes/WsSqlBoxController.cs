@@ -18,19 +18,9 @@ public sealed class WsSqlBoxController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlBoxModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlBoxModel>();
-
-    //public WsSqlBoxModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu);
+    public WsSqlBoxModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlBoxModel>();
 
     public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(SqlCrudConfig);
 

@@ -23,7 +23,7 @@ public sealed class WsSqlContextViewHelper
 
     #region Public and private fields, properties, constructor
     
-    private WsSqlAccessCoreHelper AccessCore => WsSqlAccessCoreHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     #endregion
 
@@ -37,7 +37,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewLogMemoryModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 7 } item) break;
@@ -56,7 +56,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewTableSizeModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(topRecords);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 8 } item) break;
@@ -104,7 +104,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluLineModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusScales(scaleId, pluNumbers, topRecords);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 19 } item) break;
@@ -130,7 +130,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluStorageMethodModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusStorageMethods(topRecords);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 22 } item) break;
@@ -158,7 +158,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluNestingModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusNesting(pluNumber);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] { Length: 29 } item) break;
@@ -182,7 +182,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewDeviceModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetDevices(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (var obj in objects)
         {
             if (obj is not object[] { Length: 8 } item ||
@@ -208,7 +208,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewLineModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetLines(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (var obj in objects)
         {
             if (obj is not object[] { Length: 8 } item)
@@ -233,7 +233,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewLogModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetLogs(sqlCrudConfig.SelectTopRowsCount, logType, line);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {
@@ -264,7 +264,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewWebLogModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetWebLogs(sqlCrudConfig.SelectTopRowsCount);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {
@@ -290,7 +290,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewBarcodeModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetBarcodes(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {
@@ -316,7 +316,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluLabelModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetPluLabels(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {
@@ -345,7 +345,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluWeighting> result = new();
         string query = WsSqlQueriesDiags.Views.GetPluWeightings(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {
@@ -372,7 +372,7 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewWeightingAggrModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetWeightingsAggr(topRecords);
-        object[] objects = AccessCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
         foreach (var obj in objects)
         {

@@ -22,12 +22,12 @@ public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResource
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(Id);
+        SqlItemCast = ContextManager.AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlPrinterResourceFkModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNewEmpty<WsSqlPrinterResourceFkModel>();
-        PrinterModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
+        PrinterModels = ContextManager.AccessManager.SqlCoreList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
             .GetCrudConfigComboBox());
-        TemplateResourceModels = ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
+        TemplateResourceModels = ContextManager.AccessManager.SqlCoreList.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
             .GetCrudConfigComboBox());
     }
 

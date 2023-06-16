@@ -18,20 +18,11 @@ public sealed class WsSqlDeviceLineFkController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlDeviceScaleFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
+    public WsSqlDeviceScaleFkModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
 
-    public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
+    public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
 
     public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(SqlCrudConfig);
 

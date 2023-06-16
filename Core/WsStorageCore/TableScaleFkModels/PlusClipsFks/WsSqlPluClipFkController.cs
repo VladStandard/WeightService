@@ -18,17 +18,9 @@ public sealed class WsSqlPluClipFkController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlPluClipFkModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluClipFkModel>();
+    public WsSqlPluClipFkModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluClipFkModel>();
 
     public WsSqlPluClipFkModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu);
 

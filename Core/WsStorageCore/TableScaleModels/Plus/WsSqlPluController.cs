@@ -18,30 +18,23 @@ public sealed class WsSqlPluController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     public WsSqlPluModel GetItemByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        return AccessItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCoreItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
     public WsSqlPluModel GetItemByNumber(short number)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        return AccessItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCoreItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
-    public WsSqlPluModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluModel>();
+    public WsSqlPluModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluModel>();
 
     public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(SqlCrudConfig);
 

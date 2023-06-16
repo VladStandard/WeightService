@@ -40,7 +40,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullableById<WsSqlScaleModel>(Id);
+        SqlItemCast = ContextManager.AccessManager.SqlCoreItem.GetItemNotNullableById<WsSqlScaleModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNewEmpty<WsSqlScaleModel>();
 
@@ -71,7 +71,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
             return;
         }
 
-        ContextManager.AccessManager.AccessItem.Delete(DeviceScaleFk);
+        ContextManager.AccessManager.SqlCoreItem.Delete(DeviceScaleFk);
     }
 
     #endregion

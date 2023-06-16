@@ -63,6 +63,7 @@ public sealed class TableScaleFkModelsTests
     }
 
     [Test]
+    // Если здесь будет ошибка - правь вложенности через SQL: PLUS_NESTING_FK_DELETE | ВЛОЖЕННОСТИ ПЛУ
     public void Validate_list_of_plu_nesting_fk()
     {
         WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluNestingFkModel>();

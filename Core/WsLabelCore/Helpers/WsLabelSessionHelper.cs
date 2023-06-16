@@ -135,7 +135,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 // DeviceTypeFk.
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
-                ContextManager.AccessItem.Save(deviceTypeFk, WsSqlEnumSessionType.Direct);
+                ContextManager.SqlCoreItem.Save(deviceTypeFk, WsSqlEnumSessionType.Direct);
             }
             // DeviceTypeFk.
             DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
@@ -293,7 +293,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     {
         Line.LabelCounter++;
         PluLine.Line.LabelCounter = Line.LabelCounter;
-        ContextManager.AccessItem.Update(Line);
+        ContextManager.SqlCoreItem.Update(Line);
     }
 
     #endregion

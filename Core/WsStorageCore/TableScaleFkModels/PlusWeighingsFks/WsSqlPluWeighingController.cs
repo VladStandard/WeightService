@@ -18,20 +18,11 @@ public sealed class WsSqlPluWeighingController : WsSqlTableControllerBase
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private WsSqlAccessItemHelper AccessItem => WsSqlAccessItemHelper.Instance;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
-    public WsSqlPluWeighingModel GetNewItem() => AccessItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
+    public WsSqlPluWeighingModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
 
-    public WsSqlPluWeighingModel GetItem(Guid? uid) => AccessItem.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
+    public WsSqlPluWeighingModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
 
     public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(SqlCrudConfig);
 

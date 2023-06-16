@@ -19,11 +19,11 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.AccessItem.GetItemNotNullable<WsSqlPrinterModel>(Id);
+        SqlItemCast = ContextManager.AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlPrinterModel>(Id);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNewEmpty<WsSqlPrinterModel>();
         PrinterTypeModels =
-            ContextManager.AccessManager.AccessList.GetListNotNullable<WsSqlPrinterTypeModel>(
+            ContextManager.AccessManager.SqlCoreList.GetListNotNullable<WsSqlPrinterTypeModel>(
                 WsSqlCrudConfigUtils.GetCrudConfigComboBox()
             );
     }

@@ -327,7 +327,7 @@ public static class WsFormNavigationUtils
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
-                AccessManager.AccessItem.Save(device, WsSqlEnumSessionType.Direct);
+                AccessManager.SqlCoreItem.Save(device, WsSqlEnumSessionType.Direct);
             }
         }
         else
@@ -337,7 +337,7 @@ public static class WsFormNavigationUtils
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
             device.IsMarked = false;
-            AccessManager.AccessItem.Update(device);
+            AccessManager.SqlCoreItem.Update(device);
         }
         return device;
     }
@@ -394,7 +394,7 @@ public static class WsFormNavigationUtils
         using Image img = bitmap;
         img.Save(memoryStream, ImageFormat.Png);
         WsSqlScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        AccessManager.AccessItem.Save(scaleScreenShot, WsSqlEnumSessionType.Direct);
+        AccessManager.SqlCoreItem.Save(scaleScreenShot, WsSqlEnumSessionType.Direct);
     }
 
     public static void ActionTryCatch(Action action)
