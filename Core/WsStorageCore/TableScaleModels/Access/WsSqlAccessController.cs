@@ -20,9 +20,9 @@ public sealed class WsSqlAccessController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlAccessModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlAccessModel>();
+    public WsSqlAccessModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlAccessModel>();
 
-    public WsSqlAccessModel GetItem(Guid uid) => SqlCoreItem.GetItemNotNullable<WsSqlAccessModel>(uid);
+    public WsSqlAccessModel GetItem(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAccessModel>(uid);
 
     public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(SqlCrudConfig);
 

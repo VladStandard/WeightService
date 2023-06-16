@@ -20,9 +20,9 @@ public sealed class WsSqlLineController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlScaleModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlScaleModel>();
+    public WsSqlScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlScaleModel>();
 
-    public WsSqlScaleModel GetItem(Guid uid) => SqlCoreItem.GetItemNotNullable<WsSqlScaleModel>(uid);
+    public WsSqlScaleModel GetItem(Guid uid) => SqlCore.GetItemNotNullable<WsSqlScaleModel>(uid);
 
     public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
 

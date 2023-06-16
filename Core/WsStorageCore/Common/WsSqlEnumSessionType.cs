@@ -5,8 +5,6 @@ namespace WsStorageCore.Common;
 
 public enum WsSqlEnumSessionType
 {
-    Direct,
     Isolated,
-    Async,
     IsolatedAsync,
 }

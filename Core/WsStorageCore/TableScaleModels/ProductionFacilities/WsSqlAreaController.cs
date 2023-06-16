@@ -20,9 +20,9 @@ public sealed class WsSqlAreaController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlProductionFacilityModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlProductionFacilityModel>();
+    public WsSqlProductionFacilityModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlProductionFacilityModel>();
 
-    public WsSqlProductionFacilityModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
+    public WsSqlProductionFacilityModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
 
     public List<WsSqlProductionFacilityModel> GetList() => ContextList.GetListNotNullableAreas(SqlCrudConfig);
 

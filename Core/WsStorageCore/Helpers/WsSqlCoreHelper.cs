@@ -9,7 +9,7 @@ namespace WsStorageCore.Helpers;
 /// SQL-помощник методов доступа.
 /// Базовый слой доступа к БД.
 /// </summary>
-internal sealed class WsSqlCoreHelper
+public sealed class WsSqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
@@ -22,35 +22,17 @@ internal sealed class WsSqlCoreHelper
 
     #region Public and private fields, properties, constructor
 
+    private object LockerSessionFactory { get; } = new();
+    private object LockerSelect { get; } = new();
+    private object LockerExecute { get; } = new();
+
     public static WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     
-    private ISessionFactory? _sessionFactory;
-    public ISessionFactory SessionFactory
-    {
-        get
-        {
-            if (_sessionFactory is null)
-                throw new ArgumentNullException(nameof(SessionFactory));
-            return _sessionFactory;
-        }
-        set => _sessionFactory = value;
-    }
-
-    private readonly object _lockerSessionFactory = new();
+    public ISessionFactory? SessionFactory { get; private set; }
 
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
 
-    private FluentConfiguration? _fluentConfiguration;
-    private FluentConfiguration FluentConfiguration
-    {
-        get
-        {
-            if (_fluentConfiguration is null)
-                throw new ArgumentNullException(nameof(FluentConfiguration));
-            return _fluentConfiguration;
-        }
-        set => _fluentConfiguration = value;
-    }
+    private FluentConfiguration? FluentConfiguration { get; set; }
 
     private void SetFluentConfiguration()
     {
@@ -67,7 +49,7 @@ internal sealed class WsSqlCoreHelper
 
     public void SetSessionFactory(bool isShowSql)
     {
-        lock (_lockerSessionFactory)
+        lock (LockerSessionFactory)
         {
             SetSqlConfiguration(isShowSql);
             SetFluentConfiguration();
@@ -89,42 +71,12 @@ internal sealed class WsSqlCoreHelper
         SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
     }
 
-    private object LockerSelect { get; } = new();
-    private object LockerExecute { get; } = new();
-    //private ISession? _sessionSelect;
-    //private ISession SessionSelect
-    //{
-    //    get
-    //    {
-    //        if (_sessionSelect is null || !_sessionSelect.IsOpen)
-    //        {
-    //            _sessionSelect = SessionFactory.OpenSession();
-    //            _sessionSelect.FlushMode = FlushMode.Manual;
-    //        }
-    //        return _sessionSelect;
-    //    }
-    //}
-
-    private ISession? _sessionExecute;
-    private ISession SessionExecute
-    {
-        get
-        {
-            if (_sessionExecute is null || !_sessionExecute.IsOpen)
-            {
-                _sessionExecute = SessionFactory.OpenSession();
-                _sessionExecute.FlushMode = FlushMode.Commit;
-            }
-            return _sessionExecute;
-        }
-    }
-
     private void Close()
     {
-        lock (_lockerSessionFactory)
+        lock (LockerSessionFactory)
         {
-            SessionFactory.Close();
-            SessionFactory.Dispose();
+            SessionFactory?.Close();
+            SessionFactory?.Dispose();
         }
     }
 
@@ -250,52 +202,30 @@ internal sealed class WsSqlCoreHelper
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    private WsSqlCrudResultModel ExecuteSelectIsolatedCore(Action<ISession> action)
+    private WsSqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
     {
-        try
+        if (SessionFactory is null)
+            throw new ArgumentException(nameof(SessionFactory));
+        lock (LockerSelect)
         {
             using ISession session = SessionFactory.OpenSession();
-            session.FlushMode = FlushMode.Commit;
-            action(session);
-            session.Clear();
-        }
-        catch (Exception ex)
-        {
-            return new(ex);
-        }
-        return new(true);
-    }
-
-    /// <summary>
-    /// Transaction with action.
-    /// </summary>
-    /// <param name="action"></param>
-    /// <returns></returns>
-    private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
-    {
-        lock (LockerExecute)
-        {
-            using ITransaction transaction = SessionExecute.BeginTransaction();
+            session.FlushMode = FlushMode.Manual;
             try
             {
-                action(SessionExecute);
-                SessionExecute.Flush();
-                transaction.Commit();
-                SessionExecute.Clear();
+                action(session);
+                session.Clear();
+                return new(true);
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
                 return new(ex);
             }
             finally
             {
-                transaction.Dispose();
-                SessionExecute.Disconnect();
-                SessionExecute.Close();
-                SessionExecute.Dispose();
+                session.Disconnect();
+                session.Close();
+                session.Dispose();
             }
-            return new(true);
         }
     }
 
@@ -304,8 +234,10 @@ internal sealed class WsSqlCoreHelper
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    private WsSqlCrudResultModel ExecuteTransactionIsolatedCore(Action<ISession> action)
+    private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
     {
+        if (SessionFactory is null)
+            throw new ArgumentException(nameof(SessionFactory));
         lock (LockerExecute)
         {
             using ISession session = SessionFactory.OpenSession();
@@ -314,9 +246,10 @@ internal sealed class WsSqlCoreHelper
             try
             {
                 action(session);
-                session.Flush();
+                //session.Flush(); // call in next step
                 transaction.Commit();
                 session.Clear();
+                return new(true);
             }
             catch (Exception ex)
             {
@@ -326,15 +259,17 @@ internal sealed class WsSqlCoreHelper
             finally
             {
                 transaction.Dispose();
+                session.Disconnect();
+                session.Close();
+                session.Dispose();
             }
-            return new(true);
         }
     }
 
     public bool IsConnected()
     {
         bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             result = session.IsConnected;
         });
@@ -373,87 +308,114 @@ internal sealed class WsSqlCoreHelper
     public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public WsSqlCrudResultModel Save<T>(T? item) where T : WsSqlTableBase
-    {
-        if (item is null) return new(new ArgumentException());
-
-        item.ClearNullProperties();
-        item.CreateDt = DateTime.Now;
-        item.ChangeDt = DateTime.Now;
-        return ExecuteTransactionCore(session => session.Save(item));
-    }
-
-    public void Save<T>(T? item, WsSqlEnumSessionType sessionType) where T : WsSqlTableBase
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
     {
         if (item is null) throw new ArgumentException();
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
+        
         switch (sessionType)
         {
-            case WsSqlEnumSessionType.Direct:
+            case WsSqlEnumSessionType.Isolated:
                 ExecuteTransactionCore(session => session.Save(item));
                 break;
-            case WsSqlEnumSessionType.Isolated:
-                ExecuteTransactionIsolatedCore(session => session.Save(item));
-                break;
-            case WsSqlEnumSessionType.Async:
-                _ = Task.Run(async () =>
-                {
-                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                    ExecuteTransactionCore(session => session.SaveAsync(item));
-                }).ConfigureAwait(true);
-                break;
             case WsSqlEnumSessionType.IsolatedAsync:
-                _ = Task.Run(async () =>
-                {
-                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-                    ExecuteTransactionIsolatedCore(session => session.SaveAsync(item));
-                }).ConfigureAwait(true);
+                ExecuteTransactionCore(session => session.SaveAsync(item));
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
         }
     }
 
-    public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase
+    public void Save<T>(T? item, WsSqlFieldIdentityModel? identity, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) 
+        where T : WsSqlTableBase
     {
-        if (item is null) return new(new ArgumentException());
+        if (item is null) throw new ArgumentException();
 
         item.ClearNullProperties();
         item.CreateDt = DateTime.Now;
         item.ChangeDt = DateTime.Now;
+
         object? id = identity?.GetValueAsObjectNullable();
         if (Equals(identity?.Name, WsSqlEnumFieldIdentity.Uid) && Equals(id, Guid.Empty))
             id = Guid.NewGuid();
-        return id is null
-            ? ExecuteTransactionCore(session => session.Save(item))
-            : ExecuteTransactionCore(session => session.Save(item, id));
+        
+        switch (sessionType)
+        {
+            case WsSqlEnumSessionType.Isolated:
+                if (id is null)
+                    ExecuteTransactionCore(session => session.Save(item));
+                else
+                    ExecuteTransactionCore(session => session.Save(item, id));
+                break;
+            case WsSqlEnumSessionType.IsolatedAsync:
+                if (id is null)
+                    ExecuteTransactionCore(session => session.SaveAsync(item));
+                else
+                    ExecuteTransactionCore(session => session.SaveAsync(item, id));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
 
-    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase
+    public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
     {
-        if (item is null) return new(new ArgumentException());
+        if (item is null) throw new ArgumentException();
 
         item.ClearNullProperties();
         item.ChangeDt = DateTime.Now;
-        return ExecuteTransactionCore(session => session.Update(item));
+
+        switch (sessionType)
+        {
+            case WsSqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case WsSqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
 
-    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase
+    public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
     {
-        if (item is null) return new(new ArgumentException());
+        if (item is null) throw new ArgumentException();
 
-        return ExecuteTransactionCore(session => session.Delete(item));
+        switch (sessionType)
+        {
+            case WsSqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Delete(item));
+                break;
+            case WsSqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.DeleteAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
+        
     }
 
-    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase
+    public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
     {
-        if (item is null) return new(new ArgumentException());
+        if (item is null) throw new ArgumentException();
 
         item.IsMarked = !item.IsMarked;
-        return ExecuteTransactionCore(session => session.SaveOrUpdate(item));
+
+        switch (sessionType)
+        {
+            case WsSqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case WsSqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
 
     #endregion
@@ -516,7 +478,7 @@ internal sealed class WsSqlCoreHelper
     public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
@@ -584,7 +546,7 @@ internal sealed class WsSqlCoreHelper
     {
         if (item is null) return new(false);
         bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             result = session.Query<T>().Any(item2 => item2.IsAny(item));
 
@@ -628,7 +590,7 @@ internal sealed class WsSqlCoreHelper
     public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T[]? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>().ToArray();
@@ -644,7 +606,7 @@ internal sealed class WsSqlCoreHelper
     public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T[]? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -660,7 +622,7 @@ internal sealed class WsSqlCoreHelper
     public T? GetNativeItemNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
@@ -677,7 +639,7 @@ internal sealed class WsSqlCoreHelper
     private object[]? GetNativeArrayObjectsNullable(string query, List<SqlParameter> parameters)
     {
         object[]? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectIsolatedCore(session =>
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)

@@ -29,7 +29,7 @@ public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
 
     public WsSqlPluNestingFkModel GetNewItem()
     {
-        WsSqlPluNestingFkModel item = SqlCoreItem.GetItemNewEmpty<WsSqlPluNestingFkModel>();
+        WsSqlPluNestingFkModel item = SqlCore.GetItemNewEmpty<WsSqlPluNestingFkModel>();
         item.Box = ContextBox.GetNewItem();
         item.PluBundle = ContextPluBundle.GetNewItem();
         return item;
@@ -101,10 +101,6 @@ public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
         WsSqlPluModel plu = ContextPlu.GetItemByNumber(number);
         return GetListByUid(plu.IdentityValueUid);
     }
-
-    public WsSqlCrudResultModel Update(WsSqlPluNestingFkModel item) => SqlCoreItem.Update(item);
-
-    public WsSqlCrudResultModel UpdateWithCheck(WsSqlPluNestingFkModel item) => SqlCoreItem.UpdateWithCheck(item);
 
     #endregion
 }

@@ -20,9 +20,9 @@ public sealed class WsSqlPluWeighingController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlPluWeighingModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluWeighingModel>();
+    public WsSqlPluWeighingModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluWeighingModel>();
 
-    public WsSqlPluWeighingModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
+    public WsSqlPluWeighingModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
 
     public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(SqlCrudConfig);
 

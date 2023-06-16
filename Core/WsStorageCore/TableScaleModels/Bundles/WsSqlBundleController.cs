@@ -20,7 +20,7 @@ public sealed class WsSqlBundleController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlBundleModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlBundleModel>();
+    public WsSqlBundleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
 
     public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
 

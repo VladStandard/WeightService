@@ -24,17 +24,17 @@ public sealed class WsSqlPluController : WsSqlTableControllerBase
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        return SqlCoreItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
     public WsSqlPluModel GetItemByNumber(short number)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        return SqlCoreItem.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
-    public WsSqlPluModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlPluModel>();
+    public WsSqlPluModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluModel>();
 
     public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(SqlCrudConfig);
 

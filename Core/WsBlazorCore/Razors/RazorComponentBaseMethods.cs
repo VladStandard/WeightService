@@ -40,18 +40,17 @@ public partial class RazorComponentBase
 
     protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
     {
-        return ContextManager.AccessManager.SqlCoreItem.GetItemNewEmpty<TItem>();
+        return ContextManager.SqlCoreManager.SqlCore.GetItemNewEmpty<TItem>();
     }
 
-    protected bool SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
+    protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
     {
         if (item is null || !SqlItemValidate(item)) 
-            return false;
+            return;
         if (item.IsNew)
-            ContextManager.AccessManager.SqlCoreItem.Save(item, WsSqlEnumSessionType.Direct);
+            ContextManager.SqlCoreManager.SqlCore.Save(item);
         else 
-            ContextManager.AccessManager.SqlCoreItem.Update(item);
-        return true;
+            ContextManager.SqlCoreManager.SqlCore.Update(item);
     }
 
     protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()

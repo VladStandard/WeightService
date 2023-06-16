@@ -19,84 +19,60 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private bool UpdateBoxDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBoxModel? boxDb, bool isCounter)
+    private void UpdateBoxDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBoxModel? boxDb, bool isCounter)
     {
-        if (boxDb is null || boxDb.IsNew) return false;
+        if (boxDb is null || boxDb.IsNew) return;
         boxDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(boxDb);
-        if (dbResult.IsOk)
+        SqlCoreManager.SqlCore.Update(boxDb);
+        if (isCounter)
         {
-            if (isCounter)
-            {
-                response.Successes.Add(new(pluXml.Uid1C));
-                response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
-            }
+            response.Successes.Add(new(pluXml.Uid1C));
+            response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
         }
-        else if (dbResult.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
-        return dbResult.IsOk;
     }
 
-    private bool UpdateBundleDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBundleModel? bundleDb, bool isCounter)
+    private void UpdateBundleDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlBundleModel? bundleDb, bool isCounter)
     {
-        if (bundleDb is null || bundleDb.IsNew) return false;
+        if (bundleDb is null || bundleDb.IsNew) return;
         bundleDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(bundleDb);
-        if (dbResult.IsOk)
+        SqlCoreManager.SqlCore.Update(bundleDb);
+        if (isCounter)
         {
-            if (isCounter)
-            {
-                response.Successes.Add(new(pluXml.Uid1C));
-                response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
-            }
+            response.Successes.Add(new(pluXml.Uid1C));
+            response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
         }
-        else if (dbResult.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
-        return dbResult.IsOk;
     }
 
-    private bool UpdateClipDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlClipModel? clipDb, bool isCounter)
+    private void UpdateClipDb(WsResponse1CShortModel response, WsSqlPluModel pluXml, WsSqlClipModel? clipDb, bool isCounter)
     {
-        if (clipDb is null || clipDb.IsNew) return false;
+        if (clipDb is null || clipDb.IsNew) return;
         clipDb.UpdateProperties(pluXml);
-        WsSqlCrudResultModel dbResult = AccessManager.SqlCoreItem.Update(clipDb);
-        if (dbResult.IsOk)
+        SqlCoreManager.SqlCore.Update(clipDb);
+        if (isCounter)
         {
-            if (isCounter)
-            {
-                response.Successes.Add(new(pluXml.Uid1C));
-                response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
-            }
+            response.Successes.Add(new(pluXml.Uid1C));
+            response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
         }
-        else if (dbResult.Exception is not null)
-            AddResponseException(response, pluXml.Uid1C, dbResult.Exception);
-        return dbResult.IsOk;
     }
 
-    //private bool UpdatePluDb(WsResponse1CShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
+    //private void UpdatePluDb(WsResponse1CShortModel response, PluModel pluXml, PluModel? pluDb, bool isCounter)
     //{
-    //    if (pluDb is null || pluDb.IsNew) return false;
+    //    if (pluDb is null || pluDb.IsNew) return;
     //    pluDb.Identity = pluXml.Identity;
     //    pluDb.UpdateProperties(pluXml);
     //    // Native update -> Be careful, good luck.
-    //    SqlCrudResultModel dbResult = AccessManager.SqlCoreItem.ExecQueryNative(
+    //    SqlCrudResultModel dbResult = SqlCoreManager.SqlCore.ExecQueryNative(
     //        WsWebSqlQueries.UpdatePlu, new List<SqlParameter>
     //        {
     //            new("uid", pluXml.IdentityValueUid),
     //            new("code", pluDb.Code),
     //            new("number", pluDb.Number),
     //        });
-    //    if (dbResult.IsOk)
-    //    {
     //        if (isCounter)
     //        {
     //            response.Successes.Add(new(pluXml.Uid1C));
     //            response.SuccessesPlus?.Add(new(pluXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
     //        }
-    //    }
-    //    else if (dbResult.Exception is not null)
-    //        AddResponseException(response, pluXml.IdentityValueUid, dbResult.Exception);
-    //    return dbResult.IsOk;
     //}
 
     #endregion
@@ -165,14 +141,18 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             //if (UpdateItem1cDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
 
             // Найдено по Number -> Обновить найденную запись.
-            WsSqlPluModel pluDb = ContextCache.Plus.Find(item =>
-                Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C)) ?? ContextManager.ContextPlus.GetNewItem();
-            if (UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString())) return;
+            WsSqlPluModel? pluDb = ContextCache.Plus.Find(item =>
+                Equals(item.Number, pluXml.Number) && Equals(item.Uid1C, pluXml.Uid1C));
+            if (pluDb is not null)
+            {
+                UpdateItemDb(response, pluXml, pluDb, true, pluXml.Number.ToString());
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluXml, true))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.Plus);
+            SaveItemDb(response, pluXml, true);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.Plus);
         }
         catch (Exception ex)
         {
@@ -211,12 +191,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 Equals(item.Plu.Uid1C, pluFk.Plu.Uid1C) &&
                 Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
                 Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C));
-            if (UpdatePluFkDb(response, pluXml.Uid1C, pluFk, pluFkDb, false)) return;
+            if (pluFkDb is not null)
+            {
+                UpdatePluFkDb(response, pluXml.Uid1C, pluFk, pluFkDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluFk, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluFks);
+            SaveItemDb(response, pluFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluFks);
         }
         catch (Exception ex)
         {
@@ -249,18 +233,26 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Найдено по Uid1C -> Обновить найденную запись.
             WsSqlBoxModel? boxDb = ContextCache.Boxes.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
-            if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
+            if (boxDb is not null)
+            {
+                UpdateBoxDb(response, pluXml, boxDb, false);
+                return;
+            }
 
             // Найдено по Name -> Обновить найденную запись.
             boxDb = ContextCache.Boxes.Find(item => Equals(item.Name, pluXml.BoxTypeName));
-            if (UpdateBoxDb(response, pluXml, boxDb, false)) return;
+            if (boxDb is not null)
+            {
+                UpdateBoxDb(response, pluXml, boxDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
             boxDb = new();
             boxDb.UpdateProperties(pluXml);
-            if (SaveItemDb(response, boxDb, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.Boxes);
+            SaveItemDb(response, boxDb, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.Boxes);
         }
         catch (Exception ex)
         {
@@ -293,18 +285,26 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Найдено по Uid1C -> Обновить найденную запись.
             WsSqlBundleModel? bundleDb = ContextCache.Bundles.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
-            if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
+            if (bundleDb is not null)
+            {
+                UpdateBundleDb(response, pluXml, bundleDb, false);
+                return;
+            }
 
             // Найдено по Name -> Обновить найденную запись.
             bundleDb = ContextCache.Bundles.Find(item => Equals(item.Name, pluXml.PackageTypeName));
-            if (UpdateBundleDb(response, pluXml, bundleDb, false)) return;
+            if (bundleDb is not null)
+            {
+                UpdateBundleDb(response, pluXml, bundleDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
             bundleDb = new();
             bundleDb.UpdateProperties(pluXml);
-            if (SaveItemDb(response, bundleDb, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.Bundles);
+            SaveItemDb(response, bundleDb, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.Bundles);
         }
         catch (Exception ex)
         {
@@ -337,12 +337,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             WsSqlPluBrandFkModel? pluBrandFkDb = ContextCache.PlusBrandsFks.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
-            if (UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false)) return;
+            if (pluBrandFkDb is not null)
+            {
+                UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
+            SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
         }
         catch (Exception ex)
         {
@@ -375,18 +379,26 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Найдено по Uid1C -> Обновить найденную запись.
             WsSqlClipModel? clipDb = ContextCache.Clips.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
-            if (UpdateClipDb(response, pluXml, clipDb, false)) return;
+            if (clipDb is not null)
+            {
+                UpdateClipDb(response, pluXml, clipDb, false);
+                return;
+            }
 
             // Найдено по Name -> Обновить найденную запись.
             clipDb = ContextCache.Clips.Find(item => Equals(item.Name, pluXml.ClipTypeName));
-            if (UpdateClipDb(response, pluXml, clipDb, false)) return;
+            if (clipDb is not null)
+            {
+                UpdateClipDb(response, pluXml, clipDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
             clipDb = new();
             clipDb.UpdateProperties(pluXml);
-            if (SaveItemDb(response, clipDb, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.Clips);
+            SaveItemDb(response, clipDb, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.Clips);
         }
         catch (Exception ex)
         {
@@ -419,12 +431,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
             WsSqlPluClipFkModel? pluClipFkDb = ContextCache.PlusClipsFks.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
-            if (UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false)) return;
+            if (pluClipFkDb is not null)
+            {
+                UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluClipFk, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluClipsFks);
+            SaveItemDb(response, pluClipFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluClipsFks);
         }
         catch (Exception ex)
         {
@@ -459,12 +475,15 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Найдено по Identity -> Update exists | UQ_BUNDLES_FK.
             WsSqlPluBundleFkModel? pluBundleFkDb = ContextCache.PlusBundlesFks.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
             if (pluBundleFkDb is not null)
-                if (UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false)) return pluBundleFkDb;
+            {
+                UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false);
+                return pluBundleFkDb;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluBundleFk, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluBundlesFks);
+            SaveItemDb(response, pluBundleFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluBundlesFks);
         }
         catch (Exception ex)
         {
@@ -512,12 +531,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 Equals(item.PluUid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
                 Equals(item.BundleUid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
                 Equals(item.BundleCount, pluXml.AttachmentsCount));
-            if (UpdatePluNestingFk(response, pluXml.Uid1C, pluNestingFk, pluNestingFkDb, false)) return;
+            if (pluNestingFkDb is not null)
+            {
+                UpdatePluNestingFk(response, pluXml.Uid1C, pluNestingFk, pluNestingFkDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
+            SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
         }
         catch (Exception ex)
         {

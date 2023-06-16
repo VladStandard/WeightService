@@ -19,8 +19,8 @@ public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopModel>
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlWorkShopModel>(Id);
-        ProductionFacilityModels = ContextManager.AccessManager.SqlCoreList.
+        SqlItemCast = ContextManager.SqlCoreManager.SqlCore.GetItemNotNullable<WsSqlWorkShopModel>(Id);
+        ProductionFacilityModels = ContextManager.SqlCoreManager.SqlCoreList.
             GetListNotNullable<WsSqlProductionFacilityModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
     }
 

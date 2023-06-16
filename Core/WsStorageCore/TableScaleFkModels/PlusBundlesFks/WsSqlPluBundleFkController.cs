@@ -29,7 +29,7 @@ public sealed class WsSqlPluBundleFkController : WsSqlTableControllerBase
 
     public WsSqlPluBundleFkModel GetNewItem()
     {
-        WsSqlPluBundleFkModel item = SqlCoreItem.GetItemNewEmpty<WsSqlPluBundleFkModel>();
+        WsSqlPluBundleFkModel item = SqlCore.GetItemNewEmpty<WsSqlPluBundleFkModel>();
         item.Plu = ContextPlu.GetNewItem();
         item.Bundle = ContextBundle.GetNewItem();
         return item;

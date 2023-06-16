@@ -54,7 +54,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
             // Родитель.
             WsSqlPluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
-            parent = AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
+            parent = SqlCoreManager.SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
@@ -62,7 +62,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             }
             // Группа.
             WsSqlPluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
-            pluGroup = AccessManager.SqlCoreItem.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
+            pluGroup = SqlCoreManager.SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
                 AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
@@ -80,12 +80,16 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             WsSqlPluGroupFkModel? itemDb = ContextCache.PlusGroupsFks.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
-            if (UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false)) return;
+            if (itemDb is not null)
+            {
+                UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluGroupsFks);
+            SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluGroupsFks);
         }
         catch (Exception ex)
         {
@@ -104,20 +108,28 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         {
             // Найдено по Uid1C -> Обновить найденную запись.
             WsSqlPluGroupModel? pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
-            if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            if (pluGroupDb is not null)
+            {
+                UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
+                return;
+            }
 
             // Найдено по Code -> Обновить найденную запись.
             pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Code, pluGroupXml.Code));
-            if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
+            if (pluGroupDb is not null)
+            {
+                UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
+                return;
+            }
 
             // Найдено по Name -> Обновить найденную запись.
             //pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Name, pluGroupXml.Name));
             //if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluGroupXml, true))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluGroups);
+            SaveItemDb(response, pluGroupXml, true);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluGroups);
         }
         catch (Exception ex)
         {

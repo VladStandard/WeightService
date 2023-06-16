@@ -10,8 +10,8 @@ public class WsSqlTableControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    protected WsSqlCoreItemHelper SqlCoreItem => WsSqlCoreItemHelper.Instance;
-    
+    protected WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+
     protected WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
 
     protected WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;

@@ -22,13 +22,12 @@ public sealed class WsSqlContextManagerHelper
 
     private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
-    private WsSqlCoreHelper Core => WsSqlCoreHelper.Instance;
+    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
-    public WsSqlCoreItemHelper SqlCoreItem => WsSqlCoreItemHelper.Instance;
     public WsSqlCoreListHelper SqlCoreList => WsSqlCoreListHelper.Instance;
-    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    public WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
     public WsSqlAreaController ContextAreas => WsSqlAreaController.Instance;
     public WsSqlBoxController ContextBoxes => WsSqlBoxController.Instance;
     public WsSqlBundleController ContextBundles => WsSqlBundleController.Instance;
@@ -46,7 +45,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlPluStorageMethodFkController ContextPlusStorages => WsSqlPluStorageMethodFkController.Instance;
     public WsSqlPluWeighingController ContextPlusWeighing => WsSqlPluWeighingController.Instance;
     public WsSqlTemplateController ContextTemplates => WsSqlTemplateController.Instance;
-    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => Core.SqlConfiguration;
+    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
 
     #endregion
 
@@ -109,7 +108,7 @@ public sealed class WsSqlContextManagerHelper
                 throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            Core.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
+            SqlCore.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
             ContextItem.SetupLog(appName);
         }
         catch (Exception ex)
@@ -125,7 +124,7 @@ public sealed class WsSqlContextManagerHelper
         if (!SetupJsonSettingsCore(localDir, false, fileName))
             throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
 
-        Core.SetSessionFactory(isShowSql);
+        SqlCore.SetSessionFactory(isShowSql);
         ContextItem.SetupLog(deviceName, appName);
     }
 
@@ -170,7 +169,7 @@ public sealed class WsSqlContextManagerHelper
                     throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
             }
 
-            Core.SetSessionFactory(isShowSql);
+            SqlCore.SetSessionFactory(isShowSql);
             ContextItem.SetupLog(appName ?? string.Empty);
             ContextItem.SaveLogInformation(WsLocaleCore.DeviceControl.WebAppIsStarted);
         }

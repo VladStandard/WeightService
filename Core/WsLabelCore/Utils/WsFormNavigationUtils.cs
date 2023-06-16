@@ -25,7 +25,7 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
     /// </summary>
-    private static WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
+    private static WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
     /// <summary>
     /// SQL-менеджер доступа к данным БД (используется клиентами).
     /// </summary>
@@ -327,7 +327,7 @@ public static class WsFormNavigationUtils
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
-                AccessManager.SqlCoreItem.Save(device, WsSqlEnumSessionType.Direct);
+                SqlCoreManager.SqlCore.Save(device);
             }
         }
         else
@@ -337,7 +337,7 @@ public static class WsFormNavigationUtils
             device.ChangeDt = DateTime.Now;
             device.LoginDt = DateTime.Now;
             device.IsMarked = false;
-            AccessManager.SqlCoreItem.Update(device);
+            SqlCoreManager.SqlCore.Update(device);
         }
         return device;
     }
@@ -394,7 +394,7 @@ public static class WsFormNavigationUtils
         using Image img = bitmap;
         img.Save(memoryStream, ImageFormat.Png);
         WsSqlScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        AccessManager.SqlCoreItem.Save(scaleScreenShot, WsSqlEnumSessionType.Direct);
+        SqlCoreManager.SqlCore.Save(scaleScreenShot);
     }
 
     public static void ActionTryCatch(Action action)

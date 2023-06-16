@@ -7,23 +7,22 @@ namespace WsStorageCore.Helpers;
 /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
 /// Базовый слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAccessManagerHelper
+public sealed class WsSqlCoreManagerHelper
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAccessManagerHelper _instance;
+    private static WsSqlCoreManagerHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAccessManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlCoreManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public WsSqlCoreItemHelper SqlCoreItem => WsSqlCoreItemHelper.Instance;
+    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public WsSqlCoreListHelper SqlCoreList => WsSqlCoreListHelper.Instance;
-    public ISessionFactory SessionFactory => SqlCore.SessionFactory;
+    public ISessionFactory? SessionFactory => SqlCore.SessionFactory;
 
     #endregion
 

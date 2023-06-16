@@ -20,13 +20,13 @@ public sealed class WsSqlTemplateController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlTemplateModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlTemplateModel>();
+    public WsSqlTemplateModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlTemplateModel>();
 
     public WsSqlTemplateModel GetItem(ushort pluNumber)
     {
         WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(item => 
             Equals(item.PluNumber, pluNumber));
-        return SqlCoreItem.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
+        return SqlCore.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
     }
 
     public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(SqlCrudConfig);

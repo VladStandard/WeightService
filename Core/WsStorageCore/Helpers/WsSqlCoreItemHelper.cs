@@ -34,15 +34,6 @@ public sealed class WsSqlCoreItemHelper
     public T GetItemNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         SqlCore.GetItemNotNullable<T>(sqlCrudConfig);
 
-    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNotNullable<T>(value);
-
-    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNullable<T>(identity);
-
-    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNotNullable<T>(identity);
-
     public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
         SqlCore.GetItemNullableByUid<T>(uid);
 
@@ -55,34 +46,22 @@ public sealed class WsSqlCoreItemHelper
     public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
         SqlCore.GetItemNotNullableById<T>(id) ?? new();
 
-    private WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase => SqlCore.IsItemExists(item);
+    private void IsItemExists<T>(T? item) where T : WsSqlTableBase => SqlCore.IsItemExists(item);
 
-    public WsSqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters) =>
+    public void ExecQueryNative(string query, List<SqlParameter> parameters) =>
         SqlCore.ExecQueryNative(query, parameters);
 
-    public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
+    public void ExecQueryNative(string query, SqlParameter parameter) =>
         SqlCore.ExecQueryNative(query, parameter);
 
-    public WsSqlCrudResultModel Save<T>(T? item, WsSqlFieldIdentityModel? identity, WsSqlEnumSessionType sessionType) 
-        where T : WsSqlTableBase => SqlCore.Save(item, identity);
+    public void Save<T>(T? item, WsSqlFieldIdentityModel? identity, WsSqlEnumSessionType sessionType) 
+        where T : WsSqlTableBase => SqlCore.Save(item, identity, sessionType);
     
-    public void Save<T>(T? item, WsSqlEnumSessionType sessionType) where T : WsSqlTableBase => 
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase => 
         SqlCore.Save(item, sessionType);
 
-    public WsSqlCrudResultModel Update<T>(T? item) where T : WsSqlTableBase => SqlCore.Update(item);
-
-    public WsSqlCrudResultModel UpdateWithCheck<T>(T? item) where T : WsSqlTableBase
-    {
-        WsSqlCrudResultModel dbResult = IsItemExists(item);
-        if (!dbResult.IsOk) return dbResult;
-        return SqlCore.Update(item);
-    }
-
-    public WsSqlCrudResultModel Delete<T>(T? item) where T : WsSqlTableBase => SqlCore.Delete(item);
-
-    public WsSqlCrudResultModel Mark<T>(T? item) where T : WsSqlTableBase => SqlCore.Mark(item);
-
-    public WsSqlAppModel GetItemAppOrCreateNew(string appName) => SqlCore.GetItemAppOrCreateNew(appName);
+    public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) 
+        where T : WsSqlTableBase => SqlCore.Update(item, sessionType);
 
     #endregion
 }

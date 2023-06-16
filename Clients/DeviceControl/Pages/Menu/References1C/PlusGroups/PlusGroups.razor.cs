@@ -26,8 +26,8 @@ public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
     [Obsolete(@"AllData проинициализируй в конструкторе")]
     protected override void SetSqlSectionCast()
     {
-        var pluGroupsFk = ContextManager.AccessManager.SqlCoreList.GetListNotNullable<WsSqlPluGroupFkModel>(new WsSqlCrudConfigModel());
-        AllData = ContextManager.AccessManager.SqlCoreList.GetListNotNullable<WsSqlPluGroupModel>(new WsSqlCrudConfigModel() { IsResultOrder = true });
+        var pluGroupsFk = ContextManager.SqlCoreManager.SqlCoreList.GetListNotNullable<WsSqlPluGroupFkModel>(new WsSqlCrudConfigModel());
+        AllData = ContextManager.SqlCoreManager.SqlCoreList.GetListNotNullable<WsSqlPluGroupModel>(new WsSqlCrudConfigModel() { IsResultOrder = true });
         foreach (WsSqlPluGroupModel pluGroup in AllData)
         {
             var temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();

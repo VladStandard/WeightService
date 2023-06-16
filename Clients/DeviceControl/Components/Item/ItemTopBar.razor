@@ -9,7 +9,7 @@
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-right: 1%; width: 60px;"
       Size="@ButtonSize.Small"
-      Disabled="@(!ContextManager.AccessManager.IsConnected())"
+      Disabled="@(!ContextManager.SqlCoreManager.IsConnected())"
       Click="OnItemUpdate"/>
     <RadzenLink Style="font-weight: bold" Path="@RouteService.GetSectionRoute(SqlItemCast)" Text="@Title"/>
   </MudToolBar>

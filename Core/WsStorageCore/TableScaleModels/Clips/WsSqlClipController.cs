@@ -20,7 +20,7 @@ public sealed class WsSqlClipController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlClipModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlClipModel>();
+    public WsSqlClipModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlClipModel>();
 
     public WsSqlClipModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
 

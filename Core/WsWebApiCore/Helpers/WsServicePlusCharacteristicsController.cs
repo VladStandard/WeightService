@@ -47,12 +47,16 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         {
             // Найдено по Identity -> Обновить найденную запись.
             WsSqlPluCharacteristicModel? itemDb = ContextCache.PlusCharacteristics.Find(item => item.IdentityValueUid.Equals(pluCharacteristicXml.IdentityValueUid));
-            if (UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString())) return;
+            if (itemDb is not null)
+            {
+                UpdateItemDb(response, pluCharacteristicXml, itemDb, true, pluDb.Number.ToString());
+                return;
+            };
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluCharacteristicXml, true))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluCharacteristics);
+            SaveItemDb(response, pluCharacteristicXml, true);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluCharacteristics);
         }
         catch (Exception ex)
         {
@@ -88,13 +92,17 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             WsSqlPluCharacteristicsFkModel? pluCharacteristicFkDb = ContextCache.PlusCharacteristicsFks.Find(item =>
                 Equals(item.Plu.Uid1C, pluCharacteristicsFk.Plu.Uid1C) &&
                 Equals(item.Characteristic.Uid1C, pluCharacteristicsFk.Characteristic.Uid1C));
-            if (UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk, pluCharacteristicFkDb,
-                    false, pluDb.Number)) return;
+            if (pluCharacteristicFkDb is not null)
+            {
+                UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C, pluCharacteristicsFk,
+                    pluCharacteristicFkDb, false, pluDb.Number);
+                return;
+            }
 
             // Не найдено -> Добавить новую запись.
-            if (SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C))
-                // Обновить кэш.
-                ContextCache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
+            SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {

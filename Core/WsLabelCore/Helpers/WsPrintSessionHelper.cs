@@ -342,7 +342,7 @@ public sealed class WsPrintSessionHelper
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
-        ContextManager.SqlCoreItem.Save(pluLabel, WsSqlEnumSessionType.Direct);
+        ContextManager.SqlCore.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
@@ -376,7 +376,7 @@ public sealed class WsPrintSessionHelper
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);
-        ContextManager.SqlCoreItem.Save(barCode, WsSqlEnumSessionType.Direct);
+        ContextManager.SqlCore.Save(barCode);
     }
 
     #endregion

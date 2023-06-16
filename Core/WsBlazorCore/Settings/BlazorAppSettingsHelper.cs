@@ -24,8 +24,8 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
 
     #region Public and private fields, properties, constructor
 
-    public WsSqlAccessManagerHelper AccessManager => WsSqlAccessManagerHelper.Instance;
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    public WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
+    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int DelayInfo => 2500;

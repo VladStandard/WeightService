@@ -11,8 +11,6 @@ public sealed record WsSqlCrudResultModel(bool IsOk, Exception? Exception = null
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlCrudResultModel() : this(true) { }
-
     public WsSqlCrudResultModel(Exception exception) : this(false, exception) { }
 
     #endregion

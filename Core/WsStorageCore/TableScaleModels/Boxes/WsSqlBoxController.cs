@@ -20,7 +20,7 @@ public sealed class WsSqlBoxController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlBoxModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlBoxModel>();
+    public WsSqlBoxModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBoxModel>();
 
     public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(SqlCrudConfig);
 

@@ -20,9 +20,9 @@ public sealed class WsSqlDeviceLineFkController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlDeviceScaleFkModel GetNewItem() => SqlCoreItem.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
+    public WsSqlDeviceScaleFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
 
-    public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCoreItem.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
+    public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
 
     public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(SqlCrudConfig);
 
