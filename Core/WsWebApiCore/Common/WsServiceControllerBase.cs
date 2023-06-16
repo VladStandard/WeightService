@@ -828,9 +828,9 @@ public class WsServiceControllerBase : ControllerBase
         
         foreach (WsSqlPluModel plu in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFk = 
-                ContextCache.Plus1CFks.Find(item => item.Plu.Uid1C.Equals(plu.Uid1C)) ?? new();
-            if (plu1CFk.IsNotExists)
+            WsSqlPlu1CFkModel? plu1CFkCache =
+                ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
+            if (plu1CFkCache is null)
                 return false;
         }
         return true;
@@ -839,23 +839,16 @@ public class WsServiceControllerBase : ControllerBase
     /// <summary>
     /// Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
     /// </summary>
-    public List<Exception> FillPlus1CFksDb()
+    public void FillPlus1CFksDb()
     {
-        List<Exception> exceptions = new();
         // Проверить наличие всех связей разрешённых для загрузки ПЛУ из 1С.
-        if (CheckExistsAllPlus1CFksDb()) return exceptions;
+        if (CheckExistsAllPlus1CFksDb()) return;
         // Получить список ПЛУ.
         foreach (WsSqlPluModel plu in ContextManager.ContextPlus.GetList())
         {
-            //// Проверить корректность группы и номера ПЛУ.
-            //if (!IsCorrectPluNumberForNonGroup(plu, false))
-                //exceptions.Add(new($"Exception at {nameof(FillPlus1CFksDb)}. Check PLU {plu}!"));
-            WsSqlPlu1CFkModel plus1CFk = new() { Plu = plu, IsEnabled = false };
-            Exception? exception = UpdatePlu1CFkDbCore(plus1CFk);
-            if (exception is not null)
-                exceptions.Add(exception);
+            // Обновить данные записи в таблице связей обмена ПЛУ 1С.
+            UpdatePlu1CFkDbCore(plu);
         }
-        return exceptions;
     }
 
     /// <summary>
@@ -893,13 +886,12 @@ public class WsServiceControllerBase : ControllerBase
         ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ по UID_1C.
         List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByUid1C(uid1C);
-        foreach (WsSqlPluModel pluDb in plusDb)
+        foreach (WsSqlPluModel plu in plusDb)
         {
-            WsSqlPlu1CFkModel plu1CFk = ContextCache.Plus1CFks.Find(
-                itemCache => Equals(itemCache.Plu.IdentityValueUid, pluDb.IdentityValueUid))
-                ?? ContextManager.ContextPlu1CFk.GetNewItem();
-            if (plu1CFk.IsExists)
-                plus1CFks.Add(plu1CFk);
+            WsSqlPlu1CFkModel? plu1CFkCache =
+                ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
+            if (plu1CFkCache is not null)
+                plus1CFks.Add(plu1CFkCache);
         }
         return plus1CFks;
     }
@@ -925,10 +917,11 @@ public class WsServiceControllerBase : ControllerBase
     private void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
         WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
     {
-        WsSqlPlu1CFkModel plu1CFkCache =
-            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid)) ?? new();
+        WsSqlPlu1CFkModel? plu1CFkCache =
+            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid));
+
         // В кэше не найдено - сохранить.
-        if (plu1CFkCache.IsNotExists)
+        if (plu1CFkCache is null)
         {
             plu1CFk.UpdateProperties(recordXml.Content);
             SavePlu1CFk(response, recordXml, plu1CFk);
@@ -961,29 +954,28 @@ public class WsServiceControllerBase : ControllerBase
     /// <summary>
     /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
     /// </summary>
-    /// <param name="plu1CFk"></param>
-    private Exception? UpdatePlu1CFkDbCore(WsSqlPlu1CFkModel plu1CFk)
+    /// <param name="plu"></param>
+    private void UpdatePlu1CFkDbCore(WsSqlPluModel plu)
     {
-        WsSqlPlu1CFkModel plu1CFkCache =
-            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid)) ?? new();
+        WsSqlPlu1CFkModel? plu1CFkCache =
+            ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
         // В кэше не найдено - сохранить.
-        if (plu1CFkCache.IsNotExists)
+        if (plu1CFkCache is null)
         {
-            SavePlu1CFk(plu1CFk);
+            SavePlu1CFk(new(plu));
             // Загрузить кэш.
             ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         }
         // В кэше найдено - обновить.
         else
         {
-            plu1CFkCache.UpdateProperties(plu1CFk);
+            plu1CFkCache.UpdateProperties(plu);
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
-                return new($"Exception at UpdatePlu1CFkDbCore. Check PLU {plu1CFkCache}!");
+                throw new($"Exception at UpdatePlu1CFkDbCore. Check PLU {plu1CFkCache}!");
             SqlCore.Update(plu1CFkCache);
         }
-        return null;
     }
     
     #endregion

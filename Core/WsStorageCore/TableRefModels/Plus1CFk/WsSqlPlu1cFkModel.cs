@@ -17,14 +17,16 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
     [XmlElement] public virtual bool IsEnabled { get; set; }
     [XmlElement] public virtual string RequestDataString { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPlu1CFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         IsEnabled = false;
         RequestDataString = string.Empty;
+    }
+
+    public WsSqlPlu1CFkModel(WsSqlPluModel plu) : this()
+    {
+        Plu = plu;
     }
 
     /// <summary>

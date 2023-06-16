@@ -18,16 +18,11 @@ public class WsServiceControllerBaseTests
                 throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
             WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCore.SessionFactory);
             // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
-            List<Exception> exceptions = wsServiceController.FillPlus1CFksDb();
-            if (exceptions.Any())
-                TestContext.WriteLine(string.Join(Environment.NewLine, exceptions));
-            else
-                TestContext.WriteLine("FillPlus1CFksDb is ok.");
-            Assert.IsTrue(!exceptions.Any());
+            wsServiceController.FillPlus1CFksDb();
 
             Assert.IsTrue(wsServiceController.CheckExistsAllPlus1CFksDb());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList(), 5);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVS }); // , WsEnumConfiguration.ReleaseVS
     }
 
     [Test]

@@ -606,15 +606,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckIsEnabledPlu(itemXml, plus1CFksDb);
+                // Проверить валидацию ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    CheckPluValidation(itemXml, pluValidator);
+
                 // TODO: FIX HERE
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
                     itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                     itemXml.ParseResult.Exception = $"{WsLocaleCore.WebService.Underdevelopment}!";
                 }
-                // Проверить валидацию ПЛУ.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    CheckPluValidation(itemXml, pluValidator);
                 //// Проверить дубликат номера ПЛУ для не групп.
                 //if (itemXml.ParseResult.IsStatusSuccess)
                 //    CheckPluDublicateForNonGroup(response, itemXml);
