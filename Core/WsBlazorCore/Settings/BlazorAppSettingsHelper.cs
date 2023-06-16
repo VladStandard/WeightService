@@ -24,7 +24,7 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
 
     #region Public and private fields, properties, constructor
 
-    public WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
+    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();

@@ -12,7 +12,7 @@ public class WsServiceControllerBase : ControllerBase
 
     protected WsAppVersionHelper AppVersion { get; } = WsAppVersionHelper.Instance;
     protected ISessionFactory SessionFactory { get; }
-    internal WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
+    internal WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
@@ -201,12 +201,12 @@ public class WsServiceControllerBase : ControllerBase
         {
             if (!string.IsNullOrEmpty(url))
             {
-                if (SqlCoreManager.SessionFactory is null)
-                    throw new ArgumentException(nameof(SqlCoreManager.SessionFactory));
+                if (SqlCore.SessionFactory is null)
+                    throw new ArgumentException(nameof(SqlCore.SessionFactory));
                 if (response.ResponseQuery is not null)
                     response.ResponseQuery.Query = url;
                 //ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
-                ISQLQuery sqlQuery = SqlCoreManager.SessionFactory.OpenSession().CreateSQLQuery(url);
+                ISQLQuery sqlQuery = SqlCore.SessionFactory.OpenSession().CreateSQLQuery(url);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)
@@ -328,7 +328,7 @@ public class WsServiceControllerBase : ControllerBase
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
+        itemDb = SqlCore.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -356,7 +356,7 @@ public class WsServiceControllerBase : ControllerBase
             WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-            itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
+            itemDb = SqlCore.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
@@ -383,7 +383,7 @@ public class WsServiceControllerBase : ControllerBase
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
+        itemDb = SqlCore.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -408,7 +408,7 @@ public class WsServiceControllerBase : ControllerBase
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
+        itemDb = SqlCore.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -436,7 +436,7 @@ public class WsServiceControllerBase : ControllerBase
             WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                     { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
                 WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-            itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
+            itemDb = SqlCore.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
             if (itemDb is null || itemDb.IsNew)
             {
                 AddResponseException(response, uid1CException,
@@ -463,7 +463,7 @@ public class WsServiceControllerBase : ControllerBase
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCoreManager.SqlCore.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
+        itemDb = SqlCore.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
         if (itemDb is null || itemDb.IsNew)
         {
             AddResponseException(response, uid1CException,
@@ -602,7 +602,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter)
         {
             response.Successes.Add(new(itemXml.Uid1C));
@@ -629,7 +629,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid1C"></param>
     internal void SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1C) where T : WsSqlTableBase
     {
-        SqlCoreManager.SqlCore.Save(item, item.Identity, WsSqlEnumSessionType.Isolated);
+        SqlCore.Save(item, item.Identity, WsSqlEnumSessionType.Isolated);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -646,7 +646,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -663,7 +663,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -680,7 +680,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -697,7 +697,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -714,7 +714,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -731,7 +731,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -748,7 +748,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -767,7 +767,7 @@ public class WsServiceControllerBase : ControllerBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
-        SqlCoreManager.SqlCore.Update(itemDb);
+        SqlCore.Update(itemDb);
         if (isCounter)
             response.Successes.Add(new(uid1C));
         response.SuccessesPlus?.Add(new(uid1C, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
@@ -906,13 +906,13 @@ public class WsServiceControllerBase : ControllerBase
 
     public void SavePlu1CFk(WsSqlPlu1CFkModel plu1CFk)
     {
-        SqlCoreManager.SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
+        SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
     }
 
     private void SavePlu1CFk<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
         WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
     {
-        SqlCoreManager.SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
+        SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
     }
 
     /// <summary>
@@ -953,7 +953,7 @@ public class WsServiceControllerBase : ControllerBase
             }
             else
             {
-                SqlCoreManager.SqlCore.Update(plu1CFkCache);
+                SqlCore.Update(plu1CFkCache);
             }
         }
     }
@@ -981,7 +981,7 @@ public class WsServiceControllerBase : ControllerBase
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
                 return new($"Exception at UpdatePlu1CFkDbCore. Check PLU {plu1CFkCache}!");
-            SqlCoreManager.SqlCore.Update(plu1CFkCache);
+            SqlCore.Update(plu1CFkCache);
         }
         return null;
     }

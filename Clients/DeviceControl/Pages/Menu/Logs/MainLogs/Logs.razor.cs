@@ -19,10 +19,10 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     public Logs() : base()
     {
-        LogTypes = ContextManager.SqlCoreManager.SqlCoreList.GetListNotNullable<WsSqlLogTypeModel>(
+        LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(
             new WsSqlCrudConfigModel()
         );
-        Lines = ContextManager.SqlCoreManager.SqlCoreList.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
+        Lines = ContextManager.SqlCore.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         
         SqlCrudConfigSection.IsGuiShowFilterMarked = false;

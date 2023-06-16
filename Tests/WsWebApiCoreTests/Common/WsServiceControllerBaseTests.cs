@@ -14,9 +14,9 @@ public class WsServiceControllerBaseTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            if (WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory is null) 
-                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory));
-            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory);
+            if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null) 
+                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
+            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCore.SessionFactory);
             // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
             List<Exception> exceptions = wsServiceController.FillPlus1CFksDb();
             if (exceptions.Any())
@@ -35,9 +35,9 @@ public class WsServiceControllerBaseTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            if (WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory is null)
-                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory));
-            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory);
+            if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null)
+                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
+            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCore.SessionFactory);
             // Проверить наличие всех связей разрешённых для загрузки ПЛУ из 1С.
             bool flag = wsServiceController.CheckExistsAllPlus1CFksDb();
             if (!flag)
@@ -52,9 +52,9 @@ public class WsServiceControllerBaseTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            if (WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory is null)
-                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory));
-            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCoreManager.SessionFactory);
+            if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null)
+                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
+            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCore.SessionFactory);
             WsSqlPluModel plu301 = WsTestsUtils.ContextManager.ContextPlus.GetItemByNumber(301);
             TestContext.WriteLine($"{nameof(plu301)}: {plu301}");
             // Получить список связей обмена ПЛУ 1С по GUID_1C.

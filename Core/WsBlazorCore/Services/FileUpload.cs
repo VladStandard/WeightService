@@ -8,7 +8,7 @@ namespace WsBlazorCore.Services;
 
 public class FileUpload : IFileUpload
 {
-    private WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     //private readonly IWebHostEnvironment _environment;
     private readonly IHostingEnvironment _environment;
     //public FileUpload(IWebHostEnvironment environment)
@@ -46,6 +46,6 @@ public class FileUpload : IFileUpload
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         item.Data = new() { Value = DataUtils.GetBytes(stream, true) };
-        SqlCoreManager.SqlCore.Update(item);
+        SqlCore.Update(item);
     }
 }

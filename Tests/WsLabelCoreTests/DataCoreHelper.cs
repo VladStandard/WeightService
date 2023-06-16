@@ -111,7 +111,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
-            List<T> items = ContextManager.SqlCoreList.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.SqlCore.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true);
             if (!items.Any())
@@ -143,7 +143,7 @@ public sealed class DataCoreHelper
         AssertAction(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowAll);
-            List<T> items = ContextManager.SqlCoreList.GetListNotNullable<T>(sqlCrudConfig);
+            List<T> items = ContextManager.SqlCore.GetListNotNullable<T>(sqlCrudConfig);
             Assert.IsTrue(items.Any());
             //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true, true);
             if (!items.Any())

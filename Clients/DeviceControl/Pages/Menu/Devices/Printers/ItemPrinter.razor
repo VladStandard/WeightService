@@ -52,17 +52,17 @@
   @*   <td> *@
   @*     <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))" *@
   @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.SqlCoreManager.IsConnected())"/> *@
+  @*                   Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
   @*   </td> *@
   @*   <td> *@
   @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF")) *@
   @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.SqlCoreManager.IsConnected())"/> *@
+  @*                   Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
   @*   </td> *@
   @*   <td> *@
   @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF")) *@
   @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.SqlCoreManager.IsConnected())"/> *@
+  @*                   Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
   @*   </td> *@
   @* </tr> *@
   <ItemDates SqlItem="@SqlItemCast"/>

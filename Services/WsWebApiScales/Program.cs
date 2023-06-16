@@ -5,10 +5,10 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // NHibernate & JsonSettings & DataAccess.
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales), false);
-if (WsSqlCoreManagerHelper.Instance.SessionFactory is null) throw new ArgumentException(
-    $"{nameof(WsSqlCoreManagerHelper)}.{nameof(WsSqlCoreManagerHelper.Instance.SessionFactory)}");
-builder.Services.AddSingleton(WsSqlCoreManagerHelper.Instance.SessionFactory);
-builder.Services.AddScoped(_ => WsSqlCoreManagerHelper.Instance.SessionFactory.OpenSession());
+if (WsSqlCoreHelper.Instance.SessionFactory is null) throw new ArgumentException(
+    $"{nameof(WsSqlCoreHelper.Instance.SessionFactory)}");
+builder.Services.AddSingleton(WsSqlCoreHelper.Instance.SessionFactory);
+builder.Services.AddScoped(_ => WsSqlCoreHelper.Instance.SessionFactory.OpenSession());
 
 // POST XML from body.
 builder.Services.AddMvc(options =>

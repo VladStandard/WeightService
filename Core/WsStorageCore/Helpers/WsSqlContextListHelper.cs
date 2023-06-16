@@ -21,8 +21,7 @@ public sealed class WsSqlContextListHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
-
+    
     #endregion
 
     #region Public and private methods
@@ -377,9 +376,9 @@ public sealed class WsSqlContextListHelper
         {
             WsSqlPluBrandFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
-                bundleFk.Plu = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlPluModel>();
+                bundleFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Brand.IsNew)
-                bundleFk.Brand = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlBrandModel>();
+                bundleFk.Brand = SqlCore.GetItemNewEmpty<WsSqlBrandModel>();
         }
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Brand.Name).ToList();
@@ -395,9 +394,9 @@ public sealed class WsSqlContextListHelper
         {
             WsSqlPluBundleFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)
-                bundleFk.Plu = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlPluModel>();
+                bundleFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Bundle.IsNew)
-                bundleFk.Bundle = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
+                bundleFk.Bundle = SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
         }
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Bundle.Name).ToList();
@@ -413,9 +412,9 @@ public sealed class WsSqlContextListHelper
         {
             WsSqlPluClipFkModel pluClipFk = list.First();
             if (pluClipFk.Plu.IsNew)
-                pluClipFk.Plu = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlPluModel>();
+                pluClipFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
             if (pluClipFk.Clip.IsNew)
-                pluClipFk.Clip = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlClipModel>();
+                pluClipFk.Clip = SqlCore.GetItemNewEmpty<WsSqlClipModel>();
         }
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Clip.Name).ToList();
@@ -480,7 +479,7 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluNestingFkModel> GetListNotNullablePlusNestingFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPluNestingFkModel> list = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty) list.Add(SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlPluNestingFkModel>());
+        if (sqlCrudConfig.IsResultAddFieldEmpty) list.Add(SqlCore.GetItemNewEmpty<WsSqlPluNestingFkModel>());
         if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
@@ -713,7 +712,7 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlDeviceModel> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlDeviceModel>());
+            result.Add(SqlCore.GetItemNewEmpty<WsSqlDeviceModel>());
         List<WsSqlDeviceModel> list = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Name).ToList();
         result.AddRange(list);
@@ -724,7 +723,7 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlDeviceTypeModel> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>());
+            result.Add(SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>());
         List<WsSqlDeviceTypeModel> list = GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Name).ToList();
         result.AddRange(list);
@@ -735,8 +734,8 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlDeviceTypeFkModel> result = new();
         if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(new() { Device = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlDeviceModel>(), 
-                Type = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>() });
+            result.Add(new() { Device = SqlCore.GetItemNewEmpty<WsSqlDeviceModel>(), 
+                Type = SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>() });
         List<WsSqlDeviceTypeFkModel> list = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Type.Name).ToList();
         result = result.OrderBy(item => item.Device.Name).ToList();
@@ -749,8 +748,8 @@ public sealed class WsSqlContextListHelper
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
         List<WsSqlDeviceScaleFkModel> result = new();
         if (isAddFieldNull)
-            result.Add(new() { Device = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlDeviceModel>(), 
-                Scale = SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlScaleModel>() });
+            result.Add(new() { Device = SqlCore.GetItemNewEmpty<WsSqlDeviceModel>(), 
+                Scale = SqlCore.GetItemNewEmpty<WsSqlScaleModel>() });
         List<WsSqlDeviceScaleFkModel> list = GetListNotNullableCore<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Scale.Description).ToList();
         result = result.OrderBy(item => item.Device.Name).ToList();
@@ -819,7 +818,7 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlPluBundleFkModel> result = new();
         if (isAddFieldNull)
-            result.Add(SqlCoreManager.SqlCore.GetItemNewEmpty<WsSqlPluBundleFkModel>());
+            result.Add(SqlCore.GetItemNewEmpty<WsSqlPluBundleFkModel>());
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
 
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,

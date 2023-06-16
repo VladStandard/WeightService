@@ -17,7 +17,7 @@ public sealed class DataAccessHelperMapTests
                 throw new ArgumentNullException(nameof(WsTestsUtils.ContextManager.SqlConfiguration));
 
             FluentConfiguration fluentConfiguration = Fluently.Configure().Database(WsTestsUtils.ContextManager.SqlConfiguration);
-            WsSqlContextManagerHelper.Instance.SqlCoreManager.AddConfigurationMappings(fluentConfiguration);
+            WsSqlContextManagerHelper.Instance.SqlCore.AddConfigurationMappings(fluentConfiguration);
             fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
             ISessionFactory sessionFactory = fluentConfiguration.BuildSessionFactory();
             sessionFactory.OpenSession();

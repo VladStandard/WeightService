@@ -23,7 +23,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (boxDb is null || boxDb.IsNew) return;
         boxDb.UpdateProperties(pluXml);
-        SqlCoreManager.SqlCore.Update(boxDb);
+        SqlCore.Update(boxDb);
         if (isCounter)
         {
             response.Successes.Add(new(pluXml.Uid1C));
@@ -35,7 +35,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (bundleDb is null || bundleDb.IsNew) return;
         bundleDb.UpdateProperties(pluXml);
-        SqlCoreManager.SqlCore.Update(bundleDb);
+        SqlCore.Update(bundleDb);
         if (isCounter)
         {
             response.Successes.Add(new(pluXml.Uid1C));
@@ -47,7 +47,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     {
         if (clipDb is null || clipDb.IsNew) return;
         clipDb.UpdateProperties(pluXml);
-        SqlCoreManager.SqlCore.Update(clipDb);
+        SqlCore.Update(clipDb);
         if (isCounter)
         {
             response.Successes.Add(new(pluXml.Uid1C));
@@ -61,7 +61,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     //    pluDb.Identity = pluXml.Identity;
     //    pluDb.UpdateProperties(pluXml);
     //    // Native update -> Be careful, good luck.
-    //    SqlCrudResultModel dbResult = SqlCoreManager.SqlCore.ExecQueryNative(
+    //    SqlCrudResultModel dbResult = SqlCore.ExecQueryNative(
     //        WsWebSqlQueries.UpdatePlu, new List<SqlParameter>
     //        {
     //            new("uid", pluXml.IdentityValueUid),

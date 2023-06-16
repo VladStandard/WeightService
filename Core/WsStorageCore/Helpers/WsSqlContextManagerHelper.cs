@@ -26,8 +26,6 @@ public sealed class WsSqlContextManagerHelper
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlAccessController ContextAccess => WsSqlAccessController.Instance;
-    public WsSqlCoreListHelper SqlCoreList => WsSqlCoreListHelper.Instance;
-    public WsSqlCoreManagerHelper SqlCoreManager => WsSqlCoreManagerHelper.Instance;
     public WsSqlAreaController ContextAreas => WsSqlAreaController.Instance;
     public WsSqlBoxController ContextBoxes => WsSqlBoxController.Instance;
     public WsSqlBundleController ContextBundles => WsSqlBundleController.Instance;

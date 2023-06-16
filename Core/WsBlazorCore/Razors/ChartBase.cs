@@ -26,7 +26,7 @@ public class ChartBase
         ChartCountModel[] result = Array.Empty<ChartCountModel>();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Asc }, WsSqlEnumIsMarked.ShowAll, false);
-        WsSqlContragentModel[]? contragents = BlazorAppSettings.SqlCoreManager.SqlCoreList.GetArrayNullable<WsSqlContragentModel>(sqlCrudConfig);
+        WsSqlContragentModel[]? contragents = BlazorAppSettings.SqlCore.GetArrayNullable<WsSqlContragentModel>(sqlCrudConfig);
         int i = 0;
         switch (field)
         {

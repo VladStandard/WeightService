@@ -40,7 +40,7 @@ public partial class RazorComponentBase
 
     protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
     {
-        return ContextManager.SqlCoreManager.SqlCore.GetItemNewEmpty<TItem>();
+        return ContextManager.SqlCore.GetItemNewEmpty<TItem>();
     }
 
     protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
@@ -48,9 +48,9 @@ public partial class RazorComponentBase
         if (item is null || !SqlItemValidate(item)) 
             return;
         if (item.IsNew)
-            ContextManager.SqlCoreManager.SqlCore.Save(item);
+            ContextManager.SqlCore.Save(item);
         else 
-            ContextManager.SqlCoreManager.SqlCore.Update(item);
+            ContextManager.SqlCore.Update(item);
     }
 
     protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()

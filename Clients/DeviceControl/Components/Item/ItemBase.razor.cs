@@ -88,7 +88,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.SqlCoreManager.SqlCore.GetItemNotNullableByUid<TItem>(Uid);
+        SqlItemCast = ContextManager.SqlCore.GetItemNotNullableByUid<TItem>(Uid);
         if (SqlItemCast.IsNew)
             SqlItemCast = SqlItemNewEmpty<TItem>();
     }
