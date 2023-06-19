@@ -141,7 +141,8 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
                     itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                    itemXml.ParseResult.Exception = WsLocaleCore.WebService.Underdevelopment(40);
+                    itemXml.ParseResult.Exception =
+                        WsLocaleCore.WebService.FieldPluNumberTemplate(pluDb.Number) + WsLocaleCore.WebService.Underdevelopment(40);
                 }
                 // Добавить характеристику ПЛУ.
                 //if (itemXml.ParseResult.IsStatusSuccess)

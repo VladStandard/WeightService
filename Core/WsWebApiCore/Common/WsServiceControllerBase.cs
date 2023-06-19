@@ -468,7 +468,63 @@ public class WsServiceControllerBase : ControllerBase
     }
 
     /// <summary>
-    /// Получить пакет ПЛУ.
+    /// Получить связь бренда ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="pluUid1C"></param>
+    /// <param name="brandUid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    internal WsSqlPluBrandFkModel GetPluBrandFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid pluUid1C, Guid brandUid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluBrandFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.PlusBrandsFks.Find(item => 
+                item.Plu.Uid1C.Equals(pluUid1C) && item.Brand.Uid1C.Equals(brandUid1C))
+                ?? ContextManager.ContextPluBrandsFk.GetNewItem(),
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить связь клипсы ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="pluUid1C"></param>
+    /// <param name="clipUid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    internal WsSqlPluClipFkModel GetPluClipFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid pluUid1C, Guid clipUid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluClipFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.PlusClipsFks.Find(item => 
+                item.Plu.Uid1C.Equals(pluUid1C) && item.Clip.Uid1C.Equals(clipUid1C))
+                ?? ContextManager.ContextPlusClipsFk.GetNewItem(),
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить связь пакета ПЛУ.
     /// </summary>
     /// <param name="contextType"></param>
     /// <param name="response"></param>

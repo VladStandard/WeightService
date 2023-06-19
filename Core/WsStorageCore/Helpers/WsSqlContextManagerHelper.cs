@@ -38,6 +38,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlLineController ContextLines => WsSqlLineController.Instance;
     public WsSqlPlu1CController ContextPlu1CFk => WsSqlPlu1CController.Instance;
     public WsSqlPluFkController ContextPlusFk => WsSqlPluFkController.Instance;
+    public WsSqlPluBrandFkController ContextPluBrandsFk => WsSqlPluBrandFkController.Instance;
     public WsSqlPluBundleFkController ContextPluBundlesFk => WsSqlPluBundleFkController.Instance;
     public WsSqlPluClipFkController ContextPlusClipsFk => WsSqlPluClipFkController.Instance;
     public WsSqlPluCharacteristicController ContextPluCharacteristics => WsSqlPluCharacteristicController.Instance;

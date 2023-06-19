@@ -171,46 +171,23 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     }
 
     /// <summary>
-    /// Добавить коробку.
+    /// Сохранить коробку.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBox(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private void SaveBox(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
-            // Проверка на пустой Uid1C.
-            if (Equals(pluXml.BoxTypeGuid, Guid.Empty))
-            {
-                // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName!="" BoxTypeWeight!="".
-                if (pluXml.PackageTypeWeight > 0)
-                {
-                    AddResponseExceptionString(response, pluXml.Uid1C,
-                        $"{WsLocaleCore.WebService.IsEmpty} {nameof(pluXml.BoxTypeGuid)}!");
-                    return;
-                }
-                // BoxTypeGuid="00000000-0000-0000-0000-000000000000" BoxTypeName="" BoxTypeWeight="".
-                pluXml.BoxTypeName = WsLocaleCore.WebService.BoxZero;
-            }
-
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBoxModel? boxDb = ContextCache.Boxes.Find(item => Equals(item.Uid1C, pluXml.BoxTypeGuid));
-            if (boxDb is not null)
+            WsSqlBoxModel boxDb = GetBox(WsSqlEnumContextType.Cache, response,
+                pluXml.BoxTypeGuid, pluXml.Uid1C, "Коробка");
+            if (boxDb.IsExists)
             {
                 UpdateBoxDb(pluXml, boxDb);
                 return;
             }
-
-            // Найдено по Name -> Обновить найденную запись.
-            boxDb = ContextCache.Boxes.Find(item => Equals(item.Name, pluXml.BoxTypeName));
-            if (boxDb is not null)
-            {
-                UpdateBoxDb(pluXml, boxDb);
-                return;
-            }
-
             // Не найдено -> Добавить новую запись.
-            boxDb = new();
             boxDb.UpdateProperties(pluXml);
             SaveItemDb(response, boxDb, false, pluXml.Uid1C);
             // Обновить кэш.
@@ -223,46 +200,23 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     }
 
     /// <summary>
-    /// Добавить пакет.
+    /// Сохранить пакет.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBundle(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private void SaveBundle(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
-            // Проверка на пустой Uid1C.
-            if (Equals(pluXml.PackageTypeGuid, Guid.Empty))
-            {
-                // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName!="" PackageTypeWeight!="".
-                if (pluXml.PackageTypeWeight > 0)
-                {
-                    AddResponseExceptionString(response, pluXml.Uid1C,
-                        $"{WsLocaleCore.WebService.IsEmpty} {nameof(pluXml.PackageTypeGuid)}!");
-                    return;
-                }
-                // PackageTypeGuid="00000000-0000-0000-0000-000000000000" PackageTypeName="" PackageTypeWeight="".
-                pluXml.PackageTypeName = WsLocaleCore.WebService.PackageZero;
-            }
-
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlBundleModel? bundleDb = ContextCache.Bundles.Find(item => Equals(item.Uid1C, pluXml.PackageTypeGuid));
-            if (bundleDb is not null)
+            WsSqlBundleModel bundleDb = GetBundle(WsSqlEnumContextType.Cache, response,
+                pluXml.PackageTypeGuid, pluXml.Uid1C, WsLocaleCore.WebService.FieldBundle);
+            if (bundleDb.IsExists)
             {
                 UpdateBundleDb(pluXml, bundleDb);
                 return;
             }
-
-            // Найдено по Name -> Обновить найденную запись.
-            bundleDb = ContextCache.Bundles.Find(item => Equals(item.Name, pluXml.PackageTypeName));
-            if (bundleDb is not null)
-            {
-                UpdateBundleDb(pluXml, bundleDb);
-                return;
-            }
-
             // Не найдено -> Добавить новую запись.
-            bundleDb = new();
             bundleDb.UpdateProperties(pluXml);
             SaveItemDb(response, bundleDb, false, pluXml.Uid1C);
             // Обновить кэш.
@@ -275,91 +229,23 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     }
 
     /// <summary>
-    /// Добавить связь бренда.
+    /// Сохранить клипсу.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluBrandFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private void SaveClip(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
-            if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
-            // Получить ПЛУ.
-            WsSqlPluModel pluDb = GetPlu(WsSqlEnumContextType.Cache, response, 
-                pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
-            if (pluDb.IsNotExists) return;
-            // Получить бренд.
-            WsSqlBrandModel brandDb = GetBrand(WsSqlEnumContextType.Cache, response, 
-                pluXml.BrandGuid, pluXml.Uid1C, WsLocaleCore.WebService.FieldBrand);
-            if (brandDb.IsNotExists) return;
-            // Связь бренда.
-            WsSqlPluBrandFkModel pluBrandFk = new()
-            {
-                IdentityValueUid = Guid.NewGuid(),
-                Plu = pluDb,
-                Brand = brandDb
-            };
-
-            // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            WsSqlPluBrandFkModel? pluBrandFkDb = ContextCache.PlusBrandsFks.Find(item => Equals(item.Plu.Uid1C, pluBrandFk.Plu.Uid1C));
-            if (pluBrandFkDb is not null)
-            {
-                UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
-                return;
-            }
-
-            // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C);
-            // Обновить кэш.
-            ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
-        }
-        catch (Exception ex)
-        {
-            AddResponseException(response, pluXml.Uid1C, ex);
-        }
-    }
-
-    /// <summary>
-    /// Добавить клипсу.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    private void AddResponsePluClip(WsResponse1CShortModel response, WsSqlPluModel pluXml)
-    {
-        try
-        {
-            // Проверка на пустой Uid1C.
-            if (Equals(pluXml.ClipTypeGuid, Guid.Empty))
-            {
-                // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName!="" ClipTypeWeight!="".
-                if (pluXml.ClipTypeWeight > 0)
-                {
-                    AddResponseExceptionString(response, pluXml.Uid1C,
-                        $"{WsLocaleCore.WebService.IsEmpty} {nameof(pluXml.ClipTypeGuid)}!");
-                    return;
-                }
-                // ClipTypeGuid="00000000-0000-0000-0000-000000000000" ClipTypeName="" ClipTypeWeight="".
-                pluXml.ClipTypeName = WsLocaleCore.WebService.ClipZero;
-            }
-
             // Найдено по Uid1C -> Обновить найденную запись.
-            WsSqlClipModel? clipDb = ContextCache.Clips.Find(item => Equals(item.Uid1C, pluXml.ClipTypeGuid));
-            if (clipDb is not null)
+            WsSqlClipModel clipDb = GetClip(WsSqlEnumContextType.Cache, response,
+                pluXml.ClipTypeGuid, pluXml.Uid1C, "Клипса");
+            if (clipDb.IsExists)
             {
                 UpdateClipDb(pluXml, clipDb);
                 return;
             }
-
-            // Найдено по Name -> Обновить найденную запись.
-            clipDb = ContextCache.Clips.Find(item => Equals(item.Name, pluXml.ClipTypeName));
-            if (clipDb is not null)
-            {
-                UpdateClipDb(pluXml, clipDb);
-                return;
-            }
-
             // Не найдено -> Добавить новую запись.
-            clipDb = new();
             clipDb.UpdateProperties(pluXml);
             SaveItemDb(response, clipDb, false, pluXml.Uid1C);
             // Обновить кэш.
@@ -372,17 +258,61 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     }
 
     /// <summary>
-    /// Добавить связь клипсы ПЛУ.
+    /// Сохранить связь бренда.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    private void AddResponsePluClipFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private void SavePluBrandFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    {
+        try
+        {
+            if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
+            // Получить ПЛУ.
+            WsSqlPluModel pluDb = GetPlu(WsSqlEnumContextType.Cache, response,
+                pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
+            if (pluDb.IsNotExists) return;
+            // Получить бренд.
+            WsSqlBrandModel brandDb = GetBrand(WsSqlEnumContextType.Cache, response,
+                pluXml.BrandGuid, pluXml.Uid1C, WsLocaleCore.WebService.FieldBrand);
+            if (brandDb.IsNotExists) return;
+            // Связь бренда и ПЛУ.
+            WsSqlPluBrandFkModel pluBrandFk = new()
+            {
+                IdentityValueUid = Guid.NewGuid(),
+                Plu = pluDb,
+                Brand = brandDb
+            };
+            // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
+            WsSqlPluBrandFkModel pluBrandFkDb = GetPluBrandFk(WsSqlEnumContextType.Cache, response,
+                pluBrandFk.Plu.Uid1C, pluBrandFk.Brand.Uid1C, pluXml.Uid1C, "Связь бренда ПЛУ");
+            if (pluBrandFkDb.IsExists)
+            {
+                UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
+                return;
+            }
+            // Не найдено -> Добавить новую запись.
+            SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C);
+            // Обновить кэш.
+            ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
+        }
+        catch (Exception ex)
+        {
+            AddResponseException(response, pluXml.Uid1C, ex);
+        }
+    }
+
+    /// <summary>
+    /// Сохранить связь клипсы ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    private void SavePluClipFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
         try
         {
             if (Equals(pluXml.ClipTypeGuid, Guid.Empty)) return;
             // Получить ПЛУ.
-            WsSqlPluModel pluDb = GetPlu(WsSqlEnumContextType.Cache, response, 
+            WsSqlPluModel pluDb = GetPlu(WsSqlEnumContextType.Cache, response,
                 pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
             if (pluDb.IsNotExists) return;
             // Получить клипсу.
@@ -396,15 +326,14 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 Plu = pluDb,
                 Clip = clipDb
             };
-
             // Найдено по Identity -> Update exists | UQ_PLUS_CLIP_PLU_FK.
-            WsSqlPluClipFkModel? pluClipFkDb = ContextCache.PlusClipsFks.Find(item => Equals(item.Plu.Uid1C, pluClipFk.Plu.Uid1C));
-            if (pluClipFkDb is not null)
+            WsSqlPluClipFkModel pluClipFkDb = GetPluClipFk(WsSqlEnumContextType.Cache, response,
+                pluClipFk.Plu.Uid1C, pluClipFk.Clip.Uid1C, pluXml.Uid1C, "Связь клипсы ПЛУ");
+            if (pluClipFkDb.IsExists)
             {
                 UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false);
                 return;
             }
-
             // Не найдено -> Добавить новую запись.
             SaveItemDb(response, pluClipFk, false, pluXml.Uid1C);
             // Обновить кэш.
@@ -434,7 +363,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Получить пакет.
             WsSqlBundleModel bundleDb = GetBundle(WsSqlEnumContextType.Cache, response, 
                 pluXml.PackageTypeGuid, pluXml.Uid1C, WsLocaleCore.WebService.FieldBundle);
-            if (pluDb.IsNotExists || bundleDb.IsNotExists) return pluBundleFk;
+            if (bundleDb.IsNotExists) return pluBundleFk;
             // Связь пакета и ПЛУ.
             pluBundleFk = new()
             {
@@ -442,7 +371,6 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 Plu = pluDb,
                 Bundle = bundleDb,
             };
-
             // Найдено по Identity -> Update exists | UQ_BUNDLES_FK.
             WsSqlPluBundleFkModel? pluBundleFkDb = ContextCache.PlusBundlesFks.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
             if (pluBundleFkDb is not null)
@@ -450,7 +378,6 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false);
                 return pluBundleFkDb;
             }
-
             // Не найдено -> Добавить новую запись.
             SaveItemDb(response, pluBundleFk, false, pluXml.Uid1C);
             // Обновить кэш.
@@ -583,38 +510,39 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Сохранить связь ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluFks(response, itemXml);
-
-                // TODO: FIX HERE
+                // Сохранить коробку.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBox(response, itemXml);
+                // Сохранить пакет.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBundle(response, itemXml);
+                // Сохранить связь бренда.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SavePluBrandFk(response, itemXml);
+                // Сохранить клипсу.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveClip(response, itemXml);
+                // Сохранить связь клипсы ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SavePluClipFk(response, itemXml);
+                // Успешно.
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
-                    itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                    itemXml.ParseResult.Exception = 
-                        WsLocaleCore.WebService.FieldPluNumberTemplate(itemXml.Number) + WsLocaleCore.WebService.Underdevelopment(50);
+                    // Добавить связь пакета ПЛУ.
+                    WsSqlPluBundleFkModel pluBundleFk = AddResponsePluBundleFk(response, itemXml);
+                    // Добавить связь вложенности ПЛУ.
+                    if (itemXml.ParseResult.IsStatusSuccess)
+                    {
+                        // TODO: FIX HERE
+                        if (itemXml.ParseResult.IsStatusSuccess)
+                        {
+                            itemXml.ParseResult.Status = WsEnumParseStatus.Error;
+                            itemXml.ParseResult.Exception =
+                                WsLocaleCore.WebService.FieldPluNumberTemplate(itemXml.Number) + WsLocaleCore.WebService.Underdevelopment(90);
+                        }
+                        //AddResponsePluNestingFk(response, pluBundleFk.Plu.Uid1C, itemXml);
+                    }
                 }
-                //// Добавить коробку.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    AddResponsePluBox(response, itemXml);
-                //// Добавить пакет.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    AddResponsePluBundle(response, itemXml);
-                //// Добавить связь бренда.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    AddResponsePluBrandFk(response, itemXml);
-                //// Добавить клипсу.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    AddResponsePluClip(response, itemXml);
-                //// Добавить связь клипсы ПЛУ.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //    AddResponsePluClipFk(response, itemXml);
-                //// Успешно.
-                //if (itemXml.ParseResult.IsStatusSuccess)
-                //{
-                //    // Добавить связь пакета ПЛУ.
-                //    WsSqlPluBundleFkModel pluBundleFk = AddResponsePluBundleFk(response, itemXml);
-                //    // Добавить связь вложенности ПЛУ.
-                //    if (itemXml.ParseResult.IsStatusSuccess)
-                //        AddResponsePluNestingFk(response, pluBundleFk, itemXml);
-                //}
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
                     AddResponseExceptionString(response, itemXml.Uid1C,
