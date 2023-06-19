@@ -26,5 +26,18 @@ public sealed class WsSqlClipController : WsSqlTableControllerBase
 
     public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(SqlCrudConfig);
 
+    /// <summary>
+    /// Получить клипсу по полю UID_1C.
+    /// </summary>
+    /// <param name="uid1C"></param>
+    /// <returns></returns>
+    public WsSqlClipModel GetItemByUid1C(Guid uid1C)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
+                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
+            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+        return SqlCore.GetItemNotNullable<WsSqlClipModel>(sqlCrudConfig);
+    }
+
     #endregion
 }

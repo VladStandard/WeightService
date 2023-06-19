@@ -54,7 +54,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
             //if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, brandXml, true);
+            SaveItemDb(response, brandXml, true, brandXml.Uid1C);
             // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.Brands);
         }

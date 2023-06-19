@@ -15,6 +15,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldBundle => Lang == WsEnumLanguage.English ? "Bundle" : "Пакет";
     public string FieldClip => Lang == WsEnumLanguage.English ? "Clip" : "Клипса";
     public string FieldCode => Lang == WsEnumLanguage.English ? "code" : "код";
+    public string FieldCodes => Lang == WsEnumLanguage.English ? "codes" : "коды";
     public string FieldGroup => Lang == WsEnumLanguage.English ? "Group" : "Группа";
     public string FieldGroup1Level => Lang == WsEnumLanguage.English ? "Level 1 group" : "Группа 1 уровня";
     public string FieldGuid => Lang == WsEnumLanguage.English ? "GUID" : "ГУИД";
@@ -22,10 +23,12 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclatureCharacteristic => Lang == WsEnumLanguage.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
     public string FieldNomenclatureGroup => Lang == WsEnumLanguage.English ? "Nomenclature group" : "Номенклатурная группа";
     public string FieldNomenclatureIsDenyForLoad => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load" : "Номенклатура запрещена для загрузки";
-    public string FieldNomenclatureIsErrorUid1c => Lang == WsEnumLanguage.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
+    public string FieldNomenclatureIsZeroNumber => Lang == WsEnumLanguage.English ? "Invalid PLU number is specified" : "Указан недопустимый номер ПЛУ";
+    public string FieldNomenclatureIsErrorUid1C => Lang == WsEnumLanguage.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
     public string FieldNomenclatureIsNotFound => Lang == WsEnumLanguage.English ? "Nomenclature is not found" : "Номенклатура не найдена";
     public string FieldNomenclatureParent => Lang == WsEnumLanguage.English ? "Parent nomenclature" : "Родительская номенклатура";
     public string FieldPluNumber => Lang == WsEnumLanguage.English ? "PLU number" : "Номер ПЛУ";
+    public string FieldPluNumberTemplate(short pluNumber) => Lang == WsEnumLanguage.English ? $"PLU number '{pluNumber:0000}' | " : $"Номер ПЛУ '{pluNumber:0000}' | ";
     public string FieldPluNumberNotInAcl => Lang == WsEnumLanguage.English ? "PLU number is not included in the list of allowed" : "Номер ПЛУ не входит в список разрешённых";
     public string ForDbRecord => Lang == WsEnumLanguage.English ? "for DB record" : "для записи БД";
     public string ForRecord => Lang == WsEnumLanguage.English ? "for record" : "для записи";
@@ -40,7 +43,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string Name => Lang == WsEnumLanguage.English ? "WebService 1C" : "ВебСервис 1С";
     public string Node => Lang == WsEnumLanguage.English ? "node" : "узел";
     public string PackageZero => Lang == WsEnumLanguage.English ? "Without the package" : "Без пакета";
-    public string Underdevelopment => Lang == WsEnumLanguage.English ? "Under development, contact the developer" : "Находится в разработке, свяжитесь с разработчиком";
+    public string Underdevelopment(int percent) => Lang == WsEnumLanguage.English ? $"Under development, contact the developer! Progress of execution {percent}%." : $"Находится в разработке, свяжитесь с разработчиком! Прогресс выполнения {percent}%.";
     public string With => Lang == WsEnumLanguage.English ? "with" : "с";
     public string WithFieldCode => Lang == WsEnumLanguage.English ? "with code" : "с кодом";
     public string WithFieldNumber => Lang == WsEnumLanguage.English ? "with number" : "с номером";

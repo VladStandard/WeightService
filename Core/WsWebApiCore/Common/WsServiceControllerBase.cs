@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using FluentNHibernate.Conventions.Helpers;
+
 namespace WsWebApiCore.Common;
 
 /// <summary>
@@ -13,7 +15,7 @@ public class WsServiceControllerBase : ControllerBase
     protected WsAppVersionHelper AppVersion { get; } = WsAppVersionHelper.Instance;
     protected ISessionFactory SessionFactory { get; }
     internal WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
         WsSqlEnumIsMarked.ShowAll, false, false, true, false);
@@ -159,11 +161,6 @@ public class WsServiceControllerBase : ControllerBase
                         response1CShort.IsDebug = isDebug;
                         if (response1CShort.IsDebug)
                             response1CShort.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
-                        else
-                        {
-                            response1CShort.SuccessesPlus?.Clear();
-                            response1CShort.SuccessesPlus = null;
-                        }
                     }
                     break;
                 case var cls when cls == typeof(WsResponse1CModel):
@@ -272,205 +269,228 @@ public class WsServiceControllerBase : ControllerBase
 
     #endregion
 
-    #region Public and private methods
+    #region Public and private methods - Получить экзмемпляр
 
     /// <summary>
-    /// Проверить наличие ПЛУ в БД.
+    /// Получить пакет.
     /// </summary>
-    /// <param name="response"></param>
-    /// <param name="number"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <param name="isCheckGroup"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    internal bool CheckExistsPluDb(WsResponse1CShortModel response, short number, Guid uid1CException,
-        string refName, bool isCheckGroup, out WsSqlPluModel? itemDb)
-    {
-        itemDb = null;
-        if (number > 0)
-        {
-            itemDb = ContextManager.ContextPlus.GetItemByNumber(number);
-            if (!isCheckGroup)
-            {
-                if (itemDb.IsNew)
-                {
-                    AddResponseException(response, uid1CException,
-                        new($"{refName} {WsLocaleCore.WebService.WithFieldNumber} '{number}' {WsLocaleCore.WebService.IsNotFound}!"));
-                    return false;
-                }
-                return true;
-            }
-            // isCheckGroup.
-            if (itemDb.IsNew || !itemDb.IsGroup)
-            {
-                AddResponseException(response, uid1CException,
-                    new($"{refName} {WsLocaleCore.WebService.With} '{number}' {WsLocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Проверить наличие пакета в БД.
-    /// </summary>
+    /// <param name="contextType"></param>
     /// <param name="response"></param>
     /// <param name="uid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsBundleDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlBundleModel? itemDb)
+    internal WsSqlBundleModel GetBundle(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid uid1C, Guid uid1CException, string refName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCore.GetItemNullable<WsSqlBundleModel>(sqlCrudConfig);
-        if (itemDb is null || itemDb.IsNew)
+        WsSqlBundleModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.Bundles.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextBundles.GetNewItem(),
+            _ => ContextManager.ContextBundles.GetItemByUid1C(uid1C),
+        };
+        if (result.IsNew)
         {
             AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            return false;
         }
-        return true;
+        return result;
     }
 
     /// <summary>
-    /// Проверить наличие бренда в БД.
+    /// Получить бренд.
     /// </summary>
+    /// <param name="contextType"></param>
     /// <param name="response"></param>
     /// <param name="uid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsBrandDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlBrandModel? itemDb)
+    internal WsSqlBrandModel GetBrand(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid uid1C, Guid uid1CException, string refName)
     {
-        itemDb = null;
+        WsSqlBrandModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextBrands.GetNewItem(),
+            _ => ContextManager.ContextBrands.GetItemByUid1C(uid1C),
+        };
         if (!Equals(uid1C, Guid.Empty))
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                    { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-            itemDb = SqlCore.GetItemNullable<WsSqlBrandModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
+            if (result.IsNew)
             {
                 AddResponseException(response, uid1CException,
                     new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-                return false;
             }
-            return true;
         }
-        return false;
+        return result;
     }
 
     /// <summary>
-    /// Проверить наличие клипсы в БД.
+    /// Получить клипсу.
     /// </summary>
+    /// <param name="contextType"></param>
     /// <param name="response"></param>
     /// <param name="uid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool CheckExistsClipDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlClipModel? itemDb)
+    internal WsSqlClipModel GetClip(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid uid1C, Guid uid1CException, string refName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCore.GetItemNullable<WsSqlClipModel>(sqlCrudConfig);
-        if (itemDb is null || itemDb.IsNew)
+        WsSqlClipModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.Clips.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextClips.GetNewItem(),
+            _ => ContextManager.ContextClips.GetItemByUid1C(uid1C),
+        };
+        if (result.IsNew)
         {
             AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            return false;
         }
-        return true;
+        return result;
     }
 
     /// <summary>
-    /// Get box from DB.
+    /// Получить коробку.
     /// </summary>
+    /// <param name="contextType"></param>
     /// <param name="response"></param>
     /// <param name="uid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool GetBoxDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlBoxModel? itemDb)
+    internal WsSqlBoxModel GetBox(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid uid1C, Guid uid1CException, string refName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCore.GetItemNullable<WsSqlBoxModel>(sqlCrudConfig);
-        if (itemDb is null || itemDb.IsNew)
+        WsSqlBoxModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.Boxes.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextBoxes.GetNewItem(),
+            _ => ContextManager.ContextBoxes.GetItemByUid1C(uid1C),
+        };
+        if (result.IsNew)
         {
             AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            return false;
         }
-        return true;
+        return result;
     }
 
     /// <summary>
-    /// Get PLU from DB.
+    /// Получить ПЛУ.
     /// </summary>
+    /// <param name="contextType"></param>
     /// <param name="response"></param>
     /// <param name="uid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
     /// <returns></returns>
-    internal bool GetPluDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlPluModel? itemDb)
+    internal WsSqlPluModel GetPlu(WsSqlEnumContextType contextType, WsResponse1CShortModel response, 
+        Guid uid1C, Guid uid1CException, string refName)
     {
-        itemDb = null;
-        if (!Equals(uid1C, Guid.Empty))
+        WsSqlPluModel result = contextType switch
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                    { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-            itemDb = SqlCore.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
-            if (itemDb is null || itemDb.IsNew)
-            {
-                AddResponseException(response, uid1CException,
-                    new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Get PLU characteristic from DB.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    internal bool GetPluCharacteristicDb(WsResponse1CShortModel response, Guid uid1C, Guid uid1CException,
-        string refName, out WsSqlPluCharacteristicModel? itemDb)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
-        itemDb = SqlCore.GetItemNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
-        if (itemDb is null || itemDb.IsNew)
+            WsSqlEnumContextType.Cache => ContextCache.Plus.Find(item => item.Uid1C.Equals(uid1C)) 
+                                      ?? ContextManager.ContextPlus.GetNewItem(),
+            _ => ContextManager.ContextPlus.GetItemByUid1C(uid1C),
+        };
+        if (result.IsNew)
         {
             AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            return false;
         }
-        return true;
+        return result;
+    }
+
+    /// <summary>
+    /// Получить связь ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="pluUid1C"></param>
+    /// <param name="categoryUid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <param name="parentUid1C"></param>
+    /// <returns></returns>
+    internal WsSqlPluFkModel GetPluFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid pluUid1C, Guid parentUid1C, Guid? categoryUid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.PlusFks.Find(
+                item => item.Plu.Uid1C.Equals(pluUid1C) &&
+                item.Parent.Uid1C.Equals(parentUid1C) &&
+                categoryUid1C is not null ? categoryUid1C.Equals(item.Category?.Uid1C) : item.Category is null)
+                ?? ContextManager.ContextPlusFk.GetNewItem(),
+            /*
+ ContextCache..Find(item =>
+                Equals(item.Plu.Uid1C, ) &&
+                Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
+                Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C))
+             */
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить характеристику ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    internal WsSqlPluCharacteristicModel GetPluCharacteristic(WsSqlEnumContextType contextType, WsResponse1CShortModel response, 
+        Guid uid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluCharacteristicModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.PlusCharacteristics.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextPluCharacteristics.GetNewItem(),
+            _ => ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
+        };
+        if (result.IsNew)
+        {
+            AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Получить пакет ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    internal WsSqlPluBundleFkModel GetPluBundleFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response, 
+        Guid uid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluBundleFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => ContextCache.PlusBundlesFks.Find(item => item.Plu.Uid1C.Equals(uid1C))
+                                      ?? ContextManager.ContextPluBundlesFk.GetNewItem(),
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
     }
 
     #endregion
@@ -559,18 +579,6 @@ public class WsServiceControllerBase : ControllerBase
         do
         {
             isFind = false;
-            if (response.SuccessesPlus is not null)
-            {
-                foreach (WsResponse1CSuccessPluModel successPlu in response.SuccessesPlus)
-                {
-                    if (Equals(successPlu.Uid, responseRecord.Uid))
-                    {
-                        response.SuccessesPlus?.Remove(successPlu);
-                        //isFind = true;
-                        break;
-                    }
-                }
-            }
             foreach (WsResponse1CSuccessModel success in response.Successes)
             {
                 if (Equals(success.Uid, responseRecord.Uid))
@@ -588,37 +596,20 @@ public class WsServiceControllerBase : ControllerBase
     #region Public and private methods - Update item
 
     /// <summary>
-    /// Обновить запись 1C в БД. Не использовать с UpdateItemDb.
+    /// Обновить запись 1C в БД.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <param name="description"></param>
     /// <returns></returns>
-    internal void UpdateItemDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb, bool isCounter, string description = "")
-        where T : WsSqlTable1CBase
+    internal void UpdateItemDb<T>(WsResponse1CShortModel response, T itemXml, T? itemDb) where T : WsSqlTable1CBase
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
         SqlCore.Update(itemDb);
-        if (isCounter)
-        {
-            response.Successes.Add(new(itemXml.Uid1C));
-            if (!string.IsNullOrEmpty(description) && itemXml is WsSqlPluModel pluXml)
-                response.SuccessesPlus?.Add(new(itemXml.Uid1C, $"{WsWebConstants.PluNumber}='{pluXml.Number}'"));
-        }
+        response.Successes.Add(new(itemXml.Uid1C));
     }
-
-    /// <summary>
-    /// Save the record to the database.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="item"></param>
-    /// <param name="isCounter"></param>
-    internal void SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter) where T : WsSqlTable1CBase
-        => SaveItemDb(response, item, isCounter, item.Uid1C);
 
     /// <summary>
     /// Save the record to the database.
@@ -629,7 +620,7 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid1C"></param>
     internal void SaveItemDb<T>(WsResponse1CShortModel response, T item, bool isCounter, Guid uid1C) where T : WsSqlTableBase
     {
-        SqlCore.Save(item, item.Identity, WsSqlEnumSessionType.Isolated);
+        SqlCore.Save(item, item.Identity);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
 
@@ -759,18 +750,14 @@ public class WsServiceControllerBase : ControllerBase
     /// <param name="uid1C"></param>
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <param name="pluNumber"></param>
     /// <returns></returns>
     internal void UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml,
-        WsSqlPluCharacteristicsFkModel? itemDb, bool isCounter, short pluNumber)
+        WsSqlPluCharacteristicsFkModel? itemDb)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
         SqlCore.Update(itemDb);
-        if (isCounter)
-            response.Successes.Add(new(uid1C));
-        response.SuccessesPlus?.Add(new(uid1C, $"{WsWebConstants.PluNumber}='{pluNumber}'"));
+        //if (isCounter) response.Successes.Add(new(uid1C));
     }
 
     /// <summary>
@@ -810,8 +797,7 @@ public class WsServiceControllerBase : ControllerBase
         if (pluXml is { IsGroup: false, Number: > 0 }) return true;
         pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         pluXml.ParseResult.Exception =
-            $"{WsLocaleCore.WebService.FieldPluNumber} '{pluXml.Number}' " +
-            $"{WsLocaleCore.WebService.ForDbRecord} {WsLocaleCore.WebService.With} {WsLocaleCore.WebService.FieldCode} '{pluXml.Code}'";
+            WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + WsLocaleCore.WebService.FieldNomenclatureIsZeroNumber;
         return false;
     }
 
@@ -896,17 +882,6 @@ public class WsServiceControllerBase : ControllerBase
         return plus1CFks;
     }
 
-    public void SavePlu1CFk(WsSqlPlu1CFkModel plu1CFk)
-    {
-        SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
-    }
-
-    private void SavePlu1CFk<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml, 
-        WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
-    {
-        SqlCore.Save(plu1CFk, WsSqlEnumSessionType.Isolated);
-    }
-
     /// <summary>
     /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
     /// </summary>
@@ -924,7 +899,7 @@ public class WsServiceControllerBase : ControllerBase
         if (plu1CFkCache is null)
         {
             plu1CFk.UpdateProperties(recordXml.Content);
-            SavePlu1CFk(response, recordXml, plu1CFk);
+            SqlCore.Save(plu1CFk);
             // Загрузить кэш.
             ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         }
@@ -962,7 +937,7 @@ public class WsServiceControllerBase : ControllerBase
         // В кэше не найдено - сохранить.
         if (plu1CFkCache is null)
         {
-            SavePlu1CFk(new(plu));
+            SqlCore.Save(new WsSqlPlu1CFkModel(plu));
             // Загрузить кэш.
             ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         }
@@ -1013,7 +988,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1C} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
@@ -1022,7 +997,7 @@ public class WsServiceControllerBase : ControllerBase
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1c} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1C} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
         // Загрузка ПЛУ выключена.
@@ -1030,7 +1005,7 @@ public class WsServiceControllerBase : ControllerBase
         {
             itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
-                $"{WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoad} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
+                WsLocaleCore.WebService.FieldPluNumberTemplate(plu1CFkDb.Plu.Number) + WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoad;
         }
     }
 

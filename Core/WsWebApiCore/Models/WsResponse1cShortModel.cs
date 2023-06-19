@@ -19,9 +19,6 @@ public class WsResponse1CShortModel : WsResponseDebugInfoModel
     [XmlArray(WsWebConstants.Successes), XmlArrayItem(WsWebConstants.Record)]
     public List<WsResponse1CSuccessModel> Successes { get; set; }
 
-    [XmlArray(WsWebConstants.SuccessesPlus), XmlArrayItem(WsWebConstants.Record)]
-    public List<WsResponse1CSuccessPluModel>? SuccessesPlus { get; set; }
-
     [XmlArray(WsWebConstants.Errors), XmlArrayItem(WsWebConstants.Record)]
     public List<WsResponse1CErrorModel> Errors { get; set; }
 
@@ -31,7 +28,6 @@ public class WsResponse1CShortModel : WsResponseDebugInfoModel
         ErrorsCount = 0;
         ResponseQuery = null;
         Successes = new();
-        SuccessesPlus = new();
         Errors = new();
     }
 
@@ -39,7 +35,6 @@ public class WsResponse1CShortModel : WsResponseDebugInfoModel
         List<WsResponse1CErrorModel> errors, WsResponseQueryModel? responseQuery) : this()
     {
         Successes = successes;
-        SuccessesPlus = successesPlus;
         Errors = errors;
         ResponseQuery = responseQuery;
     }
@@ -55,7 +50,6 @@ public class WsResponse1CShortModel : WsResponseDebugInfoModel
         ErrorsCount = info.GetInt32(nameof(ErrorsCount));
         ResponseQuery = info.GetValue(nameof(ResponseQuery), typeof(WsResponseQueryModel)) as WsResponseQueryModel ?? null;
         Successes = info.GetValue(nameof(Successes), typeof(List<WsResponse1CSuccessModel>)) as List<WsResponse1CSuccessModel> ?? new();
-        SuccessesPlus = info.GetValue(nameof(SuccessesPlus), typeof(List<WsResponse1CSuccessPluModel>)) as List<WsResponse1CSuccessPluModel> ?? new();
         Errors = info.GetValue(nameof(Errors), typeof(List<WsResponse1CErrorModel>)) as List<WsResponse1CErrorModel> ?? new();
     }
 
@@ -81,7 +75,6 @@ public class WsResponse1CShortModel : WsResponseDebugInfoModel
         info.AddValue(nameof(ErrorsCount), ErrorsCount);
         info.AddValue(nameof(ResponseQuery), ResponseQuery);
         info.AddValue(nameof(Successes), Successes);
-        info.AddValue(nameof(SuccessesPlus), SuccessesPlus);
         info.AddValue(nameof(Errors), Errors);
     }
 

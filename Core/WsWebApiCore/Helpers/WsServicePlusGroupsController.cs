@@ -127,7 +127,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             //if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
 
             // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, pluGroupXml, true);
+            SaveItemDb(response, pluGroupXml, true, pluGroupXml.Uid1C);
             // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.PluGroups);
         }

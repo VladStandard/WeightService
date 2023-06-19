@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleModels.Boxes;
 
 /// <summary>
-/// SQL-контроллер таблицы BOXES.
+/// SQL-контроллер таблицы коробок.
 /// Клиентский слой доступа к БД.
 /// </summary>
 public sealed class WsSqlBoxController : WsSqlTableControllerBase
@@ -23,6 +23,19 @@ public sealed class WsSqlBoxController : WsSqlTableControllerBase
     public WsSqlBoxModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBoxModel>();
 
     public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(SqlCrudConfig);
+
+    /// <summary>
+    /// Получить коробку по полю UID_1C.
+    /// </summary>
+    /// <param name="uid1C"></param>
+    /// <returns></returns>
+    public WsSqlBoxModel GetItemByUid1C(Guid uid1C)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
+                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
+            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+        return SqlCore.GetItemNotNullable<WsSqlBoxModel>(sqlCrudConfig);
+    }
 
     #endregion
 }

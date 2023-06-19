@@ -20,16 +20,28 @@ public sealed class WsSqlPluController : WsSqlTableControllerBase
 
     #region Public and private methods
 
-    public WsSqlPluModel GetItemByUid1C(Guid uid)
+    /// <summary>
+    /// Получить ПЛУ по полю UID_1C.
+    /// </summary>
+    /// <param name="uid1C"></param>
+    /// <returns></returns>
+    public WsSqlPluModel GetItemByUid1C(Guid uid1C)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
+                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
+    /// <summary>
+    /// Получить ПЛУ по полю номер.
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
     public WsSqlPluModel GetItemByNumber(short number)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
+                { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
