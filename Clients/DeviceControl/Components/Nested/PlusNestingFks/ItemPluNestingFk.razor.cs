@@ -5,7 +5,7 @@ using DeviceControl.Components.Item;
 using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 
-namespace DeviceControl.Pages.Menu.References1C.PlusNestingFks;
+namespace DeviceControl.Components.Nested.PlusNestingFks;
 
 public sealed partial class ItemPluNestingFk : ItemBase<WsSqlPluNestingFkModel>
 {

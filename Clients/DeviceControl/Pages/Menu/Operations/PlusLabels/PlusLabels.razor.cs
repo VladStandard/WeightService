@@ -25,5 +25,5 @@ public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
         SqlSectionCast = ContextViewHelper.GetListViewPlusLabels(SqlCrudConfigSection);
     }
 
-    #endregion
+    #endregion\
 }

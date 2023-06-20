@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Item;
-using WsStorageCore.Common;
 using WsStorageCore.Helpers;
 using WsStorageCore.TableScaleModels.PlusScales;
 
-namespace DeviceControl.Pages.Menu.Devices.Lines.PlusLines;
+namespace DeviceControl.Components.Nested.PlusLines;
 
 public sealed partial class ItemPlusLines : ItemBase<WsSqlPluScaleModel>
 {

@@ -4,7 +4,7 @@
 using DeviceControl.Components.Section;
 using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 
-namespace DeviceControl.Pages.Menu.Devices.Printers.PrintersResources;
+namespace DeviceControl.Components.Nested.PrintersResources;
 
 public sealed partial class PrintersResources : SectionBase<WsSqlPrinterResourceFkModel>
 {
