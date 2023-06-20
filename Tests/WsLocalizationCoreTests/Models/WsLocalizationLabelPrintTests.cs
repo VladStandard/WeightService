@@ -36,12 +36,12 @@ public sealed class WsLocalizationLabelPrintTests
         {
             WsLocalizationLabelPrint wsLocalization1 = new();
             WsLocalizationLabelPrint wsLocalization2 = new();
-            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
-            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 1: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 2: {wsLocalization2.Locale.CurrentLanguage}");
 
             wsLocalization1.Lang = WsEnumLanguage.English;
-            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
-            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 1: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 2: {wsLocalization2.Locale.CurrentLanguage}");
             TestContext.WriteLine($"{nameof(wsLocalization1.AppLoad)}: {wsLocalization1.AppLoad}");
             TestContext.WriteLine($"{nameof(wsLocalization2.AppLoad)}: {wsLocalization2.AppLoad}");
 

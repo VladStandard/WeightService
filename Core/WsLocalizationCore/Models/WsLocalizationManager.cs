@@ -16,7 +16,6 @@ public sealed class WsLocalizationManager : WsLocalizationBase
     {
         LabelPrint.SetLocale(Locale);
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
-        LocalizationLoader.Instance.AddDirectory(@"Locales");
     }
 
     #endregion
