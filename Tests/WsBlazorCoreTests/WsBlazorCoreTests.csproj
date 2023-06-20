@@ -16,11 +16,11 @@
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.20.8" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.5" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="2.11.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.7" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.12.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
