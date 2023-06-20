@@ -160,12 +160,12 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb, bool isCounter)
+    public static void UpdatePluBundleFkDb(WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
         SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
+        //if (isCounter) response.Successes.Add(new(uid1C));
     }
 
     /// <summary>
@@ -194,14 +194,12 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml,
-        WsSqlViewPluNestingModel? itemDb, bool isCounter)
+    public static void UpdatePluNestingFk(WsSqlPluNestingFkModel itemXml, WsSqlPluNestingFkModel? itemDb)
     {
-        //if (itemDb is null || itemDb.IsNew);
-        //itemDb.UpdateProperties(itemXml);
-        //ContextManager.ContextPluNesting.Update(itemDb);
-        //    if (isCounter)
-        //        response.Successes.Add(new(uid1C));
+        if (itemDb is null || itemDb.IsNew) return;
+        itemDb.UpdateProperties(itemXml);
+        SqlCore.Update(itemDb);
+        //if (isCounter) response.Successes.Add(new(uid1C));
     }
 
     /// <summary>

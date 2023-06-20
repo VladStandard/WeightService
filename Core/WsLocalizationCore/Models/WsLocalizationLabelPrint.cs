@@ -10,7 +10,9 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public WsLocalizationLabelPrint()
     {
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
-        LocalizationLoader.Instance.AddFile(@"Locales\LabelPrint.loc.json");
+        string fileName = Path.Combine(Directory.GetCurrentDirectory(), @"Locales\LabelPrint.loc.json");
+        if (File.Exists(fileName))
+            LocalizationLoader.Instance.AddFile(fileName);
     }
 
     #endregion

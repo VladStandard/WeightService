@@ -40,8 +40,7 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{Bundle} | {Plu}";
+    public override string ToString() => $"{Bundle} | {Plu}";
 
     public override bool Equals(object obj)
     {

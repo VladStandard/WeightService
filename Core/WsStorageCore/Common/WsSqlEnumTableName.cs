@@ -21,6 +21,7 @@ public enum WsSqlEnumTableName
     PluFks,
     PluGroups,
     PluGroupsFks,
+    PlusNestingFks,
     Plus,
     Plus1CFks,
     ViewPlusLines,          // вместо PlusScales
