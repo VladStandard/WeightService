@@ -5,6 +5,16 @@ namespace WsLocalizationCore.Models;
 
 public sealed class WsLocalizationLabelPrint : WsLocalizationBase
 {
+    #region Public and private fields, properties, constructor
+
+    public WsLocalizationLabelPrint()
+    {
+        LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
+        LocalizationLoader.Instance.AddFile(@"Locales\LabelPrint.loc.json");
+    }
+
+    #endregion
+
     #region CodingSeb.Localization
 
     public string AlreadyRunning => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AlreadyRunning)}");

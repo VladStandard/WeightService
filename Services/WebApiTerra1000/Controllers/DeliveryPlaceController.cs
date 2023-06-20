@@ -24,7 +24,7 @@ public sealed class DeliveryPlaceController : WsServiceControllerBase
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetDeliveryPlaces,
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));

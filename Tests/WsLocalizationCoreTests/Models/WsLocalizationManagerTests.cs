@@ -40,12 +40,12 @@ public sealed class WsLocalizationManagerTests
         {
             WsLocalizationManager wsLocalization1 = new();
             WsLocalizationManager wsLocalization2 = new();
-            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
-            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 1: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 2: {wsLocalization2.Locale.CurrentLanguage}");
 
             wsLocalization1.Lang = WsEnumLanguage.English;
-            TestContext.WriteLine($"wsLocalization1.Locale.CurrentLanguage: {wsLocalization1.Locale.CurrentLanguage}");
-            TestContext.WriteLine($"wsLocalization2.Locale.CurrentLanguage: {wsLocalization2.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 1: {wsLocalization1.Locale.CurrentLanguage}");
+            TestContext.WriteLine($"CurrentLanguage 2: {wsLocalization2.Locale.CurrentLanguage}");
 
             Assert.That(wsLocalization1.Lang, Is.EqualTo(WsEnumLanguage.English));
             Assert.That(wsLocalization1.Locale.CurrentLanguage, Is.EqualTo("en"));

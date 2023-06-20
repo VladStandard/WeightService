@@ -32,8 +32,8 @@ public sealed class SummaryControllerV2 : WsServiceControllerBase
         [FromQuery(Name = "format")] string format = "") =>
         GetSummaryCore(WsWebSqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
 
-    private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) => 
-        GetContentResult(() =>
+    private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) =>
+        WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
                 WsServiceSqlUtils.GetParameters(startDate, endDate));

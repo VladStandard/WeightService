@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using WsStorageCore.Common;
 
 namespace WsWebApiTerra1000Tests.Controllers;
@@ -17,7 +18,7 @@ public sealed class NomenclatureControllerTests
             {
                 foreach (long id in WsServiceTestsUtils.GetListNomenclatureId)
                 {
-                    await GetNomenclatureAsync(url, null, id);
+                    await GetNomenclatureAsync(url, null, id).ConfigureAwait(false);
                     TestContext.WriteLine();
                 }
             }
@@ -43,6 +44,7 @@ public sealed class NomenclatureControllerTests
 
     private async Task GetNomenclatureAsync(string url, string? code, long? id)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         await WsServiceResponseUtils.GetResponseAsync(url, WsServiceRequestUtils.GetRequestCodeOrId(code, id), (response) =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
@@ -55,6 +57,6 @@ public sealed class NomenclatureControllerTests
                 else if (id != null)
                     Assert.IsTrue(response.Content.Contains($"ID=\"{id}\"", StringComparison.InvariantCultureIgnoreCase));
             }
-        });
+        }).ConfigureAwait(false);
     }
 }

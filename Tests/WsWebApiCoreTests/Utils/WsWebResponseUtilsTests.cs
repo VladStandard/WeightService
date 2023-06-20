@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Net;
 using Newtonsoft.Json;
 using WsStorageCore.Utils;
@@ -13,6 +14,7 @@ internal static class WsWebResponseUtilsTests
 {
     internal static async Task GetExceptionAsync(string url, RestRequest request)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         await WsServiceResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
@@ -41,11 +43,12 @@ internal static class WsWebResponseUtilsTests
                     Assert.IsNotEmpty(serviceException.InnerException);
                 }
             }
-        });
+        }).ConfigureAwait(false);
     }
 
     internal static async Task GetInfoAsync(string url, RestRequest request)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         await WsServiceResponseUtils.GetResponseAsync(url, request, response =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
@@ -83,6 +86,6 @@ internal static class WsWebResponseUtilsTests
                     Assert.Greater(serviceInfo.VirtualMegaBytes, 0);
                 }
             }
-        });
+        }).ConfigureAwait(false);
     }
 }

@@ -10,6 +10,25 @@ public static class WsServiceContentUtils
 {
     #region Public and private methods
 
+    public static ContentResult GetContentResult(Func<ContentResult> action, string format,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        try
+        {
+            return action();
+        }
+        catch (Exception ex)
+        {
+            filePath = Path.GetFileName(filePath);
+            WsServiceExceptionModel serviceException = new(filePath, lineNumber, memberName, ex);
+            return WsDataFormatUtils.GetContentResult<WsServiceExceptionModel>(serviceException, format, HttpStatusCode.OK);
+        }
+        finally
+        {
+            GC.Collect();
+        }
+    }
+
     public static List<WsXmlContentRecord<T>> GetNodesListCore<T>(XElement xml, string nodeIdentity, 
         Action<XmlNode, T> action) where T : WsSqlTable1CBase, new()
     {

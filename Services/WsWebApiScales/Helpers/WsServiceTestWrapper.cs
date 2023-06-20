@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Test controller v3.
 /// </summary>
-[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.TagTests)]
+[Tags(WsLocaleWebServiceUtils.TagTests)]
 public sealed class WsServiceTestWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -35,11 +35,11 @@ public sealed class WsServiceTestWrapper : WsServiceControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
-        ContentResult result = GetContentResult(() => 
+        ContentResult result = WsServiceContentUtils.GetContentResult(() => 
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
             WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
-        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
-            requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
+        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
+            requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version);
         return result;
     }
 
@@ -49,7 +49,7 @@ public sealed class WsServiceTestWrapper : WsServiceControllerBase
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        GetContentResult(() => 
+        WsServiceContentUtils.GetContentResult(() => 
             WsDataFormatUtils.GetContentResult<WsServiceExceptionModel>(
                 new WsServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!"), 
                 format, HttpStatusCode.InternalServerError), format);

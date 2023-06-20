@@ -8,7 +8,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CBrands)]
+[Tags(WsLocaleWebServiceUtils.Tag1CBrands)]
 public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -33,16 +33,15 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
-        ContentResult result = GetAcceptVersion(version) switch
+        ContentResult result = WsServiceGetUtils.GetAcceptVersion(version) switch
         {
             // Новый ответ 1С - не найдено.
-            WsSqlEnumAcceptVersion.V2 => 
-                GetContentResult(() => NewResponse1CIsNotFound(
+            WsSqlEnumAcceptVersion.V2 => WsServiceContentUtils.GetContentResult(() => WsServiceResponseUtils.NewResponse1CIsNotFound(
                     $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
+            _ => WsServiceContentUtils.GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,
-            requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
+        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,
+            requestStampDt, xml, result.Content ?? string.Empty, format, host, version);
         return result;
     }
 

@@ -39,7 +39,7 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     private ContentResult GetNomenclatureFromCodeIdWork([FromQuery] string url, [FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
                 code != null ? WsServiceSqlUtils.GetParametersV2(code) : WsServiceSqlUtils.GetParametersV2(id));
@@ -69,7 +69,7 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetNomenclaturesCostsV2)]
     public ContentResult GetNomenclaturesProdDeprecated([FromQuery(Name = "format")] string format = "") =>
-        GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
+        WsServiceContentUtils.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures/"), format, HttpStatusCode.OK), format);
 
     [AllowAnonymous]
@@ -92,12 +92,12 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetNomenclaturesCostsPreviewV2)]
     public ContentResult GetNomenclaturesPreviewDeprecated([FromQuery(Name = "format")] string format = "") =>
-        GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
+        WsServiceContentUtils.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures_preview/"), format, HttpStatusCode.OK), format);
 
     private ContentResult GetNomenclaturesEmptyWork(string url, string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
@@ -109,7 +109,7 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     private ContentResult GetNomenclaturesWork(string url, DateTime? startDate = null, DateTime? endDate = null,
         int? offset = null, int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)

@@ -16,8 +16,8 @@ public class WsLocalizationBase : INotifyPropertyChanged
 
     #region Public and private fields, properties, constructor
 
-    public Loc Locale { get; private set; } = Loc.Instance;
-    //public Loc Locale { get; private set; } = new();
+    //public Loc Locale { get; private set; } = Loc.Instance;
+    public Loc Locale { get; private set; } = new();
     private WsEnumLanguage _lang;
     public WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
 
