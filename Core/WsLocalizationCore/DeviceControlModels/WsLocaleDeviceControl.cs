@@ -1,13 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsLocalizationCore.Models;
+namespace WsLocalizationCore.DeviceControlModels;
 
-public sealed class WsLocaleDeviceControl : WsLocalizationBase
+public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
 {
     #region Public and private fields, properties, constructor
-
-    public string Actions => Lang == WsEnumLanguage.English ? "Aaction" : "Действия";
+    public string Actions => Lang == WsEnumLanguage.English ? "Action" : "Действия";
     public string DataRecords => Lang == WsEnumLanguage.English ? "records" : "записей";
     public string DevicesTitle => Lang == WsEnumLanguage.English ? "Complexes of industrial devices" : "Комплексы промышленных устройств";
     public string Index => Lang == WsEnumLanguage.English ? "DeviceControl" : "Управление устройствами";

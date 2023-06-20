@@ -11,15 +11,8 @@ public sealed record WsSqlViewWeightingAggrModel
     public DateTime ChangeDt { get; init; }
     public int Count { get; init; }
     public string Line { get; init; }
-    public string Plu { get; init; }
-
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
-    public WsSqlViewWeightingAggrModel() : this(DateTime.MinValue)
-    {
-        //
-    }
+    public string PluName { get; init; }
+    public int PluNumber { get; init; }
 
     /// <summary>
     /// Constructor.
@@ -29,19 +22,21 @@ public sealed record WsSqlViewWeightingAggrModel
     /// <param name="line"></param>
     /// <param name="device"></param>
     /// <param name="plu"></param>
-    public WsSqlViewWeightingAggrModel(DateTime changeDt, int count = 0, string line = "", string plu = "")
+    // <param name="number"></param>
+    public WsSqlViewWeightingAggrModel(DateTime changeDt, int count, string line, string plu, int number)
     {
         ChangeDt = changeDt;
         Count = count;
         Line = line;
-        Plu = plu;
+        PluName = plu;
+        PluNumber = number;
     }
 
     #endregion
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{Line} | {Plu} | {Count} {ChangeDt:yyyy-MM-dd}";
+    public override string ToString() => $"{Line} | {PluName} | {Count} {ChangeDt:yyyy-MM-dd}";
 
     #endregion
 }
