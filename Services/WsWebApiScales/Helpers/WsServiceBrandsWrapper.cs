@@ -8,7 +8,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Brands controller.
 /// </summary>
-[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CBrands)]
+[Tags(WsLocaleWebServiceUtils.Tag1CBrands)]
 public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -41,8 +41,8 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
                     $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,
-            requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
+        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendBrands,
+            requestStampDt, xml, result.Content ?? string.Empty, format, host, version);
         return result;
     }
 

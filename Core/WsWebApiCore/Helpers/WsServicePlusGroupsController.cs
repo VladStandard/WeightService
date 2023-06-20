@@ -57,7 +57,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             parent = SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
-                AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
+                WsServiceResponseUtils.AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             // Группа.
@@ -65,7 +65,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
             pluGroup = SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
-                AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
+                WsServiceResponseUtils.AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
                 return;
             }
             // Связь группы.
@@ -93,7 +93,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponseException(response, pluGroupXml.Uid1C, ex);
+            WsServiceResponseUtils.AddResponseException(response, pluGroupXml.Uid1C, ex);
         }
     }
 
@@ -133,7 +133,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponseException(response, pluGroupXml.Uid1C, ex);
+            WsServiceResponseUtils.AddResponseException(response, pluGroupXml.Uid1C, ex);
         }
     }
 
@@ -164,7 +164,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                         AddResponsePluGroupsFks(response, pluGroup);
                         break;
                     case WsEnumParseStatus.Error:
-                        AddResponseExceptionString(response, pluGroup.Uid1C,
+                        WsServiceResponseUtils.AddResponseExceptionString(response, pluGroup.Uid1C,
                             pluGroup.ParseResult.Exception, pluGroup.ParseResult.InnerException);
                         break;
                 }

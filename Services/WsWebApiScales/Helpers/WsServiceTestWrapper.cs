@@ -6,7 +6,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Test controller v3.
 /// </summary>
-[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.TagTests)]
+[Tags(WsLocaleWebServiceUtils.TagTests)]
 public sealed class WsServiceTestWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -38,8 +38,8 @@ public sealed class WsServiceTestWrapper : WsServiceControllerBase
         ContentResult result = GetContentResult(() => 
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
             WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
-        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
-            requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
+        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
+            requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version);
         return result;
     }
 

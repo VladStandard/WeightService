@@ -8,7 +8,7 @@ namespace WsWebApiScales.Helpers;
 /// <summary>
 /// Nomenclatures controller.
 /// </summary>
-[Tags(WsLocalizationCore.Utils.WsLocaleWebServiceUtils.Tag1CNomenclatures)]
+[Tags(WsLocaleWebServiceUtils.Tag1CNomenclatures)]
 public sealed class WsServicePlusWrapper : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
@@ -42,8 +42,8 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
             // Находится в разработке, свяжитесь с разработчиком.
             //_ => NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
         };
-        LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclatures,
-            requestStampDt, xml, result.Content ?? string.Empty, format, host, version).ConfigureAwait(false);
+        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclatures,
+            requestStampDt, xml, result.Content ?? string.Empty, format, host, version);
         return result;
     }
 

@@ -3,6 +3,7 @@
 
 using WsStorageCore.TableRefModels.Plus1CFk;
 using WsStorageCore.TableScaleModels.Plus;
+using WsWebApiCore.Utils;
 
 namespace WsWebApiCoreTests.Common;
 
@@ -20,7 +21,7 @@ public class WsServiceControllerBaseTests
             // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
             wsServiceController.FillPlus1CFksDb();
 
-            Assert.IsTrue(wsServiceController.CheckExistsAllPlus1CFksDb());
+            Assert.IsTrue(WsServiceCheckUtils.CheckExistsAllPlus1CFksDb());
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList(), 5);
         }, false, new() { WsEnumConfiguration.DevelopVS }); // , WsEnumConfiguration.ReleaseVS
     }
@@ -32,9 +33,8 @@ public class WsServiceControllerBaseTests
         {
             if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null)
                 throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
-            WsServiceControllerBase wsServiceController = new(WsTestsUtils.ContextManager.SqlCore.SessionFactory);
             // Проверить наличие всех связей разрешённых для загрузки ПЛУ из 1С.
-            bool flag = wsServiceController.CheckExistsAllPlus1CFksDb();
+            bool flag = WsServiceCheckUtils.CheckExistsAllPlus1CFksDb();
             if (!flag)
                 TestContext.WriteLine($"Run {nameof(Fill_plus_1c_fks)} first!");
             Assert.IsTrue(flag);

@@ -60,7 +60,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         }
         catch (Exception ex)
         {
-            AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
+            WsServiceResponseUtils.AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -75,11 +75,11 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         {
             if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
             // Получить ПЛУ.
-            WsSqlPluModel pluDb = GetPlu(WsSqlEnumContextType.Cache, response, 
+            WsSqlPluModel pluDb = WsServiceGetUtils.GetItemPlu(WsSqlEnumContextType.Cache, response, 
                 pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
             if (pluDb.IsNotExists) return;
             // Получить характеристику ПЛУ.
-            WsSqlPluCharacteristicModel pluCharacteristicDb = GetPluCharacteristic(WsSqlEnumContextType.Cache, response, 
+            WsSqlPluCharacteristicModel pluCharacteristicDb = WsServiceGetUtils.GetItemPluCharacteristic(WsSqlEnumContextType.Cache, response, 
                 pluCharacteristicXml.Uid1C, pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
             if (pluCharacteristicDb.IsNotExists) return;
             // Связь характеристики и ПЛУ.
@@ -107,7 +107,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
         }
         catch (Exception ex)
         {
-            AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
+            WsServiceResponseUtils.AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
         }
     }
 
@@ -136,7 +136,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 WsSqlPluModel pluDb = ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
-                    CheckIsEnabledPlu(itemXml, plus1CFksDb);
+                    WsServiceCheckUtils.CheckEnabledPlu(itemXml, plus1CFksDb);
                 // TODO: FIX HERE
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
@@ -152,7 +152,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 //    AddResponsePluCharacteristicsFks(response, itemXml);
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
-                    AddResponseExceptionString(response, itemXml.Uid1C,
+                    WsServiceResponseUtils.AddResponseExceptionString(response, itemXml.Uid1C,
                         itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);

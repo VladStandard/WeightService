@@ -1,8 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace WsWebApiCore.Utils;
 
+/// <summary>
+/// Утилиты веб-ответов.
+/// </summary>
 public static class WsServiceResponseUtils
 {
     #region Public and private fields, properties, constructor
@@ -15,6 +19,7 @@ public static class WsServiceResponseUtils
 
     public static async Task GetResponseAsync(string url, RestRequest request, Action<RestResponse> action)
     {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RestClientOptions options = new(url)
         {
             UseDefaultCredentials = true,
@@ -23,12 +28,11 @@ public static class WsServiceResponseUtils
             RemoteCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
         };
         using RestClient client = new(options);
-        RestResponse response = await client.GetAsync(request);
-
+        RestResponse response = await client.GetAsync(request).ConfigureAwait(true);
         action(response);
     }
 
-    public static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) =>
+    private static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) =>
         new WsResponseBarCodeModel().CloneCast(barCode);
 
     public static List<WsResponseBarCodeModel> CastBarCodes(IEnumerable<WsSqlBarCodeModel> barCodes) =>
@@ -57,6 +61,69 @@ public static class WsServiceResponseUtils
             session.Connection.Database,
             (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
             (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576);
+    }
+
+    public static void AddResponseException(WsResponse1CShortModel response, WsSqlBrandModel brand)
+    {
+        WsResponse1CErrorModel responseRecord = new(brand.IdentityValueUid, brand.ParseResult.Exception);
+        if (!string.IsNullOrEmpty(brand.ParseResult.InnerException))
+            responseRecord.Message += " | " + brand.ParseResult.InnerException;
+        if (response.Errors.Select(item => item.Uid).Contains(brand.Uid1C))
+        {
+            if (response.Errors.Find(item => Equals(item.Uid, brand.Uid1C)) is { } error)
+                error.Message += $" | {responseRecord}";
+        }
+        else
+            response.Errors.Add(responseRecord);
+    }
+
+    public static void AddResponseException(WsResponse1CShortModel response, Guid uid, Exception ex) =>
+        WsServiceResponseUtils.AddResponseExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
+
+    /// <summary>
+    /// Add error for response.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="uid"></param>
+    /// <param name="exceptionMessage"></param>
+    /// <param name="innerExceptionMessage"></param>
+    public static void AddResponseExceptionString(WsResponse1CShortModel response, Guid uid, string exceptionMessage,
+        string? innerExceptionMessage = "")
+    {
+        WsResponse1CErrorModel responseRecord = new(uid,
+            !string.IsNullOrEmpty(innerExceptionMessage) ? innerExceptionMessage : exceptionMessage);
+        if (response.Errors.Select(item => item.Uid).Contains(uid))
+        {
+            if (response.Errors.Find(item => Equals(item.Uid, uid)) is { } error)
+                error.Message += $" | {responseRecord}";
+        }
+        else
+            response.Errors.Add(responseRecord);
+
+        RemoveResponseErrorFromSuccess(response, responseRecord);
+    }
+
+    /// <summary>
+    /// Remove error from success for response.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="responseRecord"></param>
+    public static void RemoveResponseErrorFromSuccess(WsResponse1CShortModel response, WsResponse1CErrorModel responseRecord)
+    {
+        bool isFind;
+        do
+        {
+            isFind = false;
+            foreach (WsResponse1CSuccessModel success in response.Successes)
+            {
+                if (Equals(success.Uid, responseRecord.Uid))
+                {
+                    response.Successes.Remove(success);
+                    isFind = true;
+                    break;
+                }
+            }
+        } while (isFind);
     }
 
     #endregion

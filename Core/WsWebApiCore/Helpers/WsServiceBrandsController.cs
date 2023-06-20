@@ -60,7 +60,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
         }
         catch (Exception ex)
         {
-            AddResponseException(response, brandXml.Uid1C, ex);
+            WsServiceResponseUtils.AddResponseException(response, brandXml.Uid1C, ex);
         }
     }
 
@@ -87,7 +87,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
                         AddResponse1CBrand(response, brandXml);
                         break;
                     case WsEnumParseStatus.Error:
-                        AddResponseException(response, brandXml);
+                        WsServiceResponseUtils.AddResponseException(response, brandXml);
                         break;
                 }
             }
