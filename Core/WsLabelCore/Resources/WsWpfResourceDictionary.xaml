@@ -7,8 +7,7 @@
 	<localization:WsLocaleAction x:Key="LocaleAction" />
 	<localization:WsLocaleButtons x:Key="LocaleButtons" />
 	<localization:WsLocaleConvert x:Key="LocaleConvert" />
-	<localization:WsLocaleDeviceControl x:Key="LocaleDeviceControl" />
-	<localization:WsLocaleDialog x:Key="LocaleDialog" />
+    <localization:WsLocaleDialog x:Key="LocaleDialog" />
 	<localization:WsLocaleMemory x:Key="LocaleMemory" />
 	<localization:WsLocaleMenu x:Key="LocaleMenu" />
 	<localization:WsLocalePrint x:Key="LocalePrint" />

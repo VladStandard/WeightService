@@ -193,9 +193,9 @@ select {WsSqlQueries.GetTopRecords(topRecords)}
 	,[REQUEST_COUNT_ALL]
 	,[RESPONSE_COUNT_SUCCESS]
 	,[RESPONSE_COUNT_ERROR]
-	,[LOG_TYPE]
+	,[APP_NAME]
 	,[APP_VERSION]
-FROM [diag].[VIEW_LOGS_WEBS]
+FROM [diag].[VIEW_LOGS_WEB_SERVICES]
 order by [CREATE_DT] DESC");
 
             public static string GetLines(int topRecords, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
@@ -281,7 +281,8 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 		 [CHANGE_DT]
 		,[COUNT]
 		,[LINE]
-        ,[PLU]
+        ,[PLU_NAME]
+        ,[PLU_NUMBER]
 FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
 ORDER BY [CHANGE_DT] DESC;");
             

@@ -376,14 +376,16 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 4 } item)
+            if (obj is not object[] { Length: 5 } item)
                 continue;
             
             result.Add(new(
                 Convert.ToDateTime(item[0]),
                 Convert.ToInt32(item[1]),
                 Convert.ToString(item[2]),
-                Convert.ToString(item[3]))
+                Convert.ToString(item[3]),
+                Convert.ToInt32(item[4])
+                )
             );
         }
         return result;
