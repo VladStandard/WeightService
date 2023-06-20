@@ -75,19 +75,18 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
                 PluGroup = pluGroup,
                 Parent = parent
             };
-
-            // Найдено по UID -> Обновить найденную запись.
+            // Поиск по UID.
             WsSqlPluGroupFkModel? itemDb = ContextCache.PlusGroupsFks.Find(x =>
                 x.PluGroup.IdentityValueUid.Equals(itemGroupFk.PluGroup.IdentityValueUid) &&
                 x.Parent.IdentityValueUid.Equals(itemGroupFk.Parent.IdentityValueUid));
             if (itemDb is not null)
             {
-                UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false);
+                // Обновить найденную запись.
+                WsServiceUpdateUtils.UpdatePluGroupFkDb(response, pluGroupXml.Uid1C, itemGroupFk, itemDb, false);
                 return;
             }
-
             // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C);
+            WsServiceUpdateUtils.SaveItemDb(response, itemGroupFk, false, pluGroupXml.Uid1C);
             // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.PluGroupsFks);
         }
@@ -106,28 +105,24 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
     {
         try
         {
-            // Найдено по Uid1C -> Обновить найденную запись.
+            // Поиск по Uid1C.
             WsSqlPluGroupModel? pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Uid1C, pluGroupXml.IdentityValueUid));
             if (pluGroupDb is not null)
             {
-                UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
+                // Обновить найденную запись.
+                WsServiceUpdateUtils.UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
                 return;
             }
-
-            // Найдено по Code -> Обновить найденную запись.
+            // Поиск по Code.
             pluGroupDb = ContextCache.PlusGroups.Find(item => Equals(item.Code, pluGroupXml.Code));
             if (pluGroupDb is not null)
             {
-                UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
+                // Обновить найденную запись.
+                WsServiceUpdateUtils.UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true);
                 return;
             }
-
-            // Найдено по Name -> Обновить найденную запись.
-            //pluGroupDb = Cache.PlusGroups.Find(item => Equals(item.Name, pluGroupXml.Name));
-            //if (UpdatePluGroupDb(response, pluGroupXml.Uid1C, pluGroupXml, pluGroupDb, true)) return;
-
             // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, pluGroupXml, true, pluGroupXml.Uid1C);
+            WsServiceUpdateUtils.SaveItemDb(response, pluGroupXml, true, pluGroupXml.Uid1C);
             // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.PluGroups);
         }
@@ -146,7 +141,7 @@ public sealed class WsServicePlusGroupsController : WsServiceControllerBase
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
     public ContentResult NewResponsePluGroups(XElement xml, string format, bool isDebug, ISessionFactory sessionFactory) =>
-        NewResponse1CCore<WsResponse1CShortModel>(response =>
+        WsServiceResponseUtils.NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Загрузить кэш.
             ContextCache.Load();

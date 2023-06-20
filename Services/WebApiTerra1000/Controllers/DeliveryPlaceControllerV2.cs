@@ -35,7 +35,7 @@ public sealed class DeliveryPlaceControllerV2 : WsServiceControllerBase
     private ContentResult GetDeliveryPlacesWork([FromQuery] string url, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));

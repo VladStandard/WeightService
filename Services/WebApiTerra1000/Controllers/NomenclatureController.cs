@@ -23,7 +23,7 @@ public sealed class NomenclatureController : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetNomenclature)]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = string.IsNullOrEmpty(code)
                 ? WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
@@ -40,7 +40,7 @@ public sealed class NomenclatureController : WsServiceControllerBase
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatures,
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
@@ -56,7 +56,7 @@ public sealed class NomenclatureController : WsServiceControllerBase
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclaturesCosts,
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));

@@ -33,28 +33,24 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
     {
         try
         {
-            // Найдено по Uid1C -> Обновить найденную запись.
+            // Поиск по Uid1C.
             WsSqlBrandModel? brandDb = ContextCache.Brands.Find(item => Equals(item.Uid1C, brandXml.IdentityValueUid));
             if (brandDb is not null)
             {
-                UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true);
+                // Обновить найденную запись.
+                WsServiceUpdateUtils.UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true);
                 return;
             }
-
-            // Найдено по Code -> Обновить найденную запись.
+            // Поиск по Code.
             brandDb = ContextCache.Brands.Find(item => Equals(item.Code, brandXml.Code));
             if (brandDb is not null)
             {
-                UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true);
+                // Обновить найденную запись.
+                WsServiceUpdateUtils.UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true);
                 return;
             }
-
-            //// Найдено по Name -> Обновить найденную запись.
-            //brandDb = Cache.Brands.Find(item => Equals(item.Name, brandXml.Name));
-            //if (UpdateBrandDb(response, brandXml.Uid1C, brandXml, brandDb, true)) return;
-
             // Не найдено -> Добавить новую запись.
-            SaveItemDb(response, brandXml, true, brandXml.Uid1C);
+            WsServiceUpdateUtils.SaveItemDb(response, brandXml, true, brandXml.Uid1C);
             // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.Brands);
         }
@@ -73,7 +69,7 @@ public sealed class WsServiceBrandsController : WsServiceControllerBase
     /// <param name="sessionFactory"></param>
     /// <returns></returns>
     public ContentResult NewResponseBrands(XElement xml, string formatString, bool isDebug, ISessionFactory sessionFactory) =>
-        NewResponse1CCore<WsResponse1CShortModel>(response =>
+        WsServiceResponseUtils.NewResponse1CCore<WsResponse1CShortModel>(response =>
         {
             // Загрузить кэш.
             ContextCache.Load();

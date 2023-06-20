@@ -32,7 +32,7 @@ public sealed class ShipmentControllerV2 : WsServiceControllerBase
 
     private ContentResult GetShipmentWork(string url, long id, string format)
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
@@ -82,7 +82,7 @@ public sealed class ShipmentControllerV2 : WsServiceControllerBase
     private ContentResult GetShipmentsCore(string url, DateTime startDate, DateTime endDate, 
         int offset = 0, int rowCount = 10, string format = "")
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, 
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));

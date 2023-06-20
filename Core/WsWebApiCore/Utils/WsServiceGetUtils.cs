@@ -18,6 +18,18 @@ public static class WsServiceGetUtils
     #region Public and private methods
 
     /// <summary>
+    /// Get AcceptVersion from string value.
+    /// </summary>
+    /// <returns></returns>
+    public static WsSqlEnumAcceptVersion GetAcceptVersion(string value) =>
+        value.ToUpper() switch
+        {
+            "V2" => WsSqlEnumAcceptVersion.V2,
+            "V3" => WsSqlEnumAcceptVersion.V3,
+            _ => WsSqlEnumAcceptVersion.V1
+        };
+    
+    /// <summary>
     /// Получить бренд.
     /// </summary>
     /// <param name="contextType"></param>
@@ -293,6 +305,26 @@ public static class WsServiceGetUtils
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
+    }
+
+    /// <summary>
+    /// Получить список связей обмена ПЛУ 1С по GUID_1C.
+    /// </summary>
+    /// <param name="uid1C"></param>
+    public static List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
+    {
+        List<WsSqlPlu1CFkModel> plus1CFks = new();
+        ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
+        // Получить список ПЛУ по UID_1C.
+        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByUid1C(uid1C);
+        foreach (WsSqlPluModel plu in plusDb)
+        {
+            WsSqlPlu1CFkModel? plu1CFkCache =
+                ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
+            if (plu1CFkCache is not null)
+                plus1CFks.Add(plu1CFkCache);
+        }
+        return plus1CFks;
     }
 
     #endregion

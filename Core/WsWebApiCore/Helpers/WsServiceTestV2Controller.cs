@@ -28,7 +28,7 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetInfoV2)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
-        GetContentResult(() =>
+        WsServiceContentUtils.GetContentResult(() =>
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
                 WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
 
@@ -42,7 +42,7 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetExceptionV2)]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
-        GetContentResult(() =>
+        WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetException);
             WsSqlSimpleV1Model sqlSimpleV1 = new(response, isDebug);
@@ -62,7 +62,7 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetSimpleV2)]
     public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
         int version = 0) =>
-        GetContentResult(() =>
+        WsServiceContentUtils.GetContentResult(() =>
         {
             switch (version)
             {

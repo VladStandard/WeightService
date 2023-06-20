@@ -24,7 +24,7 @@ public sealed class ContragentController : WsServiceControllerBase
     public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragent, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
@@ -40,7 +40,7 @@ public sealed class ContragentController : WsServiceControllerBase
         [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
-        return GetContentResult(() =>
+        return WsServiceContentUtils.GetContentResult(() =>
         {
             string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragents,
                 WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));

@@ -33,14 +33,14 @@ public sealed class WsServicePlusWrapper : WsServiceControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
-        ContentResult result = GetAcceptVersion(version) switch
+        ContentResult result = WsServiceGetUtils.GetAcceptVersion(version) switch
         {
             // Новый ответ 1С - не найдено.
-            WsSqlEnumAcceptVersion.V2 => GetContentResult(() => 
-                NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
-            _ => GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
+            WsSqlEnumAcceptVersion.V2 => WsServiceContentUtils.GetContentResult(() =>
+                WsServiceResponseUtils.NewResponse1CIsNotFound($"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
+            _ => WsServiceContentUtils.GetContentResult(() => PlusController.NewResponsePlus(xml, format, isDebug, SessionFactory), format)
             // Находится в разработке, свяжитесь с разработчиком.
-            //_ => NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
+            //_ => WsServiceResponseUtils.NewResponse1CIsNotFound($"{WsLocaleCore.WebService.Underdevelopment}!", format, isDebug, SessionFactory)
         };
         WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.SendNomenclatures,
             requestStampDt, xml, result.Content ?? string.Empty, format, host, version);

@@ -12,6 +12,11 @@ public static class WsServiceResponseUtils
     #region Public and private fields, properties, constructor
 
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
+    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private static WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
+        WsSqlEnumIsMarked.ShowAll, false, false, true, false);
 
     #endregion
 
@@ -108,7 +113,7 @@ public static class WsServiceResponseUtils
     /// </summary>
     /// <param name="response"></param>
     /// <param name="responseRecord"></param>
-    public static void RemoveResponseErrorFromSuccess(WsResponse1CShortModel response, WsResponse1CErrorModel responseRecord)
+    private static void RemoveResponseErrorFromSuccess(WsResponse1CShortModel response, WsResponse1CErrorModel responseRecord)
     {
         bool isFind;
         do
@@ -125,6 +130,128 @@ public static class WsServiceResponseUtils
             }
         } while (isFind);
     }
+
+    public static ContentResult NewResponse1CCore<T>(Action<T> action, string format, bool isDebug, ISessionFactory sessionFactory,
+    HttpStatusCode httpStatusCode = HttpStatusCode.OK) where T : SerializeBase, new()
+    {
+        T response = new();
+
+        try
+        {
+            action(response);
+            switch (typeof(T))
+            {
+                case var cls when cls == typeof(WsResponse1CShortModel):
+                    if (response is WsResponse1CShortModel response1CShort)
+                    {
+                        response1CShort.IsDebug = isDebug;
+                        if (response1CShort.IsDebug)
+                            response1CShort.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                    }
+                    break;
+                case var cls when cls == typeof(WsResponse1CModel):
+                    if (response is WsResponse1CModel response1C)
+                    {
+                        response1C.IsDebug = isDebug;
+                        if (response1C.IsDebug)
+                            response1C.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                    }
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            httpStatusCode = HttpStatusCode.InternalServerError;
+            switch (typeof(T))
+            {
+                case var cls when cls == typeof(WsResponse1CShortModel):
+                    if (response is WsResponse1CShortModel response1CShort)
+                        response1CShort.Errors.Add(new(ex));
+                    break;
+                case var cls when cls == typeof(WsResponse1CModel):
+                    if (response is WsResponse1CModel response1C)
+                        response1C.Errors.Add(new(ex));
+                    break;
+            }
+        }
+
+        return WsDataFormatUtils.GetContentResult<T>(response, format, httpStatusCode);
+    }
+
+    public static ContentResult NewResponse1CFromQuery(string url, SqlParameter? sqlParameter, string format, bool isDebug,
+        ISessionFactory sessionFactory) =>
+        NewResponse1CCore<WsResponse1CModel>(response =>
+        {
+            if (!string.IsNullOrEmpty(url))
+            {
+                if (SqlCore.SessionFactory is null)
+                    throw new ArgumentException(nameof(SqlCore.SessionFactory));
+                if (response.ResponseQuery is not null)
+                    response.ResponseQuery.Query = url;
+                //ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
+                ISQLQuery sqlQuery = SqlCore.SessionFactory.OpenSession().CreateSQLQuery(url);
+                if (sqlParameter is not null)
+                {
+                    if (response.ResponseQuery is not null)
+                        response.ResponseQuery.Parameters.Add(new(sqlParameter));
+                    sqlQuery.SetParameter(sqlParameter.ParameterName, sqlParameter.Value);
+                }
+
+                IList? list = sqlQuery.List();
+                object?[] result = new object?[list.Count];
+                if (list is [object[] records])
+                {
+                    result = records;
+                }
+                else
+                {
+                    for (int i = 0; i < result.Length; i++)
+                    {
+                        if (list[i] is object[] records2)
+                            result[i] = records2;
+                        else
+                            result[i] = list[i];
+                    }
+                }
+                string str = result[^1] as string ?? string.Empty;
+                response.Infos.Add(new(str));
+            }
+            else
+                response.Infos.Add(new("Empty query. Try to make some select from any table."));
+        }, format, isDebug, sessionFactory);
+
+    public static ContentResult NewResponseBarCodes(DateTime dtStart, DateTime dtEnd, string format, bool isDebug, ISessionFactory sessionFactory)
+    {
+        return NewResponse1CCore<WsResponseBarCodeListModel>(response =>
+        {
+            List<WsSqlFieldFilterModel> sqlFilters = new()
+            {
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = dtStart },
+                new() { Name = nameof(WsSqlBarCodeModel.CreateDt), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = dtEnd },
+            };
+            WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
+            sqlCrudConfig.AddFilters(sqlFilters);
+            List<WsSqlBarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
+            response.ResponseBarCodes = WsServiceResponseUtils.CastBarCodes(barcodesDb);
+            response.StartDate = dtStart;
+            response.EndDate = dtEnd;
+            response.Count = response.ResponseBarCodes.Count;
+        }, format, isDebug, sessionFactory);
+    }
+
+    /// <summary>
+    /// Новый ответ 1С - не найдено.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="format"></param>
+    /// <param name="isDebug"></param>
+    /// <param name="sessionFactory"></param>
+    /// <returns></returns>
+    public static ContentResult NewResponse1CIsNotFound(string message, string format, bool isDebug, ISessionFactory sessionFactory) =>
+        NewResponse1CCore<WsResponse1CModel>(response =>
+        {
+            response.Infos.Add(new(message));
+        }, format, isDebug, sessionFactory, HttpStatusCode.NotFound);
 
     #endregion
 }
