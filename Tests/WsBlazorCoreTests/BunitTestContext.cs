@@ -15,7 +15,7 @@ public abstract class BunitTestContext : TestContextWrapper
     public void Setup()
     {
         TestContext = new();
-        TestContext.Services.AddScoped<Radzen.DialogService>();
+        TestContext.Services.AddScoped<DialogService>();
         TestContext.Services.AddScoped<NotificationService>();
         TestContext.Services.AddScoped<TooltipService>();
         TestContext.Services.AddScoped<ContextMenuService>();

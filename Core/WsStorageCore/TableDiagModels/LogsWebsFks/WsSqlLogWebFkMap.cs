@@ -13,7 +13,7 @@ public sealed class WsSqlLogWebFkMap : ClassMap<WsSqlLogWebFkModel>
     /// </summary>
     public WsSqlLogWebFkMap()
     {
-        Schema(WsSqlSchemasUtils.DbScales);
+        Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogWebFks);
         LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

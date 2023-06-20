@@ -13,7 +13,7 @@ public sealed class WsSqlLogWebMap : ClassMap<WsSqlLogWebModel>
     /// </summary>
     public WsSqlLogWebMap()
     {
-        Schema(WsSqlSchemasUtils.DbScales);
+        Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsWebs);
         LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

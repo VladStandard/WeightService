@@ -27,8 +27,8 @@ public static class WsSqlTablesUtils
     public static string Logs => "LOGS";
     public static string LogsMemories => "LOGS_MEMORIES";
     public static string LogsTypes => "LOG_TYPES";
-    public static string LogsWebs => "LOGS_WEBS";
-    public static string LogWebFks => "LOGS_WEBS_FK";
+    public static string LogsWebs => "LOGS_WEB_SERVICES";
+    public static string LogWebFks => "LOGS_WEB_SERVICES_FK";
     public static string NestingFks => "NESTING_FK";
     public static string Nomenclatures => "NOMENCLATURES";
     public static string NomenclaturesDeprecated => "Nomenclature";
