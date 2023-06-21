@@ -15,6 +15,4 @@ public static class RzComponentUtils
         new(new() { 40, 30, 30 },
         new() { WsLocaleCore.Strings.SettingName, WsLocaleCore.Strings.SettingValue },
         "blue", "12px", "center");
-
-    public static CssStyleTableBodyModel GetTableBodyStyle(WsSqlEnumFieldIdentity columnName, bool isShowMarked) => new(columnName, isShowMarked);
 }

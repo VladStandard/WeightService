@@ -6,7 +6,6 @@
 using System.Threading;
 using WsDataCore.Memory;
 using WsDataCore.Models;
-using WsLocalizationCore.Utils;
 using WsStorageCore.Helpers;
 
 namespace WsBlazorCore.Settings;
@@ -25,18 +24,11 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
     #region Public and private fields, properties, constructor
 
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int DelayInfo => 2500;
     public static int DelayError => 5000;
-    public string MemoryInfo => Memory.MemorySize.PhysicalTotal != null
-        ? $"{WsLocaleCore.Memory.Memory}: {Memory.MemorySize.PhysicalAllocated.MegaBytes:N0} MB " +
-          $"{WsLocaleCore.Strings.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-        : $"{WsLocaleCore.Memory.Memory}: - MB";
-    public uint MemoryFillSize => Memory.MemorySize.PhysicalTotal == null || Memory.MemorySize.PhysicalTotal.MegaBytes == 0
-        ? 0 : (uint)(Memory.MemorySize.PhysicalAllocated.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes);
-
+    
     #endregion
 
     #region Public and private methods
@@ -45,9 +37,8 @@ public class BlazorAppSettingsHelper //: LayoutComponentBase
     {
         Memory.Close();
         Memory = new();
-        //Memory.OpenAsync(callRefreshAsync);
         Memory.MemorySize.Execute();
-        ContextManager.ContextItem.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
+        // ContextManager.ContextItem.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
     }
 
     #endregion

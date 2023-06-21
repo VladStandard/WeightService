@@ -31,13 +31,11 @@
         <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
         <PackageReference Include="MudBlazor" Version="6.4.1" />
         <PackageReference Include="Radzen.Blazor" Version="4.13.2" />
+        <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
     </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

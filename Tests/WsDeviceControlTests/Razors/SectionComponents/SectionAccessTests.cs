@@ -4,7 +4,7 @@
 namespace DeviceControlTests.Razors.SectionComponents;
 
 [TestFixture]
-public sealed class SectionAccessTests : BunitTestContext
+public sealed class SectionAccessTests : BUnitTestContext
 {
     [Test]
     public void Foo_Test()
