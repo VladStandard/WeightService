@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Versions\0.9.650-Release\</PublishUrl>
@@ -219,9 +220,7 @@
     <Compile Include="Forms\WsMainForm.Designer.cs">
       <DependentUpon>WsMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\WsMainFormDeprecated.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\WsMainFormDeprecated.cs" />
     <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,7 +287,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent></PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == ReleaseVS (
@@ -328,8 +328,10 @@
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

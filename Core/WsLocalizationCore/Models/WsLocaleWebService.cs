@@ -22,7 +22,8 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclature => Lang == WsEnumLanguage.English ? "Nomenclature" : "Номенклатура";
     public string FieldNomenclatureCharacteristic => Lang == WsEnumLanguage.English ? "Nomeclature characteristic" : "Номенклатурная характеристика";
     public string FieldNomenclatureGroup => Lang == WsEnumLanguage.English ? "Nomenclature group" : "Номенклатурная группа";
-    public string FieldNomenclatureIsDenyForLoad => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load" : "Номенклатура запрещена для загрузки";
+    public string FieldNomenclatureIsDenyForLoadByUid1C => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load by UID_1C" : "Номенклатура запрещена для загрузки по UID_1C";
+    public string FieldNomenclatureIsDenyForLoadByNumber => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load by PLU number" : "Номенклатура запрещена для загрузки по номеру ПЛУ";
     public string FieldNomenclatureIsZeroNumber => Lang == WsEnumLanguage.English ? "Invalid PLU number is specified" : "Указан недопустимый номер ПЛУ";
     public string FieldNomenclatureIsErrorUid1C => Lang == WsEnumLanguage.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
     public string FieldNomenclatureIsNotFound => Lang == WsEnumLanguage.English ? "Nomenclature is not found" : "Номенклатура не найдена";

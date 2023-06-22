@@ -518,6 +518,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     WsServiceCheckUtils.CheckEnabledPlu(itemXml, plus1CFksDb);
+
                 // Сохранить клипсу.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SaveClip(response, itemXml);
