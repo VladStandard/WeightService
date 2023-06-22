@@ -99,11 +99,11 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Category?.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluFkModel pluFk)
     {
-        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluFkModel pluFk) return;
+        base.UpdateProperties(pluFk, true);
+        
         Plu = pluFk.Plu;
         Parent = pluFk.Parent;
         Category = pluFk.Category;

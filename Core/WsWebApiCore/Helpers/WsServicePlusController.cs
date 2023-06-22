@@ -19,23 +19,23 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private void UpdateBoxDb(WsSqlPluModel pluXml, WsSqlBoxModel? boxDb)
+    private void UpdateBoxDb(WsSqlPluModel pluXml, WsSqlBoxModel boxDb)
     {
-        if (boxDb is null || boxDb.IsNew) return;
+        if (boxDb.IsNew) return;
         boxDb.UpdateProperties(pluXml);
         SqlCore.Update(boxDb);
     }
 
-    private void UpdateBundleDb(WsSqlPluModel pluXml, WsSqlBundleModel? bundleDb)
+    private void UpdateBundleDb(WsSqlPluModel pluXml, WsSqlBundleModel bundleDb)
     {
-        if (bundleDb is null || bundleDb.IsNew) return;
+        if (bundleDb.IsNew) return;
         bundleDb.UpdateProperties(pluXml);
         SqlCore.Update(bundleDb);
     }
 
-    private void UpdateClipDb(WsSqlPluModel pluXml, WsSqlClipModel? clipDb)
+    private void UpdateClipDb(WsSqlPluModel pluXml, WsSqlClipModel clipDb)
     {
-        if (clipDb is null || clipDb.IsNew) return;
+        if (clipDb.IsNew) return;
         clipDb.UpdateProperties(pluXml);
         SqlCore.Update(clipDb);
     }
@@ -515,12 +515,21 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 WsSqlPluModel itemXml = record.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUpdateUtils.UpdatePlus1CFksDb(response, record);
-                // Проверить корректность группы и номера ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    WsServiceCheckUtils.CheckCorrectPluNumberForNonGroup(itemXml);
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     WsServiceCheckUtils.CheckEnabledPlu(itemXml, plus1CFksDb);
+                // Сохранить клипсу.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveClip(response, itemXml);
+                // Сохранить коробку.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBox(response, itemXml);
+                // Сохранить пакет.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBundle(response, itemXml);
+                // Проверить корректность группы и номера ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    WsServiceCheckUtils.CheckCorrectPluNumberForNonGroup(itemXml);
                 // Проверить валидацию ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(itemXml, pluValidator);
@@ -533,18 +542,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Сохранить связь ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluFks(response, itemXml);
-                // Сохранить коробку.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveBox(response, itemXml);
-                // Сохранить пакет.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveBundle(response, itemXml);
                 // Сохранить связь бренда.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluBrandFk(response, itemXml);
-                // Сохранить клипсу.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveClip(response, itemXml);
                 // Сохранить связь клипсы ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluClipFk(response, itemXml);

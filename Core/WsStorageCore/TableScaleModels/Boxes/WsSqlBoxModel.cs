@@ -71,13 +71,11 @@ public class WsSqlBoxModel : WsSqlTable1CBase
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlPluModel plu)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluModel plu) throw new ArgumentException();
-        Uid1C = plu.BoxTypeGuid;
         
+        Uid1C = plu.BoxTypeGuid;
         Name = plu.BoxTypeName;
         Weight = plu.BoxTypeWeight;
         if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));

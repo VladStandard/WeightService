@@ -91,11 +91,11 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
         Parent.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluGroupFkModel pluGroupFk)
     {
-        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluGroupFkModel pluGroupFk) return;
+        base.UpdateProperties(pluGroupFk, true);
+        
         PluGroup = pluGroupFk.PluGroup;
         Parent = pluGroupFk.Parent;
     }

@@ -91,11 +91,11 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
         Scale.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlDeviceScaleFkModel deviceScaleFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlDeviceScaleFkModel deviceScaleFk) return;
+        base.UpdateProperties(deviceScaleFk, true);
+        
         Device = deviceScaleFk.Device;
         Scale = deviceScaleFk.Scale;
     }

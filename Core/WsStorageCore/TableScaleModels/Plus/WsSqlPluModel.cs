@@ -290,13 +290,11 @@ public class WsSqlPluModel : WsSqlTable1CBase
 
     public new virtual WsSqlPluModel CloneCast() => (WsSqlPluModel)Clone();
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlPluModel plu)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluModel plu) throw new ArgumentException();
+        
         Uid1C = plu.Uid1C;
-
         IsGroup = plu.IsGroup;
         if (!IsGroup && Equals(plu.Number, (short)0)) throw new ArgumentException(nameof(Number));
         Number = plu.Number;

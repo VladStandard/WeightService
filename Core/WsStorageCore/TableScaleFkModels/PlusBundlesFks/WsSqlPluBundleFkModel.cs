@@ -87,11 +87,11 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         Plu.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluBundleFkModel pluBundleFk)
     {
-        base.UpdateProperties(item, true);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluBundleFkModel pluBundleFk) return;
+        base.UpdateProperties(pluBundleFk, true);
+        
         Plu = pluBundleFk.Plu;
         Bundle = pluBundleFk.Bundle;
     }

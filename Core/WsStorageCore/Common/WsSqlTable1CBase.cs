@@ -94,7 +94,8 @@ public class WsSqlTable1CBase : WsSqlTableBase
 
     public virtual void UpdateProperties(WsSqlTable1CBase item)
     {
-        base.UpdateProperties(item);
+        base.UpdateProperties(item, false);
+        
         Uid1C = item.Uid1C;
     }
 

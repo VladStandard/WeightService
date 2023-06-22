@@ -92,13 +92,11 @@ public class WsSqlBrandModel : WsSqlTable1CBase
 
     public new virtual WsSqlBrandModel CloneCast() => (WsSqlBrandModel)Clone();
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlBrandModel brand)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_brands/.
-        if (item is not WsSqlBrandModel brand) throw new ArgumentException();
-        Uid1C = brand.Uid1C;
         
+        Uid1C = brand.Uid1C;
         Code = brand.Code;
     }
 

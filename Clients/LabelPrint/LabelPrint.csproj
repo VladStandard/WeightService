@@ -7,12 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <Version>0.9.620.0</Version>
+    <Version>0.9.660.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
-    <PackageReference Include="MDSoft.WinFormsUtils" Version="0.2.50" />
     <PackageReference Include="MDSoft.Wmi" Version="0.2.50" />
-    <PackageReference Include="MDSoft.WpfUtils" Version="0.2.50" />
   </ItemGroup>
 </Project>

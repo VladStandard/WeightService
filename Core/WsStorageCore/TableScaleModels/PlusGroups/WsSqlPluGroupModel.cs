@@ -96,13 +96,11 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
         Code = WsLocaleCore.Sql.SqlItemFieldCode;
     }
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlPluGroupModel pluGroup)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures_groups/.
-        if (item is not WsSqlPluGroupModel pluGroup) throw new ArgumentException();
+        
         Uid1C = pluGroup.Uid1C;
-
         IsGroup = pluGroup.IsGroup;
         Code = pluGroup.Code;
         ParentGuid = pluGroup.ParentGuid;

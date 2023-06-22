@@ -94,13 +94,11 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     
     public new virtual WsSqlPluCharacteristicModel CloneCast() => (WsSqlPluCharacteristicModel)Clone();
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlPluCharacteristicModel pluCharacteristic)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluCharacteristicModel pluCharacteristic) throw new ArgumentException();
+        
         Uid1C = pluCharacteristic.Uid1C;
-
         if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))
             NomenclatureGuid = pluCharacteristic.NomenclatureGuid;
         if (pluCharacteristic.AttachmentsCount > 0)

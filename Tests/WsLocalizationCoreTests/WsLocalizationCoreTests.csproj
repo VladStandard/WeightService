@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <Version>0.9.620.0</Version>
+    <Version>0.9.660.0</Version>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>

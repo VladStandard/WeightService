@@ -96,11 +96,11 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Resource.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluStorageMethodFkModel pluStorageMethodFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluStorageMethodFkModel pluStorageMethodFk) return;
+        base.UpdateProperties(pluStorageMethodFk, true);
+        
         Plu = pluStorageMethodFk.Plu;
         Method = pluStorageMethodFk.Method;
         Resource = pluStorageMethodFk.Resource;

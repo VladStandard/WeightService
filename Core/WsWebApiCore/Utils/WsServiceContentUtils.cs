@@ -320,8 +320,17 @@ public static class WsServiceContentUtils
     private static short GetXmlAttributeShort<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
         short.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out short result) ? result : default;
 
-    private static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase =>
-        decimal.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName), out decimal result) ? result : default;
+    private static decimal GetXmlAttributeDecimal<T>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) 
+        where T : WsSqlTableBase
+    {
+        CultureInfo? culture = CultureInfo.InvariantCulture.Clone() as CultureInfo;
+        if (culture is null) throw new ArgumentException(nameof(culture));
+        culture.NumberFormat.NumberDecimalSeparator = ".";
+        culture.NumberFormat.CurrencyDecimalSeparator = ".";
+        return decimal.TryParse(GetXmlAttributeString(xmlNode, itemXml, xmlPropertyName),
+            NumberStyles.Any, culture, out decimal result)
+            ? result : default;
+    }
 
     public static TResult GetXmlAttributeGeneric<T, TResult>(XmlNode? xmlNode, T itemXml, string xmlPropertyName) where T : WsSqlTableBase where TResult : struct
     {

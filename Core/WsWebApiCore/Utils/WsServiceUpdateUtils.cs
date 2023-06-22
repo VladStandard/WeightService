@@ -92,7 +92,8 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluClipFkModel itemXml, WsSqlPluClipFkModel? itemDb, bool isCounter)
+    public static void UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluClipFkModel itemXml, 
+        WsSqlPluClipFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
@@ -266,8 +267,8 @@ public static class WsServiceUpdateUtils
         // В кэше найдено - обновить.
         else
         {
+            plu1CFk.RequestDataString = recordXml.Content;
             plu1CFkCache.UpdateProperties(plu1CFk);
-            plu1CFkCache.UpdateProperties(recordXml.Content);
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
@@ -304,7 +305,7 @@ public static class WsServiceUpdateUtils
         // В кэше найдено - обновить.
         else
         {
-            plu1CFkCache.UpdateProperties(plu);
+            plu1CFkCache.Plu = plu;
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
