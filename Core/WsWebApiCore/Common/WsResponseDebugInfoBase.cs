@@ -1,20 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsWebApiCore.Models;
+namespace WsWebApiCore.Common;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponseDebugInfoModel : SerializeDebugBase
+public class WsResponseDebugInfoBase : SerializeDebugBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement(WsWebConstants.DebugInfo)]
-    public WsServiceInfoModel? Info { get; set; }
+    public WsServiceInfoModel? ServiceInfo { get; set; }
 
     /// <summary>
     /// Empty constructor.
     /// </summary>
-    public WsResponseDebugInfoModel()
+    public WsResponseDebugInfoBase()
     {
         //
     }
@@ -24,9 +24,9 @@ public class WsResponseDebugInfoModel : SerializeDebugBase
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    public WsResponseDebugInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    public WsResponseDebugInfoBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Info = (WsServiceInfoModel?)info.GetValue(nameof(Info), typeof(WsServiceInfoModel));
+        ServiceInfo = (WsServiceInfoModel?)info.GetValue(nameof(ServiceInfo), typeof(WsServiceInfoModel));
     }
 
     #endregion
@@ -41,7 +41,7 @@ public class WsResponseDebugInfoModel : SerializeDebugBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(Info), Info);
+        info.AddValue(nameof(ServiceInfo), ServiceInfo);
     }
 
     #endregion

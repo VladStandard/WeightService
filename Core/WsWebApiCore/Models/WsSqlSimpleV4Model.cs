@@ -4,16 +4,13 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsSqlSimpleV4Model : SerializeBase
+public sealed class WsSqlSimpleV4Model : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlArray(WsWebConstants.Items), XmlArrayItem(WsWebConstants.Simple, typeof(WsSqlSimpleV1Model))]
     public List<WsSqlSimpleV1Model> Simples { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlSimpleV4Model()
     {
         Simples = new();

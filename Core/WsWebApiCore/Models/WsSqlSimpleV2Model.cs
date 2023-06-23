@@ -4,26 +4,18 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsSqlSimpleV2Model : SerializeBase
+public sealed class WsSqlSimpleV2Model : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement(WsWebConstants.Simple)]
     public WsSqlSimpleV1Model Item { get; set; } = new();
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="description"></param>
-    /// <param name="isDebug"></param>
     public WsSqlSimpleV2Model(string description, bool isDebug)
     {
         Item = new(description, isDebug);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlSimpleV2Model()
     {
         //

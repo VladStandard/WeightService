@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Models;
 
-public class WsWebRequestScales : IWsWebRequest
+public sealed class WsWebRequestScales : IWsWebRequest
 {
     #region Public and private methods
 

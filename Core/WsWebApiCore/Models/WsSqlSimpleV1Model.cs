@@ -4,44 +4,31 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Simple, Namespace = "", IsNullable = false)]
-public class WsSqlSimpleV1Model : SerializeDebugBase
+public sealed class WsSqlSimpleV1Model : SerializeDebugBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlAttribute]
     public string Description { get; set; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public WsSqlSimpleV1Model()
     {
         Description = string.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="description"></param>
-    /// <param name="isDebug"></param>
     public WsSqlSimpleV1Model(string description, bool isDebug) : base(isDebug)
     {
         Description = description;
     }
 
-    #endregion
-
-    #region Public and private methods
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private WsSqlSimpleV1Model(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Description = info.GetString(nameof(Description)) ?? string.Empty;
     }
+
+    #endregion
+
+    #region Public and private methods
 
     /// <summary>
     /// Get object data for serialization info.

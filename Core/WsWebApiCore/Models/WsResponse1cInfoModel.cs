@@ -21,11 +21,6 @@ public class WsResponse1CInfoModel : SerializeBase
         Message = string.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private WsResponse1CInfoModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Message = info.GetString(nameof(Message)) ?? string.Empty;

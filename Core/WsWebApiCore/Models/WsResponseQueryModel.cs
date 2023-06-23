@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Query, Namespace = "", IsNullable = false)]
-public class WsResponseQueryModel : SerializeBase
+public sealed class WsResponseQueryModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -31,12 +31,6 @@ public class WsResponseQueryModel : SerializeBase
         _query = string.Empty;
         Parameters = new();
     }
-
-    #endregion
-
-    #region Public and private methods
-
-    //
 
     #endregion
 }

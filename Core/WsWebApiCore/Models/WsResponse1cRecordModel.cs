@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1CRecordModel : SerializeBase
+public sealed class WsResponse1CRecordModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 

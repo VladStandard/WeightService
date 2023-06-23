@@ -4,21 +4,31 @@
 namespace WsWebApiCore.Models;
 
 [Serializable]
-public class WsResponseBarCodeModel : SerializeBase, ICloneable
+public sealed class WsResponseBarCodeModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
     [XmlElement(WsWebConstants.Guid)]
-    public virtual Guid IdentityValueUid { get; set; }
-    [XmlElement] public virtual DateTime CreateDt { get; set; }
-    [XmlElement] public virtual DateTime ChangeDt { get; set; }
-    [XmlElement] public virtual bool IsMarked { get; set; }
-    [XmlElement] public virtual string TypeTop { get; set; }
-    [XmlElement] public virtual string ValueTop { get; set; }
-    [XmlElement] public virtual string TypeRight { get; set; }
-    [XmlElement] public virtual string ValueRight { get; set; }
-    [XmlElement] public virtual string TypeBottom { get; set; }
-    [XmlElement] public virtual string ValueBottom { get; set; }
-    [XmlElement] public virtual Guid PluLabelGuid { get; set; }
+    public Guid IdentityValueUid { get; set; }
+    [XmlElement] 
+    public DateTime CreateDt { get; set; }
+    [XmlElement] 
+    public DateTime ChangeDt { get; set; }
+    [XmlElement] 
+    public bool IsMarked { get; set; }
+    [XmlElement] 
+    public string TypeTop { get; set; }
+    [XmlElement] 
+    public string ValueTop { get; set; }
+    [XmlElement] 
+    public string TypeRight { get; set; }
+    [XmlElement] 
+    public string ValueRight { get; set; }
+    [XmlElement] 
+    public string TypeBottom { get; set; }
+    [XmlElement] 
+    public string ValueBottom { get; set; }
+    [XmlElement] 
+    public Guid PluLabelGuid { get; set; }
 
     public WsResponseBarCodeModel()
     {
@@ -40,7 +50,7 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected WsResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IdentityValueUid = new(info.GetString(WsWebConstants.Guid) ?? string.Empty);
         CreateDt = info.GetDateTime(nameof(CreateDt));
@@ -63,7 +73,6 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
         $"{WsWebConstants.Guid}: {IdentityValueUid}. " +
         $"{nameof(ChangeDt)}: {CreateDt}. " +
         $"{nameof(ChangeDt)}: {ChangeDt}. " +
-        //$"{GetIsMarked()} | " +
         $"{nameof(TypeTop)}: {TypeTop}. " +
         $"{nameof(ValueTop)}: {ValueTop}. " +
         $"{nameof(TypeRight)}: {TypeRight}. " +
@@ -91,9 +100,9 @@ public class WsResponseBarCodeModel : SerializeBase, ICloneable
         return item;
     }
 
-    public virtual WsResponseBarCodeModel CloneCast() => (WsResponseBarCodeModel)Clone();
+    public WsResponseBarCodeModel CloneCast() => (WsResponseBarCodeModel)Clone();
 
-    public virtual WsResponseBarCodeModel CloneCast(WsSqlBarCodeModel barCode)
+    public WsResponseBarCodeModel CloneCast(WsSqlBarCodeModel barCode)
     {
         WsResponseBarCodeModel item = new()
         {

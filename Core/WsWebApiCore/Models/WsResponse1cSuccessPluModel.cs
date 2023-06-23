@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Record, Namespace = "", IsNullable = false)]
-public class WsResponse1CSuccessPluModel : SerializeBase
+public sealed class WsResponse1CSuccessPluModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,11 +26,6 @@ public class WsResponse1CSuccessPluModel : SerializeBase
         Description = description;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private WsResponse1CSuccessPluModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));

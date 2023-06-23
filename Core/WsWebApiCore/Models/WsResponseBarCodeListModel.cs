@@ -5,7 +5,7 @@ namespace WsWebApiCore.Models;
 
 [Serializable]
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponseBarCodeListModel : SerializeBase
+public sealed class WsResponseBarCodeListModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -19,18 +19,12 @@ public class WsResponseBarCodeListModel : SerializeBase
     [XmlAttribute(nameof(Count))]
     public int Count { get; set; }
 
-
     public WsResponseBarCodeListModel()
     {
         ResponseBarCodes = new();
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsResponseBarCodeListModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    private WsResponseBarCodeListModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? barCodes = info.GetValue(nameof(ResponseBarCodes), typeof(List<WsResponseBarCodeModel>));
         ResponseBarCodes = barCodes is not null ? (List<WsResponseBarCodeModel>)barCodes : new();
