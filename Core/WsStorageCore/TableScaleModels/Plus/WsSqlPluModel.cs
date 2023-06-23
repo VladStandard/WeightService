@@ -155,7 +155,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{Number} | {GetIsMarked()} | {GetIsGroup()} | {Name} | {Code} | {Uid1C}";
+    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {GetIsMarked()} | {GetIsGroup()} | {Code}";
 
     public virtual string GetIsGroup() => IsGroup? "Is group" : "Is not group";
 

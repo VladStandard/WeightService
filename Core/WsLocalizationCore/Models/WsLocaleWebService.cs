@@ -25,7 +25,7 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string FieldNomenclatureIsDenyForLoadByUid1C => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load by UID_1C" : "Номенклатура запрещена для загрузки по UID_1C";
     public string FieldNomenclatureIsDenyForLoadByNumber => Lang == WsEnumLanguage.English ? "Nomenclature is deny for load by PLU number" : "Номенклатура запрещена для загрузки по номеру ПЛУ";
     public string FieldNomenclatureIsDiffForLoadByNumber(short pluNumberDb, short pluNumberXml) => Lang == WsEnumLanguage.English ? "The PLU number is forbidden or does not match! | In the database {pluNumberDb} in the XML {pluNumberXml}" : $"Номер ПЛУ запрещён либо не соответствует! | В БД '{pluNumberDb}' в XML '{pluNumberXml}'";
-    public string FieldNomenclatureIsZeroNumber => Lang == WsEnumLanguage.English ? "Invalid PLU number is specified" : "Указан недопустимый номер ПЛУ";
+    public string FieldNomenclatureIsZeroNumber(short pluNumber) => Lang == WsEnumLanguage.English ? $"Invalid PLU number is specified '{pluNumber}'" : $"Указан недопустимый номер ПЛУ '{pluNumber}'";
     public string FieldNomenclatureIsErrorUid1C => Lang == WsEnumLanguage.English ? "Nomenclature UID_1C is error" : "Ошибка UID_1C номенклатуры";
     public string FieldNomenclatureIsNotFound => Lang == WsEnumLanguage.English ? "Nomenclature is not found" : "Номенклатура не найдена";
     public string FieldNomenclatureParent => Lang == WsEnumLanguage.English ? "Parent nomenclature" : "Родительская номенклатура";

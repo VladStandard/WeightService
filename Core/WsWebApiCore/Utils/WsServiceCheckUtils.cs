@@ -35,7 +35,8 @@ public static class WsServiceCheckUtils
         if (pluXml is { IsGroup: false, Number: > 0 }) return true;
         pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         pluXml.ParseResult.Exception =
-            WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + WsLocaleCore.WebService.FieldNomenclatureIsZeroNumber;
+            WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + 
+            WsLocaleCore.WebService.FieldNomenclatureIsZeroNumber(pluXml.Number);
         return false;
     }
 
@@ -76,7 +77,7 @@ public static class WsServiceCheckUtils
     private static void CheckEnabledPluForItem(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
         // Пропуск групп с нулевым номером.
-        if (WsServiceCheckUtils.CheckUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
+        if (CheckUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
         {
