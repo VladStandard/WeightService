@@ -99,7 +99,8 @@ public static class WsServiceCheckUtils
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
-                    WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoadByNumber;
+                    WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + 
+                    WsLocaleCore.WebService.FieldNomenclatureIsDiffForLoadByNumber(plu1CFkDb.Plu.Number, pluXml.Number);
             }
         }
         // Загрузка характеристики номенклатуры.
