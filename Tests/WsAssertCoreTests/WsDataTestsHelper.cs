@@ -173,26 +173,7 @@ public class WsDataTestsHelper
             }
         });
     }
-
-    public void AssertBlazorCssStylesValidate<T>(T item, bool assertResult) where T : CssStyleBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            ValidationResult validationResult = WsBlazorCssValidationUtils.GetValidationResult(item);
-            FailureWriteLine(validationResult);
-            // Assert.
-            switch (assertResult)
-            {
-                case true:
-                    Assert.IsTrue(validationResult.IsValid);
-                    break;
-                default:
-                    Assert.IsFalse(validationResult.IsValid);
-                    break;
-            }
-        });
-    }
-
+    
     public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlTableBase, new()
     {
         // Arrange
