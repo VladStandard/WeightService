@@ -8,5 +8,5 @@
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("dfce3bbb-986a-4655-b0f3-1bd2c3132623")]
-[assembly: AssemblyVersion("0.9.670.0")]
-[assembly: AssemblyFileVersion("0.9.670.0")]
+[assembly: AssemblyVersion("0.9.680.0")]
+[assembly: AssemblyFileVersion("0.9.680.0")]
