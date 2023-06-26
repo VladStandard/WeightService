@@ -37,10 +37,11 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 7 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])), Convert.ToDateTime(item[1]),
-                Convert.ToString(item[2]), Convert.ToString(item[3]), Convert.ToString(item[4]),
-                Convert.ToInt16(item[5]), Convert.ToInt16(item[6])));
+            int i = 0;
+            if (obj is not object[] item || item.Length < 7) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[i++])), Convert.ToDateTime(item[i++]),
+                Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]),
+                Convert.ToInt16(item[i++]), Convert.ToInt16(item[i++])));
         }
         return result;
     }
@@ -56,16 +57,17 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 8 } item) break;
+            int i = 0;
+            if (obj is not object[] item || item.Length < 8) break;
             result.Add(new(
-                Convert.ToString(item[0]),
-                Convert.ToString(item[1]),
-                Convert.ToString(item[2]),
-                Convert.ToUInt32(item[3]),
-                Convert.ToUInt16(item[4]),
-                Convert.ToUInt16(item[5]),
-                Convert.ToUInt16(item[6]),
-                Convert.ToString(item[7])
+                Convert.ToString(item[i++]),
+                Convert.ToString(item[i++]),
+                Convert.ToString(item[i++]),
+                Convert.ToUInt32(item[i++]),
+                Convert.ToUInt16(item[i++]),
+                Convert.ToUInt16(item[i++]),
+                Convert.ToUInt16(item[i++]),
+                Convert.ToString(item[i++])
             ));
         }
         return result;
@@ -104,15 +106,16 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 19 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
-                Convert.ToDateTime(item[1]), Convert.ToDateTime(item[2]),
-                Convert.ToBoolean(item[3]), Convert.ToBoolean(item[4]),
-                Convert.ToUInt16(item[5]), Convert.ToBoolean(item[6]), Convert.ToString(item[7]),
-                Guid.Parse(Convert.ToString(item[8])), Convert.ToBoolean(item[9]), Convert.ToBoolean(item[10]),
-                Convert.ToUInt16(item[11]), Convert.ToString(item[12]),
-                Convert.ToString(item[13]), Convert.ToString(item[14]), Convert.ToString(item[15]),
-                Convert.ToUInt16(item[16]), Convert.ToBoolean(item[17]), Convert.ToString(item[18])
+            int i = 0;
+            if (obj is not object[] item || item.Length < 19) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
+                Convert.ToDateTime(item[i++]), Convert.ToDateTime(item[i++]),
+                Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
+                Convert.ToUInt16(item[i++]), Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]),
+                Guid.Parse(Convert.ToString(item[i++])), Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
+                Convert.ToUInt16(item[i++]), Convert.ToString(item[i++]),
+                Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]),
+                Convert.ToUInt16(item[i++]), Convert.ToBoolean(item[i++]), Convert.ToString(item[i++])
             ));
         }
         return result;
@@ -130,17 +133,18 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 22 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])), Guid.Parse(Convert.ToString(item[1])),
-                Convert.ToBoolean(item[2]), Convert.ToBoolean(item[3]), Convert.ToUInt16(item[4]), 
-                Convert.ToString(item[5]), Convert.ToString(item[6]), Convert.ToString(item[7]), 
-                Convert.ToString(item[8]), Guid.Parse(Convert.ToString(item[9])), 
-                Convert.ToBoolean(item[10]), Convert.ToString(item[11]),
-                Convert.ToInt16(item[12]), Convert.ToInt16(item[13]), Convert.ToBoolean(item[14]), 
-                Convert.ToBoolean(item[15]), Guid.Parse(Convert.ToString(item[16])), 
-                Convert.ToBoolean(item[17]), Convert.ToString(item[18]),
-                Convert.ToUInt16(item[19]), Convert.ToBoolean(item[20]), 
-                Convert.ToString(item[21])
+            int i = 0;
+            if (obj is not object[] item || item.Length < 22) break;
+            result.Add(new(Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])),
+                Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]), Convert.ToUInt16(item[i++]), 
+                Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]), 
+                Convert.ToString(item[i++]), Guid.Parse(Convert.ToString(item[i++])), 
+                Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]),
+                Convert.ToInt16(item[i++]), Convert.ToInt16(item[i++]), Convert.ToBoolean(item[i++]), 
+                Convert.ToBoolean(item[i++]), Guid.Parse(Convert.ToString(item[i++])), 
+                Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]),
+                Convert.ToUInt16(item[i++]), Convert.ToBoolean(item[i++]), 
+                Convert.ToString(item[i++])
             ));
         }
         return result;
@@ -210,20 +214,18 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 8 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
+            int i = 0;
+            if (obj is not object[] item || item.Length < 8 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
             result.Add(new() 
             {
                 IdentityValueUid = uid,
-                IsMarked = Convert.ToBoolean(item[1]),
-                LoginDate = Convert.ToDateTime(item[2]),
-                LogoutDate = Convert.ToDateTime(item[3]),
-                Name = item[4] as string ?? string.Empty,
-                TypeName = item[5] as string ?? string.Empty,
-                Ip = item[6] as string ?? string.Empty,
-                Mac = item[7] as string ?? string.Empty
+                IsMarked = Convert.ToBoolean(item[i++]),
+                LoginDate = Convert.ToDateTime(item[i++]),
+                LogoutDate = Convert.ToDateTime(item[i++]),
+                Name = item[i++] as string ?? string.Empty,
+                TypeName = item[i++] as string ?? string.Empty,
+                Ip = item[i++] as string ?? string.Empty,
+                Mac = item[i++] as string ?? string.Empty
             });
         }
         return result;
@@ -236,19 +238,18 @@ public sealed class WsSqlContextViewHelper
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 8 } item)
-                continue;
-
-            result.Add(new WsSqlViewLineModel
+            int i = 0;
+            if (obj is not object[] item || item.Length < 8) break;
+            result.Add(new()
             {
-                IdentityValueId = Convert.ToInt64(item[0]),
-                IsMarked = Convert.ToBoolean(item[1]),
-                Name = item[2] as string ?? string.Empty,
-                Number = Convert.ToInt32(item[3]),
-                HostName = item[4] as string ?? string.Empty,
-                Printer = item[5] as string ?? string.Empty,
-                WorkShop = item[6] as string ?? string.Empty,
-                Counter = Convert.ToInt32(item[7])
+                IdentityValueId = Convert.ToInt64(item[i++]),
+                IsMarked = Convert.ToBoolean(item[i++]),
+                Name = item[i++] as string ?? string.Empty,
+                Number = Convert.ToInt32(item[i++]),
+                HostName = item[i++] as string ?? string.Empty,
+                Printer = item[i++] as string ?? string.Empty,
+                WorkShop = item[i++] as string ?? string.Empty,
+                Counter = Convert.ToInt32(item[i++])
             });
         }
         return result;
@@ -262,24 +263,21 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            
-            if (obj is not object[] { Length: 11 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
-            result.Add(new WsSqlViewLogModel
+            int i = 0;
+            if (obj is not object[] item || item.Length < 11 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            result.Add(new()
             {
                 IdentityValueUid = uid,
-                CreateDt = Convert.ToDateTime(item[1]),
-                Line = item[2] as string ?? string.Empty,
-                Host = item[3] as string ?? string.Empty,
-                App = item[4] as string ?? string.Empty,
-                Version = item[5] as string ?? string.Empty,
-                File = item[6] as string ?? string.Empty,
-                CodeLine = Convert.ToInt32(item[7]),
-                Member = item[8] as string ?? string.Empty,
-                LogType = item[9] as string ?? string.Empty,
-                Message = item[10] as string ?? string.Empty
+                CreateDt = Convert.ToDateTime(item[i++]),
+                Line = item[i++] as string ?? string.Empty,
+                Host = item[i++] as string ?? string.Empty,
+                App = item[i++] as string ?? string.Empty,
+                Version = item[i++] as string ?? string.Empty,
+                File = item[i++] as string ?? string.Empty,
+                CodeLine = Convert.ToInt32(item[i++]),
+                Member = item[i++] as string ?? string.Empty,
+                LogType = item[i++] as string ?? string.Empty,
+                Message = item[i++] as string ?? string.Empty
             });
         }
         return result;
@@ -293,19 +291,17 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 8 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
-            result.Add(new WsSqlViewWebLogModel
+            int i = 0;
+            if (obj is not object[] item || item.Length < 8 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            result.Add(new()
             {
                 IdentityValueUid = uid,
-                CreateDt = Convert.ToDateTime(item[1]),
-                RequestUrl = item[2] as string ?? string.Empty,
-                RequestCountAll = Convert.ToInt32(item[3]),
-                ResponseCountSuccess = Convert.ToInt32(item[4]),
-                ResponseCountError = Convert.ToInt32(item[5]),
-                AppVersion = item[7] as string ?? string.Empty
+                CreateDt = Convert.ToDateTime(item[i++]),
+                RequestUrl = item[i++] as string ?? string.Empty,
+                RequestCountAll = Convert.ToInt32(item[i++]),
+                ResponseCountSuccess = Convert.ToInt32(item[i++]),
+                ResponseCountError = Convert.ToInt32(item[i++]),
+                AppVersion = item[i++] as string ?? string.Empty
             });
         }
         return result;
@@ -319,19 +315,17 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 7 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
-            result.Add(new WsSqlViewBarcodeModel
+            int i = 0;
+            if (obj is not object[] item || item.Length < 7 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            result.Add(new()
             {
                 IdentityValueUid = uid,
-                IsMarked = Convert.ToBoolean(item[1]),
-                CreateDt = Convert.ToDateTime(item[2]),
-                PluNumber = Convert.ToInt32(item[3]),
-                ValueTop = item[4] as string ?? string.Empty,
-                ValueRight = item[5] as string ?? string.Empty,
-                ValueBottom = item[6] as string ?? string.Empty
+                IsMarked = Convert.ToBoolean(item[i++]),
+                CreateDt = Convert.ToDateTime(item[i++]),
+                PluNumber = Convert.ToInt32(item[i++]),
+                ValueTop = item[i++] as string ?? string.Empty,
+                ValueRight = item[i++] as string ?? string.Empty,
+                ValueBottom = item[i++] as string ?? string.Empty
             });
         }
         return result;
@@ -345,22 +339,20 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 10 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
-            result.Add(new WsSqlViewPluLabelModel
+            int i = 0;
+            if (obj is not object[] item || item.Length < 10 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            result.Add(new()
             {
                 IdentityValueUid = uid,
-                CreateDt = Convert.ToDateTime(item[1]),
-                IsMarked = Convert.ToBoolean(item[2]),
-                ProductDate = Convert.ToDateTime(item[3]),
-                ExpirationDate = Convert.ToDateTime(item[4]),
-                WeightingDate = Convert.ToDateTime(item[5]),
-                Line = item[6] as string ?? string.Empty,
-                PluNumber = Convert.ToInt32(item[7]),
-                PluName = item[8] as string ?? string.Empty,
-                Template = item[9] as string ?? string.Empty
+                CreateDt = Convert.ToDateTime(item[i++]),
+                IsMarked = Convert.ToBoolean(item[i++]),
+                ProductDate = Convert.ToDateTime(item[i++]),
+                ExpirationDate = Convert.ToDateTime(item[i++]),
+                WeightingDate = Convert.ToDateTime(item[i++]),
+                Line = item[i++] as string ?? string.Empty,
+                PluNumber = Convert.ToInt32(item[i++]),
+                PluName = item[i++] as string ?? string.Empty,
+                Template = item[i++] as string ?? string.Empty
             });
         }
         return result;
@@ -374,20 +366,18 @@ public sealed class WsSqlContextViewHelper
 
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 8 } item ||
-                !Guid.TryParse(Convert.ToString(item[0]), out var uid))
-                continue;
-            
-            result.Add(new WsSqlViewPluWeighting
+            int i = 0;
+            if (obj is not object[] item || item.Length < 8 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            result.Add(new()
             {
                 IdentityValueUid = uid,
-                IsMarked = Convert.ToBoolean(item[1]),
-                CreateDt = Convert.ToDateTime(item[2]),
-                Line = item[3] as string ?? string.Empty,
-                PluNumber = Convert.ToInt32(item[4]),
-                PluName = item[5] as string ?? string.Empty,
-                TareWeight = Convert.ToDecimal(item[6]),
-                NettoWeight = Convert.ToDecimal(item[7])
+                IsMarked = Convert.ToBoolean(item[i++]),
+                CreateDt = Convert.ToDateTime(item[i++]),
+                Line = item[i++] as string ?? string.Empty,
+                PluNumber = Convert.ToInt32(item[i++]),
+                PluName = item[i++] as string ?? string.Empty,
+                TareWeight = Convert.ToDecimal(item[i++]),
+                NettoWeight = Convert.ToDecimal(item[i++])
             });
         }
         return result;
@@ -398,19 +388,16 @@ public sealed class WsSqlContextViewHelper
         List<WsSqlViewWeightingAggrModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetWeightingsAggr(topRecords);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
-
         foreach (var obj in objects)
         {
-            if (obj is not object[] { Length: 5 } item)
-                continue;
-            
+            int i = 0;
+            if (obj is not object[] item || item.Length < 5) break;
             result.Add(new(
-                Convert.ToDateTime(item[0]),
-                Convert.ToInt32(item[1]),
-                Convert.ToString(item[2]),
-                Convert.ToString(item[3]),
-                Convert.ToInt32(item[4])
-                )
+                Convert.ToDateTime(item[i++]),
+                Convert.ToInt32(item[i++]),
+                Convert.ToString(item[i++]),
+                Convert.ToString(item[i++]),
+                Convert.ToInt32(item[i++]))
             );
         }
         return result;
