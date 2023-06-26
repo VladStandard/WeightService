@@ -6,6 +6,7 @@ public static class RouteUtil
     
     public static string SystemAppInfo => "/system";
     public static string SystemDatabaseInfo => "/system_sql";
+    public static string SectionVersions => "/system_sql_versions";
     
     #endregion
     
@@ -16,7 +17,7 @@ public static class RouteUtil
     public static string SectionPlusLabels => "/section/plus_labels";
     public static string SectionPlusStorage => "/section/plus_storage";
     public static string SectionPlusNestingFks => "/section/plus_nesting";
-    public static string SectionPlusBundlesFks => "/section/plus/bundles";
+    public static string SectionPlusBundlesFks => "/section/plus_bundles";
     public static string SectionPlusWeightings => "/section/plus_weightings";
     public static string SectionPlusWeightingsAggr => "/section/plus_weightings_aggr";
     
@@ -44,7 +45,7 @@ public static class RouteUtil
     #endregion
 
     #region Unsorted
-
+    public static string SectionClips => "/section/clips";
     public static string SectionAccess => "/section/access";
     public static string SectionBarCodes => "/section/barcodes";
     public static string SectionBoxes => "/section/boxes";
@@ -57,7 +58,6 @@ public static class RouteUtil
     public static string SectionLines => "/section/lines";
     public static string SectionTemplateResources => "/section/templates_resources";
     public static string SectionTemplates => "/section/templates";
-    public static string SectionVersions => "/section/versions";
     public static string SectionWorkShops => "/section/workshops";
     public static string Profile => "/profile";
 

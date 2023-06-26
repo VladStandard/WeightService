@@ -1,0 +1,28 @@
+@page "/section/clips/new"
+@page "/section/clips/{Uid:guid}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using WsStorageCore.TableScaleModels.Contragents
+@using DeviceControl.Components.Item
+@using WsStorageCore.TableScaleModels.Clips
+@inherits ItemBase<WsStorageCore.TableScaleModels.Clips.WsSqlClipModel>
+
+<ItemTopBar TItem="@WsSqlClipModel" Title="@WsLocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+    <tbody>
+    <ItemTableBody SqlItem="@SqlItemCast"/>
+    <tr>
+      <td>@WsLocaleCore.Table.Name</td>
+      <td>@SqlItemCast.Name</td>
+      <td>@WsLocaleCore.Table.Weight</td>
+      <td>@SqlItemCast.Weight</td>
+    </tr>
+    <ItemDates SqlItem="@SqlItemCast"/>
+    </tbody>
+</MudSimpleTable>
+
+<ItemActions
+  TItem="@WsSqlClipModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@RedirectBackAsync"/>

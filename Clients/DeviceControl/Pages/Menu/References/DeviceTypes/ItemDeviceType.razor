@@ -1,0 +1,34 @@
+﻿@page "/section/devices_types/new"
+@page "/section/devices_types/{Uid:guid}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using DeviceControl.Components.Item
+@using DeviceControl.Components.Rz
+@using WsStorageCore.TableScaleModels.DeviceTypes
+@using WsStorageCore.TableScaleModels.PrintersTypes
+@inherits ItemBase<WsStorageCore.TableScaleModels.DeviceTypes.WsSqlDeviceTypeModel>
+
+<ItemTopBar TItem="@WsSqlDeviceTypeModel" Title="@WsLocaleCore.Strings.DeviceType" OnItemUpdate="@GetItemData"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
+  <tbody>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>@WsLocaleCore.Table.Name</td>
+    <td>
+      <RzTextBox @bind-Value="@SqlItemCast.Name"/>
+    </td>
+    <td>@WsLocaleCore.Table.PrettyName</td>
+    <td>
+      <RzTextBox @bind-Value="@SqlItemCast.PrettyName"/>
+    </td>
+  </tr>
+  <ItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<ItemActions
+  TItem="@WsSqlDeviceTypeModel"
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@RedirectBackAsync"/>

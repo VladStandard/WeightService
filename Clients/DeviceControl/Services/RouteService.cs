@@ -4,35 +4,27 @@ using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.TableScaleFkModels.DeviceTypesFks;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleFkModels.PlusLabels;
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
-using WsStorageCore.TableScaleFkModels.PrintersResourcesFks;
 using WsStorageCore.TableScaleModels.Access;
-using WsStorageCore.TableScaleModels.Apps;
 using WsStorageCore.TableScaleModels.BarCodes;
 using WsStorageCore.TableScaleModels.Boxes;
 using WsStorageCore.TableScaleModels.Brands;
 using WsStorageCore.TableScaleModels.Bundles;
+using WsStorageCore.TableScaleModels.Clips;
 using WsStorageCore.TableScaleModels.Contragents;
 using WsStorageCore.TableScaleModels.Devices;
 using WsStorageCore.TableScaleModels.DeviceTypes;
-using WsStorageCore.TableScaleModels.Orders;
-using WsStorageCore.TableScaleModels.OrdersWeighings;
 using WsStorageCore.TableScaleModels.Organizations;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusGroups;
-using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.PlusStorageMethods;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.PrintersTypes;
 using WsStorageCore.TableScaleModels.ProductionFacilities;
-using WsStorageCore.TableScaleModels.ProductSeries;
 using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.TableScaleModels.Tasks;
-using WsStorageCore.TableScaleModels.TasksTypes;
 using WsStorageCore.TableScaleModels.Templates;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.Versions;
@@ -108,7 +100,8 @@ public class RouteService
             WsSqlTemplateResourceModel => RouteUtil.SectionTemplateResources,
             WsSqlVersionModel => RouteUtil.SectionVersions,
             WsSqlWorkShopModel => RouteUtil.SectionWorkShops,
-
+            WsSqlClipModel => RouteUtil.SectionClips,
+            
             WsSqlViewLogModel => RouteUtil.SectionLogs,
             WsSqlViewLineModel => RouteUtil.SectionLines,
             WsSqlViewBarcodeModel => RouteUtil.SectionBarCodes,

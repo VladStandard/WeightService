@@ -1,0 +1,31 @@
+@page "/section/clips"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
+@using WsStorageCore.TableScaleModels.Clips
+@inherits SectionBase<WsStorageCore.TableScaleModels.Clips.WsSqlClipModel>
+
+<SectionTopBar
+  Title="@WsLocaleCore.Strings.Clips"
+  OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"/>
+
+<RzDataGrid
+  TItem="@WsSqlClipModel"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
+  Data="@SqlSectionCast"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemOpenAsync">
+  <Columns>
+    <TItemContent TItem="@WsSqlClipModel">
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="50%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" Property="Weight" Width="50%" />
+    </TItemContent>
+  </Columns>
+</RzDataGrid>
