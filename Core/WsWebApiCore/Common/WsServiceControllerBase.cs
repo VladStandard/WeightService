@@ -18,4 +18,13 @@ public class WsServiceControllerBase : ControllerBase
     public WsServiceControllerBase(ISessionFactory sessionFactory) => SessionFactory = sessionFactory;
 
     #endregion
+
+    #region Public and private methods
+
+    public void Dispose()
+    {
+        SessionFactory.Dispose();
+    }
+
+    #endregion
 }

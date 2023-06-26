@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Exception, Namespace = "", IsNullable = false)]
-public class WsServiceExceptionModel : SerializeBase
+public sealed class WsServiceExceptionModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -14,9 +14,6 @@ public class WsServiceExceptionModel : SerializeBase
     public string Exception { get; set; }
     public string InnerException { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsServiceExceptionModel()
     {
         FilePath = string.Empty;
@@ -26,14 +23,6 @@ public class WsServiceExceptionModel : SerializeBase
         InnerException = string.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <param name="exception"></param>
-    /// <param name="innerException"></param>
     public WsServiceExceptionModel(string filePath, int lineNumber, string memberName, string exception, string innerException) : this()
     {
         FilePath = filePath;
@@ -43,22 +32,10 @@ public class WsServiceExceptionModel : SerializeBase
         InnerException = innerException;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <param name="ex"></param>
     public WsServiceExceptionModel(string filePath, int lineNumber, string memberName, Exception ex) :
         this(filePath, lineNumber, memberName, ex.Message, 
             ex.InnerException is not null ? ex.InnerException.Message : string.Empty) { }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private WsServiceExceptionModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         FilePath = info.GetString(nameof(FilePath)) ?? string.Empty;

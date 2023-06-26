@@ -33,10 +33,7 @@ public class WsSqlClipModel : WsSqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(Weight)}: {Weight}. ";
+    public override string ToString() => $"{GetIsMarked()} | {Name} | {Weight}";
 
     public override bool Equals(object obj)
     {
@@ -72,13 +69,11 @@ public class WsSqlClipModel : WsSqlTable1CBase
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public override void UpdateProperties(WsSqlTable1CBase item)
+    public virtual void UpdateProperties(WsSqlPluModel plu)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluModel plu) throw new ArgumentException();
+        
         Uid1C = plu.ClipTypeGuid;
-
         Name = plu.ClipTypeName;
         Weight = plu.ClipTypeWeight;
         if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));

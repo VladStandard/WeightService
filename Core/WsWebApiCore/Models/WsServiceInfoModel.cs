@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Info, Namespace = "", IsNullable = false)]
-public class WsServiceInfoModel : SerializeBase
+public sealed class WsServiceInfoModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -21,21 +21,6 @@ public class WsServiceInfoModel : SerializeBase
     public ulong PhysicalMegaBytes { get; set; }
     public ulong VirtualMegaBytes { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="server"></param>
-    /// <param name="app"></param>
-    /// <param name="version"></param>
-    /// <param name="winCurrentDate"></param>
-    /// <param name="sqlCurrentDate"></param>
-    /// <param name="connectionString"></param>
-    /// <param name="connectTimeout"></param>
-    /// <param name="dataSource"></param>
-    /// <param name="serverVersion"></param>
-    /// <param name="database"></param>
-    /// <param name="physicalMegaBytes"></param>
-    /// <param name="virtualMegaBytes"></param>
     public WsServiceInfoModel(string server, string app, string version, string winCurrentDate, string sqlCurrentDate, string connectionString,
         int connectTimeout, string dataSource, string serverVersion, string database, ulong physicalMegaBytes, ulong virtualMegaBytes)
     {
@@ -53,9 +38,6 @@ public class WsServiceInfoModel : SerializeBase
         VirtualMegaBytes = virtualMegaBytes;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsServiceInfoModel()
     {
         //

@@ -35,7 +35,8 @@ public static class WsServiceCheckUtils
         if (pluXml is { IsGroup: false, Number: > 0 }) return true;
         pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         pluXml.ParseResult.Exception =
-            WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + WsLocaleCore.WebService.FieldNomenclatureIsZeroNumber;
+            WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + 
+            WsLocaleCore.WebService.FieldNomenclatureIsZeroNumber(pluXml.Number);
         return false;
     }
 
@@ -76,7 +77,7 @@ public static class WsServiceCheckUtils
     private static void CheckEnabledPluForItem(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
         // Пропуск групп с нулевым номером.
-        if (WsServiceCheckUtils.CheckUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
+        if (CheckUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
         {
@@ -84,16 +85,26 @@ public static class WsServiceCheckUtils
             itemXml.ParseResult.Exception =
                 $"{WsLocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
-        // UID_1C не совпадает.
+        // Загрузка номенклатуры.
         if (itemXml is WsSqlPluModel pluXml)
         {
+            // UID_1C не совпадает.
             if (!Equals(pluXml.Uid1C, plu1CFkDb.Plu.Uid1C))
             {
                 itemXml.ParseResult.Status = WsEnumParseStatus.Error;
                 itemXml.ParseResult.Exception =
                     $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1C} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
+            // Загрузка ПЛУ выключена по номеру.
+            if (plu1CFkDb.IsEnabled && !plu1CFkDb.Plu.Number.Equals(pluXml.Number))
+            {
+                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
+                itemXml.ParseResult.Exception =
+                    WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + 
+                    WsLocaleCore.WebService.FieldNomenclatureIsDiffForLoadByNumber(plu1CFkDb.Plu.Number, pluXml.Number);
+            }
         }
+        // Загрузка характеристики номенклатуры.
         else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
         {
             if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))
@@ -103,12 +114,12 @@ public static class WsServiceCheckUtils
                     $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1C} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
             }
         }
-        // Загрузка ПЛУ выключена.
+        // Загрузка ПЛУ выключена по UID_1C.
         if (!plu1CFkDb.IsEnabled)
         {
             itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
-                WsLocaleCore.WebService.FieldPluNumberTemplate(plu1CFkDb.Plu.Number) + WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoad;
+                WsLocaleCore.WebService.FieldPluNumberTemplate(plu1CFkDb.Plu.Number) + WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoadByUid1C;
         }
     }
 

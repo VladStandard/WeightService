@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Info, Namespace = "", IsNullable = false)]
-public class WsServiceReplyModel : SerializeBase
+public sealed class WsServiceReplyModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
@@ -13,18 +13,11 @@ public class WsServiceReplyModel : SerializeBase
     /// </summary>
     public string Message { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="message"></param>
     public WsServiceReplyModel(string message)
     {
         Message = message;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsServiceReplyModel()
     {
         //

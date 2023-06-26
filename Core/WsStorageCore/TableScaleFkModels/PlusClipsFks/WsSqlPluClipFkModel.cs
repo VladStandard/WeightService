@@ -90,11 +90,11 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         Plu.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluClipFkModel pluClipFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluClipFkModel pluClipFk) return;
+        base.UpdateProperties(pluClipFk, true);
+        
         Plu = pluClipFk.Plu;
         Clip = pluClipFk.Clip;
     }

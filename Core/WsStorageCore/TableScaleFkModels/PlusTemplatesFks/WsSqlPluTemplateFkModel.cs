@@ -89,11 +89,11 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         Template.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlPluTemplateFkModel pluTemplateFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlPluTemplateFkModel pluTemplateFk) return;
+        base.UpdateProperties(pluTemplateFk, true);
+        
         Plu = pluTemplateFk.Plu;
         Template = pluTemplateFk.Template;
     }

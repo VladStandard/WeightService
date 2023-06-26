@@ -117,11 +117,11 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         Device.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlLogWebFkModel logWebFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlLogWebFkModel logWebFk) return;
+        base.UpdateProperties(logWebFk, true);
+        
         LogWebRequest = logWebFk.LogWebRequest;
         LogWebResponse = logWebFk.LogWebResponse;
         App = logWebFk.App;

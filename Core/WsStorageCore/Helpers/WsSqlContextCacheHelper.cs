@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -36,11 +38,12 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluClipFkModel> PlusClipsFks { get; private set; } = new();
     public List<WsSqlPluFkModel> PlusFks { get; private set; } = new();
     public List<WsSqlPluGroupFkModel> PlusGroupsFks { get; private set; } = new();
+    public List<WsSqlPluNestingFkModel> PlusNestingFks { get; private set; } = new();
     public List<WsSqlPluGroupModel> PlusGroups { get; private set; } = new();
     public List<WsSqlPluModel> Plus { get; private set; } = new();
     public List<WsSqlProductionFacilityModel> Areas { get; private set; } = new();
-    public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
     public List<WsSqlScaleModel> Lines { get; private set; } = new();
+    public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
 
     #endregion
 
@@ -117,6 +120,10 @@ public sealed class WsSqlContextCacheHelper
         if (PlusGroupsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroupsFks.Count))
             PlusGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupsFks(SqlCrudConfig);
 
+        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusNestingFks));
+        if (PlusNestingFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusNestingFks.Count))
+            PlusNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
+
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusGroups));
         if (PlusGroups.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroups.Count))
             PlusGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
@@ -185,6 +192,8 @@ public sealed class WsSqlContextCacheHelper
             PlusGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
         if (!PlusGroupsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroupsFks)) 
             PlusGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupsFks(SqlCrudConfig);
+        if (!PlusNestingFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PlusNestingFks))
+            PlusNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
         if (!Brands.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Brands)) 
             Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
         
@@ -244,10 +253,13 @@ public sealed class WsSqlContextCacheHelper
     public void Clear()
     {
         // Таблицы.
+        Areas.Clear();
         Boxes.Clear();
         Brands.Clear();
         Bundles.Clear();
         Clips.Clear();
+        Lines.Clear();
+        Plus.Clear();
         Plus1CFks.Clear();
         PlusBrandsFks.Clear();
         PlusBundlesFks.Clear();
@@ -255,12 +267,10 @@ public sealed class WsSqlContextCacheHelper
         PlusCharacteristicsFks.Clear();
         PlusClipsFks.Clear();
         PlusFks.Clear();
-        PlusGroupsFks.Clear();
         PlusGroups.Clear();
-        Plus.Clear();
-        Areas.Clear();
+        PlusGroupsFks.Clear();
+        PlusNestingFks.Clear();
         WorkShops.Clear();
-        Lines.Clear();
         // Представления.
         ViewPlusLines.Clear();
         ViewPlusNesting.Clear();
@@ -321,6 +331,9 @@ public sealed class WsSqlContextCacheHelper
                 break;
             case WsSqlEnumTableName.PluGroupsFks:
                 PlusGroupsFks.Clear();
+                break;
+            case WsSqlEnumTableName.PlusNestingFks:
+                PlusNestingFks.Clear();
                 break;
             case WsSqlEnumTableName.Plus:
                 Plus.Clear();

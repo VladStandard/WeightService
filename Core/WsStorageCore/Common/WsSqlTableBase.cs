@@ -171,9 +171,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         Description = WsLocaleCore.Sql.SqlItemFieldDescription;
     }
 
-    public virtual void UpdateProperties(WsSqlTableBase item) => UpdateProperties(item, false);
-
-    public virtual void UpdateProperties(WsSqlTableBase item, bool isSkipName)
+    protected virtual void UpdateProperties(WsSqlTableBase item, bool isSkipName)
     {
         if (!item.CreateDt.Equals(DateTime.MinValue))
             CreateDt = item.CreateDt;

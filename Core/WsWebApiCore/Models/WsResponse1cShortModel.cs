@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public class WsResponse1CShortModel : WsResponseDebugInfoModel
+public sealed class WsResponse1CShortModel : WsResponseDebugInfoBase
 {
     #region Public and private fields, properties, constructor
 

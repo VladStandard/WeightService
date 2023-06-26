@@ -4,7 +4,7 @@
 namespace WsWebApiCore.Models;
 
 [XmlRoot(WsWebConstants.Response, Namespace = "", IsNullable = false)]
-public sealed class WsResponse1CModel : WsResponseDebugInfoModel
+public sealed class WsResponse1CModel : WsResponseDebugInfoBase
 {
     #region Public and private fields, properties, constructor
 
@@ -26,9 +26,6 @@ public sealed class WsResponse1CModel : WsResponseDebugInfoModel
     [XmlArray, XmlArrayItem(WsWebConstants.Record)]
     public List<WsResponse1CRecordModel> Errors { get; set; }
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public WsResponse1CModel()
     {
         SuccessesCount = 0;
@@ -48,11 +45,6 @@ public sealed class WsResponse1CModel : WsResponseDebugInfoModel
         ResponseQuery = responseQuery;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private WsResponse1CModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SuccessesCount = info.GetInt32(nameof(SuccessesCount));

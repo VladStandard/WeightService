@@ -3,7 +3,7 @@
 
 namespace WsWebApiCore.Models;
 
-public class WsWebRequestTerra1000 : IWsWebRequest
+public sealed class WsWebRequestTerra1000 : IWsWebRequest
 {
     #region Public and private methods
 
@@ -28,7 +28,6 @@ public class WsWebRequestTerra1000 : IWsWebRequest
         },
         _ => new(),
     };
-
 
     public List<string> GetListNomenclature(WsSqlEnumServerType serverType) => GetListCore(serverType, "nomenclature/");
 

@@ -19,23 +19,23 @@ public sealed class WsServicePlusController : WsServiceControllerBase
 
     #region Public and private methods
 
-    private void UpdateBoxDb(WsSqlPluModel pluXml, WsSqlBoxModel? boxDb)
+    private void UpdateBoxDb(WsSqlPluModel pluXml, WsSqlBoxModel boxDb)
     {
-        if (boxDb is null || boxDb.IsNew) return;
+        if (boxDb.IsNew) return;
         boxDb.UpdateProperties(pluXml);
         SqlCore.Update(boxDb);
     }
 
-    private void UpdateBundleDb(WsSqlPluModel pluXml, WsSqlBundleModel? bundleDb)
+    private void UpdateBundleDb(WsSqlPluModel pluXml, WsSqlBundleModel bundleDb)
     {
-        if (bundleDb is null || bundleDb.IsNew) return;
+        if (bundleDb.IsNew) return;
         bundleDb.UpdateProperties(pluXml);
         SqlCore.Update(bundleDb);
     }
 
-    private void UpdateClipDb(WsSqlPluModel pluXml, WsSqlClipModel? clipDb)
+    private void UpdateClipDb(WsSqlPluModel pluXml, WsSqlClipModel clipDb)
     {
-        if (clipDb is null || clipDb.IsNew) return;
+        if (clipDb.IsNew) return;
         clipDb.UpdateProperties(pluXml);
         SqlCore.Update(clipDb);
     }
@@ -111,6 +111,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 WsServiceUpdateUtils.UpdateItemDb(response, pluXml, pluDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.Plus);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -160,6 +162,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 WsServiceUpdateUtils.UpdatePluFkDb(response, pluXml.Uid1C, pluFk, pluFkDb, false);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.PluFks);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -189,6 +193,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 UpdateBoxDb(pluXml, boxDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.Boxes);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -219,6 +225,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 UpdateBundleDb(pluXml, bundleDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.Bundles);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -249,6 +257,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 UpdateClipDb(pluXml, clipDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.Clips);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -295,6 +305,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 WsServiceUpdateUtils.UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -340,6 +352,8 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 // Обновить найденную запись.
                 WsServiceUpdateUtils.UpdatePluClipFkDb(response, pluXml.Uid1C, pluClipFk, pluClipFkDb, false);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.PluClipsFks);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -359,9 +373,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
     /// <returns></returns>
-    private WsSqlPluBundleFkModel AddResponsePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    private WsSqlPluBundleFkModel SavePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
-        WsSqlPluBundleFkModel pluBundleFk = new();
+        WsSqlPluBundleFkModel pluBundleFk = ContextManager.ContextPluBundlesFk.GetNewItem();
         try
         {
             // Получить ПЛУ.
@@ -384,7 +398,9 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             if (pluBundleFkDb is not null)
             {
                 // Обновить найденную запись.
-                WsServiceUpdateUtils.UpdatePluBundleFkDb(response, pluXml.Uid1C, pluBundleFk, pluBundleFkDb, false);
+                WsServiceUpdateUtils.UpdatePluBundleFkDb(pluBundleFk, pluBundleFkDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.PluBundlesFks);
                 return pluBundleFkDb;
             }
             // Не найдено -> Добавить новую запись.
@@ -403,16 +419,12 @@ public sealed class WsServicePlusController : WsServiceControllerBase
     /// Сохранить связь вложенности и ПЛУ.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="uid1C"></param>
+    /// <param name="pluBundleFk"></param>
     /// <param name="pluXml"></param>
-    private void SavePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluModel pluXml)
+    private void SavePluNestingFk(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
     {
         try
         {
-            // Получить связь пакета и ПЛУ.
-            WsSqlPluBundleFkModel pluBundleFk = WsServiceGetUtils.GetItemPluBundleFk(WsSqlEnumContextType.Cache, response,
-                uid1C, pluXml.Uid1C, "Связь пакета и ПЛУ");
-            if (pluBundleFk.IsNotExists) return;
             // Получить коробку.
             WsSqlBoxModel boxDb = WsServiceGetUtils.GetBox(WsSqlEnumContextType.Cache, response, 
                 pluXml.BoxTypeGuid, pluXml.Uid1C, "Коробка");
@@ -426,16 +438,18 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 BundleCount = pluXml.AttachmentsCount,
                 IsDefault = true,
             };
-            // Поиск по Identity | UQ_PLUS_NESTING_FK.
-            WsSqlViewPluNestingModel? pluNestingFkDb = ContextCache.ViewPlusNesting.Find(item =>
-                Equals(item.BoxUid1C, pluNestingFk.Box.Uid1C) &&
-                Equals(item.PluUid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-                Equals(item.BundleUid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
+            // Поиск представления.
+            WsSqlPluNestingFkModel? pluNestingFkDb = ContextCache.PlusNestingFks.Find(item =>
+                Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
+                Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
+                Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
                 Equals(item.BundleCount, pluXml.AttachmentsCount));
             if (pluNestingFkDb is not null)
             {
                 // Обновить найденную запись.
-                WsServiceUpdateUtils.UpdatePluNestingFk(response, pluXml.Uid1C, pluNestingFk, pluNestingFkDb, false);
+                WsServiceUpdateUtils.UpdatePluNestingFk(pluNestingFk, pluNestingFkDb);
+                // Обновить кэш.
+                ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
                 return;
             }
             // Не найдено -> Добавить новую запись.
@@ -490,7 +504,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
         {
             // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
             WsServiceUpdateUtils.FillPlus1CFksDb();
-            // Загрузить кэш.
+            // Обновить весь кэш.
             ContextCache.Load();
             // Заполнить список ПЛУ из XML.
             List<WsXmlContentRecord<WsSqlPluModel>> plusXml = GetXmlPluList(xml);
@@ -501,12 +515,22 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 WsSqlPluModel itemXml = record.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUpdateUtils.UpdatePlus1CFksDb(response, record);
-                // Проверить корректность группы и номера ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    WsServiceCheckUtils.CheckCorrectPluNumberForNonGroup(itemXml);
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     WsServiceCheckUtils.CheckEnabledPlu(itemXml, plus1CFksDb);
+
+                // Сохранить клипсу.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveClip(response, itemXml);
+                // Сохранить коробку.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBox(response, itemXml);
+                // Сохранить пакет.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    SaveBundle(response, itemXml);
+                // Проверить корректность группы и номера ПЛУ.
+                if (itemXml.ParseResult.IsStatusSuccess)
+                    WsServiceCheckUtils.CheckCorrectPluNumberForNonGroup(itemXml);
                 // Проверить валидацию ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     CheckPluValidation(itemXml, pluValidator);
@@ -519,36 +543,20 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Сохранить связь ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluFks(response, itemXml);
-                // Сохранить коробку.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveBox(response, itemXml);
-                // Сохранить пакет.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveBundle(response, itemXml);
                 // Сохранить связь бренда.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluBrandFk(response, itemXml);
-                // Сохранить клипсу.
-                if (itemXml.ParseResult.IsStatusSuccess)
-                    SaveClip(response, itemXml);
                 // Сохранить связь клипсы ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                     SavePluClipFk(response, itemXml);
                 // Сохранить связь пакета и ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess)
                 {
-                    WsSqlPluBundleFkModel pluBundleFk = AddResponsePluBundleFk(response, itemXml);
+                    WsSqlPluBundleFkModel pluBundleFk = SavePluBundleFk(response, itemXml);
                     // Сохранить связь вложенности и ПЛУ.
                     if (itemXml.ParseResult.IsStatusSuccess)
                     {
-                        // TODO: FIX HERE
-                        //if (itemXml.ParseResult.IsStatusSuccess)
-                        //{
-                        //    itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                        //    itemXml.ParseResult.Exception =
-                        //        WsLocaleCore.WebService.FieldPluNumberTemplate(itemXml.Number) + WsLocaleCore.WebService.Underdevelopment(90);
-                        //}
-                        SavePluNestingFk(response, pluBundleFk.Plu.Uid1C, itemXml);
+                        SavePluNestingFk(response, pluBundleFk, itemXml);
                     }
                 }
                 // Исключение.

@@ -13,10 +13,10 @@ public static class WsServiceResponseUtils
 
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
-        WsSqlEnumIsMarked.ShowAll, false, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfig => 
+        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, 
+            false, false, true, false);
 
     #endregion
 
@@ -83,7 +83,7 @@ public static class WsServiceResponseUtils
     }
 
     public static void AddResponseException(WsResponse1CShortModel response, Guid uid, Exception ex) =>
-        WsServiceResponseUtils.AddResponseExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
+        AddResponseExceptionString(response, uid, ex.Message, ex.InnerException?.Message);
 
     /// <summary>
     /// Add error for response.
@@ -146,7 +146,7 @@ public static class WsServiceResponseUtils
                     {
                         response1CShort.IsDebug = isDebug;
                         if (response1CShort.IsDebug)
-                            response1CShort.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                            response1CShort.ServiceInfo = NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
                     }
                     break;
                 case var cls when cls == typeof(WsResponse1CModel):
@@ -154,7 +154,7 @@ public static class WsServiceResponseUtils
                     {
                         response1C.IsDebug = isDebug;
                         if (response1C.IsDebug)
-                            response1C.Info = WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
+                            response1C.ServiceInfo = NewServiceInfo(Assembly.GetExecutingAssembly(), sessionFactory);
                     }
                     break;
             }
@@ -232,7 +232,7 @@ public static class WsServiceResponseUtils
             WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
             List<WsSqlBarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
-            response.ResponseBarCodes = WsServiceResponseUtils.CastBarCodes(barcodesDb);
+            response.ResponseBarCodes = CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;
             response.Count = response.ResponseBarCodes.Count;

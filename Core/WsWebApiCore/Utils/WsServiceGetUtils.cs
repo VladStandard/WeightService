@@ -225,6 +225,34 @@ public static class WsServiceGetUtils
         return result;
     }
 
+    // TODO: STOP HERE
+    ///// <summary>
+    ///// Получить связь характеристики ПЛУ.
+    ///// </summary>
+    ///// <param name="contextType"></param>
+    ///// <param name="response"></param>
+    ///// <param name="uid1C"></param>
+    ///// <param name="uid1CException"></param>
+    ///// <param name="refName"></param>
+    ///// <returns></returns>
+    //public static WsSqlPluCharacteristicModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+    //    Guid uid1C, Guid uid1CException, string refName)
+    //{
+    //    WsSqlPluCharacteristicModel result = contextType switch
+    //    {
+    //        WsSqlEnumContextType.Cache => ContextCache.PlusCharacteristicsFks.Find(
+    //                                          item => item..Uid1C.Equals(uid1C))
+    //                                  ?? ContextManager.ContextPluCharacteristics.GetNewItem(),
+    //        _ => ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
+    //    };
+    //    if (result.IsNew)
+    //    {
+    //        WsServiceResponseUtils.AddResponseException(response, uid1CException,
+    //            new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+    //    }
+    //    return result;
+    //}
+
     /// <summary>
     /// Получить связь бренда ПЛУ.
     /// </summary>

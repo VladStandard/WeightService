@@ -91,11 +91,11 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         Type.FillProperties();
     }
 
-    public override void UpdateProperties(WsSqlTableBase item)
+    public virtual void UpdateProperties(WsSqlDeviceTypeFkModel deviceTypeFk)
     {
-        base.UpdateProperties(item);
         // Get properties from /api/send_nomenclatures/.
-        if (item is not WsSqlDeviceTypeFkModel deviceTypeFk) return;
+        base.UpdateProperties(deviceTypeFk, true);
+        
         Device = deviceTypeFk.Device;
         Type = deviceTypeFk.Type;
     }

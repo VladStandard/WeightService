@@ -92,7 +92,8 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluClipFkModel itemXml, WsSqlPluClipFkModel? itemDb, bool isCounter)
+    public static void UpdatePluClipFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluClipFkModel itemXml, 
+        WsSqlPluClipFkModel? itemDb, bool isCounter)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
@@ -160,12 +161,12 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluBundleFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb, bool isCounter)
+    public static void UpdatePluBundleFkDb(WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
         SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
+        //if (isCounter) response.Successes.Add(new(uid1C));
     }
 
     /// <summary>
@@ -194,14 +195,12 @@ public static class WsServiceUpdateUtils
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
-    public static void UpdatePluNestingFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluNestingFkModel itemXml,
-        WsSqlViewPluNestingModel? itemDb, bool isCounter)
+    public static void UpdatePluNestingFk(WsSqlPluNestingFkModel itemXml, WsSqlPluNestingFkModel? itemDb)
     {
-        //if (itemDb is null || itemDb.IsNew);
-        //itemDb.UpdateProperties(itemXml);
-        //ContextManager.ContextPluNesting.Update(itemDb);
-        //    if (isCounter)
-        //        response.Successes.Add(new(uid1C));
+        if (itemDb is null || itemDb.IsNew) return;
+        itemDb.UpdateProperties(itemXml);
+        SqlCore.Update(itemDb);
+        //if (isCounter) response.Successes.Add(new(uid1C));
     }
 
     /// <summary>
@@ -268,8 +267,8 @@ public static class WsServiceUpdateUtils
         // В кэше найдено - обновить.
         else
         {
+            plu1CFk.RequestDataString = recordXml.Content;
             plu1CFkCache.UpdateProperties(plu1CFk);
-            plu1CFkCache.UpdateProperties(recordXml.Content);
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
@@ -306,7 +305,7 @@ public static class WsServiceUpdateUtils
         // В кэше найдено - обновить.
         else
         {
-            plu1CFkCache.UpdateProperties(plu);
+            plu1CFkCache.Plu = plu;
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
