@@ -12,7 +12,6 @@ public class RzDataGrid<TItem> : RadzenDataGrid<TItem>
     {
         AllowPaging = true;
         AllowSorting = true;
-        Style = "DataGridSection";
         PagerPosition = PagerPosition.TopAndBottom;
         PagerHorizontalAlign = HorizontalAlign.Justify;
         PageSize = WsSqlContextManagerHelper.Instance.JsonSettings.Local.SectionRowsCount;

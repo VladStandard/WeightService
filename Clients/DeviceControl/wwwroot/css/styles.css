@@ -4,7 +4,6 @@ html, body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-
 .RadzenButtonLong {
   margin-top: 3px;
   margin-left: 1%;
@@ -31,10 +30,6 @@ html, body {
   width: 100%;
   height: 25px;
   font-size: 11px;
-}
-
-.DataGridSection {
-  margin-top: 5px;
 }
 
 .MudItemTable {

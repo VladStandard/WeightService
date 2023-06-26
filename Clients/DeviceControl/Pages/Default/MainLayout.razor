@@ -19,11 +19,11 @@
         <RadzenMenuItem
           Icon="people"
           Text="@User?.Identity?.Name"
-          Path=@($"{RouteUtil.RouteSystemIdentityData}")/>
+          Path=@($"{RouteUtil.Profile}")/>
         <AuthorizeView Roles="@UserAccessStr.Admin">
           <RadzenMenuItem
             Text="@VerBlazor"
-            Path=@($"{RouteUtil.RouteSystemAppInfo}")/>
+            Path=@($"{RouteUtil.SystemAppInfo}")/>
         </AuthorizeView>
       </RadzenMenu>
     </div>
