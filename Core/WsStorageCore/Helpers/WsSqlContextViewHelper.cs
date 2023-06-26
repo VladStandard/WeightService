@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableScaleFkModels.Aggregations;
-using WsStorageCore.ViewScaleModels;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -157,24 +154,52 @@ public sealed class WsSqlContextViewHelper
     public List<WsSqlViewPluNestingModel> GetListViewPlusNesting(ushort pluNumber = 0)
     {
         List<WsSqlViewPluNestingModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewPlusNesting(pluNumber);
+        
+        string query = WsSqlQueriesDiags.Views.GetViewPlusNesting31(pluNumber);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] { Length: 29 } item) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[0])),
-                Convert.ToBoolean(item[1]), Convert.ToBoolean(item[2]),
-                Convert.ToInt16(item[3]), Convert.ToDecimal(item[4]), Convert.ToDecimal(item[5]), 
-                Convert.ToDecimal(item[6]), Guid.Parse(Convert.ToString(item[7])), Guid.Parse(Convert.ToString(item[8])), 
-                Convert.ToBoolean(item[9]), Convert.ToBoolean(item[10]), Convert.ToBoolean(item[11]), 
-                Convert.ToUInt16(item[12]), Convert.ToString(item[13]), Convert.ToInt16(item[14]), 
-                Convert.ToString(item[15]), Convert.ToString(item[16]), Convert.ToString(item[17]), 
-                Guid.Parse(Convert.ToString(item[18])), Guid.Parse(Convert.ToString(item[19])), 
-                Convert.ToBoolean(item[20]), Convert.ToString(item[21]), Convert.ToDecimal(item[22]),
-                Guid.Parse(Convert.ToString(item[23])), Guid.Parse(Convert.ToString(item[24])), 
-                Convert.ToBoolean(item[25]), Convert.ToString(item[26]), Convert.ToDecimal(item[27]), 
-                Convert.ToDecimal(item[28])));
+            if (obj is not object[] item || item.Length < 31) break;
+            int i = 0;
+            result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
+                Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
+                Convert.ToInt16(item[i++]), Convert.ToDecimal(item[i++]), Convert.ToDecimal(item[i++]), 
+                Convert.ToDecimal(item[i++]), Guid.Parse(Convert.ToString(item[i++])), 
+                Guid.Parse(Convert.ToString(item[i++])), Convert.ToBoolean(item[i++]), 
+                Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]), 
+                Convert.ToUInt16(item[i++]), Convert.ToString(item[i++]), Convert.ToInt16(item[i++]), 
+                Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]), 
+                Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])), 
+                Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
+                Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])), 
+                Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]), 
+                Convert.ToDecimal(item[i++]), Convert.ToDateTime(item[i++]), Convert.ToString(item[i++])));
         }
+
+        if (!result.Any())
+        {
+            query = WsSqlQueriesDiags.Views.GetViewPlusNesting29(pluNumber);
+            objects = SqlCore.GetArrayObjectsNotNullable(query);
+            foreach (object obj in objects)
+            {
+                if (obj is not object[] item || item.Length < 29) break;
+                int i = 0;
+                result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
+                    Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
+                    Convert.ToInt16(item[i++]), Convert.ToDecimal(item[i++]), Convert.ToDecimal(item[i++]),
+                    Convert.ToDecimal(item[i++]), Guid.Parse(Convert.ToString(item[i++])),
+                    Guid.Parse(Convert.ToString(item[i++])), Convert.ToBoolean(item[i++]),
+                    Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
+                    Convert.ToUInt16(item[i++]), Convert.ToString(item[i++]), Convert.ToInt16(item[i++]),
+                    Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]),
+                    Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])),
+                    Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
+                    Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])),
+                    Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
+                    Convert.ToDecimal(item[i++]), DateTime.MinValue, string.Empty));
+            }
+        }
+
         return result;
     }
 

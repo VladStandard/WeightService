@@ -24,10 +24,10 @@ public sealed class DeliveryPlaceController : WsServiceControllerBase
     public ContentResult GetDeliveryPlaces([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 100, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetDeliveryPlaces,
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetDeliveryPlaces,
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.DeliveryPlaces} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

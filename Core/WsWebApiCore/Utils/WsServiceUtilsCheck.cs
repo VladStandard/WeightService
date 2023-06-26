@@ -6,22 +6,15 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Утилиты получения данных веб-сервиса.
 /// </summary>
-public static class WsServiceCheckUtils
+public static class WsServiceUtilsCheck
 {
-    #region Public and private fields, properties, constructor
-
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     /// <summary>
     /// Проверить некорректность группы и номера ПЛУ.
     /// </summary>
     /// <param name="pluXml">Номенклатура</param>
-    public static bool CheckUnCorrectPluNumberForNonGroup(WsSqlPluModel pluXml) =>
+    private static bool CheckUnCorrectPluNumberForNonGroup(WsSqlPluModel pluXml) =>
         // Проверить корректность группы и номера ПЛУ.
         !CheckCorrectPluNumberForNonGroup(pluXml);
 
@@ -46,15 +39,15 @@ public static class WsServiceCheckUtils
     public static bool CheckExistsAllPlus1CFksDb()
     {
         // Загрузить кэш.
-        ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
+        WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ.
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetList();
-        if (plusDb.Count > ContextCache.Plus1CFks.Count) return false;
+        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetList();
+        if (plusDb.Count > WsServiceUtils.ContextCache.Plus1CFks.Count) return false;
 
         foreach (WsSqlPluModel plu in plusDb)
         {
             WsSqlPlu1CFkModel? plu1CFkCache =
-                ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
+                WsServiceUtils.ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
             if (plu1CFkCache is null)
                 return false;
         }
@@ -120,6 +113,45 @@ public static class WsServiceCheckUtils
             itemXml.ParseResult.Status = WsEnumParseStatus.Error;
             itemXml.ParseResult.Exception =
                 WsLocaleCore.WebService.FieldPluNumberTemplate(plu1CFkDb.Plu.Number) + WsLocaleCore.WebService.FieldNomenclatureIsDenyForLoadByUid1C;
+        }
+    }
+
+    /// <summary>
+    /// Проверить валидацию ПЛУ.
+    /// </summary>
+    /// <param name="itemXml"></param>
+    /// <param name="pluValidator"></param>
+    public static void CheckPluValidation(WsSqlPluModel itemXml, WsSqlPluValidator pluValidator)
+    {
+        ValidationResult validation = pluValidator.Validate(itemXml);
+        if (!validation.IsValid)
+        {
+            string[] pluProperties = WsServiceUtilsGetXml.GetXmlPluPropertiesArray();
+            foreach (ValidationFailure error in validation.Errors)
+            {
+                if (pluProperties.Contains(error.PropertyName) &&
+                    !itemXml.ParseResult.Exception.Contains(error.PropertyName))
+                    WsServiceUtilsGetXmlContent.SetItemParseResultException(itemXml, error.PropertyName);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Проверить дубликат номера ПЛУ для не групп.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluXml"></param>
+    public static void CheckPluDublicateForNonGroup(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    {
+        // Пропуск групп с нулевым номером.
+        if (Equals(pluXml.Number, (short)0)) return;
+        List<WsSqlPluModel> plusNumberDb = WsServiceUtils.ContextCache.Plus.FindAll(item => Equals(item.Number, pluXml.Number));
+        if (plusNumberDb.Count > 1)
+        {
+            WsServiceUtilsResponse.AddResponseExceptionString(response, pluXml.Uid1C,
+                WsLocaleCore.WebService.FieldPluNumberTemplate(pluXml.Number) + WsLocaleCore.WebService.Dublicate +
+                $" {WsLocaleCore.WebService.FieldCodes} '{string.Join(',', plusNumberDb.Select(item => item.Code).ToList())}'");
+            pluXml.ParseResult.Status = WsEnumParseStatus.Error;
         }
     }
 

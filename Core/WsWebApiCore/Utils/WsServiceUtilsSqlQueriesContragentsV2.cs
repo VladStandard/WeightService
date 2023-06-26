@@ -3,8 +3,10 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsServiceSqlQueriesContragentsV2
+internal static class WsServiceUtilsSqlQueriesContragentsV2
 {
+    #region Public and private methods
+
     public static string GetContragentFromCodeProd => @"
 SELECT [IIS].[fnGetContragentsV2] (:code, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
@@ -52,4 +54,6 @@ SELECT [IIS].[fnGetContragentsV2] (DEFAULT, DEFAULT, :start_date, :end_date, :of
     public static string GetContragentsFromDatesOffsetPreview => @"
 SELECT [IIS].[fnGetContragentsV2Preview] (DEFAULT, DEFAULT, :start_date, :end_date, :offset, :row_count)
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+    #endregion
 }

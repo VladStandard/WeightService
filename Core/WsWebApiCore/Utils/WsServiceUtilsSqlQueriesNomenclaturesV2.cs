@@ -3,8 +3,10 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsServiceSqlQueriesNomenclaturesV2
+internal static class WsServiceUtilsSqlQueriesNomenclaturesV2
 {
+    #region Public and private methods
+
     public static string GetNomenclatureFromCodeProd => @"
 SELECT [IIS].[fnGetNomenclaturesV2] (:code, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
@@ -52,4 +54,6 @@ SELECT [IIS].[fnGetNomenclaturesV2] (DEFAULT, DEFAULT, :start_date, :end_date, :
     public static string GetNomenclaturesFromDatesOffsetPreview => @"
 SELECT [IIS].[fnGetNomenclaturesV2Preview] (DEFAULT, DEFAULT, :start_date, :end_date, :offset, :row_count)
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+    #endregion
 }

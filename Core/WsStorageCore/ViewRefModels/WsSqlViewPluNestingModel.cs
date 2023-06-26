@@ -40,12 +40,15 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
     public string TareWeightDescription => $"{BoxName} + ({BundleName} * {BundleCount})";
     public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
     public string PluNumberName => $"{PluNumber} | {PluName}";
+    public DateTime WebServiceChange { get; init; }
+    public string WebServiceXml { get; init; }
 
     public WsSqlViewPluNestingModel() : this(Guid.Empty, default, default, default,
         default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
         default, string.Empty, string.Empty, string.Empty,
         Guid.Empty, Guid.Empty, default, string.Empty, default,
-        Guid.Empty, Guid.Empty, default, string.Empty, default, default)
+        Guid.Empty, Guid.Empty, default, string.Empty, default, default, 
+        DateTime.MinValue, string.Empty)
     { }
 
     public WsSqlViewPluNestingModel(Guid uid, bool isMarked, bool isDefault, short bundleCount,
@@ -53,7 +56,8 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
         Guid pluUid, Guid pluUid1C, bool pluIsMarked, bool pluIsWeight, bool pluIsGroup, ushort pluNumber, string pluName,
         short pluShelfLifeDays, string pluGtin, string pluEan13, string pluItf14,
         Guid bundleUid, Guid bundleUid1C, bool bundleIsMarked, string bundleName, decimal bundleWeight,
-        Guid boxUid, Guid boxUid1C, bool boxIsMarked, string boxName, decimal boxWeight, decimal tareWeight) : base(uid)
+        Guid boxUid, Guid boxUid1C, bool boxIsMarked, string boxName, decimal boxWeight, decimal tareWeight,
+        DateTime webServiceChange, string webServiceXml) : base(uid)
     {
         IsMarked = isMarked;
         IsDefault = isDefault;
@@ -83,6 +87,8 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
         BoxName = boxName;
         BoxWeight = boxWeight;
         TareWeight = tareWeight;
+        WebServiceChange = webServiceChange;
+        WebServiceXml = webServiceXml;
     }
 
     #endregion

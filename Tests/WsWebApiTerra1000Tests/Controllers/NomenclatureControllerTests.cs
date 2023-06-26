@@ -16,7 +16,7 @@ public sealed class NomenclatureControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListNomenclature(WsSqlEnumServerType.All))
             {
-                foreach (long id in WsServiceTestsUtils.GetListNomenclatureId)
+                foreach (long id in WsServiceUtilsTests.GetListNomenclatureId)
                 {
                     await GetNomenclatureAsync(url, null, id).ConfigureAwait(false);
                     TestContext.WriteLine();
@@ -33,7 +33,7 @@ public sealed class NomenclatureControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListNomenclatureV2(WsSqlEnumServerType.All))
             {
-                foreach (long id in WsServiceTestsUtils.GetListNomenclatureId)
+                foreach (long id in WsServiceUtilsTests.GetListNomenclatureId)
                 {
                     await GetNomenclatureAsync(url, null, id);
                     TestContext.WriteLine();
@@ -45,7 +45,7 @@ public sealed class NomenclatureControllerTests
     private async Task GetNomenclatureAsync(string url, string? code, long? id)
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        await WsServiceResponseUtils.GetResponseAsync(url, WsServiceRequestUtils.GetRequestCodeOrId(code, id), (response) =>
+        await WsServiceUtilsResponse.GetResponseAsync(url, WsServiceUtilsRequest.GetRequestCodeOrId(code, id), (response) =>
         {
             TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);

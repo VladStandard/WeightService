@@ -24,7 +24,7 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
     public ContentResult GetContragentFromCodeIdProd([FromQuery] string code, long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
-            ? WsServiceSqlQueriesContragentsV2.GetContragentFromCodeProd : WsServiceSqlQueriesContragentsV2.GetContragentFromIdProd,
+            ? WsServiceUtilsSqlQueriesContragentsV2.GetContragentFromCodeProd : WsServiceUtilsSqlQueriesContragentsV2.GetContragentFromIdProd,
             code, id, format);
 
     [AllowAnonymous]
@@ -33,16 +33,16 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
     public ContentResult GetContragentFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetContragentFromCodeIdWork(code != null
-            ? WsServiceSqlQueriesContragentsV2.GetContragentFromCodePreview : WsServiceSqlQueriesContragentsV2.GetContragentFromIdPreview,
+            ? WsServiceUtilsSqlQueriesContragentsV2.GetContragentFromCodePreview : WsServiceUtilsSqlQueriesContragentsV2.GetContragentFromIdPreview,
             code, id, format);
 
     private ContentResult GetContragentFromCodeIdWork([FromQuery] string url, [FromQuery] string code,
         [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
-                code != null ? WsServiceSqlUtils.GetParametersV2(code) : WsServiceSqlUtils.GetParametersV2(id));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url,
+                code != null ? WsServiceUtilsSql.GetParametersV2(code) : WsServiceUtilsSql.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -56,13 +56,13 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate != null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromDatesProd, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromDatesProd, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate == null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromStartDateProd, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromStartDateProd, startDate, endDate, offset, rowCount, format);
 
-        return GetContragentsEmptyWork(WsServiceSqlQueriesContragentsV2.GetContragentsEmptyProd, format);
+        return GetContragentsEmptyWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsEmptyProd, format);
     }
 
     [AllowAnonymous]
@@ -72,20 +72,20 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate != null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromDatesPreview, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromDatesPreview, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate == null)
-            return GetContragentsWork(WsServiceSqlQueriesContragentsV2.GetContragentsFromStartDatePreview, startDate, endDate, offset, rowCount, format);
+            return GetContragentsWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsFromStartDatePreview, startDate, endDate, offset, rowCount, format);
 
-        return GetContragentsEmptyWork(WsServiceSqlQueriesContragentsV2.GetContragentsEmptyPreview, format);
+        return GetContragentsEmptyWork(WsServiceUtilsSqlQueriesContragentsV2.GetContragentsEmptyPreview, format);
     }
 
     private ContentResult GetContragentsEmptyWork([FromQuery] string url, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -96,16 +96,16 @@ public sealed class ContragentControllerV2 : WsServiceControllerBase
         [FromQuery] DateTime? endDate = null, [FromQuery] int? offset = null, [FromQuery] int? rowCount = null,
         [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate, endDate, offset, rowCount);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate, endDate, offset, rowCount);
             else if (startDate != null && endDate != null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate, endDate);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate, endDate);
             else if (startDate != null && endDate == null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate);
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, parameters);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

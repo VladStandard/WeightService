@@ -6,15 +6,8 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Утилиты получения данных веб-сервиса.
 /// </summary>
-public static class WsServiceGetUtils
+public static class WsServiceUtilsGet
 {
-    #region Public and private fields, properties, constructor
-
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-
-    #endregion
-
     #region Public and private methods
 
     /// <summary>
@@ -43,15 +36,15 @@ public static class WsServiceGetUtils
     {
         WsSqlBrandModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
-                                          ?? ContextManager.ContextBrands.GetNewItem(),
-            _ => ContextManager.ContextBrands.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
+                                          ?? WsServiceUtils.ContextManager.ContextBrands.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextBrands.GetItemByUid1C(uid1C),
         };
         if (!Equals(uid1C, Guid.Empty))
         {
             if (result.IsNew)
             {
-                WsServiceResponseUtils.AddResponseException(response, uid1CException,
+                WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                     new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
             }
         }
@@ -72,13 +65,13 @@ public static class WsServiceGetUtils
     {
         WsSqlBundleModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.Bundles.Find(item => item.Uid1C.Equals(uid1C))
-                                          ?? ContextManager.ContextBundles.GetNewItem(),
-            _ => ContextManager.ContextBundles.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Bundles.Find(item => item.Uid1C.Equals(uid1C))
+                                          ?? WsServiceUtils.ContextManager.ContextBundles.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextBundles.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -98,13 +91,13 @@ public static class WsServiceGetUtils
     {
         WsSqlClipModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.Clips.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? ContextManager.ContextClips.GetNewItem(),
-            _ => ContextManager.ContextClips.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Clips.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? WsServiceUtils.ContextManager.ContextClips.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextClips.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -124,13 +117,13 @@ public static class WsServiceGetUtils
     {
         WsSqlBoxModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.Boxes.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? ContextManager.ContextBoxes.GetNewItem(),
-            _ => ContextManager.ContextBoxes.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Boxes.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? WsServiceUtils.ContextManager.ContextBoxes.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextBoxes.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -150,13 +143,13 @@ public static class WsServiceGetUtils
     {
         WsSqlPluModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.Plus.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? ContextManager.ContextPlus.GetNewItem(),
-            _ => ContextManager.ContextPlus.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Plus.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? WsServiceUtils.ContextManager.ContextPlus.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextPlus.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -178,13 +171,13 @@ public static class WsServiceGetUtils
     {
         WsSqlPluFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.PlusFks.Find(
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusFks.Find(
                 item => item.Plu.Uid1C.Equals(pluUid1C) &&
                 item.Parent.Uid1C.Equals(parentUid1C) &&
                 categoryUid1C is not null ? categoryUid1C.Equals(item.Category?.Uid1C) : item.Category is null)
-                ?? ContextManager.ContextPlusFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.ContextPlusFk.GetNewItem(),
             /*
- ContextCache..Find(item =>
+ WsServiceUtils.ContextCache..Find(item =>
                 Equals(item.Plu.Uid1C, ) &&
                 Equals(item.Parent.Uid1C, pluFk.Parent.Uid1C) &&
                 Equals(item.Category?.Uid1C, pluFk.Category?.Uid1C))
@@ -193,7 +186,7 @@ public static class WsServiceGetUtils
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -213,45 +206,43 @@ public static class WsServiceGetUtils
     {
         WsSqlPluCharacteristicModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.PlusCharacteristics.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? ContextManager.ContextPluCharacteristics.GetNewItem(),
-            _ => ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusCharacteristics.Find(item => item.Uid1C.Equals(uid1C))
+                                      ?? WsServiceUtils.ContextManager.ContextPluCharacteristics.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
     }
 
-    // TODO: STOP HERE
-    ///// <summary>
-    ///// Получить связь характеристики ПЛУ.
-    ///// </summary>
-    ///// <param name="contextType"></param>
-    ///// <param name="response"></param>
-    ///// <param name="uid1C"></param>
-    ///// <param name="uid1CException"></param>
-    ///// <param name="refName"></param>
-    ///// <returns></returns>
-    //public static WsSqlPluCharacteristicModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-    //    Guid uid1C, Guid uid1CException, string refName)
-    //{
-    //    WsSqlPluCharacteristicModel result = contextType switch
-    //    {
-    //        WsSqlEnumContextType.Cache => ContextCache.PlusCharacteristicsFks.Find(
-    //                                          item => item..Uid1C.Equals(uid1C))
-    //                                  ?? ContextManager.ContextPluCharacteristics.GetNewItem(),
-    //        _ => ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
-    //    };
-    //    if (result.IsNew)
-    //    {
-    //        WsServiceResponseUtils.AddResponseException(response, uid1CException,
-    //            new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-    //    }
-    //    return result;
-    //}
+    /// <summary>
+    /// Получить связь характеристики ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    public static WsSqlPluCharacteristicsFkModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+        Guid uid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluCharacteristicsFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusCharacteristicsFks.Find(item =>
+                Equals(item.Plu.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.ContextPluCharacteristicsFk.GetNewItem(),
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
 
     /// <summary>
     /// Получить связь бренда ПЛУ.
@@ -268,14 +259,14 @@ public static class WsServiceGetUtils
     {
         WsSqlPluBrandFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.PlusBrandsFks.Find(item =>
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBrandsFks.Find(item =>
                 item.Plu.Uid1C.Equals(pluUid1C) && item.Brand.Uid1C.Equals(brandUid1C))
-                ?? ContextManager.ContextPluBrandsFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.ContextPluBrandsFk.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -296,14 +287,14 @@ public static class WsServiceGetUtils
     {
         WsSqlPluClipFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.PlusClipsFks.Find(item =>
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusClipsFks.Find(item =>
                 item.Plu.Uid1C.Equals(pluUid1C) && item.Clip.Uid1C.Equals(clipUid1C))
-                ?? ContextManager.ContextPlusClipsFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.ContextPlusClipsFk.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -323,13 +314,13 @@ public static class WsServiceGetUtils
     {
         WsSqlPluBundleFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => ContextCache.PlusBundlesFks.Find(item => item.Plu.Uid1C.Equals(uid1C))
-                                      ?? ContextManager.ContextPluBundlesFk.GetNewItem(),
+            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBundlesFks.Find(item => item.Plu.Uid1C.Equals(uid1C))
+                                      ?? WsServiceUtils.ContextManager.ContextPluBundlesFk.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
         {
-            WsServiceResponseUtils.AddResponseException(response, uid1CException,
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
@@ -342,13 +333,13 @@ public static class WsServiceGetUtils
     public static List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
     {
         List<WsSqlPlu1CFkModel> plus1CFks = new();
-        ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
+        WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ по UID_1C.
-        List<WsSqlPluModel> plusDb = ContextManager.ContextPlus.GetListByUid1C(uid1C);
+        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetListByUid1C(uid1C);
         foreach (WsSqlPluModel plu in plusDb)
         {
             WsSqlPlu1CFkModel? plu1CFkCache =
-                ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
+                WsServiceUtils.ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
             if (plu1CFkCache is not null)
                 plus1CFks.Add(plu1CFkCache);
         }

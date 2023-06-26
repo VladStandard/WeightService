@@ -24,9 +24,9 @@ public sealed class ContragentController : WsServiceControllerBase
     public ContentResult GetContragent([FromQuery] long id, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragent, new SqlParameter("ID", id));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragent, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -40,10 +40,10 @@ public sealed class ContragentController : WsServiceControllerBase
         [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "",
         [FromQuery(Name = "is_debug")] bool isDebug = false)
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragents,
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetContragents,
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Contragents} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

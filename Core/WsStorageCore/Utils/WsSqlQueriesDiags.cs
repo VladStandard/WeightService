@@ -125,7 +125,7 @@ ORDER BY [PLU_NUMBER], [PLU_NAME];");
             /// </summary>
             /// <param name="pluNumber"></param>
             /// <returns></returns>
-            public static string GetViewPlusNesting(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusNesting29(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT 
 	 [UID]
@@ -157,6 +157,48 @@ SELECT
 	,[BOX_NAME]
 	,[BOX_WEIGHT]
 	,[TARE_WEIGHT]
+FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
+ORDER BY [PLU_NUMBER], [PLU_NAME];");
+
+            /// <summary>
+            /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
+            /// </summary>
+            /// <param name="pluNumber"></param>
+            /// <returns></returns>
+            public static string GetViewPlusNesting31(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT 
+	 [UID]
+	,[IS_MARKED]
+	,[IS_DEFAULT]
+	,[BUNDLE_COUNT]
+	,[WEIGHT_MAX]
+	,[WEIGHT_MIN]
+	,[WEIGHT_NOM]
+	,[PLU_UID]
+	,[PLU_UID_1C]
+	,[PLU_IS_MARKED]
+	,[PLU_IS_WEIGHT]
+	,[PLU_IS_GROUP]
+	,[PLU_NUMBER]
+	,[PLU_NAME]
+	,[PLU_SHELF_LIFE_DAYS]
+	,[PLU_GTIN]
+	,[PLU_EAN13]
+	,[PLU_ITF14]
+	,[BUNDLE_UID]
+	,[BUNDLE_UID_1C]
+	,[BUNDLE_IS_MARKED]
+	,[BUNDLE_NAME]
+	,[BUNDLE_WEIGHT]
+	,[BOX_UID]
+	,[BOX_UID_1C]
+	,[BOX_IS_MARKED]
+	,[BOX_NAME]
+	,[BOX_WEIGHT]
+	,[TARE_WEIGHT]
+    ,[WEB_SERVICE_CHANGE]
+    ,[WEB_SERVICE_XML]
 FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
 

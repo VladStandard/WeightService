@@ -6,7 +6,7 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Утилиты веб-запросов.
 /// </summary>
-public static class WsServiceRequestUtils
+public static class WsServiceUtilsRequest
 {
     #region Public and private methods
 

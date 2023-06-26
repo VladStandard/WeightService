@@ -3,8 +3,10 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsServiceXmlUtils
+internal static class WsServiceUtilsXml
 {
+    #region Public and private methods
+
     public static XDocument? GetNullOrEmpty(string response)
     {
         XDocument? doc = null;
@@ -36,4 +38,6 @@ internal static class WsServiceXmlUtils
     public static XDocument GetErrorUnknown() => new(
         new XElement(WsWebConstants.Response,
             new XElement(WsWebConstants.Error, new XAttribute(WsWebConstants.Description, "Unknown error!"))));
+
+    #endregion
 }

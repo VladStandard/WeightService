@@ -6,16 +6,8 @@ namespace WsWebApiCore.Utils;
 /// <summary>
 /// Утилиты логов веб-сервиса.
 /// </summary>
-public static class WsServiceLogUtils
+public static class WsServiceUtilsLog
 {
-    #region Public and private fields, properties, constructor
-
-    private static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private static string RootDirectory => @"\\ds4tb\Dev\WebServicesLogs\";
-
-    #endregion
-
     #region Public and private methods
 
     /// <summary>
@@ -31,9 +23,9 @@ public static class WsServiceLogUtils
     {
         string dtString = StrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
-        if (!Directory.Exists(RootDirectory)) return;
+        if (!Directory.Exists(WsServiceUtils.RootDirectory)) return;
         // Machine dir.
-        string directory = RootDirectory + @$"{Environment.MachineName}";
+        string directory = WsServiceUtils.RootDirectory + @$"{Environment.MachineName}";
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         // App dir.
         directory = Path.Combine(directory, appName);
@@ -87,12 +79,12 @@ public static class WsServiceLogUtils
 
             DateTime responseStampDt = DateTime.Now;
             // Parse counts.
-            int countAll = WsServiceContentUtils.GetAttributeValueAsInt(requestData, "Count");
-            int countSuccess = WsServiceContentUtils.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.SuccessesCount));
-            int countErrors = WsServiceContentUtils.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.ErrorsCount));
+            int countAll = WsServiceUtilsGetXmlContent.GetAttributeValueAsInt(requestData, "Count");
+            int countSuccess = WsServiceUtilsGetXmlContent.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.SuccessesCount));
+            int countErrors = WsServiceUtilsGetXmlContent.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.ErrorsCount));
 
             // Log into DB.
-            ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, WsEnumLogType.Information,
+            WsServiceUtils.ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, WsEnumLogType.Information,
                 $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
 
             // Add meta data.

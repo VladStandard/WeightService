@@ -1,19 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 namespace WsWebApiCore.Utils;
 
 /// <summary>
 /// Утилиты веб-ответов.
 /// </summary>
-public static class WsServiceResponseUtils
+public static class WsServiceUtilsResponse
 {
     #region Public and private fields, properties, constructor
 
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
-    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static WsSqlCrudConfigModel SqlCrudConfig => 
         new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, 
             false, false, true, false);
@@ -184,12 +181,12 @@ public static class WsServiceResponseUtils
         {
             if (!string.IsNullOrEmpty(url))
             {
-                if (SqlCore.SessionFactory is null)
-                    throw new ArgumentException(nameof(SqlCore.SessionFactory));
+                if (WsServiceUtils.SqlCore.SessionFactory is null)
+                    throw new ArgumentException(nameof(WsServiceUtils.SqlCore.SessionFactory));
                 if (response.ResponseQuery is not null)
                     response.ResponseQuery.Query = url;
                 //ISQLQuery sqlQuery = WsDataContext.Session.CreateSQLQuery(url);
-                ISQLQuery sqlQuery = SqlCore.SessionFactory.OpenSession().CreateSQLQuery(url);
+                ISQLQuery sqlQuery = WsServiceUtils.SqlCore.SessionFactory.OpenSession().CreateSQLQuery(url);
                 if (sqlParameter is not null)
                 {
                     if (response.ResponseQuery is not null)
@@ -231,7 +228,7 @@ public static class WsServiceResponseUtils
             };
             WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
-            List<WsSqlBarCodeModel> barcodesDb = ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
+            List<WsSqlBarCodeModel> barcodesDb = WsServiceUtils.ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
             response.ResponseBarCodes = CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;

@@ -4,9 +4,9 @@
 namespace WsWebApiCore.Utils;
 
 /// <summary>
-/// Content utils.
+/// Утилиты получения данных XML веб-сервиса.
 /// </summary>
-public static class WsServiceContentUtils
+public static class WsServiceUtilsGetXmlContent
 {
     #region Public and private methods
 

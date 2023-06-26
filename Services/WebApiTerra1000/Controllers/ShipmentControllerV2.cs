@@ -32,9 +32,9 @@ public sealed class ShipmentControllerV2 : WsServiceControllerBase
 
     private ContentResult GetShipmentWork(string url, long id, string format)
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -82,10 +82,10 @@ public sealed class ShipmentControllerV2 : WsServiceControllerBase
     private ContentResult GetShipmentsCore(string url, DateTime startDate, DateTime endDate, 
         int offset = 0, int rowCount = 10, string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, 
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url, 
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

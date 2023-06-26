@@ -23,11 +23,11 @@ public sealed class NomenclatureController : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetNomenclature)]
     public ContentResult GetNomenclature([FromQuery] string code, [FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
             string response = string.IsNullOrEmpty(code)
-                ? WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
-                : WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
+                ? WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
+                : WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatureFromCode, new SqlParameter("code", code));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -40,10 +40,10 @@ public sealed class NomenclatureController : WsServiceControllerBase
     public ContentResult GetNomenclatures([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatures,
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclatures,
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -56,10 +56,10 @@ public sealed class NomenclatureController : WsServiceControllerBase
     public ContentResult GetNomenclaturesCosts([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclaturesCosts,
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetNomenclaturesCosts,
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
