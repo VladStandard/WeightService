@@ -2,8 +2,8 @@
 @page "/section/plus_nesting/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusNestingFks
-@using DeviceControl.Components.Item
 @using DeviceControl.Services
+@using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <ItemTopBar TItem="@WsSqlPluNestingFkModel" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>

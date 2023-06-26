@@ -1,10 +1,9 @@
 ﻿@page "/section/devices_types/new"
 @page "/section/devices_types/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
+@using WsStorageCore.TableScaleModels.DeviceTypes
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using WsStorageCore.TableScaleModels.DeviceTypes
-@using WsStorageCore.TableScaleModels.PrintersTypes
 @inherits ItemBase<WsStorageCore.TableScaleModels.DeviceTypes.WsSqlDeviceTypeModel>
 
 <ItemTopBar TItem="@WsSqlDeviceTypeModel" Title="@WsLocaleCore.Strings.DeviceType" OnItemUpdate="@GetItemData"/>

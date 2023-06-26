@@ -2,8 +2,8 @@
 @page "/section/plus_bundles/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusBundlesFks
-@using DeviceControl.Components.Item
 @using DeviceControl.Services
+@using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
 <ItemTopBar TItem="@WsSqlPluBundleFkModel" Title="@WsLocaleCore.DeviceControl.ItemPluBundleFk" OnItemUpdate="@GetItemData"/>

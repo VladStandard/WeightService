@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Components.Section;
-using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.ViewScaleModels;
 
 namespace DeviceControl.Pages.Menu.Devices.Lines;

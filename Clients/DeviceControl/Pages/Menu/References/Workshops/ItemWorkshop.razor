@@ -2,9 +2,9 @@
 @page "/section/workshops/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.WorkShops
+@using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
 <ItemTopBar TItem="@WsSqlWorkShopModel" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>

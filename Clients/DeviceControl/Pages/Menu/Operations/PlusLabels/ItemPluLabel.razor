@@ -2,9 +2,9 @@
 @page "/section/plus_labels/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusLabels
+@using DeviceControl.Services
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@using DeviceControl.Services
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
 
 <ItemTopBar TItem="@WsSqlPluLabelModel" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>

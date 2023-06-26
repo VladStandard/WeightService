@@ -1,6 +1,5 @@
 using DeviceControl.Utils;
 using WsStorageCore.TableDiagModels.Logs;
-using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
