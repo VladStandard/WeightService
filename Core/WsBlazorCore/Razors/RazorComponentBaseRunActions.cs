@@ -16,7 +16,8 @@ public partial class RazorComponentBase
         return new ConfirmOptions
         {
             OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
-            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel
+            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel,
+            CloseDialogOnEsc = true,
         };
     }
 
@@ -37,7 +38,7 @@ public partial class RazorComponentBase
         }
         catch (Exception ex)
         {
-            NotificateException(title, ex);
+            NotificationException(title, ex);
         }
     }
 
@@ -55,11 +56,11 @@ public partial class RazorComponentBase
         }
         catch (Exception ex)
         {
-            NotificateException(title, ex);
+            NotificationException(title, ex);
         }
     }
     
-    private void NotificateException(string title, Exception ex)
+    private void NotificationException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
             title = WsLocaleCore.Dialog.DialogResultFail;

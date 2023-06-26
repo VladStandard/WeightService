@@ -15,6 +15,11 @@ public partial class ItemActions<TItem> : ItemBase<TItem> where TItem : WsSqlTab
 
     [Parameter] public new ButtonSettingsModel ButtonSettings { get; set; }
 
+    private bool GetDisableStatusOfSaveBtn => 
+        !(User?.IsInRole(UserAccessStr.Write) == true && ButtonSettings.IsShowSave);
+    private bool GetDisableStatusOfCancelBtn =>  
+        !(User?.IsInRole(UserAccessStr.Read) == true && ButtonSettings.IsShowCancel);
+        
     #endregion
 
     #region Public and private methods

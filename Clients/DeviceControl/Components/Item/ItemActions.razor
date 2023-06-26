@@ -4,29 +4,24 @@
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true" DisableGutters="true">
-    <AuthorizeView Roles="@UserAccessStr.Write">
-      @if (ButtonSettings.IsShowSave)
-      {
-        <RadzenButton
-          class="RadzenButtonLong"
-          Click=@OnItemSave
-          ButtonStyle=@ButtonStyle.Primary
-          Size=@ButtonSize.Small
-          Style="width: 50%;"
-          Text=@WsLocaleCore.DeviceControl.TableActionSave/>
-        <MudSpacer/>
-      }
-    </AuthorizeView>
-    <AuthorizeView Roles="@UserAccessStr.Read">
-      @if (ButtonSettings.IsShowCancel)
-      {
-        <RadzenButton
-          class="RadzenButtonLong"
-          Click=@OnItemCancel
-          ButtonStyle=@ButtonStyle.Secondary Size=@ButtonSize.Small
-          Style="width: 50%; "
-          Text=@WsLocaleCore.DeviceControl.TableActionCancel/>
-      }
-    </AuthorizeView>
+    <RadzenButton
+      class="RadzenButtonLong"
+      Click="@OnItemSave"
+      ButtonStyle="@ButtonStyle.Success"
+      Shade="Shade.Dark"
+      Size="@ButtonSize.Small"
+      Style="width: 50%;"
+      Disabled="@GetDisableStatusOfSaveBtn"
+      Text="@WsLocaleCore.DeviceControl.TableActionSave"/>
+      <MudSpacer/>
+     <RadzenButton
+        class="RadzenButtonLong"
+        Click="@OnItemCancel"
+        ButtonStyle="@ButtonStyle.Danger"
+        Shade="Shade.Dark"
+        Size="@ButtonSize.Small"
+        Style="width: 50%; "
+        Disabled="@GetDisableStatusOfCancelBtn"
+        Text="@WsLocaleCore.DeviceControl.TableActionCancel"/>
   </MudToolBar>
 </MudPaper>

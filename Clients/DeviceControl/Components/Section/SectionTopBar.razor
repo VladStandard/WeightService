@@ -27,9 +27,9 @@
       }
     </AuthorizeView>
     <RadzenButton
-      id="button_loader"
       Icon="refresh"
-      ButtonStyle="@ButtonStyle.Primary"
+      ButtonStyle="@ButtonStyle.Secondary"
+      Shade="Shade.Dark"
       Style="margin-left: 20px; width: 60px;"
       Size="@ButtonSize.Small"
       Click="@OnReload"/>
@@ -37,8 +37,9 @@
     {
       <AuthorizeView Roles="@UserAccessStr.Write">
         <RadzenButton
-          Icon="add_circle_outline"
-          ButtonStyle=@ButtonStyle.Primary
+          Icon="add"
+          ButtonStyle="@ButtonStyle.Secondary"
+          Shade="Shade.Dark"
           Style="margin-left: 15px; width: 60px;"
           Size=@ButtonSize.Small
           Click="@OnSectionAdd"/>
