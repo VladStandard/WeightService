@@ -4,7 +4,6 @@
 using DeviceControl.Components.Item;
 using WsDataCore.Enums;
 using WsDataCore.Protocols;
-using WsLocalizationCore.Common;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleModels.Devices;
 using WsStorageCore.TableScaleModels.Printers;

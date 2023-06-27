@@ -1,12 +1,12 @@
-﻿@page "/section/printers_types"
+@page "/section/clips"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PrintersTypes
+@using WsStorageCore.TableScaleModels.Clips
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
+@inherits SectionBase<WsStorageCore.TableScaleModels.Clips.WsSqlClipModel>
 
 <SectionTopBar
-  Title="@WsLocaleCore.Print.Types"
+  Title="@WsLocaleCore.Strings.Clips"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPrinterTypeModel"
+  TItem="@WsSqlClipModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,9 +22,10 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPrinterTypeModel">
+    <TItemContent TItem="@WsSqlClipModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="50%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" Property="Weight" Width="50%" />
     </TItemContent>
   </Columns>
 </RzDataGrid>

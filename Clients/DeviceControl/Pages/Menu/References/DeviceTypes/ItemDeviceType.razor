@@ -1,12 +1,12 @@
-﻿@page "/section/printers_types/new"
-@page "/section/printers_types/{Id:long}"
+﻿@page "/section/devices_types/new"
+@page "/section/devices_types/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PrintersTypes
+@using WsStorageCore.TableScaleModels.DeviceTypes
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
+@inherits ItemBase<WsStorageCore.TableScaleModels.DeviceTypes.WsSqlDeviceTypeModel>
 
-<ItemTopBar TItem="@WsSqlPrinterTypeModel" Title="@WsLocaleCore.Print.Type" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlDeviceTypeModel" Title="@WsLocaleCore.Strings.DeviceType" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 15, 35, 15, 35 })"/>
@@ -17,15 +17,17 @@
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
-    <td/>
-    <td/>
+    <td>@WsLocaleCore.Table.PrettyName</td>
+    <td>
+      <RzTextBox @bind-Value="@SqlItemCast.PrettyName"/>
+    </td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
 
 <ItemActions
-  TItem="@WsSqlPrinterTypeModel"
+  TItem="@WsSqlDeviceTypeModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@RedirectBackAsync"/>

@@ -15,7 +15,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>@WsLocaleCore.Table.User</td>
-    <td>@SqlItemCast.Name</td>
+    <td><RzTextBox @bind-Value="@SqlItemCast.Name"/></td>
     <td>@WsLocaleCore.Strings.AccessRights</td>
     <td>
       <RzDropDown @bind-Value="@Rights" Data="@TemplateAccessRights" ValueProperty="Value" TextProperty="Name"/>

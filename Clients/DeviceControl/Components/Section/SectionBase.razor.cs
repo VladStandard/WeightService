@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.JSInterop;
 using Radzen.Blazor;
 using WsBlazorCore.Settings;
-using WsLocalizationCore.Utils;
-using WsStorageCore.Common;
 using WsStorageCore.Helpers;
 
 namespace DeviceControl.Components.Section;
@@ -41,7 +39,6 @@ public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSql
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
         SqlCrudConfigSection.IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
-
         ButtonSettings = ButtonSettingsModel.CreateForSection();
     }
 

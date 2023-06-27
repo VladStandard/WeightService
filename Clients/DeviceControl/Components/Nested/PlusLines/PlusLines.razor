@@ -44,4 +44,7 @@
   </Columns>
 </RzDataGrid>
 
-<SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>
+@if (SqlSectionCast.Count > 0)
+{
+  <SectionActions OnSectionSave="@OnSqlSectionSaveAsync" ButtonSettings="@ButtonSettings"/>
+}

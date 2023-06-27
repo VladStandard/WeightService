@@ -3,7 +3,6 @@
 
 using DeviceControl.Services;
 using WsDataCore.Enums;
-using WsLocalizationCore.Common;
 
 namespace DeviceControl.Pages.Menu.Profiles;
 

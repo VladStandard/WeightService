@@ -1,9 +1,9 @@
-@page "/section/plu_weighings/new"
-@page "/section/plu_weighings/{Uid:guid}"
+@page "/section/plus_weightings/new"
+@page "/section/plus_weightings/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleFkModels.PlusWeighingsFks
-@using DeviceControl.Components.Item
 @using DeviceControl.Services
+@using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
 
 <ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>

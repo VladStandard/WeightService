@@ -1,12 +1,12 @@
-﻿@page "/section/printers_types"
+﻿@page "/section/devices_types"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PrintersTypes
+@using WsStorageCore.TableScaleModels.DeviceTypes
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
+@inherits SectionBase<WsStorageCore.TableScaleModels.DeviceTypes.WsSqlDeviceTypeModel>
 
 <SectionTopBar
-  Title="@WsLocaleCore.Print.Types"
+  Title="@WsLocaleCore.Strings.DeviceType"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPrinterTypeModel"
+  TItem="@WsSqlDeviceTypeModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,9 +22,10 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPrinterTypeModel">
+    <TItemContent TItem="@WsSqlDeviceTypeModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="50%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.PrettyName" Property="PrettyName" Width="50%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

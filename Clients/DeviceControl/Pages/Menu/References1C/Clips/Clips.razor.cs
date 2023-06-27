@@ -3,22 +3,18 @@
 
 using DeviceControl.Components.Section;
 using WsBlazorCore.Settings;
-using WsStorageCore.TableScaleModels.Versions;
+using WsStorageCore.TableScaleModels.Clips;
 
-namespace DeviceControl.Pages.Menu.Admins;
+namespace DeviceControl.Pages.Menu.References1C.Clips;
 
-public sealed partial class Versions : SectionBase<WsSqlVersionModel>
+public sealed partial class Clips : SectionBase<WsSqlClipModel>
 {
     #region Public and private fields, properties, constructor
-
-    public Versions() : base()
+    
+    public Clips() : base()
     {
-        SqlCrudConfigSection.IsGuiShowFilterMarked = false;
-        SqlCrudConfigSection.AddOrders(
-            new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc }
-        );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
-
+    
     #endregion
 }

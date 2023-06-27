@@ -140,5 +140,8 @@ public static class WsLocaleCore
         public static string VerProgram => Lang == WsEnumLanguage.English ? "Program version" : "Версия программы";
         public static string VersionDb => Lang == WsEnumLanguage.English ? "DB version" : "Версия БД";
         public static string VersionsDb => Lang == WsEnumLanguage.English ? "DB versions" : "Версии БД";
+        public static string DeviceType => Lang == WsEnumLanguage.English ? "Device types" : "Типы устройств";
+        public static string Clips => Lang == WsEnumLanguage.English ? "SectionClips" : "Клипсы";
+        
     }
 }
