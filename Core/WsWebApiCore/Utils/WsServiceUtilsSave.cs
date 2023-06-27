@@ -414,7 +414,7 @@ public static class WsServiceUtilsSave
             if (pluNestingFkDb is not null)
             {
                 // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdatePluNestingFk(pluNestingFk, pluNestingFkDb);
+                WsServiceUtilsUpdate.UpdatePluNestingFk(pluNestingFkDb, pluNestingFk);
                 // Обновить кэш.
                 WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
                 return;

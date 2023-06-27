@@ -60,16 +60,16 @@ public static class WsServiceUtilsCheck
     /// <param name="itemXml"></param>
     /// <param name="plus1CFks"></param>
     public static void CheckEnabledPlu(WsSqlTable1CBase itemXml, List<WsSqlPlu1CFkModel> plus1CFks) =>
-        plus1CFks.ForEach(item => CheckEnabledPluForItem(itemXml, item));
+        plus1CFks.ForEach(item => CheckEnabledPluForEach(itemXml, item));
 
     /// <summary>
-    /// Проверить номер ПЛУ в списке доступа к выгрузке.
+    /// Проверить разрешение обмена для ПЛУ.
     /// </summary>
     /// <param name="itemXml"></param>
     /// <param name="plu1CFkDb"></param>
-    private static void CheckEnabledPluForItem(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
+    private static void CheckEnabledPluForEach(WsSqlTable1CBase itemXml, WsSqlPlu1CFkModel plu1CFkDb)
     {
-        // Пропуск групп с нулевым номером.
+        // Проверить некорректность группы и номера ПЛУ.
         if (CheckUnCorrectPluNumberForNonGroup(plu1CFkDb.Plu)) return;
         // ПЛУ не найдена.
         if (plu1CFkDb.IsNotExists)
@@ -78,7 +78,7 @@ public static class WsServiceUtilsCheck
             itemXml.ParseResult.Exception =
                 $"{WsLocaleCore.WebService.FieldNomenclatureIsNotFound} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
         }
-        // Загрузка номенклатуры.
+        // Загрузка ПЛУ.
         if (itemXml is WsSqlPluModel pluXml)
         {
             // UID_1C не совпадает.
@@ -97,7 +97,7 @@ public static class WsServiceUtilsCheck
                     WsLocaleCore.WebService.FieldNomenclatureIsDiffForLoadByNumber(plu1CFkDb.Plu.Number, pluXml.Number);
             }
         }
-        // Загрузка характеристики номенклатуры.
+        // Загрузка характеристики ПЛУ.
         else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
         {
             if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))

@@ -181,7 +181,7 @@ public static class WsServiceUtilsUpdate
     /// <param name="itemXml"></param>
     /// <param name="itemDb"></param>
     /// <returns></returns>
-    public static void UpdatePluNestingFk(WsSqlPluNestingFkModel itemXml, WsSqlPluNestingFkModel? itemDb)
+    public static void UpdatePluNestingFk(WsSqlPluNestingFkModel itemDb, WsSqlPluNestingFkModel itemXml)
     {
         if (itemDb is null || itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
@@ -257,18 +257,27 @@ public static class WsServiceUtilsUpdate
             plu1CFkCache.UpdateProperties(plu1CFk);
             WsSqlPlu1CFkValidator validator = new();
             ValidationResult validation = validator.Validate(plu1CFkCache);
+            // Валидация не пройдена!
             if (!validation.IsValid)
             {
+                // Загрузка ПЛУ.
                 if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
                     WsServiceUtilsResponse.AddResponseExceptionString(response, pluXml.Item.Uid1C,
                         string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
+                // Загрузка характеристики ПЛУ.
                 else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
                     WsServiceUtilsResponse.AddResponseExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
                         string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
             }
+            // Валидация пройдена успешно.
             else
             {
-                WsServiceUtils.SqlCore.Update(plu1CFkCache);
+                // Загрузка ПЛУ.
+                if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
+                    WsServiceUtils.SqlCore.Update(plu1CFkCache);
+                // Загрузка характеристики ПЛУ.
+                //else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
+                //    WsServiceUtils.SqlCore.Update(plu1CFkCache);
             }
         }
     }
