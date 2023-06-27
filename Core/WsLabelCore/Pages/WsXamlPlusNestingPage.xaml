@@ -19,16 +19,19 @@
 				<ColumnDefinition Width="2*" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="1.66*" />
-				<RowDefinition Height="1.66*" />
-				<RowDefinition Height="1.66*" />
+				<RowDefinition Height="0.75*" />
+				<RowDefinition Height="0.75*" />
+				<RowDefinition Height="0.5*" />
+				<RowDefinition Height="0.5*" />
+				<RowDefinition Height="2.25*" />
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 			<Label
 				x:Name="labelPlu"
 				Margin="3"
 				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
+				VerticalContentAlignment="Center"
+				Content="Plu" />
 			<Label
 				x:Name="labelPluValue"
 				Grid.Column="1"
@@ -36,14 +39,15 @@
 				Padding="20,0,0,0"
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
-				Content="PluName" />
+				Content="Plu name" />
 			<Label
 				x:Name="labelPluNesting"
 				Grid.Row="1"
 				Grid.Column="0"
 				Margin="3"
 				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
+				VerticalContentAlignment="Center"
+				Content="Nesting" />
 			<ComboBox
 				x:Name="comboBoxPlusNesting"
 				Grid.Row="1"
@@ -66,7 +70,8 @@
 				Grid.Column="0"
 				Margin="3"
 				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
+				VerticalContentAlignment="Center"
+				Content="TareWeight" />
 			<Label
 				x:Name="labelTareWeightValue"
 				Grid.Row="2"
@@ -76,9 +81,49 @@
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Content="TareWeightWithKg" />
-			<ItemsControl
-				x:Name="itemsControl"
+			<Label
+				x:Name="labelIsEnabled"
 				Grid.Row="3"
+				Grid.Column="0"
+				Margin="3"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				Content="Exchange" />
+			<CheckBox
+				x:Name="checkBoxIsEnabled"
+				Grid.Row="3"
+				Grid.Column="1"
+				Margin="3"
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Background="Transparent"
+				Content="WebServiceExchange"
+				IsChecked="False"
+				IsEnabled="False" />
+			<Label
+				x:Name="label1C"
+				Grid.Row="4"
+				Grid.Column="0"
+				Margin="3"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				Content="1C" />
+			<TextBox
+				x:Name="textBox1CValue"
+				Grid.Row="4"
+				Grid.Column="1"
+				Margin="3"
+				Padding="20,0,0,0"
+				HorizontalContentAlignment="Left"
+				VerticalContentAlignment="Center"
+				Background="Transparent"
+				FontSize="18"
+				IsReadOnly="True"
+				Text="1C content"
+				TextWrapping="Wrap" />
+			<ItemsControl
+				Grid.Row="5"
 				Grid.ColumnSpan="2"
 				Margin="2" />
 		</Grid>

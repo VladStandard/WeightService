@@ -159,11 +159,11 @@ public sealed class WsSqlContextViewHelper
     {
         List<WsSqlViewPluNestingModel> result = new();
         
-        string query = WsSqlQueriesDiags.Views.GetViewPlusNesting31(pluNumber);
+        string query = WsSqlQueriesDiags.Views.GetViewPlusNesting32(pluNumber);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] item || item.Length < 31) break;
+            if (obj is not object[] item || item.Length < 32) break;
             int i = 0;
             result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
                 Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
@@ -177,7 +177,8 @@ public sealed class WsSqlContextViewHelper
                 Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
                 Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])), 
                 Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]), 
-                Convert.ToDecimal(item[i++]), Convert.ToDateTime(item[i++]), Convert.ToString(item[i++])));
+                Convert.ToDecimal(item[i++]), Convert.ToDateTime(item[i++]),
+                Convert.ToBoolean(item[i++]), Convert.ToString(item[i++])));
         }
 
         if (!result.Any())
@@ -200,7 +201,7 @@ public sealed class WsSqlContextViewHelper
                     Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
                     Guid.Parse(Convert.ToString(item[i++])), Guid.Parse(Convert.ToString(item[i++])),
                     Convert.ToBoolean(item[i++]), Convert.ToString(item[i++]), Convert.ToDecimal(item[i++]),
-                    Convert.ToDecimal(item[i++]), DateTime.MinValue, string.Empty));
+                    Convert.ToDecimal(item[i++]), DateTime.MinValue, false, string.Empty));
             }
         }
 

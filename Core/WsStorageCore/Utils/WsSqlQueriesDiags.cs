@@ -165,7 +165,7 @@ ORDER BY [PLU_NUMBER], [PLU_NAME];");
             /// </summary>
             /// <param name="pluNumber"></param>
             /// <returns></returns>
-            public static string GetViewPlusNesting31(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewPlusNesting32(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT 
 	 [UID]
@@ -198,6 +198,7 @@ SELECT
 	,[BOX_WEIGHT]
 	,[TARE_WEIGHT]
     ,[WEB_SERVICE_CHANGE]
+    ,[WEB_SERVICE_IS_ENABLED]
     ,[WEB_SERVICE_XML]
 FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
