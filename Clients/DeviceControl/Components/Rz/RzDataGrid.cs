@@ -13,7 +13,8 @@ public class RzDataGrid<TItem> : RadzenDataGrid<TItem>
         AllowPaging = true;
         AllowSorting = true;
         PagerPosition = PagerPosition.TopAndBottom;
-        PagerHorizontalAlign = HorizontalAlign.Justify;
+        PagerHorizontalAlign = HorizontalAlign.Center;
+        GridLines = DataGridGridLines.Horizontal;
         PageSize = WsSqlContextManagerHelper.Instance.JsonSettings.Local.SectionRowsCount;
     }
 }
