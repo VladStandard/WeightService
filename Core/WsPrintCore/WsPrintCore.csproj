@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
-    <Version>0.9.700.0</Version>
+    <Version>0.9.710.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.6.2" />
