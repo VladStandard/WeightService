@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Text;
 using WsDataCore.Utils;
 
 namespace ScalesUI;
@@ -22,11 +23,12 @@ internal static class Program
         // Настройка.
         AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.AppTitle);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
-        ContextManager.ContextItem.SaveLogInformation(
-            WsLocaleCore.LabelPrint.RegistrationComplete + Environment.NewLine + 
-            WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, 
-                LabelSession.DeviceScaleFk.Scale.Description) + Environment.NewLine +
-            $"{WsLocaleCore.LabelPrint.ClickOnceIntallDirectory}: {WsAssemblyUtils.GetClickOnceNetworkInstallDirectory()}");
+        // Лог.
+        StringBuilder log = new();
+        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationComplete);
+        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, LabelSession.DeviceScaleFk.Scale.Description));
+        log.AppendLine($"{WsLocaleCore.LabelPrint.ClickOnceIntallDirectory}: {WsAssemblyUtils.GetClickOnceNetworkInstallDirectory()}");
+        ContextManager.ContextItem.SaveLogInformation(log);
         // Режим работы.
         WsDebugHelper.Instance.IsSkipDialogs = false;
         // Запуск.

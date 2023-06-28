@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Text;
+using WsDataCore.Utils;
+
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -126,14 +129,17 @@ public sealed partial class WsMainForm : Form
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
             WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
-            // Логи.
-            UserSession.StopwatchMain.Stop();
+            // Лог.
             ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-            ContextManager.ContextItem.SaveLogInformation(
-                $"{WsLocaleData.Program.IsLoaded}. " + Environment.NewLine +
-                $"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-                $"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+            UserSession.StopwatchMain.Stop();
+            LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
+            ContextManager.ContextLines.Update(LabelSession.Line);
+            StringBuilder log = new();
+            log.AppendLine($"{WsLocaleData.Program.IsLoaded}.");
+            log.AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.");
+            log.AppendLine($"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+            ContextManager.ContextItem.SaveLogInformation(log);
         });
     }
 

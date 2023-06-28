@@ -241,6 +241,10 @@ public sealed class WsSqlContextItemHelper
         }
     }
 
+    private void SaveLogCore(StringBuilder message, WsEnumLogType logType, string filePath, int lineNumber,
+        string memberName) =>
+        SaveLogCore(message.ToString(), logType, filePath, lineNumber, memberName);
+
     private void SaveLogCore(string message, WsEnumLogType logType, string filePath, int lineNumber, string memberName)
     {
         WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
@@ -306,6 +310,17 @@ public sealed class WsSqlContextItemHelper
     /// <param name="lineNumber"></param>
     /// <param name="memberName"></param>
     public void SaveLogInformation(string message,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
+
+    /// <summary>
+    /// Записать информационное сообщение в журнал событий.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="filePath"></param>
+    /// <param name="lineNumber"></param>
+    /// <param name="memberName"></param>
+    public void SaveLogInformation(StringBuilder message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
 
