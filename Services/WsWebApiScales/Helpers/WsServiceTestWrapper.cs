@@ -35,10 +35,10 @@ public sealed class WsServiceTestWrapper : WsServiceControllerBase
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "")
     {
         DateTime requestStampDt = DateTime.Now;
-        ContentResult result = WsServiceContentUtils.GetContentResult(() => 
+        ContentResult result = WsServiceUtilsGetXmlContent.GetContentResult(() => 
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
-            WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
-        WsServiceLogUtils.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
+            WsServiceUtilsResponse.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
+        WsServiceUtilsLog.LogWebServiceFk(nameof(WsWebApiScales), WsLocaleWebServiceUtils.GetInfo,
             requestStampDt, string.Empty, result.Content ?? string.Empty, format, host, version);
         return result;
     }
@@ -49,7 +49,7 @@ public sealed class WsServiceTestWrapper : WsServiceControllerBase
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false, 
         [FromHeader(Name = "host")] string host = "", [FromHeader(Name = "accept")] string version = "",
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        WsServiceContentUtils.GetContentResult(() => 
+        WsServiceUtilsGetXmlContent.GetContentResult(() => 
             WsDataFormatUtils.GetContentResult<WsServiceExceptionModel>(
                 new WsServiceExceptionModel(filePath, lineNumber, memberName, "Test Exception!", "Test inner exception!"), 
                 format, HttpStatusCode.InternalServerError), format);

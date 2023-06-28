@@ -44,14 +44,14 @@ public sealed class WsLocaleSql : WsLocalizationBase
     public string SqlItemFieldZpl => Lang == WsEnumLanguage.English ? "ZPL" : "ЗПЛ";
     public string SqlItemIsNotSelect => Lang == WsEnumLanguage.English ? "Record is not select" : "Запись не выбрана";
     public string SqlServer => Lang == WsEnumLanguage.English ? "SQL-server" : "SQL-сервер";
-    public string SqlServerDevelopAleksandrov => Lang == WsEnumLanguage.English ? "Development server | Aleksandrov" : "Сервер разработки | Александров";
-    public string SqlServerDevelopMorozov => Lang == WsEnumLanguage.English ? "Development server | Morozov" : "Сервер разработки | Морозов";
+    public string SqlServerDevelopAleksandrov => Lang == WsEnumLanguage.English ? "Development environment | Aleksandrov" : "Среда разработки | Александров";
+    public string SqlServerDevelopMorozov => Lang == WsEnumLanguage.English ? "Development environment | Morozov" : "Среда разработки | Морозов";
     // ReSharper disable once InconsistentNaming
-    public string SqlServerVS => Lang == WsEnumLanguage.English ? "Development server" : "Сервер разработки";
+    public string SqlServerVS => Lang == WsEnumLanguage.English ? "Development environment" : "Среда разработки";
     // ReSharper disable once InconsistentNaming
-    public string SqlServerReleaseVS => Lang == WsEnumLanguage.English ? "Product server" : "Продуктовый сервер";
-    public string SqlServerReleaseAleksandrov => Lang == WsEnumLanguage.English ? "Product server | Aleksandrov" : "Продуктовый сервер | Александров";
-    public string SqlServerReleaseMorozov => Lang == WsEnumLanguage.English ? "Product server | Morozov" : "Продуктовый сервер | Морозов";
+    public string SqlServerReleaseVS => Lang == WsEnumLanguage.English ? "Product environment" : "Рабочая среда";
+    public string SqlServerReleaseAleksandrov => Lang == WsEnumLanguage.English ? "Product environment | Aleksandrov" : "Рабочая среда | Александров";
+    public string SqlServerReleaseMorozov => Lang == WsEnumLanguage.English ? "Product environment | Morozov" : "Рабочая среда | Морозов";
     public string SqlServerTest => Lang == WsEnumLanguage.English ? "Test server" : "Тестовый сервер";
     public string SqlUser => Lang == WsEnumLanguage.English ? "SQL-user" : "SQL-пользователь";
     public string StatusClosed => Lang == WsEnumLanguage.English ? @"Connecting to SQL server is close." : "Закрыто подключение к SQL-серверу.";

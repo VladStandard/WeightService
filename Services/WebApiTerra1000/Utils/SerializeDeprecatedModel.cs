@@ -20,7 +20,7 @@ public class SerializeDeprecatedModel<T> where T : new()
         _ => throw GetArgumentException(nameof(formatType)),
     };
 
-    private static string GetContentType(string format) => GetContentType(DataUtils.GetFormatType(format));
+    private static string GetContentType(string format) => GetContentType(WsDataUtils.GetFormatType(format));
 
     private static ContentResult ContentResultCore(string format, object content, HttpStatusCode statusCode) => new()
     {

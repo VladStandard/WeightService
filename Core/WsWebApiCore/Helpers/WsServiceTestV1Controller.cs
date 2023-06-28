@@ -10,10 +10,6 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="sessionFactory"></param>
     public WsServiceTestV1Controller(ISessionFactory sessionFactory) : base(sessionFactory)
     {
         //
@@ -27,9 +23,9 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetInfoV1)]
     internal ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            AppVersion.Setup(Assembly.GetExecutingAssembly());
+            WsServiceUtils.AppVersion.Setup(Assembly.GetExecutingAssembly());
 
             using ISession session = SessionFactory.OpenSession();
             //using ITransaction transaction = session.BeginTransaction();
@@ -37,8 +33,8 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
             sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
             string response = sqlQuery.UniqueResult<string>();
             //transaction.Commit();
-            return WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(new WsServiceInfoModel(Environment.MachineName, AppVersion.App,
-                AppVersion.Version,
+            return WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(new WsServiceInfoModel(Environment.MachineName,
+                WsServiceUtils.AppVersion.App, WsServiceUtils.AppVersion.Version, 
                 DateTime.Now.ToString(CultureInfo.InvariantCulture),
                 response.ToString(CultureInfo.InvariantCulture),
                 session.Connection.ConnectionString,
@@ -54,9 +50,9 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetExceptionV1)]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetException);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetException);
             return WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(new WsSqlSimpleV1Model(response, isDebug), format, HttpStatusCode.OK);
         }, format);
 
@@ -65,25 +61,25 @@ public sealed class WsServiceTestV1Controller : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetSimpleV1)]
     public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
         int version = 0) =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
             switch (version)
             {
                 case 1:
-                    string response1 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV1);
+                    string response1 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV1);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(
                         WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV1Model>(response1), format, HttpStatusCode.OK);
                 case 2:
-                    string response2 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV2);
+                    string response2 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV2);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV2Model>(
                         WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV2Model>(response2), format, HttpStatusCode.OK);
                 case 3:
-                    string response3 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV3);
+                    string response3 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV3);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV3Model>(
                         WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV3Model>(response3),
                         format, HttpStatusCode.OK);
                 case 4:
-                    string response4 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV4);
+                    string response4 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetXmlSimpleV4);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV4Model>(
                         WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV4Model>(response4),
                         format, HttpStatusCode.OK);

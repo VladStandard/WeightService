@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>0.9.680.0</AssemblyVersion>
-    <FileVersion>0.9.680.0</FileVersion>
+    <AssemblyVersion>0.9.710.0</AssemblyVersion>
+    <FileVersion>0.9.710.0</FileVersion>
 	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
 	<Platforms>AnyCPU;x64;x86</Platforms>
@@ -35,6 +35,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.54.1" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
@@ -96,8 +100,13 @@
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Deployment">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Deployment.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <PropertyGroup>
-    <Version>0.9.680.0</Version>
+    <Version>0.9.710.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

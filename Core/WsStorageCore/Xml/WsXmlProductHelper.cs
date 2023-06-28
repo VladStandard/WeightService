@@ -55,9 +55,9 @@ public class WsXmlProductHelper
                     {
                         WsXmlProductUnitModel? item = new()
                         {
-                            Heft = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
-                            Capacity = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
-                            Rate = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
+                            Heft = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                            Capacity = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                            Rate = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                             Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty
@@ -112,9 +112,9 @@ public class WsXmlProductHelper
 	                    WsXmlProductBoxModel? item = new()
                         {
                             Description = GetAttribute<string>(xmlChild, "Description") ?? string.Empty,
-                            Heft = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
-                            Capacity = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
-                            Rate = StrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
+                            Heft = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft") ?? "0"),
+                            Capacity = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity") ?? "0"),
+                            Rate = WsStrUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate") ?? "0"),
                             Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                             Okei = GetAttribute<string>(xmlChild, "OKEI") ?? string.Empty,
                             Unit = GetAttribute<string>(xmlChild, "Unit") ?? string.Empty

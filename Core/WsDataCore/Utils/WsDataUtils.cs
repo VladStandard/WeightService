@@ -2,13 +2,16 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Drawing;
-using WsDataCore.Enums;
-using WsLocalizationCore.Utils;
 
 namespace WsDataCore.Utils;
 
-public static class DataUtils
+/// <summary>
+/// Утилиты данных.
+/// </summary>
+public static class WsDataUtils
 {
+    #region Public and private methods
+
     public static bool ByteEquals(byte[] a1, byte[] a2)
     {
         if (a1.Length != a2.Length)
@@ -31,20 +34,20 @@ public static class DataUtils
     public static string GetBytesLength(byte[]? value, bool isShowLabel)
     {
         if (value == null)
-            return isShowLabel 
-					? $"{WsLocaleCore.Strings.DataSizeVolume}: 0 {WsLocaleCore.Strings.DataSizeBytes}"
-		            : $"0 {WsLocaleCore.Strings.DataSizeBytes}";
+            return isShowLabel
+                    ? $"{WsLocaleCore.Strings.DataSizeVolume}: 0 {WsLocaleCore.Strings.DataSizeBytes}"
+                    : $"0 {WsLocaleCore.Strings.DataSizeBytes}";
         if (Encoding.Default.GetString(value).Length > 1024 * 1024)
-            return isShowLabel 
-				? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}"
-				: $"{(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}";
+            return isShowLabel
+                ? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}"
+                : $"{(float)Encoding.Default.GetString(value).Length / 1024 / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeMBytes}";
         if (Encoding.Default.GetString(value).Length > 1024)
             return isShowLabel
-				? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}"
-				: $"{(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}";
-        return isShowLabel 
-	        ? $"{WsLocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}"
-	        : $"{Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}";
+                ? $"{WsLocaleCore.Strings.DataSizeVolume}: {(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}"
+                : $"{(float)Encoding.Default.GetString(value).Length / 1024:### ###.###} {WsLocaleCore.Strings.DataSizeKBytes}";
+        return isShowLabel
+            ? $"{WsLocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}"
+            : $"{Encoding.Default.GetString(value).Length:### ###} {WsLocaleCore.Strings.DataSizeBytes}";
     }
 
     public static string GetBytesLength(string value, bool isShowLabel)
@@ -114,8 +117,10 @@ public static class DataUtils
         _ => throw GetArgumentException(nameof(formatType))
     };
 
-    public static string GetContentType(string formatString) => 
+    public static string GetContentType(string formatString) =>
         GetContentType(GetFormatType(formatString));
 
     public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
+
+    #endregion
 }

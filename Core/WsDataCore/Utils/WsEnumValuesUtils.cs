@@ -4,10 +4,12 @@
 namespace WsDataCore.Utils;
 
 /// <summary>
-/// Utility of enumeration values.
+/// Утилиты значений перечислений.
 /// </summary>
-public static class EnumValuesUtils
+public static class WsEnumValuesUtils
 {
+    #region Public and private methods
+
     /// <summary>
     /// Список значений bool.
     /// </summary>
@@ -80,4 +82,6 @@ public static class EnumValuesUtils
     {
         return str == null ? "<null>" : str == "" ? "<empty>" : str;
     }
+
+    #endregion
 }

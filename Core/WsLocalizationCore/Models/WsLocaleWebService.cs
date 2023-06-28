@@ -6,8 +6,9 @@ namespace WsLocalizationCore.Models;
 public sealed class WsLocaleWebService : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
-    
+
     public string BoxZero => Lang == WsEnumLanguage.English ? "Without the box" : "Без коробки";
+    public string BundleZero => Lang == WsEnumLanguage.English ? "Without the bundle" : "Без пакета";
     public string ClipZero => Lang == WsEnumLanguage.English ? "Without the clip" : "Без клипсы";
     public string DtStamp => Lang == WsEnumLanguage.English ? "Date time stamp" : "Отметка времени даты";
     public string Dublicate => Lang == WsEnumLanguage.English ? "Dublicate" : "Дубликат";

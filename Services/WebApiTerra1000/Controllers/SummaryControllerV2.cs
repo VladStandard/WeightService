@@ -33,10 +33,10 @@ public sealed class SummaryControllerV2 : WsServiceControllerBase
         GetSummaryCore(WsWebSqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
 
     private ContentResult GetSummaryCore(string url, DateTime startDate, DateTime endDate, string format) =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
-                WsServiceSqlUtils.GetParameters(startDate, endDate));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url,
+                WsServiceUtilsSql.GetParameters(startDate, endDate));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Summary} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

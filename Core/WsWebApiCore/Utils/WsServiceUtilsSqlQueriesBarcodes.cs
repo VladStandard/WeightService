@@ -3,8 +3,10 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsServiceSqlQueriesBarcodes
+internal static class WsServiceUtilsSqlQueriesBarcodes
 {
+    #region Public and private methods
+
     public static string FindBottom => @"
 SELECT
 	 [B].[IS_MARKED]
@@ -55,5 +57,7 @@ FROM [db_scales].[BARCODES] [B]
 INNER JOIN [db_scales].[PLUS_LABELS] [PL] ON [B].[PLU_LABEL_UID] = [PL].[UID]
 WHERE [VALUE_TOP] = :VALUE_TOP;
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+    #endregion
 
 }

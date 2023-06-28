@@ -243,9 +243,9 @@ public sealed class WsSqlContextItemHelper
 
     private void SaveLogCore(string message, WsEnumLogType logType, string filePath, int lineNumber, string memberName)
     {
-        StrUtils.SetStringValueTrim(ref filePath, 32, true);
-        StrUtils.SetStringValueTrim(ref memberName, 32);
-        StrUtils.SetStringValueTrim(ref message, 1024);
+        WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
+        WsStrUtils.SetStringValueTrim(ref memberName, 32);
+        WsStrUtils.SetStringValueTrim(ref message, 1024);
         WsSqlLogTypeModel? logTypeItem = SqlCore.GetItemLogTypeNullable(logType);
 
         WsSqlLogModel log = new()

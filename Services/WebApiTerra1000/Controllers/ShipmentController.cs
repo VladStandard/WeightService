@@ -23,9 +23,9 @@ public sealed class ShipmentController : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetShipment)]
     public ContentResult GetShipment([FromQuery] long id, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipment, new SqlParameter("ID", id));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipment, new SqlParameter("ID", id));
             XDocument xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {
@@ -63,10 +63,10 @@ public sealed class ShipmentController : WsServiceControllerBase
     public ContentResult GetShipments([FromQuery] DateTime startDate, [FromQuery] DateTime endDate, 
         [FromQuery] int offset = 0, [FromQuery] int rowCount = 10, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipments,
-                WsServiceSqlUtils.GetParameters(startDate, endDate, offset, rowCount));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueries.GetShipments,
+                WsServiceUtilsSql.GetParameters(startDate, endDate, offset, rowCount));
             XDocument xml = xml = XDocument.Parse($"<{WsWebConstants.Shipments} />", LoadOptions.None);
             if (response != null)
             {

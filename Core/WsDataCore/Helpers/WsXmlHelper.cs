@@ -1,11 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Models;
-
 namespace WsDataCore.Helpers;
 
-public class WsXmlHelper
+/// <summary>
+/// Помощник XML.
+/// </summary>
+public sealed class WsXmlHelper
 {
 	#region Design pattern "Lazy Singleton"
 
@@ -24,14 +25,14 @@ public class WsXmlHelper
 	/// <param name="inputUri"></param>
 	/// <param name="elements"></param>
 	/// <param name="value"></param>
-	public void Checks(string inputUri, Collection<WsXmlTag> elements, string? value = null)
+	public void Checks(string inputUri, Collection<WsXmlTagModel> elements, string? value = null)
 	{
 		if (!File.Exists(inputUri))
 			throw new FileNotFoundException(@"FileName is not exists!");
 		if (string.IsNullOrEmpty(inputUri))
 			throw new ArgumentNullException(inputUri);
 
-		foreach (WsXmlTag elementName in elements)
+		foreach (WsXmlTagModel elementName in elements)
 		{
 			if (string.IsNullOrEmpty(elementName.ElementName))
 				throw new ArgumentNullException(elementName.ElementName);
@@ -51,7 +52,7 @@ public class WsXmlHelper
 	/// <param name="elements"></param>
 	/// <param name="getValueFromName"></param>
 	/// <returns></returns>
-	public ResultXmlRead Read(string inputUri, Collection<WsXmlTag> elements, string? getValueFromName = null)
+	public ResultXmlReadModel Read(string inputUri, Collection<WsXmlTagModel> elements, string? getValueFromName = null)
 	{
 		Collection<string> str = new();
 		string value = string.Empty;
@@ -75,16 +76,16 @@ public class WsXmlHelper
 	/// <param name="getValueFromName"></param>
 	/// <param name="value"></param>
 	/// <param name="str"></param>
-    private void ReadInside(XmlTextReader xmlReader, Collection<WsXmlTag> elements, string getValueFromName, ref string value,
+    private void ReadInside(XmlTextReader xmlReader, Collection<WsXmlTagModel> elements, string getValueFromName, ref string value,
 		Collection<string> str)
 	{
-		WsXmlTag? elementCur = null;
+		WsXmlTagModel? elementCur = null;
 		string? attr = null;
 
-		Collection<WsXmlTag> elementsTrim = new();
+		Collection<WsXmlTagModel> elementsTrim = new();
 		if (elements.Count > 0)
 		{
-			foreach (WsXmlTag element in elements)
+			foreach (WsXmlTagModel element in elements)
 			{
 				if (elementCur is null)
 					elementCur = element;
@@ -182,7 +183,7 @@ public class WsXmlHelper
 	/// <param name="key"></param>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public ResultXmlRead Write(string fileName, Collection<WsXmlTag> elements, string key, string value)
+	public ResultXmlReadModel Write(string fileName, Collection<WsXmlTagModel> elements, string key, string value)
 	{
 		StringBuilder sb = new();
 		// Проверки.

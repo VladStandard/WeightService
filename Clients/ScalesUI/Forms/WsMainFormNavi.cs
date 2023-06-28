@@ -208,7 +208,7 @@ public partial class WsMainForm
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Table.FieldPluIsNotSelected);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.Table.FieldPluIsNotSelected);
+            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.Table.FieldPluIsNotSelected);
             return false;
         }
         return true;

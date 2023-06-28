@@ -3,8 +3,10 @@
 
 namespace WsWebApiCore.Utils;
 
-internal static class WsServiceSqlUtils
+internal static class WsServiceUtilsSql
 {
+    #region Public and private methods
+
     public static T GetResponse<T>(ISessionFactory sessionFactory, string query)
     {
         using ISession session = sessionFactory.OpenSession();
@@ -130,4 +132,6 @@ internal static class WsServiceSqlUtils
     {
         new("id", id == null ? DBNull.Value : id),
     };
+
+    #endregion
 }

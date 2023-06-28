@@ -343,13 +343,13 @@ public static class WsDataFormatUtils
 
     private static ContentResult GetContentResultCore(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
-        ContentType = DataUtils.GetContentType(formatType),
+        ContentType = WsDataUtils.GetContentType(formatType),
         StatusCode = (int)statusCode,
         Content = content as string ?? content.ToString(),
     };
 
     private static ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
-        GetContentResultCore(DataUtils.GetFormatType(formatString), content, statusCode);
+        GetContentResultCore(WsDataUtils.GetFormatType(formatString), content, statusCode);
 
     private static ContentResult GetContentResult(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatType, content, statusCode);
@@ -363,7 +363,7 @@ public static class WsDataFormatUtils
             WsEnumFormatType.Html => GetContentResult(WsEnumFormatType.Html, SerializeAsHtml(item), statusCode),
             WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetContentResult(WsEnumFormatType.XmlUtf8, SerializeAsXmlString<T>(item, true, false), statusCode),
             WsEnumFormatType.XmlUtf16 => GetContentResult(WsEnumFormatType.XmlUtf16, SerializeAsXmlString<T>(item, true, true), statusCode),
-            _ => throw DataUtils.GetArgumentException(nameof(format))
+            _ => throw WsDataUtils.GetArgumentException(nameof(format))
         };
 
     public static WsEnumFormatType GetFormatType(string format) => format.ToUpper() switch
@@ -374,7 +374,7 @@ public static class WsDataFormatUtils
         "HTML" => WsEnumFormatType.Html,
         "XML" or "" or "XMLUTF8" => WsEnumFormatType.Xml,
         "XMLUTF16" => WsEnumFormatType.XmlUtf16,
-        _ => throw DataUtils.GetArgumentException(nameof(format))
+        _ => throw WsDataUtils.GetArgumentException(nameof(format))
     };
 
     public static IDictionary<string, object> ObjectToDictionary<T>(T item)
@@ -399,7 +399,7 @@ public static class WsDataFormatUtils
         WsEnumFormatType.Html => SerializeAsHtml(item),
         WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
         WsEnumFormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
-        _ => throw DataUtils.GetArgumentException(nameof(formatType))
+        _ => throw WsDataUtils.GetArgumentException(nameof(formatType))
     };
 
     #endregion

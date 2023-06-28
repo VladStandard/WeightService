@@ -71,7 +71,7 @@ namespace ScalesUI.Forms
             this.labelNettoWeight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelNettoWeight.Visible = false;
             // 
-            // fieldPackageWeight
+            // fieldTareWeight
             // 
             this.fieldTareWeight.AutoSize = true;
             this.fieldTareWeight.BackColor = System.Drawing.Color.Transparent;
@@ -266,7 +266,7 @@ namespace ScalesUI.Forms
             this.fieldMassa.Text = "fieldMassa";
             this.fieldMassa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelPackageWeight
+            // labelTareWeight
             // 
             this.labelTareWeight.AutoSize = true;
             this.labelTareWeight.BackColor = System.Drawing.Color.Transparent;

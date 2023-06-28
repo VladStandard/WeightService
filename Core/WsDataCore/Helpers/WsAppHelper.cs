@@ -1,15 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Security.Principal;
-using WsDataCore.Enums;
-
 namespace WsDataCore.Helpers;
 
 /// <summary>
-/// Application helper.
+/// Помощник приложения.
 /// </summary>
-public sealed class WsAppHelper //: BaseViewModel
+public sealed class WsAppHelper
 {
 	#region Design pattern "Lazy Singleton"
 

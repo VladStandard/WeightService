@@ -68,13 +68,13 @@ public sealed class WsContentUtilsTests
             Assert.That(xElement, Is.Not.Null);
             if (xElement is not null)
             {
-                List<WsXmlContentRecord<WsSqlBrandModel>> brands = WsServiceContentUtils.GetNodesListCore<WsSqlBrandModel>(xElement, WsLocaleCore.WebService.XmlItemBrand,
+                List<WsXmlContentRecord<WsSqlBrandModel>> brands = WsServiceUtilsGetXmlContent.GetNodesListCore<WsSqlBrandModel>(xElement, WsLocaleCore.WebService.XmlItemBrand,
                     (xmlNode, itemXml) =>
                     {
-                        WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-                        WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-                        WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-                        WsServiceContentUtils.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
+                        WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
+                        WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
+                        WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
+                        WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
                     });
                 foreach (WsXmlContentRecord<WsSqlBrandModel> brand in brands)
                 {

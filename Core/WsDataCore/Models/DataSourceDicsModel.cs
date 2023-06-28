@@ -1,15 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
-using WsLocalizationCore.Common;
-using WsLocalizationCore.Utils;
-
 namespace WsDataCore.Models;
 
 /// <summary>
-/// Data source dictionaries.
+/// Помощник источника данных.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public class DataSourceDicsHelper
 {
     #region Design pattern "Lazy Singleton"

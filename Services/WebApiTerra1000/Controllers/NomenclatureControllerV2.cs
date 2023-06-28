@@ -24,7 +24,7 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     public ContentResult GetNomenclatureFromCodeIdProd([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetNomenclatureFromCodeIdWork(code != null
-            ? WsServiceSqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : WsServiceSqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
+            ? WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
             code, id, format);
 
     [AllowAnonymous]
@@ -33,16 +33,16 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     public ContentResult GetNomenclatureFromCodeIdPreview([FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "") =>
         GetNomenclatureFromCodeIdWork(code != null
-            ? WsServiceSqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : WsServiceSqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
+            ? WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
             code, id, format);
 
     private ContentResult GetNomenclatureFromCodeIdWork([FromQuery] string url, [FromQuery] string code, [FromQuery] long id,
         [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url,
-                code != null ? WsServiceSqlUtils.GetParametersV2(code) : WsServiceSqlUtils.GetParametersV2(id));
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url,
+                code != null ? WsServiceUtilsSql.GetParametersV2(code) : WsServiceUtilsSql.GetParametersV2(id));
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -56,20 +56,20 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate != null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate == null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, format);
 
-        return GetNomenclaturesEmptyWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesEmptyProd, format);
+        return GetNomenclaturesEmptyWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesEmptyProd, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetNomenclaturesCostsV2)]
     public ContentResult GetNomenclaturesProdDeprecated([FromQuery(Name = "format")] string format = "") =>
-        WsServiceContentUtils.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
+        WsServiceUtilsGetXmlContent.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures/"), format, HttpStatusCode.OK), format);
 
     [AllowAnonymous]
@@ -79,27 +79,27 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
         [FromQuery] int? offset = null, [FromQuery] int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
         if (startDate != null && endDate != null && offset != null && rowCount != null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate != null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, format);
         if (startDate != null && endDate == null)
-            return GetNomenclaturesWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, format);
 
-        return GetNomenclaturesEmptyWork(WsServiceSqlQueriesNomenclaturesV2.GetNomenclaturesEmptyPreview, format);
+        return GetNomenclaturesEmptyWork(WsServiceUtilsSqlQueriesNomenclaturesV2.GetNomenclaturesEmptyPreview, format);
     }
 
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetNomenclaturesCostsPreviewV2)]
     public ContentResult GetNomenclaturesPreviewDeprecated([FromQuery(Name = "format")] string format = "") =>
-        WsServiceContentUtils.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
+        WsServiceUtilsGetXmlContent.GetContentResult(() => WsDataFormatUtils.GetContentResult<WsServiceReplyModel>(
             new WsServiceReplyModel("Deprecated method. Use: api/nomenclatures_preview/"), format, HttpStatusCode.OK), format);
 
     private ContentResult GetNomenclaturesEmptyWork(string url, string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url);
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);
@@ -109,16 +109,16 @@ public sealed class NomenclatureControllerV2 : WsServiceControllerBase
     private ContentResult GetNomenclaturesWork(string url, DateTime? startDate = null, DateTime? endDate = null,
         int? offset = null, int? rowCount = null, [FromQuery(Name = "format")] string format = "")
     {
-        return WsServiceContentUtils.GetContentResult(() =>
+        return WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
             List<SqlParameter> parameters = null;
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate, endDate, offset, rowCount);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate, endDate, offset, rowCount);
             else if (startDate != null && endDate != null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate, endDate);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate, endDate);
             else if (startDate != null && endDate == null)
-                parameters = WsServiceSqlUtils.GetParametersV2(startDate);
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, url, parameters);
+                parameters = WsServiceUtilsSql.GetParametersV2(startDate);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, url, parameters);
             XDocument xml = XDocument.Parse(response ?? $"<{WsWebConstants.Goods} />", LoadOptions.None);
             XDocument doc = new(new XElement(WsWebConstants.Response, xml.Root));
             return SerializeDeprecatedModel<XDocument>.GetContentResult(format, doc, HttpStatusCode.OK);

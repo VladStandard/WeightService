@@ -12,61 +12,84 @@
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
-	<Border BorderBrush="Blue" BorderThickness="1">
+	<Border
+		BorderBrush="DimGray"
+		BorderThickness="1"
+		CornerRadius="5">
 		<Grid x:Name="gridLocal">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.5*" />
-				<ColumnDefinition Width="2*" />
-			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="2.5*" />
 				<RowDefinition Height="2.5*" />
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
-			<Label
-				x:Name="labelArea"
+			<!--  Row 1  -->
+			<Border
 				Grid.Row="0"
 				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
-			<ComboBox
-				x:Name="comboBoxArea"
-				Grid.Row="0"
-				Grid.Column="1"
-				Margin="3"
-				Padding="20,0,0,0"
-				HorizontalContentAlignment="Left"
-				VerticalContentAlignment="Center"
-				Background="Transparent"
-				FontSize="26">
-				<ComboBox.ItemContainerStyle>
-					<Style TargetType="ComboBoxItem">
-						<Setter Property="Padding" Value="20,0,0,0" />
-					</Style>
-				</ComboBox.ItemContainerStyle>
-			</ComboBox>
-			<Label
-				x:Name="labelLine"
+				BorderBrush="DimGray"
+				BorderThickness="1"
+				CornerRadius="5">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.5*" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+					<Label
+						x:Name="labelArea"
+						Grid.Row="0"
+						Margin="3"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center" />
+					<ComboBox
+						x:Name="comboBoxArea"
+						Grid.Row="0"
+						Grid.Column="1"
+						Margin="3,60,3,60"
+						HorizontalContentAlignment="Left"
+						VerticalContentAlignment="Center"
+						Background="Transparent"
+						FontSize="26">
+						<ComboBox.ItemContainerStyle>
+							<Style TargetType="ComboBoxItem">
+								<Setter Property="Padding" Value="20,0,0,0" />
+							</Style>
+						</ComboBox.ItemContainerStyle>
+					</ComboBox>
+				</Grid>
+			</Border>
+			<!--  Row 2  -->
+			<Border
 				Grid.Row="1"
 				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center" />
-			<ComboBox
-				x:Name="comboBoxLine"
-				Grid.Row="1"
-				Grid.Column="1"
-				Margin="3"
-				Padding="20,0,0,0"
-				HorizontalContentAlignment="Left"
-				VerticalContentAlignment="Center"
-				Background="Transparent"
-				FontSize="26">
-				<ComboBox.ItemContainerStyle>
-					<Style TargetType="ComboBoxItem">
-						<Setter Property="Padding" Value="20,0,0,0" />
-					</Style>
-				</ComboBox.ItemContainerStyle>
-			</ComboBox>
+				BorderBrush="DimGray"
+				BorderThickness="1"
+				CornerRadius="5">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.5*" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+					<Label
+						x:Name="labelLine"
+						Margin="3"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center" />
+					<ComboBox
+						x:Name="comboBoxLine"
+						Grid.Column="1"
+						Margin="3,60,3,60"
+						HorizontalContentAlignment="Left"
+						VerticalContentAlignment="Center"
+						Background="Transparent"
+						FontSize="26">
+						<ComboBox.ItemContainerStyle>
+							<Style TargetType="ComboBoxItem">
+								<Setter Property="Padding" Value="20,0,0,0" />
+							</Style>
+						</ComboBox.ItemContainerStyle>
+					</ComboBox>
+				</Grid>
+			</Border>
 		</Grid>
 	</Border>
 </common:WsXamlBasePage>

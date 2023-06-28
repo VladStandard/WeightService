@@ -1,14 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
-
 namespace WsDataCore.Utils;
 
 /// <summary>
-/// Enumeration utilities.
+/// Утилиты перечислений.
 /// </summary>
-public static class EnumUtils
+public static class WsEnumUtils
 {
     #region Public and private methods
 

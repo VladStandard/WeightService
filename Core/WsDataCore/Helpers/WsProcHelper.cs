@@ -3,7 +3,10 @@
 
 namespace WsDataCore.Helpers;
 
-public class WsProcHelper
+/// <summary>
+/// Помощник процессов.
+/// </summary>
+public sealed class WsProcHelper
 {
 	#region Design pattern "Lazy Singleton"
 

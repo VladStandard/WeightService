@@ -28,9 +28,9 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetInfoV2)]
     public ContentResult GetInfo([FromQuery(Name = "format")] string format = "") =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
             WsDataFormatUtils.GetContentResult<WsServiceInfoModel>(
-                WsServiceResponseUtils.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
+                WsServiceUtilsResponse.NewServiceInfo(Assembly.GetExecutingAssembly(), SessionFactory), format, HttpStatusCode.OK), format);
 
     /// <summary>
     /// Get exception.
@@ -42,9 +42,9 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetExceptionV2)]
     public ContentResult GetException([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false) =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
-            string response = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetException);
+            string response = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetException);
             WsSqlSimpleV1Model sqlSimpleV1 = new(response, isDebug);
             ContentResult content = WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(sqlSimpleV1, format, HttpStatusCode.OK);
             return content;
@@ -62,24 +62,24 @@ public sealed class WsServiceTestV2Controller : WsServiceControllerBase
     [Route(WsLocaleWebServiceUtils.GetSimpleV2)]
     public ContentResult GetSimple([FromQuery(Name = "format")] string format = "", [FromQuery(Name = "debug")] bool isDebug = false,
         int version = 0) =>
-        WsServiceContentUtils.GetContentResult(() =>
+        WsServiceUtilsGetXmlContent.GetContentResult(() =>
         {
             switch (version)
             {
                 case 1:
-                    string response1 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV1);
+                    string response1 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV1);
                     WsSqlSimpleV1Model sqlSimpleV1 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV1Model>(response1);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV1Model>(sqlSimpleV1, format, HttpStatusCode.OK);
                 case 2:
-                    string response2 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV2);
+                    string response2 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV2);
                     WsSqlSimpleV2Model sqlSimpleV2 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV2Model>(response2);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV2Model>(sqlSimpleV2, format, HttpStatusCode.OK);
                 case 3:
-                    string response3 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV3);
+                    string response3 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV3);
                     WsSqlSimpleV3Model sqlSimpleV3 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV3Model>(response3);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV3Model>(sqlSimpleV3, format, HttpStatusCode.OK);
                 case 4:
-                    string response4 = WsServiceSqlUtils.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV4);
+                    string response4 = WsServiceUtilsSql.GetResponse<string>(SessionFactory, WsWebSqlQueriesV2.GetXmlSimpleV4);
                     WsSqlSimpleV4Model sqlSimpleV4 = WsDataFormatUtils.DeserializeFromXml<WsSqlSimpleV4Model>(response4);
                     return WsDataFormatUtils.GetContentResult<WsSqlSimpleV4Model>(sqlSimpleV4, format, HttpStatusCode.OK);
             }

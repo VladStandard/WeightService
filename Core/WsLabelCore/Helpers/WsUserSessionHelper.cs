@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Common;
-
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -235,7 +233,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         }
         void ActionYes()
         {
-            PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
+            PluginMassa.WeightNet = WsStrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
             returnPreparePrint.Invoke();
         }

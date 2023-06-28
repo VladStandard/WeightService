@@ -4,7 +4,7 @@
 namespace WsDataCoreTests.Utils;
 
 [TestFixture]
-public sealed class WsDataFormatUtilsTests
+public sealed class DataFormatUtilsTests
 {
     #region Public methods
 
