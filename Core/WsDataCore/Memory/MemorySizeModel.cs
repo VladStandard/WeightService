@@ -6,26 +6,21 @@ namespace WsDataCore.Memory;
 /// <summary>
 /// Размеры памяти.
 /// </summary>
-public class MemorySizeModel : WsBaseHelper
+public sealed class MemorySizeModel : WsBaseHelper
 {
     #region Public and private fields, properties, constructor
 
     public MemorySizeConvertModel? VirtualCurrent { get; private set; }
     public MemorySizeConvertModel? PhysicalCurrent { get; private set; }
-    public MemorySizeConvertModel? VirtualFree { get; private set; }
+    private MemorySizeConvertModel? VirtualFree { get; set; }
     public MemorySizeConvertModel? PhysicalFree { get; private set; }
-    public MemorySizeConvertModel? VirtualTotal { get; private set; }
+    private MemorySizeConvertModel? VirtualTotal { get; set; }
     public MemorySizeConvertModel? PhysicalTotal { get; private set; }
     public MemorySizeConvertModel VirtualAllocated =>
         new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
     public MemorySizeConvertModel PhysicalAllocated =>
         new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
-    private MdWmiHelper Wmi => MdWmiHelper.Instance;
-
-
-    #endregion
-
-    #region Constructor and destructor
+    private static MdWmiHelper Wmi => MdWmiHelper.Instance;
 
     public MemorySizeModel()
     {

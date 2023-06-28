@@ -30,7 +30,7 @@ public sealed class XmlHelperTests
     [Test]
     public void Read_AreEqual()
     {
-        ResultXmlRead actual = Xml.Read(TestFile, new()
+        ResultXmlReadModel actual = Xml.Read(TestFile, new()
         {
             new("Wizard", "name", "SavedWIZ"),
             new("Page", "resID", "IDR_DUI_SAVED"),

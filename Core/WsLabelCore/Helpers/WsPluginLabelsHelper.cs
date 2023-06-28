@@ -49,7 +49,6 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
             FieldProductDate = fieldProductDate;
             FieldKneading = fieldKneading;
             MdInvokeControl.SetText(FieldPlu, WsLocaleCore.LabelPrint.Plu);
-            //MdInvokeControl.SetText(FieldSscc, LocaleCore.Scales.FieldSscc);
             MdInvokeControl.SetText(FieldProductDate, WsLocaleCore.LabelPrint.FieldDate);
             MdInvokeControl.SetText(FieldKneading, string.Empty);
         });
@@ -62,11 +61,7 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
         RequestItem.Execute(Request);
     }
 
-    private void Reopen()
-    {
-        //MdInvokeControl.SetText(FieldSscc, $"{LocaleCore.Scales.FieldSscc}: {WsUserSessionHelper.Instance.ProductSeries.Sscc.Sscc}");
-        MdInvokeControl.SetVisible(FieldKneading, LabelSession.Line.IsKneading);
-    }
+    private void Reopen() => MdInvokeControl.SetVisible(FieldKneading, LabelSession.Line.IsKneading);
 
     private void Request()
     {
@@ -75,8 +70,10 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
         else
             MdInvokeControl.SetText(FieldPlu,
                 LabelSession.PluLine.Plu.IsCheckWeight
+                    // Весовая ПЛУ.
                     ? $"{WsLocaleCore.LabelPrint.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-                    : $"{WsLocaleCore.LabelPrint.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+                    // Штучная ПЛУ.
+                    : $"{WsLocaleCore.LabelPrint.PluCountNesting(LabelSession.ViewPluNesting.BundleCount)} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         MdInvokeControl.SetText(FieldProductDate, $"{LabelSession.ProductDate:dd.MM.yyyy}");
         MdInvokeControl.SetText(FieldKneading, $"{LabelSession.WeighingSettings.Kneading}");
     }

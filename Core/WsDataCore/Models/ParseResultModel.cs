@@ -1,24 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Enums;
-using WsDataCore.Serialization.Models;
-using WsLocalizationCore.Utils;
-
 namespace WsDataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
 [Serializable]
-public class ParseResultModel : SerializeBase, ICloneable
+public sealed class ParseResultModel : SerializeBase, ICloneable
 {
     #region Public and private fields, properties, constructor
 
-    [XmlAttribute] public virtual WsEnumParseStatus Status { get; set; }
-    [XmlIgnore] public virtual bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
-    [XmlIgnore] public virtual bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
-    [XmlAttribute] public virtual string Message { get; set; }
-    [XmlAttribute] public virtual string Exception { get; set; }
-    [XmlAttribute] public virtual string InnerException { get; set; }
+    [XmlAttribute] public WsEnumParseStatus Status { get; set; }
+    [XmlIgnore] public bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
+    [XmlIgnore] public bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
+    [XmlAttribute] public string Message { get; set; }
+    [XmlAttribute] public string Exception { get; set; }
+    [XmlAttribute] public string InnerException { get; set; }
 
     /// <summary>
     /// Constructor.
@@ -74,7 +70,7 @@ public class ParseResultModel : SerializeBase, ICloneable
         Equals(Exception, string.Empty) &&
         Equals(InnerException, string.Empty);
 
-    public virtual object Clone()
+    public object Clone()
     {
         ParseResultModel item = new();
         item.Status = Status;
@@ -109,14 +105,14 @@ public class ParseResultModel : SerializeBase, ICloneable
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(ParseResultModel item) =>
+    public bool Equals(ParseResultModel item) =>
         ReferenceEquals(this, item) || 
         Equals(Status, item.Status) &&
         Equals(Message, item.Message) &&
         Equals(Exception, item.Exception) &&
         Equals(InnerException, item.InnerException);
 
-    public virtual ParseResultModel CloneCast() => (ParseResultModel)Clone();
+    public ParseResultModel CloneCast() => (ParseResultModel)Clone();
 
     #endregion
 }

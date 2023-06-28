@@ -3,7 +3,10 @@
 
 namespace ScalesUI.Forms;
 
-public partial class WsMainForm : Form
+/// <summary>
+/// Главная форма.
+/// </summary>
+public sealed partial class WsMainForm : Form
 {
     #region Public and private fields, properties, constructor
 

@@ -3,11 +3,11 @@
 
 namespace WsDataCore.Memory;
 
-public class MemorySizeConvertModel
+public sealed class MemorySizeConvertModel
 {
 	#region Public and private fields, properties, constructor
 
-	public ulong Bytes { get; set; } = 0;
+	public ulong Bytes { get; set; }
 
 	public ulong KiloBytes => Bytes / 1024;
 

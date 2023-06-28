@@ -3,7 +3,7 @@
 
 namespace WsDataCore.Memory;
 
-public class MemoryModel
+public sealed class MemoryModel
 {
     #region Public and private fields, properties, constructor
 

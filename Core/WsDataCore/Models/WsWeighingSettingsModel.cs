@@ -1,12 +1,12 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Utils;
-using WsPrintCore.Common;
-
 namespace WsDataCore.Models;
 
-public class WsWeighingSettingsModel
+/// <summary>
+/// Весовые настройки.
+/// </summary>
+public sealed class WsWeighingSettingsModel
 {
     #region Public and private fields and properties
 

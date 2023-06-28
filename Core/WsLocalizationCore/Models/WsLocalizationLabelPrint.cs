@@ -108,6 +108,7 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string PluCode => Lang == WsEnumLanguage.English ? "Code" : "Код";
     public string PluCodeNotSet => Lang == WsEnumLanguage.English ? "Code is not set" : "Код не задан";
     public string PluCount => Lang == WsEnumLanguage.English ? "PLU (count)" : "ПЛУ (шт)";
+    public string PluCountNesting(short nesting) => Lang == WsEnumLanguage.English ? $"PLU ({nesting} count)" : $"ПЛУ ({nesting} шт)";
     public string PluDescriptionNotSet => Lang == WsEnumLanguage.English ? "Descr is not set" : "Описание не задано";
     public string PluDescriptionSet => Lang == WsEnumLanguage.English ? "Descr is not set" : "Описание задано";
     public string PluEan13IsNotSet => Lang == WsEnumLanguage.English ? "EAN13 is not set" : "ЕАН13 не задан";
