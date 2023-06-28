@@ -202,8 +202,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{600611A1-0
 		Docs\GS1-128.md = Docs\GS1-128.md
 		Docs\Publish Lifecycle.md = Docs\Publish Lifecycle.md
 		Docs\Publish Resources.md = Docs\Publish Resources.md
-		Docs\Publish Tests Logs.md = Docs\Publish Tests Logs.md
-		Docs\Publish Tests.md = Docs\Publish Tests.md
 		Docs\Service Time.md = Docs\Service Time.md
 		Docs\StorageCore.md = Docs\StorageCore.md
 		Docs\Technology Stack.md = Docs\Technology Stack.md
@@ -1988,7 +1986,7 @@ Global
 		{3EBB426C-C1DC-42E3-87A5-C139BA1FB2A9} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

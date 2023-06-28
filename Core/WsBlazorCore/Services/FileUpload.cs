@@ -45,7 +45,7 @@ public class FileUpload : IFileUpload
 
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-        item.Data = new() { Value = DataUtils.GetBytes(stream, true) };
+        item.Data = new() { Value = WsDataUtils.GetBytes(stream, true) };
         SqlCore.Update(item);
     }
 }

@@ -1,13 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Security.Cryptography;
-
 namespace WsDataCore.Utils;
 
-public static class EncryptDecryptUtils
+/// <summary>
+/// Утилиты шифрования.
+/// </summary>
+public static class WsEncryptDecryptUtils
 {
-    public static byte[] ByteCipher(int keySize = 128)
+    #region Public and private methods
+
+    private static byte[] ByteCipher(int keySize = 128)
     {
         return keySize == 256 ? Encoding.UTF8.GetBytes("SSljsdkkdlo4454Maakikjhsd55GaRTP") : Encoding.UTF8.GetBytes("SSljsdkkdlo4454M");
     }
@@ -36,4 +39,6 @@ public static class EncryptDecryptUtils
         byte[] data = Convert.FromBase64String(encrypt);
         return Encoding.UTF8.GetString(tripleDesCryptoService.CreateDecryptor().TransformFinalBlock(data, 0, data.Length));
     }
+
+    #endregion
 }

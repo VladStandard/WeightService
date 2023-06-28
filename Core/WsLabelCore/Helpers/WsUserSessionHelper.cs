@@ -233,7 +233,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         }
         void ActionYes()
         {
-            PluginMassa.WeightNet = StrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
+            PluginMassa.WeightNet = WsStrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
             PluginMassa.IsWeightNetFake = true;
             returnPreparePrint.Invoke();
         }

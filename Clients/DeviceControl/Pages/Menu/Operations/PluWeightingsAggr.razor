@@ -26,10 +26,10 @@
   Data="@PluWeightAggrs">
   <Columns>
     <TItemContent TItem="@WsSqlViewWeightingAggrModel">
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@WsStrUtils.FormatDtShort"/>
       <RadzenDataGridColumn TItem="@WsSqlViewWeightingAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
-          @EnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
+          @WsEnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="Count" Width="15%"/>

@@ -21,7 +21,7 @@ public static class WsServiceUtilsLog
     /// <returns></returns>
     private static void LogToFileCore(WsEnumServiceLogDirection serviceLogType, string appName, string api, DateTime stampDt, string text)
     {
-        string dtString = StrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
+        string dtString = WsStrUtils.FormatDtEng(stampDt, true).Replace(':', '.');
         // Get directory name.
         if (!Directory.Exists(WsServiceUtils.RootDirectory)) return;
         // Machine dir.

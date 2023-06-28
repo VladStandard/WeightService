@@ -54,7 +54,7 @@ public static class WsServiceUtilsResponse
         return new(Environment.MachineName,
             AppVersion.App,
             AppVersion.Version,
-            StrUtils.FormatDtEng(DateTime.Now, true),
+            WsStrUtils.FormatDtEng(DateTime.Now, true),
             sqlCurrentDate,
             session.Connection.ConnectionString,
             session.Connection.ConnectionTimeout,

@@ -3,30 +3,37 @@
 
 namespace WsDataCore.Utils;
 
-public static class StrUtils
+/// <summary>
+/// Утилиты строк.
+/// </summary>
+public static class WsStrUtils
 {
+    #region Public and private methods
+
     public static string FormatDtLong => "{0:dd.MM.yy HH:mm:ss}";
-    public static string FormatDtDefault => "{0:dd.MM.yy HH:mm}";
-    public static string FormatDtShort => "{0:dd.MM.yy}";
     
+    public static string FormatDtDefault => "{0:dd.MM.yy HH:mm}";
+    
+    public static string FormatDtShort => "{0:dd.MM.yy}";
+
     public static string FormatDtRus(DateTime dt, bool isShowSeconds) =>
-	    isShowSeconds
-		    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
-		    : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
+        isShowSeconds
+            ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+            : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}";
 
     public static string FormatDtRus(DateTime dt, bool isShowHours, bool isShowSeconds) =>
-	    isShowSeconds
-		    ? isShowHours 
-			    ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
-				: $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}"
-		    : isShowHours
-				? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}"
-				: $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}";
+        isShowSeconds
+            ? isShowHours
+                ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+                : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}"
+            : isShowHours
+                ? $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4} {dt.Hour:D2}:{dt.Minute:D2}"
+                : $"{dt.Day:D2}.{dt.Month:D2}.{dt.Year:D4}";
 
     public static string FormatDtEng(DateTime dt, bool isShowSeconds) =>
-	    isShowSeconds
-		    ? $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
-		    : $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}";
+        isShowSeconds
+            ? $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
+            : $"{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}";
 
     public static string FormatCurDtRus(bool isShowSeconds)
     {
@@ -61,31 +68,31 @@ public static class StrUtils
     }
 
     public static char GetProgressChar(char ch) =>
-	    ch switch
-	    {
-		    '*' => '/',
-		    '/' => '|',
-		    '|' => '\\',
-		    '\\' => '-',
-		    '-' => '/',
-		    _ => '*'
+        ch switch
+        {
+            '*' => '/',
+            '/' => '|',
+            '|' => '\\',
+            '\\' => '-',
+            '-' => '/',
+            _ => '*'
         };
 
     public static string GetProgressString(string s) =>
-	    s switch
-	    {
-		    "" => ".",
-		    "." => "..",
-		    ".." => "...",
-		    "..." => "",
-		    _ => ""
+        s switch
+        {
+            "" => ".",
+            "." => "..",
+            ".." => "...",
+            "..." => "",
+            _ => ""
         };
 
-    public static string GetStringValueTrim(string value, int length) => 
-	    value.Length > length ? value[..length] : value;
+    public static string GetStringValueTrim(string value, int length) =>
+        value.Length > length ? value[..length] : value;
 
-    public static string? GetStringNullValueTrim(string? value, int length) => 
-	    value is not null && value.Length > length ? value[..length] : value;
+    public static string? GetStringNullValueTrim(string? value, int length) =>
+        value is not null && value.Length > length ? value[..length] : value;
 
     public static void SetStringValueTrim(ref string value, int length, bool isGetFileName = false)
     {
@@ -183,7 +190,7 @@ public static class StrUtils
     }
 
     private static int NextInt32(Random random)
-	{
+    {
         try
         {
             int firstBits = random.Next(0, 1 << 4) << 28;
@@ -192,11 +199,11 @@ public static class StrUtils
         }
         catch (Exception)
         {
-	        return 0;
+            return 0;
         }
-	}
+    }
 
-	public static decimal NextDecimal(decimal min, decimal max)
+    public static decimal NextDecimal(decimal min, decimal max)
     {
         Random random = new();
         decimal result = min;
@@ -209,17 +216,19 @@ public static class StrUtils
         {
             byte scale = (byte)random.Next(29);
             bool sign = random.Next(2) == 1;
-			result = new(NextInt32(random), NextInt32(random), NextInt32(random), sign, scale);
+            result = new(NextInt32(random), NextInt32(random), NextInt32(random), sign, scale);
         }
         catch (Exception)
         {
-	        //
+            //
         }
-		
+
         if (result < min)
-			result = min;
-		if (result > max)
-			result = max;
-		return result;
-	}
+            result = min;
+        if (result > max)
+            result = max;
+        return result;
+    }
+
+    #endregion
 }

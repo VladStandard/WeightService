@@ -24,7 +24,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    [XmlIgnore] public virtual string Info { get => DataUtils.GetBytesLength(Value, true); set => _ = value; }
+    [XmlIgnore] public virtual string Info { get => WsDataUtils.GetBytesLength(Value, true); set => _ = value; }
 
     /// <summary>
     /// Constructor.
@@ -64,13 +64,13 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() => Value is not null && DataUtils.ByteEquals(Value, Array.Empty<byte>());
+    public override bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
 
     public override object Clone()
     {
         WsSqlFieldBinaryModel item = new()
         {
-            Value = Value is not null ? DataUtils.ByteClone(Value) : Array.Empty<byte>()
+            Value = Value is not null ? WsDataUtils.ByteClone(Value) : Array.Empty<byte>()
         };
         return item;
     }
@@ -91,7 +91,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
     #region Public and private methods - virtual
 
     public virtual bool Equals(WsSqlFieldBinaryModel item) =>
-        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
+        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || WsDataUtils.ByteEquals(Value, item.Value));
 
     public new virtual WsSqlFieldBinaryModel CloneCast() => (WsSqlFieldBinaryModel)Clone();
 

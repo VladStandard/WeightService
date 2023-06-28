@@ -12,21 +12,21 @@ public class SqlAuthenticationTests
     [Test]
     public void Constructor_Create_Correct()
     {
-        foreach (ushort port in EnumValuesUtils.GetUshort())
+        foreach (ushort port in WsEnumValuesUtils.GetUshort())
         {
-            foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
+            foreach (bool persistSecurityInfo in WsEnumValuesUtils.GetBool())
             {
-                foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
+                foreach (bool integratedSecurity in WsEnumValuesUtils.GetBool())
                 {
-                    foreach (bool encrypt in EnumValuesUtils.GetBool())
+                    foreach (bool encrypt in WsEnumValuesUtils.GetBool())
                     {
-                        foreach (string userId in EnumValuesUtils.GetString())
+                        foreach (string userId in WsEnumValuesUtils.GetString())
                         {
-                            foreach (string password in EnumValuesUtils.GetString())
+                            foreach (string password in WsEnumValuesUtils.GetString())
                             {
-                                foreach (string database in EnumValuesUtils.GetString())
+                                foreach (string database in WsEnumValuesUtils.GetString())
                                 {
-                                    foreach (string server in EnumValuesUtils.GetString())
+                                    foreach (string server in WsEnumValuesUtils.GetString())
                                     {
                                         Assert.DoesNotThrow(() =>
                                         {

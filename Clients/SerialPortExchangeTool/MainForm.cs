@@ -32,7 +32,7 @@ public partial class MainForm : Form
 
         Initialize();
         SerialPort = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
-        statusTimeLabel.Text = StrUtils.FormatDtRus(DateTime.Now, true);
+        statusTimeLabel.Text = WsStrUtils.FormatDtRus(DateTime.Now, true);
         toolStripStatusTx.Text = @"Sent: 0";
         toolStripStatusRx.Text = @"Received: 0";
         MaximizeBox = false;

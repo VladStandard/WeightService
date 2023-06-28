@@ -20,7 +20,7 @@ public class FileDownload : IFileDownload
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
         char[] chars = Encoding.UTF8.GetChars(item.DataValue);
-        byte[] bytes = DataUtils.ByteClone(Convert.FromBase64CharArray(chars, 0, chars.Length));
+        byte[] bytes = WsDataUtils.ByteClone(Convert.FromBase64CharArray(chars, 0, chars.Length));
         if (blazorDownloadFileService != null)
             await blazorDownloadFileService.DownloadFile(item.Name.Contains('.') ? item.Name : $"{item.Name}.{item.Type}",
                 bytes, "application/octet-stream").ConfigureAwait(false);

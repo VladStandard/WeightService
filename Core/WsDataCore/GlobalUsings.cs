@@ -4,7 +4,6 @@
 global using MDSoft.NetUtils;
 global using MDSoft.Wmi.Helpers;
 global using MDSoft.Wmi.Models;
-global using MvvmHelpers;
 global using System;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
@@ -14,6 +13,7 @@ global using System.IO;
 global using System.Linq;
 global using System.Reflection;
 global using System.Runtime.Serialization;
+global using System.Security.Cryptography;
 global using System.Security.Principal;
 global using System.Text;
 global using System.Threading;

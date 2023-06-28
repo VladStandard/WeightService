@@ -4,9 +4,9 @@
 namespace WsDataCore.Utils;
 
 /// <summary>
-/// Enumeration utilities.
+/// Утилиты перечислений.
 /// </summary>
-public static class EnumUtils
+public static class WsEnumUtils
 {
     #region Public and private methods
 

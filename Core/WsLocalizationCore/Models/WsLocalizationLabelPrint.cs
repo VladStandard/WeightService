@@ -139,6 +139,7 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string QuestionRunApp => Lang == WsEnumLanguage.English ? "Run the app" : "Запустить приложение";
     public string QuestionWriteToDb => Lang == WsEnumLanguage.English ? "Add new record into the DB?" : "Добавить новую запись в БД?";
     public string Registration => Lang == WsEnumLanguage.English ? "Device registration" : "Регистрация устройства";
+    public string ClickOnceIntallDirectory => Lang == WsEnumLanguage.English ? "ClickOnce install directory" : "Каталог установки ClickOnce";
     public string RequestParameters => Lang == WsEnumLanguage.English ? "Request parameters" : "Запрос параметров";
     public string Restore => Lang == WsEnumLanguage.English ? "Restore" : "Восстановить";
     public string RestoreDevice => Lang == WsEnumLanguage.English ? "Restore device" : "Восстановить устроство";
@@ -196,7 +197,8 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string HostQuestionWriteToDb(string deviceName) => Lang == WsEnumLanguage.English ? $"Add new host '{deviceName}' into the DB?" : $"Добавить новый хост '{deviceName}' в БД?";
     public string IsException(string? message) => Lang == WsEnumLanguage.English ? $"Error! {message}" : $"Ошибка! {message}";
     public string ProgramNotFound(string fileName) => Lang == WsEnumLanguage.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
-    public string RegistrationSuccess(string deviceName, string scaleName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
+    public string RegistrationComplete => Lang == WsEnumLanguage.English ? "Registration is complete" : $"Регистрация завершена.";
+    public string RegistrationSuccess(string deviceName, string scaleName) => Lang == WsEnumLanguage.English ? $"Registration is complete.{Environment.NewLine}Host '{deviceName}' and ARM '{scaleName}' are found." : $"Хост '{deviceName}' и АРМ '{scaleName}' найдены.";
     public string RegistrationWarning(Guid uid) => Lang == WsEnumLanguage.English ? $"Host UID: {uid}. Before restarting, map the host to an ARM in the DeviceControl application." : $"УИД хоста: {uid}. Перед повторным запуском, сопоставьте хост с АРМом в приложении DeviceControl.";
     public string RegistrationWarningHostNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Host '{deviceName}' not found!" : $"Хост '{deviceName}' не найден!";
     public string RegistrationWarningLineNotFound(string deviceName) => Lang == WsEnumLanguage.English ? $"Line for host '{deviceName}' not found!" : $"Линия для хоста '{deviceName}' не найдена!";

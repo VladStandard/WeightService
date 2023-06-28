@@ -25,8 +25,8 @@
   <Columns>
     <TItemContent TItem="@WsSqlViewDeviceModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDate" Width="10%" FormatString="@WsStrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LogoutDate" Width="10%" FormatString="@WsStrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="TypeName" Width="20%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceIp" Property="Ip" Width="20%"/>

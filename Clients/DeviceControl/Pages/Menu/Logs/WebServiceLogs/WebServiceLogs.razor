@@ -27,7 +27,7 @@
     <TItemContent TItem="@WsSqlViewWebLogModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%"
-                            FormatString="@StrUtils.FormatDtLong"/>
+                            FormatString="@WsStrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="AppVersion" Width="15%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.RequestUrl" Property="RequestUrl" Width="40%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="RequestCountAll" Width="15%"/>
