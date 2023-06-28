@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
-/// Table "SCALES".
+/// Модель таблицы SCALES.
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
@@ -18,8 +18,8 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual byte ShippingLength { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? DeviceSendTimeout { get; set; }
     [XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
-    [XmlElement] public virtual string DeviceComPort { get; set; }
-    [XmlElement] public virtual string ZebraIp { get; set; }
+    [XmlElement] public virtual string DeviceComPort { get; set; } = "";
+    [XmlElement] public virtual string ZebraIp { get; set; } = "";
     [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
     [XmlElement] public virtual int Number { get; set; }
     [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
@@ -34,34 +34,10 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement] public virtual bool IsOrder { get; set; }
     [XmlElement] public virtual bool IsKneading { get; set; }
     [XmlIgnore] public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
+    [XmlElement] public virtual string ClickOnce { get; set; } = "";
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlScaleModel() : base(WsSqlEnumFieldIdentity.Id)
-    {
-        WorkShop = null;
-        PrinterMain = null;
-        PrinterShipping = null;
-        ShippingLength = 0;
-        DeviceSendTimeout = default;
-        DeviceReceiveTimeout = default;
-        DeviceComPort = string.Empty;
-        ZebraIp = string.Empty;
-        ZebraPort = default;
-        Number = 0;
-        LabelCounter = 0;
-        ScaleFactor = default;
-        IsShipping = false;
-        IsOrder = false;
-        IsKneading = false;
-    }
+    public WsSqlScaleModel() : base(WsSqlEnumFieldIdentity.Id) { }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlScaleModel(SerializationInfo info, StreamingContext context) : this()
     {
         WorkShop = (WsSqlWorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WsSqlWorkShopModel));

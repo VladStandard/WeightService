@@ -16,19 +16,19 @@ public sealed class WsSqlLogWebMap : ClassMap<WsSqlLogWebModel>
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsWebs);
         LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(item => item.StampDt).CustomSqlType("DATETIME").Column("STAMP_DT").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(item => item.Version).CustomSqlType("NVARCHAR").Column("VERSION").Length(12).Not.Nullable();
-        Map(item => item.Direction).CustomSqlType("TINYINT").Column("DIRECTION").Not.Nullable();
-        Map(item => item.Url).CustomSqlType("NVARCHAR").Column("URL").Length(512).Not.Nullable();
-        Map(item => item.Params).CustomSqlType("NVARCHAR").Column("PARAMS").Length(1024).Not.Nullable();
-        Map(item => item.Headers).CustomSqlType("NVARCHAR").Column("HEADERS").Length(1024).Not.Nullable();
-        Map(item => item.DataType).CustomSqlType("TINYINT").Column("DATA_TYPE").Not.Nullable();
-        Map(item => item.DataString).CustomSqlType("NVARCHAR").Column("DATA_STRING").Not.Nullable();
-        Map(item => item.CountAll).CustomSqlType("INT").Column("COUNT_ALL").Not.Nullable();
-        Map(item => item.CountSuccess).CustomSqlType("INT").Column("COUNT_SUCCESS").Not.Nullable();
-        Map(item => item.CountErrors).CustomSqlType("INT").Column("COUNT_ERROR").Not.Nullable();
+        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
+        Map(item => item.StampDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("STAMP_DT").Not.Nullable();
+        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
+        Map(item => item.Version).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("VERSION").Length(12).Not.Nullable();
+        Map(item => item.Direction).CustomSqlType(WsSqlFieldTypeUtils.TinyInt).Column("DIRECTION").Not.Nullable();
+        Map(item => item.Url).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("URL").Length(512).Not.Nullable();
+        Map(item => item.Params).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("PARAMS").Length(1024).Not.Nullable();
+        Map(item => item.Headers).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("HEADERS").Length(1024).Not.Nullable();
+        Map(item => item.DataType).CustomSqlType(WsSqlFieldTypeUtils.TinyInt).Column("DATA_TYPE").Not.Nullable();
+        Map(item => item.DataString).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("DATA_STRING").Not.Nullable();
+        Map(item => item.CountAll).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("COUNT_ALL").Not.Nullable();
+        Map(item => item.CountSuccess).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("COUNT_SUCCESS").Not.Nullable();
+        Map(item => item.CountErrors).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("COUNT_ERROR").Not.Nullable();
     }
 }

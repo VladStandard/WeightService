@@ -4,7 +4,7 @@
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
-/// Table validation "SCALES".
+/// Валидатор таблицы SCALES.
 /// </summary>
 public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
 {

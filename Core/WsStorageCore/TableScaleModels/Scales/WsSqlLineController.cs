@@ -4,8 +4,7 @@
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
-/// SQL-контроллер таблицы SCALES.
-/// Клиентский слой доступа к БД.
+/// Контроллер таблицы SCALES.
 /// </summary>
 public sealed class WsSqlLineController : WsSqlTableControllerBase
 {
