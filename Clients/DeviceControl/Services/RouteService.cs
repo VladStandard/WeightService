@@ -19,6 +19,7 @@ using WsStorageCore.TableScaleModels.DeviceTypes;
 using WsStorageCore.TableScaleModels.Organizations;
 using WsStorageCore.TableScaleModels.Plus;
 using WsStorageCore.TableScaleModels.PlusGroups;
+using WsStorageCore.TableScaleModels.PlusScales;
 using WsStorageCore.TableScaleModels.PlusStorageMethods;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.PrintersTypes;
@@ -87,6 +88,7 @@ public class RouteService
             WsSqlPluBundleFkModel => RouteUtil.SectionPlusBundlesFks,
             WsSqlPluLabelModel => RouteUtil.SectionPlusLabels,
             WsSqlPluModel => RouteUtil.SectionPlus,
+            WsSqlPluScaleModel => RouteUtil.SectionPlusLines,
             WsSqlPluNestingFkModel => RouteUtil.SectionPlusNestingFks,
             WsSqlPluStorageMethodModel => RouteUtil.SectionPlusStorage,
             WsSqlPluWeighingModel => RouteUtil.SectionPlusWeightings,
