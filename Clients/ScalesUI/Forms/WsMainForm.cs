@@ -93,7 +93,7 @@ public sealed partial class WsMainForm : Form
             WsLocaleCore.Lang = WsLocaleData.Lang = WsEnumLanguage.Russian;
             // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
-            // Проверка линии.
+            // Настроить сессию для ПО `Печать этикеток`.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {

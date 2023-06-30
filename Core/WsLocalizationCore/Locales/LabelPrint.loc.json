@@ -265,6 +265,154 @@
         "PluginPrintZebra": {
             "en": "Printer Zebra plugin",
             "ru": "Плагин принтера Zebra"
+        },
+        "SetArea": {
+            "en": "Set area",
+            "ru": "Смена площадки"
+        },
+        "LabelContextExpirationDt": {
+            "en": "Good to",
+            "ru": "Годен до"
+        },
+        "LabelContextKneading": {
+            "en": "Kneading",
+            "ru": "Замес"
+        },
+        "MassaK": {
+            "en": "Scales Massa-K",
+            "ru": "Весы Масса-К"
+        },
+        "MassaKShort": {
+            "en": "Massa-K",
+            "ru": "Масса-К"
+        },
+        "LabelContextNesting": {
+            "en": "Nesting",
+            "ru": "Вложенность"
+        },
+        "LabelContextPlu": {
+            "en": "PLU",
+            "ru": "ПЛУ"
+        },
+        "LabelContextProductDt": {
+            "en": "Date of production",
+            "ru": "Дата изготовления"
+        },
+        "LabelContextWeight": {
+            "en": "Weight",
+            "ru": "Вес"
+        },
+        "LabelContextWorkShop": {
+            "en": "WorkShop/Line",
+            "ru": "Цех/Линия"
+        },
+        "Labels": {
+            "en": "Labels",
+            "ru": "Этикетки"
+        },
+        "Line": {
+            "en": "Line",
+            "ru": "Строка"
+        },
+        "MassaExchange": {
+            "en": "Massa exchange",
+            "ru": "Масса обмен"
+        },
+        "MassaIsNotCalc": {
+            "en": "The weight has not been calculated!",
+            "ru": "Вес не расчитан!"
+        },
+        "MassaIsNotFound": {
+            "en": "The scales has not been found!",
+            "ru": "Весы не обнаружены!"
+        },
+        "MassaIsNotQuering": {
+            "en": "The scales are not respond!",
+            "ru": "Весы не отвечают!"
+        },
+        "MassaIsNotRespond": {
+            "en": "The scales Massa-K are not respond!",
+            "ru": "Весы Масса-К не отвечают!"
+        },
+        "MassaManager": {
+            "en": "Massa manager",
+            "ru": "Менеджер массы"
+        },
+        "MassaWaitStable": {
+            "en": "Wait for the weight platform to stabilize",
+            "ru": "Дождитесь стабилизации весовой платформы"
+        },
+        "Memory": {
+            "en": "Memory",
+            "ru": "Память"
+        },
+        "MemoryAll": {
+            "en": "all",
+            "ru": "всего"
+        },
+        "MemoryBusy": {
+            "en": "busy",
+            "ru": "занято"
+        },
+        "MemoryFree": {
+            "en": "free",
+            "ru": "свободно"
+        },
+        "MemoryPhysical": {
+            "en": "Physical memory",
+            "ru": "Физическая память"
+        },
+        "MemoryVirtual": {
+            "en": "Virtual memory",
+            "ru": "Виртуальная память"
+        },
+        "Message": {
+            "en": "Message",
+            "ru": "Сообщение"
+        },
+        "Method": {
+            "en": "Method",
+            "ru": "Метод"
+        },
+        "OperationControl": {
+            "en": "Control of operations",
+            "ru": "Контроль операций"
+        },
+        "PackagedInModifiedAtmosphere": {
+            "en": "Packaged in modified atmosphere",
+            "ru": "Упаковано в модифицированной атмосфере"
+        },
+        "Plu": {
+            "en": "PLU",
+            "ru": "ПЛУ"
+        },
+        "PluCount": {
+            "en": "PLU (count)",
+            "ru": "ПЛУ (шт)"
+        },
+        "Count": {
+            "en": "count",
+            "ru": "шт"
+        },
+        "PluDescriptionSet": {
+            "en": "Descr is set",
+            "ru": "Описание задано"
+        },
+        "PluDescriptionNotSet": {
+            "en": "Descr is not set",
+            "ru": "Описание не задано"
+        },
+        "PluEan13IsNotSet": {
+            "en": "EAN13 is not set",
+            "ru": "ЕАН13 не задан"
+        },
+        "PluGtin": {
+            "en": "GTIN",
+            "ru": "ГТИН"
+        },
+        "PluGtinIsNotSet": {
+            "en": "GTIN is not set",
+            "ru": "ГТИН не задан"
         }
     }
 }

@@ -310,5 +310,7 @@
   <ItemGroup>
     <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
 </Project>
