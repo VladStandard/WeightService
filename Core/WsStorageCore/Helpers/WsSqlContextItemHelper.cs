@@ -356,6 +356,7 @@ public sealed class WsSqlContextItemHelper
     /// <param name="sizeFreeMb"></param>
     public void SaveLogMemory(short sizeAppMb, short sizeFreeMb)
     {
+        if (sizeAppMb.Equals(0) || sizeFreeMb.Equals(0)) return;
         WsSqlLogMemoryModel logMemory = new()
         {
             CreateDt = DateTime.Now,
