@@ -1,22 +1,30 @@
 {
     "Language": {
-        "Name": {
-            "en": "English",
-            "ru": "Russian"
-        },
         "CurrentLanguage": {
             "en": "Current language",
             "ru": "Текущий язык"
+        },
+        "Name": {
+            "en": "English",
+            "ru": "Russian"
         }
     },
     "AppLabelPrint": {
-        "AppTitle": {
-            "en": "Label print",
-            "ru": "Печать этикеток"
-        },
         "AlreadyRunning": {
             "en": "already running",
             "ru": "уже запущено"
+        },
+        "AndArm": {
+            "en": "and ARM",
+            "ru": "и АРМ"
+        },
+        "AndLine": {
+            "en": "and line",
+            "ru": "и линия"
+        },
+        "App": {
+            "en": "Label print",
+            "ru": "Печать этикеток"
         },
         "AppExit": {
             "en": "Exit from the program",
@@ -37,6 +45,14 @@
         "AppWait": {
             "en": "Waiting",
             "ru": "Ожидание"
+        },
+        "AreFound": {
+            "en": "are found",
+            "ru": "найдены"
+        },
+        "AreNotFound": {
+            "en": "are not found",
+            "ru": "не найдены"
         },
         "Bundle": {
             "en": "Bundle",
@@ -90,6 +106,10 @@
             "en": "The platform is empty!",
             "ru": "Платформа пустая!"
         },
+        "ClickOnceIntallDirectory": {
+            "en": "ClickOnce install directory",
+            "ru": "Каталог установки ClickOnce"
+        },
         "CommunicateWithAdmin": {
             "en": "Contact your system administrator.",
             "ru": "Свяжитесь с администратором системы."
@@ -102,6 +122,14 @@
             "en": "COM-port status",
             "ru": "Состояние COM-порта"
         },
+        "ContactWithAdmin": {
+            "en": "Contact your system administrator",
+            "ru": "Обратитесь к системному администратору"
+        },
+        "Count": {
+            "en": "count",
+            "ru": "шт"
+        },
         "Crc": {
             "en": "CRC",
             "ru": "CRC"
@@ -113,6 +141,10 @@
         "DeviceControlIsPreview": {
             "en": "Open a preview-version of device management?",
             "ru": "Открыть превью-версию управления устройствами?"
+        },
+        "Error": {
+            "en": "Error",
+            "ru": "Ошибка"
         },
         "Exception": {
             "en": "Exception",
@@ -130,6 +162,10 @@
             "en": "Date",
             "ru": "Дата"
         },
+        "FieldGln": {
+            "en": "GLN code",
+            "ru": "Код GLN"
+        },
         "FieldIsIncrementCounter": {
             "en": "Counter increment",
             "ru": "Инкремент счётчика"
@@ -142,6 +178,10 @@
             "en": "Kneading",
             "ru": "Замес"
         },
+        "FieldLabelCounter": {
+            "en": "Label counter",
+            "ru": "Счётчик этикеток"
+        },
         "FieldPalletSize": {
             "en": "Pallet size",
             "ru": "Размер паллеты"
@@ -149,10 +189,6 @@
         "FieldPrintCounter": {
             "en": "Print counter",
             "ru": "Счётчик печати"
-        },
-        "FieldLabelCounter": {
-            "en": "Label counter",
-            "ru": "Счётчик этикеток"
         },
         "FieldProductDate": {
             "en": "Date of production",
@@ -166,21 +202,9 @@
             "en": "Control number",
             "ru": "Контрольное число"
         },
-        "FieldGln": {
-            "en": "GLN code",
-            "ru": "Код GLN"
-        },
         "FieldSynonym": {
             "en": "Synonym",
             "ru": "Синоним"
-        },
-        "FieldUnitId": {
-            "en": "Unit ID",
-            "ru": "ИД юнита"
-        },
-        "FieldUnitType": {
-            "en": "Unit type",
-            "ru": "Тип юнита"
         },
         "FieldThresholdLower": {
             "en": "lower",
@@ -202,6 +226,14 @@
             "en": "Time",
             "ru": "Время"
         },
+        "FieldUnitId": {
+            "en": "Unit ID",
+            "ru": "ИД юнита"
+        },
+        "FieldUnitType": {
+            "en": "Unit type",
+            "ru": "Тип юнита"
+        },
         "FieldWeightNetto": {
             "en": "Net weight",
             "ru": "Вес нетто"
@@ -209,6 +241,10 @@
         "FieldWeightTare": {
             "en": "Tare weight",
             "ru": "Вес тары"
+        },
+        "Host": {
+            "en": "Host",
+            "ru": "Хост"
         },
         "HostUidNotFound": {
             "en": "Host UID not detected.",
@@ -230,45 +266,21 @@
             "en": "Check the connection of the scales!",
             "ru": "Проверьте подключение весов!"
         },
+        "IsFoundGenderMan": {
+            "en": "is found",
+            "ru": "найден"
+        },
+        "IsFoundGenderNeutral": {
+            "en": "is found",
+            "ru": "найдено"
+        },
+        "IsFoundGenderWoman": {
+            "en": "is found",
+            "ru": "найдена"
+        },
         "IsNotConnectWithMassa": {
             "en": "Check the connection of the USB-adapter!",
             "ru": "Проверьте подключение ЮСБ-адаптера!"
-        },
-        "LabelPrint": {
-            "en": "Label print",
-            "ru": "Печать этикетки"
-        },
-        "PluginDefault": {
-            "en": "Default plugin",
-            "ru": "Плагин по-умолчанию"
-        },
-        "PluginLabel": {
-            "en": "Label plugin",
-            "ru": "Плагин меток"
-        },
-        "PluginMassa": {
-            "en": "Massa-K plugin",
-            "ru": "Плагин Масса-К"
-        },
-        "PluginMemory": {
-            "en": "Memory plugin",
-            "ru": "Плагин памяти"
-        },
-        "PluginPrint": {
-            "en": "Printer plugin",
-            "ru": "Плагин принтера"
-        },
-        "PluginPrintTsc": {
-            "en": "Printer TSC plugin",
-            "ru": "Плагин принтера TSC"
-        },
-        "PluginPrintZebra": {
-            "en": "Printer Zebra plugin",
-            "ru": "Плагин принтера Zebra"
-        },
-        "SetArea": {
-            "en": "Set area",
-            "ru": "Смена площадки"
         },
         "LabelContextExpirationDt": {
             "en": "Good to",
@@ -277,14 +289,6 @@
         "LabelContextKneading": {
             "en": "Kneading",
             "ru": "Замес"
-        },
-        "MassaK": {
-            "en": "Scales Massa-K",
-            "ru": "Весы Масса-К"
-        },
-        "MassaKShort": {
-            "en": "Massa-K",
-            "ru": "Масса-К"
         },
         "LabelContextNesting": {
             "en": "Nesting",
@@ -306,6 +310,10 @@
             "en": "WorkShop/Line",
             "ru": "Цех/Линия"
         },
+        "LabelPrint": {
+            "en": "Label print",
+            "ru": "Печать этикетки"
+        },
         "Labels": {
             "en": "Labels",
             "ru": "Этикетки"
@@ -313,6 +321,14 @@
         "Line": {
             "en": "Line",
             "ru": "Строка"
+        },
+        "LineForHost": {
+            "en": "Line for host",
+            "ru": "Линия для хоста"
+        },
+        "LowerValue": {
+            "en": "Lower value",
+            "ru": "Нижнее значение"
         },
         "MassaExchange": {
             "en": "Massa exchange",
@@ -333,6 +349,14 @@
         "MassaIsNotRespond": {
             "en": "The scales Massa-K are not respond!",
             "ru": "Весы Масса-К не отвечают!"
+        },
+        "MassaK": {
+            "en": "Scales Massa-K",
+            "ru": "Весы Масса-К"
+        },
+        "MassaKShort": {
+            "en": "Massa-K",
+            "ru": "Масса-К"
         },
         "MassaManager": {
             "en": "Massa manager",
@@ -374,6 +398,42 @@
             "en": "Method",
             "ru": "Метод"
         },
+        "NettoWeight": {
+            "en": "Netto weight",
+            "ru": "Вес нетто"
+        },
+        "NewGenderMan": {
+            "en": "New",
+            "ru": "Новый"
+        },
+        "NewGenderNeutral": {
+            "en": "New",
+            "ru": "Новое"
+        },
+        "NewGenderWoman": {
+            "en": "New",
+            "ru": "Новая"
+        },
+        "NominalValue": {
+            "en": "Nominal value",
+            "ru": "Номинальное значение"
+        },
+        "NotFoundGenderMan": {
+            "en": "Not found",
+            "ru": "Хост"
+        },
+        "NotFoundGenderNeutral": {
+            "en": "Not found",
+            "ru": "Не найдено"
+        },
+        "NotFoundGenderWoman": {
+            "en": "Not found",
+            "ru": "Не найдена"
+        },
+        "NotFoundNeutral": {
+            "en": "Not found",
+            "ru": "Не обнаружено"
+        },
         "OperationControl": {
             "en": "Control of operations",
             "ru": "Контроль операций"
@@ -381,6 +441,14 @@
         "PackagedInModifiedAtmosphere": {
             "en": "Packaged in modified atmosphere",
             "ru": "Упаковано в модифицированной атмосфере"
+        },
+        "Pallet": {
+            "en": "pallet",
+            "ru": "паллета"
+        },
+        "Platform": {
+            "en": "platform",
+            "ru": "платформа"
         },
         "Plu": {
             "en": "PLU",
@@ -390,21 +458,45 @@
             "en": "PLU (count)",
             "ru": "ПЛУ (шт)"
         },
-        "Count": {
-            "en": "count",
-            "ru": "шт"
+        "PluDescriptionNotSet": {
+            "en": "Descr is not set",
+            "ru": "Описание не задано"
         },
         "PluDescriptionSet": {
             "en": "Descr is set",
             "ru": "Описание задано"
         },
-        "PluDescriptionNotSet": {
-            "en": "Descr is not set",
-            "ru": "Описание не задано"
-        },
         "PluEan13IsNotSet": {
             "en": "EAN13 is not set",
             "ru": "ЕАН13 не задан"
+        },
+        "PluginDefault": {
+            "en": "Default plugin",
+            "ru": "Плагин по-умолчанию"
+        },
+        "PluginLabel": {
+            "en": "Label plugin",
+            "ru": "Плагин меток"
+        },
+        "PluginMassa": {
+            "en": "Massa-K plugin",
+            "ru": "Плагин Масса-К"
+        },
+        "PluginMemory": {
+            "en": "Memory plugin",
+            "ru": "Плагин памяти"
+        },
+        "PluginPrint": {
+            "en": "Printer plugin",
+            "ru": "Плагин принтера"
+        },
+        "PluginPrintTsc": {
+            "en": "Printer TSC plugin",
+            "ru": "Плагин принтера TSC"
+        },
+        "PluginPrintZebra": {
+            "en": "Printer Zebra plugin",
+            "ru": "Плагин принтера Zebra"
         },
         "PluGtin": {
             "en": "GTIN",
@@ -413,6 +505,202 @@
         "PluGtinIsNotSet": {
             "en": "GTIN is not set",
             "ru": "ГТИН не задан"
+        },
+        "PluIsPiece": {
+            "en": "pcs",
+            "ru": "шт"
+        },
+        "PluIsWeight": {
+            "en": "weight",
+            "ru": "вес"
+        },
+        "PluItf14IsNotSet": {
+            "en": "ITF14 is not set",
+            "ru": "ИТФ14 не задан"
+        },
+        "PluNotSelect": {
+            "en": "PLU is not selected!",
+            "ru": "ПЛУ не выбрана!"
+        },
+        "PluNotSelectWeight": {
+            "en": "Weight PLU is not selected!",
+            "ru": "Весовая ПЛУ не выбрана!"
+        },
+        "PluPackageNotSelect": {
+            "en": "PLU nesting is not selected!",
+            "ru": "Тара ПЛУ не выбрана!"
+        },
+        "PluPage": {
+            "en": "Page",
+            "ru": "Страница"
+        },
+        "PluTemplateIsNotSet": {
+            "en": "Template is not set",
+            "ru": "Шаблон не задан"
+        },
+        "PluTemplateIsSet": {
+            "en": "Template is set",
+            "ru": "Шаблон задан"
+        },
+        "PluWeight": {
+            "en": "PLU (weight)",
+            "ru": "ПЛУ (вес)"
+        },
+        "ProductWeight": {
+            "en": "Product weight",
+            "ru": "Вес продукта"
+        },
+        "ProgramExit": {
+            "en": "Ending the program...",
+            "ru": "Завершение программы..."
+        },
+        "ProgramIsNotFound": {
+            "en": "Program is not found",
+            "ru": "Программа не найдена"
+        },
+        "ProgramLoad": {
+            "en": "Loading the program...",
+            "ru": "Загрузка программы..."
+        },
+        "QuestionCloseApp": {
+            "en": "Close the app",
+            "ru": "Завершить приложение"
+        },
+        "QuestionPerformOperation": {
+            "en": "Perform the operation?",
+            "ru": "Выполнить операцию?"
+        },
+        "QuestionRunApp": {
+            "en": "Run the app",
+            "ru": "Запустить приложение"
+        },
+        "QuestionWriteToDb": {
+            "en": "Add new record into the DB?",
+            "ru": "Добавить новую запись в БД?"
+        },
+        "Registration": {
+            "en": "Device registration",
+            "ru": "Регистрация устройства"
+        },
+        "RegistrationIsComplete": {
+            "en": "Registration is complete",
+            "ru": "Регистрация завершена"
+        },
+        "RequestParameters": {
+            "en": "Request parameters",
+            "ru": "Запрос параметров"
+        },
+        "Restore": {
+            "en": "Restore",
+            "ru": "Восстановить"
+        },
+        "RestoreDevice": {
+            "en": "Restore device",
+            "ru": "Восстановить устроство"
+        },
+        "ScaleQueue": {
+            "en": "Scales message queue",
+            "ru": "Очередь сообщений весов"
+        },
+        "ScheduleForNextDay": {
+            "en": "Schedule for the next day",
+            "ru": "Расписание на следующий день"
+        },
+        "ScheduleForNextHour": {
+            "en": "Schedule for the next hour",
+            "ru": "Расписание на следующий час"
+        },
+        "ScreenResolution": {
+            "en": "Screen resolution",
+            "ru": "Разрешение экрана"
+        },
+        "SetArea": {
+            "en": "Set area",
+            "ru": "Смена площадки"
+        },
+        "ShippingLabels": {
+            "en": "Shipping labels",
+            "ru": "Транспортные этикетки"
+        },
+        "StateCorrect": {
+            "en": "correct",
+            "ru": "верна"
+        },
+        "StateDisable": {
+            "en": "disable",
+            "ru": "отключено"
+        },
+        "StateError": {
+            "en": "error",
+            "ru": "ошибка"
+        },
+        "StateIsNotResponsed": {
+            "en": "is not responsed",
+            "ru": "нет ответа"
+        },
+        "StateIsResponsed": {
+            "en": "is responsed",
+            "ru": "есть ответ"
+        },
+        "SwitchKneading": {
+            "en": "Switch kneading for",
+            "ru": "Смена замеса для"
+        },
+        "SwitchLine": {
+            "en": "Switch line",
+            "ru": "Смена линии"
+        },
+        "SwitchMore": {
+            "en": "Switch more",
+            "ru": "Смена ещё"
+        },
+        "SwitchPlu": {
+            "en": "Switch PLU",
+            "ru": "Смена ПЛУ"
+        },
+        "SwitchPluLine": {
+            "en": "Switch line's PLU",
+            "ru": "Смена ПЛУ линии"
+        },
+        "SwitchPluNesting": {
+            "en": "Switch PLU nesting",
+            "ru": "Смена вложенности ПЛУ"
+        },
+        "Terminal": {
+            "en": "terminal",
+            "ru": "терминал"
+        },
+        "UpperValue": {
+            "en": "Upper value",
+            "ru": "Верхнее значение"
+        },
+        "WeightGenderMan": {
+            "en": "Weight",
+            "ru": "Весовой"
+        },
+        "WeightGenderWoman": {
+            "en": "Weight",
+            "ru": "Весовая"
+        },
+        "WeightingControl": {
+            "en": "The weight is out of bounds!",
+            "ru": "Вес выходит за границы!"
+        },
+        "WeightingIsCalc": {
+            "en": "Stable is calculated",
+            "ru": "Рассчитывается вес"
+        },
+        "WeightingIsStableDescription": {
+            "en": "Scales are stable | Gross weight",
+            "ru": "Весы стабильны | Вес брутто"
+        },
+        "WeightUnitGr": {
+            "en": "gr",
+            "ru": "гр"
+        },
+        "WeightUnitKg": {
+            "en": "kg",
+            "ru": "кг"
         }
     }
 }

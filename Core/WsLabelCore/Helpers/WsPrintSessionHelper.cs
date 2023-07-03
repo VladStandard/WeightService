@@ -165,8 +165,8 @@ public sealed class WsPrintSessionHelper
         if (template.IsNew)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluTemplateNotSet);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluTemplateNotSet);
+            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
+            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
             return;
         }
         // Выбор типа ПЛУ.

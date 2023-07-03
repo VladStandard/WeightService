@@ -20,6 +20,7 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Xml;
 global using System.Xml.Serialization;
+global using CommunityToolkit.Mvvm.ComponentModel;
 global using WsDataCore.Common;
 global using WsDataCore.Enums;
 global using WsDataCore.Models;

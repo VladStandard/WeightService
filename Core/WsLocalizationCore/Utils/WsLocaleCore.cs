@@ -1,10 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.DeviceControlModels;
-
 namespace WsLocalizationCore.Utils;
 
+[DebuggerDisplay("{ToString()}")]
 public static class WsLocaleCore
 {
     #region Public and private fields, properties, constructor
@@ -16,21 +15,21 @@ public static class WsLocaleCore
         set
         {
             _lang = value;
-            Action.SetLanguage(_lang);
-            Buttons.SetLanguage(_lang);
-            Convert.SetLanguage(_lang);
-            DeviceControl.SetLanguage(_lang);
-            Dialog.SetLanguage(_lang);
-            Memory.SetLanguage(_lang);
-            Print.SetLanguage(_lang);
-            LabelPrint.SetLanguage(_lang);
-            Settings.SetLanguage(_lang);
-            Sql.SetLanguage(_lang);
-            System.SetLanguage(_lang);
-            Table.SetLanguage(_lang);
-            Validator.SetLanguage(_lang);
-            WebService.SetLanguage(_lang);
-            ContextMenu.SetLanguage(_lang);
+            Action.Lang = _lang;
+            Buttons.Lang = _lang;
+            Convert.Lang = _lang;
+            DeviceControl.Lang = _lang;
+            Dialog.Lang = _lang;
+            Memory.Lang = _lang;
+            Print.Lang = _lang;
+            LabelPrint.Lang = _lang;
+            Settings.Lang = _lang;
+            Sql.Lang = _lang;
+            System.Lang = _lang;
+            Table.Lang = _lang;
+            Validator.Lang = _lang;
+            WebService.Lang = _lang;
+            ContextMenu.Lang = _lang;
         }
     }
 
@@ -50,10 +49,6 @@ public static class WsLocaleCore
     public static WsLocaleValidator Validator { get; } = new();
     public static WsLocaleWebService WebService { get; } = new();
     public static WsLocaleContextMenu ContextMenu { get; } = new();
-
-    #endregion
-
-    #region Constructor and destructor
 
     static WsLocaleCore()
     {
@@ -142,6 +137,6 @@ public static class WsLocaleCore
         public static string VersionsDb => Lang == WsEnumLanguage.English ? "DB versions" : "Версии БД";
         public static string DeviceType => Lang == WsEnumLanguage.English ? "Device types" : "Типы устройств";
         public static string Clips => Lang == WsEnumLanguage.English ? "SectionClips" : "Клипсы";
-        
+
     }
 }

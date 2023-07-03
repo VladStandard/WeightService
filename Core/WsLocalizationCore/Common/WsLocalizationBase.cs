@@ -6,20 +6,13 @@ namespace WsLocalizationCore.Common;
 /// <summary>
 /// Базовый класс локализации.
 /// </summary>
-public class WsLocalizationBase : INotifyPropertyChanged
+public class WsLocalizationBase : ObservableObject
 {
-    #region INotifyPropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
-    //public Loc Locale { get; private set; } = Loc.Instance;
     public Loc Locale { get; private set; } = new();
     private WsEnumLanguage _lang;
-    public WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
+    public virtual WsEnumLanguage Lang { get => _lang; set { _lang = value; SetLanguage(_lang); } }
 
     public WsLocalizationBase()
     {
@@ -43,7 +36,7 @@ public class WsLocalizationBase : INotifyPropertyChanged
     /// Сменить язык.
     /// </summary>
     /// <param name="language"></param>
-    public virtual void SetLanguage(WsEnumLanguage language)
+    private void SetLanguage(WsEnumLanguage language)
     {
         switch (Lang = language)
         {

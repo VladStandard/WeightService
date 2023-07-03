@@ -24,8 +24,10 @@ public sealed class WsLocalizationManagerTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsLocalizationManager wsLocalization = new();
-            wsLocalization.Lang = WsEnumLanguage.English;
+            WsLocalizationManager wsLocalization = new()
+            {
+                Lang = WsEnumLanguage.English
+            };
             Assert.That(wsLocalization.Lang, Is.EqualTo(WsEnumLanguage.English));
             Assert.That(wsLocalization.Locale.CurrentLanguage, Is.EqualTo("en"));
             Assert.That(wsLocalization.LabelPrint.Lang, Is.EqualTo(WsEnumLanguage.English));
