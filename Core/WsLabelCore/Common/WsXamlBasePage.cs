@@ -10,11 +10,10 @@ namespace WsLabelCore.Common;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlBasePage : UserControl, IWsXamlPage
+public class WsXamlBasePage : UserControl//, IWsXamlPage
 {
     #region Public and private fields, properties, constructor
 
-    public event PropertyChangedEventHandler? PropertyChanged;
     public WsXamlBaseViewModel ViewModel { get; private set; }
     private ItemsControl ItemsControlMain { get; set; }
     private FrameworkElementFactory ButtonFactoryMain { get; set; }
