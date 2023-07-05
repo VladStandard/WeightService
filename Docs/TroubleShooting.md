@@ -64,3 +64,7 @@ Unexpected protocol data | In | Any profile | No Block | Notify | No Log
 
 ## Apps
 1. Проверить в DataCore модели данных SQL-таблиц на наличие не виртуальных свойств и методов.
+
+## Tests
+Could not load file or assembly 'System.Deployment
+Add NuGet package: FrameworkExtract.System.Deployment

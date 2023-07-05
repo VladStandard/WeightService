@@ -7,7 +7,7 @@ namespace WsStorageCore.Common;
 /// Базовый класс SQL-представления.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewBase : WsBaseMvvm
+public class WsSqlViewBase : WsViewModelBase
 {
     #region Public and private fields, properties, constructor
 

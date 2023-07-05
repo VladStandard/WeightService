@@ -45,7 +45,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsMarked} | {IsEnabled} | {Plu}";
+    public override string ToString() => $"{GetIsMarked()} | {IsEnabled} | {Plu}";
 
     public override bool Equals(object obj)
     {

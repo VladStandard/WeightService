@@ -41,9 +41,7 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Scale)}: {Scale.Description}. " +
-        $"{nameof(ScreenShot)}: {ScreenShot.Length}";
+        $"{GetIsMarked()} | {Scale.Description} | {ScreenShot.Length}";
 
     public override bool Equals(object obj)
     {

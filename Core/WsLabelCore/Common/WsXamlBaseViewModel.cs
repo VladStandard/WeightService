@@ -8,7 +8,7 @@ namespace WsLabelCore.Common;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsXamlBaseViewModel : WsBaseMvvmViewModel, IWsViewModel
+public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 

@@ -201,13 +201,15 @@ public static class WsServiceUtilsGet
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <returns></returns>
-    public static WsSqlPluCharacteristicModel GetItemPluCharacteristic(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-        Guid uid1C, Guid uid1CException, string refName)
+    public static WsSqlPluCharacteristicModel GetItemPluCharacteristic(WsSqlEnumContextType contextType, 
+        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
     {
         WsSqlPluCharacteristicModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusCharacteristics.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.ContextPluCharacteristics.GetNewItem(),
+            WsSqlEnumContextType.Cache => 
+                WsServiceUtils.ContextCache.PlusCharacteristics.Find(
+                    item => item.Uid1C.Equals(uid1C))
+                ?? WsServiceUtils.ContextManager.ContextPluCharacteristics.GetNewItem(),
             _ => WsServiceUtils.ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
@@ -227,13 +229,14 @@ public static class WsServiceUtilsGet
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <returns></returns>
-    public static WsSqlPluCharacteristicsFkModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-        Guid uid1C, Guid uid1CException, string refName)
+    public static WsSqlPluCharacteristicsFkModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, 
+        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
     {
         WsSqlPluCharacteristicsFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusCharacteristicsFks.Find(item =>
-                Equals(item.Plu.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.ContextPluCharacteristicsFk.GetNewItem(),
+            WsSqlEnumContextType.Cache => 
+                WsServiceUtils.ContextCache.PlusCharacteristicsFks.Find(item =>
+                Equals(item.Characteristic.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.ContextPluCharacteristicsFk.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -346,5 +349,60 @@ public static class WsServiceUtilsGet
         return plus1CFks;
     }
 
+    /// <summary>
+    /// Получить связь вложенности ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    public static WsSqlPluNestingFkModel GetItemPluNestingFkDefault(WsSqlEnumContextType contextType, 
+        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
+    {
+        WsSqlPluNestingFkModel result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => 
+                WsServiceUtils.ContextCache.PlusNestingFks.Find(
+                    item => item.PluBundle.Plu.Uid1C.Equals(uid1C) && item.IsDefault)
+                    ?? WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem(),
+            _ => throw new ArgumentException(),
+        };
+        if (result.IsNew)
+        {
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+    
+    /// <summary>
+    /// Получить список связей вложенности ПЛУ.
+    /// </summary>
+    /// <param name="contextType"></param>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="uid1CException"></param>
+    /// <param name="refName"></param>
+    /// <returns></returns>
+    public static List<WsSqlPluNestingFkModel> GetListPluNestingFks(WsSqlEnumContextType contextType, 
+        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
+    {
+        List<WsSqlPluNestingFkModel> result = contextType switch
+        {
+            WsSqlEnumContextType.Cache => 
+                WsServiceUtils.ContextCache.PlusNestingFks.Where(
+                    item => item.PluBundle.Plu.Uid1C.Equals(uid1C)).ToList(),
+            _ => throw new ArgumentException(),
+        };
+        if (!result.Any())
+        {
+            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
+                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+        }
+        return result;
+    }
+    
     #endregion
 }

@@ -11,7 +11,7 @@ namespace WsLabelCore.Models;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
-public sealed partial class WsActionCommandModel : WsBaseMvvm
+public sealed partial class WsActionCommandModel : WsViewModelBase
 {
     #region Public and private fields, properties, constructor
 

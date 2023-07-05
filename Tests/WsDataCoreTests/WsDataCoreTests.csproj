@@ -8,6 +8,7 @@
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FrameworkExtract.System.Deployment" Version="4.0.30319" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

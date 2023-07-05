@@ -18,7 +18,6 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     /// </summary>
     [XmlIgnore] public virtual Guid NomenclatureGuid{ get; set; }
 
-
     public WsSqlPluCharacteristicModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
@@ -42,9 +41,7 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(AttachmentsCount)}: {AttachmentsCount}. ";
+        $"{GetIsMarked()} | {Uid1C} | {Name} | {AttachmentsCount}";
 
     public override bool Equals(object obj)
     {

@@ -58,15 +58,8 @@ public class WsSqlLogModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Device)}: {Device?.Name ?? "null"}. " +
-        $"{nameof(App)}: {App?.Name ?? "null"}. " +
-        $"{nameof(LogType)}: {LogType?.Icon ?? "null"}. " +
-        $"{nameof(Version)}: {Version}. " +
-        $"{nameof(File)}: {File}. " +
-        $"{nameof(Line)}: {Line}. " +
-        $"{nameof(Member)}: {Member}. " +
-        $"{nameof(Message)}: {Message}. ";
+        $"{GetIsMarked()} | {Device?.Name ?? "null"} | {App?.Name ?? "null"} | {LogType?.Icon ?? "null"} | {Version} | {File} " +
+        $"{Line} | {Member} | {Message}";
 
     public override bool Equals(object obj)
     {

@@ -65,10 +65,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Version)}: {Version}. " +
-        $"{nameof(Direction)}: {Direction}. " +
-        $"{nameof(Url)}: {Url}. ";
+        $"{GetIsMarked()} | {Version} | {Direction} | {Url}";
 
     public override bool Equals(object obj)
     {

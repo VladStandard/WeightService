@@ -4,21 +4,19 @@
 namespace WsStorageCore.TableDirectModels;
 
 [Serializable]
+[DebuggerDisplay("{ToString()}")]
 public sealed class SsccDirect : WsSqlSerializeBase
 {
-	#region Public and private fields, properties, constructor
+    #region Public and private fields, properties, constructor
 
-	[XmlElement("SSCC")] public string Sscc { get; set; } = string.Empty;
+    [XmlElement("SSCC")] public string Sscc { get; set; } = string.Empty;
     [XmlElement("GLN")] public string Gln { get; set; } = string.Empty;
-	[XmlElement("UnitID")] public int UnitId { get; set; }
+    [XmlElement("UnitID")] public int UnitId { get; set; }
     [XmlElement("UnitType")] public byte UnitType { get; set; }
     [XmlElement("SynonymSSCC")] public string SynonymSscc => $"({Sscc.Substring(0, 2)}){Sscc.Substring(2, 17)}";
     [XmlElement("Check")] public int Check { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	public SsccDirect() { }
+    public SsccDirect() { }
 
     public SsccDirect(string sscc)
     {

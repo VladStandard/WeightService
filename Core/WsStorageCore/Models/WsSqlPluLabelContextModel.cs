@@ -142,7 +142,6 @@ public class WsSqlPluLabelContextModel : SerializeBase
         /*
         Константа [3 симв]:     234
         Номер АРМ [5 симв]:     ScaleNumber
-        Вложенность [2 симв]:   PluNesting2
         Счётчик [8 симв]:       ScaleCounter6
         Дата [6 симв]:          ProductDateBarCodeFormat
         */

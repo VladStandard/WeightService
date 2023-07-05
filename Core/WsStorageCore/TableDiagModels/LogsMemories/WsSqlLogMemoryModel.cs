@@ -47,11 +47,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() => 
-        $"{GetIsMarked()} | " +
-        $"{nameof(App)}: {App.Name}. " +
-        $"{nameof(Device)}: {Device.Name}. " +
-        $"{nameof(SizeAppMb)}: {SizeAppMb}. " + 
-        $"{nameof(SizeFreeMb)}: {SizeFreeMb}";
+        $"{GetIsMarked()} | {App.Name} | {Device.Name} | {SizeAppMb} / {SizeFreeMb}";
 
     public override bool Equals(object obj)
     {
