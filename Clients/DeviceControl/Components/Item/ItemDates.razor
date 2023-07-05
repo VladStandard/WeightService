@@ -1,7 +1,7 @@
 ﻿@using WsDataCore.Utils
 @inherits LayoutComponentBase
 
-@if (SqlItem.CreateDt != DateTime.MinValue && SqlItem.ChangeDt != DateTime.MinValue)
+@if (!SqlItem.IsNew)
 {
   <tr>
     <td>

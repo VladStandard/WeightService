@@ -1,4 +1,5 @@
 using DeviceControl.Utils;
+using FluentNHibernate.Conventions;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
@@ -57,9 +58,11 @@ public class RouteService
 
     public static string GetItemRoute(WsSqlTableBase? item)
     {
-        if (item == null)
-            return string.Empty;
         string page = GetSectionRoute(item);
+        
+        if (page.IsEmpty() || item == null)
+            return string.Empty;
+        
         return item.Identity.Name switch
         {
             WsSqlEnumFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
