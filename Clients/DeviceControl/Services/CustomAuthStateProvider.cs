@@ -26,7 +26,6 @@ public class UserRightsService : IUserRightsService
         {
             access = new()
             {
-                LoginDt = DateTime.Now,
                 Name = username,
                 Rights = (byte)WsEnumAccessRights.None
             };
@@ -34,7 +33,6 @@ public class UserRightsService : IUserRightsService
         }
         else
         {
-            access.LoginDt = DateTime.Now;
             ContextManager.SqlCore.Update(access);
         }
         for (int i = access.Rights; i >= 0; --i)
