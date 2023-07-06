@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-//using Microsoft.AspNetCore.Components;
-
 using System.Threading;
 using WsDataCore.Memory;
 using WsDataCore.Models;
@@ -10,7 +8,7 @@ using WsStorageCore.Helpers;
 
 namespace WsBlazorCore.Settings;
 
-public class BlazorAppSettingsHelper //: LayoutComponentBase
+public class BlazorAppSettingsHelper
 {
     #region Design pattern "Lazy Singleton"
 

@@ -3,7 +3,7 @@
 
 namespace DeviceControl.Components.Item;
 
-public sealed partial class ItemTableBody : LayoutComponentBase
+public sealed partial class ItemTableBody : ComponentBase
 {
     #region Public and private fields, properties, constructor
 

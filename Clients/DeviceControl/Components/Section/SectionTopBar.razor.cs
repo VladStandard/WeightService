@@ -5,7 +5,7 @@ using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Section;
 
-public partial class SectionTopBar : LayoutComponentBase
+public partial class SectionTopBar : ComponentBase
 {
     #region Public and private fields, properties, constructor
 

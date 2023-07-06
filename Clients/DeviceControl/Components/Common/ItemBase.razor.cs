@@ -5,7 +5,7 @@ using DeviceControl.Services;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
 
-namespace DeviceControl.Components.Item;
+namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {

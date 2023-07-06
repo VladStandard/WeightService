@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorDownloadFile;
-using DeviceControl.Components.Item;
 using WsBlazorCore.Settings;
 using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.TemplatesResources;

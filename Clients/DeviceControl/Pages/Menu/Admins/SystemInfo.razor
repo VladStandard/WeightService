@@ -1,7 +1,7 @@
 @page "/system"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using DeviceControl.Components.Item
-@inherits RazorComponentBase
+@inherits ComponentBase
 
 <MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">

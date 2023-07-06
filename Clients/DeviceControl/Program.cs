@@ -30,19 +30,21 @@ builder.Services.AddControllersWithViews();
 
 #region AddScoped
 
-builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RouteService>();
+builder.Services.AddScoped<LocalStorageService>();
+
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<LocalStorageService>();
+
 
 builder.Services.AddScoped<IFileUpload, FileUpload>();
 builder.Services.AddScoped<IFileDownload, FileDownload>();
 builder.Services.AddScoped<IUserRightsService, UserRightsService>();
-
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 #endregion
 

@@ -2,14 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Security.Claims;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Radzen;
+using DeviceControl.Services;
 using WsBlazorCore.Settings;
-using WsStorageCore.Common;
 using WsStorageCore.Helpers;
 
-namespace WsBlazorCore.Razors;
+namespace DeviceControl.Components.Common;
 
 public partial class RazorComponentBase : LayoutComponentBase
 {
@@ -19,7 +16,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     [Inject] protected DialogService DialogService { get; set; }
     [Inject] protected NotificationService NotificationService { get; set; }
-    [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] protected UserService UserService { get; set; }
 
     #endregion
 
@@ -46,8 +43,7 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        User = authState.User;
+        User = await UserService.GetUser();
         await base.OnInitializedAsync();
     }
 }

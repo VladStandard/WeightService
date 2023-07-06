@@ -1,7 +1,8 @@
 @page "/profile"
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits RazorComponentBase
+@using WsStorageCore.Helpers
+@inherits ComponentBase
 
 <MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.UserInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
@@ -17,7 +18,7 @@
   </tr>
   <tr>
     <td>@WsLocaleCore.Strings.AccessRights</td>
-    <td>@ContextManager.ContextItem.GetAccessRightsDescription(User)</td>
+    <td>@WsSqlContextManagerHelper.Instance.ContextItem.GetAccessRightsDescription(User)</td>
   </tr>
   <tr>
     <td>@WsLocaleCore.Strings.Language</td>

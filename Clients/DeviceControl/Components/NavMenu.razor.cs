@@ -6,7 +6,7 @@ using WsLocalizationCore.DeviceControlModels;
 
 namespace DeviceControl.Components;
 
-public sealed partial class NavMenu : RazorComponentBase
+public sealed partial class NavMenu : ComponentBase
 {
     #region Public and private fields, properties, constructor
 

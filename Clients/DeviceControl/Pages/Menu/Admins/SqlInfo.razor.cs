@@ -6,7 +6,7 @@ using WsStorageCore.ViewDiagModels;
 
 namespace DeviceControl.Pages.Menu.Admins;
 
-public sealed partial class SqlInfo : LayoutComponentBase
+public sealed partial class SqlInfo : ComponentBase
 {
     #region Public and private fields, properties, constructor
     
@@ -14,9 +14,9 @@ public sealed partial class SqlInfo : LayoutComponentBase
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
-    private string SqlConnectionString => $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +
-                                          $"{ContextManager.JsonSettings.Local.Sql.InitialCatalog} \\ " +
-                                          $"{ContextManager.JsonSettings.Local.Sql.UserId}";
+    private static string SqlConnectionString => $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +
+                                                 $"{ContextManager.JsonSettings.Local.Sql.InitialCatalog} \\ " +
+                                                 $"{ContextManager.JsonSettings.Local.Sql.UserId}";
     
     public SqlInfo()
     {
