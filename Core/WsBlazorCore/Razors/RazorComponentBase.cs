@@ -19,25 +19,23 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     [Inject] protected DialogService DialogService { get; set; }
     [Inject] protected NotificationService NotificationService { get; set; }
+    [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     #endregion
 
     #region Constants
 
-    public static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     protected static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
 
     #endregion
 
     #region Parameters
-
-    [CascadingParameter] private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
-
-    #endregion
-
+    
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
 
-    public ClaimsPrincipal? User { get; set; }
+    #endregion
+    protected ClaimsPrincipal? User { get; set; }
 
     public RazorComponentBase()
     {
@@ -48,10 +46,8 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        if (AuthenticationStateTask is not null)
-        {
-            AuthenticationState authState = await AuthenticationStateTask;
-            User = authState?.User;
-        }
+        AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        User = authState.User;
+        await base.OnInitializedAsync();
     }
 }

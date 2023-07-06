@@ -67,6 +67,11 @@ html, body {
   border-bottom: 1px solid #d6d5d5;
 }
 
+.table_head_model {
+  color: #3976f6;
+  font-size: 16px;
+}
+
 .rz-dialog-confirm-buttons button.rz-primary {
   background-color: #6aaa78 !important;
   color: white !important;

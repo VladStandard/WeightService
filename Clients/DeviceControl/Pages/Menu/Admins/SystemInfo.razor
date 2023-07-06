@@ -5,7 +5,7 @@
 
 <MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyleInfo()"/>
+  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadDefault()"/>
   <tbody>
   <tr>
     <td>DeviceControl / WsBlazorCore/ WsStorageCore</td>
@@ -15,7 +15,7 @@
     <td>@WsLocaleCore.Strings.HostName</td>
     <td colspan="2">@Environment.MachineName</td>
   </tr>
-  <tr style="height: 200px; ">
+  <tr style="height: 200px;">
     <td>@WsLocaleCore.Strings.DbAndMemoryGauge</td>
     <td>
       <div align="center">
@@ -37,11 +37,6 @@
             <RadzenRadialGaugeScaleRange From="@(TotalRamSize * 0.9)" To="@TotalRamSize" Fill="red"/>
           </RadzenRadialGaugeScale>
         </RadzenRadialGauge>
-      </div>
-    </td>
-    <td>
-      <div align="center">
-        <h4>Sql</h4>
       </div>
     </td>
   </tr>

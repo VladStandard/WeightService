@@ -37,8 +37,7 @@ public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourc
     {
         foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
         {
-            if (FileUpload is not null)
-                FileUpload.UploadAsync(SqlItemCast, file.OpenReadStream(10_000_000));
+            FileUpload?.UploadAsync(SqlItemCast, file.OpenReadStream(10_000_000));
         }
 
         InvokeAsync(StateHasChanged);
@@ -46,8 +45,7 @@ public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourc
 
     private void OnFileDownload()
     {
-        if (FileDownload is not null)
-            FileDownload.DownloadAsync(DownloadFileService, SqlItemCast);
+        FileDownload?.DownloadAsync(DownloadFileService, SqlItemCast);
 
         InvokeAsync(StateHasChanged);
     }

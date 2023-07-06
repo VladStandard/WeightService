@@ -13,7 +13,7 @@ public partial class ItemActions<TItem> : ItemBase<TItem> where TItem : WsSqlTab
 
     [Parameter] public EventCallback OnItemCancel { get; set; }
 
-    [Parameter] public new ButtonSettingsModel ButtonSettings { get; set; }
+    [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
 
     private bool GetDisableStatusOfSaveBtn => 
         !(User?.IsInRole(UserAccessStr.Write) == true && ButtonSettings.IsShowSave);

@@ -1,22 +1,16 @@
 @inherits LayoutComponentBase
 
 <tr>
-  <td>
-    <b>@IdentityName</b>
-  </td>
+  <td><b>@IdentityName</b></td>
   <td>@IdentityNameId</td>
   <td>@WsLocaleCore.Table.IsMarked</td>
-  <td>
-    <RadzenCheckBox TValue="bool" @bind-Value="@SqlItem.IsMarked"/>
-  </td>
+  <td><RadzenSwitch @bind-Value="@SqlItem.IsMarked"/></td>
 </tr>
 
 @if (IsSqlItem1C)
 {
   <tr>
-    <td>
-      <b>@WsLocaleCore.Table.Uid1c</b>
-    </td>
+    <td><b>@WsLocaleCore.Table.Uid1c</b></td>
     <td>@Guid1C</td>
     <td/>
     <td/>

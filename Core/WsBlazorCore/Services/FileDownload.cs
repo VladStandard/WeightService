@@ -7,12 +7,7 @@ namespace WsBlazorCore.Services;
 
 public class FileDownload : IFileDownload
 {
-    //private readonly IWebHostEnvironment _environment;
-    //public FileDownload(IWebHostEnvironment environment)
-    //{
-    //    _environment = environment;
-    //}
-
+    
     public async Task DownloadAsync(IBlazorDownloadFileService? blazorDownloadFileService, WsSqlTemplateResourceModel? item)
     {
         if (item == null || item.DataValue.Length == 0)

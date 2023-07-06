@@ -10,9 +10,9 @@ public sealed partial class SystemInfo : RazorComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private string VerApp => WsAssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
-    private string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
-    private string VerLibDataCore => WsAssemblyUtils.GetLibVersion();
+    private static string VerApp => WsAssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
+    private static string VerLibBlazorCore => BlazorCoreUtils.GetLibVersion();
+    private static string VerLibDataCore => WsAssemblyUtils.GetLibVersion();
     private ulong CurrentRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalAllocated.MegaBytes;
     private ulong TotalRamSize => BlazorAppSettings.Memory.MemorySize.PhysicalTotal.MegaBytes;
 

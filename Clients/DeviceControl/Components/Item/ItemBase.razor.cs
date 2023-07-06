@@ -11,7 +11,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 {
     [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
-    [Inject] protected NavigationManager NavigationManager { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }

@@ -4,14 +4,10 @@
 @if (!SqlItem.IsNew)
 {
   <tr>
-    <td>
-      <b>@WsLocaleCore.Table.CreateDt.ToUpper()</b>
-    </td>
+    <td><b>@WsLocaleCore.Table.CreateDt.ToUpper()</b></td>
     <td>@string.Format(WsStrUtils.FormatDtLong, SqlItem.CreateDt)</td>
 
-    <td>
-      <b>@WsLocaleCore.Table.ChangeDt.ToUpper()</b>
-    </td>
+    <td><b>@WsLocaleCore.Table.ChangeDt.ToUpper()</b></td>
     <td>@string.Format(WsStrUtils.FormatDtLong, SqlItem.ChangeDt)</td>
   </tr>
 }

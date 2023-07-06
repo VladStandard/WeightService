@@ -1,16 +1,15 @@
 @typeparam TItem
 @using DeviceControl.Services
-@inherits ItemBase<TItem>
+@inherits ComponentBase
 
 <MudPaper Outlined="true">
   <MudToolBar Dense="true" Class="my-n1">
     <RadzenButton
       Icon="refresh"
-      ButtonStyle="@ButtonStyle.Primary"
+      ButtonStyle="@ButtonStyle.Secondary"
       Style="margin-right: 1%; width: 60px;"
       Size="@ButtonSize.Small"
-      Disabled="@(!ContextManager.SqlCore.IsConnected())"
       Click="OnItemUpdate"/>
-    <RadzenLink Style="font-weight: bold" Path="@RouteService.GetSectionRoute(SqlItemCast)" Text="@Title"/>
+    <RadzenLink Style="font-weight: bold" Path="@RouteService.GetSectionRoute(new TItem())" Text="@Title"/>
   </MudToolBar>
 </MudPaper>
