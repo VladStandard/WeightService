@@ -61,6 +61,7 @@ public static class RouteUtil
     public static string SectionTemplates => "/section/templates";
     public static string SectionWorkShops => "/section/workshops";
     public static string Profile => "/profile";
+    public static string LogsMemory => "/memory";
 
     #endregion
 }
