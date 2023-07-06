@@ -226,7 +226,7 @@ public class WsDataTestsHelper
         AssertAction(() =>
         {
             List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
-            TestContext.WriteLine($"{nameof(items.Count)}: {items.Count}");
+            TestContext.WriteLine($"Found {nameof(items.Count)}: {items.Count}");
             if (isGreater)
                 Assert.Greater(items.Count, 0);
             foreach (T item in items)
@@ -235,7 +235,7 @@ public class WsDataTestsHelper
                 ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
                 if (!validationResult.IsValid)
                 {
-                    TestContext.WriteLine($"{nameof(item)}: {item}");
+                    TestContext.WriteLine($"{item}");
                     TestContext.WriteLine($"{nameof(validationResult)}: {validationResult}");
                 }
                 if (!validationResult.IsValid)

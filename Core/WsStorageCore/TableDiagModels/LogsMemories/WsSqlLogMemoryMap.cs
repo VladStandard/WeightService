@@ -16,10 +16,10 @@ public sealed class WsSqlLogMemoryMap : ClassMap<WsSqlLogMemoryModel>
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsMemories);
         LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
-        Map(item => item.SizeAppMb).CustomSqlType("SMALLINT").Column("SIZE_APP_MB").Not.Nullable().Default("0");
-        Map(item => item.SizeFreeMb).CustomSqlType("SMALLINT").Column("SIZE_FREE_MB").Not.Nullable().Default("0");
+        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
+        Map(item => item.SizeAppMb).CustomSqlType(WsSqlFieldTypeUtils.SmallInt).Column("SIZE_APP_MB").Not.Nullable().Default("0");
+        Map(item => item.SizeFreeMb).CustomSqlType(WsSqlFieldTypeUtils.SmallInt).Column("SIZE_FREE_MB").Not.Nullable().Default("0");
         References(item => item.App).Column("APP_UID").Not.Nullable();
         References(item => item.Device).Column("DEVICE_UID").Not.Nullable();
     }

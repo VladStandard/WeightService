@@ -49,6 +49,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromLines()
     {
+        // Настроить сессию для ПО `Печать этикеток`.
         LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
             WsFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId,
             WsFormNavigationUtils.LinesUserControl.ViewModel.Area);

@@ -93,7 +93,7 @@ public sealed partial class WsMainForm : Form
             WsLocaleCore.Lang = WsLocaleData.Lang = WsEnumLanguage.Russian;
             // Загрузить WinForms-контрол ожидания.
             LoadNavigationWaitUserControl();
-            // Проверка линии.
+            // Настроить сессию для ПО `Печать этикеток`.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (LabelSession.DeviceScaleFk.IsNew)
             {
@@ -126,14 +126,17 @@ public sealed partial class WsMainForm : Form
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
             WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
-            // Логи.
-            UserSession.StopwatchMain.Stop();
+            // Лог.
             ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
-            ContextManager.ContextItem.SaveLogInformation(
-                $"{WsLocaleData.Program.IsLoaded}. " + Environment.NewLine +
-                $"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}." + Environment.NewLine +
-                $"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+            UserSession.StopwatchMain.Stop();
+            LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
+            ContextManager.ContextLines.Update(LabelSession.Line);
+            StringBuilder log = new();
+            log.AppendLine($"{WsLocaleData.Program.IsLoaded}.");
+            log.AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.");
+            log.AppendLine($"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+            ContextManager.ContextItem.SaveLogInformation(log);
         });
     }
 

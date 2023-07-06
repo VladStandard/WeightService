@@ -42,7 +42,7 @@ public class WsSqlTemplateModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{IsMarked} | {CategoryId} | {Title}";
+    public override string ToString() => $"{GetIsMarked()} | {CategoryId} | {Title}";
 
     public override bool Equals(object obj)
     {

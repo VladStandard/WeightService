@@ -56,9 +56,7 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{LogWebRequest.CountAll} | " +
-        $"{LogWebResponse.CountSuccess} | " +
-        $"{LogWebResponse.CountErrors}";
+        $"{LogWebRequest.CountAll} | {LogWebResponse.CountSuccess} | {LogWebResponse.CountErrors}";
 
     public override bool Equals(object obj)
     {

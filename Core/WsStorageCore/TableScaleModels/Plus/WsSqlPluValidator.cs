@@ -31,9 +31,8 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
             .NotNull();
         // !IsGroup.
         RuleFor(item => item.Number)
-            .NotEmpty()
             .NotNull()
-            .GreaterThanOrEqualTo((short)0_100)
+            .GreaterThanOrEqualTo((short)0)
             .LessThanOrEqualTo((short)10_999)
             .When(item => !item.IsGroup);
         RuleFor(item => item.FullName)

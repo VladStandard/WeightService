@@ -14,11 +14,9 @@ public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemory
     public WsSqlLogMemoryValidator() : base(true, false)
     {
         RuleFor(item => item.SizeAppMb)
-            .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo((short)0);
         RuleFor(item => item.SizeFreeMb)
-            .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo((short)0);
         RuleFor(item => item.App)

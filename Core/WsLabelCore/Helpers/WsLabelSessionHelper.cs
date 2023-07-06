@@ -40,7 +40,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public ushort PlusPageRowCount => 4;
     public int PlusPageNumber { get; set; }
     public WsSqlDeviceScaleFkModel DeviceScaleFk { get; private set; }
-    public WsSqlProductionFacilityModel Area { get; private set ; }
+    public WsSqlProductionFacilityModel Area { get; private set; }
     public WsSqlScaleModel Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
@@ -107,13 +107,13 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Настроить сессию.
+    /// Настроить сессию для ПО `Печать этикеток`.
     /// </summary>
     /// <param name="showNavigation"></param>
     /// <param name="lineId"></param>
     /// <param name="area"></param>
-    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, long lineId = -1,
-        WsSqlProductionFacilityModel? area = null)
+    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, 
+        long lineId = -1, WsSqlProductionFacilityModel? area = null)
     {
         lock (_locker)
         {
@@ -140,7 +140,8 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             // Line.
             SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(lineId));
             // Area.
-            SetArea(area);
+            if (area is not null)
+                SetArea(area);
             // Other.
             ProductDate = DateTime.Now;
             // Новая серия, упаковка продукции, новая паллета.
@@ -172,30 +173,29 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Смена площадки.
     /// </summary>
-    private void SetArea(WsSqlProductionFacilityModel? area = null)
+    private void SetArea(WsSqlProductionFacilityModel area)
     {
-        if (area is not null && area.IsExists)
-        {
-            Area = area;
-        }
-        else if (Line.WorkShop is not null && Area.IsNotExists)
-        {
-            WsSqlWorkShopModel? workShop = ContextCache.WorkShops.Find(
-                item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
-            if (workShop is not null)
-            {
-                Area = ContextCache.Areas.Find(
-                    item => item.IdentityValueId.Equals(workShop.ProductionFacility.IdentityValueId));
-            }
-            else
-                Area = ContextManager.ContextAreas.GetNewItem();
-        }
-        else if (Area.IsNotExists)
-        {
-            Area = ContextManager.ContextAreas.GetNewItem();
-        }
+        Area = area.IsExists ? area : ContextManager.ContextAreas.GetNewItem();
         // Журналирование смены площадки.
-        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetArea(Area.IdentityValueId, Area.Name)}");
+        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
+    }
+
+    /// <summary>
+    /// Смена площадки из цеха линии.
+    /// </summary>
+    private void SetAreaByLineWorkShop()
+    {
+        if (Line.WorkShop is null) return;
+        WsSqlWorkShopModel workShop = ContextCache.WorkShops.Find(
+            item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
+        if (workShop.IsExists)
+            Area = ContextCache.Areas.Find(
+                item => item.IdentityValueId.Equals(workShop.ProductionFacility.IdentityValueId));
+        else
+            Area = ContextManager.ContextAreas.GetNewItem();
+        // Журналирование смены площадки.
+        ContextManager.ContextItem.SaveLogInformation(
+            $"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
     }
 
     /// <summary>
@@ -207,8 +207,8 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         // Журналирование смены линии.
         if (Line.IsExists)
             ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetLine(Line.IdentityValueId, Line.Description)}");
-        // Смена площадки.
-        SetArea();
+        // Смена площадки из цеха линии.
+        SetAreaByLineWorkShop();
         // Смена ПЛУ линии.
         SetPluLine();
     }

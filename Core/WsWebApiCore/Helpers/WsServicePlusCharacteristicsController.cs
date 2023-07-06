@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
+
 namespace WsWebApiCore.Helpers;
 
 /// <summary>
@@ -44,10 +46,41 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                 WsSqlPluModel pluDb = WsServiceUtils.ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
                 // Проверить разрешение обмена для ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(itemXml, plus1CFksDb);
+                
                 // Сохранить характеристику ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristics(response, itemXml);
                 // Сохранить связь характеристики ПЛУ.
                 if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristicsFks(response, itemXml);
+                if (itemXml.ParseResult.IsStatusSuccess)
+                {
+                    // Получить список связей вложенности ПЛУ.
+                    List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
+                        WsSqlEnumContextType.Cache, response, pluDb.Uid1C, itemXml.NomenclatureGuid, "Вложенности ПЛУ");
+                    // Перебор вложенностей.
+                    if (itemXml.ParseResult.IsStatusSuccess)
+                    {
+                        foreach (WsSqlPluNestingFkModel pluNestingFk in pluNestingFks)
+                        {
+                            if (itemXml.ParseResult.IsStatusSuccess)
+                            {
+                                if (!pluNestingFk.BundleCount.Equals((short)itemXml.AttachmentsCount) ||
+                                    !pluNestingFk.PluBundle.Plu.Uid1C.Equals(itemXml.NomenclatureGuid))
+                                {
+                                    // Деактивировать.
+                                    pluNestingFk.IsDefault = false;
+                                    // Сохранить связь вложенности и ПЛУ.
+                                    if (itemXml.ParseResult.IsStatusSuccess)
+                                        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
+                                }
+                            //{
+                            //    // Сохранить связь вложенности и ПЛУ.
+                            //    if (itemXml.ParseResult.IsStatusSuccess)
+                            //        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
+                            //}
+                            }
+                        }
+                    }
+                }
                 // Исключение.
                 if (itemXml.ParseResult.IsStatusError)
                     WsServiceUtilsResponse.AddResponseExceptionString(response, itemXml.Uid1C,

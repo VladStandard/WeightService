@@ -388,14 +388,14 @@ public static class WsServiceUtilsSave
     /// <param name="response"></param>
     /// <param name="pluBundleFk"></param>
     /// <param name="pluXml"></param>
-    public static void SavePluNestingFk(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
+    public static WsSqlPluNestingFkModel SavePluNestingFk(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
     {
         try
         {
             // Получить коробку.
             WsSqlBoxModel boxDb = WsServiceUtilsGet.GetBox(WsSqlEnumContextType.Cache, response,
                 pluXml.BoxTypeGuid, pluXml.Uid1C, "Коробка");
-            if (boxDb.IsNotExists) return;
+            if (boxDb.IsNotExists) return WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem();
             // Связь вложенности ПЛУ.
             WsSqlPluNestingFkModel pluNestingFk = new()
             {
@@ -417,16 +417,42 @@ public static class WsServiceUtilsSave
                 WsServiceUtilsUpdate.UpdatePluNestingFk(pluNestingFkDb, pluNestingFk);
                 // Обновить кэш.
                 WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
-                return;
+                return pluNestingFkDb;
             }
             // Не найдено -> Добавить новую запись.
             WsServiceUtilsUpdate.SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C);
             // Обновить кэш.
             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
+            return pluNestingFk;
         }
         catch (Exception ex)
         {
             WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
+        }
+        return WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem();
+    }
+
+    /// <summary>
+    /// Сохранить связь вложенности и ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluNestingFk"></param>
+    public static void SavePluNestingFk(WsResponse1CShortModel response, WsSqlPluNestingFkModel pluNestingFk)
+    {
+        try
+        {
+            if (pluNestingFk.IsNotNew)
+                // Обновить найденную запись.
+                WsServiceUtils.SqlCore.Update(pluNestingFk);
+            else
+                // Добавить запись.
+                WsServiceUtils.SqlCore.Save(pluNestingFk);
+            // Обновить кэш.
+            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
+        }
+        catch (Exception ex)
+        {
+            WsServiceUtilsResponse.AddResponseException(response, pluNestingFk.PluBundle.Plu.Uid1C, ex);
         }
     }
 
@@ -441,7 +467,7 @@ public static class WsServiceUtilsSave
         {
             // Получить характеристику ПЛУ.
             WsSqlPluCharacteristicModel pluCharacteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
-                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C,
+                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C, 
                 pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
             if (pluCharacteristicDb.IsExists)
             {
@@ -478,7 +504,7 @@ public static class WsServiceUtilsSave
             if (pluDb.IsNotExists) return;
             // Получить характеристику ПЛУ.
             WsSqlPluCharacteristicModel pluCharacteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
-                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C,
+                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C, 
                 pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
             if (pluCharacteristicDb.IsNotExists) return;
             // Связь характеристики и ПЛУ.
@@ -489,9 +515,10 @@ public static class WsServiceUtilsSave
                 Characteristic = pluCharacteristicDb,
             };
             // Поиск по Identity.
-            WsSqlPluCharacteristicsFkModel pluCharacteristicFkDb = WsServiceUtilsGet.GetItemPluCharacteristicFk(
-                WsSqlEnumContextType.Cache, response, pluCharacteristicsFk.Plu.Uid1C,
-                pluCharacteristicsFk.Plu.Uid1C, "Связь характеристики ПЛУ");
+            WsSqlPluCharacteristicsFkModel pluCharacteristicFkDb = 
+                WsServiceUtilsGet.GetItemPluCharacteristicFk(WsSqlEnumContextType.Cache, response, 
+                    pluCharacteristicsFk.Ch.Uid1C, pluCharacteristicsFk.Plu.Uid1C, 
+                    "Связь характеристики ПЛУ");
             if (pluCharacteristicFkDb.IsExists)
             {
                 // Обновить найденную запись.

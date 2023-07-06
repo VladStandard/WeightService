@@ -121,7 +121,7 @@ public static class WsFormNavigationUtils
 
         LinesUserControl.ViewModel.UpdateCommandsFromActions();
         LinesUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        showNavigation(LinesUserControl, WsLocaleCore.LabelPrint.SwitchLineTitle);
+        showNavigation(LinesUserControl, WsLocaleCore.LabelPrint.SwitchLine);
         NavigationUserControl.SwitchUserControl(LinesUserControl);
     }
 
@@ -246,8 +246,8 @@ public static class WsFormNavigationUtils
         KneadingUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
         showNavigation(KneadingUserControl,
             LabelSession.PluLine.Plu.IsCheckWeight
-            ? $"{WsLocaleCore.LabelPrint.SwitchKneadingTitle} {WsLocaleCore.LabelPrint.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
-            : $"{WsLocaleCore.LabelPrint.SwitchKneadingTitle} {WsLocaleCore.LabelPrint.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
+            ? $"{WsLocaleCore.LabelPrint.SwitchKneading} {WsLocaleCore.LabelPrint.PluWeight} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}"
+            : $"{WsLocaleCore.LabelPrint.SwitchKneading} {WsLocaleCore.LabelPrint.PluCount} | {LabelSession.PluLine.Plu.Number} | {LabelSession.PluLine.Plu.Name}");
         NavigationUserControl.SwitchUserControl(KneadingUserControl);
     }
 
@@ -259,7 +259,7 @@ public static class WsFormNavigationUtils
     {
         PlusLineUserControl.ViewModel.UpdateCommandsFromActions();
         PlusLineUserControl.ViewModel.SetupButtonsWidth(NavigationUserControl.Width);
-        showNavigation(PlusLineUserControl, WsLocaleCore.LabelPrint.SwitchPluLineTitle);
+        showNavigation(PlusLineUserControl, WsLocaleCore.LabelPrint.SwitchPluLine);
         NavigationUserControl.SwitchUserControl(PlusLineUserControl);
     }
 
@@ -276,7 +276,7 @@ public static class WsFormNavigationUtils
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();
         PlusNestingUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        showNavigation(PlusNestingUserControl, WsLocaleCore.LabelPrint.SwitchPluNestingTitle);
+        showNavigation(PlusNestingUserControl, WsLocaleCore.LabelPrint.SwitchPluNesting);
         NavigationUserControl.SwitchUserControl(PlusNestingUserControl);
     }
 

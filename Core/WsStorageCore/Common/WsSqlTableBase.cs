@@ -71,15 +71,12 @@ public class WsSqlTableBase : SerializeBase, ICloneable
 
     #region Public and private methods - override
 
-    public override string ToString()
-    {
-        string strCreateDt = CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty;
-        string strChangeDt = ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty;
-        string strIsMarked = $"{GetIsMarked()}";
-        string strName = string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ";
-        string strDescription = string.IsNullOrEmpty(Description) ? string.Empty : $"{Description} | ";
-        return strCreateDt + strChangeDt + strIsMarked + strName + strDescription;
-    }
+    public override string ToString() =>
+        (CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty) + 
+        (ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty) + 
+        GetIsMarked() + 
+        (string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ") + 
+        (string.IsNullOrEmpty(Description) ? string.Empty : $"{Description}");
 
     public virtual bool Equals(WsSqlTableBase item) =>
         ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
@@ -185,7 +182,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         ParseResult = item.ParseResult.CloneCast();
     }
 
-    public virtual string GetIsMarked() => IsMarked ? "Is hide" : "Is actual";
+    protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";
 
     #endregion
 }

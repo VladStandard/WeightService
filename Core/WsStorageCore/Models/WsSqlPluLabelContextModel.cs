@@ -132,6 +132,22 @@ public class WsSqlPluLabelContextModel : SerializeBase
         get => $"234{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
+    /// <summary>
+    /// Правый ШК для шаблонов с кодом 234.
+    /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
+    /// </summary>
+    [XmlElement]
+    public virtual string BarCodeRightV234
+    {
+        /*
+        Константа [3 симв]:     234
+        Номер АРМ [5 симв]:     ScaleNumber
+        Счётчик [8 симв]:       ScaleCounter6
+        Дата [6 симв]:          ProductDateBarCodeFormat
+        */
+        get => $"234{ScaleNumber}{ScaleCounter6}{ProductDateBarCodeFormat}";
+        set => _ = value;
+    }
     [XmlElement]
     public virtual string BarCodeBottom
     {

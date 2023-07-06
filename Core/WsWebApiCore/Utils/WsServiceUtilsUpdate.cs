@@ -183,7 +183,7 @@ public static class WsServiceUtilsUpdate
     /// <returns></returns>
     public static void UpdatePluNestingFk(WsSqlPluNestingFkModel itemDb, WsSqlPluNestingFkModel itemXml)
     {
-        if (itemDb is null || itemDb.IsNew) return;
+        if (itemDb.IsNew) return;
         itemDb.UpdateProperties(itemXml);
         WsServiceUtils.SqlCore.Update(itemDb);
         //if (isCounter) response.Successes.Add(new(uid1C));

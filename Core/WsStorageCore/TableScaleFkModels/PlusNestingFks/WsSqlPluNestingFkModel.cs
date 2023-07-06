@@ -60,13 +60,12 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{nameof(IdentityValueUid)}: {IdentityValueUid}. " +
-        $"{GetIsMarked()} | " +
-        $"{nameof(Box)}: {Box.Name}. " +
-        $"{nameof(PluBundle.Plu)}: {PluBundle.Plu.Code}. " +
-        $"{nameof(PluBundle)}: {PluBundle.Bundle.Name}. " +
-        $"{nameof(WeightTare)}: {WeightTare}. " +
-        $"{nameof(IsDefault)}: {IsDefault}. ";
+        $"{GetIsMarked()} | {GetIsDefault()} | {PluBundle.Plu.Number} | {PluBundle.Plu.Name} | " +
+        $"{PluBundle.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
+        //$" | {PluBundle.Bundle.Name} * {BundleCount} + {Box.Name}";
+
+    protected virtual string GetIsDefault() => IsDefault ? "Is default" : "No default";
+
 
     public override bool Equals(object obj)
     {
