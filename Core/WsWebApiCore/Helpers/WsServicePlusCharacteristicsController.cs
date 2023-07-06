@@ -63,6 +63,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                         {
                             if (itemXml.ParseResult.IsStatusSuccess)
                             {
+                                // Если вложенность не найдена, то добавить новую.
                                 if (!pluNestingFk.BundleCount.Equals((short)itemXml.AttachmentsCount) ||
                                     !pluNestingFk.PluBundle.Plu.Uid1C.Equals(itemXml.NomenclatureGuid))
                                 {
@@ -72,11 +73,11 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                                     if (itemXml.ParseResult.IsStatusSuccess)
                                         WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
                                 }
-                            //{
-                            //    // Сохранить связь вложенности и ПЛУ.
-                            //    if (itemXml.ParseResult.IsStatusSuccess)
-                            //        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
-                            //}
+                                //{
+                                //    // Сохранить связь вложенности и ПЛУ.
+                                //    if (itemXml.ParseResult.IsStatusSuccess)
+                                //        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
+                                //}
                             }
                         }
                     }

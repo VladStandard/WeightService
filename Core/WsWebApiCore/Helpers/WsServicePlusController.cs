@@ -77,6 +77,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                     // Сохранить связь вложенности и ПЛУ.
                     if (itemXml.ParseResult.IsStatusSuccess)
                     {
+                        // Сохранить связь вложенности и ПЛУ.
                         WsSqlPluNestingFkModel pluNestingFkDb = WsServiceUtilsSave.SavePluNestingFk(response, pluBundleFk, itemXml);
                         // Перебор вложенностей.
                         if (itemXml.ParseResult.IsStatusSuccess)
@@ -85,18 +86,16 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                             {
                                 if (itemXml.ParseResult.IsStatusSuccess)
                                 {
-                                    // Если вложенность не найдена, то добавить новую.
-
-                                    //if (!pluNestingFk.BundleCount.Equals(pluNestingFkDb.BundleCount) ||
-                                    //    !pluNestingFk.Box.Uid1C.Equals(pluNestingFkDb.Box.Uid1C) ||
-                                    //    !pluNestingFk.PluBundle.Bundle.Uid1C.Equals(pluNestingFkDb.PluBundle.Bundle.Uid1C))
-                                    //{
-                                    //    // Деактивировать.
-                                    //    pluNestingFk.IsDefault = false;
-                                    //    // Сохранить связь вложенности и ПЛУ.
-                                    //    if (itemXml.ParseResult.IsStatusSuccess)
-                                    //        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
-                                    //}
+                                    if (!pluNestingFk.BundleCount.Equals(pluNestingFkDb.BundleCount) ||
+                                        !pluNestingFk.Box.Uid1C.Equals(pluNestingFkDb.Box.Uid1C) ||
+                                        !pluNestingFk.PluBundle.Bundle.Uid1C.Equals(pluNestingFkDb.PluBundle.Bundle.Uid1C))
+                                    {
+                                        // Деактивировать.
+                                        pluNestingFk.IsDefault = false;
+                                        // Сохранить связь вложенности и ПЛУ.
+                                        if (itemXml.ParseResult.IsStatusSuccess)
+                                            WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
+                                    }
                                 }
                             }
                         }

@@ -30,6 +30,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="FrameworkExtract.System.Deployment" Version="4.0.30319" />
     <PackageReference Include="IndexRange" Version="1.0.2" />
     <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
     <PackageReference Include="MDSoft.Wmi" Version="0.2.50" />
@@ -100,11 +101,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Deployment">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Deployment.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <PropertyGroup>
     <Version>0.9.750.0</Version>

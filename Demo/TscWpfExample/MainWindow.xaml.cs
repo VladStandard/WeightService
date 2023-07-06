@@ -1,7 +1,7 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace WpfApp1;
+namespace TscWpfExample;
 
 /// <summary>
 /// MainWindow.xaml 的互動邏輯

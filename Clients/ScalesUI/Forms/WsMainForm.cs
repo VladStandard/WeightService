@@ -443,9 +443,9 @@ public sealed partial class WsMainForm : Form
     private void LoadLocalizationStatic(WsEnumLanguage lang)
     {
         WsLocaleCore.Lang = WsLocaleData.Lang = lang;
-        MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.LabelPrint.ButtonRunScalesTerminal);
+        MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.LabelPrint.ButtonRunScalesTerminal());
         MdInvokeControl.SetText(ButtonScalesInit, WsLocaleCore.LabelPrint.ButtonScalesInitShort);
-        MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.LabelPrint.ButtonNewPallet);
+        MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.LabelPrint.ButtonNewPallet());
         MdInvokeControl.SetText(ButtonKneading, WsLocaleCore.LabelPrint.ButtonSetKneading);
         MdInvokeControl.SetText(ButtonPlu, WsLocaleCore.LabelPrint.ButtonPlu);
         MdInvokeControl.SetText(ButtonPrint, WsLocaleCore.Print.ActionPrint);
