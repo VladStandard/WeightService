@@ -73,7 +73,7 @@ public class WsSqlContragentModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlContragentModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.FullName = FullName;
         item.IdRRef = IdRRef;
         item.DwhId = DwhId;

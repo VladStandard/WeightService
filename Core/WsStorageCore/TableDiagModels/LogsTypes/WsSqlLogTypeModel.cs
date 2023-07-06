@@ -62,7 +62,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlLogTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Number = Number;
         item.Icon = Icon;
         return item;

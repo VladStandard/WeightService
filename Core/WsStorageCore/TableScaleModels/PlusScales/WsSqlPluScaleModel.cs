@@ -66,7 +66,7 @@ public class WsSqlPluScaleModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluScaleModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Line = Line.CloneCast();

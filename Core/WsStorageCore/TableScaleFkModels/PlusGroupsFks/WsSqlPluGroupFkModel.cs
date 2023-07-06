@@ -66,7 +66,7 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluGroupFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.PluGroup = PluGroup.CloneCast();
         item.Parent = Parent.CloneCast();
         return item;

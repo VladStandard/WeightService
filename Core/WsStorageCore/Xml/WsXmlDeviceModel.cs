@@ -59,7 +59,7 @@ public class WsXmlDeviceModel : WsSqlTableBase
     public override object Clone()
     {
         WsXmlDeviceModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         return item;
     }

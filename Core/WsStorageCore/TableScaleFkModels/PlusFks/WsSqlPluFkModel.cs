@@ -71,7 +71,7 @@ public class WsSqlPluFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Parent = Parent.CloneCast();
         item.Category = Category?.CloneCast();

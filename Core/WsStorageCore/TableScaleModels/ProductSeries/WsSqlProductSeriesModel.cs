@@ -73,7 +73,7 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlProductSeriesModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         item.IsClose = IsClose;
         item.Sscc = Sscc;

@@ -59,7 +59,7 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlDeviceTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.PrettyName = PrettyName;
         return item;
     }

@@ -198,7 +198,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlPluModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.IsGroup = IsGroup;
         item.ParentGuid = ParentGuid;
         item.GroupGuid = GroupGuid;

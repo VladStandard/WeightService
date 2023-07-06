@@ -64,7 +64,7 @@ public class WsSqlVersionModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlVersionModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.ReleaseDt = ReleaseDt;
         item.Version = Version;
         return item;

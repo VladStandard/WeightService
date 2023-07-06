@@ -102,7 +102,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPrinterModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Ip = Ip;
         item.Port = Port;
         item.Password = Password;

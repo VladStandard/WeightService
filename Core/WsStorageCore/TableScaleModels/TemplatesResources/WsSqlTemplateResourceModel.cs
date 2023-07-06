@@ -65,7 +65,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlTemplateResourceModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Type = Type;
         item.Data = Data.CloneCast();
         return item;

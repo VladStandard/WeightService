@@ -66,7 +66,7 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluStorageMethodModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.MinTemp = MinTemp;
         item.MaxTemp = MaxTemp;
         return item;

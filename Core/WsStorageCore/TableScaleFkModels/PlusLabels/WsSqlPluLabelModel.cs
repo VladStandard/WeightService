@@ -87,7 +87,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluLabelModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.PluScale = PluScale.CloneCast();

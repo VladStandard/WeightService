@@ -87,7 +87,7 @@ public class WsSqlLogModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlLogModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Device = Device?.CloneCast();
         item.App = App?.CloneCast();
         item.LogType = LogType?.CloneCast();

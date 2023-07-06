@@ -56,7 +56,7 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPrinterTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         return item;
     }
 

@@ -60,7 +60,7 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlBrandModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Code = Code;
         return item;
     }

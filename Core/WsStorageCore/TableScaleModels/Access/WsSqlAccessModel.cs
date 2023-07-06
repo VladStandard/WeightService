@@ -62,7 +62,7 @@ public class WsSqlAccessModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlAccessModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.LoginDt = LoginDt;
         item.Rights = Rights;
         return item;

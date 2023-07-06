@@ -40,71 +40,52 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<WsSqlPluModel> record in plusXml)
             {
-                WsSqlPluModel itemXml = record.Item;
+                WsSqlPluModel pluXml = record.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUtilsUpdate.UpdatePlus1CFksDb(response, record);
                 // Проверить разрешение обмена для ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(itemXml, plus1CFksDb);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(pluXml, plus1CFksDb);
 
                 // Сохранить клипсу.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveClip(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveClip(response, pluXml);
                 // Сохранить коробку.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveBox(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveBox(response, pluXml);
                 // Сохранить пакет.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveBundle(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SaveBundle(response, pluXml);
                 // Проверить корректность группы и номера ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckCorrectPluNumberForNonGroup(itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckCorrectPluNumberForNonGroup(pluXml);
                 // Проверить валидацию ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckPluValidation(itemXml, pluValidator);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckPluValidation(pluXml, pluValidator);
                 // Проверить дубликат номера ПЛУ для не групп.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckPluDublicateForNonGroup(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckPluDublicateForNonGroup(response, pluXml);
                 // Сохранить ПЛУ в БД.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePlu(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePlu(response, pluXml);
                 // Сохранить связь ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluFks(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluFks(response, pluXml);
                 // Сохранить связь бренда.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluBrandFk(response, itemXml);
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluBrandFk(response, pluXml);
                 // Сохранить связь клипсы ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluClipFk(response, itemXml);
-                // Сохранить связь пакета и ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess)
+                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluClipFk(response, pluXml);
+                
+                if (pluXml.ParseResult.IsStatusSuccess)
                 {
                     // Сохранить связь пакета и ПЛУ.
-                    WsSqlPluBundleFkModel pluBundleFk = WsServiceUtilsSave.SavePluBundleFk(response, itemXml);
-                    // Получить список связей вложенности ПЛУ.
-                    List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
-                        WsSqlEnumContextType.Cache, response, itemXml.Uid1C, itemXml.Uid1C, "Вложенности ПЛУ");
-                    // Сохранить связь вложенности и ПЛУ.
-                    if (itemXml.ParseResult.IsStatusSuccess)
+                    WsSqlPluBundleFkModel pluBundleFk = WsServiceUtilsSave.SavePluBundleFk(response, pluXml);
+                    if (pluXml.ParseResult.IsStatusSuccess)
                     {
-                        // Сохранить связь вложенности и ПЛУ.
-                        WsSqlPluNestingFkModel pluNestingFkDb = WsServiceUtilsSave.SavePluNestingFk(response, pluBundleFk, itemXml);
-                        // Перебор вложенностей.
-                        if (itemXml.ParseResult.IsStatusSuccess)
-                        {
-                            foreach (WsSqlPluNestingFkModel pluNestingFk in pluNestingFks)
-                            {
-                                if (itemXml.ParseResult.IsStatusSuccess)
-                                {
-                                    if (!pluNestingFk.BundleCount.Equals(pluNestingFkDb.BundleCount) ||
-                                        !pluNestingFk.Box.Uid1C.Equals(pluNestingFkDb.Box.Uid1C) ||
-                                        !pluNestingFk.PluBundle.Bundle.Uid1C.Equals(pluNestingFkDb.PluBundle.Bundle.Uid1C))
-                                    {
-                                        // Деактивировать.
-                                        pluNestingFk.IsDefault = false;
-                                        // Сохранить связь вложенности и ПЛУ.
-                                        if (itemXml.ParseResult.IsStatusSuccess)
-                                            WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
-                                    }
-                                }
-                            }
-                        }
+                        // Сохранить вложенность ПЛУ по-умолчанию.
+                        WsSqlPluNestingFkModel pluNestingFkDefault =
+                            WsServiceUtilsSave.SavePluNestingFkDefault(response, pluBundleFk, pluXml);
+                        // Сохранить остальные вложенности и ПЛУ.
+                        if (pluXml.ParseResult.IsStatusSuccess)
+                            WsServiceUtilsSave.SavePluNestingFkOther(response, pluNestingFkDefault, pluXml);
                     }
                 }
+
                 // Исключение.
-                if (itemXml.ParseResult.IsStatusError)
-                    WsServiceUtilsResponse.AddResponseExceptionString(response, itemXml.Uid1C,
-                        itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                if (pluXml.ParseResult.IsStatusError)
+                    WsServiceUtilsResponse.AddResponseExceptionString(response, pluXml.Uid1C,
+                        pluXml.ParseResult.Exception, pluXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
 

@@ -58,7 +58,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlProductionFacilityModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Address = Address;
         return item;
     }

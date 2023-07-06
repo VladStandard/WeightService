@@ -60,7 +60,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlWorkShopModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.ProductionFacility = ProductionFacility.CloneCast();
         return item;
     }

@@ -93,7 +93,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluNestingFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Box = Box.CloneCast();
         item.PluBundle = PluBundle.CloneCast();
         item.IsDefault = IsDefault;

@@ -72,7 +72,7 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlLogMemoryModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.SizeAppMb = SizeAppMb;
         item.SizeFreeMb = SizeFreeMb;
         item.App = App.CloneCast();

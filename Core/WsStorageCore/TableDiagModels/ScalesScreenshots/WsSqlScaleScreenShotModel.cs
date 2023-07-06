@@ -63,7 +63,7 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlScaleScreenShotModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         item.ScreenShot = ScreenShot;
         return item;

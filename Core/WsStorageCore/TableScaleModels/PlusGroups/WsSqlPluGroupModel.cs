@@ -70,7 +70,7 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlPluGroupModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.IsGroup = IsGroup;
         item.Code = Code;
         item.ParentGuid = ParentGuid;

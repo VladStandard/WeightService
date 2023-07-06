@@ -53,7 +53,7 @@ public class WsSqlClipModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlClipModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Weight = Weight;
         return item;
     }

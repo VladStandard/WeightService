@@ -56,7 +56,7 @@ public class WsSqlAppModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlAppModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         return item;
     }
 

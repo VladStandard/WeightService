@@ -81,7 +81,7 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlLogWebFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.LogWebRequest = LogWebRequest.CloneCast();
         item.LogWebResponse = LogWebResponse.CloneCast();
         item.App = App.CloneCast();

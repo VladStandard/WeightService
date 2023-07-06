@@ -55,7 +55,7 @@ public class WsSqlBoxModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlBoxModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Weight = Weight;
         return item;
     }

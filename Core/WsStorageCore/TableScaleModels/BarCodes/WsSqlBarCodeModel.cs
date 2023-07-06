@@ -98,7 +98,7 @@ public class WsSqlBarCodeModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlBarCodeModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.TypeTop = TypeTop;
         item.ValueTop = ValueTop;
         item.TypeRight = TypeRight;

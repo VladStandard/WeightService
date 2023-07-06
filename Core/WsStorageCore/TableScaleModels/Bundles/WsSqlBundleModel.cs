@@ -54,7 +54,7 @@ public class WsSqlBundleModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlBundleModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Weight = Weight;
         return item;
     }

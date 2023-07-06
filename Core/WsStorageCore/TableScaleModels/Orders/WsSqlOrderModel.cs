@@ -79,7 +79,7 @@ public class WsSqlOrderModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlOrderModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.BeginDt = BeginDt;
         item.EndDt = EndDt;
         item.ProdDt = ProdDt;

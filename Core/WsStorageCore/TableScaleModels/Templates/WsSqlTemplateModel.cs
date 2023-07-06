@@ -65,7 +65,7 @@ public class WsSqlTemplateModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlTemplateModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.CategoryId = CategoryId;
         item.Title = Title;
         item.Data = Data;

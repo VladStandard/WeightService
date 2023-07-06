@@ -96,7 +96,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlLogWebModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.StampDt = StampDt;
         item.Version = Version;
         item.Direction = Direction;

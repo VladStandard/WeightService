@@ -64,7 +64,7 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluTemplateFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Template = Template.CloneCast();
         return item;

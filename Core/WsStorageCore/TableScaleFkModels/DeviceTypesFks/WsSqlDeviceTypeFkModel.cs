@@ -66,7 +66,7 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlDeviceTypeFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Device = Device.CloneCast();
         item.Type = Type.CloneCast();
         return item;

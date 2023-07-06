@@ -62,7 +62,7 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     public override object Clone()
     {
         WsSqlPluCharacteristicModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.AttachmentsCount = AttachmentsCount;
         item.NomenclatureGuid = NomenclatureGuid;
         return item;

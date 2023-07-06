@@ -68,7 +68,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPlu1CFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.IsEnabled = IsEnabled;
         item.RequestDataString = RequestDataString;

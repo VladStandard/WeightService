@@ -67,7 +67,7 @@ public class WsSqlTaskModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlTaskModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.TaskType = TaskType.CloneCast();
         item.Scale = Scale.CloneCast();
         item.Enabled = Enabled;

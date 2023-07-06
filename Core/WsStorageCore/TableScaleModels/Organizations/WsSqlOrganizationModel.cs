@@ -60,7 +60,7 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlOrganizationModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Gln = Gln;
         return item;
     }

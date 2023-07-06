@@ -62,7 +62,7 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluBundleFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Bundle = Bundle.CloneCast();
         item.Plu = Plu.CloneCast();
         return item;

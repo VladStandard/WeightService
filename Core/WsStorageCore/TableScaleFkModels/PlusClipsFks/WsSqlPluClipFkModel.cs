@@ -65,7 +65,7 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlPluClipFkModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Clip = Clip.CloneCast();
         item.Plu = Plu.CloneCast();
         return item;

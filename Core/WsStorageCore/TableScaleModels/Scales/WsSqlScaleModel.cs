@@ -96,7 +96,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlScaleModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.WorkShop = WorkShop?.CloneCast();
         item.PrinterMain = PrinterMain?.CloneCast();
         item.PrinterShipping = PrinterShipping?.CloneCast();

@@ -78,7 +78,7 @@ public class WsSqlTable1CBase : WsSqlTableBase
     public override object Clone()
     {
         WsSqlTable1CBase item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.Uid1C = Uid1C;
         return item;
     }

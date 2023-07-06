@@ -52,7 +52,7 @@ public class WsSqlTableEmptyModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlTableEmptyModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         return item;
     }
 

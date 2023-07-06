@@ -84,7 +84,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
     public override object Clone()
     {
         WsSqlDeviceModel item = new();
-        item.CloneSetup(base.CloneCast());
+        item.CloneSetup(this);
         item.LoginDt = LoginDt;
         item.LogoutDt = LogoutDt;
         item.PrettyName = PrettyName;
