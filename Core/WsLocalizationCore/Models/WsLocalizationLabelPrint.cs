@@ -194,15 +194,15 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     #region Public and private methods
 
     public override string ToString() => $"{Lang}";
-    public string ButtonNewPallet => $"{NewGenderWoman}{Environment.NewLine}{Pallet}";
-    public string ButtonRunScalesTerminal => $"{WeightGenderMan}{Environment.NewLine}{Terminal}";
+    public string ButtonNewPallet() => $"{NewGenderWoman}{Environment.NewLine}{Pallet}";
+    public string ButtonRunScalesTerminal() => $"{WeightGenderMan}{Environment.NewLine}{Terminal}";
     public string CheckWeightThreshold(decimal weightNet) => $"{WeightingControl} {ProductWeight}: {weightNet:0.000} {WeightUnitKg}";
     public string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal nominalWeight, decimal lowerWeightThreshold) => $"{WeightingControl} {NettoWeight}: {currentNet:0.000} {WeightUnitKg} {UpperValue}: {upperWeightThreshold:0.000} {WeightUnitKg} {NominalValue}: {nominalWeight:0.000} {WeightUnitKg} {LowerValue}: {lowerWeightThreshold:0.000} {WeightUnitKg}";
     public string HostNotFound(string deviceName) => $"{Host} '{deviceName}' {NotFoundGenderMan}";
     public string IsException(string? message) => $"{Error}! {message}";
     public string PluCountNesting(short nesting) => $"{Plu} ({nesting} {Count})";
     public string ProgramNotFound(string fileName) => $"{ProgramIsNotFound}!" + Environment.NewLine + fileName + Environment.NewLine + $"{ContactWithAdmin}.";
-    public string RegistrationIsCompleteDot => $"{RegistrationIsComplete}.";
+    public string RegistrationIsCompleteDot() => $"{RegistrationIsComplete}.";
     public string RegistrationSuccess(string deviceName, string scaleName) => $"{RegistrationIsComplete}.{Environment.NewLine}{Host} '{deviceName}' {AndLine} '{scaleName}' {AreFound}.";
     public string RegistrationWarningLineNotFound(string deviceName) => $"{LineForHost} '{deviceName}' {NotFoundGenderWoman}!";
     public string SetAreaWithParam(long id, string name) => $"{SetArea}: {id} | {name}";

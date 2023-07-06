@@ -517,7 +517,7 @@ public static class WsServiceUtilsSave
             // Поиск по Identity.
             WsSqlPluCharacteristicsFkModel pluCharacteristicFkDb = 
                 WsServiceUtilsGet.GetItemPluCharacteristicFk(WsSqlEnumContextType.Cache, response, 
-                    pluCharacteristicsFk.Ch.Uid1C, pluCharacteristicsFk.Plu.Uid1C, 
+                    pluCharacteristicsFk.Characteristic.Uid1C, pluCharacteristicsFk.Plu.Uid1C, 
                     "Связь характеристики ПЛУ");
             if (pluCharacteristicFkDb.IsExists)
             {

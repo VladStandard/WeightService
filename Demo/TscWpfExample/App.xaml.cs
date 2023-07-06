@@ -1,6 +1,6 @@
-﻿using System.Windows;
+using System.Windows;
 
-namespace WpfApp1;
+namespace TscWpfExample;
 
 /// <summary>
 /// App.xaml 的互動邏輯
