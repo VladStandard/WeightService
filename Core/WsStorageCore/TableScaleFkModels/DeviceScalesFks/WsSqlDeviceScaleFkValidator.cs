@@ -11,15 +11,16 @@ public sealed class WsSqlDeviceScaleFkValidator : WsSqlTableValidator<WsSqlDevic
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceScaleFkValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlDeviceScaleFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlDeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
         RuleFor(item => item.Scale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlScaleValidator());
+            .SetValidator(new WsSqlScaleValidator(isCheckIdentity));
     }
 }

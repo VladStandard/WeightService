@@ -255,7 +255,7 @@ public static class WsServiceUtilsUpdate
         {
             plu1CFk.RequestDataString = recordXml.Content;
             plu1CFkCache.UpdateProperties(plu1CFk);
-            WsSqlPlu1CFkValidator validator = new();
+            WsSqlPlu1CFkValidator validator = new(true);
             ValidationResult validation = validator.Validate(plu1CFkCache);
             // Валидация не пройдена!
             if (!validation.IsValid)
@@ -301,7 +301,7 @@ public static class WsServiceUtilsUpdate
         else
         {
             plu1CFkCache.Plu = plu;
-            WsSqlPlu1CFkValidator validator = new();
+            WsSqlPlu1CFkValidator validator = new(true);
             ValidationResult validation = validator.Validate(plu1CFkCache);
             if (!validation.IsValid)
                 throw new($"Exception at UpdatePlu1CFkDbCore. Check PLU {plu1CFkCache}!");

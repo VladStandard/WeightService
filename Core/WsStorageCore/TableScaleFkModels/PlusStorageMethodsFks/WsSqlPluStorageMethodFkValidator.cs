@@ -11,19 +11,20 @@ public sealed class WsSqlPluStorageMethodFkValidator : WsSqlTableValidator<WsSql
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluStorageMethodFkValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluStorageMethodFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluValidator());
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
         RuleFor(item => item.Method)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluStorageMethodValidator());
+            .SetValidator(new WsSqlPluStorageMethodValidator(isCheckIdentity));
         RuleFor(item => item.Resource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlTemplateResourceValidator());
+            .SetValidator(new WsSqlTemplateResourceValidator(isCheckIdentity));
     }
 }

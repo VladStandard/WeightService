@@ -11,7 +11,8 @@ public sealed class WsSqlProductSeriesValidator : WsSqlTableValidator<WsSqlProdu
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlProductSeriesValidator() : base(true, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlProductSeriesValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.Sscc)
             .NotEmpty()
@@ -19,6 +20,6 @@ public sealed class WsSqlProductSeriesValidator : WsSqlTableValidator<WsSqlProdu
         RuleFor(item => item.Scale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlScaleValidator());
+            .SetValidator(new WsSqlScaleValidator(isCheckIdentity));
     }
 }

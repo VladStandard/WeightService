@@ -11,12 +11,13 @@ public sealed class WsSqlScaleScreenShotValidator : WsSqlTableValidator<WsSqlSca
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlScaleScreenShotValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlScaleScreenShotValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Scale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlScaleValidator());
+            .SetValidator(new WsSqlScaleValidator(isCheckIdentity));
         RuleFor(item => item.ScreenShot)
             .NotEmpty()
             .NotNull();

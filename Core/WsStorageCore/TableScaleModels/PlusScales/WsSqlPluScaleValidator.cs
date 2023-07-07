@@ -11,15 +11,16 @@ public sealed class WsSqlPluScaleValidator : WsSqlTableValidator<WsSqlPluScaleMo
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluScaleValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluScaleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluValidator());
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
         RuleFor(item => item.Line)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlScaleValidator());
+            .SetValidator(new WsSqlScaleValidator(isCheckIdentity));
     }
 }

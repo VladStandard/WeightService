@@ -11,7 +11,8 @@ public sealed class WsSqlWorkShopValidator : WsSqlTableValidator<WsSqlWorkShopMo
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlWorkShopValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlWorkShopValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()
@@ -19,6 +20,6 @@ public sealed class WsSqlWorkShopValidator : WsSqlTableValidator<WsSqlWorkShopMo
         RuleFor(item => item.ProductionFacility)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlProductionFacilityValidator());
+            .SetValidator(new WsSqlProductionFacilityValidator(isCheckIdentity));
     }
 }

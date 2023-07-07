@@ -28,12 +28,12 @@ public class RazorComponentBase : LayoutComponentBase
 
     #region Public and private methods - Actions
 
-    protected bool SqlItemValidate<T>(T? item) where T : WsSqlTableBase, new()
+    protected bool SqlItemValidate<T>(T? item, bool isCheckIdentity) where T : WsSqlTableBase, new()
     {
         bool result = item is not null;
         string detailAddition = string.Empty;
         if (result)
-            result = WsSqlValidationUtils.IsValidation(item, ref detailAddition);
+            result = WsSqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
         switch (result)
         {
             case false:
@@ -60,7 +60,7 @@ public class RazorComponentBase : LayoutComponentBase
 
     protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
     {
-        if (item is null || !SqlItemValidate(item)) 
+        if (item is null || !SqlItemValidate(item, false)) 
             return;
         if (item.IsNew)
             ContextManager.SqlCore.Save(item);

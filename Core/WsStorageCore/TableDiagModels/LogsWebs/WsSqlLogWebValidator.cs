@@ -11,7 +11,8 @@ public sealed class WsSqlLogWebValidator : WsSqlTableValidator<WsSqlLogWebModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogWebValidator() : base(true, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlLogWebValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.StampDt)
             .NotEmpty()

@@ -11,7 +11,7 @@ public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemory
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogMemoryValidator() : base(true, false)
+    public WsSqlLogMemoryValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.SizeAppMb)
             .NotNull()
@@ -22,10 +22,10 @@ public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemory
         RuleFor(item => item.App)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlAppValidator());
+            .SetValidator(new WsSqlAppValidator(isCheckIdentity));
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlDeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
     }
 }

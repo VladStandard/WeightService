@@ -9,12 +9,10 @@ namespace WsStorageCore.Models;
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableBase
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    protected WsSqlTableValidator(bool isCheckCreateDt, bool isCheckChangeDt)
+    protected WsSqlTableValidator(bool isCheckIdentity, bool isCheckCreateDt, bool isCheckChangeDt)
     {
-        RuleFor(item => item.Identity).SetValidator(new WsSqlFieldIdentityValidator());
+        if (isCheckIdentity)
+            RuleFor(item => item.Identity).SetValidator(new WsSqlFieldIdentityValidator());
         if (isCheckCreateDt)
             RuleFor(item => item.CreateDt)
                 .NotEmpty()
@@ -27,11 +25,12 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
                 .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
     }
 
-    protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result) where TItem : WsSqlTableBase, new()
+    protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result, bool isCheckIdentity) 
+        where TItem : WsSqlTableBase, new()
     {
         if (item is not null)
         {
-            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, isCheckIdentity);
             if (!result.IsValid) return result.IsValid;
         }
         return result.IsValid;

@@ -11,27 +11,28 @@ public sealed class WsSqlLogWebFkValidator : WsSqlTableValidator<WsSqlLogWebFkMo
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogWebFkValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlLogWebFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.LogWebRequest)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlLogWebValidator());
+            .SetValidator(new WsSqlLogWebValidator(isCheckIdentity));
         RuleFor(item => item.LogWebResponse)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlLogWebValidator());
+            .SetValidator(new WsSqlLogWebValidator(isCheckIdentity));
         RuleFor(item => item.App)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlAppValidator());
+            .SetValidator(new WsSqlAppValidator(isCheckIdentity));
         RuleFor(item => item.LogType)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlLogTypeValidator());
+            .SetValidator(new WsSqlLogTypeValidator(isCheckIdentity));
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlDeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
     }
 }

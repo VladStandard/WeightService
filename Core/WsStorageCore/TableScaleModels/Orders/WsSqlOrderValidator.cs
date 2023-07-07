@@ -11,7 +11,8 @@ public sealed class WsSqlOrderValidator : WsSqlTableValidator<WsSqlOrderModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrderValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlOrderValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

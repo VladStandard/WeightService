@@ -12,7 +12,8 @@ public sealed class WsSqlClipValidator : WsSqlTableValidator<WsSqlClipModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlClipValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlClipValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

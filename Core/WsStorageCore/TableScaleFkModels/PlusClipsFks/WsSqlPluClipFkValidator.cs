@@ -8,15 +8,15 @@ namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 /// </summary>
 public sealed class WsSqlPluClipFkValidator : WsSqlTableValidator<WsSqlPluClipFkModel>
 {
-    public WsSqlPluClipFkValidator() : base(true, true)
+    public WsSqlPluClipFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluValidator());
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
         RuleFor(item => item.Clip)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlClipValidator());
+            .SetValidator(new WsSqlClipValidator(isCheckIdentity));
     }
 }

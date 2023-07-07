@@ -11,7 +11,8 @@ public sealed class WsSqlBoxValidator : WsSqlTableValidator<WsSqlBoxModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlBoxValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlBoxValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

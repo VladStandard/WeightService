@@ -11,7 +11,8 @@ public sealed class WsSqlBrandValidator : WsSqlTableValidator<WsSqlBrandModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlBrandValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

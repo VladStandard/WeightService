@@ -11,7 +11,8 @@ public sealed class WsSqlOrganizationValidator : WsSqlTableValidator<WsSqlOrgani
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrganizationValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlOrganizationValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

@@ -11,7 +11,8 @@ public sealed class WsSqlPluGroupFkValidator : WsSqlTableValidator<WsSqlPluGroup
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluGroupFkValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluGroupFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         //RuleFor(item => item.Plu)
         //    .SetValidator(new PluValidator())
@@ -19,10 +20,10 @@ public sealed class WsSqlPluGroupFkValidator : WsSqlTableValidator<WsSqlPluGroup
         RuleFor(item => item.PluGroup)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluGroupValidator());
+            .SetValidator(new WsSqlPluGroupValidator(isCheckIdentity));
         RuleFor(item => item.Parent)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluGroupValidator());
+            .SetValidator(new WsSqlPluGroupValidator(isCheckIdentity));
     }
 }

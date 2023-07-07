@@ -11,7 +11,8 @@ public sealed class WsSqlBundleValidator : WsSqlTableValidator<WsSqlBundleModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlBundleValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlBundleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

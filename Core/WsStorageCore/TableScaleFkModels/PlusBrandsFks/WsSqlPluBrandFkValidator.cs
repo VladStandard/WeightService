@@ -11,15 +11,16 @@ public sealed class WsSqlPluBrandFkValidator : WsSqlTableValidator<WsSqlPluBrand
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluBrandFkValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluBrandFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluValidator());
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
         RuleFor(item => item.Brand)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlBrandValidator());
+            .SetValidator(new WsSqlBrandValidator(isCheckIdentity));
     }
 }

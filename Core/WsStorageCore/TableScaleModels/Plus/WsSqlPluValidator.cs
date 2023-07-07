@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// </summary>
 public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
 {
-    public WsSqlPluValidator(bool isCheckCreateDt, bool isCheckChangeDt) : base(isCheckCreateDt, isCheckChangeDt)
+    public WsSqlPluValidator(bool isCheckIdentity, bool isCheckCreateDt, bool isCheckChangeDt) : base(isCheckIdentity, isCheckCreateDt, isCheckChangeDt)
     {
         RuleFor(item => item.Description)
             .NotNull();
@@ -47,7 +47,7 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
             .When(item => item.IsGroup);
     }
 
-    public WsSqlPluValidator() : this(true, true) { }
+    public WsSqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, true, true) { }
 }
 /*
 Пустые атрибуты у групп

@@ -11,7 +11,8 @@ public sealed class WsSqlTaskTypeValidator : WsSqlTableValidator<WsSqlTaskTypeMo
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTaskTypeValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlTaskTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

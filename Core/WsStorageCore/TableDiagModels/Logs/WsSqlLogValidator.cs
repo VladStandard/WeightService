@@ -11,7 +11,7 @@ public sealed class WsSqlLogValidator : WsSqlTableValidator<WsSqlLogModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogValidator() : base(true, false)
+    public WsSqlLogValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.Version)
             .NotNull();

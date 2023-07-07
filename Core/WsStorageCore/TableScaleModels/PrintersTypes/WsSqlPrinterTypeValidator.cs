@@ -11,7 +11,8 @@ public sealed class WsSqlPrinterTypeValidator : WsSqlTableValidator<WsSqlPrinter
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterTypeValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPrinterTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

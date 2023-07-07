@@ -11,7 +11,8 @@ public sealed class WsSqlContragentValidator : WsSqlTableValidator<WsSqlContrage
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlContragentValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlContragentValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()
