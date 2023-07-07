@@ -24,9 +24,9 @@ public sealed partial class ItemTableBody : ComponentBase
     private string IdentityNameId =>
         SqlItem.Identity.Name switch
         {
-            WsSqlEnumFieldIdentity.Id => $"{SqlItem.IdentityValueId}",
-            WsSqlEnumFieldIdentity.Uid => $"{SqlItem.IdentityValueUid}",
-            _ => $"{Guid.Empty}"
+            WsSqlEnumFieldIdentity.Id => SqlItem.IdentityValueId != 0 ? $"{SqlItem.IdentityValueId}" : "Новая запись",
+            WsSqlEnumFieldIdentity.Uid => SqlItem.IdentityValueUid != Guid.Empty ? $"{SqlItem.IdentityValueUid}" : "Новая запись",
+            _ => "Новая запись"
         };
 
     #endregion
