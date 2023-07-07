@@ -2,18 +2,17 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Services;
-using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
-    [Inject] protected IJSRuntime JsRuntime { get; set; }
+    [Inject] protected JsService JsService { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
-    [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
+    protected WsSqlTableBase? SqlItem { get; set; }
 
     #region Public and private fields, properties, constructor
 
@@ -26,23 +25,23 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     public ItemBase()
     {
-        Title = string.Empty;
         ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
 
     #endregion
 
     #region Public and private methods
-    protected async void CopyToClipboard(string textToCopy)
+    
+    protected async void CopyTextToClipboard(string textToCopy)
     {
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", textToCopy);
+        await JsService.CopyTextToClipboard(textToCopy);
     }
 
     protected virtual void SqlItemSaveAdditional() { }
 
     protected async Task RedirectBackAsync()
     {
-        bool isRedirected = await JsRuntime.InvokeAsync<bool>("goBackIfNotHomePage");
+        bool isRedirected = await JsService.RedirectBackIfNotHomePage();
         if (!isRedirected)
             await RedirectToSectionAsync();
     }
@@ -69,12 +68,9 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected override void OnAfterRender(bool firstRender)
     {
-        if (!firstRender)
-        {
-            base.OnAfterRender(firstRender);
-            return;
-        }
-        GetItemData();
+        if (firstRender)
+            GetItemData();
+        base.OnAfterRender(firstRender);
     }
 
     protected void GetItemData()

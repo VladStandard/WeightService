@@ -26,7 +26,7 @@ public sealed partial class ScalesScreenshots : SectionBase<WsSqlScaleScreenShot
         base.SetSqlSectionCast();
     }
 
-    private string GetByteLength(WsSqlScaleScreenShotModel screenshot) =>
+    private static string GetByteLength(WsSqlScaleScreenShotModel screenshot) => 
         WsDataUtils.GetBytesLength(screenshot.ScreenShot, false);
 
     #endregion

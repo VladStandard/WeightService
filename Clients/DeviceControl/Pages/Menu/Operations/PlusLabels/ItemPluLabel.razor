@@ -59,7 +59,7 @@
         Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
         Disabled="false" ReadOnly="true"
         Value="@SqlItemCast.Zpl" Rows="20"/>
-      <RadzenButton Click="@(_ => CopyToClipboard(SqlItemCast.Zpl))"
+      <RadzenButton Click="@(_ => CopyTextToClipboard(SqlItemCast.Zpl))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
                     Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>

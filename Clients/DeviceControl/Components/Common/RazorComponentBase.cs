@@ -8,7 +8,7 @@ using WsStorageCore.Helpers;
 
 namespace DeviceControl.Components.Common;
 
-public partial class RazorComponentBase : LayoutComponentBase
+public class RazorComponentBase : LayoutComponentBase
 {
     #region Public and private fields, properties, constructor
 
@@ -20,27 +20,130 @@ public partial class RazorComponentBase : LayoutComponentBase
 
     #endregion
 
-    #region Constants
-
     protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    protected static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
 
-    #endregion
-
-    #region Parameters
-    
-    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-
-    #endregion
     protected ClaimsPrincipal? User { get; set; }
 
-    public RazorComponentBase()
-    {
-        SqlItem = null;
-    }
-
     #endregion
 
+    #region Public and private methods - Actions
+
+    protected bool SqlItemValidate<T>(T? item) where T : WsSqlTableBase, new()
+    {
+        bool result = item is not null;
+        string detailAddition = string.Empty;
+        if (result)
+            result = WsSqlValidationUtils.IsValidation(item, ref detailAddition);
+        switch (result)
+        {
+            case false:
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = WsLocaleCore.Action.ActionDataControl,
+                    Detail = detailAddition,
+                    Duration = BlazorAppSettingsHelper.DelayError
+                };
+                NotificationService.Notify(msg);
+                return false;
+            }
+            default:
+                return true;
+        }
+    }
+
+    protected static TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
+    {
+        return ContextManager.SqlCore.GetItemNewEmpty<TItem>();
+    }
+
+    protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
+    {
+        if (item is null || !SqlItemValidate(item)) 
+            return;
+        if (item.IsNew)
+            ContextManager.SqlCore.Save(item);
+        else 
+            ContextManager.SqlCore.Update(item);
+    }
+
+    protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()
+    {
+        if (items is null) return;
+
+        foreach (T item in items)
+            SqlItemSave(item);
+    }
+    
+    private static ConfirmOptions GetConfirmOptions()
+    {
+        return new ConfirmOptions
+        {
+            OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
+            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel,
+            CloseDialogOnEsc = true,
+        };
+    }
+
+    protected void RunAction(string title, List<Action> actions)
+    {
+        try
+        {
+            foreach (Action action in actions)
+                action.Invoke();
+            
+            if (string.IsNullOrEmpty(title)) return;
+
+            NotificationService.Notify(
+                NotificationSeverity.Success,
+                title,
+                WsLocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
+                );
+        }
+        catch (Exception ex)
+        {
+            NotificationException(title, ex);
+        }
+    }
+
+    protected void RunAction(string title, Action action) => RunAction(title, new List<Action> { action });
+    
+    protected void RunActionsWithQuestion(string title, string message, Action action)
+    {
+        try
+        {
+            string question = string.IsNullOrEmpty(message) ? WsLocaleCore.Dialog.DialogQuestion : message;
+            Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+            if (dialog.Result == true)
+                RunAction(title, action);
+        }
+        catch (Exception ex)
+        {
+            NotificationException(title, ex);
+        }
+    }
+    
+    private void NotificationException(string title, Exception ex)
+    {
+        if (string.IsNullOrEmpty(title))
+            title = WsLocaleCore.Dialog.DialogResultFail;
+        
+        string msg = ex.Message;
+        if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+            msg += $"\r\n{ex.InnerException.Message}";
+
+        NotificationService.Notify(
+            NotificationSeverity.Error,
+            title, 
+            msg,
+            BlazorAppSettingsHelper.DelayError
+            );
+        ContextManager.ContextItem.SaveLogError(ex);
+    }
+    
+    #endregion
+    
     protected override async Task OnInitializedAsync()
     {
         User = await UserService.GetUser();

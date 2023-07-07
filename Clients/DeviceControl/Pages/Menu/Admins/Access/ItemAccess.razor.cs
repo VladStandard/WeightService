@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsBlazorCore.Settings;
 using WsDataCore.Enums;
 using WsStorageCore.TableScaleModels.Access;
 
@@ -20,7 +21,7 @@ public sealed partial class ItemAccess : ItemBase<WsSqlAccessModel>
 
     public ItemAccess() : base()
     {
-        TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights();
+        TemplateAccessRights = BlazorAppSettingsHelper.Instance.DataSourceDics.GetTemplateAccessRights();
     }
 
     #endregion
@@ -30,7 +31,7 @@ public sealed partial class ItemAccess : ItemBase<WsSqlAccessModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        TemplateAccessRights = BlazorAppSettings.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
+        TemplateAccessRights = BlazorAppSettingsHelper.Instance.DataSourceDics.GetTemplateAccessRights(SqlItemCast.Rights);
     }
 
     #endregion

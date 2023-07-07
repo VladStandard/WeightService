@@ -3,6 +3,7 @@
 
 namespace WsBlazorCore.Razors;
 
+//TODO: delete maybe
 public static class RzComponentUtils
 {
     public static CssStyleTableHeadModel GetTableHeadStyle(List<int> columnsWidths) => new(columnsWidths);

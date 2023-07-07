@@ -9,7 +9,7 @@ public sealed partial class TemplateResources : SectionBase<WsSqlTemplateResourc
 {
     #region Public and private methods
 
-    private string ConvertBytes(WsSqlTemplateResourceModel templateResource)
+    private static string ConvertBytes(WsSqlTemplateResourceModel templateResource)
     {
         return templateResource.DataValue.Length > 1024
             ? $"{templateResource.DataValue.Length / 1024:### ##0} {WsLocaleCore.Strings.DataSizeKBytes}"

@@ -17,7 +17,8 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
     [Inject] private LocalStorageService LocalStorage { get; set; }
-    [Inject] protected ContextMenuService? ContextMenuService { get; set; }
+    [Inject] protected ContextMenuService ContextMenuService { get; set; }
+    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
     
     protected WsSqlContextViewHelper ContextViewHelper = WsSqlContextViewHelper.Instance;
     protected IList<TItem> SelectedRow { get; set; }
@@ -32,8 +33,8 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
 
     public SectionBase()
     {
-        SqlSectionCast = new List<TItem>();
         SelectedRow = new List<TItem>();
+        SqlSectionCast = new List<TItem>();
         SqlSectionSave = new List<TItem>();
 
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
@@ -56,8 +57,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
 
     protected void SqlItemSet(TItem item)
     {
-        SelectedRow.Clear();
-        SelectedRow.Add(item);
+        SelectedRow = new List<TItem> { item };
         SqlItem = SelectedRow.Last();
     }
 
@@ -123,7 +123,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         InvokeAsync(async () =>
         {
             await action();
-            ContextMenuService?.Close();
+            ContextMenuService.Close();
         });
     }
 

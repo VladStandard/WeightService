@@ -22,13 +22,6 @@ public class ButtonSettingsModel
         IsShowCancel = isShowCancel;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public ButtonSettingsModel() : this(false, false, false, false, false)
-    {
-    }
-
     #endregion
 
     #region Public and private methods
