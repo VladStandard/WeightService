@@ -3,6 +3,6 @@
 
 namespace DeviceControl.Pages.Default;
 
-public partial class Index : RazorComponentBase
+public partial class Index : ComponentBase
 {
 }

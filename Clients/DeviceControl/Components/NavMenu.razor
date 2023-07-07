@@ -1,5 +1,5 @@
 @using DeviceControl.Utils
-@inherits RazorComponentBase
+@inherits ComponentBase
 
 <div class="@SidebarCss">
   <div class="top-row pl-4 navbar">
@@ -22,8 +22,7 @@
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionLabels" Path="@RouteUtil.SectionPlusLabels"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBarCodes" Path="@RouteUtil.SectionBarCodes"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeighings" Path="@RouteUtil.SectionPlusWeightings"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort"
-                             Path="@RouteUtil.SectionPlusWeightingsAggr"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort" Path="@RouteUtil.SectionPlusWeightingsAggr"/>
       </RadzenPanelMenuItem>
       @* References *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences">
@@ -52,7 +51,8 @@
       <RadzenPanelMenuItem Text="@WsLocaleCore.Menu.MenuReports">
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@RouteUtil.SectionLogs"/>
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@RouteUtil.SectionLogsWebService"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScreenShots" Path="@RouteUtil.SectionScalesScreenShots"/>
+        <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@RouteUtil.SectionScalesScreenShots"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemory" Path="@RouteUtil.LogsMemory"/>
       </RadzenPanelMenuItem>
     </AuthorizeView>
     <AuthorizeView Roles="@UserAccessStr.Admin">

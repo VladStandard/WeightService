@@ -1,7 +1,6 @@
 @page "/section/logs_web_service/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableDiagModels.LogsWebsFks
-@using WsStorageCore.TableDiagModels.Logs
 @using DeviceControl.Components.Item
 @inherits ItemBase<WsStorageCore.TableDiagModels.LogsWebsFks.WsSqlLogWebFkModel>
 
@@ -60,7 +59,6 @@
 </MudSimpleTable>
 
 <ItemActions
-  TItem="@WsSqlLogModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@RedirectBackAsync"/>

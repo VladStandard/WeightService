@@ -4,29 +4,24 @@
 namespace WsStorageCore.ViewDiagModels;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlViewLogMemoryModel : WsSqlViewRecordBase
+public class WsSqlViewLogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-
-    public DateTime CreateDt { get; init; }
-    public string AppName { get; init; }
-    public string DeviceName { get; init; }
-    public string ScaleName { get; init; }
-    public short SizeAppMb { get; init; }
-    public short SizeFreeMb { get; init; }
-
-    public WsSqlViewLogMemoryModel() : this(Guid.Empty, DateTime.MinValue, string.Empty, 
-        string.Empty, string.Empty) { }
+    public virtual string AppName { get; set; }
+    public virtual string DeviceName { get; set; }
+    public virtual string ScaleName { get; set; }
+    public virtual short SizeAppMb { get; set; }
+    public virtual short SizeFreeMb { get; set; }
+    public int TotalMemory => SizeFreeMb + SizeAppMb;
+    public double FillSize => Math.Round(((double)SizeAppMb / TotalMemory) * 100, 2);
     
-    public WsSqlViewLogMemoryModel(Guid uid, DateTime createDt, string appName = "", string deviceName = "", string scaleName = "",
-        short sizeAppMb = 0, short sizeFreeMb = 0) : base(uid)
+    public WsSqlViewLogMemoryModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
-        CreateDt = createDt;
-        AppName = appName;
-        DeviceName = deviceName;
-        ScaleName = scaleName;
-        SizeAppMb = sizeAppMb;
-        SizeFreeMb = sizeFreeMb;
+        AppName = string.Empty;
+        DeviceName = string.Empty;
+        ScaleName = string.Empty;
+        SizeAppMb = 0;
+        SizeFreeMb = 0;
     }
 
     #endregion

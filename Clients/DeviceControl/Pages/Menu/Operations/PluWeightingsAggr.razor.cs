@@ -6,7 +6,7 @@ using WsStorageCore.TableScaleFkModels.Aggregations;
 
 namespace DeviceControl.Pages.Menu.Operations;
 
-public sealed partial class PluWeightingsAggr : LayoutComponentBase
+public sealed partial class PluWeightingsAggr : ComponentBase
 {
     #region Public and private fields, properties, constructor
 

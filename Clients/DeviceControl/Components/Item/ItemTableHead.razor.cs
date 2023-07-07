@@ -5,7 +5,7 @@ using WsBlazorCore.CssStyles;
 
 namespace DeviceControl.Components.Item;
 
-public partial class ItemTableHead : LayoutComponentBase
+public partial class ItemTableHead : ComponentBase
 {
     #region Public and private fields, properties, constructor
 

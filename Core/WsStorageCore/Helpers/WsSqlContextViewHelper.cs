@@ -30,18 +30,25 @@ public sealed class WsSqlContextViewHelper
     /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
     /// </summary>
     /// <returns></returns>
-    public List<WsSqlViewLogMemoryModel> GetListViewLogsMemory(int topRecords = 0)
+    public List<WsSqlViewLogMemoryModel> GetListViewLogsMemory(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlViewLogMemoryModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords);
+        string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             int i = 0;
             if (obj is not object[] item || item.Length < 7) break;
-            result.Add(new(Guid.Parse(Convert.ToString(item[i++])), Convert.ToDateTime(item[i++]),
-                Convert.ToString(item[i++]), Convert.ToString(item[i++]), Convert.ToString(item[i++]),
-                Convert.ToInt16(item[i++]), Convert.ToInt16(item[i++])));
+            result.Add(new()
+            {
+                IdentityValueUid = Guid.Parse(Convert.ToString(item[i++])),
+                CreateDt = Convert.ToDateTime(item[i++]),
+                AppName = Convert.ToString(item[i++]),
+                DeviceName = Convert.ToString(item[i++]),
+                ScaleName = Convert.ToString(item[i++]),
+                SizeAppMb = Convert.ToInt16(item[i++]),
+                SizeFreeMb = Convert.ToInt16(item[i++])
+            });
         }
         return result;
     }

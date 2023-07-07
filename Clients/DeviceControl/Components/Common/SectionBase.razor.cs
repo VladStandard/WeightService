@@ -8,9 +8,9 @@ using Radzen.Blazor;
 using WsBlazorCore.Settings;
 using WsStorageCore.Helpers;
 
-namespace DeviceControl.Components.Section;
+namespace DeviceControl.Components.Common;
 
-public partial class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
+public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 

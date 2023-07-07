@@ -247,6 +247,8 @@ public sealed class WsLocaleTable : WsLocalizationBase
     public string Xml => Lang == WsEnumLanguage.English ? "XML" : "Поле XML";
     public string XmlPretty => Lang == WsEnumLanguage.English ? "Pretty XML" : "Красивый XML";
     public string Zpl => Lang == WsEnumLanguage.English ? "ZPL" : "ЗПЛ";
+    public string СurrentMemory => Lang == WsEnumLanguage.English ? "Current ram mb" : "Текущая озу мб";
+    public string MaxMemory => Lang == WsEnumLanguage.English ? "Максимальная ram mb" : "Максимальная озу мб";
     
     #endregion
 }

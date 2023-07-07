@@ -14,7 +14,7 @@ public sealed class GetListViewTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewLogMemoryModel> items = 
-                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemory(200);
+                WsTestsUtils.DataTests.ContextManager.ContextView.GetListViewLogsMemory(new WsSqlCrudConfigModel());
             Assert.IsTrue(items.Any());
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

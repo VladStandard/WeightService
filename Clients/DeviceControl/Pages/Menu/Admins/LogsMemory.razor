@@ -1,0 +1,36 @@
+﻿@page "/memory"
+@attribute [Authorize(Roles = UserAccessStr.Admin)]
+@using WsStorageCore.ViewDiagModels
+@using WsDataCore.Utils
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
+@inherits SectionBase<WsStorageCore.ViewDiagModels.WsSqlViewLogMemoryModel>
+
+<SectionTopBar
+  Title="@WsLocaleCore.DeviceControl.LogsMemory"
+  OnSectionUpdate="@GetSectionData"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  ButtonSettings="@ButtonSettings"/>
+
+<RzDataGrid
+  TItem="@WsSqlViewLogMemoryModel"
+  @ref="@DataGrid"
+  Data="@SqlSectionCast">
+  <Columns>
+    <TItemContent TItem="@WsSqlViewLogMemoryModel">
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="10%"
+                            FormatString="@WsStrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="AppName" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="ScaleName" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.СurrentMemory" Property="SizeAppMb" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.MaxMemory" Property="TotalMemory" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Percents" SortProperty="SizeAppMb" Width="30%">
+        <Template Context="itemCast">
+          <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.FillSize" ShowValue="true"/>
+        </Template>
+      </RadzenDataGridColumn>
+    </TItemContent>
+  </Columns>
+</RzDataGrid>

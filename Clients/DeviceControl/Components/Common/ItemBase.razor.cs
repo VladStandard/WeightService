@@ -5,13 +5,12 @@ using DeviceControl.Services;
 using Microsoft.JSInterop;
 using WsBlazorCore.Settings;
 
-namespace DeviceControl.Components.Item;
+namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
     [Inject] protected IJSRuntime JsRuntime { get; set; }
     [Inject] protected RouteService RouteService { get; set; }
-    [Inject] protected NavigationManager NavigationManager { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }

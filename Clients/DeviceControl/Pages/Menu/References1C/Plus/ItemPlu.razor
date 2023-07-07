@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using WsStorageCore.TableScaleModels.Plus
 @using DeviceControl.Services
-@using DeviceControl.Components.Rz
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusNestingFks
+@using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
 
 <ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
@@ -68,7 +68,6 @@
 </MudSimpleTable>
 
 <ItemActions
-  TItem="@WsSqlPluModel"
   ButtonSettings="@ButtonSettings"
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@RedirectBackAsync"/>
