@@ -19,15 +19,4 @@ public sealed partial class ItemTemplate : ItemBase<WsSqlTemplateModel>
     }
 
     #endregion
-
-    #region Public and private methods
-
-    protected override void SetSqlItemCast()
-    {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<WsSqlTemplateModel>(Id);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<WsSqlTemplateModel>();
-    }
-
-    #endregion
 }

@@ -16,12 +16,13 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     #region Public and private fields, properties, constructor
 
+    protected ButtonSettingsModel ButtonSettings { get; set; }
+
     protected TItem SqlItemCast
     {
         get => SqlItem is null ? new() : (TItem)SqlItem;
         set => SqlItem = value;
     }
-    protected ButtonSettingsModel ButtonSettings { get; set; }
 
     public ItemBase()
     {
@@ -81,9 +82,17 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullableByUid<TItem>(Uid);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<TItem>();
+        SqlItemCast = SqlItemCast.Identity.Name switch
+        {
+            WsSqlEnumFieldIdentity.Uid => ContextManager.SqlCore.GetItemNotNullableByUid<TItem>(Uid),
+            WsSqlEnumFieldIdentity.Id => ContextManager.SqlCore.GetItemNotNullableById<TItem>(Id),
+            _ => SqlItemNewEmpty<TItem>()
+        };
+
+        if (!SqlItemCast.IsNew)
+            return;
+        SqlItemCast = SqlItemNewEmpty<TItem>();
+
     }
 
     #endregion

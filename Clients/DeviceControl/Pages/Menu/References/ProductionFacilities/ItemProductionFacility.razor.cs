@@ -7,13 +7,4 @@ namespace DeviceControl.Pages.Menu.References.ProductionFacilities;
 
 public sealed partial class ItemProductionFacility : ItemBase<WsSqlProductionFacilityModel>
 {
-    #region Public and private methods
-
-    protected override void SetSqlItemCast()
-    {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<WsSqlProductionFacilityModel>(Id);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<WsSqlProductionFacilityModel>();
-    }
-    #endregion
 }

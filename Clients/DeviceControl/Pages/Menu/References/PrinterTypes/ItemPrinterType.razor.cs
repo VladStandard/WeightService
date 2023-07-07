@@ -7,14 +7,4 @@ namespace DeviceControl.Pages.Menu.References.PrinterTypes;
 
 public sealed partial class ItemPrinterType : ItemBase<WsSqlPrinterTypeModel>
 {
-    #region Public and private methods
-
-    protected override void SetSqlItemCast()
-    {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<WsSqlPrinterTypeModel>(Id);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<WsSqlPrinterTypeModel>();
-    }
-
-    #endregion
 }

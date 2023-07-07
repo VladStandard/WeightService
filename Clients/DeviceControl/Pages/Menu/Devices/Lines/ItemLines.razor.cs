@@ -38,10 +38,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullableById<WsSqlScaleModel>(Id);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<WsSqlScaleModel>();
-
+        base.SetSqlItemCast();
         PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
