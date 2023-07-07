@@ -29,7 +29,7 @@ public class WsSqlBoxModel : WsSqlTable1CBase
         Weight = info.GetDecimal(nameof(Weight));
     }
 
-    public WsSqlBoxModel(WsSqlBoxModel item)
+    public WsSqlBoxModel(WsSqlBoxModel item) : base(item)
     {
         Weight = item.Weight;
     }

@@ -88,7 +88,8 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                                 pluNestingFkOther = new(pluNestingFkDefault)
                                 {
                                     // Задать новое кол-во.
-                                    BundleCount = (short)characteristicXml.AttachmentsCount
+                                    BundleCount = (short)characteristicXml.AttachmentsCount,
+                                    IdentityValueUid = Guid.Empty,
                                 };
                             }
                             // Снять флаг по-умолчанию.
