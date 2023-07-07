@@ -56,7 +56,7 @@ public class WsXmlProductBoxModel : ISerializable, IWsSqlObjectBase
 		Unit = info.GetString(nameof(Unit));
 	}
 
-    public WsXmlProductBoxModel(WsXmlProductBoxModel item) : base(item)
+    public WsXmlProductBoxModel(WsXmlProductBoxModel item)
     {
         Description = item.Description;
         Heft = item.Heft;
