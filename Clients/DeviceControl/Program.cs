@@ -34,6 +34,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RouteService>();
 builder.Services.AddScoped<LocalStorageService>();
+builder.Services.AddScoped<JsService>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();

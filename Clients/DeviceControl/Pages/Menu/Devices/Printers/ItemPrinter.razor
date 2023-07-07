@@ -40,31 +40,13 @@
       <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@WsLocaleCore.Print.ControlPanel"/>
     </td>
     <td>
-      <RzTextBox @bind-Value="@SqlItemCast.Ip"/>
+      <RzTextBox Placeholder="Ip address" @bind-Value="@SqlItemCast.Ip"/>
     </td>
     <td>@WsLocaleCore.Print.Password</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Password"/>
     </td>
   </tr>
-  @* <tr> *@
-  @*   <td>@LocaleCore.DeviceControl.Actions</td> *@
-  @*   <td> *@
-  @*     <RadzenButton Click="@(_ => SqlItemPrinterResourcesClear(SqlItemCast))" *@
-  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesClear" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
-  @*   </td> *@
-  @*   <td> *@
-  @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "TTF")) *@
-  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesLoadTtf" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
-  @*   </td> *@
-  @*   <td> *@
-  @*     <RadzenButton Click=@(_ => SqlItemPrinterResourcesLoad(SqlItemCast, "GRF")) *@
-  @*                   class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small" *@
-  @*                   Text="@LocaleCore.Print.ResourcesLoadGrf" Disabled="@(!ContextManager.SqlCore.IsConnected())"/> *@
-  @*   </td> *@
-  @* </tr> *@
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
