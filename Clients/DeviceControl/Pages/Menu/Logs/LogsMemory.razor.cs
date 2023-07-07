@@ -4,7 +4,7 @@
 using WsBlazorCore.Settings;
 using WsStorageCore.ViewDiagModels;
 
-namespace DeviceControl.Pages.Menu.Admins;
+namespace DeviceControl.Pages.Menu.Logs;
 
 public sealed partial class LogsMemory : SectionBase<WsSqlViewLogMemoryModel>
 {

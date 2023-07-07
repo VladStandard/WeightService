@@ -14,6 +14,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     [Parameter] public string Title { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
+    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
 
     #region Public and private fields, properties, constructor
 

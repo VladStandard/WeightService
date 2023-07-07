@@ -3,7 +3,6 @@
 
 using System.Security.Claims;
 using DeviceControl.Services;
-using WsBlazorCore.Settings;
 using WsStorageCore.Helpers;
 
 namespace DeviceControl.Components.Common;
@@ -21,23 +20,12 @@ public partial class RazorComponentBase : LayoutComponentBase
     #endregion
 
     #region Constants
-
-    protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    protected static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
-
-    #endregion
-
-    #region Parameters
     
-    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
+    protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
 
     #endregion
+    
     protected ClaimsPrincipal? User { get; set; }
-
-    public RazorComponentBase()
-    {
-        SqlItem = null;
-    }
 
     #endregion
 

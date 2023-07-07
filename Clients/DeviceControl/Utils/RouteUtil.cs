@@ -29,6 +29,7 @@ public static class RouteUtil
     public static string SectionLogs => "/section/logs";
     public static string SectionLogsWebService => "/section/logs_web_service";
     public static string SectionScalesScreenShots => "/section/logs_screenshots";
+    public static string SectionLogsMemory => "/section/logs_memory";
     
     #endregion
     
@@ -61,7 +62,6 @@ public static class RouteUtil
     public static string SectionTemplates => "/section/templates";
     public static string SectionWorkShops => "/section/workshops";
     public static string Profile => "/profile";
-    public static string LogsMemory => "/memory";
 
     #endregion
 }
