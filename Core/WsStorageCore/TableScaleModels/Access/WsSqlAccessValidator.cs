@@ -11,7 +11,8 @@ public sealed class WsSqlAccessValidator : WsSqlTableValidator<WsSqlAccessModel>
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlAccessValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlAccessValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()

@@ -11,7 +11,8 @@ public sealed class WsSqlVersionValidator : WsSqlTableValidator<WsSqlVersionMode
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlVersionValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlVersionValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.ReleaseDt)
             .NotEmpty()

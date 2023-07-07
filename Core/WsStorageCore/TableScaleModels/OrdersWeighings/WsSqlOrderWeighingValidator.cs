@@ -11,15 +11,16 @@ public sealed class WsSqlOrderWeighingValidator : WsSqlTableValidator<WsSqlOrder
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlOrderWeighingValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlOrderWeighingValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Order)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlOrderValidator());
+            .SetValidator(new WsSqlOrderValidator(isCheckIdentity));
         RuleFor(item => item.PluWeighing)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluWeighingValidator());
+            .SetValidator(new WsSqlPluWeighingValidator(isCheckIdentity));
     }
 }

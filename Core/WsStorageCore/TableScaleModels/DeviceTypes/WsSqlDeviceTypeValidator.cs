@@ -11,7 +11,8 @@ public sealed class WsSqlDeviceTypeValidator : WsSqlTableValidator<WsSqlDeviceTy
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceTypeValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlDeviceTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

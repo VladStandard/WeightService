@@ -11,16 +11,17 @@ public sealed class WsSqlDeviceTypeFkValidator : WsSqlTableValidator<WsSqlDevice
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlDeviceTypeFkValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlDeviceTypeFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Device)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlDeviceValidator());
+            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
         RuleFor(item => item.Type)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlDeviceTypeValidator());
+            .SetValidator(new WsSqlDeviceTypeValidator(isCheckIdentity));
         RuleFor(item => item.Description)
             .NotNull();
     }

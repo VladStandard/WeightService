@@ -36,7 +36,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             WsServiceUtils.ContextCache.Load();
             // Заполнить список ПЛУ из XML.
             List<WsXmlContentRecord<WsSqlPluModel>> plusXml = WsServiceUtilsGetXml.GetXmlPluList(xml);
-            WsSqlPluValidator pluValidator = new(false, false);
+            WsSqlPluValidator pluValidator = new(false, false, false);
             // Цикл по всем XML-номенклатурам.
             foreach (WsXmlContentRecord<WsSqlPluModel> record in plusXml)
             {

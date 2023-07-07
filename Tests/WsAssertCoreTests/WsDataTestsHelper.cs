@@ -159,7 +159,7 @@ public class WsDataTestsHelper
     {
         Assert.DoesNotThrow(() =>
         {
-            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
             FailureWriteLine(validationResult);
             // Assert.
             switch (assertResult)
@@ -232,7 +232,7 @@ public class WsDataTestsHelper
             foreach (T item in items)
             {
                 Assert.IsNotEmpty(item.ToString());
-                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
                 if (!validationResult.IsValid)
                 {
                     TestContext.WriteLine($"{item}");
@@ -601,7 +601,7 @@ public class WsDataTestsHelper
                     if (isValidate)
                     {
                         AssertSqlTablesValidate(item, true);
-                        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+                        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
                         FailureWriteLine(validationResult);
                         Assert.IsTrue(validationResult.IsValid);
                     }

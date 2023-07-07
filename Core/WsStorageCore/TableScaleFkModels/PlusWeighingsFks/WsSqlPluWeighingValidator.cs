@@ -11,7 +11,8 @@ public sealed class WsSqlPluWeighingValidator : WsSqlTableValidator<WsSqlPluWeig
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluWeighingValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluWeighingValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Kneading)
             .NotEmpty()
@@ -20,7 +21,7 @@ public sealed class WsSqlPluWeighingValidator : WsSqlTableValidator<WsSqlPluWeig
         RuleFor(item => item.PluScale)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluScaleValidator());
+            .SetValidator(new WsSqlPluScaleValidator(isCheckIdentity));
         //RuleFor(item => item.Series)
         //	.NotEmpty()
         //	.NotNull()

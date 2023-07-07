@@ -11,7 +11,8 @@ public sealed class WsSqlLogTypeValidator : WsSqlTableValidator<WsSqlLogTypeMode
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlLogTypeValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlLogTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Number)
             .NotNull()

@@ -11,7 +11,8 @@ public sealed class WsSqlPluGroupValidator : WsSqlTableValidator<WsSqlPluGroupMo
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluGroupValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluGroupValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotNull();

@@ -8,18 +8,18 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// </summary>
 public sealed class WsSqlPluNestingFkValidator : WsSqlTableValidator<WsSqlPluNestingFkModel>
 {
-    public WsSqlPluNestingFkValidator() : base(true, true)
+    public WsSqlPluNestingFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.PluBundle)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluBundleFkValidator());
+            .SetValidator(new WsSqlPluBundleFkValidator(isCheckIdentity));
         RuleFor(item => item.BundleCount)
             .NotNull();
         RuleFor(item => item.Box)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlBoxValidator());
+            .SetValidator(new WsSqlBoxValidator(isCheckIdentity));
         RuleFor(item => item.WeightMax)
             .NotNull()
             .GreaterThanOrEqualTo(0)

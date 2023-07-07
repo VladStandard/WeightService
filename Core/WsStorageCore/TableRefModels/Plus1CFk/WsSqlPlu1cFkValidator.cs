@@ -11,11 +11,12 @@ public sealed class WsSqlPlu1CFkValidator : WsSqlTableValidator<WsSqlPlu1CFkMode
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPlu1CFkValidator() : base(false, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPlu1CFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, true)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluValidator());
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
     }
 }

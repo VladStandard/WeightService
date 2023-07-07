@@ -11,7 +11,8 @@ public sealed class WsSqlProductionFacilityValidator : WsSqlTableValidator<WsSql
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlProductionFacilityValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlProductionFacilityValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

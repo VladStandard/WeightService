@@ -11,15 +11,16 @@ public sealed class WsSqlPrinterResourceFkValidator : WsSqlTableValidator<WsSqlP
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterResourceFkValidator() : base(false, false)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPrinterResourceFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Printer)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPrinterValidator());
+            .SetValidator(new WsSqlPrinterValidator(isCheckIdentity));
         RuleFor(item => item.TemplateResource)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlTemplateResourceValidator());
+            .SetValidator(new WsSqlTemplateResourceValidator(isCheckIdentity));
     }
 }

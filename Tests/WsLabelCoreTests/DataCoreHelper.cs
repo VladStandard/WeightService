@@ -126,7 +126,7 @@ public sealed class DataCoreHelper
                         TestContext.WriteLine(item);
                     i++;
                     AssertSqlValidate(item, true);
-                    ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+                    ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
                     FailureWriteLine(validationResult);
                     // Assert.
                     Assert.IsTrue(validationResult.IsValid);
@@ -167,12 +167,12 @@ public sealed class DataCoreHelper
             }
         }, false, false);
     }
-    
-    public void AssertValidate<T>(T item, bool assertResult) where T : class, new()
+
+    private void AssertValidate<T>(T item, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
-			ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item);
+			ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
 			FailureWriteLine(validationResult);
 			// Assert.
 			switch (assertResult)

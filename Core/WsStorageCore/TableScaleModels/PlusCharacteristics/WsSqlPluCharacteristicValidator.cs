@@ -5,7 +5,7 @@ namespace WsStorageCore.TableScaleModels.PlusCharacteristics;
 
 public sealed class WsSqlPluCharacteristicValidator : WsSqlTableValidator<WsSqlPluCharacteristicModel>
 {
-    public WsSqlPluCharacteristicValidator() : base(true, true)
+    public WsSqlPluCharacteristicValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.AttachmentsCount)
             .NotNull()

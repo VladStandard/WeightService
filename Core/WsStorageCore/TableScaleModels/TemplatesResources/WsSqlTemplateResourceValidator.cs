@@ -11,7 +11,8 @@ public sealed class WsSqlTemplateResourceValidator : WsSqlTableValidator<WsSqlTe
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlTemplateResourceValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlTemplateResourceValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

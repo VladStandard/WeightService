@@ -11,7 +11,8 @@ public sealed class WsSqlPluStorageMethodValidator : WsSqlTableValidator<WsSqlPl
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPluStorageMethodValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPluStorageMethodValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.MinTemp)
             .NotNull()

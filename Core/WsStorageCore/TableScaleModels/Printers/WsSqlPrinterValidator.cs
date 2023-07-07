@@ -11,7 +11,8 @@ public sealed class WsSqlPrinterValidator : WsSqlTableValidator<WsSqlPrinterMode
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlPrinterValidator() : base(true, true)
+    /// <param name="isCheckIdentity"></param>
+    public WsSqlPrinterValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.DarknessLevel)
             .NotNull()
@@ -19,6 +20,6 @@ public sealed class WsSqlPrinterValidator : WsSqlTableValidator<WsSqlPrinterMode
         RuleFor(item => item.PrinterType)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPrinterTypeValidator());
+            .SetValidator(new WsSqlPrinterTypeValidator(isCheckIdentity));
     }
 }
