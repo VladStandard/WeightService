@@ -8,7 +8,7 @@ namespace WsStorageCore.TableScaleModels.Boxes;
 /// </summary>
 [Serializable]
 public sealed class WsSqlBoxMap : ClassMap<WsSqlBoxModel>
-{ 
+{
     public WsSqlBoxMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

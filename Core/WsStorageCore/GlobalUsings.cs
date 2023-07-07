@@ -39,7 +39,7 @@ global using WsDataCore.Common;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
 global using WsDataCore.Models;
-global using WsDataCore.Serialization.Models;
+global using WsDataCore.Serialization;
 global using WsDataCore.Settings.Helpers;
 global using WsDataCore.Utils;
 global using WsFileSystemCore.Helpers;

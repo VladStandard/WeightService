@@ -24,7 +24,7 @@ public class WsDataTestsHelper
 
     #region Public and private methods
 
-    public void SetupDevelopAleksandrov(bool isShowSql)
+    private void SetupDevelopAleksandrov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
@@ -32,7 +32,7 @@ public class WsDataTestsHelper
         TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
-    public void SetupDevelopMorozov(bool isShowSql)
+    private void SetupDevelopMorozov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
@@ -40,7 +40,7 @@ public class WsDataTestsHelper
         TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
-    public void SetupDevelopVs(bool isShowSql)
+    private void SetupDevelopVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
@@ -115,7 +115,7 @@ public class WsDataTestsHelper
         });
     }
 
-    public void FailureWriteLine(ValidationResult result)
+    private void FailureWriteLine(ValidationResult result)
     {
         switch (result.IsValid)
         {
@@ -155,7 +155,7 @@ public class WsDataTestsHelper
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
-    public void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
+    private void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -173,8 +173,8 @@ public class WsDataTestsHelper
             }
         });
     }
-    
-    public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlTableBase, new()
+
+    private object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlTableBase, new()
     {
         // Arrange
         T item = CreateNewSubstitute<T>(isNotDefault);

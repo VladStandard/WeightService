@@ -10,6 +10,11 @@
 	<Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Serialization\Utils\**" />
+    <EmbeddedResource Remove="Serialization\Utils\**" />
+    <None Remove="Serialization\Utils\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Resources\exit_1.png" />
     <None Remove="Resources\exit_2.png" />
     <None Remove="Resources\ScalesUI.ico" />
@@ -90,7 +95,6 @@
       </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Serialization\Utils\" />
     <Folder Include="ZplTemplates\" />
   </ItemGroup>
   <ItemGroup>

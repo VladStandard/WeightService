@@ -11,23 +11,11 @@ public class WsSqlTableEmptyModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlTableEmptyModel()
-    {
-        //
-    }
+    private WsSqlTableEmptyModel() { }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    private WsSqlTableEmptyModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        //
-    }
+    private WsSqlTableEmptyModel(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+    public WsSqlTableEmptyModel(WsSqlTableEmptyModel item) : base(item) { }
 
     #endregion
 
@@ -49,21 +37,12 @@ public class WsSqlTableEmptyModel : WsSqlTableBase
 
     public override bool EqualsDefault() => base.EqualsDefault();
 
-    public override object Clone()
-    {
-        WsSqlTableEmptyModel item = new();
-        item.CloneSetup(base.CloneCast());
-        return item;
-    }
-
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(WsSqlTableEmptyModel item) =>
+    protected virtual bool Equals(WsSqlTableEmptyModel item) =>
         ReferenceEquals(this, item) || base.Equals(item);
-
-    public new virtual WsSqlTableEmptyModel CloneCast() => (WsSqlTableEmptyModel)Clone();
 
     #endregion
 }

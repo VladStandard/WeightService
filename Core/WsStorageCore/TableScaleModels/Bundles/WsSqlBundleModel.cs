@@ -29,6 +29,11 @@ public class WsSqlBundleModel : WsSqlTable1CBase
         Weight = info.GetDecimal(nameof(Weight));
     }
 
+    public WsSqlBundleModel(WsSqlBundleModel item) : base(item)
+    {
+        Weight = item.Weight;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -50,14 +55,6 @@ public class WsSqlBundleModel : WsSqlTable1CBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Weight, (decimal)0);
-
-    public override object Clone()
-    {
-        WsSqlBundleModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Weight = Weight;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -87,8 +84,6 @@ public class WsSqlBundleModel : WsSqlTable1CBase
     public virtual bool Equals(WsSqlBundleModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
-    public new virtual WsSqlBundleModel CloneCast() => (WsSqlBundleModel)Clone();
-
     #endregion
 }
 

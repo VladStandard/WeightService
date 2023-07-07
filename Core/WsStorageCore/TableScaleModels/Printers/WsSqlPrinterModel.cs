@@ -62,6 +62,20 @@ public class WsSqlPrinterModel : WsSqlTableBase
         DarknessLevel = info.GetInt16(nameof(DarknessLevel));
     }
 
+    public WsSqlPrinterModel(WsSqlPrinterModel item) : base(item)
+    {
+        Ip = item.Ip;
+        Port = item.Port;
+        Password = item.Password;
+        PrinterType = new(item.PrinterType);
+        MacAddress = new(item.MacAddress);
+        PeelOffSet = item.PeelOffSet;
+        DarknessLevel = item.DarknessLevel;
+        HttpStatusCode = item.HttpStatusCode;
+        HttpStatusException = item.HttpStatusException;
+
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -99,22 +113,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         PrinterType.EqualsDefault() &&
         MacAddress.EqualsDefault();
 
-    public override object Clone()
-    {
-        WsSqlPrinterModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Ip = Ip;
-        item.Port = Port;
-        item.Password = Password;
-        item.PrinterType = PrinterType.CloneCast();
-        item.MacAddress = MacAddress.CloneCast();
-        item.PeelOffSet = PeelOffSet;
-        item.DarknessLevel = DarknessLevel;
-        item.HttpStatusCode = HttpStatusCode;
-        item.HttpStatusException = HttpStatusException;
-        return item;
-    }
-
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
@@ -150,8 +148,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         Equals(HttpStatusException, item.HttpStatusException) &&
         PrinterType.Equals(item.PrinterType) &&
         MacAddress.Equals(item.MacAddress);
-
-    public new virtual WsSqlPrinterModel CloneCast() => (WsSqlPrinterModel)Clone();
 
     #endregion
 }

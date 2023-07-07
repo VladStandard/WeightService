@@ -34,10 +34,9 @@ public static class WsServiceUtilsResponse
         action(response);
     }
 
-    private static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) =>
-        new WsResponseBarCodeModel().CloneCast(barCode);
+    private static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) => new(barCode);
 
-    public static List<WsResponseBarCodeModel> CastBarCodes(IEnumerable<WsSqlBarCodeModel> barCodes) =>
+    private static List<WsResponseBarCodeModel> CastBarCodes(IEnumerable<WsSqlBarCodeModel> barCodes) =>
         barCodes.Select(CastBarCode).ToList();
 
     public static WsServiceInfoModel NewServiceInfo(Assembly assembly, ISessionFactory sessionFactory)

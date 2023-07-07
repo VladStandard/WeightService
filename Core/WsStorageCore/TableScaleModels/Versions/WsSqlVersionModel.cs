@@ -35,14 +35,17 @@ public class WsSqlVersionModel : WsSqlTableBase
         Version = info.GetInt16(nameof(Version));
     }
 
+    public WsSqlVersionModel(WsSqlVersionModel item) : base(item)
+    {
+        ReleaseDt = item.ReleaseDt;
+        Version = item.Version;
+    }
+
     #endregion
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(ReleaseDt)}: {ReleaseDt}. " +
-        $"{nameof(Version)}: {Version}. ";
+    public override string ToString() => $"{GetIsMarked()} | {ReleaseDt} | {Version}";
 
     public override bool Equals(object obj)
     {
@@ -60,15 +63,6 @@ public class WsSqlVersionModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(ReleaseDt, DateTime.MinValue) &&
         Equals(Version, (short)0);
-
-    public override object Clone()
-    {
-        WsSqlVersionModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.ReleaseDt = ReleaseDt;
-        item.Version = Version;
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -92,8 +86,6 @@ public class WsSqlVersionModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(ReleaseDt, item.ReleaseDt) &&
         Equals(Version, item.Version);
-
-    public new virtual WsSqlVersionModel CloneCast() => (WsSqlVersionModel)Clone();
 
     #endregion
 }

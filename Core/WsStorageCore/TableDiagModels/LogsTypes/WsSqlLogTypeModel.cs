@@ -15,9 +15,6 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     [XmlElement] public virtual byte Number { get; set; }
     [XmlElement] public virtual string Icon { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Number = 0x00;
@@ -33,6 +30,12 @@ public class WsSqlLogTypeModel : WsSqlTableBase
     {
         Number = info.GetByte(nameof(Number));
         Icon = info.GetString(nameof(Icon));
+    }
+
+    public WsSqlLogTypeModel(WsSqlLogTypeModel item) : base(item)
+    {
+        Number = item.Number;
+        Icon = item.Icon;
     }
 
     #endregion
@@ -58,15 +61,6 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Number, (byte)0x00) &&
         Equals(Icon, string.Empty);
-
-    public override object Clone()
-    {
-        WsSqlLogTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Number = Number;
-        item.Icon = Icon;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -94,8 +88,6 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Number, item.Number) &&
         Equals(Icon, item.Icon);
-
-    public new virtual WsSqlLogTypeModel CloneCast() => (WsSqlLogTypeModel)Clone();
 
     #endregion
 }

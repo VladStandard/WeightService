@@ -54,6 +54,8 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string XmlItemCharacteristic => "Characteristic";
     public string XmlItemNomenclature => "Nomenclature";
     public string XmlItemNomenclatureGroup => "NomenclatureGroup";
+    public string FieldPluCharacteristicMustBeNotDefault() => "Характеристика совпадает со вложенностью по-молчанию!";
+    public string FieldPluCharacteristicNotFoundDefault() => "Вложенности по-молчанию не найдено!";
 
     #endregion
 }

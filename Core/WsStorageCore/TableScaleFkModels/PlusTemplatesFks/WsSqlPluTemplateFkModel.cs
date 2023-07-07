@@ -35,6 +35,12 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         Template = (WsSqlTemplateModel)info.GetValue(nameof(Template), typeof(WsSqlTemplateModel));
     }
 
+    public WsSqlPluTemplateFkModel(WsSqlPluTemplateFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        Template = new(item.Template);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -60,15 +66,6 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Plu.EqualsDefault() &&
         Template.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPluTemplateFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.Template = Template.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -106,8 +103,6 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
         Template.Equals(item.Template);
-
-    public new virtual WsSqlPluTemplateFkModel CloneCast() => (WsSqlPluTemplateFkModel)Clone();
 
     #endregion
 }

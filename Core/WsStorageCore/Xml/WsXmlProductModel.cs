@@ -8,7 +8,7 @@ namespace WsStorageCore.Xml;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsXmlProductModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductModel : ISerializable, IWsSqlObjectBase
 {
     #region Public and private fields, properties, constructor
 
@@ -44,9 +44,6 @@ public class WsXmlProductModel : ISerializable, IWsSqlDbBase
     public string NameFull { get; set; }
     public string AdditionalDescriptionOfNomenclature { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsXmlProductModel()
     {
 	    Category = string.Empty;
@@ -92,11 +89,31 @@ public class WsXmlProductModel : ISerializable, IWsSqlDbBase
 	    AdditionalDescriptionOfNomenclature = info.GetString(nameof(AdditionalDescriptionOfNomenclature));
 	}
 
-	#endregion
+    public WsXmlProductModel(WsXmlProductModel item)
+    {
+        Category = item.Category;
+        Code = item.Code;
+        Description = item.Description;
+        Comment = item.Comment;
+        Sku = item.Sku;
+        DescriptionOptional = item.DescriptionOptional;
+        GuidMercury = item.GuidMercury;
+        Temperature = item.Temperature;
+        ProductShelfLife = item.ProductShelfLife;
+        Brand = item.Brand;
+        Units = WsEnumerableUtils.CopyClassesList(item.Units);
+        Barcodes = WsEnumerableUtils.CopyClassesList(item.Barcodes);
+        Boxes = WsEnumerableUtils.CopyClassesList(item.Boxes);
+        Packs = WsEnumerableUtils.CopyClassesList(item.Packs);
+        NameFull = item.NameFull;
+        AdditionalDescriptionOfNomenclature = item.AdditionalDescriptionOfNomenclature;
+    }
 
-	#region Public and private methods
+    #endregion
 
-	public override string ToString()
+    #region Public and private methods
+
+    public override string ToString()
     {
         string? strUnits = $"{Units.Count}. ";
         foreach (WsXmlProductUnitModel? unit in Units)
@@ -169,28 +186,6 @@ public class WsXmlProductModel : ISerializable, IWsSqlDbBase
     public bool EqualsNew()
     {
         return Equals(new());
-    }
-
-    public object Clone()
-    {
-	    WsXmlProductModel item = new();
-	    item.Category = Category;
-	    item.Code = Code;
-	    item.Description = Description;
-	    item.Comment = Comment;
-	    item.Sku = Sku;
-	    item.DescriptionOptional = DescriptionOptional;
-	    item.GuidMercury = GuidMercury;
-	    item.Temperature = Temperature;
-	    item.ProductShelfLife = ProductShelfLife;
-		item.Brand = Brand;
-		item.Units = Units;
-		item.Barcodes = Barcodes;
-		item.Boxes = Boxes;
-		item.Packs = Packs;
-		item.NameFull = NameFull;
-		item.AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature;
-	    return item;
     }
 
     /// <summary>

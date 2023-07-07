@@ -41,6 +41,13 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         RequestDataString = info.GetString(nameof(RequestDataString));
     }
 
+    public WsSqlPlu1CFkModel(WsSqlPlu1CFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        IsEnabled = item.IsEnabled;
+        RequestDataString = item.RequestDataString;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -64,16 +71,6 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Equals(IsEnabled, default) &&
         Equals(RequestDataString, string.Empty);
-
-    public override object Clone()
-    {
-        WsSqlPlu1CFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.IsEnabled = IsEnabled;
-        item.RequestDataString = RequestDataString;
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -114,8 +111,6 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         Plu.Equals(item.Plu) &&
         Equals(IsEnabled, item.IsEnabled) &&
         Equals(RequestDataString, item.RequestDataString);
-
-    public new virtual WsSqlPlu1CFkModel CloneCast() => (WsSqlPlu1CFkModel)Clone();
 
     #endregion
 }

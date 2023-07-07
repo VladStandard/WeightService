@@ -383,12 +383,13 @@ public static class WsServiceUtilsSave
     }
 
     /// <summary>
-    /// Сохранить связь вложенности и ПЛУ.
+    /// Сохранить вложенность ПЛУ по-умолчанию.
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluBundleFk"></param>
     /// <param name="pluXml"></param>
-    public static WsSqlPluNestingFkModel SavePluNestingFk(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, WsSqlPluModel pluXml)
+    public static WsSqlPluNestingFkModel SavePluNestingFkDefault(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, 
+        WsSqlPluModel pluXml)
     {
         try
         {
@@ -404,6 +405,7 @@ public static class WsServiceUtilsSave
                 Box = boxDb,
                 BundleCount = pluXml.AttachmentsCount,
                 IsDefault = true,
+                IsMarked = pluXml.IsMarked,
             };
             // Поиск представления.
             WsSqlPluNestingFkModel? pluNestingFkDb = WsServiceUtils.ContextCache.PlusNestingFks.Find(item =>
@@ -416,12 +418,14 @@ public static class WsServiceUtilsSave
                 // Обновить найденную запись.
                 WsServiceUtilsUpdate.UpdatePluNestingFk(pluNestingFkDb, pluNestingFk);
                 // Обновить кэш.
+                WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
                 WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
                 return pluNestingFkDb;
             }
             // Не найдено -> Добавить новую запись.
             WsServiceUtilsUpdate.SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C);
             // Обновить кэш.
+            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             return pluNestingFk;
         }
@@ -430,6 +434,30 @@ public static class WsServiceUtilsSave
             WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
         }
         return WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem();
+    }
+
+    /// <summary>
+    /// Сохранить остальные вложенности и ПЛУ.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="pluNestingFkDefault"></param>
+    /// <param name="pluXml"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    public static void SavePluNestingFkOther(WsResponse1CShortModel response, WsSqlPluNestingFkModel pluNestingFkDefault, WsSqlPluModel pluXml)
+    {
+        // Получить список вложенностей ПЛУ.
+        List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
+            WsSqlEnumContextType.Cache, response, pluXml.Uid1C, pluXml.Uid1C, "Список вложенностей ПЛУ");
+        // Отфильтровать список вложенностей ПЛУ.
+        List<WsSqlPluNestingFkModel> pluNestingFksOther = 
+            pluNestingFks.Where(item => !item.IdentityValueUid.Equals(pluNestingFkDefault.IdentityValueUid)).ToList();
+        // Деактивировать все прочие вложенности.
+        foreach (WsSqlPluNestingFkModel pluNestingFk in pluNestingFksOther)
+        {
+            pluNestingFk.IsDefault = false;
+            // Сохранить связь вложенности и ПЛУ.
+            if (pluXml.ParseResult.IsStatusSuccess) SavePluNestingFk(response, pluNestingFk);
+        }
     }
 
     /// <summary>
@@ -448,6 +476,7 @@ public static class WsServiceUtilsSave
                 // Добавить запись.
                 WsServiceUtils.SqlCore.Save(pluNestingFk);
             // Обновить кэш.
+            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
         }
         catch (Exception ex)

@@ -37,6 +37,12 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         Type = (WsSqlDeviceTypeModel)info.GetValue(nameof(WsSqlDeviceTypeModel), typeof(WsSqlDeviceTypeModel));
     }
 
+    public WsSqlDeviceTypeFkModel(WsSqlDeviceTypeFkModel item) : base(item)
+    {
+        Device = new(item.Device);
+        Type = new(item.Type);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -62,15 +68,6 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Device.EqualsDefault() &&
         Type.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlDeviceTypeFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Device = Device.CloneCast();
-        item.Type = Type.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -108,8 +105,6 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Device.Equals(item.Device) &&
         Type.Equals(item.Type);
-
-    public new virtual WsSqlDeviceTypeFkModel CloneCast() => (WsSqlDeviceTypeFkModel)Clone();
 
     #endregion
 }

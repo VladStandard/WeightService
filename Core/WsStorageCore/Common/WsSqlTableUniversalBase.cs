@@ -11,46 +11,37 @@ public class WsSqlTableUniversalBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; set; }
+    [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; init; }
     [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
     [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-    [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
-    [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
-    [XmlIgnore] public virtual bool IsNew => IsNotExists;
-    [XmlIgnore] public virtual bool IsNotNew => IsExists;
-    [XmlIgnore] public virtual bool IsIdentityId => Equals(Identity.Name, WsSqlEnumFieldIdentity.Id);
-    [XmlIgnore] public virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlEnumFieldIdentity.Uid);
+    
+    [XmlIgnore] protected virtual bool IsExists => Identity.IsExists;
+    [XmlIgnore] protected virtual bool IsNotExists => Identity.IsNotExists;
+    [XmlIgnore] protected virtual bool IsIdentityUid => Equals(Identity.Name, WsSqlEnumFieldIdentity.Uid);
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableUniversalBase()
     {
         Identity = new(WsSqlEnumFieldIdentity.Empty);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableUniversalBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableUniversalBase(WsSqlFieldIdentityModel identity) : this()
     {
-        Identity = (WsSqlFieldIdentityModel)identity.Clone();
+        Identity = new(identity);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     protected WsSqlTableUniversalBase(SerializationInfo info, StreamingContext context)
     {
         Identity = (WsSqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlFieldIdentityModel));
+    }
+
+    public WsSqlTableUniversalBase(WsSqlTableUniversalBase item) : base(item)
+    {
+        Identity = new(item.Identity);
     }
 
     #endregion
@@ -60,7 +51,7 @@ public class WsSqlTableUniversalBase : SerializeBase
     public override string ToString() =>
         IsIdentityUid ? IdentityValueUid.ToString() : IdentityValueId.ToString();
 
-    public virtual bool Equals(WsSqlTableUniversalBase item) =>
+    protected virtual bool Equals(WsSqlTableUniversalBase item) =>
         ReferenceEquals(this, item) || Identity.Equals(item.Identity);
 
     public override bool Equals(object obj)
@@ -88,7 +79,7 @@ public class WsSqlTableUniversalBase : SerializeBase
 
     #region Public and private methods - virtual
 
-    public virtual bool EqualsNew() => Equals(new WsSqlTableUniversalBase());
+    public virtual bool EqualsNew() => Equals(new());
 
     public virtual bool EqualsDefault() =>
         Identity.EqualsDefault() &&

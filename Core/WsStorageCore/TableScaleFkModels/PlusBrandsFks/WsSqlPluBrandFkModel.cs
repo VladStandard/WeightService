@@ -37,6 +37,12 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
         Brand = (WsSqlBrandModel)info.GetValue(nameof(Brand), typeof(WsSqlBrandModel));
     }
 
+    public WsSqlPluBrandFkModel(WsSqlPluBrandFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        Brand = new(item.Brand);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -62,15 +68,6 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Brand.EqualsDefault() &&
         Plu.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPluBrandFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.Brand = Brand.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -108,8 +105,6 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Plu.Equals(item.Plu) &&
         Brand.Equals(item.Brand);
-
-    public new virtual WsSqlPluBrandFkModel CloneCast() => (WsSqlPluBrandFkModel)Clone();
 
     #endregion
 }

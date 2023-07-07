@@ -33,6 +33,11 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
         Address = info.GetString(nameof(Address));
     }
 
+    public WsSqlProductionFacilityModel(WsSqlProductionFacilityModel item) : base(item)
+    {
+        Address = item.Address;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -54,14 +59,6 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Address, string.Empty);
-
-    public override object Clone()
-    {
-        WsSqlProductionFacilityModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Address = Address;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -87,8 +84,6 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public virtual bool Equals(WsSqlProductionFacilityModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Address, item.Address);
-
-    public new virtual WsSqlProductionFacilityModel CloneCast() => (WsSqlProductionFacilityModel)Clone();
 
     #endregion
 }

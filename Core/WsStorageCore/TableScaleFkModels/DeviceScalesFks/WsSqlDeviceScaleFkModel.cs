@@ -17,9 +17,6 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
     [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceScaleFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = new();
@@ -35,6 +32,12 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
     {
         Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
+    }
+
+    public WsSqlDeviceScaleFkModel(WsSqlDeviceScaleFkModel item) : base(item)
+    {
+        Device = new(item.Device);
+        Scale = new(item.Scale);
     }
 
     #endregion
@@ -62,15 +65,6 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Device.EqualsDefault() &&
         Scale.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlDeviceScaleFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Device = Device.CloneCast();
-        item.Scale = Scale.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -108,8 +102,6 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Device.Equals(item.Device) &&
         Scale.Equals(item.Scale);
-
-    public new virtual WsSqlDeviceScaleFkModel CloneCast() => (WsSqlDeviceScaleFkModel)Clone();
 
     #endregion
 }

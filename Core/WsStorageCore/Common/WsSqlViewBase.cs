@@ -28,6 +28,11 @@ public class WsSqlViewBase : WsViewModelBase
         Identity = (WsSqlViewIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlViewIdentityModel));
     }
 
+    public WsSqlViewBase(WsSqlViewBase item) : base(item)
+    {
+        Identity = new(item.Identity);
+    }
+
     #endregion
 
     #region Public and private methods - override

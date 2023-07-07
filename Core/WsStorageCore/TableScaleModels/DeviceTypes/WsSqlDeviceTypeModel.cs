@@ -32,13 +32,16 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
         PrettyName = info.GetString(nameof(PrettyName));
     }
 
+    public WsSqlDeviceTypeModel(WsSqlDeviceTypeModel item) : base(item)
+    {
+        PrettyName = item.PrettyName;
+    }
+
     #endregion
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}. ";
+    public override string ToString() => $"{GetIsMarked()} | {Name}";
 
     public override bool Equals(object obj)
     {
@@ -55,14 +58,6 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(PrettyName, string.Empty);
-
-    public override object Clone()
-    {
-        WsSqlDeviceTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.PrettyName = PrettyName;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -88,8 +83,6 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public virtual bool Equals(WsSqlDeviceTypeModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(PrettyName, item.PrettyName);
-
-    public new virtual WsSqlDeviceTypeModel CloneCast() => (WsSqlDeviceTypeModel)Clone();
 
     #endregion
 }

@@ -18,12 +18,12 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
     [XmlIgnore] public virtual bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
     [XmlIgnore] public virtual bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
 
-    public WsSqlFieldIdentityModel()
+    public WsSqlFieldIdentityModel() : base()
     {
         FieldName = nameof(WsSqlFieldIdentityModel);
         Name = WsSqlEnumFieldIdentity.Empty;
-        Id = 0;
         Uid = Guid.Empty;
+        Id = 0;
     }
 
     public WsSqlFieldIdentityModel(WsSqlEnumFieldIdentity identityName) : this()
@@ -42,6 +42,14 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
         Id = info.GetInt64(nameof(Id));
+    }
+
+    public WsSqlFieldIdentityModel(WsSqlFieldIdentityModel item) : base(item)
+    {
+        FieldName = nameof(WsSqlFieldIdentityModel);
+        Name = item.Name;
+        Uid = item.Uid;
+        Id = item.Id;
     }
 
     #endregion
@@ -87,8 +95,6 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         Equals(Id, (long)0) &&
         Equals(Uid, Guid.Empty);
 
-    public override object Clone() => new WsSqlFieldIdentityModel(Name, Id, Uid);
-
     #endregion
 
     #region Public and private methods - virtual
@@ -97,8 +103,6 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
         Id.Equals(item.Id) &&
         Uid.Equals(item.Uid);
-
-    public new virtual WsSqlFieldIdentityModel CloneCast() => (WsSqlFieldIdentityModel)Clone();
 
     public virtual void SetId(long value) => Id = value;
 
@@ -117,12 +121,6 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         WsSqlEnumFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
         _ => default
     };
-
-    [Obsolete(@"Use IsNotExists")]
-    public virtual bool IsNew => IsNotExists;
-
-    [Obsolete(@"Use IsExists")]
-    public virtual bool IsNotNew => IsExists;
 
     #endregion
 }

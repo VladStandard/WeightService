@@ -44,6 +44,15 @@ public class WsSqlOrderModel : WsSqlTableBase
         PalletCount = info.GetInt32(nameof(PalletCount));
     }
 
+    public WsSqlOrderModel(WsSqlOrderModel item) : base(item)
+    {
+        BeginDt = item.BeginDt;
+        EndDt = item.EndDt;
+        ProdDt = item.ProdDt;
+        BoxCount = item.BoxCount;
+        PalletCount = item.PalletCount;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -75,18 +84,6 @@ public class WsSqlOrderModel : WsSqlTableBase
         Equals(ProdDt, DateTime.MinValue) &&
         Equals(BoxCount, 0) &&
         Equals(PalletCount, 0);
-
-    public override object Clone()
-    {
-        WsSqlOrderModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.BeginDt = BeginDt;
-        item.EndDt = EndDt;
-        item.ProdDt = ProdDt;
-        item.BoxCount = BoxCount;
-        item.PalletCount = PalletCount;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -121,8 +118,6 @@ public class WsSqlOrderModel : WsSqlTableBase
         Equals(ProdDt, item.ProdDt) &&
         Equals(BoxCount, item.BoxCount) &&
         Equals(PalletCount, item.PalletCount);
-
-    public new virtual WsSqlOrderModel CloneCast() => (WsSqlOrderModel)Clone();
 
     #endregion
 }

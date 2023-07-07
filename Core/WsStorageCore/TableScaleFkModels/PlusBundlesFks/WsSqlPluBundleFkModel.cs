@@ -36,6 +36,12 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         Bundle = (WsSqlBundleModel)info.GetValue(nameof(Bundle), typeof(WsSqlBundleModel));
     }
 
+    public WsSqlPluBundleFkModel(WsSqlPluBundleFkModel item) : base(item)
+    {
+        Bundle = new(item.Bundle);
+        Plu = new(item.Plu);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -58,15 +64,6 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Bundle.EqualsDefault() &&
         Plu.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPluBundleFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Bundle = Bundle.CloneCast();
-        item.Plu = Plu.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -104,8 +101,6 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Bundle.Equals(item.Bundle) &&
         Plu.Equals(item.Plu);
-
-    public new virtual WsSqlPluBundleFkModel CloneCast() => (WsSqlPluBundleFkModel)Clone();
 
     #endregion
 }

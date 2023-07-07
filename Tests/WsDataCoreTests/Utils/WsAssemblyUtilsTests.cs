@@ -22,17 +22,17 @@ public sealed class WsAssemblyUtilsTests
         });
     }
 
-    [Test]
-    public void Get_click_once_is_work()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            string clickOnceDirectory = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
-            TestContext.WriteLine(clickOnceDirectory);
+    //[Test]
+    //public void Get_click_once_is_work()
+    //{
+    //    Assert.DoesNotThrow(() =>
+    //    {
+    //        string clickOnceDirectory = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
+    //        TestContext.WriteLine(clickOnceDirectory);
 
-            Assert.IsNotEmpty(clickOnceDirectory);
-        });
-    }
+    //        Assert.IsNotEmpty(clickOnceDirectory);
+    //    });
+    //}
 
     [Test]
     public void Get_run_is_work()

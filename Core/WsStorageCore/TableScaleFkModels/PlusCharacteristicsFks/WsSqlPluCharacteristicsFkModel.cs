@@ -35,6 +35,12 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
         Characteristic = (WsSqlPluCharacteristicModel)info.GetValue(nameof(Characteristic),  typeof(WsSqlPluCharacteristicModel));
     }
 
+    public WsSqlPluCharacteristicsFkModel(WsSqlPluCharacteristicsFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        Characteristic = new(item.Characteristic);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -60,15 +66,6 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
         base.EqualsDefault() && 
         Plu.EqualsDefault() &&
         Characteristic.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPluCharacteristicsFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.Characteristic = Characteristic.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -106,8 +103,6 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
         Characteristic.Equals(item.Characteristic);
-
-    public new virtual WsSqlPluCharacteristicsFkModel CloneCast() => (WsSqlPluCharacteristicsFkModel)Clone();
 
     #endregion
 }

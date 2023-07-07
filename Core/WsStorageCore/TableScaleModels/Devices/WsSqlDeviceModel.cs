@@ -53,6 +53,15 @@ public class WsSqlDeviceModel : WsSqlTableBase
         MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
     }
 
+    public WsSqlDeviceModel(WsSqlDeviceModel item) : base(item)
+    {
+        LoginDt = item.LoginDt;
+        LogoutDt = item.LogoutDt;
+        PrettyName = item.PrettyName;
+        Ipv4 = item.Ipv4;
+        MacAddress = new(item.MacAddress);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -80,18 +89,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(PrettyName, string.Empty) &&
         Equals(Ipv4, string.Empty) &&
         MacAddress.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlDeviceModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.LoginDt = LoginDt;
-        item.LogoutDt = LogoutDt;
-        item.PrettyName = PrettyName;
-        item.Ipv4 = Ipv4;
-        item.MacAddress = MacAddress.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -129,8 +126,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(PrettyName, item.PrettyName) &&
         Equals(Ipv4, item.Ipv4) &&
         MacAddress.Equals(item.MacAddress);
-
-    public new virtual WsSqlDeviceModel CloneCast() => (WsSqlDeviceModel)Clone();
 
     #endregion
 }

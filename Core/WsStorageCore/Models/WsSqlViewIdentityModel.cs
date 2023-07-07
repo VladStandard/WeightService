@@ -14,8 +14,6 @@ public record WsSqlViewIdentityModel
     public WsSqlEnumFieldIdentity Name { get; init; }
     public Guid Uid { get; init; }
     public long Id { get; init; }
-    public bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
-    public bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
 
     public WsSqlViewIdentityModel(Guid uid)
     {
@@ -36,6 +34,13 @@ public record WsSqlViewIdentityModel
         Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
         Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
         Id = info.GetInt64(nameof(Id));
+    }
+
+    public WsSqlViewIdentityModel(WsSqlViewIdentityModel item)
+    {
+        Name = item.Name;
+        Uid = item.Uid;
+        Id = item.Id;
     }
 
     #endregion

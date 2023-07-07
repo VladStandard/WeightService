@@ -40,54 +40,73 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> pluCharacteristicsXml = WsServiceUtilsGetXml.GetXmlPluCharacteristicsList(xml);
             foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> recordXml in pluCharacteristicsXml)
             {
-                WsSqlPluCharacteristicModel itemXml = recordXml.Item;
+                WsSqlPluCharacteristicModel characteristicXml = recordXml.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
                 List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUtilsUpdate.UpdatePlus1CFksDb(response, recordXml);
                 WsSqlPluModel pluDb = WsServiceUtils.ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
                 // Проверить разрешение обмена для ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(itemXml, plus1CFksDb);
+                if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(characteristicXml, plus1CFksDb);
                 
                 // Сохранить характеристику ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristics(response, itemXml);
+                if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristics(response, characteristicXml);
                 // Сохранить связь характеристики ПЛУ.
-                if (itemXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristicsFks(response, itemXml);
-                if (itemXml.ParseResult.IsStatusSuccess)
+                if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristicsFks(response, characteristicXml);
+                if (characteristicXml.ParseResult.IsStatusSuccess)
                 {
-                    // Получить список связей вложенности ПЛУ.
-                    List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
-                        WsSqlEnumContextType.Cache, response, pluDb.Uid1C, itemXml.NomenclatureGuid, "Вложенности ПЛУ");
-                    // Перебор вложенностей.
-                    if (itemXml.ParseResult.IsStatusSuccess)
+                    // Получить вложенность ПЛУ по-умолчанию.
+                    WsSqlPluNestingFkModel pluNestingFkDefault = WsServiceUtilsGet.GetItemPluNestingFkDefault(
+                        WsSqlEnumContextType.Cache, response, characteristicXml.NomenclatureGuid, 
+                        characteristicXml.Uid1C, "Вложенность ПЛУ по-умолчанию", characteristicXml);
+                    if (characteristicXml.ParseResult.IsStatusSuccess)
                     {
-                        foreach (WsSqlPluNestingFkModel pluNestingFk in pluNestingFks)
+                        // Вложенность является по-умолчанию.
+                        if (pluNestingFkDefault.IsExists && pluNestingFkDefault.BundleCount.Equals((short)characteristicXml.AttachmentsCount))
                         {
-                            if (itemXml.ParseResult.IsStatusSuccess)
+                            characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
+                            characteristicXml.ParseResult.Exception = WsLocaleCore.WebService.FieldPluCharacteristicMustBeNotDefault();
+                        }
+                        else
+                        {
+                            // Получить список вложенностей ПЛУ.
+                            List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
+                                WsSqlEnumContextType.Cache, response, pluDb.Uid1C, characteristicXml.NomenclatureGuid, "Вложенности ПЛУ");
+                            // Отфильтровать список вложенностей ПЛУ.
+                            List<WsSqlPluNestingFkModel> pluNestingFksOther =
+                                pluNestingFks.Where(item => !item.IdentityValueUid.Equals(pluNestingFkDefault.IdentityValueUid)).ToList();
+                            // Поиск вложенности.
+                            WsSqlPluNestingFkModel? pluNestingFkOther = pluNestingFksOther.Find(
+                                item => item.BundleCount.Equals((short)characteristicXml.AttachmentsCount));
+                            // Найдена эта же вложенность.
+                            if (pluNestingFkOther is not null)
                             {
-                                // Если вложенность не найдена, то добавить новую.
-                                if (!pluNestingFk.BundleCount.Equals((short)itemXml.AttachmentsCount) ||
-                                    !pluNestingFk.PluBundle.Plu.Uid1C.Equals(itemXml.NomenclatureGuid))
-                                {
-                                    // Деактивировать.
-                                    pluNestingFk.IsDefault = false;
-                                    // Сохранить связь вложенности и ПЛУ.
-                                    if (itemXml.ParseResult.IsStatusSuccess)
-                                        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
-                                }
-                                //{
-                                //    // Сохранить связь вложенности и ПЛУ.
-                                //    if (itemXml.ParseResult.IsStatusSuccess)
-                                //        WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFk);
-                                //}
+                                pluNestingFkOther.IsMarked = characteristicXml.IsMarked;
                             }
+                            // Вложенность не найдена -> создать.
+                            else
+                            {
+                                // Создать копию из вложенности по-умолчанию.
+                                pluNestingFkOther = new(pluNestingFkDefault)
+                                {
+                                    // Задать новое кол-во.
+                                    BundleCount = (short)characteristicXml.AttachmentsCount
+                                };
+                            }
+                            // Снять флаг по-умолчанию.
+                            pluNestingFkOther.IsDefault = false;
+                            // Сохранить связь вложенности и ПЛУ.
+                            WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFkOther);
+                            // Обновить кэш.
+                            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
+                            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
                         }
                     }
                 }
                 // Исключение.
-                if (itemXml.ParseResult.IsStatusError)
-                    WsServiceUtilsResponse.AddResponseExceptionString(response, itemXml.Uid1C,
-                        itemXml.ParseResult.Exception, itemXml.ParseResult.InnerException);
+                if (characteristicXml.ParseResult.IsStatusError)
+                    WsServiceUtilsResponse.AddResponseExceptionString(response, characteristicXml.Uid1C,
+                        characteristicXml.ParseResult.Exception, characteristicXml.ParseResult.InnerException);
             }
         }, format, isDebug, sessionFactory);
 
-    #endregion
+#endregion
 }

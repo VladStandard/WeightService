@@ -4,15 +4,14 @@
 namespace WsStorageCore.Common;
 
 /// <summary>
-/// Интерфейс базового класса SQL-таблиц.
+/// Интерфейс базового объекта SQL.
 /// </summary>
-public interface IWsSqlDbBase
+public interface IWsSqlObjectBase
 {
     string ToString();
     bool Equals(object obj);
     bool EqualsNew();
     int GetHashCode();
-    object Clone();
     void GetObjectData(SerializationInfo info, StreamingContext context);
     void ClearNullProperties();
     void FillProperties();

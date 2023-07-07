@@ -30,6 +30,8 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
         //
     }
 
+    public WsSqlPrinterTypeModel(WsSqlPrinterTypeModel item) : base(item) { }
+
     #endregion
 
     #region Public and private methods - override
@@ -50,30 +52,7 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() =>
-        base.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPrinterTypeModel item = new();
-        item.CloneSetup(base.CloneCast());
-        return item;
-    }
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
+    public override bool EqualsDefault() => base.EqualsDefault();
 
     #endregion
 
@@ -81,8 +60,6 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
 
     public virtual bool Equals(WsSqlPrinterTypeModel item) =>
         ReferenceEquals(this, item) || base.Equals(item);
-
-    public new virtual WsSqlPrinterTypeModel CloneCast() => (WsSqlPrinterTypeModel)Clone();
 
     #endregion
 }

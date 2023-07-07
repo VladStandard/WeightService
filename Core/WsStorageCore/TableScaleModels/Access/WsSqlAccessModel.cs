@@ -14,6 +14,7 @@ public class WsSqlAccessModel : WsSqlTableBase
 
     [XmlElement] public virtual DateTime LoginDt { get; set; }
     [XmlElement] public virtual byte Rights { get; set; }
+
     [XmlIgnore] public virtual WsEnumAccessRights RightsEnum => (WsEnumAccessRights)Rights;
 
     /// <summary>
@@ -34,6 +35,12 @@ public class WsSqlAccessModel : WsSqlTableBase
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
         Rights = info.GetByte(nameof(Rights));
+    }
+
+    public WsSqlAccessModel(WsSqlAccessModel item) : base(item)
+    {
+        LoginDt = item.LoginDt;
+        Rights = item.Rights;
     }
 
     #endregion
@@ -58,15 +65,6 @@ public class WsSqlAccessModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(LoginDt, DateTime.MinValue) &&
         Equals(Rights, (byte)0x00);
-
-    public override object Clone()
-    {
-        WsSqlAccessModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.LoginDt = LoginDt;
-        item.Rights = Rights;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -95,8 +93,6 @@ public class WsSqlAccessModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(LoginDt, item.LoginDt) &&
         Equals(Rights, item.Rights);
-
-    public new virtual WsSqlAccessModel CloneCast() => (WsSqlAccessModel)Clone();
 
     #endregion
 }

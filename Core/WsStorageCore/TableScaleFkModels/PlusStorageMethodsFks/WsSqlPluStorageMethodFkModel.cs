@@ -38,6 +38,13 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Resource = (WsSqlTemplateResourceModel)info.GetValue(nameof(Resource),  typeof(WsSqlTemplateResourceModel));
     }
 
+    public WsSqlPluStorageMethodFkModel(WsSqlPluStorageMethodFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        Method = new(item.Method);
+        Resource = new(item.Resource);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -64,16 +71,6 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Method.EqualsDefault() &&
         Resource.EqualsDefault();
-
-    public override object Clone()
-    {
-        WsSqlPluStorageMethodFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.Method = Method.CloneCast();
-        item.Resource = Resource.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -115,8 +112,6 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Plu.Equals(item.Plu) &&
         Method.Equals(item.Method) &&
         Resource.Equals(item.Resource);
-
-    public new virtual WsSqlPluStorageMethodFkModel CloneCast() => (WsSqlPluStorageMethodFkModel)Clone();
 
     #endregion
 }

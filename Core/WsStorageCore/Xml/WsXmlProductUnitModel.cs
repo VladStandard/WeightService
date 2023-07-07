@@ -8,7 +8,7 @@ namespace WsStorageCore.Xml;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsXmlProductUnitModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductUnitModel : ISerializable, IWsSqlObjectBase
 {
 	#region Public and private fields, properties, constructor
 
@@ -21,8 +21,12 @@ public class WsXmlProductUnitModel : ISerializable, IWsSqlDbBase
 
 	public WsXmlProductUnitModel()
 	{
-		Heft = 0; Capacity = 0; Rate = 0; Threshold = 0; 
-		Okei = string.Empty; Description = string.Empty;
+		Heft = 0;
+        Capacity = 0;
+        Rate = 0;
+        Threshold = 0; 
+		Okei = string.Empty;
+        Description = string.Empty;
 	}
 
 	/// <summary>
@@ -40,17 +44,21 @@ public class WsXmlProductUnitModel : ISerializable, IWsSqlDbBase
 		Description = info.GetString(nameof(Description));
 	}
 
-	#endregion
+    public WsXmlProductUnitModel(WsXmlProductUnitModel item)
+    {
+        Heft = item.Heft;
+        Capacity = item.Capacity;
+        Rate = item.Rate;
+        Threshold = item.Threshold;
+        Okei = item.Okei;
+        Description = item.Description;
+    }
 
-	#region Public and private methods
+    #endregion
 
-	public override string ToString() =>
-		$"{nameof(Heft)}: {Heft}. " +
-		$"{nameof(Capacity)}: {Capacity}. " +
-		$"{nameof(Rate)}: {Rate}. " +
-		$"{nameof(Threshold)}: {Threshold}. " +
-		$"{nameof(Okei)}: {Okei}. " +
-		$"{nameof(Description)}: {Description}. ";
+    #region Public and private methods
+
+    public override string ToString() => $"{Heft} | {Capacity} | {Rate} | {Threshold} | {Okei} | {Description}";
 
 	public bool Equals(WsXmlProductUnitModel item) =>
 		ReferenceEquals(this, item) || Equals(Heft, item.Heft) && //-V3130
@@ -63,22 +71,6 @@ public class WsXmlProductUnitModel : ISerializable, IWsSqlDbBase
 	public bool EqualsNew()
 	{
 		return Equals(new());
-	}
-
-	/// <summary>
-	/// Clone class as object.
-	/// </summary>
-	/// <returns></returns>
-	public object Clone()
-	{
-		WsXmlProductUnitModel item = new();
-		item.Heft = Heft;
-		item.Capacity = Capacity;
-		item.Rate = Rate;
-		item.Threshold = Threshold;
-		item.Okei = Okei;
-		item.Description = Description;
-		return item;
 	}
 
 	/// <summary>

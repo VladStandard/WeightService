@@ -350,56 +350,60 @@ public static class WsServiceUtilsGet
     }
 
     /// <summary>
-    /// Получить связь вложенности ПЛУ.
+    /// Получить вложенность ПЛУ по-умолчанию.
     /// </summary>
     /// <param name="contextType"></param>
     /// <param name="response"></param>
-    /// <param name="uid1C"></param>
+    /// <param name="pluUid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
+    /// <param name="characteristicXml"></param>
     /// <returns></returns>
-    public static WsSqlPluNestingFkModel GetItemPluNestingFkDefault(WsSqlEnumContextType contextType, 
-        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
+    public static WsSqlPluNestingFkModel GetItemPluNestingFkDefault(WsSqlEnumContextType contextType,
+        WsResponse1CShortModel response, Guid pluUid1C, Guid uid1CException, string refName,
+        WsSqlPluCharacteristicModel characteristicXml)
     {
         WsSqlPluNestingFkModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => 
                 WsServiceUtils.ContextCache.PlusNestingFks.Find(
-                    item => item.PluBundle.Plu.Uid1C.Equals(uid1C) && item.IsDefault)
+                    item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C) && item.IsDefault)
                     ?? WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
         {
             WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+            characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
+            //characteristicXml.ParseResult.Exception = new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!");
         }
         return result;
     }
-    
+
     /// <summary>
-    /// Получить список связей вложенности ПЛУ.
+    /// Получить список вложенностей ПЛУ.
     /// </summary>
     /// <param name="contextType"></param>
     /// <param name="response"></param>
-    /// <param name="uid1C"></param>
+    /// <param name="pluUid1C"></param>
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <returns></returns>
     public static List<WsSqlPluNestingFkModel> GetListPluNestingFks(WsSqlEnumContextType contextType, 
-        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
+        WsResponse1CShortModel response, Guid pluUid1C, Guid uid1CException, string refName)
     {
         List<WsSqlPluNestingFkModel> result = contextType switch
         {
             WsSqlEnumContextType.Cache => 
                 WsServiceUtils.ContextCache.PlusNestingFks.Where(
-                    item => item.PluBundle.Plu.Uid1C.Equals(uid1C)).ToList(),
+                    item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C)).ToList(),
             _ => throw new ArgumentException(),
         };
         if (!result.Any())
         {
             WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
         }
         return result;
     }

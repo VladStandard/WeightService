@@ -22,9 +22,6 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     [XmlElement] public virtual decimal WeightTare { get => PluBundle.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
     [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluNestingFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Box = new();
@@ -53,6 +50,17 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         WeightMin = info.GetDecimal(nameof(WeightMin));
         WeightNom = info.GetDecimal(nameof(WeightNom));
         WeightTare = info.GetDecimal(nameof(WeightTare));
+    }
+
+    public WsSqlPluNestingFkModel(WsSqlPluNestingFkModel item) : base(item)
+    {
+        Box = new(item.Box);
+        PluBundle = new(item.PluBundle);
+        IsDefault = item.IsDefault;
+        BundleCount = item.BundleCount;
+        WeightMax = item.WeightMax;
+        WeightMin = item.WeightMin;
+        WeightNom = item.WeightNom;
     }
 
     #endregion
@@ -89,20 +97,6 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         Equals(WeightMin, default(decimal)) &&
         Equals(WeightNom, default(decimal)) &&
         Equals(BundleCount, default(short));
-
-    public override object Clone()
-    {
-        WsSqlPluNestingFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Box = Box.CloneCast();
-        item.PluBundle = PluBundle.CloneCast();
-        item.IsDefault = IsDefault;
-        item.BundleCount = BundleCount;
-        item.WeightMax = WeightMax;
-        item.WeightMin = WeightMin;
-        item.WeightNom = WeightNom;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -157,8 +151,5 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         Equals(WeightNom, item.WeightNom) &&
         Equals(BundleCount, item.BundleCount);
     
-
-    public new virtual WsSqlPluNestingFkModel CloneCast() => (WsSqlPluNestingFkModel)Clone();
-
     #endregion
 }

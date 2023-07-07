@@ -24,11 +24,15 @@ public static class WsDataUtils
         return true;
     }
 
-    public static byte[] ByteClone(byte[] value)
+    public static byte[] ByteClone(byte[]? value)
     {
-        byte[] result = new byte[value.Length];
-        value.CopyTo(result, 0);
-        return result;
+        if (value is not null)
+        {
+            byte[] result = new byte[value.Length];
+            value.CopyTo(result, 0);
+            return result;
+        }
+        return Array.Empty<byte>();
     }
 
     public static string GetBytesLength(byte[]? value, bool isShowLabel)

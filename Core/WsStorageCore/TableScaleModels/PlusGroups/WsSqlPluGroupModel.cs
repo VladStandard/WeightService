@@ -39,6 +39,13 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
         ParentGuid = groupGuid is Guid guid ? guid : Guid.Empty;
     }
 
+    public WsSqlPluGroupModel(WsSqlPluGroupModel item) : base(item)
+    {
+        IsGroup = item.IsGroup;
+        Code = item.Code;
+        ParentGuid = item.ParentGuid;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -66,16 +73,6 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
         Equals(IsGroup, false) &&
         Equals(Code, string.Empty) &&
         Equals(ParentGuid, Guid.Empty);
-
-    public override object Clone()
-    {
-        WsSqlPluGroupModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.IsGroup = IsGroup;
-        item.Code = Code;
-        item.ParentGuid = ParentGuid;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -115,8 +112,6 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
         Equals(IsGroup, item.IsGroup) &&
         Equals(Code, item.Code) &&
         Equals(ParentGuid, item.ParentGuid);
-
-    public new virtual WsSqlPluGroupModel CloneCast() => (WsSqlPluGroupModel)Clone();
 
     #endregion
 }

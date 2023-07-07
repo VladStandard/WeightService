@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsDataCore.Serialization.Models;
+namespace WsDataCore.Serialization;
 
 [Serializable]
 public class SerializeDebugBase : SerializeBase
@@ -10,34 +10,24 @@ public class SerializeDebugBase : SerializeBase
 
     [XmlIgnore] public bool IsDebug { get; set; }
 
-    #endregion
-
-    #region Public and private methods - ISerializable
-
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public SerializeDebugBase()
     {
         IsDebug = false;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public SerializeDebugBase(bool isDebug)
     {
         IsDebug = isDebug;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected SerializeDebugBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsDebug = info.GetBoolean(nameof(IsDebug));
+    }
+
+    public SerializeDebugBase(SerializeDebugBase item) : base(item)
+    {
+        IsDebug = item.IsDebug;
     }
 
     /// <summary>

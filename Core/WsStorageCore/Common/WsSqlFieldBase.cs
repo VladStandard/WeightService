@@ -8,26 +8,25 @@ namespace WsStorageCore.Common;
 /// Базовый класс поля SQL-таблицы.
 /// </summary>
 [Serializable]
-public class WsSqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializable
+public class WsSqlFieldBase : SerializeBase, IWsSqlObjectBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string FieldName { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlFieldBase()
     {
         FieldName = nameof(WsSqlFieldBase);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     protected WsSqlFieldBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         FieldName = info.GetString(nameof(FieldName));
+    }
+
+    public WsSqlFieldBase(WsSqlFieldBase item) : base(item)
+    {
+        FieldName = nameof(WsSqlFieldBase);
     }
 
     #endregion
@@ -67,18 +66,6 @@ public class WsSqlFieldBase : SerializeBase, ICloneable, IWsSqlDbBase, ISerializ
         ReferenceEquals(this, item) || Equals(FieldName, item.FieldName);
 
     public virtual bool EqualsDefault() => Equals(FieldName, string.Empty);
-
-    public virtual object Clone() => new WsSqlFieldBase()
-    {
-        FieldName = FieldName
-    };
-
-    public virtual WsSqlFieldBase CloneCast() => (WsSqlFieldBase)Clone();
-
-    public virtual void CloneSetup(WsSqlFieldBase item)
-    {
-        FieldName = item.FieldName;
-    }
 
     public virtual void ClearNullProperties()
     {

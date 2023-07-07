@@ -41,6 +41,13 @@ public class WsSqlPluFkModel : WsSqlTableBase
         _category = (WsSqlPluModel)info.GetValue(nameof(_category), typeof(WsSqlPluModel));
     }
 
+    public WsSqlPluFkModel(WsSqlPluFkModel item) : base(item)
+    {
+        Plu = new(item.Plu);
+        Parent = new(item.Parent);
+        Category = item.Category is null ? null : new(item.Category);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -67,16 +74,6 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Parent.EqualsDefault() &&
         Category is null;
-
-    public override object Clone()
-    {
-        WsSqlPluFkModel item = new();
-        item.CloneSetup(base.CloneCast());
-        item.Plu = Plu.CloneCast();
-        item.Parent = Parent.CloneCast();
-        item.Category = Category?.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -118,8 +115,6 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Plu.Equals(item.Plu) &&
         Parent.Equals(item.Parent) &&
         (Category is null && item.Category is null || Category is not null && item.Category is not null && Category.Equals(item.Category));
-
-    public new virtual WsSqlPluFkModel CloneCast() => (WsSqlPluFkModel)Clone();
 
     #endregion
 }
