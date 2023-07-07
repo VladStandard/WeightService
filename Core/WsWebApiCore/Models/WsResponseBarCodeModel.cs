@@ -1,12 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Serialization;
-
 namespace WsWebApiCore.Models;
 
 [Serializable]
-public sealed class WsResponseBarCodeModel : SerializeBase, ICloneable
+public sealed class WsResponseBarCodeModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
     [XmlElement(WsWebConstants.Guid)]
@@ -67,6 +65,37 @@ public sealed class WsResponseBarCodeModel : SerializeBase, ICloneable
         PluLabelGuid = new(info.GetString(nameof(PluLabelGuid)) ?? string.Empty);
     }
 
+    public WsResponseBarCodeModel(WsResponseBarCodeModel item) : base(item)
+    {
+        IdentityValueUid = item.IdentityValueUid;
+        CreateDt = item.CreateDt;
+        ChangeDt = item.ChangeDt;
+        IsMarked = item.IsMarked;
+        TypeTop = item.TypeTop;
+        ValueTop = item.ValueTop;
+        TypeRight = item.TypeRight;
+        ValueRight = item.ValueRight;
+        TypeBottom = item.TypeBottom;
+        ValueBottom = item.ValueBottom;
+        PluLabelGuid = item.PluLabelGuid;
+    }
+
+    public WsResponseBarCodeModel(WsSqlBarCodeModel barCode)
+    {
+        WsSqlBarCodeModel barCodeCopy = new(barCode);
+        IdentityValueUid = barCodeCopy.IdentityValueUid;
+        CreateDt = barCodeCopy.CreateDt;
+        ChangeDt = barCodeCopy.ChangeDt;
+        IsMarked = barCodeCopy.IsMarked;
+        TypeTop = barCodeCopy.TypeTop;
+        ValueTop = barCodeCopy.ValueTop;
+        TypeRight = barCodeCopy.TypeRight;
+        ValueRight = barCodeCopy.ValueRight;
+        TypeBottom = barCodeCopy.TypeBottom;
+        ValueBottom = barCodeCopy.ValueBottom;
+        PluLabelGuid = barCodeCopy.PluLabel.IdentityValueUid;
+    }
+
     #endregion
 
     #region Public and private methods
@@ -82,46 +111,6 @@ public sealed class WsResponseBarCodeModel : SerializeBase, ICloneable
         $"{nameof(TypeBottom)}: {TypeBottom}. " +
         $"{nameof(ValueBottom)}: {ValueBottom}. " +
         $"{nameof(PluLabelGuid)}: {PluLabelGuid}. ";
-
-    public object Clone()
-    {
-        WsResponseBarCodeModel item = new()
-        {
-            IdentityValueUid = IdentityValueUid,
-            CreateDt = CreateDt,
-            ChangeDt = ChangeDt,
-            IsMarked = IsMarked,
-            TypeTop = TypeTop,
-            ValueTop = ValueTop,
-            TypeRight = TypeRight,
-            ValueRight = ValueRight,
-            TypeBottom = TypeBottom,
-            ValueBottom = ValueBottom,
-            PluLabelGuid = PluLabelGuid
-        };
-        return item;
-    }
-
-    public WsResponseBarCodeModel CloneCast() => (WsResponseBarCodeModel)Clone();
-
-    public WsResponseBarCodeModel CloneCast(WsSqlBarCodeModel barCode)
-    {
-        WsResponseBarCodeModel item = new()
-        {
-            IdentityValueUid = barCode.IdentityValueUid,
-            CreateDt = barCode.CreateDt,
-            ChangeDt = barCode.ChangeDt,
-            IsMarked = barCode.IsMarked,
-            TypeTop = barCode.TypeTop,
-            ValueTop = barCode.ValueTop,
-            TypeRight = barCode.TypeRight,
-            ValueRight = barCode.ValueRight,
-            TypeBottom = barCode.TypeBottom,
-            ValueBottom = barCode.ValueBottom,
-            PluLabelGuid = barCode.PluLabel.IdentityValueUid
-        };
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.

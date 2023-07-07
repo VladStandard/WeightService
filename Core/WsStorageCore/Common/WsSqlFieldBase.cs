@@ -16,7 +16,7 @@ public class WsSqlFieldBase : SerializeBase, IWsSqlObjectBase
 
     public WsSqlFieldBase()
     {
-        FieldName = string.Empty;
+        FieldName = nameof(WsSqlFieldBase);
     }
 
     protected WsSqlFieldBase(SerializationInfo info, StreamingContext context) : base(info, context)
@@ -24,9 +24,9 @@ public class WsSqlFieldBase : SerializeBase, IWsSqlObjectBase
         FieldName = info.GetString(nameof(FieldName));
     }
 
-    public WsSqlFieldBase(WsSqlFieldBase item)
+    public WsSqlFieldBase(WsSqlFieldBase item) : base(item)
     {
-        FieldName = item.FieldName;
+        FieldName = nameof(WsSqlFieldBase);
     }
 
     #endregion

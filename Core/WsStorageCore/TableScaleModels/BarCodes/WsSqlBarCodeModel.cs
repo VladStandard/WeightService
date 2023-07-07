@@ -59,11 +59,22 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
     }
 
-	#endregion
+    public WsSqlBarCodeModel(WsSqlBarCodeModel item) : base(item)
+    {
+        TypeTop = item.TypeTop;
+        ValueTop = item.ValueTop;
+        TypeRight = item.TypeRight;
+        ValueRight = item.ValueRight;
+        TypeBottom = item.TypeBottom;
+        ValueBottom = item.ValueBottom;
+        PluLabel = new(item.PluLabel);
+    }
 
-	#region Public and private methods - override
+    #endregion
 
-	public override string ToString() =>
+    #region Public and private methods - override
+
+    public override string ToString() =>
         $"{GetIsMarked()} | " +
         $"{nameof(TypeTop)}: {TypeTop}. " +
         $"{nameof(ValueTop)}: {ValueTop}. " +
@@ -94,19 +105,6 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         Equals(TypeBottom, string.Empty) &&
         Equals(ValueBottom, string.Empty) &&
         PluLabel.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlBarCodeModel item = new();
-        item.TypeTop = TypeTop;
-        item.ValueTop = ValueTop;
-        item.TypeRight = TypeRight;
-        item.ValueRight = ValueRight;
-        item.TypeBottom = TypeBottom;
-        item.ValueBottom = ValueBottom;
-        item.PluLabel = PluLabel.CloneCast();
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -151,8 +149,6 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         Equals(TypeBottom, item.TypeBottom) &&
         Equals(ValueBottom, item.ValueBottom) &&
         PluLabel.Equals(item.PluLabel);
-
-    public new virtual WsSqlBarCodeModel CloneCast() => (WsSqlBarCodeModel)Clone();
 
     #endregion
 }

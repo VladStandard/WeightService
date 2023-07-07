@@ -57,6 +57,25 @@ public class WsSqlScaleModel : WsSqlTableBase
         IsKneading = info.GetBoolean(nameof(IsKneading));
     }
 
+    public WsSqlScaleModel(WsSqlScaleModel item) : base(item)
+    {
+        WorkShop = item.WorkShop is null ? null : new(item.WorkShop);
+        PrinterMain = item.PrinterMain is null ? null : new(item.PrinterMain);
+        PrinterShipping = item.PrinterShipping is null ? null : new(item.PrinterShipping);
+        IsShipping = item.IsShipping;
+        IsKneading = item.IsKneading;
+        ShippingLength = item.ShippingLength;
+        DeviceSendTimeout = item.DeviceSendTimeout;
+        DeviceReceiveTimeout = item.DeviceReceiveTimeout;
+        DeviceComPort = item.DeviceComPort;
+        ZebraIp = item.ZebraIp;
+        ZebraPort = item.ZebraPort;
+        IsOrder = item.IsOrder;
+        Number = item.Number;
+        LabelCounter = item.LabelCounter;
+        ScaleFactor = item.ScaleFactor;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -92,27 +111,6 @@ public class WsSqlScaleModel : WsSqlTableBase
         (WorkShop is null || WorkShop.EqualsDefault()) &&
         (PrinterMain is null || PrinterMain.EqualsDefault()) &&
         (PrinterShipping is null || PrinterShipping.EqualsDefault());
-
-    public object Clone()
-    {
-        WsSqlScaleModel item = new();
-        item.WorkShop = WorkShop?.CloneCast();
-        item.PrinterMain = PrinterMain?.CloneCast();
-        item.PrinterShipping = PrinterShipping?.CloneCast();
-        item.IsShipping = IsShipping;
-        item.IsKneading = IsKneading;
-        item.ShippingLength = ShippingLength;
-        item.DeviceSendTimeout = DeviceSendTimeout;
-        item.DeviceReceiveTimeout = DeviceReceiveTimeout;
-        item.DeviceComPort = DeviceComPort;
-        item.ZebraIp = ZebraIp;
-        item.ZebraPort = ZebraPort;
-        item.IsOrder = IsOrder;
-        item.Number = Number;
-        item.LabelCounter = LabelCounter;
-        item.ScaleFactor = ScaleFactor;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -182,8 +180,6 @@ public class WsSqlScaleModel : WsSqlTableBase
             item.PrinterMain is not null && PrinterMain.Equals(item.PrinterMain)) &&
         (PrinterShipping is null && item.PrinterShipping is null || PrinterShipping is not null &&
             item.PrinterShipping is not null && PrinterShipping.Equals(item.PrinterShipping));
-
-    public new virtual WsSqlScaleModel CloneCast() => (WsSqlScaleModel)Clone();
 
     #endregion
 }

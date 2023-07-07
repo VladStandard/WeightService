@@ -56,11 +56,22 @@ public class WsXmlProductBoxModel : ISerializable, IWsSqlObjectBase
 		Unit = info.GetString(nameof(Unit));
 	}
 
-	#endregion
+    public WsXmlProductBoxModel(WsXmlProductBoxModel item) : base(item)
+    {
+        Description = item.Description;
+        Heft = item.Heft;
+        Capacity = item.Capacity;
+        Rate = item.Rate;
+        Threshold = item.Threshold;
+        Okei = item.Okei;
+        Unit = item.Unit;
+    }
 
-	#region Public and private methods
+    #endregion
 
-	public override string ToString() =>
+    #region Public and private methods
+
+    public override string ToString() =>
 		$"{nameof(Description)}: {Description}. " +
 		$"{nameof(Heft)}: {Heft}. " +
 		$"{nameof(Capacity)}: {Capacity}. " +
@@ -81,23 +92,6 @@ public class WsXmlProductBoxModel : ISerializable, IWsSqlObjectBase
 	public virtual bool EqualsNew()
 	{
 		return Equals(new());
-	}
-
-	/// <summary>
-	/// Clone class as object.
-	/// </summary>
-	/// <returns></returns>
-	public object Clone()
-	{
-		WsXmlProductBoxModel item = new();
-		item.Description = Description;
-		item.Heft = Heft;
-		item.Capacity = Capacity;
-		item.Rate = Rate;
-		item.Threshold = Threshold;
-		item.Okei = Okei;
-		item.Unit = Unit;
-		return item;
 	}
 
 	/// <summary>

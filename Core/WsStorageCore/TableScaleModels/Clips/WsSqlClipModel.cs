@@ -29,6 +29,11 @@ public class WsSqlClipModel : WsSqlTable1CBase
         Weight = info.GetDecimal(nameof(Weight));
     }
 
+    public WsSqlClipModel(WsSqlClipModel item) : base(item)
+    {
+        Weight = item.Weight;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -49,13 +54,6 @@ public class WsSqlClipModel : WsSqlTable1CBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Weight, (decimal)0);
-
-    public object Clone()
-    {
-        WsSqlClipModel item = new();
-        item.Weight = Weight;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -85,7 +83,6 @@ public class WsSqlClipModel : WsSqlTable1CBase
     public virtual bool Equals(WsSqlClipModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
-    public new virtual WsSqlClipModel CloneCast() => (WsSqlClipModel)Clone();
-
+    
     #endregion
 }

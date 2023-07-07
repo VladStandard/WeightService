@@ -30,6 +30,8 @@ public class WsSqlAppModel : WsSqlTableBase
         //
     }
 
+    public WsSqlAppModel(WsSqlAppModel item) : base(item) { }
+
     #endregion
 
     #region Public and private methods - override
@@ -50,24 +52,7 @@ public class WsSqlAppModel : WsSqlTableBase
 
     public override bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() =>
-        base.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlAppModel item = new();
-        return item;
-    }
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
+    public override bool EqualsDefault() => base.EqualsDefault();
 
     #endregion
 
@@ -75,8 +60,6 @@ public class WsSqlAppModel : WsSqlTableBase
 
     public virtual bool Equals(WsSqlAppModel item) =>
         ReferenceEquals(this, item) || base.Equals(item);
-
-    public new virtual WsSqlAppModel CloneCast() => (WsSqlAppModel)Clone();
 
     #endregion
 }

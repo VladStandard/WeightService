@@ -21,9 +21,6 @@ public class WsSqlLogModel : WsSqlTableBase
     [XmlElement] public virtual string Member { get; set; }
     [XmlElement] public virtual string Message { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = null;
@@ -51,6 +48,18 @@ public class WsSqlLogModel : WsSqlTableBase
         Line = info.GetInt32(nameof(Line));
         Member = info.GetString(nameof(Member));
         Message = info.GetString(nameof(Message));
+    }
+
+    public WsSqlLogModel(WsSqlLogModel item) : base(item)
+    {
+        Device = item.Device is null ? null : new(item.Device);
+        App = item.App is null ? null : new(item.App);
+        LogType = item.LogType is null ? null : new(item.LogType);
+        Version = item.Version;
+        File = item.File;
+        Line = item.Line;
+        Member = item.Member;
+        Message = item.Message;
     }
 
     #endregion
@@ -83,20 +92,6 @@ public class WsSqlLogModel : WsSqlTableBase
         (Device is null || Device.EqualsDefault()) &&
         (App is null || App.EqualsDefault()) &&
         (LogType is null || LogType.EqualsDefault());
-
-    public object Clone()
-    {
-        WsSqlLogModel item = new();
-        item.Device = Device?.CloneCast();
-        item.App = App?.CloneCast();
-        item.LogType = LogType?.CloneCast();
-        item.Version = Version;
-        item.File = File;
-        item.Line = Line;
-        item.Member = Member;
-        item.Message = Message;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -155,8 +150,6 @@ public class WsSqlLogModel : WsSqlTableBase
         (Device is null && item.Device is null || Device is not null && item.Device is not null && Device.Equals(item.Device)) &&
         (App is null && item.App is null || App is not null && item.App is not null && App.Equals(item.App)) &&
         (LogType is null && item.LogType is null || LogType is not null && item.LogType is not null && LogType.Equals(item.LogType));
-
-    public new virtual WsSqlLogModel CloneCast() => (WsSqlLogModel)Clone();
 
     #endregion
 }

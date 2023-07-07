@@ -51,6 +51,17 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
         RegNum = info.GetInt32(nameof(RegNum));
     }
 
+    public WsSqlPluWeighingModel(WsSqlPluWeighingModel item) : base(item)
+    {
+        PluScale = new(item.PluScale);
+        Series = item.Series is null ? null : new(item.Series);
+        Kneading = item.Kneading;
+        Sscc = item.Sscc;
+        NettoWeight = item.NettoWeight;
+        WeightTare = item.WeightTare;
+        RegNum = item.RegNum;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -81,19 +92,6 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
         Equals(RegNum, default(int)) &&
         PluScale.EqualsDefault() &&
         (Series is null || Series.EqualsDefault());
-
-    public object Clone()
-    {
-        WsSqlPluWeighingModel item = new();
-        item.PluScale = PluScale.CloneCast();
-        item.Series = Series?.CloneCast();
-        item.Kneading = Kneading;
-        item.Sscc = Sscc;
-        item.NettoWeight = NettoWeight;
-        item.WeightTare = WeightTare;
-        item.RegNum = RegNum;
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -140,8 +138,6 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
         PluScale.Equals(item.PluScale) &&
         (Series is null && item.Series is null ||
          Series is not null && item.Series is not null && Series.Equals(item.Series));
-
-    public new virtual WsSqlPluWeighingModel CloneCast() => (WsSqlPluWeighingModel)Clone();
 
     #endregion
 }

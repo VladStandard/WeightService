@@ -42,6 +42,14 @@ public class WsSqlContragentModel : WsSqlTableBase
         Xml = info.GetString(nameof(Xml));
     }
 
+    public WsSqlContragentModel(WsSqlContragentModel item) : base(item)
+    {
+        FullName = item.FullName;
+        IdRRef = item.IdRRef;
+        DwhId = item.DwhId;
+        Xml = item.Xml;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -70,16 +78,6 @@ public class WsSqlContragentModel : WsSqlTableBase
         Equals(DwhId, 0) &&
         Equals(Xml, string.Empty);
 
-    public object Clone()
-    {
-        WsSqlContragentModel item = new();
-        item.FullName = FullName;
-        item.IdRRef = IdRRef;
-        item.DwhId = DwhId;
-        item.Xml = Xml;
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -94,11 +92,6 @@ public class WsSqlContragentModel : WsSqlTableBase
         info.AddValue(nameof(Xml), Xml);
     }
 
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
-
     #endregion
 
     #region Public and private methods - virtual
@@ -109,8 +102,6 @@ public class WsSqlContragentModel : WsSqlTableBase
         Equals(IdRRef, item.IdRRef) &&
         Equals(DwhId, item.DwhId) &&
         Equals(Xml, item.Xml);
-
-    public new virtual WsSqlContragentModel CloneCast() => (WsSqlContragentModel)Clone();
 
     #endregion
 }

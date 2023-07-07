@@ -37,6 +37,12 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
         _parent = (WsSqlPluGroupModel)info.GetValue(nameof(_parent), typeof(WsSqlPluGroupModel));
     }
 
+    public WsSqlPluGroupFkModel(WsSqlPluGroupFkModel item) : base(item)
+    {
+        PluGroup = new(item.PluGroup);
+        Parent = new(item.Parent);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -62,14 +68,6 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         PluGroup.EqualsDefault() &&
         Parent.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlPluGroupFkModel item = new();
-        item.PluGroup = PluGroup.CloneCast();
-        item.Parent = Parent.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -107,8 +105,6 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         PluGroup.Equals(item.PluGroup) &&
         Parent.Equals(item.Parent);
-
-    public new virtual WsSqlPluGroupFkModel CloneCast() => (WsSqlPluGroupFkModel)Clone();
 
     #endregion
 }

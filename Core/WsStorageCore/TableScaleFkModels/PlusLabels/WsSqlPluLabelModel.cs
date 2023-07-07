@@ -54,6 +54,17 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
     }
 
+    public WsSqlPluLabelModel(WsSqlPluLabelModel item) : base(item)
+    {
+        IsMarked = item.IsMarked;
+        PluWeighing = item.PluWeighing is null ? null : new(item.PluWeighing);
+        PluScale = new(item.PluScale);
+        Zpl = item.Zpl;
+        Xml = item.Xml is { } ? WsDataFormatUtils.DeserializeFromXml<XmlDocument>(item.Xml.OuterXml, Encoding.UTF8) : null;
+        ProductDt = item.ProductDt;
+        ExpirationDt = item.ExpirationDt;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -83,23 +94,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         Equals(ProductDt, DateTime.MinValue) &&
         (PluWeighing is null || PluWeighing.EqualsDefault()) &&
         PluScale.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlPluLabelModel item = new();
-        item.IsMarked = IsMarked;
-        item.PluWeighing = PluWeighing?.CloneCast();
-        item.PluScale = PluScale.CloneCast();
-        item.Zpl = Zpl;
-        if (Xml is { })
-        {
-            XmlDocument xml = WsDataFormatUtils.DeserializeFromXml<XmlDocument>(Xml.OuterXml, Encoding.UTF8);
-            item.Xml = xml;
-        }
-        item.ProductDt = ProductDt;
-        item.ExpirationDt = ExpirationDt;
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -142,8 +136,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
             item.PluWeighing is not null && PluWeighing.Equals(item.PluWeighing)) &&
         (Xml is null && item.Xml is null || Xml is not null && item.Xml is not null && Xml.Equals(item.Xml)) &&
         PluScale.Equals(item.PluScale);
-
-    public new virtual WsSqlPluLabelModel CloneCast() => (WsSqlPluLabelModel)Clone();
 
     #endregion
 }

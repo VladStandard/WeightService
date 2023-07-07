@@ -16,9 +16,6 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
     [XmlElement] public virtual byte[] ScreenShot { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlScaleScreenShotModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Scale = new();
@@ -34,6 +31,12 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
     {
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
         ScreenShot = (byte[])info.GetValue(nameof(ScreenShot), typeof(byte));
+    }
+
+    public WsSqlScaleScreenShotModel(WsSqlScaleScreenShotModel item) : base(item)
+    {
+        Scale = new(item.Scale);
+        ScreenShot = WsDataUtils.ByteClone(item.ScreenShot);
     }
 
     #endregion
@@ -60,14 +63,6 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
         Equals(ScreenShot, Array.Empty<byte>()) &&
         Scale.EqualsDefault();
 
-    public object Clone()
-    {
-        WsSqlScaleScreenShotModel item = new();
-        item.Scale = Scale.CloneCast();
-        item.ScreenShot = ScreenShot;
-        return item;
-    }
-
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
@@ -90,8 +85,6 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
         Equals(Scale, item.Scale) &&
         Equals(ScreenShot, item.ScreenShot) &&
         Scale.Equals(item.Scale);
-
-    public new virtual WsSqlScaleScreenShotModel CloneCast() => (WsSqlScaleScreenShotModel)Clone();
 
     #endregion
 }

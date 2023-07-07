@@ -36,6 +36,12 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         Clip = (WsSqlClipModel)info.GetValue(nameof(Clip), typeof(WsSqlClipModel));
     }
 
+    public WsSqlPluClipFkModel(WsSqlPluClipFkModel item) : base(item)
+    {
+        Clip = new(item.Clip);
+        Plu = new(item.Plu);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -61,14 +67,6 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Clip.EqualsDefault() &&
         Plu.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlPluClipFkModel item = new();
-        item.Clip = Clip.CloneCast();
-        item.Plu = Plu.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -106,8 +104,6 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Clip.Equals(item.Clip) &&
         Plu.Equals(item.Plu);
-
-    public new virtual WsSqlPluClipFkModel CloneCast() => (WsSqlPluClipFkModel)Clone();
 
     #endregion
 }

@@ -36,6 +36,12 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
         NomenclatureGuid = nomenclatureGuid is Guid nomenclatureGuid2 ? nomenclatureGuid2 : Guid.Empty;
     }
 
+    public WsSqlPluCharacteristicModel(WsSqlPluCharacteristicModel item) : base(item)
+    {
+        AttachmentsCount = item.AttachmentsCount;
+        NomenclatureGuid = item.NomenclatureGuid;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -59,14 +65,6 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
         base.EqualsDefault() && Equals(AttachmentsCount, (decimal)0) &&
         Equals(NomenclatureGuid, Guid.Empty);
 
-    public object Clone()
-    {
-        WsSqlPluCharacteristicModel item = new();
-        item.AttachmentsCount = AttachmentsCount;
-        item.NomenclatureGuid = NomenclatureGuid;
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -88,8 +86,6 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
         Equals(AttachmentsCount, item.AttachmentsCount) &&
         Equals(NomenclatureGuid, item.NomenclatureGuid);
     
-    public new virtual WsSqlPluCharacteristicModel CloneCast() => (WsSqlPluCharacteristicModel)Clone();
-
     public virtual void UpdateProperties(WsSqlPluCharacteristicModel pluCharacteristic)
     {
         // Get properties from /api/send_nomenclatures/.

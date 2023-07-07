@@ -7,11 +7,11 @@ namespace WsStorageCore.Models;
 /// SQL field comparing model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlFieldFilterModel
+public sealed record WsSqlFieldFilterModel()
 {
     #region Public and private fields, properties, constructor
 
-    public string Name { get; init; } = "";
+    public string Name { get; init; } = string.Empty;
     public WsSqlEnumFieldComparer Comparer { get; init; } = WsSqlEnumFieldComparer.Equal;
     public object? Value { get; init; }
     public List<object> Values { get; init; } = new();

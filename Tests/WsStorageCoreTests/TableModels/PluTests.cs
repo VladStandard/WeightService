@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 //using NUnit.Framework;
@@ -18,7 +18,7 @@
 //                PluEntity entityNew = new();
 //                Assert.AreEqual(true, entityNew.EqualsNew());
 //                Assert.AreEqual(true, entityNew.EqualsDefault());
-//                object entityCopy = entityNew.CloneCast();
+//                object entityCopy = new(entityNew);
 //                Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
 //                foreach (int i in TestsEnums.GetInt())

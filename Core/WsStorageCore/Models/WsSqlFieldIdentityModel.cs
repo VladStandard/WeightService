@@ -20,6 +20,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public WsSqlFieldIdentityModel() : base()
     {
+        FieldName = nameof(WsSqlFieldIdentityModel);
         Name = WsSqlEnumFieldIdentity.Empty;
         Uid = Guid.Empty;
         Id = 0;
@@ -45,6 +46,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public WsSqlFieldIdentityModel(WsSqlFieldIdentityModel item) : base(item)
     {
+        FieldName = nameof(WsSqlFieldIdentityModel);
         Name = item.Name;
         Uid = item.Uid;
         Id = item.Id;

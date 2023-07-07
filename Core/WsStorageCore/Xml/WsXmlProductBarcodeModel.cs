@@ -32,13 +32,17 @@ public class WsXmlProductBarcodeModel : ISerializable, IWsSqlObjectBase
 		Barcode = info.GetString(nameof(Barcode));
 	}
 
-	#endregion
+    public WsXmlProductBarcodeModel(WsXmlProductBarcodeModel item)
+    {
+        Type = item.Type;
+        Barcode = item.Barcode;
+    }
 
-	#region Public and private methods
+    #endregion
 
-	public override string ToString() =>
-		$"{nameof(Type)}: {Type}. " +
-		$"{nameof(Barcode)}: {Barcode}. ";
+    #region Public and private methods
+
+    public override string ToString() => $"{Type} | {Barcode}";
 
 	public virtual bool Equals(WsXmlProductBarcodeModel item) =>
 		ReferenceEquals(this, item) || Equals(Type, item.Type) && //-V3130
@@ -47,18 +51,6 @@ public class WsXmlProductBarcodeModel : ISerializable, IWsSqlObjectBase
 	public virtual bool EqualsNew()
 	{
 		return Equals(new());
-	}
-
-	/// <summary>
-	/// Clone class as object.
-	/// </summary>
-	/// <returns></returns>
-	public object Clone()
-	{
-		WsXmlProductBarcodeModel item = new();
-		item.Type = Type;
-		item.Barcode = Barcode;
-		return item;
 	}
 
 	/// <summary>

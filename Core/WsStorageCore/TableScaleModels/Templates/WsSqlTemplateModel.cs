@@ -38,6 +38,13 @@ public class WsSqlTemplateModel : WsSqlTableBase
         Data = info.GetString(nameof(Data));
     }
 
+    public WsSqlTemplateModel(WsSqlTemplateModel item) : base(item)
+    {
+        CategoryId = item.CategoryId;
+        Title = item.Title;
+        Data = item.Data;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -61,15 +68,6 @@ public class WsSqlTemplateModel : WsSqlTableBase
         Equals(CategoryId, string.Empty) &&
         Equals(Title, string.Empty) &&
         Equals(Data, string.Empty);
-
-    public object Clone()
-    {
-        WsSqlTemplateModel item = new();
-        item.CategoryId = CategoryId;
-        item.Title = Title;
-        item.Data = Data;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -100,8 +98,6 @@ public class WsSqlTemplateModel : WsSqlTableBase
         Equals(CategoryId, item.CategoryId) &&
         Equals(Title, item.Title) &&
         Equals(Data, item.Data);
-
-    public new virtual WsSqlTemplateModel CloneCast() => (WsSqlTemplateModel)Clone();
 
     #endregion
 }

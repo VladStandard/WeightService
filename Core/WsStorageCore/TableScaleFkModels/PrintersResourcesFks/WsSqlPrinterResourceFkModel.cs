@@ -35,6 +35,12 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         TemplateResource = (WsSqlTemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(WsSqlTemplateResourceModel));
     }
 
+    public WsSqlPrinterResourceFkModel(WsSqlPrinterResourceFkModel item) : base(item)
+    {
+        Printer = new(item.Printer);
+        TemplateResource = new(item.TemplateResource);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -60,14 +66,6 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Printer.EqualsDefault() &&
         TemplateResource.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlPrinterResourceFkModel item = new();
-        item.Printer = Printer.CloneCast();
-        item.TemplateResource = TemplateResource.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -96,8 +94,6 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Printer.Equals(item.Printer) &&
         TemplateResource.Equals(item.TemplateResource);
-
-    public new virtual WsSqlPrinterResourceFkModel CloneCast() => (WsSqlPrinterResourceFkModel)Clone();
 
     #endregion
 }

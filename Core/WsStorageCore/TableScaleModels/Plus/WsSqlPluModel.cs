@@ -151,6 +151,32 @@ public class WsSqlPluModel : WsSqlTable1CBase
         AttachmentsCount = info.GetInt16(nameof(AttachmentsCount));
     }
 
+    public WsSqlPluModel(WsSqlPluModel item) : base(item)
+    {
+        IsGroup = item.IsGroup;
+        ParentGuid = item.ParentGuid;
+        GroupGuid = item.GroupGuid;
+        BoxTypeGuid = item.BoxTypeGuid;
+        BoxTypeName = item.BoxTypeName;
+        BoxTypeWeight = item.BoxTypeWeight;
+        ClipTypeGuid = item.ClipTypeGuid;
+        ClipTypeName = item.ClipTypeName;
+        ClipTypeWeight = item.ClipTypeWeight;
+        PackageTypeGuid = item.PackageTypeGuid;
+        PackageTypeName = item.PackageTypeName;
+        PackageTypeWeight = item.PackageTypeWeight;
+        Code = item.Code;
+        Number = item.Number;
+        FullName = item.FullName;
+        ShelfLifeDays = item.ShelfLifeDays;
+        Gtin = item.Gtin;
+        Ean13 = item.Ean13;
+        Itf14 = item.Itf14;
+        IsCheckWeight = item.IsCheckWeight;
+        AttachmentsCount = item.AttachmentsCount;
+        MeasurementType = item.MeasurementType;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -194,33 +220,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false) &&
         Equals(AttachmentsCount, default(short));
-
-    public object Clone()
-    {
-        WsSqlPluModel item = new();
-        item.IsGroup = IsGroup;
-        item.ParentGuid = ParentGuid;
-        item.GroupGuid = GroupGuid;
-        item.BoxTypeGuid = BoxTypeGuid;
-        item.BoxTypeName = BoxTypeName;
-        item.BoxTypeWeight = BoxTypeWeight;
-        item.ClipTypeGuid = ClipTypeGuid;
-        item.ClipTypeName = ClipTypeName;
-        item.ClipTypeWeight = ClipTypeWeight;
-        item.PackageTypeGuid = PackageTypeGuid;
-        item.PackageTypeName = PackageTypeName;
-        item.PackageTypeWeight = PackageTypeWeight;
-        item.Code = Code;
-        item.Number = Number;
-        item.FullName = FullName;
-        item.ShelfLifeDays = ShelfLifeDays;
-        item.Gtin = Gtin;
-        item.Ean13 = Ean13;
-        item.Itf14 = Itf14;
-        item.IsCheckWeight = IsCheckWeight;
-        item.AttachmentsCount = AttachmentsCount;
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -286,8 +285,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight) &&
         Equals(AttachmentsCount, item.AttachmentsCount);
-
-    public new virtual WsSqlPluModel CloneCast() => (WsSqlPluModel)Clone();
 
     public virtual void UpdateProperties(WsSqlPluModel plu)
     {

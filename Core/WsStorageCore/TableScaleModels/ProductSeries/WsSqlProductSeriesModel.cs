@@ -17,9 +17,6 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
     [XmlElement] public virtual string Sscc { get; set; }
     [XmlElement] public virtual Guid Uid { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlProductSeriesModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Scale = new();
@@ -39,6 +36,14 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
         IsClose = info.GetBoolean(nameof(IsClose));
         Sscc = info.GetString(nameof(Sscc));
         Uid = (Guid)info.GetValue(nameof(Uid), typeof(Guid));
+    }
+
+    public WsSqlProductSeriesModel(WsSqlProductSeriesModel item) : base(item)
+    {
+        Scale = new(item.Scale);
+        IsClose = item.IsClose;
+        Sscc = item.Sscc;
+        Uid = item.Uid;
     }
 
     #endregion
@@ -69,16 +74,6 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
         Equals(Sscc, string.Empty) &&
         Equals(Uid, Guid.Empty) &&
         Scale.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlProductSeriesModel item = new();
-        item.Scale = Scale.CloneCast();
-        item.IsClose = IsClose;
-        item.Sscc = Sscc;
-        item.Uid = Uid;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -112,8 +107,6 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
         Equals(IsClose, item.IsClose) &&
         Equals(Sscc, item.Sscc) &&
         Scale.Equals(item.Scale);
-
-    public new virtual WsSqlProductSeriesModel CloneCast() => (WsSqlProductSeriesModel)Clone();
 
     #endregion
 }

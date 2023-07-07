@@ -60,6 +60,22 @@ public class WsSqlLogWebModel : WsSqlTableBase
         CountAll = info.GetInt32(nameof(CountErrors));
     }
 
+    public WsSqlLogWebModel(WsSqlLogWebModel item) : base(item)
+    {
+        StampDt = item.StampDt;
+        Version = item.Version;
+        Direction = item.Direction;
+        Url = item.Url;
+        Params = item.Params;
+        Headers = item.Headers;
+        DataType = item.DataType;
+        DataString = item.DataString;
+        CountAll = item.CountAll;
+        CountSuccess = item.CountSuccess;
+        CountErrors = item.CountErrors;
+
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -93,23 +109,6 @@ public class WsSqlLogWebModel : WsSqlTableBase
         Equals(CountSuccess, default(int)) &&
         Equals(CountErrors, default(int));
 
-    public object Clone()
-    {
-        WsSqlLogWebModel item = new();
-        item.StampDt = StampDt;
-        item.Version = Version;
-        item.Direction = Direction;
-        item.Url = Url;
-        item.Params = Params;
-        item.Headers = Headers;
-        item.DataType = DataType;
-        item.DataString = DataString;
-        item.CountAll = CountAll;
-        item.CountSuccess = CountSuccess;
-        item.CountErrors = CountErrors;
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -131,15 +130,9 @@ public class WsSqlLogWebModel : WsSqlTableBase
         info.AddValue(nameof(CountErrors), CountErrors);
     }
 
-    //public override void ClearNullProperties()
-    //{
-    //    //
-    //}
-
     public override void FillProperties()
     {
         base.FillProperties();
-
         Version = WsLocaleCore.Sql.SqlItemFieldVersion;
     }
 
@@ -161,8 +154,6 @@ public class WsSqlLogWebModel : WsSqlTableBase
         Equals(CountAll, item.CountAll) &&
         Equals(CountSuccess, item.CountSuccess) &&
         Equals(CountErrors, item.CountErrors);
-
-    public new virtual WsSqlLogWebModel CloneCast() => (WsSqlLogWebModel)Clone();
 
     #endregion
 }

@@ -36,6 +36,12 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
         MaxTemp = info.GetInt16(nameof(MaxTemp));
     }
 
+    public WsSqlPluStorageMethodModel(WsSqlPluStorageMethodModel item) : base(item)
+    {
+        MinTemp = item.MinTemp;
+        MaxTemp = item.MaxTemp;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -63,14 +69,6 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
         Equals(MinTemp, default(short)) &&
         Equals(MaxTemp, default(short));
 
-    public object Clone()
-    {
-        WsSqlPluStorageMethodModel item = new();
-        item.MinTemp = MinTemp;
-        item.MaxTemp = MaxTemp;
-        return item;
-    }
-
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
@@ -86,8 +84,6 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(MinTemp, item.MinTemp) &&
         Equals(MaxTemp, item.MaxTemp);
-
-    public new virtual WsSqlPluStorageMethodModel CloneCast() => (WsSqlPluStorageMethodModel)Clone();
 
     #endregion
 }

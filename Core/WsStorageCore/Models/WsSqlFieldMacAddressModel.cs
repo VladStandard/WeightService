@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Models;
@@ -40,19 +40,12 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     [XmlIgnore] public string ValuePrettyLookMinus => GetValueAsString('-');
     [XmlIgnore] public string ValuePrettyLookColon => GetValueAsString(':');
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlFieldMacAddressModel()
+    public WsSqlFieldMacAddressModel() : base()
     {
         FieldName = nameof(WsSqlFieldMacAddressModel);
         _value = string.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="address"></param>
     public WsSqlFieldMacAddressModel(string address) : this()
     {
         _value = address;
@@ -66,6 +59,12 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     protected WsSqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         _value = info.GetString(nameof(Value));
+    }
+
+    public WsSqlFieldMacAddressModel(WsSqlFieldMacAddressModel item) : base(item)
+    {
+        FieldName = nameof(WsSqlFieldMacAddressModel);
+        Value = item.Value;
     }
 
     #endregion
@@ -88,16 +87,6 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault() => Equals(Value, string.Empty);
-
-    public object Clone()
-    {
-        WsSqlFieldMacAddressModel item = new()
-        {
-            Value = Value
-        };
-        //item.Setup(((TableModel)this).CloneCast);
-        return item;
-    }
 
     public virtual void Default()
     {
@@ -142,8 +131,6 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
 
     public virtual bool Equals(WsSqlFieldMacAddressModel item) =>
         ReferenceEquals(this, item) || Equals(Value, item.Value);
-
-    public new virtual WsSqlFieldMacAddressModel CloneCast() => (WsSqlFieldMacAddressModel)Clone();
 
     #endregion
 }

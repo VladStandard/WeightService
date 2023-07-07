@@ -51,6 +51,16 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         _device = (WsSqlDeviceModel)info.GetValue(nameof(WsSqlDeviceModel), typeof(WsSqlDeviceModel));
     }
 
+    public WsSqlLogWebFkModel(WsSqlLogWebFkModel item)
+    {
+        LogWebRequest = new(item.LogWebRequest);
+        LogWebResponse = new(item.LogWebResponse);
+        App = new(item.App);
+        LogType = new(item.LogType);
+        Device = new(item.Device);
+
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -77,17 +87,6 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         App.EqualsDefault() &&
         LogType.EqualsDefault() &&
         Device.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlLogWebFkModel item = new();
-        item.LogWebRequest = LogWebRequest.CloneCast();
-        item.LogWebResponse = LogWebResponse.CloneCast();
-        item.App = App.CloneCast();
-        item.LogType = LogType.CloneCast();
-        item.Device = Device.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -137,8 +136,6 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         App.Equals(item.App) &&
         LogType.Equals(item.LogType) &&
         Device.Equals(item.Device);
-
-    public new virtual WsSqlLogWebFkModel CloneCast() => (WsSqlLogWebFkModel)Clone();
 
     #endregion
 }

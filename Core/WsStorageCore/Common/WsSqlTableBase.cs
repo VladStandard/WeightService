@@ -63,7 +63,7 @@ public class WsSqlTableBase : SerializeBase
         IsMarked = item.IsMarked;
         Name = item.Name;
         Description = item.Description;
-        ParseResult = new(ParseResult);
+        ParseResult = new(item.ParseResult);
     }
 
     #endregion

@@ -39,6 +39,13 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Line = (WsSqlScaleModel)info.GetValue(nameof(Line), typeof(WsSqlScaleModel));
     }
 
+    public WsSqlPluScaleModel(WsSqlPluScaleModel item) : base(item)
+    {
+        IsActive = item.IsActive;
+        Plu = new(item.Plu);
+        Line = new(item.Line);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -62,15 +69,6 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Equals(IsActive, false) &&
         Plu.EqualsDefault() &&
         Line.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlPluScaleModel item = new();
-        item.IsActive = IsActive;
-        item.Plu = Plu.CloneCast();
-        item.Line = Line.CloneCast();
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -99,8 +97,6 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Equals(Line, item.Line) &&
         Plu.Equals(item.Plu) &&
         Line.Equals(item.Line);
-
-    public new virtual WsSqlPluScaleModel CloneCast() => (WsSqlPluScaleModel)Clone();
 
     #endregion
 }

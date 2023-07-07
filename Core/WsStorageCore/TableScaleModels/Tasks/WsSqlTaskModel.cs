@@ -38,6 +38,13 @@ public class WsSqlTaskModel : WsSqlTableBase
         Enabled = info.GetBoolean(nameof(Enabled));
     }
 
+    public WsSqlTaskModel(WsSqlTaskModel item) : base(item)
+    {
+        TaskType = new(item.TaskType);
+        Scale = new(item.Scale);
+        Enabled = item.Enabled;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -63,15 +70,6 @@ public class WsSqlTaskModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Enabled, false);
-
-    public object Clone()
-    {
-        WsSqlTaskModel item = new();
-        item.TaskType = TaskType.CloneCast();
-        item.Scale = Scale.CloneCast();
-        item.Enabled = Enabled;
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -102,8 +100,6 @@ public class WsSqlTaskModel : WsSqlTableBase
         Equals(Enabled, item.Enabled) &&
         TaskType.Equals(item.TaskType) &&
         Scale.Equals(item.Scale);
-
-    public new virtual WsSqlTaskModel CloneCast() => (WsSqlTaskModel)Clone();
 
 
     #endregion

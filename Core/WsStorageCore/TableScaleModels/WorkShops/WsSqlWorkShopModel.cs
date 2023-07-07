@@ -32,6 +32,11 @@ public class WsSqlWorkShopModel : WsSqlTableBase
         ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));
     }
 
+    public WsSqlWorkShopModel(WsSqlWorkShopModel item) : base(item)
+    {
+        ProductionFacility = new(item.ProductionFacility);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -57,13 +62,6 @@ public class WsSqlWorkShopModel : WsSqlTableBase
         base.EqualsDefault() &&
         ProductionFacility.EqualsDefault();
 
-    public object Clone()
-    {
-        WsSqlWorkShopModel item = new();
-        item.ProductionFacility = ProductionFacility.CloneCast();
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -88,8 +86,6 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     public virtual bool Equals(WsSqlWorkShopModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         ProductionFacility.Equals(item.ProductionFacility);
-
-    public new virtual WsSqlWorkShopModel CloneCast() => (WsSqlWorkShopModel)Clone();
 
     #endregion
 }

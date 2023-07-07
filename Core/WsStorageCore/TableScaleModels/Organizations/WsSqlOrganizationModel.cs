@@ -32,6 +32,11 @@ public class WsSqlOrganizationModel : WsSqlTableBase
         Gln = info.GetInt32(nameof(Gln));
     }
 
+    public WsSqlOrganizationModel(WsSqlOrganizationModel item) : base(item)
+    {
+        Gln = item.Gln;
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -57,13 +62,6 @@ public class WsSqlOrganizationModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Gln, 0);
 
-    public object Clone()
-    {
-        WsSqlOrganizationModel item = new();
-        item.Gln = Gln;
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -88,8 +86,6 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     public virtual bool Equals(WsSqlOrganizationModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Gln, item.Gln);
-
-    public new virtual WsSqlOrganizationModel CloneCast() => (WsSqlOrganizationModel)Clone();
 
     #endregion
 }

@@ -29,12 +29,16 @@ public class WsXmlDeviceModel : WsSqlTableBase
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));
     }
 
+    public WsXmlDeviceModel(WsXmlDeviceModel item) : base(item)
+    {
+        Scale = new(item.Scale);
+    }
+
     #endregion
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{nameof(Scale)}: {Scale}.";
+    public override string ToString() => $"{Scale}";
 
     public override bool Equals(object obj)
     {
@@ -56,13 +60,6 @@ public class WsXmlDeviceModel : WsSqlTableBase
 	    base.EqualsDefault() &&
 	    Scale.EqualsDefault();
 
-    public object Clone()
-    {
-        WsXmlDeviceModel item = new();
-        item.Scale = Scale.CloneCast();
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -81,8 +78,6 @@ public class WsXmlDeviceModel : WsSqlTableBase
     public virtual bool Equals(WsXmlDeviceModel item) =>
 	    ReferenceEquals(this, item) || base.Equals(item) && //-V3130
 	    Equals(Scale, item.Scale);
-
-    public new virtual WsXmlDeviceModel CloneCast() => (WsXmlDeviceModel)Clone();
 
     #endregion
 }

@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [Serializable]
-public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBase, ISerializable
+public class WsSqlFieldBinaryModel : WsSqlFieldBase, IWsSqlObjectBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBas
     /// <summary>
     /// Constructor.
     /// </summary>
-    public WsSqlFieldBinaryModel()
+    public WsSqlFieldBinaryModel() : base()
     {
         FieldName = nameof(WsSqlFieldBinaryModel);
         Value = Array.Empty<byte>();
@@ -43,6 +43,12 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBas
     protected WsSqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));
+    }
+
+    public WsSqlFieldBinaryModel(WsSqlFieldBinaryModel item) : base(item)
+    {
+        FieldName = nameof(WsSqlFieldBinaryModel);
+        Value = WsDataUtils.ByteClone(item.Value);
     }
 
     #endregion
@@ -66,15 +72,6 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBas
 
     public override bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
 
-    public object Clone()
-    {
-        WsSqlFieldBinaryModel item = new()
-        {
-            Value = Value is not null ? WsDataUtils.ByteClone(Value) : Array.Empty<byte>()
-        };
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -92,8 +89,6 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBas
 
     public virtual bool Equals(WsSqlFieldBinaryModel item) =>
         item.Value is not null && Value is not null && (ReferenceEquals(this, item) || WsDataUtils.ByteEquals(Value, item.Value));
-
-    public new virtual WsSqlFieldBinaryModel CloneCast() => (WsSqlFieldBinaryModel)Clone();
 
     #endregion
 }

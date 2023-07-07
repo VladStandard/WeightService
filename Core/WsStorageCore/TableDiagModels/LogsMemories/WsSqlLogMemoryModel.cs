@@ -42,6 +42,14 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
         Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
     }
 
+    public WsSqlLogMemoryModel(WsSqlLogMemoryModel item) : base(item)
+    {
+        SizeAppMb = item.SizeAppMb;
+        SizeFreeMb = item.SizeFreeMb;
+        App = new(item.App);
+        Device = new(item.Device);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -68,16 +76,6 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
         Device.EqualsDefault() && 
         Equals(SizeAppMb, default) &&
         Equals(SizeFreeMb, default);
-
-    public object Clone()
-    {
-        WsSqlLogMemoryModel item = new();
-        item.SizeAppMb = SizeAppMb;
-        item.SizeFreeMb = SizeFreeMb;
-        item.App = App.CloneCast();
-        item.Device = Device.CloneCast();
-        return item;
-    }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
@@ -106,8 +104,6 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
         Device.Equals(item.Device) &&
         Equals(App, item.App) &&
         Equals(Device, item.Device);
-
-    public new virtual WsSqlLogMemoryModel CloneCast() => (WsSqlLogMemoryModel)Clone();
 
     #endregion
 }

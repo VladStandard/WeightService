@@ -85,9 +85,11 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                             else
                             {
                                 // Создать копию из вложенности по-умолчанию.
-                                pluNestingFkOther = pluNestingFkDefault.CloneCast();
-                                // Задать новое кол-во.
-                                pluNestingFkOther.BundleCount = (short)characteristicXml.AttachmentsCount;
+                                pluNestingFkOther = new(pluNestingFkDefault)
+                                {
+                                    // Задать новое кол-во.
+                                    BundleCount = (short)characteristicXml.AttachmentsCount
+                                };
                             }
                             // Снять флаг по-умолчанию.
                             pluNestingFkOther.IsDefault = false;

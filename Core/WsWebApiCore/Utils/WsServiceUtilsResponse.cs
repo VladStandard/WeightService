@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Serialization;
-
 namespace WsWebApiCore.Utils;
 
 /// <summary>
@@ -36,10 +34,9 @@ public static class WsServiceUtilsResponse
         action(response);
     }
 
-    private static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) =>
-        new WsResponseBarCodeModel().CloneCast(barCode);
+    private static WsResponseBarCodeModel CastBarCode(WsSqlBarCodeModel barCode) => new(barCode);
 
-    public static List<WsResponseBarCodeModel> CastBarCodes(IEnumerable<WsSqlBarCodeModel> barCodes) =>
+    private static List<WsResponseBarCodeModel> CastBarCodes(IEnumerable<WsSqlBarCodeModel> barCodes) =>
         barCodes.Select(CastBarCode).ToList();
 
     public static WsServiceInfoModel NewServiceInfo(Assembly assembly, ISessionFactory sessionFactory)

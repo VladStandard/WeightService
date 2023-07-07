@@ -14,6 +14,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
 
     [XmlElement] public virtual string Type { get; set; }
     [XmlElement] public virtual WsSqlFieldBinaryModel Data { get; set; }
+
     [XmlIgnore] public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
 
     /// <summary>
@@ -34,6 +35,13 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     {
         Type = info.GetString(nameof(Type));
         Data = (WsSqlFieldBinaryModel)info.GetValue(nameof(Data), typeof(WsSqlFieldBinaryModel));
+    }
+
+    public WsSqlTemplateResourceModel(WsSqlTemplateResourceModel item) : base(item)
+    {
+        Type = item.Type;
+        Data = new(item.Data);
+        DataValue = WsDataUtils.ByteClone(item.DataValue);
     }
 
     #endregion
@@ -62,14 +70,6 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
         Equals(Type, string.Empty) &&
         Data.Equals(new());
 
-    public object Clone()
-    {
-        WsSqlTemplateResourceModel item = new();
-        item.Type = Type;
-        item.Data = Data.CloneCast();
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -97,8 +97,6 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Type, item.Type) &&
         Data.Equals(item.Data);
-
-    public new virtual WsSqlTemplateResourceModel CloneCast() => (WsSqlTemplateResourceModel)Clone();
 
     #endregion
 }

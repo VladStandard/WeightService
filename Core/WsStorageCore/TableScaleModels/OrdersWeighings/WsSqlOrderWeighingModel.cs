@@ -35,6 +35,12 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
         PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
     }
 
+    public WsSqlOrderWeighingModel(WsSqlOrderWeighingModel item) : base(item)
+    {
+        Order = new(item.Order);
+        PluWeighing = new(item.PluWeighing);
+    }
+
     #endregion
 
     #region Public and private methods - override
@@ -60,14 +66,6 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
         base.EqualsDefault() &&
         Order.EqualsDefault() &&
         PluWeighing.EqualsDefault();
-
-    public object Clone()
-    {
-        WsSqlOrderWeighingModel item = new();
-        item.Order = Order.CloneCast();
-        item.PluWeighing = PluWeighing.CloneCast();
-        return item;
-    }
 
     /// <summary>
     /// Get object data for serialization info.
@@ -96,8 +94,6 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Order.Equals(item.Order) &&
         PluWeighing.Equals(item.PluWeighing);
-
-    public new virtual WsSqlOrderWeighingModel CloneCast() => (WsSqlOrderWeighingModel)Clone();
 
     #endregion
 }
