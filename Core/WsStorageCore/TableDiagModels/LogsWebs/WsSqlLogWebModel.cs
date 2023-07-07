@@ -93,10 +93,9 @@ public class WsSqlLogWebModel : WsSqlTableBase
         Equals(CountSuccess, default(int)) &&
         Equals(CountErrors, default(int));
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlLogWebModel item = new();
-        item.CloneSetup(this);
         item.StampDt = StampDt;
         item.Version = Version;
         item.Direction = Direction;

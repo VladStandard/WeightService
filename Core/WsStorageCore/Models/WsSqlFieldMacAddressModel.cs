@@ -89,7 +89,7 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
 
     public override bool EqualsDefault() => Equals(Value, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlFieldMacAddressModel item = new()
         {

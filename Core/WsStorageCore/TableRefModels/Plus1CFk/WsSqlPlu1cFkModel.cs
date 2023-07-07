@@ -65,10 +65,9 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         Equals(IsEnabled, default) &&
         Equals(RequestDataString, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPlu1CFkModel item = new();
-        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.IsEnabled = IsEnabled;
         item.RequestDataString = RequestDataString;

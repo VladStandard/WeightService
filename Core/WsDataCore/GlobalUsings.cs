@@ -25,7 +25,6 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using WsDataCore.Common;
 global using WsDataCore.Enums;
 global using WsDataCore.Models;
-global using WsDataCore.Serialization.Models;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Utils;
 global using WsPrintCore.Common;

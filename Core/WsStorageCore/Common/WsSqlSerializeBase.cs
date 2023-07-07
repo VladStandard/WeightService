@@ -13,22 +13,16 @@ public class WsSqlSerializeBase : SerializeBase
 
     [XmlIgnore] public WsSqlConnectFactory SqlConnect { get; private set; } = WsSqlConnectFactory.Instance;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    public WsSqlSerializeBase()
-    {
-        //
-    }
+    public WsSqlSerializeBase() { }
 
     /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
-    protected WsSqlSerializeBase(SerializationInfo info, StreamingContext context)
+    protected WsSqlSerializeBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        //SqlConnect = (SqlConnectFactory)info.GetValue(nameof(SqlConnect), typeof(SqlConnectFactory));
+        //
     }
 
     #endregion

@@ -63,10 +63,9 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
         Brand.EqualsDefault() &&
         Plu.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluBrandFkModel item = new();
-        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Brand = Brand.CloneCast();
         return item;

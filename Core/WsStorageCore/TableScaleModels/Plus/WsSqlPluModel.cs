@@ -195,10 +195,9 @@ public class WsSqlPluModel : WsSqlTable1CBase
         Equals(IsCheckWeight, false) &&
         Equals(AttachmentsCount, default(short));
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluModel item = new();
-        item.CloneSetup(this);
         item.IsGroup = IsGroup;
         item.ParentGuid = ParentGuid;
         item.GroupGuid = GroupGuid;

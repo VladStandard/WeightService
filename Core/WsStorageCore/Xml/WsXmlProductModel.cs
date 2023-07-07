@@ -8,7 +8,7 @@ namespace WsStorageCore.Xml;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsXmlProductModel : ISerializable, IWsSqlDbBase
+public class WsXmlProductModel : ISerializable, IWsSqlObjectBase
 {
     #region Public and private fields, properties, constructor
 

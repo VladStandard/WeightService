@@ -70,10 +70,9 @@ public class WsSqlContragentModel : WsSqlTableBase
         Equals(DwhId, 0) &&
         Equals(Xml, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlContragentModel item = new();
-        item.CloneSetup(this);
         item.FullName = FullName;
         item.IdRRef = IdRRef;
         item.DwhId = DwhId;

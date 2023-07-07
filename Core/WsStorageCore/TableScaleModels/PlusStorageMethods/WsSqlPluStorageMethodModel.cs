@@ -63,10 +63,9 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
         Equals(MinTemp, default(short)) &&
         Equals(MaxTemp, default(short));
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluStorageMethodModel item = new();
-        item.CloneSetup(this);
         item.MinTemp = MinTemp;
         item.MaxTemp = MaxTemp;
         return item;

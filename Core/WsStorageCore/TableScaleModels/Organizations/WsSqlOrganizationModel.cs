@@ -57,10 +57,9 @@ public class WsSqlOrganizationModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Gln, 0);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlOrganizationModel item = new();
-        item.CloneSetup(this);
         item.Gln = Gln;
         return item;
     }

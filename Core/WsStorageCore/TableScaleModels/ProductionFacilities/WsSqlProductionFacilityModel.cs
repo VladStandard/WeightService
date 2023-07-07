@@ -55,10 +55,9 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Address, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlProductionFacilityModel item = new();
-        item.CloneSetup(this);
         item.Address = Address;
         return item;
     }

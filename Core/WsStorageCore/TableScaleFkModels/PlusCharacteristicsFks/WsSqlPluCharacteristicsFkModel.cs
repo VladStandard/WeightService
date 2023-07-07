@@ -61,10 +61,9 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Characteristic.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluCharacteristicsFkModel item = new();
-        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Characteristic = Characteristic.CloneCast();
         return item;

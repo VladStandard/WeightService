@@ -50,10 +50,9 @@ public class WsSqlClipModel : WsSqlTable1CBase
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Weight, (decimal)0);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlClipModel item = new();
-        item.CloneSetup(this);
         item.Weight = Weight;
         return item;
     }

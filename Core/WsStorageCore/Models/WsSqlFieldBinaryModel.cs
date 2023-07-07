@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [Serializable]
-public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, ISerializable
+public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlObjectBase, ISerializable
 {
     #region Public and private fields, properties, constructor
 
@@ -66,7 +66,7 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase, ICloneable, IWsSqlDbBase, I
 
     public override bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlFieldBinaryModel item = new()
         {

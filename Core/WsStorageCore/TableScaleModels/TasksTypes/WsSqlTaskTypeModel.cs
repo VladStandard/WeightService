@@ -53,10 +53,9 @@ public class WsSqlTaskTypeModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlTaskTypeModel item = new();
-        item.CloneSetup(this);
         return item;
     }
 

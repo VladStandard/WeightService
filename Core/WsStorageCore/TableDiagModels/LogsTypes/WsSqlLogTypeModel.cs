@@ -59,10 +59,9 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         Equals(Number, (byte)0x00) &&
         Equals(Icon, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlLogTypeModel item = new();
-        item.CloneSetup(this);
         item.Number = Number;
         item.Icon = Icon;
         return item;

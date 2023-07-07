@@ -59,12 +59,6 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                         characteristicXml.Uid1C, "Вложенность ПЛУ по-умолчанию", characteristicXml);
                     if (characteristicXml.ParseResult.IsStatusSuccess)
                     {
-                        // Получить список вложенностей ПЛУ.
-                        List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
-                            WsSqlEnumContextType.Cache, response, pluDb.Uid1C, characteristicXml.NomenclatureGuid, "Вложенности ПЛУ");
-                        // Отфильтровать список вложенностей ПЛУ.
-                        List<WsSqlPluNestingFkModel> pluNestingFksOther =
-                            pluNestingFks.Where(item => !item.IdentityValueUid.Equals(pluNestingFkDefault.IdentityValueUid)).ToList();
                         // Вложенность является по-умолчанию.
                         if (pluNestingFkDefault.IsExists && pluNestingFkDefault.BundleCount.Equals((short)characteristicXml.AttachmentsCount))
                         {
@@ -73,28 +67,35 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                         }
                         else
                         {
-                            // Перебор прочих вложенностей.
+                            // Получить список вложенностей ПЛУ.
+                            List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
+                                WsSqlEnumContextType.Cache, response, pluDb.Uid1C, characteristicXml.NomenclatureGuid, "Вложенности ПЛУ");
+                            // Отфильтровать список вложенностей ПЛУ.
+                            List<WsSqlPluNestingFkModel> pluNestingFksOther =
+                                pluNestingFks.Where(item => !item.IdentityValueUid.Equals(pluNestingFkDefault.IdentityValueUid)).ToList();
+                            // Поиск вложенности.
                             WsSqlPluNestingFkModel? pluNestingFkOther = pluNestingFksOther.Find(
                                 item => item.BundleCount.Equals((short)characteristicXml.AttachmentsCount));
-                            // Есть совпадение.
-                            if (pluNestingFkOther is not null && pluNestingFkOther.IsExists)
+                            // Найдена эта же вложенность.
+                            if (pluNestingFkOther is not null)
                             {
                                 pluNestingFkOther.IsMarked = characteristicXml.IsMarked;
-                                // Снять флаг по-умолчанию, для всех остальных вложенностей ПЛУ.
-                                pluNestingFkOther.IsDefault =
-                                    pluNestingFkDefault.IsIdentityUid.Equals(pluNestingFkOther.IsIdentityUid);
-                                // Сохранить связь вложенности и ПЛУ.
-                                WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFkOther);
                             }
+                            // Вложенность не найдена -> создать.
                             else
                             {
+                                // Создать копию из вложенности по-умолчанию.
                                 pluNestingFkOther = pluNestingFkDefault.CloneCast();
-                                //pluNestingFkOther.Box = pluNestingFkDefault.Box;
-                                //pluNestingFkOther.PluBundle = pluNestingFkDefault.PluBundle;
+                                // Задать новое кол-во.
                                 pluNestingFkOther.BundleCount = (short)characteristicXml.AttachmentsCount;
-                                // Сохранить связь вложенности и ПЛУ.
-                                WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFkOther);
                             }
+                            // Снять флаг по-умолчанию.
+                            pluNestingFkOther.IsDefault = false;
+                            // Сохранить связь вложенности и ПЛУ.
+                            WsServiceUtilsSave.SavePluNestingFk(response, pluNestingFkOther);
+                            // Обновить кэш.
+                            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
+                            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
                         }
                     }
                 }

@@ -78,10 +78,9 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         LogType.EqualsDefault() &&
         Device.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlLogWebFkModel item = new();
-        item.CloneSetup(this);
         item.LogWebRequest = LogWebRequest.CloneCast();
         item.LogWebResponse = LogWebResponse.CloneCast();
         item.App = App.CloneCast();

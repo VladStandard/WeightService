@@ -1,24 +1,24 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Serialization;
+
 namespace WsDataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]
 [Serializable]
-public sealed class ParseResultModel : SerializeBase, ICloneable
+public sealed class ParseResultModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlAttribute] public WsEnumParseStatus Status { get; set; }
-    [XmlIgnore] public bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
-    [XmlIgnore] public bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
     [XmlAttribute] public string Message { get; set; }
     [XmlAttribute] public string Exception { get; set; }
     [XmlAttribute] public string InnerException { get; set; }
+    
+    [XmlIgnore] public bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
+    [XmlIgnore] public bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public ParseResultModel()
     {
         Status = WsEnumParseStatus.Unknown;
@@ -27,17 +27,21 @@ public sealed class ParseResultModel : SerializeBase, ICloneable
         InnerException = string.Empty;
     }
 
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     private ParseResultModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Status = (WsEnumParseStatus)info.GetValue(nameof(Status), typeof(WsEnumParseStatus));
         Message = info.GetString(nameof(Message));
         Exception = info.GetString(nameof(Exception));
         InnerException = info.GetString(nameof(InnerException));
+    }
+
+    public ParseResultModel(ParseResultModel item)
+    {
+        Status = item.Status;
+        Message = item.Message;
+        Exception = item.Exception;
+        InnerException = item.InnerException;
+
     }
 
     #endregion
@@ -70,16 +74,6 @@ public sealed class ParseResultModel : SerializeBase, ICloneable
         Equals(Exception, string.Empty) &&
         Equals(InnerException, string.Empty);
 
-    public object Clone()
-    {
-        ParseResultModel item = new();
-        item.Status = Status;
-        item.Message = Message;
-        item.Exception = Exception;
-        item.InnerException = InnerException;
-        return item;
-    }
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
@@ -111,8 +105,6 @@ public sealed class ParseResultModel : SerializeBase, ICloneable
         Equals(Message, item.Message) &&
         Equals(Exception, item.Exception) &&
         Equals(InnerException, item.InnerException);
-
-    public ParseResultModel CloneCast() => (ParseResultModel)Clone();
 
     #endregion
 }

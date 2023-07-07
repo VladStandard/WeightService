@@ -14,28 +14,24 @@ public class WsSqlTable1CBase : WsSqlTableBase
 
     [XmlIgnore] public virtual Guid Uid1C { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTable1CBase() : base()
     {
         Uid1C = Guid.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTable1CBase(WsSqlEnumFieldIdentity identityName) : base(identityName)
     {
         Uid1C = Guid.Empty;
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     protected WsSqlTable1CBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
+    }
+
+    public WsSqlTable1CBase(WsSqlTable1CBase item) : base(item)
+    {
+        Uid1C = item.Uid1C;
     }
 
     #endregion
@@ -70,27 +66,10 @@ public class WsSqlTable1CBase : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public override bool EqualsNew() => Equals(new WsSqlTable1CBase());
+    public override bool EqualsNew() => Equals(new());
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Uid1C, Guid.Empty);
-
-    public override object Clone()
-    {
-        WsSqlTable1CBase item = new();
-        item.CloneSetup(this);
-        item.Uid1C = Uid1C;
-        return item;
-    }
-
-    public new virtual WsSqlTable1CBase CloneCast() =>
-        (WsSqlTable1CBase)Clone();
-
-    public virtual void CloneSetup(WsSqlTable1CBase item)
-    {
-        if (item is WsSqlTableBase sqlTable)
-            base.CloneSetup(sqlTable);
-    }
 
     public virtual void UpdateProperties(WsSqlTable1CBase item)
     {

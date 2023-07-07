@@ -16,6 +16,14 @@ public sealed record WsSqlFieldFilterModel
     public object? Value { get; init; }
     public List<object> Values { get; init; } = new();
 
+    public WsSqlFieldFilterModel(WsSqlFieldFilterModel item)
+    {
+        Name = item.Name;
+        Comparer = item.Comparer;
+        Value = item.Value;
+        Values = new(item.Values);
+    }
+
     #endregion
 
     #region Public and private methods

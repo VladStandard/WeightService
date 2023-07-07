@@ -56,10 +56,9 @@ public class WsXmlDeviceModel : WsSqlTableBase
 	    base.EqualsDefault() &&
 	    Scale.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsXmlDeviceModel item = new();
-        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         return item;
     }

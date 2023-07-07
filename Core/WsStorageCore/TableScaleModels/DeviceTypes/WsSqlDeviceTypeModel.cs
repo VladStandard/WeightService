@@ -56,10 +56,9 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(PrettyName, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlDeviceTypeModel item = new();
-        item.CloneSetup(this);
         item.PrettyName = PrettyName;
         return item;
     }

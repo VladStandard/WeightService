@@ -59,10 +59,9 @@ public class WsSqlAccessModel : WsSqlTableBase
         Equals(LoginDt, DateTime.MinValue) &&
         Equals(Rights, (byte)0x00);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlAccessModel item = new();
-        item.CloneSetup(this);
         item.LoginDt = LoginDt;
         item.Rights = Rights;
         return item;

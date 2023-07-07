@@ -62,10 +62,9 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
         Equals(Type, string.Empty) &&
         Data.Equals(new());
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlTemplateResourceModel item = new();
-        item.CloneSetup(this);
         item.Type = Type;
         item.Data = Data.CloneCast();
         return item;

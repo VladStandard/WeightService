@@ -53,10 +53,9 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPrinterTypeModel item = new();
-        item.CloneSetup(this);
         return item;
     }
 

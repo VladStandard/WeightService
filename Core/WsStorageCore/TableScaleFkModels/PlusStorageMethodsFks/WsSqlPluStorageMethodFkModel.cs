@@ -65,10 +65,9 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Method.EqualsDefault() &&
         Resource.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluStorageMethodFkModel item = new();
-        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Method = Method.CloneCast();
         item.Resource = Resource.CloneCast();

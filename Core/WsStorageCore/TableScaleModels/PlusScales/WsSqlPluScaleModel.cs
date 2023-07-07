@@ -63,10 +63,9 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Line.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluScaleModel item = new();
-        item.CloneSetup(this);
         item.IsActive = IsActive;
         item.Plu = Plu.CloneCast();
         item.Line = Line.CloneCast();

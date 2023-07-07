@@ -61,10 +61,9 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         Printer.EqualsDefault() &&
         TemplateResource.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPrinterResourceFkModel item = new();
-        item.CloneSetup(this);
         item.Printer = Printer.CloneCast();
         item.TemplateResource = TemplateResource.CloneCast();
         return item;

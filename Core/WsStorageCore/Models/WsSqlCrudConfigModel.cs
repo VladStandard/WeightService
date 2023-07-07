@@ -7,7 +7,7 @@ namespace WsStorageCore.Models;
 /// SQL config for CRUD operations.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlCrudConfigModel : ICloneable
+public class WsSqlCrudConfigModel
 {
     #region Public and private fields, properties, constructor
 
@@ -80,7 +80,7 @@ public class WsSqlCrudConfigModel : ICloneable
         IsReadUncommitted = false;
     }
 
-    public WsSqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
+    private WsSqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
     {
         NativeQuery = query;
         NativeParameters = parameters;
@@ -125,6 +125,15 @@ public class WsSqlCrudConfigModel : ICloneable
     public WsSqlCrudConfigModel(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
         this(new(), new(), isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, isReadUncommitted)
     { }
+
+    public WsSqlCrudConfigModel(WsSqlCrudConfigModel item)
+    {
+        Filters = new(item.Filters);
+        Orders = new(item.Orders);
+        item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
+        item.IsMarked = IsMarked;
+        item.SelectTopRowsCount = SelectTopRowsCount;
+    }
 
     #endregion
 
@@ -220,19 +229,6 @@ public class WsSqlCrudConfigModel : ICloneable
     }
 
     public void RemoveOrders(WsSqlFieldOrderModel order) => RemoveOrders(new List<WsSqlFieldOrderModel> { order });
-
-    public object Clone()
-    {
-        WsSqlCrudConfigModel item = new();
-        item.Filters = new(Filters);
-        item.Orders = new(Orders);
-        item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
-        item.IsMarked = IsMarked;
-        item.SelectTopRowsCount = SelectTopRowsCount;
-        return item;
-    }
-
-    public WsSqlCrudConfigModel CloneCast() => (WsSqlCrudConfigModel)Clone();
 
     public override string ToString()
     {

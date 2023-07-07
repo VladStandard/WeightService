@@ -81,10 +81,9 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(Ipv4, string.Empty) &&
         MacAddress.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlDeviceModel item = new();
-        item.CloneSetup(this);
         item.LoginDt = LoginDt;
         item.LogoutDt = LogoutDt;
         item.PrettyName = PrettyName;

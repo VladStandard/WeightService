@@ -53,10 +53,9 @@ public class WsSqlAppModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlAppModel item = new();
-        item.CloneSetup(this);
         return item;
     }
 

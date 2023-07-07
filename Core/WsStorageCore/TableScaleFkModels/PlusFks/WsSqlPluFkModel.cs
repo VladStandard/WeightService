@@ -68,10 +68,9 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Parent.EqualsDefault() &&
         Category is null;
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluFkModel item = new();
-        item.CloneSetup(this);
         item.Plu = Plu.CloneCast();
         item.Parent = Parent.CloneCast();
         item.Category = Category?.CloneCast();

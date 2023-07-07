@@ -93,10 +93,9 @@ public class WsSqlScaleModel : WsSqlTableBase
         (PrinterMain is null || PrinterMain.EqualsDefault()) &&
         (PrinterShipping is null || PrinterShipping.EqualsDefault());
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlScaleModel item = new();
-        item.CloneSetup(this);
         item.WorkShop = WorkShop?.CloneCast();
         item.PrinterMain = PrinterMain?.CloneCast();
         item.PrinterShipping = PrinterShipping?.CloneCast();

@@ -90,11 +90,10 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         Equals(WeightNom, default(decimal)) &&
         Equals(BundleCount, default(short));
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluNestingFkModel item = new();
-        item.CloneSetup(this);
-        item.Box = Box.CloneCast();
+        //item.Box = Box.CloneCast();
         item.PluBundle = PluBundle.CloneCast();
         item.IsDefault = IsDefault;
         item.BundleCount = BundleCount;

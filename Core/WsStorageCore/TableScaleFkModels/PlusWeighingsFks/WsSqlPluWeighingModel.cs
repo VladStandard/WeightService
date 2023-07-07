@@ -82,10 +82,9 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
         PluScale.EqualsDefault() &&
         (Series is null || Series.EqualsDefault());
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluWeighingModel item = new();
-        item.CloneSetup(this);
         item.PluScale = PluScale.CloneCast();
         item.Series = Series?.CloneCast();
         item.Kneading = Kneading;

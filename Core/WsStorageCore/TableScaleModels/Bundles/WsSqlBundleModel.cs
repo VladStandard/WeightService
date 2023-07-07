@@ -51,10 +51,9 @@ public class WsSqlBundleModel : WsSqlTable1CBase
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Weight, (decimal)0);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlBundleModel item = new();
-        item.CloneSetup(this);
         item.Weight = Weight;
         return item;
     }

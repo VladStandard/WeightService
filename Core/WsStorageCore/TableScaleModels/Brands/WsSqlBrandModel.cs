@@ -57,10 +57,9 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Code, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlBrandModel item = new();
-        item.CloneSetup(this);
         item.Code = Code;
         return item;
     }

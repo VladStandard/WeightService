@@ -57,10 +57,9 @@ public class WsSqlWorkShopModel : WsSqlTableBase
         base.EqualsDefault() &&
         ProductionFacility.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlWorkShopModel item = new();
-        item.CloneSetup(this);
         item.ProductionFacility = ProductionFacility.CloneCast();
         return item;
     }

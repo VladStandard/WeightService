@@ -62,10 +62,9 @@ public class WsSqlTemplateModel : WsSqlTableBase
         Equals(Title, string.Empty) &&
         Equals(Data, string.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlTemplateModel item = new();
-        item.CloneSetup(this);
         item.CategoryId = CategoryId;
         item.Title = Title;
         item.Data = Data;

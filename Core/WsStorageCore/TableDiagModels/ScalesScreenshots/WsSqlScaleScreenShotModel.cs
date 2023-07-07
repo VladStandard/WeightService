@@ -60,10 +60,9 @@ public class WsSqlScaleScreenShotModel : WsSqlTableBase
         Equals(ScreenShot, Array.Empty<byte>()) &&
         Scale.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlScaleScreenShotModel item = new();
-        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         item.ScreenShot = ScreenShot;
         return item;

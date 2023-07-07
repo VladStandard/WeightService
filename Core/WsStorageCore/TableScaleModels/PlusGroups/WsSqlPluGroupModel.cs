@@ -67,10 +67,9 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
         Equals(Code, string.Empty) &&
         Equals(ParentGuid, Guid.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluGroupModel item = new();
-        item.CloneSetup(this);
         item.IsGroup = IsGroup;
         item.Code = Code;
         item.ParentGuid = ParentGuid;

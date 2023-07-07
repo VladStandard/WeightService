@@ -76,10 +76,9 @@ public class WsSqlOrderModel : WsSqlTableBase
         Equals(BoxCount, 0) &&
         Equals(PalletCount, 0);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlOrderModel item = new();
-        item.CloneSetup(this);
         item.BeginDt = BeginDt;
         item.EndDt = EndDt;
         item.ProdDt = ProdDt;

@@ -99,10 +99,9 @@ public class WsSqlPrinterModel : WsSqlTableBase
         PrinterType.EqualsDefault() &&
         MacAddress.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPrinterModel item = new();
-        item.CloneSetup(this);
         item.Ip = Ip;
         item.Port = Port;
         item.Password = Password;

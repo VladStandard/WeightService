@@ -59,10 +59,9 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         Bundle.EqualsDefault() &&
         Plu.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluBundleFkModel item = new();
-        item.CloneSetup(this);
         item.Bundle = Bundle.CloneCast();
         item.Plu = Plu.CloneCast();
         return item;

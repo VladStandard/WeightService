@@ -61,10 +61,9 @@ public class WsSqlVersionModel : WsSqlTableBase
         Equals(ReleaseDt, DateTime.MinValue) &&
         Equals(Version, (short)0);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlVersionModel item = new();
-        item.CloneSetup(this);
         item.ReleaseDt = ReleaseDt;
         item.Version = Version;
         return item;

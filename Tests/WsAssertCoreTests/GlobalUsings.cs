@@ -15,7 +15,7 @@ global using WsBlazorCore.CssStyles;
 global using WsBlazorCore.Utils;
 global using WsDataCore.Enums;
 global using WsDataCore.Models;
-global using WsDataCore.Serialization.Models;
+global using WsDataCore.Serialization;
 global using WsLocalizationCore.Models;
 global using WsLocalizationCore.Utils;
 global using WsStorageCore.Common;

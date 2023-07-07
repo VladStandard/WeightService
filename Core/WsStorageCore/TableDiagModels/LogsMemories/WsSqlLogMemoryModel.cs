@@ -69,10 +69,9 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
         Equals(SizeAppMb, default) &&
         Equals(SizeFreeMb, default);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlLogMemoryModel item = new();
-        item.CloneSetup(this);
         item.SizeAppMb = SizeAppMb;
         item.SizeFreeMb = SizeFreeMb;
         item.App = App.CloneCast();

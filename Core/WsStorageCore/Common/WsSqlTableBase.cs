@@ -8,54 +8,42 @@ namespace WsStorageCore.Common;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTableBase : SerializeBase, ICloneable
+public class WsSqlTableBase : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; set; }
     [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
     [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-    [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
-    [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
-    [XmlIgnore] public virtual bool IsNew => IsNotExists;
-    [XmlIgnore] public virtual bool IsNotNew => IsExists;
-    [XmlIgnore] public virtual bool IsIdentityId => Identity.IsId;
-    [XmlIgnore] public virtual bool IsIdentityUid => Identity.IsUid;
     [XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual bool IsMarked { get; set; } = false;
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
+
+    [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
+    [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
+    [XmlIgnore] public virtual bool IsNew => IsNotExists;
+    [XmlIgnore] public virtual bool IsNotNew => IsExists;
+    [XmlIgnore] public virtual bool IsIdentityUid => Identity.IsUid;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
     [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableBase()
     {
         Identity = new(WsSqlEnumFieldIdentity.Empty);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTableBase(WsSqlFieldIdentityModel identity) : this()
     {
-        Identity = (WsSqlFieldIdentityModel)identity.Clone();
+        Identity = new(identity);
     }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
     {
         Identity = (WsSqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlFieldIdentityModel));
@@ -65,6 +53,17 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         Name = info.GetString(nameof(Name));
         Description = info.GetString(nameof(Description));
         ParseResult = (ParseResultModel)info.GetValue(nameof(ParseResult), typeof(ParseResultModel));
+    }
+
+    public WsSqlTableBase(WsSqlTableBase item)
+    {
+        Identity = new(item.Identity);
+        CreateDt = item.CreateDt;
+        ChangeDt = item.ChangeDt;
+        IsMarked = item.IsMarked;
+        Name = item.Name;
+        Description = item.Description;
+        ParseResult = new(ParseResult);
     }
 
     #endregion
@@ -118,7 +117,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
 
     #region Public and private methods - virtual
 
-    public virtual bool EqualsNew() => Equals(new WsSqlTableBase());
+    public virtual bool EqualsNew() => Equals(new());
 
     public virtual bool EqualsDefault() =>
         Identity.EqualsDefault() &&
@@ -129,27 +128,6 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         Equals(Name, string.Empty) &&
         Equals(Description, string.Empty) &&
         ParseResult.EqualsDefault();
-
-    public virtual object Clone() => new WsSqlTableBase(Identity)
-    {
-        CreateDt = CreateDt,
-        ChangeDt = ChangeDt,
-        IsMarked = IsMarked,
-        Name = Name,
-        Description = Description,
-        ParseResult = ParseResult.CloneCast()
-    };
-
-    public virtual WsSqlTableBase CloneCast() => (WsSqlTableBase)Clone();
-
-    public virtual void CloneSetup(WsSqlTableBase item)
-    {
-        CreateDt = item.CreateDt;
-        ChangeDt = item.ChangeDt;
-        IsMarked = item.IsMarked;
-        Name = item.Name;
-        Description = item.Description;
-    }
 
     public virtual void SetDtNow()
     {
@@ -179,7 +157,7 @@ public class WsSqlTableBase : SerializeBase, ICloneable
         Name = item.Name;
         if (!string.IsNullOrEmpty(item.Description))
             Description = item.Description;
-        ParseResult = item.ParseResult.CloneCast();
+        ParseResult = new(item.ParseResult);
     }
 
     protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";

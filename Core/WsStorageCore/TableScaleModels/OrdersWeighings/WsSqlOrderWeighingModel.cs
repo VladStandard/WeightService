@@ -61,10 +61,9 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
         Order.EqualsDefault() &&
         PluWeighing.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlOrderWeighingModel item = new();
-        item.CloneSetup(this);
         item.Order = Order.CloneCast();
         item.PluWeighing = PluWeighing.CloneCast();
         return item;

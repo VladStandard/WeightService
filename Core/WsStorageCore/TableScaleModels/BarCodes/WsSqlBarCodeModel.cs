@@ -95,10 +95,9 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         Equals(ValueBottom, string.Empty) &&
         PluLabel.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlBarCodeModel item = new();
-        item.CloneSetup(this);
         item.TypeTop = TypeTop;
         item.ValueTop = ValueTop;
         item.TypeRight = TypeRight;

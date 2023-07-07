@@ -84,10 +84,9 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         (PluWeighing is null || PluWeighing.EqualsDefault()) &&
         PluScale.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluLabelModel item = new();
-        item.CloneSetup(this);
         item.IsMarked = IsMarked;
         item.PluWeighing = PluWeighing?.CloneCast();
         item.PluScale = PluScale.CloneCast();

@@ -63,10 +63,9 @@ public class WsSqlDeviceScaleFkModel : WsSqlTableBase
         Device.EqualsDefault() &&
         Scale.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlDeviceScaleFkModel item = new();
-        item.CloneSetup(this);
         item.Device = Device.CloneCast();
         item.Scale = Scale.CloneCast();
         return item;

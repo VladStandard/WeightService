@@ -25,7 +25,6 @@ global using System.Xml.Serialization;
 global using System.Xml;
 global using FluentValidation.Results;
 global using WsDataCore.Common;
-global using WsDataCore.Serialization.Models;
 global using WsLocalizationCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;

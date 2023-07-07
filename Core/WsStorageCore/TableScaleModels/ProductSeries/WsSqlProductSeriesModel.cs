@@ -70,10 +70,9 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
         Equals(Uid, Guid.Empty) &&
         Scale.EqualsDefault();
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlProductSeriesModel item = new();
-        item.CloneSetup(this);
         item.Scale = Scale.CloneCast();
         item.IsClose = IsClose;
         item.Sscc = Sscc;

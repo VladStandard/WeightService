@@ -59,10 +59,9 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
         base.EqualsDefault() && Equals(AttachmentsCount, (decimal)0) &&
         Equals(NomenclatureGuid, Guid.Empty);
 
-    public override object Clone()
+    public object Clone()
     {
         WsSqlPluCharacteristicModel item = new();
-        item.CloneSetup(this);
         item.AttachmentsCount = AttachmentsCount;
         item.NomenclatureGuid = NomenclatureGuid;
         return item;
