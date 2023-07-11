@@ -489,31 +489,31 @@ public static class WsServiceUtilsSave
     /// Сохранить характеристику ПЛУ.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="pluCharacteristicXml"></param>
-    public static void SavePluCharacteristics(WsResponse1CShortModel response, WsSqlPluCharacteristicModel pluCharacteristicXml)
+    /// <param name="characteristicXml"></param>
+    public static void SavePluCharacteristics(WsResponse1CShortModel response, WsSqlPluCharacteristicModel characteristicXml)
     {
         try
         {
             // Получить характеристику ПЛУ.
-            WsSqlPluCharacteristicModel pluCharacteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
-                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C, 
-                pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
-            if (pluCharacteristicDb.IsExists)
+            WsSqlPluCharacteristicModel characteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
+                WsSqlEnumContextType.Cache, response, characteristicXml.Uid1C, 
+                characteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
+            if (characteristicDb.IsExists)
             {
                 // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdateItemDb(response, pluCharacteristicXml, pluCharacteristicDb);
+                WsServiceUtilsUpdate.UpdatePluCharacteristic(response, characteristicXml.IdentityValueUid, characteristicXml, characteristicDb, true);
                 // Обновить кэш.
                 WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluCharacteristics);
                 return;
             };
             // Не найдено -> Добавить новую запись.
-            WsServiceUtilsUpdate.SaveItemDb(response, pluCharacteristicXml, true, pluCharacteristicXml.Uid1C);
+            WsServiceUtilsUpdate.SaveItemDb(response, characteristicXml, true, characteristicXml.Uid1C);
             // Обновить кэш.
             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluCharacteristics);
         }
         catch (Exception ex)
         {
-            WsServiceUtilsResponse.AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
+            WsServiceUtilsResponse.AddResponseException(response, characteristicXml.Uid1C, ex);
         }
     }
 
@@ -521,27 +521,27 @@ public static class WsServiceUtilsSave
     /// Сохранить связь характеристики ПЛУ.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="pluCharacteristicXml"></param>
-    public static void SavePluCharacteristicsFks(WsResponse1CShortModel response, WsSqlPluCharacteristicModel pluCharacteristicXml)
+    /// <param name="characteristicXml"></param>
+    public static void SavePluCharacteristicsFks(WsResponse1CShortModel response, WsSqlPluCharacteristicModel characteristicXml)
     {
         try
         {
-            if (Equals(pluCharacteristicXml.NomenclatureGuid, Guid.Empty)) return;
+            if (Equals(characteristicXml.NomenclatureGuid, Guid.Empty)) return;
             // Получить ПЛУ.
             WsSqlPluModel pluDb = WsServiceUtilsGet.GetItemPlu(WsSqlEnumContextType.Cache, response,
-                pluCharacteristicXml.NomenclatureGuid, pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
+                characteristicXml.NomenclatureGuid, characteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
             if (pluDb.IsNotExists) return;
             // Получить характеристику ПЛУ.
-            WsSqlPluCharacteristicModel pluCharacteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
-                WsSqlEnumContextType.Cache, response, pluCharacteristicXml.Uid1C, 
-                pluCharacteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
-            if (pluCharacteristicDb.IsNotExists) return;
+            WsSqlPluCharacteristicModel characteristicDb = WsServiceUtilsGet.GetItemPluCharacteristic(
+                WsSqlEnumContextType.Cache, response, characteristicXml.Uid1C, 
+                characteristicXml.Uid1C, WsLocaleCore.WebService.FieldNomenclatureCharacteristic);
+            if (characteristicDb.IsNotExists) return;
             // Связь характеристики и ПЛУ.
             WsSqlPluCharacteristicsFkModel pluCharacteristicsFk = new()
             {
                 IdentityValueUid = Guid.NewGuid(),
                 Plu = pluDb,
-                Characteristic = pluCharacteristicDb,
+                Characteristic = characteristicDb,
             };
             // Поиск по Identity.
             WsSqlPluCharacteristicsFkModel pluCharacteristicFkDb = 
@@ -551,18 +551,18 @@ public static class WsServiceUtilsSave
             if (pluCharacteristicFkDb.IsExists)
             {
                 // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdatePluCharacteristicFk(response, pluCharacteristicXml.Uid1C,
+                WsServiceUtilsUpdate.UpdatePluCharacteristicFk(response, characteristicXml.Uid1C,
                     pluCharacteristicsFk, pluCharacteristicFkDb, false);
                 return;
             }
             // Не найдено -> Добавить новую запись.
-            WsServiceUtilsUpdate.SaveItemDb(response, pluCharacteristicsFk, false, pluCharacteristicXml.Uid1C);
+            WsServiceUtilsUpdate.SaveItemDb(response, pluCharacteristicsFk, false, characteristicXml.Uid1C);
             // Обновить кэш.
             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluCharacteristicsFks);
         }
         catch (Exception ex)
         {
-            WsServiceUtilsResponse.AddResponseException(response, pluCharacteristicXml.Uid1C, ex);
+            WsServiceUtilsResponse.AddResponseException(response, characteristicXml.Uid1C, ex);
         }
     }
 

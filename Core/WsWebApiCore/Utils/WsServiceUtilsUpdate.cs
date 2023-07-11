@@ -166,6 +166,24 @@ public static class WsServiceUtilsUpdate
     /// <param name="itemDb"></param>
     /// <param name="isCounter"></param>
     /// <returns></returns>
+    public static void UpdatePluCharacteristic(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicModel itemXml,
+        WsSqlPluCharacteristicModel? itemDb, bool isCounter)
+    {
+        if (itemDb is null || itemDb.IsNew) return;
+        itemDb.UpdateProperties(itemXml);
+        WsServiceUtils.SqlCore.Update(itemDb);
+        if (isCounter) response.Successes.Add(new(uid1C));
+    }
+
+    /// <summary>
+    /// Обновить связь номенклатурной характеристики и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="uid1C"></param>
+    /// <param name="itemXml"></param>
+    /// <param name="itemDb"></param>
+    /// <param name="isCounter"></param>
+    /// <returns></returns>
     public static void UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml,
         WsSqlPluCharacteristicsFkModel? itemDb, bool isCounter)
     {

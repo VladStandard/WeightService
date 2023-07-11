@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NHibernate.Util;
 using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
 
 namespace WsWebApiCore.Helpers;
@@ -41,12 +42,34 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             foreach (WsXmlContentRecord<WsSqlPluCharacteristicModel> recordXml in pluCharacteristicsXml)
             {
                 WsSqlPluCharacteristicModel characteristicXml = recordXml.Item;
-                // Обновить таблицу связей ПЛУ для обмена.
-                List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUtilsUpdate.UpdatePlus1CFksDb(response, recordXml);
-                WsSqlPluModel pluDb = WsServiceUtils.ContextManager.ContextPlus.GetItemByUid1C(recordXml.Item.NomenclatureGuid);
-                // Проверить разрешение обмена для ПЛУ.
-                if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(characteristicXml, plus1CFksDb);
-                
+                // Получить список ПЛУ.
+                List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetListByUid1C(characteristicXml.NomenclatureGuid);
+                if (!plusDb.Any())
+                {
+                    characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
+                    characteristicXml.ParseResult.Exception = WsLocaleCore.WebService.PluNotFound();
+                }
+                else if (plusDb.Count > 1)
+                {
+                    characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
+                    characteristicXml.ParseResult.Exception =
+                        WsLocaleCore.WebService.PluFoundMoreThen1() + " | " +
+                        string.Join(", ", plusDb.Select(x => x.Number));
+                }
+                if (characteristicXml.AttachmentsCount % 1 != 0)
+                {
+                    characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
+                    characteristicXml.ParseResult.Exception =
+                        WsLocaleCore.WebService.AttachmentsCountMustBeInt() + " | " +
+                        string.Join(", ", plusDb.Select(x => x.Number));
+                }
+                if (characteristicXml.ParseResult.IsStatusSuccess)
+                {
+                    // Обновить таблицу связей ПЛУ для обмена.
+                    List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUtilsUpdate.UpdatePlus1CFksDb(response, recordXml);
+                    // Проверить разрешение обмена для ПЛУ.
+                    if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(characteristicXml, plus1CFksDb);
+                }
                 // Сохранить характеристику ПЛУ.
                 if (characteristicXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluCharacteristics(response, characteristicXml);
                 // Сохранить связь характеристики ПЛУ.
@@ -67,6 +90,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
                         }
                         else
                         {
+                            WsSqlPluModel pluDb = plusDb.First();
                             // Получить список вложенностей ПЛУ.
                             List<WsSqlPluNestingFkModel> pluNestingFks = WsServiceUtilsGet.GetListPluNestingFks(
                                 WsSqlEnumContextType.Cache, response, pluDb.Uid1C, characteristicXml.NomenclatureGuid, "Вложенности ПЛУ");
