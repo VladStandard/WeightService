@@ -11,7 +11,7 @@
 <ItemTopBar TItem="@WsSqlScaleModel" Title="@WsLocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new List<int> { 20, 30, 20, 30 })"/>
+  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
@@ -19,7 +19,6 @@
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Description"/>
     </td>
-
     <td>@WsLocaleCore.Table.IsKneading</td>
     <td>
       <RadzenCheckBox TValue="bool" @bind-Value="@SqlItemCast.IsKneading"/>
@@ -89,7 +88,6 @@
     <td>
       <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
-
     <td>@WsLocaleCore.Table.IsShippingLength</td>
     <td>
       <RzNumeric Min="@byte.MinValue" Max="@byte.MaxValue" @bind-Value="@SqlItemCast.ShippingLength"/>
@@ -100,7 +98,6 @@
     <td>
       <RzNumeric @bind-Value="@SqlItemCast.ScaleFactor"/>
     </td>
-
     <td>@WsLocaleCore.Table.Counter</td>
     <td>
       <RzNumeric Min="0" Max="99999" @bind-Value="@SqlItemCast.LabelCounter"/>

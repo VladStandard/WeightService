@@ -10,7 +10,7 @@
 <ItemTopBar TItem="@WsSqlWorkShopModel" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 25, 25, 25, 25 })"/>
+  <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>

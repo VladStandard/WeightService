@@ -11,7 +11,6 @@
     <RadzenCheckBox TValue="bool" @bind-Value="@IsShowPlu" Style="margin-left: 20px "/>
     <RadzenLabel Style="font-size: 13px; margin-left: 5px" Text="Учитывать плу"/>
     <RadzenButton
-      id="button_loader"
       Icon="refresh"
       ButtonStyle="@ButtonStyle.Primary"
       Style="margin-left: 20px; width: 60px;"
@@ -26,8 +25,10 @@
   Data="@PluWeightAggrs">
   <Columns>
     <TItemContent TItem="@WsSqlViewWeightingAggrModel">
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%" FormatString="@WsStrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn TItem="@WsSqlViewWeightingAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="ChangeDt.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeighDt" Property="ChangeDt" Width="15%"
+                            FormatString="@WsStrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn TItem="@WsSqlViewWeightingAggrModel" Title="@WsLocaleCore.Table.DayOfWeek"
+                            SortProperty="ChangeDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @WsEnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
         </Template>

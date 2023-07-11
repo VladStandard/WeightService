@@ -9,7 +9,7 @@
 <ItemTopBar TItem="@WsSqlPluGroupModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclatureGroup" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
