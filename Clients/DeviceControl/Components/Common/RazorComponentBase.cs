@@ -28,12 +28,10 @@ public class RazorComponentBase : LayoutComponentBase
 
     #region Public and private methods - Actions
 
-    protected bool SqlItemValidate<T>(T? item, bool isCheckIdentity) where T : WsSqlTableBase, new()
+    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : WsSqlTableBase, new()
     {
-        bool result = item is not null;
         string detailAddition = string.Empty;
-        if (result)
-            result = WsSqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
+        bool result = WsSqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
         switch (result)
         {
             case false:
@@ -53,6 +51,12 @@ public class RazorComponentBase : LayoutComponentBase
         }
     }
 
+    protected bool SqlItemValidate<T>(T item) where T : WsSqlTableBase, new()
+    {
+        string detailAddition = string.Empty;
+        return WsSqlValidationUtils.IsValidation(item, ref detailAddition, !item.IsNew);
+    }
+    
     protected static TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
     {
         return ContextManager.SqlCore.GetItemNewEmpty<TItem>();
@@ -60,7 +64,7 @@ public class RazorComponentBase : LayoutComponentBase
 
     protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
     {
-        if (item is null || !SqlItemValidate(item, false)) 
+        if (item is null || !SqlItemValidate(item)) 
             return;
         if (item.IsNew)
             ContextManager.SqlCore.Save(item);

@@ -10,7 +10,7 @@ namespace DeviceControl.Pages.Menu.Admins.Access;
 public sealed partial class ItemAccess : ItemBase<WsSqlAccessModel>
 {
     #region Public and private fields, properties, constructor
-
+    
     private List<WsEnumTypeModel<WsEnumAccessRights>> TemplateAccessRights { get; set; }
 
     private WsEnumAccessRights Rights

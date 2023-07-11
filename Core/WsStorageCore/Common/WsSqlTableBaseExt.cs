@@ -14,28 +14,12 @@ public static class WsSqlTableBaseExt
 
     public static object? GetPropertyAsObject<T>(this T? item, string propertyName) where T : WsSqlTableBase
     {
-        if (item is not null && !string.IsNullOrEmpty(propertyName))
+        if (item is null || string.IsNullOrEmpty(propertyName))
+            return null;
+        foreach (PropertyInfo property in typeof(T).GetProperties())
         {
-            //if (propertyName.Contains('.'))
-            //{
-            //	foreach (PropertyInfo property in typeof(T).GetProperties())
-            //	{
-            //		if (string.Equals(property.Name, propertyName.Substring(0, propertyName.IndexOf('.'))))
-            //		{
-            //			T prop = (T)property.GetValue(item);
-            //			string subPropertyName = propertyName.Substring(propertyName.IndexOf('.'), propertyName.Length - propertyName.IndexOf('.') - 1);
-            //			return GetPropertyValue(prop, subPropertyName);
-            //		}
-            //	}
-            //}
-            //else
-            {
-                foreach (PropertyInfo property in typeof(T).GetProperties())
-                {
-                    if (string.Equals(property.Name, propertyName))
-                        return property.GetValue(item);
-                }
-            }
+            if (string.Equals(property.Name, propertyName))
+                return property.GetValue(item);
         }
         return null;
     }

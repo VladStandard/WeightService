@@ -2,14 +2,14 @@
 
 <thead>
 <tr>
-    @for (int i = 0; i < CssTableStyleHead.ColumnsWidths.Count; i++)
-    {
-        <th class="table_head_model" style="width: @CssTableStyleHead.ColumnsWidths[i]%; text-align: center;">
-            @if (CssTableStyleHead.ColumnsTitles.Count > i)
-            {
-                <RadzenLabel Text=@CssTableStyleHead.ColumnsTitles[i] />
-            }
-        </th>
-    }
+  @for (int i = 0; i < TableHeadModel.ColumnsWidths.Count; i++)
+  {
+    <th class="table_head_model" style="width: @TableHeadModel.ColumnsWidths[i]%; text-align: center;">
+      @if (TableHeadModel.ColumnsTitles.Count > i)
+      {
+        <RadzenLabel Text=@TableHeadModel.ColumnsTitles[i]/>
+      }
+    </th>
+  }
 </tr>
 </thead>

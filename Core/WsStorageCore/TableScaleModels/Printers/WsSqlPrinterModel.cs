@@ -129,6 +129,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
     {
         base.FillProperties();
         DarknessLevel = 1;
+        Port = 9100;
         PrinterType.FillProperties();
         MacAddress.FillProperties();
     }

@@ -9,13 +9,12 @@
 <ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead CssTableStyleHead="@RzComponentUtils.GetTableHeadStyle(new() { 20, 30, 20, 30 })"/>
+  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)"
-                  Text="@WsLocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
 
@@ -27,7 +26,7 @@
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
                   Text="@WsLocaleCore.Table.Plu"/>
     </td>
-    <td>@($"{SqlItemCast.PluScale.Plu.Number} | {SqlItemCast.PluScale.Plu.Name}")</td>
+    <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
 
     <td>@WsLocaleCore.Table.BundleFkWeightTare</td>
     <td>@SqlItemCast.WeightTare.ToString(CultureInfo.InvariantCulture)</td>

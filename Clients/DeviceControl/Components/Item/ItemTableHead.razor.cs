@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using FluentNHibernate.Conventions;
 using WsBlazorCore.CssStyles;
 
 namespace DeviceControl.Components.Item;
@@ -9,16 +10,15 @@ public partial class ItemTableHead : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public CssStyleTableHeadModel CssTableStyleHead { get; set; }
+    private CssStyleTableHeadModel TableHeadModel { get; set; }
+    [Parameter] public List<int> HeadWidth { get; set; } = new();
 
     #endregion
 
-    #region Public and private methods
-
-    public ItemTableHead()
+    protected override void OnInitialized()
     {
-        CssTableStyleHead = new();
+        TableHeadModel = HeadWidth.Any() ? 
+            new CssStyleTableHeadModel(HeadWidth) : new CssStyleTableHeadModel();
     }
-
-    #endregion
+    
 }

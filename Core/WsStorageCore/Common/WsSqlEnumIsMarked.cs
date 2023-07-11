@@ -8,16 +8,7 @@ namespace WsStorageCore.Common;
 /// </summary>
 public enum WsSqlEnumIsMarked
 {
-    /// <summary>
-    /// Отображать все записи, либо поле не существует.
-    /// </summary>
     ShowAll,
-    /// <summary>
-    /// Отображать только актуальные записи.
-    /// </summary>
     ShowOnlyActual,
-    /// <summary>
-    /// Отображать только скрытые записи.
-    /// </summary>
     ShowOnlyHide,
 }
