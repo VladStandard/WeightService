@@ -73,7 +73,6 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        PrettyName = WsLocaleCore.Sql.SqlItemFieldPrettyName;
     }
 
     #endregion

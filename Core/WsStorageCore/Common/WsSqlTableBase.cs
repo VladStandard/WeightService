@@ -142,8 +142,6 @@ public class WsSqlTableBase : SerializeBase
     public virtual void FillProperties()
     {
         SetDtNow();
-        Name = WsLocaleCore.Sql.SqlItemFieldName;
-        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
     }
 
     protected virtual void UpdateProperties(WsSqlTableBase item, bool isSkipName)

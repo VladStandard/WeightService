@@ -26,7 +26,6 @@ public sealed class WsSqlDeviceValidator : WsSqlTableValidator<WsSqlDeviceModel>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.PrettyName)
-            .NotEmpty()
             .NotNull();
         RuleFor(item => item.Description)
             .NotNull();

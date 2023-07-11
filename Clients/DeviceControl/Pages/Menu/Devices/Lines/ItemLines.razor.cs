@@ -17,12 +17,10 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 
     private WsSqlDeviceModel Device { get; set; }
     private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
+    
     private List<WsEnumTypeModel<string>> ComPorts { get; set; }
-
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
-
     private List<WsSqlDeviceModel> HostModels { get; set; }
-
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
 
     public ItemLines() : base()
@@ -48,12 +46,8 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         SqlItemCast.WorkShop ??= SqlItemNewEmpty<WsSqlWorkShopModel>();
 
         DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
-        Device = DeviceScaleFk.Device.IsNotNew
-            ? DeviceScaleFk.Device
-            : SqlItemNewEmpty<WsSqlDeviceModel>();
-
+        Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : SqlItemNewEmpty<WsSqlDeviceModel>();
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);
-        SqlItemCast.ScaleFactor ??= 1000;
     }
 
     protected override void SqlItemSaveAdditional()

@@ -110,7 +110,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         base.FillProperties();
         LoginDt = DateTime.Now;
         LogoutDt = DateTime.Now;
-        PrettyName = WsLocaleCore.Sql.SqlItemFieldPrettyName;
         Ipv4 = WsLocaleCore.Sql.SqlItemFieldIp;
         MacAddressValue = WsLocaleCore.Sql.SqlItemFieldMac;
     }

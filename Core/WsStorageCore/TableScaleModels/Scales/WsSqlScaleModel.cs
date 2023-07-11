@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Protocols;
+
 namespace WsStorageCore.TableScaleModels.Scales;
 
 /// <summary>
@@ -150,10 +152,11 @@ public class WsSqlScaleModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
         WorkShop?.FillProperties();
         PrinterMain?.FillProperties();
         PrinterShipping?.FillProperties();
+        ScaleFactor = 1000;
+        DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
 
     #endregion

@@ -82,6 +82,7 @@ public class WsSqlAccessModel : WsSqlTableBase
     {
         base.FillProperties();
         LoginDt = DateTime.Now;
+        Name = "KOLBASA-VS\\";
         Rights = (byte)WsEnumAccessRights.None;
     }
 

@@ -56,14 +56,17 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     protected async Task SqlItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        if (!SqlItemValidate(SqlItem, false)) return;
+        
+        bool isNew = !(SqlItem?.IsNew ?? false);
+        if (!SqlItemValidateWithMsg(SqlItem, isNew)) return;
         
         RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItemSave(SqlItem);
             SqlItemSaveAdditional();
-            RouteService.NavigateSectionRoute(SqlItemCast);
         });
+        
+        RouteService.NavigateSectionRoute(SqlItemCast);
     }
 
 

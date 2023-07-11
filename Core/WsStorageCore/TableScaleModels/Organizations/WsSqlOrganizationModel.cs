@@ -76,7 +76,6 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Gln = 1;
     }
 
     #endregion

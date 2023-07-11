@@ -74,7 +74,6 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Address = WsLocaleCore.Sql.SqlItemFieldAddress;
     }
 
     #endregion

@@ -3,6 +3,7 @@
 
 namespace WsDataCore.Protocols;
 
+// TODO: FIX Serial Ports
 public static class MdSerialPortsUtils
 {
     #region Public and private methods
@@ -33,15 +34,17 @@ public static class MdSerialPortsUtils
             switch (lang)
             {
                 case WsEnumLanguage.Russian:
-                    result.Add(new($"КОМ{i}", $"COM{i}"));
+                    result.Add(new($"КОМ{i}", GenerateComPort(i)));
                     break;
                 default:
-                    result.Add(new($"COM{i}", $"COM{i}"));
+                    result.Add(new($"COM{i}", GenerateComPort(i)));
                     break;
             }
         }
         return result;
     }
+        
+    public static string GenerateComPort(int number) => $"COM{number}";
 
     #endregion
 }
