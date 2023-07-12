@@ -43,7 +43,7 @@ public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
         //	});
     }
 
-    public bool PreValidate(ValidationContext<WsSqlScaleModel> context, ValidationResult result, bool isCheckIdentity)
+    protected override bool PreValidate(ValidationContext<WsSqlScaleModel> context, ValidationResult result)
     {
         //if (context.InstanceToValidate is ScaleModel scale1)
         //{
@@ -60,11 +60,11 @@ public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
                 result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
                 return false;
             default:
-                if (!PreValidateSubEntity(context.InstanceToValidate.WorkShop, ref result, isCheckIdentity))
+                if (!PreValidateSubEntity(context.InstanceToValidate.WorkShop, ref result, true))
                     return result.IsValid;
-                if (!PreValidateSubEntity(context.InstanceToValidate.PrinterMain, ref result, isCheckIdentity))
+                if (!PreValidateSubEntity(context.InstanceToValidate.PrinterMain, ref result, true))
                     return result.IsValid;
-                if (!PreValidateSubEntity(context.InstanceToValidate.PrinterShipping, ref result, isCheckIdentity))
+                if (!PreValidateSubEntity(context.InstanceToValidate.PrinterShipping, ref result, true))
                     return result.IsValid;
                 return result.IsValid;
         }

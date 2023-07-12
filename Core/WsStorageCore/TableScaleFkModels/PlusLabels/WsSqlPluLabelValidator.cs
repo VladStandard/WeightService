@@ -30,7 +30,7 @@ public sealed class WsSqlPluLabelValidator : WsSqlTableValidator<WsSqlPluLabelMo
             .GreaterThanOrEqualTo(item => item.ProductDt);
     }
 
-    public bool PreValidate(ValidationContext<WsSqlPluLabelModel> context, ValidationResult result, bool isCheckIdentity)
+    protected override bool PreValidate(ValidationContext<WsSqlPluLabelModel> context, ValidationResult result)
     {
         switch (context.InstanceToValidate)
         {
@@ -38,7 +38,7 @@ public sealed class WsSqlPluLabelValidator : WsSqlTableValidator<WsSqlPluLabelMo
                 result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
                 return false;
             default:
-                if (!PreValidateSubEntity(context.InstanceToValidate.PluWeighing, ref result, isCheckIdentity))
+                if (!PreValidateSubEntity(context.InstanceToValidate.PluWeighing, ref result, true))
                     return result.IsValid;
                 return result.IsValid;
         }
