@@ -38,8 +38,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         await JsService.CopyTextToClipboard(textToCopy);
     }
 
-    protected virtual void SqlItemSaveAdditional() { }
-
     protected async Task RedirectBackAsync()
     {
         bool isRedirected = await JsService.RedirectBackIfNotHomePage();
@@ -56,19 +54,25 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     protected async Task SqlItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        
-        bool isNew = !(SqlItem?.IsNew ?? false);
-        if (!SqlItemValidateWithMsg(SqlItem, isNew)) return;
-        
-        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
-        {
-            SqlItemSave(SqlItem);
-            SqlItemSaveAdditional();
-        });
+
+        if (!ValidateItemBeforeSave()) return;
+        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, ItemSave);
         
         RouteService.NavigateSectionRoute(SqlItemCast);
     }
 
+    protected virtual bool ValidateItemBeforeSave()
+    {
+        return SqlItemValidateWithMsg(SqlItem, !(SqlItem?.IsNew ?? false));
+ 
+    }
+    
+    protected virtual void ItemSave()
+    {
+        SqlItemSave(SqlItem);
+    }
+
+    
 
     protected override void OnAfterRender(bool firstRender)
     {

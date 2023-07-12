@@ -41,7 +41,7 @@
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName" AllowClear="true" />
     </td>
     <td>@WsLocaleCore.Table.DeviceComPort</td>
     <td>
@@ -53,7 +53,7 @@
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@WsLocaleCore.Print.NameShipping"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName" AllowClear="true"/>
     </td>
     <td>@WsLocaleCore.Table.IsShipping</td>
     <td>
@@ -65,7 +65,7 @@
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@WsLocaleCore.Table.WorkShopName"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName" AllowClear="true"/>
     </td>
     <td>
       <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>

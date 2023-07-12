@@ -33,17 +33,20 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
         DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     }
 
-    protected override void SqlItemSaveAdditional()
-    {
-        if (DeviceType.IsNew)
-        {
-            ContextManager.SqlCore.Delete(DeviceTypeFk);
-            return;
-        }
+    protected override bool ValidateItemBeforeSave()
+    { 
         DeviceTypeFk.Type = DeviceType;
         DeviceTypeFk.Device = SqlItemCast; 
-        SqlItemSave(DeviceTypeFk);
+        if (!SqlItemValidateWithMsg(DeviceTypeFk, !(DeviceTypeFk?.IsNew ?? false))) 
+            return false;
+        return base.ValidateItemBeforeSave();
     }
 
+    protected override void ItemSave()
+    {
+        base.ItemSave();
+        SqlItemSave(DeviceTypeFk);
+    }
+    
     #endregion
 }

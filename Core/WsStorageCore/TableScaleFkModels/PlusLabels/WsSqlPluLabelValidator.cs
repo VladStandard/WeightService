@@ -28,19 +28,7 @@ public sealed class WsSqlPluLabelValidator : WsSqlTableValidator<WsSqlPluLabelMo
             .NotEmpty()
             .NotNull()
             .GreaterThanOrEqualTo(item => item.ProductDt);
-    }
-
-    protected override bool PreValidate(ValidationContext<WsSqlPluLabelModel> context, ValidationResult result)
-    {
-        switch (context.InstanceToValidate)
-        {
-            case null:
-                result.Errors.Add(new(nameof(context), "Please ensure a model was supplied!"));
-                return false;
-            default:
-                if (!PreValidateSubEntity(context.InstanceToValidate.PluWeighing, ref result, true))
-                    return result.IsValid;
-                return result.IsValid;
-        }
+        RuleFor(item => item.PluWeighing)
+            .SetValidator(new WsSqlPluWeighingValidator(isCheckIdentity)!);
     }
 }

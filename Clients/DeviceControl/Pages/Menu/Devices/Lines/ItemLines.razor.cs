@@ -17,7 +17,6 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 
     private WsSqlDeviceModel Device { get; set; }
     private WsSqlDeviceScaleFkModel DeviceScaleFk { get; set; }
-    
     private List<WsEnumTypeModel<string>> ComPorts { get; set; }
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
     private List<WsSqlDeviceModel> HostModels { get; set; }
@@ -40,28 +39,26 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-
-        SqlItemCast.PrinterMain ??= SqlItemNewEmpty<WsSqlPrinterModel>();
-        SqlItemCast.PrinterShipping ??= SqlItemNewEmpty<WsSqlPrinterModel>();
-        SqlItemCast.WorkShop ??= SqlItemNewEmpty<WsSqlWorkShopModel>();
-
         DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
+        DeviceScaleFk = DeviceScaleFk.IsNotNew ? DeviceScaleFk : SqlItemNewEmpty<WsSqlDeviceScaleFkModel>();
         Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : SqlItemNewEmpty<WsSqlDeviceModel>();
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);
     }
 
-    protected override void SqlItemSaveAdditional()
-    {
-        if (Device.IsNotNew)
-        {
-            DeviceScaleFk.Device = Device;
-            DeviceScaleFk.Scale = SqlItemCast;
-            SqlItemSave(DeviceScaleFk);
-            return;
-        }
-
-        ContextManager.SqlCore.Delete(DeviceScaleFk);
+    protected override bool ValidateItemBeforeSave()
+    { 
+        DeviceScaleFk.Device = Device; 
+        DeviceScaleFk.Scale = SqlItemCast;
+        if (!SqlItemValidateWithMsg(DeviceScaleFk, !(DeviceScaleFk?.IsNew ?? false))) 
+            return false;
+        return base.ValidateItemBeforeSave();
     }
 
+    protected override void ItemSave()
+    {
+        base.ItemSave();
+        SqlItemSave(DeviceScaleFk);
+    }
+    
     #endregion
 }

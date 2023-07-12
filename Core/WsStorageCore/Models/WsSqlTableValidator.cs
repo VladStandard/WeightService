@@ -24,15 +24,4 @@ public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableB
                 .NotNull()
                 .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
     }
-
-    protected bool PreValidateSubEntity<TItem>(TItem? item, ref ValidationResult result, bool isCheckIdentity) 
-        where TItem : WsSqlTableBase, new()
-    {
-        if (item is not null)
-        {
-            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, isCheckIdentity);
-            if (!result.IsValid) return result.IsValid;
-        }
-        return result.IsValid;
-    }
 }
