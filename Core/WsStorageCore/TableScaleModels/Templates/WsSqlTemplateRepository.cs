@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleModels.Templates;
 /// SQL-контроллер таблицы Templates.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlTemplateController : WsSqlTableControllerBase
+public sealed class WsSqlTemplateRepository : WsSqlTableRepositoryBase<WsSqlTemplateModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlTemplateController _instance;
+    private static WsSqlTemplateRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlTemplateController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlTemplateRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

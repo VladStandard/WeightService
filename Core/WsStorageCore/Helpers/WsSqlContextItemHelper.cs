@@ -21,7 +21,7 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlAppController ContextApp => WsSqlAppController.Instance;
+    private WsSqlAppRepository ContextApp => WsSqlAppRepository.Instance;
     private WsSqlAppModel App { get; set; } = new();
     private WsSqlDeviceModel Device { get; set; } = new();
 

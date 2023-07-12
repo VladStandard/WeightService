@@ -6,14 +6,14 @@ namespace WsStorageCore.TableScaleModels.Scales;
 /// <summary>
 /// Контроллер таблицы SCALES.
 /// </summary>
-public sealed class WsSqlLineController : WsSqlTableControllerBase
+public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlLineController _instance;
+    private static WsSqlLineRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlLineController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlLineRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

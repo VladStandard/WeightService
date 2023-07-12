@@ -6,7 +6,7 @@ namespace WsStorageCore.Common;
 /// <summary>
 /// Базовый класс контроллера таблицы.
 /// </summary>
-public class WsSqlTableControllerBase
+public class WsSqlTableRepositoryBase<TItem> : WsSqlTableBase where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -20,6 +20,6 @@ public class WsSqlTableControllerBase
 
     protected WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
             WsSqlEnumIsMarked.ShowAll, false, false, true, false);
-
+    
     #endregion
 }

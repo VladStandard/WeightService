@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleModels.PlusScales;
 /// SQL-контроллер таблицы PLUS_SCALES.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluLineController : WsSqlTableControllerBase
+public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluScaleModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluLineController _instance;
+    private static WsSqlPluLineRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluLineController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluLineRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

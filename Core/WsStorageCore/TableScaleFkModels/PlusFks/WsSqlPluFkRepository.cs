@@ -1,41 +1,41 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.TableScaleFkModels.PlusBrandsFks;
+namespace WsStorageCore.TableScaleFkModels.PlusFks;
 
 /// <summary>
-/// SQL-контроллер таблицы бренды ПЛУ.
+/// SQL-контроллер таблицы PLUS_BUNDLES_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluBrandFkController : WsSqlTableControllerBase
+public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluBrandFkController _instance;
+    private static WsSqlPluFkRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluBrandFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlBrandController ContextBrand => WsSqlBrandController.Instance;
-    private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
+    private WsSqlPluRepository ContextPlu => WsSqlPluRepository.Instance;
 
     #endregion
 
     #region Public and private methods
 
-    public WsSqlPluBrandFkModel GetNewItem()
+    public WsSqlPluFkModel GetNewItem()
     {
-        WsSqlPluBrandFkModel item = SqlCore.GetItemNewEmpty<WsSqlPluBrandFkModel>();
+        WsSqlPluFkModel item = SqlCore.GetItemNewEmpty<WsSqlPluFkModel>();
         item.Plu = ContextPlu.GetNewItem();
-        item.Brand = ContextBrand.GetNewItem();
+        item.Parent = ContextPlu.GetNewItem();
+        item.Category = null;
         return item;
     }
 
-    public List<WsSqlPluBrandFkModel> GetList() => ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+    public List<WsSqlPluFkModel> GetList() => ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
 
     #endregion
 }

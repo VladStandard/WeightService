@@ -6,22 +6,22 @@ namespace WsStorageCore.TableScaleFkModels.PlusNestingFks;
 /// <summary>
 /// Контроллер таблицы PLUS_NESTING_FK.
 /// </summary>
-public sealed class WsSqlPluNestingFkController : WsSqlTableControllerBase
+public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSqlPluNestingFkModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluNestingFkController _instance;
+    private static WsSqlPluNestingFkRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluNestingFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluNestingFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
 
-    private WsSqlBoxController ContextBox => WsSqlBoxController.Instance;
-    private WsSqlPluController ContextPlu => WsSqlPluController.Instance;
-    private WsSqlPluBundleFkController ContextPluBundle => WsSqlPluBundleFkController.Instance;
+    private WsSqlBoxRepository ContextBox => WsSqlBoxRepository.Instance;
+    private WsSqlPluRepository ContextPlu => WsSqlPluRepository.Instance;
+    private WsSqlPluBundleFkRepository ContextPluBundle => WsSqlPluBundleFkRepository.Instance;
 
     #endregion
 

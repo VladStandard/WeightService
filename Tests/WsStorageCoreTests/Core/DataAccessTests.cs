@@ -38,6 +38,7 @@ public sealed class DataAccessTests
             "Scale Massa-K",
             "SQL-Server",
             "Web-Server",
+            "Computer",
         };
 
     [Test]

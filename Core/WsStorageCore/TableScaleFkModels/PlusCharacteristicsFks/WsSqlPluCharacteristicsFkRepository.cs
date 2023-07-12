@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleFkModels.PlusCharacteristicsFks;
 /// SQL-контроллер таблицы связей характеристик и ПЛУ.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluCharacteristicsFkController : WsSqlTableControllerBase
+public sealed class WsSqlPluCharacteristicsFkRepository : WsSqlTableRepositoryBase<WsSqlPluCharacteristicsFkModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluCharacteristicsFkController _instance;
+    private static WsSqlPluCharacteristicsFkRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluCharacteristicsFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluCharacteristicsFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

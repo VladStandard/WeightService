@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleModels.Access;
 /// SQL-контроллер таблицы ACCESS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAccessController : WsSqlTableControllerBase
+public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccessModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAccessController _instance;
+    private static WsSqlAccessRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAccessController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAccessRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

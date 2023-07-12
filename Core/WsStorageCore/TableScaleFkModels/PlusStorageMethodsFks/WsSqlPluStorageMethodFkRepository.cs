@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleFkModels.PlusStorageMethodsFks;
 /// SQL-контроллер таблицы записей таблиц PLUS_STORAGE_METHODS, PLUS_STORAGE_METHODS_FK.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluStorageMethodFkController : WsSqlTableControllerBase
+public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodFkModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluStorageMethodFkController _instance;
+    private static WsSqlPluStorageMethodFkRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluStorageMethodFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluStorageMethodFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

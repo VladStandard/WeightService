@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleFkModels.PlusClipsFks;
 /// SQL-контроллер таблицы связей клипс и ПЛУ.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluClipFkController : WsSqlTableControllerBase
+public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPluClipFkModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluClipFkController _instance;
+    private static WsSqlPluClipFkRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluClipFkController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluClipFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

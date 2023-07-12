@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleModels.Plus;
 /// SQL-контроллер таблицы PLUS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluController : WsSqlTableControllerBase
+public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluController _instance;
+    private static WsSqlPluRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

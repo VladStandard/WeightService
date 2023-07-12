@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleModels.ProductionFacilities;
 /// SQL-контроллер таблицы ProductionFacility.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlAreaController : WsSqlTableControllerBase
+public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProductionFacilityModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAreaController _instance;
+    private static WsSqlAreaRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAreaController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlAreaRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 

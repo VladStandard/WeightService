@@ -7,14 +7,14 @@ namespace WsStorageCore.TableScaleFkModels.PlusWeighingsFks;
 /// SQL-контроллер таблицы PLUS_WEIGHINGS.
 /// Клиентский слой доступа к БД.
 /// </summary>
-public sealed class WsSqlPluWeighingController : WsSqlTableControllerBase
+public sealed class WsSqlPluWeighingRepository : WsSqlTableRepositoryBase<WsSqlPluWeighingModel>
 {
     #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluWeighingController _instance;
+    private static WsSqlPluWeighingRepository _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluWeighingController Instance => LazyInitializer.EnsureInitialized(ref _instance);
+    public static WsSqlPluWeighingRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
