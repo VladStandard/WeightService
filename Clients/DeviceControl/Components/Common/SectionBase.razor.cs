@@ -30,6 +30,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     protected RadzenDataGrid<TItem> DataGrid { get; set; }
     protected ButtonSettingsModel ButtonSettings { get; set; }
     protected bool IsLoading { get; set; } = true;
+    public bool IsGuiShowFilterMarked { get; set; }
 
     public SectionBase()
     {
@@ -38,7 +39,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         SqlSectionSave = new List<TItem>();
 
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
-        SqlCrudConfigSection.IsGuiShowFilterMarked = true;
+        IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
         ButtonSettings = ButtonSettingsModel.CreateForSection();
     }

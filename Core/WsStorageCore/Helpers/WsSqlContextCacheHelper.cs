@@ -22,7 +22,7 @@ public sealed class WsSqlContextCacheHelper
     #region Public and private fields, properties, constructor - Глобальный кэш таблиц
 
     private WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
-        WsSqlEnumIsMarked.ShowAll, false, false, true, false);
+        WsSqlEnumIsMarked.ShowAll, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
     

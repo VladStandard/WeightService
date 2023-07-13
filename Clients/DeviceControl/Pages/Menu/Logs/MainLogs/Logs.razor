@@ -12,23 +12,24 @@
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"/>
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
+  />
 
 <div Style="display: flex; margin-bottom: 2px">
-  <RzDropDown Style="width: 50%; display: inline-block;"
+  <RzDropDownNullable Style="width: 50%; display: inline-block;"
               @bind-Value="@CurrentLogType"
               Data="@LogTypes"
               ValueProperty="Icon"
               TextProperty="Icon" Change="@(() => GetSectionData())"
-              AllowClear="true" Placeholder="LogTypes: All"/>
-  <RzDropDown Style="width: 50%; display: inline-block;"
+              Placeholder="LogTypes: All"/>
+  <RzDropDownNullable Style="width: 50%; display: inline-block;"
               @bind-Value="@CurrentLine"
               Data="@Lines"
               FilterOperator="StringFilterOperator.Contains"
               AllowFiltering="true"
               ValueProperty="Description"
               TextProperty="Description" Change="@(() => GetSectionData())"
-              AllowClear="true"
               Placeholder="Lines: All"/>
 </div>
 

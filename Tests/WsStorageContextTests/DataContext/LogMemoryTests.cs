@@ -10,7 +10,7 @@ namespace WsStorageContextTests.DataContext;
 public sealed class LogMemoryTests
 {
     private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
-    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlEnumIsMarked.ShowAll, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlEnumIsMarked.ShowAll, true, true, false);
 
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()

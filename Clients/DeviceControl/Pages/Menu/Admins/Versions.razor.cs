@@ -12,7 +12,7 @@ public sealed partial class Versions : SectionBase<WsSqlVersionModel>
 
     public Versions() : base()
     {
-        SqlCrudConfigSection.IsGuiShowFilterMarked = false;
+        IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.AddOrders(
             new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc }
         );

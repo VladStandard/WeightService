@@ -12,8 +12,7 @@ public static class WsServiceUtilsResponse
 
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private static WsSqlCrudConfigModel SqlCrudConfig => 
-        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, 
-            false, false, true, false);
+        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, false, true, false);
 
     #endregion
 

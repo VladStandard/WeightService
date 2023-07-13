@@ -29,7 +29,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -42,7 +42,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
                 { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -59,7 +59,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
             { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
@@ -69,7 +69,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
             { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
                 Values = numbers.Cast<object>().ToList() } },
-            isMarked, false, false, false, false);
+            isMarked, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
@@ -78,7 +78,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
             { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber });
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
@@ -93,7 +93,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
             { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }

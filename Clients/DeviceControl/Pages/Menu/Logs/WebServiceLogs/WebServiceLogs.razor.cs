@@ -9,7 +9,7 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlViewWebLogModel>
 
     public WebServiceLogs() : base()
     {
-        SqlCrudConfigSection.IsGuiShowFilterMarked = false;
+        IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }

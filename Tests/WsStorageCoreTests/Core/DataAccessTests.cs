@@ -16,7 +16,7 @@ public sealed class DataAccessTests
 		WsTestsUtils.DataTests.AssertAction(() =>
 		{
 			List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList
-                .GetListDevicesTypesFkFree(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevicesTypesFkFree(WsSqlEnumIsMarked.ShowAll, false);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
@@ -26,7 +26,7 @@ public sealed class DataAccessTests
 		WsTestsUtils.DataTests.AssertAction(() =>
 		{
 			List<WsSqlDeviceTypeFkModel> deviceTypeFks = WsTestsUtils.ContextManager.ContextList
-                .GetListDevicesTypesFkFree(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevicesTypesFkFree(WsSqlEnumIsMarked.ShowAll, false);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 
@@ -47,7 +47,7 @@ public sealed class DataAccessTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
 	        List<WsSqlDeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList
-                .GetListDevicesTypes(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevicesTypes(WsSqlEnumIsMarked.ShowAll, false);
 	        foreach (WsSqlDeviceTypeModel deviceType in deviceTypes)
             {
                 if (!GetDeviceTypesEnums().Contains(deviceType.Name))
@@ -63,7 +63,7 @@ public sealed class DataAccessTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
 	        List<WsSqlDeviceTypeModel> deviceTypes = WsTestsUtils.ContextManager.ContextList
-                .GetListDevicesTypes(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevicesTypes(WsSqlEnumIsMarked.ShowAll, false);
 	        foreach (WsSqlDeviceTypeModel deviceType1 in deviceTypes)
 	        {
 		        WsSqlDeviceTypeModel deviceType2 = WsTestsUtils.DataTests.ContextManager.ContextItem.GetItemDeviceTypeNotNullable(deviceType1.Name);
@@ -78,7 +78,7 @@ public sealed class DataAccessTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
 	        List<WsSqlDeviceModel> devices = WsTestsUtils.ContextManager.ContextList
-                .GetListDevices(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevices(WsSqlEnumIsMarked.ShowAll, false);
 	        foreach (WsSqlDeviceModel device in devices)
 	        {
 		        TestContext.WriteLine(device);
@@ -93,7 +93,7 @@ public sealed class DataAccessTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
 	        List<WsSqlDeviceModel> devices = WsTestsUtils.ContextManager.ContextList
-                .GetListDevices(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevices(WsSqlEnumIsMarked.ShowAll, false);
 	        foreach (WsSqlDeviceModel device in devices)
 	        {
 		        WsSqlDeviceScaleFkModel deviceScaleFks = WsTestsUtils.ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(device);
@@ -109,7 +109,7 @@ public sealed class DataAccessTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
 	        List<WsSqlDeviceTypeFkModel> deviceTypesFks = WsTestsUtils.ContextManager.ContextList
-                .GetListDevicesTypesFks(WsSqlEnumIsMarked.ShowAll, false, false);
+                .GetListDevicesTypesFks(WsSqlEnumIsMarked.ShowAll, false);
 	        foreach (WsSqlDeviceTypeFkModel deviceTypeFk in deviceTypesFks)
 	        {
 		        if (deviceTypeFk.Device.IsNotNew)

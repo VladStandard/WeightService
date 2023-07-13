@@ -24,7 +24,7 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
         Lines = ContextManager.SqlCore.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         
-        SqlCrudConfigSection.IsGuiShowFilterMarked = false;
+        IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
         
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
