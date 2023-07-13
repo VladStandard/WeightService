@@ -197,7 +197,7 @@ public sealed class WsSqlContextItemHelper
     public WsSqlScaleModel GetScaleNotNullable(long id)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.IdentityValueId), id, WsSqlEnumIsMarked.ShowAll, false, false, false);
+            nameof(WsSqlTableBase.IdentityValueId), id, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlScaleModel>(sqlCrudConfig);
     }
 

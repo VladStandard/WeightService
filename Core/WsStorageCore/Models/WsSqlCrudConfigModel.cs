@@ -73,12 +73,6 @@ public class WsSqlCrudConfigModel
         IsReadUncommitted = false;
     }
 
-    private WsSqlCrudConfigModel(string query, List<SqlParameter> parameters) : this()
-    {
-        NativeQuery = query;
-        NativeParameters = parameters;
-    }
-
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) : this()
     {
@@ -98,14 +92,6 @@ public class WsSqlCrudConfigModel
     public WsSqlCrudConfigModel(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) :
         this(new(), new(), isMarked, isShowOnlyTop, isOrder, isReadUncommitted)
     { }
-
-    public WsSqlCrudConfigModel(WsSqlCrudConfigModel item)
-    {
-        Filters = new(item.Filters);
-        Orders = new(item.Orders);
-        item.IsMarked = IsMarked;
-        item.SelectTopRowsCount = SelectTopRowsCount;
-    }
 
     #endregion
 

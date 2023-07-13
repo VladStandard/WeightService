@@ -26,29 +26,6 @@ internal sealed class WsSqlContextCoreHelper
 
     #region Public and private methods
 
-    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new() => SqlCore.GetItemNullable<T>(value);
-
-    [Obsolete(@"Use GetItemNotNullable(SqlFieldIdentityModel) or GetItemNullableByUid(Guid?) or GetItemNullableById(long?)")]
-    public T GetItemNotNullable<T>(object? value) where T : WsSqlTableBase, new() => SqlCore.GetItemNotNullable<T>(value);
-
-    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNullable<T>(identity);
-
-    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNotNullable<T>(identity);
-
-    public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNullableByUid<T>(uid);
-
-    public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNotNullableByUid<T>(uid);
-
-    public T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNullableById<T>(id);
-
-    public T GetItemNotNullableById<T>(long id) where T : WsSqlTableBase, new() =>
-        SqlCore.GetItemNotNullableById<T>(id);
-
     /// <summary>
     /// List of tables models.
     /// </summary>
@@ -252,58 +229,7 @@ internal sealed class WsSqlContextCoreHelper
         typeof(WsSqlVersionValidator),
         typeof(WsSqlWorkShopValidator),
     };
-
-    public string GetTableModelName<T>() where T : WsSqlTableBase, new()
-    {
-        return typeof(T) switch
-        {
-            var cls when cls == typeof(WsSqlAccessModel) => nameof(WsSqlAccessModel),
-            var cls when cls == typeof(WsSqlAppModel) => nameof(WsSqlAppModel),
-            var cls when cls == typeof(WsSqlBarCodeModel) => nameof(WsSqlBarCodeModel),
-            var cls when cls == typeof(WsSqlBoxModel) => nameof(WsSqlBoxModel),
-            var cls when cls == typeof(WsSqlBrandModel) => nameof(WsSqlBrandModel),
-            var cls when cls == typeof(WsSqlBundleModel) => nameof(WsSqlBundleModel),
-            var cls when cls == typeof(WsSqlClipModel) => nameof(WsSqlClipModel),
-            var cls when cls == typeof(WsSqlContragentModel) => nameof(WsSqlContragentModel),
-            var cls when cls == typeof(WsSqlDeviceModel) => nameof(WsSqlDeviceModel),
-            var cls when cls == typeof(WsSqlDeviceScaleFkModel) => nameof(WsSqlDeviceScaleFkModel),
-            var cls when cls == typeof(WsSqlDeviceTypeFkModel) => nameof(WsSqlDeviceTypeFkModel),
-            var cls when cls == typeof(WsSqlDeviceTypeModel) => nameof(WsSqlDeviceTypeModel),
-            var cls when cls == typeof(WsSqlLogModel) => nameof(WsSqlLogModel),
-            var cls when cls == typeof(WsSqlLogTypeModel) => nameof(WsSqlLogTypeModel),
-            var cls when cls == typeof(WsSqlLogWebModel) => nameof(WsSqlLogWebModel),
-            var cls when cls == typeof(WsSqlLogWebFkModel) => nameof(WsSqlLogWebFkModel),
-            var cls when cls == typeof(WsSqlOrderModel) => nameof(WsSqlOrderModel),
-            var cls when cls == typeof(WsSqlOrderWeighingModel) => nameof(WsSqlOrderWeighingModel),
-            var cls when cls == typeof(WsSqlOrganizationModel) => nameof(WsSqlOrganizationModel),
-            var cls when cls == typeof(WsSqlPluBundleFkModel) => nameof(WsSqlPluBundleFkModel),
-            var cls when cls == typeof(WsSqlPluCharacteristicModel) => nameof(WsSqlPluCharacteristicModel),
-            var cls when cls == typeof(WsSqlPluCharacteristicsFkModel) => nameof(WsSqlPluCharacteristicsFkModel),
-            var cls when cls == typeof(WsSqlPluFkModel) => nameof(WsSqlPluFkModel),
-            var cls when cls == typeof(WsSqlPluGroupFkModel) => nameof(WsSqlPluGroupFkModel),
-            var cls when cls == typeof(WsSqlPluGroupModel) => nameof(WsSqlPluGroupModel),
-            var cls when cls == typeof(WsSqlPluLabelModel) => nameof(WsSqlPluLabelModel),
-            var cls when cls == typeof(WsSqlPluModel) => nameof(WsSqlPluModel),
-            var cls when cls == typeof(WsSqlPluScaleModel) => nameof(WsSqlPluScaleModel),
-            var cls when cls == typeof(WsSqlPluTemplateFkModel) => nameof(WsSqlPluTemplateFkModel),
-            var cls when cls == typeof(WsSqlPluWeighingModel) => nameof(WsSqlPluWeighingModel),
-            var cls when cls == typeof(WsSqlPrinterModel) => nameof(WsSqlPrinterModel),
-            var cls when cls == typeof(WsSqlPrinterResourceFkModel) => nameof(WsSqlPrinterResourceFkModel),
-            var cls when cls == typeof(WsSqlPrinterTypeModel) => nameof(WsSqlPrinterTypeModel),
-            var cls when cls == typeof(WsSqlProductionFacilityModel) => nameof(WsSqlProductionFacilityModel),
-            var cls when cls == typeof(WsSqlProductSeriesModel) => nameof(WsSqlProductSeriesModel),
-            var cls when cls == typeof(WsSqlScaleModel) => nameof(WsSqlScaleModel),
-            var cls when cls == typeof(WsSqlScaleScreenShotModel) => nameof(WsSqlScaleScreenShotModel),
-            var cls when cls == typeof(WsSqlTaskModel) => nameof(WsSqlTaskModel),
-            var cls when cls == typeof(WsSqlTaskTypeModel) => nameof(WsSqlTaskTypeModel),
-            var cls when cls == typeof(WsSqlTemplateModel) => nameof(WsSqlTemplateModel),
-            var cls when cls == typeof(WsSqlTemplateResourceModel) => nameof(WsSqlTemplateResourceModel),
-            var cls when cls == typeof(WsSqlVersionModel) => nameof(WsSqlVersionModel),
-            var cls when cls == typeof(WsSqlWorkShopModel) => nameof(WsSqlWorkShopModel),
-            _ => string.Empty
-        };
-    }
-
+    
     /// <summary>
     /// Get list of db files infos.
     /// </summary>
@@ -331,8 +257,7 @@ internal sealed class WsSqlContextCoreHelper
     /// Get all db files sizes.
     /// </summary>
     /// <returns></returns>
-    public ushort GetDbFileSizeAll() =>
-        (ushort)GetDbFileSizeInfos().Sum(item => item.SizeMb);
+    public ushort GetDbFileSizeAll() => (ushort)GetDbFileSizeInfos().Sum(item => item.SizeMb);
 
     #endregion
 }

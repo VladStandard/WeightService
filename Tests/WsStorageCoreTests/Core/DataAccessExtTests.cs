@@ -27,7 +27,7 @@ public sealed class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(scale)}: {scale.IdentityValueId} | {scale}");
 					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(scale, nameof(WsSqlPluScaleModel.Line),
-                        WsSqlEnumIsMarked.ShowAll, true, false, false);
+                        WsSqlEnumIsMarked.ShowAll, true, false);
 					List<WsSqlPluScaleModel> pluScales = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluScales)}.{nameof(pluScales.Count)}: {pluScales.Count}");
@@ -53,7 +53,7 @@ public sealed class DataAccessExtTests
 				{
 					TestContext.WriteLine($"{nameof(plu)}: {plu.IdentityValueId} | {plu}");
 					sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu),
-                        WsSqlEnumIsMarked.ShowAll, true, false, false);
+                        WsSqlEnumIsMarked.ShowAll, true, false);
                     List<WsSqlPluBundleFkModel> pluPackages = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
 					// Act.
 					TestContext.WriteLine($"{nameof(pluPackages)}.{nameof(pluPackages.Count)}: {pluPackages.Count}");
