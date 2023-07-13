@@ -3,10 +3,6 @@
 
 namespace WsStorageCore.Helpers;
 
-/// <summary>
-/// SQL-помощник самих данных.
-/// Клиентский слой доступа к БД.
-/// </summary>
 internal sealed class WsSqlContextCoreHelper
 {
     #region Design pattern "Lazy Singleton"

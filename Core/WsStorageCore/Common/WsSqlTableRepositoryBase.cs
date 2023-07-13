@@ -6,7 +6,7 @@ namespace WsStorageCore.Common;
 /// <summary>
 /// Базовый класс контроллера таблицы.
 /// </summary>
-public class WsSqlTableRepositoryBase<TItem> : WsSqlTableBase where TItem : WsSqlTableBase, new()
+public class WsSqlTableRepositoryBase<TItem> where TItem : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor
 

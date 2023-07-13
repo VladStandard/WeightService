@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.TableScaleModels.BarCodes;
 
-public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarcodeRepository>
+public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarCodeModel>
 {
     
 }
