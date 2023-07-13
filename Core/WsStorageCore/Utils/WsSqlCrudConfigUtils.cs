@@ -8,13 +8,13 @@ public static class WsSqlCrudConfigUtils
     #region Public and private methods
 
     public static WsSqlCrudConfigModel GetCrudConfigItem(WsSqlEnumIsMarked isMarked) =>
-        new(new List<WsSqlFieldFilterModel>(), isMarked, false, false, false, false);
+        new(new List<WsSqlFieldFilterModel>(), isMarked, false, false, false);
 
     public static WsSqlCrudConfigModel GetCrudConfigSection(WsSqlEnumIsMarked isMarked) =>
-        new(new List<WsSqlFieldFilterModel>(), isMarked, true, false, true, false);
+        new(new List<WsSqlFieldFilterModel>(), isMarked, true, true, false);
 
     public static WsSqlCrudConfigModel GetCrudConfigComboBox() =>
-        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, false, true, true, false);
+        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, false, true, false);
 
     public static WsSqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className, List<WsSqlFieldOrderModel> orders,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
@@ -30,7 +30,7 @@ public static class WsSqlCrudConfigUtils
 
     public static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder) =>
-        new(filters, orders, isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, false);
+        new(filters, orders, isMarked, isShowOnlyTop, isOrder, false);
 
     public static WsSqlCrudConfigModel GetCrudConfig(string className, object? value,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isAddFieldEmpty = false, bool isOrder = false) =>

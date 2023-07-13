@@ -456,7 +456,7 @@ public sealed class WsSqlCoreHelper
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
                 { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
-            WsSqlEnumIsMarked.ShowAll, true, false, false, false);
+            WsSqlEnumIsMarked.ShowAll, true, false, false);
         return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 
@@ -466,7 +466,7 @@ public sealed class WsSqlCoreHelper
     public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>(),
-            WsSqlEnumIsMarked.ShowAll, false, false, true, false);
+            WsSqlEnumIsMarked.ShowAll, false, true, false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlEnumOrder.Asc });
         return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
@@ -493,9 +493,9 @@ public sealed class WsSqlCoreHelper
         WsSqlCrudConfigModel? sqlCrudConfig = value switch
         {
             Guid uid => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false, false),
+                WsSqlEnumIsMarked.ShowAll, false, false, false),
             long id => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false, false),
+                WsSqlEnumIsMarked.ShowAll, false, false, false),
             _ => null
         };
         return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
@@ -674,16 +674,8 @@ public sealed class WsSqlCoreHelper
 
     public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
-        List<T> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(GetItemNewEmpty<T>());
-
-        List<T> list = new();
         T[]? items = GetArrayNullable<T>(sqlCrudConfig);
-        if (items is not null && items.Length > 0)
-            list = items.ToList();
-
-        result.AddRange(list);
+        List<T> result = items?.ToList() ?? new List<T>();
         return result;
     }
 
@@ -693,13 +685,13 @@ public sealed class WsSqlCoreHelper
 
     /// <summary>
     /// Заполнить ссылочные данные.
-    /// Следует перенести в клиентский слой доступа к данным!
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="item"></param>
     /// <param name="isFillReferences"></param>
     private void FillReferences<T>(T? item, bool isFillReferences) where T : WsSqlTableBase, new()
     {
+        // TODO: Следует перенести в клиентский слой доступа к данным!
         switch (item)
         {
             case WsXmlDeviceModel xmlDevice:

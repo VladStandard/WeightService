@@ -19,7 +19,7 @@ public class WsSqlTableRepositoryBase<TItem> : WsSqlTableBase where TItem : WsSq
     protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
 
     protected WsSqlCrudConfigModel SqlCrudConfig => new(new List<WsSqlFieldFilterModel>(),
-            WsSqlEnumIsMarked.ShowAll, false, false, true, false);
+            WsSqlEnumIsMarked.ShowAll, false, true, false);
     
     #endregion
 }

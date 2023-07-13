@@ -10,7 +10,9 @@
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
   SqlCrudConfigSection="@SqlCrudConfigSection"
+  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
   ButtonSettings="@ButtonSettings"/>
+
 <RadzenCheckBox TValue="bool" @bind-Value="@HideNoneActivePlu" Change="@GetSectionData"
                 Style="margin-top: -3px; margin-left: 20px; "/>
 <RadzenLabel Style="margin-top: 0; margin-left: 5px; font-size: 11px; " Text="@WsLocaleCore.Action.ActionIsShowActivePlu"/>

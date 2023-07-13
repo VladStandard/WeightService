@@ -13,13 +13,11 @@ public class WsSqlCrudConfigModel
 
     private int _selectTopRowsCount;
     private WsSqlEnumIsMarked _isMarked;
-    
     public string NativeQuery { get; set; }
     public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
     public List<WsSqlFieldFilterModel> Filters { get; private set; }
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
-    public bool IsGuiShowFilterMarked { get; set; }
     public int OldTopRowsCount { get; set; }
     public int SelectTopRowsCount
     {
@@ -28,8 +26,7 @@ public class WsSqlCrudConfigModel
             OldTopRowsCount = _selectTopRowsCount;
             _selectTopRowsCount = value;
         }
-}
-    public bool IsResultAddFieldEmpty { get; }
+    }
     public bool IsResultOrder { get; set; }
 
     /// <summary>
@@ -72,10 +69,6 @@ public class WsSqlCrudConfigModel
         Filters = new();
         Orders = new();
         IsMarked = WsSqlEnumIsMarked.ShowAll;
-        
-        IsGuiShowFilterMarked = false;
-
-        IsResultAddFieldEmpty = false;
         IsResultOrder = false;
         IsReadUncommitted = false;
     }
@@ -86,51 +79,30 @@ public class WsSqlCrudConfigModel
         NativeParameters = parameters;
     }
 
-    public WsSqlCrudConfigModel(string query, SqlParameter parameter, bool isResultAddFieldEmpty) :
-        this(query, new List<SqlParameter> { parameter })
-    {
-        IsResultAddFieldEmpty = isResultAddFieldEmpty;
-    }
-
-    public WsSqlCrudConfigModel(string query, bool isResultAddFieldEmpty) :
-        this(query, new List<SqlParameter>())
-    {
-        IsResultAddFieldEmpty = isResultAddFieldEmpty;
-    }
-
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) : this()
+        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) : this()
     {
         Filters = filters;
         Orders = orders;
         IsMarked = isMarked;
-        IsResultAddFieldEmpty = isAddFieldEmpty;
         IsResultOrder = isOrder;
         IsReadUncommitted = isReadUncommitted;
         SelectTopRowsCount = isShowOnlyTop ? 200 : 0;
     }
 
     public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
-        this(filters, new(), isMarked, isShowOnlyTop, isAddFieldEmpty,
-            isOrder, isReadUncommitted)
+        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) :
+        this(filters, new(), isMarked, isShowOnlyTop, isOrder, isReadUncommitted)
     { }
-
-    public WsSqlCrudConfigModel(List<WsSqlFieldOrderModel> orders,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
-        this(new(), orders, isMarked, isShowOnlyTop,
-            isAddFieldEmpty, isOrder, isReadUncommitted)
-    { }
-
-    public WsSqlCrudConfigModel(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isAddFieldEmpty, bool isOrder, bool isReadUncommitted) :
-        this(new(), new(), isMarked, isShowOnlyTop, isAddFieldEmpty, isOrder, isReadUncommitted)
+    
+    public WsSqlCrudConfigModel(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) :
+        this(new(), new(), isMarked, isShowOnlyTop, isOrder, isReadUncommitted)
     { }
 
     public WsSqlCrudConfigModel(WsSqlCrudConfigModel item)
     {
         Filters = new(item.Filters);
         Orders = new(item.Orders);
-        item.IsGuiShowFilterMarked = IsGuiShowFilterMarked;
         item.IsMarked = IsMarked;
         item.SelectTopRowsCount = SelectTopRowsCount;
     }
@@ -240,11 +212,7 @@ public class WsSqlCrudConfigModel
         
         if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(orders)) result += $" | {orders}";
         else if (!string.IsNullOrEmpty(orders)) result = orders;
-
-        string isGuiShowFilterMarked = IsGuiShowFilterMarked ? "Is gui show filterMarked" : string.Empty;
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isGuiShowFilterMarked)) result += $" | {isGuiShowFilterMarked}";
-        else if (!string.IsNullOrEmpty(isGuiShowFilterMarked)) result = isGuiShowFilterMarked;
-
+        
         string isMarked = IsMarked switch
         {
             WsSqlEnumIsMarked.ShowAll => "Show all records",

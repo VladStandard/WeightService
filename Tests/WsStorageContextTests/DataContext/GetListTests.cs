@@ -8,8 +8,8 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 public sealed class GetListTests
 {
-    private static WsSqlCrudConfigModel SqlCrudConfig => new(WsSqlEnumIsMarked.ShowAll, true, false, true, false);
-    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlEnumIsMarked.ShowAll, true, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfig => new(WsSqlEnumIsMarked.ShowAll, true, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfigFk => new(WsSqlEnumIsMarked.ShowAll, true, true, false);
     private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
     private static readonly List<WsEnumConfiguration> ConfigurationsDev = new() { WsEnumConfiguration.DevelopVS };
 

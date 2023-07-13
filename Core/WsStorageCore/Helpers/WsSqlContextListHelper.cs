@@ -479,7 +479,6 @@ public sealed class WsSqlContextListHelper
     public List<WsSqlPluNestingFkModel> GetListNotNullablePlusNestingFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPluNestingFkModel> list = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty) list.Add(SqlCore.GetItemNewEmpty<WsSqlPluNestingFkModel>());
         if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
@@ -710,36 +709,22 @@ public sealed class WsSqlContextListHelper
 
     public List<WsSqlDeviceModel> GetListDevices(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(SqlCore.GetItemNewEmpty<WsSqlDeviceModel>());
-        List<WsSqlDeviceModel> list = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
+        List<WsSqlDeviceModel> result = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Name).ToList();
-        result.AddRange(list);
         return result;
     }
 
     public List<WsSqlDeviceTypeModel> GetListDevicesTypes(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceTypeModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>());
-        List<WsSqlDeviceTypeModel> list = GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
+        List<WsSqlDeviceTypeModel> result = GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Name).ToList();
-        result.AddRange(list);
         return result;
     }
 
     public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceTypeFkModel> result = new();
-        if (sqlCrudConfig.IsResultAddFieldEmpty)
-            result.Add(new() { Device = SqlCore.GetItemNewEmpty<WsSqlDeviceModel>(), 
-                Type = SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>() });
-        List<WsSqlDeviceTypeFkModel> list = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
-        result = result.OrderBy(item => item.Type.Name).ToList();
-        result = result.OrderBy(item => item.Device.Name).ToList();
-        result.AddRange(list);
+        List<WsSqlDeviceTypeFkModel> result = GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
+        result = result.OrderBy(item => item.Type.Name).ThenBy(item => item.Device.Name).ToList();
         return result;
     }
 
