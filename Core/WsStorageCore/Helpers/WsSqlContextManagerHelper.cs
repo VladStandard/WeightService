@@ -38,6 +38,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlLineRepository ContextLines => WsSqlLineRepository.Instance;
     public WsSqlPlu1CRepository ContextPlu1CFk => WsSqlPlu1CRepository.Instance;
     public WsSqlPluFkRepository ContextPlusFk => WsSqlPluFkRepository.Instance;
+    public WsSqlPluLabelRepository ContextPlusLabels => WsSqlPluLabelRepository.Instance;
     public WsSqlPluBrandFkRepository ContextPluBrandsFk => WsSqlPluBrandFkRepository.Instance;
     public WsSqlPluBundleFkRepository ContextPluBundlesFk => WsSqlPluBundleFkRepository.Instance;
     public WsSqlPluClipFkRepository ContextPlusClipsFk => WsSqlPluClipFkRepository.Instance;

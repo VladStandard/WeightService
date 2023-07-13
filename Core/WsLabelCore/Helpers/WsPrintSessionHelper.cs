@@ -340,7 +340,7 @@ public sealed class WsPrintSessionHelper
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
-        ContextManager.SqlCore.Save(pluLabel);
+        ContextManager.ContextPlusLabels.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
