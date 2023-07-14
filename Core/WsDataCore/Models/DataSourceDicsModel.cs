@@ -24,19 +24,18 @@ public class DataSourceDicsHelper
         $"{nameof(GetTemplateCategories)}: {GetTemplateCategories().Count}. " +
         $"{nameof(GetTemplateLanguagesEng)}: {GetTemplateLanguagesEng().Count}. " +
         $"{nameof(GetTemplateLanguagesRus)}: {GetTemplateLanguagesRus().Count}";
-
-    public List<WsEnumTypeModel<string>> GetTemplateCategories() =>
+    
+    public List<string> GetTemplateCategories() =>
         new()
         {
-            new("", ""),
-            new("NaN", "NaN"),
-            new("203 dpi", "203 dpi"),
-            new("203 dpi tsc", "203 dpi tsc"),
-            new("300 dpi", "300 dpi"),
-            new("300 dpi tsc", "300 dpi tsc"),
-            new("608 dpi", "608 dpi"),
-            new("608 dpi tsc", "608 dpi tsc"),
-            new("zpl", "zpl")
+            "NaN",
+            "203 dpi",
+            "203 dpi tsc",
+            "300 dpi",
+            "300 dpi tsc",
+            "608 dpi",
+            "608 dpi tsc",
+            "zpl"
         };
 
     public List<WsEnumTypeModel<WsEnumAccessRights>> GetTemplateAccessRights(byte? accessRights = null)

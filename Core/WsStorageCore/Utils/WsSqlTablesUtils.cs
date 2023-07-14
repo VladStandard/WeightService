@@ -51,7 +51,7 @@ public static class WsSqlTablesUtils
     public static string PlusStorageMethods => "PLUS_STORAGE_METHODS";
     public static string PlusStorageMethodsFks => "PLUS_STORAGE_METHODS_FK";
     public static string PlusTemplatesFks => "PLUS_TEMPLATES_FK";
-    public static string PlusWeighings => "PLUS_WEIGHINGS";
+    public static string PlusWeightings => "PLUS_WEIGHINGS";
     public static string Printers => "ZebraPrinter";
     public static string PrintersResourcesFks => "ZebraPrinterResourceRef";
     public static string PrintersTypes => "ZebraPrinterType";
@@ -64,7 +64,7 @@ public static class WsSqlTablesUtils
     public static string Templates => "Templates";
     public static string TemplatesResources => "TEMPLATES_RESOURCES";
     public static string Versions => "VERSIONS";
-    public static string WeithingFacts => "WeithingFact";
+    public static string WeightingFacts => "WeithingFact";
     public static string WorkShops => "WorkShop";
 
     #endregion

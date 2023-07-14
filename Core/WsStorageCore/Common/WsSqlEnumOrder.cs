@@ -4,7 +4,7 @@
 namespace WsStorageCore.Common;
 
 /// <summary>
-/// SQL order direcrion.
+/// SQL order direction.
 /// </summary>
 public enum WsSqlEnumOrder
 {

@@ -1,7 +1,7 @@
 # ScalesUI
 
 ## Back to the home page
-- [README](../README.md)
+- [README](../../README.md)
 
 ## Description
-SSCC (Serial Shipping Container Code) — серийный код транспортной упаковки
+SSCC (Serial Shipping Container Code) вЂ” СЃРµСЂРёР№РЅС‹Р№ РєРѕРґ С‚СЂР°РЅСЃРїРѕСЂС‚РЅРѕР№ СѓРїР°РєРѕРІРєРё

@@ -7,12 +7,12 @@ public enum WsSqlEnumTableName
 {
     None,
     All,
-    Areas,                  // вместо ProductionFacilities
+    Areas,
     Boxes,
     Brands,
     Bundles,
     Clips,
-    Lines,                  // вместо Scales
+    Lines,
     PluBrandsFks,
     PluBundlesFks,
     PluCharacteristics,
@@ -24,8 +24,8 @@ public enum WsSqlEnumTableName
     PlusNestingFks,
     Plus,
     Plus1CFks,
-    ViewPlusLines,          // вместо PlusScales
-    ViewPlusNesting,        // вместо PluNestingFks
-    ViewPlusStorageMethods, // вместо PluStorageMethodsFks
+    ViewPlusLines,
+    ViewPlusNesting,
+    ViewPlusStorageMethods,
     WorkShops,
 }

@@ -4,7 +4,7 @@
 namespace WsStorageCore.Models;
 
 [Serializable]
-public class WsSqlFieldBinaryModel : WsSqlFieldBase, IWsSqlObjectBase, ISerializable
+public class WsSqlFieldBinaryModel : WsSqlFieldBase
 {
     #region Public and private fields, properties, constructor
 

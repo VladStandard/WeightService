@@ -3,21 +3,9 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// GTIN enum.
-/// </summary>
 public enum WsSqlEnumGtinVariant
 {
-    /// <summary>
-    /// Variant 1.
-    /// </summary>
     Var1,
-    /// <summary>
-    /// Variant 2.
-    /// </summary>
     Var2,
-    /// <summary>
-    /// Variant 3.
-    /// </summary>
     Var3
 }
