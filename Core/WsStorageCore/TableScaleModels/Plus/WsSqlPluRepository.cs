@@ -27,8 +27,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public WsSqlPluModel GetItemByUid1C(Guid uid1C)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
@@ -40,8 +39,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public WsSqlPluModel GetItemByNumber(short number)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
-                { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
@@ -57,8 +55,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public List<WsSqlPluModel> GetListByNumber(short number)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
-            { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
@@ -66,7 +63,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 
     public List<WsSqlPluModel> GetListByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
+        WsSqlCrudConfigModel sqlCrudConfig = new(new()
             { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
                 Values = numbers.Cast<object>().ToList() } },
             isMarked, false, false, false);
@@ -76,8 +73,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 
     public List<WsSqlPluModel> GetListByNumbers(short minNumber, short maxNumber)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
-            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber });
         sqlCrudConfig.IsResultOrder = true;
@@ -91,8 +87,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public List<WsSqlPluModel> GetListByUid1C(Guid uid)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel> 
-            { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         sqlCrudConfig.IsResultOrder = true;
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);

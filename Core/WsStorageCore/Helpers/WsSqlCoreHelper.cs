@@ -454,8 +454,7 @@ public sealed class WsSqlCoreHelper
 
     public WsSqlLogTypeModel? GetItemLogTypeNullable(WsEnumLogType logType)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
             WsSqlEnumIsMarked.ShowAll, true, false, false);
         return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
@@ -465,7 +464,7 @@ public sealed class WsSqlCoreHelper
 
     public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>(),
+        WsSqlCrudConfigModel sqlCrudConfig = new(new(),
             WsSqlEnumIsMarked.ShowAll, false, true, false);
         sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlEnumOrder.Asc });
         return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
@@ -492,9 +491,9 @@ public sealed class WsSqlCoreHelper
     {
         WsSqlCrudConfigModel? sqlCrudConfig = value switch
         {
-            Guid uid => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
+            Guid uid => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
                 WsSqlEnumIsMarked.ShowAll, false, false, false),
-            long id => new(new List<WsSqlFieldFilterModel> { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
+            long id => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
                 WsSqlEnumIsMarked.ShowAll, false, false, false),
             _ => null
         };

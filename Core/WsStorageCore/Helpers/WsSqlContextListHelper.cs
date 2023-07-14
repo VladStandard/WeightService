@@ -789,7 +789,7 @@ public sealed class WsSqlContextListHelper
         List<WsSqlPluBundleFkModel> result;
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPluBundleFkModel.Plu), itemFilter?.IdentityValueUid);
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlEnumOrder.Asc },
+            new() { Name = nameof(WsSqlPluBundleFkModel.Plu), Direction = WsSqlEnumOrder.Asc },
             isMarked, isShowOnlyTop);
         
         result = GetListNotNullableCore<WsSqlPluBundleFkModel>(sqlCrudConfig);
@@ -803,7 +803,7 @@ public sealed class WsSqlContextListHelper
     {
         List<WsSqlFieldFilterModel> filters = WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlPrinterResourceFkModel.Printer), itemFilter?.IdentityValueId);
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(filters,
-            new WsSqlFieldOrderModel { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlEnumOrder.Asc },
+            new() { Name = nameof(WsSqlTableBase.Description), Direction = WsSqlEnumOrder.Asc },
             isMarked, isShowOnlyTop);
         return GetListNotNullableCore<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
     }

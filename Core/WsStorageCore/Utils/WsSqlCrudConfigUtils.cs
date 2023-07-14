@@ -12,10 +12,10 @@ public static class WsSqlCrudConfigUtils
         new(filters, orders, isMarked, isShowOnlyTop, isOrder, false);
     
     public static WsSqlCrudConfigModel GetCrudConfigSection(WsSqlEnumIsMarked isMarked) =>
-        new(new List<WsSqlFieldFilterModel>(), isMarked, true, true, false);
+        new(new(), isMarked, true, true, false);
 
     public static WsSqlCrudConfigModel GetCrudConfigComboBox() =>
-        new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, false, true, false);
+        new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
     
     public static WsSqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder) =>

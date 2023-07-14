@@ -31,8 +31,7 @@ public sealed class WsSqlBoxRepository : WsSqlTableRepositoryBase<WsSqlBoxModel>
     /// <returns></returns>
     public WsSqlBoxModel GetItemByUid1C(Guid uid1C)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new List<WsSqlFieldFilterModel>
-                { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
         return SqlCore.GetItemNotNullable<WsSqlBoxModel>(sqlCrudConfig);
     }
