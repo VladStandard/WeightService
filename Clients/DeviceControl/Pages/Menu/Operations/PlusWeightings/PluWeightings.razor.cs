@@ -3,16 +3,19 @@
 
 using WsBlazorCore.Settings;
 using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.ViewScaleModels;
+using WsStorageCore.ViewScaleModels.PluWeightings;
+using WsStorageCore.ViewScaleModels.WebLogs;
 
 namespace DeviceControl.Pages.Menu.Operations.PlusWeightings;
 
-public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeighting>
+public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingModel>
 {
     #region Public and private fields, properties, constructor
 
     private List<WsSqlDeviceScaleFkModel> DeviceScaleFk { get; set; }
-
+    
+    private WsSqlViewPluWeightingRepository ViewPluWeightingRepository = WsSqlViewPluWeightingRepository.Instance;
+    
     public PluWeightings() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
@@ -24,7 +27,7 @@ public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeighting>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextViewHelper.GetListViewPluWeightings(SqlCrudConfigSection);
+        SqlSectionCast = ViewPluWeightingRepository.GetList(SqlCrudConfigSection);
     }
 
     #endregion

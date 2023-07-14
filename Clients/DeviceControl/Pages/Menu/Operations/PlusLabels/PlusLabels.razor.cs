@@ -3,13 +3,15 @@
 
 using WsBlazorCore.Settings;
 using WsStorageCore.ViewScaleModels;
+using WsStorageCore.ViewScaleModels.PluLabels;
 
 namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
 public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
 {
     #region Public and private fields, properties, constructor
-
+    private WsSqlViewPluLabelRepository PluLabelRepository => WsSqlViewPluLabelRepository.Instance;
+    
     public PlusLabels() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
@@ -21,8 +23,8 @@ public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextViewHelper.GetListViewPlusLabels(SqlCrudConfigSection);
+        SqlSectionCast = PluLabelRepository.GetList(SqlCrudConfigSection);
     }
 
-    #endregion\
+    #endregion
 }

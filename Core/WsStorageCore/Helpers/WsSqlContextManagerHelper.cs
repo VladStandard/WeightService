@@ -34,7 +34,6 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlClipRepository ContextClips => WsSqlClipRepository.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
     public WsSqlDeviceLineFkRepository ContextDevicesLines => WsSqlDeviceLineFkRepository.Instance;
     public WsSqlLineRepository ContextLines => WsSqlLineRepository.Instance;
     public WsSqlPlu1CRepository ContextPlu1CFk => WsSqlPlu1CRepository.Instance;

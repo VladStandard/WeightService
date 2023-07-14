@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsBlazorCore.Settings;
-using WsStorageCore.ViewDiagModels;
+using WsStorageCore.ViewDiagModels.LogsMemory;
 
 namespace DeviceControl.Pages.Menu.Logs;
 
@@ -10,6 +10,8 @@ public sealed partial class LogsMemory : SectionBase<WsSqlViewLogMemoryModel>
 {
     #region Public and private methods
 
+    private WsSqlViewLogMemoryRepository LogMemoryRepository => WsSqlViewLogMemoryRepository.Instance;
+    
     public LogsMemory() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticItem();
@@ -17,7 +19,7 @@ public sealed partial class LogsMemory : SectionBase<WsSqlViewLogMemoryModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextViewHelper.GetListViewLogsMemory(SqlCrudConfigSection);
+        SqlSectionCast = LogMemoryRepository.GetList(SqlCrudConfigSection);
     }
 
     #endregion

@@ -21,56 +21,6 @@ public class WsSqlValidationUtils
         }
     }
 
-    public static IValidator GetSqlValidator<T>(bool isCheckIdentity) where T : WsSqlTableBase, new() =>
-        typeof(T) switch
-        {
-            var cls when cls == typeof(WsSqlBarCodeModel) => new WsSqlBarCodeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlBoxModel) => new WsSqlBoxValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlBrandModel) => new WsSqlBrandValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlBundleModel) => new WsSqlBundleValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlClipModel) => new WsSqlClipValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlContragentModel) => new WsSqlContragentValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlDeviceModel) => new WsSqlDeviceValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlDeviceScaleFkModel) => new WsSqlDeviceScaleFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlDeviceTypeFkModel) => new WsSqlDeviceTypeFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlDeviceTypeModel) => new WsSqlDeviceTypeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlLogMemoryModel) => new WsSqlLogMemoryValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlLogModel) => new WsSqlLogValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlLogTypeModel) => new WsSqlLogTypeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlLogWebFkModel) => new WsSqlLogWebFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlLogWebModel) => new WsSqlLogWebValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlOrderModel) => new WsSqlOrderValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlOrderWeighingModel) => new WsSqlOrderWeighingValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlOrganizationModel) => new WsSqlOrganizationValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluBundleFkModel) => new WsSqlPluBundleFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluCharacteristicModel) => new WsSqlPluCharacteristicValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluCharacteristicsFkModel) => new WsSqlPluCharacteristicsFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluClipFkModel) => new WsSqlPluClipFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluGroupModel) => new WsSqlPluGroupValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluLabelModel) => new WsSqlPluLabelValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluModel) => new WsSqlPluValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluNestingFkModel) => new WsSqlPluNestingFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluScaleModel) => new WsSqlPluScaleValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluStorageMethodModel) => new WsSqlPluStorageMethodValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPluWeighingModel) => new WsSqlPluWeighingValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPrinterModel) => new WsSqlPrinterValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPrinterResourceFkModel) => new WsSqlPrinterResourceFkValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPrinterTypeModel) => new WsSqlPrinterTypeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlProductionFacilityModel) => new WsSqlProductionFacilityValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlProductSeriesModel) => new WsSqlProductSeriesValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlScaleModel) => new WsSqlScaleValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlTaskModel) => new WsSqlTaskValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlTaskTypeModel) => new WsSqlTaskTypeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlTemplateModel) => new WsSqlTemplateValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlTemplateResourceModel) => new WsSqlTemplateResourceValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlVersionModel) => new WsSqlVersionValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlWorkShopModel) => new WsSqlWorkShopValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlAccessModel) => new WsSqlAccessValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlAppModel) => new WsSqlAppValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlPlu1CFkModel) => new WsSqlPlu1CFkValidator(isCheckIdentity),
-            _ => throw new NotImplementedException()
-        };
-
     public static ValidationResult GetValidationResult<T>(T? item, bool isCheckIdentity) where T : class, new() =>
         item switch
         {

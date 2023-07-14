@@ -5,6 +5,7 @@ using WsBlazorCore.Settings;
 using WsStorageCore.TableDiagModels.LogsTypes;
 using WsStorageCore.TableScaleModels.Scales;
 using WsStorageCore.ViewScaleModels;
+using WsStorageCore.ViewScaleModels.Logs;
 
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
@@ -14,8 +15,9 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
     private string? CurrentLine { get; set; }
     private List<WsSqlLogTypeModel> LogTypes { get; set; }
     private List<WsSqlScaleModel> Lines { get; set; }
-
-
+    
+    private WsSqlViewLogRepository ViewLogRepository = WsSqlViewLogRepository.Instance;
+    
     public Logs() : base()
     {
         LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(
@@ -32,6 +34,6 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextViewHelper.GetListViewLogs(SqlCrudConfigSection, CurrentLogType, CurrentLine);
+        SqlSectionCast = ViewLogRepository.GetList(SqlCrudConfigSection, CurrentLogType, CurrentLine);
     }
 }

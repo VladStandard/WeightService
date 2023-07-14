@@ -64,15 +64,12 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     protected virtual bool ValidateItemBeforeSave()
     {
         return SqlItemValidateWithMsg(SqlItem, !(SqlItem?.IsNew ?? false));
- 
     }
     
     protected virtual void ItemSave()
     {
-        SqlItemSave(SqlItem);
+        SqlItemSave(SqlItemCast);
     }
-
-    
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -99,7 +96,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         if (!SqlItemCast.IsNew)
             return;
         SqlItemCast = SqlItemNewEmpty<TItem>();
-
     }
 
     #endregion

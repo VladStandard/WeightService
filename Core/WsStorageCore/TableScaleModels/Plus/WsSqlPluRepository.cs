@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.ViewRefModels.PluLines;
+
 namespace WsStorageCore.TableScaleModels.Plus;
 
 /// <summary>
@@ -111,8 +113,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
         if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(WsLocaleCore.LabelPrint.PluEan13IsNotSet);
         //if (string.IsNullOrEmpty(viewPluLine.PluItf14)) validates.Add(LocaleCore.Scales.PluItf14IsNotSet);
 
-        List<WsSqlViewPluLineModel> viewPlusLines = WsSqlContextManagerHelper.Instance.ContextView
-            .GetListViewPlusScales(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
+        List<WsSqlViewPluLineModel> viewPlusLines = WsSqlViewPluLineRepository.Instance.GetList(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
         List<string> plusTemplates = viewPlusLines.Where(item => !string.IsNullOrEmpty(item.TemplateName)).
             Select(item => item.TemplateName).ToList();
         if (!plusTemplates.Any()) validates.Add(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);

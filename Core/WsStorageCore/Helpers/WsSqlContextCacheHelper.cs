@@ -1,6 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.ViewDiagModels.TableSize;
+using WsStorageCore.ViewRefModels.PluLines;
+using WsStorageCore.ViewRefModels.PluNestings;
+using WsStorageCore.ViewRefModels.PluStorageMethods;
 using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
 
 namespace WsStorageCore.Helpers;
@@ -69,9 +73,9 @@ public sealed class WsSqlContextCacheHelper
     /// </summary>
     public void SmartLoad()
     {
-        List<WsSqlViewTableSizeModel> tableSize = ContextManager.ContextView.GetListViewTablesSizes();
+        List<WsSqlViewTableSizeModel> tableSize = WsSqlViewTableSizeRepository.Instance.GetList();
         WsSqlViewTableSizeModel? table;
-
+        
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Boxes));
         if (Boxes.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Boxes.Count))
             Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
@@ -199,11 +203,12 @@ public sealed class WsSqlContextCacheHelper
         
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))
-            ViewPlusLines = ContextManager.ContextView.GetListViewPlusScales();
-        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
-            ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
+            ViewPlusLines = WsSqlViewPluLineRepository.Instance.GetList();
+        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) ||
+            Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
+            ViewPlusStorageMethods = WsSqlViewPluStorageMethodRepository.Instance.GetList();
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusNesting))
-            ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
+            ViewPlusNesting = WsSqlViewPluNestingRepository.Instance.GetList();
         
         // Оптимизация.
         if (TableName.Equals(WsSqlEnumTableName.All))
@@ -238,7 +243,7 @@ public sealed class WsSqlContextCacheHelper
 
     public void LoadLocalViewPlusLines(ushort scaleId)
     {
-        LocalViewPlusLines = ContextManager.ContextView.GetListViewPlusScales(scaleId);
+        LocalViewPlusLines =  WsSqlViewPluLineRepository.Instance.GetList(scaleId);
     }
 
     public List<WsSqlViewPluLineModel> GetCurrentViewPlusScales(int pageNumber, ushort pageSize) =>

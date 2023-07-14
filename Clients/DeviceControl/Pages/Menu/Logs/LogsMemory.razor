@@ -1,10 +1,10 @@
 ﻿@page "/section/logs_memory"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.ViewDiagModels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewDiagModels.WsSqlViewLogMemoryModel>
+@using WsStorageCore.ViewDiagModels.LogsMemory
+@inherits SectionBase<WsStorageCore.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.LogsMemory"

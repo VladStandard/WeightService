@@ -1,10 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCore.ViewScaleModels;
+namespace WsStorageCore.ViewScaleModels.PluWeightings;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewPluWeighting: WsSqlTableBase
+public class WsSqlViewPluWeightingModel: WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
@@ -17,7 +17,7 @@ public class WsSqlViewPluWeighting: WsSqlTableBase
     /// <summary>
 	/// Constructor.
 	/// </summary>
-	public WsSqlViewPluWeighting() : base(WsSqlEnumFieldIdentity.Uid)
+	public WsSqlViewPluWeightingModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;
         PluName = string.Empty;
