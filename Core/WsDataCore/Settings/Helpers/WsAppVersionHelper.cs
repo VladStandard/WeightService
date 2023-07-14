@@ -35,81 +35,52 @@ public sealed class WsAppVersionHelper
 
     #region Public and private methods
 
-    private string GetCurrentVersion(Assembly assembly, WsEnumAppVerCountDigits countDigits, List<WsEnumAppVerStringFormat>? stringFormats = null)
+    public string GetCurrentVersion(Assembly assembly, WsEnumAppVerCountDigits countDigits)
     {
-        if (stringFormats is null || stringFormats.Count is 0)
-            stringFormats = new() {
-                WsEnumAppVerStringFormat.Use1, WsEnumAppVerStringFormat.Use2, WsEnumAppVerStringFormat.Use2 };
-
-        WsEnumAppVerStringFormat formatMajor = stringFormats.First();
-        WsEnumAppVerStringFormat formatMinor = WsEnumAppVerStringFormat.AsString;
-        WsEnumAppVerStringFormat formatBuild = WsEnumAppVerStringFormat.AsString;
-        WsEnumAppVerStringFormat formatRevision = WsEnumAppVerStringFormat.AsString;
-        if (stringFormats.Count > 1)
-            formatMinor = stringFormats[1];
-        if (stringFormats.Count > 2)
-            formatBuild = stringFormats[2];
-        if (stringFormats.Count > 3)
-            formatRevision = stringFormats[3];
-
         Version version = assembly.GetName().Version;
-        string major = GetCurrentVersionFormat(version.Major, formatMajor);
-        string minor = GetCurrentVersionFormat(version.Minor, formatMinor);
-        string build = GetCurrentVersionFormat(version.Build, formatBuild);
-        string revision = GetCurrentVersionFormat(version.Revision, formatRevision);
-        string version4 = $"{major}.{minor}.{build}.{revision}";
-        string version3 = $"{major}.{minor}.{build}";
-        string version2 = $"{major}.{minor}";
-        string version1 = $"{major}";
+        string major = GetCurrentVersionFormat(version.Major);
+        string minor = GetCurrentVersionFormat(version.Minor);
+        string build = GetCurrentVersionFormat(version.Build);
+        string revision = GetCurrentVersionFormat(version.Revision);
 
-        return countDigits == WsEnumAppVerCountDigits.Use1
-            ? version1 : countDigits == WsEnumAppVerCountDigits.Use2
-            ? version2 : countDigits == WsEnumAppVerCountDigits.Use3
-            ? version3 : version4;
+        return countDigits switch
+        {
+            WsEnumAppVerCountDigits.Use1 => major,
+            WsEnumAppVerCountDigits.Use2 => $"{major}.{minor}",
+            WsEnumAppVerCountDigits.Use3 => $"{major}.{minor}.{build}",
+            _ => $"{major}.{minor}.{build}.{revision}"
+        };
     }
 
-    public string GetCurrentVersionSubString(string input)
+    public static string GetCurrentVersionSubString(string input)
     {
-        string result = string.Empty;
         int idx = input.LastIndexOf('.');
-        if (idx >= 0)
-            result = input[..idx];
+        string result = idx >= 0 ? input[..idx] : string.Empty;
         return result;
     }
 
-    private string GetCurrentVersionFormat(int input, WsEnumAppVerStringFormat format)
-    {
-        return format switch
-        {
-            WsEnumAppVerStringFormat.Use1 => $"{input:D}",
-            WsEnumAppVerStringFormat.Use2 => $"{input:D}",
-            WsEnumAppVerStringFormat.Use3 => $"{input:D}",
-            WsEnumAppVerStringFormat.Use4 => $"{input:D}",
-            _ => $"{input:D}"
-        };
-    }
+    private static string GetCurrentVersionFormat(int input) => $"{input:D}";
 
     public string GetDescription(Assembly assembly)
     {
         string result = string.Empty;
         object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-        if (attributes.Length > 0)
-        {
-            if (attributes[0] is AssemblyDescriptionAttribute attribute)
-                result = attribute.Description;
-        }
+        if (attributes.Length <= 0)
+            return result;
+
+        if (attributes[0] is AssemblyDescriptionAttribute attribute)
+            result = attribute.Description;
         return result;
     }
 
-    private string GetTitle(Assembly assembly)
+    private static string GetTitle(Assembly assembly)
     {
         string result = string.Empty;
         object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-        if (attributes.Length > 0)
-        {
-            if (attributes[0] is AssemblyTitleAttribute attribute)
-                result = attribute.Title;
-        }
+        if (attributes.Length <= 0)
+            return result;
+        if (attributes[0] is AssemblyTitleAttribute attribute)
+            result = attribute.Title;
         return result;
     }
 
@@ -118,11 +89,12 @@ public sealed class WsAppVersionHelper
         AppTitle = string.IsNullOrEmpty(appTitle)
             ? $"{GetTitle(assembly)} {GetCurrentVersion(assembly, WsEnumAppVerCountDigits.Use3)}"
             : $"{appTitle} {GetCurrentVersion(assembly, WsEnumAppVerCountDigits.Use3)}";
-        if (AppTitle.Split(' ').Length > 1)
-        {
-            App = AppTitle.Split(' ').First();
-            Version = AppTitle.Split(' ').Last();
-        }
+
+        if (AppTitle.Split(' ').Length <= 1)
+            return;
+
+        App = AppTitle.Split(' ').First();
+        Version = AppTitle.Split(' ').Last();
     }
 
     #endregion
