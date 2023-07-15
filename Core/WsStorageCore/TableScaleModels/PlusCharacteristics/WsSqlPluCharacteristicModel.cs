@@ -86,15 +86,14 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
         Equals(AttachmentsCount, item.AttachmentsCount) &&
         Equals(NomenclatureGuid, item.NomenclatureGuid);
     
-    public virtual void UpdateProperties(WsSqlPluCharacteristicModel pluCharacteristic)
+    public virtual void UpdateProperties(WsSqlPluCharacteristicModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        
-        Uid1C = pluCharacteristic.Uid1C;
-        if (!Equals(pluCharacteristic.NomenclatureGuid, Guid.Empty))
-            NomenclatureGuid = pluCharacteristic.NomenclatureGuid;
-        if (pluCharacteristic.AttachmentsCount > 0)
-            AttachmentsCount = pluCharacteristic.AttachmentsCount;
+        Uid1C = item.Uid1C;
+        if (!Equals(item.NomenclatureGuid, Guid.Empty))
+            NomenclatureGuid = item.NomenclatureGuid;
+        if (item.AttachmentsCount > 0)
+            AttachmentsCount = item.AttachmentsCount;
     }
 
     #endregion

@@ -27,4 +27,7 @@
     <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TableRepModels\" />
+  </ItemGroup>
 </Project>

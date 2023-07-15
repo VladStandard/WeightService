@@ -39,8 +39,10 @@ public sealed class WsSqlContextListHelper
         var cls when cls == typeof(WsSqlContragentModel) => GetListNotNullableContragents(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlDeviceModel) => GetListNotNullableDevices(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlDeviceScaleFkModel) => GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlDeviceSettingsModel) => GetListNotNullableDeviceSettings(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlDeviceSettingsFkModel) => GetListNotNullableDeviceSettingsFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlDeviceTypeModel) => GetListNotNullableDeviceTypes(sqlCrudConfig).Cast<T>().ToList(),
+        var cls when cls == typeof(WsSqlDeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlLogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlLogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
         var cls when cls == typeof(WsSqlLogTypeModel) => GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList(),
@@ -183,6 +185,27 @@ public sealed class WsSqlContextListHelper
             list = list
                 .OrderBy(item => item.Device.Name)
                 .ThenBy(item => item.Scale.Name).ToList();
+        return list;
+    }
+
+    public List<WsSqlDeviceSettingsModel> GetListNotNullableDeviceSettings(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlDeviceSettingsModel> list = GetListNotNullableCore<WsSqlDeviceSettingsModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
+
+    public List<WsSqlDeviceSettingsFkModel> GetListNotNullableDeviceSettingsFks(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        //if (sqlCrudConfig.IsResultOrder)
+        //    sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlDeviceSettingsFkModel> list = GetListNotNullableCore<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Device.Name)
+                .ThenBy(item => item.Setting.Name).ToList();
         return list;
     }
 

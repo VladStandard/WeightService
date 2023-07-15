@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.TableConfModels.DeviceSettingsFks;
+
 namespace WsStorageCore.Utils;
 
 public class WsSqlValidationUtils
@@ -32,6 +34,8 @@ public class WsSqlValidationUtils
             var cls when cls == typeof(WsSqlContragentModel) => new WsSqlContragentValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlDeviceModel) => new WsSqlDeviceValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlDeviceScaleFkModel) => new WsSqlDeviceScaleFkValidator(isCheckIdentity),
+            var cls when cls == typeof(WsSqlDeviceSettingsModel) => new WsSqlDeviceSettingsValidator(isCheckIdentity),
+            var cls when cls == typeof(WsSqlDeviceSettingsFkModel) => new WsSqlDeviceSettingsFkValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlDeviceTypeFkModel) => new WsSqlDeviceTypeFkValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlDeviceTypeModel) => new WsSqlDeviceTypeValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlLogMemoryModel) => new WsSqlLogMemoryValidator(isCheckIdentity),
@@ -82,6 +86,8 @@ public class WsSqlValidationUtils
             WsSqlContragentModel contragent => new WsSqlContragentValidator(isCheckIdentity).Validate(contragent),
             WsSqlDeviceModel device => new WsSqlDeviceValidator(isCheckIdentity).Validate(device),
             WsSqlDeviceScaleFkModel deviceScaleFk => new WsSqlDeviceScaleFkValidator(isCheckIdentity).Validate(deviceScaleFk),
+            WsSqlDeviceSettingsModel deviceSettings => new WsSqlDeviceSettingsValidator(isCheckIdentity).Validate(deviceSettings),
+            WsSqlDeviceSettingsFkModel deviceSettingsFks => new WsSqlDeviceSettingsFkValidator(isCheckIdentity).Validate(deviceSettingsFks),
             WsSqlDeviceTypeFkModel deviceTypeFk => new WsSqlDeviceTypeFkValidator(isCheckIdentity).Validate(deviceTypeFk),
             WsSqlDeviceTypeModel deviceType => new WsSqlDeviceTypeValidator(isCheckIdentity).Validate(deviceType),
             WsSqlLogMemoryModel logMemory => new WsSqlLogMemoryValidator(isCheckIdentity).Validate(logMemory),

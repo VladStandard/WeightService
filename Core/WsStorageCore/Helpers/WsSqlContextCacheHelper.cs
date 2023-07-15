@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -25,11 +23,13 @@ public sealed class WsSqlContextCacheHelper
         WsSqlEnumIsMarked.ShowAll, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
-    
+
     public List<WsSqlBoxModel> Boxes { get; private set; } = new();
     public List<WsSqlBrandModel> Brands { get; private set; } = new();
     public List<WsSqlBundleModel> Bundles { get; private set; } = new();
     public List<WsSqlClipModel> Clips { get; private set; } = new();
+    public List<WsSqlDeviceSettingsModel> DeviceSettings { get; set; } = new();
+    public List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFks { get; private set; } = new();
     public List<WsSqlPluBrandFkModel> PlusBrandsFks { get; private set; } = new();
     public List<WsSqlPluBundleFkModel> PlusBundlesFks { get; private set; } = new();
@@ -87,6 +87,14 @@ public sealed class WsSqlContextCacheHelper
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Clips));
         if (Clips.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Clips.Count))
             Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
+
+        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettings));
+        if (DeviceSettings.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettings.Count))
+            DeviceSettings = ContextManager.ContextList.GetListNotNullableDeviceSettings(SqlCrudConfig);
+
+        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettingsFks));
+        if (DeviceSettingsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettingsFks.Count))
+            DeviceSettingsFks = ContextManager.ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus1CFks));
         if (Plus1CFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus1CFks.Count))
@@ -164,39 +172,43 @@ public sealed class WsSqlContextCacheHelper
             Areas = ContextManager.ContextList.GetListNotNullableAreas(SqlCrudConfig);
         if (!WorkShops.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.WorkShops))
             WorkShops = ContextManager.ContextList.GetListNotNullableWorkShops(SqlCrudConfig);
-        if (!Plus.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus)) 
+        if (!Plus.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus))
             Plus = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
         if (!Lines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Lines))
             Lines = ContextManager.ContextList.GetListNotNullableLines(SqlCrudConfig);
-        if (!PlusFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluFks)) 
+        if (!PlusFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluFks))
             PlusFks = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
-        if (!Boxes.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Boxes)) 
+        if (!Boxes.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Boxes))
             Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
-        if (!Bundles.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Bundles)) 
+        if (!Bundles.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Bundles))
             Bundles = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
-        if (!PlusBundlesFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBundlesFks)) 
+        if (!PlusBundlesFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBundlesFks))
             PlusBundlesFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-        if (!PlusBrandsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBrandsFks)) 
+        if (!PlusBrandsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBrandsFks))
             PlusBrandsFks = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
-        if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips)) 
+        if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips))
             Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
-        if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks)) 
+        if (!DeviceSettings.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettings))
+            DeviceSettings = ContextManager.ContextList.GetListNotNullableDeviceSettings(SqlCrudConfig);
+        if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
+            DeviceSettingsFks = ContextManager.ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
+        if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
             PlusClipsFks = ContextManager.ContextPlusClipsFk.GetList(SqlCrudConfig);
-        if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks)) 
+        if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks))
             Plus1CFks = ContextManager.ContextPlu1CFk.GetList();
-        if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics)) 
+        if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics))
             PlusCharacteristics = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-        if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks)) 
+        if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks))
             PlusCharacteristicsFks = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
-        if (!PlusGroups.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroups)) 
+        if (!PlusGroups.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroups))
             PlusGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
-        if (!PlusGroupsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroupsFks)) 
+        if (!PlusGroupsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroupsFks))
             PlusGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupsFks(SqlCrudConfig);
         if (!PlusNestingFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PlusNestingFks))
             PlusNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
-        if (!Brands.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Brands)) 
+        if (!Brands.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Brands))
             Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
-        
+
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))
             ViewPlusLines = ContextManager.ContextView.GetListViewPlusScales();
@@ -204,7 +216,7 @@ public sealed class WsSqlContextCacheHelper
             ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusNesting))
             ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
-        
+
         // Оптимизация.
         if (TableName.Equals(WsSqlEnumTableName.All))
             TableName = WsSqlEnumTableName.None;
@@ -222,7 +234,7 @@ public sealed class WsSqlContextCacheHelper
         Load(WsSqlEnumTableName.ViewPlusStorageMethods);
     }
 
-    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId) => 
+    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId) =>
         ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
 
     public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
@@ -258,6 +270,8 @@ public sealed class WsSqlContextCacheHelper
         Brands.Clear();
         Bundles.Clear();
         Clips.Clear();
+        DeviceSettings.Clear();
+        DeviceSettingsFks.Clear();
         Lines.Clear();
         Plus.Clear();
         Plus1CFks.Clear();
@@ -276,7 +290,7 @@ public sealed class WsSqlContextCacheHelper
         ViewPlusNesting.Clear();
         ViewPlusStorageMethods.Clear();
     }
-    
+
     /// <summary>
     /// Очистить кеш.
     /// </summary>
@@ -304,6 +318,12 @@ public sealed class WsSqlContextCacheHelper
                 break;
             case WsSqlEnumTableName.Clips:
                 Clips.Clear();
+                break;
+            case WsSqlEnumTableName.DeviceSettings:
+                DeviceSettings.Clear();
+                break;
+            case WsSqlEnumTableName.DeviceSettingsFks:
+                DeviceSettingsFks.Clear();
                 break;
             case WsSqlEnumTableName.Lines:
                 Lines.Clear();

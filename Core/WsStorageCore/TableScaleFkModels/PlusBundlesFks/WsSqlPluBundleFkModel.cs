@@ -84,13 +84,13 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
         Plu.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluBundleFkModel pluBundleFk)
+    public virtual void UpdateProperties(WsSqlPluBundleFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluBundleFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluBundleFk.Plu;
-        Bundle = pluBundleFk.Bundle;
+        Plu = new(item.Plu);
+        Bundle = new(item.Bundle);
     }
 
     #endregion

@@ -17,7 +17,7 @@ public class WsSqlTableBase : SerializeBase
     [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     [XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
-    [XmlElement] public virtual bool IsMarked { get; set; } = false;
+    [XmlElement] public virtual bool IsMarked { get; set; }
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
 
@@ -159,6 +159,8 @@ public class WsSqlTableBase : SerializeBase
     }
 
     protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";
+    
+    protected virtual string GetIsBool(bool isBool, string positive, string negative) => isBool? positive : negative;
 
     #endregion
 }

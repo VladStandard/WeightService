@@ -289,7 +289,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
     public virtual void UpdateProperties(WsSqlPluModel plu)
     {
         // Get properties from /api/send_nomenclatures/.
-        
         Uid1C = plu.Uid1C;
         IsGroup = plu.IsGroup;
         if (!IsGroup && Equals(plu.Number, (short)0)) throw new ArgumentException(nameof(Number));

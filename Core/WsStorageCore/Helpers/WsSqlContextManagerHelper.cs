@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Runtime.CompilerServices;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -35,7 +34,10 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
+    public WsSqlDeviceRepository DevicesRepository => WsSqlDeviceRepository.Instance;
     public WsSqlDeviceLineFkRepository ContextDevicesLines => WsSqlDeviceLineFkRepository.Instance;
+    public WsSqlDeviceSettingsRepository DeviceSettingsRepository => WsSqlDeviceSettingsRepository.Instance;
+    public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository => WsSqlDeviceSettingsFkRepository.Instance;
     public WsSqlLineRepository ContextLines => WsSqlLineRepository.Instance;
     public WsSqlPlu1CRepository ContextPlu1CFk => WsSqlPlu1CRepository.Instance;
     public WsSqlPluFkRepository ContextPlusFk => WsSqlPluFkRepository.Instance;
@@ -273,7 +275,7 @@ public sealed class WsSqlContextManagerHelper
     }
 
     public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos() => ContextCore.GetDbFileSizeInfos();
-    
+
     public ushort GetDbFileSizeAll() => ContextCore.GetDbFileSizeAll();
 
     public List<WsSqlTableBase> GetTableModels() => ContextCore.GetTableModels();

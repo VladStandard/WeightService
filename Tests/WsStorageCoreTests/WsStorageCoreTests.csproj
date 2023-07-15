@@ -34,4 +34,8 @@
     <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TableRepModels\" />
+  </ItemGroup>
+
 </Project>

@@ -93,14 +93,14 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
         Resource.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluStorageMethodFkModel pluStorageMethodFk)
+    public virtual void UpdateProperties(WsSqlPluStorageMethodFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluStorageMethodFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluStorageMethodFk.Plu;
-        Method = pluStorageMethodFk.Method;
-        Resource = pluStorageMethodFk.Resource;
+        Plu = new(item.Plu);
+        Method = new(item.Method);
+        Resource = new(item.Resource);
     }
 
     #endregion

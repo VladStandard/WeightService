@@ -113,16 +113,16 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
         Device.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlLogWebFkModel logWebFk)
+    public virtual void UpdateProperties(WsSqlLogWebFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(logWebFk, true);
+        base.UpdateProperties(item, true);
         
-        LogWebRequest = logWebFk.LogWebRequest;
-        LogWebResponse = logWebFk.LogWebResponse;
-        App = logWebFk.App;
-        LogType = logWebFk.LogType;
-        Device = logWebFk.Device;
+        LogWebRequest = item.LogWebRequest;
+        LogWebResponse = item.LogWebResponse;
+        App = new(item.App);
+        LogType = new(item.LogType);
+        Device = new(item.Device);
     }
 
     #endregion

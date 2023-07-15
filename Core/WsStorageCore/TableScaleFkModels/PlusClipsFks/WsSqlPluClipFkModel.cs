@@ -87,13 +87,13 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         Plu.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluClipFkModel pluClipFk)
+    public virtual void UpdateProperties(WsSqlPluClipFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluClipFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluClipFk.Plu;
-        Clip = pluClipFk.Clip;
+        Plu = new(item.Plu);
+        Clip = new(item.Clip);
     }
 
     #endregion

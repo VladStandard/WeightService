@@ -306,6 +306,14 @@ public class WsDataTestsHelper
                 device.Ipv4.Returns(WsLocaleCore.Sql.SqlItemFieldIp);
                 device.MacAddressValue.Returns(WsLocaleCore.Sql.SqlItemFieldMac);
                 break;
+            case WsSqlDeviceSettingsModel deviceSettings:
+                deviceSettings.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                break;
+            case WsSqlDeviceSettingsFkModel deviceSettingsFk:
+                deviceSettingsFk.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
+                deviceSettingsFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
+                deviceSettingsFk.Setting = CreateNewSubstitute<WsSqlDeviceSettingsModel>(isNotDefault);
+                break;
             case WsSqlDeviceTypeModel deviceType:
                 deviceType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 deviceType.PrettyName.Returns(WsLocaleCore.Sql.SqlItemFieldPrettyName);

@@ -38,7 +38,7 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
 
     public override string ToString() =>
         $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}. ";
+        $"{nameof(Name)}: {Name}";
 
     public override bool Equals(object obj)
     {

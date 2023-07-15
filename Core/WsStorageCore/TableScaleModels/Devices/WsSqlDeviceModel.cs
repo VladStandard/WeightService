@@ -66,9 +66,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}. ";
+    public override string ToString() => $"{GetIsMarked()} | {Name}";
 
     public override bool Equals(object obj)
     {
@@ -125,6 +123,11 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(PrettyName, item.PrettyName) &&
         Equals(Ipv4, item.Ipv4) &&
         MacAddress.Equals(item.MacAddress);
+
+    public virtual void UpdateProperties(WsSqlDeviceModel item)
+    {
+        base.UpdateProperties(item, false);
+    }
 
     #endregion
 }

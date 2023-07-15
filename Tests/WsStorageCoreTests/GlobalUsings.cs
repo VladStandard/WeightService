@@ -13,6 +13,8 @@ global using WsDataCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
+global using WsStorageCore.TableConfModels.DeviceSettings;
+global using WsStorageCore.TableConfModels.DeviceSettingsFks;
 global using WsStorageCore.TableDiagModels.Logs;
 global using WsStorageCore.TableDiagModels.LogsMemories;
 global using WsStorageCore.TableDiagModels.LogsTypes;

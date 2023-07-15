@@ -86,14 +86,14 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         RequestDataString = requestDataString;
     }
 
-    public virtual void UpdateProperties(WsSqlPlu1CFkModel plu1CFk)
+    public virtual void UpdateProperties(WsSqlPlu1CFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(plu1CFk, true);
+        base.UpdateProperties(item, true);
 
-        Plu = plu1CFk.Plu;
-        IsEnabled = plu1CFk.IsEnabled;
-        RequestDataString = plu1CFk.RequestDataString;
+        Plu = new(item.Plu);
+        IsEnabled = item.IsEnabled;
+        RequestDataString = item.RequestDataString;
     }
 
     public override void FillProperties()

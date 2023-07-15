@@ -20,6 +20,8 @@ public static class WsSqlTablesUtils
     public static string Contragents => "CONTRAGENTS_V2";
     public static string Devices => "DEVICES";
     public static string DevicesScalesFks => "DEVICES_SCALES_FK";
+    public static string DeviceSettings => "DEVICES_SETTINGS";
+    public static string DeviceSettingsFks => "DEVICES_SETTINGS_FK";
     public static string DevicesTypes => "DEVICES_TYPES";
     public static string DevicesTypesFks => "DEVICES_TYPES_FK";
     public static string Hosts => "Hosts";

@@ -88,13 +88,13 @@ public class WsSqlPluGroupFkModel : WsSqlTableBase
         Parent.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluGroupFkModel pluGroupFk)
+    public virtual void UpdateProperties(WsSqlPluGroupFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluGroupFk, true);
+        base.UpdateProperties(item, true);
         
-        PluGroup = pluGroupFk.PluGroup;
-        Parent = pluGroupFk.Parent;
+        PluGroup = new(item.PluGroup);
+        Parent = new(item.Parent);
     }
 
     #endregion

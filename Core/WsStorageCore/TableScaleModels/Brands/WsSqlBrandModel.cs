@@ -87,11 +87,11 @@ public class WsSqlBrandModel : WsSqlTable1CBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Code, item.Code);
 
-    public virtual void UpdateProperties(WsSqlBrandModel brand)
+    public virtual void UpdateProperties(WsSqlBrandModel item)
     {
         // Get properties from /api/send_brands/.
-        Uid1C = brand.Uid1C;
-        Code = brand.Code;
+        Uid1C = item.Uid1C;
+        Code = item.Code;
     }
 
     #endregion

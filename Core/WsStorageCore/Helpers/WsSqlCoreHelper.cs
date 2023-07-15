@@ -3,6 +3,8 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
+using WsStorageCore.TableConfModels.DeviceSettingsFks;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -120,6 +122,8 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceScaleFkMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
@@ -712,6 +716,10 @@ public sealed class WsSqlCoreHelper
             case WsSqlDeviceScaleFkModel deviceScaleFk:
                 deviceScaleFk.Device = GetItemNotNullable<WsSqlDeviceModel>(deviceScaleFk.Device.IdentityValueUid);
                 deviceScaleFk.Scale = GetItemNotNullable<WsSqlScaleModel>(deviceScaleFk.Scale.IdentityValueId);
+                break;
+            case WsSqlDeviceSettingsFkModel deviceSettingsFk:
+                deviceSettingsFk.Device = GetItemNotNullable<WsSqlDeviceModel>(deviceSettingsFk.Device.IdentityValueUid);
+                deviceSettingsFk.Setting = GetItemNotNullable<WsSqlDeviceSettingsModel>(deviceSettingsFk.Setting.IdentityValueUid);
                 break;
             case WsSqlLogMemoryModel logMemory:
                 logMemory.App = GetItemNotNullable<WsSqlAppModel>(logMemory.App.IdentityValueUid);

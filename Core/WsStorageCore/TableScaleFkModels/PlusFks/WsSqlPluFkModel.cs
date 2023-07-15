@@ -96,14 +96,14 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Category?.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluFkModel pluFk)
+    public virtual void UpdateProperties(WsSqlPluFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluFk.Plu;
-        Parent = pluFk.Parent;
-        Category = pluFk.Category;
+        Plu = new(item.Plu);
+        Parent = new(item.Parent);
+        Category = item.Category is null ? null : new(item.Category);
     }
 
     #endregion

@@ -88,13 +88,13 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
         Brand.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluBrandFkModel pluBrandFk)
+    public virtual void UpdateProperties(WsSqlPluBrandFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluBrandFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluBrandFk.Plu;
-        Brand = pluBrandFk.Brand;
+        Plu = new(item.Plu);
+        Brand = new(item.Brand);
     }
 
     #endregion

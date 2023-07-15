@@ -28,4 +28,7 @@
   <ItemGroup>
 	<Compile Include="..\..\IsExternalInit.cs" Visible="false" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TableRepModels\" />
+  </ItemGroup>
 </Project>

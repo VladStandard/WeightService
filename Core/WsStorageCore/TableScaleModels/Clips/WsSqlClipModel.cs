@@ -66,13 +66,12 @@ public class WsSqlClipModel : WsSqlTable1CBase
         info.AddValue(nameof(Weight), Weight);
     }
 
-    public virtual void UpdateProperties(WsSqlPluModel plu)
+    public virtual void UpdateProperties(WsSqlPluModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        
-        Uid1C = plu.ClipTypeGuid;
-        Name = plu.ClipTypeName;
-        Weight = plu.ClipTypeWeight;
+        Uid1C = item.ClipTypeGuid;
+        Name = item.ClipTypeName;
+        Weight = item.ClipTypeWeight;
         if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
     }
 

@@ -86,13 +86,13 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         Template.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlPluTemplateFkModel pluTemplateFk)
+    public virtual void UpdateProperties(WsSqlPluTemplateFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluTemplateFk, true);
+        base.UpdateProperties(item, true);
         
-        Plu = pluTemplateFk.Plu;
-        Template = pluTemplateFk.Template;
+        Plu = new(item.Plu);
+        Template = new(item.Template);
     }
 
     #endregion

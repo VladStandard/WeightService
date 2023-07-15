@@ -88,13 +88,13 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         Type.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlDeviceTypeFkModel deviceTypeFk)
+    public virtual void UpdateProperties(WsSqlDeviceTypeFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(deviceTypeFk, true);
+        base.UpdateProperties(item, true);
         
-        Device = deviceTypeFk.Device;
-        Type = deviceTypeFk.Type;
+        Device = new(item.Device);
+        Type = new(item.Type);
     }
 
     #endregion

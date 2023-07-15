@@ -126,14 +126,14 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         BundleCount = 0;
     }
 
-    public virtual void UpdateProperties(WsSqlPluNestingFkModel pluNestingFk)
+    public virtual void UpdateProperties(WsSqlPluNestingFkModel item)
     {
         // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(pluNestingFk, true);
+        base.UpdateProperties(item, true);
         
-        PluBundle = pluNestingFk.PluBundle;
-        Box = pluNestingFk.Box;
-        IsDefault = pluNestingFk.IsDefault;
+        IsDefault = item.IsDefault;
+        PluBundle = new(item.PluBundle);
+        Box = new(item.Box);
     }
 
     #endregion
