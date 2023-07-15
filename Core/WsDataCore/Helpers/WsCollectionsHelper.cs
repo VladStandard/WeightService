@@ -41,7 +41,7 @@ public sealed class WsCollectionsHelper
 	/// <summary>
 	/// Имя файла установки драйвера.
 	/// </summary>
-	/// <param name="winVersion">Версия WiNdows</param>
+	/// <param name="winVersion">Версия Windows</param>
 	/// <returns></returns>
 	public string GetDriverFileName(WsEnumWinVersion winVersion)
 	{

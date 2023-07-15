@@ -3,7 +3,6 @@
 
 using System.Security.Claims;
 using DeviceControl.Services;
-using WsBlazorCore.Settings;
 using WsStorageCore.Helpers;
 
 namespace DeviceControl.Components.Common;

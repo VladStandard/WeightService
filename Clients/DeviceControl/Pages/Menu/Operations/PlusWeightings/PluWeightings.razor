@@ -1,10 +1,10 @@
 @page "/section/plus_weightings"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewPluWeighting>
+@using WsStorageCore.ViewScaleModels.PluWeightings
+@inherits SectionBase<WsStorageCore.ViewScaleModels.PluWeightings.WsSqlViewPluWeightingModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusWeightings"
@@ -16,7 +16,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlViewPluWeighting"
+  TItem="@WsSqlViewPluWeightingModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -25,7 +25,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlViewPluWeighting">
+    <TItemContent TItem="@WsSqlViewPluWeightingModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
                             FormatString="@WsStrUtils.FormatDtDefault"/>

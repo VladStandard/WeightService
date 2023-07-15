@@ -3,7 +3,6 @@
 
 using System.Security.Claims;
 using DeviceControl.Services;
-using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Item;
 

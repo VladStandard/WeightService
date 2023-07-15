@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using WsStorageCore.ViewRefModels.PluNestings;
 
 namespace WsLabelCore.Utils;
 
@@ -270,8 +271,8 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsPlusNesting(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
-        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PlusNestings = 
-            LabelSession.ContextManager.ContextView.GetListViewPlusNesting((ushort)LabelSession.PluLine.Plu.Number);
+        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PlusNestings =
+            WsSqlViewPluNestingRepository.Instance.GetList((ushort)LabelSession.PluLine.Plu.Number);
         ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PluNesting = LabelSession.ViewPluNesting;
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();

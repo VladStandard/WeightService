@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.ViewDiagModels.LogsMemory;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -22,7 +24,6 @@ public sealed class WsSqlContextManagerHelper
 
     private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
-    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlAccessRepository ContextAccess => WsSqlAccessRepository.Instance;
@@ -33,26 +34,31 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlClipRepository ContextClips => WsSqlClipRepository.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-    public WsSqlContextViewHelper ContextView => WsSqlContextViewHelper.Instance;
-    public WsSqlDeviceRepository DevicesRepository => WsSqlDeviceRepository.Instance;
+    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public WsSqlDeviceLineFkRepository ContextDevicesLines => WsSqlDeviceLineFkRepository.Instance;
-    public WsSqlDeviceSettingsRepository DeviceSettingsRepository => WsSqlDeviceSettingsRepository.Instance;
+    public WsSqlDeviceRepository DevicesRepository => WsSqlDeviceRepository.Instance;
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository => WsSqlDeviceSettingsFkRepository.Instance;
+    public WsSqlDeviceSettingsRepository DeviceSettingsRepository => WsSqlDeviceSettingsRepository.Instance;
     public WsSqlLineRepository ContextLines => WsSqlLineRepository.Instance;
     public WsSqlPlu1CRepository ContextPlu1CFk => WsSqlPlu1CRepository.Instance;
-    public WsSqlPluFkRepository ContextPlusFk => WsSqlPluFkRepository.Instance;
-    public WsSqlPluLabelRepository ContextPlusLabels => WsSqlPluLabelRepository.Instance;
     public WsSqlPluBrandFkRepository ContextPluBrandsFk => WsSqlPluBrandFkRepository.Instance;
     public WsSqlPluBundleFkRepository ContextPluBundlesFk => WsSqlPluBundleFkRepository.Instance;
-    public WsSqlPluClipFkRepository ContextPlusClipsFk => WsSqlPluClipFkRepository.Instance;
     public WsSqlPluCharacteristicRepository ContextPluCharacteristics => WsSqlPluCharacteristicRepository.Instance;
     public WsSqlPluCharacteristicsFkRepository ContextPluCharacteristicsFk => WsSqlPluCharacteristicsFkRepository.Instance;
-    public WsSqlPluRepository ContextPlus => WsSqlPluRepository.Instance;
+    public WsSqlPluClipFkRepository ContextPlusClipsFk => WsSqlPluClipFkRepository.Instance;
+    public WsSqlPluFkRepository ContextPlusFk => WsSqlPluFkRepository.Instance;
+    public WsSqlPluLabelRepository ContextPlusLabels => WsSqlPluLabelRepository.Instance;
     public WsSqlPluLineRepository ContextPlusLines => WsSqlPluLineRepository.Instance;
     public WsSqlPluNestingFkRepository ContextPlusNesting => WsSqlPluNestingFkRepository.Instance;
+    public WsSqlPluRepository ContextPlus => WsSqlPluRepository.Instance;
     public WsSqlPluStorageMethodFkRepository ContextPlusStorages => WsSqlPluStorageMethodFkRepository.Instance;
     public WsSqlPluWeighingRepository ContextPlusWeighing => WsSqlPluWeighingRepository.Instance;
     public WsSqlTemplateRepository ContextTemplates => WsSqlTemplateRepository.Instance;
+    public WsSqlViewLogMemoryRepository ViewLogMemoryRepository => WsSqlViewLogMemoryRepository.Instance;
+    public WsSqlViewPluLineRepository ViewPluLineRepository => WsSqlViewPluLineRepository.Instance;
+    public WsSqlViewPluNestingRepository ViewPluNestingRepository => WsSqlViewPluNestingRepository.Instance;
+    public WsSqlViewPluStorageMethodRepository ViewPluStorageMethodRepository => WsSqlViewPluStorageMethodRepository.Instance;
+    public WsSqlViewTableSizeRepository ViewTableSizeRepository => WsSqlViewTableSizeRepository.Instance;
     public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
 
     #endregion

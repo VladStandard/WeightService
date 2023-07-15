@@ -2,14 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Helpers;
-using WsStorageCore.ViewDiagModels;
+using WsStorageCore.ViewDiagModels.TableSize;
 
 namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SqlInfo : ComponentBase
 {
     #region Public and private fields, properties, constructor
-    
+
+    private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository = WsSqlViewTableSizeRepository.Instance;
     private List<WsSqlDbFileSizeInfoModel> DbFiles { get; set; }
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
@@ -37,12 +38,11 @@ public sealed partial class SqlInfo : ComponentBase
     private void GetSectionData()
     {
         DbFiles = ContextManager.GetDbFileSizeInfos();
-        DbTables = WsSqlContextViewHelper.Instance.GetListViewTablesSizes();
+        DbTables = WsSqlViewTableSizeRepository.GetList();
         foreach (WsSqlDbFileSizeInfoModel dbFile in DbFiles)
         {
             dbFile.Tables.AddRange(DbTables.Where(table => table.FileName == dbFile.FileName));
         }
-        
         StateHasChanged();
     }
     

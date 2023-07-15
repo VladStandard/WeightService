@@ -1,10 +1,10 @@
 @page "/section/logs_web_service"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewWebLogModel>
+@using WsStorageCore.ViewScaleModels.WebLogs
+@inherits SectionBase<WsStorageCore.ViewScaleModels.WebLogs.WsSqlViewWebLogModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.WebService.Name"

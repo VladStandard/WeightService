@@ -3,7 +3,6 @@
 
 using WsDataCore.Enums;
 using WsDataCore.Protocols;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleModels.Devices;
 using WsStorageCore.TableScaleModels.Printers;
 using WsStorageCore.TableScaleModels.Scales;

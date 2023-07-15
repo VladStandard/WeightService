@@ -32,13 +32,8 @@ public static class WsEnumerableUtils
         Type itemType = typeof(T);
         ConstructorInfo? copyConstructor = itemType.GetConstructor(new[] { itemType });
         if (copyConstructor is not null)
-        {
             return (T)copyConstructor.Invoke(new object[] { item });
-        }
-        else
-        {
-            throw new InvalidOperationException($"The type {itemType.Name} does not have a copy constructor!");
-        }
+        throw new InvalidOperationException($"The type {itemType.Name} does not have a copy constructor!");
     }
 
     public static Collection<T> CopyClassesCollection<T>(IEnumerable<T> list) where T : class, new()

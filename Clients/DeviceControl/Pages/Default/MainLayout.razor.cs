@@ -3,7 +3,6 @@
 
 using System.Security.Claims;
 using DeviceControl.Services;
-using WsBlazorCore.Settings;
 using WsDataCore.Helpers;
 
 namespace DeviceControl.Pages.Default;

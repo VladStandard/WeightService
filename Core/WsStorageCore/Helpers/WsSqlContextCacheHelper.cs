@@ -69,9 +69,9 @@ public sealed class WsSqlContextCacheHelper
     /// </summary>
     public void SmartLoad()
     {
-        List<WsSqlViewTableSizeModel> tableSize = ContextManager.ContextView.GetListViewTablesSizes();
+        List<WsSqlViewTableSizeModel> tableSize = WsSqlViewTableSizeRepository.Instance.GetList();
         WsSqlViewTableSizeModel? table;
-
+        
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Boxes));
         if (Boxes.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Boxes.Count))
             Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
@@ -211,11 +211,12 @@ public sealed class WsSqlContextCacheHelper
 
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))
-            ViewPlusLines = ContextManager.ContextView.GetListViewPlusScales();
-        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
-            ViewPlusStorageMethods = ContextManager.ContextView.GetListViewPlusStorageMethods();
+            ViewPlusLines = WsSqlViewPluLineRepository.Instance.GetList();
+        if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) ||
+            Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
+            ViewPlusStorageMethods = WsSqlViewPluStorageMethodRepository.Instance.GetList();
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusNesting))
-            ViewPlusNesting = ContextManager.ContextView.GetListViewPlusNesting();
+            ViewPlusNesting = ContextManager.ViewPluNestingRepository.GetList();
 
         // Оптимизация.
         if (TableName.Equals(WsSqlEnumTableName.All))
@@ -250,7 +251,7 @@ public sealed class WsSqlContextCacheHelper
 
     public void LoadLocalViewPlusLines(ushort scaleId)
     {
-        LocalViewPlusLines = ContextManager.ContextView.GetListViewPlusScales(scaleId);
+        LocalViewPlusLines = ContextManager.ViewPluLineRepository.GetList(scaleId);
     }
 
     public List<WsSqlViewPluLineModel> GetCurrentViewPlusScales(int pageNumber, ushort pageSize) =>

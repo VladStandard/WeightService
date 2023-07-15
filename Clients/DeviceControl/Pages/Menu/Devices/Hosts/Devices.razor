@@ -1,10 +1,10 @@
 ﻿@page "/section/devices"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewDeviceModel>
+@using WsStorageCore.ViewScaleModels.Devices
+@inherits SectionBase<WsStorageCore.ViewScaleModels.Devices.WsSqlViewDeviceModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionHosts"

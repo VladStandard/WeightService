@@ -62,3 +62,4 @@ global using WsStorageCore.TableScaleModels.TemplatesResources;
 global using WsStorageCore.TableScaleModels.Versions;
 global using WsStorageCore.TableScaleModels.WorkShops;
 global using WsStorageCore.Utils;
+global using WsStorageCore.ViewDiagModels.TableSize;

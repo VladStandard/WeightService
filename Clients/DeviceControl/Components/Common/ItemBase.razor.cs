@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControl.Services;
-using WsBlazorCore.Settings;
 
 namespace DeviceControl.Components.Common;
 
@@ -64,15 +63,12 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     protected virtual bool ValidateItemBeforeSave()
     {
         return SqlItemValidateWithMsg(SqlItem, !(SqlItem?.IsNew ?? false));
- 
     }
     
     protected virtual void ItemSave()
     {
-        SqlItemSave(SqlItem);
+        SqlItemSave(SqlItemCast);
     }
-
-    
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -99,7 +95,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
         if (!SqlItemCast.IsNew)
             return;
         SqlItemCast = SqlItemNewEmpty<TItem>();
-
     }
 
     #endregion

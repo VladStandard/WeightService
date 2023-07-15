@@ -1,15 +1,16 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsBlazorCore.Settings;
-using WsStorageCore.ViewScaleModels;
+using WsStorageCore.ViewScaleModels.Barcodes;
 
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
 public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
 {
     #region Public and private fields, properties, constructor
-
+    
+    private WsSqlViewBarcodeRepository ViewBarcodeRepository => WsSqlViewBarcodeRepository.Instance;
+    
     public BarCodes() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
@@ -21,7 +22,7 @@ public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextViewHelper.GetListViewBarcodes(SqlCrudConfigSection);
+        SqlSectionCast =  ViewBarcodeRepository.GetList(SqlCrudConfigSection);
     }
 
     #endregion

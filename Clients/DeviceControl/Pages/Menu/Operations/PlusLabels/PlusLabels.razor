@@ -1,10 +1,10 @@
 @page "/section/plus_labels"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.ViewScaleModels
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.ViewScaleModels.WsSqlViewPluLabelModel>
+@using WsStorageCore.ViewScaleModels.PluLabels
+@inherits SectionBase<WsStorageCore.ViewScaleModels.PluLabels.WsSqlViewPluLabelModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionLabels"

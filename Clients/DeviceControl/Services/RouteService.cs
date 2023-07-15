@@ -3,7 +3,6 @@ using FluentNHibernate.Conventions;
 using WsStorageCore.TableDiagModels.Logs;
 using WsStorageCore.TableDiagModels.LogsWebsFks;
 using WsStorageCore.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
 using WsStorageCore.TableScaleFkModels.PlusBundlesFks;
 using WsStorageCore.TableScaleFkModels.PlusLabels;
 using WsStorageCore.TableScaleFkModels.PlusNestingFks;
@@ -30,7 +29,12 @@ using WsStorageCore.TableScaleModels.Templates;
 using WsStorageCore.TableScaleModels.TemplatesResources;
 using WsStorageCore.TableScaleModels.Versions;
 using WsStorageCore.TableScaleModels.WorkShops;
-using WsStorageCore.ViewScaleModels;
+using WsStorageCore.ViewScaleModels.Barcodes;
+using WsStorageCore.ViewScaleModels.Devices;
+using WsStorageCore.ViewScaleModels.Lines;
+using WsStorageCore.ViewScaleModels.Logs;
+using WsStorageCore.ViewScaleModels.PluLabels;
+using WsStorageCore.ViewScaleModels.WebLogs;
 
 namespace DeviceControl.Services;
 
@@ -110,7 +114,7 @@ public class RouteService
             WsSqlViewLineModel => RouteUtil.SectionLines,
             WsSqlViewBarcodeModel => RouteUtil.SectionBarCodes,
             WsSqlViewPluLabelModel => RouteUtil.SectionPlusLabels,
-            WsSqlViewPluWeighting => RouteUtil.SectionPlusWeightings,
+            WsSqlViewPluWeightingModel => RouteUtil.SectionPlusWeightings,
             WsSqlViewDeviceModel => RouteUtil.SectionDevices,
             WsSqlViewWebLogModel => RouteUtil.SectionLogsWebService,
             _ => string.Empty

@@ -16,3 +16,6 @@ global using WsStorageCore.Models;
 global using WsStorageCore.Utils;
 global using WsStorageCore.Common;
 global using DeviceControl.Components.Common;
+global using WsBlazorCore.Settings;
+global using WsStorageCore.TableScaleFkModels.DeviceScalesFks;
+global using WsStorageCore.ViewScaleModels.PluWeightings;
