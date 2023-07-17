@@ -7,5 +7,4 @@ global using System.Collections.Generic;
 global using System.Linq;
 global using WsAssertCoreTests;
 global using WsDataCore.Utils;
-global using NSubstitute;
 global using NUnit.Framework;

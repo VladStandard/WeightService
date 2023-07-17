@@ -30,22 +30,4 @@ public sealed class WsQuartzHelperTests
         });
         TestContext.WriteLine();
     }
-
-    //[Test]
-    //public void OpenClose_Throw()
-    //{
-    //    TestsUtils.MethodStart();
-
-    //    Assert.Throws<ArgumentException>(() =>
-    //    {
-    //        TestContext.WriteLine("Open");
-    //        Quartz.AddJob(WsQuartzUtils.CronExpression.EverySeconds(), Method, "jobName", "triggerName", "triggerGroup");
-
-    //        TestContext.WriteLine("Close");
-    //        Quartz.Close();
-    //    });
-    //    TestContext.WriteLine();
-
-    //    TestsUtils.MethodComplete();
-    //}
 }

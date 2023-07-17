@@ -6,7 +6,7 @@ namespace WsDataCoreTests.Helpers;
 [TestFixture]
 public sealed class CollectionsHelperTests
 {
-    private WsCollectionsHelper Collections { get; set; } = WsCollectionsHelper.Instance;
+    private WsCollectionsHelper Collections => WsCollectionsHelper.Instance;
 
     [Test]
     public void GetDriverFileName_AreEqual()
