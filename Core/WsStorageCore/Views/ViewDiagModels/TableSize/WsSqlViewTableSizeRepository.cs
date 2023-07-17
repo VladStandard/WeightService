@@ -1,6 +1,6 @@
 namespace WsStorageCore.Views.ViewDiagModels.TableSize;
 
-public class WsSqlViewTableSizeRepository
+public class WsSqlViewTableSizeRepository : IViewTableSizeRepository
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,10 +13,10 @@ public class WsSqlViewTableSizeRepository
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewTableSizeModel> GetList(int topRecords = 0)
+    public List<WsSqlViewTableSizeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlViewTableSizeModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(topRecords);
+        string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

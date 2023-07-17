@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.Aggregations;
 
-public sealed class WsSqlViewWeightingAggrRepository
+public sealed class WsSqlViewWeightingAggrRepository : IViewWeightingAggrRepository
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,10 +13,10 @@ public sealed class WsSqlViewWeightingAggrRepository
     
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewWeightingAggrModel> GetList(int topRecords = 200)
+    public List<WsSqlViewWeightingAggrModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlViewWeightingAggrModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetWeightingsAggr(topRecords);
+        string query = WsSqlQueriesDiags.Views.GetWeightingsAggr(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (var obj in objects)
         {

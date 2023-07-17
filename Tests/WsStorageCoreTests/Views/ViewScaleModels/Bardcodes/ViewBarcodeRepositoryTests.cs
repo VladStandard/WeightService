@@ -3,19 +3,18 @@
 namespace WsStorageCoreTests.Views.ViewScaleModels.Bardcodes;
 
 [TestFixture]
-public sealed class ViewBarcodesRepositoryTests
+public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewBarcodeRepository ViewBarcodeRepository = WsSqlViewBarcodeRepository.Instance;
-    
+    private IViewBarcodeRepository ViewBarcodeRepository = WsSqlViewBarcodeRepository.Instance;
+
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlConfig = new WsSqlCrudConfigModel() { SelectTopRowsCount = 10 };
-            List<WsSqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(sqlConfig);
+            List<WsSqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }

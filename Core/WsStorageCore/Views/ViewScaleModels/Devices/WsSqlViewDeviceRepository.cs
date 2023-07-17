@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.Devices;
 
-public class WsSqlViewDeviceRepository
+public class WsSqlViewDeviceRepository : IViewDeviceRepository
 {
     #region Design pattern "Lazy Singleton"
 

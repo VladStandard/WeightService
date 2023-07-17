@@ -1,6 +1,6 @@
 namespace WsStorageCore.Views.ViewRefModels.PluStorageMethods;
 
-public class WsSqlViewPluStorageMethodRepository
+public class WsSqlViewPluStorageMethodRepository : IViewStorageMethodsRepository
 {
     #region Design pattern "Lazy Singleton"
 
@@ -13,10 +13,10 @@ public class WsSqlViewPluStorageMethodRepository
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewPluStorageMethodModel> GetList(int topRecords = 0)
+    public List<WsSqlViewPluStorageMethodModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlViewPluStorageMethodModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewPlusStorageMethods(topRecords);
+        string query = WsSqlQueriesDiags.Views.GetViewPlusStorageMethods(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

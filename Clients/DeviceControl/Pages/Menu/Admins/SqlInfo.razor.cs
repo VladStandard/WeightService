@@ -38,7 +38,7 @@ public sealed partial class SqlInfo : ComponentBase
     private void GetSectionData()
     {
         DbFiles = ContextManager.GetDbFileSizeInfos();
-        DbTables = WsSqlViewTableSizeRepository.GetList();
+        DbTables = WsSqlViewTableSizeRepository.GetList(new());
         foreach (WsSqlDbFileSizeInfoModel dbFile in DbFiles)
         {
             dbFile.Tables.AddRange(DbTables.Where(table => table.FileName == dbFile.FileName));

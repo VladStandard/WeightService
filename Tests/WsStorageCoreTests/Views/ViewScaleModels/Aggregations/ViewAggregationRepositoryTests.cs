@@ -3,18 +3,18 @@
 namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 
 [TestFixture]
-public sealed class ViewAggregationsRepositoryTests
+public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewWeightingAggrRepository ViewWeightingAggrRepository = WsSqlViewWeightingAggrRepository.Instance;
-    
+    private IViewWeightingAggrRepository ViewWeightingAggrRepository = WsSqlViewWeightingAggrRepository.Instance;
+
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewWeightingAggrModel> items = ViewWeightingAggrRepository.GetList();
+            List<WsSqlViewWeightingAggrModel> items = ViewWeightingAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             // WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }

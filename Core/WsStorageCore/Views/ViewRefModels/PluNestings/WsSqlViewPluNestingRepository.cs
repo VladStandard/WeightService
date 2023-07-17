@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewRefModels.PluNestings;
 
-public class WsSqlViewPluNestingRepository
+public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
 {
     #region Design pattern "Lazy Singleton"
 

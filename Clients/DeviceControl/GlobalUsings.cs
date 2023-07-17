@@ -4,9 +4,7 @@
 
 global using System.Globalization;
 global using Microsoft.AspNetCore.Components;
-global using Microsoft.AspNetCore.Components.Forms;
 global using Radzen;
-global using WsBlazorCore.Razors;
 global using WsBlazorCore.Services;
 global using WsBlazorCore.Utils;
 global using WsLocalizationCore.Common;

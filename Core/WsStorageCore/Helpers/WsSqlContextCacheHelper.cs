@@ -74,7 +74,7 @@ public sealed class WsSqlContextCacheHelper
     /// </summary>
     public void SmartLoad()
     {
-        List<WsSqlViewTableSizeModel> tableSize = WsSqlViewTableSizeRepository.Instance.GetList();
+        List<WsSqlViewTableSizeModel> tableSize = WsSqlViewTableSizeRepository.Instance.GetList(SqlCrudConfig);
         WsSqlViewTableSizeModel? table;
         
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Boxes));
@@ -219,7 +219,7 @@ public sealed class WsSqlContextCacheHelper
             ViewPlusLines = WsSqlViewPluLineRepository.Instance.GetList();
         if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) ||
             Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
-            ViewPlusStorageMethods = WsSqlViewPluStorageMethodRepository.Instance.GetList();
+            ViewPlusStorageMethods = WsSqlViewPluStorageMethodRepository.Instance.GetList(SqlCrudConfig);
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusNesting))
             ViewPlusNesting = ContextManager.ViewPluNestingRepository.GetList();
 

@@ -18,9 +18,7 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
     
     public Logs() : base()
     {
-        LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(
-            new WsSqlCrudConfigModel()
-        );
+        LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(new WsSqlCrudConfigModel());
         Lines = ContextManager.SqlCore.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
         Lines = (from item in Lines orderby item.Description select item).ToList();
         
@@ -32,6 +30,6 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewLogRepository.GetList(SqlCrudConfigSection, CurrentLogType, CurrentLine);
+        SqlSectionCast = ViewLogRepository.GetListByLogTypeAndLineName(SqlCrudConfigSection, CurrentLogType, CurrentLine);
     }
 }

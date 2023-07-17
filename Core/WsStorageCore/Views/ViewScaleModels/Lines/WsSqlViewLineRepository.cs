@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.Lines;
 
-public class WsSqlViewLineRepository
+public class WsSqlViewLineRepository : IViewLineRepository
 {
     #region Design pattern "Lazy Singleton"
 

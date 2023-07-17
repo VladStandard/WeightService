@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.PluLabels;
 
-public class WsSqlViewPluLabelRepository
+public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
 {
     #region Design pattern "Lazy Singleton"
 

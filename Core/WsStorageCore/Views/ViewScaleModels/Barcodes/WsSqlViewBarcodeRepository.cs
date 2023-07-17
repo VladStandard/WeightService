@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.Barcodes;
 
-public class WsSqlViewBarcodeRepository
+public class WsSqlViewBarcodeRepository : IViewBarcodeRepository
 {
     #region Design pattern "Lazy Singleton"
 

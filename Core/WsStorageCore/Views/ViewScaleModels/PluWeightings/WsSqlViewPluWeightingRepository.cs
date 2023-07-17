@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.PluWeightings;
 
-public class WsSqlViewPluWeightingRepository
+public class WsSqlViewPluWeightingRepository : IViewPluWeightingRepository
 {
     #region Design pattern "Lazy Singleton"
 

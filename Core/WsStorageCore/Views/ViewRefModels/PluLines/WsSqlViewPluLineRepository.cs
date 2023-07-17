@@ -3,7 +3,8 @@
 
 namespace WsStorageCore.Views.ViewRefModels.PluLines;
 
-public class WsSqlViewPluLineRepository
+//TODO: fix repository
+public class WsSqlViewPluLineRepository : IViewPluLineRepository
 {
     #region Design pattern "Lazy Singleton"
 
@@ -15,7 +16,10 @@ public class WsSqlViewPluLineRepository
     #endregion
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    
+
+    public List<WsSqlViewPluLineModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
+        GetList(0, new List<ushort>(), sqlCrudConfig.SelectTopRowsCount);
+
     public List<WsSqlViewPluLineModel> GetList(ushort scaleId = 0, int topRecords = 0) =>
         GetList(scaleId, new List<ushort>(), topRecords);
        

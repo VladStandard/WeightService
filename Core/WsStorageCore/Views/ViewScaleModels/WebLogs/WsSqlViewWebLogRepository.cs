@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewScaleModels.WebLogs;
 
-public class WsSqlViewWebLogRepository
+public class WsSqlViewWebLogRepository : IViewWebLogRepository
 {
     #region Design pattern "Lazy Singleton"
 

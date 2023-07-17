@@ -2,18 +2,18 @@
 
 namespace WsStorageCoreTests.Views.ViewRefModels.PluLines;
 
-public class ViewPluLineRepositoryTests
+public class ViewPluLineRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewPluLineRepository ViewPluLineRepository = WsSqlViewPluLineRepository.Instance;
+    private IViewPluLineRepository ViewPluLineRepository = WsSqlViewPluLineRepository.Instance;
     
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluLineModel> items = ViewPluLineRepository.GetList();
+            List<WsSqlViewPluLineModel> items = ViewPluLineRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }

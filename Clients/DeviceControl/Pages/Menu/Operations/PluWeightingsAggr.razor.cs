@@ -35,7 +35,7 @@ public sealed partial class PluWeightingsAggr : ComponentBase
 
     private void GetSectionData()
     {
-        PluWeightAggrs = WeightingAggrRepository.GetList();
+        PluWeightAggrs = WeightingAggrRepository.GetList(new WsSqlCrudConfigModel());
         StateHasChanged();
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 
-public class WsSqlViewLogMemoryRepository
+public class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
 {
     #region Design pattern "Lazy Singleton"
 

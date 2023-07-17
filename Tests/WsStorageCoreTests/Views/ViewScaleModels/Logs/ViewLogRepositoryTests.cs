@@ -3,19 +3,18 @@
 namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 
 [TestFixture]
-public sealed class ViewLogRepositoryTests
+public sealed class ViewLogRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewLogRepository ViewLogRepository = WsSqlViewLogRepository.Instance;
-    
+    private IViewLogRepository ViewLogRepository = WsSqlViewLogRepository.Instance;
+
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlCrudConfigModel sqlConfig = new WsSqlCrudConfigModel() { SelectTopRowsCount = 10 };
-            List<WsSqlViewLogModel> items = ViewLogRepository.GetList(sqlConfig, null, null);
+            List<WsSqlViewLogModel> items = ViewLogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }

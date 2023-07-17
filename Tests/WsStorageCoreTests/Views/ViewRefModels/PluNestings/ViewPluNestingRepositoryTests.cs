@@ -2,10 +2,10 @@
 
 namespace WsStorageCoreTests.Views.ViewRefModels.PluNestings;
 
-public class ViewPluNestingRepositoryTests
+public class ViewPluNestingRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewPluNestingRepository ViewPluNestingRepository = WsSqlViewPluNestingRepository.Instance;
-    
+    private IViewPluNestingRepository ViewPluNestingRepository = WsSqlViewPluNestingRepository.Instance;
+
     [Test]
     public void GetList()
     {
@@ -14,6 +14,6 @@ public class ViewPluNestingRepositoryTests
             List<WsSqlViewPluNestingModel> items = ViewPluNestingRepository.GetList();
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }

@@ -3,18 +3,18 @@
 namespace WsStorageCoreTests.Views.ViewDiagModels.LogsMemory;
 
 [TestFixture]
-public sealed class ViewLogMemoryRepositoryTests
+public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
 {
-    private WsSqlViewLogMemoryRepository ViewLogMemoryRepository = WsSqlViewLogMemoryRepository.Instance;
+    private IViewLogMemoryRepository ViewLogMemoryRepository = WsSqlViewLogMemoryRepository.Instance;
     
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(new WsSqlCrudConfigModel());
+            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, DefaultPublishTypes);
     }
 }
