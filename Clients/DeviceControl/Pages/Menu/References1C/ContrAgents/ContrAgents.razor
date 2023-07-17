@@ -1,9 +1,9 @@
 ﻿@page "/section/contragents"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Contragents
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Contragents.WsSqlContragentModel>
+@using WsStorageCore.Tables.TableScaleModels.Contragents
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Contragents.WsSqlContragentModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionContragents"

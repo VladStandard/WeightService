@@ -1,10 +1,10 @@
 ﻿@page "/section/brands"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Brands
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Brands.WsSqlBrandModel>
+@using WsStorageCore.Tables.TableScaleModels.Brands
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Brands.WsSqlBrandModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBrands"

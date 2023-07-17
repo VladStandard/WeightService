@@ -2,8 +2,8 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using WsStorageCore.ViewScaleModels.Lines
-@inherits SectionBase<WsStorageCore.ViewScaleModels.Lines.WsSqlViewLineModel>
+@using WsStorageCore.Views.ViewScaleModels.Lines
+@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.Lines.WsSqlViewLineModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionScales"

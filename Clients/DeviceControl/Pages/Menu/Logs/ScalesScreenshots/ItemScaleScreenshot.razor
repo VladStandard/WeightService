@@ -1,11 +1,11 @@
 @page "/section/logs_screenshots/new"
 @page "/section/logs_screenshots/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using DeviceControl.Services
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
+@using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots
+@inherits ItemBase<WsStorageCore.Tables.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <ItemTopBar TItem="@WsSqlScaleScreenShotModel" Title="@WsLocaleCore.DeviceControl.ItemScreenShot" OnItemUpdate="@GetItemData"/>
 

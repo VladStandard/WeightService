@@ -1,9 +1,9 @@
 @page "/section/templates_resources"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.TemplatesResources
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
+@using WsStorageCore.Tables.TableScaleModels.TemplatesResources
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionTemplateResources"

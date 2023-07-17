@@ -1,9 +1,9 @@
 ﻿@page "/section/production_facilities"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.ProductionFacilities
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
+@using WsStorageCore.Tables.TableScaleModels.ProductionFacilities
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionProductionFacilities"

@@ -1,9 +1,9 @@
 ﻿@page "/section/organizations"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Organizations
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
+@using WsStorageCore.Tables.TableScaleModels.Organizations
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionOrganizations"

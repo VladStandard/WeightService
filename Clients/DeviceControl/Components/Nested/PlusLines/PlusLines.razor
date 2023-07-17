@@ -1,8 +1,8 @@
 ﻿@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PlusScales
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.PlusScales.WsSqlPluScaleModel>
+@using WsStorageCore.Tables.TableScaleModels.PlusScales
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.PlusScales.WsSqlPluScaleModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusScales"

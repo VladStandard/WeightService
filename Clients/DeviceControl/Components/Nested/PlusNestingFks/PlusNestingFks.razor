@@ -1,8 +1,8 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleFkModels.PlusNestingFks
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
+@using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks
+@inherits SectionBase<WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusNestingFk"

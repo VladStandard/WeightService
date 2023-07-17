@@ -1,9 +1,9 @@
 ﻿@page "/section/plus_bundles"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleFkModels.PlusBundlesFks
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
+@using WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks
+@inherits SectionBase<WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks.WsSqlPluBundleFkModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusBundlesFk"

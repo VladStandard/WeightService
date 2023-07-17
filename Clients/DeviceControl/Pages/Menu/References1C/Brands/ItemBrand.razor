@@ -1,9 +1,9 @@
 ﻿@page "/section/brands/new"
 @page "/section/brands/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Brands
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableScaleModels.Brands.WsSqlBrandModel>
+@using WsStorageCore.Tables.TableScaleModels.Brands
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Brands.WsSqlBrandModel>
 
 <ItemTopBar TItem="@WsSqlBrandModel" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
 

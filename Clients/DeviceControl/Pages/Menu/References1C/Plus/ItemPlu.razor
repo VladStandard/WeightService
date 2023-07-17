@@ -1,12 +1,12 @@
 ﻿@page "/section/plus/new"
 @page "/section/plus/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Plus
 @using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusNestingFks
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Plus.WsSqlPluModel>
+@using WsStorageCore.Tables.TableScaleModels.Plus
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Plus.WsSqlPluModel>
 
 <ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 

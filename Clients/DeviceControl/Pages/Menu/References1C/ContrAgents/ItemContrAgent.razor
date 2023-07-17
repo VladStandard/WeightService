@@ -1,9 +1,9 @@
 ﻿@page "/section/contragents/new"
 @page "/section/contragents/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Contragents
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableScaleModels.Contragents.WsSqlContragentModel>
+@using WsStorageCore.Tables.TableScaleModels.Contragents
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Contragents.WsSqlContragentModel>
 
 <ItemTopBar TItem="@WsSqlContragentModel" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">

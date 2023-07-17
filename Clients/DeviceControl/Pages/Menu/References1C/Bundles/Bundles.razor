@@ -1,9 +1,9 @@
 ﻿@page "/section/bundles"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Bundles
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Bundles.WsSqlBundleModel>
+@using WsStorageCore.Tables.TableScaleModels.Bundles
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Bundles.WsSqlBundleModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBundles"

@@ -1,11 +1,11 @@
 @page "/section/barcodes/new"
 @page "/section/barcodes/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.BarCodes
 @using DeviceControl.Services
 @using WsDataCore.Enums
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableScaleModels.BarCodes.WsSqlBarCodeModel>
+@using WsStorageCore.Tables.TableScaleModels.BarCodes
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.BarCodes.WsSqlBarCodeModel>
 
 <ItemTopBar TItem="@WsSqlBarCodeModel" Title="@WsLocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 

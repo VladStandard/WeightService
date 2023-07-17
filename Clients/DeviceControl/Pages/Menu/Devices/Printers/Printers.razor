@@ -1,9 +1,9 @@
 ﻿@page "/section/printers"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Printers
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
+@using WsStorageCore.Tables.TableScaleModels.Printers
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.Print.Names"

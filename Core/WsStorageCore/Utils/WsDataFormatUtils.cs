@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Tables.TableDirectModels;
+
 namespace WsStorageCore.Utils;
 
 public static class WsDataFormatUtils
@@ -63,10 +65,10 @@ public static class WsDataFormatUtils
         if (string.IsNullOrEmpty(xml)) return xml;
 
         //xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
-        xml = xml.Replace(nameof(WsStorageCore.TableDirectModels.NomenclatureDirect), "NomenclatureEntity");
+        xml = xml.Replace(nameof(NomenclatureDirect), "NomenclatureEntity");
         //xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
-        xml = xml.Replace(nameof(WsStorageCore.TableDirectModels.ProductSeriesDirect), "ProductSeriesEntity");
-        xml = xml.Replace(nameof(WsStorageCore.TableDirectModels.SsccDirect), "SsccEntity");
+        xml = xml.Replace(nameof(ProductSeriesDirect), "ProductSeriesEntity");
+        xml = xml.Replace(nameof(SsccDirect), "SsccEntity");
 
         return xml;
     }

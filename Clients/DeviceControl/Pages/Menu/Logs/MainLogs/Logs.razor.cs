@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.TableDiagModels.LogsTypes;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.ViewScaleModels.Logs;
+using WsStorageCore.Tables.TableDiagModels.LogsTypes;
+using WsStorageCore.Tables.TableScaleModels.Scales;
+using WsStorageCore.Views.ViewScaleModels.Logs;
 
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 

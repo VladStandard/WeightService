@@ -1,9 +1,9 @@
 ﻿@page "/section/plus_storage"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PlusStorageMethods
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
+@using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusStorage"

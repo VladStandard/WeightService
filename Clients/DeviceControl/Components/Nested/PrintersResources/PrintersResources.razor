@@ -1,8 +1,8 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
+@using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks
+@inherits SectionBase<WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 @if (SqlSectionCast.Count > 0)
 {

@@ -1,12 +1,12 @@
 @page "/section/lines/new"
 @page "/section/lines/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Scales
 @using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusLines
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Scales.WsSqlScaleModel>
+@using WsStorageCore.Tables.TableScaleModels.Scales
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Scales.WsSqlScaleModel>
 
 <ItemTopBar TItem="@WsSqlScaleModel" Title="@WsLocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 

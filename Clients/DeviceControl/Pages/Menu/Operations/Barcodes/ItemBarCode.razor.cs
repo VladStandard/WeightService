@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Enums;
-using WsStorageCore.TableScaleModels.BarCodes;
+using WsStorageCore.Tables.TableScaleModels.BarCodes;
 using WsStorageCore.WebApiModels.BarCodes;
 
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;

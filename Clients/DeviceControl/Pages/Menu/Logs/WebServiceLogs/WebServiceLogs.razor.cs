@@ -1,4 +1,4 @@
-using WsStorageCore.ViewScaleModels.WebLogs;
+using WsStorageCore.Views.ViewScaleModels.WebLogs;
 
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 

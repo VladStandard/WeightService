@@ -3,10 +3,11 @@
 
 using WsDataCore.Enums;
 using WsDataCore.Protocols;
-using WsStorageCore.TableScaleModels.Devices;
-using WsStorageCore.TableScaleModels.Printers;
-using WsStorageCore.TableScaleModels.Scales;
-using WsStorageCore.TableScaleModels.WorkShops;
+using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
+using WsStorageCore.Tables.TableScaleModels.Devices;
+using WsStorageCore.Tables.TableScaleModels.Printers;
+using WsStorageCore.Tables.TableScaleModels.Scales;
+using WsStorageCore.Tables.TableScaleModels.WorkShops;
 
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 

@@ -1,8 +1,8 @@
 @page "/section/logs/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableDiagModels.Logs
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableDiagModels.Logs.WsSqlLogModel>
+@using WsStorageCore.Tables.TableDiagModels.Logs
+@inherits ItemBase<WsStorageCore.Tables.TableDiagModels.Logs.WsSqlLogModel>
 
 <ItemTopBar TItem="WsSqlLogModel" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 

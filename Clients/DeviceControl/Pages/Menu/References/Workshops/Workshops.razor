@@ -1,9 +1,9 @@
 @page "/section/workshops"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.WorkShops
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.WorkShops.WsSqlWorkShopModel>
+@using WsStorageCore.Tables.TableScaleModels.WorkShops
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.WorkShops.WsSqlWorkShopModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionWorkShops"

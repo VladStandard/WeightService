@@ -11,5 +11,4 @@ global using WsPrintCore.Zpl;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
-global using WsStorageCore.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Utils;

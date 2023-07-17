@@ -1,10 +1,10 @@
 ﻿@page "/section/printers_types/new"
 @page "/section/printers_types/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PrintersTypes
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
+@using WsStorageCore.Tables.TableScaleModels.PrintersTypes
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.PrintersTypes.WsSqlPrinterTypeModel>
 
 <ItemTopBar TItem="@WsSqlPrinterTypeModel" Title="@WsLocaleCore.Print.Type" OnItemUpdate="@GetItemData"/>
 

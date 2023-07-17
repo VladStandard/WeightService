@@ -1,10 +1,10 @@
 ﻿@page "/system_sql_versions"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.TableScaleModels.Versions
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Versions.WsSqlVersionModel>
+@using WsStorageCore.Tables.TableScaleModels.Versions
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Versions.WsSqlVersionModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.VersionsDb"

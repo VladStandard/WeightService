@@ -1,10 +1,10 @@
 @page "/section/logs_screenshots"
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using WsStorageCore.TableDiagModels.ScalesScreenshots
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
+@using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots
+@inherits SectionBase<WsStorageCore.Tables.TableDiagModels.ScalesScreenshots.WsSqlScaleScreenShotModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionScreenShots"

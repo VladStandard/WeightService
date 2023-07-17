@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
-using WsStorageCore.ViewRefModels.PluLines;
+using WsStorageCore.Views.ViewRefModels.PluLines;
 using Control = System.Windows.Forms.Control;
 
 namespace WsLabelCore.Pages;
@@ -62,8 +62,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <returns></returns>
     private void CreatePluUserControls()
     {
-        List<WsSqlViewPluLineModel> viewPlusScales = 
-            ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, LabelSession.PlusPageSize);
+        List<WsSqlViewPluLineModel> viewPlusScales = ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, LabelSession.PlusPageSize);
         if (!viewPlusScales.Any())
         {
             PluUserControls = new WsFormPluControl?[0, 0];

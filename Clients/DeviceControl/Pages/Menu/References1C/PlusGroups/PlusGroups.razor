@@ -1,9 +1,9 @@
 @page "/section/plus_groups"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.PlusGroups
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
+@using WsStorageCore.Tables.TableScaleModels.PlusGroups
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.PlusGroups.WsSqlPluGroupModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusGroups"

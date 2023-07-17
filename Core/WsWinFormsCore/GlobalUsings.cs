@@ -12,8 +12,6 @@ global using System.Reflection;
 global using System.Threading;
 global using System.Windows.Forms;
 global using WsStorageCore.Helpers;
-global using WsStorageCore.TableDiagModels.ScalesScreenshots;
-global using WsStorageCore.TableScaleModels.Scales;
 global using System;
 global using WsDataCore.Enums;
 global using WsDataCore.Models;

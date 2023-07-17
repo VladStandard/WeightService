@@ -1,4 +1,4 @@
-﻿using WsStorageCore.TableScaleModels.Clips;
+﻿using WsStorageCore.Tables.TableScaleModels.Clips;
 
 namespace DeviceControl.Pages.Menu.References1C.Clips;
 

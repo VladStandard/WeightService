@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Enums;
-using WsStorageCore.TableScaleModels.Access;
+using WsStorageCore.Tables.TableScaleModels.Access;
 
 namespace DeviceControl.Pages.Menu.Admins.Access;
 

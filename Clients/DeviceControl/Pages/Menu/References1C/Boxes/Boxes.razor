@@ -1,9 +1,9 @@
 ﻿@page "/section/boxes"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Boxes
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Boxes.WsSqlBoxModel>
+@using WsStorageCore.Tables.TableScaleModels.Boxes
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Boxes.WsSqlBoxModel>
 
 
 <SectionTopBar

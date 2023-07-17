@@ -1,11 +1,11 @@
 @page "/section/devices/new"
 @page "/section/devices/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Devices
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Devices.WsSqlDeviceModel>
+@using WsStorageCore.Tables.TableScaleModels.Devices
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Devices.WsSqlDeviceModel>
 
 <ItemTopBar TItem="@WsSqlDeviceModel" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 

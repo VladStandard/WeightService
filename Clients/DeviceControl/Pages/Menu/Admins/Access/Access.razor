@@ -1,10 +1,10 @@
 @page "/section/access"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Access
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
+@using WsStorageCore.Tables.TableScaleModels.Access
+@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Access.WsSqlAccessModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.AccessRights"

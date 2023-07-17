@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
-using WsStorageCore.ViewRefModels.PluNestings;
+using WsStorageCore.Views.ViewRefModels.PluNestings;
 
 namespace WsLabelCore.Utils;
 

@@ -1,10 +1,10 @@
 @page "/section/production_facilities/new"
 @page "/section/production_facilities/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.ProductionFacilities
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
+@using WsStorageCore.Tables.TableScaleModels.ProductionFacilities
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
 
 <ItemTopBar TItem="@WsSqlProductionFacilityModel" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
 

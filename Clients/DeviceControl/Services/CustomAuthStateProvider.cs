@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 using WsDataCore.Enums;
 using WsStorageCore.Helpers;
-using WsStorageCore.TableScaleModels.Access;
+using WsStorageCore.Tables.TableScaleModels.Access;
 
 namespace DeviceControl.Services;
 

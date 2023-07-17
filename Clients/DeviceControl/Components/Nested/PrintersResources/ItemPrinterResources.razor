@@ -1,10 +1,10 @@
 @page "/section/printers_resources/new"
 @page "/section/printers_resources/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleFkModels.PrintersResourcesFks
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
+@using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks
+@inherits ItemBase<WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks.WsSqlPrinterResourceFkModel>
 
 <ItemTopBar TItem="@WsSqlPrinterResourceFkModel" Title="@WsLocaleCore.Print.Resource" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">

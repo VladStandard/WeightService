@@ -1,11 +1,11 @@
 @page "/section/access/new"
 @page "/section/access/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Access
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Access.WsSqlAccessModel>
+@using WsStorageCore.Tables.TableScaleModels.Access
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Access.WsSqlAccessModel>
 
 <ItemTopBar TItem="@WsSqlAccessModel" Title="@WsLocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 

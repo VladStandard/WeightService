@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsDataCore.Utils;
-using WsStorageCore.TableDiagModels.ScalesScreenshots;
+using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 
 namespace DeviceControl.Pages.Menu.Logs.ScalesScreenshots;
 

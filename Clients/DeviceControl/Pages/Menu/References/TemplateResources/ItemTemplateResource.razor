@@ -1,9 +1,9 @@
 @page "/section/templates_resources/new"
 @page "/section/templates_resources/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.TemplatesResources
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsStorageCore.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
+@using WsStorageCore.Tables.TableScaleModels.TemplatesResources
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
 <ItemTopBar TItem="@WsSqlTemplateResourceModel" Title="@WsLocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
 

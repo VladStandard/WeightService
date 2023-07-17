@@ -1,10 +1,10 @@
 ﻿@page "/section/organizations/new"
 @page "/section/organizations/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Organizations
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Organizations.WsSqlOrganizationModel>
+@using WsStorageCore.Tables.TableScaleModels.Organizations
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Organizations.WsSqlOrganizationModel>
 
 <ItemTopBar TItem="WsSqlOrganizationModel" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 

@@ -1,11 +1,11 @@
 @page "/section/printers/new"
 @page "/section/printers/{Id:long}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
-@using WsStorageCore.TableScaleModels.Printers
 @using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.TableScaleModels.Printers.WsSqlPrinterModel>
+@using WsStorageCore.Tables.TableScaleModels.Printers
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Printers.WsSqlPrinterModel>
 
 <ItemTopBar TItem="@WsSqlPrinterModel" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
