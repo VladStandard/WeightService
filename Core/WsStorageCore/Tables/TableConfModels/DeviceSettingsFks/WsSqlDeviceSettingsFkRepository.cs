@@ -19,14 +19,16 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
 
     #region Public and private methods
 
+    public List<WsSqlDeviceSettingsFkModel> GetList() => ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
+    
+    public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceSettingsFks(sqlCrudConfig);
+    
     public WsSqlDeviceSettingsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsFkModel>();
-
+    
     public WsSqlDeviceSettingsFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceSettingsFkModel>(uid);
 
-    public List<WsSqlDeviceSettingsFkModel> GetList() => ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
-
     public void SaveItem(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item);
-
+   
     public void SaveItemAsync(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item, WsSqlEnumSessionType.IsolatedAsync);
 
     #endregion

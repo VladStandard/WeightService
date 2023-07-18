@@ -224,10 +224,9 @@ public static class WsDataFormatUtils
         MemoryStream memoryStream = new();
         IFormatter binaryFormatter = new BinaryFormatter();
         binaryFormatter.Serialize(memoryStream, item);
-        string result;
         using StreamReader streamReader = new(memoryStream);
         memoryStream.Position = 0;
-        result = streamReader.ReadToEnd();
+        string result = streamReader.ReadToEnd();
         memoryStream.Close();
         return result;
     }

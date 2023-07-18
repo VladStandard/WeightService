@@ -660,8 +660,7 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    public object[] GetArrayObjectsNotNullable(string query) => 
-        GetArrayObjectsNotNullable(query, new());
+    public object[] GetArrayObjectsNotNullable(string query) => GetArrayObjectsNotNullable(query, new());
 
     public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
         GetNativeArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
