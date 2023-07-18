@@ -32,6 +32,7 @@ public sealed class WsSqlTemplateRepository : WsSqlTableRepositoryBase<WsSqlTemp
     }
 
     public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(SqlCrudConfig);
-
+    public List<WsSqlTemplateModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableTemplates(sqlCrudConfig);
+    
     #endregion
 }

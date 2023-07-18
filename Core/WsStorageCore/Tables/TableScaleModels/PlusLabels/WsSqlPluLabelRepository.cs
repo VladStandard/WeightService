@@ -54,5 +54,7 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
         SqlCore.Save(pluLabel);
     }
 
+    public List<WsSqlPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePluLabels(sqlCrudConfig);
+
     #endregion
 }

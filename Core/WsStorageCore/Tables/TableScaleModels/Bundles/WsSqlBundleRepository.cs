@@ -25,6 +25,8 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
 
     public List<WsSqlBundleModel> GetList() => ContextList.GetListNotNullableBundles(SqlCrudConfig);
+    
+    public List<WsSqlBundleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableBundles(sqlCrudConfig);
 
     /// <summary>
     /// Получить пакет по полю UID_1C.

@@ -27,7 +27,8 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     public List<WsSqlScaleModel> GetList(WsSqlEnumIsMarked isMarked) =>
         ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
-
+    
+    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableLines(sqlCrudConfig);
     public void Update(WsSqlScaleModel line) => SqlCore.Update(line);
 
     #endregion

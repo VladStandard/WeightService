@@ -49,6 +49,8 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public WsSqlPluModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluModel>();
 
     public List<WsSqlPluModel> GetList() => ContextList.GetListNotNullablePlus(SqlCrudConfig);
+    
+    public List<WsSqlPluModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlus(sqlCrudConfig);
 
     /// <summary>
     /// Получить список ПЛУ по номеру.

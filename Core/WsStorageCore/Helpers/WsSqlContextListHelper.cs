@@ -793,9 +793,8 @@ public sealed class WsSqlContextListHelper
         return deviceTypeFks;
     }
     
-    public List<WsSqlPluLabelModel> GetListPluLabels(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop)
+    public List<WsSqlPluLabelModel> GetListPluLabels(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
         sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlEnumOrder.Desc });
         return GetListNotNullableCore<WsSqlPluLabelModel>(sqlCrudConfig);
     }

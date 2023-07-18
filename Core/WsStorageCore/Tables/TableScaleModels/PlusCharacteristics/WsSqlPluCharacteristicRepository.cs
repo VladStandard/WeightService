@@ -23,7 +23,8 @@ public sealed class WsSqlPluCharacteristicRepository : WsSqlTableRepositoryBase<
     public WsSqlPluCharacteristicModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluCharacteristicModel>();
 
     public List<WsSqlPluCharacteristicModel> GetList() => ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
-
+    public List<WsSqlPluCharacteristicModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusCharacteristics(sqlCrudConfig);
+    
     /// <summary>
     /// Получить бренд по полю UID_1C.
     /// </summary>

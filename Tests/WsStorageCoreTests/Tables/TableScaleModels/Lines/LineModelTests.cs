@@ -1,10 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WsStorageCoreTests.Tables.TableScaleModels.Scales;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
-public sealed class ScaleModelTests
+public sealed class LineModelTests
 {
     [Test]
     public void Model_AssertSqlFields_Check()

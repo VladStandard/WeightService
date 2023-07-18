@@ -25,6 +25,7 @@ public sealed class WsSqlPluWeighingRepository : WsSqlTableRepositoryBase<WsSqlP
     public WsSqlPluWeighingModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
 
     public List<WsSqlPluWeighingModel> GetList() => ContextList.GetListNotNullablePlusWeighings(SqlCrudConfig);
-
+    public List<WsSqlPluWeighingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusWeighings(sqlCrudConfig);
+    
     #endregion
 }

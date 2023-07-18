@@ -25,9 +25,12 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     public WsSqlAccessModel GetItem(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAccessModel>(uid);
 
     public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(SqlCrudConfig);
-
+    
+    public List<WsSqlAccessModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableAccesses(sqlCrudConfig);
+    
     public List<WsSqlAccessModel> GetList(WsSqlEnumIsMarked isMarked) =>
         ContextList.GetListNotNullableAccesses(new() { IsMarked = isMarked, IsResultOrder = true });
-
+    
+    
     #endregion
 }

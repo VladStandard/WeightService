@@ -25,6 +25,8 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
     public WsSqlClipModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
 
     public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(SqlCrudConfig);
+    
+    public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableClips(sqlCrudConfig);
 
     /// <summary>
     /// Получить клипсу по полю UID_1C.

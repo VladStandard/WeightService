@@ -21,6 +21,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     public WsSqlDeviceModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceModel>(uid);
 
     public List<WsSqlDeviceModel> GetList() => ContextList.GetListNotNullableDevices(SqlCrudConfig);
-
+    public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDevices(sqlCrudConfig);
+    
     #endregion
 }

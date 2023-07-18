@@ -21,5 +21,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
 
     public WsSqlAppModel GetItemAppOrCreateNew(string appName) => SqlCore.GetItemAppOrCreateNew(appName);
 
+    public List<WsSqlAppModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableApps(sqlCrudConfig);
+
     #endregion
 }

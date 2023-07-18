@@ -23,7 +23,9 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
     public WsSqlBrandModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBrandModel>();
 
     public List<WsSqlBrandModel> GetList() => ContextList.GetListNotNullableBrands(SqlCrudConfig);
-
+    
+    public List<WsSqlBrandModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableBrands(sqlCrudConfig);
+    
     /// <summary>
     /// Получить бренд по полю UID_1C.
     /// </summary>

@@ -23,7 +23,9 @@ public sealed class WsSqlBoxRepository : WsSqlTableRepositoryBase<WsSqlBoxModel>
     public WsSqlBoxModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBoxModel>();
 
     public List<WsSqlBoxModel> GetList() => ContextList.GetListNotNullableBoxes(SqlCrudConfig);
-
+    
+    public List<WsSqlBoxModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableBoxes(sqlCrudConfig);
+    
     /// <summary>
     /// Получить коробку по полю UID_1C.
     /// </summary>
