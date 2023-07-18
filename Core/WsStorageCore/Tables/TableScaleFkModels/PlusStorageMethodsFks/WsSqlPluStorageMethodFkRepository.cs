@@ -72,6 +72,8 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
             pluStorageMethodFk = pluStorageMethodsFks.Find(item => Equals(item.Plu.Number, plu.Number));
         return pluStorageMethodFk;
     }
+    
+    public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
 
     #endregion
 }

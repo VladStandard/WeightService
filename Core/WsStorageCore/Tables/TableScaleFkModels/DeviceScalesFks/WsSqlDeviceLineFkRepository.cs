@@ -25,6 +25,8 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
     public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
 
     public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(SqlCrudConfig);
-
+    
+    public List<WsSqlDeviceScaleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceScalesFks(sqlCrudConfig);
+    
     #endregion
 }

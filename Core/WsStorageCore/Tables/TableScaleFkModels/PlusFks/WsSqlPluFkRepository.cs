@@ -36,6 +36,7 @@ public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkMo
     }
 
     public List<WsSqlPluFkModel> GetList() => ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
-
+    public List<WsSqlPluFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
+    
     #endregion
 }

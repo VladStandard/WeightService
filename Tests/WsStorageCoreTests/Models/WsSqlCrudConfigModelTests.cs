@@ -17,8 +17,8 @@ public sealed class WsSqlCrudConfigModelTests
         {
 			WsSqlCrudConfigModel sqlCrudConfig = new();
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowAll);
-            Assert.IsTrue(sqlCrudConfig.Filters.Count == 0);
+            Assert.That(sqlCrudConfig.IsMarked, Is.EqualTo(WsSqlEnumIsMarked.ShowAll));
+            Assert.That(sqlCrudConfig.Filters, Is.Empty);
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
@@ -32,8 +32,8 @@ public sealed class WsSqlCrudConfigModelTests
             
             sqlCrudConfig.IsMarked = WsSqlEnumIsMarked.ShowOnlyHide;
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowOnlyHide);
-            Assert.IsTrue(sqlCrudConfig.Filters.Count == 1);
+            Assert.That(sqlCrudConfig.IsMarked, Is.EqualTo(WsSqlEnumIsMarked.ShowOnlyHide));
+            Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
@@ -47,8 +47,8 @@ public sealed class WsSqlCrudConfigModelTests
             
             sqlCrudConfig.IsMarked = WsSqlEnumIsMarked.ShowOnlyActual;
             
-            Assert.IsTrue(sqlCrudConfig.IsMarked == WsSqlEnumIsMarked.ShowOnlyActual);
-            Assert.IsTrue(sqlCrudConfig.Filters.Count == 1);
+            Assert.That(sqlCrudConfig.IsMarked, Is.EqualTo(WsSqlEnumIsMarked.ShowOnlyActual));
+            Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
             TestContext.WriteLine(sqlCrudConfig);
         });
     }

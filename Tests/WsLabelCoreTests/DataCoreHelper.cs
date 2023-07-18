@@ -3,6 +3,8 @@
 
 using WsDataCore.Enums;
 using WsLocalizationCore.Utils;
+using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
 
 namespace WsLabelCoreTests;

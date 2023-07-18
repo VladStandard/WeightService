@@ -48,7 +48,7 @@ public class SqlAuthenticationTests
     public void Exists_Execute_Assert()
     {
         WsSqlAuthenticationModel sqlAuthentication = new();
-        Assert.IsFalse(sqlAuthentication.Exists());
+        Assert.That(sqlAuthentication.Exists(), Is.False);
     }
 
     #endregion

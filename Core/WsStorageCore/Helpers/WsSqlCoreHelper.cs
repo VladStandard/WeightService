@@ -3,6 +3,9 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
+using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>

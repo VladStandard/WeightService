@@ -85,7 +85,9 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     public short GetPluNestingFkBundleCount(WsSqlPluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
     public List<WsSqlPluNestingFkModel> GetList() => ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
-
+    
+    public List<WsSqlPluNestingFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
+    
     public List<WsSqlPluNestingFkModel> GetListByUid(Guid? uid)
     {
         uid ??= Guid.Empty;

@@ -3,8 +3,8 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Services
 @using DeviceControl.Components.Item
-@using WsStorageCore.Tables.TableScaleFkModels.PlusWeighingsFks
-@inherits ItemBase<WsStorageCore.Tables.TableScaleFkModels.PlusWeighingsFks.WsSqlPluWeighingModel>
+@using WsStorageCore.Tables.TableScaleModels.PlusWeighings
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.PlusWeighings.WsSqlPluWeighingModel>
 
 <ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
 

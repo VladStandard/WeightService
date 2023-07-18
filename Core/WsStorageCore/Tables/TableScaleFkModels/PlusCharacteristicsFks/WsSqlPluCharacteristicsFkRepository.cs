@@ -26,6 +26,6 @@ public sealed class WsSqlPluCharacteristicsFkRepository : WsSqlTableRepositoryBa
 
     public List<WsSqlPluCharacteristicsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
         ContextList.GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig);
-
+    
     #endregion
 }

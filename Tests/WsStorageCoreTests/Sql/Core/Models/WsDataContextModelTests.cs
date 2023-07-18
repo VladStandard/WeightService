@@ -21,8 +21,8 @@ public sealed class WsDataContextModelTests
             TestContext.WriteLine($"{nameof(device1)}: {device1}");
             TestContext.WriteLine($"{nameof(device2)}: {device2}");
 
-            Assert.IsTrue(device1.IsExists);
-            Assert.IsTrue(device2.IsExists);
+            Assert.That(device1.IsExists, Is.True);
+            Assert.That(device2.IsExists, Is.True);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

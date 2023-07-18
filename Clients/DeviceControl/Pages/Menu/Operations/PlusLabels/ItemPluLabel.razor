@@ -4,8 +4,8 @@
 @using DeviceControl.Services
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@using WsStorageCore.Tables.TableScaleFkModels.PlusLabels
-@inherits ItemBase<WsStorageCore.Tables.TableScaleFkModels.PlusLabels.WsSqlPluLabelModel>
+@using WsStorageCore.Tables.TableScaleModels.PlusLabels
+@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.PlusLabels.WsSqlPluLabelModel>
 
 <ItemTopBar TItem="@WsSqlPluLabelModel" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
