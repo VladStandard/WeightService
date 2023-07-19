@@ -5,7 +5,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
 {
     private WsSqlWorkShopRepository WorkShopRepository { get; set; } = new();
     
-    [Test]
+    [Test, Order(1)]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
@@ -14,5 +14,16 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 10);
         }, false, DefaultPublishTypes);
+    }
+    
+    [Test, Order(4)]
+    public void GetNewItem()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlWorkShopModel app = WorkShopRepository.GetNewItem();
+            Assert.That(app.IsNotExists, Is.True);
+            TestContext.WriteLine($"New item: {app.IdentityValueUid}");
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

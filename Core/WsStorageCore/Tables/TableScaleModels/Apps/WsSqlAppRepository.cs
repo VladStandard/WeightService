@@ -26,11 +26,8 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
         return SqlCore.GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
     }
 
-    public WsSqlAppModel GetItemByUid(Guid uid)
-    {
-        return SqlCore.GetItemNotNullable<WsSqlAppModel>(uid);
-    }
-    
+    public WsSqlAppModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAppModel>(uid);
+
     public WsSqlAppModel GetItemByNameOrCreate(string appName)
     {
         WsSqlAppModel access = GetItemByName(appName);
