@@ -131,9 +131,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
             if (deviceTypeFk.IsNew)
             {
-                // DeviceType.
-                WsSqlDeviceTypeModel deviceType = ContextManager.ContextItem.GetItemDeviceTypeNotNullable("Monoblock");
-                // DeviceTypeFk.
+                WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
                 deviceTypeFk.Device = device;
                 deviceTypeFk.Type = deviceType;
                 ContextManager.SqlCore.Save(deviceTypeFk);

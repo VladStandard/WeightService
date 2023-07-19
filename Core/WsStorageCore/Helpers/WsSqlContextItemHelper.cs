@@ -434,16 +434,6 @@ public sealed class WsSqlContextItemHelper
 
     #region Public and private methods - Get item Device type
 
-    public WsSqlDeviceTypeModel? GetItemDeviceTypeNullable(string typeName)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            WsSqlCrudConfigModel.GetFilters(nameof(WsSqlDeviceTypeModel.Name), typeName), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
-    }
-
-    public WsSqlDeviceTypeModel GetItemDeviceTypeNotNullable(string typeName) =>
-        GetItemDeviceTypeNullable(typeName) ?? new();
-
     public WsSqlDeviceTypeFkModel? GetItemDeviceTypeFkNullable(WsSqlDeviceModel device)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
