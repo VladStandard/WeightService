@@ -21,20 +21,7 @@ public class UserRightsService : IUserRightsService
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         List<string> rights = new();
-        WsSqlAccessModel? access = ContextManager.ContextItem.GetItemAccessNullable(username);
-        if (access == null)
-        {
-            access = new()
-            {
-                Name = username,
-                Rights = (byte)WsEnumAccessRights.None
-            };
-            ContextManager.SqlCore.Save(access);
-        }
-        else
-        {
-            ContextManager.SqlCore.Update(access);
-        }
+        WsSqlAccessModel access =  WsSqlAccessRepository.Instance.GetItemByNameOrCreate(username);
         for (int i = access.Rights; i >= 0; --i)
             rights.Add($"{i}");
         return rights;

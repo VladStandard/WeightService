@@ -18,19 +18,49 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
 
     #endregion
 
-    #region Public and private methods
-
+    #region Item
+    
     public WsSqlAccessModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlAccessModel>();
 
-    public WsSqlAccessModel GetItem(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAccessModel>(uid);
+    public WsSqlAccessModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAccessModel>(uid);
 
-    public List<WsSqlAccessModel> GetList() => ContextList.GetListNotNullableAccesses(SqlCrudConfig);
+    public WsSqlAccessModel GetItemByUsername(string userName)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            nameof(WsSqlTableBase.Name), userName, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlAccessModel>(sqlCrudConfig);
+    }
+    
+    public WsSqlAccessModel GetItemByNameOrCreate(string username)
+    {
+        WsSqlAccessModel access = GetItemByUsername(username);
+        if (access.IsNew)
+        {
+            access.Name = username;
+            access.Rights = (byte)WsEnumAccessRights.None;
+        }
+        return SaveOrUpdate(access);
+    }
+    
+    public WsSqlAccessModel SaveOrUpdate (WsSqlAccessModel accessModel)
+    {
+        // TODO: add Access validator
+        accessModel.LoginDt = DateTime.Now;
+        if (!accessModel.IsNew)
+            SqlCore.Update(accessModel);
+        else 
+            SqlCore.Save(accessModel);
+        return accessModel;
+    }
+    
+    #endregion
+
+    #region List
     
     public List<WsSqlAccessModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableAccesses(sqlCrudConfig);
     
-    public List<WsSqlAccessModel> GetList(WsSqlEnumIsMarked isMarked) =>
+    public List<WsSqlAccessModel> GetList(WsSqlEnumIsMarked isMarked) => 
         ContextList.GetListNotNullableAccesses(new() { IsMarked = isMarked, IsResultOrder = true });
-    
-    
+
     #endregion
 }

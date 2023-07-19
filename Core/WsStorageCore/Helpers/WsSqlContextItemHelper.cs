@@ -28,14 +28,7 @@ public sealed class WsSqlContextItemHelper
     #endregion
 
     #region Public and private methods
-
-    public WsSqlAccessModel? GetItemAccessNullable(string? userName)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), userName, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlAccessModel>(sqlCrudConfig);
-    }
-
+    
     public WsSqlProductSeriesModel? GetItemProductSeriesNullable(WsSqlScaleModel scale)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
@@ -230,14 +223,14 @@ public sealed class WsSqlContextItemHelper
         {
             if (string.IsNullOrEmpty(deviceName))
                 deviceName = MdNetUtils.GetLocalDeviceName(false);
-            Device = WsSqlDeviceRepository.Instance.GetItemDeviceByName(deviceName);
+            Device = WsSqlDeviceRepository.Instance.GetItemByName(deviceName);
         }
 
         if (App.IsNew)
         {
             if (string.IsNullOrEmpty(appName))
                 appName = nameof(WsDataCore);
-            App = ContextApp.GetItemAppOrCreateNew(appName);
+            App = ContextApp.GetItemByNameOrCreate(appName);
         }
     }
 

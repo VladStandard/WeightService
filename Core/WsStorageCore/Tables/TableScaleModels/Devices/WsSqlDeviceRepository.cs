@@ -16,42 +16,44 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
 
     #region Item
     
-    public WsSqlDeviceModel GetItemDeviceByName(string name)
+    public WsSqlDeviceModel GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
-    public WsSqlDeviceModel GetItemDeviceByLine(WsSqlScaleModel scale)
+    public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel scale)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
     }
     
-    public WsSqlDeviceModel GetItemDeviceByNameOrCreate(string name)
+    public WsSqlDeviceModel SaveOrUpdate (WsSqlDeviceModel deviceModel)
     {
-        WsSqlDeviceModel device = GetItemDeviceByName(name);
-        if (!device.IsNew)
+        deviceModel.LoginDt = DateTime.Now;
+        if (!deviceModel.IsNew)
+            SqlCore.Update(deviceModel);
+        else
         {
-            device.ChangeDt = DateTime.Now; 
-            device.LoginDt = DateTime.Now;
-            SqlCore.Update(device);
-            return device;
+            deviceModel.LoginDt = DateTime.Now;
+            deviceModel.LogoutDt = DateTime.Now;
+            SqlCore.Save(deviceModel);
         }
-        device = new()
+        return deviceModel;
+    }
+    
+    public WsSqlDeviceModel GetItemByNameOrCreate(string name)
+    {
+        WsSqlDeviceModel device = GetItemByName(name);
+        if (device.IsNew)
         {
-            Name = name,
-            PrettyName = name,
-            CreateDt = DateTime.Now,
-            ChangeDt = DateTime.Now,
-            LoginDt = DateTime.Now,
-            LogoutDt = DateTime.Now,
-            Ipv4 = MdNetUtils.GetLocalIpAddress()
-        };
-        SqlCore.Save(device);
-        return device;
+            device.Name = name;
+            device.PrettyName = name;
+            device.Ipv4 = MdNetUtils.GetLocalIpAddress();
+        }
+        return SaveOrUpdate(device);
     }
     
     public WsSqlDeviceModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceModel>();

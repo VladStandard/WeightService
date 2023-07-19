@@ -24,8 +24,10 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlDeviceModel device = DeviceRepository.GetItemDeviceByNameOrCreate(pcName);
+            WsSqlDeviceModel device = DeviceRepository.GetItemByNameOrCreate(pcName);
+            WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(device.IdentityValueUid);
             Assert.That(device.IsExists, Is.True);
+            Assert.That(deviceByUid.IsExists, Is.True);
             TestContext.WriteLine($"Success created/updated: {device.Name}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
@@ -36,7 +38,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlDeviceModel deviceByName = DeviceRepository.GetItemDeviceByName(pcName);
+            WsSqlDeviceModel deviceByName = DeviceRepository.GetItemByName(pcName);
             WsSqlDeviceModel deviceByUid= DeviceRepository.GetItemByUid(deviceByName.IdentityValueUid);
             Assert.That(deviceByUid.IsExists, Is.True);
             TestContext.WriteLine($"Get item success: {deviceByUid.IdentityValueUid}");

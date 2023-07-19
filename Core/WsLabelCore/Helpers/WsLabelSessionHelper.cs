@@ -124,7 +124,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             // Обновить кэш.
             ContextCache.LoadGlobal();
             // Device.
-            WsSqlDeviceModel device = ContextManager.DevicesRepository.GetItemDeviceByName(DeviceName);
+            WsSqlDeviceModel device = ContextManager.DevicesRepository.GetItemByName(DeviceName);
             device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
