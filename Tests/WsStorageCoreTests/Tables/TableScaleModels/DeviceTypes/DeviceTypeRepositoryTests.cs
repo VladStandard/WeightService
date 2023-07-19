@@ -48,8 +48,12 @@ public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlDeviceTypeModel deviceByName = DeviceTypeRepository.GetItemByName("Monoblock");
-            WsSqlDeviceTypeModel deviceByUid = DeviceTypeRepository.GetItemByUid(deviceByName.IdentityValueUid);
+            Guid uid = deviceByName.IdentityValueUid;
+            WsSqlDeviceTypeModel deviceByUid = DeviceTypeRepository.GetItemByUid(uid);
+            
             Assert.That(deviceByUid.IsExists, Is.True);
+            Assert.That(deviceByUid.IdentityValueUid, Is.EqualTo(uid));
+            
             TestContext.WriteLine($"Get item success: {deviceByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

@@ -46,8 +46,12 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlAccessModel accessByName = AccessRepository.GetItemByUsername(CurrentUser);
-            WsSqlAccessModel accessByUid= AccessRepository.GetItemByUid(accessByName.IdentityValueUid);
+            Guid uid = accessByName.IdentityValueUid;
+            WsSqlAccessModel accessByUid= AccessRepository.GetItemByUid(uid);
+            
             Assert.That(accessByUid.IsExists, Is.True);
+            Assert.That(accessByUid.IdentityValueUid, Is.EqualTo(uid));
+            
             TestContext.WriteLine($"Get item success: {accessByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

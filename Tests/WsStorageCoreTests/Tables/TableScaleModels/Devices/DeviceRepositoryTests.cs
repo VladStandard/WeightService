@@ -39,8 +39,12 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             WsSqlDeviceModel deviceByName = DeviceRepository.GetItemByName(pcName);
-            WsSqlDeviceModel deviceByUid= DeviceRepository.GetItemByUid(deviceByName.IdentityValueUid);
+            Guid uid = deviceByName.IdentityValueUid;
+            WsSqlDeviceModel deviceByUid= DeviceRepository.GetItemByUid(uid);
+            
             Assert.That(deviceByUid.IsExists, Is.True);
+            Assert.That(deviceByUid.IdentityValueUid, Is.EqualTo(uid));
+            
             TestContext.WriteLine($"Get item success: {deviceByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

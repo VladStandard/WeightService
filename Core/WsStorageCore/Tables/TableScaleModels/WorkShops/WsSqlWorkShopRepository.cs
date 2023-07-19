@@ -4,7 +4,7 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
 {
     #region Item
     
-    public WsSqlWorkShopModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullable<WsSqlWorkShopModel>(uid);
+    public WsSqlWorkShopModel GetItemById(long id) => SqlCore.GetItemNotNullable<WsSqlWorkShopModel>(id);
     
     public WsSqlWorkShopModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlWorkShopModel>();
     

@@ -22,17 +22,12 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
 
     public WsSqlClipModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlClipModel>();
 
-    public WsSqlClipModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
+    public WsSqlClipModel GetItemByPlu(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
 
     public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(SqlCrudConfig);
     
     public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableClips(sqlCrudConfig);
-
-    /// <summary>
-    /// Получить клипсу по полю UID_1C.
-    /// </summary>
-    /// <param name="uid1C"></param>
-    /// <returns></returns>
+    
     public WsSqlClipModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },

@@ -16,6 +16,21 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
         }, false, DefaultPublishTypes);
     }
     
+    [Test, Order(3)]
+    public void GetById()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            const long id = 1;
+            WsSqlWorkShopModel workShop = WorkShopRepository.GetItemById(id);
+            
+            Assert.That(workShop.IsExists, Is.True);
+            Assert.That(workShop.IdentityValueId, Is.EqualTo(id));
+            
+            TestContext.WriteLine($"Get item success: {workShop.Name}: {workShop.IdentityValueId}");
+        }, false, DefaultPublishTypes);
+    }
+    
     [Test, Order(4)]
     public void GetNewItem()
     {

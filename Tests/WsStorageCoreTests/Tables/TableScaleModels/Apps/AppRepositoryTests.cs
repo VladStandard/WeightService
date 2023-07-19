@@ -35,8 +35,12 @@ public sealed class AppRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlAppModel appByName = AppRepository.GetItemByName(nameof(WsStorageCoreTests));
-            WsSqlAppModel appByUid= AppRepository.GetItemByUid(appByName.IdentityValueUid);
+            Guid uid = appByName.IdentityValueUid;
+            WsSqlAppModel appByUid= AppRepository.GetItemByUid(uid);
+            
             Assert.That(appByUid.IsExists, Is.True);
+            Assert.That(appByUid.IdentityValueUid, Is.EqualTo(uid));
+
             TestContext.WriteLine($"Get item success: {appByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
