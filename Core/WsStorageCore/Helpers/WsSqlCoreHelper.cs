@@ -450,13 +450,6 @@ public sealed class WsSqlCoreHelper
         return app;
     }
 
-    public WsSqlAppModel? GetItemAppNullable(string appName)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
-        return GetItemNullable<WsSqlAppModel>(sqlCrudConfig);
-    }
-
     public WsSqlLogTypeModel? GetItemLogTypeNullable(WsEnumLogType logType)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },

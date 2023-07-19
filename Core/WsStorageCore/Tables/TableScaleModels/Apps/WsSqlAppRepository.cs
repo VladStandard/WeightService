@@ -17,11 +17,47 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
 
     #endregion
 
-    #region Public and private methods
+    #region Items
 
-    public WsSqlAppModel GetItemAppOrCreateNew(string appName) => SqlCore.GetItemAppOrCreateNew(appName);
+    public WsSqlAppModel GetItemByName(string appName)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
+    }
+
+    public WsSqlAppModel GetItemByUid(Guid uid)
+    {
+        return SqlCore.GetItemNotNullable<WsSqlAppModel>(uid);
+    }
+    
+    public WsSqlAppModel GetItemByNameOrCreate(string appName)
+    {
+        WsSqlAppModel access = GetItemByName(appName);
+        if (access.IsNew) 
+            access.Name = appName;
+        return SaveOrUpdate(access);
+    }
+    
+    public WsSqlAppModel SaveOrUpdate (WsSqlAppModel accessModel)
+    {
+        // TODO: add Access validator
+        if (!accessModel.IsNew)
+            SqlCore.Update(accessModel);
+        else 
+            SqlCore.Save(accessModel);
+        return accessModel;
+    }
+   
+    public WsSqlAppModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlAppModel>();
+    
+    #endregion
+
+    #region List
 
     public List<WsSqlAppModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableApps(sqlCrudConfig);
 
     #endregion
+
+
 }
