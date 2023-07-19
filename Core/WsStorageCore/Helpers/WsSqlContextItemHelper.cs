@@ -230,7 +230,7 @@ public sealed class WsSqlContextItemHelper
         {
             if (string.IsNullOrEmpty(deviceName))
                 deviceName = MdNetUtils.GetLocalDeviceName(false);
-            Device = GetItemDeviceOrCreateNew(deviceName);
+            Device = WsSqlDeviceRepository.Instance.GetItemDeviceByName(deviceName);
         }
 
         if (App.IsNew)
@@ -460,61 +460,6 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlDeviceTypeFkModel GetItemDeviceTypeFkNotNullable(WsSqlDeviceModel device) =>
         GetItemDeviceTypeFkNullable(device) ?? new();
-
-    #endregion
-
-    #region Public and private methods - Get item Device
-
-    public WsSqlDeviceModel GetItemDeviceOrCreateNew(string name)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowOnlyActual, false);
-        WsSqlDeviceModel device = SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
-        if (device.IsNew)
-        {
-            device = new()
-            {
-                Name = name,
-                PrettyName = name,
-                CreateDt = DateTime.Now,
-                ChangeDt = DateTime.Now,
-                LoginDt = DateTime.Now,
-                LogoutDt = DateTime.Now,
-                Ipv4 = MdNetUtils.GetLocalIpAddress()
-            };
-            SqlCore.Save(device);
-        }
-        else
-        {
-            device.ChangeDt = DateTime.Now;
-            device.LoginDt = DateTime.Now;
-            SqlCore.Update(device);
-        }
-        return device;
-    }
-
-    private WsSqlDeviceModel? GetItemDeviceNullable(string name)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceModel>(sqlCrudConfig);
-    }
-
-    public WsSqlDeviceModel GetItemDeviceNotNullable(string name)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
-    }
-
-    public WsSqlDeviceModel? GetItemDeviceNullable(WsSqlScaleModel scale)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig)?.Device;
-    }
-
-    public WsSqlDeviceModel GetItemDeviceNotNullable(WsSqlScaleModel scale) => GetItemDeviceNullable(scale) ?? new();
 
     #endregion
 }

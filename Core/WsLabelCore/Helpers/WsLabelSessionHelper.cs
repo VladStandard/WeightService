@@ -124,7 +124,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             // Обновить кэш.
             ContextCache.LoadGlobal();
             // Device.
-            WsSqlDeviceModel device = ContextManager.ContextItem.GetItemDeviceNotNullable(DeviceName);
+            WsSqlDeviceModel device = ContextManager.DevicesRepository.GetItemDeviceByName(DeviceName);
             device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
@@ -147,7 +147,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 SetArea(area);
             // Other.
             ProductDate = DateTime.Now;
-            // Новая серия, упаковка продукции, новая паллета.
+             // Новая серия, упаковка продукции, новая паллета.
             ProductSeries = new(Line);
             WeighingSettings = new();
         }

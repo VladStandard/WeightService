@@ -29,7 +29,7 @@ public sealed class WsSqlContextListHelper
 
     #region Public and private methods
 
-    public List<T> GetListNotNullableCore<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+    private List<T> GetListNotNullableCore<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         SqlCore.GetListNotNullable<T>(sqlCrudConfig);
     
     public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => typeof(T) switch

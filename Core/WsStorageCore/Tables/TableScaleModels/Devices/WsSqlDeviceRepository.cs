@@ -14,14 +14,58 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
 
     #endregion
 
-    #region Public and private methods
-
+    #region Item
+    
+    public WsSqlDeviceModel GetItemDeviceByName(string name)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
+    }
+    
+    public WsSqlDeviceModel GetItemDeviceByLine(WsSqlScaleModel scale)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
+    }
+    
+    public WsSqlDeviceModel GetItemDeviceByNameOrCreate(string name)
+    {
+        WsSqlDeviceModel device = GetItemDeviceByName(name);
+        if (!device.IsNew)
+        {
+            device.ChangeDt = DateTime.Now; 
+            device.LoginDt = DateTime.Now;
+            SqlCore.Update(device);
+            return device;
+        }
+        device = new()
+        {
+            Name = name,
+            PrettyName = name,
+            CreateDt = DateTime.Now,
+            ChangeDt = DateTime.Now,
+            LoginDt = DateTime.Now,
+            LogoutDt = DateTime.Now,
+            Ipv4 = MdNetUtils.GetLocalIpAddress()
+        };
+        SqlCore.Save(device);
+        return device;
+    }
+    
     public WsSqlDeviceModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceModel>();
 
-    public WsSqlDeviceModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceModel>(uid);
+    public WsSqlDeviceModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceModel>(uid);
+    
+    #endregion
 
+    #region List
+    
     public List<WsSqlDeviceModel> GetList() => ContextList.GetListNotNullableDevices(SqlCrudConfig);
-    public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDevices(sqlCrudConfig);
+    
+    public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
+        ContextList.GetListNotNullableDevices(sqlCrudConfig);
     
     #endregion
 }

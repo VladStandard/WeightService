@@ -12,7 +12,7 @@ public sealed class GetListTablesTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlAccessModel> items = WsTestsUtils.DataTests.ContextManager.ContextAccess.GetList(WsSqlEnumIsMarked.ShowAll);
-            Assert.IsTrue(items.Any());
+            Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 0);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
@@ -23,7 +23,7 @@ public sealed class GetListTablesTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlAccessModel> items = WsTestsUtils.DataTests.ContextManager.ContextAccess.GetList(WsSqlEnumIsMarked.ShowOnlyActual);
-            Assert.IsTrue(items.Any());
+            Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 0);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
@@ -34,7 +34,7 @@ public sealed class GetListTablesTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlAccessModel> items = WsTestsUtils.DataTests.ContextManager.ContextAccess.GetList(WsSqlEnumIsMarked.ShowOnlyHide);
-            Assert.IsTrue(items.Any());
+            Assert.That(items.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(items, 0);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
