@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettings;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettings;
 
 [TestFixture]
 public sealed class DeviceSettingsRepositoryTests : TableRepositoryTests

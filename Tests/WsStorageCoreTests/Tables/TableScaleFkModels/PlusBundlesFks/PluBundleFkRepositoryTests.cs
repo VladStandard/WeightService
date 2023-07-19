@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundleFks;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundleFks;
 
 public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
 {

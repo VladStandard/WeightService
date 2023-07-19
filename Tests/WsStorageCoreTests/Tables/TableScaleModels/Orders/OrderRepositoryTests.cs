@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Orders;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.Orders;
 
 // TODO: get data for OrderRepository
 [TestFixture]

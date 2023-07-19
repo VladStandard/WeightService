@@ -1,22 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCoreTests.Tables.Common;
+
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
 
 [TestFixture]
-public sealed class PrinterResourceFkValidatorTests
+public sealed class PrinterResourceFkValidatorTests : TableValidatorTests<WsSqlPrinterResourceFkModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlPrinterResourceFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPrinterResourceFkModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlPrinterResourceFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPrinterResourceFkModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

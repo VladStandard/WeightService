@@ -2,23 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-public sealed class PluNestingFkValidatorTests
+public sealed class PluNestingFkValidatorTests : TableValidatorTests<WsSqlPluNestingFkModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlPluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluNestingFkModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlPluNestingFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluNestingFkModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

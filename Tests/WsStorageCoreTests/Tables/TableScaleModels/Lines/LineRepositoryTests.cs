@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests

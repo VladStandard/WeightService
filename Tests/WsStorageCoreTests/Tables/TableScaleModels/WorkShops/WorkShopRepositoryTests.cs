@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]
 public sealed class WorkShopRepositoryTests : TableRepositoryTests

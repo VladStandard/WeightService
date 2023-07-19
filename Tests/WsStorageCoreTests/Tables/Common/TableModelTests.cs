@@ -1,6 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables;
+﻿namespace WsStorageCoreTests.Tables.Common;
 
-[TestFixture]
 public class TableModelTests<TItem> where TItem: WsSqlTableBase, new()
 {
     [Test]

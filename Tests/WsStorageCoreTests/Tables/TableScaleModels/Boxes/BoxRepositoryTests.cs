@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 
 [TestFixture]
 public sealed class BoxRepositoryTests : TableRepositoryTests

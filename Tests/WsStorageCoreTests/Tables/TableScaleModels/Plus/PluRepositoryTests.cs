@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
 public sealed class PluRepositoryTests : TableRepositoryTests

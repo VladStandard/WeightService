@@ -1,22 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCoreTests.Tables.Common;
+
 namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
 
 [TestFixture]
-public sealed class LogValidatorTests
+public sealed class LogValidatorTests : TableValidatorTests<WsSqlLogModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlLogModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlLogModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlLogModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

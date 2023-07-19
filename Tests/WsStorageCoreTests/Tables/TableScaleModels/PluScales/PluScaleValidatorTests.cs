@@ -1,22 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCoreTests.Tables.Common;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluScales;
 
 [TestFixture]
-public sealed class PluScaleValidatorTests
+public sealed class PluScaleValidatorTests : TableValidatorTests<WsSqlPluScaleModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlPluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluScaleModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlPluScaleModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluScaleModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

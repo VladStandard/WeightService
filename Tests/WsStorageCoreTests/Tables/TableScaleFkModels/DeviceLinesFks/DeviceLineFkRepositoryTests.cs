@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceLinesFks;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceLinesFks;
 
 public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
 {

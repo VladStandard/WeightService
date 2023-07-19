@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
 public sealed class BarCodeRepositoryTests : TableRepositoryTests

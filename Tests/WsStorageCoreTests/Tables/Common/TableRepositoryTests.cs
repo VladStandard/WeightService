@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables;
+﻿namespace WsStorageCoreTests.Tables.Common;
 
 public class TableRepositoryTests
 {

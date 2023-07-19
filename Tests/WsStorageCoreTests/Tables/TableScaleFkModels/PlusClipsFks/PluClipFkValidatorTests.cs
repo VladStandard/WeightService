@@ -2,23 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusClipsFks;
 
 [TestFixture]
-public sealed class PluClipFkValidatorTests
+public sealed class PluClipFkValidatorTests : TableValidatorTests<WsSqlPluClipFkModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlPluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluClipFkModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlPluClipFkModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluClipFkModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

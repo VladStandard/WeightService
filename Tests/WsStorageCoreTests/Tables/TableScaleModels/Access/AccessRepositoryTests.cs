@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
 

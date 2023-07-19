@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Views.ViewScaleModels.WebLogs;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
 

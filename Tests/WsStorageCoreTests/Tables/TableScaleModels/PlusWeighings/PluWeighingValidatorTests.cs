@@ -2,23 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 
 [TestFixture]
-public sealed class PluWeighingValidatorTests
+public sealed class PluWeighingValidatorTests : TableValidatorTests<WsSqlPluWeighingModel>
 {
-    [Test]
-    public void Model_Validate_IsFalse()
-    {
-        WsSqlPluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluWeighingModel>(false);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, false);
-    }
-
-    [Test]
-    public void Model_Validate_IsTrue()
-    {
-        WsSqlPluWeighingModel item = WsTestsUtils.DataTests.CreateNewSubstitute<WsSqlPluWeighingModel>(true);
-        WsTestsUtils.DataTests.AssertSqlValidate(item, true);
-    }
 }

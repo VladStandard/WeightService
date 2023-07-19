@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
 
 [TestFixture]
 public sealed class DeviceTypeRepositoryTests : TableRepositoryTests

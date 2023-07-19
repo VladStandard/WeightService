@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
 
 public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
 {

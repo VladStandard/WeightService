@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
+﻿using WsStorageCoreTests.Tables.Common;
+
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
 
 // TODO: printer resources
 public sealed class PrinterResourcesFkRepositoryTests : TableRepositoryTests
