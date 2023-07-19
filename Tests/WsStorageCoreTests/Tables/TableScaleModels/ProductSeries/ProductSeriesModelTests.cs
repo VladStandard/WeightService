@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
 
 [TestFixture]
-public sealed class ProductSeriesModelTests
+public sealed class ProductSeriesModelTests : TableModelTests<WsSqlProductSeriesModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlProductSeriesModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlProductSeriesModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlProductSeriesModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlProductSeriesModel>();
-    }
-    
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlProductSeriesModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlProductSeriesModel>();
-    }
 }

@@ -6,31 +6,6 @@ using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 
 [TestFixture]
-public sealed class PluLabelModelTests
+public sealed class PluLabelModelTests : TableModelTests<WsSqlPluLabelModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluLabelModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluLabelModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluLabelModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluLabelModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluLabelModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluLabelModel>();
-    }
 }

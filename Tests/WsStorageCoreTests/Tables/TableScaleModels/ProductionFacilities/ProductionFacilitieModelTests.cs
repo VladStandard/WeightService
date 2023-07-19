@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
-public sealed class ProductionFacilitieModelTests
+public sealed class ProductionFacilitieModelTests : TableModelTests<WsSqlProductionFacilityModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlProductionFacilityModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlProductionFacilityModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlProductionFacilityModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlProductionFacilityModel>();
-    }
-    
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlProductionFacilityModel>();
-    }
-    
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlProductionFacilityModel>();
-    }
 }

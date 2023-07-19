@@ -6,31 +6,6 @@ using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 
 [TestFixture]
-public sealed class PluStorageMethodModelTests
+public sealed class PluStorageMethodModelTests : TableModelTests<WsSqlPluStorageMethodModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluStorageMethodModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluStorageMethodModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluStorageMethodModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluStorageMethodModel>();
-    }
 }

@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
-public sealed class BarCodeModelTests
+public sealed class BarCodeModelTests : TableModelTests<WsSqlBarCodeModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlBarCodeModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlBarCodeModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlBarCodeModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlBarCodeModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlBarCodeModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlBarCodeModel>();
-    }
 }

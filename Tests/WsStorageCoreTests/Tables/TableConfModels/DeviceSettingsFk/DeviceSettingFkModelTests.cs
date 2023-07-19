@@ -4,31 +4,7 @@
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]
-public sealed class DeviceSettingsFkModelTests
+public sealed class DeviceSettingsFkModelTests : TableModelTests<WsSqlDeviceSettingsFkModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlDeviceSettingsFkModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlDeviceSettingsFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlDeviceSettingsFkModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlDeviceSettingsFkModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlDeviceSettingsFkModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlDeviceSettingsFkModel>();
-    }
+    
 }

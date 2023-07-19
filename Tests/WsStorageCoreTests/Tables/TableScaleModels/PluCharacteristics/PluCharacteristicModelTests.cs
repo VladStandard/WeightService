@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluCharacteristics;
 
 [TestFixture]
-public sealed class NomenclaturesCharacteristicModelTests
+public sealed class NomenclaturesCharacteristicModelTests : TableModelTests<WsSqlPluCharacteristicModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluCharacteristicModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluCharacteristicModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluCharacteristicModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluCharacteristicModel>();
-    }
 }

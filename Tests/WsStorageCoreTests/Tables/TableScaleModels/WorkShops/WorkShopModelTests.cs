@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]
-public sealed class WorkShopModelTests
+public sealed class WorkShopModelTests : TableModelTests<WsSqlWorkShopModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlWorkShopModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlWorkShopModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlWorkShopModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlWorkShopModel>();
-    }
-    
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlWorkShopModel>();
-    }
-    
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlWorkShopModel>();
-    }
 }

@@ -6,31 +6,6 @@ using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-public sealed class PluNestingFkModelTests
-{ 
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluNestingFkModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlPluNestingFkModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlPluNestingFkModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlPluNestingFkModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlPluNestingFkModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlPluNestingFkModel>();
-    }
+public sealed class PluNestingFkModelTests : TableModelTests<WsSqlPluNestingFkModel>
+{
 }

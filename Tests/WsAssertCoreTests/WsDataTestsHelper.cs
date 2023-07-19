@@ -513,14 +513,17 @@ public class WsDataTestsHelper
     {
         Assert.DoesNotThrow(() =>
         {
-            // Arrange.
             T item = new();
-            WsSqlTableBase baseItem = new();
-            // Act.
-            bool itemEqualsNew = item.EqualsNew();
-            bool baseEqualsNew = baseItem.EqualsNew();
-            // Assert.
-            Assert.AreEqual(baseEqualsNew, itemEqualsNew);
+            Assert.That(item.EqualsNew(), Is.True);
+        });
+    }
+    
+    public void TableBaseModelAssertEqualsDefault<T>() where T : WsSqlTableBase, new()
+    {
+        Assert.DoesNotThrow(() =>
+        {
+            T item = new();
+            Assert.That(item.EqualsDefault(), Is.True);
         });
     }
 

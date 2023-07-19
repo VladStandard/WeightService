@@ -17,11 +17,15 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     #endregion
 
-    #region Public and private methods
+    #region Item
 
     public WsSqlScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlScaleModel>();
 
-    public WsSqlScaleModel GetItem(Guid uid) => SqlCore.GetItemNotNullable<WsSqlScaleModel>(uid);
+    public WsSqlScaleModel GetItemById(long id) => SqlCore.GetItemNotNullable<WsSqlScaleModel>(id);
+    
+    #endregion
+
+    #region List
 
     public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
 
@@ -29,7 +33,13 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
         ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
     
     public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableLines(sqlCrudConfig);
+
+    #endregion
+    
+    #region CRUD
+    
     public void Update(WsSqlScaleModel line) => SqlCore.Update(line);
 
     #endregion
+    
 }

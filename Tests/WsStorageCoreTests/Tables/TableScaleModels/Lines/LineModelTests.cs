@@ -4,33 +4,13 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
-public sealed class LineModelTests
+public sealed class LineModelTests : TableModelTests<WsSqlScaleModel>
 {
     [Test]
-    public void Model_AssertSqlFields_Check()
+    public override void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlScaleModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlScaleModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlScaleModel>(nameof(WsSqlTableBase.IsMarked));
+        base.Model_AssertSqlFields_Check();
         //WsTestsUtils.DataCore.AssertSqlFieldStringCheck<ScaleModel>(nameof(ScaleModel.Host.Name));
         WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlScaleModel>(nameof(WsSqlTableBase.Description));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlScaleModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlScaleModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlScaleModel>();
     }
 }

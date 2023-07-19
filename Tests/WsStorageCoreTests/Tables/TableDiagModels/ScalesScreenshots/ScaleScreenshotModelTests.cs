@@ -4,31 +4,6 @@
 namespace WsStorageCoreTests.Tables.TableDiagModels.ScalesScreenshots;
 
 [TestFixture]
-public sealed class ScaleScreenShotModelTests
+public sealed class ScaleScreenShotModelTests : TableModelTests<WsSqlScaleScreenShotModel>
 {
-    [Test]
-    public void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlScaleScreenShotModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlScaleScreenShotModel>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlScaleScreenShotModel>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlScaleScreenShotModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlScaleScreenShotModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlScaleScreenShotModel>();
-    }
 }

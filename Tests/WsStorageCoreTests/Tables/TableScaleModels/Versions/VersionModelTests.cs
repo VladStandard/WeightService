@@ -4,34 +4,15 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Versions;
 
 [TestFixture]
-public sealed class VersionModelTests
+public sealed class VersionModelTests : TableModelTests<WsSqlVersionModel>
 {
     [Test]
-    public void Model_AssertSqlFields_Check()
+    public override void Model_AssertSqlFields_Check()
     {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlTableBase.ChangeDt));
+        base.Model_AssertSqlFields_Check();
         WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<WsSqlVersionModel>(nameof(WsSqlVersionModel.ReleaseDt));
         WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlTableBase.Description));
         WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlVersionModel.Version));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<WsSqlVersionModel>(nameof(WsSqlTableBase.IsMarked));
     }
-
-    [Test]
-    public void Model_ToString()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<WsSqlVersionModel>();
-    }
-
-    [Test]
-    public void Model_EqualsNew()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<WsSqlVersionModel>();
-    }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<WsSqlVersionModel>();
-    }
+    
 }

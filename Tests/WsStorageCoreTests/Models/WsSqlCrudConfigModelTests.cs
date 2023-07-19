@@ -34,6 +34,7 @@ public sealed class WsSqlCrudConfigModelTests
             
             Assert.That(sqlCrudConfig.IsMarked, Is.EqualTo(WsSqlEnumIsMarked.ShowOnlyHide));
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
+            
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
@@ -49,6 +50,7 @@ public sealed class WsSqlCrudConfigModelTests
             
             Assert.That(sqlCrudConfig.IsMarked, Is.EqualTo(WsSqlEnumIsMarked.ShowOnlyActual));
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
+            
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
