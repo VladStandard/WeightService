@@ -38,6 +38,13 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
     public List<WsSqlPluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
     
     public List<WsSqlPluBundleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
+
+    public List<WsSqlPluBundleFkModel> GetListByPlu(WsSqlPluModel plu)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu), 
+            WsSqlEnumIsMarked.ShowAll, true, false);;
+        return ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);   
+    }
     
     #endregion
 }

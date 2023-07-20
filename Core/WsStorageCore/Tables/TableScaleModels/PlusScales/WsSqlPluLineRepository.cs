@@ -37,5 +37,10 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
     
     public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
 
+    public List<WsSqlPluScaleModel> GetListByLine(WsSqlScaleModel line, WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        sqlCrudConfig.AddFilters(nameof(WsSqlPluScaleModel.Line), line);
+        return ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
+    }
     #endregion
 }

@@ -3,9 +3,9 @@
 
 using WsStorageCoreTests.Tables.Common;
 
-namespace WsStorageCoreTests.Tables.TableScaleModels.PluScales;
+namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 
 [TestFixture]
-public sealed class PluScaleModelTests : TableModelTests<WsSqlPluScaleModel>
+public sealed class PluLineModelTests : TableModelTests<WsSqlPluScaleModel>
 {
 }

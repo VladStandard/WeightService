@@ -37,9 +37,7 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
                         Value = true
                     }
                 );
-        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluScaleModel.Line), Scale);
-        base.SetSqlSectionCast();
-        SqlSectionCast = SqlSectionCast.OrderBy(scale => scale.Plu.Number).ToList();
+        SqlSectionCast = WsSqlPluLineRepository.Instance.GetListByLine(Scale, SqlCrudConfigSection);
     }
 
     #endregion
