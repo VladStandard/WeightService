@@ -26,6 +26,7 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 
     protected override void SetSqlSectionCast()
     {
+        // TODO: to repos
         if (!HideNoneActivePlu)
             SqlCrudConfigSection.ClearFilters();
         else

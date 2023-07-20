@@ -134,16 +134,6 @@ public sealed class WsSqlContextItemHelper
     public WsSqlTemplateModel GetItemTemplateNotNullable(WsSqlPluScaleModel pluScale) =>
         GetItemTemplateNullable(pluScale) ?? new();
 
-    private WsSqlScaleModel GetItemScaleNullable(WsSqlDeviceModel device)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlCrudConfigModel.GetFiltersIdentity(
-            $"{nameof(WsSqlDeviceScaleFkModel.Device)}", device.IdentityValueUid), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Scale;
-    }
-
-    public WsSqlScaleModel GetItemScaleNotNullable(WsSqlDeviceModel device) =>
-        GetItemScaleNullable(device) ?? new();
-
     public WsSqlDeviceScaleFkModel? GetItemDeviceScaleFkNullable(WsSqlDeviceModel device)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(

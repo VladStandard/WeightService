@@ -6,11 +6,10 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; set; } = new();
     
-    private  List<WsSqlDeviceScaleFkModel> Buffer { get; set; }
-
-    public DeviceLineFkRepositoryTests(): base()
+    private WsSqlDeviceScaleFkModel GetFirstDeviceScaleFkModel()
     {
-        Buffer = new();
+        SqlCrudConfig.SelectTopRowsCount = 1;
+        return DeviceLineFkRepository.GetList(SqlCrudConfig).First();
     }
     
     [Test]
@@ -29,36 +28,30 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceModel> devices = WsSqlDeviceRepository.Instance.GetList(SqlCrudConfig);
-            foreach (WsSqlDeviceModel device in devices)
-            {
-                WsSqlDeviceScaleFkModel deviceScaleFks = DeviceLineFkRepository.GetItemByDevice(device);
-                if (!deviceScaleFks.IsNotNew)
-                    continue;
-                Assert.That(deviceScaleFks.Device.Name, Is.EqualTo(device.Name));
-                Buffer.Add(deviceScaleFks);
-                TestContext.WriteLine(deviceScaleFks);
-            }
-            Assert.That(Buffer.Any(), Is.True);
+            WsSqlDeviceScaleFkModel oldDeviceLines = GetFirstDeviceScaleFkModel();
+            WsSqlDeviceModel device = oldDeviceLines.Device;
+            WsSqlDeviceScaleFkModel deviceLinesByDevice  = DeviceLineFkRepository.GetItemByDevice(device);
+
+            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
+            Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceLines));
+            
+            TestContext.WriteLine(deviceLinesByDevice);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-
+    
     [Test]
     public void GetItemByLine()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> lines = WsSqlLineRepository.Instance.GetList(SqlCrudConfig);
-            foreach (WsSqlScaleModel line in lines)
-            {
-                WsSqlDeviceScaleFkModel deviceScaleFks = DeviceLineFkRepository.GetItemByLine(line);
-                if (!deviceScaleFks.IsNotNew)
-                    continue;
-                Assert.That(deviceScaleFks.Scale.Description, Is.EqualTo(line.Description));
-                Buffer.Add(deviceScaleFks);
-                TestContext.WriteLine(deviceScaleFks);
-            }
-            Assert.That(Buffer.Any(), Is.True);
+            WsSqlDeviceScaleFkModel oldDeviceLines = GetFirstDeviceScaleFkModel();
+            WsSqlScaleModel line = oldDeviceLines.Scale;
+            WsSqlDeviceScaleFkModel deviceLinesByDevice  = DeviceLineFkRepository.GetItemByLine(line);
+
+            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
+            Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceLines));
+            
+            TestContext.WriteLine(deviceLinesByDevice);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

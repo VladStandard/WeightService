@@ -5,9 +5,14 @@ public class TableRepositoryTests
     protected WsSqlCrudConfigModel SqlCrudConfig { get; set; }
     protected List<WsEnumConfiguration> DefaultPublishTypes { get; set; }
 
+    protected WsSqlCrudConfigModel GetNewSqlConfig()
+    {
+        return new() { SelectTopRowsCount = 10 };
+    } 
+    
     public TableRepositoryTests()
     {
-        SqlCrudConfig = new () { SelectTopRowsCount = 10 };
+        SqlCrudConfig = GetNewSqlConfig();
         DefaultPublishTypes = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
     }
 }

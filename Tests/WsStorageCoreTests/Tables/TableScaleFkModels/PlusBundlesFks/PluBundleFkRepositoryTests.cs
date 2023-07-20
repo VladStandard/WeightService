@@ -1,6 +1,6 @@
 ﻿using WsStorageCoreTests.Tables.Common;
 
-namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundleFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundlesFks;
 
 public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
 {
