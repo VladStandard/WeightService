@@ -147,17 +147,6 @@ public class WsDataTestsHelper
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
         AssertSqlTablesValidate(item, assertResult);
 
-    public void AssertSqlDbContentSerialize<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
-    {
-        AssertAction(() =>
-        {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
-            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
-            Assert.IsTrue(items.Any());
-            PrintTopRecords(items, 10, true, true);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
-
     private void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
     {
         Assert.DoesNotThrow(() =>

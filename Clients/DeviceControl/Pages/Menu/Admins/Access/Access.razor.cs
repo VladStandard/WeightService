@@ -7,4 +7,8 @@ namespace DeviceControl.Pages.Menu.Admins.Access;
 
 public sealed partial class Access : SectionBase<WsSqlAccessModel>
 {
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlAccessRepository().GetList(SqlCrudConfigSection);
+    }
 }

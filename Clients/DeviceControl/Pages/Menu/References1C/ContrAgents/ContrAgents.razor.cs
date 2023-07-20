@@ -13,6 +13,11 @@ public sealed partial class ContrAgents : SectionBase<WsSqlContragentModel>
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlContragentRepository().GetList(SqlCrudConfigSection);
+    }
 
     #endregion
 }

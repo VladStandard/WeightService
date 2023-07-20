@@ -11,6 +11,6 @@ public sealed class PluGroupFkSerializeTests
 	[Test]
     public void Item_Serialize_Validate()
     {
-		WsTestsUtils.DataTests.AssertSqlDbContentSerialize<WsSqlPluFkModel>();
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluFkModel>();
 	}
 }

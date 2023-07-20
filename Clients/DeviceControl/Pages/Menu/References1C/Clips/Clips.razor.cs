@@ -14,5 +14,10 @@ public sealed partial class Clips : SectionBase<WsSqlClipModel>
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
     
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlClipRepository().GetList(SqlCrudConfigSection);
+    }
+    
     #endregion
 }

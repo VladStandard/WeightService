@@ -17,6 +17,11 @@ public sealed partial class Versions : SectionBase<WsSqlVersionModel>
         );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlVersionRepository().GetList(SqlCrudConfigSection);
+    }
 
     #endregion
 }

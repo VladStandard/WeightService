@@ -2,5 +2,5 @@
 
 public class WsSqlProductionFacilityRepository: WsSqlTableRepositoryBase<WsSqlProductionFacilityModel>
 {
-    // public List<WsSqlProductionFacilityModel> GetList() => ContextList.GetListNotNullablePro(SqlCrudConfig);
+    public List<WsSqlProductionFacilityModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableAreas(sqlCrudConfig);
 }

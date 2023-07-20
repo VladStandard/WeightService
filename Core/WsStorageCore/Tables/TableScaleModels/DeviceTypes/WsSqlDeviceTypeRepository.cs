@@ -4,26 +4,17 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
 {
     #region Item
     
-    public WsSqlDeviceTypeModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceTypeModel>(uid);
+    public WsSqlDeviceTypeModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     
+    public WsSqlDeviceTypeModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceTypeModel>(uid);
+
     public WsSqlDeviceTypeModel GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
-    
-    public WsSqlDeviceTypeModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
 
-    public WsSqlDeviceTypeModel SaveOrUpdate (WsSqlDeviceTypeModel deviceTypeModel)
-    {
-        if (!deviceTypeModel.IsNew)
-            SqlCore.Update(deviceTypeModel);
-        else
-            SqlCore.Save(deviceTypeModel);
-        return deviceTypeModel;
-    }
-    
     public WsSqlDeviceTypeModel GetItemByNameOrCreate(string name)
     {
         WsSqlDeviceTypeModel deviceType = GetItemByName(name);
@@ -46,5 +37,18 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
         return result;
     }
 
-    #endregion"
+    #endregion
+
+    #region Crud
+
+    public WsSqlDeviceTypeModel SaveOrUpdate (WsSqlDeviceTypeModel deviceTypeModel)
+    {
+        if (!deviceTypeModel.IsNew)
+            SqlCore.Update(deviceTypeModel);
+        else
+            SqlCore.Save(deviceTypeModel);
+        return deviceTypeModel;
+    }
+
+    #endregion
 }

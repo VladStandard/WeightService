@@ -9,6 +9,6 @@ public sealed class PluStorageMethodFkContentTests
 	[Test]
     public void Item_Serialize_Validate()
     {
-		WsTestsUtils.DataTests.AssertSqlDbContentSerialize<WsSqlPluStorageMethodFkModel>(WsSqlEnumIsMarked.ShowAll);
+		WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlPluStorageMethodFkModel>(WsSqlEnumIsMarked.ShowAll);
 	}
 }

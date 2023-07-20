@@ -13,6 +13,11 @@ public sealed partial class Brands : SectionBase<WsSqlBrandModel>
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
-
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlBrandRepository().GetList(SqlCrudConfigSection);
+    }
+    
     #endregion
 }

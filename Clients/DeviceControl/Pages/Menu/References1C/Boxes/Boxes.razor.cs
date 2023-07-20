@@ -13,6 +13,11 @@ public sealed partial class Boxes : SectionBase<WsSqlBoxModel>
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlBoxRepository().GetList(SqlCrudConfigSection);
+    }
 
     #endregion
 }

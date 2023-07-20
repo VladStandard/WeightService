@@ -17,6 +17,11 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
         );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlPluRepository().GetList(SqlCrudConfigSection);
+    }
 
     #endregion
 }

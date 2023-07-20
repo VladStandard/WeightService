@@ -24,11 +24,11 @@ public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
     [Obsolete(@"AllData проинициализируй в конструкторе")]
     protected override void SetSqlSectionCast()
     {
-        var pluGroupsFk = ContextManager.SqlCore.GetListNotNullable<WsSqlPluGroupFkModel>(new WsSqlCrudConfigModel());
-        AllData = ContextManager.SqlCore.GetListNotNullable<WsSqlPluGroupModel>(new WsSqlCrudConfigModel() { IsResultOrder = true });
+        List<WsSqlPluGroupFkModel> pluGroupsFk = ContextManager.SqlCore.GetListNotNullable<WsSqlPluGroupFkModel>(new());
+        AllData = new WsSqlPluGroupRepository().GetList(new());
         foreach (WsSqlPluGroupModel pluGroup in AllData)
         {
-            var temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
+            List<WsSqlPluGroupFkModel> temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();
             if (temp.Any())
                 pluGroup.ParentGuid = temp.First().Parent.IdentityValueUid;
         }

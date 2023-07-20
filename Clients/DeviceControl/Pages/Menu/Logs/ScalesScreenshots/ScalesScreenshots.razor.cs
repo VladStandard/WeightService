@@ -21,8 +21,7 @@ public sealed partial class ScalesScreenshots : SectionBase<WsSqlScaleScreenShot
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.AddFilters(nameof(WsSqlScaleScreenShotModel.Scale), SqlItem);
-        base.SetSqlSectionCast();
+        SqlSectionCast = new WsSqlScaleScreenshotRepository().GetList(SqlCrudConfigSection);
     }
 
     private static string GetByteLength(WsSqlScaleScreenShotModel screenshot) => 

@@ -13,6 +13,11 @@ public sealed partial class Bundles : SectionBase<WsSqlBundleModel>
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
+    
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlBundleRepository().GetList(SqlCrudConfigSection);
+    }
 
     #endregion
 }

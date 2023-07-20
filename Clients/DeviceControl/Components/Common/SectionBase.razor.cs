@@ -161,7 +161,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
 
     protected virtual void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextManager.ContextList.GetListNotNullable<TItem>(SqlCrudConfigSection);
+        throw new NotImplementedException();
     }
 
     #endregion

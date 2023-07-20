@@ -9,6 +9,11 @@ public sealed partial class TemplateResources : SectionBase<WsSqlTemplateResourc
 {
     #region Public and private methods
 
+    protected override void SetSqlSectionCast()
+    {
+        SqlSectionCast = new WsSqlTemplateResourceRepository().GetList(SqlCrudConfigSection);
+    }
+    
     private static string ConvertBytes(WsSqlTemplateResourceModel templateResource)
     {
         return templateResource.DataValue.Length > 1024

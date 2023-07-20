@@ -20,8 +20,7 @@ public sealed partial class PlusBundlesFks : SectionBase<WsSqlPluBundleFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.AddFilters(nameof(WsSqlPluBundleFkModel.Plu), SqlItem);
-        base.SetSqlSectionCast();
+        SqlSectionCast = new WsSqlPluBundleFkRepository().GetList(SqlCrudConfigSection);
     }
 
     #endregion
