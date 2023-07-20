@@ -5,8 +5,8 @@
 - [DeviceControl](Clients/DeviceControl/README.md)
 
 ## Info
-- [Stack](Technology%20Stack.md)
+- [Stack](Docs/Technology%20Stack.md)
 - [License](LICENSE.md)
 - [Changelog](CHANGELOG.md)
-- [Publish lifecycle](Publish%20life%20cycle.md)
-- [Publish resources](Publish%20resources.md)
+- [Publish lifecycle](Docs/Publish%20lifecycle.md)
+- [Publish resources](Docs/Publish%20resources.md)

@@ -22,7 +22,6 @@ public sealed class DataAccessHelperMapTests
             sessionFactory.OpenSession();
             sessionFactory.Close();
             sessionFactory.Dispose();
-
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     

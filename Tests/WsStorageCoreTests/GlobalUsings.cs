@@ -1,19 +1,15 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-// Global using directives
-
 global using FluentNHibernate.Cfg;
 global using NHibernate;
 global using NSubstitute;
 global using NUnit.Framework;
 global using WsAssertCoreTests;
 global using WsDataCore.Enums;
-global using WsDataCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
-global using WsStorageCore.Utils;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettings;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 global using WsStorageCore.Tables.TableDiagModels.Logs;
