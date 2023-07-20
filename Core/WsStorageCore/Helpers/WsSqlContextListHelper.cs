@@ -730,13 +730,6 @@ public sealed class WsSqlContextListHelper
 
     #region Public and private methods
 
-    public List<WsSqlDeviceModel> GetListDevices(WsSqlCrudConfigModel sqlCrudConfig)
-    {
-        List<WsSqlDeviceModel> result = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
-        result = result.OrderBy(item => item.Name).ToList();
-        return result;
-    }
-
     public List<WsSqlDeviceTypeModel> GetListDevicesTypes(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlDeviceTypeModel> result = GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
@@ -769,14 +762,7 @@ public sealed class WsSqlContextListHelper
         List<WsSqlDeviceTypeModel> deviceTypes = GetListDevicesTypes(sqlCrudConfig);
         return deviceTypes;
     }
-
-    public List<WsSqlDeviceModel> GetListDevices(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
-        List<WsSqlDeviceModel> devices = GetListDevices(sqlCrudConfig);
-        return devices;
-    }
-
+    
     public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFks(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
@@ -784,15 +770,6 @@ public sealed class WsSqlContextListHelper
         return deviceTypesFks;
     }
 
-    public List<WsSqlDeviceTypeFkModel> GetListDevicesTypesFkFree(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(isMarked, isShowOnlyTop);
-        List<WsSqlDeviceTypeFkModel> deviceTypeFks = GetListDevicesTypesFks(sqlCrudConfig);
-        List<WsSqlDeviceModel> devices = GetListNotNullableCore<WsSqlDeviceModel>(sqlCrudConfig);
-        deviceTypeFks = deviceTypeFks.Where(item => !devices.Contains(item.Device)).ToList();
-        return deviceTypeFks;
-    }
-    
     public List<WsSqlPluLabelModel> GetListPluLabels(WsSqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.Orders.Add(new() { Name = nameof(WsSqlPluWeighingModel.ChangeDt), Direction = WsSqlEnumOrder.Desc });

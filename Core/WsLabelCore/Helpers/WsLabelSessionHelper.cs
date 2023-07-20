@@ -136,9 +136,10 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 deviceTypeFk.Type = deviceType;
                 ContextManager.SqlCore.Save(deviceTypeFk);
             }
-            // DeviceTypeFk.
-            DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(deviceTypeFk.Device);
+
+            DeviceScaleFk = WsSqlDeviceLineFkRepository.Instance.GetItemByDevice(deviceTypeFk.Device);;
             // Line.
+            // TODO: line repo
             SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(lineId));
             // Area.
             if (area is not null)

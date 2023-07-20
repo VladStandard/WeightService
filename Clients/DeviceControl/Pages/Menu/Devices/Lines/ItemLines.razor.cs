@@ -39,7 +39,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         PrinterModels = ContextManager.ContextList.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         HostModels = ContextManager.ContextList.GetListNotNullable<WsSqlDeviceModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = ContextManager.ContextList.GetListNotNullable<WsSqlWorkShopModel>(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-        DeviceScaleFk = ContextManager.ContextItem.GetItemDeviceScaleFkNotNullable(SqlItemCast);
+        DeviceScaleFk = WsSqlDeviceLineFkRepository.Instance.GetItemByLine(SqlItemCast);
         DeviceScaleFk = DeviceScaleFk.IsNotNew ? DeviceScaleFk : SqlItemNewEmpty<WsSqlDeviceScaleFkModel>();
         Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : SqlItemNewEmpty<WsSqlDeviceModel>();
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);

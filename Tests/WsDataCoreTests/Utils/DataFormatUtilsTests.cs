@@ -16,7 +16,7 @@ public sealed class DataFormatUtilsTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlTemplateResourceModel> templateResources = MDSoft.BarcodePrintUtils.Utils.DataFormatUtils.LoadTemplatesResources(true);
-            Assert.IsTrue(templateResources.Any());
+            Assert.That(templateResources.Any(), Is.True);
             foreach (WsSqlTemplateResourceModel templateResource in templateResources)
             {
                 TestContext.WriteLine(templateResource);

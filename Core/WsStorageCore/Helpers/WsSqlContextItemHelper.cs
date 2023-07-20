@@ -151,19 +151,6 @@ public sealed class WsSqlContextItemHelper
         return SqlCore.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
 
-    public WsSqlDeviceScaleFkModel GetItemDeviceScaleFkNotNullable(WsSqlDeviceModel device) =>
-        GetItemDeviceScaleFkNullable(device) ?? new();
-
-    public WsSqlDeviceScaleFkModel? GetItemDeviceScaleFkNullable(WsSqlScaleModel scale)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlDeviceScaleFkModel GetItemDeviceScaleFkNotNullable(WsSqlScaleModel scale) =>
-        GetItemDeviceScaleFkNullable(scale) ?? new();
-
     public string GetAccessRightsDescription(WsEnumAccessRights? accessRights)
     {
         return accessRights switch

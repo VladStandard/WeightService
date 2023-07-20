@@ -11,9 +11,9 @@ public sealed class WsSqlContextCacheHelperTests
         WsTestsUtils.DataTests.AssertAction(() =>
             {
                 WsTestsUtils.DataTests.ContextCache.Clear();
-                Assert.IsFalse(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.False);
                 WsTestsUtils.DataTests.ContextCache.SmartLoad();
-                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.True);
                 WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.Brands, 10);
             }, false,
             new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -23,14 +23,14 @@ public sealed class WsSqlContextCacheHelperTests
         WsTestsUtils.DataTests.AssertAction(() =>
             {
                 WsTestsUtils.DataTests.ContextCache.Clear();
-                Assert.IsFalse(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.False);
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 WsTestsUtils.DataTests.ContextCache.SmartLoad();
                 TimeSpan elapsedFirst = stopwatch.Elapsed;
                 stopwatch.Stop();
                 TestContext.WriteLine($"First {nameof(stopwatch.Elapsed)}: {elapsedFirst}");
-                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
+                Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.True);
 
                 stopwatch.Restart();
                 WsTestsUtils.DataTests.ContextCache.SmartLoad();
@@ -38,8 +38,8 @@ public sealed class WsSqlContextCacheHelperTests
                 stopwatch.Stop();
                 TestContext.WriteLine($"Second {nameof(stopwatch.Elapsed)}: {elapsedSecond}");
                
-                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.Brands.Any());
-                Assert.IsTrue(elapsedFirst > elapsedSecond);
+                Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.True);
+                Assert.That(elapsedFirst, Is.GreaterThan(elapsedSecond));
             }, false,
             new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
 
@@ -58,7 +58,7 @@ public sealed class WsSqlContextCacheHelperTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextLines.GetList();
-            Assert.IsTrue(lines.Any());
+            Assert.That(lines.Any(), Is.True);
 
             bool isPrintFirst = false;
             foreach (WsSqlScaleModel line in lines)
@@ -66,7 +66,7 @@ public sealed class WsSqlContextCacheHelperTests
                 if (isPrintFirst) break;
                 isPrintFirst = true;
                 WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusLines((ushort)line.IdentityValueId);
-                Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines.Any());
+                Assert.That(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines.Any(), Is.True);
                 WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines, 10);
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -77,7 +77,7 @@ public sealed class WsSqlContextCacheHelperTests
         {
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
-            Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any());
+            Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
 
@@ -114,7 +114,7 @@ public sealed class WsSqlContextCacheHelperTests
         {
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusStorageMethods);
-            Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods.Any());
+            Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods.Any(), Is.True);
             WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods, 10);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
 }

@@ -23,10 +23,24 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
     public WsSqlDeviceScaleFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
 
     public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
-
-    public List<WsSqlDeviceScaleFkModel> GetList() => ContextList.GetListNotNullableDeviceScalesFks(SqlCrudConfig);
     
     public List<WsSqlDeviceScaleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceScalesFks(sqlCrudConfig);
+    
+    public WsSqlDeviceScaleFkModel GetItemByDevice(WsSqlDeviceModel device)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Device), device.IdentityValueUid),
+            WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
+    }
+    
+    public WsSqlDeviceScaleFkModel GetItemByLine(WsSqlScaleModel line)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), 
+                line.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
+    }
     
     #endregion
 }
