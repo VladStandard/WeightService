@@ -13,9 +13,9 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
     private string? CurrentLine { get; set; }
     private List<WsSqlLogTypeModel> LogTypes { get; set; }
     private List<WsSqlScaleModel> Lines { get; set; }
-    
-    private WsSqlViewLogRepository ViewLogRepository = WsSqlViewLogRepository.Instance;
-    
+
+    private WsSqlViewLogRepository ViewLogRepository { get; } = new();
+
     public Logs() : base()
     {
         LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(new WsSqlCrudConfigModel());

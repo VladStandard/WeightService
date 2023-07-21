@@ -8,15 +8,6 @@ namespace WsStorageCore.Tables.TableScaleModels.Apps;
 /// </summary>
 public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlAppRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlAppRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Items
 
     public WsSqlAppModel GetItemByName(string appName)
@@ -55,6 +46,4 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     public List<WsSqlAppModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableApps(sqlCrudConfig);
 
     #endregion
-
-
 }

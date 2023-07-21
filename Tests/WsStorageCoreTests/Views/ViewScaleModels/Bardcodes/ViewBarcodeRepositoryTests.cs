@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Bardcodes;
 [TestFixture]
 public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
 {
-    private IViewBarcodeRepository ViewBarcodeRepository = WsSqlViewBarcodeRepository.Instance;
+    private IViewBarcodeRepository ViewBarcodeRepository { get; } = new WsSqlViewBarcodeRepository();
 
     [Test]
     public void GetList()

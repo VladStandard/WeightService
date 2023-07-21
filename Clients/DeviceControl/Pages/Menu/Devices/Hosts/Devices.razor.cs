@@ -9,7 +9,7 @@ public sealed partial class Devices : SectionBase<WsSqlViewDeviceModel>
 {
     #region Public and private methods
 
-    private WsSqlViewDeviceRepository ViewDeviceRepository = WsSqlViewDeviceRepository.Instance;
+    private WsSqlViewDeviceRepository ViewDeviceRepository { get; } = new();
     
     protected override void SetSqlSectionCast()
     {

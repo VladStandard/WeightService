@@ -9,15 +9,6 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusCharacteristics;
 /// </summary>
 public sealed class WsSqlPluCharacteristicRepository : WsSqlTableRepositoryBase<WsSqlPluCharacteristicModel>
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluCharacteristicRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluCharacteristicRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private methods
 
     public WsSqlPluCharacteristicModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluCharacteristicModel>();

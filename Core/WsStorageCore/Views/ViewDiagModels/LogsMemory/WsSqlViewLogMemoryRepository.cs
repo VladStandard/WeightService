@@ -2,15 +2,6 @@
 
 public class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlViewLogMemoryRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlViewLogMemoryRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
     public List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

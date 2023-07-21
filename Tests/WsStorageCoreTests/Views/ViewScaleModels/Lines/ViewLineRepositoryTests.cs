@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Lines;
 [TestFixture]
 public sealed class ViewLinesRepositoryTests : ViewRepositoryTests
 {
-    private IViewLineRepository ViewLineRepository = WsSqlViewLineRepository.Instance;
+    private IViewLineRepository ViewLineRepository { get; } = new WsSqlViewLineRepository();
 
     [Test]
     public void GetList()

@@ -8,7 +8,8 @@ namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
 {
     #region Public and private fields, properties, constructor
-    private WsSqlViewPluLabelRepository PluLabelRepository => WsSqlViewPluLabelRepository.Instance;
+
+    private WsSqlViewPluLabelRepository PluLabelRepository { get; } = new();
     
     public PlusLabels() : base()
     {

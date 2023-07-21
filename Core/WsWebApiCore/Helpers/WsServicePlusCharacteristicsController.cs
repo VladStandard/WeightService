@@ -43,7 +43,7 @@ public sealed class WsServicePlusCharacteristicsController : WsServiceController
             {
                 WsSqlPluCharacteristicModel characteristicXml = recordXml.Item;
                 // Получить список ПЛУ.
-                List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetListByUid1C(characteristicXml.NomenclatureGuid);
+                List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetListByUid1C(characteristicXml.NomenclatureGuid);
                 if (!plusDb.Any())
                 {
                     characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;

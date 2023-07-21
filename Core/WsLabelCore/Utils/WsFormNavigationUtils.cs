@@ -82,7 +82,7 @@ public static class WsFormNavigationUtils
     /// Флаг загрузки WinForms-контрола смены вложенности ПЛУ.
     /// </summary>
     public static bool IsLoadPlusNesting { get; set; }
-
+    
     #endregion
 
     #region Public and private methods
@@ -271,9 +271,9 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsPlusNesting(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
-        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PlusNestings =
-            WsSqlViewPluNestingRepository.Instance.GetList((ushort)LabelSession.PluLine.Plu.Number);
-        ((WsXamlPlusNestingViewModel)PlusNestingUserControl.ViewModel).PluNesting = LabelSession.ViewPluNesting;
+        PlusNestingUserControl.ViewModel.PlusNestings = 
+            new WsSqlViewPluNestingRepository().GetList((ushort)LabelSession.PluLine.Plu.Number);
+        PlusNestingUserControl.ViewModel.PluNesting = LabelSession.ViewPluNesting;
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();
         PlusNestingUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);

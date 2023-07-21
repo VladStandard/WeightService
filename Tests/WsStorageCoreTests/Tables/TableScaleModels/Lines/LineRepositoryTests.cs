@@ -5,8 +5,8 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLineRepository LineRepository { get; set; } = new();
-
+    private WsSqlLineRepository LineRepository { get; } = new();
+    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
     private WsSqlScaleModel GetFirstLineModel()
     {
         return LineRepository.GetList(SqlCrudConfig).First();
@@ -43,7 +43,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfig.SelectTopRowsCount = 1;
-            WsSqlDeviceScaleFkModel devicesScale = WsSqlDeviceLineFkRepository.Instance.GetList(SqlCrudConfig).First();
+            WsSqlDeviceScaleFkModel devicesScale = DeviceLineFkRepository.GetList(SqlCrudConfig).First();
             WsSqlDeviceModel device = devicesScale.Device;
             WsSqlScaleModel oldLine = devicesScale.Scale;
             

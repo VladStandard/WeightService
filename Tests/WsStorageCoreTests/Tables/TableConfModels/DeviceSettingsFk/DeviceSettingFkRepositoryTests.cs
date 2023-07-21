@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 [TestFixture]
 public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlDeviceSettingsFkRepository DeviceSettingsFkRepository = WsSqlDeviceSettingsFkRepository.Instance;
+    private WsSqlDeviceSettingsFkRepository DeviceSettingsFkRepository { get; } = new();
     
     [Test]
     public void GetList()

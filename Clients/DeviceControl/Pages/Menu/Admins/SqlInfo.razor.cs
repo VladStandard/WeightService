@@ -10,7 +10,7 @@ public sealed partial class SqlInfo : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository = WsSqlViewTableSizeRepository.Instance;
+    private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository { get; } = new();
     private List<WsSqlDbFileSizeInfoModel> DbFiles { get; set; }
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;

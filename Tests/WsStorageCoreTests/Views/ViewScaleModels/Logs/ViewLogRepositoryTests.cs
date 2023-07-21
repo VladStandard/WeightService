@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 [TestFixture]
 public sealed class ViewLogRepositoryTests : ViewRepositoryTests
 {
-    private IViewLogRepository ViewLogRepository = WsSqlViewLogRepository.Instance;
+    private IViewLogRepository ViewLogRepository { get; } = new WsSqlViewLogRepository();
 
     [Test]
     public void GetList()

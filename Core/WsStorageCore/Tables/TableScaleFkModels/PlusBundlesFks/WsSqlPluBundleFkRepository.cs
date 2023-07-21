@@ -9,19 +9,10 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
 /// </summary>
 public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlPluBundleFkModel>
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluBundleFkRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluBundleFkRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     #region Public and private fields, properties, constructor
 
-    private WsSqlBundleRepository ContextBundle => WsSqlBundleRepository.Instance;
-    private WsSqlPluRepository ContextPlu => WsSqlPluRepository.Instance;
+    private WsSqlBundleRepository ContextBundle { get; } = new();
+    private WsSqlPluRepository ContextPlu { get; } = new();
 
     #endregion
 

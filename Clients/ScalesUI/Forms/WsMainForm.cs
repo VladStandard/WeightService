@@ -133,7 +133,7 @@ public sealed partial class WsMainForm : Form
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             UserSession.StopwatchMain.Stop();
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
-            ContextManager.ContextLines.Update(LabelSession.Line);
+            ContextManager.LineRepository.Update(LabelSession.Line);
             StringBuilder log = new();
             log.AppendLine($"{WsLocaleData.Program.IsLoaded}.");
             log.AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.");

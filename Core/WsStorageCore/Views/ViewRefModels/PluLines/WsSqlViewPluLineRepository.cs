@@ -6,15 +6,6 @@ namespace WsStorageCore.Views.ViewRefModels.PluLines;
 //TODO: fix repository
 public class WsSqlViewPluLineRepository : IViewPluLineRepository
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlViewPluLineRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlViewPluLineRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     public List<WsSqlViewPluLineModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>

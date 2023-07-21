@@ -5,8 +5,9 @@ namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 public sealed partial class WebServiceLogs : SectionBase<WsSqlViewWebLogModel>
 {
     #region Public and private fields, properties, constructor
-    
-    private WsSqlViewWebLogRepository ViewWebLogRepository = WsSqlViewWebLogRepository.Instance;
+
+    private WsSqlViewWebLogRepository ViewWebLogRepository { get; } = new();
+
     public WebServiceLogs() : base()
     {
         IsGuiShowFilterMarked = false;

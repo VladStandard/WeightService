@@ -15,5 +15,4 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
     public List<WsSqlWorkShopModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableWorkShops(sqlCrudConfig);
     
     #endregion
-
 }

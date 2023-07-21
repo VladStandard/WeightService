@@ -4,5 +4,4 @@ public class WsSqlOrganizationRepository : WsSqlTableRepositoryBase<WsSqlOrganiz
 {
     public List<WsSqlOrganizationModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
         ContextList.GetListNotNullableOrganizations(sqlCrudConfig);
-
 }

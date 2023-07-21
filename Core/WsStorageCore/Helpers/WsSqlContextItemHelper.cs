@@ -21,7 +21,9 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlAppRepository ContextApp => WsSqlAppRepository.Instance;
+    private WsSqlAppRepository AppRepository { get; } = new();
+    
+    private WsSqlDeviceRepository DeviceRepository { get; } = new();
     private WsSqlAppModel App { get; set; } = new();
     private WsSqlDeviceModel Device { get; set; } = new();
 
@@ -200,14 +202,14 @@ public sealed class WsSqlContextItemHelper
         {
             if (string.IsNullOrEmpty(deviceName))
                 deviceName = MdNetUtils.GetLocalDeviceName(false);
-            Device = WsSqlDeviceRepository.Instance.GetItemByName(deviceName);
+            Device = DeviceRepository.GetItemByName(deviceName);
         }
 
         if (App.IsNew)
         {
             if (string.IsNullOrEmpty(appName))
                 appName = nameof(WsDataCore);
-            App = ContextApp.GetItemByNameOrCreate(appName);
+            App = AppRepository.GetItemByNameOrCreate(appName);
         }
     }
 

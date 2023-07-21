@@ -62,12 +62,12 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     public WsLabelSessionHelper()
     {
-        Area = ContextManager.ContextAreas.GetNewItem();
-        PluLine = ContextManager.ContextPlusLines.GetNewItem();
-        Line = ContextManager.ContextLines.GetNewItem();
-        PluWeighing = ContextManager.ContextPlusWeighing.GetNewItem();
-        DeviceScaleFk = ContextManager.ContextDevicesLines.GetNewItem();
-        ViewPluNesting = ContextManager.ContextPlusNesting.GetNewView();
+        Area = ContextManager.AreaRepository.GetNewItem();
+        PluLine = ContextManager.PluLineRepository.GetNewItem();
+        Line = ContextManager.LineRepository.GetNewItem();
+        PluWeighing = ContextManager.PluWeighingRepository.GetNewItem();
+        DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetNewItem();
+        ViewPluNesting = ContextManager.PluNestingFkRepository.GetNewView();
         WeighingSettings = new();
     }
 
@@ -136,8 +136,8 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 deviceTypeFk.Type = deviceType;
                 ContextManager.SqlCore.Save(deviceTypeFk);
             }
-
-            DeviceScaleFk = WsSqlDeviceLineFkRepository.Instance.GetItemByDevice(deviceTypeFk.Device);;
+            
+            DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);;
             // Line.
             // TODO: line repo
             SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(lineId));
@@ -177,7 +177,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     private void SetArea(WsSqlProductionFacilityModel area)
     {
-        Area = area.IsExists ? area : ContextManager.ContextAreas.GetNewItem();
+        Area = area.IsExists ? area : ContextManager.AreaRepository.GetNewItem();
         // Журналирование смены площадки.
         ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
     }
@@ -194,7 +194,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             Area = ContextCache.Areas.Find(
                 item => item.IdentityValueId.Equals(workShop.ProductionFacility.IdentityValueId));
         else
-            Area = ContextManager.ContextAreas.GetNewItem();
+            Area = ContextManager.AreaRepository.GetNewItem();
         // Журналирование смены площадки.
         ContextManager.ContextItem.SaveLogInformation(
             $"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
@@ -205,7 +205,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     private void SetLine(WsSqlScaleModel? line = null)
     {
-        Line = line ?? ContextManager.ContextLines.GetNewItem();
+        Line = line ?? ContextManager.LineRepository.GetNewItem();
         // Журналирование смены линии.
         if (Line.IsExists)
             ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetLine(Line.IdentityValueId, Line.Description)}");
@@ -220,21 +220,21 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     public void SetPluLine(WsSqlPluScaleModel? pluLine = null)
     {
-        PluLine = pluLine ?? ContextManager.ContextPlusLines.GetNewItem();
+        PluLine = pluLine ?? ContextManager.PluLineRepository.GetNewItem();
         // Журналирование смены ПЛУ на линии.
         if (PluLine.IsExists)
             ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
 
         if (PluLine.IsNotNew)
         {
-            WsSqlBundleModel bundle = ContextManager.ContextBundles.GetItem(PluLine.Plu);
+            WsSqlBundleModel bundle = ContextManager.BundleRepository.GetItem(PluLine.Plu);
             if (bundle.IsExists)
             {
                 PluLine.Plu.PackageTypeGuid = bundle.IdentityValueUid;
                 PluLine.Plu.PackageTypeName = bundle.Name;
                 PluLine.Plu.PackageTypeWeight = bundle.Weight;
             }
-            WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.ContextClips.GetItemByPlu(PluLine.Plu);
+            WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.ClipRepository.GetItemByPlu(PluLine.Plu);
             if (clip.IsExists)
             {
                 PluLine.Plu.ClipTypeGuid = clip.IdentityValueUid;
@@ -263,11 +263,11 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         {
             viewPluNesting = ContextCache.ViewPlusNesting.Find(
                 item => item.PluUid.Equals(PluLine.Plu.IdentityValueUid) && item.IsDefault);
-            ViewPluNesting = viewPluNesting ?? ContextManager.ContextPlusNesting.GetNewView();
+            ViewPluNesting = viewPluNesting ?? ContextManager.PluNestingFkRepository.GetNewView();
         }
         else if (viewPluNesting is null)
         {
-            ViewPluNesting = ContextManager.ContextPlusNesting.GetNewView();
+            ViewPluNesting = ContextManager.PluNestingFkRepository.GetNewView();
         }
         else
             ViewPluNesting = viewPluNesting;

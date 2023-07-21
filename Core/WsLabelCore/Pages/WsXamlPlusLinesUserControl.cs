@@ -95,7 +95,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ViewModel.PluLine = ContextManager.ContextPlusLines.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ViewModel.PluLine = ContextManager.PluLineRepository.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 

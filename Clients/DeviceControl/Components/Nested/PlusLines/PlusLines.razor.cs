@@ -10,6 +10,7 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 {
     #region Public and private fields, properties, constructor
 
+    private WsSqlPluLineRepository PluLineRepository { get; } = new();
     [Parameter] public WsSqlScaleModel Scale { get; set; }
     private bool HideNoneActivePlu { get; set; }
 
@@ -37,7 +38,7 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
                         Value = true
                     }
                 );
-        SqlSectionCast = WsSqlPluLineRepository.Instance.GetListByLine(Scale, SqlCrudConfigSection);
+        SqlSectionCast = PluLineRepository.GetListByLine(Scale, SqlCrudConfigSection);
     }
 
     #endregion

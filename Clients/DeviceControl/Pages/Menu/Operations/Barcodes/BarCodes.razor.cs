@@ -8,8 +8,8 @@ namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
 {
     #region Public and private fields, properties, constructor
-    
-    private WsSqlViewBarcodeRepository ViewBarcodeRepository => WsSqlViewBarcodeRepository.Instance;
+
+    private WsSqlViewBarcodeRepository ViewBarcodeRepository { get; } = new();
     
     public BarCodes() : base()
     {

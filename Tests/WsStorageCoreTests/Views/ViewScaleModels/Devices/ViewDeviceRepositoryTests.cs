@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Devices;
 [TestFixture]
 public sealed class ViewDevicesRepositoryTests : ViewRepositoryTests
 {
-    private IViewDeviceRepository ViewDeviceRepository = WsSqlViewDeviceRepository.Instance;
+    private IViewDeviceRepository ViewDeviceRepository { get; } = new WsSqlViewDeviceRepository();
 
     [Test]
     public void GetList()

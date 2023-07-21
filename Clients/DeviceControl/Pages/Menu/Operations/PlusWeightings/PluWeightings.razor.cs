@@ -11,8 +11,8 @@ public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingMod
     #region Public and private fields, properties, constructor
 
     private List<WsSqlDeviceScaleFkModel> DeviceScaleFk { get; set; }
-    
-    private WsSqlViewPluWeightingRepository ViewPluWeightingRepository = WsSqlViewPluWeightingRepository.Instance;
+
+    private WsSqlViewPluWeightingRepository ViewPluWeightingRepository { get; } = new();
     
     public PluWeightings() : base()
     {

@@ -41,7 +41,7 @@ public static class WsServiceUtilsCheck
         // Загрузить кэш.
         WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ.
-        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetList();
+        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetList();
         if (plusDb.Count > WsServiceUtils.ContextCache.Plus1CFks.Count) return false;
 
         foreach (WsSqlPluModel plu in plusDb)

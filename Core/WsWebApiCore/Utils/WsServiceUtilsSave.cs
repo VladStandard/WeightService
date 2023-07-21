@@ -342,7 +342,7 @@ public static class WsServiceUtilsSave
     /// <returns></returns>
     public static WsSqlPluBundleFkModel SavePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
     {
-        WsSqlPluBundleFkModel pluBundleFk = WsServiceUtils.ContextManager.ContextPluBundlesFk.GetNewItem();
+        WsSqlPluBundleFkModel pluBundleFk = WsServiceUtils.ContextManager.PluBundleFkRepository.GetNewItem();
         try
         {
             // Получить ПЛУ.
@@ -396,7 +396,7 @@ public static class WsServiceUtilsSave
             // Получить коробку.
             WsSqlBoxModel boxDb = WsServiceUtilsGet.GetBox(WsSqlEnumContextType.Cache, response,
                 pluXml.BoxTypeGuid, pluXml.Uid1C, "Коробка");
-            if (boxDb.IsNotExists) return WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem();
+            if (boxDb.IsNotExists) return WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem();
             // Связь вложенности ПЛУ.
             WsSqlPluNestingFkModel pluNestingFk = new()
             {
@@ -433,7 +433,7 @@ public static class WsServiceUtilsSave
         {
             WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
         }
-        return WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem();
+        return WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem();
     }
 
     /// <summary>

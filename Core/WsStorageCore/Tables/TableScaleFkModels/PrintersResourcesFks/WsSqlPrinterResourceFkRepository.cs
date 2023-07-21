@@ -5,5 +5,4 @@
 public class WsSqlPrinterResourceFkRepository : WsSqlTableRepositoryBase<WsSqlPrinterResourceFkModel>
 {
     // public List<WsSqlPrinterResourceFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListPrinterResources(sqlCrudConfig);
-
 }

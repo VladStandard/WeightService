@@ -2,15 +2,6 @@ namespace WsStorageCore.Views.ViewRefModels.PluStorageMethods;
 
 public class WsSqlViewPluStorageMethodRepository : IViewStorageMethodsRepository
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlViewPluStorageMethodRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlViewPluStorageMethodRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
     public List<WsSqlViewPluStorageMethodModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

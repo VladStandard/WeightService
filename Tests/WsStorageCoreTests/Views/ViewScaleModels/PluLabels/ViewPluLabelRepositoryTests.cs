@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.PluLabels;
 [TestFixture]
 public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
 {
-    private IViewPluLabelRepository PluLabelRepository = WsSqlViewPluLabelRepository.Instance;
+    private IViewPluLabelRepository PluLabelRepository { get; } = new WsSqlViewPluLabelRepository();
 
     [Test]
     public void GetList()

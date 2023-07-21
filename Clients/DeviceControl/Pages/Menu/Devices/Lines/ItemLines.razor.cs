@@ -22,6 +22,8 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     private List<WsSqlDeviceModel> HostModels { get; set; }
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
 
+    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
+    
     public ItemLines() : base()
     {
         Device = new();
@@ -40,7 +42,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         HostModels =  new WsSqlDeviceRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
         
-        DeviceScaleFk = WsSqlDeviceLineFkRepository.Instance.GetItemByLine(SqlItemCast);
+        DeviceScaleFk = DeviceLineFkRepository.GetItemByLine(SqlItemCast);
         DeviceScaleFk = DeviceScaleFk.IsNotNew ? DeviceScaleFk : SqlItemNewEmpty<WsSqlDeviceScaleFkModel>();
         Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : SqlItemNewEmpty<WsSqlDeviceModel>();
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);

@@ -37,8 +37,8 @@ public static class WsServiceUtilsGet
         WsSqlBrandModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
-                                          ?? WsServiceUtils.ContextManager.ContextBrands.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextBrands.GetItemByUid1C(uid1C),
+                                          ?? WsServiceUtils.ContextManager.BrandRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.BrandRepository.GetItemByUid1C(uid1C),
         };
         if (!Equals(uid1C, Guid.Empty))
         {
@@ -66,8 +66,8 @@ public static class WsServiceUtilsGet
         WsSqlBundleModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Bundles.Find(item => item.Uid1C.Equals(uid1C))
-                                          ?? WsServiceUtils.ContextManager.ContextBundles.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextBundles.GetItemByUid1C(uid1C),
+                                          ?? WsServiceUtils.ContextManager.BundleRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.BundleRepository.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
@@ -92,8 +92,8 @@ public static class WsServiceUtilsGet
         WsSqlClipModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Clips.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.ContextClips.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextClips.GetItemByUid1C(uid1C),
+                                      ?? WsServiceUtils.ContextManager.ClipRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.ClipRepository.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
@@ -118,8 +118,8 @@ public static class WsServiceUtilsGet
         WsSqlBoxModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Boxes.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.ContextBoxes.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextBoxes.GetItemByUid1C(uid1C),
+                                      ?? WsServiceUtils.ContextManager.BoxRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.BoxRepository.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
@@ -144,8 +144,8 @@ public static class WsServiceUtilsGet
         WsSqlPluModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Plus.Find(item => item.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.ContextPlus.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextPlus.GetItemByUid1C(uid1C),
+                                      ?? WsServiceUtils.ContextManager.PluRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.PluRepository.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
@@ -175,7 +175,7 @@ public static class WsServiceUtilsGet
                 item => item.Plu.Uid1C.Equals(pluUid1C) &&
                 item.Parent.Uid1C.Equals(parentUid1C) &&
                 categoryUid1C is not null ? categoryUid1C.Equals(item.Category?.Uid1C) : item.Category is null)
-                ?? WsServiceUtils.ContextManager.ContextPlusFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.PluFkRepository.GetNewItem(),
             /*
  WsServiceUtils.ContextCache..Find(item =>
                 Equals(item.Plu.Uid1C, ) &&
@@ -209,8 +209,8 @@ public static class WsServiceUtilsGet
             WsSqlEnumContextType.Cache => 
                 WsServiceUtils.ContextCache.PlusCharacteristics.Find(
                     item => item.Uid1C.Equals(uid1C))
-                ?? WsServiceUtils.ContextManager.ContextPluCharacteristics.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.ContextPluCharacteristics.GetItemByUid1C(uid1C),
+                ?? WsServiceUtils.ContextManager.PluCharacteristicRepository.GetNewItem(),
+            _ => WsServiceUtils.ContextManager.PluCharacteristicRepository.GetItemByUid1C(uid1C),
         };
         if (result.IsNew)
         {
@@ -236,7 +236,7 @@ public static class WsServiceUtilsGet
         {
             WsSqlEnumContextType.Cache => 
                 WsServiceUtils.ContextCache.PlusCharacteristicsFks.Find(item =>
-                Equals(item.Characteristic.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.ContextPluCharacteristicsFk.GetNewItem(),
+                Equals(item.Characteristic.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.PluCharacteristicsFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -264,7 +264,7 @@ public static class WsServiceUtilsGet
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBrandsFks.Find(item =>
                 item.Plu.Uid1C.Equals(pluUid1C) && item.Brand.Uid1C.Equals(brandUid1C))
-                ?? WsServiceUtils.ContextManager.ContextPluBrandsFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.PluBrandFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -292,7 +292,7 @@ public static class WsServiceUtilsGet
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusClipsFks.Find(item =>
                 item.Plu.Uid1C.Equals(pluUid1C) && item.Clip.Uid1C.Equals(clipUid1C))
-                ?? WsServiceUtils.ContextManager.ContextPlusClipsFk.GetNewItem(),
+                ?? WsServiceUtils.ContextManager.PlusClipFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -318,7 +318,7 @@ public static class WsServiceUtilsGet
         WsSqlPluBundleFkModel result = contextType switch
         {
             WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBundlesFks.Find(item => item.Plu.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.ContextPluBundlesFk.GetNewItem(),
+                                      ?? WsServiceUtils.ContextManager.PluBundleFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -338,7 +338,7 @@ public static class WsServiceUtilsGet
         List<WsSqlPlu1CFkModel> plus1CFks = new();
         WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ по UID_1C.
-        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.ContextPlus.GetListByUid1C(uid1C);
+        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetListByUid1C(uid1C);
         foreach (WsSqlPluModel plu in plusDb)
         {
             WsSqlPlu1CFkModel? plu1CFkCache =
@@ -368,7 +368,7 @@ public static class WsServiceUtilsGet
             WsSqlEnumContextType.Cache => 
                 WsServiceUtils.ContextCache.PlusNestingFks.Find(
                     item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C) && item.IsDefault)
-                    ?? WsServiceUtils.ContextManager.ContextPlusNesting.GetNewItem(),
+                    ?? WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)

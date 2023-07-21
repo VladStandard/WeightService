@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewDiagModels.TableSize;
 [TestFixture]
 public sealed class ViewTableSizeRepositoryTests : ViewRepositoryTests
 {
-    private IViewTableSizeRepository ViewTableSizeRepository = WsSqlViewTableSizeRepository.Instance;
+    private IViewTableSizeRepository ViewTableSizeRepository { get; } = new WsSqlViewTableSizeRepository();
     
     [Test]
     public void GetList()

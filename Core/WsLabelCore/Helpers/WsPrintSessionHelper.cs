@@ -342,7 +342,7 @@ public sealed class WsPrintSessionHelper
         _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
-        ContextManager.ContextPlusLabels.Save(pluLabel);
+        ContextManager.PluLabelRepository.Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
@@ -358,7 +358,7 @@ public sealed class WsPrintSessionHelper
             // Patch for using table `PLUS_STORAGE_METHODS_FK`.
             if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceModel resource = ContextManager.ContextPlusStorages.GetItemResource(pluLabel.PluScale.Plu);
+                WsSqlTemplateResourceModel resource = ContextManager.SqlPluStorageMethodFkRepository.GetItemResource(pluLabel.PluScale.Plu);
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }

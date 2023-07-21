@@ -14,7 +14,8 @@ namespace WsLabelCore.Controls;
 public sealed class WsFormPluControl : UserControl
 {
     #region Public and private fields, properties, constructor
-
+    private WsSqlPluRepository PluRepository { get; } = new();
+    
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private Label LabelPlu { get; }
     private Label LabelTemplate { get; }
@@ -79,7 +80,7 @@ public sealed class WsFormPluControl : UserControl
     /// <returns></returns>
     private Label CreateLabelPluTemplate(WsSqlViewPluLineModel viewPluScale)
     {
-        List<string> validates = WsSqlPluRepository.Instance.GetListValidatesViewPluLine(viewPluScale);
+        List<string> validates = PluRepository.GetListValidatesViewPluLine(viewPluScale);
         return new()
         {
             Font = FontsSettings.FontMinimum,

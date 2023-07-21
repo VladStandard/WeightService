@@ -4,7 +4,7 @@ namespace WsStorageCoreTests.Views.ViewRefModels.PluNestings;
 
 public class ViewPluNestingRepositoryTests : ViewRepositoryTests
 {
-    private IViewPluNestingRepository ViewPluNestingRepository = WsSqlViewPluNestingRepository.Instance;
+    private IViewPluNestingRepository ViewPluNestingRepository { get; } = new WsSqlViewPluNestingRepository();
 
     [Test]
     public void GetList()

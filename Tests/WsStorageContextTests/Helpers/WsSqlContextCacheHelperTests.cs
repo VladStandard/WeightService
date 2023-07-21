@@ -55,7 +55,7 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_lines_current() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.ContextLines.GetList();
+            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.LineRepository.GetList();
             Assert.That(lines.Any(), Is.True);
 
             bool isPrintFirst = false;

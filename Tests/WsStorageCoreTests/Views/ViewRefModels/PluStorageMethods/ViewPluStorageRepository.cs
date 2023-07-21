@@ -4,7 +4,7 @@ namespace WsStorageCoreTests.Views.ViewRefModels.PluStorageMethods;
 
 public class ViewPluStorageRepository : ViewRepositoryTests
 {
-    private IViewStorageMethodsRepository ViewPluStorageMethodRepository = WsSqlViewPluStorageMethodRepository.Instance;
+    private IViewStorageMethodsRepository ViewPluStorageMethodRepository { get; } = new WsSqlViewPluStorageMethodRepository();
 
     [Test]
     public void GetList()

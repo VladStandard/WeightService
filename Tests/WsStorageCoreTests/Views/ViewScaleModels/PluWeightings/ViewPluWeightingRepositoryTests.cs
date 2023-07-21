@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.PluWeightings;
 [TestFixture]
 public sealed class ViewPluWeightingRepositoryTests : ViewRepositoryTests
 {
-    private IViewPluWeightingRepository ViewPluWeightingRepository = WsSqlViewPluWeightingRepository.Instance;
+    private IViewPluWeightingRepository ViewPluWeightingRepository { get; } = new WsSqlViewPluWeightingRepository();
     
     [Test]
     public void GetList()

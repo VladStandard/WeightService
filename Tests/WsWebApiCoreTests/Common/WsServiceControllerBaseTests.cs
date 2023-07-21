@@ -21,7 +21,7 @@ public class WsServiceControllerBaseTests
             WsServiceUtilsUpdate.FillPlus1CFksDb();
 
             Assert.IsTrue(WsServiceUtilsCheck.CheckExistsAllPlus1CFksDb());
-            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList());
+            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
         }, false, new() { WsEnumConfiguration.DevelopVS }); // , WsEnumConfiguration.ReleaseVS
     }
 
@@ -37,7 +37,7 @@ public class WsServiceControllerBaseTests
             if (!flag)
                 TestContext.WriteLine($"Run {nameof(Fill_plus_1c_fks)} first!");
             Assert.IsTrue(flag);
-            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList());
+            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
@@ -48,7 +48,7 @@ public class WsServiceControllerBaseTests
         {
             if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null)
                 throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
-            WsSqlPluModel plu301 = WsTestsUtils.ContextManager.ContextPlus.GetItemByNumber(301);
+            WsSqlPluModel plu301 = WsTestsUtils.ContextManager.PluRepository.GetItemByNumber(301);
             TestContext.WriteLine($"{nameof(plu301)}: {plu301}");
             // Получить список связей обмена ПЛУ 1С по GUID_1C.
             List<WsSqlPlu1CFkModel> plus1CFks = WsServiceUtilsGet.GetPlus1CFksByGuid1C(plu301.Uid1C);

@@ -22,6 +22,11 @@ public sealed class WsSqlContextCacheHelper
 
     #endregion
 
+    private WsSqlViewPluLineRepository PluLineRepository { get; } = new();
+    private WsSqlViewPluNestingRepository ViewPluNestingFkRepository { get; } = new();
+    private WsSqlViewPluStorageMethodRepository ViewPluStorageMethodRepository { get; } = new();
+    private WsSqlViewTableSizeRepository ViewTableSizeRepository { get; } = new();
+    
     #region Public and private fields, properties, constructor - Глобальный кэш таблиц
 
     private WsSqlCrudConfigModel SqlCrudConfig => new(new(),
@@ -74,7 +79,7 @@ public sealed class WsSqlContextCacheHelper
     /// </summary>
     public void SmartLoad()
     {
-        List<WsSqlViewTableSizeModel> tableSize = WsSqlViewTableSizeRepository.Instance.GetList(SqlCrudConfig);
+        List<WsSqlViewTableSizeModel> tableSize = ViewTableSizeRepository.GetList(SqlCrudConfig);
         WsSqlViewTableSizeModel? table;
         
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Boxes));
@@ -198,9 +203,9 @@ public sealed class WsSqlContextCacheHelper
         if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
             DeviceSettingsFks = ContextManager.ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
-            PlusClipsFks = ContextManager.ContextPlusClipsFk.GetList(SqlCrudConfig);
+            PlusClipsFks = ContextManager.PlusClipFkRepository.GetList(SqlCrudConfig);
         if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks))
-            Plus1CFks = ContextManager.ContextPlu1CFk.GetList();
+            Plus1CFks = ContextManager.Plu1CRepository.GetList();
         if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics))
             PlusCharacteristics = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
         if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks))
@@ -216,12 +221,12 @@ public sealed class WsSqlContextCacheHelper
 
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))
-            ViewPlusLines = WsSqlViewPluLineRepository.Instance.GetList();
+            ViewPlusLines = PluLineRepository.GetList();
         if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) ||
             Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
-            ViewPlusStorageMethods = WsSqlViewPluStorageMethodRepository.Instance.GetList(SqlCrudConfig);
+            ViewPlusStorageMethods = ViewPluStorageMethodRepository.GetList(SqlCrudConfig);
         if (!ViewPlusNesting.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusNesting))
-            ViewPlusNesting = ContextManager.ViewPluNestingRepository.GetList();
+            ViewPlusNesting = ViewPluNestingFkRepository.GetList();
 
         // Оптимизация.
         if (TableName.Equals(WsSqlEnumTableName.All))
@@ -256,7 +261,7 @@ public sealed class WsSqlContextCacheHelper
 
     public void LoadLocalViewPlusLines(ushort scaleId)
     {
-        LocalViewPlusLines = ContextManager.ViewPluLineRepository.GetList(scaleId);
+        LocalViewPlusLines = PluLineRepository.GetList(scaleId);
     }
 
     public List<WsSqlViewPluLineModel> GetCurrentViewPlusScales(int pageNumber, ushort pageSize) =>

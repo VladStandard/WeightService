@@ -4,7 +4,7 @@ namespace WsStorageCoreTests.Views.ViewRefModels.PluLines;
 
 public class ViewPluLineRepositoryTests : ViewRepositoryTests
 {
-    private IViewPluLineRepository ViewPluLineRepository = WsSqlViewPluLineRepository.Instance;
+    private IViewPluLineRepository ViewPluLineRepository { get; } = new WsSqlViewPluLineRepository();
     
     [Test]
     public void GetList()

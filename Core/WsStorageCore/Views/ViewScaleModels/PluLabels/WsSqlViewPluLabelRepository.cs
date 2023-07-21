@@ -2,15 +2,6 @@
 
 public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlViewPluLabelRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlViewPluLabelRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
     public List<WsSqlViewPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
@@ -19,7 +10,7 @@ public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
         string query = WsSqlQueriesDiags.Views.GetPluLabels(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 
-        foreach (var obj in objects)
+        foreach (object obj in objects)
         {
             int i = 0;
             if (obj is not object[] item || item.Length < 10 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;

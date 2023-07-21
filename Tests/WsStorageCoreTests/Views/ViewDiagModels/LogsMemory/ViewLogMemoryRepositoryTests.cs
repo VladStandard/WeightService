@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewDiagModels.LogsMemory;
 [TestFixture]
 public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
 {
-    private IViewLogMemoryRepository ViewLogMemoryRepository = WsSqlViewLogMemoryRepository.Instance;
+    private IViewLogMemoryRepository ViewLogMemoryRepository { get; } = new WsSqlViewLogMemoryRepository();
     
     [Test]
     public void GetList()

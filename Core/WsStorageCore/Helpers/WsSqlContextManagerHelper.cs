@@ -1,13 +1,11 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using FluentNHibernate.Cfg.Db;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
-using WsStorageCore.Views.ViewDiagModels.LogsMemory;
-using WsStorageCore.Views.ViewDiagModels.TableSize;
 using WsStorageCore.Views.ViewRefModels.PluLines;
 using WsStorageCore.Views.ViewRefModels.PluNestings;
-using WsStorageCore.Views.ViewRefModels.PluStorageMethods;
 
 namespace WsStorageCore.Helpers;
 
@@ -32,40 +30,33 @@ public sealed class WsSqlContextManagerHelper
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
-    public WsSqlAccessRepository ContextAccess => WsSqlAccessRepository.Instance;
-    public WsSqlAreaRepository ContextAreas => WsSqlAreaRepository.Instance;
-    public WsSqlBoxRepository ContextBoxes => WsSqlBoxRepository.Instance;
-    public WsSqlBrandRepository ContextBrands => WsSqlBrandRepository.Instance;
-    public WsSqlBundleRepository ContextBundles => WsSqlBundleRepository.Instance;
-    public WsSqlClipRepository ContextClips => WsSqlClipRepository.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public WsSqlDeviceLineFkRepository ContextDevicesLines => WsSqlDeviceLineFkRepository.Instance;
-    public WsSqlDeviceRepository DevicesRepository => WsSqlDeviceRepository.Instance;
-    public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository => WsSqlDeviceSettingsFkRepository.Instance;
-    public WsSqlDeviceSettingsRepository DeviceSettingsRepository => WsSqlDeviceSettingsRepository.Instance;
-    public WsSqlLineRepository ContextLines => WsSqlLineRepository.Instance;
-    public WsSqlPlu1CRepository ContextPlu1CFk => WsSqlPlu1CRepository.Instance;
-    public WsSqlPluBrandFkRepository ContextPluBrandsFk => WsSqlPluBrandFkRepository.Instance;
-    public WsSqlPluBundleFkRepository ContextPluBundlesFk => WsSqlPluBundleFkRepository.Instance;
-    public WsSqlPluCharacteristicRepository ContextPluCharacteristics => WsSqlPluCharacteristicRepository.Instance;
-    public WsSqlPluCharacteristicsFkRepository ContextPluCharacteristicsFk => WsSqlPluCharacteristicsFkRepository.Instance;
-    public WsSqlPluClipFkRepository ContextPlusClipsFk => WsSqlPluClipFkRepository.Instance;
-    public WsSqlPluFkRepository ContextPlusFk => WsSqlPluFkRepository.Instance;
-    public WsSqlPluLabelRepository ContextPlusLabels => WsSqlPluLabelRepository.Instance;
-    public WsSqlPluLineRepository ContextPlusLines => WsSqlPluLineRepository.Instance;
-    public WsSqlPluNestingFkRepository ContextPlusNesting => WsSqlPluNestingFkRepository.Instance;
-    public WsSqlPluRepository ContextPlus => WsSqlPluRepository.Instance;
-    public WsSqlPluStorageMethodFkRepository ContextPlusStorages => WsSqlPluStorageMethodFkRepository.Instance;
-    public WsSqlPluWeighingRepository ContextPlusWeighing => WsSqlPluWeighingRepository.Instance;
-    public WsSqlTemplateRepository ContextTemplates => WsSqlTemplateRepository.Instance;
-    public WsSqlViewLogMemoryRepository ViewLogMemoryRepository => WsSqlViewLogMemoryRepository.Instance;
-    public WsSqlViewPluLineRepository ViewPluLineRepository => WsSqlViewPluLineRepository.Instance;
-    public WsSqlViewPluNestingRepository ViewPluNestingRepository => WsSqlViewPluNestingRepository.Instance;
-    public WsSqlViewPluStorageMethodRepository ViewPluStorageMethodRepository => WsSqlViewPluStorageMethodRepository.Instance;
-    public WsSqlViewTableSizeRepository ViewTableSizeRepository => WsSqlViewTableSizeRepository.Instance;
-    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
+    public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
+    public WsSqlAreaRepository AreaRepository { get; } = new();
+    public WsSqlBoxRepository BoxRepository { get; } = new();
+    public WsSqlBrandRepository BrandRepository { get; } = new();
+    public WsSqlBundleRepository BundleRepository { get; } = new();
+    public WsSqlClipRepository ClipRepository { get; } = new();
+    public WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
+    public WsSqlDeviceRepository DevicesRepository { get; } = new();
+    public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
+    public WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
+    public WsSqlLineRepository LineRepository { get; } = new();
+    public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
+    public WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
+    public WsSqlPluBundleFkRepository PluBundleFkRepository { get; } = new();
+    public WsSqlPluCharacteristicRepository PluCharacteristicRepository { get; } = new();
+    public WsSqlPluCharacteristicsFkRepository PluCharacteristicsFkRepository { get; } = new();
+    public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
+    public WsSqlPluFkRepository PluFkRepository { get; } = new();
+    public WsSqlPluLabelRepository PluLabelRepository { get; } = new();
+    public WsSqlPluLineRepository PluLineRepository { get; } = new();
+    public WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
+    public WsSqlPluRepository PluRepository { get; } = new();
+    public WsSqlPluStorageMethodFkRepository SqlPluStorageMethodFkRepository { get; } = new();
+    public WsSqlPluWeighingRepository PluWeighingRepository { get; } = new();
 
     #endregion
 

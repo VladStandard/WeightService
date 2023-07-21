@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 [TestFixture]
 public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
 {
-    private IViewWeightingAggrRepository ViewWeightingAggrRepository = WsSqlViewWeightingAggrRepository.Instance;
+    private IViewWeightingAggrRepository ViewWeightingAggrRepository { get; } = new WsSqlViewWeightingAggrRepository();
 
     [Test]
     public void GetList()

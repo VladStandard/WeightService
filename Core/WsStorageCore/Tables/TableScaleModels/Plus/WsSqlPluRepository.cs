@@ -11,15 +11,8 @@ namespace WsStorageCore.Tables.TableScaleModels.Plus;
 /// </summary>
 public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlPluRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlPluRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
+    private WsSqlViewPluLineRepository PluLineRepository { get; } = new();
+    
     #region Public and private methods
 
     /// <summary>
@@ -110,7 +103,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
         if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(WsLocaleCore.LabelPrint.PluEan13IsNotSet);
         //if (string.IsNullOrEmpty(viewPluLine.PluItf14)) validates.Add(LocaleCore.Scales.PluItf14IsNotSet);
 
-        List<WsSqlViewPluLineModel> viewPlusLines = WsSqlViewPluLineRepository.Instance.GetList(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
+        List<WsSqlViewPluLineModel> viewPlusLines = PluLineRepository.GetList(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
         List<string> plusTemplates = viewPlusLines.Where(item => !string.IsNullOrEmpty(item.TemplateName)).
             Select(item => item.TemplateName).ToList();
         if (!plusTemplates.Any()) validates.Add(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);

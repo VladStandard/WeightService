@@ -8,8 +8,8 @@ namespace DeviceControl.Pages.Menu.Operations;
 public sealed partial class PluWeightingsAggr : ComponentBase
 {
     #region Public and private fields, properties, constructor
-    
-    private WsSqlViewWeightingAggrRepository WeightingAggrRepository = WsSqlViewWeightingAggrRepository.Instance;
+
+    private WsSqlViewWeightingAggrRepository WeightingAggrRepository { get; } = new();
     private bool IsShowPlu { get; set; }
     private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
     private List<WsSqlViewWeightingAggrModel> PluWeightAggrs { get; set; }

@@ -8,15 +8,8 @@ namespace WsStorageCore.Tables.TableScaleModels.Scales;
 /// </summary>
 public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleModel>
 {
-    #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private static WsSqlLineRepository _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public static WsSqlLineRepository Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
+    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
+    
     #region Item
 
     public WsSqlScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlScaleModel>();
@@ -25,9 +18,9 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     public WsSqlScaleModel GetItemByDevice(WsSqlDeviceModel device)
     {
-        return WsSqlDeviceLineFkRepository.Instance.GetItemByDevice(device).Scale;
+        return DeviceLineFkRepository.GetItemByDevice(device).Scale;
     }
-    
+
     #endregion
 
     #region List
@@ -36,15 +29,15 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     public List<WsSqlScaleModel> GetList(WsSqlEnumIsMarked isMarked) =>
         ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
-    
-    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableLines(sqlCrudConfig);
+
+    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
+        ContextList.GetListNotNullableLines(sqlCrudConfig);
 
     #endregion
-    
+
     #region CRUD
-    
+
     public void Update(WsSqlScaleModel line) => SqlCore.Update(line);
 
     #endregion
-    
 }

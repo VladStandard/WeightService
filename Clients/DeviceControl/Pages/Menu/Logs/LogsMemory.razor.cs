@@ -9,7 +9,7 @@ public sealed partial class LogsMemory : SectionBase<WsSqlViewLogMemoryModel>
 {
     #region Public and private methods
 
-    private WsSqlViewLogMemoryRepository LogMemoryRepository => WsSqlViewLogMemoryRepository.Instance;
+    private WsSqlViewLogMemoryRepository LogMemoryRepository { get; } = new();
     
     public LogsMemory() : base()
     {
