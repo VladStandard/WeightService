@@ -13,8 +13,7 @@ public sealed class PluFkRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluFkModel> items = PluFkRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

@@ -75,7 +75,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
         return ContextList.GetListNotNullablePlus(sqlCrudConfig);
     }
 
-    public List<WsSqlPluModel> GetListByNumbers(short minNumber, short maxNumber)
+    public List<WsSqlPluModel> GetListByRange(short minNumber, short maxNumber)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);

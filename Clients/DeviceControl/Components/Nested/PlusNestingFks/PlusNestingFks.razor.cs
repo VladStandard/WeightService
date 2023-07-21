@@ -20,7 +20,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextManager.ContextPlusNesting.GetListByUid(SqlItem?.IdentityValueUid);
+        SqlSectionCast = ContextManager.ContextPlusNesting.GetListByPluUid(SqlItem?.IdentityValueUid);
     }
 
     #endregion

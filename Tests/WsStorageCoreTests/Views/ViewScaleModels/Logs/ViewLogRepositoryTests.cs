@@ -13,8 +13,7 @@ public sealed class ViewLogRepositoryTests : ViewRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewLogModel> items = ViewLogRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

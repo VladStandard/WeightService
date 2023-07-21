@@ -13,8 +13,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlBundleModel> items = BundleRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

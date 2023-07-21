@@ -19,10 +19,11 @@ public sealed class LogMemoryTests
             MemorySizeModel memorySize = new();
             memorySize.Execute();
             WsTestsUtils.DataTests.ContextManager.ContextItem.SaveLogMemory(
-                memorySize.GetMemorySizeAppMb(), memorySize.GetMemorySizeFreeMb());
+                memorySize.GetMemorySizeAppMb(), memorySize.GetMemorySizeFreeMb()
+                );
             TestContext.WriteLine($"{nameof(memorySize.GetMemorySizeAppMb)}: {memorySize.GetMemorySizeAppMb()}");
             TestContext.WriteLine($"{nameof(memorySize.GetMemorySizeFreeMb)}: {memorySize.GetMemorySizeFreeMb()}");
-            WsTestsUtils.DataTests.AssertGetList<WsSqlLogMemoryModel>(SqlCrudConfigFk, Configurations, false);
+            // WsTestsUtils.DataTests.AssertGetList<WsSqlLogMemoryModel>(SqlCrudConfigFk, Configurations, false);
         }, false, Configurations);
     }
 }

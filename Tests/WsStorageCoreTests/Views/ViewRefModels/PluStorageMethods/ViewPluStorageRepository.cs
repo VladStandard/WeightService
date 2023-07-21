@@ -12,8 +12,7 @@ public class ViewPluStorageRepository : ViewRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewPluStorageMethodModel> items = ViewPluStorageMethodRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

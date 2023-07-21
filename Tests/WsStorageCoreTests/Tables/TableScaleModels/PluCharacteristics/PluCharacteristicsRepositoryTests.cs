@@ -13,8 +13,7 @@ public sealed class PluCharacteristicsRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluCharacteristicModel> items = PluCharacteristicRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

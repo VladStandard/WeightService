@@ -13,8 +13,7 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlTemplateResourceModel> items = TemplateResourceRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

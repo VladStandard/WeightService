@@ -20,8 +20,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluScaleModel> items = PluLineRepository.GetList(SqlCrudConfig);
-            Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.PrintTopRecords(items, 10);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
     

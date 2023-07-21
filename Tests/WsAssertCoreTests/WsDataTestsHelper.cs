@@ -133,17 +133,6 @@ public class WsDataTestsHelper
         }
     }
 
-    public void AssertSqlDbContentValidate<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
-    {
-        AssertAction(() =>
-        {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfigSection(isMarked);
-            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
-            Assert.IsTrue(items.Any());
-            PrintTopRecords(items, 0, true);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
-
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
         AssertSqlTablesValidate(item, assertResult);
 
@@ -210,31 +199,6 @@ public class WsDataTestsHelper
             Assert.IsNotEmpty(strValue);
             Assert.IsNotNull(strValue);
         }
-    }
-
-    public void AssertGetList<T>(WsSqlCrudConfigModel sqlCrudConfig, List<WsEnumConfiguration> publishTypes, bool isGreater = true)
-        where T : WsSqlTableBase, new()
-    {
-        AssertAction(() =>
-        {
-            List<T> items = ContextManager.ContextList.GetListNotNullable<T>(sqlCrudConfig);
-            TestContext.WriteLine($"Found {nameof(items.Count)}: {items.Count}");
-            if (isGreater)
-                Assert.Greater(items.Count, 0);
-            foreach (T item in items)
-            {
-                Assert.IsNotEmpty(item.ToString());
-                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
-                if (!validationResult.IsValid)
-                {
-                    TestContext.WriteLine($"{item}");
-                    TestContext.WriteLine($"{nameof(validationResult)}: {validationResult}");
-                }
-                if (!validationResult.IsValid)
-                    TestContext.WriteLine($"{item} | {validationResult.Errors}");
-                Assert.IsTrue(validationResult.IsValid);
-            }
-        }, false, publishTypes);
     }
 
     public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlTableBase, new()
@@ -587,38 +551,36 @@ public class WsDataTestsHelper
         });
     }
 
-    public void PrintTopRecords<T>(List<T> items, ushort count = 0, bool isValidate = false, bool isSerialize = false) 
-        where T : class, new()
+    public void ParseRecords<T>(List<T> items) where T : WsSqlTableBase, new()
     {
-        checked
-        {
-            if (Equals(count, (ushort)0))
-                count = (ushort)items.Count;
-            TestContext.WriteLine($"Print top {count} from {items.Count} records.");
-            int i = 0;
+            Assert.That(items.Any(), Is.True, "No data in database!!!");
+            
+            TestContext.WriteLine($"Print {items.Count} records.");
+            
             foreach (T item in items)
             {
-                if (i < count)
+                TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString()));
+                
+                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
+                Assert.That(validationResult.IsValid, Is.True, validationResult.ToString());
+            
+                if (item is SerializeBase sitem)
                 {
-                    TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
-                    if (isValidate)
-                    {
-                        AssertSqlTablesValidate(item, true);
-                        ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
-                        FailureWriteLine(validationResult);
-                        Assert.IsTrue(validationResult.IsValid);
-                    }
-                    if (isSerialize && item is SerializeBase sitem)
-                    {
-                        string xml = WsDataFormatUtils.SerializeAsXmlString<T>(sitem, true, false);
-                        Assert.IsNotEmpty(xml);
-                    }
+                    string xml = WsDataFormatUtils.SerializeAsXmlString<T>(sitem, true, false);
+                    Assert.IsNotEmpty(xml, "XML is empty");
                 }
-                else break;
-                i++;
             }
+    }
+    
+    public void PrintViewRecords<T>(List<T> items) where T : class, new()
+    {
+        Assert.That(items.Any(), Is.True, "No data in database!!!");
+        TestContext.WriteLine($"Print {items.Count} records.");
+        foreach (T item in items)
+        {
+            TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
         }
     }
-
+    
     #endregion
 }

@@ -21,7 +21,7 @@ public class WsServiceControllerBaseTests
             WsServiceUtilsUpdate.FillPlus1CFksDb();
 
             Assert.IsTrue(WsServiceUtilsCheck.CheckExistsAllPlus1CFksDb());
-            WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList(), 5);
+            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList());
         }, false, new() { WsEnumConfiguration.DevelopVS }); // , WsEnumConfiguration.ReleaseVS
     }
 
@@ -37,7 +37,7 @@ public class WsServiceControllerBaseTests
             if (!flag)
                 TestContext.WriteLine($"Run {nameof(Fill_plus_1c_fks)} first!");
             Assert.IsTrue(flag);
-            WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList());
+            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.ContextPlu1CFk.GetList());
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
@@ -53,7 +53,7 @@ public class WsServiceControllerBaseTests
             // Получить список связей обмена ПЛУ 1С по GUID_1C.
             List<WsSqlPlu1CFkModel> plus1CFks = WsServiceUtilsGet.GetPlus1CFksByGuid1C(plu301.Uid1C);
             Assert.IsTrue(plus1CFks.Any());
-            WsTestsUtils.DataTests.PrintTopRecords(plus1CFks);
+            WsTestsUtils.DataTests.PrintViewRecords(plus1CFks);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

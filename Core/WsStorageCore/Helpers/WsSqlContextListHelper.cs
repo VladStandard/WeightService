@@ -31,63 +31,6 @@ public sealed class WsSqlContextListHelper
 
     public List<T> GetListNotNullableCore<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         SqlCore.GetListNotNullable<T>(sqlCrudConfig);
-    
-    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => typeof(T) switch
-    {
-        var cls when cls == typeof(WsSqlBarCodeModel) => GetListNotNullableBarCodes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlBoxModel) => GetListNotNullableBoxes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlBrandModel) => GetListNotNullableBrands(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlBundleModel) => GetListNotNullableBundles(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlClipModel) => GetListNotNullableClips(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlContragentModel) => GetListNotNullableContragents(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceModel) => GetListNotNullableDevices(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceScaleFkModel) => GetListNotNullableDeviceScalesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceSettingsModel) => GetListNotNullableDeviceSettings(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceSettingsFkModel) => GetListNotNullableDeviceSettingsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceTypeModel) => GetListNotNullableDeviceTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlDeviceTypeFkModel) => GetListNotNullableDeviceTypesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlLogMemoryModel) => GetListNotNullableLogsMemories(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlLogModel) => GetListNotNullableLogs(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlLogTypeModel) => GetListNotNullableLogsTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlLogWebFkModel) => GetListNotNullableLogsWebsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlLogWebModel) => GetListNotNullableLogsWebs(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlOrderModel) => GetListNotNullableOrders(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlOrderWeighingModel) => GetListNotNullableOrdersWeighings(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlOrganizationModel) => GetListNotNullableOrganizations(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluBrandFkModel) => GetListNotNullablePlusBrandsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluBundleFkModel) => GetListNotNullablePlusBundlesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluCharacteristicModel) => GetListNotNullablePlusCharacteristics(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluCharacteristicsFkModel) => GetListNotNullablePlusCharacteristicsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluClipFkModel) => GetListNotNullablePlusClipsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluFkModel) => GetListNotNullablePlusFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluGroupFkModel) => GetListNotNullablePlusGroupsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluGroupModel) => GetListNotNullablePlusGroups(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluLabelModel) => GetListNotNullablePluLabels(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluModel) => GetListNotNullablePlus(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluNestingFkModel) => GetListNotNullablePlusNestingFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluScaleModel) => GetListNotNullablePlusScales(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluStorageMethodFkModel) => GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluStorageMethodModel) => GetListNotNullablePlusStoragesMethods(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluTemplateFkModel) => GetListNotNullablePlusTemplatesFks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPluWeighingModel) => GetListNotNullablePlusWeighings(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPrinterModel) => GetListNotNullablePrinters(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPrinterResourceFkModel) => GetListNotNullablePrintersResources(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPrinterTypeModel) => GetListNotNullablePrintersTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlProductionFacilityModel) => GetListNotNullableAreas(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlProductSeriesModel) => GetListNotNullableProductSeries(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlScaleModel) => GetListNotNullableLines(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlScaleScreenShotModel) => GetListNotNullableScaleScreenShots(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlTaskModel) => GetListNotNullableTasks(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlTaskTypeModel) => GetListNotNullableTasksTypes(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlTemplateModel) => GetListNotNullableTemplates(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlTemplateResourceModel) => GetListNotNullableTemplateResources(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlVersionModel) => GetListNotNullableVersions(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlWorkShopModel) => GetListNotNullableWorkShops(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlAccessModel) => GetListNotNullableAccesses(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlAppModel) => GetListNotNullableApps(sqlCrudConfig).Cast<T>().ToList(),
-        var cls when cls == typeof(WsSqlPlu1CFkModel) => GetListNotNullablePlus1CFks(sqlCrudConfig).Cast<T>().ToList(),
-        _ => new()
-    };
 
     public List<WsSqlAccessModel> GetListNotNullableAccesses(WsSqlCrudConfigModel sqlCrudConfig)
     {

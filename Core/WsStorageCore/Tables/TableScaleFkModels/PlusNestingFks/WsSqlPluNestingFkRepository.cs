@@ -88,7 +88,7 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     
     public List<WsSqlPluNestingFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusNestingFks(sqlCrudConfig);
     
-    public List<WsSqlPluNestingFkModel> GetListByUid(Guid? uid)
+    public List<WsSqlPluNestingFkModel> GetListByPluUid(Guid? uid)
     {
         uid ??= Guid.Empty;
         WsSqlCrudConfigModel sqlCrudConfig = new()
@@ -100,10 +100,10 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
         return result;
     }
 
-    public List<WsSqlPluNestingFkModel> GetListByNumber(short number)
+    public List<WsSqlPluNestingFkModel> GetListByPluNumber(short number)
     {
         WsSqlPluModel plu = ContextPlu.GetItemByNumber(number);
-        return GetListByUid(plu.IdentityValueUid);
+        return GetListByPluUid(plu.IdentityValueUid);
     }
 
     #endregion

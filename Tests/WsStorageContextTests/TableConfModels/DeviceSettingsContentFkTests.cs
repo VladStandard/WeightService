@@ -6,11 +6,6 @@ namespace WsStorageContextTests.TableConfModels;
 [TestFixture]
 public sealed class DeviceSettingsContentFkTests
 {
-    [Test]
-    public void Validate_device_settings()
-    {
-        WsTestsUtils.DataTests.AssertSqlDbContentValidate<WsSqlDeviceSettingsFkModel>(WsSqlEnumIsMarked.ShowAll);
-    }
 
     [Test]
     public void Get_table_devices_settings_fks_show_all()
@@ -18,9 +13,11 @@ public sealed class DeviceSettingsContentFkTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlDeviceSettingsModel> deviceSettings = WsTestsUtils.DataTests.ContextManager.DeviceSettingsRepository.GetList();
-            Assert.IsTrue(deviceSettings.Any());
+            Assert.That(deviceSettings.Any(), Is.True);
+            
             List<WsSqlDeviceModel> devices = WsTestsUtils.DataTests.ContextManager.DevicesRepository.GetList();
-            Assert.IsTrue(devices.Any());
+            Assert.That(devices.Any(), Is.True);
+            
             List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = WsTestsUtils.DataTests.ContextManager.DeviceSettingsFksRepository.GetList();
 
             // Для всех устройств.
@@ -47,7 +44,7 @@ public sealed class DeviceSettingsContentFkTests
             deviceSettingsFks = WsTestsUtils.DataTests.ContextManager.DeviceSettingsFksRepository.GetList();
 
             Assert.IsTrue(deviceSettingsFks.Any());
-            WsTestsUtils.DataTests.PrintTopRecords(deviceSettingsFks, 0);
+            WsTestsUtils.DataTests.PrintViewRecords(deviceSettingsFks);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

@@ -14,6 +14,8 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
+            List<WsSqlProductionFacilityModel> items = ProductionFacilityRepository.GetList(SqlCrudConfig);
+            WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

@@ -14,12 +14,12 @@ public sealed class GetDbSizeInfosTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlDbFileSizeInfoModel> infos = WsTestsUtils.DataTests.ContextManager.GetDbFileSizeInfos();
-            Assert.That(Equals(true, infos.Any()));
+            Assert.That(infos.Any(), Is.EqualTo(true));
             foreach (WsSqlDbFileSizeInfoModel info in infos)
             {
                 Assert.IsNotEmpty(info.ToString());
                 TestContext.WriteLine(info);
-                Assert.That(info.SizeMb < 10240);
+                Assert.That(info.SizeMb, Is.LessThan(10240));
             }
         }, false, Configurations);
     }
@@ -30,7 +30,7 @@ public sealed class GetDbSizeInfosTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             ushort dbFileSizeAll = WsTestsUtils.DataTests.ContextManager.GetDbFileSizeAll();
-            Assert.That(dbFileSizeAll > 0);
+            Assert.That(dbFileSizeAll, Is.GreaterThan(0));
             TestContext.WriteLine($"{nameof(dbFileSizeAll)}: {dbFileSizeAll} MB");
         }, false, Configurations);
     }
