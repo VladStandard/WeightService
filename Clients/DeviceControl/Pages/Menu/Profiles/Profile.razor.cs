@@ -59,6 +59,22 @@ public partial class Profile : ComponentBase
             DefaultRowCount = 200;
         await LocalStorage.SetItem("DefaultRowCount", DefaultRowCount.ToString());
     }
+    
+    private static string GetAccessRightsDescription(ClaimsPrincipal? user)
+    {
+        if (user == null)
+            return string.Empty;
+        string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value)
+            .OrderByDescending(int.Parse).First();
+        return (WsEnumAccessRights)int.Parse(right) switch
+        {
+            WsEnumAccessRights.Read => WsLocaleCore.Strings.AccessRightsRead,
+            WsEnumAccessRights.Write => WsLocaleCore.Strings.AccessRightsWrite,
+            WsEnumAccessRights.Admin => WsLocaleCore.Strings.AccessRightsAdmin,
+            _ => WsLocaleCore.Strings.AccessRightsNone
+        };
+    }
+
 
     #endregion
 }

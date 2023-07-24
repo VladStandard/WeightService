@@ -11,7 +11,9 @@ public sealed partial class ItemTableBody : ComponentBase
 
     private bool IsSqlItem1C => SqlItem is WsSqlTable1CBase;
 
-    private string Guid1C => IsSqlItem1C ? $"{((WsSqlTable1CBase?)SqlItem)?.Uid1C}" : $"{Guid.Empty}";
+    private string Guid1C => IsSqlItem1C && SqlItem is WsSqlTable1CBase sqlTable && sqlTable.Uid1C != Guid.Empty
+        ? $"{sqlTable.Uid1C}"
+        : "Нет в базе 1С";
 
     private string IdentityName =>
         SqlItem.Identity.Name switch

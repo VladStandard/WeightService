@@ -29,7 +29,7 @@
       <RadzenDataGridColumn TItem="@WsSqlAccessModel" Title="@WsLocaleCore.Table.AccessLevel"
                             SortProperty="Rights" Width="30%">
         <Template Context="itemCast">
-          @ContextManager.ContextItem.GetAccessRightsDescription(itemCast.Rights)
+          @GetAccessRightsDescription(itemCast.Rights)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.User" Property="Name" Width="30%" />

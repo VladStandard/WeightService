@@ -5,9 +5,6 @@ using WsStorageCore.Views.ViewRefModels.PluNestings;
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 
-/// <summary>
-/// Контроллер таблицы PLUS_NESTING_FK.
-/// </summary>
 public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSqlPluNestingFkModel>
 {
     #region Public and private fields, properties, constructor

@@ -56,7 +56,7 @@ public sealed class WsSqlCoreHelper
         {
             SetSqlConfiguration(isShowSql);
             SetFluentConfiguration();
-            SessionFactory = FluentConfiguration.BuildSessionFactory();
+            SessionFactory = FluentConfiguration?.BuildSessionFactory();
         }
     }
 
@@ -627,13 +627,7 @@ public sealed class WsSqlCoreHelper
     #endregion
 
     #region Public and private methods - Fill references
-
-    /// <summary>
-    /// Заполнить ссылочные данные.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="item"></param>
-    /// <param name="isFillReferences"></param>
+    
     private void FillReferences<T>(T? item, bool isFillReferences) where T : WsSqlTableBase, new()
     {
         // TODO: Следует перенести в клиентский слой доступа к данным! + Tests

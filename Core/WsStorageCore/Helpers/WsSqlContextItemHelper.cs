@@ -54,30 +54,7 @@ public sealed class WsSqlContextItemHelper
         WsSqlPluModel plu = GetItemPluNotNullable(pluScale);
         return GetItemPluTemplateFkNotNullable(plu).Template;
     }
-    
-    public string GetAccessRightsDescription(WsEnumAccessRights? accessRights)
-    {
-        return accessRights switch
-        {
-            WsEnumAccessRights.Read => WsLocaleCore.Strings.AccessRightsRead,
-            WsEnumAccessRights.Write => WsLocaleCore.Strings.AccessRightsWrite,
-            WsEnumAccessRights.Admin => WsLocaleCore.Strings.AccessRightsAdmin,
-            _ => WsLocaleCore.Strings.AccessRightsNone
-        };
-    }
 
-    public string GetAccessRightsDescription(byte accessRights) =>
-        GetAccessRightsDescription((WsEnumAccessRights)accessRights);
-
-    public string GetAccessRightsDescription(ClaimsPrincipal? user)
-    {
-        if (user == null)
-            return string.Empty;
-        string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
-            Select(c => c.Value).OrderByDescending(int.Parse).First();
-        return GetAccessRightsDescription((WsEnumAccessRights)int.Parse(right));
-    }
-    
     #endregion
 
     #region Public and private methods - Logs
@@ -159,37 +136,15 @@ public sealed class WsSqlContextItemHelper
     public void SaveLogStop(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Stop, filePath, lineNumber, memberName);
-
-    /// <summary>
-    /// Записать информационное сообщение в журнал событий.
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
+    
     public void SaveLogInformation(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
-
-    /// <summary>
-    /// Записать информационное сообщение в журнал событий.
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
+    
     public void SaveLogInformation(StringBuilder message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
 
-    /// <summary>
-    /// Записать информационное сообщение в журнал событий.
-    /// </summary>
-    /// <param name="message"></param>
-    /// <param name="description"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
     public void SaveLogInformationWithDescription(string message, string description,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore($"{description} | {message}", WsEnumLogType.Information, filePath, lineNumber, memberName);
@@ -207,11 +162,7 @@ public sealed class WsSqlContextItemHelper
     #region Public and private methods - LogMemory
 
     public void SetupLog(string appName) => SetupLog("", appName);
-    /// <summary>
-    /// Save log memory info.
-    /// </summary>
-    /// <param name="sizeAppMb"></param>
-    /// <param name="sizeFreeMb"></param>
+
     public void SaveLogMemory(short sizeAppMb, short sizeFreeMb)
     {
         if (sizeAppMb.Equals(0) || sizeFreeMb.Equals(0)) return;
@@ -296,5 +247,4 @@ public sealed class WsSqlContextItemHelper
     }
 
     #endregion
-    
 }

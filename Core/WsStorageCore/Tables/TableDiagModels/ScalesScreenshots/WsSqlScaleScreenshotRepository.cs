@@ -1,4 +1,7 @@
-﻿namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 
 public class WsSqlScaleScreenshotRepository: WsSqlTableRepositoryBase<WsSqlScaleScreenShotModel>
 {
