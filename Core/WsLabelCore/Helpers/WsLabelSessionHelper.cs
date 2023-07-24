@@ -226,7 +226,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
         if (PluLine.IsNotNew)
         {
-            WsSqlBundleModel bundle = ContextManager.BundleRepository.GetItem(PluLine.Plu);
+            WsSqlBundleModel bundle = ContextManager.BundleRepository.GetItemByPlu(PluLine.Plu);
             if (bundle.IsExists)
             {
                 PluLine.Plu.PackageTypeGuid = bundle.IdentityValueUid;

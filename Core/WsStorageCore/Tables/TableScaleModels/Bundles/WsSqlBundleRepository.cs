@@ -13,8 +13,22 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
 
     public WsSqlBundleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
 
-    public WsSqlBundleModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluBundleFkNotNullable(plu).Bundle;
-
+    public WsSqlBundleModel GetItemByPlu(WsSqlPluModel plu)
+    {
+        if (plu.IsNew)
+            return new();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
+    }
+    
+    public WsSqlBundleModel GetItemByUid1C(Guid uid1C)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
+            WsSqlEnumIsMarked.ShowAll, false, false, false);
+        return SqlCore.GetItemNotNullable<WsSqlBundleModel>(sqlCrudConfig);
+    }
+    
     public List<WsSqlBundleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
@@ -23,18 +37,6 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
         if (sqlCrudConfig.IsResultOrder && list.Any())
             list = list.OrderBy(item => item.Name).ToList();
         return list;
-    }
-
-    /// <summary>
-    /// Получить пакет по полю UID_1C.
-    /// </summary>
-    /// <param name="uid1C"></param>
-    /// <returns></returns>
-    public WsSqlBundleModel GetItemByUid1C(Guid uid1C)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlBundleModel>(sqlCrudConfig);
     }
 
     #endregion

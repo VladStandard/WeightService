@@ -55,28 +55,6 @@ public sealed class WsSqlContextItemHelper
     public WsSqlPluTemplateFkModel GetItemPluTemplateFkNotNullable(WsSqlPluModel plu) =>
         GetItemPluTemplateFkNullable(plu) ?? new();
 
-    public WsSqlPluBundleFkModel? GetItemPluBundleFkNullable(WsSqlPluModel plu, WsSqlBundleModel bundle)
-    {
-        if (plu.IsNew) return null;
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        WsSqlCrudConfigModel sqlCrudConfigBundle = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluBundleFkModel.Bundle)}.{nameof(WsSqlTableBase.IdentityValueUid)}", bundle.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        sqlCrudConfig.Filters.Add(sqlCrudConfigBundle.Filters.First());
-        return SqlCore.GetItemNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluBundleFkModel? GetItemPluBundleFkNullable(WsSqlPluModel plu)
-    {
-        if (plu.IsNew) return null;
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluBundleFkModel GetItemPluBundleFkNotNullable(WsSqlPluModel plu) =>
-        GetItemPluBundleFkNullable(plu) ?? new();
-
     public WsSqlPluClipFkModel? GetItemPluClipFkNullable(WsSqlPluModel plu)
     {
         if (plu.IsNew) return null;
