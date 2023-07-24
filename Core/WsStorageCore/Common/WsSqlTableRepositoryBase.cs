@@ -12,8 +12,6 @@ public class WsSqlTableRepositoryBase<TItem> where TItem : WsSqlTableBase, new()
 
     protected WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
-    protected WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
-
     protected WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
 
     protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;

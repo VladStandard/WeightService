@@ -14,8 +14,18 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
     public WsSqlDeviceScaleFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceScaleFkModel>();
 
     public WsSqlDeviceScaleFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceScaleFkModel>(uid);
-    
-    public List<WsSqlDeviceScaleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceScalesFks(sqlCrudConfig);
+
+    public List<WsSqlDeviceScaleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        //if (sqlCrudConfig.IsResultOrder)
+        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name) ));
+        List<WsSqlDeviceScaleFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list
+                .OrderBy(item => item.Device.Name)
+                .ThenBy(item => item.Scale.Name).ToList();
+        return list;
+    }
     
     public WsSqlDeviceScaleFkModel GetItemByDevice(WsSqlDeviceModel device)
     {

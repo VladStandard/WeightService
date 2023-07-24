@@ -22,18 +22,40 @@ public sealed class WsSqlContextCacheHelper
 
     #endregion
 
+    #region Public and private fields, properties, constructor - Инициализация репозиториев
+    
     private WsSqlViewPluLineRepository PluLineRepository { get; } = new();
     private WsSqlViewPluNestingRepository ViewPluNestingFkRepository { get; } = new();
     private WsSqlViewPluStorageMethodRepository ViewPluStorageMethodRepository { get; } = new();
     private WsSqlViewTableSizeRepository ViewTableSizeRepository { get; } = new();
+    private WsSqlBoxRepository BoxRepository { get; } = new();
+    private WsSqlBrandRepository BrandRepository { get; } = new();
+    private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
+    private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
+    private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
+    private WsSqlPlu1CRepository Plu1CRepository { get; } = new();
+    private WsSqlAreaRepository AreaRepository { get; } = new();
+    private WsSqlBundleRepository BundleRepository  { get; } = new();
+    private WsSqlLineRepository LineRepository  { get; } = new();
+    private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
+    private WsSqlClipRepository ClipRepository { get; } = new();
+    private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
+    private WsSqlDeviceSettingsFkRepository DeviceSettingFkRepository { get; } = new();
+    private WsSqlPluRepository PluRepository { get; } = new();
+    private WsSqlPluFkRepository PluFkRepository { get; } = new();
+    private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
+    private WsSqlPluCharacteristicRepository PluCharacteristicRepository { get; } = new();
+    private WsSqlPluCharacteristicsFkRepository PluCharacteristicFkRepository { get; } = new();
+    private WsSqlPluBundleFkRepository PluBundleFkRepository { get; } = new();
+    private WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
+
+    #endregion
     
     #region Public and private fields, properties, constructor - Глобальный кэш таблиц
 
-    private WsSqlCrudConfigModel SqlCrudConfig => new(new(),
-        WsSqlEnumIsMarked.ShowAll, false, true, false);
+    private WsSqlCrudConfigModel SqlCrudConfig => new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
-
     public List<WsSqlBoxModel> Boxes { get; private set; } = new();
     public List<WsSqlBrandModel> Brands { get; private set; } = new();
     public List<WsSqlBundleModel> Bundles { get; private set; } = new();
@@ -84,83 +106,83 @@ public sealed class WsSqlContextCacheHelper
         
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Boxes));
         if (Boxes.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Boxes.Count))
-            Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
+            Boxes = BoxRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Brands));
         if (Brands.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Brands.Count))
-            Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+            Brands = BrandRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Bundles));
         if (Bundles.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Bundles.Count))
-            Bundles = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
+            Bundles = BundleRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Clips));
         if (Clips.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Clips.Count))
-            Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
+            Clips = ClipRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettings));
         if (DeviceSettings.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettings.Count))
-            DeviceSettings = ContextManager.ContextList.GetListNotNullableDeviceSettings(SqlCrudConfig);
+            DeviceSettings = DeviceSettingsRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettingsFks));
         if (DeviceSettingsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettingsFks.Count))
-            DeviceSettingsFks = ContextManager.ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
+            DeviceSettingsFks = DeviceSettingFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus1CFks));
         if (Plus1CFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus1CFks.Count))
-            Plus1CFks = ContextManager.ContextList.GetListNotNullablePlus1CFks(SqlCrudConfig);
+            Plus1CFks = Plu1CRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusBrandsFks));
         if (PlusBrandsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusBrandsFks.Count))
-            PlusBrandsFks = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+            PlusBrandsFks = PluBrandFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusBundlesFks));
         if (PlusBundlesFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusBundlesFks.Count))
-            PlusBundlesFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+            PlusBundlesFks = PluBundleFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusCharacteristics));
         if (PlusCharacteristics.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusCharacteristics.Count))
-            PlusCharacteristics = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
+            PlusCharacteristics = PluCharacteristicRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusCharacteristicsFks));
         if (PlusCharacteristicsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusCharacteristicsFks.Count))
-            PlusCharacteristicsFks = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
+            PlusCharacteristicsFks = PluCharacteristicFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusClipsFks));
         if (PlusClipsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusClipsFks.Count))
-            PlusClipsFks = ContextManager.ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
+            PlusClipsFks = PluClipFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusFks));
         if (PlusFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusFks.Count))
-            PlusFks = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
+            PlusFks = PluFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusGroupsFks));
         if (PlusGroupsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroupsFks.Count))
-            PlusGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupsFks(SqlCrudConfig);
+            PlusGroupsFks = PluGroupFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusNestingFks));
         if (PlusNestingFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusNestingFks.Count))
-            PlusNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
+            PlusNestingFks = PluNestingFkRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusGroups));
         if (PlusGroups.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroups.Count))
-            PlusGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
+            PlusGroups = PluGroupRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus));
         if (Plus.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus.Count))
-            Plus = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+            Plus = PluRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.ProductionFacilities));
         if (Areas.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Areas.Count))
-            Areas = ContextManager.ContextList.GetListNotNullableAreas(SqlCrudConfig);
+            Areas = AreaRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.WorkShops));
         if (WorkShops.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)WorkShops.Count))
-            WorkShops = ContextManager.ContextList.GetListNotNullableWorkShops(SqlCrudConfig);
+            WorkShops = WorkShopRepository.GetList(SqlCrudConfig);
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Scales));
         if (Lines.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Lines.Count))
-            Lines = ContextManager.ContextList.GetListNotNullableLines(SqlCrudConfig);
+            Lines = LineRepository.GetList(SqlCrudConfig);
     }
 
     /// <summary>
@@ -179,45 +201,45 @@ public sealed class WsSqlContextCacheHelper
 
         // Таблицы.
         if (!Areas.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Areas))
-            Areas = ContextManager.ContextList.GetListNotNullableAreas(SqlCrudConfig);
+            Areas = AreaRepository.GetList(SqlCrudConfig);
         if (!WorkShops.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.WorkShops))
-            WorkShops = ContextManager.ContextList.GetListNotNullableWorkShops(SqlCrudConfig);
+            WorkShops = WorkShopRepository.GetList(SqlCrudConfig);
         if (!Plus.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus))
-            Plus = ContextManager.ContextList.GetListNotNullablePlus(SqlCrudConfig);
+            Plus = PluRepository.GetList(SqlCrudConfig);
         if (!Lines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Lines))
-            Lines = ContextManager.ContextList.GetListNotNullableLines(SqlCrudConfig);
+            Lines = LineRepository.GetList(SqlCrudConfig);
         if (!PlusFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluFks))
-            PlusFks = ContextManager.ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
+            PlusFks = PluFkRepository.GetList(SqlCrudConfig);
         if (!Boxes.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Boxes))
-            Boxes = ContextManager.ContextList.GetListNotNullableBoxes(SqlCrudConfig);
+            Boxes = BoxRepository.GetList(SqlCrudConfig);
         if (!Bundles.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Bundles))
-            Bundles = ContextManager.ContextList.GetListNotNullableBundles(SqlCrudConfig);
+            Bundles = BundleRepository.GetList(SqlCrudConfig);
         if (!PlusBundlesFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBundlesFks))
-            PlusBundlesFks = ContextManager.ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
+            PlusBundlesFks = PluBundleFkRepository.GetList(SqlCrudConfig);
         if (!PlusBrandsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBrandsFks))
-            PlusBrandsFks = ContextManager.ContextList.GetListNotNullablePlusBrandsFks(SqlCrudConfig);
+            PlusBrandsFks = PluBrandFkRepository.GetList(SqlCrudConfig);
         if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips))
-            Clips = ContextManager.ContextList.GetListNotNullableClips(SqlCrudConfig);
+            Clips = ClipRepository.GetList(SqlCrudConfig);
         if (!DeviceSettings.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettings))
-            DeviceSettings = ContextManager.ContextList.GetListNotNullableDeviceSettings(SqlCrudConfig);
+            DeviceSettings = DeviceSettingsRepository.GetList(SqlCrudConfig);
         if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
-            DeviceSettingsFks = ContextManager.ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
+            DeviceSettingsFks = DeviceSettingFkRepository.GetList(SqlCrudConfig);
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
             PlusClipsFks = ContextManager.PlusClipFkRepository.GetList(SqlCrudConfig);
         if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks))
             Plus1CFks = ContextManager.Plu1CRepository.GetList();
         if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics))
-            PlusCharacteristics = ContextManager.ContextList.GetListNotNullablePlusCharacteristics(SqlCrudConfig);
+            PlusCharacteristics = PluCharacteristicRepository.GetList(SqlCrudConfig);
         if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks))
-            PlusCharacteristicsFks = ContextManager.ContextList.GetListNotNullablePlusCharacteristicsFks(SqlCrudConfig);
+            PlusCharacteristicsFks = PluCharacteristicFkRepository.GetList(SqlCrudConfig);
         if (!PlusGroups.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroups))
-            PlusGroups = ContextManager.ContextList.GetListNotNullablePlusGroups(SqlCrudConfig);
+            PlusGroups = PluGroupRepository.GetList(SqlCrudConfig);
         if (!PlusGroupsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroupsFks))
-            PlusGroupsFks = ContextManager.ContextList.GetListNotNullablePlusGroupsFks(SqlCrudConfig);
+            PlusGroupsFks = PluGroupFkRepository.GetList(SqlCrudConfig);
         if (!PlusNestingFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PlusNestingFks))
-            PlusNestingFks = ContextManager.ContextList.GetListNotNullablePlusNestingFks(SqlCrudConfig);
+            PlusNestingFks = PluNestingFkRepository.GetList(SqlCrudConfig);
         if (!Brands.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Brands))
-            Brands = ContextManager.ContextList.GetListNotNullableBrands(SqlCrudConfig);
+            Brands = BrandRepository.GetList(SqlCrudConfig);
 
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))

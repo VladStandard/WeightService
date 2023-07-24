@@ -31,7 +31,6 @@ public sealed class WsSqlContextManagerHelper
     private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    public WsSqlContextListHelper ContextList => WsSqlContextListHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
     public WsSqlAreaRepository AreaRepository { get; } = new();

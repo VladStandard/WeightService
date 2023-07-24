@@ -6,7 +6,7 @@ public class WsSqlDeviceTypeFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceT
 
     public List<WsSqlDeviceTypeFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceTypeFkModel> result = ContextList.GetListNotNullableCore<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
+        List<WsSqlDeviceTypeFkModel> result = SqlCore.GetListNotNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
         result = result
             .OrderBy(item => item.Type.Name)
             .ThenBy(item => item.Device.Name).ToList();

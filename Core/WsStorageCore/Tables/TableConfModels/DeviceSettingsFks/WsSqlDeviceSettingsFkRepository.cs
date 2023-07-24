@@ -10,9 +10,16 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
 {
     #region Public and private methods
 
-    public List<WsSqlDeviceSettingsFkModel> GetList() => ContextList.GetListNotNullableDeviceSettingsFks(SqlCrudConfig);
-    
-    public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceSettingsFks(sqlCrudConfig);
+    public List<WsSqlDeviceSettingsFkModel> GetList() => GetList(SqlCrudConfig);
+
+    public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        List<WsSqlDeviceSettingsFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Device.Name)
+                .ThenBy(item => item.Setting.Name).ToList();
+        return list;
+    }
     
     public WsSqlDeviceSettingsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsFkModel>();
     

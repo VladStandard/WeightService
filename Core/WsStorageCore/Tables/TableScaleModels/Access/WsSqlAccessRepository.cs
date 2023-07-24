@@ -47,11 +47,16 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     #endregion
 
     #region List
-    
-    public List<WsSqlAccessModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableAccesses(sqlCrudConfig);
-    
-    public List<WsSqlAccessModel> GetList(WsSqlEnumIsMarked isMarked) => 
-        ContextList.GetListNotNullableAccesses(new() { IsMarked = isMarked, IsResultOrder = true });
+
+    public List<WsSqlAccessModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name), Direction = WsSqlEnumOrder.Asc });
+        List<WsSqlAccessModel> list = SqlCore.GetListNotNullable<WsSqlAccessModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
 
     #endregion
 }

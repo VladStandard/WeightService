@@ -40,7 +40,14 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
         SqlCore.Save(pluLabel);
     }
 
-    public List<WsSqlPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePluLabels(sqlCrudConfig);
+    public List<WsSqlPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
+        List<WsSqlPluLabelModel> list = SqlCore.GetListNotNullable<WsSqlPluLabelModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderByDescending(item => item.ChangeDt).ToList();
+        return list;
+    }
 
     #endregion
 }

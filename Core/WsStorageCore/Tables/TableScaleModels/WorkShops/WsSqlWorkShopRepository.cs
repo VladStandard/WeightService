@@ -11,8 +11,16 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
     #endregion
 
     #region List
-    
-    public List<WsSqlWorkShopModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableWorkShops(sqlCrudConfig);
+
+    public List<WsSqlWorkShopModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlWorkShopModel> list = SqlCore.GetListNotNullable<WsSqlWorkShopModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
     
     #endregion
 }

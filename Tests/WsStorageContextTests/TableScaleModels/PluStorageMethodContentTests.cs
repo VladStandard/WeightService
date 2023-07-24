@@ -6,16 +6,18 @@ namespace WsStorageContextTests.TableScaleModels;
 [TestFixture]
 public sealed class PluStorageMethodContentTests
 {
+    private WsSqlPluRepository PluRepository { get; } = new();
+    
 	[Test]
     public void Model_GetPluStorageMethod_Validate()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new(WsSqlEnumIsMarked.ShowAll, false, false, false);
-            List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = WsTestsUtils.DataTests.ContextManager.SqlPluStorageMethodFkRepository.GetListFks(sqlCrudConfig);
+            List<WsSqlPluStorageMethodFkModel> pluStorageMethodFks = new WsSqlPluStorageMethodFkRepository().GetList(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(pluStorageMethodFks)}.{nameof(pluStorageMethodFks.Count)}: {pluStorageMethodFks.Count}");
             
-            List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextList.GetListNotNullablePlus(sqlCrudConfig);
+            List<WsSqlPluModel> plus = PluRepository.GetList(sqlCrudConfig);
             TestContext.WriteLine($"{nameof(plus)}.{nameof(plus.Count)}: {plus.Count}");
 
             foreach (WsSqlPluStorageMethodModel method in plus.Select(plu => WsTestsUtils.DataTests.ContextManager.

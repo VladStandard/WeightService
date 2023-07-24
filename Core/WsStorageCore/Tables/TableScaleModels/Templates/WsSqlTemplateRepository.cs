@@ -22,8 +22,15 @@ public sealed class WsSqlTemplateRepository : WsSqlTableRepositoryBase<WsSqlTemp
         return SqlCore.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
     }
 
-    public List<WsSqlTemplateModel> GetList() => ContextList.GetListNotNullableTemplates(SqlCrudConfig);
-    public List<WsSqlTemplateModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableTemplates(sqlCrudConfig);
+    public List<WsSqlTemplateModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTemplateModel.Title) });
+        List<WsSqlTemplateModel> list = SqlCore.GetListNotNullable<WsSqlTemplateModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Title).ToList();
+        return list;
+    }
     
     #endregion
 }

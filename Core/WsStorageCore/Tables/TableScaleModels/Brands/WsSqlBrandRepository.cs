@@ -13,9 +13,15 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
 
     public WsSqlBrandModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBrandModel>();
 
-    public List<WsSqlBrandModel> GetList() => ContextList.GetListNotNullableBrands(SqlCrudConfig);
-    
-    public List<WsSqlBrandModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableBrands(sqlCrudConfig);
+    public List<WsSqlBrandModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlBrandModel> list = SqlCore.GetListNotNullable<WsSqlBrandModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
     
     /// <summary>
     /// Получить бренд по полю UID_1C.

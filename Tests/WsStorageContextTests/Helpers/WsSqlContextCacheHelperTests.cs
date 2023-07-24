@@ -6,6 +6,8 @@ namespace WsStorageContextTests.Helpers;
 [TestFixture]
 public sealed class WsSqlContextCacheHelperTests
 {
+    private WsSqlLineRepository LineRepository { get; } = new();
+    
     [Test]
     public void Get_cache_table_brands() =>
         WsTestsUtils.DataTests.AssertAction(() =>
@@ -55,7 +57,7 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_lines_current() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> lines = WsTestsUtils.DataTests.ContextManager.LineRepository.GetList();
+            List<WsSqlScaleModel> lines = LineRepository.GetList(new());
             Assert.That(lines.Any(), Is.True);
 
             bool isPrintFirst = false;

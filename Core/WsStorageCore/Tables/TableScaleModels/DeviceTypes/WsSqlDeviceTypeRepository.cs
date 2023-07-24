@@ -32,7 +32,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
 
     public List<WsSqlDeviceTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceTypeModel> result = ContextList.GetListNotNullableCore<WsSqlDeviceTypeModel>(sqlCrudConfig);
+        List<WsSqlDeviceTypeModel> result = SqlCore.GetListNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
         result = result.OrderBy(item => item.Name).ToList();
         return result;
     }

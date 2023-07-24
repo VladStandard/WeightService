@@ -14,6 +14,8 @@ public static class WsServiceUtilsResponse
     private static WsSqlCrudConfigModel SqlCrudConfig => 
         new(new List<WsSqlFieldFilterModel>(), WsSqlEnumIsMarked.ShowAll, false, true, false);
 
+    private static WsSqlBarcodeRepository BarcodeRepository { get; } = new();
+    
     #endregion
 
     #region Public and private methods
@@ -226,7 +228,7 @@ public static class WsServiceUtilsResponse
             };
             WsSqlCrudConfigModel sqlCrudConfig = SqlCrudConfig;
             sqlCrudConfig.AddFilters(sqlFilters);
-            List<WsSqlBarCodeModel> barcodesDb = WsServiceUtils.ContextManager.ContextList.GetListNotNullableBarCodes(sqlCrudConfig);
+            List<WsSqlBarCodeModel> barcodesDb = BarcodeRepository.GetList(sqlCrudConfig);
             response.ResponseBarCodes = CastBarCodes(barcodesDb);
             response.StartDate = dtStart;
             response.EndDate = dtEnd;

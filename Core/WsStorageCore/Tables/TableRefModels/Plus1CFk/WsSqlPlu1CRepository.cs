@@ -12,7 +12,15 @@ public sealed class WsSqlPlu1CRepository : WsSqlTableRepositoryBase<WsSqlPlu1CFk
 
     public WsSqlPlu1CFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPlu1CFkModel>();
 
-    public List<WsSqlPlu1CFkModel> GetList() => ContextList.GetListNotNullablePlus1CFks(SqlCrudConfig);
+    public List<WsSqlPlu1CFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        List<WsSqlPlu1CFkModel> list = SqlCore.GetListNotNullable<WsSqlPlu1CFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Plu.Number).ToList();
+        return list;
+    }
+    
+    public List<WsSqlPlu1CFkModel> GetList() => GetList(SqlCrudConfig);
 
     public List<WsSqlPlu1CFkModel> GetNewList() => new();
 

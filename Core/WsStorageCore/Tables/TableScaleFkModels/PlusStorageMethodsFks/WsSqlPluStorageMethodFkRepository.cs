@@ -10,14 +10,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodFkModel>
 {
     #region Public and private methods
-
-    /// <summary>
-    /// Force update list PluStorageMethodFks.
-    /// </summary>
-    /// <param name="sqlCrudConfig"></param>
-    public List<WsSqlPluStorageMethodFkModel> GetListFks(WsSqlCrudConfigModel sqlCrudConfig) =>
-        ContextList.GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
-
+    
     /// <summary>
     /// Get item PluStorageMethod by Plu.
     /// Use UpdatePluStorageMethodFks for force update.
@@ -63,8 +56,14 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
             pluStorageMethodFk = pluStorageMethodsFks.Find(item => Equals(item.Plu.Number, plu.Number));
         return pluStorageMethodFk;
     }
-    
-    public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusStoragesMethodsFks(sqlCrudConfig);
+
+    public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        List<WsSqlPluStorageMethodFkModel> list = SqlCore.GetListNotNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Plu.Number).ToList();
+        return list;
+    }
 
     #endregion
 }

@@ -14,9 +14,17 @@ public sealed class WsSqlDeviceSettingsRepository : WsSqlTableRepositoryBase<WsS
 
     public WsSqlDeviceSettingsModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceSettingsModel>(uid);
 
-    public List<WsSqlDeviceSettingsModel> GetList() => ContextList.GetListNotNullableDeviceSettings(SqlCrudConfig);
+    public List<WsSqlDeviceSettingsModel> GetList() => GetList(SqlCrudConfig);
     
-    public List<WsSqlDeviceSettingsModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableDeviceSettings(sqlCrudConfig);
-    
+    public List<WsSqlDeviceSettingsModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlDeviceSettingsModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
+
     #endregion
 }

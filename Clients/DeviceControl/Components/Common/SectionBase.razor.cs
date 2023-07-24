@@ -17,7 +17,6 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     [Inject] private LocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService ContextMenuService { get; set; }
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
-    
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     protected List<TItem> SqlSectionSave { get; set; }

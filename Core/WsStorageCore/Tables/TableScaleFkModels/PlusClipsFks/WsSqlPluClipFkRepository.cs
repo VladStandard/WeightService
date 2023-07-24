@@ -15,10 +15,22 @@ public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPlu
 
     public WsSqlPluClipFkModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu);
 
-    public List<WsSqlPluClipFkModel> GetList() => ContextList.GetListNotNullablePlusClipsFks(SqlCrudConfig);
-
-    public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
-        ContextList.GetListNotNullablePlusClipsFks(sqlCrudConfig);
+    public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
+        //if (sqlCrudConfig.IsResultOrder)
+        //    sqlCrudConfig.AddOrders(new($"{nameof(PluClipFkModel.Clip)}.{nameof(ClipModel.Name)}", SqlOrderDirection.Asc));
+        List<WsSqlPluClipFkModel> list = SqlCore.GetListNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig);
+        if (list.Count > 0)
+        {
+            WsSqlPluClipFkModel pluClipFk = list.First();
+            if (pluClipFk.Plu.IsNew)
+                pluClipFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
+            if (pluClipFk.Clip.IsNew)
+                pluClipFk.Clip = SqlCore.GetItemNewEmpty<WsSqlClipModel>();
+        }
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Clip.Name).ToList();
+        return list;
+    }
 
     #endregion
 }

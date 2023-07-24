@@ -25,13 +25,15 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     #region List
 
-    public List<WsSqlScaleModel> GetList() => ContextList.GetListNotNullableLines(SqlCrudConfig);
-
-    public List<WsSqlScaleModel> GetList(WsSqlEnumIsMarked isMarked) =>
-        ContextList.GetListNotNullableLines(new() { IsMarked = isMarked, IsResultOrder = true });
-
-    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
-        ContextList.GetListNotNullableLines(sqlCrudConfig);
+    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Description) });
+        List<WsSqlScaleModel> scales = SqlCore.GetListNotNullable<WsSqlScaleModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && scales.Any())
+            scales = scales.OrderBy(item => item.Description).ToList();
+        return scales;
+    }
 
     #endregion
 

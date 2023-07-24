@@ -15,10 +15,16 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
 
     public WsSqlClipModel GetItemByPlu(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
 
-    public List<WsSqlClipModel> GetList() => ContextList.GetListNotNullableClips(SqlCrudConfig);
-    
-    public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullableClips(sqlCrudConfig);
-    
+    public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+        List<WsSqlClipModel> list = SqlCore.GetListNotNullable<WsSqlClipModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Name).ToList();
+        return list;
+    }
+
     public WsSqlClipModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },

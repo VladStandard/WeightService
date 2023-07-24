@@ -24,14 +24,20 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
         return SqlCore.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
     }
 
-    public List<WsSqlPluScaleModel> GetList() => ContextList.GetListNotNullablePlusScales(SqlCrudConfig);
-    
-    public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
+    public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        //if (sqlCrudConfig.IsResultOrder)
+        //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
+        List<WsSqlPluScaleModel> list = SqlCore.GetListNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Plu.Number).ToList();
+        return list;
+    }
 
     public List<WsSqlPluScaleModel> GetListByLine(WsSqlScaleModel line, WsSqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.AddFilters(nameof(WsSqlPluScaleModel.Line), line);
-        return ContextList.GetListNotNullablePlusScales(sqlCrudConfig);
+        return GetList(sqlCrudConfig);
     }
     #endregion
 }

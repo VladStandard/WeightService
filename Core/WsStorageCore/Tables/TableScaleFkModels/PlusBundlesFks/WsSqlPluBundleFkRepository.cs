@@ -26,15 +26,29 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
         return item;
     }
 
-    public List<WsSqlPluBundleFkModel> GetList() => ContextList.GetListNotNullablePlusBundlesFks(SqlCrudConfig);
-    
-    public List<WsSqlPluBundleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);
+    public List<WsSqlPluBundleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        //if (sqlCrudConfig.IsResultOrder)
+        //    sqlCrudConfig.AddOrders(new($"{nameof(PluBundleFkModel.Bundle)}.{nameof(BundleModel.Name)}", SqlOrderDirection.Asc));
+        List<WsSqlPluBundleFkModel> list = SqlCore.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
+        if (list.Count > 0)
+        {
+            WsSqlPluBundleFkModel bundleFk = list.First();
+            if (bundleFk.Plu.IsNew)
+                bundleFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
+            if (bundleFk.Bundle.IsNew)
+                bundleFk.Bundle = SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
+        }
+        if (sqlCrudConfig.IsResultOrder && list.Any())
+            list = list.OrderBy(item => item.Bundle.Name).ToList();
+        return list;
+    }
 
     public List<WsSqlPluBundleFkModel> GetListByPlu(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu), 
             WsSqlEnumIsMarked.ShowAll, true, false);;
-        return ContextList.GetListNotNullablePlusBundlesFks(sqlCrudConfig);   
+        return GetList(sqlCrudConfig);   
     }
     
     #endregion
