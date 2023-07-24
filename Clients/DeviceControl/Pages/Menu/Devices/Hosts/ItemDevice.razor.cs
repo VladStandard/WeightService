@@ -29,7 +29,7 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
     {
         base.SetSqlItemCast();
         DeviceTypes = new WsSqlDeviceTypeRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());;
-        DeviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(SqlItemCast);
+        DeviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(SqlItemCast);
         DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     }
 

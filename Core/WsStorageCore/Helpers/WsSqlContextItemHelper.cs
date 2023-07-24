@@ -31,20 +31,6 @@ public sealed class WsSqlContextItemHelper
 
     #region Public and private methods
     
-    public WsSqlProductSeriesModel? GetItemProductSeriesNullable(WsSqlScaleModel scale)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            new List<WsSqlFieldFilterModel>
-            {
-                new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false },
-                new() { Name = $"{nameof(WsSqlProductSeriesModel.Scale)}.{nameof(WsSqlScaleModel.IdentityValueId)}", Value = scale.IdentityValueId }
-            }, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlProductSeriesModel>(sqlCrudConfig);
-    }
-
-    public WsSqlProductSeriesModel GetItemProductSeriesNotNullable(WsSqlScaleModel scale) =>
-        GetItemProductSeriesNullable(scale) ?? SqlCore.GetItemNewEmpty<WsSqlProductSeriesModel>();
-
     private WsSqlPluModel? GetItemPluNullable(WsSqlPluScaleModel pluScale)
     {
         if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
@@ -80,9 +66,6 @@ public sealed class WsSqlContextItemHelper
         return SqlCore.GetItemNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
     }
 
-    public WsSqlPluBundleFkModel GetItemPluBundleFkNotNullable(WsSqlPluModel plu, WsSqlBundleModel bundle) =>
-        GetItemPluBundleFkNullable(plu, bundle) ?? new();
-
     public WsSqlPluBundleFkModel? GetItemPluBundleFkNullable(WsSqlPluModel plu)
     {
         if (plu.IsNew) return null;
@@ -105,27 +88,6 @@ public sealed class WsSqlContextItemHelper
     public WsSqlPluClipFkModel GetItemPluClipFkNotNullable(WsSqlPluModel plu) =>
         GetItemPluClipFkNullable(plu) ?? new();
 
-    public WsSqlPluStorageMethodFkModel? GetItemPluStorageMethodFkNullable(WsSqlPluModel plu)
-    {
-        if (plu.IsNew) return null;
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluStorageMethodFkModel GetItemPluStorageMethodFkNotNullable(WsSqlPluModel plu) =>
-        GetItemPluStorageMethodFkNullable(plu) ?? new();
-
-    public WsSqlPluStorageMethodFkModel? GetItemPluStorageMethodFkNullable(Guid pluUid)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", pluUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluStorageMethodFkModel GetItemPluStorageMethodFkNotNullable(Guid pluUid) =>
-        GetItemPluStorageMethodFkNullable(pluUid) ?? new();
-
     private WsSqlTemplateModel? GetItemTemplateNullable(WsSqlPluScaleModel pluScale)
     {
         if (pluScale.IsNew || pluScale.Plu.IsNew) return null;
@@ -135,14 +97,7 @@ public sealed class WsSqlContextItemHelper
 
     public WsSqlTemplateModel GetItemTemplateNotNullable(WsSqlPluScaleModel pluScale) =>
         GetItemTemplateNullable(pluScale) ?? new();
-
-    public WsSqlDeviceScaleFkModel? GetItemDeviceScaleFkNullable(WsSqlDeviceModel device)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Device), device.IdentityValueUid), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
-    }
-
+    
     public string GetAccessRightsDescription(WsEnumAccessRights? accessRights)
     {
         return accessRights switch
@@ -164,20 +119,6 @@ public sealed class WsSqlContextItemHelper
         string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).
             Select(c => c.Value).OrderByDescending(int.Parse).First();
         return GetAccessRightsDescription((WsEnumAccessRights)int.Parse(right));
-    }
-
-    public WsSqlScaleModel GetScaleNotNullable(long id)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.IdentityValueId), id, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlScaleModel>(sqlCrudConfig);
-    }
-
-    public WsSqlProductionFacilityModel GetProductionFacilityNotNullable(string name)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlProductionFacilityModel.Name), name, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 
     public WsSqlPluGroupModel? GetItemNomenclatureGroupParentNullable(WsSqlPluGroupModel nomenclatureGroup)
@@ -410,18 +351,5 @@ public sealed class WsSqlContextItemHelper
     }
 
     #endregion
-
-    #region Public and private methods - Get item Device type
-
-    public WsSqlDeviceTypeFkModel? GetItemDeviceTypeFkNullable(WsSqlDeviceModel device)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceTypeFkModel.Device), device.IdentityValueUid), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlDeviceTypeFkModel GetItemDeviceTypeFkNotNullable(WsSqlDeviceModel device) =>
-        GetItemDeviceTypeFkNullable(device) ?? new();
-
-    #endregion
+    
 }

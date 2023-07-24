@@ -687,7 +687,7 @@ public sealed class WsSqlCoreHelper
     /// <param name="isFillReferences"></param>
     private void FillReferences<T>(T? item, bool isFillReferences) where T : WsSqlTableBase, new()
     {
-        // TODO: Следует перенести в клиентский слой доступа к данным!
+        // TODO: Следует перенести в клиентский слой доступа к данным! + Tests
         switch (item)
         {
             case WsXmlDeviceModel xmlDevice:

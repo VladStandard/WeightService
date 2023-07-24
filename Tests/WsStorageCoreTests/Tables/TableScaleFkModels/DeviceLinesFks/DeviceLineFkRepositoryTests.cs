@@ -45,12 +45,12 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
         {
             WsSqlDeviceScaleFkModel oldDeviceLines = GetFirstDeviceScaleFkModel();
             WsSqlScaleModel line = oldDeviceLines.Scale;
-            WsSqlDeviceScaleFkModel deviceLinesByDevice  = DeviceLineFkRepository.GetItemByLine(line);
+            WsSqlDeviceScaleFkModel deviceLinesByLine  = DeviceLineFkRepository.GetItemByLine(line);
 
-            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
-            Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceLines));
+            Assert.That(deviceLinesByLine.IsNotNew, Is.True);
+            Assert.That(deviceLinesByLine, Is.EqualTo(oldDeviceLines));
             
-            TestContext.WriteLine(deviceLinesByDevice);
+            TestContext.WriteLine(deviceLinesByLine);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

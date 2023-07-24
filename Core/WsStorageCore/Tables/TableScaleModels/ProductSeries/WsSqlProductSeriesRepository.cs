@@ -2,6 +2,19 @@
 
 public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProductSeriesModel>
 {
+    public WsSqlProductSeriesModel GetItemByLineNotClose(WsSqlScaleModel line)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            new List<WsSqlFieldFilterModel>
+            {
+                new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false },
+                new() { Name = $"{nameof(WsSqlProductSeriesModel.Scale)}.{nameof(WsSqlScaleModel.IdentityValueId)}",
+                    Value = line.IdentityValueId }
+            }, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNullable<WsSqlProductSeriesModel>(sqlCrudConfig) ?? 
+               SqlCore.GetItemNewEmpty<WsSqlProductSeriesModel>();
+    }
+    
     public List<WsSqlProductSeriesModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

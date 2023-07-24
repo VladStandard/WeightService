@@ -7,6 +7,13 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
 {
     private WsSqlProductSeriesRepository ProductSeriesRepository { get; set; } = new();
     
+    private WsSqlProductSeriesModel GetFirstNotCloseSeriesModel()
+    {
+        SqlCrudConfig.SelectTopRowsCount = 1;
+        SqlCrudConfig.Filters.Add(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
+        return ProductSeriesRepository.GetList(SqlCrudConfig).First();
+    }
+    
     [Test]
     public void GetList()
     {
@@ -15,5 +22,22 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
             List<WsSqlProductSeriesModel> items = ProductSeriesRepository.GetList(SqlCrudConfig);
             WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
+    }
+    
+    [Test]
+    public void GetItemByLineNotClose()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlProductSeriesModel oldProductSeries = GetFirstNotCloseSeriesModel();
+            WsSqlScaleModel line = oldProductSeries.Scale;
+            WsSqlProductSeriesModel seriesByLine  = ProductSeriesRepository.GetItemByLineNotClose(line);
+
+            Assert.That(seriesByLine.IsNotNew, Is.True);
+            Assert.That(seriesByLine.IsClose, Is.EqualTo(false));
+            Assert.That(seriesByLine, Is.EqualTo(oldProductSeries));
+
+            TestContext.WriteLine(seriesByLine);
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

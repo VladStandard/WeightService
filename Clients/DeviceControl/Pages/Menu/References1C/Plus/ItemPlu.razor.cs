@@ -34,7 +34,7 @@ public sealed partial class ItemPlu : ItemBase<WsSqlPluModel>
     {
         base.SetSqlItemCast();
         PluTemplateFk = ContextManager.ContextItem.GetItemPluTemplateFkNotNullable(SqlItemCast);
-        StorageMethodFk = ContextManager.ContextItem.GetItemPluStorageMethodFkNotNullable(SqlItemCast);
+        StorageMethodFk = new WsSqlPluStorageMethodFkRepository().GetItemByPlu(SqlItemCast);
         Template = PluTemplateFk.Template.IsNotNew
             ? PluTemplateFk.Template
             : ContextManager.SqlCore.GetItemNewEmpty<WsSqlTemplateModel>();

@@ -128,7 +128,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
-            WsSqlDeviceTypeFkModel deviceTypeFk = ContextManager.ContextItem.GetItemDeviceTypeFkNotNullable(device);
+            WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);;
             if (deviceTypeFk.IsNew)
             {
                 WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
@@ -139,8 +139,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             
             DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);;
             // Line.
-            // TODO: line repo
-            SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.ContextItem.GetScaleNotNullable(lineId));
+            SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.LineRepository.GetItemById(lineId));
             // Area.
             if (area is not null)
                 SetArea(area);

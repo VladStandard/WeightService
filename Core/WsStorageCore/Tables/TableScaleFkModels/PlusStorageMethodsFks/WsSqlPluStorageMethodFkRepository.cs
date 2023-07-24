@@ -10,51 +10,15 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodFkModel>
 {
     #region Public and private methods
-    
-    /// <summary>
-    /// Get item PluStorageMethod by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="plu"></param>
-    /// <param name="pluStorageMethodsFks"></param>
-    /// <returns></returns>
-    public WsSqlPluStorageMethodModel GetItem(WsSqlPluModel plu, List<WsSqlPluStorageMethodFkModel> pluStorageMethodsFks)
-    {
-        WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (pluStorageMethodsFks.Exists(item => Equals(item.Plu, plu)))
-            pluStorageMethodFk = pluStorageMethodsFks.Find(item => Equals(item.Plu, plu));
-        return pluStorageMethodFk.Method;
-    }
 
-    /// <summary>
-    /// Get item PluStorageMethod by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="plu"></param>
-    /// <returns></returns>
-    public WsSqlTemplateResourceModel GetItemResource(WsSqlPluModel plu)
+    public WsSqlPluStorageMethodFkModel GetItemByPlu(WsSqlPluModel plu)
     {
-        WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (ContextCache.ViewPlusStorageMethods.Exists(item => Equals(item.PluNumber, (ushort)plu.Number)))
-        {
-            pluStorageMethodFk = ContextItem.GetItemPluStorageMethodFkNotNullable(plu.IdentityValueUid);
-        }
-        return pluStorageMethodFk.Resource;
-    }
-
-    /// <summary>
-    /// Get item PluStorageMethodFk by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="plu"></param>
-    /// <param name="pluStorageMethodsFks"></param>
-    /// <returns></returns>
-    public WsSqlPluStorageMethodFkModel GetItemFk(WsSqlPluModel plu, List<WsSqlPluStorageMethodFkModel> pluStorageMethodsFks)
-    {
-        WsSqlPluStorageMethodFkModel pluStorageMethodFk = new();
-        if (pluStorageMethodsFks.Exists(item => Equals(item.Plu.Number, plu.Number)))
-            pluStorageMethodFk = pluStorageMethodsFks.Find(item => Equals(item.Plu.Number, plu.Number));
-        return pluStorageMethodFk;
+        if (plu.IsNew)
+            return new();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", 
+            plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig) ?? new();
     }
 
     public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

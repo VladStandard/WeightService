@@ -190,8 +190,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     public void NewPluWeighing()
     {
-        WsSqlProductSeriesModel productSeries = ContextManager.ContextItem.GetItemProductSeriesNotNullable(
-            LabelSession.PluLine.Line);
+        WsSqlProductSeriesModel productSeries =
+            new WsSqlProductSeriesRepository().GetItemByLineNotClose(LabelSession.PluLine.Line);
 
         LabelSession.PluWeighing = new()
         {

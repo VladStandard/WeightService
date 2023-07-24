@@ -5,6 +5,12 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
 public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; set; } = new();
+
+    private WsSqlDeviceTypeFkModel GetFirstDeviceTypeFk()
+    {
+        SqlCrudConfig.SelectTopRowsCount = 1;
+        return DeviceTypeFkRepository.GetList(SqlCrudConfig).First();
+    }
     
     [Test]
     public void GetList()
@@ -14,5 +20,21 @@ public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
             List<WsSqlDeviceTypeFkModel> items = DeviceTypeFkRepository.GetList(SqlCrudConfig);
             WsTestsUtils.DataTests.ParseRecords(items);
         }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void GetItemByDevice()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlDeviceTypeFkModel oldDeviceTypeFk = GetFirstDeviceTypeFk();
+            WsSqlDeviceModel device = oldDeviceTypeFk.Device;
+            WsSqlDeviceTypeFkModel deviceLinesByDevice = DeviceTypeFkRepository.GetItemByDevice(device);
+
+            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
+            Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceTypeFk));
+
+            TestContext.WriteLine(deviceLinesByDevice);
+        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }
