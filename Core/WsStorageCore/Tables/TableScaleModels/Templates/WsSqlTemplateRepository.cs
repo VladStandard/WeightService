@@ -14,14 +14,7 @@ public sealed class WsSqlTemplateRepository : WsSqlTableRepositoryBase<WsSqlTemp
     #region Public and private methods
 
     public WsSqlTemplateModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlTemplateModel>();
-
-    public WsSqlTemplateModel GetItem(ushort pluNumber)
-    {
-        WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(item => 
-            Equals(item.PluNumber, pluNumber));
-        return SqlCore.GetItemNotNullableByUid<WsSqlTemplateModel>(viewPluScale.Identity.Uid);
-    }
-
+    
     public List<WsSqlTemplateModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

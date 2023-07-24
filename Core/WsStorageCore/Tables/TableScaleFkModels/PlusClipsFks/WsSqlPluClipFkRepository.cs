@@ -13,7 +13,13 @@ public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPlu
 
     public WsSqlPluClipFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluClipFkModel>();
 
-    public WsSqlPluClipFkModel GetItem(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu);
+    public WsSqlPluClipFkModel GetItemByPlu(WsSqlPluModel plu)
+    {
+        if (plu.IsNew) return new();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+            $"{nameof(WsSqlPluClipFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
+        return SqlCore.GetItemNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig);
+    }
 
     public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
         //if (sqlCrudConfig.IsResultOrder)

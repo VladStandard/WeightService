@@ -22,7 +22,7 @@ public sealed partial class ItemPluGroup : ItemBase<WsSqlPluGroupModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        ParentGroup = ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(SqlItemCast);
+        ParentGroup = new WsSqlPluGroupRepository().GetItemParentFromChildGroup(SqlItemCast);
     }
 
     #endregion

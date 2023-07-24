@@ -5,7 +5,13 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PlusGroups;
 [TestFixture]
 public sealed class PluGroupRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluGroupRepository PluGroupRepository  { get; set; } = new();
+    private WsSqlPluGroupRepository PluGroupRepository { get; set; } = new();
+
+    private WsSqlPluGroupFkModel GetFirstPluGroupFk()
+    {
+        SqlCrudConfig.SelectTopRowsCount = 1;
+        return new WsSqlPluGroupFkRepository().GetList(SqlCrudConfig).First();
+    }
     
     [Test]
     public void GetList()
@@ -14,6 +20,22 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluGroupModel> items = PluGroupRepository.GetList(SqlCrudConfig);
             WsTestsUtils.DataTests.ParseRecords(items);
+        }, false, DefaultPublishTypes);
+    }
+    
+    [Test]
+    public void GetItemByChildGroup()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlPluGroupFkModel PluGroupFkModel = GetFirstPluGroupFk();
+            WsSqlPluGroupModel parentGroup = PluGroupFkModel.Parent;
+            WsSqlPluGroupModel parentGroupByChild = PluGroupRepository.GetItemParentFromChildGroup(PluGroupFkModel.PluGroup);
+            
+            Assert.That(parentGroupByChild.IsNotNew, Is.True);
+            Assert.That(parentGroupByChild, Is.EqualTo(parentGroup));
+            
+            TestContext.WriteLine(parentGroupByChild);
         }, false, DefaultPublishTypes);
     }
 }

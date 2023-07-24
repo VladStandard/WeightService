@@ -424,52 +424,7 @@ public sealed class WsSqlCoreHelper
     }
 
     #endregion
-
-    #region Public and private methods - App & Device
-
-    public WsSqlAppModel GetItemAppOrCreateNew(string appName)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
-        WsSqlAppModel app = GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
-        if (app.IsNew)
-        {
-            app = new()
-            {
-                Name = appName,
-                CreateDt = DateTime.Now,
-                ChangeDt = DateTime.Now
-            };
-            Save(app);
-        }
-        else
-        {
-            app.ChangeDt = DateTime.Now;
-            Update(app);
-        }
-        return app;
-    }
-
-    public WsSqlLogTypeModel? GetItemLogTypeNullable(WsEnumLogType logType)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
-            WsSqlEnumIsMarked.ShowAll, true, false, false);
-        return GetItemNullable<WsSqlLogTypeModel>(sqlCrudConfig);
-    }
-
-    public WsSqlLogTypeModel GetItemLogTypeNotNullable(WsEnumLogType logType) =>
-        GetItemLogTypeNullable(logType) ?? new();
-
-    public List<WsSqlLogTypeModel> GetListLogTypesNotNullable()
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new(),
-            WsSqlEnumIsMarked.ShowAll, false, true, false);
-        sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlLogTypeModel.Number), Direction = WsSqlEnumOrder.Asc });
-        return GetListNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
-    }
-
-    #endregion
-
+    
     #region Public and private methods - GetItem
 
     public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
@@ -525,18 +480,12 @@ public sealed class WsSqlCoreHelper
 
     public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
         GetItemNullable<T>(identity) ?? new();
-
-    public T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        GetItemNullable<T>(uid);
-
+    
     public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        GetItemNullableByUid<T>(uid) ?? new();
-
-    public T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
-        GetItemNullable<T>(id);
-
+        GetItemNullable<T>(uid) ?? new();
+    
     public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
-        GetItemNullableById<T>(id) ?? new();
+        GetItemNullable<T>(id) ?? new();
 
     // TODO: исправить здесь
     public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase

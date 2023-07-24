@@ -22,7 +22,6 @@ public sealed class WsSqlContextItemHelper
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private WsSqlAppRepository AppRepository { get; } = new();
-    
     private WsSqlDeviceRepository DeviceRepository { get; } = new();
     private WsSqlAppModel App { get; set; } = new();
     private WsSqlDeviceModel Device { get; set; } = new();
@@ -31,50 +30,30 @@ public sealed class WsSqlContextItemHelper
 
     #region Public and private methods
     
-    private WsSqlPluModel? GetItemPluNullable(WsSqlPluScaleModel pluScale)
+    public WsSqlPluModel GetItemPluNotNullable(WsSqlPluScaleModel pluScale)
     {
-        if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return null;
+        if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return new();
 
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
-    public WsSqlPluModel GetItemPluNotNullable(WsSqlPluScaleModel pluScale) =>
-        GetItemPluNullable(pluScale) ?? new();
-
-    public WsSqlPluTemplateFkModel? GetItemPluTemplateFkNullable(WsSqlPluModel plu)
+    public WsSqlPluTemplateFkModel GetItemPluTemplateFkNotNullable(WsSqlPluModel plu)
     {
-        if (plu.IsNew) return null;
+        if (plu.IsNew) return new();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
             $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
+        return SqlCore.GetItemNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
     }
 
-    public WsSqlPluTemplateFkModel GetItemPluTemplateFkNotNullable(WsSqlPluModel plu) =>
-        GetItemPluTemplateFkNullable(plu) ?? new();
-
-    public WsSqlPluClipFkModel? GetItemPluClipFkNullable(WsSqlPluModel plu)
+    public WsSqlTemplateModel GetItemTemplateNotNullable(WsSqlPluScaleModel pluScale)
     {
-        if (plu.IsNew) return null;
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluClipFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlPluClipFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluClipFkModel GetItemPluClipFkNotNullable(WsSqlPluModel plu) =>
-        GetItemPluClipFkNullable(plu) ?? new();
-
-    private WsSqlTemplateModel? GetItemTemplateNullable(WsSqlPluScaleModel pluScale)
-    {
-        if (pluScale.IsNew || pluScale.Plu.IsNew) return null;
+        if (pluScale.IsNew || pluScale.Plu.IsNew) return new();
         WsSqlPluModel plu = GetItemPluNotNullable(pluScale);
-        return GetItemPluTemplateFkNullable(plu)?.Template;
+        return GetItemPluTemplateFkNotNullable(plu).Template;
     }
-
-    public WsSqlTemplateModel GetItemTemplateNotNullable(WsSqlPluScaleModel pluScale) =>
-        GetItemTemplateNullable(pluScale) ?? new();
     
     public string GetAccessRightsDescription(WsEnumAccessRights? accessRights)
     {
@@ -98,19 +77,7 @@ public sealed class WsSqlContextItemHelper
             Select(c => c.Value).OrderByDescending(int.Parse).First();
         return GetAccessRightsDescription((WsEnumAccessRights)int.Parse(right));
     }
-
-    public WsSqlPluGroupModel? GetItemNomenclatureGroupParentNullable(WsSqlPluGroupModel nomenclatureGroup)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(WsSqlCrudConfigModel.GetFilters(
-            $"{nameof(WsSqlPluGroupFkModel.PluGroup)}.{nameof(WsSqlTableBase.IdentityValueUid)}", nomenclatureGroup.IdentityValueUid),
-            WsSqlEnumIsMarked.ShowAll, false);
-        WsSqlPluGroupModel? result = SqlCore.GetItemNullable<WsSqlPluGroupFkModel>(sqlCrudConfig)?.Parent;
-        return result;
-    }
-
-    public WsSqlPluGroupModel GetItemNomenclatureGroupParentNotNullable(WsSqlPluGroupModel nomenclatureGroup) =>
-        GetItemNomenclatureGroupParentNullable(nomenclatureGroup) ?? new();
-
+    
     #endregion
 
     #region Public and private methods - Logs
@@ -141,7 +108,7 @@ public sealed class WsSqlContextItemHelper
         WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
         WsStrUtils.SetStringValueTrim(ref memberName, 32);
         WsStrUtils.SetStringValueTrim(ref message, 1024);
-        WsSqlLogTypeModel? logTypeItem = SqlCore.GetItemLogTypeNullable(logType);
+        WsSqlLogTypeModel logTypeItem = new WsSqlLogTypeRepository().GetItemByEnumType(logType);
 
         WsSqlLogModel log = new()
         {
@@ -316,7 +283,7 @@ public sealed class WsSqlContextItemHelper
         };
         SqlCore.Save(logWebResponse, WsSqlEnumSessionType.IsolatedAsync);
 
-        WsSqlLogTypeModel logTypeItem = SqlCore.GetItemLogTypeNotNullable(logType);
+        WsSqlLogTypeModel logTypeItem = new WsSqlLogTypeRepository().GetItemByEnumType(logType);
         WsSqlLogWebFkModel logWebFk = new()
         {
             LogWebRequest = logWebRequest,

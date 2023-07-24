@@ -13,8 +13,6 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
 
     public WsSqlClipModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlClipModel>();
 
-    public WsSqlClipModel GetItemByPlu(WsSqlPluModel plu) => ContextItem.GetItemPluClipFkNotNullable(plu).Clip;
-
     public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

@@ -33,12 +33,5 @@ public static class WsSqlCrudConfigUtils
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isOrder = false) =>
         GetCrudConfig(filters, new List<WsSqlFieldOrderModel> { order }, isMarked, isShowOnlyTop, isOrder);
 
-    public static WsSqlCrudConfigModel GetCrudConfig(WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder = false) =>
-        GetCrudConfig(new(), new List<WsSqlFieldOrderModel>(), isMarked, isShowOnlyTop, isOrder);
-    
-    public static WsSqlCrudConfigModel GetCrudConfig(WsSqlFieldOrderModel order,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isOrder = false) =>
-        GetCrudConfig(new(), new List<WsSqlFieldOrderModel> { order }, isMarked, isShowOnlyTop, isOrder);
-    
     #endregion
 }

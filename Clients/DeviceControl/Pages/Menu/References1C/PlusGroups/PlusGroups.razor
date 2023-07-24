@@ -31,7 +31,7 @@
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Code" Width="20%" Property="Code"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Group" Width="30%" Sortable="false">
         <Template Context="itemCast">
-          @ContextManager.ContextItem.GetItemNomenclatureGroupParentNotNullable(itemCast).Name
+          @PluGroupRepository.GetItemParentFromChildGroup(itemCast).Name
         </Template>
       </RadzenDataGridColumn>
     </TItemContent>

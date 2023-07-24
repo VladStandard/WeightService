@@ -11,7 +11,9 @@ public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
     #region Public and private fields, properties, constructor
 
     private List<WsSqlPluGroupModel> AllData { get; set; }
-
+    private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
+    private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
+    
     public PlusGroups() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
@@ -20,12 +22,12 @@ public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
     #endregion
 
     #region Public and private methods
-
-    [Obsolete(@"AllData проинициализируй в конструкторе")]
+    
     protected override void SetSqlSectionCast()
     {
-        List<WsSqlPluGroupFkModel> pluGroupsFk = ContextManager.SqlCore.GetListNotNullable<WsSqlPluGroupFkModel>(new());
-        AllData = new WsSqlPluGroupRepository().GetList(new());
+        List<WsSqlPluGroupFkModel> pluGroupsFk = PluGroupFkRepository.GetList(new());
+        AllData = PluGroupRepository.GetList(new());
+        
         foreach (WsSqlPluGroupModel pluGroup in AllData)
         {
             List<WsSqlPluGroupFkModel> temp = pluGroupsFk.Where(e => e.PluGroup.IdentityValueUid == pluGroup.IdentityValueUid).ToList();

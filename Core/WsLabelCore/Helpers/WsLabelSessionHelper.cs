@@ -233,7 +233,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 PluLine.Plu.PackageTypeName = bundle.Name;
                 PluLine.Plu.PackageTypeWeight = bundle.Weight;
             }
-            WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.ClipRepository.GetItemByPlu(PluLine.Plu);
+            WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.PlusClipFkRepository.GetItemByPlu(PluLine.Plu).Clip;
             if (clip.IsExists)
             {
                 PluLine.Plu.ClipTypeGuid = clip.IdentityValueUid;
