@@ -39,9 +39,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected async Task RedirectBackAsync()
     {
-        bool isRedirected = await JsService.RedirectBackIfNotHomePage();
-        if (!isRedirected)
-            await RedirectToSectionAsync();
+        await JsService.RedirectBack();
     }
     
     protected async Task RedirectToSectionAsync()

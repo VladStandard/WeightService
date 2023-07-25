@@ -1,7 +1,7 @@
-﻿window.goBackIfNotHomePage = function() {
+﻿window.goBack = function() {
   if (window.history.length > 2) {
     window.history.back();
-    return true;
+  } else {
+    window.location.href = window.location.origin + '/';
   }
-  return false;
 }

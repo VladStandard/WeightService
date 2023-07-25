@@ -16,8 +16,8 @@ public class JsService
         await _jsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
 
-    public async Task<bool> RedirectBackIfNotHomePage()
+    public async Task RedirectBack()
     {
-        return await _jsRuntime.InvokeAsync<bool>("goBackIfNotHomePage");
+       await _jsRuntime.InvokeVoidAsync("goBack");
     }
 }
