@@ -572,7 +572,7 @@ public class WsDataTestsHelper
             }
     }
     
-    public void PrintViewRecords<T>(List<T> items) where T : class, new()
+    public void PrintViewRecords<T>(List<T> items) where T : class
     {
         Assert.That(items.Any(), Is.True, "No data in database!!!");
         TestContext.WriteLine($"Print {items.Count} records.");

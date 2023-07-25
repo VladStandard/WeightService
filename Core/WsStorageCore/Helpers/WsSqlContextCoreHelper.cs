@@ -4,6 +4,7 @@
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
+//TODO: maybe delete
 namespace WsStorageCore.Helpers;
 
 internal sealed class WsSqlContextCoreHelper
@@ -14,12 +15,6 @@ internal sealed class WsSqlContextCoreHelper
     private static WsSqlContextCoreHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static WsSqlContextCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-    #endregion
-
-    #region Public and private fields, properties, constructor
-
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     #endregion
 
@@ -233,34 +228,5 @@ internal sealed class WsSqlContextCoreHelper
         typeof(WsSqlWorkShopValidator),
     };
     
-    /// <summary>
-    /// Get list of db files infos.
-    /// </summary>
-    /// <returns></returns>
-    public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos()
-    {
-        List<WsSqlDbFileSizeInfoModel> result = new();
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(WsSqlQueriesSystem.Properties.GetDbFileSizes);
-        foreach (object obj in objects)
-        {
-            if (obj is object[] { Length: 4 } item)
-            {
-                result.Add(new(
-                    Convert.ToByte(item[0]), 
-                    Convert.ToString(item[1]),
-                    Convert.ToUInt16(item[2]), 
-                    Convert.ToUInt16(item[3]))
-                );
-            }
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// Get all db files sizes.
-    /// </summary>
-    /// <returns></returns>
-    public ushort GetDbFileSizeAll() => (ushort)GetDbFileSizeInfos().Sum(item => item.SizeMb);
-
     #endregion
 }

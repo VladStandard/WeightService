@@ -4,8 +4,6 @@
 using FluentNHibernate.Cfg.Db;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
-using WsStorageCore.Views.ViewRefModels.PluLines;
-using WsStorageCore.Views.ViewRefModels.PluNestings;
 
 namespace WsStorageCore.Helpers;
 
@@ -33,6 +31,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
+    
     public WsSqlAreaRepository AreaRepository { get; } = new();
     public WsSqlBoxRepository BoxRepository { get; } = new();
     public WsSqlBrandRepository BrandRepository { get; } = new();
@@ -275,10 +274,6 @@ public sealed class WsSqlContextManagerHelper
         }
         return 0;
     }
-
-    public List<WsSqlDbFileSizeInfoModel> GetDbFileSizeInfos() => ContextCore.GetDbFileSizeInfos();
-
-    public ushort GetDbFileSizeAll() => ContextCore.GetDbFileSizeAll();
 
     public List<WsSqlTableBase> GetTableModels() => ContextCore.GetTableModels();
 

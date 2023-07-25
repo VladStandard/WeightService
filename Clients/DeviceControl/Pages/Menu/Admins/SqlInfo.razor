@@ -2,6 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Admin)]
 @using DeviceControl.Components.Rz
 @using WsStorageCore.Views.ViewDiagModels.TableSize
+@using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo
 @inherits ComponentBase
 
 <h3><b>Статистика базы данных</b></h3>
@@ -20,7 +21,7 @@
 </MudSimpleTable>
 
 <RzDataGrid
-  TItem="@WsSqlDbFileSizeInfoModel"
+  TItem="@WsSqlViewDbFileSizeInfoModel"
   Data="@DbFiles"
   RowRender="@RowRender">
   <Template Context="table">
@@ -40,7 +41,7 @@
       </RzDataGrid>
   </Template>
   <Columns>
-    <TItemContent TItem="@WsSqlDbFileSizeInfoModel">
+    <TItemContent TItem="@WsSqlViewDbFileSizeInfoModel">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.File" Property="FileName" Width="15%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.TableCount" Property="Tables.Count" Width="10%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Size" Property="SizeMb" Width="10%"/>

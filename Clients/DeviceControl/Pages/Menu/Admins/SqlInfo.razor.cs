@@ -3,6 +3,7 @@
 
 using WsStorageCore.Helpers;
 using WsStorageCore.Views.ViewDiagModels.TableSize;
+using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 namespace DeviceControl.Pages.Menu.Admins;
 
@@ -11,7 +12,7 @@ public sealed partial class SqlInfo : ComponentBase
     #region Public and private fields, properties, constructor
 
     private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository { get; } = new();
-    private List<WsSqlDbFileSizeInfoModel> DbFiles { get; set; }
+    private List<WsSqlViewDbFileSizeInfoModel> DbFiles { get; set; }
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
@@ -37,16 +38,16 @@ public sealed partial class SqlInfo : ComponentBase
 
     private void GetSectionData()
     {
-        DbFiles = ContextManager.GetDbFileSizeInfos();
+        DbFiles = new WsSqlViewDbFileSizeRepository().GetList();
         DbTables = WsSqlViewTableSizeRepository.GetList(new());
-        foreach (WsSqlDbFileSizeInfoModel dbFile in DbFiles)
+        foreach (WsSqlViewDbFileSizeInfoModel dbFile in DbFiles)
         {
             dbFile.Tables.AddRange(DbTables.Where(table => table.FileName == dbFile.FileName));
         }
         StateHasChanged();
     }
     
-    private static void RowRender(RowRenderEventArgs<WsSqlDbFileSizeInfoModel> args)
+    private static void RowRender(RowRenderEventArgs<WsSqlViewDbFileSizeInfoModel> args)
     {
         args.Expandable = args.Data.Tables.Count > 0;
     }

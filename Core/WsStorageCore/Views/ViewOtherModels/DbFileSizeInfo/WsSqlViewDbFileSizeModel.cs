@@ -1,9 +1,9 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using WsStorageCore.Views.ViewDiagModels.TableSize;
 
-namespace WsStorageCore.Models;
+namespace WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 public enum DbFileType
 {
@@ -11,7 +11,7 @@ public enum DbFileType
     LogDataFile
 }
 
-public sealed record WsSqlDbFileSizeInfoModel
+public sealed record WsSqlViewDbFileSizeInfoModel
 {
     #region Public and private fields, properties, constructor
 
@@ -23,7 +23,7 @@ public sealed record WsSqlDbFileSizeInfoModel
     public double DbFillSize => Math.Round(((double)SizeMb / MaxSizeMb) * 100, 2);
     public List<WsSqlViewTableSizeModel> Tables { get; set; }
     
-    public WsSqlDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
+    public WsSqlViewDbFileSizeInfoModel(byte type, string fileName, ushort sizeMb, ushort maxSizeMb)
     {
         Type = type == 0 ? DbFileType.MasterDataFile : DbFileType.LogDataFile;
         FileName = fileName;
