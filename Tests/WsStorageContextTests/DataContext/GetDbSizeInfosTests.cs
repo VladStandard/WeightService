@@ -17,7 +17,7 @@ public sealed class GetDbSizeInfosTests
             Assert.That(infos.Any(), Is.EqualTo(true));
             foreach (WsSqlDbFileSizeInfoModel info in infos)
             {
-                Assert.IsNotEmpty(info.ToString());
+                Assert.That(info.ToString(), Is.Not.Empty);
                 TestContext.WriteLine(info);
                 Assert.That(info.SizeMb, Is.LessThan(10240));
             }

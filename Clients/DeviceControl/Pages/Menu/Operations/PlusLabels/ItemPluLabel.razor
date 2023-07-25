@@ -29,10 +29,10 @@
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale))"
+      <RadzenLink Path="@RouteService.GetItemRoute(@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.PluScale.Plu).Template)"
                   Text="@WsLocaleCore.Table.Template"/>
     </td>
-    <td>@ContextManager.ContextItem.GetItemTemplateNotNullable(SqlItemCast.PluScale).Title</td>
+    <td>@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.PluScale.Plu).Template.Title</td>
   </tr>
   <tr>
     <td>

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 
 namespace WsLabelCore.Helpers;
@@ -162,7 +163,7 @@ public sealed class WsPrintSessionHelper
         // Заказ в разработке.
         if (LabelSession.Line is { IsOrder: true }) throw new("Order under construct!");
         // Получить шаблон этикетки.
-        WsSqlTemplateModel template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+        WsSqlTemplateModel template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
         // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
@@ -284,7 +285,7 @@ public sealed class WsPrintSessionHelper
             LabelSession.PluginPrintZebraMain?.SendCmdToZebra(pluLabelWithContext.PluLabel.Zpl);
             // Пересоздать шаблон.
             if (isReloadTemplete)
-                template = ContextManager.ContextItem.GetItemTemplateNotNullable(LabelSession.PluLine);
+                template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
             // Журнал событий.
             ContextManager.ContextItem.SaveLogInformation(
                 $"{WsLocaleCore.LabelPrint.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +

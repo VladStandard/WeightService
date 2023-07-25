@@ -714,19 +714,9 @@ public sealed class WsSqlCoreHelper
                 pluCharacteristicsFk.Characteristic = GetItemNotNullable<WsSqlPluCharacteristicModel>(pluCharacteristicsFk.Characteristic.IdentityValueUid);
                 break;
             case WsSqlPluStorageMethodFkModel pluStorageMethod:
-                if (isFillReferences)
-                {
-                    pluStorageMethod.Plu = GetItemNotNullable<WsSqlPluModel>(pluStorageMethod.Plu.IdentityValueUid);
-                    pluStorageMethod.Method = GetItemNotNullable<WsSqlPluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
-                    pluStorageMethod.Resource = GetItemNotNullable<WsSqlTemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
-                }
-                else
-                {
-                    //pluStorageMethod.FillProperties();
-                    pluStorageMethod.Plu = new();
-                    pluStorageMethod.Method = new();
-                    pluStorageMethod.Resource = new();
-                }
+                pluStorageMethod.Plu = GetItemNotNullable<WsSqlPluModel>(pluStorageMethod.Plu.IdentityValueUid);
+                pluStorageMethod.Method = GetItemNotNullable<WsSqlPluStorageMethodModel>(pluStorageMethod.Method.IdentityValueUid);
+                pluStorageMethod.Resource = GetItemNotNullable<WsSqlTemplateResourceModel>(pluStorageMethod.Resource.IdentityValueUid);
                 break;
             case WsSqlOrderWeighingModel orderWeighing:
                 orderWeighing.Order = GetItemNotNullable<WsSqlOrderModel>(orderWeighing.Order.IdentityValueUid);

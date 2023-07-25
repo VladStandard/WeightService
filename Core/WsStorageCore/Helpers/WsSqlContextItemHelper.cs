@@ -21,39 +21,8 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlAppRepository AppRepository { get; } = new();
-    private WsSqlDeviceRepository DeviceRepository { get; } = new();
     private WsSqlAppModel App { get; set; } = new();
     private WsSqlDeviceModel Device { get; set; } = new();
-
-    #endregion
-
-    #region Public and private methods
-    
-    public WsSqlPluModel GetItemPluNotNullable(WsSqlPluScaleModel pluScale)
-    {
-        if (!pluScale.IsNotNew || !pluScale.Plu.IsNotNew) return new();
-
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            nameof(WsSqlTableBase.IdentityValueUid), pluScale.Plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
-    }
-
-    public WsSqlPluTemplateFkModel GetItemPluTemplateFkNotNullable(WsSqlPluModel plu)
-    {
-        if (plu.IsNew) return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
-            $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
-            WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
-    }
-
-    public WsSqlTemplateModel GetItemTemplateNotNullable(WsSqlPluScaleModel pluScale)
-    {
-        if (pluScale.IsNew || pluScale.Plu.IsNew) return new();
-        WsSqlPluModel plu = GetItemPluNotNullable(pluScale);
-        return GetItemPluTemplateFkNotNullable(plu).Template;
-    }
 
     #endregion
 
@@ -61,18 +30,20 @@ public sealed class WsSqlContextItemHelper
 
     public void SetupLog(string deviceName, string appName)
     {
+        WsSqlDeviceRepository deviceRepository = new();
+        WsSqlAppRepository appRepository = new(); 
         if (Device.IsNew)
         {
             if (string.IsNullOrEmpty(deviceName))
                 deviceName = MdNetUtils.GetLocalDeviceName(false);
-            Device = DeviceRepository.GetItemByName(deviceName);
+            Device = deviceRepository.GetItemByName(deviceName);
         }
 
         if (App.IsNew)
         {
             if (string.IsNullOrEmpty(appName))
                 appName = nameof(WsDataCore);
-            App = AppRepository.GetItemByNameOrCreate(appName);
+            App = appRepository.GetItemByNameOrCreate(appName);
         }
     }
 

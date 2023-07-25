@@ -50,7 +50,7 @@ public sealed class WsSqlContextCacheHelperTests
         {
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusLines);
-            Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any());
+            Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any(), Is.True);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
 
     [Test]
