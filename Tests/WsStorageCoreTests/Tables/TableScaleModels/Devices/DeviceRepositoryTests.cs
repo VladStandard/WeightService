@@ -14,7 +14,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlDeviceModel> items = DeviceRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
     

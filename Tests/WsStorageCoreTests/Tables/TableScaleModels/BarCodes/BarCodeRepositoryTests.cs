@@ -13,7 +13,7 @@ public sealed class BarCodeRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlBarCodeModel> items = BarcodeRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

@@ -13,7 +13,7 @@ public sealed class ContragentRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlContragentModel> items = ContragentRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

@@ -13,7 +13,7 @@ public sealed class ViewLinesRepositoryTests : ViewRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewLineModel> items = ViewLineRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.PrintViewRecords(items);
+            PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

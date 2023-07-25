@@ -13,7 +13,7 @@ public sealed class VersionRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlVersionModel> items = VersionRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

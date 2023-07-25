@@ -13,7 +13,7 @@ public sealed class TaskRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlTaskModel> items = TaskRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

@@ -14,7 +14,7 @@ public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewWeightingAggrModel> items = ViewWeightingAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
-            // WsTestsUtils.DataTests.PrintViewRecords(items);
+            // PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

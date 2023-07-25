@@ -12,7 +12,7 @@ public class ViewPluLineRepositoryTests : ViewRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewPluLineModel> items = ViewPluLineRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.PrintViewRecords(items);
+            PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

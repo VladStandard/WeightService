@@ -13,7 +13,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluModel> items = PluRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
     
@@ -28,7 +28,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Number, Is.EqualTo(301));
 
-            WsTestsUtils.DataTests.ParseRecords(plus);
+            ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
 	
@@ -44,7 +44,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(numbers, Does.Contain(plu.Number));
 
-            WsTestsUtils.DataTests.ParseRecords(plus);
+            ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
 	
@@ -61,7 +61,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Number is >= minNumber and <= maxNumber, Is.True);
 
-            WsTestsUtils.DataTests.ParseRecords(plus);
+            ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
 	
@@ -76,7 +76,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Uid1C, Is.EqualTo(uid));
 
-            WsTestsUtils.DataTests.ParseRecords(plus);
+            ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
 	}
 }

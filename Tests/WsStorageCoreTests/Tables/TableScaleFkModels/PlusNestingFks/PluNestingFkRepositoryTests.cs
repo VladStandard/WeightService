@@ -13,7 +13,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluNestingFkModel> items = PluNestingFkRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
     
@@ -25,7 +25,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
             List<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetListByPluNumber(312);
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
                 Assert.That(pluNestingFk.PluBundle.Plu.Number, Is.EqualTo(312));
-            WsTestsUtils.DataTests.PrintViewRecords(plusNestingFks);
+            ParseRecords(plusNestingFks);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
 
@@ -38,7 +38,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
             List<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetListByPluUid(uid);
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
                 Assert.That(pluNestingFk.PluBundle.Plu.IdentityValueUid, Is.EqualTo(uid));
-            WsTestsUtils.DataTests.ParseRecords(plusNestingFks);
+            ParseRecords(plusNestingFks);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
 }

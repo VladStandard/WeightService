@@ -20,7 +20,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
         {
             List<WsSqlLogModel> items = LogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
     

@@ -551,36 +551,5 @@ public class WsDataTestsHelper
         });
     }
 
-    public void ParseRecords<T>(List<T> items) where T : WsSqlTableBase, new()
-    {
-            Assert.That(items.Any(), Is.True, "No data in database!!!");
-            
-            TestContext.WriteLine($"Print {items.Count} records.");
-            
-            foreach (T item in items)
-            {
-                TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString()));
-                
-                ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
-                Assert.That(validationResult.IsValid, Is.True, validationResult.ToString());
-            
-                if (item is SerializeBase sitem)
-                {
-                    string xml = WsDataFormatUtils.SerializeAsXmlString<T>(sitem, true, false);
-                    Assert.IsNotEmpty(xml, "XML is empty");
-                }
-            }
-    }
-    
-    public void PrintViewRecords<T>(List<T> items) where T : class
-    {
-        Assert.That(items.Any(), Is.True, "No data in database!!!");
-        TestContext.WriteLine($"Print {items.Count} records.");
-        foreach (T item in items)
-        {
-            TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
-        }
-    }
-    
     #endregion
 }

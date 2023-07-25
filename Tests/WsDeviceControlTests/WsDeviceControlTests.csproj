@@ -24,6 +24,5 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Clients\DeviceControl\DeviceControl.csproj" />
         <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
-        <ProjectReference Include="..\WsBlazorCoreTests\WsBlazorCoreTests.csproj" />
     </ItemGroup>
 </Project>

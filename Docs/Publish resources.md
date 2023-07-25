@@ -14,9 +14,9 @@
 
 ## ScalesUI
   DevelopVS: switch to DevelopVS
-    Fodler:  \\palych\Install\VSSoft\Scales-2-Preview\
+    Folder:  \\palych\Install\VSSoft\Scales-2-Preview\
     SQL:     CREATIO\INS1 + SCALES
-  ReleaseVS: switch to RelaseVS
+  ReleaseVS: switch to ReleaseVS
     Folder:  \\palych\Install\VSSoft\Scales-3-Release\
     SQL:     PALYCH\LUTON + ScalesDB
 
@@ -37,7 +37,7 @@
         Destination URL
         Configuration: DevelopVS - x64
         Target Framework: net7.0
-        Deployment Mode: Fremawork-dependent
+        Deployment Mode: Framework-dependent
         Target Runtime: Portable
         File Publish Options
             ✓ Delete all existing files prior to publish
@@ -53,14 +53,14 @@
         Destination URL
         Configuration: DevelopVS - x64
         Target Framework: net7.0
-        Deployment Mode: Fremawork-dependent
+        Deployment Mode: Framework-dependent
         Target Runtime: Portable
         File Publish Options
             ✓ Delete all existing files prior to publish
         Databases DefaultConnection
             ✓ Use this connection string at runtime
             Server=CREATIO\INS1;Database=SCALES;Uid=scale01;Password=scale01;Timeout=900;TrustServerCertificate=true;
-  ReleaseVS: switch to RelaseVS
+  ReleaseVS: switch to ReleaseVS
     Server: IIS-DEV
     Site path: WEB-API-SCALES-DEV-PREVIEW
         ✓ Passive mode
@@ -69,7 +69,7 @@
     Destination URL
     Configuration: DevelopVS - x64
     Target Framework: net7.0
-    Deployment Mode: Fremawork-dependent
+    Deployment Mode: Framework-dependent
     Target Runtime: Portable
     File Publish Options
         ✓ Delete all existing files prior to publish

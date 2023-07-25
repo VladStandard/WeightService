@@ -3,6 +3,7 @@
 
 using WsStorageCore.Tables.TableRefModels.Plus1CFk;
 using WsStorageCore.Tables.TableScaleModels.Plus;
+using WsStorageCore.Utils;
 using WsWebApiCore.Utils;
 
 namespace WsWebApiCoreTests.Common;
@@ -10,6 +11,14 @@ namespace WsWebApiCoreTests.Common;
 [TestFixture]
 public class WsServiceControllerBaseTests
 {
+    protected static void PrintViewRecords<T>(List<T> items) where T : class
+    {
+        Assert.That(items.Any(), Is.True, "No data in database!!!");
+        TestContext.WriteLine($"Print {items.Count} records.");
+        foreach (T item in items)
+            TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
+    }
+    
     [Test]
     public void Fill_plus_1c_fks()
     {
@@ -17,12 +26,10 @@ public class WsServiceControllerBaseTests
         {
             if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null) 
                 throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
-            // Заполнить таблицу связей разрешённых для загрузки ПЛУ из 1С.
             WsServiceUtilsUpdate.FillPlus1CFksDb();
-
             Assert.IsTrue(WsServiceUtilsCheck.CheckExistsAllPlus1CFksDb());
-            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
-        }, false, new() { WsEnumConfiguration.DevelopVS }); // , WsEnumConfiguration.ReleaseVS
+            PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
+        }, false, new() { WsEnumConfiguration.DevelopVS });
     }
 
     [Test]
@@ -37,7 +44,7 @@ public class WsServiceControllerBaseTests
             if (!flag)
                 TestContext.WriteLine($"Run {nameof(Fill_plus_1c_fks)} first!");
             Assert.IsTrue(flag);
-            WsTestsUtils.DataTests.PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
+            PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetList());
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
     
@@ -53,7 +60,7 @@ public class WsServiceControllerBaseTests
             // Получить список связей обмена ПЛУ 1С по GUID_1C.
             List<WsSqlPlu1CFkModel> plus1CFks = WsServiceUtilsGet.GetPlus1CFksByGuid1C(plu301.Uid1C);
             Assert.IsTrue(plus1CFks.Any());
-            WsTestsUtils.DataTests.PrintViewRecords(plus1CFks);
+            PrintViewRecords(plus1CFks);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
 }

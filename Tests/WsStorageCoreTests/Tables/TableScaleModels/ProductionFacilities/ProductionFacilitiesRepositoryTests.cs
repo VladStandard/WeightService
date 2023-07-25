@@ -2,8 +2,6 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
-// TODO: ProductionFacilityRepository GetList
-
 [TestFixture]
 public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
 {
@@ -15,7 +13,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlProductionFacilityModel> items = AreaRepository.GetList(SqlCrudConfig);
-            WsTestsUtils.DataTests.ParseRecords(items);
+            ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }
