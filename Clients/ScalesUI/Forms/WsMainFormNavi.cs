@@ -16,7 +16,7 @@ public partial class WsMainForm
         WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
         WsFormNavigationUtils.NavigationUserControl.Visible = false;
         // WinForms-контрол ожидания.
-        WsFormNavigationUtils.WaitUserControl.SetupUserConrol();
+        WsFormNavigationUtils.WaitUserControl.SetupUserControl();
         WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.AddAction(ActionFinally);
         // Настройка главной формы.
@@ -35,7 +35,7 @@ public partial class WsMainForm
     private void LoadNavigationUserControl()
     {
         // WinForms-контрол диалога.
-        WsFormNavigationUtils.DialogUserControl.SetupUserConrol();
+        WsFormNavigationUtils.DialogUserControl.SetupUserControl();
         WsFormNavigationUtils.DialogUserControl.ViewModel.CmdOk.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DialogUserControl.ViewModel.CmdOk.AddAction(ActionFinally);
         WsFormNavigationUtils.DialogUserControl.ViewModel.CmdYes.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
@@ -43,7 +43,7 @@ public partial class WsMainForm
         WsFormNavigationUtils.DialogUserControl.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DialogUserControl.ViewModel.CmdCancel.AddAction(ActionFinally);
         // WinForms-контрол ввода цифр.
-        WsFormNavigationUtils.DigitsUserControl.SetupUserConrol();
+        WsFormNavigationUtils.DigitsUserControl.SetupUserControl();
         WsFormNavigationUtils.DigitsUserControl.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusNesting);
         WsFormNavigationUtils.DigitsUserControl.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.DigitsUserControl.ViewModel.CmdCancel.AddAction(ActionFinally);
@@ -91,25 +91,25 @@ public partial class WsMainForm
         switch (userControl)
         {
             case WsXamlDialogUserControl dialogUserControl:
-                dialogUserControl.SetupUserConrol();
+                dialogUserControl.SetupUserControl();
                 break;
             case WsXamlDigitsUserControl digitsUserControl:
-                digitsUserControl.SetupUserConrol();
+                digitsUserControl.SetupUserControl();
                 break;
             case WsXamlLinesUserControl linesUserControl:
-                linesUserControl.SetupUserConrol();
+                linesUserControl.SetupUserControl();
                 break;
             case WsXamlKneadingUserControl kneadingUserControl:
-                kneadingUserControl.SetupUserConrol();
+                kneadingUserControl.SetupUserControl();
                 break;
             case WsXamlPlusLinesUserControl plusLinesUserControl:
-                plusLinesUserControl.SetupUserConrol();
+                plusLinesUserControl.SetupUserControl();
                 break;
             case WsXamlPlusNestingUserControl plusNestingUserControl:
-                plusNestingUserControl.SetupUserConrol();
+                plusNestingUserControl.SetupUserControl();
                 break;
             case WsXamlWaitUserControl waitUserControl:
-                waitUserControl.SetupUserConrol();
+                waitUserControl.SetupUserControl();
                 break;
             default:
                 throw new ArgumentException(nameof(userControl));

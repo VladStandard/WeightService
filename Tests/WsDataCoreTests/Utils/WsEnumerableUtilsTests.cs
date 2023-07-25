@@ -9,8 +9,6 @@ namespace WsDataCoreTests.Utils;
 [TestFixture]
 public sealed class WsEnumerableUtilsTests
 {
-    #region Public methods
-
     [Test]
     public void Change_new_copy_collection_int()
     {
@@ -310,6 +308,4 @@ public sealed class WsEnumerableUtilsTests
             Assert.IsTrue(isEqual);
         });
     }
-
-    #endregion
 }

@@ -36,7 +36,7 @@ public partial class WsMainForm
         if (WsFormNavigationUtils.IsLoadPlusLine) return;
         WsFormNavigationUtils.IsLoadPlusLine = true;
 
-        WsFormNavigationUtils.PlusLineUserControl.SetupUserConrol();
+        WsFormNavigationUtils.PlusLineUserControl.SetupUserControl();
         WsFormNavigationUtils.PlusLineUserControl.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusLine);
         WsFormNavigationUtils.PlusLineUserControl.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.PlusLineUserControl.ViewModel.CmdCancel.AddAction(ActionFinally);

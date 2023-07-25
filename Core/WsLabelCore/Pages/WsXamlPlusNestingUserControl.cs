@@ -28,7 +28,7 @@ public sealed partial class WsXamlPlusNestingUserControl : WsFormBaseUserControl
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() => ((WsXamlPlusNestingPage)Page).SetupViewModel(ViewModel);
+    public void SetupUserControl() => ((WsXamlPlusNestingPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

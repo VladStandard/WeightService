@@ -28,7 +28,7 @@ public sealed partial class WsXamlLinesUserControl : WsFormBaseUserControl, IWsF
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() => ((WsXamlLinesPage)Page).SetupViewModel(ViewModel);
+    public void SetupUserControl() => ((WsXamlLinesPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

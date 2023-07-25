@@ -28,7 +28,7 @@ public partial class WsXamlWaitUserControl : WsFormBaseUserControl, IWsFormUserC
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() => ((WsXamlWaitPage)Page).SetupViewModel(ViewModel);
+    public void SetupUserControl() => ((WsXamlWaitPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

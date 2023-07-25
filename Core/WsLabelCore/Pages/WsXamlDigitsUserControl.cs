@@ -27,7 +27,7 @@ public sealed partial class WsXamlDigitsUserControl : WsFormBaseUserControl, IWs
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol() => 
+    public void SetupUserControl() => 
         ((WsXamlDigitsPage)Page).SetupViewModel(ViewModel);
 
     #endregion

@@ -3,9 +3,6 @@
 
 namespace WsWebApiCore.Utils;
 
-/// <summary>
-/// Utilites.
-/// </summary>
 public static class WsServiceUtilsTests
 {
     #region Public and private fields, properties, constructor

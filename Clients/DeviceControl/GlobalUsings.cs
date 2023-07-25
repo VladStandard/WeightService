@@ -5,7 +5,6 @@
 global using System.Globalization;
 global using Microsoft.AspNetCore.Components;
 global using Radzen;
-global using WsBlazorCore.Services;
 global using WsBlazorCore.Utils;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Models;

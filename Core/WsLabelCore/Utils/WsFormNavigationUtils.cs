@@ -158,7 +158,7 @@ public static class WsFormNavigationUtils
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         WsXamlDialogUserControl dialog = new();
-        dialog.SetupUserConrol();
+        dialog.SetupUserControl();
         dialog.Tag = DialogTempTag;
         dialog.SetupActions(dialogType, actions);
         dialog.SetupButtons(dialogType, actions, message, NavigationUserControl.Width);

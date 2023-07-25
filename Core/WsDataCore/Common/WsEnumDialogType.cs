@@ -8,20 +8,8 @@ namespace WsDataCore.Common;
 /// </summary>
 public enum WsEnumDialogType
 {
-    /// <summary>
-    /// По-умолчанию.
-    /// </summary>
     Default,
-    /// <summary>
-    /// Отмена/Да.
-    /// </summary>
     CancelYes,
-    /// <summary>
-    /// Нет/Да.
-    /// </summary>
     NoYes,
-    /// <summary>
-    /// Ок.
-    /// </summary>
     Ok,
 }

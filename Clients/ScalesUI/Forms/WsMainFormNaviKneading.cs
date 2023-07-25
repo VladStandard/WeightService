@@ -35,7 +35,7 @@ public partial class WsMainForm
         if (WsFormNavigationUtils.IsLoadKneading) return;
         WsFormNavigationUtils.IsLoadKneading = true;
 
-        WsFormNavigationUtils.KneadingUserControl.SetupUserConrol();
+        WsFormNavigationUtils.KneadingUserControl.SetupUserControl();
         WsFormNavigationUtils.KneadingUserControl.ViewModel.CmdCancel.AddAction(PluginMassaExecute);
         WsFormNavigationUtils.KneadingUserControl.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.KneadingUserControl.ViewModel.CmdCancel.AddAction(ActionFinally);

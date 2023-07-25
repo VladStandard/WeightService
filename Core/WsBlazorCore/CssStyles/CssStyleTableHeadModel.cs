@@ -14,7 +14,7 @@ public class CssStyleTableHeadModel
     
     public CssStyleTableHeadModel()
     {
-        ColumnsWidths = new List<int> {30, 70};
+        ColumnsWidths = new() {30, 70};
         ColumnsTitles = GetColumnsTitles();
     }
     
@@ -32,9 +32,10 @@ public class CssStyleTableHeadModel
     {
         
         if (!ColumnsWidths.Any())
-            return new List<string>();
+            return new();
         
-        List<string> columnsTitles = new List<string> {
+        List<string> columnsTitles = new()
+        {
             WsLocaleCore.Strings.SettingName
         };
 

@@ -41,9 +41,6 @@ builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<NotificationService>();
 
-
-builder.Services.AddScoped<IFileUpload, FileUpload>();
-builder.Services.AddScoped<IFileDownload, FileDownload>();
 builder.Services.AddScoped<IUserRightsService, UserRightsService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 

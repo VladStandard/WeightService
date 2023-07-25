@@ -37,7 +37,7 @@ public partial class WsMainForm
         if (WsFormNavigationUtils.IsLoadPlusNesting) return;
         WsFormNavigationUtils.IsLoadPlusNesting = true;
 
-        WsFormNavigationUtils.PlusNestingUserControl.SetupUserConrol();
+        WsFormNavigationUtils.PlusNestingUserControl.SetupUserControl();
         WsFormNavigationUtils.PlusNestingUserControl.ViewModel.CmdCancel.AddAction(ReturnCancelFromPlusNesting);
         WsFormNavigationUtils.PlusNestingUserControl.ViewModel.CmdCancel.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
         WsFormNavigationUtils.PlusNestingUserControl.ViewModel.CmdCancel.AddAction(ActionFinally);

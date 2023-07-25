@@ -6,8 +6,6 @@ namespace WsDataCoreTests.Utils;
 [TestFixture]
 public sealed class WsAssemblyUtilsTests
 {
-    #region Public methods
-
     [Test]
     public void Get_app_version_is_work()
     {
@@ -43,6 +41,4 @@ public sealed class WsAssemblyUtilsTests
             Assert.IsNotEmpty(libVersion);
         });
     }
-
-    #endregion
 }

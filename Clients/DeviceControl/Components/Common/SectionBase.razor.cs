@@ -31,8 +31,8 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     public SectionBase()
     {
         SelectedRow = new List<TItem>();
-        SqlSectionCast = new List<TItem>();
-        SqlSectionSave = new List<TItem>();
+        SqlSectionCast = new();
+        SqlSectionSave = new();
 
         SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
         IsGuiShowFilterMarked = true;

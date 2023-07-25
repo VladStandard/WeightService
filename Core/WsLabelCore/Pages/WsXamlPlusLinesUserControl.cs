@@ -40,7 +40,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <summary>
     /// Обновить контрол.
     /// </summary>
-    public void SetupUserConrol()
+    public void SetupUserControl()
     {
         Page.SetupViewModel(ViewModel);
 

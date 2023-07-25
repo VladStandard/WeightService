@@ -8,8 +8,6 @@ namespace WsDataCoreTests.Utils;
 [TestFixture]
 public sealed class DataFormatUtilsTests
 {
-    #region Public methods
-
     [Test]
     public void AppHelper_GetCurrentVersion_AreEqual()
     {
@@ -23,6 +21,4 @@ public sealed class DataFormatUtilsTests
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.DevelopVS });
     }
-
-    #endregion
 }

@@ -27,7 +27,7 @@ public sealed partial class WsXamlDialogUserControl : WsFormBaseUserControl, IWs
     /// <summary>
     /// Настроить WinForms-контрол.
     /// </summary>
-    public void SetupUserConrol() => ((WsXamlDialogPage)Page).SetupViewModel(ViewModel);
+    public void SetupUserControl() => ((WsXamlDialogPage)Page).SetupViewModel(ViewModel);
 
     #endregion
 }

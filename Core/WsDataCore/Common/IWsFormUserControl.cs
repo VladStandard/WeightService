@@ -9,5 +9,5 @@ namespace WsDataCore.Common;
 #nullable enable
 public interface IWsFormUserControl
 {
-    public void SetupUserConrol();
+    public void SetupUserControl();
 }

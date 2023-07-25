@@ -9,13 +9,7 @@ namespace WsDataCoreTests.Helpers;
 [TestFixture]
 public sealed class AppHelperTests
 {
-    #region Private fields and properties
-
     private WsAppVersionHelper App => WsAppVersionHelper.Instance;
-
-    #endregion
-
-    #region Public methods
 
     [Test]
     public void AppHelper_GetCurrentVersionSubString_DoesNotThrow()
@@ -29,7 +23,7 @@ public sealed class AppHelperTests
     [Test]
     public void AppHelper_GetCurrentVersion_AreEqual()
     {
-        AssemblyName assemblyName = new AssemblyName() {Name = "MyAssembly", Version = new(0, 1, 5, 123) };
+        AssemblyName assemblyName = new() {Name = "MyAssembly", Version = new(0, 1, 5, 123) };
         AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 
         string result = string.Empty;
@@ -47,6 +41,4 @@ public sealed class AppHelperTests
                 Assert.AreEqual("0.1.5.123", result);
         }
     }
-
-    #endregion
 }
