@@ -3,11 +3,10 @@ using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusClipsFks;
 
-// TODO: add cases to PlusClips
-
+[TestFixture]
 public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluClipFkRepository PluClipFkRepository { get; set; } = new();
+    private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
 
     private WsSqlPluClipFkModel GetFirstPluClipFkModel()
     {

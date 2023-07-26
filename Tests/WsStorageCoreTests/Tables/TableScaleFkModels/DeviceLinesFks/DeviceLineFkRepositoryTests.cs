@@ -1,10 +1,12 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceLinesFks;
 
+[TestFixture]
 public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; set; } = new();
+    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
     
     private WsSqlDeviceScaleFkModel GetFirstDeviceScaleFkModel()
     {

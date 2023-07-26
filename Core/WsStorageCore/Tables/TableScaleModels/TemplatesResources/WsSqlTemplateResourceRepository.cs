@@ -5,7 +5,7 @@ public class WsSqlTemplateResourceRepository : WsSqlTableRepositoryBase<WsSqlTem
     public List<WsSqlTemplateResourceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlTemplateResourceModel> list = SqlCore.GetListNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
+        if (sqlCrudConfig.IsResultOrder)
             list = list
                 .OrderBy(item => item.Name)
                 .ThenBy(item => item.Type).ToList();

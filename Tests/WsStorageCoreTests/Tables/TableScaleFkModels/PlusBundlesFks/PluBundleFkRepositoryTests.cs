@@ -2,9 +2,10 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundlesFks;
 
+[TestFixture]
 public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluBundleFkRepository PluBundleFkRepository { get; set; } = new();
+    private WsSqlPluBundleFkRepository PluBundleFkRepository { get; } = new();
 
     private WsSqlPluBundleFkModel GetFirstPluBundleFkModel()
     {

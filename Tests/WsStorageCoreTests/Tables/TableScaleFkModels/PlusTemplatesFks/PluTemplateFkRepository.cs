@@ -2,6 +2,7 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 
+[TestFixture]
 public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluTemplateFkRepository PluTemplateFkRepository  { get; set; } = new();

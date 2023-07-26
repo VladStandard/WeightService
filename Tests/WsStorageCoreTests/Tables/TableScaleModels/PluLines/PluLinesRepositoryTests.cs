@@ -1,16 +1,20 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 
 [TestFixture]
 public sealed class PluLinesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluLineRepository PluLineRepository  { get; set; } = new();
-
+    private WsSqlPluLineRepository PluLineRepository  { get; } = new();
+    
+    protected override IResolveConstraint SortOrderValue => 
+        Is.Ordered.Using((IComparer<WsSqlPluScaleModel>)Comparer<WsSqlPluScaleModel>.
+            Create((x, y) => x.Plu.Number.CompareTo(y.Plu.Number))).Ascending;
+    
     private WsSqlPluScaleModel GetFirstPluScaleModel()
     {
-        WsSqlCrudConfigModel sqlConfig = GetNewSqlConfig();
-        sqlConfig.SelectTopRowsCount = 1;
+        WsSqlCrudConfigModel sqlConfig = new () { SelectTopRowsCount = 1 };
         return PluLineRepository.GetList(sqlConfig).First();
     }
         

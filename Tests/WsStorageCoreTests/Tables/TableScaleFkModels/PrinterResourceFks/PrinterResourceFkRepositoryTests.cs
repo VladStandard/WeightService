@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
 // TODO: printer resources
 public sealed class PrinterResourcesFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPrinterResourceFkRepository PrinterResourceFkRepository { get; set; } = new();
+    private WsSqlPrinterResourceFkRepository PrinterResourceFkRepository { get; } = new();
     
     // [Test]
     // public void GetList()

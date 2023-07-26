@@ -6,10 +6,7 @@ public class WsSqlOrderRepository : WsSqlTableRepositoryBase<WsSqlOrderModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
-        List<WsSqlOrderModel> list = SqlCore.GetListNotNullable<WsSqlOrderModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderByDescending(item => item.ChangeDt).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlOrderModel>(sqlCrudConfig);
     }
 
 }

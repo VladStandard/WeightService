@@ -61,10 +61,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<WsSqlDeviceModel> list = SqlCore.GetListNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Name).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 
     #endregion

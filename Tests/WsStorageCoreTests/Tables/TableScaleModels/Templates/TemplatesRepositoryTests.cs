@@ -1,11 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Templates;
 
 [TestFixture]
 public sealed class TemplatesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlTemplateRepository TemplateRepository { get; set; } = new();
+    private WsSqlTemplateRepository TemplateRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTemplateModel.Title)).Ascending;
     
     [Test]
     public void GetList()

@@ -17,10 +17,7 @@ public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProducti
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<WsSqlProductionFacilityModel> list = SqlCore.GetListNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Name).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 
     #endregion

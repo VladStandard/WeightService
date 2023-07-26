@@ -6,9 +6,6 @@ public class WsSqlContragentRepository : WsSqlTableRepositoryBase<WsSqlContragen
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<WsSqlContragentModel> list = SqlCore.GetListNotNullable<WsSqlContragentModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Name).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlContragentModel>(sqlCrudConfig);
     }
 }

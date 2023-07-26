@@ -46,11 +46,8 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     public List<WsSqlAppModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<WsSqlAppModel> list = SqlCore.GetListNotNullable<WsSqlAppModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Name).ToList();
-        return list;
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) }); 
+        return SqlCore.GetListNotNullable<WsSqlAppModel>(sqlCrudConfig);
     }
     
     #endregion

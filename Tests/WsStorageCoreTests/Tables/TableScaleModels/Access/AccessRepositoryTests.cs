@@ -6,7 +6,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
 [TestFixture]
 public sealed class AccessRepositoryTests : TableRepositoryTests
 {
-    private WsSqlAccessRepository AccessRepository { get; set; } = new();
+    private WsSqlAccessRepository AccessRepository { get; } = new();
     
     private string CurrentUser { get; set; }
 

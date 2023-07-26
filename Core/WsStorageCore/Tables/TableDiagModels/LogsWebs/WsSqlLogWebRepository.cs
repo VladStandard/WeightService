@@ -9,10 +9,7 @@ public class WsSqlLogWebRepository: WsSqlTableRepositoryBase<WsSqlLogWebModel>
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt) });
-        List<WsSqlLogWebModel> list = SqlCore.GetListNotNullable<WsSqlLogWebModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.CreateDt).ToList();
-        return list;
+            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc});
+        return SqlCore.GetListNotNullable<WsSqlLogWebModel>(sqlCrudConfig);
     }
 }

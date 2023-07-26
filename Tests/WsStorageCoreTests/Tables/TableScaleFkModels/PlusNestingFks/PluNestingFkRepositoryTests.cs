@@ -1,11 +1,16 @@
-﻿using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
+[TestFixture]
 public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluNestingFkRepository PluNestingFkRepository { get; set; } = new();
+    private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => 
+        Is.Ordered.Using((IComparer<WsSqlPluNestingFkModel>)Comparer<WsSqlPluNestingFkModel>.
+            Create((x, y) => x.PluBundle.Plu.Number.CompareTo(y.PluBundle.Plu.Number))).Ascending;
     
     [Test]
     public void GetList()

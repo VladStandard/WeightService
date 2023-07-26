@@ -15,13 +15,9 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
 
     public List<WsSqlDeviceScaleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name) ));
         List<WsSqlDeviceScaleFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list
-                .OrderBy(item => item.Device.Name)
-                .ThenBy(item => item.Scale.Name).ToList();
+        if (sqlCrudConfig.IsResultOrder)
+            list = list.OrderBy(item => item.Device.Name).ToList();
         return list;
     }
     

@@ -17,10 +17,7 @@ public sealed class WsSqlPluWeighingRepository : WsSqlTableRepositoryBase<WsSqlP
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
-        List<WsSqlPluWeighingModel> list = SqlCore.GetListNotNullable<WsSqlPluWeighingModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderByDescending(item => item.ChangeDt).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlPluWeighingModel>(sqlCrudConfig);
     }
     
     #endregion

@@ -1,17 +1,19 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
 
+[TestFixture]
 public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; set; } = new();
+    private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; } = new();
 
     private WsSqlDeviceTypeFkModel GetFirstDeviceTypeFk()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return DeviceTypeFkRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {

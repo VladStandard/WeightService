@@ -1,12 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Orders;
 
-// TODO: get data for OrderRepository
 [TestFixture]
 public sealed class OrderRepositoryTests : TableRepositoryTests
 {
-    private WsSqlOrderRepository OrderRepository { get; set; } = new();
+    private WsSqlOrderRepository OrderRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
     
     [Test]
     public void GetList()

@@ -6,7 +6,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 [TestFixture]
 public sealed class PluStorageRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluStorageMethodRepository PluStorageMethodRepository { get; set; } = new();
+    private WsSqlPluStorageMethodRepository PluStorageMethodRepository { get; } = new();
     
     [Test]
     public void GetList()

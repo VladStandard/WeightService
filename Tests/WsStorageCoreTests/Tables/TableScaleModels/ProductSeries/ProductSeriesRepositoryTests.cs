@@ -1,11 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
 
 [TestFixture]
 public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlProductSeriesRepository ProductSeriesRepository { get; set; } = new();
+    private WsSqlProductSeriesRepository ProductSeriesRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
     
     private WsSqlProductSeriesModel GetFirstNotCloseSeriesModel()
     {

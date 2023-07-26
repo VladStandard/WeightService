@@ -1,4 +1,5 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
@@ -12,6 +13,8 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         return LineRepository.GetList(SqlCrudConfig).First();
     }
     
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Description)).Ascending;
+
     [Test, Order(1)]
     public void GetList()
     {

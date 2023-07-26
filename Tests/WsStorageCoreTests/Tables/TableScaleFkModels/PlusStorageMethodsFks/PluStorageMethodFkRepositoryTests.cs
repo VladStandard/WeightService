@@ -2,9 +2,10 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
+[TestFixture]
 public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluStorageMethodFkRepository PluStorageMethodFkRepository { get; set; } = new();
+    private WsSqlPluStorageMethodFkRepository PluStorageMethodFkRepository { get; } = new();
     
     private WsSqlPluStorageMethodFkModel GetFirstPluStorageMethodFk()
     {

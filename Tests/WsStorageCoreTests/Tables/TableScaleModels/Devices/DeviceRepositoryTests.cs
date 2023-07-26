@@ -6,7 +6,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Devices;
 [TestFixture]
 public sealed class DeviceRepositoryTests : TableRepositoryTests
 {
-    private WsSqlDeviceRepository DeviceRepository { get; set; } = new();
+    private WsSqlDeviceRepository DeviceRepository { get; } = new();
     
     [Test, Order(1)]
     public void GetList()
@@ -26,8 +26,10 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             WsSqlDeviceModel device = DeviceRepository.GetItemByNameOrCreate(pcName);
             WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(device.IdentityValueUid);
+            
             Assert.That(device.IsExists, Is.True);
             Assert.That(deviceByUid.IsExists, Is.True);
+           
             TestContext.WriteLine($"Success created/updated: {device.Name}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

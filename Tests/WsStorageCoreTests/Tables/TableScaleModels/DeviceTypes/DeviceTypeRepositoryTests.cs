@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
 [TestFixture]
 public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
 {
-    private WsSqlDeviceTypeRepository DeviceTypeRepository { get; set; } = new();
+    private WsSqlDeviceTypeRepository DeviceTypeRepository { get; } = new();
     
     private static IEnumerable<string> GetDeviceTypesEnums() => new List<string>() {
             "Monoblock",
@@ -36,8 +36,10 @@ public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
             {
                 WsSqlDeviceTypeModel deviceType = DeviceTypeRepository.GetItemByNameOrCreate(deviceTypeName);
                 WsSqlDeviceTypeModel deviceTypeByUid = DeviceTypeRepository.GetItemByUid(deviceType.IdentityValueUid);
+               
                 Assert.That(deviceType.IsExists, Is.True);
                 Assert.That(deviceTypeByUid.IsExists, Is.True);
+                
                 TestContext.WriteLine($"Success created/updated: {deviceType.Name}");
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

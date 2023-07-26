@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 [TestFixture]
 public sealed class BrandRepositoryTests : TableRepositoryTests
 {
-    private WsSqlBrandRepository BrandRepository { get; set; } = new();
+    private WsSqlBrandRepository BrandRepository { get; } = new();
     
     [Test]
     public void GetList()

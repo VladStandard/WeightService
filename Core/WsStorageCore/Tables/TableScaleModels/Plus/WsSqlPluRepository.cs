@@ -47,10 +47,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlEnumOrder.Asc});
-        List<WsSqlPluModel> list = SqlCore.GetListNotNullable<WsSqlPluModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            list = list.OrderBy(item => item.Number).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
     /// <summary>

@@ -2,9 +2,10 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBrandFks;
 
+[TestFixture]
 public sealed class PluBrandFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluBrandFkRepository PluBrandFkRepository { get; set; } = new();
+    private WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
     
     [Test]
     public void GetList()

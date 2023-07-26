@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 [TestFixture]
 public sealed class WorkShopRepositoryTests : TableRepositoryTests
 {
-    private WsSqlWorkShopRepository WorkShopRepository { get; set; } = new();
+    private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
     
     [Test, Order(1)]
     public void GetList()

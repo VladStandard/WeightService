@@ -17,10 +17,7 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
-        List<WsSqlClipModel> list = SqlCore.GetListNotNullable<WsSqlClipModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Name).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlClipModel>(sqlCrudConfig);
     }
 
     public WsSqlClipModel GetItemByUid1C(Guid uid1C)

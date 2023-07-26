@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 [TestFixture]
 public sealed class BoxRepositoryTests : TableRepositoryTests
 {
-    private WsSqlBoxRepository BoxRepository { get; set; } = new();
+    private WsSqlBoxRepository BoxRepository { get; } = new();
     
     [Test]
     public void GetList()

@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 [TestFixture]
 public sealed class ClipRepositoryTests : TableRepositoryTests
 {
-    private WsSqlClipRepository ClipRepository { get; set; } = new();
+    private WsSqlClipRepository ClipRepository { get; } = new();
     
     [Test]
     public void GetList()

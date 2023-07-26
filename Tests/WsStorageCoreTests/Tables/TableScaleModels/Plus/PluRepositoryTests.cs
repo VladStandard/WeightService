@@ -1,11 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
 public sealed class PluRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluRepository PluRepository  { get; set; } = new();
+    private WsSqlPluRepository PluRepository  { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlPluModel.Number)).Ascending;
     
     [Test]
     public void GetList()

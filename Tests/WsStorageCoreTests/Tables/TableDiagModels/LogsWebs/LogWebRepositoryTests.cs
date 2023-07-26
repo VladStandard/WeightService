@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.WebLogs;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.WebLogs;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
@@ -6,8 +7,9 @@ namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
 [TestFixture]
 public sealed class LogWebsRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLogWebRepository LogWebRepository { get; set; } = new();
-
+    private WsSqlLogWebRepository LogWebRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.CreateDt)).Descending;
+    
     [Test]
     public void GetList()
     {

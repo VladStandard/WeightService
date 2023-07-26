@@ -1,17 +1,20 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
 
 [TestFixture]
 public sealed class LogRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLogRepository LogRepository { get; set; } = new();
+    private WsSqlLogRepository LogRepository { get; } = new();
 
     private WsSqlLogModel GetFirstLogModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return LogRepository.GetList(SqlCrudConfig).First();
     }
+    
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
     
     [Test]
     public void GetList()

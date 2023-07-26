@@ -16,9 +16,6 @@ public class WsSqlScaleScreenshotRepository: WsSqlTableRepositoryBase<WsSqlScale
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
-        List<WsSqlScaleScreenShotModel> list = SqlCore.GetListNotNullable<WsSqlScaleScreenShotModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderByDescending(item => item.ChangeDt).ToList();
-        return list;
+        return SqlCore.GetListNotNullable<WsSqlScaleScreenShotModel>(sqlCrudConfig);
     }
 }

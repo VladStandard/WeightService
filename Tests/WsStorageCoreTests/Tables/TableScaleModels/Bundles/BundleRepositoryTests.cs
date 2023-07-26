@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 [TestFixture]
 public sealed class BundleRepositoryTests : TableRepositoryTests
 {
-    private WsSqlBundleRepository BundleRepository { get; set; } = new();
+    private WsSqlBundleRepository BundleRepository { get; } = new();
 
     private WsSqlBundleModel GetFirstBundleModel()
     {

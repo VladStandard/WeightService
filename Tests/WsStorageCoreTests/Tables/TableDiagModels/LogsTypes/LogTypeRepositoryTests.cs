@@ -1,11 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.LogsTypes;
 
 [TestFixture]
 public sealed class LogTypesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLogTypeRepository LogTypeRepository { get; set; } = new();
+    private WsSqlLogTypeRepository LogTypeRepository { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlLogTypeModel.Number)).Ascending;
     
     [Test]
     public void GetList()

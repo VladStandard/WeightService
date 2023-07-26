@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PlusGroups;
 [TestFixture]
 public sealed class PluGroupRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluGroupRepository PluGroupRepository { get; set; } = new();
+    private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
 
     private WsSqlPluGroupFkModel GetFirstPluGroupFk()
     {

@@ -15,8 +15,9 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlDeviceSettingsFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Device.Name)
+        if (sqlCrudConfig.IsResultOrder)
+            list = list
+                .OrderBy(item => item.Device.Name)
                 .ThenBy(item => item.Setting.Name).ToList();
         return list;
     }

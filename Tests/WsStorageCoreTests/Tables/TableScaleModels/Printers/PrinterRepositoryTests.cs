@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Printers;
 [TestFixture]
 public sealed class PrinterRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPrinterRepository PrinterRepository { get; set; } = new();
+    private WsSqlPrinterRepository PrinterRepository { get; } = new();
     
     [Test]
     public void GetList()

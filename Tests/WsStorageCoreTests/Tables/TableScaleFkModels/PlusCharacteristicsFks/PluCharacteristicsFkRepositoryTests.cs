@@ -2,9 +2,10 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 
+[TestFixture]
 public sealed class PluCharacteristicsFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluCharacteristicsFkRepository PluCharacteristicsFkRepository { get; set; } = new();
+    private WsSqlPluCharacteristicsFkRepository PluCharacteristicsFkRepository { get; } = new();
     
     [Test]
     public void GetList()

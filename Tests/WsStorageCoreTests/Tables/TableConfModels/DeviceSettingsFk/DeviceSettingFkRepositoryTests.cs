@@ -1,4 +1,5 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
@@ -8,7 +9,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     private WsSqlDeviceSettingsFkRepository DeviceSettingsFkRepository { get; } = new();
     private WsSqlDeviceRepository DeviceRepository { get; } = new();
     private WsSqlDeviceSettingsRepository DeviceSettingsRepository  { get; } = new();
-    
+
     [Test, Order(1)]
     public void FillSettings()
     {

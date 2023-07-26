@@ -15,9 +15,10 @@ public class WsSqlDeviceTypeFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceT
     public List<WsSqlDeviceTypeFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlDeviceTypeFkModel> result = SqlCore.GetListNotNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
-        result = result
-            .OrderBy(item => item.Type.Name)
-            .ThenBy(item => item.Device.Name).ToList();
+        if (sqlCrudConfig.IsResultOrder)
+            result = result
+                .OrderBy(item => item.Type.Name)
+                .ThenBy(item => item.Device.Name).ToList();
         return result;
     }
 }

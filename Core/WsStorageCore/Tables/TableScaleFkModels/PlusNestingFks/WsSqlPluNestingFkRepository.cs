@@ -74,7 +74,7 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
 
     public List<WsSqlPluNestingFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-                List<WsSqlPluNestingFkModel> list = new();
+        List<WsSqlPluNestingFkModel> list = new();
         if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)

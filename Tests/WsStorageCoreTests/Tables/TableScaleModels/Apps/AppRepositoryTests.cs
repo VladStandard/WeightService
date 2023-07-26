@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
 [TestFixture]
 public sealed class AppRepositoryTests : TableRepositoryTests
 {
-    private WsSqlAppRepository AppRepository { get; set; } = new();
+    private WsSqlAppRepository AppRepository { get; } = new();
     
     [Test, Order(1)]
     public void GetList()

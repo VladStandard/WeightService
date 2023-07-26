@@ -1,11 +1,13 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Versions;
 
 [TestFixture]
 public sealed class VersionRepositoryTests : TableRepositoryTests
 {
-    private WsSqlVersionRepository VersionRepository  { get; set; } = new();
+    private WsSqlVersionRepository VersionRepository  { get; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlVersionModel.Version)).Descending;
     
     [Test]
     public void GetList()

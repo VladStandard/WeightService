@@ -2,9 +2,10 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusGroupsFks;
 
+[TestFixture]
 public sealed class PluGroupFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluGroupFkRepository PluGroupFkRepository { get; set; } = new();
+    private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
     
     [Test]
     public void GetList()

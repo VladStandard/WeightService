@@ -3,9 +3,10 @@ using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusFks;
 
+[TestFixture]
 public sealed class PluFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluFkRepository PluFkRepository { get; set; } = new();
+    private WsSqlPluFkRepository PluFkRepository { get; } = new();
     
     [Test]
     public void GetList()
