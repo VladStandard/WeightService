@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Logs;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.Logs;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 
@@ -6,6 +7,9 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 public sealed class ViewLogRepositoryTests : ViewRepositoryTests
 {
     private IViewLogRepository ViewLogRepository { get; } = new WsSqlViewLogRepository();
+    
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewLogModel.CreateDt)).Descending;
 
     [Test]
     public void GetList()

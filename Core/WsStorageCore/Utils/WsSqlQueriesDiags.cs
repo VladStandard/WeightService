@@ -328,7 +328,6 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
         ,[PLU_NUMBER]
 FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
 ORDER BY [CHANGE_DT] DESC;");
-            
         }
     
 }

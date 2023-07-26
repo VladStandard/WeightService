@@ -1,11 +1,15 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Barcodes;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.Barcodes;
 
-namespace WsStorageCoreTests.Views.ViewScaleModels.Bardcodes;
+namespace WsStorageCoreTests.Views.ViewScaleModels.Barcodes;
 
 [TestFixture]
 public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
 {
     private IViewBarcodeRepository ViewBarcodeRepository { get; } = new WsSqlViewBarcodeRepository();
+    
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewBarcodeModel.CreateDt)).Descending;
 
     [Test]
     public void GetList()

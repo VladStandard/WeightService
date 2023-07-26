@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Aggregations;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.Aggregations;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 
@@ -6,6 +7,9 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
 {
     private IViewWeightingAggrRepository ViewWeightingAggrRepository { get; } = new WsSqlViewWeightingAggrRepository();
+    
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewWeightingAggrModel.ChangeDt)).Descending;
 
     [Test]
     public void GetList()
@@ -14,7 +18,7 @@ public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewWeightingAggrModel> items = ViewWeightingAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
-            // PrintViewRecords(items);
+            PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

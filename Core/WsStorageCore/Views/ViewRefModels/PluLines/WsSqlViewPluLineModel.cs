@@ -7,7 +7,6 @@ namespace WsStorageCore.Views.ViewRefModels.PluLines;
 public sealed class WsSqlViewPluLineModel : WsSqlViewBase
 {
     #region Public and private fields, properties, constructor
-
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
     public bool IsMarked { get; init; }

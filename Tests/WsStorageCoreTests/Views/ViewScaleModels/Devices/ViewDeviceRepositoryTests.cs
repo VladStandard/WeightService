@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Devices;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.Devices;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Devices;
 
@@ -6,6 +7,9 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Devices;
 public sealed class ViewDevicesRepositoryTests : ViewRepositoryTests
 {
     private IViewDeviceRepository ViewDeviceRepository { get; } = new WsSqlViewDeviceRepository();
+
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewDeviceModel.Name)).Ascending;
 
     [Test]
     public void GetList()

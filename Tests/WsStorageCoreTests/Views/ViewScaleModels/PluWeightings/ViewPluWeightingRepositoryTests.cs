@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.PluWeightings;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.PluWeightings;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.PluWeightings;
 
@@ -6,7 +7,10 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.PluWeightings;
 public sealed class ViewPluWeightingRepositoryTests : ViewRepositoryTests
 {
     private IViewPluWeightingRepository ViewPluWeightingRepository { get; } = new WsSqlViewPluWeightingRepository();
-    
+   
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewPluWeightingModel.CreateDt)).Descending;
+
     [Test]
     public void GetList()
     {

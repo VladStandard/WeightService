@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Lines;
+﻿using NUnit.Framework.Constraints;
+using WsStorageCore.Views.ViewScaleModels.Lines;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Lines;
 
@@ -6,7 +7,9 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Lines;
 public sealed class ViewLinesRepositoryTests : ViewRepositoryTests
 {
     private IViewLineRepository ViewLineRepository { get; } = new WsSqlViewLineRepository();
-
+    protected override IResolveConstraint SortOrderValue => Is
+        .Ordered.By(nameof(WsSqlViewLineModel.Name)).Ascending;
+    
     [Test]
     public void GetList()
     {

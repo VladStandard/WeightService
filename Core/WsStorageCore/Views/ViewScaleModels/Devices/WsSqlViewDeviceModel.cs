@@ -46,6 +46,7 @@ public class WsSqlViewDeviceModel : WsSqlTableBase
 	#region Public and private methods - override
 
 	public override string ToString() =>
+        $"{nameof(Name)}: {Name}. " +
         $"{nameof(TypeName)}: {TypeName}. " +
 		$"{nameof(Ip)}: {Ip}. " +
 		$"{nameof(Mac)}: {Mac}.";
