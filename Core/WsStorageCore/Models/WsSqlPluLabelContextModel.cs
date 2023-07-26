@@ -37,7 +37,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     //[XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string Nesting { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string NestingCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: "; set => _ = value; }
-    [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount} {WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
@@ -53,6 +53,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.LabelCounter:00000000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.LabelCounter:000000}"; set => _ = value; }
     [XmlElement] public virtual string PluNesting2 { get => $"{ViewPluNesting.BundleCount:00}"; set => _ = value; }
+    [XmlElement] public virtual string PluWeighingСaption { get => $"{WsLocaleCore.LabelPrint.LabelContextWeight}: "; set => _ = value; }
+    [XmlElement] public virtual string PluWeighingValueDot3Rus { get => $"{PluWeighing.NettoWeight:#0.000} {WsLocaleCore.LabelPrint.WeightUnitKg}".Replace('.', ','); set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg2 { get => $"{PluWeighing.NettoWeight:00.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg3 { get => $"{PluWeighing.NettoWeight:000.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighing1Dot3Eng { get => $"{PluWeighing.NettoWeight:0.000}".Replace(',', '.'); set => _ = value; }
