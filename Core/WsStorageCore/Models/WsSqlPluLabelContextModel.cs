@@ -28,6 +28,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     #region Public and private properties - XSLT trasform for print labels
 
     [XmlElement] public virtual string ProductDt { get => $"{PluLabel.ProductDt:dd.MM.yyyy}"; set => _ = value; }
+    [XmlElement] public virtual string ProductDtCaption { get =>  $"{WsLocaleCore.LabelPrint.LabelContextProductDt}: "; set => _ = value; }
     [XmlElement] public virtual string ProductDtWithCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextProductDt}: {ProductDt}"; set => _ = value; }
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
@@ -35,6 +36,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
     //[XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
     //[XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string Nesting { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string NestingCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: "; set => _ = value; }
+    [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
@@ -43,6 +46,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string PluScaleNumber { get => $"{WsLocaleCore.LabelPrint.LabelContextPlu}: {PluNumber} / {ScaleNumber}"; set => _ = value; }
     [XmlElement] public virtual string PluNestingWeightTare { get => $"{ViewPluNesting.TareWeight:000}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDt { get => $"{PluLabel.ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
+    [XmlElement] public virtual string ExpirationDtCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextExpirationDt}: "; set => _ = value; }
     [XmlElement] public virtual string ExpirationDtWithCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextExpirationDt}: {ExpirationDt}"; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleDescription { get => $"{WsLocaleCore.LabelPrint.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
