@@ -9,14 +9,14 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     
     public WsSqlDeviceModel GetItemByName(string name)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
     public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel scale)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
     }

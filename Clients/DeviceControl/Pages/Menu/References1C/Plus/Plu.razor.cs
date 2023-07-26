@@ -11,10 +11,6 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
 
     public Plu() : base()
     {
-        SqlCrudConfigSection.IsResultOrder = false;
-        SqlCrudConfigSection.AddOrders(
-            new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlEnumOrder.Asc }
-        );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
     

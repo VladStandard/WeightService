@@ -39,14 +39,14 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
             if (bundleFk.Bundle.IsNew)
                 bundleFk.Bundle = SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
         }
-        if (sqlCrudConfig.IsResultOrder && list.Any())
+        if (sqlCrudConfig.IsResultOrder)
             list = list.OrderBy(item => item.Bundle.Name).ToList();
         return list;
     }
 
     public List<WsSqlPluBundleFkModel> GetListByPlu(WsSqlPluModel plu)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu), 
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu), 
             WsSqlEnumIsMarked.ShowAll, true, false);;
         return GetList(sqlCrudConfig);   
     }

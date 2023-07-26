@@ -12,9 +12,6 @@ public sealed partial class Versions : SectionBase<WsSqlVersionModel>
     public Versions() : base()
     {
         IsGuiShowFilterMarked = false;
-        SqlCrudConfigSection.AddOrders(
-            new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc }
-        );
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
     

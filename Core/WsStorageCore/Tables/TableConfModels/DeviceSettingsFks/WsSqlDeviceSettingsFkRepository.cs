@@ -23,8 +23,6 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     
     public WsSqlDeviceSettingsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsFkModel>();
     
-    public WsSqlDeviceSettingsFkModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceSettingsFkModel>(uid);
-
     public void SaveItem(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item);
    
     public void SaveItemAsync(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item, WsSqlEnumSessionType.IsolatedAsync);

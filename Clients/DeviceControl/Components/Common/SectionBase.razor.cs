@@ -34,7 +34,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         SqlSectionCast = new();
         SqlSectionSave = new();
 
-        SqlCrudConfigSection = WsSqlCrudConfigUtils.GetCrudConfigSection(WsSqlEnumIsMarked.ShowOnlyActual);
+        SqlCrudConfigSection = WsSqlCrudConfigFactory.GetCrudConfigActual();
         IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
         ButtonSettings = ButtonSettingsModel.CreateForSection();

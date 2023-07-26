@@ -19,9 +19,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterTypeModels = ContextManager.SqlCore.GetListNotNullable<WsSqlPrinterTypeModel>(
-            WsSqlCrudConfigUtils.GetCrudConfigComboBox()
-        );
+        PrinterTypeModels = new WsSqlPrinterTypeRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
     }
 
     #endregion

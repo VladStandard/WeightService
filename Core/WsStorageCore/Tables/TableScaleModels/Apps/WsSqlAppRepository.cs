@@ -12,7 +12,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
 
     public WsSqlAppModel GetItemByName(string appName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlAppModel>(sqlCrudConfig);
     }

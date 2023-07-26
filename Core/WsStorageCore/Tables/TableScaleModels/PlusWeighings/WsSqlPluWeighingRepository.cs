@@ -13,8 +13,6 @@ public sealed class WsSqlPluWeighingRepository : WsSqlTableRepositoryBase<WsSqlP
 
     public WsSqlPluWeighingModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluWeighingModel>();
 
-    public WsSqlPluWeighingModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlPluWeighingModel>(uid);
-
     public List<WsSqlPluWeighingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

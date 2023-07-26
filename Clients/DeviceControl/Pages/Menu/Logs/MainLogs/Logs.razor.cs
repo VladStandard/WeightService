@@ -15,12 +15,13 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
     private List<WsSqlScaleModel> Lines { get; set; }
 
     private WsSqlViewLogRepository ViewLogRepository { get; } = new();
+    private WsSqlLogTypeRepository LogTypeRepository  { get; } = new();
+    private WsSqlLineRepository LineRepository { get; } = new();
 
     public Logs() : base()
     {
-        LogTypes = ContextManager.SqlCore.GetListNotNullable<WsSqlLogTypeModel>(new WsSqlCrudConfigModel());
-        Lines = ContextManager.SqlCore.GetListNotNullable<WsSqlScaleModel>(new WsSqlCrudConfigModel());
-        Lines = (from item in Lines orderby item.Description select item).ToList();
+        LogTypes = LogTypeRepository.GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        Lines = LineRepository.GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
         
         IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;

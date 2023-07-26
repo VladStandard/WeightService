@@ -38,13 +38,12 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterModels =  new WsSqlPrinterRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-        HostModels =  new WsSqlDeviceRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
-        WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());
+        PrinterModels =  new WsSqlPrinterRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        HostModels =  new WsSqlDeviceRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
         
         DeviceScaleFk = DeviceLineFkRepository.GetItemByLine(SqlItemCast);
-        DeviceScaleFk = DeviceScaleFk.IsNotNew ? DeviceScaleFk : SqlItemNewEmpty<WsSqlDeviceScaleFkModel>();
-        Device = DeviceScaleFk.Device.IsNotNew ? DeviceScaleFk.Device : SqlItemNewEmpty<WsSqlDeviceModel>();
+        Device = DeviceScaleFk.Device;
         ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);
     }
 

@@ -17,7 +17,7 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     {
         if (plu.IsNew)
             return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
     }

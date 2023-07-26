@@ -17,7 +17,7 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
 
     public WsSqlAccessModel GetItemByUsername(string userName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), userName, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlAccessModel>(sqlCrudConfig);
     }

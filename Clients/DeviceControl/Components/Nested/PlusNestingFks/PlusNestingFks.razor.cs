@@ -9,6 +9,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
 
+    private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     public PlusNestingFks() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
@@ -20,7 +21,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ContextManager.PluNestingFkRepository.GetListByPluUid(SqlItem?.IdentityValueUid);
+        SqlSectionCast = PluNestingFkRepository.GetListByPluUid(SqlItem?.IdentityValueUid);
     }
 
     #endregion

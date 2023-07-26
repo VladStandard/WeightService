@@ -10,7 +10,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
 
     public WsSqlDeviceTypeModel GetItemByName(string name)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }

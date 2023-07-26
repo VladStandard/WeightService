@@ -427,6 +427,33 @@ public sealed class WsSqlCoreHelper
     
     #region Public and private methods - GetItem
 
+    # region Private
+    
+    private T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new()
+    {
+        WsSqlCrudConfigModel? sqlCrudConfig = value switch
+        {
+            Guid uid => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
+                WsSqlEnumIsMarked.ShowAll, false, false, false),
+            long id => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
+                WsSqlEnumIsMarked.ShowAll, false, false, false),
+            _ => null
+        };
+        return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
+    }
+    
+    private T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
+        identity.Name switch
+        {
+            WsSqlEnumFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
+            WsSqlEnumFieldIdentity.Id => GetItemNullable<T>(identity.Id),
+            _ => new()
+        };
+    
+    #endregion
+
+    #region Public
+    
     public T? GetItemNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
@@ -438,19 +465,6 @@ public sealed class WsSqlCoreHelper
         if (!dbResult.IsOk) return null;
         FillReferences(item, sqlCrudConfig.IsFillReferences);
         return item;
-    }
-
-    public T? GetItemNullable<T>(object? value) where T : WsSqlTableBase, new()
-    {
-        WsSqlCrudConfigModel? sqlCrudConfig = value switch
-        {
-            Guid uid => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false),
-            long id => new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false),
-            _ => null
-        };
-        return sqlCrudConfig is not null ? GetItemNullable<T>(sqlCrudConfig) : null;
     }
 
     public T GetItemNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
@@ -469,44 +483,42 @@ public sealed class WsSqlCoreHelper
         };
         return item ?? new();
     }
-
-    public T? GetItemNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        identity.Name switch
-        {
-            WsSqlEnumFieldIdentity.Uid => GetItemNullable<T>(identity.Uid),
-            WsSqlEnumFieldIdentity.Id => GetItemNullable<T>(identity.Id),
-            _ => new()
-        };
-
-    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() =>
-        GetItemNullable<T>(identity) ?? new();
     
-    public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() =>
-        GetItemNullable<T>(uid) ?? new();
+    public T GetItemNotNullable<T>(WsSqlFieldIdentityModel identity) where T : WsSqlTableBase, new() => GetItemNullable<T>(identity) ?? new();
+    
+    public T GetItemNotNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new() => GetItemNotNullable<T>(uid);
     
     public T GetItemNotNullableById<T>(long? id) where T : WsSqlTableBase, new() =>
-        GetItemNullable<T>(id) ?? new();
+        GetItemNotNullable<T>(id);
 
-    // TODO: исправить здесь
-    public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase
+    public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
     {
-        if (item is null) return new(false);
-        bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            result = session.Query<T>().Any(item2 => item2.IsAny(item));
-
-            //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
-
-            //IQueryable<T> query = session.Query<T>().Where(item => item.Equals(item));
-            //result = query.IsAny();
-        });
-        if (!result) 
-            dbResult = dbResult with { IsOk = false };
-        return dbResult;
+        T result = new();
+        result.FillProperties();
+        return result;
     }
 
+    #endregion
+
     // TODO: исправить здесь
+    // public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase
+    // {
+    //     if (item is null) return new(false);
+    //     bool result = false;
+    //     WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+    //     {
+    //         result = session.Query<T>().Any(item2 => item2.IsAny(item));
+    //
+    //         //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
+    //
+    //         //IQueryable<T> query = session.Query<T>().Where(item => item.Equals(item));
+    //         //result = query.IsAny();
+    //     });
+    //     if (!result) 
+    //         dbResult = dbResult with { IsOk = false };
+    //     return dbResult;
+    // }
+    
     //public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     //{
     //    bool result = false;
@@ -521,13 +533,6 @@ public sealed class WsSqlCoreHelper
     //    if (!dbResult.IsOk) result = false;
     //    return result;
     //}
-
-    public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
-    {
-        T result = new();
-        result.FillProperties();
-        return result;
-    }
 
     #endregion
 

@@ -41,12 +41,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     {
         await JsService.RedirectBack();
     }
-    
-    protected async Task RedirectToSectionAsync()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RouteService.NavigateSectionRoute(SqlItemCast);
-    }
 
     protected async Task SqlItemSaveAsync()
     {
@@ -83,12 +77,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = SqlItemCast.Identity.Name switch
-        {
-            WsSqlEnumFieldIdentity.Uid => ContextManager.SqlCore.GetItemNotNullableByUid<TItem>(Uid),
-            WsSqlEnumFieldIdentity.Id => ContextManager.SqlCore.GetItemNotNullableById<TItem>(Id),
-            _ => SqlItemNewEmpty<TItem>()
-        };
+        SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<TItem>(SqlItemCast.Identity);
 
         if (!SqlItemCast.IsNew)
             return;

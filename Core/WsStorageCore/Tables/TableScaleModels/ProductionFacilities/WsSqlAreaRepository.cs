@@ -13,8 +13,6 @@ public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProducti
 
     public WsSqlProductionFacilityModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlProductionFacilityModel>();
 
-    public WsSqlProductionFacilityModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlProductionFacilityModel>(uid);
-
     public List<WsSqlProductionFacilityModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

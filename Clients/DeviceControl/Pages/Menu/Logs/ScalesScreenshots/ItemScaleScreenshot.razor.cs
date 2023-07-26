@@ -23,8 +23,7 @@ public sealed partial class ItemScaleScreenshot : ItemBase<WsSqlScaleScreenShotM
 
     protected override void SetSqlItemCast()
     {
-        SqlItemCast =
-            ContextManager.SqlCore.GetItemNotNullable<WsSqlScaleScreenShotModel>(Uid);
+        SqlItemCast = new WsSqlScaleScreenshotRepository().GetItemByUid(Uid);
         if (SqlItemCast.ScreenShot.Length > 1)
             ImagePath = "data:image/png;base64, " + Convert.ToBase64String(SqlItemCast.ScreenShot);
         if (SqlItemCast.IsNew)

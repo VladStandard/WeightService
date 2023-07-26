@@ -5,7 +5,7 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
     public WsSqlPluTemplateFkModel GetItemByPlu(WsSqlPluModel plu)
     {
         if (plu.IsNew) return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
@@ -16,7 +16,7 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
         List<WsSqlPluTemplateFkModel> list = SqlCore.GetListNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
+        if (sqlCrudConfig.IsResultOrder)
             list = list
                 .OrderBy(item => item.Template.Title)
                 .ThenBy(item => item.Plu.Name).ToList();

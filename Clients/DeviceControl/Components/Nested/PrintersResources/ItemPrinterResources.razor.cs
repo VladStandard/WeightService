@@ -19,16 +19,16 @@ public sealed partial class ItemPrinterResources : ItemBase<WsSqlPrinterResource
 
     #region Public and private methods
 
-    protected override void SetSqlItemCast()
-    {
-        SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<WsSqlPrinterResourceFkModel>(Id);
-        if (SqlItemCast.IsNew)
-            SqlItemCast = SqlItemNewEmpty<WsSqlPrinterResourceFkModel>();
-        PrinterModels = ContextManager.SqlCore.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigUtils
-            .GetCrudConfigComboBox());
-        TemplateResourceModels = ContextManager.SqlCore.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigUtils
-            .GetCrudConfigComboBox());
-    }
+    // protected override void SetSqlItemCast()
+    // {
+    //     SqlItemCast = ContextManager.SqlCore.GetItemNotNullable<WsSqlPrinterResourceFkModel>(Id);
+    //     if (SqlItemCast.IsNew)
+    //         SqlItemCast = SqlItemNewEmpty<WsSqlPrinterResourceFkModel>();
+    //     PrinterModels = ContextManager.SqlCore.GetListNotNullable<WsSqlPrinterModel>(WsSqlCrudConfigFabric
+    //         .GetCrudConfig();
+    //     TemplateResourceModels = ContextManager.SqlCore.GetListNotNullable<WsSqlTemplateResourceModel>(WsSqlCrudConfigFabric
+    //         .GetCrudConfigComboBox());
+    // }
 
     #endregion
 }

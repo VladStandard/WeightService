@@ -3,19 +3,22 @@
 
 namespace WsStorageCore.Utils;
 
-public static class WsSqlCrudConfigUtils
+public static class WsSqlCrudConfigFactory
 {
     #region Public and private methods
+    
+    public static WsSqlCrudConfigModel GetCrudConfigSection(WsSqlEnumIsMarked isMarked) =>
+        new(new(), isMarked, true, true, false);
+
+    public static WsSqlCrudConfigModel GetCrudConfigAll() =>
+        new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
     
     private static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder) =>
         new(filters, orders, isMarked, isShowOnlyTop, isOrder, false);
     
-    public static WsSqlCrudConfigModel GetCrudConfigSection(WsSqlEnumIsMarked isMarked) =>
-        new(new(), isMarked, true, true, false);
-
-    public static WsSqlCrudConfigModel GetCrudConfigComboBox() =>
-        new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
+    public static WsSqlCrudConfigModel GetCrudConfigActual() =>
+        new(new(), WsSqlEnumIsMarked.ShowOnlyActual, false, true, false);
     
     public static WsSqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className,
         WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder) =>

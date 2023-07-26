@@ -15,7 +15,7 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
     {
         if (plu.IsNew)
             return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigUtils.GetCrudConfig(
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", 
             plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
         return SqlCore.GetItemNotNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);

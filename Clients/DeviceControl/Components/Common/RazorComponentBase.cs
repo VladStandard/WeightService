@@ -81,7 +81,7 @@ public class RazorComponentBase : LayoutComponentBase
     
     private static ConfirmOptions GetConfirmOptions()
     {
-        return new ConfirmOptions
+        return new()
         {
             OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
             CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel,

@@ -15,8 +15,6 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
 
     public WsSqlPluScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluScaleModel>();
 
-    public WsSqlPluScaleModel GetItem(Guid? uid) => SqlCore.GetItemNotNullableByUid<WsSqlPluScaleModel>(uid);
-
     public WsSqlPluScaleModel GetItem(long scaleId, ushort pluNumber)
     {
         WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(

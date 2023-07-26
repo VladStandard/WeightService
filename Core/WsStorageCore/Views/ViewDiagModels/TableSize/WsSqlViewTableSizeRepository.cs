@@ -21,7 +21,7 @@ public class WsSqlViewTableSizeRepository : IViewTableSizeRepository
                 Convert.ToUInt16(item[i++]),
                 Convert.ToUInt16(item[i++]),
                 Convert.ToUInt16(item[i++]),
-                Convert.ToString(item[i++])
+                Convert.ToString(item[i])
             ));
         }
         return result;

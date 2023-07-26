@@ -11,6 +11,8 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
 {
     #region Public and private fields, properties, constructor
 
+    private WsSqlDeviceTypeRepository DeviceTypeRepository { get; } = new();
+    private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; } = new();
     private List<WsSqlDeviceTypeModel> DeviceTypes { get; set; }
     private WsSqlDeviceTypeModel DeviceType { get; set; }
     private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
@@ -28,9 +30,9 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        DeviceTypes = new WsSqlDeviceTypeRepository().GetList(WsSqlCrudConfigUtils.GetCrudConfigComboBox());;
-        DeviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(SqlItemCast);
-        DeviceType = DeviceTypeFk.Type.IsNotNew ? DeviceTypeFk.Type : ContextManager.SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
+        DeviceTypes = DeviceTypeRepository.GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());;
+        DeviceTypeFk = DeviceTypeFkRepository.GetItemByDevice(SqlItemCast);
+        DeviceType = DeviceTypeFk.Type;
     }
 
     protected override bool ValidateItemBeforeSave()
