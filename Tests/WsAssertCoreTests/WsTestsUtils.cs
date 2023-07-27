@@ -5,10 +5,6 @@ namespace WsAssertCoreTests;
 
 public static class WsTestsUtils
 {
-    #region Public and private fields, properties, constructor
-
     public static WsDataTestsHelper DataTests => WsDataTestsHelper.Instance;
     public static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    
-    #endregion
 }
