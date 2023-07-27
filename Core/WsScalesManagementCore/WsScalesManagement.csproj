@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.9.791.0</Version>
+    <Version>0.9.800.0</Version>
     <LangVersion>latest</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
