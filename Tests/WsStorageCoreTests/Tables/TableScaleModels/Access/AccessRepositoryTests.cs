@@ -34,8 +34,10 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         {
             WsSqlAccessModel access = AccessRepository.GetItemByNameOrCreate(CurrentUser);
             WsSqlAccessModel accessByUid = AccessRepository.GetItemByUid(access.IdentityValueUid);
+            
             Assert.That(access.IsExists, Is.True);
             Assert.That(accessByUid.IsExists, Is.True);
+            
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

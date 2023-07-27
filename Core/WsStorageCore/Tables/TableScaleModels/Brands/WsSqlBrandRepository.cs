@@ -29,7 +29,7 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlBrandModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlBrandModel>(sqlCrudConfig);
     }
 
     #endregion

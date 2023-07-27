@@ -6,13 +6,13 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
     
     public WsSqlDeviceTypeModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceTypeModel>();
     
-    public WsSqlDeviceTypeModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceTypeModel>(uid);
+    public WsSqlDeviceTypeModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlDeviceTypeModel>(uid);
 
     public WsSqlDeviceTypeModel GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
 
     public WsSqlDeviceTypeModel GetItemByNameOrCreate(string name)

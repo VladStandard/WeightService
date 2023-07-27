@@ -14,7 +14,7 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     public WsSqlScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlScaleModel>();
 
-    public WsSqlScaleModel GetItemById(long id) => SqlCore.GetItemNotNullable<WsSqlScaleModel>(id);
+    public WsSqlScaleModel GetItemById(long id) => SqlCore.GetItemById<WsSqlScaleModel>(id);
 
     public WsSqlScaleModel GetItemByDevice(WsSqlDeviceModel device)
     {

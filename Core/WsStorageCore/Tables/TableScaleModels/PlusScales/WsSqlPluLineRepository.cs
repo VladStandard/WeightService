@@ -19,13 +19,13 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
     {
         WsSqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(
             item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
-        return SqlCore.GetItemNotNullableByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
+        return SqlCore.GetItemByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
     }
 
     public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPluScaleModel> list = SqlCore.GetListNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
+        if (sqlCrudConfig.IsResultOrder)
             list = list.OrderBy(item => item.Plu.Number).ToList();
         return list;
     }

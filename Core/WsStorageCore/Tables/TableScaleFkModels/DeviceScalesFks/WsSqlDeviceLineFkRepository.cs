@@ -26,7 +26,7 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Device), device.IdentityValueUid),
             WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
     
     public WsSqlDeviceScaleFkModel GetItemByLine(WsSqlScaleModel line)
@@ -34,7 +34,7 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), 
                 line.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
     
     #endregion

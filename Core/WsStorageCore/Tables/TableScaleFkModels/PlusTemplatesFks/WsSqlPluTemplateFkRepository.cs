@@ -8,7 +8,7 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
             WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlPluTemplateFkModel>(sqlCrudConfig);
     }
     
     public List<WsSqlPluTemplateFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

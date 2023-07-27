@@ -24,7 +24,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 
     public WsSqlPluModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluModel>();

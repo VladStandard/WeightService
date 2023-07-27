@@ -13,6 +13,5 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
         return SqlCore.GetListNotNullable<WsSqlLogModel>(sqlCrudConfig);
     }
 
-    public WsSqlLogModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullable<WsSqlLogModel>(uid);
-    
+    public WsSqlLogModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlLogModel>(uid);
 }

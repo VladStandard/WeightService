@@ -11,7 +11,7 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
                 new() { Name = $"{nameof(WsSqlProductSeriesModel.Scale)}.{nameof(WsSqlScaleModel.IdentityValueId)}",
                     Value = line.IdentityValueId }
             }, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlProductSeriesModel>(sqlCrudConfig) ?? SqlCore.GetItemNewEmpty<WsSqlProductSeriesModel>();
+        return SqlCore.GetItemByCrud<WsSqlProductSeriesModel>(sqlCrudConfig);
     }
     
     public List<WsSqlProductSeriesModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

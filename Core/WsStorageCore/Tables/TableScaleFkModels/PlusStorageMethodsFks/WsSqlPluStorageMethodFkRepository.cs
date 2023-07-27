@@ -18,7 +18,7 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluStorageMethodFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", 
             plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
     }
 
     public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

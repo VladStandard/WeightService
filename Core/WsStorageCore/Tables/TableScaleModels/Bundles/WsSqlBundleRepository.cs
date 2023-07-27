@@ -19,14 +19,14 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
             return new();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
+        return SqlCore.GetItemByCrud<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
     }
     
     public WsSqlBundleModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlBundleModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlBundleModel>(sqlCrudConfig);
     }
     
     public List<WsSqlBundleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

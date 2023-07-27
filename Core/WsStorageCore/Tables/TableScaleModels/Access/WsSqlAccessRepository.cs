@@ -13,13 +13,13 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     
     public WsSqlAccessModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlAccessModel>();
 
-    public WsSqlAccessModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullable<WsSqlAccessModel>(uid);
+    public WsSqlAccessModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlAccessModel>(uid);
 
     public WsSqlAccessModel GetItemByUsername(string userName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), userName, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlAccessModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlAccessModel>(sqlCrudConfig);
     }
     
     public WsSqlAccessModel GetItemByNameOrCreate(string username)

@@ -24,7 +24,7 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
             WsSqlEnumIsMarked.ShowAll, false, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlClipModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlClipModel>(sqlCrudConfig);
     }
 
     #endregion

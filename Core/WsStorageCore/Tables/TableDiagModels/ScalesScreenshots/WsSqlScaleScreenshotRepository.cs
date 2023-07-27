@@ -6,11 +6,8 @@ namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 public class WsSqlScaleScreenshotRepository: WsSqlTableRepositoryBase<WsSqlScaleScreenShotModel>
 {
 
-    public WsSqlScaleScreenShotModel GetItemByUid(Guid uid)
-    {
-        return SqlCore.GetItemNotNullable<WsSqlScaleScreenShotModel>(uid);
-    }
-    
+    public WsSqlScaleScreenShotModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlScaleScreenShotModel>(uid);
+
     public List<WsSqlScaleScreenShotModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;

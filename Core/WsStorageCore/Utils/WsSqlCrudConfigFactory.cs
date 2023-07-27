@@ -3,6 +3,7 @@
 
 namespace WsStorageCore.Utils;
 
+// TODO: refactor
 public static class WsSqlCrudConfigFactory
 {
     #region Public and private methods

@@ -11,14 +11,14 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
     public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel scale)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceScaleFkModel.Scale), scale.IdentityValueId), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
+        return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
     }
     
     public WsSqlDeviceModel SaveOrUpdate (WsSqlDeviceModel deviceModel)
@@ -49,7 +49,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     
     public WsSqlDeviceModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceModel>();
 
-    public WsSqlDeviceModel GetItemByUid(Guid uid) => SqlCore.GetItemNotNullableByUid<WsSqlDeviceModel>(uid);
+    public WsSqlDeviceModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlDeviceModel>(uid);
     
     #endregion
 

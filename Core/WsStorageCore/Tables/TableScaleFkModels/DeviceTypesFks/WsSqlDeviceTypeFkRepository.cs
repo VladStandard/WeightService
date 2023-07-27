@@ -9,7 +9,7 @@ public class WsSqlDeviceTypeFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceT
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
             WsSqlCrudConfigModel.GetFiltersIdentity(nameof(WsSqlDeviceTypeFkModel.Device), device.IdentityValueUid), WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig) ?? new();
+        return SqlCore.GetItemByCrud<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
     }
 
     public List<WsSqlDeviceTypeFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

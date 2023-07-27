@@ -8,7 +8,7 @@ public class WsSqlPluGroupRepository : WsSqlTableRepositoryBase<WsSqlPluGroupMod
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(WsSqlCrudConfigModel.GetFilters(
                 $"{nameof(WsSqlPluGroupFkModel.PluGroup)}.{nameof(WsSqlTableBase.IdentityValueUid)}", pluGroup.IdentityValueUid),
             WsSqlEnumIsMarked.ShowAll, false);
-        return SqlCore.GetItemNotNullable<WsSqlPluGroupFkModel>(sqlCrudConfig).Parent;
+        return SqlCore.GetItemByCrud<WsSqlPluGroupFkModel>(sqlCrudConfig).Parent;
     }
 
     public List<WsSqlPluGroupModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

@@ -10,7 +10,7 @@ public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel
     {
         WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
             WsSqlEnumIsMarked.ShowAll, true, false, false);
-        return SqlCore.GetItemNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
+        return SqlCore.GetItemByCrud<WsSqlLogTypeModel>(sqlCrudConfig);
     }
     
     public List<WsSqlLogTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)

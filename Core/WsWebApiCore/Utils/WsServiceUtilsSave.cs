@@ -614,7 +614,7 @@ public static class WsServiceUtilsSave
             if (Equals(pluGroupXml.ParentGuid, Guid.Empty)) return;
             // Родитель.
             WsSqlPluGroupModel parent = new() { IdentityValueUid = pluGroupXml.ParentGuid };
-            parent = WsServiceUtils.SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(parent.Identity);
+            parent = WsServiceUtils.SqlCore.GetItemByIdentity<WsSqlPluGroupModel>(parent.Identity);
             if (parent.IsNew)
             {
                 WsServiceUtilsResponse.AddResponseException(response, pluGroupXml.Uid1C, new($"Parent PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
@@ -622,7 +622,7 @@ public static class WsServiceUtilsSave
             }
             // Группа.
             WsSqlPluGroupModel pluGroup = new() { IdentityValueUid = pluGroupXml.IdentityValueUid };
-            pluGroup = WsServiceUtils.SqlCore.GetItemNotNullable<WsSqlPluGroupModel>(pluGroup.Identity);
+            pluGroup = WsServiceUtils.SqlCore.GetItemByIdentity<WsSqlPluGroupModel>(pluGroup.Identity);
             if (pluGroup.IsNew)
             {
                 WsServiceUtilsResponse.AddResponseException(response, pluGroupXml.Uid1C, new($"PLU group for '{pluGroupXml.ParentGuid}' {WsLocaleCore.WebService.IsNotFound}!"));
