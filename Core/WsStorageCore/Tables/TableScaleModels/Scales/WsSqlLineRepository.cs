@@ -28,7 +28,7 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
     public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Description) });
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Description), WsSqlEnumOrder.Asc));
         return SqlCore.GetListNotNullable<WsSqlScaleModel>(sqlCrudConfig);
     }
 

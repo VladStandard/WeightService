@@ -5,7 +5,7 @@ public class WsSqlPrinterTypeRepository : WsSqlTableRepositoryBase<WsSqlPrinterT
     public List<WsSqlPrinterTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name), WsSqlEnumOrder.Asc));
         return SqlCore.GetListNotNullable<WsSqlPrinterTypeModel>(sqlCrudConfig);
     }
 }

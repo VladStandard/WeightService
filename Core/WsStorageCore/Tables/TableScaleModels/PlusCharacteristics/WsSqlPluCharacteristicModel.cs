@@ -13,22 +13,14 @@ public class WsSqlPluCharacteristicModel : WsSqlTable1CBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual decimal AttachmentsCount { get; set; }
-    /// <summary>
-    /// GUID номенклатуры.
-    /// </summary>
-    [XmlIgnore] public virtual Guid NomenclatureGuid{ get; set; }
+    [XmlIgnore] public virtual Guid NomenclatureGuid { get; set; }
 
     public WsSqlPluCharacteristicModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         AttachmentsCount = 0;
         NomenclatureGuid = Guid.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPluCharacteristicModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         AttachmentsCount = info.GetDecimal(nameof(AttachmentsCount));

@@ -9,7 +9,7 @@ public class WsSqlLogWebRepository: WsSqlTableRepositoryBase<WsSqlLogWebModel>
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc});
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc));
         return SqlCore.GetListNotNullable<WsSqlLogWebModel>(sqlCrudConfig);
     }
 }

@@ -4,23 +4,16 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
 {
     public WsSqlProductSeriesModel GetItemByLineNotClose(WsSqlScaleModel line)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            new()
-            {
-                new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false },
-                new() { Name = $"{nameof(WsSqlProductSeriesModel.Scale)}.{nameof(WsSqlScaleModel.IdentityValueId)}",
-                    Value = line.IdentityValueId }
-            }, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlProductSeriesModel.Scale), line);
         return SqlCore.GetItemByCrud<WsSqlProductSeriesModel>(sqlCrudConfig);
     }
     
     public List<WsSqlProductSeriesModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.CreateDt), Direction = WsSqlEnumOrder.Desc });
-        List<WsSqlProductSeriesModel> list = SqlCore.GetListNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            list = list.OrderByDescending(item => item.CreateDt).ToList();
-        return list;
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc));
+        return SqlCore.GetListNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig);
     }
 }

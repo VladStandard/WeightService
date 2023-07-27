@@ -12,7 +12,7 @@ public class WsSqlScaleScreenshotRepository: WsSqlTableRepositoryBase<WsSqlScale
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.ChangeDt), Direction = WsSqlEnumOrder.Desc });
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc));
         return SqlCore.GetListNotNullable<WsSqlScaleScreenShotModel>(sqlCrudConfig);
     }
 }

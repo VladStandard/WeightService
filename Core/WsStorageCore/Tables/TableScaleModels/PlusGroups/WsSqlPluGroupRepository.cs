@@ -14,7 +14,7 @@ public class WsSqlPluGroupRepository : WsSqlTableRepositoryBase<WsSqlPluGroupMod
     public List<WsSqlPluGroupModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlTableBase.Name) });
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name), WsSqlEnumOrder.Asc));
         return SqlCore.GetListNotNullable<WsSqlPluGroupModel>(sqlCrudConfig);
     }
 

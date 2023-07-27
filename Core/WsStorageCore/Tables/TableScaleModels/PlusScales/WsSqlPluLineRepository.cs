@@ -32,7 +32,7 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
 
     public List<WsSqlPluScaleModel> GetListByLine(WsSqlScaleModel line, WsSqlCrudConfigModel sqlCrudConfig)
     {
-        sqlCrudConfig.AddFilters(nameof(WsSqlPluScaleModel.Line), line);
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Line), line);
         return GetList(sqlCrudConfig);
     }
     #endregion

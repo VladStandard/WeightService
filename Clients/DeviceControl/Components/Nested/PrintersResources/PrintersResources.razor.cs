@@ -11,7 +11,7 @@ public sealed partial class PrintersResources : SectionBase<WsSqlPrinterResource
 
     protected override void SetSqlSectionCast()
     {
-        SqlCrudConfigSection.AddFilters(nameof(WsSqlPrinterResourceFkModel.Printer), SqlItem);
+        SqlCrudConfigSection.AddFkIdentityFilter(nameof(WsSqlPrinterResourceFkModel.Printer), SqlItemCast);
         base.SetSqlSectionCast();
     }
 

@@ -5,7 +5,7 @@ public class WsSqlVersionRepository : WsSqlTableRepositoryBase<WsSqlVersionModel
     public List<WsSqlVersionModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlVersionModel.Version), Direction = WsSqlEnumOrder.Desc });
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlVersionModel.Version), WsSqlEnumOrder.Desc));
         return SqlCore.GetListNotNullable<WsSqlVersionModel>(sqlCrudConfig);
     }
 }

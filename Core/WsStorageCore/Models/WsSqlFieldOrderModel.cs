@@ -7,11 +7,8 @@ namespace WsStorageCore.Models;
 /// SQL order model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlFieldOrderModel
+public sealed record WsSqlFieldOrderModel(string Name, WsSqlEnumOrder Direction)
 {
-    public string Name { get; init; } = "";
-    public WsSqlEnumOrder Direction { get; init; } = WsSqlEnumOrder.Asc;
-
     public override int GetHashCode() => (Name.ToUpper(), Direction).GetHashCode();
 
     public override string ToString() => $"{Name} {Direction}";

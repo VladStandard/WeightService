@@ -46,7 +46,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public List<WsSqlPluModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrders(new() { Name = nameof(WsSqlPluModel.Number), Direction = WsSqlEnumOrder.Asc});
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlPluModel.Number), WsSqlEnumOrder.Asc));
         return SqlCore.GetListNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -65,20 +65,25 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 
     public List<WsSqlPluModel> GetListByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new()
-            { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
-                Values = numbers.Cast<object>().ToList() } },
-            isMarked, false, false, false);
-        sqlCrudConfig.IsResultOrder = true;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        sqlCrudConfig.AddFilter(new()
+        {
+            Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
+            Values = numbers.Cast<object>().ToList()
+        });
         return GetList(sqlCrudConfig);
     }
 
     public List<WsSqlPluModel> GetListByRange(short minNumber, short maxNumber)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
-        sqlCrudConfig.AddFilters(new WsSqlFieldFilterModel { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber });
-        sqlCrudConfig.IsResultOrder = true;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        sqlCrudConfig.AddFilters(
+            new()
+            {
+                new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber },
+                new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber }
+            }
+        );
         return GetList(sqlCrudConfig);
     }
 

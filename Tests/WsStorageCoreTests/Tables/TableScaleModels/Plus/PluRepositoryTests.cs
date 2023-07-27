@@ -55,8 +55,8 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            const short minNumber = 300;
-            const short maxNumber = 399;
+            const short minNumber = 200;
+            const short maxNumber = 300;
             List<WsSqlPluModel> plus = PluRepository.GetListByRange(minNumber, maxNumber);
            
             Assert.That(plus.Any(), Is.True);

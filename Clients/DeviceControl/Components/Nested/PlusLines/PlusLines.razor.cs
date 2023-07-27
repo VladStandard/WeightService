@@ -31,8 +31,8 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
         if (!HideNoneActivePlu)
             SqlCrudConfigSection.ClearFilters();
         else
-            SqlCrudConfigSection.AddFilters(
-                    new WsSqlFieldFilterModel
+            SqlCrudConfigSection.AddFilter(
+                    new()
                     {
                         Name = nameof(WsSqlPluScaleModel.IsActive),
                         Value = true
