@@ -7,7 +7,7 @@ namespace WsStorageCore.Models;
 /// SQL order model.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public sealed record WsSqlFieldOrderModel(string Name, WsSqlEnumOrder Direction)
+public sealed record WsSqlFieldOrderModel(string Name, WsSqlEnumOrder Direction = WsSqlEnumOrder.Asc)
 {
     public override int GetHashCode() => (Name.ToUpper(), Direction).GetHashCode();
 

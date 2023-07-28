@@ -16,7 +16,7 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
     public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name), WsSqlEnumOrder.Asc));
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
         return SqlCore.GetListNotNullable<WsSqlClipModel>(sqlCrudConfig);
     }
 

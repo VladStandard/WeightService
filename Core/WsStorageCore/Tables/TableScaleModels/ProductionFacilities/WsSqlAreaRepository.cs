@@ -16,7 +16,7 @@ public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProducti
     public List<WsSqlProductionFacilityModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name), WsSqlEnumOrder.Asc));
+            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
         return SqlCore.GetListNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 

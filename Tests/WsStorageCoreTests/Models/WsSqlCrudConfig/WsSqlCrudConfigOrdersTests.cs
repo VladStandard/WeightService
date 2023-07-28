@@ -12,7 +12,7 @@ public sealed class WsSqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrder(new("data № 1", WsSqlEnumOrder.Asc));
+            sqlCrudConfig.AddOrder(new("data № 1"));
             
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
             
@@ -29,8 +29,8 @@ public sealed class WsSqlCrudConfigOrdersTests
             sqlCrudConfig.AddOrder(new("Test № 1", WsSqlEnumOrder.Desc));
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 2", WsSqlEnumOrder.Asc),
-                new("Test № 3", WsSqlEnumOrder.Asc),
+                new("Test № 2"),
+                new("Test № 3"),
             });
             
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(3));
@@ -48,8 +48,8 @@ public sealed class WsSqlCrudConfigOrdersTests
             sqlCrudConfig.AddOrder(new("Test № 1", WsSqlEnumOrder.Desc));
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 1", WsSqlEnumOrder.Asc),
-                new("Test № 3", WsSqlEnumOrder.Asc),
+                new("Test № 1"),
+                new("Test № 3"),
             });
             
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(2));
@@ -83,13 +83,13 @@ public sealed class WsSqlCrudConfigOrdersTests
             {
                 new("Test № 1", WsSqlEnumOrder.Desc),
                 new("Test № 2", WsSqlEnumOrder.Desc),
-                new("Test № 3", WsSqlEnumOrder.Asc),
+                new("Test № 3"),
             });
                 
             sqlCrudConfig.RemoveOrders(new()
             {
                 new("Test № 2", WsSqlEnumOrder.Desc),
-                new("Test № 3", WsSqlEnumOrder.Asc),
+                new("Test № 3"),
             });
             
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
@@ -107,8 +107,8 @@ public sealed class WsSqlCrudConfigOrdersTests
             sqlCrudConfig.AddOrders(new()
             {
                 new("Test № 1", WsSqlEnumOrder.Desc),
-                new("Test № 2", WsSqlEnumOrder.Asc),
-                new("Test № 3", WsSqlEnumOrder.Asc),
+                new("Test № 2"),
+                new("Test № 3"),
             });
             
             sqlCrudConfig.ClearOrders();
