@@ -20,8 +20,11 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     public Logs() : base()
     {
-        LogTypes = LogTypeRepository.GetList(WsSqlCrudConfigFactory.GetCrudActual());
-        Lines = LineRepository.GetList(WsSqlCrudConfigFactory.GetCrudActual());
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
+        sqlCrudConfig.IsFillReferences = false;
+        
+        LogTypes = LogTypeRepository.GetList(sqlCrudConfig);
+        Lines = LineRepository.GetList(sqlCrudConfig);
         
         IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
