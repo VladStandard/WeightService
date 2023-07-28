@@ -1,6 +1,7 @@
 @page "/section/logs/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using DeviceControl.Utils
 @using WsStorageCore.Tables.TableDiagModels.Logs
 @inherits ItemBase<WsStorageCore.Tables.TableDiagModels.Logs.WsSqlLogModel>
 

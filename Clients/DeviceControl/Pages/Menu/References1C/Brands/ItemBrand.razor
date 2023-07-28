@@ -2,6 +2,7 @@
 @page "/section/brands/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Brands
 @inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Brands.WsSqlBrandModel>
 

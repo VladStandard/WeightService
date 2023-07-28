@@ -2,6 +2,7 @@
 @page "/section/boxes/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Boxes
 @inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Boxes.WsSqlBoxModel>
 

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Utils;
 using FluentNHibernate.Conventions;
 using WsBlazorCore.CssStyles;
 
@@ -18,7 +19,7 @@ public partial class ItemTableHead : ComponentBase
     protected override void OnInitialized()
     {
         TableHeadModel = HeadWidth.Any() ? 
-            new CssStyleTableHeadModel(HeadWidth) : new CssStyleTableHeadModel();
+            new(HeadWidth) : new CssStyleTableHeadModel();
     }
     
 }

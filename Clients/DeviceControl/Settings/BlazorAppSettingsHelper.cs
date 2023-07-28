@@ -1,12 +1,10 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Threading;
 using WsDataCore.Memory;
 using WsDataCore.Models;
-using WsStorageCore.Helpers;
 
-namespace WsBlazorCore.Settings;
+namespace DeviceControl.Settings;
 
 public class BlazorAppSettingsHelper
 {
@@ -20,8 +18,7 @@ public class BlazorAppSettingsHelper
     #endregion
 
     #region Public and private fields, properties, constructor
-
-    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
     public MemoryModel Memory { get; private set; } = new();
     public static int DelayInfo => 2500;

@@ -534,22 +534,5 @@ public class WsDataTestsHelper
         });
     }
 
-    public void FieldBaseModelAssertToString<T>() where T : WsSqlFieldBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            // Arrange.
-            T item = new();
-            WsSqlFieldBase baseItem = new();
-            // Act.
-            string itemString = item.ToString();
-            string baseString = baseItem.ToString();
-            TestContext.WriteLine($"{nameof(itemString)}: {itemString}");
-            TestContext.WriteLine($"{nameof(baseString)}: {baseString}");
-            // Assert.
-            Assert.AreNotEqual(baseString, itemString);
-        });
-    }
-
     #endregion
 }

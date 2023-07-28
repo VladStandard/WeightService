@@ -20,8 +20,6 @@
         <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
-        <PackageReference Include="BlazorInputFile" Version="0.2.0" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.8" />
@@ -30,8 +28,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.7" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.7" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.7" />
-        <PackageReference Include="MudBlazor" Version="6.6.0" />
-        <PackageReference Include="Radzen.Blazor" Version="4.13.5" />
+        <PackageReference Include="MudBlazor" Version="6.7.0" />
+        <PackageReference Include="Radzen.Blazor" Version="4.14.3" />
     </ItemGroup>
     <ItemGroup>
         <SupportedPlatform Include="browser" />
@@ -40,7 +38,6 @@
         <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj" />
         <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
         <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     </ItemGroup>

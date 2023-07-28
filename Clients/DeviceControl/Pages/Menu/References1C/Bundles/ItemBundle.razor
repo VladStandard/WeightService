@@ -2,6 +2,7 @@
 @page "/section/bundles/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Bundles
 @inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Bundles.WsSqlBundleModel>
 

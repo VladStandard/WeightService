@@ -3,6 +3,7 @@
 
 using System.Security.Claims;
 using DeviceControl.Services;
+using DeviceControl.Settings;
 using WsDataCore.Enums;
 
 namespace DeviceControl.Pages.Menu.Profiles;

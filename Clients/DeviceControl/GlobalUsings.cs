@@ -5,7 +5,6 @@
 global using System.Globalization;
 global using Microsoft.AspNetCore.Components;
 global using Radzen;
-global using WsBlazorCore.Utils;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Models;
 global using WsLocalizationCore.Utils;
@@ -13,4 +12,3 @@ global using WsStorageCore.Models;
 global using WsStorageCore.Utils;
 global using WsStorageCore.Common;
 global using DeviceControl.Components.Common;
-global using WsBlazorCore.Settings;

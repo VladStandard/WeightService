@@ -1,4 +1,4 @@
-namespace WsBlazorCore.Utils;
+namespace DeviceControl.Utils;
 
 public static class UserAccessStr
 {

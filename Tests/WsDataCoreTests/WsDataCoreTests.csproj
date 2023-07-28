@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj" />
-    <ProjectReference Include="..\..\Core\WsBlazorCore\WsBlazorCore.csproj" />
     <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
     <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
   </ItemGroup>

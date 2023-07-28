@@ -2,7 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Diagnostics;
-namespace WsBlazorCore.Utils;
+
+namespace DeviceControl.Utils;
 
 public static class BlazorCoreUtils
 {

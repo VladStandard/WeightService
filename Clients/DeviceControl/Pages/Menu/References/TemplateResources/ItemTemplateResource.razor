@@ -2,6 +2,7 @@
 @page "/section/templates_resources/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.TemplatesResources
 @inherits ItemBase<WsStorageCore.Tables.TableScaleModels.TemplatesResources.WsSqlTemplateResourceModel>
 
