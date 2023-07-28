@@ -16,7 +16,7 @@ public sealed class WsSqlPluWeighingRepository : WsSqlTableRepositoryBase<WsSqlP
     public List<WsSqlPluWeighingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc ));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
         return SqlCore.GetListNotNullable<WsSqlPluWeighingModel>(sqlCrudConfig);
     }
     

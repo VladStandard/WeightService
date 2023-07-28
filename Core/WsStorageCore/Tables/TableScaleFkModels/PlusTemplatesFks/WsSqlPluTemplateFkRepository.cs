@@ -5,9 +5,8 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
     public WsSqlPluTemplateFkModel GetItemByPlu(WsSqlPluModel plu)
     {
         if (plu.IsNew) return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            $"{nameof(WsSqlPluTemplateFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid,
-            WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluTemplateFkModel.Plu), plu);
         return SqlCore.GetItemByCrud<WsSqlPluTemplateFkModel>(sqlCrudConfig);
     }
     

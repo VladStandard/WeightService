@@ -10,8 +10,8 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
 
     public WsSqlDeviceTypeModel GetItemByName(string name)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.Name), Value = name});
         return SqlCore.GetItemByCrud<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
 
@@ -33,7 +33,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
     public List<WsSqlDeviceTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
 

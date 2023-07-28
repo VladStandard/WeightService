@@ -18,7 +18,7 @@ public sealed class WsSqlTemplateRepository : WsSqlTableRepositoryBase<WsSqlTemp
     public List<WsSqlTemplateModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTemplateModel.Title)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTemplateModel.Title));
         return SqlCore.GetListNotNullable<WsSqlTemplateModel>(sqlCrudConfig);
     }
     

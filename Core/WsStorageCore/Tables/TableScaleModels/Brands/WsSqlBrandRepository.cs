@@ -16,7 +16,7 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
     public List<WsSqlBrandModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlBrandModel>(sqlCrudConfig);
     }
     

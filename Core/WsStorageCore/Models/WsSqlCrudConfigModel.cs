@@ -28,10 +28,7 @@ public class WsSqlCrudConfigModel
         }
     }
     public bool IsResultOrder { get; set; }
-
-    /// <summary>
-    /// Помеченные на удаление записи.
-    /// </summary>
+    
     public WsSqlEnumIsMarked IsMarked
     {
         get => _isMarked; 
@@ -51,10 +48,6 @@ public class WsSqlCrudConfigModel
             }
         }
     }
-
-    /// <summary>
-    /// SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED.
-    /// </summary>
     public bool IsReadUncommitted { get; set; }
 
     public WsSqlCrudConfigModel()
@@ -93,9 +86,6 @@ public class WsSqlCrudConfigModel
     
     #region Filters
 
-    public static List<WsSqlFieldFilterModel> GetFilters(string className, object? value) =>
-        new() { new() { Name = className, Value = value } };
-
     private List<WsSqlFieldFilterModel> GetFiltersIsMarked(bool isMarked) =>
         new() { new() { Name = nameof(WsSqlTableBase.IsMarked), Value = isMarked } };
 
@@ -111,68 +101,68 @@ public class WsSqlCrudConfigModel
                 break;
         }
     }
-    public void AddFilter(WsSqlFieldFilterModel filter) => AddFilters(new() { filter });
+
+    public void AddFilter(WsSqlFieldFilterModel filter)
+    {
+        if (Filters.Any())
+            Filters.RemoveAll(item => item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer));
+        Filters.Add(filter);
+    }
     public void AddFilters(List<WsSqlFieldFilterModel> filters)
     {
-        if (!Filters.Any())
-        {
-            Filters = filters;
-            return;
-        }
-        
-        Filters = Filters.Concat(filters.Where(filter =>
-            !Filters.Any(item =>
-                item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer)
-            )
-        )).ToList();
+        foreach (WsSqlFieldFilterModel filter in filters)
+            AddFilter(filter);
     }
-    public void RemoveFilter(WsSqlFieldFilterModel filter) => RemoveFilters(new() { filter });
+
+    public void RemoveFilter(WsSqlFieldFilterModel filter)
+    {
+        if (!Filters.Any())
+            return;
+        Filters.RemoveAll(item =>
+        {
+            if (!item.Name.Equals(filter.Name) || !item.Comparer.Equals(filter.Comparer))
+                return false;
+            if (filter.Value is not null)
+                return item.Value is not null && item.Value.Equals(filter.Value);
+            return filter.Values.SequenceEqual(item.Values);
+        });
+    }
     public void RemoveFilters(List<WsSqlFieldFilterModel> filters)
     {
-        if (!Filters.Any() || !filters.Any())
-            return;
-        
-        Filters.RemoveAll(filter =>
-            filters.Any(item =>
-                item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer) &&
-                ((item.Value is not null && item.Value.Equals(filter.Value)) || item.Values.Equals(filter.Values))
-            )
-        );
+        foreach (WsSqlFieldFilterModel filter in filters)
+            RemoveFilter(filter);
     }
+    
     public void ClearFilters() => Filters.Clear();
     
     #endregion
 
     #region Orders
     
-    public void AddOrder(WsSqlFieldOrderModel order) => AddOrders(new() { order });
-    
+    private void AddOrder(WsSqlFieldOrderModel order)
+    {
+        RemoveOrder(order);
+        Orders.Add(order);
+    }
+    public void AddOrder(string key, WsSqlEnumOrder order = WsSqlEnumOrder.Asc) => AddOrder(new(key, order));
     public void AddOrders(List<WsSqlFieldOrderModel> orders)
     {
-        if (!Orders.Any())
-        {
-            Orders = orders;
-            return;
-        }
-        
-        Orders = Orders.Concat(orders.Where(order =>
-            !Orders.Any(item =>
-                item.Name.Equals(order.Name)
-            )
-        )).ToList();
+        foreach (WsSqlFieldOrderModel order in orders)
+            AddOrder(order);
     }
-    
+
+    private void RemoveOrder(WsSqlFieldOrderModel order)
+    {
+        if (!Orders.Any())
+            return;
+        Orders.RemoveAll(item => item.Name.Equals(order.Name));
+    }
     public void RemoveOrders(List<WsSqlFieldOrderModel> orders)
     {
-        if (!Orders.Any() || !orders.Any())
-            return;
-        
-        Orders.RemoveAll(order =>
-            orders.Any(item => item.Name.Equals(order.Name) && item.Direction.Equals(order.Direction))
-        );
+        foreach (WsSqlFieldOrderModel order in orders)
+            RemoveOrder(order);
     }
-    
-    public void RemoveOrder(WsSqlFieldOrderModel order) => RemoveOrders(new() { order });
+    public void RemoveOrder(string key, WsSqlEnumOrder order = WsSqlEnumOrder.Asc) => RemoveOrder(new(key, order));
     
     public void ClearOrders() => Orders.Clear();
     

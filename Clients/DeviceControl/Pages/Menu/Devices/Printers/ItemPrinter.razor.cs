@@ -19,7 +19,7 @@ public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterTypeModels = new WsSqlPrinterTypeRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        PrinterTypeModels = new WsSqlPrinterTypeRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
     }
 
     #endregion

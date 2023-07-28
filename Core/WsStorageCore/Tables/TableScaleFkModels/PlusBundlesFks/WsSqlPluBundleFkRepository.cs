@@ -46,8 +46,8 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
 
     public List<WsSqlPluBundleFkModel> GetListByPlu(WsSqlPluModel plu)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(plu, nameof(WsSqlPluBundleFkModel.Plu), 
-            WsSqlEnumIsMarked.ShowAll, true, false);;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluBundleFkModel.Plu), plu);
         return GetList(sqlCrudConfig);   
     }
     

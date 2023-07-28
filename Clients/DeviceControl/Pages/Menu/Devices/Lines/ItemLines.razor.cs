@@ -38,9 +38,9 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterModels =  new WsSqlPrinterRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
-        HostModels =  new WsSqlDeviceRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
-        WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        PrinterModels =  new WsSqlPrinterRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
+        HostModels =  new WsSqlDeviceRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
+        WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
         
         DeviceScaleFk = DeviceLineFkRepository.GetItemByLine(SqlItemCast);
         Device = DeviceScaleFk.Device;

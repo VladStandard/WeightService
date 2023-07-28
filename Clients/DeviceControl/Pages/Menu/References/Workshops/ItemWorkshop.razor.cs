@@ -19,7 +19,7 @@ public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        ProductionFacilityModels = new WsSqlAreaRepository().GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());
+        ProductionFacilityModels = new WsSqlAreaRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
     }
 
     #endregion

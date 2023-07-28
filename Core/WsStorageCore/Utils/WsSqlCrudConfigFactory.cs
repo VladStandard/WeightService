@@ -3,34 +3,10 @@
 
 namespace WsStorageCore.Utils;
 
-// TODO: refactor
 public static class WsSqlCrudConfigFactory
 {
     #region Public and private methods
-
-    public static WsSqlCrudConfigModel GetCrudConfigAll() => new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
-    public static WsSqlCrudConfigModel GetCrudConfigActual() => new(new(), WsSqlEnumIsMarked.ShowOnlyActual, false, true, false);
-    public static WsSqlCrudConfigModel GetCrudConfigSection(WsSqlEnumIsMarked isMarked) => new(new(), isMarked, true, true, false);
-
-    private static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder) =>
-        new(filters, orders, isMarked, isShowOnlyTop, isOrder, false);
-
-    public static WsSqlCrudConfigModel GetCrudConfig(WsSqlTableBase? itemFilter, string className,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder) =>
-        GetCrudConfig(WsSqlCrudConfigModel.GetFilters(className, itemFilter), new List<WsSqlFieldOrderModel>(), isMarked, isShowOnlyTop, isOrder);
-
-    public static WsSqlCrudConfigModel GetCrudConfig(string className, object? value,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isOrder = false) =>
-        GetCrudConfig(WsSqlCrudConfigModel.GetFilters(className, value), new List<WsSqlFieldOrderModel>(), isMarked, isShowOnlyTop, isOrder);
-
-    public static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isOrder = false) =>
-        GetCrudConfig(filters, new List<WsSqlFieldOrderModel>(), isMarked, isShowOnlyTop, isOrder);
-
-    public static WsSqlCrudConfigModel GetCrudConfig(List<WsSqlFieldFilterModel> filters, WsSqlFieldOrderModel order,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop = true, bool isOrder = false) =>
-        GetCrudConfig(filters, new List<WsSqlFieldOrderModel> { order }, isMarked, isShowOnlyTop, isOrder);
-
+    public static WsSqlCrudConfigModel GetCrudAll() => new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
+    public static WsSqlCrudConfigModel GetCrudActual() => new(new(), WsSqlEnumIsMarked.ShowOnlyActual, false, true, false);
     #endregion
 }

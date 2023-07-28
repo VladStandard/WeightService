@@ -17,8 +17,8 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     {
         if (plu.IsNew)
             return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            $"{nameof(WsSqlPluBundleFkModel.Plu)}.{nameof(WsSqlTableBase.IdentityValueUid)}", plu.IdentityValueUid, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluBundleFkModel.Plu), plu);
         return SqlCore.GetItemByCrud<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
     }
     
@@ -32,7 +32,7 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     public List<WsSqlBundleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlBundleModel>(sqlCrudConfig);
     }
 

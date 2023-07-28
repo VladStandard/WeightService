@@ -5,7 +5,7 @@ public class WsSqlTaskTypeRepository : WsSqlTableRepositoryBase<WsSqlTaskTypeMod
     public List<WsSqlTaskTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlTaskTypeModel>(sqlCrudConfig);
     }
 }

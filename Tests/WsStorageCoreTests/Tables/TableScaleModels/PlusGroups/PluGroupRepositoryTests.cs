@@ -28,9 +28,9 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlPluGroupFkModel PluGroupFkModel = GetFirstPluGroupFk();
-            WsSqlPluGroupModel parentGroup = PluGroupFkModel.Parent;
-            WsSqlPluGroupModel parentGroupByChild = PluGroupRepository.GetItemParentFromChildGroup(PluGroupFkModel.PluGroup);
+            WsSqlPluGroupFkModel pluGroupFkModel = GetFirstPluGroupFk();
+            WsSqlPluGroupModel parentGroup = pluGroupFkModel.Parent;
+            WsSqlPluGroupModel parentGroupByChild = PluGroupRepository.GetItemParentFromChildGroup(pluGroupFkModel.PluGroup);
             
             Assert.That(parentGroupByChild.IsNotNew, Is.True);
             Assert.That(parentGroupByChild, Is.EqualTo(parentGroup));

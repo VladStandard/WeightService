@@ -12,8 +12,8 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
 
     public WsSqlAppModel GetItemByName(string appName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), appName, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() {Name = nameof(WsSqlTableBase.Name), Value = appName});
         return SqlCore.GetItemByCrud<WsSqlAppModel>(sqlCrudConfig);
     }
 
@@ -46,7 +46,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     public List<WsSqlAppModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name))); 
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name)); 
         return SqlCore.GetListNotNullable<WsSqlAppModel>(sqlCrudConfig);
     }
     

@@ -4,7 +4,7 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
 {
     public WsSqlProductSeriesModel GetItemByLineNotClose(WsSqlScaleModel line)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlProductSeriesModel.Scale), line);
         return SqlCore.GetItemByCrud<WsSqlProductSeriesModel>(sqlCrudConfig);
@@ -13,7 +13,7 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
     public List<WsSqlProductSeriesModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc);
         return SqlCore.GetListNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig);
     }
 }

@@ -17,8 +17,8 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
 
     public WsSqlAccessModel GetItemByUsername(string userName)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), userName, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() {Name = nameof(WsSqlTableBase.Name), Value = userName});
         return SqlCore.GetItemByCrud<WsSqlAccessModel>(sqlCrudConfig);
     }
     
@@ -51,7 +51,7 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     public List<WsSqlAccessModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlAccessModel>(sqlCrudConfig);
     }
 

@@ -30,7 +30,7 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        DeviceTypes = DeviceTypeRepository.GetList(WsSqlCrudConfigFactory.GetCrudConfigActual());;
+        DeviceTypes = DeviceTypeRepository.GetList(WsSqlCrudConfigFactory.GetCrudActual());
         DeviceTypeFk = DeviceTypeFkRepository.GetItemByDevice(SqlItemCast);
         DeviceType = DeviceTypeFk.Type;
     }

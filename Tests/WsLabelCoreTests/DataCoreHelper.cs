@@ -107,69 +107,10 @@ public sealed class DataCoreHelper
 				}
 		}
 	}
-
-    public void AssertSqlDbContentValidate<T>(WsSqlEnumIsMarked isMarked = WsSqlEnumIsMarked.ShowAll) where T : WsSqlTableBase, new()
-    {
-        AssertAction(() =>
-        {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigSection(isMarked);
-            List<T> items = ContextManager.SqlCore.GetListNotNullable<T>(sqlCrudConfig);
-            Assert.IsTrue(items.Any());
-            //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true);
-            if (!items.Any())
-                TestContext.WriteLine($"{nameof(items)} is null or empty!");
-            else
-            {
-                TestContext.WriteLine($"Found {items.Count} items. Print top 5.");
-                int i = 0;
-                foreach (T item in items)
-                {
-                    if (i < 5)
-                        TestContext.WriteLine(item);
-                    i++;
-                    AssertSqlValidate(item, true);
-                    ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
-                    FailureWriteLine(validationResult);
-                    // Assert.
-                    Assert.IsTrue(validationResult.IsValid);
-                }
-            }
-        }, false, false);
-    }
-
-	public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
+    
+    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
 		AssertValidate(item, assertResult);
-
-    public void AssertSqlDbContentSerialize<T>() where T : WsSqlTableBase, new()
-    {
-        AssertAction(() =>
-        {
-            WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigSection(WsSqlEnumIsMarked.ShowAll);
-            List<T> items = ContextManager.SqlCore.GetListNotNullable<T>(sqlCrudConfig);
-            Assert.IsTrue(items.Any());
-            //WsTestsUtils.DataCore.PrintTopRecords(items, 10, true, true);
-            if (!items.Any())
-                TestContext.WriteLine($"{nameof(items)} is null or empty!");
-            else
-            {
-                TestContext.WriteLine($"Found {items.Count} items. Print top 5.");
-                int i = 0;
-                foreach (T item in items)
-                {
-                    string xml = WsDataFormatUtils.SerializeAsXmlString<T>(item, true, false);
-                    if (i < 5)
-                    {
-                        TestContext.WriteLine(xml);
-                        TestContext.WriteLine();
-                    }
-                    i++;
-                    // Assert.
-                    Assert.IsNotEmpty(xml);
-                }
-            }
-        }, false, false);
-    }
-
+    
     private void AssertValidate<T>(T item, bool assertResult) where T : class, new()
 	{
 		Assert.DoesNotThrow(() =>

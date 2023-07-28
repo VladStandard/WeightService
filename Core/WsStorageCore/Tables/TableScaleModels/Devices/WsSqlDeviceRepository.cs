@@ -9,14 +9,14 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     
     public WsSqlDeviceModel GetItemByName(string name)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfig(
-            nameof(WsSqlTableBase.Name), name, WsSqlEnumIsMarked.ShowAll, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.Name), Value = name});
         return SqlCore.GetItemByCrud<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
     public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel scale)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceScaleFkModel.Scale), scale);
         return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
     }
@@ -60,7 +60,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(new(nameof(WsSqlTableBase.Name)));
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
         return SqlCore.GetListNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 

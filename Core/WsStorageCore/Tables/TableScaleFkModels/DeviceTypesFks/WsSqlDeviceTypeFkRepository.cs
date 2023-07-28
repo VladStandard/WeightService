@@ -7,7 +7,7 @@ public class WsSqlDeviceTypeFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceT
 {
     public WsSqlDeviceTypeFkModel GetItemByDevice(WsSqlDeviceModel device)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceTypeFkModel.Device), device);
         return SqlCore.GetItemByCrud<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
     }

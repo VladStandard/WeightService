@@ -23,14 +23,14 @@ public sealed class WsSqlDeviceLineFkRepository : WsSqlTableRepositoryBase<WsSql
     
     public WsSqlDeviceScaleFkModel GetItemByDevice(WsSqlDeviceModel device)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceScaleFkModel.Device), device);
         return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
     
     public WsSqlDeviceScaleFkModel GetItemByLine(WsSqlScaleModel line)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudConfigAll();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceScaleFkModel.Scale), line);
         return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig);
     }
