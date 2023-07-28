@@ -77,7 +77,10 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SetSqlItemCast()
     {
-        SqlItemCast = ContextManager.SqlCore.GetItemByIdentity<TItem>(SqlItemCast.Identity);
+        if (SqlItemCast.Identity.Name == WsSqlEnumFieldIdentity.Id) 
+            SqlItemCast = ContextManager.SqlCore.GetItemById<TItem>(Id);
+        else if (SqlItemCast.Identity.Name == WsSqlEnumFieldIdentity.Uid)
+            SqlItemCast = ContextManager.SqlCore.GetItemByUid<TItem>(Uid);
 
         if (!SqlItemCast.IsNew)
             return;
