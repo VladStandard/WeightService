@@ -8,8 +8,8 @@ public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel
     
     public WsSqlLogTypeModel GetItemByEnumType(WsEnumLogType logType)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } },
-            WsSqlEnumIsMarked.ShowAll, true, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } );
         return SqlCore.GetItemByCrud<WsSqlLogTypeModel>(sqlCrudConfig);
     }
     

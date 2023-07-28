@@ -9,9 +9,7 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceSettingsFkModel>
 {
     #region Public and private methods
-
-    public List<WsSqlDeviceSettingsFkModel> GetList() => GetList(SqlCrudConfig);
-
+    
     public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlDeviceSettingsFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);

@@ -448,10 +448,8 @@ public sealed class WsSqlCoreHelper
     {
         if (uid == null) 
             return null;
-        
-        WsSqlCrudConfigModel sqlCrudConfig = 
-            new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid });
         return GetItemNullableByCrud<T>(sqlCrudConfig);
     }
     
@@ -459,10 +457,8 @@ public sealed class WsSqlCoreHelper
     {
         if (id == null) 
             return new();
-        
-        WsSqlCrudConfigModel sqlCrudConfig = 
-            new(new() { new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id } },
-                WsSqlEnumIsMarked.ShowAll, false, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id });
         return GetItemNullableByCrud<T>(sqlCrudConfig);
     }
 

@@ -54,8 +54,6 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     #endregion
 
     #region List
-    
-    public List<WsSqlDeviceModel> GetList() => GetList(SqlCrudConfig);
 
     public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {

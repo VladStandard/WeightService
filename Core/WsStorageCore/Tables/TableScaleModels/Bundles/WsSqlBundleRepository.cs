@@ -24,8 +24,8 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     
     public WsSqlBundleModel GetItemByUid1C(Guid uid1C)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C });
         return SqlCore.GetItemByCrud<WsSqlBundleModel>(sqlCrudConfig);
     }
     

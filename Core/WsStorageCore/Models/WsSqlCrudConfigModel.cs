@@ -28,7 +28,6 @@ public class WsSqlCrudConfigModel
         }
     }
     public bool IsResultOrder { get; set; }
-    
     public WsSqlEnumIsMarked IsMarked
     {
         get => _isMarked; 
@@ -64,23 +63,6 @@ public class WsSqlCrudConfigModel
         NativeQuery = string.Empty;
         IsMarked = WsSqlEnumIsMarked.ShowAll;
     }
-
-    public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters, List<WsSqlFieldOrderModel> orders,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) : this()
-    {
-        IsFillReferences = true;
-        Filters = filters;
-        Orders = orders;
-        IsMarked = isMarked;
-        IsResultOrder = isOrder;
-        IsReadUncommitted = isReadUncommitted;
-        SelectTopRowsCount = isShowOnlyTop ? 200 : 0;
-    }
-
-    public WsSqlCrudConfigModel(List<WsSqlFieldFilterModel> filters,
-        WsSqlEnumIsMarked isMarked, bool isShowOnlyTop, bool isOrder, bool isReadUncommitted) :
-        this(filters, new(), isMarked, isShowOnlyTop, isOrder, isReadUncommitted)
-    { }
 
     #endregion
     

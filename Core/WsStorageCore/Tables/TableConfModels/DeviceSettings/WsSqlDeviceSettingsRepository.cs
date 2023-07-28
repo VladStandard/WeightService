@@ -12,8 +12,6 @@ public sealed class WsSqlDeviceSettingsRepository : WsSqlTableRepositoryBase<WsS
 
     public WsSqlDeviceSettingsModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsModel>();
 
-    public List<WsSqlDeviceSettingsModel> GetList() => GetList(SqlCrudConfig);
-    
     public List<WsSqlDeviceSettingsModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)

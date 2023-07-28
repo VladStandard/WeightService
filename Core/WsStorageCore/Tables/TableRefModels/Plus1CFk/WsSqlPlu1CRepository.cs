@@ -20,8 +20,6 @@ public sealed class WsSqlPlu1CRepository : WsSqlTableRepositoryBase<WsSqlPlu1CFk
         return list;
     }
     
-    public List<WsSqlPlu1CFkModel> GetList() => GetList(SqlCrudConfig);
-
     public List<WsSqlPlu1CFkModel> GetNewList() => new();
 
     #endregion

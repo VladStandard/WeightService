@@ -52,8 +52,8 @@ public sealed class WsSqlContextCacheHelper
     #endregion
     
     #region Public and private fields, properties, constructor - Глобальный кэш таблиц
-
-    private WsSqlCrudConfigModel SqlCrudConfig => new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
+    
+    private WsSqlCrudConfigModel SqlCrudConfig => WsSqlCrudConfigFactory.GetCrudAll();
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
     public List<WsSqlBoxModel> Boxes { get; private set; } = new();
@@ -227,7 +227,7 @@ public sealed class WsSqlContextCacheHelper
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
             PlusClipsFks = ContextManager.PlusClipFkRepository.GetList(SqlCrudConfig);
         if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks))
-            Plus1CFks = ContextManager.Plu1CRepository.GetList();
+            Plus1CFks = ContextManager.Plu1CRepository.GetList(SqlCrudConfig);
         if (!PlusCharacteristics.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristics))
             PlusCharacteristics = PluCharacteristicRepository.GetList(SqlCrudConfig);
         if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks))
@@ -243,7 +243,7 @@ public sealed class WsSqlContextCacheHelper
 
         // Представления.
         if (!ViewPlusLines.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.ViewPlusLines))
-            ViewPlusLines = PluLineRepository.GetList();
+            ViewPlusLines = PluLineRepository.GetList(SqlCrudConfig);
         if (!ViewPlusStorageMethods.Any() || Equals(tableName, WsSqlEnumTableName.All) ||
             Equals(tableName, WsSqlEnumTableName.ViewPlusStorageMethods))
             ViewPlusStorageMethods = ViewPluStorageMethodRepository.GetList(SqlCrudConfig);

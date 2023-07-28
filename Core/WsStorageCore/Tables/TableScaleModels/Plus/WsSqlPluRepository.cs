@@ -22,8 +22,8 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public WsSqlPluModel GetItemByUid1C(Guid uid1C)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C });
         return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -34,14 +34,14 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public WsSqlPluModel GetItemByNumber(short number)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Number), Value = number });
         return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 
     public WsSqlPluModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluModel>();
 
-    public List<WsSqlPluModel> GetList() => GetList(SqlCrudConfig);
+    public List<WsSqlPluModel> GetList() => GetList(WsSqlCrudConfigFactory.GetCrudAll());
 
     public List<WsSqlPluModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
@@ -57,9 +57,8 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public List<WsSqlPluModel> GetListByNumber(short number)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Number), Value = number } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
-        sqlCrudConfig.IsResultOrder = true;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Number), Value = number });
         return GetList(sqlCrudConfig);
     }
 
@@ -94,9 +93,8 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <returns></returns>
     public List<WsSqlPluModel> GetListByUid1C(Guid uid)
     {
-        WsSqlCrudConfigModel sqlCrudConfig = new(new() { new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid } },
-            WsSqlEnumIsMarked.ShowAll, false, false, false);
-        sqlCrudConfig.IsResultOrder = true;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid });
         return GetList(sqlCrudConfig);
     }
 

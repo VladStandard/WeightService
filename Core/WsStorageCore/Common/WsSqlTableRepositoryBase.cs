@@ -16,8 +16,5 @@ public class WsSqlTableRepositoryBase<TItem> where TItem : WsSqlTableBase, new()
 
     protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
 
-    protected WsSqlCrudConfigModel SqlCrudConfig => new(new(),
-            WsSqlEnumIsMarked.ShowAll, false, true, false);
-    
     #endregion
 }

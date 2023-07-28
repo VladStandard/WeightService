@@ -11,7 +11,7 @@ public static class WsServiceUtilsResponse
     #region Public and private fields, properties, constructor
 
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
-    private static WsSqlCrudConfigModel SqlCrudConfig => new(new(), WsSqlEnumIsMarked.ShowAll, false, true, false);
+    private static WsSqlCrudConfigModel SqlCrudConfig => WsSqlCrudConfigFactory.GetCrudAll();
 
     private static WsSqlBarcodeRepository BarcodeRepository { get; } = new();
     

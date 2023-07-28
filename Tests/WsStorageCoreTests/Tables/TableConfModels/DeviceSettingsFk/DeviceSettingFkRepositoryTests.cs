@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCoreTests.Tables.Common;
+﻿using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
@@ -15,9 +14,9 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceModel> devices = DeviceRepository.GetList();
-            List<WsSqlDeviceSettingsModel> deviceSettings = DeviceSettingsRepository.GetList();
-            List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = DeviceSettingsFkRepository.GetList();
+            List<WsSqlDeviceModel> devices = DeviceRepository.GetList(SqlCrudConfig);
+            List<WsSqlDeviceSettingsModel> deviceSettings = DeviceSettingsRepository.GetList(SqlCrudConfig);
+            List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
             
             foreach (WsSqlDeviceModel device in devices)
                 foreach (WsSqlDeviceSettingsModel setting in deviceSettings)
