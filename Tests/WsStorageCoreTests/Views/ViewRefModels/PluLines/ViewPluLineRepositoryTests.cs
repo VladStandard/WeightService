@@ -1,4 +1,7 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using NUnit.Framework.Constraints;
 using WsStorageCore.Views.ViewRefModels.PluLines;
 
 namespace WsStorageCoreTests.Views.ViewRefModels.PluLines;
@@ -10,7 +13,7 @@ public class ViewPluLineRepositoryTests : ViewRepositoryTests
     protected override IResolveConstraint SortOrderValue => Is
         .Ordered.By(nameof(WsSqlViewPluLineModel.ScaleId)).Ascending
         .Then.By(nameof(WsSqlViewPluLineModel.PluNumber)).Ascending;
-    
+
     [Test]
     public void GetList()
     {

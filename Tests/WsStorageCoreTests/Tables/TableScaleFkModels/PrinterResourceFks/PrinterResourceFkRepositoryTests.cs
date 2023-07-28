@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
 
@@ -6,15 +9,4 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PrinterResourceFks;
 public sealed class PrinterResourcesFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlPrinterResourceFkRepository PrinterResourceFkRepository { get; } = new();
-    
-    // [Test]
-    // public void GetList()
-    // {
-    //     WsTestsUtils.DataTests.AssertAction(() =>
-    //     {
-    //         List<WsSqlPrinterResourceFkModel> items = PrinterResourceFkRepository.GetList(SqlCrudConfig);
-    //         Assert.That(items.Any(), Is.True);
-    //         WsTestsUtils.DataTests.PrintTopRecords(items, 10);
-    //     }, false, DefaultPublishTypes);
-    // }
 }

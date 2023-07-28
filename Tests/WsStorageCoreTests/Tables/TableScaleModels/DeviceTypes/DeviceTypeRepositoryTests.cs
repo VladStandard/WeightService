@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
 
@@ -6,17 +9,18 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
 public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceTypeRepository DeviceTypeRepository { get; } = new();
-    
-    private static IEnumerable<string> GetDeviceTypesEnums() => new List<string>() {
-            "Monoblock",
-            "Print TSC",
-            "Print Zebra",
-            "Scale Massa-K",
-            "SQL-Server",
-            "Web-Server",
-            "Computer",
-        };
-    
+
+    private static IEnumerable<string> GetDeviceTypesEnums() => new List<string>()
+    {
+        "Monoblock",
+        "Print TSC",
+        "Print Zebra",
+        "Scale Massa-K",
+        "SQL-Server",
+        "Web-Server",
+        "Computer",
+    };
+
     [Test, Order(1)]
     public void GetList()
     {
@@ -36,10 +40,10 @@ public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
             {
                 WsSqlDeviceTypeModel deviceType = DeviceTypeRepository.GetItemByNameOrCreate(deviceTypeName);
                 WsSqlDeviceTypeModel deviceTypeByUid = DeviceTypeRepository.GetItemByUid(deviceType.IdentityValueUid);
-               
+
                 Assert.That(deviceType.IsExists, Is.True);
                 Assert.That(deviceTypeByUid.IsExists, Is.True);
-                
+
                 TestContext.WriteLine($"Success created/updated: {deviceType.Name}");
             }
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
@@ -53,14 +57,14 @@ public sealed class DeviceTypeRepositoryTests : TableRepositoryTests
             WsSqlDeviceTypeModel deviceByName = DeviceTypeRepository.GetItemByName("Monoblock");
             Guid uid = deviceByName.IdentityValueUid;
             WsSqlDeviceTypeModel deviceByUid = DeviceTypeRepository.GetItemByUid(uid);
-            
+
             Assert.That(deviceByUid.IsExists, Is.True);
             Assert.That(deviceByUid.IdentityValueUid, Is.EqualTo(uid));
-            
+
             TestContext.WriteLine($"Get item success: {deviceByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(4)]
     public void GetNewItem()
     {

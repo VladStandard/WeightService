@@ -1,4 +1,7 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using NUnit.Framework.Constraints;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
@@ -8,14 +11,14 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
 {
     private WsSqlProductSeriesRepository ProductSeriesRepository { get; } = new();
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
-    
+
     private WsSqlProductSeriesModel GetFirstNotCloseSeriesModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         SqlCrudConfig.Filters.Add(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
         return ProductSeriesRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -25,7 +28,7 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByLineNotClose()
     {
@@ -33,7 +36,7 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
         {
             WsSqlProductSeriesModel oldProductSeries = GetFirstNotCloseSeriesModel();
             WsSqlScaleModel line = oldProductSeries.Scale;
-            WsSqlProductSeriesModel seriesByLine  = ProductSeriesRepository.GetItemByLineNotClose(line);
+            WsSqlProductSeriesModel seriesByLine = ProductSeriesRepository.GetItemByLineNotClose(line);
 
             Assert.That(seriesByLine.IsNotNew, Is.True);
             Assert.That(seriesByLine.IsClose, Is.EqualTo(false));

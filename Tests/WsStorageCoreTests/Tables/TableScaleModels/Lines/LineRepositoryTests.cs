@@ -1,4 +1,7 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using NUnit.Framework.Constraints;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
@@ -8,11 +11,12 @@ public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private WsSqlLineRepository LineRepository { get; } = new();
     private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
+
     private WsSqlScaleModel GetFirstLineModel()
     {
         return LineRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Description)).Ascending;
 
     [Test, Order(1)]
@@ -24,7 +28,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(3)]
     public void GetById()
     {
@@ -32,7 +36,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         {
             WsSqlScaleModel oldLine = GetFirstLineModel();
             WsSqlScaleModel lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
-            
+
             Assert.That(lineById.IsExists, Is.True);
             Assert.That(lineById.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
 
@@ -49,14 +53,13 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             WsSqlDeviceScaleFkModel devicesScale = DeviceLineFkRepository.GetList(SqlCrudConfig).First();
             WsSqlDeviceModel device = devicesScale.Device;
             WsSqlScaleModel oldLine = devicesScale.Scale;
-            
+
             WsSqlScaleModel lineByDevice = LineRepository.GetItemByDevice(device);
 
             Assert.That(lineByDevice.IsNotNew, Is.True);
             Assert.That(lineByDevice, Is.EqualTo(oldLine));
-            
+
             TestContext.WriteLine(lineByDevice);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-
 }

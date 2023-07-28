@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundlesFks;
 
@@ -12,7 +15,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluBundleFkRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -22,7 +25,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetListByPlu()
     {
@@ -36,6 +39,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
                 Assert.That(pluBundlesFk.Plu, Is.EqualTo(plu));
                 TestContext.WriteLine(pluBundlesFk);
             }
+
             Assert.That(pluBundlesFks.Any(), Is.True);
         }, false, DefaultPublishTypes);
     }

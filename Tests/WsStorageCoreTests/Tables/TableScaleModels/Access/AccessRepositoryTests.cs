@@ -1,4 +1,7 @@
-﻿using System.Security.Principal;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System.Security.Principal;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
@@ -7,14 +10,14 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
 public sealed class AccessRepositoryTests : TableRepositoryTests
 {
     private WsSqlAccessRepository AccessRepository { get; } = new();
-    
+
     private string CurrentUser { get; set; }
 
     public AccessRepositoryTests() : base()
     {
-        #pragma warning disable CA1416
+#pragma warning disable CA1416
         CurrentUser = WindowsIdentity.GetCurrent().Name;
-        #pragma warning restore CA1416
+#pragma warning restore CA1416
     }
 
     [Test, Order(1)]
@@ -26,7 +29,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(2)]
     public void GetOrCreate()
     {
@@ -34,10 +37,10 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         {
             WsSqlAccessModel access = AccessRepository.GetItemByNameOrCreate(CurrentUser);
             WsSqlAccessModel accessByUid = AccessRepository.GetItemByUid(access.IdentityValueUid);
-            
+
             Assert.That(access.IsExists, Is.True);
             Assert.That(accessByUid.IsExists, Is.True);
-            
+
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
@@ -49,15 +52,15 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         {
             WsSqlAccessModel accessByName = AccessRepository.GetItemByUsername(CurrentUser);
             Guid uid = accessByName.IdentityValueUid;
-            WsSqlAccessModel accessByUid= AccessRepository.GetItemByUid(uid);
-            
+            WsSqlAccessModel accessByUid = AccessRepository.GetItemByUid(uid);
+
             Assert.That(accessByUid.IsExists, Is.True);
             Assert.That(accessByUid.IdentityValueUid, Is.EqualTo(uid));
-            
+
             TestContext.WriteLine($"Get item success: {accessByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(4)]
     public void GetNewItem()
     {

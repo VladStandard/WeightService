@@ -56,4 +56,3 @@ global using WsStorageCore.Tables.TableScaleModels.Templates;
 global using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Tables.TableScaleModels.Versions;
 global using WsStorageCore.Tables.TableScaleModels.WorkShops;
-

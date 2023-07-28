@@ -16,5 +16,4 @@ public sealed class VersionModelTests : TableModelTests<WsSqlVersionModel>
         WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlTableBase.Description));
         WsTestsUtils.DataTests.AssertSqlPropertyCheckString<WsSqlVersionModel>(nameof(WsSqlVersionModel.Version));
     }
-    
 }

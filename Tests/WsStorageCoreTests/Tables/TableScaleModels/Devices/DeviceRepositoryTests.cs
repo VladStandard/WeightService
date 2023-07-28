@@ -1,4 +1,7 @@
-﻿using MDSoft.NetUtils;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using MDSoft.NetUtils;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Devices;
@@ -7,7 +10,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Devices;
 public sealed class DeviceRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceRepository DeviceRepository { get; } = new();
-    
+
     [Test, Order(1)]
     public void GetList()
     {
@@ -17,7 +20,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(2)]
     public void GetOrCreate()
     {
@@ -26,14 +29,14 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             WsSqlDeviceModel device = DeviceRepository.GetItemByNameOrCreate(pcName);
             WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(device.IdentityValueUid);
-            
+
             Assert.That(device.IsExists, Is.True);
             Assert.That(deviceByUid.IsExists, Is.True);
-           
+
             TestContext.WriteLine($"Success created/updated: {device.Name}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(3)]
     public void GetByUid()
     {
@@ -42,15 +45,15 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             WsSqlDeviceModel deviceByName = DeviceRepository.GetItemByName(pcName);
             Guid uid = deviceByName.IdentityValueUid;
-            WsSqlDeviceModel deviceByUid= DeviceRepository.GetItemByUid(uid);
-            
+            WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(uid);
+
             Assert.That(deviceByUid.IsExists, Is.True);
             Assert.That(deviceByUid.IdentityValueUid, Is.EqualTo(uid));
-            
+
             TestContext.WriteLine($"Get item success: {deviceByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(4)]
     public void GetNewItem()
     {
@@ -61,5 +64,4 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             TestContext.WriteLine($"New item: {device.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
 }

@@ -1,4 +1,7 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using NUnit.Framework.Constraints;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
@@ -6,9 +9,9 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
 [TestFixture]
 public sealed class PluRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluRepository PluRepository  { get; } = new();
+    private WsSqlPluRepository PluRepository { get; } = new();
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlPluModel.Number)).Ascending;
-    
+
     [Test]
     public void GetList()
     {
@@ -18,14 +21,14 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetListByNumber()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlPluModel> plus = PluRepository.GetListByNumber(301);
-            
+
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Number, Is.EqualTo(301));
@@ -33,15 +36,15 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
-	
+
     [Test]
     public void GetListByNumbers()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<short> numbers = new () { 301, 1301 };
+            List<short> numbers = new() { 301, 1301 };
             List<WsSqlPluModel> plus = PluRepository.GetListByNumbers(numbers, WsSqlEnumIsMarked.ShowAll);
-           
+
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(numbers, Does.Contain(plu.Number));
@@ -49,7 +52,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
-	
+
     [Test]
     public void GetListByRangeNumber()
     {
@@ -58,7 +61,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             const short minNumber = 200;
             const short maxNumber = 300;
             List<WsSqlPluModel> plus = PluRepository.GetListByRange(minNumber, maxNumber);
-           
+
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Number is >= minNumber and <= maxNumber, Is.True);
@@ -66,7 +69,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
-	
+
     [Test]
     public void GetListByUid1C()
     {
@@ -74,11 +77,11 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         {
             Guid uid = Guid.Parse("B912B17D-E328-11EC-BD1B-00155D8A460F");
             List<WsSqlPluModel> plus = PluRepository.GetListByUid1C(uid);
-            
+
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Uid1C, Is.EqualTo(uid));
 
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
-	}
+    }
 }

@@ -11,11 +11,11 @@ public sealed class FieldMacAddressModelTests
     {
         Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
         {
-	        foreach (string? address in DataCoreEnums.GetString())
-	        {
+            foreach (string? address in DataCoreEnums.GetString())
+            {
                 if (address is not null)
-					_ = new WsSqlFieldMacAddressModel(address);
-	        }
+                    _ = new WsSqlFieldMacAddressModel(address);
+            }
         }));
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-public class TableValidatorTests<TItem> where TItem: WsSqlTableBase, new()
+namespace WsStorageCoreTests.Tables.Common;
+
+public class TableValidatorTests<TItem> where TItem : WsSqlTableBase, new()
 {
     [Test]
     public virtual void Model_Validate_IsFalse()

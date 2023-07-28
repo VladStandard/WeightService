@@ -1,6 +1,9 @@
-﻿namespace WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-public class TableModelTests<TItem> where TItem: WsSqlTableBase, new()
+namespace WsStorageCoreTests.Tables.Common;
+
+public class TableModelTests<TItem> where TItem : WsSqlTableBase, new()
 {
     [Test]
     public virtual void Model_AssertSqlFields_Check()
@@ -9,7 +12,7 @@ public class TableModelTests<TItem> where TItem: WsSqlTableBase, new()
         WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TItem>(nameof(WsSqlTableBase.ChangeDt));
         WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<TItem>(nameof(WsSqlTableBase.IsMarked));
     }
-    
+
     [Test]
     public virtual void Model_ToString()
     {
@@ -21,7 +24,7 @@ public class TableModelTests<TItem> where TItem: WsSqlTableBase, new()
     {
         WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<TItem>();
     }
-    
+
     [Test]
     public virtual void Model_EqualsDefault()
     {

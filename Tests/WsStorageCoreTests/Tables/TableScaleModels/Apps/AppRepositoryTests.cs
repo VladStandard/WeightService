@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
 
@@ -6,7 +9,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
 public sealed class AppRepositoryTests : TableRepositoryTests
 {
     private WsSqlAppRepository AppRepository { get; } = new();
-    
+
     [Test, Order(1)]
     public void GetList()
     {
@@ -16,7 +19,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(2)]
     public void GetOrCreate()
     {
@@ -29,7 +32,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(3)]
     public void GetByUid()
     {
@@ -37,15 +40,15 @@ public sealed class AppRepositoryTests : TableRepositoryTests
         {
             WsSqlAppModel appByName = AppRepository.GetItemByName(nameof(WsStorageCoreTests));
             Guid uid = appByName.IdentityValueUid;
-            WsSqlAppModel appByUid= AppRepository.GetItemByUid(uid);
-            
+            WsSqlAppModel appByUid = AppRepository.GetItemByUid(uid);
+
             Assert.That(appByUid.IsExists, Is.True);
             Assert.That(appByUid.IdentityValueUid, Is.EqualTo(uid));
 
             TestContext.WriteLine($"Get item success: {appByUid.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test, Order(4)]
     public void GetNewItem()
     {

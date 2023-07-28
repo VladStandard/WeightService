@@ -28,10 +28,7 @@ public sealed class BarcodeHelperTests
         IWsSqlBarCodeHelper barcode = Substitute.For<IWsSqlBarCodeHelper>();
         barcode.GetEanCheckDigit("01234546789012").Returns(1);
 
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Barcode.GetEanCheckDigit("01234546789012");
-        });
+        Assert.Throws<ArgumentOutOfRangeException>(() => { Barcode.GetEanCheckDigit("01234546789012"); });
     }
 
     [Test]

@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
@@ -6,7 +9,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 public sealed class WorkShopRepositoryTests : TableRepositoryTests
 {
     private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
-    
+
     [Test, Order(1)]
     public void GetList()
     {
@@ -16,7 +19,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(3)]
     public void GetById()
     {
@@ -24,14 +27,14 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
         {
             const long id = 1;
             WsSqlWorkShopModel workShop = WorkShopRepository.GetItemById(id);
-            
+
             Assert.That(workShop.IsExists, Is.True);
             Assert.That(workShop.IdentityValueId, Is.EqualTo(id));
-            
+
             TestContext.WriteLine($"Get item success: {workShop.Name}: {workShop.IdentityValueId}");
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test, Order(4)]
     public void GetNewItem()
     {

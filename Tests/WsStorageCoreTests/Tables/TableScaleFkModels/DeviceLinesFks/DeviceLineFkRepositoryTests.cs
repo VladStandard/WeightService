@@ -1,4 +1,6 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceLinesFks;
@@ -7,13 +9,13 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceLinesFks;
 public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
-    
+
     private WsSqlDeviceScaleFkModel GetFirstDeviceScaleFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return DeviceLineFkRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -23,7 +25,7 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByDevice()
     {
@@ -31,15 +33,15 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
         {
             WsSqlDeviceScaleFkModel oldDeviceLines = GetFirstDeviceScaleFkModel();
             WsSqlDeviceModel device = oldDeviceLines.Device;
-            WsSqlDeviceScaleFkModel deviceLinesByDevice  = DeviceLineFkRepository.GetItemByDevice(device);
+            WsSqlDeviceScaleFkModel deviceLinesByDevice = DeviceLineFkRepository.GetItemByDevice(device);
 
             Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
             Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceLines));
-            
+
             TestContext.WriteLine(deviceLinesByDevice);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
+
     [Test]
     public void GetItemByLine()
     {
@@ -47,11 +49,11 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
         {
             WsSqlDeviceScaleFkModel oldDeviceLines = GetFirstDeviceScaleFkModel();
             WsSqlScaleModel line = oldDeviceLines.Scale;
-            WsSqlDeviceScaleFkModel deviceLinesByLine  = DeviceLineFkRepository.GetItemByLine(line);
+            WsSqlDeviceScaleFkModel deviceLinesByLine = DeviceLineFkRepository.GetItemByLine(line);
 
             Assert.That(deviceLinesByLine.IsNotNew, Is.True);
             Assert.That(deviceLinesByLine, Is.EqualTo(oldDeviceLines));
-            
+
             TestContext.WriteLine(deviceLinesByLine);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

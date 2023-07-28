@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
@@ -6,13 +9,13 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluStorageMethodFkRepository PluStorageMethodFkRepository { get; } = new();
-    
+
     private WsSqlPluStorageMethodFkModel GetFirstPluStorageMethodFk()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluStorageMethodFkRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -22,7 +25,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByPlu()
     {

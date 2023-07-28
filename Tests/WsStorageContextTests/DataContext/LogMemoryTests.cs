@@ -8,7 +8,8 @@ namespace WsStorageContextTests.DataContext;
 [TestFixture]
 public sealed class LogMemoryTests
 {
-    private static List<WsEnumConfiguration> Configurations => new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
+    private static List<WsEnumConfiguration> Configurations =>
+        new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS };
 
     [Test]
     public void DataContext_GetDbFileSizeInfos_Assert()
@@ -19,7 +20,7 @@ public sealed class LogMemoryTests
             memorySize.Execute();
             WsTestsUtils.DataTests.ContextManager.ContextItem.SaveLogMemory(
                 memorySize.GetMemorySizeAppMb(), memorySize.GetMemorySizeFreeMb()
-                );
+            );
             TestContext.WriteLine($"{nameof(memorySize.GetMemorySizeAppMb)}: {memorySize.GetMemorySizeAppMb()}");
             TestContext.WriteLine($"{nameof(memorySize.GetMemorySizeFreeMb)}: {memorySize.GetMemorySizeFreeMb()}");
             // WsTestsUtils.DataTests.AssertGetList<WsSqlLogMemoryModel>(SqlCrudConfigFk, Configurations, false);

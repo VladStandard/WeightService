@@ -1,4 +1,7 @@
-﻿using NUnit.Framework.Constraints;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using NUnit.Framework.Constraints;
 using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
@@ -13,9 +16,9 @@ public sealed class LogRepositoryTests : TableRepositoryTests
         SqlCrudConfig.SelectTopRowsCount = 1;
         return LogRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
-    
+
     [Test]
     public void GetList()
     {
@@ -26,7 +29,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByUid()
     {
@@ -34,10 +37,10 @@ public sealed class LogRepositoryTests : TableRepositoryTests
         {
             WsSqlLogModel oldLog = GetFirstLogModel();
             WsSqlLogModel logByUid = LogRepository.GetItemByUid(oldLog.IdentityValueUid);
-            
+
             Assert.That(logByUid.IsExists, Is.True);
             Assert.That(logByUid, Is.EqualTo(oldLog));
-            
+
             TestContext.WriteLine($"Get item success: {logByUid.IdentityValueUid}");
         }, false, DefaultPublishTypes);
     }

@@ -13,13 +13,13 @@ public sealed class WsSqlCrudConfigOrdersTests
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder("data № 1");
-            
+
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-    
+
     [Test]
     public void CheckAddManyOrder()
     {
@@ -32,13 +32,13 @@ public sealed class WsSqlCrudConfigOrdersTests
                 new("Test № 2"),
                 new("Test № 3"),
             });
-            
+
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(3));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-    
+
     [Test]
     public void CheckAddEqualOrder()
     {
@@ -51,13 +51,13 @@ public sealed class WsSqlCrudConfigOrdersTests
                 new("Test № 1"),
                 new("Test № 3"),
             });
-            
+
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(2));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-    
+
     [Test]
     public void CheckDeleteOneOrder()
     {
@@ -68,16 +68,16 @@ public sealed class WsSqlCrudConfigOrdersTests
             sqlCrudConfig.RemoveOrder("Test № 1", WsSqlEnumOrder.Desc);
 
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(0));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-    
+
     [Test]
     public void CheckDeleteManyOrder()
     {
         Assert.DoesNotThrow(() =>
-        {   
+        {
             WsSqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrders(new()
             {
@@ -85,21 +85,21 @@ public sealed class WsSqlCrudConfigOrdersTests
                 new("Test № 2", WsSqlEnumOrder.Desc),
                 new("Test № 3"),
             });
-                
+
             sqlCrudConfig.RemoveOrders(new()
             {
                 new("Test № 2", WsSqlEnumOrder.Desc),
                 new("Test № 3"),
             });
-            
+
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-    
+
     [Test]
-    public void  CheckDeleteAllOrder()
+    public void CheckDeleteAllOrder()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -110,10 +110,10 @@ public sealed class WsSqlCrudConfigOrdersTests
                 new("Test № 2"),
                 new("Test № 3"),
             });
-            
+
             sqlCrudConfig.ClearOrders();
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(0));
-            
+
             TestContext.WriteLine(sqlCrudConfig);
         });
     }

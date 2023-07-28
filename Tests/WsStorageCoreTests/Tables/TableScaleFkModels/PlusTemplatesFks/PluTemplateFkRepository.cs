@@ -1,18 +1,21 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 
 [TestFixture]
 public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluTemplateFkRepository PluTemplateFkRepository  { get; set; } = new();
-    
+    private WsSqlPluTemplateFkRepository PluTemplateFkRepository { get; set; } = new();
+
     private WsSqlPluTemplateFkModel GetFirstPluTemplateFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluTemplateFkRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -22,7 +25,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByPlu()
     {
@@ -34,7 +37,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
 
             Assert.That(pluTemplateByPlu.IsNotNew, Is.True);
             Assert.That(pluTemplateByPlu, Is.EqualTo(oldPluTemplateFk));
-            
+
             TestContext.WriteLine(pluTemplateByPlu);
         }, false, DefaultPublishTypes);
     }

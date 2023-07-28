@@ -1,4 +1,7 @@
-﻿using WsStorageCoreTests.Tables.Common;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 
@@ -12,13 +15,13 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         SqlCrudConfig.SelectTopRowsCount = 1;
         return BundleRepository.GetList(SqlCrudConfig).First();
     }
-    
+
     private WsSqlPluBundleFkModel GetFirstBundleFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return new WsSqlPluBundleFkRepository().GetList(SqlCrudConfig).First();
     }
-    
+
     [Test]
     public void GetList()
     {
@@ -28,7 +31,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByPlu()
     {
@@ -37,14 +40,14 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             WsSqlPluBundleFkModel bundleFkModel = GetFirstBundleFkModel();
             WsSqlBundleModel oldBundle = bundleFkModel.Bundle;
             WsSqlBundleModel bundleByPlu = BundleRepository.GetItemByPlu(bundleFkModel.Plu);
-            
+
             Assert.That(bundleByPlu.IsNotNew, Is.True);
             Assert.That(bundleByPlu, Is.EqualTo(oldBundle));
-            
+
             TestContext.WriteLine(bundleByPlu);
         }, false, DefaultPublishTypes);
     }
-    
+
     [Test]
     public void GetItemByUid1C()
     {
@@ -52,10 +55,10 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         {
             WsSqlBundleModel oldBundle = GetFirstBundleModel();
             WsSqlBundleModel bundleBy1C = BundleRepository.GetItemByUid1C(oldBundle.Uid1C);
-            
+
             Assert.That(bundleBy1C.IsNotNew, Is.True);
             Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
-            
+
             TestContext.WriteLine(bundleBy1C);
         }, false, DefaultPublishTypes);
     }

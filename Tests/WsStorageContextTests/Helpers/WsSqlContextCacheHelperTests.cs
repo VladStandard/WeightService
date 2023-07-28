@@ -7,7 +7,7 @@ namespace WsStorageContextTests.Helpers;
 public sealed class WsSqlContextCacheHelperTests
 {
     private WsSqlLineRepository LineRepository { get; } = new();
-    
+
     [Test]
     public void Get_cache_table_brands() =>
         WsTestsUtils.DataTests.AssertAction(() =>
@@ -38,7 +38,7 @@ public sealed class WsSqlContextCacheHelperTests
                 TimeSpan elapsedSecond = stopwatch.Elapsed;
                 stopwatch.Stop();
                 TestContext.WriteLine($"Second {nameof(stopwatch.Elapsed)}: {elapsedSecond}");
-               
+
                 Assert.That(WsTestsUtils.DataTests.ContextCache.Brands.Any(), Is.True);
                 Assert.That(elapsedFirst, Is.GreaterThan(elapsedSecond));
             }, false,
@@ -78,34 +78,7 @@ public sealed class WsSqlContextCacheHelperTests
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any(), Is.True);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-
-    //[Test]
-    //public void Get_cache_view_plus_nesting_current()
-    //{
-    //    WsTestsUtils.DataTests.AssertAction(() =>
-    //    {
-    //        List<WsSqlPluModel> plus = WsTestsUtils.DataTests.ContextManager.ContextPlus.GetList();
-    //        Assert.IsTrue(plus.Any());
-
-    //        bool isPrintFirst = false;
-    //        foreach (WsSqlPluModel plu in plus)
-    //        {
-    //            if (isPrintFirst) break;
-    //            if (plu.Number > 0)
-    //            {
-    //                WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusNesting((ushort)plu.Number);
-    //                //Assert.IsTrue(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any());
-    //                if (WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting.Any())
-    //                {
-    //                    TestContext.WriteLine($"{plu.Number} | {plu.Name}");
-    //                    isPrintFirst = true;
-    //                    WsTestsUtils.DataTests.PrintTopRecords(WsTestsUtils.DataTests.ContextCache.LocalViewPlusNesting, 10);
-    //                }
-    //            }
-    //        }
-    //    }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    //}
-
+    
     [Test]
     public void Get_cache_view_plus_storage_methods() =>
         WsTestsUtils.DataTests.AssertAction(() =>
