@@ -1,4 +1,5 @@
-﻿using NUnit.Framework.Constraints;
+using NUnit.Framework.Constraints;
+using WsLocalizationCore.Utils;
 using WsStorageCore.Utils;
 
 namespace WsStorageCoreTests.Views;
@@ -24,7 +25,7 @@ public class ViewRepositoryTests
 
     protected void PrintViewRecords<T>(List<T> items) where T : class
     {
-        Assert.That(items.Any(), Is.True, "No data in database!!!");
+        Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
         Assert.That(items, SortOrderValue, "Ошибка сортировки");
         TestContext.WriteLine($"Print {items.Count} records.");
         foreach (T item in items)

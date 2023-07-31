@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
 
 [TestFixture]
 public sealed class AppRepositoryTests : TableRepositoryTests

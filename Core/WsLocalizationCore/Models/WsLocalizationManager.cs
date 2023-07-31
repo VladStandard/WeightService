@@ -1,7 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
 namespace WsLocalizationCore.Models;
 
 /// <summary>
@@ -13,6 +12,7 @@ public sealed class WsLocalizationManager : WsLocalizationBase
     #region Public and private fields, properties, constructor
 
     public WsLocalizationLabelPrint LabelPrint { get; } = new();
+    public WsLocalizationTests Tests { get; } = new();
     private WsEnumLanguage _lang;
     public override WsEnumLanguage Lang
     {
@@ -28,6 +28,7 @@ public sealed class WsLocalizationManager : WsLocalizationBase
     public WsLocalizationManager()
     {
         LabelPrint.SetLocale(Locale);
+        Tests.SetLocale(Locale);
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
     }
 

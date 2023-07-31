@@ -1,5 +1,4 @@
 ﻿using WsStorageCore.Tables.TableScaleModels.PlusLabels;
-using WsStorageCoreTests.Tables.Common;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 

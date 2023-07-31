@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
 public sealed class LineValidatorTests : TableValidatorTests<WsSqlScaleModel>

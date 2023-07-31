@@ -25,6 +25,7 @@ exit /b %ErrorLevel%
 echo --- [v] The host [%~1] is online ---
 xcopy "Locales\DeviceControl.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
 xcopy "Locales\LabelPrint.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
+xcopy "Locales\Tests.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
 echo --- [v] xcopy "Locales\*" is complete ---
 
 :isConnectBad <host>

@@ -1,8 +1,5 @@
-using System.Xml.Linq;
-using WsLocalizationCore.Utils;
-using WsStorageCore.Tables.TableScaleModels.Brands;
-using WsWebApiCore.Models;
-using WsWebApiCore.Utils;
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApiCoreTests.Utils;
 

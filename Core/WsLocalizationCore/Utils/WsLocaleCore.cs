@@ -17,38 +17,40 @@ public static class WsLocaleCore
             _lang = value;
             Action.Lang = _lang;
             Buttons.Lang = _lang;
+            ContextMenu.Lang = _lang;
             Convert.Lang = _lang;
             DeviceControl.Lang = _lang;
             Dialog.Lang = _lang;
+            LabelPrint.Lang = _lang;
             Memory.Lang = _lang;
             Print.Lang = _lang;
-            LabelPrint.Lang = _lang;
             Settings.Lang = _lang;
             Sql.Lang = _lang;
             System.Lang = _lang;
             Table.Lang = _lang;
+            Tests.Lang = _lang;
             Validator.Lang = _lang;
             WebService.Lang = _lang;
-            ContextMenu.Lang = _lang;
         }
     }
 
+    private static WsLocaleConvert Convert { get; } = new();
+    private static WsLocaleSettings Settings { get; } = new();
     public static WsLocaleAction Action { get; } = new();
     public static WsLocaleButtons Buttons { get; } = new();
-    private static WsLocaleConvert Convert { get; } = new();
+    public static WsLocaleContextMenu ContextMenu { get; } = new();
     public static WsLocaleDeviceControl DeviceControl { get; } = new();
     public static WsLocaleDialog Dialog { get; } = new();
     public static WsLocaleMemory Memory { get; } = new();
     public static WsLocaleMenu Menu { get; } = new();
     public static WsLocalePrint Print { get; } = new();
-    public static WsLocalizationLabelPrint LabelPrint { get; } = new();
-    private static WsLocaleSettings Settings { get; } = new();
     public static WsLocaleSql Sql { get; } = new();
     public static WsLocaleSystem System { get; } = new();
     public static WsLocaleTable Table { get; } = new();
     public static WsLocaleValidator Validator { get; } = new();
     public static WsLocaleWebService WebService { get; } = new();
-    public static WsLocaleContextMenu ContextMenu { get; } = new();
+    public static WsLocalizationLabelPrint LabelPrint { get; } = new();
+    public static WsLocalizationTests Tests { get; } = new();
 
     static WsLocaleCore()
     {

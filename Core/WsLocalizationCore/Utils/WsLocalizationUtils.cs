@@ -19,6 +19,7 @@ public static class WsLocalizationUtils
     public const decimal MassaThresholdValue = 0.010M;
     private const string LocalDirectoryLocales = @"Locales";
     private const string RemoteDirectoryLocales = @"\\palych\install\VSSoft\Locales\";
+    public static string Tests => nameof(Tests);
 
     #endregion
 

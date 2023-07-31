@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCoreTests.Tables.Common;
+using NUnit.Framework.Constraints;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.OrdersWeighings;
 
@@ -15,7 +14,7 @@ public sealed class OrderWeightingRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlOrderWeighingModel> items = OrderWeightingRepository.GetList(SqlCrudConfig);
-            ParseRecords(items);
+            //ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

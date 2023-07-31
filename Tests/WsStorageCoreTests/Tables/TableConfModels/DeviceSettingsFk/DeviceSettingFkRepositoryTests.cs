@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
+﻿namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]
 public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests

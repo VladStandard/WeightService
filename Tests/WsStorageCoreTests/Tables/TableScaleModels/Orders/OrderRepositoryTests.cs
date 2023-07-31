@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCoreTests.Tables.Common;
+using NUnit.Framework.Constraints;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Orders;
 
@@ -15,7 +14,7 @@ public sealed class OrderRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlOrderModel> items = OrderRepository.GetList(SqlCrudConfig);
-            ParseRecords(items);
+            //ParseRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

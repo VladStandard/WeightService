@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBrandFks;
+﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBrandFks;
 
 [TestFixture]
 public sealed class PluBrandFkRepositoryTests : TableRepositoryTests

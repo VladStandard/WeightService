@@ -1,5 +1,3 @@
-using WsStorageCoreTests.Tables.Common;
-
 namespace WsStorageCoreTests.Tables.TableScaleModels.PrintersTypes;
 
 [TestFixture]

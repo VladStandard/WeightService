@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 
 [TestFixture]
 public sealed class BundleRepositoryTests : TableRepositoryTests

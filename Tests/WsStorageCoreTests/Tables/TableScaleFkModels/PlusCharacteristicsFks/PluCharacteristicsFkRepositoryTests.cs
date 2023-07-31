@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusCharacteristicsFks;
+﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 
 [TestFixture]
 public sealed class PluCharacteristicsFkRepositoryTests : TableRepositoryTests

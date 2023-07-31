@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusGroupsFks;
+﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusGroupsFks;
 
 [TestFixture]
 public sealed class PluGroupFkRepositoryTests : TableRepositoryTests

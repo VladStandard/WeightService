@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Contragents;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Contragents;
 
 [TestFixture]
 public sealed class ContragentValidatorTests : TableValidatorTests<WsSqlContragentModel>

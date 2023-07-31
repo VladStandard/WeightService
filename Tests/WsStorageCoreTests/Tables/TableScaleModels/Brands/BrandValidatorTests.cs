@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 
 [TestFixture]
 public sealed class BrandValidatorTests : TableValidatorTests<WsSqlBrandModel>

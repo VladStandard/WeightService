@@ -1,0 +1,30 @@
+{
+    "Language": {
+        "CurrentLanguage": {
+            "en": "Current language",
+            "ru": "Текущий язык"
+        },
+        "Name": {
+            "en": "English",
+            "ru": "Russian"
+        }
+    },
+    "Tests": {
+        "NoDataInDb": {
+            "en": "No data in database",
+            "ru": "В БД нет данных"
+        },
+        "Print": {
+            "en": "Print",
+            "ru": "Печать"
+        },
+        "Records": {
+            "en": "records",
+            "ru": "записей"
+        },
+        "SortingError": {
+            "en": "Sorting error",
+            "ru": "Ошибка сортировки"
+        }
+    }
+}

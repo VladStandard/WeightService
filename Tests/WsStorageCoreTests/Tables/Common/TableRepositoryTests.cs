@@ -1,6 +1,7 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 using NUnit.Framework.Constraints;
 using WsDataCore.Serialization;
+using WsLocalizationCore.Utils;
 using WsStorageCore.Utils;
 
 namespace WsStorageCoreTests.Tables.Common;
@@ -26,8 +27,8 @@ public class TableRepositoryTests
 
     protected void ParseRecords<T>(List<T> items) where T : WsSqlTableBase, new()
     {
-        Assert.That(items.Any(), Is.True, "No data in database!!!");
-        Assert.That(items, SortOrderValue, "Sorting error!!!");
+        Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
+        Assert.That(items, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
 
         TestContext.WriteLine($"Print {items.Count} records.");
 

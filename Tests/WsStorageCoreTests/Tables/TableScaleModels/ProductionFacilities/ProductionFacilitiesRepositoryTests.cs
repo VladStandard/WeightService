@@ -1,6 +1,4 @@
-﻿using WsStorageCoreTests.Tables.Common;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
 public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests

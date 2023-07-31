@@ -1,17 +1,15 @@
-using WsStorageCore.Tables.TableRefModels.Plus1CFk;
-using WsStorageCore.Tables.TableScaleModels.Plus;
-using WsStorageCore.Utils;
-using WsWebApiCore.Utils;
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsWebApiCoreTests.Common;
 
 [TestFixture]
 public class WsServiceControllerBaseTests
 {
-    protected static void PrintViewRecords<T>(List<T> items) where T : class
+    private static void PrintViewRecords<T>(List<T> items) where T : class
     {
-        Assert.That(items.Any(), Is.True, "No data in database!!!");
-        TestContext.WriteLine($"Print {items.Count} records.");
+        Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
+        TestContext.WriteLine($"{WsLocaleCore.Tests.Print} {items.Count} {WsLocaleCore.Tests.Records}.");
         foreach (T item in items)
             TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
     }
