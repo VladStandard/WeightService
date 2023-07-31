@@ -19,6 +19,11 @@ cmd: `git tag -a v0.x.xxx <commit_hash> && git push all --tags`
 - ✓ main -> main:    	`git switch main && git pull all main && git bra && git st`
 - ✓ main -> preview:   	`git switch preview && git merge main && git push all preview && git switch main && git bra && git st`
 
+## Branch pull
+- ✓ develop -> develop:	`git switch develop && git pull all develop && git bra`
+- ✓ preview -> preview:	`git switch preview && git pull all preview && git bra`
+- ✓ main -> main:		`git switch main && git pull all main && git main`
+
 ## Rollback
 - x rollback merge:     `git merge --quit && git reset . && git checkout . && git clean -fd && cls && git bra && git st`
 
