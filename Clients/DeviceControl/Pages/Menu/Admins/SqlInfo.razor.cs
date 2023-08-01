@@ -1,10 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Helpers;
-using WsStorageCore.Views.ViewDiagModels.TableSize;
-using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
-
 namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SqlInfo : ComponentBase

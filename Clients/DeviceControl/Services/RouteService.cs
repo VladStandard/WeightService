@@ -1,48 +1,10 @@
-using DeviceControl.Utils;
-using FluentNHibernate.Conventions;
-using WsStorageCore.Tables.TableDiagModels.Logs;
-using WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
-using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
-using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
-using WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
-using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
-using WsStorageCore.Tables.TableScaleModels.Access;
-using WsStorageCore.Tables.TableScaleModels.BarCodes;
-using WsStorageCore.Tables.TableScaleModels.Boxes;
-using WsStorageCore.Tables.TableScaleModels.Brands;
-using WsStorageCore.Tables.TableScaleModels.Bundles;
-using WsStorageCore.Tables.TableScaleModels.Clips;
-using WsStorageCore.Tables.TableScaleModels.Contragents;
-using WsStorageCore.Tables.TableScaleModels.Devices;
-using WsStorageCore.Tables.TableScaleModels.DeviceTypes;
-using WsStorageCore.Tables.TableScaleModels.Organizations;
-using WsStorageCore.Tables.TableScaleModels.Plus;
-using WsStorageCore.Tables.TableScaleModels.PlusGroups;
-using WsStorageCore.Tables.TableScaleModels.PlusLabels;
-using WsStorageCore.Tables.TableScaleModels.PlusScales;
-using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
-using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
-using WsStorageCore.Tables.TableScaleModels.Printers;
-using WsStorageCore.Tables.TableScaleModels.PrintersTypes;
-using WsStorageCore.Tables.TableScaleModels.ProductionFacilities;
-using WsStorageCore.Tables.TableScaleModels.Scales;
-using WsStorageCore.Tables.TableScaleModels.Templates;
-using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
-using WsStorageCore.Tables.TableScaleModels.Versions;
-using WsStorageCore.Tables.TableScaleModels.WorkShops;
-using WsStorageCore.Views.ViewScaleModels.Barcodes;
-using WsStorageCore.Views.ViewScaleModels.Devices;
-using WsStorageCore.Views.ViewScaleModels.Lines;
-using WsStorageCore.Views.ViewScaleModels.Logs;
-using WsStorageCore.Views.ViewScaleModels.PluLabels;
-using WsStorageCore.Views.ViewScaleModels.PluWeightings;
-using WsStorageCore.Views.ViewScaleModels.WebLogs;
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace DeviceControl.Services;
 
 public class RouteService
 {
-
     private readonly NavigationManager _navigationManager;
 
     public RouteService(NavigationManager navigationManager)

@@ -1,11 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Reflection;
-using DeviceControl.Settings;
-using DeviceControl.Utils;
-using WsDataCore.Utils;
-
 namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SystemInfo : ComponentBase
@@ -18,5 +13,4 @@ public sealed partial class SystemInfo : ComponentBase
     private ulong TotalRamSize => BlazorAppSettingsHelper.Instance.Memory.MemorySize.PhysicalTotal.MegaBytes;
 
     #endregion
-    
 }

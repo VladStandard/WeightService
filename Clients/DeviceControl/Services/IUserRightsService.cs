@@ -1,8 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DeviceControl.Pages.Menu.References.PlusStorage;
+namespace DeviceControl.Services;
 
-public sealed partial class ItemPlusStorage : ItemBase<WsSqlPluStorageMethodModel>
+public interface IUserRightsService
 {
+    Task<List<string>> GetUserRightsAsync(string username);
 }

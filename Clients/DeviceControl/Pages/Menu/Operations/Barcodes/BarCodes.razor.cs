@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DeviceControl.Settings;
-using WsStorageCore.Views.ViewScaleModels.Barcodes;
-
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
 public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>

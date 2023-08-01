@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DeviceControl.Services;
-using DeviceControl.Settings;
-
 namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()

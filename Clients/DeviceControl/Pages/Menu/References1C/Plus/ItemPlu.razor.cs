@@ -1,12 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DeviceControl.Settings;
 using WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
-using WsStorageCore.Tables.TableScaleModels.Plus;
-using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
-using WsStorageCore.Tables.TableScaleModels.Templates;
 
 namespace DeviceControl.Pages.Menu.References1C.Plus;
 
