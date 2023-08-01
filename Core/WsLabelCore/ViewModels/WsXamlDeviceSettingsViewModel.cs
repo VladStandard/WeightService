@@ -4,21 +4,19 @@
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
-/// Модель представления линий.
+/// Модель представления настроек устройства.
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, IWsViewModel
+public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlProductionFacilityModel Area { get; set; } = new();
     public WsSqlScaleModel Line { get; set; } = new();
-    public List<WsSqlProductionFacilityModel> Areas { get; set; } = new();
-    public List<WsSqlScaleModel> Lines { get; set; } = new();
     public WsSqlDeviceModel Device => WsSqlContextManagerHelper.Instance.DevicesRepository.GetItemByLine(Line);
 
-    public WsXamlLinesViewModel()
+    public WsXamlDeviceSettingsViewModel()
     {
         FormUserControl = WsEnumNavigationPage.Line;
     }

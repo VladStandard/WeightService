@@ -30,7 +30,7 @@ public class TableRepositoryTests
         Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
         Assert.That(items, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
 
-        TestContext.WriteLine($"Print {items.Count} records.");
+        TestContext.WriteLine($"{WsLocaleCore.Tests.Print} {items.Count} {WsLocaleCore.Tests.Records}.");
 
         foreach (T item in items)
         {

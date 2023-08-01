@@ -42,6 +42,15 @@
     <Compile Include="Models\WsPluginPrintZebraModel.cs" />
     <Compile Include="Models\WsPluginPrintTscModel.cs" />
     <Compile Include="Helpers\WsPrintSessionHelper.cs" />
+    <Compile Include="Pages\WsXamlDeviceSettingsPage.xaml.cs">
+      <DependentUpon>WsXamlDeviceSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WsXamlDeviceSettingsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\WsXamlDeviceSettingsUserControl.Designer.cs">
+      <DependentUpon>WsXamlDeviceSettingsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WsXamlWaitUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +113,7 @@
     </Compile>
     <Compile Include="Utils\WsFormNavigationUtils.cs" />
     <Compile Include="Utils\WsFormUtils.cs" />
+    <Compile Include="ViewModels\WsXamlDeviceSettingsViewModel.cs" />
     <Compile Include="ViewModels\WsXamlWaitViewModel.cs" />
     <Compile Include="ViewModels\WsXamlDialogViewModel.cs" />
     <Compile Include="ViewModels\WsXamlPlusLineViewModel.cs" />
@@ -201,6 +211,9 @@
     <EmbeddedResource Include="Common\WsFormBaseUserControl.resx">
       <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\WsXamlDeviceSettingsUserControl.resx">
+      <DependentUpon>WsXamlDeviceSettingsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\WsXamlWaitUserControl.resx">
       <DependentUpon>WsXamlWaitUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +247,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Pages\WsXamlDeviceSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\WsXamlWaitPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

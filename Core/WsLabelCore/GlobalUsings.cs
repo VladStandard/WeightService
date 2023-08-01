@@ -75,6 +75,7 @@ global using WsStorageCore.Tables.TableScaleModels.Templates;
 global using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Tables.TableScaleModels.WorkShops;
 global using WsStorageCore.Utils;
+global using WsStorageCore.Views.ViewRefModels.PluNestings;
 global using Zebra.Sdk.Comm;
 global using Zebra.Sdk.Printer;
 global using FontStyle = System.Drawing.FontStyle;

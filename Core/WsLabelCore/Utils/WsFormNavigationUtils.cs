@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
-using WsStorageCore.Views.ViewRefModels.PluNestings;
 
 namespace WsLabelCore.Utils;
 
@@ -42,6 +41,10 @@ public static class WsFormNavigationUtils
     /// WinForms-контрол ввода цифр.
     /// </summary>
     public static WsXamlDigitsUserControl DigitsUserControl { get; } = new();
+    /// <summary>
+    /// WinForms-контрол настроек устройства.
+    /// </summary>
+    public static WsXamlDeviceSettingsUserControl DeviceSettingsUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол смены линии.
     /// </summary>
@@ -106,6 +109,24 @@ public static class WsFormNavigationUtils
             }
         }
         MdInvokeControl.SetVisible(NavigationUserControl, false);
+    }
+
+    /// <summary>
+    /// Навигация в WinForms-контрол настроек устройства.
+    /// </summary>
+    /// <param name="showNavigation"></param>
+    public static void NavigateToExistsDeviceSettings(Action<WsFormBaseUserControl, string> showNavigation)
+    {
+        // Загрузка из сессии пользователя.
+        //DeviceSettingsUserControl.ViewModel.Areas = LabelSession.ContextCache.Areas;
+        //DeviceSettingsUserControl.ViewModel.Lines = LabelSession.ContextCache.Lines;
+        //DeviceSettingsUserControl.ViewModel.Area = LabelSession.Area;
+        //DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
+
+        //DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
+        //DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
+        //showNavigation(DeviceSettingsUserControl, WsLocaleCore.LabelPrint.SwitchLine);
+        //NavigationUserControl.SwitchUserControl(DeviceSettingsUserControl);
     }
 
     /// <summary>

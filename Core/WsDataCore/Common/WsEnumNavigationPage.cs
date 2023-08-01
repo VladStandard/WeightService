@@ -13,6 +13,10 @@ public enum WsEnumNavigationPage
     /// </summary>
     Default,
     /// <summary>
+    /// Настройки устройства.
+    /// </summary>
+    DeviceSettings,
+    /// <summary>
     /// Диалог.
     /// </summary>
     Dialog,

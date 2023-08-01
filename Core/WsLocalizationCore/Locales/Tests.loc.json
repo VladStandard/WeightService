@@ -10,6 +10,10 @@
         }
     },
     "Tests": {
+        "AllSettingsForAllDevicesWasAdded": {
+            "en": "All settings for all devices was added",
+            "ru": "Все настройки для всех устройств были добавлены"
+        },
         "NoDataInDb": {
             "en": "No data in database",
             "ru": "В БД нет данных"

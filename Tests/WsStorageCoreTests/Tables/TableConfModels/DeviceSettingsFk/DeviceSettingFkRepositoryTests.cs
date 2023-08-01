@@ -1,4 +1,6 @@
-﻿namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
+using WsLocalizationCore.Utils;
+
+namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]
 public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
@@ -28,7 +30,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
                 DeviceSettingsFkRepository.SaveItemAsync(deviceSettingsFk);
             }
 
-            TestContext.WriteLine("All settings added");
+            TestContext.WriteLine(WsLocaleCore.Tests.AllSettingsForAllDevicesWasAdded);
         }, false, DefaultPublishTypes);
     }
 

@@ -20,6 +20,7 @@ public sealed class WsLocalizationTests : WsLocalizationBase
 
     #region Public and private methods
 
+    public string AllSettingsForAllDevicesWasAdded => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(AllSettingsForAllDevicesWasAdded)}");
     public string NoDataInDb => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(NoDataInDb)}");
     public string Print => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(Print)}");
     public string Records => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(Records)}");
