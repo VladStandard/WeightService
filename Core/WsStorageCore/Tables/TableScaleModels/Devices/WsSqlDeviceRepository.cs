@@ -1,12 +1,12 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Tables.TableScaleModels.Devices;
 
 public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDeviceModel>
 {
-    #region Item
-    
+    #region Public and private methods
+
     public WsSqlDeviceModel GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
@@ -14,10 +14,10 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
         return SqlCore.GetItemByCrud<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
-    public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel scale)
+    public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel line)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceScaleFkModel.Scale), scale);
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceScaleFkModel.Scale), line);
         return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
     }
     
@@ -51,10 +51,6 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
 
     public WsSqlDeviceModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlDeviceModel>(uid);
     
-    #endregion
-
-    #region List
-
     public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
