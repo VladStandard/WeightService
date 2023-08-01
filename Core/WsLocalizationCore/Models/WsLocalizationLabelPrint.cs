@@ -20,14 +20,15 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
 
     #region Public and private methods
 
+    private string SwitchMore => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchMore)}");
     public string AlreadyRunning => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AlreadyRunning)}");
     public string AndArm => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AndArm)}");
     public string AndLine => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AndLine)}");
+    public string App => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(App)}");
     public string AppExit => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExit)}");
     public string AppExitDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppExitDescription)}");
     public string AppLoad => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoad)}");
     public string AppLoadDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppLoadDescription)}");
-    public string App => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(App)}");
     public string AppWait => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AppWait)}");
     public string AreFound => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AreFound)}");
     public string AreNotFound => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(AreNotFound)}");
@@ -86,6 +87,9 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string IsConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsConnectWithMassa)}");
     public string IsDataNotExists => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsDataNotExists)}");
     public string IsNotConnectWithMassa => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsNotConnectWithMassa)}");
+    public string IsShowMaximizeButton => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsShowMaximizeButton)}");
+    public string IsShowMinimizeButton => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsShowMinimizeButton)}");
+    public string IsShowPrintButton => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(IsShowPrintButton)}");
     public string LabelContextExpirationDt => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelContextExpirationDt)}");
     public string LabelContextKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelContextKneading)}");
     public string LabelContextNesting => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(LabelContextNesting)}");
@@ -173,13 +177,14 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string StateError => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(StateError)}");
     public string StateIsNotResponsed => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(StateIsNotResponsed)}");
     public string StateIsResponsed => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(StateIsResponsed)}");
+    public string SwitchDeviceSettings => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchDeviceSettings)}");
     public string SwitchKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchKneading)}");
     public string SwitchLine => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchLine)}");
-    private string SwitchMore => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchMore)}");
+    public string SwitchPlu => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchPlu)}");
     public string SwitchPluLine => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchPluLine)}");
     public string SwitchPluNesting => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchPluNesting)}");
-    public string SwitchPlu => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(SwitchPlu)}");
     public string Terminal => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(Terminal)}");
+    public string TranslationError => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(TranslationError)}");
     public string UpperValue => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(UpperValue)}");
     public string WeightGenderMan => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightGenderMan)}");
     public string WeightGenderWoman => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightGenderWoman)}");

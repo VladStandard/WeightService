@@ -10,7 +10,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
 
     [Test, Order(1)]
-    public void FillSettings()
+    public void Fill_settings()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
@@ -35,12 +35,28 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     }
 
     [Test, Order(2)]
-    public void GetList()
+    public void Get_list()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceSettingsFkModel> items = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
-            ParseRecords(items);
+            List<WsSqlDeviceSettingsFkModel> list = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
+            ParseRecords(list);
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test, Order(3)]
+    public void Get_list_by_device()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlDeviceModel> devices = DeviceRepository.GetList(SqlCrudConfig);
+            ParseRecords(devices);
+
+            foreach (WsSqlDeviceModel device in devices)
+            {
+                List<WsSqlDeviceSettingsFkModel> deviceSettings = DeviceSettingsFkRepository.GetListByDevice(device);
+                ParseRecords(deviceSettings);
+            }
         }, false, DefaultPublishTypes);
     }
 }

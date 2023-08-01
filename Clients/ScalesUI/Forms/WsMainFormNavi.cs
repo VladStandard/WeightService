@@ -90,6 +90,9 @@ public partial class WsMainForm
         MdInvokeControl.SetVisible(userControl, true);
         switch (userControl)
         {
+            case WsXamlDeviceSettingsUserControl deviceSettingsUserControl:
+                deviceSettingsUserControl.SetupUserControl();
+                break;
             case WsXamlDialogUserControl dialogUserControl:
                 dialogUserControl.SetupUserControl();
                 break;

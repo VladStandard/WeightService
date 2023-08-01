@@ -46,7 +46,7 @@ public class WsSqlDeviceSettingsFkModel : WsSqlTableBase
     #region Public and private methods - override
 
     public override string ToString() => 
-        $"{GetIsMarked()} | {GetIsBool(IsEnabled, "Enabled", "Disabled")} | {Name} | {Device} | {Setting}";
+        $"{GetIsMarked()} | {Device} | {Setting} | {GetIsBool(IsEnabled, "Enabled", "Disabled")}";
 
     public override bool Equals(object obj)
     {

@@ -282,6 +282,18 @@
             "en": "Check the connection of the USB-adapter!",
             "ru": "Проверьте подключение ЮСБ-адаптера!"
         },
+        "IsShowMaximizeButton": {
+            "en": "Display maximize button",
+            "ru": "Отображать кнопку максимизации"
+        },
+        "IsShowMinimizeButton": {
+            "en": "Display minimize button",
+            "ru": "Отображать кнопку минимизации"
+        },
+        "IsShowPrintButton": {
+            "en": "Display print button",
+            "ru": "Отображать кнопку печати"
+        },
         "LabelContextExpirationDt": {
             "en": "Good to",
             "ru": "Годен до"
@@ -642,6 +654,10 @@
             "en": "is responsed",
             "ru": "есть ответ"
         },
+        "SwitchDeviceSettings": {
+            "en": "Switch device settings",
+            "ru": "Смена настроек устройства"
+        },
         "SwitchKneading": {
             "en": "Switch kneading for",
             "ru": "Смена замеса для"
@@ -669,6 +685,10 @@
         "Terminal": {
             "en": "terminal",
             "ru": "терминал"
+        },
+        "TranslationError": {
+            "en": "Translation error",
+            "ru": "Ошибка перевода"
         },
         "UpperValue": {
             "en": "Upper value",

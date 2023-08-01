@@ -71,15 +71,22 @@ public class WsSqlCrudConfigModel
     private List<WsSqlFieldFilterModel> GetFiltersIsMarked(bool isMarked) =>
         new() { new() { Name = nameof(WsSqlTableBase.IsMarked), Value = isMarked } };
 
+    /// <summary>
+    /// Добавить фильтр идентификатора.
+    /// </summary>
+    /// <param name="fkPropertyName"></param>
+    /// <param name="item"></param>
     public void AddFkIdentityFilter(string fkPropertyName, WsSqlTableBase item)
     {
         switch (item.Identity)
         {
             case { Name: WsSqlEnumFieldIdentity.Uid }:
-                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}", Value = item.Identity.Uid });
+                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}", 
+                    Value = item.Identity.Uid });
                 break;
             case { Name: WsSqlEnumFieldIdentity.Id }:
-                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueId)}", Value = item.Identity.Id });
+                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueId)}", 
+                    Value = item.Identity.Id });
                 break;
         }
     }

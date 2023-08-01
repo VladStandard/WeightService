@@ -12,14 +12,24 @@ public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel, IWsView
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlProductionFacilityModel Area { get; set; } = new();
     public WsSqlScaleModel Line { get; set; } = new();
-    public WsSqlDeviceModel Device => WsSqlContextManagerHelper.Instance.DevicesRepository.GetItemByLine(Line);
+    public WsSqlDeviceModel Device { get; set; } = new();
+    public List<WsSqlDeviceModel> Devices { get; set; } = new();
+    public List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
 
     public WsXamlDeviceSettingsViewModel()
     {
         FormUserControl = WsEnumNavigationPage.Line;
     }
+
+    #endregion
+
+    #region Public and private methods
+
+    public override string ToString() =>
+        $"{FormUserControl} | " +
+        (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.ToString()))}" : $"{nameof(Commands)} is <Empty>") +
+        $"{Line} | {Device}";
 
     #endregion
 }

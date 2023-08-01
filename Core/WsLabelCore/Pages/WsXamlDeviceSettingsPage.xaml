@@ -5,6 +5,9 @@
 	xmlns:common="clr-namespace:WsLabelCore.Common"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:pages="clr-namespace:WsLabelCore.Pages"
+	d:DataContext="{d:DesignInstance pages:WsXamlDeviceSettingsPage,
+	                                 IsDesignTimeCreatable=True}"
 	d:DesignHeight="500"
 	d:DesignWidth="800"
 	FontSize="26"
@@ -18,7 +21,7 @@
 		CornerRadius="5">
 		<Grid x:Name="gridLocal">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="2.5*" />
+				<RowDefinition Height="0.5*" />
 				<RowDefinition Height="2.5*" />
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
@@ -31,41 +34,21 @@
 				CornerRadius="5">
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="0.5*" />
-						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="1.0*" />
+						<ColumnDefinition Width="1.0*" />
 					</Grid.ColumnDefinitions>
 					<Label
-						x:Name="labelLine"
+						x:Name="labelDeviceName"
 						Grid.Row="0"
-						Margin="3"
-						HorizontalContentAlignment="Center"
-						VerticalContentAlignment="Center"
-						Content="{Binding Path=Line, Mode=OneWay, Source=WsLocaleCore.Table}" />
-					<Label
-						x:Name="labelLineValue"
-						Grid.Row="0"
-						Grid.Column="1"
+						Grid.Column="0"
 						Margin="3"
 						HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center" />
-				</Grid>
-			</Border>
-			<!--  Row 2  -->
-			<Border
-				Grid.Row="1"
-				Margin="3"
-				BorderBrush="DimGray"
-				BorderThickness="1"
-				CornerRadius="5">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="0.5*" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
 					<ComboBox
-						x:Name="comboBoxLine"
+						x:Name="comboBoxDevice"
+						Grid.Row="0"
 						Grid.Column="1"
-						Margin="3,60,3,60"
+						Margin="3,3,3,3"
 						HorizontalContentAlignment="Left"
 						VerticalContentAlignment="Center"
 						Background="Transparent"
@@ -77,6 +60,66 @@
 						</ComboBox.ItemContainerStyle>
 					</ComboBox>
 				</Grid>
+			</Border>
+			<!--  Row 2  -->
+			<Border
+				Grid.Row="1"
+				Margin="3"
+				BorderBrush="DimGray"
+				BorderThickness="1"
+				CornerRadius="5">
+				<DataGrid
+					x:Name="dataGridSettings"
+					Margin="2"
+					VerticalAlignment="Top"
+					AutoGenerateColumns="False"
+					Background="Transparent"
+					ItemsSource="{Binding Source=ViewModelCast, Path=ViewModelCast.DeviceSettingsFks, Mode=OneWay, IsAsync=True}">
+					<DataGrid.Columns>
+						<!--  Setting  -->
+						<DataGridTemplateColumn Width="1.0*">
+							<DataGridTemplateColumn.Header>
+								<Label
+									x:Name="headerSetting"
+									Margin="2"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
+									FontWeight="Bold" />
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Label
+										Margin="2"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Content="{Binding Setting.DisplayName, Mode=OneWay, IsAsync=True}" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<!--  IsEnabled  -->
+						<DataGridTemplateColumn Width="1.0*">
+							<DataGridTemplateColumn.Header>
+								<Label
+									x:Name="headerIsEnabled"
+									Margin="2"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
+									FontWeight="Bold" />
+							</DataGridTemplateColumn.Header>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<CheckBox
+										x:Name="valueIsEnabled"
+										Margin="2"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										IsChecked="{Binding IsEnabled, Mode=OneWay, IsAsync=True}"
+										IsEnabled="True" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
 			</Border>
 		</Grid>
 	</Border>

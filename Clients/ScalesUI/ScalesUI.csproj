@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
     <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-Kamni\</PublishUrl>
@@ -229,6 +230,9 @@
     <Compile Include="Forms\WsMainFormDeprecated.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\WsMainFormNaviDeviceSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,7 +299,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent></PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == ReleaseVS (
@@ -330,13 +335,18 @@
     <None Include="Resources\exit_1.png" />
     <None Include="Resources\exit_2.png" />
     <None Include="Resources\left_1.png" />
+    <None Include="Resources\settings_2.png" />
+    <None Include="Resources\settings_3.png" />
+    <None Include="Resources\settings_1.png" />
     <Content Include="ScalesUI.ico" />
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="System.Runtime.WindowsRuntime">
       <Visible>False</Visible>
-      <Group></Group>
-      <TargetPath></TargetPath>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
       <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>

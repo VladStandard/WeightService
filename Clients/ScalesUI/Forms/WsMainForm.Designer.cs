@@ -47,10 +47,12 @@ namespace ScalesUI.Forms
             this.fieldPrintMain = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBoxSettings = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanelMain.SuspendLayout();
             this.layoutPanelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.SuspendLayout();
             // 
@@ -386,6 +388,7 @@ namespace ScalesUI.Forms
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.layoutPanelTop.Controls.Add(this.pictureBoxSettings, 0, 0);
             this.layoutPanelTop.Controls.Add(this.pictureBoxClose, 4, 0);
             this.layoutPanelTop.Controls.Add(this.fieldTitle, 2, 0);
             this.layoutPanelTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -395,6 +398,20 @@ namespace ScalesUI.Forms
             this.layoutPanelTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanelTop.Size = new System.Drawing.Size(1006, 34);
             this.layoutPanelTop.TabIndex = 69;
+            // 
+            // pictureBoxSettings
+            // 
+            this.pictureBoxSettings.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxSettings.Image = global::ScalesUI.Properties.Resources.settings_3;
+            this.pictureBoxSettings.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxSettings.Name = "pictureBoxSettings";
+            this.pictureBoxSettings.Size = new System.Drawing.Size(44, 28);
+            this.pictureBoxSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxSettings.TabIndex = 23;
+            this.pictureBoxSettings.TabStop = false;
+            this.pictureBoxSettings.Click += new System.EventHandler(this.ActionSwitchDeviceSettings);
             // 
             // pictureBoxClose
             // 
@@ -445,6 +462,7 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.PerformLayout();
             this.layoutPanelTop.ResumeLayout(false);
             this.layoutPanelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             this.ResumeLayout(false);
 
@@ -472,6 +490,7 @@ namespace ScalesUI.Forms
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
         private Label fieldTitle;
+        private PictureBox pictureBoxSettings;
     }
 }
 

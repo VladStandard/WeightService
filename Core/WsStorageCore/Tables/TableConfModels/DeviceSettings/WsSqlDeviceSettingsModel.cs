@@ -12,6 +12,8 @@ public class WsSqlDeviceSettingsModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
+    [XmlIgnore] public override string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : GetLocalizationName(Name);
+
     public WsSqlDeviceSettingsModel() : base(WsSqlEnumFieldIdentity.Uid) { }
 
     /// <summary>
@@ -51,6 +53,15 @@ public class WsSqlDeviceSettingsModel : WsSqlTableBase
     #region Public and private methods - virtual
 
     public virtual bool Equals(WsSqlDeviceSettingsModel item) => ReferenceEquals(this, item) || base.Equals(item);
+
+    protected virtual string GetLocalizationName(string name) =>
+        name switch
+        {
+            nameof(WsLocaleCore.LabelPrint.IsShowPrintButton) => WsLocaleCore.LabelPrint.IsShowPrintButton,
+            nameof(WsLocaleCore.LabelPrint.IsShowMaximizeButton) => WsLocaleCore.LabelPrint.IsShowMaximizeButton,
+            nameof(WsLocaleCore.LabelPrint.IsShowMinimizeButton) => WsLocaleCore.LabelPrint.IsShowMinimizeButton,
+            _ => WsLocaleCore.LabelPrint.TranslationError
+        };
 
     #endregion
 }

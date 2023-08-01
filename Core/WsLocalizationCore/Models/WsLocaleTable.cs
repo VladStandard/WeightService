@@ -45,6 +45,8 @@ public sealed class WsLocaleTable : WsLocalizationBase
     public string DeactiveShort => Lang == WsEnumLanguage.English ? "Deact" : "Деакт";
     public string Description => Lang == WsEnumLanguage.English ? "Description" : "Описание";
     public string Device => Lang == WsEnumLanguage.English ? "Device" : "Устройство";
+    public string Devices => Lang == WsEnumLanguage.English ? "Devices" : "Устройства";
+    public string Setting => Lang == WsEnumLanguage.English ? "Setting" : "Настройка";
     public string DeviceComPort => Lang == WsEnumLanguage.English ? "COM-port" : "COM-порт";
     public string DeviceIp => Lang == WsEnumLanguage.English ? "IP-address" : "IP-адрес";
     public string DeviceMac => Lang == WsEnumLanguage.English ? "MAC-address" : "MAC-адрес";

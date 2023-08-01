@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
+using System.Windows.Shapes;
+using Zebra.Sdk.Device;
 
 namespace WsLabelCore.Utils;
 
@@ -74,6 +76,10 @@ public static class WsFormNavigationUtils
     /// </summary>
     public static bool IsLoadKneading{ get; set; }
     /// <summary>
+    /// Флаг загрузки WinForms-контрола настройки устройства.
+    /// </summary>
+    public static bool IsLoadDeviceSettings { get; set; }
+    /// <summary>
     /// Флаг загрузки WinForms-контрола смены линии.
     /// </summary>
     public static bool IsLoadLines { get; set; }
@@ -118,15 +124,17 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsDeviceSettings(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сессии пользователя.
-        //DeviceSettingsUserControl.ViewModel.Areas = LabelSession.ContextCache.Areas;
-        //DeviceSettingsUserControl.ViewModel.Lines = LabelSession.ContextCache.Lines;
-        //DeviceSettingsUserControl.ViewModel.Area = LabelSession.Area;
-        //DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
+        DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
+        DeviceSettingsUserControl.ViewModel.Device = ContextManager.DevicesRepository.GetItemByLine(LabelSession.Line);
+        DeviceSettingsUserControl.ViewModel.Devices =
+            WsSqlContextManagerHelper.Instance.DevicesRepository.GetList(WsSqlCrudConfigFactory.GetCrudAll());
+        DeviceSettingsUserControl.ViewModel.DeviceSettingsFks =
+            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetListByDevice(DeviceSettingsUserControl.ViewModel.Device);
 
-        //DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
-        //DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        //showNavigation(DeviceSettingsUserControl, WsLocaleCore.LabelPrint.SwitchLine);
-        //NavigationUserControl.SwitchUserControl(DeviceSettingsUserControl);
+        DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
+        DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
+        showNavigation(DeviceSettingsUserControl, WsLocaleCore.LabelPrint.SwitchDeviceSettings);
+        NavigationUserControl.SwitchUserControl(DeviceSettingsUserControl);
     }
 
     /// <summary>
