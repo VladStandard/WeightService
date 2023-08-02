@@ -19,6 +19,7 @@ global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Drawing;
 global using System.Drawing.Imaging;
+global using System.Globalization;
 global using System.IO;
 global using System.Linq;
 global using System.Management;

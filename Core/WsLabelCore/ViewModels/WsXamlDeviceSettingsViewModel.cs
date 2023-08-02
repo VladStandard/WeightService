@@ -15,7 +15,7 @@ public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel, IWsView
     public WsSqlScaleModel Line { get; set; } = new();
     public WsSqlDeviceModel Device { get; set; } = new();
     public List<WsSqlDeviceModel> Devices { get; set; } = new();
-    public List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
+    public ObservableCollection<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
 
     public WsXamlDeviceSettingsViewModel()
     {

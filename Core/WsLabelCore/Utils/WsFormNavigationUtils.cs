@@ -128,8 +128,8 @@ public static class WsFormNavigationUtils
         DeviceSettingsUserControl.ViewModel.Device = ContextManager.DevicesRepository.GetItemByLine(LabelSession.Line);
         DeviceSettingsUserControl.ViewModel.Devices =
             WsSqlContextManagerHelper.Instance.DevicesRepository.GetList(WsSqlCrudConfigFactory.GetCrudAll());
-        DeviceSettingsUserControl.ViewModel.DeviceSettingsFks =
-            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetListByDevice(DeviceSettingsUserControl.ViewModel.Device);
+        DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(
+            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetListByDevice(DeviceSettingsUserControl.ViewModel.Device));
 
         DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
         DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);

@@ -19,7 +19,7 @@ public class WsViewModelBase : ObservableObject
         Uid = Guid.NewGuid();
     }
 
-    public WsViewModelBase(WsViewModelBase item)
+    protected WsViewModelBase(WsViewModelBase item)
     {
         Uid = item.Uid;
     }

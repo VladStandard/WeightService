@@ -135,8 +135,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 deviceTypeFk.Type = deviceType;
                 ContextManager.SqlCore.Save(deviceTypeFk);
             }
-            
-            DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);;
+            DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);
             // Line.
             SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.LineRepository.GetItemById(lineId));
             // Area.
@@ -147,6 +146,20 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
              // Новая серия, упаковка продукции, новая паллета.
             ProductSeries = new(Line);
             WeighingSettings = new();
+        }
+    }
+
+    /// <summary>
+    /// Настроить устройство ПО `Печать этикеток`.
+    /// </summary>
+    // TODO: добавить сообщение для showNavigation
+    public void SetSessionForLabelPrint()
+    {
+        lock (_locker)
+        {
+            // Обновить кэш.
+            ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettings);
+            ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettingsFks);
         }
     }
 

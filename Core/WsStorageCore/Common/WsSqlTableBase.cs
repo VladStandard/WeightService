@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 namespace WsStorageCore.Common;
 
 /// <summary>
@@ -161,6 +163,17 @@ public class WsSqlTableBase : SerializeBase
     protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";
     
     protected virtual string GetIsBool(bool isBool, string positive, string negative) => isBool? positive : negative;
+
+    #endregion
+
+    #region INotifyPropertyChanged
+
+    public virtual event PropertyChangedEventHandler? PropertyChanged;
+
+    public virtual void OnPropertyChanged([CallerMemberName] string memberName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
+    }
 
     #endregion
 }

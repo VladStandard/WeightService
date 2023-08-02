@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Tables.TableScaleModels.Printers;
-
 namespace ScalesUI.Forms;
 
 /// <summary>
@@ -128,6 +126,8 @@ public sealed partial class WsMainForm : Form
             MainFormLoadAtBackground();
             // Авто-возврат из контрола на главную форму.
             WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
+            // Применить настройки устройства.
+            ReturnOkFromDeviceSettings();
             // Лог.
             ContextManager.ContextItem.SaveLogMemory(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());

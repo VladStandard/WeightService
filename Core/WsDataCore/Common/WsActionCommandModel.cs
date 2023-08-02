@@ -2,9 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://stackoverflow.com/questions/19517292/adding-dynamic-buttons-in-wpf
 
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using MvvmHelpers.Commands;
 
-namespace WsLabelCore.Models;
+namespace WsDataCore.Common;
 
 /// <summary>
 /// Модель действия/команды.
@@ -19,9 +21,9 @@ public sealed partial class WsActionCommandModel : WsViewModelBase
     public Action? Action { get; private set; }
     public ICommand Cmd => new Command(Action ?? (() => { }));
     public string Content { get; private set; }
-    public Visibility Visibility { get; set; }
+    public WsEnumVisibility Visibility { get; set; }
     
-    public WsActionCommandModel(string name, string content, Visibility visibility)
+    public WsActionCommandModel(string name, string content, WsEnumVisibility visibility)
     {
         Name = name;
         Action = null;
@@ -69,12 +71,6 @@ public sealed partial class WsActionCommandModel : WsViewModelBase
             IEnumerable<string> namesExists = Action.GetInvocationList().Select(item => item.Method.Name);
             if (!namesExists.Contains(action.Method.Name))
                 Action += action;
-            //IEnumerable<string> namesNew = action.GetInvocationList().Select(item => item.Method.Name);
-            //foreach (Delegate? act in action.GetInvocationList())
-            //{
-            //    if (!namesExists.Contains((Action)act.Name))
-            //        Action += action;
-            //}
         }
     }
 

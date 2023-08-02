@@ -21,7 +21,8 @@ public partial class WsMainForm
         WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.AddAction(ActionFinally);
         // Настройка главной формы.
         CenterToScreen();
-        this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
+        // Применить настройки устройства.
+        ReturnOkFromDeviceSettings();
         // Добавить контрол.
         Controls.Add(WsFormNavigationUtils.NavigationUserControl);
         // Настройки главной формы.

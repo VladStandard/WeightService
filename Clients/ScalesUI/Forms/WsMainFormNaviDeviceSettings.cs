@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Windows.Forms;
+using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
+
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -42,12 +45,40 @@ public partial class WsMainForm
     /// <summary>
     /// Возврат ОК из контрола настроек устройства.
     /// </summary>
+    // TODO: подумать об универсальном алгоритме для всех настроек
     private void ReturnOkFromDeviceSettings()
     {
-        // Настроить сессию для ПО `Печать этикеток`.
-        //LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
-        //    WsFormNavigationUtils.DeviceSettingsUserControl.ViewModel.Line.IdentityValueId,
-        //    WsFormNavigationUtils.DeviceSettingsUserControl.ViewModel.Area);
+        // Настроить устройство ПО `Печать этикеток`.
+        LabelSession.SetSessionForLabelPrint();
+
+        //this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
+        bool isFormFullScreen = true;
+        foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetListByLine(LabelSession.Line))
+        {
+            switch (deviceSettingsFk.Setting.Name)
+            {
+                // Отображать кнопку максимизации.
+                case "IsShowMaximizeButton":
+                    MaximizeBox = deviceSettingsFk.IsEnabled;
+                    FormBorderStyle = deviceSettingsFk.IsEnabled ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+                    if (deviceSettingsFk.IsEnabled)
+                        isFormFullScreen = false;
+                    break;
+                // Отображать кнопку минимизации.
+                case "IsShowMinimizeButton":
+                    MinimizeBox = deviceSettingsFk.IsEnabled;
+                    FormBorderStyle = deviceSettingsFk.IsEnabled ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+                    if (deviceSettingsFk.IsEnabled)
+                        isFormFullScreen = false;
+                    break;
+                // Отображать кнопку печати.
+                case "IsShowPrintButton":
+                    ButtonPrint.Visible = deviceSettingsFk.IsEnabled;
+                    break;
+            }
+        }
+        if (isFormFullScreen)
+            this.SwitchResolution(WsEnumScreenResolution.FullScreen);
     }
 
     #endregion

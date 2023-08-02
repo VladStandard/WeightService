@@ -8,11 +8,13 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlDeviceSettingsFkModel : WsSqlTableBase
+// TODO: Добавить родителя ObservableObject
+public class WsSqlDeviceSettingsFkModel : WsSqlTableBase//, INotifyPropertyChanged
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual bool IsEnabled { get; set; }
+    [XmlElement]
+    public virtual bool IsEnabled { get; set; }
     [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
     [XmlElement] public virtual WsSqlDeviceSettingsModel Setting { get; set; }
 

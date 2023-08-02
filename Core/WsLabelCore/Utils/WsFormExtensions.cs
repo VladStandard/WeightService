@@ -39,6 +39,7 @@ public static class WsFormExtensions
                 form.Size = new(800, 600);
                 break;
             default:
+                form.FormBorderStyle = FormBorderStyle.None;
                 form.WindowState = FormWindowState.Maximized;
                 break;
         

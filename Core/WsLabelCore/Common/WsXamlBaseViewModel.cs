@@ -13,10 +13,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     #region Public and private fields, properties, constructor
 
     /// <summary>
-    /// Кэш БД.
-    /// </summary>
-    protected WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    /// <summary>
     /// Прервать.
     /// </summary>
     public WsActionCommandModel CmdAbort { get; private init; }
@@ -63,7 +59,7 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// Список видимых команд без кастом.
     /// </summary>
     public ObservableCollection<WsActionCommandModel> CommandsSmart => 
-        new(Commands.Where(item => !item.Equals(CmdCustom) && item.Visibility.Equals(Visibility.Visible)));
+        new(Commands.Where(item => !item.Equals(CmdCustom) && item.Visibility.Equals(WsEnumVisibility.Visible)));
 
     /// <summary>
     /// Ширина кнопки.
@@ -86,18 +82,19 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// </summary>
     public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
-    public WsEnumNavigationPage FormUserControl { get; set; } = WsEnumNavigationPage.Default;
+    protected WsEnumNavigationPage FormUserControl { get; init; } = WsEnumNavigationPage.Default;
+    public bool IsLoaded { get; set; }
 
     public WsXamlBaseViewModel()
     {
-        CmdAbort = new(nameof(CmdAbort), WsLocaleCore.Buttons.Abort, Visibility.Hidden);
-        CmdCancel = new(nameof(CmdCancel), WsLocaleCore.Buttons.Cancel, Visibility.Hidden);
-        CmdCustom = new(nameof(CmdCustom), WsLocaleCore.Buttons.Custom, Visibility.Hidden);
-        CmdIgnore = new(nameof(CmdIgnore), WsLocaleCore.Buttons.Ignore, Visibility.Hidden);
-        CmdNo = new(nameof(CmdNo), WsLocaleCore.Buttons.No, Visibility.Hidden);
-        CmdOk = new(nameof(CmdOk), WsLocaleCore.Buttons.Ok, Visibility.Hidden);
-        CmdRetry = new(nameof(CmdRetry), WsLocaleCore.Buttons.Retry, Visibility.Hidden);
-        CmdYes = new(nameof(CmdYes), WsLocaleCore.Buttons.Yes, Visibility.Hidden);
+        CmdAbort = new(nameof(CmdAbort), WsLocaleCore.Buttons.Abort, WsEnumVisibility.Hidden);
+        CmdCancel = new(nameof(CmdCancel), WsLocaleCore.Buttons.Cancel, WsEnumVisibility.Hidden);
+        CmdCustom = new(nameof(CmdCustom), WsLocaleCore.Buttons.Custom, WsEnumVisibility.Hidden);
+        CmdIgnore = new(nameof(CmdIgnore), WsLocaleCore.Buttons.Ignore, WsEnumVisibility.Hidden);
+        CmdNo = new(nameof(CmdNo), WsLocaleCore.Buttons.No, WsEnumVisibility.Hidden);
+        CmdOk = new(nameof(CmdOk), WsLocaleCore.Buttons.Ok, WsEnumVisibility.Hidden);
+        CmdRetry = new(nameof(CmdRetry), WsLocaleCore.Buttons.Retry, WsEnumVisibility.Hidden);
+        CmdYes = new(nameof(CmdYes), WsLocaleCore.Buttons.Yes, WsEnumVisibility.Hidden);
         UpdateCommandsFromActions();
     }
 
@@ -122,7 +119,7 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     {
         HideCommandsVisibility();
         CmdOk.AddAction(actionOk);
-        CmdOk.Visibility = Visibility.Visible;
+        CmdOk.Visibility = WsEnumVisibility.Visible;
         UpdateCommandsFromActions();
     }
 
@@ -134,7 +131,7 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     {
         HideCommandsVisibility();
         CmdCustom.AddAction(actionCustom);
-        CmdCustom.Visibility = Visibility.Hidden;
+        CmdCustom.Visibility = WsEnumVisibility.Hidden;
         UpdateCommandsFromActions();
     }
 
@@ -147,9 +144,9 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     {
         HideCommandsVisibility();
         CmdCancel.AddAction(actionCancel);
-        CmdCancel.Visibility = Visibility.Visible;
+        CmdCancel.Visibility = WsEnumVisibility.Visible;
         CmdYes.AddAction(actionYes);
-        CmdYes.Visibility = Visibility.Visible;
+        CmdYes.Visibility = WsEnumVisibility.Visible;
         UpdateCommandsFromActions();
     }
 
@@ -159,8 +156,8 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     private void AddActionsCancelYes()
     {
         HideCommandsVisibility();
-        CmdCancel.Visibility = Visibility.Visible;
-        CmdYes.Visibility = Visibility.Visible;
+        CmdCancel.Visibility = WsEnumVisibility.Visible;
+        CmdYes.Visibility = WsEnumVisibility.Visible;
         UpdateCommandsFromActions();
     }
 
@@ -173,9 +170,9 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     {
         HideCommandsVisibility();
         CmdNo.AddAction(actionNo);
-        CmdNo.Visibility = Visibility.Visible;
+        CmdNo.Visibility = WsEnumVisibility.Visible;
         CmdYes.AddAction(actionYes);
-        CmdYes.Visibility = Visibility.Visible;
+        CmdYes.Visibility = WsEnumVisibility.Visible;
         UpdateCommandsFromActions();
     }
 
@@ -185,8 +182,8 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     private void AddActionsNoYes()
     {
         HideCommandsVisibility();
-        CmdNo.Visibility = Visibility.Visible;
-        CmdYes.Visibility = Visibility.Visible;
+        CmdNo.Visibility = WsEnumVisibility.Visible;
+        CmdYes.Visibility = WsEnumVisibility.Visible;
         UpdateCommandsFromActions();
     }
 
@@ -195,14 +192,14 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// </summary>
     private void HideCommandsVisibility()
     {
-        CmdAbort.Visibility = Visibility.Hidden;
-        CmdCancel.Visibility = Visibility.Hidden;
-        CmdCustom.Visibility = Visibility.Hidden;
-        CmdIgnore.Visibility = Visibility.Hidden;
-        CmdNo.Visibility = Visibility.Hidden;
-        CmdOk.Visibility = Visibility.Hidden;
-        CmdRetry.Visibility = Visibility.Hidden;
-        CmdYes.Visibility = Visibility.Hidden;
+        CmdAbort.Visibility = WsEnumVisibility.Hidden;
+        CmdCancel.Visibility = WsEnumVisibility.Hidden;
+        CmdCustom.Visibility = WsEnumVisibility.Hidden;
+        CmdIgnore.Visibility = WsEnumVisibility.Hidden;
+        CmdNo.Visibility = WsEnumVisibility.Hidden;
+        CmdOk.Visibility = WsEnumVisibility.Hidden;
+        CmdRetry.Visibility = WsEnumVisibility.Hidden;
+        CmdYes.Visibility = WsEnumVisibility.Hidden;
     }
 
     /// <summary>

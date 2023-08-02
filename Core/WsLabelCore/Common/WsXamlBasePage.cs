@@ -23,7 +23,7 @@ public class WsXamlBasePage : UserControl//, IWsXamlPage
     public WsXamlBasePage()
     {
         ItemsControlMain = new() { Margin = new(2) };
-        ViewModel = new WsXamlBaseViewModel();
+        ViewModel = new();
         ButtonFactoryMain = new(typeof(Button));
         StackPanelFactory = new(typeof(StackPanel));
         ScrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
@@ -44,11 +44,11 @@ public class WsXamlBasePage : UserControl//, IWsXamlPage
     {
         if (viewModel is not WsXamlBaseViewModel baseViewModel) return;
         // Задать команды.
-        ViewModel.UpdateCommandsFromActions();
+        viewModel.UpdateCommandsFromActions();
         ObservableCollection<WsActionCommandModel> commands = ViewModel.Commands;
         ViewModel = baseViewModel;
         if (commands.Any())
-            ViewModel.SetCommands(commands);
+            viewModel.SetCommands(commands);
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
@@ -122,7 +122,9 @@ public class WsXamlBasePage : UserControl//, IWsXamlPage
             new Binding(nameof(ViewModel.ButtonWidth)) { Mode = BindingMode.OneWay, Source = ViewModel });
         ButtonFactoryMain.SetBinding(ButtonBase.CommandProperty, new Binding(nameof(WsActionCommandModel.Cmd)));
         ButtonFactoryMain.SetBinding(ContentProperty, new Binding(nameof(WsActionCommandModel.Content)));
-        ButtonFactoryMain.SetBinding(VisibilityProperty, new Binding(nameof(WsActionCommandModel.Visibility)));
+        // Конвертер типов Visibility/WsEnumVisibility.
+        ButtonFactoryMain.SetBinding(VisibilityProperty, 
+            new Binding(nameof(WsActionCommandModel.Visibility)) { Converter = new WsXamlVisibilityConverter() });
 
         Grid.SetRow(ItemsControlMain, row);
         Grid.SetColumn(ItemsControlMain, column);

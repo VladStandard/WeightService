@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:pages="clr-namespace:WsLabelCore.Pages"
+	xmlns:utils="clr-namespace:WsLocalizationCore.Utils;assembly=WsLocalizationCore"
 	d:DataContext="{d:DesignInstance pages:WsXamlDeviceSettingsPage,
 	                                 IsDesignTimeCreatable=True}"
 	d:DesignHeight="500"
@@ -38,12 +39,12 @@
 						<ColumnDefinition Width="1.0*" />
 					</Grid.ColumnDefinitions>
 					<Label
-						x:Name="labelDeviceName"
 						Grid.Row="0"
 						Grid.Column="0"
 						Margin="3"
 						HorizontalContentAlignment="Center"
-						VerticalContentAlignment="Center" />
+						VerticalContentAlignment="Center"
+						Content="{Binding Source={x:Static utils:WsLocaleCore.Table}, Path=Devices, Mode=OneWay, IsAsync=True}" />
 					<ComboBox
 						x:Name="comboBoxDevice"
 						Grid.Row="0"
@@ -53,6 +54,13 @@
 						VerticalContentAlignment="Center"
 						Background="Transparent"
 						FontSize="26">
+						<!--
+							ItemsSource="{Binding Path=ViewModelCast.Devices, Mode=OneWay, IsAsync=True}"
+							SelectedItem="{Binding Path=ViewModelCast.Device, Mode=TwoWay, IsAsync=True}"
+							SelectedValue="{Binding Path=ViewModelCast.Device.Name, Mode=OneWay, IsAsync=True, Source=ViewModelCast.Device}"
+							DisplayMemberPath="{Binding Path=ViewModelCast.Device.Name}"
+							SelectedValuePath="{Binding Path=ViewModelCast.Device.Name}"
+						-->
 						<ComboBox.ItemContainerStyle>
 							<Style TargetType="ComboBoxItem">
 								<Setter Property="Padding" Value="20,0,0,0" />
@@ -80,10 +88,12 @@
 						<DataGridTemplateColumn Width="1.0*">
 							<DataGridTemplateColumn.Header>
 								<Label
-									x:Name="headerSetting"
 									Margin="2"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
 									HorizontalContentAlignment="Center"
 									VerticalContentAlignment="Center"
+									Content="{Binding Source={x:Static utils:WsLocaleCore.Table}, Path=Setting, Mode=OneWay, IsAsync=True}"
 									FontWeight="Bold" />
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
@@ -100,10 +110,10 @@
 						<DataGridTemplateColumn Width="1.0*">
 							<DataGridTemplateColumn.Header>
 								<Label
-									x:Name="headerIsEnabled"
 									Margin="2"
 									HorizontalContentAlignment="Center"
 									VerticalContentAlignment="Center"
+									Content="{Binding Source={x:Static utils:WsLocaleCore.Table}, Path=IsEnabled, Mode=OneWay, IsAsync=True}"
 									FontWeight="Bold" />
 							</DataGridTemplateColumn.Header>
 							<DataGridTemplateColumn.CellTemplate>
@@ -113,8 +123,10 @@
 										Margin="2"
 										HorizontalAlignment="Center"
 										VerticalAlignment="Center"
-										IsChecked="{Binding IsEnabled, Mode=OneWay, IsAsync=True}"
-										IsEnabled="True" />
+										Checked="valueIsEnabled_Checked"
+										IsChecked="{Binding IsEnabled, Mode=TwoWay, IsAsync=True}"
+										IsEnabled="True"
+										Unchecked="valueIsEnabled_Unchecked" />
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
 						</DataGridTemplateColumn>

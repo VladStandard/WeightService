@@ -21,6 +21,12 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
         return list;
     }
 
+    public List<WsSqlDeviceSettingsFkModel> GetListByLine(WsSqlScaleModel line)
+    {
+        WsSqlDeviceModel device = WsSqlContextManagerHelper.Instance.DevicesRepository.GetItemByLine(line);
+        return GetListByDevice(device);
+    }
+
     public List<WsSqlDeviceSettingsFkModel> GetListByDevice(WsSqlDeviceModel device)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
@@ -38,6 +44,10 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     public void SaveItem(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item);
    
     public void SaveItemAsync(WsSqlDeviceSettingsFkModel item) => SqlCore.Save(item, WsSqlEnumSessionType.IsolatedAsync);
+
+    public void UpdateItem(WsSqlDeviceSettingsFkModel item) => SqlCore.Update(item);
+   
+    public void UpdateItemAsync(WsSqlDeviceSettingsFkModel item) => SqlCore.Update(item, WsSqlEnumSessionType.IsolatedAsync);
 
     #endregion
 }
