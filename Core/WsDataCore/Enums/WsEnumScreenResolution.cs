@@ -6,9 +6,9 @@ namespace WsDataCore.Enums;
 public enum WsEnumScreenResolution
 {
     FullScreen,
-    Value800x600,
-    Value1024x768,
-    Value1366x768,
-    Value1600x1024,
-    Value1920x1080
+    Value800X600,
+    Value1024X768,
+    Value1366X768,
+    Value1600X1024,
+    Value1920X1080
 }

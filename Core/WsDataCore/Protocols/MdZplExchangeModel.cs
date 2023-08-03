@@ -7,7 +7,7 @@ public class MdZplExchangeModel
 {
     #region Public and private fields, properties, constructor
 
-    public byte[] Cmd { get; set; }
+    public byte[] Cmd { get; }
     public int Length => Cmd.Length;
 
     /// <summary>

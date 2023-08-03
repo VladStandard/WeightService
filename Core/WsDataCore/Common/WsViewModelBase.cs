@@ -1,5 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable MemberCanBeProtected.Global
 
 namespace WsDataCore.Common;
 
@@ -19,7 +20,8 @@ public class WsViewModelBase : ObservableObject
         Uid = Guid.NewGuid();
     }
 
-    protected WsViewModelBase(WsViewModelBase item)
+    /// Не менять модификатор доступа!
+    public WsViewModelBase(WsViewModelBase item)
     {
         Uid = item.Uid;
     }

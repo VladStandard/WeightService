@@ -8,7 +8,6 @@ namespace WsDataCore.Common;
 /// </summary>
 public enum WsEnumDialogType
 {
-    Default,
     CancelYes,
     NoYes,
     Ok,

@@ -5,8 +5,8 @@ namespace WsDataCore.Enums;
 
 public class WsEnumTypeModel<T>
 {
-    public string Name { get; set; }
-    public T Value { get; set; }
+    private string Name { get; }
+    private T Value { get; }
 
     public WsEnumTypeModel(string name, T value)
     {

@@ -17,24 +17,24 @@ public static class WsFormExtensions
     {
         switch (resolution)
         {
-            case WsEnumScreenResolution.Value1024x768:
+            case WsEnumScreenResolution.Value1024X768:
                 form.WindowState = FormWindowState.Normal;
                 form.Size = new(1024, 768);
                 break;
-            case WsEnumScreenResolution.Value1366x768:
+            case WsEnumScreenResolution.Value1366X768:
                 form.WindowState = FormWindowState.Normal;
                 form.Size = new(1366, 768);
                 break;
-            case WsEnumScreenResolution.Value1600x1024:
+            case WsEnumScreenResolution.Value1600X1024:
                 form.WindowState = FormWindowState.Normal;
                 form.Size = new(1600, 1024);
                 break;
-            case WsEnumScreenResolution.Value1920x1080:
+            case WsEnumScreenResolution.Value1920X1080:
                 form.WindowState = FormWindowState.Normal;
                 form.Size = new(1920, 1080);
                 break;
 
-            case WsEnumScreenResolution.Value800x600:
+            case WsEnumScreenResolution.Value800X600:
                 form.WindowState = FormWindowState.Normal;
                 form.Size = new(800, 600);
                 break;

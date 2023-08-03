@@ -9,8 +9,6 @@ public sealed class MemorySizeConvertModel
 
 	public ulong Bytes { get; set; }
 
-	public ulong KiloBytes => Bytes / 1024;
-
 	public ulong MegaBytes => Bytes / 1048576;
 
 	public MemorySizeConvertModel()
