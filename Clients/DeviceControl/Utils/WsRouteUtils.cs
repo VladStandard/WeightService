@@ -1,8 +1,14 @@
-﻿namespace DeviceControl.Utils;
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-public static class RouteUtil
+namespace DeviceControl.Utils;
+
+/// <summary>
+/// Утилиты роутинга.
+/// </summary>
+public static class RouteUtils
 {
-    #region System
+    #region Администрирование
     
     public static string SystemAppInfo => "/system";
     public static string SystemDatabaseInfo => "/system_sql";
@@ -10,7 +16,7 @@ public static class RouteUtil
     
     #endregion
     
-    #region Plus
+    #region ПЛУ
 
     public static string SectionPlus => "/section/plus";
     public static string SectionPlusLines => "/section/plus_lines";
@@ -24,29 +30,32 @@ public static class RouteUtil
     
     #endregion
 
-    #region Logs
+    #region Диагностика
 
     public static string SectionLogs => "/section/logs";
     public static string SectionLogsWebService => "/section/logs_web_service";
     public static string SectionScalesScreenShots => "/section/logs_screenshots";
     public static string SectionLogsMemory => "/section/logs_memory";
+    public static string SectionLogsMemoryChart => "/section/logs_memory_chart";
     
     #endregion
     
-    #region Printers
+    #region Принтеры
     
     public static string SectionPrinters => "/section/printers";
     public static string SectionPrinterTypes => "/section/printers_types";
     
     #endregion
     
-    #region Devices
+    #region Устройства
+    
     public static string SectionDevices => "/section/devices";
     public static string SectionDevicesTypes => "/section/devices_types";
     
     #endregion
 
-    #region Unsorted
+    #region Прочее
+
     public static string SectionClips => "/section/clips";
     public static string SectionAccess => "/section/access";
     public static string SectionBarCodes => "/section/barcodes";

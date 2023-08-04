@@ -122,5 +122,7 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string WebAppIsStarted => Lang == WsEnumLanguage.English ? "Web-app is started" : "Веб-приложение запущено";
     public string SectionClips => Lang == WsEnumLanguage.English ? "Clips" : "Клипсы";
     public string LogsMemory => Lang == WsEnumLanguage.English ? "Logs memory" : "Логи памяти";
+    public string LogsMemoryChart => Lang == WsEnumLanguage.English ? "Logs memory chart" : "Чарт логов памяти";
+
     #endregion
 }

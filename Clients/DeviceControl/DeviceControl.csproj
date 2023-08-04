@@ -38,6 +38,9 @@
         <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
+      <Watch Remove="Pages\Menu\Logs\LogsMemoryChart.razor" />
+    </ItemGroup>
+    <ItemGroup>
         <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
         <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     </ItemGroup>

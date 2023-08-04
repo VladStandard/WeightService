@@ -13,54 +13,55 @@
     <AuthorizeView Roles="@UserAccessStr.Read">
       @* Devices *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@RouteUtil.SectionLines"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionHosts" Path="@RouteUtil.SectionDevices"/>
-        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Names" Path="@RouteUtil.SectionPrinters"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@WsRouteUtils.SectionLines"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionHosts" Path="@WsRouteUtils.SectionDevices"/>
+        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Names" Path="@WsRouteUtils.SectionPrinters"/>
       </RadzenPanelMenuItem>
       @* Operations *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOperations">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionLabels" Path="@RouteUtil.SectionPlusLabels"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBarCodes" Path="@RouteUtil.SectionBarCodes"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeighings" Path="@RouteUtil.SectionPlusWeightings"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort" Path="@RouteUtil.SectionPlusWeightingsAggr"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionLabels" Path="@WsRouteUtils.SectionPlusLabels"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBarCodes" Path="@WsRouteUtils.SectionBarCodes"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeighings" Path="@WsRouteUtils.SectionPlusWeightings"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort" Path="@WsRouteUtils.SectionPlusWeightingsAggr"/>
       </RadzenPanelMenuItem>
       @* References *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences">
-        <RadzenPanelMenuItem Text="@WsLocaleCore.Strings.DeviceType" Path="@RouteUtil.SectionDevicesTypes"/>
-        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Types" Path="@RouteUtil.SectionPrinterTypes"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOrganizations" Path="@RouteUtil.SectionOrganizations"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWorkShops" Path="@RouteUtil.SectionWorkShops"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionProductionFacilitiesShort" Path="@RouteUtil.SectionProductionFacilities"/>
+        <RadzenPanelMenuItem Text="@WsLocaleCore.Strings.DeviceType" Path="@WsRouteUtils.SectionDevicesTypes"/>
+        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Types" Path="@WsRouteUtils.SectionPrinterTypes"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOrganizations" Path="@WsRouteUtils.SectionOrganizations"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWorkShops" Path="@WsRouteUtils.SectionWorkShops"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionProductionFacilitiesShort" Path="@WsRouteUtils.SectionProductionFacilities"/>
 
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplates" Path="@RouteUtil.SectionTemplates"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplateResources" Path="@RouteUtil.SectionTemplateResources"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusStorage" Path="@RouteUtil.SectionPlusStorage"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplates" Path="@WsRouteUtils.SectionTemplates"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplateResources" Path="@WsRouteUtils.SectionTemplateResources"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusStorage" Path="@WsRouteUtils.SectionPlusStorage"/>
       </RadzenPanelMenuItem>
       @* References 1C *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences1C">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlus" Path="@RouteUtil.SectionPlus"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusGroups" Path="@RouteUtil.SectionPlusGroups"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBoxes" Path="@RouteUtil.SectionBoxes"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionClips" Path="@RouteUtil.SectionClips"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBundles" Path="@RouteUtil.SectionBundles"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusBundlesFk" Path="@RouteUtil.SectionPlusBundlesFks"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBrands" Path="@RouteUtil.SectionBrands"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionContragents" Path="@RouteUtil.SectionContragents"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlus" Path="@WsRouteUtils.SectionPlus"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusGroups" Path="@WsRouteUtils.SectionPlusGroups"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBoxes" Path="@WsRouteUtils.SectionBoxes"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionClips" Path="@WsRouteUtils.SectionClips"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBundles" Path="@WsRouteUtils.SectionBundles"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusBundlesFk" Path="@WsRouteUtils.SectionPlusBundlesFks"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBrands" Path="@WsRouteUtils.SectionBrands"/>
+        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionContragents" Path="@WsRouteUtils.SectionContragents"/>
       </RadzenPanelMenuItem>
-      @* Reports *@
+      @* Диагностика *@
       <RadzenPanelMenuItem Text="@WsLocaleCore.Menu.MenuReports">
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@RouteUtil.SectionLogs"/>
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@RouteUtil.SectionLogsWebService"/>
-        <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@RouteUtil.SectionScalesScreenShots"/>
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemory" Path="@RouteUtil.SectionLogsMemory"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@WsRouteUtils.SectionLogs"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@WsRouteUtils.SectionLogsWebService"/>
+        <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@WsRouteUtils.SectionScalesScreenShots"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemory" Path="@WsRouteUtils.SectionLogsMemory"/>
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemoryChart" Path="@WsRouteUtils.SectionLogsMemoryChart" />
       </RadzenPanelMenuItem>
     </AuthorizeView>
     <AuthorizeView Roles="@UserAccessStr.Admin">
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
-        <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@RouteUtil.SectionAccess"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.DatabaseInfo" Path="@RouteUtil.SystemDatabaseInfo"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.Menu.MenuDbVersionHistory" Path="@RouteUtil.SectionVersions"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.SystemInfo" Path="@RouteUtil.SystemAppInfo"/>
+        <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@WsRouteUtils.SectionAccess"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.DatabaseInfo" Path="@WsRouteUtils.SystemDatabaseInfo"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.Menu.MenuDbVersionHistory" Path="@WsRouteUtils.SectionVersions"/>
+        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.SystemInfo" Path="@WsRouteUtils.SystemAppInfo"/>
       </RadzenPanelMenuItem>
     </AuthorizeView>
   </RadzenPanelMenu>
