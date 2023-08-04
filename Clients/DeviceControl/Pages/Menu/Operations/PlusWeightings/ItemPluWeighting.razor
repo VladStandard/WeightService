@@ -15,7 +15,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
 
@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
                   Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>

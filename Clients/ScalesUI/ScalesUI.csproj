@@ -233,9 +233,7 @@
     <Compile Include="Forms\WsMainFormNaviDeviceSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\WsMainFormNaviPluNesting.cs" />
     <Compile Include="Forms\WsMainFormNaviPluLine.cs">
       <SubType>Form</SubType>
     </Compile>

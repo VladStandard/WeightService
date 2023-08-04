@@ -24,13 +24,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Line)" Text="@WsLocaleCore.Table.Line"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Line)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Line" Data="@ContextCache.Lines" TextProperty="Description"/>
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu)" Text="@WsLocaleCore.Table.Plu"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Plu" Data="@ContextCache.Plus" TextProperty="DisplayName"/>

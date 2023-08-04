@@ -5,7 +5,7 @@ namespace DeviceControl.Pages.Default;
 
 public partial class MainLayout : LayoutComponentBase
 {
-    [Inject] private UserService UserService { get; set; }
+    [Inject] private WsUserService UserService { get; set; }
     private ClaimsPrincipal? User { get; set; }
     private static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";

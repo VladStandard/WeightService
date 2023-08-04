@@ -21,18 +21,18 @@ builder.Services.AddControllersWithViews();
 
 #region AddScoped
 
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<RouteService>();
-builder.Services.AddScoped<LocalStorageService>();
-builder.Services.AddScoped<JsService>();
+builder.Services.AddScoped<WsUserService>();
+builder.Services.AddScoped<WsRouteService>();
+builder.Services.AddScoped<WsLocalStorageService>();
+builder.Services.AddScoped<WsJsService>();
 
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<NotificationService>();
 
-builder.Services.AddScoped<IUserRightsService, UserRightsService>();
-builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+builder.Services.AddScoped<IWsUserRightsService, WsUserRightsService>();
+builder.Services.AddScoped<AuthenticationStateProvider, WsCustomAuthStateProvider>();
 
 #endregion
 

@@ -16,7 +16,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line" />
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@WsLocaleCore.Table.Line" />
     </td>
     <td>@SqlItemCast.PluScale.Line.DisplayName</td>
     <td>@WsLocaleCore.Table.CheckWeight</td>
@@ -26,22 +26,22 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.PluScale.Plu).Template)"
+      <RadzenLink Path="@WsRouteService.GetItemRoute(@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.PluScale.Plu).Template)"
                   Text="@WsLocaleCore.Table.Template"/>
     </td>
     <td>@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.PluScale.Plu).Template.Title</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line.PrinterMain)" Text="@WsLocaleCore.Table.Printer"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Line.PrinterMain)" Text="@WsLocaleCore.Table.Printer"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.PrinterMain?.DisplayName</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
     </td>
     <td>@SqlItemCast.PluWeighing?.IdentityValueUid</td>
   </tr>

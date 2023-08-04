@@ -16,17 +16,17 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Line.Description</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@WsLocaleCore.Table.Label"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@WsLocaleCore.Table.Label"/>
     </td>
     <td>@SqlItemCast.PluLabel.IdentityValueUid</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Plu.DisplayName</td>
     <td/>
@@ -38,7 +38,7 @@
       <td>@WsLocaleCore.Table.ProductSeries</td>
       <td>@SqlItemCast.PluLabel.PluWeighing.Series?.Sscc</td>
       <td>
-        <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
+        <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
       </td>
       <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>
     </tr>

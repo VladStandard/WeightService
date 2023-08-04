@@ -8,8 +8,8 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     #region Public and private fields, properties, constructor
 
     [Inject] protected IJSRuntime JsRuntime { get; set; }
-    [Inject] protected RouteService RouteService { get; set; }
-    [Inject] private LocalStorageService LocalStorage { get; set; }
+    [Inject] protected WsRouteService RouteService { get; set; }
+    [Inject] private WsLocalStorageService LocalStorage { get; set; }
     [Inject] protected ContextMenuService ContextMenuService { get; set; }
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
@@ -222,7 +222,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     [Authorize(Roles = UserAccessStr.Read)]
     protected async Task SqlItemOpenNewTabAsync()
     {
-        await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast), "_blank");
+        await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast), "_blank");
     }
 
     #endregion

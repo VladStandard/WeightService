@@ -5,8 +5,8 @@ namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
 {
-    [Inject] protected JsService JsService { get; set; }
-    [Inject] protected RouteService RouteService { get; set; }
+    [Inject] protected WsJsService JsService { get; set; }
+    [Inject] protected WsRouteService RouteService { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
     protected WsSqlTableBase? SqlItem { get; set; }

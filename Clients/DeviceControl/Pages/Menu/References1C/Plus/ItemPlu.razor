@@ -31,11 +31,11 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(Template)" Text="@WsLocaleCore.Table.Template"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(Template)" Text="@WsLocaleCore.Table.Template"/>
     </td>
     <td>@Template.Title</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@WsLocaleCore.Table.PluStorage"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(StorageMethod)" Text="@WsLocaleCore.Table.PluStorage"/>
     </td>
     <td>@StorageMethod?.Name</td>
   </tr>

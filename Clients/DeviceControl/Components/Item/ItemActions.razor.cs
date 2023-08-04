@@ -7,7 +7,7 @@ public partial class ItemActions : ComponentBase
 {
     #region Public and private fields, properties, constructor
     
-    [Inject] protected UserService UserService { get; set; }
+    [Inject] protected WsUserService UserService { get; set; }
     [Parameter] public EventCallback OnItemSave { get; set; }
     [Parameter] public EventCallback OnItemCancel { get; set; }
 

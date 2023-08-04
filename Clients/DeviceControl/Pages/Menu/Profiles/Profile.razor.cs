@@ -7,8 +7,8 @@ public partial class Profile : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Inject] private LocalStorageService LocalStorage { get; set; }
-    [Inject] private UserService UserService { get; set; }
+    [Inject] private WsLocalStorageService LocalStorage { get; set; }
+    [Inject] private WsUserService UserService { get; set; }
     [Inject] private IHttpContextAccessor HttpContextAccess { get; set; }
     private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private ClaimsPrincipal? User { get; set; }

@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(Device)" Text="@WsLocaleCore.Table.Host"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(Device)" Text="@WsLocaleCore.Table.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
@@ -39,7 +39,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName" />
@@ -51,7 +51,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@WsLocaleCore.Print.NameShipping"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PrinterShipping)" Text="@WsLocaleCore.Print.NameShipping"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.PrinterShipping" Data="@PrinterModels" TextProperty="DisplayName" />
@@ -63,13 +63,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@WsLocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@WsLocaleCore.Table.WorkShopName"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName" />
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.WorkShop?.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>
     </td>
     <td>@(SqlItemCast.WorkShop is not null ? SqlItemCast.WorkShop.ProductionFacility.Name : WsLocaleCore.Table.FieldEmpty)</td>
   </tr>
