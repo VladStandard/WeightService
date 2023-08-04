@@ -37,6 +37,7 @@ global using NHibernate.Criterion;
 global using WsDataCore.Common;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
+global using WsDataCore.Memory;
 global using WsDataCore.Models;
 global using WsDataCore.Serialization;
 global using WsDataCore.Settings.Helpers;

@@ -7,13 +7,13 @@ namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 public class WsSqlViewLogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-    public virtual string AppName { get; set; }
-    public virtual string DeviceName { get; set; }
-    public virtual string ScaleName { get; set; }
-    public virtual short SizeAppMb { get; set; }
-    public virtual short SizeFreeMb { get; set; }
-    public int TotalMemory => SizeFreeMb + SizeAppMb;
-    public double FillSize => Math.Round(((double)SizeAppMb / TotalMemory) * 100, 2);
+    public virtual string AppName { get; init; }
+    public virtual string DeviceName { get; init; }
+    public virtual string ScaleName { get; init; }
+    public virtual short SizeAppMb { get; init; }
+    public virtual short SizeFreeMb { get; init; }
+    public int TotalMemoryMb => SizeFreeMb + SizeAppMb;
+    public double FillSizePercent => Math.Round(((double)SizeAppMb / TotalMemoryMb) * 100, 2);
     
     public WsSqlViewLogMemoryModel() : base(WsSqlEnumFieldIdentity.Uid)
     {

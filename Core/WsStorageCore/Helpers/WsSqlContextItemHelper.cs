@@ -21,8 +21,8 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    private WsSqlAppModel App { get; set; } = new();
-    private WsSqlDeviceModel Device { get; set; } = new();
+    public WsSqlAppModel App { get; private set; } = new();
+    public WsSqlDeviceModel Device { get; private set; } = new();
 
     #endregion
 
@@ -133,20 +133,6 @@ public sealed class WsSqlContextItemHelper
     #region Public and private methods - LogMemory
 
     public void SetupLog(string appName) => SetupLog("", appName);
-
-    public void SaveLogMemory(short sizeAppMb, short sizeFreeMb)
-    {
-        if (sizeAppMb.Equals(0) || sizeFreeMb.Equals(0)) return;
-        WsSqlLogMemoryModel logMemory = new()
-        {
-            CreateDt = DateTime.Now,
-            SizeAppMb = sizeAppMb,
-            SizeFreeMb = sizeFreeMb,
-            App = App,
-            Device = Device,
-        };
-        SqlCore.Save(logMemory, WsSqlEnumSessionType.IsolatedAsync);
-    }
 
     #endregion
 

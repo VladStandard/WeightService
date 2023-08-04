@@ -8,13 +8,34 @@ public sealed class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     // Если оставить прокси как есть, то будет падать, т.к. для вьюшки нет маппингов!
-    public List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
-        => GetList(sqlCrudConfig.SelectTopRowsCount);
+    public List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
+        GetList(sqlCrudConfig.SelectTopRowsCount);
 
-    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "")
+    public List<WsSqlViewLogMemoryModel> GetListAppName(string appName) =>
+        GetList(0, appName);
+
+    public List<WsSqlViewLogMemoryModel> GetListToday(int topRecords = 0, string appName = "") =>
+        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemoryToday(topRecords, appName));
+
+    public List<WsSqlViewLogMemoryModel> GetListMonth(int topRecords = 0, string appName = "") => 
+        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemoryMonth(topRecords, appName, (short)DateTime.Now.Month));
+
+    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "", DateTime? dtCreate = null) => 
+        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords, appName, dtCreate));
+
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControl() =>
+        GetList(0, "DeviceControl");
+    
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControlToday() =>
+        GetListToday(0, "DeviceControl");
+    
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControlMonth() =>
+        GetListMonth(0, "DeviceControl");
+    
+    public List<WsSqlViewLogMemoryModel> GetList(string query)
     {
         List<WsSqlViewLogMemoryModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords, appName);
+        //
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

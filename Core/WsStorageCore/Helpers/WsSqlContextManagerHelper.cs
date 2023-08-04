@@ -38,6 +38,8 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
+    public WsSqlLogMemoryRepository LogMemoryRepository { get; set; } = new();
+    public WsSqlLogRepository LogRepository { get; set; } = new();
     public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
     public WsSqlPluBundleFkRepository PluBundleFkRepository { get; } = new();

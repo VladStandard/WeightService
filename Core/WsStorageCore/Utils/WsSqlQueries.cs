@@ -12,6 +12,19 @@ public static class WsSqlQueries
 
     public static string GetWhereAppName(string appName) => string.IsNullOrEmpty(appName) ? string.Empty : $"WHERE [APP_NAME] = '{appName}'";
     
+    public static string GetWhereAppNameAndCreateDt(string appName, DateTime? createDt) =>
+        string.IsNullOrEmpty(appName) || createDt is null ? GetWhereAppName(appName) 
+        : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{createDt:yyyy-MM-dd}'";
+    
+    public static string GetWhereAppNameToday(string appName) =>
+        string.IsNullOrEmpty(appName) 
+            ? $"WHERE CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'"
+            : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'";
+    
+    public static string GetWhereAppNameMonth(string appName, short month) =>
+        string.IsNullOrEmpty(appName) ? GetWhereAppName(appName) 
+        : $"WHERE [APP_NAME] = '{appName}' AND MONTH(CAST([CREATE_DT] AS DATE)) = {month}";
+    
     public static string GetWhereIsMarked(WsSqlEnumIsMarked isMarked) => isMarked switch
         {
             WsSqlEnumIsMarked.ShowOnlyActual => "WHERE [IS_MARKED]=0",

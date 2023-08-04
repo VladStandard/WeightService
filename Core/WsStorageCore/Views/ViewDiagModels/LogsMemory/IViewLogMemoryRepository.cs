@@ -6,5 +6,12 @@ namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 
 public interface IViewLogMemoryRepository : IViewBaseRepository<WsSqlViewLogMemoryModel>
 {
-    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "");
+    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "", DateTime? dtCreate = null);
+    public List<WsSqlViewLogMemoryModel> GetList(string query);
+    public List<WsSqlViewLogMemoryModel> GetListAppName(string appName);
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControl();
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControlToday();
+    public List<WsSqlViewLogMemoryModel> GetListDeviceControlMonth();
+    public List<WsSqlViewLogMemoryModel> GetListMonth(int topRecords = 0, string appName = "");
+    public List<WsSqlViewLogMemoryModel> GetListToday(int topRecords = 0, string appName = "");
 }

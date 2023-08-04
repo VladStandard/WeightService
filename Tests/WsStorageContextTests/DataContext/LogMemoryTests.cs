@@ -16,7 +16,7 @@ public sealed class LogMemoryTests
         {
             MemorySizeModel memorySize = new();
             memorySize.Execute();
-            WsTestsUtils.DataTests.ContextManager.ContextItem.SaveLogMemory(
+            WsTestsUtils.DataTests.ContextManager.LogMemoryRepository.Save(
                 memorySize.GetMemorySizeAppMb(), memorySize.GetMemorySizeFreeMb()
             );
             TestContext.WriteLine($"{nameof(memorySize.GetMemorySizeAppMb)}: {memorySize.GetMemorySizeAppMb()}");

@@ -26,7 +26,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
     }
 
     [Test]
-    public void Get_list_for_apps()
+    public void Get_list_for_all_apps()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
@@ -40,6 +40,72 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void Get_list_for_all_apps_today()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlCrudConfigModel sqlCrudConfig = new(SqlCrudConfig) { SelectTopRowsCount = 0 };
+            List<WsSqlAppModel> apps = AppRepository.GetList(sqlCrudConfig);
+            foreach (WsSqlAppModel app in apps)
+            {
+                List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetListToday(SqlCrudConfig.SelectTopRowsCount, app.Name);
+                if (items.Any())
+                    PrintViewRecords(items);
+                else
+                    TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
+            }
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void Get_list_for_all_apps_month()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlCrudConfigModel sqlCrudConfig = new(SqlCrudConfig) { SelectTopRowsCount = 0 };
+            List<WsSqlAppModel> apps = AppRepository.GetList(sqlCrudConfig);
+            foreach (WsSqlAppModel app in apps)
+            {
+                List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetListMonth(SqlCrudConfig.SelectTopRowsCount, app.Name);
+                if (items.Any())
+                    PrintViewRecords(items);
+                else
+                    TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
+            }
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void Get_list_for_app_device_control()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetListDeviceControl();
+            PrintViewRecords(items);
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void Get_list_for_app_device_control_today()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetListDeviceControlToday();
+            PrintViewRecords(items);
+        }, false, DefaultPublishTypes);
+    }
+
+    [Test]
+    public void Get_list_for_app_device_control_month()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetListDeviceControlMonth();
+            PrintViewRecords(items);
         }, false, DefaultPublishTypes);
     }
 }

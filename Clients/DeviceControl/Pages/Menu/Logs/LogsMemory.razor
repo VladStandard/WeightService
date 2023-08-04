@@ -1,4 +1,4 @@
-﻿@page "/section/logs_memory"
+@page "/section/logs_memory"
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
 @using WsDataCore.Utils
 @using DeviceControl.Components.Section
@@ -30,7 +30,7 @@
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.MaxMemory" Property="TotalMemory" Width="10%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Percents" SortProperty="SizeAppMb" Width="30%">
         <Template Context="itemCast">
-          <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.FillSize" ShowValue="true"/>
+          <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.FillSizePercent" ShowValue="true" />
         </Template>
       </RadzenDataGridColumn>
     </TItemContent>

@@ -55,7 +55,7 @@ internal sealed class WsSchedulerHelper
         {
             WsFormNavigationUtils.ActionTryCatch(() =>
             {
-                ContextManager.ContextItem.SaveLogMemory(
+                ContextManager.LogMemoryRepository.Save(
                     UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
                 GC.Collect();
             });

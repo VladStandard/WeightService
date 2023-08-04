@@ -128,8 +128,8 @@ public sealed partial class WsMainForm : Form
             WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
             // Применить настройки устройства.
             ReturnOkFromDeviceSettings();
-            // Лог.
-            ContextManager.ContextItem.SaveLogMemory(
+            // Лог памяти.
+            ContextManager.LogMemoryRepository.Save(
                 UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             UserSession.StopwatchMain.Stop();
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();

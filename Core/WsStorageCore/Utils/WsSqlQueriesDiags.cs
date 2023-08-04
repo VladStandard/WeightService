@@ -7,13 +7,15 @@ public static class WsSqlQueriesDiags
 {
     public static class Views
         {
-            /// <summary>
-            /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
-            /// </summary>
-            /// <param name="topRecords"></param>
-            /// <param name="appName"></param>
-            /// <returns></returns>
-            public static string GetViewLogsMemory(int topRecords = 0, string appName = "") => WsSqlQueries.TrimQuery($@"
+        /// <summary>
+        /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
+        /// </summary>
+        /// <param name="topRecords"></param>
+        /// <param name="appName"></param>
+        /// <param name="createDt"></param>
+        /// <returns></returns>
+        public static string GetViewLogsMemory(int topRecords = 0, string appName = "", DateTime? createDt = null) => 
+                WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [UID]
@@ -24,7 +26,50 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[SIZE_APP_MB]
 	,[SIZE_FREE_MB]
 FROM [diag].[VIEW_LOGS_MEMORIES]
-{WsSqlQueries.GetWhereAppName(appName)}
+{WsSqlQueries.GetWhereAppNameAndCreateDt(appName, createDt)}
+ORDER BY [CREATE_DT] DESC;");
+
+        /// <summary>
+        /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
+        /// </summary>
+        /// <param name="topRecords"></param>
+        /// <param name="appName"></param>
+        /// <returns></returns>
+        public static string GetViewLogsMemoryToday(int topRecords = 0, string appName = "") => 
+                WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+	 [UID]
+	,[CREATE_DT]
+	,[APP_NAME]
+	,[DEVICE_NAME]
+	,[SCALE_NAME]
+	,[SIZE_APP_MB]
+	,[SIZE_FREE_MB]
+FROM [diag].[VIEW_LOGS_MEMORIES]
+{WsSqlQueries.GetWhereAppNameToday(appName)}
+ORDER BY [CREATE_DT] DESC;");
+
+        /// <summary>
+        /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
+        /// </summary>
+        /// <param name="topRecords"></param>
+        /// <param name="appName"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static string GetViewLogsMemoryMonth(int topRecords = 0, string appName = "", short month = 0) => 
+                WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(topRecords)}
+	 [UID]
+	,[CREATE_DT]
+	,[APP_NAME]
+	,[DEVICE_NAME]
+	,[SCALE_NAME]
+	,[SIZE_APP_MB]
+	,[SIZE_FREE_MB]
+FROM [diag].[VIEW_LOGS_MEMORIES]
+{WsSqlQueries.GetWhereAppNameMonth(appName, month)}
 ORDER BY [CREATE_DT] DESC;");
 
             /// <summary>

@@ -459,7 +459,7 @@ public static class WsFormNavigationUtils
         {
             MakeScreenShot(win32Window, scale);
             PluginMemory.MemorySize.Execute();
-            ContextManager.ContextItem.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
+            ContextManager.LogMemoryRepository.Save(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
             GC.Collect();
         }
         catch (Exception ex)

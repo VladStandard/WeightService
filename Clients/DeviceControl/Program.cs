@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsDataCore.Memory;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
@@ -65,6 +67,8 @@ WsSqlContextManagerHelper.Instance.SetupJsonWebApp(
 
 try
 {
+    // Лог памяти.
+    new WsSqlLogMemoryRepository().Save(app.Environment.ApplicationName);
     app.Run();
 }
 catch (Exception ex)

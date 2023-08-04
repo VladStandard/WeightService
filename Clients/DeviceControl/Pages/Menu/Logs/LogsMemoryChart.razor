@@ -1,10 +1,7 @@
 @page "/section/logs_memory_chart"
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
 @using WsDataCore.Utils
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
 @using DeviceControl.Utils
-@using WsStorageCore.Views.ViewDiagModels.LogsMemory
 @inherits SectionBase<WsStorageCore.Views.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
 
 <RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
@@ -16,15 +13,14 @@
 </RadzenCard>
 
 <RadzenChart>
-  <RadzenAreaSeries
-    Interpolation="@WsInterpolation" Data="@ArraySizeApp" CategoryProperty="Date"
-    Title="@WsLocaleCore.DeviceControl.MemoryChartValue" ValueProperty="Value" />
-  <RadzenLineSeries LineType="LineType.Dashed"
-    Interpolation="@WsInterpolation" Data="@ArraySizeFree" CategoryProperty="Date"
-    Title="@WsLocaleCore.DeviceControl.MemoryChartSummary" ValueProperty="Value" />
-    <RadzenValueAxis Formatter="@WsDataUtils.FormatCurrencyAsUsd">
+    <RadzenAreaSeries Interpolation="@WsInterpolation" Data="@SqlSectionCast" LineType="LineType.Dotted"
+                      Title="@WsLocaleCore.DeviceControl.MemoryChartValue" CategoryProperty="CreateDt" ValueProperty="TotalMemoryMb" />
+  <RadzenLineSeries Interpolation="@WsInterpolation" Data="@SqlSectionCast" LineType="LineType.Solid"
+                      Title="@WsLocaleCore.DeviceControl.MemoryChartSummary" CategoryProperty="CreateDt" ValueProperty="SizeAppMb" />
+    @*<RadzenValueAxis Formatter="@WsDataUtils.FormatCurrencyAsUsd">*@
+  <RadzenValueAxis >
     @*<RadzenCategoryAxis Padding="20" Formatter="@WsDataUtils.FormatAsMonth" />*@
-    <RadzenCategoryAxis Padding="20" />
+        <RadzenCategoryAxis Padding="20" />
     <RadzenGridLines Visible="true"/>
     <RadzenAxisTitle Text="@WsLocaleCore.DeviceControl.MemoryChartLeft"/>
   </RadzenValueAxis>
