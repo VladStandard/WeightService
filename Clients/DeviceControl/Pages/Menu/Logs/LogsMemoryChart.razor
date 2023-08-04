@@ -7,32 +7,20 @@
 @using WsStorageCore.Views.ViewDiagModels.LogsMemory
 @inherits SectionBase<WsStorageCore.Views.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
 
-<SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.LogsMemoryChart"
-  OnSectionUpdate="@GetSectionData"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
+<RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
+  <RadzenLabel Text="Interpolation" For="interpolation" Style="margin-right: 1rem;"/>
+  <RadzenDropDown
+    AllowClear="false" Name="interpolation" @bind-Value="@_interpolation"
+    TValue="Interpolation" ValueProperty="Value" TextProperty="Text"
+    Data="@(Enum.GetValues<Interpolation>().Select(v => new { Value = v, Text = $"{v:G}" }))"/>
+</RadzenCard>
 
-<RzDataGrid
-  TItem="@WsSqlViewLogMemoryModel"
-  @ref="@DataGrid"
-  Data="@SqlSectionCast">
-  <Columns>
-    <TItemContent TItem="@WsSqlViewLogMemoryModel">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="10%"
-                            FormatString="@WsStrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="AppName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="ScaleName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.СurrentMemory" Property="SizeAppMb" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.MaxMemory" Property="TotalMemory" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Percents" SortProperty="SizeAppMb" Width="30%">
-        <Template Context="itemCast">
-          <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.FillSize" ShowValue="true"/>
-        </Template>
-      </RadzenDataGridColumn>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+<RadzenChart>
+  <RadzenLineSeries Interpolation="@_interpolation" Data="@_valuesCurrent" CategoryProperty="Date" Title="2019" LineType="LineType.Dashed" ValueProperty="Revenue" />
+  <RadzenAreaSeries Interpolation="@_interpolation" Data="@_valuesMaximum" CategoryProperty="Date" Title="2020" ValueProperty="Revenue" />
+  <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth"/>
+  <RadzenValueAxis Formatter="@FormatAsUSD">
+    <RadzenGridLines Visible="true"/>
+    <RadzenAxisTitle Text="Revenue in USD"/>
+  </RadzenValueAxis>
+</RadzenChart>
