@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableDiagModels.ScalesScreenshots;
+﻿namespace WsStorageCoreTests.Tables.TableDiagModels.ScalesScreenshots;
 
 [TestFixture]
 public sealed class ScaleScreenshotRepositoryTests : TableRepositoryTests

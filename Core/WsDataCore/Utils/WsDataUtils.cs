@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Drawing;
-
 namespace WsDataCore.Utils;
 
 /// <summary>
@@ -125,6 +123,22 @@ public static class WsDataUtils
         GetContentType(GetFormatType(formatString));
 
     public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
+
+    /// <summary>
+    /// Форматировать валюту.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string FormatCurrencyAsUsd(object value) => 
+        ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("en-US"));
+
+    /// <summary>
+    /// Форматировать месяц.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string FormatAsMonth(object? value) => 
+        value is null ? string.Empty : Convert.ToDateTime(value).ToString("MMM");
 
     #endregion
 }

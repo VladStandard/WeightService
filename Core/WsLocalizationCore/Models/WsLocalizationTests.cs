@@ -22,6 +22,7 @@ public sealed class WsLocalizationTests : WsLocalizationBase
 
     public string AllSettingsForAllDevicesWasAdded => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(AllSettingsForAllDevicesWasAdded)}");
     public string NoDataInDb => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(NoDataInDb)}");
+    public string NoDataFor => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(NoDataFor)}");
     public string Print => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(Print)}");
     public string Records => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(Records)}");
     public string SortingError => Locale.Translate($"{WsLocalizationUtils.Tests}.{nameof(SortingError)}");

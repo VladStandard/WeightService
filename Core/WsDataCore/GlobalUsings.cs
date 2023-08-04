@@ -10,6 +10,8 @@ global using System.Collections.ObjectModel;
 global using System.ComponentModel;
 global using System.Deployment.Application;
 global using System.Diagnostics;
+global using System.Drawing;
+global using System.Globalization;
 global using System.IO;
 global using System.Linq;
 global using System.Net.Sockets;

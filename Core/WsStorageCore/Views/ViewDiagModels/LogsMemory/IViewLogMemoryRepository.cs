@@ -6,5 +6,5 @@ namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 
 public interface IViewLogMemoryRepository : IViewBaseRepository<WsSqlViewLogMemoryModel>
 {
-    public new List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig);
+    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "");
 }

@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Templates;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Templates;
 
 [TestFixture]
 public sealed class TemplatesRepositoryTests : TableRepositoryTests

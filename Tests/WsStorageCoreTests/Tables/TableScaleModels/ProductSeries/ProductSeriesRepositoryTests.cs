@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
 
 [TestFixture]
 public sealed class ProductSeriesRepositoryTests : TableRepositoryTests

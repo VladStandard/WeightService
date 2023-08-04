@@ -64,6 +64,25 @@ public class WsSqlCrudConfigModel
         IsMarked = WsSqlEnumIsMarked.ShowAll;
     }
 
+    /// <summary>
+    /// Реализация метода Copy.
+    /// </summary>
+    /// <param name="sqlCrudConfig"></param>
+    public WsSqlCrudConfigModel(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        IsFillReferences = sqlCrudConfig.IsFillReferences;
+        
+        Orders = new(sqlCrudConfig.Orders);
+        Filters = new(sqlCrudConfig.Filters);
+        NativeParameters = new(sqlCrudConfig.NativeParameters);
+        
+        IsResultOrder = sqlCrudConfig.IsResultOrder;
+        IsReadUncommitted = sqlCrudConfig.IsReadUncommitted;
+        
+        NativeQuery = sqlCrudConfig.NativeQuery;
+        IsMarked = sqlCrudConfig.IsMarked;
+    }
+
     #endregion
     
     #region Filters

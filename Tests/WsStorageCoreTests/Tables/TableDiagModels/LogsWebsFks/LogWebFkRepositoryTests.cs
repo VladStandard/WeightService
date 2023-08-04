@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebsFks;
+﻿namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebsFks;
 
 [TestFixture]
 public sealed class LogWebFkRepositoryTests : TableRepositoryTests

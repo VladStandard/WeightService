@@ -10,6 +10,8 @@ public static class WsSqlQueries
     public static string GetTopRecords(int topRecords) =>
             topRecords == 0 ? string.Empty : $"TOP {topRecords}";
 
+    public static string GetWhereAppName(string appName) => string.IsNullOrEmpty(appName) ? string.Empty : $"WHERE [APP_NAME] = '{appName}'";
+    
     public static string GetWhereIsMarked(WsSqlEnumIsMarked isMarked) => isMarked switch
         {
             WsSqlEnumIsMarked.ShowOnlyActual => "WHERE [IS_MARKED]=0",

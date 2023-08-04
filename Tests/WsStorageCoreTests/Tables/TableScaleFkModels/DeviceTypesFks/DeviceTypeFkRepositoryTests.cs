@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
+﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
 
 [TestFixture]
 public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests

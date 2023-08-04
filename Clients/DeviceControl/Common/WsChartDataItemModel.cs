@@ -6,8 +6,29 @@ namespace DeviceControl.Common;
 /// <summary>
 /// Данные для чарта RadzenChart.
 /// </summary>
-public class WsChartDataItemModel
+public sealed class WsChartDataItemModel
 {
-    public string Date { get; set; }
-    public double Revenue { get; set; }
+    #region Public and private fields, properties, constructor
+
+    public DateTime Dt { get; set; }
+    public int SizeApp { get; set; }
+    public int SizeFree { get; set; }
+    public string Date => Dt.Date.ToString("MMM");
+    public string Day => Dt.Day.ToString();
+
+    public WsChartDataItemModel()
+    {
+        Dt = DateTime.MinValue;
+        SizeApp = 0;
+        SizeFree = 0;
+    }
+
+    public WsChartDataItemModel(DateTime dt, int sizeApp, int sizeFree)
+    {
+        Dt = dt;
+        SizeApp = sizeApp;
+        SizeFree = sizeFree;
+    }
+
+    #endregion
 }

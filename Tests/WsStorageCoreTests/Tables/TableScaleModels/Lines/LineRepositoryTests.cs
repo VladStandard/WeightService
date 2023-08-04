@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests

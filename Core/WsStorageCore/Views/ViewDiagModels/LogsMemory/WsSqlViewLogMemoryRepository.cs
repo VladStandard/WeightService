@@ -6,11 +6,15 @@ namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 public sealed class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    
+
+    // Если оставить прокси как есть, то будет падать, т.к. для вьюшки нет маппингов!
     public List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+        => GetList(sqlCrudConfig.SelectTopRowsCount);
+
+    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "")
     {
         List<WsSqlViewLogMemoryModel> result = new();
-        string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(sqlCrudConfig.SelectTopRowsCount);
+        string query = WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords, appName);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {

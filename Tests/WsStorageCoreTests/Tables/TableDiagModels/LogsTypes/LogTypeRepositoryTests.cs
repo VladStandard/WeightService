@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableDiagModels.LogsTypes;
+﻿namespace WsStorageCoreTests.Tables.TableDiagModels.LogsTypes;
 
 [TestFixture]
 public sealed class LogTypesRepositoryTests : TableRepositoryTests

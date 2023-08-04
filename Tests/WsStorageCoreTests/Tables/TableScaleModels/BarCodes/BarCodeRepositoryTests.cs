@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
 public sealed class BarCodeRepositoryTests : TableRepositoryTests

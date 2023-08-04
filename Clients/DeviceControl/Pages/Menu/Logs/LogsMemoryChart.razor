@@ -10,17 +10,22 @@
 <RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
   <RadzenLabel Text="Interpolation" For="interpolation" Style="margin-right: 1rem;"/>
   <RadzenDropDown
-    AllowClear="false" Name="interpolation" @bind-Value="@_interpolation"
+    AllowClear="false" Name="interpolation" @bind-Value="@WsInterpolation"
     TValue="Interpolation" ValueProperty="Value" TextProperty="Text"
     Data="@(Enum.GetValues<Interpolation>().Select(v => new { Value = v, Text = $"{v:G}" }))"/>
 </RadzenCard>
 
 <RadzenChart>
-  <RadzenLineSeries Interpolation="@_interpolation" Data="@_valuesCurrent" CategoryProperty="Date" Title="2019" LineType="LineType.Dashed" ValueProperty="Revenue" />
-  <RadzenAreaSeries Interpolation="@_interpolation" Data="@_valuesMaximum" CategoryProperty="Date" Title="2020" ValueProperty="Revenue" />
-  <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth"/>
-  <RadzenValueAxis Formatter="@FormatAsUSD">
+  <RadzenAreaSeries
+    Interpolation="@WsInterpolation" Data="@ArraySizeApp" CategoryProperty="Date"
+    Title="@WsLocaleCore.DeviceControl.MemoryChartValue" ValueProperty="Value" />
+  <RadzenLineSeries LineType="LineType.Dashed"
+    Interpolation="@WsInterpolation" Data="@ArraySizeFree" CategoryProperty="Date"
+    Title="@WsLocaleCore.DeviceControl.MemoryChartSummary" ValueProperty="Value" />
+    <RadzenValueAxis Formatter="@WsDataUtils.FormatCurrencyAsUsd">
+    @*<RadzenCategoryAxis Padding="20" Formatter="@WsDataUtils.FormatAsMonth" />*@
+    <RadzenCategoryAxis Padding="20" />
     <RadzenGridLines Visible="true"/>
-    <RadzenAxisTitle Text="Revenue in USD"/>
+    <RadzenAxisTitle Text="@WsLocaleCore.DeviceControl.MemoryChartLeft"/>
   </RadzenValueAxis>
 </RadzenChart>

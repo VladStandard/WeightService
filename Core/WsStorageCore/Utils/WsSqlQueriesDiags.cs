@@ -11,8 +11,9 @@ public static class WsSqlQueriesDiags
             /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
             /// </summary>
             /// <param name="topRecords"></param>
+            /// <param name="appName"></param>
             /// <returns></returns>
-            public static string GetViewLogsMemory(int topRecords = 0) => WsSqlQueries.TrimQuery($@"
+            public static string GetViewLogsMemory(int topRecords = 0, string appName = "") => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	 [UID]
@@ -23,6 +24,7 @@ SELECT {WsSqlQueries.GetTopRecords(topRecords)}
 	,[SIZE_APP_MB]
 	,[SIZE_FREE_MB]
 FROM [diag].[VIEW_LOGS_MEMORIES]
+{WsSqlQueries.GetWhereAppName(appName)}
 ORDER BY [CREATE_DT] DESC;");
 
             /// <summary>

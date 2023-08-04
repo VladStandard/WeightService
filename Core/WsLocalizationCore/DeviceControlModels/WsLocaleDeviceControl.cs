@@ -40,8 +40,8 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string ItemPluBundleFk => Lang == WsEnumLanguage.English ? "PLU's bundle" : "Пакет ПЛУ";
     public string ItemPluNestingFk => Lang == WsEnumLanguage.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string ItemPluScale => Lang == WsEnumLanguage.English ? "Device PLU" : "ПЛУ устройства";
-    public string ItemPluWeighing => Lang == WsEnumLanguage.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemPlusStorage => Lang == WsEnumLanguage.English ? "PLU storage" : "Cпособ хранения ПЛУ";
+    public string ItemPluWeighing => Lang == WsEnumLanguage.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == WsEnumLanguage.English ? "Prod. facilities" : "Производственные площадки";
     public string ItemProductionFacility => Lang == WsEnumLanguage.English ? "Prod. facility" : "Произв. площадка";
     public string ItemProductSeries => Lang == WsEnumLanguage.English ? "Product series" : "Серия продукта";
@@ -57,6 +57,11 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string ItemWorkShop => Lang == WsEnumLanguage.English ? "Workshop" : "Цех";
     public string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
     public string LinkLabelary => "http://labelary.com/viewer.html";
+    public string LogsMemory => Lang == WsEnumLanguage.English ? "Logs memory" : "Логи памяти";
+    public string LogsMemoryChart => Lang == WsEnumLanguage.English ? "Memory chart" : "Чарт памяти";
+    public string MemoryChartLeft => Lang == WsEnumLanguage.English ? "Size at MB" : "Размер в МБ";
+    public string MemoryChartSummary => Lang == WsEnumLanguage.English ? "Summary" : "Всего";
+    public string MemoryChartValue => Lang == WsEnumLanguage.English ? "Value" : "Значение";
     public string SectionAdministering => Lang == WsEnumLanguage.English ? "Administering" : "Администрирование";
     public string SectionAutomatedWorkplace => Lang == WsEnumLanguage.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
     public string SectionBarCodes => Lang == WsEnumLanguage.English ? "Barcodes" : "Штрихкоды";
@@ -66,6 +71,7 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionBoxes => Lang == WsEnumLanguage.English ? "Boxes" : "Коробки";
     public string SectionBrands => Lang == WsEnumLanguage.English ? "Brands" : "Бренды";
     public string SectionBundles => Lang == WsEnumLanguage.English ? "Bundles" : "Пакеты";
+    public string SectionClips => Lang == WsEnumLanguage.English ? "Clips" : "Клипсы";
     public string SectionContragents => Lang == WsEnumLanguage.English ? "Counterparties" : "Контрагенты";
     public string SectionDevices => Lang == WsEnumLanguage.English ? "Devices" : "Устройства";
     public string SectionDevicesScalesFk => Lang == WsEnumLanguage.English ? "Devices with scales" : "Устройства с постами";
@@ -82,14 +88,14 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionMeasurements => Lang == WsEnumLanguage.English ? "Measurements" : "Измерения";
     public string SectionModules => Lang == WsEnumLanguage.English ? "Modules" : "Модули";
     public string SectionNestingFk => Lang == WsEnumLanguage.English ? "Nesting" : "Вложенности";
-    public string SectionPlusGroups => Lang == WsEnumLanguage.English ? "PLus groups" : "Группы ПЛУ";
     public string SectionOperations => Lang == WsEnumLanguage.English ? "Operations" : "Операции";
     public string SectionOrganizations => Lang == WsEnumLanguage.English ? "Organizations" : "Организации";
     public string SectionPlus => Lang == WsEnumLanguage.English ? "PLUs" : "ПЛУ";
-    public string SectionPlusStorage => Lang == WsEnumLanguage.English ? "PLUs storage" : "Cпособы хранения ПЛУ";
     public string SectionPlusBundlesFk => Lang == WsEnumLanguage.English ? "PLU & bundles" : "Пакеты ПЛУ";
+    public string SectionPlusGroups => Lang == WsEnumLanguage.English ? "PLus groups" : "Группы ПЛУ";
     public string SectionPlusNestingFk => Lang == WsEnumLanguage.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlusScales => Lang == WsEnumLanguage.English ? "PLU & Lines" : "ПЛУ и Линия";
+    public string SectionPlusStorage => Lang == WsEnumLanguage.English ? "PLUs storage" : "Cпособы хранения ПЛУ";
     public string SectionPlusWeightings => Lang == WsEnumLanguage.English ? "Plus Weightings" : "Взвешивания ПЛУ";
     public string SectionProductionFacilities => Lang == WsEnumLanguage.English ? "Production facilities" : "Производственные площадки";
     public string SectionProductionFacilitiesShort => Lang == WsEnumLanguage.English ? "Facilities" : "Площадки";
@@ -103,9 +109,9 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionTemplates => Lang == WsEnumLanguage.English ? "Templates" : "Шаблоны";
     public string SectionWeighings => Lang == WsEnumLanguage.English ? "Weighings" : "Взвешивания";
     public string SectionWeithingFactsAggregation => Lang == WsEnumLanguage.English ? "Aggregation weithings" : "Агрегированные взвешивания";
+    public string SectionWeithingFactsAggregationShort => Lang == WsEnumLanguage.English ? "Aggr. weithings" : "Агр. взвешивания";
     public string SectionWeithingFactsAggregationWithoutPlu => Lang == WsEnumLanguage.English ? "Aggregation weithings without PLU" : "Агрегированные взвешивания без ПЛУ";
     public string SectionWeithingFactsAggregationWithPLU => Lang == WsEnumLanguage.English ? "Aggregation weithings with PLU" : "Агрегированные взвешивания с ПЛУ";
-    public string SectionWeithingFactsAggregationShort => Lang == WsEnumLanguage.English ? "Aggr. weithings" : "Агр. взвешивания";
     public string SectionWorkShops => Lang == WsEnumLanguage.English ? "Workshops" : "Цеха";
     public string Table => Lang == WsEnumLanguage.English ? "Table" : "Таблица";
     public string TableActionAdd => Lang == WsEnumLanguage.English ? "Add" : "Добавить";
@@ -120,9 +126,6 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string TableActionSave => Lang == WsEnumLanguage.English ? "Save" : "Сохранить";
     public string TableActionsIsDeny => Lang == WsEnumLanguage.English ? "Actions is deny" : "Действия недоступны";
     public string WebAppIsStarted => Lang == WsEnumLanguage.English ? "Web-app is started" : "Веб-приложение запущено";
-    public string SectionClips => Lang == WsEnumLanguage.English ? "Clips" : "Клипсы";
-    public string LogsMemory => Lang == WsEnumLanguage.English ? "Logs memory" : "Логи памяти";
-    public string LogsMemoryChart => Lang == WsEnumLanguage.English ? "Memory chart" : "Чарт памяти";
 
     #endregion
 }

@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCore.Views.ViewScaleModels.Aggregations;
+﻿using WsStorageCore.Views.ViewScaleModels.Aggregations;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 

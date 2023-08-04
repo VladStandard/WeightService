@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
+﻿using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 

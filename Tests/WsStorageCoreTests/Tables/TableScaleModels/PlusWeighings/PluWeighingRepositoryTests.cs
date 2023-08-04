@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
+﻿using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 

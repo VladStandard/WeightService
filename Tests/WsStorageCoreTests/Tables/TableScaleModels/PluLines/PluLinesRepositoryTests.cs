@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Constraints;
-
-namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
+﻿namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 
 [TestFixture]
 public sealed class PluLinesRepositoryTests : TableRepositoryTests
