@@ -3,11 +3,11 @@
 
 namespace DeviceControl.Services;
 
-public class RouteService
+public class WsRouteService
 {
     private readonly NavigationManager _navigationManager;
 
-    public RouteService(NavigationManager navigationManager)
+    public WsRouteService(NavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
     }
@@ -39,9 +39,8 @@ public class RouteService
         };
     }
 
-    public static string GetSectionRoute(WsSqlTableBase? item)
-    {
-        return item switch
+    public static string GetSectionRoute(WsSqlTableBase? item) =>
+        item switch
         {
             WsSqlAccessModel => RouteUtil.SectionAccess,
             WsSqlBarCodeModel => RouteUtil.SectionBarCodes,
@@ -73,7 +72,6 @@ public class RouteService
             WsSqlVersionModel => RouteUtil.SectionVersions,
             WsSqlWorkShopModel => RouteUtil.SectionWorkShops,
             WsSqlClipModel => RouteUtil.SectionClips,
-            
             WsSqlViewLogModel => RouteUtil.SectionLogs,
             WsSqlViewLineModel => RouteUtil.SectionLines,
             WsSqlViewBarcodeModel => RouteUtil.SectionBarCodes,
@@ -83,6 +81,4 @@ public class RouteService
             WsSqlViewWebLogModel => RouteUtil.SectionLogsWebService,
             _ => string.Empty
         };
-    }
-
 }

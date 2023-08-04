@@ -3,13 +3,13 @@
 
 namespace DeviceControl.Services;
 
-public class CustomAuthStateProvider : AuthenticationStateProvider
+public class WsCustomAuthStateProvider : AuthenticationStateProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IUserRightsService _userRightsService;
+    private readonly IWsUserRightsService _userRightsService;
     private readonly IMemoryCache _cache;
 
-    public CustomAuthStateProvider(IHttpContextAccessor httpContextAccessor, IUserRightsService userRightsService, IMemoryCache cache)
+    public WsCustomAuthStateProvider(IHttpContextAccessor httpContextAccessor, IWsUserRightsService userRightsService, IMemoryCache cache)
     {
         _httpContextAccessor = httpContextAccessor;
         _userRightsService = userRightsService;
@@ -25,9 +25,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
         ClaimsIdentity claimsIdentity = new(user.Claims, "Windows");
 
-        List<string> userRights;
-
-        if (!_cache.TryGetValue(user.Identity.Name, out userRights))
+        if (!_cache.TryGetValue(user.Identity.Name, out List<string>? userRights))
         {
             userRights = await _userRightsService.GetUserRightsAsync(user.Identity.Name);
             MemoryCacheEntryOptions cacheLifTime = new()
@@ -36,8 +34,9 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
             };
             _cache.Set(user.Identity.Name, userRights, cacheLifTime);
         }
-        foreach (string right in userRights)
-            claimsIdentity.AddClaim(new(ClaimTypes.Role, right));
+        if (userRights is not null)
+            foreach (string right in userRights)
+                claimsIdentity.AddClaim(new(ClaimTypes.Role, right));
         return new(new(claimsIdentity));
     }
 }

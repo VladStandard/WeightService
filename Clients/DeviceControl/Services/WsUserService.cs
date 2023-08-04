@@ -3,11 +3,11 @@
 
 namespace DeviceControl.Services;
 
-public class UserService
+public class WsUserService
 {
     private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-    public UserService(AuthenticationStateProvider authenticationStateProvider)
+    public WsUserService(AuthenticationStateProvider authenticationStateProvider)
     {
         _authenticationStateProvider = authenticationStateProvider;
     }

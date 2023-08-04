@@ -3,11 +3,11 @@
 
 namespace DeviceControl.Services;
 
-public class LocalStorageService
+public class WsLocalStorageService
 {
     private readonly IJSRuntime _jsRuntime;
 
-    public LocalStorageService(IJSRuntime jsRuntime)
+    public WsLocalStorageService(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
     }
