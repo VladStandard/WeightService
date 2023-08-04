@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // Global using directives
 
+global using System.Diagnostics;
 global using System.Globalization;
 global using System.Reflection;
 global using System.Security.Claims;
@@ -25,7 +26,6 @@ global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.JSInterop;
 global using MudBlazor.Services;
 global using Radzen.Blazor;
-global using WsBlazorCore.CssStyles;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
 global using WsDataCore.Protocols;

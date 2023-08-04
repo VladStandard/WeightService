@@ -1,6 +1,6 @@
 ﻿@page "/section/brands/new"
 @page "/section/brands/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Brands

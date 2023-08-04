@@ -10,7 +10,7 @@
   </div>
 
   <RadzenPanelMenu class="@ItemMenuCss">
-    <AuthorizeView Roles="@UserAccessStr.Read">
+    <AuthorizeView Roles="@WsUserAccessStr.Read">
       @* Devices *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@WsRouteUtils.SectionLines"/>
@@ -56,7 +56,7 @@
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemoryChart" Path="@WsRouteUtils.SectionLogsMemoryChart" />
       </RadzenPanelMenuItem>
     </AuthorizeView>
-    <AuthorizeView Roles="@UserAccessStr.Admin">
+    <AuthorizeView Roles="@WsUserAccessStr.Admin">
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
         <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@WsRouteUtils.SectionAccess"/>
         <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.DatabaseInfo" Path="@WsRouteUtils.SystemDatabaseInfo"/>

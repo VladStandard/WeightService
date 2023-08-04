@@ -1,7 +1,7 @@
 ﻿@using DeviceControl.Utils
 @inherits ComponentBase
 
-<AuthorizeView Roles="@UserAccessStr.Write">
+<AuthorizeView Roles="@WsUserAccessStr.Write">
   @if (ButtonSettings.IsShowSave)
   {
     <RadzenButton

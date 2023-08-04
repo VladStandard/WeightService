@@ -1,24 +1,22 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsLocalizationCore.Utils;
+namespace DeviceControl.Utils;
 
-namespace WsBlazorCore.CssStyles;
-
-public class CssStyleTableHeadModel
+public class WsCssStyleTableHeadModel
 {
     #region Public and private fields, properties, constructor
 
     public List<int> ColumnsWidths { get; set; }
     public List<string> ColumnsTitles { get; set; }
     
-    public CssStyleTableHeadModel()
+    public WsCssStyleTableHeadModel()
     {
         ColumnsWidths = new() {30, 70};
         ColumnsTitles = GetColumnsTitles();
     }
     
-    public CssStyleTableHeadModel(List<int> columnsWidths)
+    public WsCssStyleTableHeadModel(List<int> columnsWidths)
     {
         ColumnsWidths = columnsWidths;
         ColumnsTitles = GetColumnsTitles();

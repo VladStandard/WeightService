@@ -6,7 +6,7 @@ namespace DeviceControl.Utils;
 /// <summary>
 /// Утилиты роутинга.
 /// </summary>
-public static class RouteUtils
+public static class WsRouteUtils
 {
     #region Администрирование
     

@@ -20,7 +20,7 @@
           Icon="people"
           Text="@User?.Identity?.Name"
           Path=@($"{WsRouteUtils.Profile}")/>
-        <AuthorizeView Roles="@UserAccessStr.Admin">
+        <AuthorizeView Roles="@WsUserAccessStr.Admin">
           <RadzenMenuItem
             Text="@VerBlazor"
             Path=@($"{WsRouteUtils.SystemAppInfo}")/>

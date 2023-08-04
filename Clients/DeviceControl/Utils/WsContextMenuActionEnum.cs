@@ -3,7 +3,7 @@
 
 namespace DeviceControl.Utils;
 
-public enum ContextMenuAction
+public enum WsContextMenuActionEnum
 {
     Open,
     OpenNewTab,

@@ -85,30 +85,30 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         WsLocaleContextMenu locale = WsLocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
-            new() { Text = locale.Open, Value = ContextMenuAction.Open },
-            new() { Text = locale.OpenNewTab, Value = ContextMenuAction.OpenNewTab },
+            new() { Text = locale.Open, Value = WsContextMenuActionEnum.Open },
+            new() { Text = locale.OpenNewTab, Value = WsContextMenuActionEnum.OpenNewTab },
         };
 
-        if (User?.IsInRole(UserAccessStr.Write) != true)
+        if (User?.IsInRole(WsUserAccessStr.Write) != true)
             return contextMenuItems;
 
         if (ButtonSettings.IsShowMark)
-            contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuAction.Mark });
+            contextMenuItems.Add(new() { Text = locale.Mark, Value = WsContextMenuActionEnum.Mark });
         if (ButtonSettings.IsShowDelete)
-            contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuAction.Delete });
+            contextMenuItems.Add(new() { Text = locale.Delete, Value = WsContextMenuActionEnum.Delete });
 
         return contextMenuItems;
     }
 
     private void ParseContextMenuActions(MenuItemEventArgs e)
     {
-        ContextMenuAction menuAction = (ContextMenuAction)e.Value;
+        WsContextMenuActionEnum menuAction = (WsContextMenuActionEnum)e.Value;
         Func<Task> action = menuAction switch
         {
-            ContextMenuAction.OpenNewTab => SqlItemOpenNewTabAsync,
-            ContextMenuAction.Open => SqlItemOpenAsync,
-            ContextMenuAction.Mark => SqlItemMarkAsync,
-            ContextMenuAction.Delete => SqlItemDeleteAsync,
+            WsContextMenuActionEnum.OpenNewTab => SqlItemOpenNewTabAsync,
+            WsContextMenuActionEnum.Open => SqlItemOpenAsync,
+            WsContextMenuActionEnum.Mark => SqlItemMarkAsync,
+            WsContextMenuActionEnum.Delete => SqlItemDeleteAsync,
             _ => throw new NotImplementedException()
         };
 
@@ -162,7 +162,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
 
     #region Auth methods
 
-    [Authorize(Roles = UserAccessStr.Write)]
+    [Authorize(Roles = WsUserAccessStr.Write)]
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -174,7 +174,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         });
     }
 
-    [Authorize(Roles = UserAccessStr.Write)]
+    [Authorize(Roles = WsUserAccessStr.Write)]
     protected async Task SqlItemDeleteAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -188,7 +188,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         });
     }
 
-    [Authorize(Roles = UserAccessStr.Write)]
+    [Authorize(Roles = WsUserAccessStr.Write)]
     protected async Task SqlItemMarkAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -201,7 +201,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         });
     }
 
-    [Authorize(Roles = UserAccessStr.Write)]
+    [Authorize(Roles = WsUserAccessStr.Write)]
     protected async Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -212,14 +212,14 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         });
     }
 
-    [Authorize(Roles = UserAccessStr.Read)]
+    [Authorize(Roles = WsUserAccessStr.Read)]
     protected async Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateItemRoute(SqlItemCast);
     }
 
-    [Authorize(Roles = UserAccessStr.Read)]
+    [Authorize(Roles = WsUserAccessStr.Read)]
     protected async Task SqlItemOpenNewTabAsync()
     {
         await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast), "_blank");

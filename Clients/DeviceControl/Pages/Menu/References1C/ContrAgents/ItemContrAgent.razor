@@ -1,6 +1,6 @@
 ﻿@page "/section/contragents/new"
 @page "/section/contragents/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Contragents

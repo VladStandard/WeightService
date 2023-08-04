@@ -14,9 +14,9 @@ public partial class ItemActions : ComponentBase
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
 
     private bool GetDisableStatusOfSaveBtn => 
-        !(User?.IsInRole(UserAccessStr.Write) == true && ButtonSettings.IsShowSave);
+        !(User?.IsInRole(WsUserAccessStr.Write) == true && ButtonSettings.IsShowSave);
     private bool GetDisableStatusOfCancelBtn =>  
-        !(User?.IsInRole(UserAccessStr.Read) == true && ButtonSettings.IsShowCancel);
+        !(User?.IsInRole(WsUserAccessStr.Read) == true && ButtonSettings.IsShowCancel);
     
     private ClaimsPrincipal? User { get; set; }
         

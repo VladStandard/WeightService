@@ -8,7 +8,7 @@ public partial class MainLayout : LayoutComponentBase
     [Inject] private WsUserService UserService { get; set; }
     private ClaimsPrincipal? User { get; set; }
     private static BlazorAppSettingsHelper BlazorAppSettings => BlazorAppSettingsHelper.Instance;
-    private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
+    private static string VerBlazor => $"v{WsBlazorCoreUtils.GetLibVersion()}";
     private static string TmpStyle => WsDebugHelper.Instance.IsDevelop ? "background-color: darkorange;" : "background-color: grey;";
 
     #region Public and private methods

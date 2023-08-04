@@ -1,6 +1,6 @@
 @page "/section/plus_labels/new"
 @page "/section/plus_labels/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Services
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
@@ -65,7 +65,7 @@
                     Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
-  <AuthorizeView Roles="@UserAccessStr.Admin">
+  <AuthorizeView Roles="@WsUserAccessStr.Admin">
     <tr>
       <td>@WsLocaleCore.Table.Xml</td>
       <td colspan="3">

@@ -1,6 +1,6 @@
 namespace DeviceControl.Utils;
 
-public static class UserAccessStr
+public static class WsUserAccessStr
 {
     public const string Admin = "3";
     public const string Write = "2";

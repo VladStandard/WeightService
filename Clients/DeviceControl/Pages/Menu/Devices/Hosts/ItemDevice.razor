@@ -1,6 +1,6 @@
 @page "/section/devices/new"
 @page "/section/devices/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz

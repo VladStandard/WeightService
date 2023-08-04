@@ -16,7 +16,7 @@
         </Template>
       </RzDropDown>
     }
-    <AuthorizeView Roles="@UserAccessStr.Write">
+    <AuthorizeView Roles="@WsUserAccessStr.Write">
       @if (IsGuiShowFilterMarked)
       {
         <RzDropDown Style="margin-left: 20px; width: 10%; display: inline-block;"
@@ -36,7 +36,7 @@
       Click="@OnReload"/>
     @if (ButtonSettings.IsShowNew)
     {
-      <AuthorizeView Roles="@UserAccessStr.Write">
+      <AuthorizeView Roles="@WsUserAccessStr.Write">
         <RadzenButton
           Icon="add"
           ButtonStyle="@ButtonStyle.Secondary"
