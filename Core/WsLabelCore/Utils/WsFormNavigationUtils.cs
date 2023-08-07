@@ -2,8 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
-using System.Windows.Shapes;
-using Zebra.Sdk.Device;
 
 namespace WsLabelCore.Utils;
 
@@ -125,9 +123,9 @@ public static class WsFormNavigationUtils
     {
         // Загрузка из сессии пользователя.
         DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
-        DeviceSettingsUserControl.ViewModel.Device = ContextManager.DevicesRepository.GetItemByLine(LabelSession.Line);
+        DeviceSettingsUserControl.ViewModel.Device = ContextManager.DeviceRepository.GetItemByLine(LabelSession.Line);
         DeviceSettingsUserControl.ViewModel.Devices =
-            WsSqlContextManagerHelper.Instance.DevicesRepository.GetList(WsSqlCrudConfigFactory.GetCrudAll());
+            WsSqlContextManagerHelper.Instance.DeviceRepository.GetList(WsSqlCrudConfigFactory.GetCrudAll());
         DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(
             WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetListByDevice(DeviceSettingsUserControl.ViewModel.Device));
 

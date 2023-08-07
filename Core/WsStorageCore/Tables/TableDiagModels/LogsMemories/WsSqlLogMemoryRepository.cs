@@ -9,7 +9,7 @@ public class WsSqlLogMemoryRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
     {
         MemorySizeModel memorySize = new();
         memorySize.Execute();
-        Save(memorySize.GetMemorySizeFreeMb(), memorySize.GetMemorySizeAppMb(), appName);
+        Save(memorySize.GetMemorySizeAppMb(), memorySize.GetMemorySizeFreeMb(), appName, sessionType);
     }
     
     public void Save(short sizeAppMb, short sizeFreeMb, string appName = "",

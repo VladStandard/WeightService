@@ -9,34 +9,12 @@ public sealed class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
 
     // Если оставить прокси как есть, то будет падать, т.к. для вьюшки нет маппингов!
     public List<WsSqlViewLogMemoryModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
-        GetList(sqlCrudConfig.SelectTopRowsCount);
+        GetList(string.Empty, string.Empty, WsSqlEnumTimeInterval.All, sqlCrudConfig.SelectTopRowsCount);
 
-    public List<WsSqlViewLogMemoryModel> GetListAppName(string appName) =>
-        GetList(0, appName);
-
-    public List<WsSqlViewLogMemoryModel> GetListToday(int topRecords = 0, string appName = "") =>
-        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemoryToday(topRecords, appName));
-
-    public List<WsSqlViewLogMemoryModel> GetListMonth(int topRecords = 0, string appName = "") => 
-        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemoryMonth(topRecords, appName, (short)DateTime.Now.Month));
-
-    public List<WsSqlViewLogMemoryModel> GetList(int topRecords = 0, string appName = "", DateTime? dtCreate = null) => 
-        GetList(WsSqlQueriesDiags.Views.GetViewLogsMemory(topRecords, appName, dtCreate));
-
-    public List<WsSqlViewLogMemoryModel> GetListDeviceControl() =>
-        GetList(0, "DeviceControl");
-    
-    public List<WsSqlViewLogMemoryModel> GetListDeviceControlToday() =>
-        GetListToday(0, "DeviceControl");
-    
-    public List<WsSqlViewLogMemoryModel> GetListDeviceControlMonth() =>
-        GetListMonth(0, "DeviceControl");
-    
-    public List<WsSqlViewLogMemoryModel> GetList(string query)
+    private List<WsSqlViewLogMemoryModel> GetListByQuery(string query)
     {
-        List<WsSqlViewLogMemoryModel> result = new();
-        //
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        List<WsSqlViewLogMemoryModel> result = new(objects.Length);
         foreach (object obj in objects)
         {
             int i = 0;
@@ -49,9 +27,16 @@ public sealed class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
                 DeviceName = Convert.ToString(item[i++]),
                 ScaleName = Convert.ToString(item[i++]),
                 SizeAppMb = Convert.ToInt16(item[i++]),
-                SizeFreeMb = Convert.ToInt16(item[i++])
+                SizeFreeMb = Convert.ToInt16(item[i])
             });
         }
         return result;
     }
+    
+    public List<WsSqlViewLogMemoryModel> GetList(string appName, string deviceName,  WsSqlEnumTimeInterval timeInterval, int records = 0) =>
+        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsMemory(appName, deviceName, timeInterval, records));
+    
+    public List<WsSqlViewLogMemoryModel> GetList(int records) =>
+        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsMemory(
+            string.Empty, string.Empty, WsSqlEnumTimeInterval.All, records));
 }

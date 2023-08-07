@@ -37,8 +37,13 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
         return accessModel;
     }
    
-    public WsSqlAppModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlAppModel>();
-    
+    public WsSqlAppModel GetNewItem()
+    {
+        WsSqlAppModel app = SqlCore.GetItemNewEmpty<WsSqlAppModel>();
+        //app.Name = app.DisplayName;
+        return app;
+    }
+
     #endregion
 
     #region List

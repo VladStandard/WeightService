@@ -3,6 +3,7 @@
 // Global using directives
 
 global using System.Diagnostics;
+global using System.Drawing;
 global using System.Globalization;
 global using System.Reflection;
 global using System.Security.Claims;
@@ -45,6 +46,7 @@ global using WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 global using WsStorageCore.Tables.TableScaleModels.Access;
+global using WsStorageCore.Tables.TableScaleModels.Apps;
 global using WsStorageCore.Tables.TableScaleModels.BarCodes;
 global using WsStorageCore.Tables.TableScaleModels.Boxes;
 global using WsStorageCore.Tables.TableScaleModels.Brands;

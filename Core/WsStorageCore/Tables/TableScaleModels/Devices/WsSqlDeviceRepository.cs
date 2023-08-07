@@ -58,5 +58,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
         return SqlCore.GetListNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 
+    public WsSqlDeviceModel GetCurrentDevice() => GetItemByName(MdNetUtils.GetLocalDeviceName(false));
+
     #endregion
 }

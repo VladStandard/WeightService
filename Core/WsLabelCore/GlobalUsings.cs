@@ -70,6 +70,7 @@ global using WsStorageCore.Tables.TableScaleModels.Devices;
 global using WsStorageCore.Tables.TableScaleModels.DeviceTypes;
 global using WsStorageCore.Tables.TableScaleModels.Plus;
 global using WsStorageCore.Tables.TableScaleModels.PlusScales;
+global using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 global using WsStorageCore.Tables.TableScaleModels.ProductionFacilities;
 global using WsStorageCore.Tables.TableScaleModels.ProductSeries;
 global using WsStorageCore.Tables.TableScaleModels.Scales;

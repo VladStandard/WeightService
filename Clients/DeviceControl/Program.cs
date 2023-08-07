@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsDataCore.Memory;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
@@ -27,16 +25,16 @@ builder.Services.AddScoped<WsUserService>();
 builder.Services.AddScoped<WsRouteService>();
 builder.Services.AddScoped<WsLocalStorageService>();
 builder.Services.AddScoped<WsJsService>();
-
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<NotificationService>();
-
 builder.Services.AddScoped<IWsUserRightsService, WsUserRightsService>();
 builder.Services.AddScoped<AuthenticationStateProvider, WsCustomAuthStateProvider>();
 
 #endregion
+
+#region App
 
 WebApplication app = builder.Build();
 
@@ -75,3 +73,5 @@ catch (Exception ex)
 {
     WsFileLoggerHelper.Instance.StoreException(ex);
 }
+
+#endregion

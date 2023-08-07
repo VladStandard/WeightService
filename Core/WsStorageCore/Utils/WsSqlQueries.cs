@@ -10,25 +10,59 @@ public static class WsSqlQueries
     public static string GetTopRecords(int topRecords) =>
             topRecords == 0 ? string.Empty : $"TOP {topRecords}";
 
-    public static string GetWhereAppName(string appName) => string.IsNullOrEmpty(appName) ? string.Empty : $"WHERE [APP_NAME] = '{appName}'";
-    
-    public static string GetWhereAppNameAndCreateDt(string appName, DateTime? createDt) =>
-        string.IsNullOrEmpty(appName) || createDt is null ? GetWhereAppName(appName) 
+    public static string GetWhereAppDeviceName(string appName, string deviceName)
+    {
+        if (string.IsNullOrEmpty(appName) && string.IsNullOrEmpty(deviceName))
+            return string.Empty;
+        if (string.IsNullOrEmpty(appName))
+            return $"WHERE [DEVICE_NAME] = '{deviceName}' ";
+        if (string.IsNullOrEmpty(deviceName))
+            return $"WHERE [APP_NAME] = '{appName}' ";
+        return $"WHERE [APP_NAME] = '{appName}' AND [DEVICE_NAME] = '{deviceName}' ";
+    }
+
+    public static string GetWhereAppNameAndCreateDt(string appName, string deviceName, DateTime? createDt) =>
+        string.IsNullOrEmpty(appName) || createDt is null ? GetWhereAppDeviceName(appName, deviceName) 
         : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{createDt:yyyy-MM-dd}'";
     
-    public static string GetWhereAppNameToday(string appName) =>
-        string.IsNullOrEmpty(appName) 
-            ? $"WHERE CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'"
-            : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'";
-    
-    public static string GetWhereAppNameMonth(string appName, short month) =>
-        string.IsNullOrEmpty(appName) ? GetWhereAppName(appName) 
-        : $"WHERE [APP_NAME] = '{appName}' AND MONTH(CAST([CREATE_DT] AS DATE)) = {month}";
-    
+    public static string GetWhereAppNameToday(string appName, string deviceName)
+    {
+        string strWhere = GetWhereAppDeviceName(appName, deviceName);
+        string strWhereAdd = $"CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'";
+        return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
+
+    }
+
+    public static string GetWhereAppNameDay(string appName, string deviceName)
+    {
+        string strWhere = GetWhereAppDeviceName(appName, deviceName);
+        string strWhereAdd = $"DAY(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Day} " +
+            $"AND MONTH(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Month} " +
+            $"AND YEAR(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Year} ";
+        return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
+    }
+
+    public static string GetWhereAppNameMonth(string appName, string deviceName)
+    {
+        string strWhere = GetWhereAppDeviceName(appName, deviceName);
+        string strWhereAdd = $"MONTH(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Month} " +
+            $"AND YEAR(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Year} ";
+        return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
+    }
+
+    public static string GetWhereAppNameYear(string appName, string deviceName)
+    {
+        string strWhere = GetWhereAppDeviceName(appName, deviceName);
+        string strWhereAdd = $"YEAR(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Year} ";
+        return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
+    }
+
+    public static string GetWhereAppNameEmpty() => "DAY(CAST([CREATE_DT] AS DATE)) = 0";
+
     public static string GetWhereIsMarked(WsSqlEnumIsMarked isMarked) => isMarked switch
         {
-            WsSqlEnumIsMarked.ShowOnlyActual => "WHERE [IS_MARKED]=0",
-            WsSqlEnumIsMarked.ShowOnlyHide => "WHERE [IS_MARKED]=1",
+            WsSqlEnumIsMarked.ShowOnlyActual => "WHERE [IS_MARKED] = 0",
+            WsSqlEnumIsMarked.ShowOnlyHide => "WHERE [IS_MARKED] = 1",
             _ => string.Empty
         };
     

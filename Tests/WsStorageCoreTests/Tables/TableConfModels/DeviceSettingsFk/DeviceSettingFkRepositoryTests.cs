@@ -1,5 +1,3 @@
-using WsLocalizationCore.Utils;
-
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]

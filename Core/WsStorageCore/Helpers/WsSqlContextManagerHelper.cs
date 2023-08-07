@@ -28,13 +28,14 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
     
+    public WsSqlAppRepository AppRepository { get; } = new();
     public WsSqlAreaRepository AreaRepository { get; } = new();
     public WsSqlBoxRepository BoxRepository { get; } = new();
     public WsSqlBrandRepository BrandRepository { get; } = new();
     public WsSqlBundleRepository BundleRepository { get; } = new();
     public WsSqlClipRepository ClipRepository { get; } = new();
     public WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
-    public WsSqlDeviceRepository DevicesRepository { get; } = new();
+    public WsSqlDeviceRepository DeviceRepository { get; } = new();
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();

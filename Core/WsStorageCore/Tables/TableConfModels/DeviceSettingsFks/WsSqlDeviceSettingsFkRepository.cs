@@ -23,7 +23,7 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
 
     public List<WsSqlDeviceSettingsFkModel> GetListByLine(WsSqlScaleModel line)
     {
-        WsSqlDeviceModel device = WsSqlContextManagerHelper.Instance.DevicesRepository.GetItemByLine(line);
+        WsSqlDeviceModel device = WsSqlContextManagerHelper.Instance.DeviceRepository.GetItemByLine(line);
         return GetListByDevice(device);
     }
 

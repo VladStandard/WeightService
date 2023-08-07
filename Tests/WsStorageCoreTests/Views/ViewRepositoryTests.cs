@@ -1,13 +1,9 @@
-using WsLocalizationCore.Utils;
-using WsStorageCore.Utils;
-
 namespace WsStorageCoreTests.Views;
 
 public class ViewRepositoryTests
 {
     protected WsSqlCrudConfigModel SqlCrudConfig { get; set; }
     protected List<WsEnumConfiguration> DefaultPublishTypes { get; set; }
-
     protected virtual IResolveConstraint SortOrderValue => throw new NotImplementedException();
 
     public ViewRepositoryTests()

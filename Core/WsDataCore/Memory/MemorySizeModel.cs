@@ -1,11 +1,14 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Linq.Expressions;
+
 namespace WsDataCore.Memory;
 
 /// <summary>
 /// Размеры памяти.
 /// </summary>
+[DebuggerDisplay("{ToString()}")]
 public sealed class MemorySizeModel : WsBaseHelper
 {
     #region Public and private fields, properties, constructor
@@ -36,6 +39,8 @@ public sealed class MemorySizeModel : WsBaseHelper
 
     #region Public and private methods
 
+    public override string ToString() => $"{nameof(GetMemorySizeAppMb)}: {GetMemorySizeAppMb()} | {nameof(GetMemorySizeFreeMb)}: {GetMemorySizeTotalMb()}";
+        
     public override void Execute()
     {
         base.Execute();
@@ -66,6 +71,8 @@ public sealed class MemorySizeModel : WsBaseHelper
     public short GetMemorySizeAppMb() => (short)(PhysicalCurrent?.MegaBytes ?? 0);
 
     public short GetMemorySizeFreeMb() => (short)(PhysicalFree?.MegaBytes ?? 0);
+
+    public short GetMemorySizeTotalMb() => (short)(PhysicalTotal?.MegaBytes ?? 0);
 
     #endregion
 }

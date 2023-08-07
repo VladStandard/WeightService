@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
-
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -123,7 +121,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             // Обновить кэш.
             ContextCache.LoadGlobal();
             // Device.
-            WsSqlDeviceModel device = ContextManager.DevicesRepository.GetItemByName(DeviceName);
+            WsSqlDeviceModel device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
             device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.

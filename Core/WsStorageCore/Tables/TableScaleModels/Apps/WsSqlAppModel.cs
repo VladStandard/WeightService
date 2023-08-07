@@ -12,9 +12,6 @@ public class WsSqlAppModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlAppModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         //
@@ -36,9 +33,7 @@ public class WsSqlAppModel : WsSqlTableBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Name)}: {Name}";
+    public override string ToString() => $"{GetIsMarked()} | {DisplayName}";
 
     public override bool Equals(object obj)
     {

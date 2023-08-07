@@ -20,6 +20,7 @@ public static class WsLocalizationUtils
     private const string LocalDirectoryLocales = @"Locales";
     private const string RemoteDirectoryLocales = @"\\palych\install\VSSoft\Locales\";
     public static string Tests => nameof(Tests);
+    public static string DeviceControlAppName = "DeviceControl";
 
     #endregion
 

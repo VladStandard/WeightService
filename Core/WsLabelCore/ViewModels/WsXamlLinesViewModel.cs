@@ -16,7 +16,7 @@ public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, IWsViewModel
     public WsSqlScaleModel Line { get; set; } = new();
     public List<WsSqlProductionFacilityModel> Areas { get; set; } = new();
     public List<WsSqlScaleModel> Lines { get; set; } = new();
-    public WsSqlDeviceModel Device => WsSqlContextManagerHelper.Instance.DevicesRepository.GetItemByLine(Line);
+    public WsSqlDeviceModel Device => WsSqlContextManagerHelper.Instance.DeviceRepository.GetItemByLine(Line);
 
     public WsXamlLinesViewModel()
     {
