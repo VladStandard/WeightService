@@ -9,11 +9,11 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     [Inject] protected WsRouteService RouteService { get; set; }
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
-    protected WsSqlTableBase? SqlItem { get; set; }
+    protected WsSqlTableBase? SqlItem { get; private set; }
 
     #region Public and private fields, properties, constructor
 
-    protected ButtonSettingsModel ButtonSettings { get; set; }
+    protected ButtonSettingsModel ButtonSettings { get; private set; }
 
     protected TItem SqlItemCast
     {
@@ -30,11 +30,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     #region Public and private methods
     
-    protected async void CopyTextToClipboard(string textToCopy)
-    {
-        await JsService.CopyTextToClipboard(textToCopy);
-    }
-
     protected async Task RedirectBackAsync()
     {
         await JsService.RedirectBack();

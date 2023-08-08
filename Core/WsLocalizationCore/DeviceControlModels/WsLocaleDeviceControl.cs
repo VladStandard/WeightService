@@ -6,12 +6,31 @@ namespace WsLocalizationCore.DeviceControlModels;
 public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
 {
     #region Public and private fields, properties, constructor
+    
     public string Actions => Lang == WsEnumLanguage.English ? "Action" : "Действия";
+    public string ChartErrors => Lang == WsEnumLanguage.English ? "Errors" : "Ошибки";
+    public string ChartMemory => Lang == WsEnumLanguage.English ? "Memory" : "Память ПО";
+    public string ChartMemoryApp => Lang == WsEnumLanguage.English ? "App" : "ПО";
+    public string ChartMemoryFree => Lang == WsEnumLanguage.English ? "Free" : "Свободно";
+    public string ChartMemoryFreeColor => Lang == WsEnumLanguage.English ? "Free memory color" : "Цвет свободной памяти";
+    public string ChartMemoryLeft => Lang == WsEnumLanguage.English ? "Size at MB" : "Размер в МБ";
+    public string ChartMemorySummary => Lang == WsEnumLanguage.English ? "Summary" : "Всего";
+    public string ChartMemoryTimeInterval => Lang == WsEnumLanguage.English ? "Interval" : "Интервал";
+    public string ChartMemoryTimeIntervalAll => Lang == WsEnumLanguage.English ? "All" : "Весь";
+    public string ChartMemoryTimeIntervalEmpty => Lang == WsEnumLanguage.English ? "Empty" : "Пусто";
+    public string ChartMemoryTimeIntervalMonth => Lang == WsEnumLanguage.English ? "Month" : "Месяц";
+    public string ChartMemoryTimeIntervalToday => Lang == WsEnumLanguage.English ? "Today" : "Сегодня";
+    public string ChartMemoryTimeIntervalYear => Lang == WsEnumLanguage.English ? "Year" : "Год";
+    public string ChartMemoryTotalColor => Lang == WsEnumLanguage.English ? "Total color" : "Цвет всего";
+    public string ChartMemoryTotalFree => Lang == WsEnumLanguage.English ? "Free color" : "Цвет свободно";
+    public string ChartMemoryType => Lang == WsEnumLanguage.English ? "Chart type" : "Тип графика";
+    public string ChartMemoryValue => Lang == WsEnumLanguage.English ? "Value" : "Значение";
+    public string ChartReports => Lang == WsEnumLanguage.English ? "Reports" : "Журналы";
     public string DataRecords => Lang == WsEnumLanguage.English ? "records" : "записей";
     public string Index => Lang == WsEnumLanguage.English ? "DeviceControl" : "Управление устройствами";
     public string IndexAccessQuery => Lang == WsEnumLanguage.English ? "Contact your system administrator to access." : "Свяжитесь с администратором системы, чтобы получить доступ.";
-    public string ItemApp => Lang == WsEnumLanguage.English ? "Application" : "Приложение";
     public string IndexContinue => Lang == WsEnumLanguage.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";
+    public string ItemApp => Lang == WsEnumLanguage.English ? "Application" : "Приложение";
     public string ItemBarcode => Lang == WsEnumLanguage.English ? "Barcode" : "Штрихкод";
     public string ItemBarCode => Lang == WsEnumLanguage.English ? "Barcode" : "Штрихкод";
     public string ItemBarCodeType => Lang == WsEnumLanguage.English ? "Barcodes type" : "Тип штрихкода";
@@ -60,22 +79,6 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string LinkLabelary => "http://labelary.com/viewer.html";
     public string LogsMemory => Lang == WsEnumLanguage.English ? "Logs memory" : "Логи памяти";
     public string LogsMemoryAppColor => Lang == WsEnumLanguage.English ? "Application memory color" : "Цвет памяти приложения";
-    public string LogsMemoryChart => Lang == WsEnumLanguage.English ? "Memory chart" : "Чарт памяти";
-    public string LogsMemoryChartType => Lang == WsEnumLanguage.English ? "Chart type" : "Тип чарта";
-    public string LogsMemoryFreeColor => Lang == WsEnumLanguage.English ? "Free memory color" : "Цвет свободной памяти";
-    public string LogsMemoryTimeInterval => Lang == WsEnumLanguage.English ? "Interval" : "Интервал";
-    public string LogsMemoryTimeIntervalAll => Lang == WsEnumLanguage.English ? "All" : "Весь";
-    public string LogsMemoryTimeIntervalEmpty => Lang == WsEnumLanguage.English ? "Empty" : "Пусто";
-    public string LogsMemoryTimeIntervalMonth => Lang == WsEnumLanguage.English ? "Month" : "Месяц";
-    public string LogsMemoryTimeIntervalToday => Lang == WsEnumLanguage.English ? "Today" : "Сегодня";
-    public string LogsMemoryTimeIntervalYear => Lang == WsEnumLanguage.English ? "Year" : "Год";
-    public string LogsMemoryTotalColor => Lang == WsEnumLanguage.English ? "Total color" : "Цвет всего";
-    public string LogsMemoryTotalFree => Lang == WsEnumLanguage.English ? "Free color" : "Цвет свободно";
-    public string MemoryChartApp => Lang == WsEnumLanguage.English ? "App" : "ПО";
-    public string MemoryChartFree => Lang == WsEnumLanguage.English ? "Free" : "Свободно";
-    public string MemoryChartLeft => Lang == WsEnumLanguage.English ? "Size at MB" : "Размер в МБ";
-    public string MemoryChartSummary => Lang == WsEnumLanguage.English ? "Summary" : "Всего";
-    public string MemoryChartValue => Lang == WsEnumLanguage.English ? "Value" : "Значение";
     public string SectionAdministering => Lang == WsEnumLanguage.English ? "Administering" : "Администрирование";
     public string SectionAutomatedWorkplace => Lang == WsEnumLanguage.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
     public string SectionBarCodes => Lang == WsEnumLanguage.English ? "Barcodes" : "Штрихкоды";
@@ -85,8 +88,10 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionBoxes => Lang == WsEnumLanguage.English ? "Boxes" : "Коробки";
     public string SectionBrands => Lang == WsEnumLanguage.English ? "Brands" : "Бренды";
     public string SectionBundles => Lang == WsEnumLanguage.English ? "Bundles" : "Пакеты";
+    public string SectionCharts => Lang == WsEnumLanguage.English ? "Charts" : "Графики";
     public string SectionClips => Lang == WsEnumLanguage.English ? "Clips" : "Клипсы";
     public string SectionContragents => Lang == WsEnumLanguage.English ? "Counterparties" : "Контрагенты";
+    public string SectionDashboard => Lang == WsEnumLanguage.English ? "Dashboard" : "Панель";
     public string SectionDevices => Lang == WsEnumLanguage.English ? "Devices" : "Устройства";
     public string SectionDevicesScalesFk => Lang == WsEnumLanguage.English ? "Devices with scales" : "Устройства с постами";
     public string SectionDevicesTypes => Lang == WsEnumLanguage.English ? "Device types " : "Типы устройств";

@@ -11,32 +11,36 @@
 
   <RadzenPanelMenu class="@ItemMenuCss">
     <AuthorizeView Roles="@WsUserAccessStr.Read">
-      @* Devices *@
+      @* Графики *@
+      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionCharts">
+          <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.ChartMemory" Path="@WsRouteUtils.SectionChartMemory" />
+          <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.ChartReports" Path="@WsRouteUtils.SectionChartReports" />
+      </RadzenPanelMenuItem>
+      @* Устройства *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@WsRouteUtils.SectionLines"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionHosts" Path="@WsRouteUtils.SectionDevices"/>
         <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Names" Path="@WsRouteUtils.SectionPrinters"/>
       </RadzenPanelMenuItem>
-      @* Operations *@
+      @* Операции *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOperations">
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionLabels" Path="@WsRouteUtils.SectionPlusLabels"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBarCodes" Path="@WsRouteUtils.SectionBarCodes"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeighings" Path="@WsRouteUtils.SectionPlusWeightings"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort" Path="@WsRouteUtils.SectionPlusWeightingsAggr"/>
       </RadzenPanelMenuItem>
-      @* References *@
+      @* Справочники *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences">
         <RadzenPanelMenuItem Text="@WsLocaleCore.Strings.DeviceType" Path="@WsRouteUtils.SectionDevicesTypes"/>
         <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Types" Path="@WsRouteUtils.SectionPrinterTypes"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOrganizations" Path="@WsRouteUtils.SectionOrganizations"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWorkShops" Path="@WsRouteUtils.SectionWorkShops"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionProductionFacilitiesShort" Path="@WsRouteUtils.SectionProductionFacilities"/>
-
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplates" Path="@WsRouteUtils.SectionTemplates"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplateResources" Path="@WsRouteUtils.SectionTemplateResources"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusStorage" Path="@WsRouteUtils.SectionPlusStorage"/>
       </RadzenPanelMenuItem>
-      @* References 1C *@
+      @* Справочники 1C *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences1C">
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlus" Path="@WsRouteUtils.SectionPlus"/>
         <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusGroups" Path="@WsRouteUtils.SectionPlusGroups"/>
@@ -53,9 +57,9 @@
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@WsRouteUtils.SectionLogsWebService"/>
         <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@WsRouteUtils.SectionScalesScreenShots"/>
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemory" Path="@WsRouteUtils.SectionLogsMemory"/>
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemoryChart" Path="@WsRouteUtils.SectionLogsMemoryChart" />
       </RadzenPanelMenuItem>
     </AuthorizeView>
+    @* Администрирование *@
     <AuthorizeView Roles="@WsUserAccessStr.Admin">
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
         <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@WsRouteUtils.SectionAccess"/>

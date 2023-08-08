@@ -37,7 +37,7 @@
         Rows="12" ReadOnly="true"
         Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.LogWebRequest.DataString)"/>
 
-      <RadzenButton Click="@(_ => CopyTextToClipboard(SqlItemCast.LogWebRequest.DataString))"
+      <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.LogWebRequest.DataString))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
                     Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
@@ -50,7 +50,7 @@
         Rows="12" ReadOnly="true"
         Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.LogWebResponse.DataString)"/>
 
-      <RadzenButton Click="@(_ => CopyTextToClipboard(SqlItemCast.LogWebResponse.DataString))"
+      <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.LogWebResponse.DataString))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
                     Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>

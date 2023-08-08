@@ -8,8 +8,15 @@ namespace DeviceControl.Utils;
 /// </summary>
 public static class WsRouteUtils
 {
+    #region Графики
+
+    public static string SectionChartMemory => "/section/logs_chart_memory";
+    public static string SectionChartReports => "/section/logs_chart_reports";
+
+    #endregion
+
     #region Администрирование
-    
+
     public static string SystemAppInfo => "/system";
     public static string SystemDatabaseInfo => "/system_sql";
     public static string SectionVersions => "/system_sql_versions";
@@ -27,16 +34,15 @@ public static class WsRouteUtils
     public static string SectionPlusBundlesFks => "/section/plus_bundles";
     public static string SectionPlusWeightings => "/section/plus_weightings";
     public static string SectionPlusWeightingsAggr => "/section/plus_weightings_aggr";
-    
+
     #endregion
 
     #region Диагностика
 
     public static string SectionLogs => "/section/logs";
+    public static string SectionLogsMemory => "/section/logs_memory";
     public static string SectionLogsWebService => "/section/logs_web_service";
     public static string SectionScalesScreenShots => "/section/logs_screenshots";
-    public static string SectionLogsMemory => "/section/logs_memory";
-    public static string SectionLogsMemoryChart => "/section/logs_memory_chart";
     
     #endregion
     

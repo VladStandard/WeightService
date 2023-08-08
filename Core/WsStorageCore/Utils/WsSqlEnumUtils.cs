@@ -11,22 +11,22 @@ public static class WsSqlEnumUtils
 
     public static IEnumerable<string> GetEnumerableTimeIntervals() => new List<string>
     {
-        WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalEmpty,
-        WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalToday,
-        WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalMonth,
-        WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalYear,
-        WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalAll,
+        WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalEmpty,
+        WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalToday,
+        WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalMonth,
+        WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalYear,
+        WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalAll,
     };
 
     public static WsSqlEnumTimeInterval GetTimeInterval(string timeInterval)
     {
-        if (timeInterval == WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalAll)
+        if (timeInterval == WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalAll)
             return WsSqlEnumTimeInterval.All;
-        else if (timeInterval == WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalToday)
+        else if (timeInterval == WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalToday)
             return WsSqlEnumTimeInterval.Today;
-        else if (timeInterval == WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalMonth)
+        else if (timeInterval == WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalMonth)
             return WsSqlEnumTimeInterval.Month;
-        else if (timeInterval == WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalYear)
+        else if (timeInterval == WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalYear)
             return WsSqlEnumTimeInterval.Year;
         return WsSqlEnumTimeInterval.Empty;
     }

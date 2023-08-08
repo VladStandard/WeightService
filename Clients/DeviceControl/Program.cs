@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DeviceControl.Pages.Menu.Devices.Hosts;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
@@ -24,6 +26,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<WsUserService>();
 builder.Services.AddScoped<WsRouteService>();
 builder.Services.AddScoped<WsLocalStorageService>();
+builder.Services.AddScoped<IJSRuntime, JSRuntime>();
 builder.Services.AddScoped<WsJsService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();

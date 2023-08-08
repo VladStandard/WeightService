@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DeviceControl.Pages.Menu.Logs;
+namespace DeviceControl.Pages.Menu.Charts;
 
-public sealed partial class LogsMemoryChart : SectionBase<WsSqlViewLogMemoryModel>
+public sealed partial class ChartReports : SectionBase<WsSqlViewLogMemoryModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -32,7 +32,7 @@ public sealed partial class LogsMemoryChart : SectionBase<WsSqlViewLogMemoryMode
     }
     private List<WsSqlDeviceModel> Devices { get; set; }
 
-    private string _timeInterval = WsLocaleCore.DeviceControl.LogsMemoryTimeIntervalToday;
+    private string _timeInterval = WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalToday;
     private string TimeInterval
     {
         get => _timeInterval;
@@ -48,7 +48,7 @@ public sealed partial class LogsMemoryChart : SectionBase<WsSqlViewLogMemoryMode
     private string MemoryFreeColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Gold.Name : Color.DarkGray.Name;
     private IEnumerable<string> MemoryFreeColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
 
-    public LogsMemoryChart() : base()
+    public ChartReports() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStaticItem();
 
