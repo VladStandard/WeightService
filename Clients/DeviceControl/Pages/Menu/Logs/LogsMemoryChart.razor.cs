@@ -43,10 +43,10 @@ public sealed partial class LogsMemoryChart : SectionBase<WsSqlViewLogMemoryMode
         }
     }
     private IEnumerable<string> TimeIntervals { get; } = WsSqlEnumUtils.GetEnumerableTimeIntervals();
-    private string MemoryAppColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Blue.Name : Color.Black.Name;
+    private string MemoryAppColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Gold.Name : Color.DarkGray.Name;
     private IEnumerable<string> MemoryAppColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
-    private string MemoryTotalColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Orange.Name : Color.LightBlue.Name;
-    private IEnumerable<string> MemoryTotalColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
+    private string MemoryFreeColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Gold.Name : Color.DarkGray.Name;
+    private IEnumerable<string> MemoryFreeColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
 
     public LogsMemoryChart() : base()
     {

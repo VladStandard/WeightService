@@ -14,8 +14,8 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
-    protected List<TItem> SqlSectionSave { get; set; }
-    protected List<ContextMenuItem> ContextMenuItems { get; set; }
+    private List<TItem> SqlSectionSave { get; set; }
+    private List<ContextMenuItem> ContextMenuItems { get; set; }
     protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
     protected WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
     protected RadzenDataGrid<TItem> DataGrid { get; set; }
