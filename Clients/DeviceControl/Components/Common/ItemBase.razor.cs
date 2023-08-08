@@ -13,7 +13,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     #region Public and private fields, properties, constructor
 
-    protected ButtonSettingsModel ButtonSettings { get; private set; }
+    protected ButtonSettingsModel ButtonSettings { get; set; }
 
     protected TItem SqlItemCast
     {
