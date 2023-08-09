@@ -7,7 +7,6 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewLogMemoryRepository LogMemoryRepository { get; } = new();
     private Interpolation WsInterpolation { get; set; } = Interpolation.Line;
     private WsSqlAppModel _app;
     private WsSqlAppModel App
@@ -19,7 +18,7 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
             SetSqlSectionCast();
         }
     }
-    private List<WsSqlAppModel> Apps { get; set; }
+    private List<WsSqlAppModel> Apps { get; }
     private WsSqlDeviceModel _device;
     private WsSqlDeviceModel Device
     {
@@ -30,15 +29,18 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
             SetSqlSectionCast();
         }
     }
-    private List<WsSqlDeviceModel> Devices { get; set; }
+    private List<WsSqlDeviceModel> Devices { get; }
 
-    private string _timeInterval = WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalToday;
+    private string _timeInterval = WsLocaleCore.DeviceControl.ChartTimeIntervalToday;
     private string TimeInterval
     {
         get => _timeInterval;
         set
         {
             _timeInterval = value;
+            if (_timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalYear ||
+                _timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalAll)
+                JsService.ShowAlert(WsLocaleCore.DeviceControl.ChartTimeIntervalAllAlert).ConfigureAwait(true);
             SetSqlSectionCast();
         }
     }
@@ -97,7 +99,7 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = LogMemoryRepository.GetList(
+        SqlSectionCast = ContextManager.ViewLogMemoryRepository.GetList(
             App.Name, Device.Name, WsSqlEnumUtils.GetTimeInterval(TimeInterval), 0);
     }
 

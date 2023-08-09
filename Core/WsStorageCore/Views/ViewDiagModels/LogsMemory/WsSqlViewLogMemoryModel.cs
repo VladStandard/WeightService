@@ -4,14 +4,14 @@
 namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewLogMemoryModel : WsSqlTableBase
+public sealed class WsSqlViewLogMemoryModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-    public virtual string AppName { get; init; }
-    public virtual string DeviceName { get; init; }
-    public virtual string ScaleName { get; init; }
-    public virtual short SizeAppMb { get; init; }
-    public virtual short SizeFreeMb { get; init; }
+    public string AppName { get; init; }
+    public string DeviceName { get; init; }
+    public string ScaleName { get; init; }
+    public short SizeAppMb { get; init; }
+    public short SizeFreeMb { get; init; }
     public int TotalMemoryMb => SizeFreeMb + SizeAppMb;
     public double FillSizePercent => Math.Round(((double)SizeAppMb / TotalMemoryMb) * 100, 2);
     
@@ -30,10 +30,8 @@ public class WsSqlViewLogMemoryModel : WsSqlTableBase
 
     public override string ToString() =>
         string.IsNullOrEmpty(ScaleName)
-            ? $"{AppName} | {DeviceName} | " +
-              $"{CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}"
-            : $"{AppName} | {DeviceName} | {ScaleName} | " +
-              $"{CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}";
+            ? $"{AppName} | {DeviceName} | {CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}"
+            : $"{AppName} | {DeviceName} | {ScaleName} | {CreateDt:yyyy-MM-dd} | {SizeAppMb} | {SizeFreeMb}";
 
     #endregion
 }

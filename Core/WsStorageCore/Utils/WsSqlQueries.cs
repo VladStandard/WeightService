@@ -16,16 +16,16 @@ public static class WsSqlQueries
             return string.Empty;
         if (string.IsNullOrEmpty(appName))
             return $"WHERE [DEVICE_NAME] = '{deviceName}' ";
-        if (string.IsNullOrEmpty(deviceName))
-            return $"WHERE [APP_NAME] = '{appName}' ";
-        return $"WHERE [APP_NAME] = '{appName}' AND [DEVICE_NAME] = '{deviceName}' ";
+        return string.IsNullOrEmpty(deviceName) 
+            ? $"WHERE [APP_NAME] = '{appName}' " 
+            : $"WHERE [APP_NAME] = '{appName}' AND [DEVICE_NAME] = '{deviceName}' ";
     }
 
-    public static string GetWhereAppNameAndCreateDt(string appName, string deviceName, DateTime? createDt) =>
+    public static string GetWhereAppDeviceNameCreateDt(string appName, string deviceName, DateTime? createDt) =>
         string.IsNullOrEmpty(appName) || createDt is null ? GetWhereAppDeviceName(appName, deviceName) 
         : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{createDt:yyyy-MM-dd}'";
     
-    public static string GetWhereAppNameToday(string appName, string deviceName)
+    public static string GetWhereAppDeviceNameToday(string appName, string deviceName)
     {
         string strWhere = GetWhereAppDeviceName(appName, deviceName);
         string strWhereAdd = $"CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'";
@@ -33,7 +33,7 @@ public static class WsSqlQueries
 
     }
 
-    public static string GetWhereAppNameDay(string appName, string deviceName)
+    public static string GetWhereAppDeviceNameDay(string appName, string deviceName)
     {
         string strWhere = GetWhereAppDeviceName(appName, deviceName);
         string strWhereAdd = $"DAY(CAST([CREATE_DT] AS DATE)) = {DateTime.Now.Day} " +
@@ -57,7 +57,7 @@ public static class WsSqlQueries
         return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
     }
 
-    public static string GetWhereAppNameEmpty() => "DAY(CAST([CREATE_DT] AS DATE)) = 0";
+    public static string GetWhereEmpty() => "WHERE 1 = 0";
 
     public static string GetWhereIsMarked(WsSqlEnumIsMarked isMarked) => isMarked switch
         {

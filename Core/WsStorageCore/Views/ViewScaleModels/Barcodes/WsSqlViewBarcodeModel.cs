@@ -8,10 +8,10 @@ public class WsSqlViewBarcodeModel: WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
-    public virtual int PluNumber { get; set; }
-    public virtual string ValueTop { get; set; }
-    public virtual string ValueRight { get; set; }
-    public virtual string ValueBottom { get; set; }
+    public virtual int PluNumber { get; init; }
+    public virtual string ValueTop { get; init; }
+    public virtual string ValueRight { get; init; }
+    public virtual string ValueBottom { get; init; }
     
     /// <summary>
 	/// Constructor.
@@ -28,11 +28,7 @@ public class WsSqlViewBarcodeModel: WsSqlTableBase
 
 	#region Public and private methods - override
 
-	public override string ToString() =>
-        $"{nameof(PluNumber)}: {PluNumber}. " +
-		$"{nameof(ValueTop)}: {ValueTop}. " +
-		$"{nameof(ValueRight)}: {ValueRight}. " +
-		$"{nameof(ValueBottom)}: {ValueBottom}.";
+	public override string ToString() => $"{PluNumber} | {ValueTop} | {ValueRight} | {ValueBottom}";
 
     #endregion
 }

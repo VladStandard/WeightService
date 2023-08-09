@@ -1,6 +1,8 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -39,7 +41,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
-    public WsSqlLogMemoryRepository LogMemoryRepository { get; set; } = new();
+    public WsSqlLogMemoryRepository LogMemoryRepository { get; } = new();
     public WsSqlLogRepository LogRepository { get; set; } = new();
     public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
@@ -54,6 +56,9 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlPluRepository PluRepository { get; } = new();
     public WsSqlPluStorageMethodFkRepository SqlPluStorageMethodFkRepository { get; } = new();
     public WsSqlPluWeighingRepository PluWeighingRepository { get; } = new();
+    public WsSqlViewLogDeviceAggrRepository ViewLogDeviceAggrRepository { get; } = new();
+    public WsSqlViewLogDeviceRepository ViewLogDeviceRepository { get; } = new();
+    public WsSqlViewLogMemoryRepository ViewLogMemoryRepository { get; } = new();
 
     #endregion
 

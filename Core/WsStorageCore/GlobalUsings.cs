@@ -102,6 +102,8 @@ global using WsStorageCore.Tables.TableScaleModels.Templates;
 global using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Tables.TableScaleModels.Versions;
 global using WsStorageCore.Tables.TableScaleModels.WorkShops;
+global using WsStorageCore.Views.ViewDiagModels.LogsDevices;
+global using WsStorageCore.Views.ViewDiagModels.LogsMemory;
 global using WsStorageCore.Views.ViewDiagModels.TableSize;
 global using WsStorageCore.Views.ViewRefModels.PluLines;
 global using WsStorageCore.Views.ViewRefModels.PluNestings;

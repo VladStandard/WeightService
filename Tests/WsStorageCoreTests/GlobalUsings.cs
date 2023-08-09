@@ -59,5 +59,6 @@ global using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Tables.TableScaleModels.Versions;
 global using WsStorageCore.Tables.TableScaleModels.WorkShops;
 global using WsStorageCore.Utils;
+global using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 global using WsStorageCore.Views.ViewDiagModels.LogsMemory;
 global using WsStorageCoreTests.Tables.Common;

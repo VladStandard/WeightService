@@ -1,7 +1,5 @@
 @page "/section/logs_chart_memory"
-@attribute [Authorize(Roles = WsUserAccessStr.Admin)]
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Apps
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @inherits SectionBase<WsStorageCore.Views.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
 
 <RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
@@ -14,12 +12,12 @@
     <RadzenDropDown AllowClear="false" @bind-Value="@Device" Data="@Devices"
                     TValue="WsSqlDeviceModel" TextProperty="DisplayName" />
     @* Интервал *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartMemoryTimeInterval" Style="margin-left: 1rem;" />
+    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartTimeInterval" Style="margin-left: 1rem;" />
     <RadzenDropDown AllowClear="false" @bind-Value="@TimeInterval" Data="@TimeIntervals" />
 </RadzenCard>
 
 <RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
-    @* Тип uhfabrf *@
+    @* Тип графика *@
     <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartMemoryType" Style="margin-left: 0rem;" />
     <RadzenDropDown AllowClear="false" @bind-Value="@WsInterpolation"
                     TValue="Interpolation" ValueProperty="Value" TextProperty="Text"
@@ -35,7 +33,7 @@
 @* Чарт памяти приложения *@
 <RadzenChart Style="margin-left: 0.5rem;" >
   <RadzenAreaSeries Interpolation="@WsInterpolation" Data="@SqlSectionCast" LineType="LineType.Solid" Fill="@MemoryAppColor"
-                    Title="@WsLocaleCore.DeviceControl.ChartMemoryApp" CategoryProperty="CreateDt" ValueProperty="SizeAppMb" />
+                    Title="@WsLocaleCore.DeviceControl.ChartApp" CategoryProperty="CreateDt" ValueProperty="SizeAppMb" />
   <RadzenValueAxis>
     <RadzenCategoryAxis Padding="20" />
     <RadzenGridLines Visible="true" />

@@ -3,12 +3,10 @@
 
 namespace DeviceControl.Pages.Menu.Charts;
 
-public sealed partial class ChartReports : SectionBase<WsSqlViewLogMemoryModel>
+public sealed partial class ChartReports : SectionBase<WsSqlViewLogDeviceAggrShortModel>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewLogMemoryRepository LogMemoryRepository { get; } = new();
-    private Interpolation WsInterpolation { get; set; } = Interpolation.Line;
     private WsSqlAppModel _app;
     private WsSqlAppModel App
     {
@@ -32,7 +30,7 @@ public sealed partial class ChartReports : SectionBase<WsSqlViewLogMemoryModel>
     }
     private List<WsSqlDeviceModel> Devices { get; set; }
 
-    private string _timeInterval = WsLocaleCore.DeviceControl.ChartMemoryTimeIntervalToday;
+    private string _timeInterval = WsLocaleCore.DeviceControl.ChartTimeIntervalToday;
     private string TimeInterval
     {
         get => _timeInterval;
@@ -43,10 +41,6 @@ public sealed partial class ChartReports : SectionBase<WsSqlViewLogMemoryModel>
         }
     }
     private IEnumerable<string> TimeIntervals { get; } = WsSqlEnumUtils.GetEnumerableTimeIntervals();
-    private string MemoryAppColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Gold.Name : Color.DarkGray.Name;
-    private IEnumerable<string> MemoryAppColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
-    private string MemoryFreeColor { get; set; } = WsDebugHelper.Instance.IsDevelop ? Color.Gold.Name : Color.DarkGray.Name;
-    private IEnumerable<string> MemoryFreeColors { get; } = WsSqlEnumUtils.GetEnumerableColors().Select(x => x.Name);
 
     public ChartReports() : base()
     {
@@ -97,8 +91,11 @@ public sealed partial class ChartReports : SectionBase<WsSqlViewLogMemoryModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = LogMemoryRepository.GetList(
+        IEnumerable<WsSqlViewLogDeviceAggrModel> list = ContextManager.ViewLogDeviceAggrRepository.GetList(
             App.Name, Device.Name, WsSqlEnumUtils.GetTimeInterval(TimeInterval), 0);
+        IEnumerable<WsSqlViewLogDeviceAggrShortModel> listShort = 
+            list.Select(x => new WsSqlViewLogDeviceAggrShortModel(x));
+        SqlSectionCast = listShort.ToList();
     }
 
     #endregion

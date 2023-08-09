@@ -24,7 +24,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<WsUserService>();
 builder.Services.AddScoped<WsRouteService>();
 builder.Services.AddScoped<WsLocalStorageService>();
-builder.Services.AddScoped<IJSRuntime, JSRuntime>();
+//builder.Services.AddScoped<IJSRuntime, JSRuntime>();
 builder.Services.AddScoped<WsJsService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();

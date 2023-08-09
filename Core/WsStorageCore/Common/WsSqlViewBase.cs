@@ -18,7 +18,7 @@ public class WsSqlViewBase : WsViewModelBase
         Identity = new(uid);
     }
 
-    public WsSqlViewBase(long id)
+    protected WsSqlViewBase(long id)
     {
         Identity = new(id);
     }

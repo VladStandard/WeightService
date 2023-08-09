@@ -8,6 +8,74 @@ public static class WsSqlQueriesDiags
     public static class Views
     {
         /// <summary>
+        /// Получить журналы устройств из представления [diag].[VIEW_LOGS_DEVICES].
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <param name="deviceName"></param>
+        /// <param name="timeInterval"></param>
+        /// <param name="records"></param>
+        /// <returns></returns>
+        public static string GetViewLogsDevices(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records)
+        {
+            string where = timeInterval switch
+            {
+                WsSqlEnumTimeInterval.All => WsSqlQueries.GetWhereAppDeviceName(appName, deviceName),
+                WsSqlEnumTimeInterval.Today => WsSqlQueries.GetWhereAppDeviceNameDay(appName, deviceName),
+                WsSqlEnumTimeInterval.Month => WsSqlQueries.GetWhereAppNameMonth(appName, deviceName),
+                WsSqlEnumTimeInterval.Year => WsSqlQueries.GetWhereAppNameYear(appName, deviceName),
+                _ => WsSqlQueries.GetWhereEmpty(),
+            };
+            return WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(records)}
+	 [UID]
+	,[CREATE_DT]
+	,[LINE_NAME]
+	,[DEVICE_NAME]
+	,[APP_NAME]
+	,[VERSION]
+	,[FILE_NAME]
+	,[CODE_LINE]
+	,[MEMBER]
+	,[LOG_TYPE]
+	,[MESSAGE]
+FROM [DIAG].[VIEW_LOGS_DEVICES] {where}
+ORDER BY [CREATE_DT] DESC;");
+        }
+
+        /// <summary>
+        /// Получить агрегированные журналы устройств из представления [diag].[VIEW_LOGS_DEVICES_AGGR].
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <param name="deviceName"></param>
+        /// <param name="timeInterval"></param>
+        /// <param name="records"></param>
+        /// <returns></returns>
+        public static string GetViewLogsDevicesAggr(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records)
+        {
+            string where = timeInterval switch
+            {
+                WsSqlEnumTimeInterval.All => WsSqlQueries.GetWhereAppDeviceName(appName, deviceName),
+                WsSqlEnumTimeInterval.Today => WsSqlQueries.GetWhereAppDeviceNameDay(appName, deviceName),
+                WsSqlEnumTimeInterval.Month => WsSqlQueries.GetWhereAppNameMonth(appName, deviceName),
+                WsSqlEnumTimeInterval.Year => WsSqlQueries.GetWhereAppNameYear(appName, deviceName),
+                _ => WsSqlQueries.GetWhereEmpty(),
+            };
+            return WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(records)}
+	 [CREATE_DT]
+	,[DEVICE_NAME]
+	,[LINE_NAME]
+	,[APP_NAME]
+	,[VERSION]
+	,[LOG_TYPE]
+    ,[COUNT]
+FROM [DIAG].[VIEW_LOGS_DEVICES_AGGR] {where}
+ORDER BY [CREATE_DT] DESC;");
+        }
+
+        /// <summary>
         /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
         /// </summary>
         /// <param name="appName"></param>
@@ -20,10 +88,10 @@ public static class WsSqlQueriesDiags
             string where = timeInterval switch
             {
                 WsSqlEnumTimeInterval.All => WsSqlQueries.GetWhereAppDeviceName(appName, deviceName),
-                WsSqlEnumTimeInterval.Today => WsSqlQueries.GetWhereAppNameDay(appName, deviceName),
+                WsSqlEnumTimeInterval.Today => WsSqlQueries.GetWhereAppDeviceNameDay(appName, deviceName),
                 WsSqlEnumTimeInterval.Month => WsSqlQueries.GetWhereAppNameMonth(appName, deviceName),
                 WsSqlEnumTimeInterval.Year => WsSqlQueries.GetWhereAppNameYear(appName, deviceName),
-                _ => WsSqlQueries.GetWhereAppNameEmpty(),
+                _ => WsSqlQueries.GetWhereEmpty(),
             };
             return WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;

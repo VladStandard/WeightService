@@ -1,9 +1,9 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.Barcodes;
 
-public class WsSqlViewBarcodeRepository : IViewBarcodeRepository
+public sealed class WsSqlViewBarcodeRepository : IViewBarcodeRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     

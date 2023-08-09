@@ -1,55 +1,37 @@
 @page "/section/logs_chart_reports"
-@attribute [Authorize(Roles = WsUserAccessStr.Admin)]
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Apps
-@inherits SectionBase<WsStorageCore.Views.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@inherits SectionBase<WsSqlViewLogDeviceAggrShortModel>
 
 <RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
-    @* Приложение *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ItemApp" Style="margin-left: 0rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@App" Data="@Apps"
-                    TValue="WsSqlAppModel" TextProperty="DisplayName" />
-    @* Устройство *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ItemDevice" Style="margin-left: 1rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@Device" Data="@Devices"
-                    TValue="WsSqlDeviceModel" TextProperty="DisplayName" />
-    @* Интервал *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartMemoryTimeInterval" Style="margin-left: 1rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@TimeInterval" Data="@TimeIntervals" />
-</RadzenCard>
+  @* Приложение *@
+  <RadzenLabel Text="@WsLocaleCore.DeviceControl.ItemApp" Style="margin-left: 0rem;" />
+  <RadzenDropDown AllowClear="false" @bind-Value="@App" Data="@Apps"
+                  TValue="WsSqlAppModel" TextProperty="DisplayName" />
+  @* Устройство *@
+  <RadzenLabel Text="@WsLocaleCore.DeviceControl.ItemDevice" Style="margin-left: 1rem;" />
+  <RadzenDropDown AllowClear="false" @bind-Value="@Device" Data="@Devices"
+                  TValue="WsSqlDeviceModel" TextProperty="DisplayName" />
+  @* Интервал *@
+  <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartTimeInterval" Style="margin-left: 1rem;" />
+  <RadzenDropDown AllowClear="false" @bind-Value="@TimeInterval" Data="@TimeIntervals" />
+</RadzenCard>  
 
-<RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
-    @* Тип uhfabrf *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartMemoryType" Style="margin-left: 0rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@WsInterpolation"
-                    TValue="Interpolation" ValueProperty="Value" TextProperty="Text"
-                    Data="@(Enum.GetValues<Interpolation>().Select(v => new { Value = v, Text = $"{v:G}" }))" />
-    @* Цвет приложения *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.LogsMemoryAppColor" Style="margin-left: 1rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@MemoryAppColor" Data="@MemoryAppColors" />
-    @* Цвет свободной памяти *@
-    <RadzenLabel Text="@WsLocaleCore.DeviceControl.ChartMemoryFreeColor" Style="margin-left: 1rem;" />
-    <RadzenDropDown AllowClear="false" @bind-Value="@MemoryFreeColor" Data="@MemoryFreeColors" />
-</RadzenCard>
-
-@* Чарт всех журналов *@
-<RadzenChart Style="margin-left: 0.5rem;" >
-  <RadzenAreaSeries Interpolation="@WsInterpolation" Data="@SqlSectionCast" LineType="LineType.Solid" Fill="@MemoryAppColor"
-                    Title="@WsLocaleCore.DeviceControl.ChartMemoryApp" CategoryProperty="CreateDt" ValueProperty="SizeAppMb" />
-  <RadzenValueAxis>
-    <RadzenCategoryAxis Padding="20" />
-    <RadzenGridLines Visible="true" />
-    <RadzenAxisTitle Text="@WsLocaleCore.DeviceControl.ChartMemoryLeft" />
-  </RadzenValueAxis>
-</RadzenChart>
-
-@* Чарт журналов ошибок ПО *@
-@*<RadzenChart Style="margin-left: 0.5rem;">
-  <RadzenLineSeries Interpolation="@WsInterpolation" Data="@SqlSectionCast" LineType="LineType.Dashed" Stroke="@MemoryFreeColor"
-                    Title="@WsLocaleCore.DeviceControl.ChartMemoryFree" CategoryProperty="CreateDt" ValueProperty="SizeFreeMb" />
-  <RadzenValueAxis>
-    <RadzenCategoryAxis Padding="20" />
-    <RadzenGridLines Visible="true" />
-    <RadzenAxisTitle Text="@WsLocaleCore.DeviceControl.ChartMemoryLeft" />
-  </RadzenValueAxis>
-</RadzenChart>*@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-lg-6 offset-lg-3 my-5">
+      @* Диаграмма агрегированных журналов - итоги по типу логов *@
+      <RadzenChart >
+        <RadzenDonutSeries Data="@SqlSectionCast" CategoryProperty="LogType" ValueProperty="Count">
+          <ChildContent>
+            <RadzenSeriesDataLabels Visible="true" />
+          </ChildContent>
+          <TitleTemplate>
+            <div class="rz-donut-content">
+              <div>@TimeInterval</div>
+            </div>
+          </TitleTemplate>
+        </RadzenDonutSeries>
+      </RadzenChart>
+    </div>
+  </div>
+</div>

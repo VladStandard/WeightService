@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Views.ViewDiagModels.TableSize;
 
-public class WsSqlViewTableSizeRepository : IViewTableSizeRepository
+public sealed class WsSqlViewTableSizeRepository : IViewTableSizeRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
