@@ -61,18 +61,44 @@ ORDER BY [CREATE_DT] DESC;");
                 WsSqlEnumTimeInterval.Year => WsSqlQueries.GetWhereAppNameYear(appName, deviceName),
                 _ => WsSqlQueries.GetWhereEmpty(),
             };
-            return WsSqlQueries.TrimQuery($@"
+            return timeInterval switch
+            {
+                WsSqlEnumTimeInterval.Month => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(records)}
+	 CONVERT(VARCHAR(7), [CREATE_DT], 120) [CREATE_DT]
+    ,[DEVICE_NAME]
+    ,[APP_NAME]
+    ,[LINE_NAME]
+    ,[LOG_TYPE]
+    ,SUM([COUNT]) [COUNT]
+FROM [DIAG].[VIEW_LOGS_DEVICES_AGGR] {where}
+GROUP BY CONVERT(VARCHAR(7), [CREATE_DT], 120), [DEVICE_NAME], [APP_NAME], [LINE_NAME], [LOG_TYPE]
+ORDER BY [CREATE_DT], [LOG_TYPE];"),
+                WsSqlEnumTimeInterval.Year => WsSqlQueries.TrimQuery($@"
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT {WsSqlQueries.GetTopRecords(records)}
+	 CONVERT(VARCHAR(4), [CREATE_DT], 120) [CREATE_DT]
+    ,[DEVICE_NAME]
+    ,[APP_NAME]
+    ,[LINE_NAME]
+    ,[LOG_TYPE]
+    ,SUM([COUNT]) [COUNT]
+FROM [DIAG].[VIEW_LOGS_DEVICES_AGGR] {where}
+GROUP BY CONVERT(VARCHAR(4), [CREATE_DT], 120), [DEVICE_NAME], [APP_NAME], [LINE_NAME], [LOG_TYPE]
+ORDER BY [CREATE_DT], [LOG_TYPE];"),
+                _ => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}
 	 [CREATE_DT]
 	,[DEVICE_NAME]
-	,[LINE_NAME]
 	,[APP_NAME]
-	,[VERSION]
+	,[LINE_NAME]
 	,[LOG_TYPE]
     ,[COUNT]
 FROM [DIAG].[VIEW_LOGS_DEVICES_AGGR] {where}
-ORDER BY [CREATE_DT] DESC;");
+ORDER BY [CREATE_DT] DESC, [LOG_TYPE];"),
+            };
         }
 
         /// <summary>

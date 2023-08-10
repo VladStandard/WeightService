@@ -403,5 +403,11 @@ public static class WsDataFormatUtils
         _ => throw WsDataUtils.GetArgumentException(nameof(formatType))
     };
 
+    public static DateTime GetDateTimeMonth(DateTime dt) =>
+        new DateTime(dt.Year, dt.Month, 1);
+
+    public static DateTime GetDateTimeYear(DateTime dt) =>
+        new DateTime(dt.Year, 1, 1);
+
     #endregion
 }

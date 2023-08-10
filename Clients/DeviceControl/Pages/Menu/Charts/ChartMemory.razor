@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @inherits SectionBase<WsStorageCore.Views.ViewDiagModels.LogsMemory.WsSqlViewLogMemoryModel>
 
-<RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
+<RadzenCard class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem" >
     @* Приложение *@
     <RadzenLabel Text="@WsLocaleCore.DeviceControl.ItemApp" Style="margin-left: 0rem;" />
     <RadzenDropDown AllowClear="false" @bind-Value="@App" Data="@Apps"

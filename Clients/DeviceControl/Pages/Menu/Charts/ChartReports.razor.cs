@@ -3,7 +3,7 @@
 
 namespace DeviceControl.Pages.Menu.Charts;
 
-public sealed partial class ChartReports : SectionBase<WsSqlViewLogDeviceAggrShortModel>
+public sealed partial class ChartReports : SectionBase<WsSqlViewLogDeviceAggrModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -41,6 +41,9 @@ public sealed partial class ChartReports : SectionBase<WsSqlViewLogDeviceAggrSho
         }
     }
     private IEnumerable<string> TimeIntervals { get; } = WsSqlEnumUtils.GetEnumerableTimeIntervals();
+    private IEnumerable<string> Colors { get; set; } = new List<string>();
+
+    private WsSqlViewLogDeviceAggrModel[][] Items { get; set; } = Array.Empty<WsSqlViewLogDeviceAggrModel[]>();
 
     public ChartReports() : base()
     {
@@ -91,11 +94,36 @@ public sealed partial class ChartReports : SectionBase<WsSqlViewLogDeviceAggrSho
 
     protected override void SetSqlSectionCast()
     {
-        IEnumerable<WsSqlViewLogDeviceAggrModel> list = ContextManager.ViewLogDeviceAggrRepository.GetList(
+        IEnumerable<WsSqlViewLogDeviceAggrModel> items = ContextManager.ViewLogDeviceAggrRepository.GetList(
             App.Name, Device.Name, WsSqlEnumUtils.GetTimeInterval(TimeInterval), 0);
-        IEnumerable<WsSqlViewLogDeviceAggrShortModel> listShort = 
-            list.Select(x => new WsSqlViewLogDeviceAggrShortModel(x));
-        SqlSectionCast = listShort.ToList();
+        //if (TimeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalAll)
+        //    list = list.Select(x => new WsSqlViewLogDeviceAggrModel(x, DateTime.Today));
+        //else if (TimeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalToday)
+        //    list = list.Select(x => new WsSqlViewLogDeviceAggrModel(x, DateTime.Today));
+        //else if (TimeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalMonth)
+        //    list = list.Select(x => new WsSqlViewLogDeviceAggrModel(x, 
+        //        WsDataFormatUtils.GetDateTimeMonth(x.CreateDt)));
+        //else if (TimeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalYear)
+        //    list = list.Select(x => new WsSqlViewLogDeviceAggrModel(x));
+        SqlSectionCast = items.ToList();
+        Items = items
+            .Select((item, index) => new { Item = item, Index = index })
+            .GroupBy(x => x.Index / SqlSectionCast.Count, x => x.Item)
+            .Select(group => group.ToArray())
+            .ToArray();
+        
+        // Fill random colors.
+        Colors = items.Select(_ =>
+        {
+            Random random = new();
+            // Generate random color components (R, G, B) between 0 and 255
+            int red = random.Next(256);
+            int green = random.Next(256);
+            int blue = random.Next(256);
+            // Create a new Color instance with the random components
+            Color randomColor = Color.FromArgb(red, green, blue);
+            return randomColor.Name;
+        });
     }
 
     #endregion

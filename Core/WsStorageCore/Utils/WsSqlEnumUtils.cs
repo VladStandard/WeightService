@@ -22,11 +22,11 @@ public static class WsSqlEnumUtils
     {
         if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalAll)
             return WsSqlEnumTimeInterval.All;
-        else if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalToday)
+        if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalToday)
             return WsSqlEnumTimeInterval.Today;
-        else if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalMonth)
+        if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalMonth)
             return WsSqlEnumTimeInterval.Month;
-        else if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalYear)
+        if (timeInterval == WsLocaleCore.DeviceControl.ChartTimeIntervalYear)
             return WsSqlEnumTimeInterval.Year;
         return WsSqlEnumTimeInterval.Empty;
     }

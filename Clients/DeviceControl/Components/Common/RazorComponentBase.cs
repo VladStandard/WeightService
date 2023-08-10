@@ -9,9 +9,9 @@ public class RazorComponentBase : LayoutComponentBase
 
     #region Inject
 
-    [Inject] protected DialogService DialogService { get; set; }
-    [Inject] protected NotificationService NotificationService { get; set; }
-    [Inject] protected WsUserService UserService { get; set; }
+    [Inject] protected DialogService DialogService { get; set; } = default!;
+    [Inject] protected NotificationService NotificationService { get; set; } = default!;
+    [Inject] protected WsUserService UserService { get; set; } = default!;
 
     #endregion
 

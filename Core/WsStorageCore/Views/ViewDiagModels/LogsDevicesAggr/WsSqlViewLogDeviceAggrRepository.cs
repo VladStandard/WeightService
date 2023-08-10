@@ -17,15 +17,14 @@ public sealed class WsSqlViewLogDeviceAggrRepository : IViewLogDeviceAggrReposit
         List<WsSqlViewLogDeviceAggrModel> result = new(objects.Length);
         foreach (object obj in objects)
         {
-            int i = 0;
-            if (obj is not object[] item || item.Length < 7) break;
+            int i = 1;
+            if (obj is not object[] item || item.Length < 6) break;
             result.Add(new()
             {
-                CreateDt = Convert.ToDateTime(item[i++]),
+                //CreateDt = Convert.ToDateTime(item[i++]),
                 DeviceName = Convert.ToString(item[i++]),
                 LineName = Convert.ToString(item[i++]),
                 AppName = Convert.ToString(item[i++]),
-                Version = Convert.ToString(item[i++]),
                 LogType = Convert.ToString(item[i++]),
                 Count = Convert.ToUInt32(item[i]),
             });

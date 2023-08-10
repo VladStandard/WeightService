@@ -7,9 +7,9 @@ public partial class Profile : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Inject] private WsLocalStorageService LocalStorage { get; set; }
-    [Inject] private WsUserService UserService { get; set; }
-    [Inject] private IHttpContextAccessor HttpContextAccess { get; set; }
+    [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
+    [Inject] private WsUserService UserService { get; set; } = default!;
+    [Inject] private IHttpContextAccessor HttpContextAccess { get; set; } = default!;
     private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private ClaimsPrincipal? User { get; set; }
     private List<WsEnumTypeModel<WsEnumLanguage>>? TemplateLanguages { get; set; }

@@ -7,19 +7,19 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
 {
     #region Public and private fields, properties, constructor
 
-    [Inject] protected IJSRuntime JsRuntime { get; set; }
-    [Inject] protected WsJsService JsService { get; private set; }
-    [Inject] protected WsRouteService RouteService { get; set; }
-    [Inject] private WsLocalStorageService LocalStorage { get; set; }
-    [Inject] protected ContextMenuService ContextMenuService { get; set; }
+    [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] protected WsJsService JsService { get; private set; } = default!;
+    [Inject] protected WsRouteService RouteService { get; set; } = default!;
+    [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
+    [Inject] protected ContextMenuService ContextMenuService { get; set; } = default!;
     [Parameter] public WsSqlTableBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     private List<TItem> SqlSectionSave { get; set; }
-    private List<ContextMenuItem> ContextMenuItems { get; set; }
+    private List<ContextMenuItem> ContextMenuItems { get; set; } = new();
     protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
     protected WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
-    protected RadzenDataGrid<TItem> DataGrid { get; set; }
+    protected RadzenDataGrid<TItem> DataGrid { get; set; } = new();
     protected ButtonSettingsModel ButtonSettings { get; set; }
     protected bool IsLoading { get; set; } = true;
     public bool IsGuiShowFilterMarked { get; set; }
