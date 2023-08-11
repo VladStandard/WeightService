@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.DeviceTypes;
+namespace WsStorageCore.Tables.TableScaleModels.DeviceTypes;
 
 public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTypeModel>
 {
@@ -34,7 +34,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig).ToList();
     }
 
     #endregion

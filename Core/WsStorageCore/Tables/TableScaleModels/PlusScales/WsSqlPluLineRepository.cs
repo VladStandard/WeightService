@@ -22,10 +22,10 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
 
     public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPluScaleModel> list = SqlCore.GetListNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluScaleModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
-            list = list.OrderBy(item => item.Plu.Number).ToList();
-        return list;
+            items = items.OrderBy(item => item.Plu.Number);
+        return items.ToList();
     }
 
     public List<WsSqlPluScaleModel> GetListByLine(WsSqlScaleModel line, WsSqlCrudConfigModel sqlCrudConfig)

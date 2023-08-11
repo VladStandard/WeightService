@@ -12,13 +12,12 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     
     public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlDeviceSettingsFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
-            list = list
+            items = items
                 .OrderBy(item => item.Device.Name)
-                .ThenBy(item => item.Setting.Name)
-                .ToList();
-        return list;
+                .ThenBy(item => item.Setting.Name);
+        return items.ToList();
     }
 
     public List<WsSqlDeviceSettingsFkModel> GetListByLine(WsSqlScaleModel line)
@@ -31,12 +30,11 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceSettingsFkModel.Device), device);
-        List<WsSqlDeviceSettingsFkModel> list = SqlCore.GetListNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
-        list = list
+        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        items = items
             .OrderBy(item => item.Device.Name)
-            .ThenBy(item => item.Setting.Name)
-            .ToList();
-        return list;
+            .ThenBy(item => item.Setting.Name);
+        return items.ToList();
     }
 
     public WsSqlDeviceSettingsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsFkModel>();

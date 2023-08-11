@@ -33,7 +33,7 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlBundleModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlBundleModel>(sqlCrudConfig).ToList();
     }
 
     #endregion

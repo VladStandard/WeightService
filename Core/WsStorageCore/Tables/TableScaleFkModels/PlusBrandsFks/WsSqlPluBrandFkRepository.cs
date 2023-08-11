@@ -30,18 +30,18 @@ public sealed class WsSqlPluBrandFkRepository : WsSqlTableRepositoryBase<WsSqlPl
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.ClearNullProperties), SqlOrderDirection.Asc));
-        List<WsSqlPluBrandFkModel> list = SqlCore.GetListNotNullable<WsSqlPluBrandFkModel>(sqlCrudConfig);
-        if (list.Any())
+        List<WsSqlPluBrandFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluBrandFkModel>(sqlCrudConfig).ToList();
+        if (items.Any())
         {
-            WsSqlPluBrandFkModel bundleFk = list.First();
+            WsSqlPluBrandFkModel bundleFk = items.First();
             if (bundleFk.Plu.IsNew)
                 bundleFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
             if (bundleFk.Brand.IsNew)
                 bundleFk.Brand = SqlCore.GetItemNewEmpty<WsSqlBrandModel>();
         }
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Brand.Name).ToList();
-        return list;
+        if (sqlCrudConfig.IsResultOrder && items.Any())
+            items = items.OrderBy(item => item.Brand.Name).ToList();
+        return items;
     }
     
     #endregion

@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Devices;
+using WsStorageCore.Views.ViewScaleModels.Devices;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Devices;
 
@@ -17,6 +17,6 @@ public sealed class ViewDevicesRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewDeviceModel> items = ViewDeviceRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

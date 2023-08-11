@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Aggregations;
+using WsStorageCore.Views.ViewScaleModels.Aggregations;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Aggregations;
 
@@ -18,6 +18,6 @@ public sealed class ViewAggregationsRepositoryTests : ViewRepositoryTests
             List<WsSqlViewWeightingAggrModel> items = ViewWeightingAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

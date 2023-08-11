@@ -1,22 +1,20 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
-
 namespace MDSoft.BarcodePrintUtils.Utils;
 
 #nullable enable
-public static class DataFormatUtils
+public static class MdDataFormatUtils
 {
     private static List<WsSqlTemplateResourceModel> _templateResources = new();
 
-    public static List<WsSqlTemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
+    private static List<WsSqlTemplateResourceModel> LoadTemplatesResources(bool isForceUpdate)
     {
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddOrder(nameof(WsSqlTemplateResourceModel.Name));
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTemplateResourceModel.Type), Value = "ZPL"});
-        WsSqlTemplateResourceModel[]? templateResources = WsSqlCoreHelper.Instance.GetArrayNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
+        IEnumerable<WsSqlTemplateResourceModel>? templateResources = WsSqlCoreHelper.Instance.GetEnumerableNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }
 

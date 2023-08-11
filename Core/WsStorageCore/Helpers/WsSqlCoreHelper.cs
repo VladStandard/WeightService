@@ -3,6 +3,8 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
+using System.Collections;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -181,6 +183,13 @@ public sealed class WsSqlCoreHelper
             if (orders.Any())
                 criteria.SetCriteriaOrder(orders);
         }
+        return criteria;
+    }
+
+    private ICriteria GetCriteria<T>(ISession session, int maxResults) where T : class, new()
+    {
+        ICriteria criteria = session.CreateCriteria(typeof(T));
+        criteria.SetMaxResults(maxResults);
         return criteria;
     }
 
@@ -510,7 +519,7 @@ public sealed class WsSqlCoreHelper
     //     WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
     //     {
     //         result = session.Query<T>().Any(item2 => item2.IsAny(item));    //
-                                                                               //         //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
+    //         //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
 
     //
     //         //IQueryable<T> query = session.Query<T>().Where(item => item.Equals(item));
@@ -520,7 +529,7 @@ public sealed class WsSqlCoreHelper
     //         dbResult = dbResult with { IsOk = false };
     //     return dbResult;
     // }
-    
+
     //public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     //{
     //    bool result = false;
@@ -538,34 +547,45 @@ public sealed class WsSqlCoreHelper
 
     #endregion
 
-    #region Public and private methods - GetArray
+    #region Public and private methods - Enumerable
 
-    public T[]? GetArrayNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public IEnumerable<T>? GetEnumerableNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
-        T[]? items = null;
+        IEnumerable<T>? items = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items = criteria.List<T>().ToArray();
-            foreach (T item in items)
-                if (sqlCrudConfig.IsFillReferences)
+            items = criteria.List<T>();
+            if (sqlCrudConfig.IsFillReferences)
+                foreach (T item in items)
                     FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
     }
 
-    public T[]? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
+    private IEnumerable<T>? GetEnumerableNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
     {
-        T[]? result = null;
+        IEnumerable<T>? items = null;
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        {
+            ICriteria criteria = GetCriteria<T>(session, maxResults);
+            items = criteria.List<T>();
+            if (isFillReferences)
+                foreach (T item in items)
+                    FillReferences(item);
+        });
+        if (!dbResult.IsOk) items = null;
+        return items;
+    }
+
+    private IEnumerable<T>? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
+    {
+        IEnumerable<T>? result = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is not null)
-            {
-                //sqlQuery.AddEntity(typeof(T));
-                result = sqlQuery.List<T>().ToArray();
-            }
+            if (sqlQuery is not null) result = sqlQuery.List<T>();
         });
         if (!dbResult.IsOk) result = null;
         return result;
@@ -623,12 +643,11 @@ public sealed class WsSqlCoreHelper
 
     #region Public and private methods - GetList
 
-    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
-    {
-        T[]? items = GetArrayNullable<T>(sqlCrudConfig);
-        List<T> result = items?.ToList() ?? new List<T>();
-        return result;
-    }
+    public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
+        GetEnumerableNullable<T>(sqlCrudConfig)?.ToList() ?? Enumerable.Empty<T>();
+
+    public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
+        GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
 
     #endregion
 

@@ -52,8 +52,11 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name)); 
-        return SqlCore.GetListNotNullable<WsSqlAppModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlAppModel>(sqlCrudConfig).ToList();
     }
     
+    public List<WsSqlAppModel> GetList(int maxResults) => 
+        SqlCore.GetEnumerableNotNullable<WsSqlAppModel>(maxResults, true).ToList();
+
     #endregion
 }

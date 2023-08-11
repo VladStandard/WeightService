@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.ProductSeries;
+namespace WsStorageCore.Tables.TableScaleModels.ProductSeries;
 
 public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProductSeriesModel>
 {
@@ -14,6 +14,6 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig).ToList();
     }
 }

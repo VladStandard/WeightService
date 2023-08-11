@@ -14,7 +14,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         Is.Ordered.By(nameof(WsSqlViewLogDeviceAggrModel.CreateDt)).Descending;
 
     private List<WsSqlAppModel> GetApps() =>
-        AppRepository.GetList(new(SqlCrudConfig) { SelectTopRowsCount = 0 });
+        AppRepository.GetList(new WsSqlCrudConfigModel(SqlCrudConfig) { SelectTopRowsCount = 0 });
 
     [Test]
     public void Get_list()
@@ -23,7 +23,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -33,7 +33,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(10);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -50,7 +50,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -67,7 +67,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -84,7 +84,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -101,6 +101,6 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

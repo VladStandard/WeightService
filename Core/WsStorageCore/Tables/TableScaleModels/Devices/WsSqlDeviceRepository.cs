@@ -55,7 +55,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceModel>(sqlCrudConfig).ToList();
     }
 
     public WsSqlDeviceModel GetCurrentDevice() => GetItemByName(MdNetUtils.GetLocalDeviceName(false));

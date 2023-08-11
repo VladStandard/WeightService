@@ -1,12 +1,12 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Tasks;
+namespace WsStorageCore.Tables.TableScaleModels.Tasks;
 
 public class WsSqlTaskRepository : WsSqlTableRepositoryBase<WsSqlTaskModel>
 {
     public List<WsSqlTaskModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlTaskModel> list = SqlCore.GetListNotNullable<WsSqlTaskModel>(sqlCrudConfig);
+        IEnumerable<WsSqlTaskModel> items = SqlCore.GetEnumerableNotNullable<WsSqlTaskModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
-            list = list.OrderBy(item => item.Scale.Description).ToList();
-        return list;
+            items = items.OrderBy(item => item.Scale.Description);
+        return items.ToList();
     }
 }

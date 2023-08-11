@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Logs;
+using WsStorageCore.Views.ViewScaleModels.Logs;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 
@@ -17,6 +17,6 @@ public sealed class ViewLogRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogModel> items = ViewLogRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

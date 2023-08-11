@@ -28,10 +28,10 @@ public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkMo
 
     public List<WsSqlPluFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPluFkModel> list = SqlCore.GetListNotNullable<WsSqlPluFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Plu.Number).ToList();
-        return list;   
+        IEnumerable<WsSqlPluFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder)
+            items = items.OrderBy(item => item.Plu.Number);
+        return items.ToList();
     }
     
     #endregion

@@ -340,7 +340,7 @@ public sealed class WsPrintSessionHelper
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
-        _ = DataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
+        _ = MdDataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
         ContextManager.PluLabelRepository.Save(pluLabel);

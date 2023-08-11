@@ -2,14 +2,14 @@ namespace WsStorageCoreTests.Views;
 
 public class ViewRepositoryTests
 {
-    protected WsSqlCrudConfigModel SqlCrudConfig { get; set; }
-    protected List<WsEnumConfiguration> DefaultPublishTypes { get; set; }
+    protected WsSqlCrudConfigModel SqlCrudConfig { get; private set; }
+    protected List<WsEnumConfiguration> AllConfigurations { get; }
     protected virtual IResolveConstraint SortOrderValue => throw new NotImplementedException();
 
     public ViewRepositoryTests()
     {
         SqlCrudConfig = new();
-        DefaultPublishTypes = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
+        AllConfigurations = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
     }
 
     [SetUp]

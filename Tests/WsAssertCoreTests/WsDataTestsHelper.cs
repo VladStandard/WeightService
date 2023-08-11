@@ -1,6 +1,3 @@
-using WsStorageCore.Tables.TableScaleModels.PlusLabels;
-using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
-
 namespace WsAssertCoreTests;
 
 public class WsDataTestsHelper

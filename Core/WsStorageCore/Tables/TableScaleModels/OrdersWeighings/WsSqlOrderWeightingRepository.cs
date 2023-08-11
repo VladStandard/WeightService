@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
+namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 
 public sealed class WsSqlOrderWeightingRepository : WsSqlTableRepositoryBase<WsSqlOrderWeighingModel>
 {
@@ -6,7 +6,7 @@ public sealed class WsSqlOrderWeightingRepository : WsSqlTableRepositoryBase<WsS
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlOrderWeighingModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlOrderWeighingModel>(sqlCrudConfig).ToList();
     }
 
 }

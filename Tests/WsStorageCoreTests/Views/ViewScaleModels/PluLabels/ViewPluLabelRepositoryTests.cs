@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.PluLabels;
+using WsStorageCore.Views.ViewScaleModels.PluLabels;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.PluLabels;
 
@@ -18,6 +18,6 @@ public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

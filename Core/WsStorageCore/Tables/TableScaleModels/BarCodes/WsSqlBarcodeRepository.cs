@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
+namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 
 public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarCodeModel>
 {
@@ -6,6 +6,6 @@ public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarCo
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlBarCodeModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlBarCodeModel>(sqlCrudConfig).ToList();
     }
 }

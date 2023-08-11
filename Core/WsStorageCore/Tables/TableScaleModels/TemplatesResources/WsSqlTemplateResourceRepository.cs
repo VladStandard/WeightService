@@ -1,14 +1,14 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.TemplatesResources;
+namespace WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 
 public class WsSqlTemplateResourceRepository : WsSqlTableRepositoryBase<WsSqlTemplateResourceModel>
 {
     public List<WsSqlTemplateResourceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlTemplateResourceModel> list = SqlCore.GetListNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
+        IEnumerable<WsSqlTemplateResourceModel> items = SqlCore.GetEnumerableNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
-            list = list
+            items = items
                 .OrderBy(item => item.Name)
-                .ThenBy(item => item.Type).ToList();
-        return list;
+                .ThenBy(item => item.Type);
+        return items.ToList();
     }
 }

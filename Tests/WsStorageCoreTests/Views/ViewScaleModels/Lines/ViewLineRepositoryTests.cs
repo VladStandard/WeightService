@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Lines;
+using WsStorageCore.Views.ViewScaleModels.Lines;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Lines;
 
@@ -17,6 +17,6 @@ public sealed class ViewLinesRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLineModel> items = ViewLineRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

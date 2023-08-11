@@ -17,7 +17,7 @@ public sealed class WsSqlBoxRepository : WsSqlTableRepositoryBase<WsSqlBoxModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlBoxModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlBoxModel>(sqlCrudConfig).ToList();
     }
     
     /// <summary>

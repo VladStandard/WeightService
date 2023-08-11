@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
+namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 
 public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodFkModel>
 {
@@ -14,12 +14,12 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
-        List<WsSqlPluTemplateFkModel> list = SqlCore.GetListNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluTemplateFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
-            list = list
+            items = items
                 .OrderBy(item => item.Template.Title)
-                .ThenBy(item => item.Plu.Name).ToList();
-        return list;
+                .ThenBy(item => item.Plu.Name);
+        return items.ToList();
     }
 
 }

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Printers;
+namespace WsStorageCore.Tables.TableScaleModels.Printers;
 
 public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterModel
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlPrinterModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlPrinterModel>(sqlCrudConfig).ToList();
     }
 }

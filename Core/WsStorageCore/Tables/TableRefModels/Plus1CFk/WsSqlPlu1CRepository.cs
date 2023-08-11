@@ -14,10 +14,10 @@ public sealed class WsSqlPlu1CRepository : WsSqlTableRepositoryBase<WsSqlPlu1CFk
 
     public List<WsSqlPlu1CFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPlu1CFkModel> list = SqlCore.GetListNotNullable<WsSqlPlu1CFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list.OrderBy(item => item.Plu.Number).ToList();
-        return list;
+        IEnumerable<WsSqlPlu1CFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPlu1CFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder)
+            items = items.OrderBy(item => item.Plu.Number);
+        return items.ToList();
     }
     
     public List<WsSqlPlu1CFkModel> GetNewList() => new();

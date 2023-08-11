@@ -14,7 +14,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
         Is.Ordered.By(nameof(WsSqlViewLogMemoryModel.CreateDt)).Descending;
 
     private List<WsSqlAppModel> GetApps() =>
-        AppRepository.GetList(new(SqlCrudConfig) { SelectTopRowsCount = 0 });
+        AppRepository.GetList(new WsSqlCrudConfigModel(SqlCrudConfig) { SelectTopRowsCount = 0 });
 
     [Test]
     public void Get_list()
@@ -24,7 +24,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
             // Метод теперь не падает, т.к. проксирующий метод GetList теперь пересылает на другой GetList.
             List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -34,7 +34,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(10);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -51,7 +51,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -68,6 +68,6 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

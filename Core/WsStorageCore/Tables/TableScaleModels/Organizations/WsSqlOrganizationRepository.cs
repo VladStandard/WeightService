@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Organizations;
+namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 
 public class WsSqlOrganizationRepository : WsSqlTableRepositoryBase<WsSqlOrganizationModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlOrganizationRepository : WsSqlTableRepositoryBase<WsSqlOrganiz
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlOrganizationModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlOrganizationModel>(sqlCrudConfig).ToList();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
+namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
 
 public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWorkShopModel>
 {
@@ -16,7 +16,7 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlWorkShopModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlWorkShopModel>(sqlCrudConfig).ToList();
     }
     
     #endregion

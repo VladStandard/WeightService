@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
@@ -13,6 +13,6 @@ public class WsSqlScaleScreenshotRepository: WsSqlTableRepositoryBase<WsSqlScale
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlScaleScreenShotModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlScaleScreenShotModel>(sqlCrudConfig).ToList();
     }
 }

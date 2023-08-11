@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.Barcodes;
+using WsStorageCore.Views.ViewScaleModels.Barcodes;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.Barcodes;
 
@@ -17,6 +17,6 @@ public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

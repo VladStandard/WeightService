@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
+namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
 
 public class WsSqlTaskTypeRepository : WsSqlTableRepositoryBase<WsSqlTaskTypeModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlTaskTypeRepository : WsSqlTableRepositoryBase<WsSqlTaskTypeMod
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlTaskTypeModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlTaskTypeModel>(sqlCrudConfig).ToList();
     }
 }

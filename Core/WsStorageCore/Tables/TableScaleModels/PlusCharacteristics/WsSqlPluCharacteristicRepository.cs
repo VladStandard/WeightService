@@ -17,7 +17,7 @@ public sealed class WsSqlPluCharacteristicRepository : WsSqlTableRepositoryBase<
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig).ToList();
     }
     
     /// <summary>

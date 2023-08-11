@@ -45,7 +45,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlPluModel.Number));
-        return SqlCore.GetListNotNullable<WsSqlPluModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluModel>(sqlCrudConfig).ToList();
     }
 
     /// <summary>

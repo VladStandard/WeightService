@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
+using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 namespace WsStorageCoreTests.Views.ViewOtherModels.DbFileSizeInfo;
 
@@ -22,6 +22,6 @@ public sealed class ViewDbFileSizeInfoRepositoryTest : ViewRepositoryTests
                 TestContext.WriteLine($"{info.FileName}: {info.DbFillSize}%");
                 Assert.That(info.SizeMb, Is.LessThan(10240));
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

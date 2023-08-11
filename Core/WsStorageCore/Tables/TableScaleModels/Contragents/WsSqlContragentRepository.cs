@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Contragents;
+namespace WsStorageCore.Tables.TableScaleModels.Contragents;
 
 public class WsSqlContragentRepository : WsSqlTableRepositoryBase<WsSqlContragentModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlContragentRepository : WsSqlTableRepositoryBase<WsSqlContragen
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlContragentModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlContragentModel>(sqlCrudConfig).ToList();
     }
 }

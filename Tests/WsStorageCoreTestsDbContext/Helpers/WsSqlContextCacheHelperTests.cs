@@ -1,5 +1,5 @@
 
-namespace WsStorageContextTests.Helpers;
+namespace WsStorageCoreTestsDbContext.Helpers;
 
 [TestFixture]
 public sealed class WsSqlContextCacheHelperTests

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
+namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
 public class WsSqlPrinterResourceFkRepository : WsSqlTableRepositoryBase<WsSqlPrinterResourceFkModel>
 {
@@ -6,11 +6,11 @@ public class WsSqlPrinterResourceFkRepository : WsSqlTableRepositoryBase<WsSqlPr
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
-        List<WsSqlPrinterResourceFkModel> list = SqlCore.GetListNotNullable<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder && list.Any())
-            list = list
+        IEnumerable<WsSqlPrinterResourceFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
+        if (sqlCrudConfig.IsResultOrder)
+            items = items
                 .OrderBy(item => item.Printer.Name)
-                .ThenBy(item => item.TemplateResource.Name).ToList();
-        return list;
+                .ThenBy(item => item.TemplateResource.Name);
+        return items.ToList();
     }
 }

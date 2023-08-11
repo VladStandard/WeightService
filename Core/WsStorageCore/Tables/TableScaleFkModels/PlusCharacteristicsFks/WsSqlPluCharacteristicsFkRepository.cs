@@ -13,10 +13,8 @@ public sealed class WsSqlPluCharacteristicsFkRepository : WsSqlTableRepositoryBa
 
     public WsSqlPluCharacteristicsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluCharacteristicsFkModel>();
 
-    public List<WsSqlPluCharacteristicsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
-    {
-        return SqlCore.GetListNotNullable<WsSqlPluCharacteristicsFkModel>(sqlCrudConfig);
-    }
-    
+    public List<WsSqlPluCharacteristicsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
+        SqlCore.GetEnumerableNotNullable<WsSqlPluCharacteristicsFkModel>(sqlCrudConfig).ToList();
+
     #endregion
 }

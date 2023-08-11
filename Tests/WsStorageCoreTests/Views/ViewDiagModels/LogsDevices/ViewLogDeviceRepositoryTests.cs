@@ -16,7 +16,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
         Is.Ordered.By(nameof(WsSqlViewLogDeviceModel.CreateDt)).Descending;
 
     private List<WsSqlAppModel> GetApps() =>
-        AppRepository.GetList(new(SqlCrudConfig) { SelectTopRowsCount = 0 });
+        AppRepository.GetList(new WsSqlCrudConfigModel(SqlCrudConfig) { SelectTopRowsCount = 0 });
 
     [Test]
     public void Get_list()
@@ -25,7 +25,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(10);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -52,7 +52,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 
     [Test]
@@ -69,6 +69,6 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
                 else
                     TestContext.WriteLine($"{WsLocaleCore.Tests.NoDataFor} '{app.Name}'!");
             }
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

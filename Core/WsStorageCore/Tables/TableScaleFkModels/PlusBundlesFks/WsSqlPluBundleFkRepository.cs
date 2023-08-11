@@ -30,8 +30,8 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluBundleFkModel.Bundle)}.{nameof(BundleModel.Name)}", SqlOrderDirection.Asc));
-        List<WsSqlPluBundleFkModel> list = SqlCore.GetListNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig);
-        if (list.Count > 0)
+        List<WsSqlPluBundleFkModel> list = SqlCore.GetEnumerableNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).ToList();
+        if (list.Any())
         {
             WsSqlPluBundleFkModel bundleFk = list.First();
             if (bundleFk.Plu.IsNew)

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Versions;
+namespace WsStorageCore.Tables.TableScaleModels.Versions;
 
 public class WsSqlVersionRepository : WsSqlTableRepositoryBase<WsSqlVersionModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlVersionRepository : WsSqlTableRepositoryBase<WsSqlVersionModel
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlVersionModel.Version), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlVersionModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlVersionModel>(sqlCrudConfig).ToList();
     }
 }

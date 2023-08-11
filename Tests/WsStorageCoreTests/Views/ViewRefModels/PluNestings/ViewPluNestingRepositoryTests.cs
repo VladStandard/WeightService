@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewRefModels.PluNestings;
+using WsStorageCore.Views.ViewRefModels.PluNestings;
 
 namespace WsStorageCoreTests.Views.ViewRefModels.PluNestings;
 
@@ -17,6 +17,6 @@ public class ViewPluNestingRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewPluNestingModel> items = ViewPluNestingRepository.GetList();
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

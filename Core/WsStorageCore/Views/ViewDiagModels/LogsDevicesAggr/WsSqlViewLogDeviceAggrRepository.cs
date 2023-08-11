@@ -32,16 +32,16 @@ public sealed class WsSqlViewLogDeviceAggrRepository : IViewLogDeviceAggrReposit
         return result;
     }
 
-    public List<WsSqlViewLogDeviceAggrModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0) =>
-        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, deviceName, timeInterval, records));
+    public List<WsSqlViewLogDeviceAggrModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, deviceName, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetListForApp(string appName, WsSqlEnumTimeInterval timeInterval, int records = 0) =>
-        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, string.Empty, timeInterval, records));
+    public List<WsSqlViewLogDeviceAggrModel> GetListForApp(string appName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, string.Empty, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetListForDevice(string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0) =>
-        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(string.Empty, deviceName, timeInterval, records));
+    public List<WsSqlViewLogDeviceAggrModel> GetListForDevice(string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+        GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(string.Empty, deviceName, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetList(int records) =>
+    public List<WsSqlViewLogDeviceAggrModel> GetList(int maxRecords) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(
-            string.Empty, string.Empty, WsSqlEnumTimeInterval.All, records));
+            string.Empty, string.Empty, WsSqlEnumTimeInterval.All, maxRecords));
 }

@@ -7,7 +7,7 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
 {
     #region Public and private fields, properties, constructor
 
-    private Interpolation WsInterpolation { get; set; } = Interpolation.Line;
+    private Interpolation WsInterpolation { get; set; } = Interpolation.Step;
     private WsSqlAppModel _app;
     private WsSqlAppModel App
     {

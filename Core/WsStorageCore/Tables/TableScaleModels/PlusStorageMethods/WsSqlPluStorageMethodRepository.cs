@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
+namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 
 public class WsSqlPluStorageMethodRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodModel>
 {
@@ -6,6 +6,6 @@ public class WsSqlPluStorageMethodRepository : WsSqlTableRepositoryBase<WsSqlPlu
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlPluStorageMethodModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluStorageMethodModel>(sqlCrudConfig).ToList();
     }
 }

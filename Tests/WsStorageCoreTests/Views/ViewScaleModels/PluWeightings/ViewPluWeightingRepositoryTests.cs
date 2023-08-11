@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Views.ViewScaleModels.PluWeightings;
+using WsStorageCore.Views.ViewScaleModels.PluWeightings;
 
 namespace WsStorageCoreTests.Views.ViewScaleModels.PluWeightings;
 
@@ -17,6 +17,6 @@ public sealed class ViewPluWeightingRepositoryTests : ViewRepositoryTests
         {
             List<WsSqlViewPluWeightingModel> items = ViewPluWeightingRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, AllConfigurations);
     }
 }

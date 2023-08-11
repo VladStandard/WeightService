@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.Orders;
+namespace WsStorageCore.Tables.TableScaleModels.Orders;
 
 public class WsSqlOrderRepository : WsSqlTableRepositoryBase<WsSqlOrderModel>
 {
@@ -6,7 +6,7 @@ public class WsSqlOrderRepository : WsSqlTableRepositoryBase<WsSqlOrderModel>
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
-        return SqlCore.GetListNotNullable<WsSqlOrderModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlOrderModel>(sqlCrudConfig).ToList();
     }
 
 }

@@ -24,8 +24,8 @@ public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPlu
     public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluClipFkModel.Clip)}.{nameof(ClipModel.Name)}", SqlOrderDirection.Asc));
-        List<WsSqlPluClipFkModel> list = SqlCore.GetListNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig);
-        if (list.Count > 0)
+        List<WsSqlPluClipFkModel> list = SqlCore.GetEnumerableNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig).ToList();
+        if (list.Any())
         {
             WsSqlPluClipFkModel pluClipFk = list.First();
             if (pluClipFk.Plu.IsNew)

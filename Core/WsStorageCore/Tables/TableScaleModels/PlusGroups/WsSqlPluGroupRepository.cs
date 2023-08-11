@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Tables.TableScaleModels.PlusGroups;
+namespace WsStorageCore.Tables.TableScaleModels.PlusGroups;
 
 public class WsSqlPluGroupRepository : WsSqlTableRepositoryBase<WsSqlPluGroupModel>
 {
@@ -14,7 +14,7 @@ public class WsSqlPluGroupRepository : WsSqlTableRepositoryBase<WsSqlPluGroupMod
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetListNotNullable<WsSqlPluGroupModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluGroupModel>(sqlCrudConfig).ToList();
     }
 
 }

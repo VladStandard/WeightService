@@ -29,7 +29,7 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Description));
-        return SqlCore.GetListNotNullable<WsSqlScaleModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerableNotNullable<WsSqlScaleModel>(sqlCrudConfig).ToList();
     }
 
     #endregion
