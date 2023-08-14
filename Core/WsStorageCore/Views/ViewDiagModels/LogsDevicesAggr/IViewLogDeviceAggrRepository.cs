@@ -9,5 +9,5 @@ public interface IViewLogDeviceAggrRepository : IViewBaseRepository<WsSqlViewLog
     public List<WsSqlViewLogDeviceAggrModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0);
     public List<WsSqlViewLogDeviceAggrModel> GetListForApp(string appName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0);
     public List<WsSqlViewLogDeviceAggrModel> GetListForDevice(string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0);
-    public List<WsSqlViewLogDeviceAggrModel> GetList(int maxRecords);
+    public List<WsSqlViewLogDeviceAggrModel> GetList(int maxRecords = 0);
 }

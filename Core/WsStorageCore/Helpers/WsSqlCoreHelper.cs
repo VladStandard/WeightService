@@ -3,6 +3,7 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
+using System;
 using System.Collections;
 
 namespace WsStorageCore.Helpers;
@@ -32,7 +33,7 @@ public sealed class WsSqlCoreHelper
     
     public ISessionFactory? SessionFactory { get; private set; }
 
-    public FluentNHibernate.Cfg.Db.MsSqlConfiguration? SqlConfiguration { get; private set; }
+    public MsSqlConfiguration? SqlConfiguration { get; private set; }
 
     private FluentConfiguration? FluentConfiguration { get; set; }
 
@@ -67,7 +68,7 @@ public sealed class WsSqlCoreHelper
         if (string.IsNullOrEmpty(connectionString))
             throw new ArgumentNullException(nameof(connectionString));
 
-        SqlConfiguration = FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
+        SqlConfiguration = MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
         if (isShowSql)
             SqlConfiguration.ShowSql();
         SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
@@ -579,6 +580,22 @@ public sealed class WsSqlCoreHelper
         return items;
     }
 
+    [Obsolete(@"Use GetEnumerableNullable")]
+    private List<T>? GetListNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    {
+        List<T>? items = null;
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        {
+            ICriteria criteria = GetCriteria<T>(session, maxResults);
+            items = criteria.List<T>().ToList();
+            if (isFillReferences)
+                foreach (T item in items)
+                    FillReferences(item);
+        });
+        if (!dbResult.IsOk) items = null;
+        return items;
+    }
+
     private IEnumerable<T>? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         IEnumerable<T>? result = null;
@@ -616,7 +633,7 @@ public sealed class WsSqlCoreHelper
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
             if (sqlQuery is not null)
             {
-                System.Collections.IList? listEntities = sqlQuery.List();
+                IList? listEntities = sqlQuery.List();
                 result = new object[listEntities.Count];
                 for (int i = 0; i < result.Length; i++)
                 {
@@ -633,7 +650,7 @@ public sealed class WsSqlCoreHelper
 
     public object[] GetArrayObjectsNotNullable(string query) => GetArrayObjectsNotNullable(query, new());
 
-    public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
+    private object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
         GetNativeArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
 
     public object[] GetArrayObjectsNotNullable(WsSqlCrudConfigModel sqlCrudConfig) =>
@@ -648,6 +665,10 @@ public sealed class WsSqlCoreHelper
 
     public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
         GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
+
+    [Obsolete(@"Use GetEnumerableNotNullable")]
+    public List<T> GetListNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
+        GetListNullable<T>(maxResults, isFillReferences) ?? new List<T>();
 
     #endregion
 

@@ -13,5 +13,12 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
         return SqlCore.GetEnumerableNotNullable<WsSqlLogModel>(sqlCrudConfig).ToList();
     }
 
+    public IEnumerable<WsSqlLogModel> GetEnumerable(int maxResults) => 
+        SqlCore.GetEnumerableNotNullable<WsSqlLogModel>(maxResults, true);
+
+    [Obsolete(@"Use GetEnumerable")]
+    public List<WsSqlLogModel> GetList(int maxResults) => 
+        SqlCore.GetListNotNullable<WsSqlLogModel>(maxResults, true).ToList();
+
     public WsSqlLogModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlLogModel>(uid);
 }

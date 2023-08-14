@@ -109,18 +109,29 @@ public sealed class WsSqlContextManagerHelper
         return jsonObject is not null;
     }
 
+    public void SetupJsonConsole(string localDir, string appName)
+    {
+        try
+        {
+            CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
+            if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
+                throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+            SqlCore.SetSessionFactory(false);
+            ContextItem.SetupLog(appName);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.StoreException(ex);
+        }
+    }
+
     public void SetupJsonScales(string localDir, string appName)
     {
         try
         {
-            //FileLogger.Setup(localDir, appName);
             CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
-
             if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
-            {
                 throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
-            }
-
             SqlCore.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
             ContextItem.SetupLog(appName);
         }
