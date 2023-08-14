@@ -7,6 +7,7 @@
     <IsTestProject>true</IsTestProject>
     <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <Version>0.9.860.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.7" />

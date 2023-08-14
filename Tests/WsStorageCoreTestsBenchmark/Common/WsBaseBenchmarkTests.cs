@@ -7,8 +7,8 @@ public class WsBaseBenchmarkTests
 {
     #region Public and private fields, properties, constructor
 
-    protected List<WsEnumConfiguration> AllConfigurations { get; set; }
-    protected IConfig BehcnmarkConfig { get; set; }
+    protected List<WsEnumConfiguration> AllConfigurations { get; }
+    protected IConfig BehcnmarkConfig { get; }
 
     protected WsBaseBenchmarkTests()
     {
