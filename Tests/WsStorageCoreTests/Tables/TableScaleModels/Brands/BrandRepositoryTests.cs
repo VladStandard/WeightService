@@ -12,6 +12,6 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
         {
             List<WsSqlBrandModel> items = BrandRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

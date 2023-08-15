@@ -4,7 +4,7 @@
 
 namespace WsStorageCore.Views.ViewDiagModels.LogsMemory;
 
-public interface IViewLogMemoryRepository : IViewBaseRepository<WsSqlViewLogMemoryModel>
+public interface IViewLogMemoryRepository : IWsSqlViewBaseRepository<WsSqlViewLogMemoryModel>
 {
     public List<WsSqlViewLogMemoryModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0);
     public List<WsSqlViewLogMemoryModel> GetList(int records);

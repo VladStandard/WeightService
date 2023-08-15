@@ -12,6 +12,6 @@ public sealed class OrganizationRepositoryTests : TableRepositoryTests
         {
             List<WsSqlOrganizationModel> items = OrganizationRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

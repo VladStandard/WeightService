@@ -18,6 +18,6 @@ public sealed class TaskRepositoryTests : TableRepositoryTests
         {
             List<WsSqlTaskModel> items = TaskRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

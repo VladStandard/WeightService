@@ -18,7 +18,7 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluGroupModel> items = PluGroupRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -35,6 +35,6 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
             Assert.That(parentGroupByChild, Is.EqualTo(parentGroup));
 
             TestContext.WriteLine(parentGroupByChild);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

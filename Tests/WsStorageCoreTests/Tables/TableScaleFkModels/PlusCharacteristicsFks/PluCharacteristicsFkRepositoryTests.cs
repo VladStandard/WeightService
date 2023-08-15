@@ -12,6 +12,6 @@ public sealed class PluCharacteristicsFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluCharacteristicsFkModel> items = PluCharacteristicsFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

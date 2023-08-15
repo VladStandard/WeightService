@@ -2,7 +2,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
 public class WsSqlPrinterResourceFkRepository : WsSqlTableRepositoryBase<WsSqlPrinterResourceFkModel>
 {
-    public List<WsSqlPrinterResourceFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlPrinterResourceFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));

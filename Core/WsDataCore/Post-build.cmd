@@ -17,7 +17,7 @@ exit %ErrorLevel%
 
 :ping <host>
 ping "%~1" -n 1 | find "TTL=" >nul
-exit /b %ErrorLevel%
+exit %ErrorLevel%
 
 :isConnectGood <host>
 xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul

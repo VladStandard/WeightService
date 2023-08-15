@@ -12,6 +12,6 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
         {
             List<WsSqlProductionFacilityModel> items = AreaRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

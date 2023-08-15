@@ -29,7 +29,6 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
-    
     public WsSqlAppRepository AppRepository { get; } = new();
     public WsSqlAreaRepository AreaRepository { get; } = new();
     public WsSqlBoxRepository BoxRepository { get; } = new();

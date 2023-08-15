@@ -18,7 +18,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluTemplateFkModel> items = PluTemplateFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -34,6 +34,6 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
             Assert.That(pluTemplateByPlu, Is.EqualTo(oldPluTemplateFk));
 
             TestContext.WriteLine(pluTemplateByPlu);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Views.ViewScaleModels.WebLogs;
 
-public interface IViewWebLogRepository : IViewBaseRepository<WsSqlViewWebLogModel>
+public interface IViewWebLogRepository : IWsSqlViewBaseRepository<WsSqlViewWebLogModel>
 {
     
 }

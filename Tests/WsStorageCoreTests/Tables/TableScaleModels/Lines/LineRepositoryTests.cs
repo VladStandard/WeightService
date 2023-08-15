@@ -20,7 +20,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         {
             List<WsSqlScaleModel> items = LineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(3)]

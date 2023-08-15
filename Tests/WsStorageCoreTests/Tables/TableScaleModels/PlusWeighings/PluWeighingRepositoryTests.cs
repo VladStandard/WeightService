@@ -15,6 +15,6 @@ public sealed class PluWeighingRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluWeighingModel> items = PluWeighingRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

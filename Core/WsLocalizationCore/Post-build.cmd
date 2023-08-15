@@ -4,29 +4,32 @@ setlocal
 echo ------------------------------------------------------------
 echo ---          WsLocalizationCore/Post-build.cmd           ---
 echo ------------------------------------------------------------
-
 set "host=palych"
 call :job "%host%"
-endlocal
-exit /b 0
+goto :end
 
-:job <host>
-echo --- [ ] Check the connection to the host [%~1] ---
+:job
+echo [ ] Start job
+echo [ ] Check the connection to the host [%~1]
 call :ping "%~1" && call :isConnectGood "%~1" || call :isConnectBad "%~1"
 echo ------------------------------------------------------------
-exit /b %ErrorLevel%
+exit %ErrorLevel%
 
 :ping <host>
-echo --- [ ] The host %~1 is ping ---
 ping "%~1" -n 1 | find "TTL=" >nul
-exit /b %ErrorLevel%
+exit %ErrorLevel%
 
 :isConnectGood <host>
-echo --- [v] The host [%~1] is online ---
 xcopy "Locales\DeviceControl.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
 xcopy "Locales\LabelPrint.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
 xcopy "Locales\Tests.loc.json" "\\palych\Install\VSSoft\Locales\" /Y /S /Q /F /R /V >nul
-echo --- [v] xcopy "Locales\*" is complete ---
+echo [v] The files "Locales\*.json" has been successfully copied.
+goto :end
 
 :isConnectBad <host>
-echo --- [x] The host [%~1] is offline ---
+echo [x] The host [%~1] is offline
+
+:end
+echo [ ] End job
+endlocal
+exit 0

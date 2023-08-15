@@ -12,7 +12,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
         {
             List<WsSqlAppModel> items = AppRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(2)]

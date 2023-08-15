@@ -4,11 +4,10 @@
 namespace WsStorageCoreBenchmark.Domain;
 
 [SimpleJob(RuntimeMoniker.Net70, baseline: true)]
-public class WsSqlViewLogDeviceAggrBenchmark : WsBenchmark
+public class WsSqlViewLogDeviceAggrBenchmark : WsBenchmarkBase
 {
     private IViewLogDeviceAggrRepository ViewLogDeviceAggrRepository { get; } = new WsSqlViewLogDeviceAggrRepository();
     private int MaxRecords { get; set; }
-    public List<WsSqlViewLogDeviceAggrModel> ListItems { get; set; } = new();
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -19,6 +18,9 @@ public class WsSqlViewLogDeviceAggrBenchmark : WsBenchmark
     [Benchmark]
     public void RunGetList()
     {
-        ListItems = ViewLogDeviceAggrRepository.GetList(MaxRecords);
+        Console.WriteLine("--- Start ------------------------------------------------------------");
+        List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(MaxRecords);
+        Console.WriteLine($"Get {items.Count} items.");
+        Console.WriteLine("--- End ------------------------------------------------------------");
     }
 }

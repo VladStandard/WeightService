@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
+namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
 
 [TestFixture]
 public sealed class LogRepositoryTests : TableRepositoryTests
@@ -14,14 +14,25 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
 
     [Test]
+    public void GetEnumerable()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            List<WsSqlLogModel> items = LogRepository.GetEnumerable(SqlCrudConfig).ToList();
+            Assert.That(items.Any(), Is.True);
+            ParseRecords(items);
+        }, false, DefaultConfigurations);
+    }
+
+    [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlLogModel> items = LogRepository.GetList(SqlCrudConfig);
+            IList<WsSqlLogModel> items = LogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -36,6 +47,17 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             Assert.That(logByUid, Is.EqualTo(oldLog));
 
             TestContext.WriteLine($"Get item success: {logByUid.IdentityValueUid}");
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
+    }
+
+    [Test]
+    public void GetItemFirst()
+    {
+        WsTestsUtils.DataTests.AssertAction(() =>
+        {
+            WsSqlLogModel log = LogRepository.GetItemFirst();
+            Assert.That(log.IsExists, Is.True);
+            TestContext.WriteLine($"{log}");
+        }, false, DefaultConfigurations);
     }
 }

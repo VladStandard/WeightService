@@ -20,7 +20,7 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
         {
             List<WsSqlProductSeriesModel> items = ProductSeriesRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]

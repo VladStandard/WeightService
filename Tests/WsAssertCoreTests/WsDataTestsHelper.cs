@@ -25,48 +25,42 @@ public class WsDataTestsHelper
     {
         ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     private void SetupDevelopMorozov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     private void SetupDevelopVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     private void SetupReleaseAleksandrov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     private void SetupReleaseMorozov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     private void SetupReleaseVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
+        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
 
     public void AssertAction(Action action, bool isShowSql, List<WsEnumConfiguration> publishTypes)
@@ -114,17 +108,9 @@ public class WsDataTestsHelper
 
     private void FailureWriteLine(ValidationResult result)
     {
-        switch (result.IsValid)
-        {
-            case false:
-            {
-                foreach (ValidationFailure failure in result.Errors)
-                {
-                    TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
-                }
-                break;
-            }
-        }
+        if (result.IsValid) return;
+        foreach (ValidationFailure failure in result.Errors)
+            TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
     }
 
     public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>

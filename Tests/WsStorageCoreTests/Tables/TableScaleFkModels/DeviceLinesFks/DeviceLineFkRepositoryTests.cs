@@ -18,7 +18,7 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlDeviceScaleFkModel> items = DeviceLineFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]

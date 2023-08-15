@@ -12,7 +12,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
         {
             List<WsSqlWorkShopModel> items = WorkShopRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(3)]
@@ -27,7 +27,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             Assert.That(workShop.IdentityValueId, Is.EqualTo(id));
 
             TestContext.WriteLine($"Get item success: {workShop.Name}: {workShop.IdentityValueId}");
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(4)]

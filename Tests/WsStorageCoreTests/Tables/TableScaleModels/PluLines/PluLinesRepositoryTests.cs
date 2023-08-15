@@ -23,7 +23,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluScaleModel> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -41,6 +41,6 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
             }
 
             Assert.That(pluLines.Any(), Is.True);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

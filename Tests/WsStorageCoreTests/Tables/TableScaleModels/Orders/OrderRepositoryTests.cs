@@ -13,6 +13,6 @@ public sealed class OrderRepositoryTests : TableRepositoryTests
         {
             List<WsSqlOrderModel> items = OrderRepository.GetList(SqlCrudConfig);
             //ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

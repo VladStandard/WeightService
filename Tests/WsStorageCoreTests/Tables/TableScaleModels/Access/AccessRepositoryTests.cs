@@ -23,7 +23,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         {
             List<WsSqlAccessModel> items = AccessRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(2)]

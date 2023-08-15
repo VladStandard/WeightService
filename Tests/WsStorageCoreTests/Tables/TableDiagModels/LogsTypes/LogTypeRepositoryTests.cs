@@ -14,6 +14,6 @@ public sealed class LogTypesRepositoryTests : TableRepositoryTests
             List<WsSqlLogTypeModel> items = LogTypeRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

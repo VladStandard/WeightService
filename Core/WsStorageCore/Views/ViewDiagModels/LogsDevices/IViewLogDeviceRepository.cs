@@ -4,7 +4,7 @@
 
 namespace WsStorageCore.Views.ViewDiagModels.LogsDevices;
 
-public interface IViewLogDeviceRepository : IViewBaseRepository<WsSqlViewLogDeviceModel>
+public interface IViewLogDeviceRepository : IWsSqlViewBaseRepository<WsSqlViewLogDeviceModel>
 {
     public List<WsSqlViewLogDeviceModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0);
     public List<WsSqlViewLogDeviceModel> GetList(int records);

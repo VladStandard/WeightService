@@ -13,6 +13,6 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
         {
             List<WsSqlLogWebModel> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

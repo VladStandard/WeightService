@@ -12,6 +12,6 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
         {
             List<WsSqlClipModel> items = ClipRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

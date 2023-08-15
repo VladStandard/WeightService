@@ -15,6 +15,6 @@ public sealed class PluLabelRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

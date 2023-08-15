@@ -12,6 +12,6 @@ public sealed class ContragentRepositoryTests : TableRepositoryTests
         {
             List<WsSqlContragentModel> items = ContragentRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

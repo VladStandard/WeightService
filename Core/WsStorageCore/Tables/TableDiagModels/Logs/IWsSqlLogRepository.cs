@@ -2,8 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable InconsistentNaming
 
-namespace WsStorageCore.Views.ViewScaleModels.Barcodes;
+namespace WsStorageCore.Tables.TableDiagModels.Logs;
 
-public interface IViewBarcodeRepository : IWsSqlViewBaseRepository<WsSqlViewBarcodeModel>
+public interface IWsSqlLogRepository : IWsSqlTableBaseRepository<WsSqlLogModel>
 {
+    public WsSqlLogModel GetItemByUid(Guid uid);
 }

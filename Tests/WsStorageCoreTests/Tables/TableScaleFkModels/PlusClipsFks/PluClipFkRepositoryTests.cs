@@ -21,7 +21,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluClipFkModel> items = PluClipFkRepository.GetList(SqlCrudConfig);
             //ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     //[Test]

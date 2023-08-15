@@ -12,6 +12,6 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPrinterModel> items = PrinterRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

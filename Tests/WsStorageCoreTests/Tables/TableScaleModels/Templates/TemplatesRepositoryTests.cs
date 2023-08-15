@@ -13,6 +13,6 @@ public sealed class TemplatesRepositoryTests : TableRepositoryTests
         {
             List<WsSqlTemplateModel> items = TemplateRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

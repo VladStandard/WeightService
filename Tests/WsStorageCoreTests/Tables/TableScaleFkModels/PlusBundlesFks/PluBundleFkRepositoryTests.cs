@@ -18,7 +18,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluBundleFkModel> items = PluBundleFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -36,6 +36,6 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
             }
 
             Assert.That(pluBundlesFks.Any(), Is.True);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

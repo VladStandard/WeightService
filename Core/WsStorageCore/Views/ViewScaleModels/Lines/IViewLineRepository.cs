@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Views.ViewScaleModels.Lines;
 
-public interface IViewLineRepository : IViewBaseRepository<WsSqlViewLineModel>
+public interface IViewLineRepository : IWsSqlViewBaseRepository<WsSqlViewLineModel>
 {
     
 }

@@ -3,9 +3,6 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
-using System;
-using System.Collections;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -83,10 +80,7 @@ public sealed class WsSqlCoreHelper
         }
     }
 
-    ~WsSqlCoreHelper()
-    {
-        Close();
-    }
+    ~WsSqlCoreHelper() => Close();
 
     #endregion
 
@@ -96,8 +90,7 @@ public sealed class WsSqlCoreHelper
     /// Получить строку подключения к БД.
     /// </summary>
     /// <returns></returns>
-    private string GetConnectionString() =>
-        JsonSettings.IsRemote
+    private string GetConnectionString() => JsonSettings.IsRemote
         ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
           $"Initial Catalog={JsonSettings.Remote.Sql.InitialCatalog}; " +
           $"Persist Security Info={JsonSettings.Remote.Sql.PersistSecurityInfo}; " +
@@ -110,6 +103,14 @@ public sealed class WsSqlCoreHelper
           $"Integrated Security={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
+
+    /// <summary>
+    /// Получить сервер БД.
+    /// </summary>
+    /// <returns></returns>
+    public string GetConnectionServer() => JsonSettings.IsRemote
+        ? $"Server = {JsonSettings.Remote.Sql.DataSource} | DB = {JsonSettings.Remote.Sql.InitialCatalog}"
+        : $"Server = {JsonSettings.Local.Sql.DataSource} | DB = {JsonSettings.Local.Sql.InitialCatalog}";
 
     public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
     {
@@ -289,7 +290,7 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    private ISQLQuery? GetSqlQuery(ISession session, string query, List<SqlParameter> parameters)
+    private ISQLQuery? GetSqlQuery(ISession session, string query, IList<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return null;
 
@@ -304,7 +305,7 @@ public sealed class WsSqlCoreHelper
         return sqlQuery;
     }
 
-    public WsSqlCrudResultModel ExecQueryNative(string query, List<SqlParameter> parameters)
+    private WsSqlCrudResultModel ExecQueryNative(string query, IList<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return new(new ArgumentException());
         return ExecuteTransactionCore(session =>
@@ -434,8 +435,6 @@ public sealed class WsSqlCoreHelper
     
     #region Public and private methods - GetItem
 
-    # region Private
-    
     private T? GetItemNullableByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
@@ -446,9 +445,7 @@ public sealed class WsSqlCoreHelper
             if (sqlCrudConfig.IsFillReferences)
                 FillReferences(item);
         });
-        if (!dbResult.IsOk) 
-            return null;
-        return item;
+        return !dbResult.IsOk ? null : item;
     }
     
     private T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new()
@@ -462,47 +459,41 @@ public sealed class WsSqlCoreHelper
     
     private T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new()
     {
-        if (id == null) 
-            return new();
+        if (id == null) return new();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id });
         return GetItemNullableByCrud<T>(sqlCrudConfig);
     }
 
-    private T? GetItemNullableByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new()
-    {
-        return identity?.Name switch
+    private T? GetItemNullableByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() =>
+        identity?.Name switch
         {
             WsSqlEnumFieldIdentity.Uid => GetItemNullableByUid<T>(identity.Uid),
             WsSqlEnumFieldIdentity.Id => GetItemNullableById<T>(identity.Id),
             _ => null
         };
-    }
-    
-    #endregion
 
-    #region Public
+    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
+        GetItemNullableByCrud<T>(sqlCrudConfig) ?? GetItemNewEmpty<T>();
 
-    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T GetItemByUid<T>(Guid? uid) where T : WsSqlTableBase, new() => 
+        GetItemNullableByUid<T>(uid) ?? GetItemNewEmpty<T>();
+
+    public T GetItemById<T>(long? id) where T : WsSqlTableBase, new() => 
+        GetItemNullableById<T>(id) ?? GetItemNewEmpty<T>();
+
+    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() => 
+        GetItemNullableByIdentity<T>(identity) ?? GetItemNewEmpty<T>();
+
+    public T GetItemFirst<T>() where T : WsSqlTableBase, new()
     {
-        return GetItemNullableByCrud<T>(sqlCrudConfig) ?? GetItemNewEmpty<T>();
-    }
-    
-    public T GetItemByUid<T>(Guid? uid) where T : WsSqlTableBase, new()
-    {
-        return GetItemNullableByUid<T>(uid) ?? GetItemNewEmpty<T>();
-    }
-    
-    public T GetItemById<T>(long? id) where T : WsSqlTableBase, new()
-    {
-        return GetItemNullableById<T>(id) ?? GetItemNewEmpty<T>();
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.SelectTopRowsCount = 1;
+        T result = GetItemNullableByCrud<T>(sqlCrudConfig) ?? new T();
+        result.FillProperties();
+        return result;
     }
 
-    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new()
-    {
-        return GetItemNullableByIdentity<T>(identity) ?? GetItemNewEmpty<T>();
-    }
-    
     public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
     {
         T result = new();
@@ -510,9 +501,7 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    #endregion
-
-    // TODO: исправить здесь
+    // TODO: исправить
     // public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase
     // {
     //     if (item is null) return new(false);
@@ -581,13 +570,30 @@ public sealed class WsSqlCoreHelper
     }
 
     [Obsolete(@"Use GetEnumerableNullable")]
-    private List<T>? GetListNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    private IList<T>? GetListNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
-        List<T>? items = null;
+        IList<T>? items = null;
+        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        {
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            items = criteria.List<T>();
+            if (sqlCrudConfig.IsFillReferences)
+                foreach (T item in items)
+                    FillReferences(item);
+        });
+        if (!dbResult.IsOk)
+            items = null;
+        return items;
+    }
+
+    [Obsolete(@"Use GetEnumerableNullable")]
+    private IList<T>? GetListNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    {
+        IList<T>? items = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, maxResults);
-            items = criteria.List<T>().ToList();
+            items = criteria.List<T>();
             if (isFillReferences)
                 foreach (T item in items)
                     FillReferences(item);
@@ -596,7 +602,8 @@ public sealed class WsSqlCoreHelper
         return items;
     }
 
-    private IEnumerable<T>? GetNativeArrayNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
+    private IEnumerable<T>? GetNativeArrayNullable<T>(string query, IList<SqlParameter> parameters) 
+        where T : WsSqlTableBase, new()
     {
         IEnumerable<T>? result = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
@@ -608,7 +615,7 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    public T? GetNativeItemNullable<T>(string query, List<SqlParameter> parameters) where T : WsSqlTableBase, new()
+    public T? GetNativeItemNullable<T>(string query, IList<SqlParameter> parameters) where T : WsSqlTableBase, new()
     {
         T? result = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
@@ -625,7 +632,7 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    private object[]? GetNativeArrayObjectsNullable(string query, List<SqlParameter> parameters)
+    private object[]? GetNativeArrayObjectsNullable(string query, IList<SqlParameter> parameters)
     {
         object[]? result = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
@@ -667,16 +674,20 @@ public sealed class WsSqlCoreHelper
         GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
 
     [Obsolete(@"Use GetEnumerableNotNullable")]
-    public List<T> GetListNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
+    public IList<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
+        GetListNullable<T>(sqlCrudConfig) ?? new List<T>();
+
+    [Obsolete(@"Use GetEnumerableNotNullable")]
+    public IList<T> GetListNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
         GetListNullable<T>(maxResults, isFillReferences) ?? new List<T>();
 
     #endregion
 
     #region Public and private methods - Fill references
     
+    // TODO: Следует перенести в клиентский слой доступа к данным + Тесты
     private void FillReferences<T>(T? item) where T : WsSqlTableBase, new()
     {
-        // TODO: Следует перенести в клиентский слой доступа к данным! + Tests
         switch (item)
         {
             case WsXmlDeviceModel xmlDevice:
@@ -793,8 +804,8 @@ public sealed class WsSqlCoreHelper
             case WsSqlWorkShopModel workshop:
                 workshop.ProductionFacility = GetItemByIdentity<WsSqlProductionFacilityModel>(workshop.ProductionFacility.Identity);
                 break;
-            case WsSqlPlu1CFkModel plu1cFk:
-                plu1cFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1cFk.Plu.Identity);
+            case WsSqlPlu1CFkModel plu1CFk:
+                plu1CFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1CFk.Plu.Identity);
                 break;
         }
     }

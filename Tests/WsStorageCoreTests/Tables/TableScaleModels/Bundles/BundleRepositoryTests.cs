@@ -24,7 +24,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         {
             List<WsSqlBundleModel> items = BundleRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -40,7 +40,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             Assert.That(bundleByPlu, Is.EqualTo(oldBundle));
 
             TestContext.WriteLine(bundleByPlu);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]
@@ -55,6 +55,6 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
 
             TestContext.WriteLine(bundleBy1C);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

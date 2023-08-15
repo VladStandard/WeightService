@@ -13,6 +13,6 @@ public sealed class VersionRepositoryTests : TableRepositoryTests
         {
             List<WsSqlVersionModel> items = VersionRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

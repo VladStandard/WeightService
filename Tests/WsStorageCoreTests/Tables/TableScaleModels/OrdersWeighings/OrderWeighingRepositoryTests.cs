@@ -13,6 +13,6 @@ public sealed class OrderWeightingRepositoryTests : TableRepositoryTests
         {
             List<WsSqlOrderWeighingModel> items = OrderWeightingRepository.GetList(SqlCrudConfig);
             //ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

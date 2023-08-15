@@ -29,7 +29,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
             }
 
             TestContext.WriteLine(WsLocaleCore.Tests.AllSettingsForAllDevicesWasAdded);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(2)]
@@ -39,7 +39,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlDeviceSettingsFkModel> list = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
             ParseRecords(list);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(3)]
@@ -55,6 +55,6 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
                 List<WsSqlDeviceSettingsFkModel> deviceSettings = DeviceSettingsFkRepository.GetListByDevice(device);
                 ParseRecords(deviceSettings);
             }
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

@@ -13,6 +13,6 @@ public sealed class ScaleScreenshotRepositoryTests : TableRepositoryTests
         {
             List<WsSqlScaleScreenShotModel> items = ScaleScreenshotRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

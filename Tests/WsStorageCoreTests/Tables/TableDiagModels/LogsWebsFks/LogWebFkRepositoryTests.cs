@@ -16,6 +16,6 @@ public sealed class LogWebFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlLogWebFkModel> items = LogWebFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

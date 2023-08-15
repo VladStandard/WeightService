@@ -12,6 +12,6 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
         {
             List<WsSqlBoxModel> items = BoxRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

@@ -3,7 +3,7 @@
 
 namespace WsStorageCore.Views.ViewScaleModels.PluWeightings;
 
-public interface IViewPluWeightingRepository : IViewBaseRepository<WsSqlViewPluWeightingModel>
+public interface IViewPluWeightingRepository : IWsSqlViewBaseRepository<WsSqlViewPluWeightingModel>
 {
     
 }

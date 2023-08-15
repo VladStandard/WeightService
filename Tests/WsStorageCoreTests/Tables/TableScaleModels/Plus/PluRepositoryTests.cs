@@ -13,7 +13,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluModel> items = PluRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]

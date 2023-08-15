@@ -18,7 +18,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluNestingFkModel> items = PluNestingFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test]

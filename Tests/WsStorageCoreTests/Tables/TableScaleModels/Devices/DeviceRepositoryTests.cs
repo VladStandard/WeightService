@@ -14,7 +14,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         {
             List<WsSqlDeviceModel> items = DeviceRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 
     [Test, Order(2)]

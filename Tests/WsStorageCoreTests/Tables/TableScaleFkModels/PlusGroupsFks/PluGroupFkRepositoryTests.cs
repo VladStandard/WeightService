@@ -12,6 +12,6 @@ public sealed class PluGroupFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluGroupFkModel> items = PluGroupFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }

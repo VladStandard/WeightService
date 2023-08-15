@@ -2,12 +2,12 @@ namespace WsStorageCoreTests.Tables.Common;
 
 public class TableRepositoryTests
 {
-    protected WsSqlCrudConfigModel SqlCrudConfig { get; set; }
-    protected List<WsEnumConfiguration> DefaultPublishTypes { get; set; }
+    protected WsSqlCrudConfigModel SqlCrudConfig { get; private set; }
+    protected List<WsEnumConfiguration> DefaultConfigurations { get; }
 
     public TableRepositoryTests()
     {
-        DefaultPublishTypes = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
+        DefaultConfigurations = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
         SqlCrudConfig = new();
     }
 
@@ -19,14 +19,15 @@ public class TableRepositoryTests
 
     protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Name)).Ascending;
 
-    protected void ParseRecords<T>(List<T> items) where T : WsSqlTableBase, new()
+    protected void ParseRecords<T>(IEnumerable<T> items) where T : WsSqlTableBase, new()
     {
-        Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
-        Assert.That(items, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
+        List<T> list = items.ToList();
+        Assert.That(list.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
+        Assert.That(list, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
 
-        TestContext.WriteLine($"{WsLocaleCore.Tests.Print} {items.Count} {WsLocaleCore.Tests.Records}.");
+        TestContext.WriteLine($"{WsLocaleCore.Tests.Print} {list.Count} {WsLocaleCore.Tests.Records}.");
 
-        foreach (T item in items)
+        foreach (T item in list)
         {
             TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString()));
 

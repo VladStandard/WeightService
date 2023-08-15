@@ -12,6 +12,6 @@ public sealed class PluBrandFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluBrandFkModel> items = PluBrandFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultPublishTypes);
+        }, false, DefaultConfigurations);
     }
 }
