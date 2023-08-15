@@ -8,8 +8,6 @@ public class WsSqlLogBenchmark : WsBenchmark
     private WsSqlLogRepository LogRepository { get; } = new();
     private int MaxRecords { get; set; }
     private int CountRecords { get; set; }
-    public IEnumerable<WsSqlLogModel> EnumerableItems { get; set; } = Enumerable.Empty<WsSqlLogModel>();
-    public List<WsSqlLogModel> ListItems { get; set; } = new();
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -44,6 +42,7 @@ public class WsSqlLogBenchmark : WsBenchmark
         //IEnumerable<WsSqlLogModel> items = new List<WsSqlLogModel>(1000);
         WsSqlLogModel[] items = new WsSqlLogModel[1000];
         for (int i = 0; i < CountRecords; i++) items[i] = new();
+        Console.WriteLine($"Get {items.Length} items.");
     }
     
     [Benchmark]
@@ -51,18 +50,21 @@ public class WsSqlLogBenchmark : WsBenchmark
     {
         List<WsSqlLogModel> items = new();
         for (int i = 0; i < CountRecords; i++) items.Add(new());
+        Console.WriteLine($"Get {items.Count} items.");
     }
 
     [Benchmark]
     public void RunGetEnumerable()
     {
-        EnumerableItems = LogRepository.GetEnumerable(MaxRecords);
+        IEnumerable<WsSqlLogModel> items = LogRepository.GetEnumerable(MaxRecords);
+        Console.WriteLine($"Get {items.Count()} items.");
     }
 
     [Benchmark]
     [Obsolete(@"Use RunGetEnumerable")]
     public void RunGetList()
     {
-        ListItems = LogRepository.GetList(MaxRecords);
+        List<WsSqlLogModel> items = LogRepository.GetList(MaxRecords);
+        Console.WriteLine($"Get {items.Count} items.");
     }
 }

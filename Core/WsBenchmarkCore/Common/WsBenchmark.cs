@@ -3,14 +3,14 @@
 
 namespace WsBenchmarkCore.Common;
 
-public class WsBenchmark
+public abstract class WsBenchmark
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public List<WsEnumConfiguration> AllConfigurations { get; }
 
-    public WsBenchmark()
+    protected WsBenchmark()
     {
         AllConfigurations = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
         ContextManager.SetupJsonConsole(Directory.GetCurrentDirectory(), nameof(WsBenchmarkCore));
@@ -18,11 +18,13 @@ public class WsBenchmark
 
     #endregion
 
+    #region Public and private methods
+
     /// <summary>
     /// Get a custom configuration.
     /// </summary>
     /// <returns></returns>
-    public IConfig GetConfigSimple()
+    public virtual IConfig GetConfigSimple()
     {
         ConsoleLogger logger = new();
         return ManualConfig.CreateEmpty()
@@ -39,7 +41,7 @@ public class WsBenchmark
     /// Get a custom configuration.
     /// </summary>
     /// <returns></returns>
-    public IConfig GetConfig() => ManualConfig.CreateEmpty()
+    public static IConfig GetConfig() => ManualConfig.CreateEmpty()
         .WithOptions(ConfigOptions.JoinSummary | ConfigOptions.DisableLogFile)
         // Jobs
         .AddJob(Job.Default
@@ -61,7 +63,7 @@ public class WsBenchmark
     /// Get analyser for the cutom configuration
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<IAnalyser> GetAnalysers()
+    private static IEnumerable<IAnalyser> GetAnalysers()
     {
         yield return EnvironmentAnalyser.Default;
         yield return OutliersAnalyser.Default;
@@ -71,4 +73,6 @@ public class WsBenchmark
         yield return ZeroMeasurementAnalyser.Default;
         yield return BaselineCustomAnalyzer.Default;
     }
+
+    #endregion
 }

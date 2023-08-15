@@ -6,7 +6,6 @@ Console.WriteLine("--- Run Benchmarks under RELEASE config ---");
 return;
 #endif
 
-WsBenchmark benchmark = new();
 Console.WriteLine("--- Benchmarks start ---");
 Console.WriteLine("0. Exit");
 Console.WriteLine($"1. {nameof(WsMd5VsSha256SampleBenchmark)}");
@@ -45,8 +44,7 @@ Summary RunWsSqlViewLogDeviceAggr()
     WsSqlViewLogDeviceAggrBenchmark viewLogDeviceAggrBenchmark = new();
     Console.WriteLine($"ConStr {viewLogDeviceAggrBenchmark.ContextManager.SqlCore.SqlConfiguration}.");
     Console.WriteLine($"Prepare {viewLogDeviceAggrBenchmark.ListItems.Count} items.");
-    Summary summaryLocal = BenchmarkRunner.Run<WsSqlViewLogDeviceAggrBenchmark>(benchmark.GetConfig());
-    Console.WriteLine($"Found {viewLogDeviceAggrBenchmark.ListItems.Count} items.");
+    Summary summaryLocal = BenchmarkRunner.Run<WsSqlViewLogDeviceAggrBenchmark>(WsBenchmark.GetConfig());
     return summaryLocal;
 }
 
@@ -56,10 +54,6 @@ Summary RunWsSqlLogBenchmark()
     Console.WriteLine($"--- Run {nameof(WsSqlLogBenchmark)} ---");
     WsSqlLogBenchmark logBenchmark = new();
     Console.WriteLine($"ConStr {logBenchmark.ContextManager.SqlCore.SqlConfiguration}.");
-    Console.WriteLine($"Prepare {nameof(logBenchmark.EnumerableItems)} {logBenchmark.EnumerableItems.Count()} items.");
-    Console.WriteLine($"Prepare {nameof(logBenchmark.ListItems)} {logBenchmark.ListItems.Count} items.");
-    Summary summaryLocal = BenchmarkRunner.Run<WsSqlLogBenchmark>(benchmark.GetConfig());
-    Console.WriteLine($"Found {nameof(logBenchmark.EnumerableItems)} {logBenchmark.EnumerableItems.Count()} items.");
-    Console.WriteLine($"Found {nameof(logBenchmark.ListItems)} {logBenchmark.ListItems.Count} items.");
+    Summary summaryLocal = BenchmarkRunner.Run<WsSqlLogBenchmark>(WsBenchmark.GetConfig());
     return summaryLocal;
 }
