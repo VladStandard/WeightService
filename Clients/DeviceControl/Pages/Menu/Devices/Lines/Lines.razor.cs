@@ -11,7 +11,7 @@ public sealed partial class Lines : SectionBase<WsSqlViewLineModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewLineRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast = ViewLineRepository.GetList(SqlCrudConfigSection).ToList();
     }
     
     #endregion

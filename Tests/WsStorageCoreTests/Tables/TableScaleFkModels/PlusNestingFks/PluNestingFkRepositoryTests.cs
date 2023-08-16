@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
+using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
@@ -16,7 +16,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluNestingFkModel> items = PluNestingFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluNestingFkModel> items = PluNestingFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -26,7 +26,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetListByPluNumber(312);
+            IEnumerable<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetEnumerableByPluNumber(312).ToList();
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
                 Assert.That(pluNestingFk.PluBundle.Plu.Number, Is.EqualTo(312));
             ParseRecords(plusNestingFks);
@@ -39,7 +39,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             Guid uid = Guid.Parse("99A2AD82-63BB-4FC0-B5E1-1DE2AD86BD0F");
-            List<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetListByPluUid(uid);
+            IEnumerable<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetEnumerableByPluUid(uid).ToList();
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
                 Assert.That(pluNestingFk.PluBundle.Plu.IdentityValueUid, Is.EqualTo(uid));
             ParseRecords(plusNestingFks);

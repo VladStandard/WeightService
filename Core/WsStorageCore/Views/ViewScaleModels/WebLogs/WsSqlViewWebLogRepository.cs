@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.WebLogs;
@@ -7,9 +7,9 @@ public class WsSqlViewWebLogRepository : IViewWebLogRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewWebLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlViewWebLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewWebLogModel> result = new();
+        IList<WsSqlViewWebLogModel> result = new List<WsSqlViewWebLogModel>();
         string query = WsSqlQueriesDiags.Views.GetWebLogs(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
 

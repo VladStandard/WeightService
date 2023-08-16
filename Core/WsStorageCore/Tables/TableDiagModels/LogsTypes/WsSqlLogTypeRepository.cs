@@ -13,11 +13,11 @@ public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel
         return SqlCore.GetItemByCrud<WsSqlLogTypeModel>(sqlCrudConfig);
     }
     
-    public List<WsSqlLogTypeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlLogTypeModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlLogTypeModel.Number));
-        return SqlCore.GetEnumerableNotNullable<WsSqlLogTypeModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 }

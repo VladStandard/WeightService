@@ -15,7 +15,7 @@ public class ViewPluNestingRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluNestingModel> items = ViewPluNestingRepository.GetList();
+            IEnumerable<WsSqlViewPluNestingModel> items = ViewPluNestingRepository.GetEnumerable();
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }

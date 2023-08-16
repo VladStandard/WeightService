@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewRefModels.PluNestings;
@@ -7,7 +7,7 @@ public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewPluNestingModel> GetList(ushort pluNumber = 0)
+    public IEnumerable<WsSqlViewPluNestingModel> GetEnumerable(ushort pluNumber = 0)
     {
         List<WsSqlViewPluNestingModel> result = new();
         

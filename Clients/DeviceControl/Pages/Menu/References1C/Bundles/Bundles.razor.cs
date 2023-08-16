@@ -14,7 +14,7 @@ public sealed partial class Bundles : SectionBase<WsSqlBundleModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlBundleRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlBundleRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 
     #endregion

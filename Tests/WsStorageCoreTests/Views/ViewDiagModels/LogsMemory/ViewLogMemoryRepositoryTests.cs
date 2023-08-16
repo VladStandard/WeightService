@@ -22,7 +22,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             // Метод теперь не падает, т.к. проксирующий метод GetList теперь пересылает на другой GetList.
-            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -32,7 +32,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(10);
+            IEnumerable<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(10);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -44,7 +44,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(
+                IEnumerable<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.All, 10);
                 if (items.Any())
                     PrintViewRecords(items);
@@ -61,7 +61,7 @@ public sealed class ViewLogMemoryRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(
+                IEnumerable<WsSqlViewLogMemoryModel> items = ViewLogMemoryRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.Today, 10);
                 if (items.Any())
                     PrintViewRecords(items);

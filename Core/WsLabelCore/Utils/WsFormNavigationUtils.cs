@@ -125,9 +125,9 @@ public static class WsFormNavigationUtils
         DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
         DeviceSettingsUserControl.ViewModel.Device = ContextManager.DeviceRepository.GetItemByLine(LabelSession.Line);
         DeviceSettingsUserControl.ViewModel.Devices =
-            WsSqlContextManagerHelper.Instance.DeviceRepository.GetList(WsSqlCrudConfigFactory.GetCrudAll());
+            WsSqlContextManagerHelper.Instance.DeviceRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList();
         DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(
-            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetListByDevice(DeviceSettingsUserControl.ViewModel.Device));
+            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetEnumerableByDevice(DeviceSettingsUserControl.ViewModel.Device));
 
         DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
         DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
@@ -299,7 +299,7 @@ public static class WsFormNavigationUtils
     {
         // Загрузка из сесси пользователя.
         PlusNestingUserControl.ViewModel.PlusNestings = 
-            new WsSqlViewPluNestingRepository().GetList((ushort)LabelSession.PluLine.Plu.Number);
+            new WsSqlViewPluNestingRepository().GetEnumerable((ushort)LabelSession.PluLine.Plu.Number).ToList();
         PlusNestingUserControl.ViewModel.PluNesting = LabelSession.ViewPluNesting;
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();

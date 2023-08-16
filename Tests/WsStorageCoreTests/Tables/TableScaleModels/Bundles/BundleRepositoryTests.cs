@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 
 [TestFixture]
 public sealed class BundleRepositoryTests : TableRepositoryTests
@@ -8,13 +8,13 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     private WsSqlBundleModel GetFirstBundleModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return BundleRepository.GetList(SqlCrudConfig).First();
+        return BundleRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
     private WsSqlPluBundleFkModel GetFirstBundleFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return new WsSqlPluBundleFkRepository().GetList(SqlCrudConfig).First();
+        return new WsSqlPluBundleFkRepository().GetEnumerable(SqlCrudConfig).First();
     }
 
     [Test]
@@ -22,7 +22,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlBundleModel> items = BundleRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlBundleModel> items = BundleRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

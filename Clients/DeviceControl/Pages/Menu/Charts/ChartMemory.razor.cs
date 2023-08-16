@@ -76,7 +76,7 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
         Apps.Add(ContextManager.AppRepository.GetNewItem());
         Apps.AddRange(apps);
         // Загрузить устройства из БД.
-        List<WsSqlDeviceModel> devices = ContextManager.DeviceRepository.GetList(sqlCrudConfig);
+        List<WsSqlDeviceModel> devices = ContextManager.DeviceRepository.GetEnumerable(sqlCrudConfig).ToList();
         if (!devices.Any())
             devices = new() { Device };
         else
@@ -100,7 +100,7 @@ public sealed partial class ChartMemory : SectionBase<WsSqlViewLogMemoryModel>
     protected override void SetSqlSectionCast()
     {
         SqlSectionCast = ContextManager.ViewLogMemoryRepository.GetList(
-            App.Name, Device.Name, WsSqlEnumUtils.GetTimeInterval(TimeInterval), 0);
+            App.Name, Device.Name, WsSqlEnumUtils.GetTimeInterval(TimeInterval), 0).ToList();
     }
 
     #endregion

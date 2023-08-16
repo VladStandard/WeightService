@@ -15,7 +15,7 @@ public sealed class ViewWebLogsRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewWebLogModel> items = ViewWebLogRepository.GetList(SqlCrudConfig);
+            IList<WsSqlViewWebLogModel> items = ViewWebLogRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }

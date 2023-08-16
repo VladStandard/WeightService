@@ -215,7 +215,7 @@ public static class WsServiceUtilsUpdate
         // Проверить наличие всех связей разрешённых для загрузки ПЛУ из 1С.
         if (WsServiceUtilsCheck.CheckExistsAllPlus1CFksDb()) return;
         // Получить список ПЛУ.
-        foreach (WsSqlPluModel plu in WsServiceUtils.ContextManager.PluRepository.GetList())
+        foreach (WsSqlPluModel plu in WsServiceUtils.ContextManager.PluRepository.GetEnumerable())
         {
             // Обновить данные записи в таблице связей обмена ПЛУ 1С.
             UpdatePlu1CFkDbCore(plu);

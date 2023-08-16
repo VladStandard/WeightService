@@ -1,8 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Views.ViewDiagModels.LogsDevices;
-
 namespace WsStorageCoreTests.Views.ViewDiagModels.LogsDevices;
 
 [TestFixture]
@@ -23,7 +21,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -33,7 +31,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(10);
+            IEnumerable<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(10);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -45,7 +43,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(
+                IEnumerable<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.All, 10);
                 if (items.Any())
                     PrintViewRecords(items);
@@ -62,7 +60,7 @@ public sealed class ViewLogDeviceRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(
+                IEnumerable<WsSqlViewLogDeviceModel> items = ViewLogDeviceRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.Today, 10);
                 if (items.Any())
                     PrintViewRecords(items);

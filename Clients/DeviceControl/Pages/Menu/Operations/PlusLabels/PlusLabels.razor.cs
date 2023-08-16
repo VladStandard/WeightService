@@ -20,7 +20,7 @@ public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = PluLabelRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast = PluLabelRepository.GetList(SqlCrudConfigSection).ToList();
     }
 
     #endregion

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
 public sealed class PluRepositoryTests : TableRepositoryTests
@@ -11,7 +11,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluModel> items = PluRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluModel> items = PluRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -21,7 +21,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluModel> plus = PluRepository.GetListByNumber(301);
+            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByNumber(301).ToList();
 
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
@@ -37,7 +37,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             List<short> numbers = new() { 301, 1301 };
-            List<WsSqlPluModel> plus = PluRepository.GetListByNumbers(numbers, WsSqlEnumIsMarked.ShowAll);
+            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByNumbers(numbers, WsSqlEnumIsMarked.ShowAll).ToList();
 
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
@@ -54,7 +54,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         {
             const short minNumber = 200;
             const short maxNumber = 300;
-            List<WsSqlPluModel> plus = PluRepository.GetListByRange(minNumber, maxNumber);
+            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByRange(minNumber, maxNumber).ToList();
 
             Assert.That(plus.Any(), Is.True);
             foreach (WsSqlPluModel plu in plus)
@@ -70,7 +70,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             Guid uid = Guid.Parse("B912B17D-E328-11EC-BD1B-00155D8A460F");
-            List<WsSqlPluModel> plus = PluRepository.GetListByUid1C(uid);
+            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByUid1C(uid).ToList();
 
             foreach (WsSqlPluModel plu in plus)
                 Assert.That(plu.Uid1C, Is.EqualTo(uid));

@@ -21,7 +21,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -31,7 +31,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(10);
+            IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(10);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }
@@ -43,7 +43,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetListForApp(
+                IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetListForApp(
                     app.Name, WsSqlEnumTimeInterval.All, 10);
                 if (items.Any())
                     PrintViewRecords(items);
@@ -60,7 +60,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetListForDevice(
+                IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetListForDevice(
                     DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.All, 10);
                 if (items.Any())
                     PrintViewRecords(items);
@@ -77,7 +77,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(
+                IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.All, 10);
                 if (items.Any())
                     PrintViewRecords(items);
@@ -94,7 +94,7 @@ public sealed class ViewLogDeviceAggrRepositoryTests : ViewRepositoryTests
         {
             foreach (WsSqlAppModel app in GetApps())
             {
-                List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(
+                IEnumerable<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(
                     app.Name, DeviceRepository.GetCurrentDevice().Name, WsSqlEnumTimeInterval.Today, 10);
                 if (items.Any())
                     PrintViewRecords(items);

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 
 [TestFixture]
 public sealed class BrandRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlBrandModel> items = BrandRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlBrandModel> items = BrandRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

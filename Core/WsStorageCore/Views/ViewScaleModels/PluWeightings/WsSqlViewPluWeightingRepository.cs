@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.PluWeightings;
@@ -7,12 +7,11 @@ public class WsSqlViewPluWeightingRepository : IViewPluWeightingRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewPluWeightingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlViewPluWeightingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewPluWeightingModel> result = new();
+        IList<WsSqlViewPluWeightingModel> result = new List<WsSqlViewPluWeightingModel>();
         string query = WsSqlQueriesDiags.Views.GetPluWeightings(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
-
         foreach (object obj in objects)
         {
             int i = 0;

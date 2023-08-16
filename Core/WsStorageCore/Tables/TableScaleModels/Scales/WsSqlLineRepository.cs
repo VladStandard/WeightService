@@ -8,9 +8,13 @@ namespace WsStorageCore.Tables.TableScaleModels.Scales;
 /// </summary>
 public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleModel>
 {
+    #region Public and private fields, properties, constructor
+
     private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
-    
-    #region Item
+
+    #endregion
+
+    #region Public and private methods
 
     public WsSqlScaleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlScaleModel>();
 
@@ -21,20 +25,12 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
         return DeviceLineFkRepository.GetItemByDevice(device).Scale;
     }
 
-    #endregion
-
-    #region List
-
-    public List<WsSqlScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlScaleModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Description));
-        return SqlCore.GetEnumerableNotNullable<WsSqlScaleModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlScaleModel>(sqlCrudConfig);
     }
-
-    #endregion
-
-    #region CRUD
 
     public void Update(WsSqlScaleModel line) => SqlCore.Update(line);
 

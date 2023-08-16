@@ -29,11 +29,11 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
         return SqlCore.GetItemByCrud<WsSqlBundleModel>(sqlCrudConfig);
     }
     
-    public List<WsSqlBundleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlBundleModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlBundleModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlBundleModel>(sqlCrudConfig);
     }
 
     #endregion

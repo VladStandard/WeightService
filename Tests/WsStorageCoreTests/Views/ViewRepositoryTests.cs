@@ -18,12 +18,13 @@ public class ViewRepositoryTests
         SqlCrudConfig = new() { SelectTopRowsCount = 10 };
     }
 
-    protected void PrintViewRecords<T>(List<T> items) where T : class
+    protected void PrintViewRecords<T>(IEnumerable<T> items) where T : class
     {
-        Assert.That(items.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
-        Assert.That(items, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
-        TestContext.WriteLine($"Print {items.Count} records.");
-        foreach (T item in items)
+        List<T> list = items.ToList();
+        Assert.That(list.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
+        Assert.That(list, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
+        TestContext.WriteLine($"Print {list.Count} records.");
+        foreach (T item in list)
             TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
     }
 }

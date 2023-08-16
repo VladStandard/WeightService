@@ -12,9 +12,10 @@ public sealed partial class SqlInfo : ComponentBase
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
-    private static string SqlConnectionString => $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +
-                                                 $"{ContextManager.JsonSettings.Local.Sql.InitialCatalog} \\ " +
-                                                 $"{ContextManager.JsonSettings.Local.Sql.UserId}";
+    private static string SqlConnectionString => 
+        $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +
+        $"{ContextManager.JsonSettings.Local.Sql.InitialCatalog} \\ " +
+        $"{ContextManager.JsonSettings.Local.Sql.UserId}";
     
     public SqlInfo()
     {
@@ -35,7 +36,7 @@ public sealed partial class SqlInfo : ComponentBase
     private void GetSectionData()
     {
         DbFiles = new WsSqlViewDbFileSizeRepository().GetList();
-        DbTables = WsSqlViewTableSizeRepository.GetList(new());
+        DbTables = WsSqlViewTableSizeRepository.GetEnumerable(new()).ToList();
         foreach (WsSqlViewDbFileSizeInfoModel dbFile in DbFiles)
         {
             dbFile.Tables.AddRange(DbTables.Where(table => table.FileName == dbFile.FileName));

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.Logs;
@@ -7,11 +7,10 @@ public class WsSqlViewLogRepository : IViewLogRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
-    private List<WsSqlViewLogModel> ReadQuery(string query)
+    private IList<WsSqlViewLogModel> ReadQuery(string query)
     {
-        List<WsSqlViewLogModel> result = new();
+        IList<WsSqlViewLogModel> result = new List<WsSqlViewLogModel>();
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
-
         foreach (object obj in objects)
         {
             int i = 0;
@@ -34,13 +33,9 @@ public class WsSqlViewLogRepository : IViewLogRepository
         return result;
     }
     
-    public List<WsSqlViewLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
-    {
-        return ReadQuery(WsSqlQueriesDiags.Views.GetLogs(sqlCrudConfig.SelectTopRowsCount, null, null));
-    }
-    
-    public List<WsSqlViewLogModel> GetListByLogTypeAndLineName(WsSqlCrudConfigModel sqlCrudConfig, string? logType, string? line)
-    {
-        return ReadQuery(WsSqlQueriesDiags.Views.GetLogs(sqlCrudConfig.SelectTopRowsCount, logType, line));
-    }
+    public IList<WsSqlViewLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) => 
+        ReadQuery(WsSqlQueriesDiags.Views.GetLogs(sqlCrudConfig.SelectTopRowsCount, null, null));
+
+    public IList<WsSqlViewLogModel> GetListByLogTypeAndLineName(WsSqlCrudConfigModel sqlCrudConfig, string? logType, string? line) => 
+        ReadQuery(WsSqlQueriesDiags.Views.GetLogs(sqlCrudConfig.SelectTopRowsCount, logType, line));
 }

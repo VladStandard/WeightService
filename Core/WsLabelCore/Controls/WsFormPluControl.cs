@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows.Forms;
-using WsStorageCore.Views.ViewRefModels.PluLines;
 
 namespace WsLabelCore.Controls;
 
@@ -80,7 +79,7 @@ public sealed class WsFormPluControl : UserControl
     /// <returns></returns>
     private Label CreateLabelPluTemplate(WsSqlViewPluLineModel viewPluScale)
     {
-        List<string> validates = PluRepository.GetListValidatesViewPluLine(viewPluScale);
+        List<string> validates = PluRepository.GetEnumerableValidatesViewPluLine(viewPluScale).ToList();
         return new()
         {
             Font = FontsSettings.FontMinimum,

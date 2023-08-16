@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableDiagModels.LogsTypes;
+namespace WsStorageCoreTests.Tables.TableDiagModels.LogsTypes;
 
 [TestFixture]
 public sealed class LogTypesRepositoryTests : TableRepositoryTests
@@ -11,7 +11,7 @@ public sealed class LogTypesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlLogTypeModel> items = LogTypeRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlLogTypeModel> items = LogTypeRepository.GetEnumerable(SqlCrudConfig).ToList();
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
         }, false, DefaultConfigurations);

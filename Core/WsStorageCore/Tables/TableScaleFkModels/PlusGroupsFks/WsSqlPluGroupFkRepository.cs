@@ -2,7 +2,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusGroupsFks;
 
 public sealed class WsSqlPluGroupFkRepository : WsSqlTableRepositoryBase<WsSqlPluGroupFkModel>
 {
-    public List<WsSqlPluGroupFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluGroupFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<WsSqlPluGroupFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluGroupFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBrandFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBrandFks;
 
 [TestFixture]
 public sealed class PluBrandFkRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class PluBrandFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluBrandFkModel> items = PluBrandFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluBrandFkModel> items = PluBrandFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

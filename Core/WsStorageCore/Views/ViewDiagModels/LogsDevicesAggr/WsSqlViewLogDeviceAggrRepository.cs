@@ -8,10 +8,10 @@ public sealed class WsSqlViewLogDeviceAggrRepository : IViewLogDeviceAggrReposit
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     // Если оставить прокси как есть, то будет падать, т.к. для вьюшки нет маппингов!
-    public List<WsSqlViewLogDeviceAggrModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
+    public IList<WsSqlViewLogDeviceAggrModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
         GetList(string.Empty, string.Empty, WsSqlEnumTimeInterval.All, sqlCrudConfig.SelectTopRowsCount);
 
-    private List<WsSqlViewLogDeviceAggrModel> GetListByQuery(string query)
+    private IList<WsSqlViewLogDeviceAggrModel> GetListByQuery(string query)
     {
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         List<WsSqlViewLogDeviceAggrModel> result = new(objects.Length);
@@ -32,16 +32,16 @@ public sealed class WsSqlViewLogDeviceAggrRepository : IViewLogDeviceAggrReposit
         return result;
     }
 
-    public List<WsSqlViewLogDeviceAggrModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+    public IList<WsSqlViewLogDeviceAggrModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, deviceName, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetListForApp(string appName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+    public IList<WsSqlViewLogDeviceAggrModel> GetListForApp(string appName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(appName, string.Empty, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetListForDevice(string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
+    public IList<WsSqlViewLogDeviceAggrModel> GetListForDevice(string deviceName, WsSqlEnumTimeInterval timeInterval, int maxRecords = 0) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(string.Empty, deviceName, timeInterval, maxRecords));
 
-    public List<WsSqlViewLogDeviceAggrModel> GetList(int maxRecords) =>
+    public IList<WsSqlViewLogDeviceAggrModel> GetList(int maxRecords) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevicesAggr(
             string.Empty, string.Empty, WsSqlEnumTimeInterval.All, maxRecords));
 }

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettings;
+namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettings;
 
 [TestFixture]
 public sealed class DeviceSettingsRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class DeviceSettingsRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceSettingsModel> items = DeviceSettingsRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceSettingsModel> items = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

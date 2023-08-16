@@ -668,7 +668,7 @@ public sealed class WsSqlCoreHelper
     #region Public and private methods - GetList
 
     public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
-        GetEnumerableNullable<T>(sqlCrudConfig)?.ToList() ?? Enumerable.Empty<T>();
+        GetEnumerableNullable<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
 
     public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
         GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();

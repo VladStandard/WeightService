@@ -16,7 +16,7 @@ public sealed partial class LogsMemory : SectionBase<WsSqlViewLogMemoryModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = LogMemoryRepository.GetList(SqlCrudConfigSection.SelectTopRowsCount);
+        SqlSectionCast = LogMemoryRepository.GetList(SqlCrudConfigSection.SelectTopRowsCount).ToList();
     }
 
     #endregion

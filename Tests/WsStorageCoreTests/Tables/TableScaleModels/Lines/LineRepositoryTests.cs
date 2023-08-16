@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests
@@ -8,7 +8,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
 
     private WsSqlScaleModel GetFirstLineModel()
     {
-        return LineRepository.GetList(SqlCrudConfig).First();
+        return LineRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Description)).Ascending;
@@ -18,7 +18,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> items = LineRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlScaleModel> items = LineRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

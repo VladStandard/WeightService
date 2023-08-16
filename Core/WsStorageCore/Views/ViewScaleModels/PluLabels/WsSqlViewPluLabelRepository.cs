@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.PluLabels;
@@ -7,12 +7,11 @@ public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlViewPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewPluLabelModel> result = new();
+        IList<WsSqlViewPluLabelModel> result = new List<WsSqlViewPluLabelModel>();
         string query = WsSqlQueriesDiags.Views.GetPluLabels(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
-
         foreach (object obj in objects)
         {
             int i = 0;
@@ -28,7 +27,7 @@ public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
                 Line = item[i++] as string ?? string.Empty,
                 PluNumber = Convert.ToInt32(item[i++]),
                 PluName = item[i++] as string ?? string.Empty,
-                Template = item[i++] as string ?? string.Empty
+                Template = item[i] as string ?? string.Empty
             });
         }
         return result;

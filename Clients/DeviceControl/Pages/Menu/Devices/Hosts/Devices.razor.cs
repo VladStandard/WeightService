@@ -11,7 +11,7 @@ public sealed partial class Devices : SectionBase<WsSqlViewDeviceModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewDeviceRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast = ViewDeviceRepository.GetList(SqlCrudConfigSection).ToList();
     }
 
     #endregion

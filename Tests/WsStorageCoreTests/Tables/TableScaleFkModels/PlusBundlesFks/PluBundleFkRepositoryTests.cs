@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundlesFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusBundlesFks;
 
 [TestFixture]
 public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
@@ -8,7 +8,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
     private WsSqlPluBundleFkModel GetFirstPluBundleFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return PluBundleFkRepository.GetList(SqlCrudConfig).First();
+        return PluBundleFkRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
     [Test]
@@ -16,7 +16,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluBundleFkModel> items = PluBundleFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluBundleFkModel> items = PluBundleFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -28,7 +28,7 @@ public sealed class PluBundleFkRepositoryTests : TableRepositoryTests
         {
             WsSqlPluBundleFkModel pluBundleFk = GetFirstPluBundleFkModel();
             WsSqlPluModel plu = pluBundleFk.Plu;
-            List<WsSqlPluBundleFkModel> pluBundlesFks = PluBundleFkRepository.GetListByPlu(plu);
+            IEnumerable<WsSqlPluBundleFkModel> pluBundlesFks = PluBundleFkRepository.GetEnumerableByPlu(plu).ToList();
             foreach (WsSqlPluBundleFkModel pluBundlesFk in pluBundlesFks)
             {
                 Assert.That(pluBundlesFk.Plu, Is.EqualTo(plu));

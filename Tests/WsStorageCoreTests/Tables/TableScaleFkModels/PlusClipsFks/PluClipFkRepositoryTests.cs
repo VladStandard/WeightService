@@ -11,7 +11,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
     private WsSqlPluClipFkModel GetFirstPluClipFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return PluClipFkRepository.GetList(SqlCrudConfig).First();
+        return PluClipFkRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
     [Test]
@@ -19,7 +19,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluClipFkModel> items = PluClipFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluClipFkModel> items = PluClipFkRepository.GetEnumerable(SqlCrudConfig);
             //ParseRecords(items);
         }, false, DefaultConfigurations);
     }

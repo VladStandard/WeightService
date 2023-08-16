@@ -10,23 +10,23 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
 {
     #region Public and private methods
     
-    public List<WsSqlDeviceSettingsFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Device.Name)
                 .ThenBy(item => item.Setting.Name);
-        return items.ToList();
+        return items;
     }
 
-    public List<WsSqlDeviceSettingsFkModel> GetListByLine(WsSqlScaleModel line)
+    public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerableByLine(WsSqlScaleModel line)
     {
         WsSqlDeviceModel device = WsSqlContextManagerHelper.Instance.DeviceRepository.GetItemByLine(line);
-        return GetListByDevice(device);
+        return GetEnumerableByDevice(device);
     }
 
-    public List<WsSqlDeviceSettingsFkModel> GetListByDevice(WsSqlDeviceModel device)
+    public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerableByDevice(WsSqlDeviceModel device)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceSettingsFkModel.Device), device);
@@ -34,7 +34,7 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
         items = items
             .OrderBy(item => item.Device.Name)
             .ThenBy(item => item.Setting.Name);
-        return items.ToList();
+        return items;
     }
 
     public WsSqlDeviceSettingsFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsFkModel>();

@@ -18,7 +18,7 @@ public sealed partial class PlusBundlesFks : SectionBase<WsSqlPluBundleFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlPluBundleFkRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlPluBundleFkRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 
     #endregion

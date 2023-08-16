@@ -16,7 +16,7 @@ public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }

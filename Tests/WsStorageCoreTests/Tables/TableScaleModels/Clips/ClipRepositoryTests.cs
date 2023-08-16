@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
 [TestFixture]
 public sealed class ClipRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlClipModel> items = ClipRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlClipModel> items = ClipRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

@@ -22,7 +22,7 @@ public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingMod
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewPluWeightingRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast = ViewPluWeightingRepository.GetList(SqlCrudConfigSection).ToList();
     }
 
     #endregion

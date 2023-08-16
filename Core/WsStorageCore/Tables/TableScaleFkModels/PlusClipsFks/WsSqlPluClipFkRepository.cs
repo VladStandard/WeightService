@@ -21,21 +21,21 @@ public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPlu
         return SqlCore.GetItemByCrud<WsSqlPluClipFkModel>(sqlCrudConfig);
     }
 
-    public List<WsSqlPluClipFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
+    public IEnumerable<WsSqlPluClipFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig) {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluClipFkModel.Clip)}.{nameof(ClipModel.Name)}", SqlOrderDirection.Asc));
-        List<WsSqlPluClipFkModel> list = SqlCore.GetEnumerableNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig).ToList();
-        if (list.Any())
+        IEnumerable<WsSqlPluClipFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig).ToList();
+        if (items.Any())
         {
-            WsSqlPluClipFkModel pluClipFk = list.First();
+            WsSqlPluClipFkModel pluClipFk = items.First();
             if (pluClipFk.Plu.IsNew)
                 pluClipFk.Plu = SqlCore.GetItemNewEmpty<WsSqlPluModel>();
             if (pluClipFk.Clip.IsNew)
                 pluClipFk.Clip = SqlCore.GetItemNewEmpty<WsSqlClipModel>();
         }
         if (sqlCrudConfig.IsResultOrder)
-            list = list.OrderBy(item => item.Clip.Name).ToList();
-        return list;
+            items = items.OrderBy(item => item.Clip.Name);
+        return items;
     }
 
     #endregion

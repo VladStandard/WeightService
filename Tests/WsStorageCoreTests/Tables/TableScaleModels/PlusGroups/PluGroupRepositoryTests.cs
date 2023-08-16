@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.PlusGroups;
+namespace WsStorageCoreTests.Tables.TableScaleModels.PlusGroups;
 
 [TestFixture]
 public sealed class PluGroupRepositoryTests : TableRepositoryTests
@@ -8,7 +8,7 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
     private WsSqlPluGroupFkModel GetFirstPluGroupFk()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return new WsSqlPluGroupFkRepository().GetList(SqlCrudConfig).First();
+        return new WsSqlPluGroupFkRepository().GetEnumerable(SqlCrudConfig).First();
     }
 
     [Test]
@@ -16,7 +16,7 @@ public sealed class PluGroupRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluGroupModel> items = PluGroupRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluGroupModel> items = PluGroupRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

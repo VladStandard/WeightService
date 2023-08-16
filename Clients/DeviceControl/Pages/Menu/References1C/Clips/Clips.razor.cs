@@ -14,7 +14,7 @@ public sealed partial class Clips : SectionBase<WsSqlClipModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlClipRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlClipRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
     
     #endregion

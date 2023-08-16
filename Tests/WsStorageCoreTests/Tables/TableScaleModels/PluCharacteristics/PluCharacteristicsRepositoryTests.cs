@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.PluCharacteristics;
+namespace WsStorageCoreTests.Tables.TableScaleModels.PluCharacteristics;
 
 [TestFixture]
 public sealed class PluCharacteristicsRepositoryTests : TableRepositoryTests
@@ -6,11 +6,11 @@ public sealed class PluCharacteristicsRepositoryTests : TableRepositoryTests
     private WsSqlPluCharacteristicRepository PluCharacteristicRepository { get; set; } = new();
 
     [Test]
-    public void GetList()
+    public void GetEnumerable()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluCharacteristicModel> items = PluCharacteristicRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluCharacteristicModel> items = PluCharacteristicRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

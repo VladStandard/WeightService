@@ -42,6 +42,7 @@ global using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
+global using WsStorageCore.Tables.TableScaleFkModels.PlusGroupsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 global using WsStorageCore.Tables.TableScaleModels.Access;

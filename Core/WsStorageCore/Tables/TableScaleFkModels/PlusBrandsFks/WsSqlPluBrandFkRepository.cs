@@ -26,11 +26,11 @@ public sealed class WsSqlPluBrandFkRepository : WsSqlTableRepositoryBase<WsSqlPl
         return item;
     }
 
-    public List<WsSqlPluBrandFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluBrandFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.ClearNullProperties), SqlOrderDirection.Asc));
-        List<WsSqlPluBrandFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluBrandFkModel>(sqlCrudConfig).ToList();
+        IEnumerable<WsSqlPluBrandFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluBrandFkModel>(sqlCrudConfig).ToList();
         if (items.Any())
         {
             WsSqlPluBrandFkModel bundleFk = items.First();

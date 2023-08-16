@@ -26,11 +26,11 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
         return item;
     }
 
-    public List<WsSqlPluBundleFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluBundleFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluBundleFkModel.Bundle)}.{nameof(BundleModel.Name)}", SqlOrderDirection.Asc));
-        List<WsSqlPluBundleFkModel> list = SqlCore.GetEnumerableNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).ToList();
+        IEnumerable<WsSqlPluBundleFkModel> list = SqlCore.GetEnumerableNotNullable<WsSqlPluBundleFkModel>(sqlCrudConfig).ToList();
         if (list.Any())
         {
             WsSqlPluBundleFkModel bundleFk = list.First();
@@ -44,11 +44,11 @@ public sealed class WsSqlPluBundleFkRepository : WsSqlTableRepositoryBase<WsSqlP
         return list;
     }
 
-    public List<WsSqlPluBundleFkModel> GetListByPlu(WsSqlPluModel plu)
+    public IEnumerable<WsSqlPluBundleFkModel> GetEnumerableByPlu(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluBundleFkModel.Plu), plu);
-        return GetList(sqlCrudConfig);   
+        return GetEnumerable(sqlCrudConfig);   
     }
     
     #endregion

@@ -169,7 +169,7 @@ ORDER BY [USED_SPACE_MB] DESC");
         /// <param name="pluNumbers"></param>
         /// <param name="records"></param>
         /// <returns></returns>
-        public static string GetViewPlusScales(ushort scaleId, List<ushort> pluNumbers, int records = 0) =>
+        public static string GetViewPlusScales(ushort scaleId, IEnumerable<ushort> pluNumbers, int records = 0) =>
             WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}
@@ -192,7 +192,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
     ,[TEMPLATE_ID]
     ,[TEMPLATE_IS_MARKED]
     ,[TEMPLATE_NAME]
-FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)} {WsSqlQueries.GetWherePluNumbers(pluNumbers, true)}
+FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)} {WsSqlQueries.GetWherePluNumbers(pluNumbers.ToList(), true)}
 ORDER BY [SCALE_ID], [PLU_NUMBER];");
 
         /// <summary>

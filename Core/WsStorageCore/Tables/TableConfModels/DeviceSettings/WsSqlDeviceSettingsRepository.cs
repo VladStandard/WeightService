@@ -12,11 +12,11 @@ public sealed class WsSqlDeviceSettingsRepository : WsSqlTableRepositoryBase<WsS
 
     public WsSqlDeviceSettingsModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlDeviceSettingsModel>();
 
-    public List<WsSqlDeviceSettingsModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlDeviceSettingsModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsModel>(sqlCrudConfig);
     }
 
     #endregion

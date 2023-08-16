@@ -7,20 +7,20 @@ namespace WsStorageCoreBenchmark.Domain;
 public class WsSqlViewLogDeviceAggrBenchmark : WsBenchmarkBase
 {
     private IViewLogDeviceAggrRepository ViewLogDeviceAggrRepository { get; } = new WsSqlViewLogDeviceAggrRepository();
-    private int MaxRecords { get; set; }
 
     [GlobalSetup]
     public void GlobalSetup()
     {
-        MaxRecords = 0;
+        CountRecords = 1_000;
     }
 
     [Benchmark]
-    public void RunGetList()
+    [InvocationCount(5)]
+    [IterationCount(1)]
+    public void GetList()
     {
-        Console.WriteLine("--- Start ------------------------------------------------------------");
-        List<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(MaxRecords);
-        Console.WriteLine($"Get {items.Count} items.");
-        Console.WriteLine("--- End ------------------------------------------------------------");
+        IList<WsSqlViewLogDeviceAggrModel> items = ViewLogDeviceAggrRepository.GetList(CountRecords);
+        if (!items.Any())
+            Console.WriteLine("GetEnumerable: no items!");
     }
 }

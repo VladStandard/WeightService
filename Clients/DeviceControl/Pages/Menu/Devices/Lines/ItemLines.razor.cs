@@ -13,14 +13,17 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
     private List<WsSqlDeviceModel> HostModels { get; set; }
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
-
-    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
+    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; }
 
     public ItemLines() : base()
     {
-        Device = new();
-        DeviceScaleFk = new();
         ComPorts = new();
+        Device = new();
+        DeviceLineFkRepository = new();
+        DeviceScaleFk = new();
+        HostModels = new();
+        PrinterModels = new();
+        WorkShopModels = new();
     }
 
     #endregion
@@ -30,9 +33,9 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterModels = new WsSqlPrinterRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
-        HostModels = new WsSqlDeviceRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
-        WorkShopModels = new WsSqlWorkShopRepository().GetList(WsSqlCrudConfigFactory.GetCrudActual());
+        PrinterModels = new WsSqlPrinterRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        HostModels = new WsSqlDeviceRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        WorkShopModels = new WsSqlWorkShopRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
 
         DeviceScaleFk = DeviceLineFkRepository.GetItemByLine(SqlItemCast);
         Device = DeviceScaleFk.Device;

@@ -13,11 +13,11 @@ public sealed class WsSqlPluCharacteristicRepository : WsSqlTableRepositoryBase<
 
     public WsSqlPluCharacteristicModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluCharacteristicModel>();
 
-    public List<WsSqlPluCharacteristicModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluCharacteristicModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluCharacteristicModel>(sqlCrudConfig);
     }
     
     /// <summary>

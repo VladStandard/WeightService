@@ -338,7 +338,7 @@ public static class WsServiceUtilsGet
         List<WsSqlPlu1CFkModel> plus1CFks = new();
         WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
         // Получить список ПЛУ по UID_1C.
-        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetListByUid1C(uid1C);
+        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetEnumerableByUid1C(uid1C).ToList();
         foreach (WsSqlPluModel plu in plusDb)
         {
             WsSqlPlu1CFkModel? plu1CFkCache =

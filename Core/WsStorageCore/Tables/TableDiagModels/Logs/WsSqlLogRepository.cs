@@ -30,6 +30,6 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
     }
 
     [Obsolete(@"Use GetEnumerable")]
-    public List<WsSqlLogModel> GetList(int maxResults) => 
-        SqlCore.GetListNotNullable<WsSqlLogModel>(maxResults, true).ToList();
+    public IList<WsSqlLogModel> GetList(int maxResults) => 
+        SqlCore.GetListNotNullable<WsSqlLogModel>(maxResults, true);
 }

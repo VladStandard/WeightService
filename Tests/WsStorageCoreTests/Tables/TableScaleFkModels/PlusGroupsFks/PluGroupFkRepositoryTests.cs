@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusGroupsFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusGroupsFks;
 
 [TestFixture]
 public sealed class PluGroupFkRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class PluGroupFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluGroupFkModel> items = PluGroupFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluGroupFkModel> items = PluGroupFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

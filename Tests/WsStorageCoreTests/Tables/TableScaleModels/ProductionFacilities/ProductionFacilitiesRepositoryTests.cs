@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
+namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
 public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlProductionFacilityModel> items = AreaRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlProductionFacilityModel> items = AreaRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

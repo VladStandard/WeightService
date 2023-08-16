@@ -14,7 +14,7 @@ public sealed partial class Brands : SectionBase<WsSqlBrandModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlBrandRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlBrandRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
     
     #endregion

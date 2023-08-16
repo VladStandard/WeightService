@@ -7,6 +7,6 @@ public sealed partial class Workshops : SectionBase<WsSqlWorkShopModel>
 {
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlWorkShopRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlWorkShopRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 }

@@ -1,9 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Windows.Forms;
-using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
-
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -31,7 +28,8 @@ public partial class WsMainForm
     /// </summary>
     private void LoadNavigationDeviceSettings()
     {
-        if (WsFormNavigationUtils.IsLoadDeviceSettings) return;
+        if (WsFormNavigationUtils.IsLoadDeviceSettings)
+            return;
         WsFormNavigationUtils.IsLoadDeviceSettings = true;
 
         WsFormNavigationUtils.DeviceSettingsUserControl.SetupUserControl();
@@ -53,7 +51,7 @@ public partial class WsMainForm
 
         //this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         bool isFormFullScreen = true;
-        foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetListByLine(LabelSession.Line))
+        foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetEnumerableByLine(LabelSession.Line))
         {
             switch (deviceSettingsFk.Setting.Name)
             {

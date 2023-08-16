@@ -1,4 +1,4 @@
-﻿using MDSoft.NetUtils;
+using MDSoft.NetUtils;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Devices;
 
@@ -12,7 +12,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceModel> items = DeviceRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceModel> items = DeviceRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

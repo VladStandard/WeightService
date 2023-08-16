@@ -30,9 +30,9 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     /// </summary>
     /// <param name="pluNestingFks"></param>
     /// <param name="sqlCrudConfig"></param>
-    public List<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, 
-        out List<WsSqlPluNestingFkModel> pluNestingFks) =>
-        pluNestingFks = GetList(sqlCrudConfig);
+    public IEnumerable<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, 
+        out IEnumerable<WsSqlPluNestingFkModel> pluNestingFks) =>
+        pluNestingFks = GetEnumerable(sqlCrudConfig);
 
     /// <summary>
     /// Get item by Plu.
@@ -70,9 +70,9 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     /// <returns></returns>
     public short GetPluNestingFkBundleCount(WsSqlPluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
 
-    public List<WsSqlPluNestingFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluNestingFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPluNestingFkModel> list = new();
+        List<WsSqlPluNestingFkModel> items = new List<WsSqlPluNestingFkModel>();
         if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
@@ -133,14 +133,14 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
                     }
     
                     // -- UID_1C | 42 - 44
-                    if (Guid.TryParse(Convert.ToString(item[42]), out Guid pluUid1c))
-                        pluBundle.Plu.Uid1C = pluUid1c;
-                    if (Guid.TryParse(Convert.ToString(item[43]), out Guid boxUid1c))
-                        box.Uid1C = boxUid1c;
-                    if (Guid.TryParse(Convert.ToString(item[44]), out Guid bundleUid1c))
-                        pluBundle.Bundle.Uid1C = bundleUid1c;
+                    if (Guid.TryParse(Convert.ToString(item[42]), out Guid pluUid1C))
+                        pluBundle.Plu.Uid1C = pluUid1C;
+                    if (Guid.TryParse(Convert.ToString(item[43]), out Guid boxUid1C))
+                        box.Uid1C = boxUid1C;
+                    if (Guid.TryParse(Convert.ToString(item[44]), out Guid bundleUid1C))
+                        pluBundle.Bundle.Uid1C = bundleUid1C;
                     // All.
-                    list.Add(new()
+                    items.Add(new()
                     {
                         IdentityValueUid = uid,
                         CreateDt = Convert.ToDateTime(item[1]),
@@ -157,12 +157,12 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
                 }
             }
             else
-                throw new($"Exception length in {nameof(GetList)} for native query!");
+                throw new($"Exception length in {nameof(GetEnumerable)} for native query!");
         }
-        return list;
+        return items;
     }
     
-    public List<WsSqlPluNestingFkModel> GetListByPluUid(Guid? uid)
+    public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUid(Guid? uid)
     {
         uid ??= Guid.Empty;
         WsSqlCrudConfigModel sqlCrudConfig = new()
@@ -170,14 +170,11 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
             NativeParameters = new() { new("P_UID", uid) },
             NativeQuery = PluNestingFks.GetList(true)
         };
-        return GetList(sqlCrudConfig);
+        return GetEnumerable(sqlCrudConfig);
     }
 
-    public List<WsSqlPluNestingFkModel> GetListByPluNumber(short number)
-    {
-        WsSqlPluModel plu = ContextPlu.GetItemByNumber(number);
-        return GetListByPluUid(plu.IdentityValueUid);
-    }
+    public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluNumber(short number) => 
+        GetEnumerableByPluUid(ContextPlu.GetItemByNumber(number).IdentityValueUid);
 
     #endregion
 }

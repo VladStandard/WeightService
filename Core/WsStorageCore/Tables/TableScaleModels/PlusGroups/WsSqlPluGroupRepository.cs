@@ -10,11 +10,10 @@ public class WsSqlPluGroupRepository : WsSqlTableRepositoryBase<WsSqlPluGroupMod
         return SqlCore.GetItemByCrud<WsSqlPluGroupFkModel>(sqlCrudConfig).Parent;
     }
 
-    public List<WsSqlPluGroupModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluGroupModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluGroupModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluGroupModel>(sqlCrudConfig);
     }
-
 }

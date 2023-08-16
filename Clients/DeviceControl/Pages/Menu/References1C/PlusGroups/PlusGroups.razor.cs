@@ -1,15 +1,13 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WsStorageCore.Tables.TableScaleFkModels.PlusGroupsFks;
-
 namespace DeviceControl.Pages.Menu.References1C.PlusGroups;
 
 public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlPluGroupModel> AllData { get; set; }
+    private List<WsSqlPluGroupModel> AllData { get; set; } = new();
     private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
     private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
     
@@ -24,8 +22,8 @@ public sealed partial class PlusGroups : SectionBase<WsSqlPluGroupModel>
     
     protected override void SetSqlSectionCast()
     {
-        List<WsSqlPluGroupFkModel> pluGroupsFk = PluGroupFkRepository.GetList(new());
-        AllData = PluGroupRepository.GetList(new());
+        List<WsSqlPluGroupFkModel> pluGroupsFk = PluGroupFkRepository.GetEnumerable(new()).ToList();
+        AllData = PluGroupRepository.GetEnumerable(new()).ToList();
         
         foreach (WsSqlPluGroupModel pluGroup in AllData)
         {

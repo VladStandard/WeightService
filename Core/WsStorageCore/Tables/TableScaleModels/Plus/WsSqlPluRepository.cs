@@ -39,13 +39,13 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
 
     public WsSqlPluModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPluModel>();
 
-    public List<WsSqlPluModel> GetList() => GetList(WsSqlCrudConfigFactory.GetCrudAll());
+    public IEnumerable<WsSqlPluModel> GetEnumerable() => GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll());
 
-    public List<WsSqlPluModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPluModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlPluModel.Number));
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
 
     /// <summary>
@@ -53,14 +53,14 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// </summary>
     /// <param name="number"></param>
     /// <returns></returns>
-    public List<WsSqlPluModel> GetListByNumber(short number)
+    public IEnumerable<WsSqlPluModel> GetEnumerableByNumber(short number)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Number), Value = number });
-        return GetList(sqlCrudConfig);
+        return GetEnumerable(sqlCrudConfig);
     }
 
-    public List<WsSqlPluModel> GetListByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
+    public IEnumerable<WsSqlPluModel> GetEnumerableByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new()
@@ -68,10 +68,10 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
             Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
             Values = numbers.Cast<object>().ToList()
         });
-        return GetList(sqlCrudConfig);
+        return GetEnumerable(sqlCrudConfig);
     }
 
-    public List<WsSqlPluModel> GetListByRange(short minNumber, short maxNumber)
+    public IEnumerable<WsSqlPluModel> GetEnumerableByRange(short minNumber, short maxNumber)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilters(
@@ -81,7 +81,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
                 new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber }
             }
         );
-        return GetList(sqlCrudConfig);
+        return GetEnumerable(sqlCrudConfig);
     }
 
     /// <summary>
@@ -89,11 +89,11 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// </summary>
     /// <param name="uid"></param>
     /// <returns></returns>
-    public List<WsSqlPluModel> GetListByUid1C(Guid uid)
+    public IEnumerable<WsSqlPluModel> GetEnumerableByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid });
-        return GetList(sqlCrudConfig);
+        return GetEnumerable(sqlCrudConfig);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// </summary>
     /// <param name="viewPluLine"></param>
     /// <returns></returns>
-    public List<string> GetListValidatesViewPluLine(WsSqlViewPluLineModel viewPluLine)
+    public IEnumerable<string> GetEnumerableValidatesViewPluLine(WsSqlViewPluLineModel viewPluLine)
     {
         List<string> validates = new();
         if (string.IsNullOrEmpty(viewPluLine.TemplateName)) validates.Add(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
@@ -109,7 +109,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
         if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(WsLocaleCore.LabelPrint.PluEan13IsNotSet);
         //if (string.IsNullOrEmpty(viewPluLine.PluItf14)) validates.Add(LocaleCore.Scales.PluItf14IsNotSet);
 
-        List<WsSqlViewPluLineModel> viewPlusLines = PluLineRepository.GetList(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
+        IEnumerable<WsSqlViewPluLineModel> viewPlusLines = PluLineRepository.GetEnumerable(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
         List<string> plusTemplates = viewPlusLines.Where(item => !string.IsNullOrEmpty(item.TemplateName)).
             Select(item => item.TemplateName).ToList();
         if (!plusTemplates.Any()) validates.Add(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);

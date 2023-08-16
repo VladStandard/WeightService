@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 global using FluentNHibernate.Cfg;
 global using FluentValidation.Results;
 global using NHibernate;
@@ -14,12 +17,10 @@ global using WsStorageCore.Models;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettings;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 global using WsStorageCore.Tables.TableDiagModels.Logs;
-global using WsStorageCore.Tables.TableDiagModels.LogsMemories;
 global using WsStorageCore.Tables.TableDiagModels.LogsTypes;
 global using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 global using WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
 global using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
-global using WsStorageCore.Tables.TableRefModels.Plus1CFk;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
@@ -59,6 +60,7 @@ global using WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 global using WsStorageCore.Tables.TableScaleModels.Versions;
 global using WsStorageCore.Tables.TableScaleModels.WorkShops;
 global using WsStorageCore.Utils;
+global using WsStorageCore.Views.ViewDiagModels.LogsDevices;
 global using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 global using WsStorageCore.Views.ViewDiagModels.LogsMemory;
 global using WsStorageCoreTests.Tables.Common;

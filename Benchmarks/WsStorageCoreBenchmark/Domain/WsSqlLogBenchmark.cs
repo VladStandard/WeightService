@@ -6,7 +6,6 @@ namespace WsStorageCoreBenchmark.Domain;
 public class WsSqlLogBenchmark : WsBenchmarkBase
 {
     private WsSqlLogRepository LogRepository { get; } = new();
-    private int CountRecords { get; set; }
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -64,7 +63,7 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [IterationCount(1)]
     public void CreateNewList()
     {
-        List<WsSqlLogModel> items = new();
+        IList<WsSqlLogModel> items = new List<WsSqlLogModel>();
         for (int i = 0; i < CountRecords; i++)
             items.Add(new());
     }
@@ -75,7 +74,7 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     public void GetEnumerable()
     {
         IEnumerable<WsSqlLogModel> items = LogRepository.GetEnumerable(CountRecords);
-        if (items.Count() == 0)
+        if (!items.Any())
             Console.WriteLine("GetEnumerable: no items!");
     }
 
@@ -85,7 +84,7 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [Obsolete(@"Use GetEnumerable")]
     public void GetList()
     {
-        List<WsSqlLogModel> items = LogRepository.GetList(CountRecords);
+        IList<WsSqlLogModel> items = LogRepository.GetList(CountRecords);
         if (!items.Any())
             Console.WriteLine("GetEnumerable: no items!");
     }

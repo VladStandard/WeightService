@@ -20,7 +20,7 @@ public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast =  ViewBarcodeRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast =  ViewBarcodeRepository.GetList(SqlCrudConfigSection).ToList();
     }
 
     #endregion

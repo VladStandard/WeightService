@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusCharacteristicsFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 
 [TestFixture]
 public sealed class PluCharacteristicsFkRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class PluCharacteristicsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluCharacteristicsFkModel> items = PluCharacteristicsFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlPluCharacteristicsFkModel> items = PluCharacteristicsFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

@@ -21,7 +21,7 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlViewWebLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewWebLogRepository.GetList(SqlCrudConfigSection);
+        SqlSectionCast = ViewWebLogRepository.GetList(SqlCrudConfigSection).ToList();
     }
 
     #endregion

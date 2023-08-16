@@ -19,7 +19,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = PluNestingFkRepository.GetListByPluUid(SqlItem?.IdentityValueUid);
+        SqlSectionCast = PluNestingFkRepository.GetEnumerableByPluUid(SqlItem?.IdentityValueUid).ToList();
     }
 
     #endregion

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 
 [TestFixture]
 public sealed class BoxRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlBoxModel> items = BoxRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlBoxModel> items = BoxRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

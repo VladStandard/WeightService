@@ -13,11 +13,11 @@ public sealed class WsSqlClipRepository : WsSqlTableRepositoryBase<WsSqlClipMode
 
     public WsSqlClipModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlClipModel>();
 
-    public List<WsSqlClipModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlClipModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlClipModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlClipModel>(sqlCrudConfig);
     }
 
     public WsSqlClipModel GetItemByUid1C(Guid uid1C)

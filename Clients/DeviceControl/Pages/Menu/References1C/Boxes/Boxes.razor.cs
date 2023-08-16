@@ -14,7 +14,7 @@ public sealed partial class Boxes : SectionBase<WsSqlBoxModel>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlBoxRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlBoxRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 
     #endregion

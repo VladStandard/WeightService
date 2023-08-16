@@ -7,6 +7,6 @@ public sealed partial class ProductionFacilities : SectionBase<WsSqlProductionFa
 {
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlAreaRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new WsSqlAreaRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 }

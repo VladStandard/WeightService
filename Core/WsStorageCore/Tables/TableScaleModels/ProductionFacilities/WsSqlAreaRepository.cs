@@ -13,11 +13,11 @@ public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProducti
 
     public WsSqlProductionFacilityModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlProductionFacilityModel>();
 
-    public List<WsSqlProductionFacilityModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlProductionFacilityModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 
     #endregion

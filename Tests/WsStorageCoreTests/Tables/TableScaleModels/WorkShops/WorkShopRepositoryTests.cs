@@ -1,4 +1,4 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
+namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]
 public sealed class WorkShopRepositoryTests : TableRepositoryTests
@@ -10,7 +10,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlWorkShopModel> items = WorkShopRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlWorkShopModel> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

@@ -3,21 +3,21 @@
 
 namespace WsStorageCore.Views.ViewRefModels.PluLines;
 
-//TODO: fix repository
+// TODO: fix repository
 public class WsSqlViewPluLineRepository : IViewPluLineRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
-    public List<WsSqlViewPluLineModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
-        GetList(0, new List<ushort>(), sqlCrudConfig.SelectTopRowsCount);
+    public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig) =>
+        GetEnumerable(0, new List<ushort>(), sqlCrudConfig.SelectTopRowsCount);
 
-    public List<WsSqlViewPluLineModel> GetList(ushort scaleId = 0, int topRecords = 0) =>
-        GetList(scaleId, new List<ushort>(), topRecords);
+    public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId = 0, int topRecords = 0) =>
+        GetEnumerable(scaleId, new List<ushort>(), topRecords);
        
-    public List<WsSqlViewPluLineModel> GetList(ushort scaleId, ushort pluNumber, int topRecords) =>
-        GetList(scaleId, new List<ushort> { pluNumber }, topRecords);
+    public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId, ushort pluNumber, int topRecords) =>
+        GetEnumerable(scaleId, new List<ushort> { pluNumber }, topRecords);
     
-    public List<WsSqlViewPluLineModel> GetList(ushort scaleId, List<ushort> pluNumbers, int topRecords)
+    public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId, IEnumerable<ushort> pluNumbers, int topRecords)
     {
         List<WsSqlViewPluLineModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusScales(scaleId, pluNumbers, topRecords);

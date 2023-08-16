@@ -51,11 +51,11 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
 
     public WsSqlDeviceModel GetItemByUid(Guid uid) => SqlCore.GetItemByUid<WsSqlDeviceModel>(uid);
     
-    public List<WsSqlDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlDeviceModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
-        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceModel>(sqlCrudConfig);
     }
 
     public WsSqlDeviceModel GetCurrentDevice() => GetItemByName(MdNetUtils.GetLocalDeviceName(false));

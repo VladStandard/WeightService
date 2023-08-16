@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.Lines;
@@ -7,9 +7,9 @@ public class WsSqlViewLineRepository : IViewLineRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewLineModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlViewLineModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewLineModel> result = new();
+        IList<WsSqlViewLineModel> result = new List<WsSqlViewLineModel>();
         string query = WsSqlQueriesDiags.Views.GetLines(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)

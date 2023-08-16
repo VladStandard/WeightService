@@ -12,9 +12,9 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceModel> devices = DeviceRepository.GetList(SqlCrudConfig);
-            List<WsSqlDeviceSettingsModel> deviceSettings = DeviceSettingsRepository.GetList(SqlCrudConfig);
-            List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceModel> devices = DeviceRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceSettingsModel> deviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
+            List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig).ToList();
 
             foreach (WsSqlDeviceModel device in devices)
             foreach (WsSqlDeviceSettingsModel setting in deviceSettings)
@@ -37,8 +37,8 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceSettingsFkModel> list = DeviceSettingsFkRepository.GetList(SqlCrudConfig);
-            ParseRecords(list);
+            IEnumerable<WsSqlDeviceSettingsFkModel> items = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig);
+            ParseRecords(items);
         }, false, DefaultConfigurations);
     }
 
@@ -47,12 +47,12 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceModel> devices = DeviceRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceModel> devices = DeviceRepository.GetEnumerable(SqlCrudConfig).ToList();
             ParseRecords(devices);
 
             foreach (WsSqlDeviceModel device in devices)
             {
-                List<WsSqlDeviceSettingsFkModel> deviceSettings = DeviceSettingsFkRepository.GetListByDevice(device);
+                IEnumerable<WsSqlDeviceSettingsFkModel> deviceSettings = DeviceSettingsFkRepository.GetEnumerableByDevice(device);
                 ParseRecords(deviceSettings);
             }
         }, false, DefaultConfigurations);

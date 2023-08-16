@@ -9,6 +9,7 @@ public abstract class WsBenchmarkBase
     #region Public and private fields, properties, constructor
 
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    protected int CountRecords { get; set; }
 
     protected WsBenchmarkBase()
     {

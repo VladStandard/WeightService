@@ -8,10 +8,10 @@ public sealed class WsSqlViewLogDeviceRepository : IViewLogDeviceRepository
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     // Если оставить прокси как есть, то будет падать, т.к. для вьюшки нет маппингов!
-    public List<WsSqlViewLogDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
+    public IList<WsSqlViewLogDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) =>
         GetList(string.Empty, string.Empty, WsSqlEnumTimeInterval.All, sqlCrudConfig.SelectTopRowsCount);
 
-    private List<WsSqlViewLogDeviceModel> GetListByQuery(string query)
+    private IList<WsSqlViewLogDeviceModel> GetListByQuery(string query)
     {
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         List<WsSqlViewLogDeviceModel> result = new(objects.Length);
@@ -37,10 +37,10 @@ public sealed class WsSqlViewLogDeviceRepository : IViewLogDeviceRepository
         return result;
     }
 
-    public List<WsSqlViewLogDeviceModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0) =>
+    public IList<WsSqlViewLogDeviceModel> GetList(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records = 0) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevices(appName, deviceName, timeInterval, records));
 
-    public List<WsSqlViewLogDeviceModel> GetList(int records) =>
+    public IList<WsSqlViewLogDeviceModel> GetList(int records) =>
         GetListByQuery(WsSqlQueriesDiags.Views.GetViewLogsDevices(
             string.Empty, string.Empty, WsSqlEnumTimeInterval.All, records));
 }

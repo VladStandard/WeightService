@@ -1,6 +1,10 @@
-﻿namespace WsStorageCore.Views.ViewRefModels.PluNestings;
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// ReSharper disable InconsistentNaming
+
+namespace WsStorageCore.Views.ViewRefModels.PluNestings;
 
 public interface IViewPluNestingRepository
 {
-    public List<WsSqlViewPluNestingModel> GetList(ushort pluNumber = 0);
+    public IEnumerable<WsSqlViewPluNestingModel> GetEnumerable(ushort pluNumber = 0);
 }

@@ -19,8 +19,8 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
         sqlCrudConfig.IsFillReferences = false;
         
-        LogTypes = LogTypeRepository.GetList(sqlCrudConfig);
-        Lines = LineRepository.GetList(sqlCrudConfig);
+        LogTypes = LogTypeRepository.GetEnumerable(sqlCrudConfig).ToList();
+        Lines = LineRepository.GetEnumerable(sqlCrudConfig).ToList();
         
         IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
@@ -30,6 +30,6 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewLogRepository.GetListByLogTypeAndLineName(SqlCrudConfigSection, CurrentLogType, CurrentLine);
+        SqlSectionCast = ViewLogRepository.GetListByLogTypeAndLineName(SqlCrudConfigSection, CurrentLogType, CurrentLine).ToList();
     }
 }

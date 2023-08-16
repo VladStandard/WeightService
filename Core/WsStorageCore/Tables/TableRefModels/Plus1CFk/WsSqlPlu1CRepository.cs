@@ -12,12 +12,12 @@ public sealed class WsSqlPlu1CRepository : WsSqlTableRepositoryBase<WsSqlPlu1CFk
 
     public WsSqlPlu1CFkModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlPlu1CFkModel>();
 
-    public List<WsSqlPlu1CFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlPlu1CFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<WsSqlPlu1CFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPlu1CFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items.OrderBy(item => item.Plu.Number);
-        return items.ToList();
+        return items;
     }
     
     public List<WsSqlPlu1CFkModel> GetNewList() => new();

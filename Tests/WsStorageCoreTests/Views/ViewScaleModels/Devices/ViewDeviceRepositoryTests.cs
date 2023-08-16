@@ -15,7 +15,7 @@ public sealed class ViewDevicesRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewDeviceModel> items = ViewDeviceRepository.GetList(SqlCrudConfig);
+            IList<WsSqlViewDeviceModel> items = ViewDeviceRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }

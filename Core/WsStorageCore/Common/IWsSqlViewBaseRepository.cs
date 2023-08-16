@@ -6,5 +6,5 @@ namespace WsStorageCore.Common;
 
 public interface IWsSqlViewBaseRepository<T> where T: WsSqlTableBase, new()
 {
-    public List<T> GetList(WsSqlCrudConfigModel sqlCrudConfig);
+    public IList<T> GetList(WsSqlCrudConfigModel sqlCrudConfig);
 }

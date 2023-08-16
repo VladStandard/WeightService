@@ -15,7 +15,7 @@ public sealed class ViewTableSizeRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlViewTableSizeModel> items = ViewTableSizeRepository.GetList(SqlCrudConfig);
+            IEnumerable<WsSqlViewTableSizeModel> items = ViewTableSizeRepository.GetEnumerable(SqlCrudConfig);
             PrintViewRecords(items);
         }, false, AllConfigurations);
     }

@@ -1,4 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 namespace WsStorageCore.Views.ViewScaleModels.Devices;
@@ -7,15 +7,15 @@ public class WsSqlViewDeviceRepository : IViewDeviceRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IList<WsSqlViewDeviceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewDeviceModel> result = new();
+        IList<WsSqlViewDeviceModel> result = new List<WsSqlViewDeviceModel>();
         string query = WsSqlQueriesDiags.Views.GetDevices(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
         {
             int i = 0;
-            if (obj is not object[] item || item.Length < 8 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            if (obj is not object[] item || item.Length < 8 || !Guid.TryParse(Convert.ToString(item[i++]), out Guid uid)) break;
             result.Add(new() 
             {
                 IdentityValueUid = uid,
@@ -25,7 +25,7 @@ public class WsSqlViewDeviceRepository : IViewDeviceRepository
                 Name = item[i++] as string ?? string.Empty,
                 TypeName = item[i++] as string ?? string.Empty,
                 Ip = item[i++] as string ?? string.Empty,
-                Mac = item[i++] as string ?? string.Empty
+                Mac = item[i] as string ?? string.Empty
             });
         }
         return result;

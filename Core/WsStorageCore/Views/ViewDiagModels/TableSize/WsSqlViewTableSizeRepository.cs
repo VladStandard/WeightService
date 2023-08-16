@@ -7,9 +7,9 @@ public sealed class WsSqlViewTableSizeRepository : IViewTableSizeRepository
 {
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
-    public List<WsSqlViewTableSizeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<WsSqlViewTableSizeModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewTableSizeModel> result = new();
+        List<WsSqlViewTableSizeModel> result = new List<WsSqlViewTableSizeModel>();
         string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)
@@ -29,5 +29,4 @@ public sealed class WsSqlViewTableSizeRepository : IViewTableSizeRepository
         }
         return result;
     }
-    
 }
