@@ -11,10 +11,10 @@
     <Optimize>true</Optimize>
     <Configuration>ReleaseVS</Configuration>
     <IsPackable>false</IsPackable>
-    <Version>0.9.880.0</Version>
+    <Version>0.9.890.0</Version>
   </PropertyGroup>    
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.1" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.7" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.7" />
   </ItemGroup>  
 </Project>

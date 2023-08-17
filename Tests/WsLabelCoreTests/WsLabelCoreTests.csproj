@@ -3,7 +3,7 @@
     <TargetFramework>net481</TargetFramework>
     <IsPackable>false</IsPackable>
     <LangVersion>latest</LangVersion>
-    <Version>0.9.880.0</Version>
+    <Version>0.9.890.0</Version>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
@@ -13,7 +13,7 @@
     <PackageReference Include="NSubstitute" Version="5.0.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
