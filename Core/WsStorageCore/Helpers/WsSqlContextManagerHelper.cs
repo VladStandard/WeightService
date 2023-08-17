@@ -63,16 +63,14 @@ public sealed class WsSqlContextManagerHelper
 
     #region Public and private methods
 
-    private bool SetupJsonSettingsCore(string dir, bool isRemote, string fileName)
+    private bool SetupConfigsCore(string dir, bool isRemote, string fileName)
     {
         if (string.IsNullOrEmpty(fileName))
             throw new ArgumentException("Value must be fill!", nameof(fileName));
 
         string file = Path.Combine(dir, fileName);
         if (!File.Exists(file))
-        {
-            throw new(WsLocaleCore.System.JsonSettingsFileNotFound(file));
-        }
+            throw new(WsLocaleCore.System.ConfigFileNotFound(file));
 
         using StreamReader streamReader = File.OpenText(file);
         JsonSerializer serializer = new();
@@ -112,9 +110,9 @@ public sealed class WsSqlContextManagerHelper
     {
         try
         {
-            CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
-            if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
-                throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+            CheckConfigsUpdates(localDir, JsonSettings.JsonFileName);
+            if (!SetupConfigsCore(localDir, false, JsonSettings.JsonFileName))
+                throw new(WsLocaleCore.System.ConfigLocalFileException);
             SqlCore.SetSessionFactory(false);
             ContextItem.SetupLog(appName);
         }
@@ -128,9 +126,11 @@ public sealed class WsSqlContextManagerHelper
     {
         try
         {
-            CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
-            if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
-                throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+            // #WS-T-1105: Fix jitDebugging error for Debug configs.
+            CheckMachineConfigUpdates(localDir);
+            CheckConfigsUpdates(localDir, JsonSettings.JsonFileName);
+            if (!SetupConfigsCore(localDir, false, JsonSettings.JsonFileName))
+                throw new(WsLocaleCore.System.ConfigLocalFileException);
             SqlCore.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
             ContextItem.SetupLog(appName);
         }
@@ -142,10 +142,10 @@ public sealed class WsSqlContextManagerHelper
 
     private void SetupJsonTestsCore(string localDir, string deviceName, string appName, string fileName, bool isShowSql)
     {
-        CheckJsonUpdates(localDir, fileName);
+        CheckConfigsUpdates(localDir, fileName);
 
-        if (!SetupJsonSettingsCore(localDir, false, fileName))
-            throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+        if (!SetupConfigsCore(localDir, false, fileName))
+            throw new(WsLocaleCore.System.ConfigLocalFileException);
 
         SqlCore.SetSessionFactory(isShowSql);
         ContextItem.SetupLog(deviceName, appName);
@@ -180,16 +180,16 @@ public sealed class WsSqlContextManagerHelper
             if (Directory.Exists(subDir))
             {
                 // Local folder.
-                CheckJsonUpdates(subDir, JsonSettings.JsonFileName);
-                if (!SetupJsonSettingsCore(subDir, false, JsonSettings.JsonFileName))
-                    throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+                CheckConfigsUpdates(subDir, JsonSettings.JsonFileName);
+                if (!SetupConfigsCore(subDir, false, JsonSettings.JsonFileName))
+                    throw new(WsLocaleCore.System.ConfigLocalFileException);
             }
             else
             {
                 // IIS publish folder.
-                CheckJsonUpdates(localDir, JsonSettings.JsonFileName);
-                if (!SetupJsonSettingsCore(localDir, false, JsonSettings.JsonFileName))
-                    throw new(WsLocaleCore.System.JsonSettingsLocalFileException);
+                CheckConfigsUpdates(localDir, JsonSettings.JsonFileName);
+                if (!SetupConfigsCore(localDir, false, JsonSettings.JsonFileName))
+                    throw new(WsLocaleCore.System.ConfigLocalFileException);
             }
 
             SqlCore.SetSessionFactory(isShowSql);
@@ -202,8 +202,37 @@ public sealed class WsSqlContextManagerHelper
         }
     }
 
-    private void CheckJsonUpdates(string localDir, string fileName)
+    /// <summary>
+    /// #WS-T-1105: Fix jitDebugging error for Debug configs.
+    /// </summary>
+    /// <param name="localDir"></param>
+    private void CheckMachineConfigUpdates(string localDir)
     {
+        string fileName = "machine.config";
+        string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
+        CheckDirAndFile(remoteFile);
+        if (!WsDebugHelper.Instance.Config.Equals(WsEnumConfiguration.DevelopVS)) return;
+
+        string localFile = Path.Combine(localDir, fileName);
+        if (File.Exists(localFile)) File.Delete(localFile);
+
+        using StreamReader streamReader = File.OpenText(remoteFile);
+        string content = streamReader.ReadToEnd();
+        streamReader.Close();
+        streamReader.Dispose();
+        if (string.IsNullOrEmpty(content))
+            throw new(WsLocaleCore.System.ConfigFileIsEmpty(remoteFile));
+
+        using StreamWriter streamWriter = File.CreateText(Path.Combine(localDir, fileName));
+        streamWriter.Write(content);
+        streamWriter.Close();
+        streamWriter.Dispose();
+    }
+
+    private void CheckConfigsUpdates(string localDir, string fileName)
+    {
+        string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
+        CheckDirAndFile(remoteFile);
         switch (WsDebugHelper.Instance.Config)
         {
             case WsEnumConfiguration.DevelopAleksandrov:
@@ -211,46 +240,35 @@ public sealed class WsSqlContextManagerHelper
             case WsEnumConfiguration.ReleaseAleksandrov:
             case WsEnumConfiguration.ReleaseMorozov:
                 return;
-            case WsEnumConfiguration.DevelopVS:
-            case WsEnumConfiguration.ReleaseVS:
-                break;
         }
-
-        if (!Directory.Exists(JsonSettings.RemoteDir))
-        {
-            throw new(WsLocaleCore.System.JsonSettingsRemoteFolderNotFound);
-        }
-        string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
-        if (!Directory.Exists(JsonSettings.RemoteDir))
-        {
-            throw new(WsLocaleCore.System.JsonSettingsRemoteFileNotFound);
-        }
-
-        SetupJsonSettingsCore(JsonSettings.RemoteDir, true, fileName);
+        SetupConfigsCore(JsonSettings.RemoteDir, true, fileName);
 
         ushort version = GetJsonLocalVersion(localDir, fileName);
         if (version == 0 || version < JsonSettings.Remote.Version)
         {
             string localFile = Path.Combine(localDir, fileName);
-            if (File.Exists(localFile))
-                File.Delete(localFile);
+            if (File.Exists(localFile)) File.Delete(localFile);
 
             using StreamReader streamReader = File.OpenText(remoteFile);
             string content = streamReader.ReadToEnd();
             streamReader.Close();
             streamReader.Dispose();
             if (string.IsNullOrEmpty(content))
-            {
-                //if (isFileLog)
-                //    FileLog.WriteMessage(LocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
-                throw new(WsLocaleCore.System.JsonSettingsFileIsEmpty(remoteFile));
-            }
+                throw new(WsLocaleCore.System.ConfigFileIsEmpty(remoteFile));
 
             using StreamWriter streamWriter = File.CreateText(Path.Combine(localDir, fileName));
             streamWriter.Write(content);
             streamWriter.Close();
             streamWriter.Dispose();
         }
+    }
+
+    private void CheckDirAndFile(string fileName)
+    {
+        if (!Directory.Exists(JsonSettings.RemoteDir))
+            throw new(WsLocaleCore.System.ConfigRemoteFolderNotFound);
+        if (!File.Exists(fileName))
+            throw new(WsLocaleCore.System.ConfigRemoteFileNotFound);
     }
 
     private ushort GetJsonLocalVersion(string localDir, string fileName)

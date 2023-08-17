@@ -8,7 +8,7 @@ set "host=palych"
 call :job "%host%"
 goto :end
 
-:job
+:job <host>
 echo [ ] Start job
 echo [ ] Check the connection to the host [%~1]
 call :ping "%~1" && call :isConnectGood "%~1" || call :isConnectBad "%~1"
@@ -17,7 +17,6 @@ exit %ErrorLevel%
 
 :ping <host>
 ping "%~1" -n 1 | find "TTL=" >nul
-exit %ErrorLevel%
 
 :isConnectGood <host>
 xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
@@ -28,6 +27,8 @@ xcopy "appsettings.ReleaseAleksandrov.json" "\\palych\Install\VSSoft\appsettings
 xcopy "appsettings.ReleaseMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.ReleaseVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 echo [v] The files "appsettings.Release*.json" has been successfully copied.
+xcopy "machine.config" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
+echo [v] The files "machine.config" has been successfully copied.
 goto :end
 
 :isConnectBad <host>

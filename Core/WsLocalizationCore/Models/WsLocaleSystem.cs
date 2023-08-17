@@ -7,18 +7,18 @@ public sealed class WsLocaleSystem : WsLocalizationBase
 {
     #region Public and private fields, properties, constructor
 
-    public string JsonSettingsFileIsEmpty(string file) => Lang == WsEnumLanguage.English ? $"Json-settings file is empty! {file}" : $"Файл json-настроек пуст! {file}";
-    public string JsonSettingsFileNotFound(string file) => Lang == WsEnumLanguage.English ? $"Json-settings file not found! {file}" : $"Локальный файл json-настроек не найден! {file}";
-    public string JsonSettingsLocalFileException => Lang == WsEnumLanguage.English ? "Exception in json-settings file!" : "Ошибка файла json-настроек!";
-    public string JsonSettingsLocalFileNotFound => Lang == WsEnumLanguage.English ? "Local json-settings file not found!" : "Локальный файл json-настроек не найден!";
-    public string JsonSettingsParseVersionException(string file) => Lang == WsEnumLanguage.English ? $"Error parsing the json-settings file version! {file}" : $"Ошибка парсинга версии файла json-настроек! {file}";
-    public string JsonSettingsRemoteFileException => Lang == WsEnumLanguage.English ? "Remote json-settings file exception!" : "Ошибка удалённых json-настроек!";
-    public string JsonSettingsRemoteFileNotFound => Lang == WsEnumLanguage.English ? "Remote json-settings file not found!" : "Удалённый файл json-настроек не найден!";
-    public string JsonSettingsRemoteFolderNotFound => Lang == WsEnumLanguage.English ? "Remote json-settings folder not found!" : "Удалённый каталог json-настроек не найден!";
+    public string ConfigFileIsEmpty(string file) => Lang == WsEnumLanguage.English ? $"Config file is empty! {file}" : $"Файл конфига пуст! {file}";
+    public string ConfigFileNotFound(string file) => Lang == WsEnumLanguage.English ? $"Config file not found! {file}" : $"Локальный файл конфига не найден! {file}";
+    public string ConfigLocalFileException => Lang == WsEnumLanguage.English ? "Exception in config file!" : "Ошибка файла конфига!";
+    public string ConfigLocalFileNotFound => Lang == WsEnumLanguage.English ? "Local config file not found!" : "Локальный файл конфига не найден!";
+    public string ConfigParseVersionException(string file) => Lang == WsEnumLanguage.English ? $"Error parsing the config file version! {file}" : $"Ошибка парсинга версии файла конфигов! {file}";
+    public string ConfigRemoteFileException => Lang == WsEnumLanguage.English ? "Remote config file exception!" : "Ошибка удалённых конфигов!";
+    public string ConfigRemoteFileNotFound => Lang == WsEnumLanguage.English ? "Remote config file not found!" : "Удалённый файл конфигов не найден!";
+    public string ConfigRemoteFolderNotFound => Lang == WsEnumLanguage.English ? "Remote config directory not found!" : "Удалённый каталог конфигов не найден!";
+    public string DatabaseInfo => Lang == WsEnumLanguage.English ? "Database info" : "База данных";
     public string SystemAccess => Lang == WsEnumLanguage.English ? "Access" : "Доступ";
     public string SystemAccount => Lang == WsEnumLanguage.English ? "Account" : "Аккаунт";
     public string SystemErrors => Lang == WsEnumLanguage.English ? "Errors" : "Ошибки";
-    public string DatabaseInfo => Lang == WsEnumLanguage.English ? "Database info" : "База данных";
     public string SystemIdentityDataFull => Lang == WsEnumLanguage.English ? "Identity data" : "Идентификационные данные";
     public string SystemIdentityNotAuthorized => Lang == WsEnumLanguage.English ? "User is not authorized" : "Пользователь не авторизован";
     public string SystemInfo => Lang == WsEnumLanguage.English ? "System info" : "Системная информация";

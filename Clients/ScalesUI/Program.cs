@@ -13,8 +13,8 @@ internal static class Program
     internal static void Main()
     {
         // В первую очередь.
-        System.Windows.Forms.Application.EnableVisualStyles();
-        System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
         // Проверить каталог и файлы локализации.
         WsLocalizationUtils.CheckDirectoryWithFiles();
         // Настройка.
@@ -29,6 +29,6 @@ internal static class Program
         // Режим работы.
         WsDebugHelper.Instance.IsSkipDialogs = false;
         // Запуск.
-        System.Windows.Forms.Application.Run(new WsMainForm());
+        Application.Run(new WsMainForm());
     }
 }

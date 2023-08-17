@@ -66,16 +66,14 @@ public sealed class WsJsonSettingsHelper
     public string FileNameReleaseAleksandrov => "appsettings.ReleaseAleksandrov.json";
     public string FileNameReleaseMorozov => "appsettings.ReleaseMorozov.json";
     public string FileNameReleaseVs => "appsettings.ReleaseVS.json";
-    public string JsonFileName =>
-        WsDebugHelper.Instance.Config switch {
-            WsEnumConfiguration.DevelopAleksandrov => FileNameDevelopAleksandrov,
-            WsEnumConfiguration.DevelopMorozov => FileNameDevelopMorozov,
-            WsEnumConfiguration.DevelopVS => FileNameDevelopVs,
-            WsEnumConfiguration.ReleaseAleksandrov => FileNameReleaseAleksandrov,
-            WsEnumConfiguration.ReleaseMorozov => FileNameReleaseMorozov,
-            WsEnumConfiguration.ReleaseVS => FileNameReleaseVs,
-            _ => FileNameDevelopVs,
-        };
+    public string JsonFileName => WsDebugHelper.Instance.Config switch {
+        WsEnumConfiguration.DevelopAleksandrov => FileNameDevelopAleksandrov,
+        WsEnumConfiguration.DevelopMorozov => FileNameDevelopMorozov,
+        WsEnumConfiguration.DevelopVS => FileNameDevelopVs,
+        WsEnumConfiguration.ReleaseAleksandrov => FileNameReleaseAleksandrov,
+        WsEnumConfiguration.ReleaseMorozov => FileNameReleaseMorozov,
+        WsEnumConfiguration.ReleaseVS => FileNameReleaseVs,
+        _ => FileNameDevelopVs };
     public string BinNetSubDir => WsDebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
 
 	#endregion

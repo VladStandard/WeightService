@@ -93,6 +93,9 @@
       <None Update="FodyWeavers.xml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="machine.config">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ZplTemplates\" />
