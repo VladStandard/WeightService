@@ -1,11 +1,6 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Windows.Forms;
-using MDSoft.BarcodePrintUtils.Tsc;
-using WsPrintCore.Common;
-
 namespace TscPrintDemoWinForm;
 
 public partial class FormMain : Form
@@ -15,6 +10,34 @@ public partial class FormMain : Form
 
     private readonly TSCSDK.driver _driver = new();
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
+    private readonly object _lockTcpClient = new();
+    private SimpleTcpClient? _wsTcpClient;
+    private SimpleTcpClient WsTcpClient
+    {
+        get
+        {
+            // Открыть подключение.
+            if (_wsTcpClient is not null)
+                return _wsTcpClient;
+            lock (_lockTcpClient)
+            {
+                _wsTcpClient = new(fieldPortIp.Text, 9100);
+                _wsTcpClient.Events.Connected += WsTcpClientConnected;
+                _wsTcpClient.Events.DataReceived += WsTcpClientDataReceived;
+                _wsTcpClient.Events.DataSent += WsTcpClientDataSent;
+                _wsTcpClient.Events.Disconnected += WsTcpClientDisconnected;
+                // TCP keepalives are disabled by default. To enable them:
+                _wsTcpClient.Keepalive.EnableTcpKeepAlives = true;
+                _wsTcpClient.Keepalive.TcpKeepAliveInterval = 2; // wait before sending subsequent keepalive
+                _wsTcpClient.Keepalive.TcpKeepAliveTime = 2; // wait before sending a keepalive
+                _wsTcpClient.Keepalive.TcpKeepAliveRetryCount = 2; // number of failed keepalive probes before terminating connection
+            }
+            //if (!IsConnected)
+            //    _wsTcpClient.ConnectWithRetries(1_000);
+            return _wsTcpClient;
+        }
+    }
+    public bool IsConnected => _wsTcpClient is not null && _wsTcpClient.IsConnected;
 
     #endregion
 
@@ -24,6 +47,7 @@ public partial class FormMain : Form
     {
         InitializeComponent();
 
+        WindowState = FormWindowState.Maximized;
         SetupLib();
         SetupLabelSize();
         SetupLabelDpi();
@@ -120,6 +144,45 @@ public partial class FormMain : Form
         {
             toolStripStatusLabel.Text = @"Cann't close the port!";
         }
+    }
+
+    private void buttonPrintSendCmdByTcp_Click(object sender, EventArgs e)
+    {
+        ReopenTcp();
+        if (!IsConnected) return;
+        WsTcpClient.Send(fieldCmd.Text);
+    }
+
+    #endregion
+
+    #region Public and private methods - SimpleTcpClient
+
+    private void ReopenTcp()
+    {
+        if (!IsConnected)
+            WsTcpClient.ConnectWithRetries(1_000);
+    }
+
+    private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
+    {
+        toolStripStatusLabel.Text = $@"Server {e.IpPort} connected";
+    }
+
+    private void WsTcpClientDataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
+    {
+        string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
+        received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";
+        toolStripStatusLabel.Text = $@"Server {e.IpPort} data received {received}";
+    }
+
+    private void WsTcpClientDataSent(object sender, DataSentEventArgs e)
+    {
+        toolStripStatusLabel.Text = $@"Server {e.IpPort} data sent {e.BytesSent} bytes";
+    }
+
+    private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)
+    {
+        toolStripStatusLabel.Text = $@"Server {e.IpPort} disconnected by {e.Reason} reason";
     }
 
     #endregion
