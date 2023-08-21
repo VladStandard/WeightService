@@ -16,12 +16,19 @@ public partial class FormMain : Form
     {
         get
         {
-            // Открыть подключение.
-            if (_wsTcpClient is not null)
+            if (_wsTcpClient is not null && !IsIpAddressChange)
                 return _wsTcpClient;
             lock (_lockTcpClient)
             {
-                _wsTcpClient = new(fieldPortIp.Text, 9100);
+                if (_wsTcpClient is not null)
+                {
+                    _wsTcpClient.Disconnect();
+                    _wsTcpClient.Dispose();
+                    _wsTcpClient = null;
+                    Application.DoEvents();
+                }
+                IpAddress = fieldIpAddress.Text;
+                _wsTcpClient = new(IpAddress, 9100);
                 _wsTcpClient.Events.Connected += WsTcpClientConnected;
                 _wsTcpClient.Events.DataReceived += WsTcpClientDataReceived;
                 _wsTcpClient.Events.DataSent += WsTcpClientDataSent;
@@ -32,12 +39,12 @@ public partial class FormMain : Form
                 _wsTcpClient.Keepalive.TcpKeepAliveTime = 2; // wait before sending a keepalive
                 _wsTcpClient.Keepalive.TcpKeepAliveRetryCount = 2; // number of failed keepalive probes before terminating connection
             }
-            //if (!IsConnected)
-            //    _wsTcpClient.ConnectWithRetries(1_000);
             return _wsTcpClient;
         }
     }
-    public bool IsConnected => _wsTcpClient is not null && _wsTcpClient.IsConnected;
+    private bool IsConnected => _wsTcpClient is not null && _wsTcpClient.IsConnected;
+    private string IpAddress { get; set; } = "";
+    private bool IsIpAddressChange => !IpAddress.Equals(fieldIpAddress.Text);
 
     #endregion
 
@@ -115,7 +122,7 @@ public partial class FormMain : Form
 
     private void ButtonLibInitv2_Click(object sender, EventArgs e)
     {
-        TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldPortIp.Text, Convert.ToInt32(fieldPortPort.Text),
+        TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldPortPort.Text),
             GetLabelSize(), GetLabelDpi());
         toolStripStatusLabel.Text = @"Init complete.";
     }

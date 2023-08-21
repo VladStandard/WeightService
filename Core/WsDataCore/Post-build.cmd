@@ -19,14 +19,14 @@ exit %ErrorLevel%
 ping "%~1" -n 1 | find "TTL=" >nul
 
 :isConnectGood <host>
+xcopy "appsettings.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-echo [v] The files "appsettings.Develop*.json" has been successfully copied.
 xcopy "appsettings.ReleaseAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.ReleaseMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.ReleaseVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-echo [v] The files "appsettings.Release*.json" has been successfully copied.
+echo [v] The files "appsettings*.json" has been successfully copied.
 xcopy "machine.config" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 echo [v] The files "machine.config" has been successfully copied.
 goto :end

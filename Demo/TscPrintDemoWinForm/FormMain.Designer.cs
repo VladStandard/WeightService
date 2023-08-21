@@ -25,7 +25,7 @@
             this.buttonLibInit = new System.Windows.Forms.Button();
             this.buttonLibInitv2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.fieldPortIp = new System.Windows.Forms.TextBox();
+            this.fieldIpAddress = new System.Windows.Forms.TextBox();
             this.fieldPortPort = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -36,6 +36,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxLib = new System.Windows.Forms.ComboBox();
             this.buttonPrintSendCmdByTcp = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,13 +44,13 @@
             // 
             this.buttonPrintSendCmd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPrintSendCmd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPrintSendCmd.Location = new System.Drawing.Point(185, 80);
+            this.buttonPrintSendCmd.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPrintSendCmd.Location = new System.Drawing.Point(198, 80);
             this.buttonPrintSendCmd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPrintSendCmd.Name = "buttonPrintSendCmd";
-            this.buttonPrintSendCmd.Size = new System.Drawing.Size(165, 30);
+            this.buttonPrintSendCmd.Size = new System.Drawing.Size(202, 30);
             this.buttonPrintSendCmd.TabIndex = 21;
-            this.buttonPrintSendCmd.Text = "Send cmd by driver";
+            this.buttonPrintSendCmd.Text = "Send ZPL by TSC-driver";
             this.buttonPrintSendCmd.UseVisualStyleBackColor = true;
             this.buttonPrintSendCmd.Click += new System.EventHandler(this.ButtonPrintSendCmd_Click);
             // 
@@ -57,18 +58,18 @@
             // 
             this.fieldPortName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldPortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPortName.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPortName.Location = new System.Drawing.Point(125, 14);
             this.fieldPortName.Margin = new System.Windows.Forms.Padding(4);
             this.fieldPortName.Name = "fieldPortName";
-            this.fieldPortName.Size = new System.Drawing.Size(225, 22);
+            this.fieldPortName.Size = new System.Drawing.Size(275, 23);
             this.fieldPortName.TabIndex = 2;
             this.fieldPortName.Text = "SCALES-PRN-TSC";
             this.fieldPortName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(15, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -82,19 +83,19 @@
             this.fieldCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldCmd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldCmd.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldCmd.Location = new System.Drawing.Point(10, 118);
             this.fieldCmd.Margin = new System.Windows.Forms.Padding(4);
             this.fieldCmd.Name = "fieldCmd";
-            this.fieldCmd.Size = new System.Drawing.Size(815, 209);
+            this.fieldCmd.Size = new System.Drawing.Size(865, 409);
             this.fieldCmd.TabIndex = 20;
             this.fieldCmd.Text = "";
             // 
             // buttonLibSendCmd
             // 
             this.buttonLibSendCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibSendCmd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonLibSendCmd.Location = new System.Drawing.Point(565, 80);
+            this.buttonLibSendCmd.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLibSendCmd.Location = new System.Drawing.Point(615, 80);
             this.buttonLibSendCmd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibSendCmd.Name = "buttonLibSendCmd";
             this.buttonLibSendCmd.Size = new System.Drawing.Size(260, 30);
@@ -106,8 +107,8 @@
             // buttonLibInit
             // 
             this.buttonLibInit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonLibInit.Location = new System.Drawing.Point(565, 10);
+            this.buttonLibInit.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLibInit.Location = new System.Drawing.Point(615, 10);
             this.buttonLibInit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibInit.Name = "buttonLibInit";
             this.buttonLibInit.Size = new System.Drawing.Size(260, 30);
@@ -119,8 +120,8 @@
             // buttonLibInitv2
             // 
             this.buttonLibInitv2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLibInitv2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonLibInitv2.Location = new System.Drawing.Point(565, 45);
+            this.buttonLibInitv2.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLibInitv2.Location = new System.Drawing.Point(615, 45);
             this.buttonLibInitv2.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLibInitv2.Name = "buttonLibInitv2";
             this.buttonLibInitv2.Size = new System.Drawing.Size(260, 30);
@@ -131,7 +132,7 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(15, 50);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -140,48 +141,48 @@
             this.label2.Text = "IP : port";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // fieldPortIp
+            // fieldIpAddress
             // 
-            this.fieldPortIp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.fieldIpAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldPortIp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPortIp.Location = new System.Drawing.Point(125, 49);
-            this.fieldPortIp.Margin = new System.Windows.Forms.Padding(4);
-            this.fieldPortIp.Name = "fieldPortIp";
-            this.fieldPortIp.Size = new System.Drawing.Size(160, 22);
-            this.fieldPortIp.TabIndex = 3;
-            this.fieldPortIp.Text = "127.0.0.1";
-            this.fieldPortIp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fieldIpAddress.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldIpAddress.Location = new System.Drawing.Point(125, 49);
+            this.fieldIpAddress.Margin = new System.Windows.Forms.Padding(4);
+            this.fieldIpAddress.Name = "fieldIpAddress";
+            this.fieldIpAddress.Size = new System.Drawing.Size(210, 23);
+            this.fieldIpAddress.TabIndex = 3;
+            this.fieldIpAddress.Text = "127.0.0.1";
+            this.fieldIpAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // fieldPortPort
             // 
             this.fieldPortPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldPortPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPortPort.Location = new System.Drawing.Point(295, 49);
+            this.fieldPortPort.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPortPort.Location = new System.Drawing.Point(345, 49);
             this.fieldPortPort.Margin = new System.Windows.Forms.Padding(4);
             this.fieldPortPort.Name = "fieldPortPort";
-            this.fieldPortPort.Size = new System.Drawing.Size(55, 22);
+            this.fieldPortPort.Size = new System.Drawing.Size(55, 23);
             this.fieldPortPort.TabIndex = 4;
             this.fieldPortPort.Text = "9100";
             this.fieldPortPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // statusStrip
             // 
-            this.statusStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.statusStrip.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 339);
+            this.statusStrip.Location = new System.Drawing.Point(0, 539);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(834, 22);
+            this.statusStrip.Size = new System.Drawing.Size(884, 22);
             this.statusStrip.TabIndex = 11;
             this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel
             // 
-            this.toolStripStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripStatusLabel.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(44, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(56, 17);
             this.toolStripStatusLabel.Text = "Status";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -189,18 +190,18 @@
             // 
             this.comboBoxLabelSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLabelSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLabelSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxLabelSize.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxLabelSize.FormattingEnabled = true;
-            this.comboBoxLabelSize.Location = new System.Drawing.Point(447, 48);
+            this.comboBoxLabelSize.Location = new System.Drawing.Point(497, 48);
             this.comboBoxLabelSize.Name = "comboBoxLabelSize";
-            this.comboBoxLabelSize.Size = new System.Drawing.Size(111, 24);
+            this.comboBoxLabelSize.Size = new System.Drawing.Size(111, 25);
             this.comboBoxLabelSize.TabIndex = 8;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(357, 49);
+            this.label3.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(407, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 20);
@@ -211,8 +212,8 @@
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(357, 85);
+            this.label4.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(407, 85);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 20);
@@ -224,18 +225,18 @@
             // 
             this.comboBoxLabelDpi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLabelDpi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLabelDpi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxLabelDpi.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxLabelDpi.FormattingEnabled = true;
-            this.comboBoxLabelDpi.Location = new System.Drawing.Point(447, 84);
+            this.comboBoxLabelDpi.Location = new System.Drawing.Point(497, 84);
             this.comboBoxLabelDpi.Name = "comboBoxLabelDpi";
-            this.comboBoxLabelDpi.Size = new System.Drawing.Size(111, 24);
+            this.comboBoxLabelDpi.Size = new System.Drawing.Size(111, 25);
             this.comboBoxLabelDpi.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(357, 13);
+            this.label5.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(407, 13);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 20);
@@ -247,30 +248,42 @@
             // 
             this.comboBoxLib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLib.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLib.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxLib.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxLib.FormattingEnabled = true;
-            this.comboBoxLib.Location = new System.Drawing.Point(447, 12);
+            this.comboBoxLib.Location = new System.Drawing.Point(497, 12);
             this.comboBoxLib.Name = "comboBoxLib";
-            this.comboBoxLib.Size = new System.Drawing.Size(111, 24);
+            this.comboBoxLib.Size = new System.Drawing.Size(111, 25);
             this.comboBoxLib.TabIndex = 6;
             // 
             // buttonPrintSendCmdByTcp
             // 
-            this.buttonPrintSendCmdByTcp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPrintSendCmdByTcp.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonPrintSendCmdByTcp.Location = new System.Drawing.Point(10, 80);
             this.buttonPrintSendCmdByTcp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPrintSendCmdByTcp.Name = "buttonPrintSendCmdByTcp";
-            this.buttonPrintSendCmdByTcp.Size = new System.Drawing.Size(165, 30);
+            this.buttonPrintSendCmdByTcp.Size = new System.Drawing.Size(180, 30);
             this.buttonPrintSendCmdByTcp.TabIndex = 22;
-            this.buttonPrintSendCmdByTcp.Text = "Send cmd by TCP";
+            this.buttonPrintSendCmdByTcp.Text = "Send ZPL by TCP";
             this.buttonPrintSendCmdByTcp.UseVisualStyleBackColor = true;
             this.buttonPrintSendCmdByTcp.Click += new System.EventHandler(this.buttonPrintSendCmdByTcp_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(358, 153);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(111, 25);
+            this.comboBox1.TabIndex = 23;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 361);
+            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.buttonPrintSendCmdByTcp);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBoxLib);
@@ -282,7 +295,7 @@
             this.Controls.Add(this.fieldPortPort);
             this.Controls.Add(this.buttonLibInitv2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.fieldPortIp);
+            this.Controls.Add(this.fieldIpAddress);
             this.Controls.Add(this.buttonLibInit);
             this.Controls.Add(this.buttonLibSendCmd);
             this.Controls.Add(this.fieldCmd);
@@ -294,7 +307,7 @@
             this.MinimumSize = new System.Drawing.Size(750, 300);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Demo TSC/HPRT print ZPL";
+            this.Text = "ZPL sender to TSC / HPRT printers";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -312,7 +325,7 @@
         private System.Windows.Forms.Button buttonLibInit;
         private System.Windows.Forms.Button buttonLibInitv2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox fieldPortIp;
+        private System.Windows.Forms.TextBox fieldIpAddress;
         private System.Windows.Forms.TextBox fieldPortPort;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
@@ -323,6 +336,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxLib;
         private System.Windows.Forms.Button buttonPrintSendCmdByTcp;
+        private ComboBox comboBox1;
     }
 }
 
