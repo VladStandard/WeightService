@@ -1,7 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace TscPrintDemoWinForm;
+namespace ZplPrintSenderTool;
 
 public partial class FormMain : Form
 {
@@ -54,7 +54,7 @@ public partial class FormMain : Form
     {
         InitializeComponent();
 
-        WindowState = FormWindowState.Maximized;
+        SetupSendType();
         SetupLib();
         SetupLabelSize();
         SetupLabelDpi();
@@ -64,20 +64,17 @@ public partial class FormMain : Form
 
     #region Public and private methods
 
-    private void SetupLib()
-    {
-        SetComboBoxItems(comboBoxLib, typeof(WsEnumPrintTscDll), WsEnumPrintTscDll.TscLibNet32);
-    }
+    private void SetupSendType() => 
+        SetComboBoxItems(comboBoxSendType, typeof(WsEnumPrintSendType), WsEnumPrintSendType.Default);
 
-    private void SetupLabelSize()
-    {
+    private void SetupLib() => 
+        SetComboBoxItems(comboBoxLibrary, typeof(WsEnumPrintTscDll), WsEnumPrintTscDll.TscLibNet32);
+
+    private void SetupLabelSize() => 
         SetComboBoxItems(comboBoxLabelSize, typeof(WsEnumPrintLabelSize), WsEnumPrintLabelSize.Size80x100);
-    }
 
-    private void SetupLabelDpi()
-    {
+    private void SetupLabelDpi() => 
         SetComboBoxItems(comboBoxLabelDpi, typeof(WsEnumPrintLabelDpi), WsEnumPrintLabelDpi.Dpi300);
-    }
 
     private static void SetComboBoxItems(ComboBox comboBox, Type type, object valueDefault)
     {
@@ -116,54 +113,141 @@ public partial class FormMain : Form
 
     private void ButtonLibInit_Click(object sender, EventArgs e)
     {
-        TscDriver.Setup(WsEnumPrintChannel.Name, fieldPortName.Text, GetLabelSize(), GetLabelDpi());
-        toolStripStatusLabel.Text = @"Init complete.";
+        TryAction(() =>
+        {
+            TscDriver.Setup(WsEnumPrintChannel.Name, fieldName.Text, GetLabelSize(), GetLabelDpi());
+            toolStripStatusLabel.Text = @"Init complete.";
+        });
     }
 
     private void ButtonLibInitv2_Click(object sender, EventArgs e)
     {
-        TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldPortPort.Text),
-            GetLabelSize(), GetLabelDpi());
-        toolStripStatusLabel.Text = @"Init complete.";
+        TryAction(() =>
+        {
+            TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldPort.Text),
+                GetLabelSize(), GetLabelDpi());
+            toolStripStatusLabel.Text = @"Init complete.";
+        });
     }
 
     private void ButtonLibSendCmd_Click(object sender, EventArgs e)
     {
-        TscDriver.SendCmd(fieldCmd.Text);
-        toolStripStatusLabel.Text = @"Send cmd complete.";
+        TryAction(() =>
+        {
+            TscDriver.SendCmd(fieldCmd.Text);
+            toolStripStatusLabel.Text = @"Send cmd complete.";
+        });
     }
 
     private void ButtonPrintSendCmd_Click(object sender, EventArgs e)
     {
-        if (!_driver.openport(fieldPortName.Text))
+        TryAction(() =>
         {
-            toolStripStatusLabel.Text = $@"Cann't open the port '{fieldPortName.Text}'!";
-            return;
-        }
+            if (!_driver.openport(fieldName.Text))
+            {
+                toolStripStatusLabel.Text = $@"Cann't open the port '{fieldName.Text}'!";
+                return;
+            }
 
-        _driver.clearbuffer();
-        if (!_driver.sendcommand(fieldCmd.Text))
-        {
-            toolStripStatusLabel.Text = @"Cann't send cmd!";
-            return;
-        }
-        if (!_driver.closeport())
-        {
-            toolStripStatusLabel.Text = @"Cann't close the port!";
-        }
+            _driver.clearbuffer();
+            if (!_driver.sendcommand(fieldCmd.Text))
+            {
+                toolStripStatusLabel.Text = @"Cann't send cmd!";
+                return;
+            }
+            if (!_driver.closeport())
+            {
+                toolStripStatusLabel.Text = @"Cann't close the port!";
+            }
+        });
     }
 
-    private void buttonPrintSendCmdByTcp_Click(object sender, EventArgs e)
+    private void comboBoxSendType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ReopenTcp();
-        if (!IsConnected) return;
-        WsTcpClient.Send(fieldCmd.Text);
+        TryAction(() =>
+        {
+            if (sender is not ComboBox cb)
+                return;
+            if (cb.SelectedItem is not WsEnumPrintSendType sendType)
+                return;
+            switch (sendType)
+            {
+                case WsEnumPrintSendType.Default:
+                    SetUiEnable(false, false, false);
+                    break;
+                case WsEnumPrintSendType.Serial:
+                    SetUiEnable(false, false, false);
+                    break;
+                case WsEnumPrintSendType.Tcp:
+                    SetUiEnable(true, false, true);
+                    break;
+                case WsEnumPrintSendType.ZebraDriver:
+                    SetUiEnable(true, true, false);
+                    break;
+                case WsEnumPrintSendType.HprtDriver:
+                    SetUiEnable(true, true, false);
+                    break;
+                case WsEnumPrintSendType.TscDriver:
+                    SetUiEnable(true, true, false);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        });
+    }
+
+    private void SetUiEnable(bool isEnabledNetwork, bool isEnabledDriver, bool isEnbaledSendTcp)
+    {
+        // Network.
+        labelIpAddress.Enabled = isEnabledNetwork;
+        fieldIpAddress.Enabled = isEnabledNetwork;
+        labelPort.Enabled = isEnabledNetwork;
+        fieldPort.Enabled = isEnabledNetwork;
+        // Driver.
+        labelName.Enabled = isEnabledDriver;
+        fieldName.Enabled = isEnabledDriver;
+        labelLibrary.Enabled = isEnabledDriver;
+        comboBoxLibrary.Enabled = isEnabledDriver;
+        buttonLibraryInit.Enabled = isEnabledDriver;
+        labelSize.Enabled = isEnabledDriver;
+        comboBoxLabelSize.Enabled = isEnabledDriver;
+        buttonLibInitv2.Enabled = isEnabledDriver;
+        labelLabelDpi.Enabled = isEnabledDriver;
+        comboBoxLabelDpi.Enabled = isEnabledDriver;
+        buttonLibrarySendCmd.Enabled = isEnabledDriver;
+        buttonPrintSendCmd.Enabled = isEnabledDriver;
+        // Send TCP.
+        buttonPrintSendCmdByTcp.Enabled = isEnbaledSendTcp;
+    }
+
+    private void TryAction(Action action)
+    {
+        try
+        {
+            fieldException.Clear();
+            action();
+        }
+        catch (Exception ex)
+        {
+            fieldException.Text = ex.InnerException is null ? ex.Message : ex.Message + Environment.NewLine + ex.InnerException.Message;
+        }
     }
 
     #endregion
 
     #region Public and private methods - SimpleTcpClient
 
+    private void buttonPrintSendCmdByTcp_Click(object sender, EventArgs e)
+    {
+        TryAction(() =>
+        {
+            ReopenTcp();
+            if (!IsConnected)
+                return;
+            WsTcpClient.Send(fieldCmd.Text);
+        });
+    }
+    
     private void ReopenTcp()
     {
         if (!IsConnected)

@@ -8,11 +8,13 @@
     <ProjectGuid>{5973F987-103A-455D-A5E3-C7429906657A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TscPrintDemoWinForm</RootNamespace>
-    <AssemblyName>TscPrintDemoWinForm</AssemblyName>
+    <RootNamespace>ZplPrintSenderTool</RootNamespace>
+    <AssemblyName>ZplPrintSenderTool</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -148,7 +150,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="TscPrintDemoWinForm_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
