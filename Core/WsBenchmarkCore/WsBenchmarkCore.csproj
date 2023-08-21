@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <Version>0.9.910.0</Version>
+    <Version>0.9.920.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|AnyCPU'">
     <DebugType>full</DebugType>

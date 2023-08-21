@@ -12,6 +12,6 @@ public class RzDataGrid<TItem> : RadzenDataGrid<TItem>
         PagerPosition = PagerPosition.TopAndBottom;
         PagerHorizontalAlign = HorizontalAlign.Center;
         GridLines = DataGridGridLines.Horizontal;
-        PageSize = WsSqlContextManagerHelper.Instance.JsonSettings.Local.SectionRowsCount;
+        //PageSize = WsSqlContextManagerHelper.Instance.JsonSettings.Local.SectionRowsCount;
     }
 }
