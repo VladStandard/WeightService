@@ -339,7 +339,7 @@
             this.MinimumSize = new System.Drawing.Size(900, 39);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ZPL sender to TSC / HPRT printers";
+            this.Text = "ZplPrintSenderTool";
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
