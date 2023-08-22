@@ -1,6 +1,13 @@
 # Web URLs
 kolbasa-vs.local
 
+Debug
+Data Source=CREATIO\INS1; Initial Catalog=SCALES; Persist Security Info=False; Integrated Security=False; User ID=scale01; Password=scale01; TrustServerCertificate=True;
+
+Release
+Data Source=PALYCH\LUTON; Initial Catalog=ScalesDB; Persist Security Info=False; Integrated Security=False; User ID=scale01; Password=scale01; TrustServerCertificate=True;
+
+
 ## IIS-сервера
 IIS-DEV (10.0.204.17)			DIISM04 | ISEXCD04
 IIS-PROD (10.0.24.19)			DIISM01 | ISEXCD01

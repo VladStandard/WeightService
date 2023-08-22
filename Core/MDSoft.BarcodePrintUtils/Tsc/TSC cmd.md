@@ -51,7 +51,7 @@ SPEED - defines the print speed
 DENSITY - sets the printing darkness: 0 - 15
 DIRECTION - defines the printout direction and mirror image
 REFERENCE - defines the reference point of the label
-SHIFT - moves the label’s vertical position
+SHIFT - moves the label?s vertical position
 COUNTRY - orients the keyboard for use in different countries via defining special characters
 CODEPAGE - defines the code page of international character set: 866 / UTF-8
 CLS - clears the image buffer
@@ -70,7 +70,7 @@ LIMITFEED - If the gap sensor is not set to a suitable sensitivity while feeding
 SELFTEST - print out the printer information
 EOJ - Let the printer wait until process of commands (before EOJ) be finished then go on the next command
 DELAY - Let the printer wait specific period of time then go on next command
-DISPLAY - show the image, which is in printer’s image buffer, on LCD panel
+DISPLAY - show the image, which is in printer?s image buffer, on LCD panel
 INITIALPRINTER -  restore printer settings to defaults
 BAR - draws a bar on the label format
 BARCODE - prints 1D barcodes

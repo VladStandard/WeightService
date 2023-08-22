@@ -14,7 +14,4 @@ global using BenchmarkDotNet.Exporters;
 global using BenchmarkDotNet.Exporters.Csv;
 global using BenchmarkDotNet.Jobs;
 global using BenchmarkDotNet.Loggers;
-global using BenchmarkDotNet.Reports;
-global using BenchmarkDotNet.Running;
-global using WsDataCore.Enums;
 global using WsStorageCore.Helpers;

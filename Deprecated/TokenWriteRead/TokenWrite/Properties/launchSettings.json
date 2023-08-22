@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "TokenWrite": {
-      "commandName": "Project",
-      "commandLineArgs": "\"Data Source=pc0147\\sql2017exp;Initial Catalog=testsnapshot;Integrated Security=true;\""
-    }
-  }
-}

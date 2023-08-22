@@ -7,6 +7,7 @@
 - [XML tools](https://onlinexmltools.com/prettify-xml)
 - [ZPL to print label](http://ip_address/dir -> Create script)
 - [ZPL to virtual label](http://labelary.com/viewer.html)
+- [Создание штрих-кодов GS1 с помощью сценария ZPL](https://supportcommunity.zebra.com/s/article/Creating-GS1-Barcodes-with-Zebra-Printers-for-Data-Matrix-and-Code-128-using-ZPL?language=ru)
 
 ## ZPL convert from Native into Cyrillic
 1. Copy and paste ZPL into Notepad++.

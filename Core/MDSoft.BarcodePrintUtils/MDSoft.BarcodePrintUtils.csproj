@@ -32,17 +32,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Raw\RawPrinterHelper.cs" />
     <Compile Include="Tsc\TscDriverHelper.cs" />
-    <Compile Include="Tsc\TscSdkNative.cs" />
-    <Compile Include="Tsc\TscLibNet64Native.cs" />
-    <Compile Include="Tsc\TscLibNet32Native.cs" />
     <Compile Include="Tsc\TscPrintProperties.cs" />
     <Compile Include="Utils\MdDataFormatUtils.cs" />
-    <Compile Include="Zebra\DeviceModel.cs" />
-    <Compile Include="Zebra\DeviceSocketRaw.cs" />
-    <Compile Include="Zebra\DeviceSocketTcp.cs" />
-    <Compile Include="Zebra\IDeviceSocket.cs" />
-    <Compile Include="Zebra\StateModel.cs" />
-    <Compile Include="Zebra\StatusDataCollector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tsc\TSC cmd.md" />
