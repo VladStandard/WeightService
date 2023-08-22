@@ -1,6 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Collections.Specialized;
+using System.Configuration;
+
 namespace ZplPrintSenderTool;
 
 public partial class FormMain : Form
@@ -22,6 +25,10 @@ public partial class FormMain : Form
             {
                 if (_wsTcpClient is not null)
                 {
+                    _wsTcpClient.Events.Connected -= WsTcpClientConnected;
+                    _wsTcpClient.Events.DataReceived -= WsTcpClientDataReceived;
+                    _wsTcpClient.Events.DataSent -= WsTcpClientDataSent;
+                    _wsTcpClient.Events.Disconnected -= WsTcpClientDisconnected;
                     _wsTcpClient.Disconnect();
                     _wsTcpClient.Dispose();
                     _wsTcpClient = null;
@@ -58,6 +65,7 @@ public partial class FormMain : Form
         SetupLib();
         SetupLabelSize();
         SetupLabelDpi();
+        LoadAppSettings();
     }
 
     #endregion
@@ -89,6 +97,26 @@ public partial class FormMain : Form
             index++;
         }
         comboBox.SelectedIndex = selectedIndex;
+    }
+
+    private void LoadAppSettings()
+    {
+        comboBoxSendType.SelectedItem = GetSendType(Settings.Default.SendType);
+        fieldIpAddress.Text = !string.IsNullOrEmpty(Settings.Default.IpAddress) ? Settings.Default.IpAddress : "127.0.0.1";
+        fieldIpPort.Text = !string.IsNullOrEmpty(Settings.Default.IpPort) ? Settings.Default.IpPort : "9100";
+    }
+
+    private WsEnumPrintSendType GetSendType(string sendType)
+    {
+        if (string.IsNullOrEmpty(sendType)) return WsEnumPrintSendType.Default;
+        foreach (WsEnumPrintSendType item in comboBoxSendType.Items)
+        {
+            if (Equals(item.ToString(), sendType))
+            {
+                return item;
+            }
+        }
+        return WsEnumPrintSendType.Default;
     }
 
     private WsEnumPrintLabelSize GetLabelSize()
@@ -124,7 +152,7 @@ public partial class FormMain : Form
     {
         TryAction(() =>
         {
-            TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldPort.Text),
+            TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldIpPort.Text),
                 GetLabelSize(), GetLabelDpi());
             toolStripStatusLabel.Text = @"Init complete.";
         });
@@ -202,7 +230,7 @@ public partial class FormMain : Form
         labelIpAddress.Enabled = isEnabledNetwork;
         fieldIpAddress.Enabled = isEnabledNetwork;
         labelPort.Enabled = isEnabledNetwork;
-        fieldPort.Enabled = isEnabledNetwork;
+        fieldIpPort.Enabled = isEnabledNetwork;
         // Driver.
         labelName.Enabled = isEnabledDriver;
         fieldName.Enabled = isEnabledDriver;
@@ -231,6 +259,14 @@ public partial class FormMain : Form
         {
             fieldException.Text = ex.InnerException is null ? ex.Message : ex.Message + Environment.NewLine + ex.InnerException.Message;
         }
+    }
+
+    private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        Settings.Default.SendType = comboBoxSendType.SelectedItem.ToString();
+        Settings.Default.IpAddress = fieldIpAddress.Text;
+        Settings.Default.IpPort = fieldIpPort.Text;
+        Settings.Default.Save();
     }
 
     #endregion
