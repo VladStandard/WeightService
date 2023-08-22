@@ -567,6 +567,21 @@ public sealed class WsSqlCoreHelper
         return items;
     }
 
+    public async Task<IEnumerable<T>?> GetEnumerableNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    {
+        IEnumerable<T>? items = null;
+        WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
+        {
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            items = await criteria.ListAsync<T>();
+            if (sqlCrudConfig.IsFillReferences)
+                foreach (T item in items)
+                    await FillReferencesAsync(item);
+        });
+        if (!dbResult.IsOk) items = null;
+        return items;
+    }
+
     private IEnumerable<T>? GetEnumerableNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
     {
         IEnumerable<T>? items = null;
@@ -730,6 +745,9 @@ public sealed class WsSqlCoreHelper
     public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
         GetEnumerableNullable<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
 
+    public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
+        await GetEnumerableNullableAsync<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
+
     public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
         GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
 
@@ -872,6 +890,12 @@ public sealed class WsSqlCoreHelper
                 plu1CFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1CFk.Plu.Identity);
                 break;
         }
+    }
+
+    private async Task FillReferencesAsync<T>(T? item) where T : WsSqlTableBase, new()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        FillReferences(item);
     }
 
     #endregion

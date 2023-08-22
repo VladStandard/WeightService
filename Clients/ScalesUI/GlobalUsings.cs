@@ -9,6 +9,7 @@ global using System.IO;
 global using System.Reflection;
 global using System.Text;
 global using System.Threading;
+global using System.Threading.Tasks;
 global using System.Windows.Forms;
 global using Gma.System.MouseKeyHook;
 global using MDSoft.NetUtils;

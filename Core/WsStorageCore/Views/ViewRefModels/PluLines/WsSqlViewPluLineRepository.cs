@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace WsStorageCore.Views.ViewRefModels.PluLines;
 
 // TODO: fix repository
@@ -11,12 +12,21 @@ public class WsSqlViewPluLineRepository : IViewPluLineRepository
     public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig) =>
         GetEnumerable(0, new List<ushort>(), sqlCrudConfig.SelectTopRowsCount);
 
+    public async Task <IEnumerable<WsSqlViewPluLineModel>> GetEnumerableAsync(WsSqlCrudConfigModel sqlCrudConfig) =>
+        await GetEnumerableAsync(0, new List<ushort>(), sqlCrudConfig.SelectTopRowsCount);
+
     public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId = 0, int topRecords = 0) =>
         GetEnumerable(scaleId, new List<ushort>(), topRecords);
        
     public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId, ushort pluNumber, int topRecords) =>
         GetEnumerable(scaleId, new List<ushort> { pluNumber }, topRecords);
-    
+
+    public async Task<IEnumerable<WsSqlViewPluLineModel>> GetEnumerableAsync(ushort scaleId, IEnumerable<ushort> pluNumbers, int topRecords)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        return GetEnumerable(scaleId, pluNumbers, topRecords);
+    }
+
     public IEnumerable<WsSqlViewPluLineModel> GetEnumerable(ushort scaleId, IEnumerable<ushort> pluNumbers, int topRecords)
     {
         List<WsSqlViewPluLineModel> result = new();

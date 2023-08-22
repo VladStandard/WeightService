@@ -20,5 +20,12 @@ public sealed class WsSqlAreaRepository : WsSqlTableRepositoryBase<WsSqlProducti
         return SqlCore.GetEnumerableNotNullable<WsSqlProductionFacilityModel>(sqlCrudConfig);
     }
 
+    public async Task<IEnumerable<WsSqlProductionFacilityModel>> GetEnumerableAsync(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+        return await SqlCore.GetEnumerableNotNullableAsync<WsSqlProductionFacilityModel>(sqlCrudConfig);
+    }
+
     #endregion
 }

@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -46,9 +47,14 @@ public partial class WsMainForm
     // TODO: подумать об универсальном алгоритме для всех настроек
     private void ReturnOkFromDeviceSettings()
     {
-        // Настроить устройство ПО `Печать этикеток`.
-        LabelSession.SetSessionForLabelPrint();
-
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            
+            // Настроить устройство ПО `Печать этикеток`.
+            LabelSession.SetSessionForLabelPrint();
+        }).ConfigureAwait(false);
+        
         //this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         bool isFormFullScreen = true;
         foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetEnumerableByLine(LabelSession.Line))

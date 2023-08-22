@@ -18,5 +18,12 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
         return SqlCore.GetEnumerableNotNullable<WsSqlWorkShopModel>(sqlCrudConfig);
     }
 
+    public async Task<IEnumerable<WsSqlWorkShopModel>> GetEnumerableAsync(WsSqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+        return await SqlCore.GetEnumerableNotNullableAsync<WsSqlWorkShopModel>(sqlCrudConfig);
+    }
+
     #endregion
 }
