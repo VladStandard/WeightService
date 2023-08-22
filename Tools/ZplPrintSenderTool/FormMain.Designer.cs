@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonPrintSendCmd = new System.Windows.Forms.Button();
             this.fieldName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
@@ -26,7 +27,7 @@
             this.buttonLibInitv2 = new System.Windows.Forms.Button();
             this.labelIpAddress = new System.Windows.Forms.Label();
             this.fieldIpAddress = new System.Windows.Forms.TextBox();
-            this.fieldPort = new System.Windows.Forms.TextBox();
+            this.fieldIpPort = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.comboBoxLabelSize = new System.Windows.Forms.ComboBox();
@@ -150,16 +151,16 @@
             this.fieldIpAddress.Text = "127.0.0.1";
             this.fieldIpAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // fieldPort
+            // fieldIpPort
             // 
-            this.fieldPort.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPort.Location = new System.Drawing.Point(320, 35);
-            this.fieldPort.Margin = new System.Windows.Forms.Padding(4);
-            this.fieldPort.Name = "fieldPort";
-            this.fieldPort.Size = new System.Drawing.Size(80, 23);
-            this.fieldPort.TabIndex = 4;
-            this.fieldPort.Text = "9100";
-            this.fieldPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fieldIpPort.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldIpPort.Location = new System.Drawing.Point(320, 35);
+            this.fieldIpPort.Margin = new System.Windows.Forms.Padding(4);
+            this.fieldIpPort.Name = "fieldIpPort";
+            this.fieldIpPort.Size = new System.Drawing.Size(80, 23);
+            this.fieldIpPort.TabIndex = 4;
+            this.fieldIpPort.Text = "9100";
+            this.fieldIpPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // statusStrip
             // 
@@ -323,7 +324,7 @@
             this.Controls.Add(this.labelSize);
             this.Controls.Add(this.comboBoxLabelSize);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.fieldPort);
+            this.Controls.Add(this.fieldIpPort);
             this.Controls.Add(this.buttonLibInitv2);
             this.Controls.Add(this.labelIpAddress);
             this.Controls.Add(this.fieldIpAddress);
@@ -334,12 +335,14 @@
             this.Controls.Add(this.fieldName);
             this.Controls.Add(this.buttonPrintSendCmd);
             this.Font = new System.Drawing.Font("Cascadia Code", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(900, 1800);
             this.MinimumSize = new System.Drawing.Size(900, 39);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ZplPrintSenderTool";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -358,7 +361,7 @@
         private System.Windows.Forms.Button buttonLibInitv2;
         private System.Windows.Forms.Label labelIpAddress;
         private System.Windows.Forms.TextBox fieldIpAddress;
-        private System.Windows.Forms.TextBox fieldPort;
+        private System.Windows.Forms.TextBox fieldIpPort;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ComboBox comboBoxLabelSize;

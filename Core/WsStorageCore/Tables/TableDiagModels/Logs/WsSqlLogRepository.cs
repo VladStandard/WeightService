@@ -20,7 +20,9 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
     public IEnumerable<WsSqlLogModel> GetEnumerable(int maxResults) => 
         SqlCore.GetEnumerableNotNullable<WsSqlLogModel>(maxResults, true);
 
-    [Obsolete(@"Use GetEnumerable")]
+    public async Task<IEnumerable<WsSqlLogModel>> GetEnumerableAsync(int maxResults) => 
+        await SqlCore.GetEnumerableNotNullableAsync<WsSqlLogModel>(maxResults, true);
+
     public IList<WsSqlLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
@@ -29,7 +31,9 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
         return SqlCore.GetListNotNullable<WsSqlLogModel>(sqlCrudConfig);
     }
 
-    [Obsolete(@"Use GetEnumerable")]
     public IList<WsSqlLogModel> GetList(int maxResults) => 
         SqlCore.GetListNotNullable<WsSqlLogModel>(maxResults, true);
+
+    public async Task<IList<WsSqlLogModel>> GetListAsync(int maxResults) => 
+        await SqlCore.GetListNotNullableAsync<WsSqlLogModel>(maxResults, true);
 }

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #if DEBUG
-Console.WriteLine("--- Run Benchmarks under RELEASE config ---");
+Console.WriteLine("--- Run Benchmarks under RELEASE config! ---");
 return;
 #endif
 
@@ -42,7 +42,7 @@ Summary RunWsTemplateBenchmark()
 Summary RunWsSqlViewLogDeviceAggr()
 {
     Console.WriteLine($"--> Run {nameof(WsSqlViewLogDeviceAggrBenchmark)} ---");
-    Summary summaryLocal = BenchmarkRunner.Run<WsSqlViewLogDeviceAggrBenchmark>(new WsManualConfig());
+    Summary summaryLocal = BenchmarkRunner.Run<WsSqlViewLogDeviceAggrBenchmark>();
     return summaryLocal;
 }
 

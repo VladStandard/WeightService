@@ -53,15 +53,19 @@ public sealed partial class WsMainForm : Form
         SetupButtons();
         // Загрузка шрифтов.
         LoadFonts();
-        // Прочее.
-        LabelSession.NewPallet();
-        MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
-        MdInvokeControl.SetText(fieldProductDate, string.Empty);
-        // Настроить плагины.
-        SetupPlugins();
-        LoadLocalizationStatic(WsEnumLanguage.Russian);
-        // Планировщик.
-        WsScheduler.Load(this);
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            // Прочее.
+            LabelSession.NewPallet();
+            MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
+            MdInvokeControl.SetText(fieldProductDate, string.Empty);
+            // Настроить плагины.
+            SetupPlugins();
+            LoadLocalizationStatic(WsEnumLanguage.Russian);
+            // Планировщик.
+            WsScheduler.Load(this);
+        }).ConfigureAwait(false);
         // Загрузить WinForms-контролы.
         LoadNavigationUserControl();
     }

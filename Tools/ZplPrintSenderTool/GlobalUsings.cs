@@ -6,3 +6,4 @@ global using System.Windows.Forms;
 global using MDSoft.BarcodePrintUtils.Tsc;
 global using SuperSimpleTcp;
 global using WsPrintCore.Common;
+global using ZplPrintSenderTool.Properties;
