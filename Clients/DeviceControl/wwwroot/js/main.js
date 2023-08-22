@@ -1,4 +1,4 @@
-﻿window.goBack = function() {
+window.goBack = function() {
   if (window.history.length > 2) {
     window.history.back();
   } else {

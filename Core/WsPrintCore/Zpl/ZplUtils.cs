@@ -205,7 +205,7 @@ public static class ZplUtils
             if (dataBlockPosition != WsEnumDataBlockPosition.Between)
                 stringBuilder.Append(zpl[i]);
         }
-        return stringBuilder.ToString();
+        return stringBuilder.ToString().Replace("_0D_0A", string.Empty);
     }
 
     /// <summary>

@@ -40,6 +40,9 @@
         <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj" />
         <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove=".gitignore" />
+    </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>
