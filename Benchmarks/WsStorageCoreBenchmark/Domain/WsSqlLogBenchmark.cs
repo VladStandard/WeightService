@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System.Diagnostics;
 namespace WsStorageCoreBenchmark.Domain;
 
 public class WsSqlLogBenchmark : WsBenchmarkBase
@@ -81,11 +82,37 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [Benchmark]
     [InvocationCount(5)]
     [IterationCount(1)]
+    public void GetEnumerableAsync()
+    {
+        _ = Task.Run(async () =>
+        {
+            IEnumerable<WsSqlLogModel> items = await LogRepository.GetEnumerableAsync(CountRecords);
+            if (!items.Any())
+                Console.WriteLine("GetEnumerableAsync: no items!");
+        }).ConfigureAwait(true);
+    }
+
+    [Benchmark]
+    [InvocationCount(5)]
+    [IterationCount(1)]
     [Obsolete(@"Use GetEnumerable")]
     public void GetList()
     {
         IList<WsSqlLogModel> items = LogRepository.GetList(CountRecords);
         if (!items.Any())
             Console.WriteLine("GetEnumerable: no items!");
+    }
+
+    [Benchmark]
+    [InvocationCount(5)]
+    [IterationCount(1)]
+    public void GetLiastAsync()
+    {
+        _ = Task.Run(async () =>
+        {
+            IList<WsSqlLogModel> items = await LogRepository.GetListAsync(CountRecords);
+            if (!items.Any())
+                Console.WriteLine("GetEnumerable: no items!");
+        }).ConfigureAwait(true);
     }
 }
