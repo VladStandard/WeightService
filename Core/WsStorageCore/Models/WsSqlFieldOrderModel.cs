@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// SQL order model.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlFieldOrderModel(string Name, WsSqlEnumOrder Direction = WsSqlEnumOrder.Asc)
 {

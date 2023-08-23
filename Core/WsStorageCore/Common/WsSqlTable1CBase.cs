@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовый класс SQL-таблицы 1С.
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTable1CBase : WsSqlTableBase

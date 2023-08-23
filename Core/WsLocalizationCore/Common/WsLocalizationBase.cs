@@ -3,9 +3,6 @@
 
 namespace WsLocalizationCore.Common;
 
-/// <summary>
-/// Базовый класс локализации.
-/// </summary>
 public class WsLocalizationBase : ObservableObject
 {
     #region Public and private fields, properties, constructor
@@ -22,20 +19,12 @@ public class WsLocalizationBase : ObservableObject
     #endregion
 
     #region Public and private methods
-
-    /// <summary>
-    /// Задать локаль.
-    /// </summary>
-    /// <param name="loc"></param>
+    
     public void SetLocale(Loc loc)
     {
         Locale = loc;
     }
-
-    /// <summary>
-    /// Сменить язык.
-    /// </summary>
-    /// <param name="language"></param>
+    
     private void SetLanguage(WsEnumLanguage language)
     {
         switch (Lang = language)

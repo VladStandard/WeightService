@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Тип диалога.
-/// </summary>
 public enum WsEnumDialogType
 {
     CancelYes,

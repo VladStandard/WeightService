@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// SQL field comparing model.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public sealed record WsSqlFieldFilterModel()
 {

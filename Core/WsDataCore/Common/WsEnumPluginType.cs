@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Тип плагина.
-/// </summary>
 public enum WsEnumPluginType
 {
     Default,

@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Конфигурация поля IS_MARKED.
-/// </summary>
 public enum WsSqlEnumIsMarked
 {
     ShowAll,

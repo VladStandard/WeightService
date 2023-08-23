@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Базовый класс помощника.
-/// </summary>
 public class WsBaseHelper
 {
     #region Public and private fields, properties, constructor

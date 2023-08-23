@@ -1,7 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// Global using directives
-
 global using System;
 global using System.Collections;
 global using System.Collections.Generic;
@@ -14,7 +10,6 @@ global using System.Reflection;
 global using System.Runtime.CompilerServices;
 global using System.Runtime.Serialization;
 global using System.Runtime.Serialization.Formatters.Binary;
-global using System.Security.Claims;
 global using System.Text;
 global using System.Text.Unicode;
 global using System.Threading;
@@ -25,7 +20,6 @@ global using System.Xml.Serialization;
 global using System.Xml.Xsl;
 global using FluentNHibernate.Cfg;
 global using FluentNHibernate.Cfg.Db;
-global using FluentNHibernate.Conventions;
 global using FluentNHibernate.Mapping;
 global using FluentValidation;
 global using FluentValidation.Results;

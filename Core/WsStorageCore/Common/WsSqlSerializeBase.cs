@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовый класс сериализации SQL-объекта.
-/// </summary>
 [Serializable]
 public class WsSqlSerializeBase : SerializeBase
 {

@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Utils;
 
-/// <summary>
-/// Enumerable utils.
-/// </summary>
 public static class WsEnumerableUtils
 {
     #region Public and private methods

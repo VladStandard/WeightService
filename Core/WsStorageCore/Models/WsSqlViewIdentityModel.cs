@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// SQL view identity model.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public record WsSqlViewIdentityModel
 {

@@ -7,10 +7,6 @@ using System;
 
 namespace WsStorageCore.Helpers;
 
-/// <summary>
-/// SQL-помощник методов доступа.
-/// Базовый слой доступа к БД.
-/// </summary>
 public sealed class WsSqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"

@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Models;
 
-/// <summary>
-/// Помощник источника данных.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class DataSourceDicsHelper
 {

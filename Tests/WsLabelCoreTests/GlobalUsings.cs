@@ -1,15 +1,9 @@
-// Global using directives
-
 global using FluentValidation.Results;
 global using MDSoft.NetUtils;
 global using NSubstitute;
 global using NUnit.Framework;
 global using System;
-global using System.Collections.Generic;
-global using System.Collections.ObjectModel;
 global using System.IO;
-global using System.Linq;
-global using System.Runtime.CompilerServices;
 global using System.Threading;
 global using WsDataCore.Helpers;
 global using WsDataCore.Models;

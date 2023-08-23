@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Utils;
 
-/// <summary>
-/// Утилиты данных.
-/// </summary>
 public static class WsDataUtils
 {
     #region Public and private methods

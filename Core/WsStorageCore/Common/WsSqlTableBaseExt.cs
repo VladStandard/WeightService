@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Расширение базового класса SQL-таблицы.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public static class WsSqlTableBaseExt
 {

@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// SQL order direction.
-/// </summary>
 public enum WsSqlEnumOrder
 {
     Asc = 0,

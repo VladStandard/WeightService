@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовый класс контроллера таблицы.
-/// </summary>
 public class WsSqlTableRepositoryBase<T> : IWsSqlTableBaseRepository<T> where T : WsSqlTableBase, new()
 {
     #region Public and private fields, properties, constructor

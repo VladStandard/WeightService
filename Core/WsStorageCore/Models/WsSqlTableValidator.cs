@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// SQL table validation.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableBase
 {

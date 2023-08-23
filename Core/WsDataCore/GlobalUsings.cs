@@ -1,7 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-global using MDSoft.NetUtils;
 global using MDSoft.Wmi.Helpers;
 global using MDSoft.Wmi.Models;
 global using System;
@@ -14,7 +10,6 @@ global using System.Drawing;
 global using System.Globalization;
 global using System.IO;
 global using System.Linq;
-global using System.Net.Sockets;
 global using System.Reflection;
 global using System.Runtime.Serialization;
 global using System.Text;

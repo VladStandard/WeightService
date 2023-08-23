@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Enums;
 
-/// <summary>
-/// Уровень подробности строки подключения.
-/// </summary>
 public enum WsEnumConStringLevel
 {
     Basic,

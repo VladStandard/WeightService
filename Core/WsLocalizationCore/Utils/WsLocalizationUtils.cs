@@ -3,9 +3,6 @@
 
 namespace WsLocalizationCore.Utils;
 
-/// <summary>
-/// Константы локализации.
-/// </summary>
 public static class WsLocalizationUtils
 {
     #region Public and private fields, properties, constructor

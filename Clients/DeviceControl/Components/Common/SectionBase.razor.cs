@@ -53,8 +53,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         SelectedRow = new List<TItem> { item };
         SqlItem = SelectedRow.Last();
     }
-
-
+    
     protected void SetSqlSectionSave(TItem model)
     {
         if (!SqlSectionSave.Any(item => Equals(item.IdentityValueUid, model.IdentityValueUid)))

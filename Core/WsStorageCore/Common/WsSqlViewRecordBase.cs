@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовая запись SQL-представления.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public record WsSqlViewRecordBase
 {

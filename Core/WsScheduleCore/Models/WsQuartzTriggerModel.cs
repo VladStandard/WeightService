@@ -3,9 +3,6 @@
 
 namespace WsScheduleCore.Models;
 
-/// <summary>
-/// Quartz trigger.
-/// </summary>
 public sealed class WsQuartzTriggerModel
 {
     #region Public and private fields, properties, constructor

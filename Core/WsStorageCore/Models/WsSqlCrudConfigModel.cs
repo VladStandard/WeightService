@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// SQL config for CRUD operations.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlCrudConfigModel
 {

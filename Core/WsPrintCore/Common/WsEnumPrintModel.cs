@@ -3,9 +3,6 @@
 
 namespace WsPrintCore.Common;
 
-/// <summary>
-/// Модель принтера.
-/// </summary>
 public enum WsEnumPrintModel
 {
     Default,

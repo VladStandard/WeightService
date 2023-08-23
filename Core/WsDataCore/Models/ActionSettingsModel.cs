@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Models;
 
-/// <summary>
-/// Настройки действий.
-/// </summary>
 public sealed class ActionSettingsModel
 {
 	#region Public and private fields and properties

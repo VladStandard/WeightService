@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Models;
 
-/// <summary>
-/// XML-тег.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsXmlTagModel
 {

@@ -3,9 +3,6 @@
 
 namespace WsPrintCore.Common;
 
-/// <summary>
-/// Интерфейс принтера.
-/// </summary>
 public enum WsEnumPrintChannel
 {
     Name,

@@ -4,9 +4,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Тип лога.
-/// </summary>
 public enum WsEnumLogType
 {
     None = 0,

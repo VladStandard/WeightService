@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Serialization;
 
-/// <summary>
-/// Базвый класс сериализуемого объекта.
-/// </summary>
 [Serializable]
 public class SerializeBase : ISerializable
 {

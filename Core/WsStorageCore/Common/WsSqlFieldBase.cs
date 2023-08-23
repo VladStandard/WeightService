@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовый класс поля SQL-таблицы.
-/// </summary>
 [Serializable]
 public class WsSqlFieldBase : SerializeBase, IWsSqlObjectBase
 {

@@ -3,9 +3,6 @@
 
 namespace WsLocalizationCore.Models;
 
-/// <summary>
-/// Менеджер локализации.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsLocalizationManager : WsLocalizationBase
 {

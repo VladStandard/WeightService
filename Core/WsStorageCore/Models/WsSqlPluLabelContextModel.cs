@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// PLU label context.
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluLabelContextModel : SerializeBase

@@ -3,18 +3,10 @@
 
 namespace WsDataCore.Utils;
 
-/// <summary>
-/// Утилиты сборок.
-/// </summary>
 public static class WsAssemblyUtils
 {
     #region Public and private methods
-
-    /// <summary>
-    /// Get application version.
-    /// </summary>
-    /// <param name="executingAssembly"></param>
-    /// <returns></returns>
+    
     public static string GetAppVersion(Assembly executingAssembly)
     {
         FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
@@ -23,11 +15,7 @@ public static class WsAssemblyUtils
             result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
         return result;
     }
-
-    /// <summary>
-    /// Get ClickOnce network install directory.
-    /// </summary>
-    /// <returns></returns>
+    
     public static string GetClickOnceNetworkInstallDirectory()
     {
         string? directory = null;
@@ -37,11 +25,7 @@ public static class WsAssemblyUtils
             directory = string.Join("\\", directory);
         return directory ?? "This application is not deployed using ClickOnce!";
     }
-
-    /// <summary>
-    /// Get run directory.
-    /// </summary>
-    /// <returns></returns>
+    
     public static string GetRunDirectory()
     {
         string codeBase = Assembly.GetExecutingAssembly().CodeBase;
@@ -49,11 +33,7 @@ public static class WsAssemblyUtils
         string path = Uri.UnescapeDataString(uri.Path);
         return Path.GetDirectoryName(path) ?? string.Empty;
     }
-
-    /// <summary>
-    /// Get library version.
-    /// </summary>
-    /// <returns></returns>
+    
     public static string GetLibVersion()
     {
         FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);

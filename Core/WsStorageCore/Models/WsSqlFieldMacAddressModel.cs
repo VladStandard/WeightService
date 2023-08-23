@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Models;
 
-/// <summary>
-/// MAC address.
-/// </summary>
 [Serializable]
 public class WsSqlFieldMacAddressModel : WsSqlFieldBase
 {

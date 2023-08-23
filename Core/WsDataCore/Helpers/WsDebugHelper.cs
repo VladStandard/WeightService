@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Helpers;
 
-/// <summary>
-/// Помощник отладки.
-/// </summary>
 public sealed class WsDebugHelper
 {
 	#region Design pattern "Lazy Singleton"

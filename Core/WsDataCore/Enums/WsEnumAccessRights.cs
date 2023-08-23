@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Enums;
 
-/// <summary>
-/// Access rights.
-/// </summary>
 public enum WsEnumAccessRights
 {
     None = 0,

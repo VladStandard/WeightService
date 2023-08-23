@@ -3,9 +3,6 @@
 
 namespace WsLocalizationCore.Common;
 
-/// <summary>
-/// Перечисление языка.
-/// </summary>
 public enum WsEnumLanguage
 {
     English,

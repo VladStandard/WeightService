@@ -8,9 +8,6 @@ using MvvmHelpers.Commands;
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Модель действия/команды.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 #nullable enable
 public sealed partial class WsActionCommandModel : WsViewModelBase

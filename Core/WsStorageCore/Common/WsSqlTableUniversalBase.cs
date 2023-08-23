@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Базовый класс SQL-таблицы.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTableUniversalBase : SerializeBase
 {

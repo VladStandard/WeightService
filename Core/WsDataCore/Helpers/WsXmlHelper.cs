@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Helpers;
 
-/// <summary>
-/// Помощник XML.
-/// </summary>
 public sealed class WsXmlHelper
 {
 	#region Design pattern "Lazy Singleton"

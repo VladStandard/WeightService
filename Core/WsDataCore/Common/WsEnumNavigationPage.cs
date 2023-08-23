@@ -3,45 +3,15 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Страница навигации.
-/// </summary>
 public enum WsEnumNavigationPage
 {
-    /// <summary>
-    /// По-умолчанию.
-    /// </summary>
     Default,
-    /// <summary>
-    /// Настройки устройства.
-    /// </summary>
     DeviceSettings,
-    /// <summary>
-    /// Диалог.
-    /// </summary>
     Dialog,
-    /// <summary>
-    /// Ввод цифр.
-    /// </summary>
     Digit,
-    /// <summary>
-    /// Смена замеса.
-    /// </summary>
-    Kneading,
-    /// <summary>
-    /// Смена линии.
-    /// </summary>
+    Kneading, // замес
     Line,
-    /// <summary>
-    /// Смена ПЛУ линии.
-    /// </summary>
     PlusLine,
-    /// <summary>
-    /// Смена взвешивания ПЛУ.
-    /// </summary>
     PlusNesting,
-    /// <summary>
-    /// Страница ожидания.
-    /// </summary>
     Wait,
 }
