@@ -12,8 +12,8 @@ public enum WsSqlEnumTableName
     Brands,
     Bundles,
     Clips,
-    DeviceSettings,
-    DeviceSettingsFks,
+    //DeviceSettings,
+    //DeviceSettingsFks,
     Lines,                  // вместо Scales
     PluBrandsFks,
     PluBundlesFks,

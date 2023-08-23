@@ -34,8 +34,8 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlLineRepository LineRepository  { get; } = new();
     private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
     private WsSqlClipRepository ClipRepository { get; } = new();
-    private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
-    private WsSqlDeviceSettingsFkRepository DeviceSettingFkRepository { get; } = new();
+    //private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
+    //private WsSqlDeviceSettingsFkRepository DeviceSettingFkRepository { get; } = new();
     private WsSqlPluRepository PluRepository { get; } = new();
     private WsSqlPluFkRepository PluFkRepository { get; } = new();
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
@@ -55,8 +55,8 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlBrandModel> Brands { get; private set; } = new();
     public List<WsSqlBundleModel> Bundles { get; private set; } = new();
     public List<WsSqlClipModel> Clips { get; private set; } = new();
-    public List<WsSqlDeviceSettingsModel> DeviceSettings { get; set; } = new();
-    public List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
+    //private List<WsSqlDeviceSettingsModel> DeviceSettings { get; set; } = new();
+    //private List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFks { get; private set; } = new();
     public List<WsSqlPluBrandFkModel> PlusBrandsFks { get; private set; } = new();
     public List<WsSqlPluBundleFkModel> PlusBundlesFks { get; private set; } = new();
@@ -115,13 +115,13 @@ public sealed class WsSqlContextCacheHelper
         if (Clips.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Clips.Count))
             Clips = ClipRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettings));
-        if (DeviceSettings.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettings.Count))
-            DeviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
+        //table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettings));
+        //if (DeviceSettings.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettings.Count))
+        //    DeviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettingsFks));
-        if (DeviceSettingsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettingsFks.Count))
-            DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
+        //table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettingsFks));
+        //if (DeviceSettingsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettingsFks.Count))
+        //    DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus1CFks));
         if (Plus1CFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus1CFks.Count))
@@ -215,10 +215,10 @@ public sealed class WsSqlContextCacheHelper
             PlusBrandsFks = PluBrandFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips))
             Clips = ClipRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!DeviceSettings.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettings))
-            DeviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
-            DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
+        //if (!DeviceSettings.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettings))
+        //    DeviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
+        //if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
+        //    DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
             PlusClipsFks = ContextManager.PlusClipFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Plus1CFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus1CFks))
@@ -307,8 +307,8 @@ public sealed class WsSqlContextCacheHelper
         Brands.Clear();
         Bundles.Clear();
         Clips.Clear();
-        DeviceSettings.Clear();
-        DeviceSettingsFks.Clear();
+        //DeviceSettings.Clear();
+        //DeviceSettingsFks.Clear();
         Lines.Clear();
         Plus.Clear();
         Plus1CFks.Clear();
@@ -356,12 +356,12 @@ public sealed class WsSqlContextCacheHelper
             case WsSqlEnumTableName.Clips:
                 Clips.Clear();
                 break;
-            case WsSqlEnumTableName.DeviceSettings:
-                DeviceSettings.Clear();
-                break;
-            case WsSqlEnumTableName.DeviceSettingsFks:
-                DeviceSettingsFks.Clear();
-                break;
+            //case WsSqlEnumTableName.DeviceSettings:
+            //    DeviceSettings.Clear();
+            //    break;
+            //case WsSqlEnumTableName.DeviceSettingsFks:
+            //    DeviceSettingsFks.Clear();
+            //    break;
             case WsSqlEnumTableName.Lines:
                 Lines.Clear();
                 break;
