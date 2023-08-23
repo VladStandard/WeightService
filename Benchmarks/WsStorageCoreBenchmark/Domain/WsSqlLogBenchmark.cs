@@ -95,7 +95,6 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [Benchmark]
     [InvocationCount(5)]
     [IterationCount(1)]
-    [Obsolete(@"Use GetEnumerable")]
     public void GetList()
     {
         IList<WsSqlLogModel> items = LogRepository.GetList(CountRecords);

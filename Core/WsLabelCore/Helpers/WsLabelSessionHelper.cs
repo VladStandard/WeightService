@@ -147,19 +147,18 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         }
     }
 
-    /// <summary>
-    /// Настроить устройство ПО `Печать этикеток`.
-    /// </summary>
-    // TODO: добавить сообщение для showNavigation
-    public void SetSessionForLabelPrint()
-    {
-        lock (_locker)
-        {
-            // Обновить кэш.
-            ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettings);
-            ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettingsFks);
-        }
-    }
+    ///// <summary>
+    ///// Настроить устройство ПО `Печать этикеток`.
+    ///// </summary>
+    //public void SetSessionForLabelPrint()
+    //{
+    //    lock (_locker)
+    //    {
+    //        // Обновить кэш.
+    //        ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettings);
+    //        ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettingsFks);
+    //    }
+    //}
 
     /// <summary>
     /// Задать настройки публикации.
