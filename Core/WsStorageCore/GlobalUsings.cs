@@ -38,7 +38,6 @@ global using WsDataCore.Models;
 global using WsDataCore.Serialization;
 global using WsDataCore.Settings.Helpers;
 global using WsDataCore.Utils;
-global using WsFileSystemCore.Helpers;
 global using WsLocalizationCore.Utils;
 global using WsPrintCore.Zpl;
 global using WsStorageCore.Common;

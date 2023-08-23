@@ -27,7 +27,6 @@ global using WsDataCore.Enums;
 global using WsDataCore.Helpers;
 global using WsDataCore.Protocols;
 global using WsDataCore.Utils;
-global using WsFileSystemCore.Helpers;
 global using WsLocalizationCore.DeviceControlModels;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Tables.TableDiagModels.Logs;

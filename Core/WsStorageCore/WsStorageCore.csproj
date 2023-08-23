@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />
-    <ProjectReference Include="..\WsFileSystemCore\WsFileSystemCore.csproj" />
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
   </ItemGroup>
   <ItemGroup>
