@@ -31,12 +31,7 @@ public sealed class WsResponse1CErrorModel : SerializeBase
         Uid = Guid.Empty;
         Message = ex.Message;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsResponse1CErrorModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));

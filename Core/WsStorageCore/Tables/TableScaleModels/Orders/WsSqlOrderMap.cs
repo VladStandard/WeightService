@@ -5,14 +5,8 @@ using System.Globalization;
 
 namespace WsStorageCore.Tables.TableScaleModels.Orders;
 
-/// <summary>
-/// Table map "ORDERS".
-/// </summary>
 public sealed class WsSqlOrderMap : ClassMap<WsSqlOrderModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlOrderMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

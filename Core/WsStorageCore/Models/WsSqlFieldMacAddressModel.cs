@@ -47,12 +47,7 @@ public class WsSqlFieldMacAddressModel : WsSqlFieldBase
     {
         _value = address;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlFieldMacAddressModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         _value = info.GetString(nameof(Value));

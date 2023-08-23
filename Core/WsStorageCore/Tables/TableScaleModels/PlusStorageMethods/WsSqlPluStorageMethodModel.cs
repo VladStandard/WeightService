@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 
-/// <summary>
-/// Table "PLUS_STORAGE_METHODS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluStorageMethodModel : WsSqlTableBase
@@ -16,9 +13,6 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
     [XmlElement] public virtual short MinTemp { get; set; }
     [XmlElement] public virtual short MaxTemp { get; set; }
     
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluStorageMethodModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         MinTemp = default;

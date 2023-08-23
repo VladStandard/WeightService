@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 
-/// <summary>
-/// Доменная модель таблицы связей клипс и ПЛУ.
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluClipFkModel : WsSqlTableBase
@@ -14,10 +11,7 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlClipModel Clip { get; set; }
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluClipFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Clip = new();

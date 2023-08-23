@@ -16,21 +16,13 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlFieldBinaryModel Data { get; set; }
 
     [XmlIgnore] public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlTemplateResourceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Type = string.Empty;
         Data = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlTemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Type = info.GetString(nameof(Type));

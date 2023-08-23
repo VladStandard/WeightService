@@ -26,20 +26,12 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase
 
     [XmlIgnore] public virtual string Info { get => WsDataUtils.GetBytesLength(Value, true); set => _ = value; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlFieldBinaryModel() : base()
     {
         FieldName = nameof(WsSqlFieldBinaryModel);
         Value = Array.Empty<byte>();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));

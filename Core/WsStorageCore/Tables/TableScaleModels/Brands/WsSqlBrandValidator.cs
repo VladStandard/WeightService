@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Brands;
 /// </summary>
 public sealed class WsSqlBrandValidator : WsSqlTableValidator<WsSqlBrandModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

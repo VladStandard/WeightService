@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
 
-/// <summary>
-/// Table validation "LOGS_WEBS_FK".
-/// </summary>
 public sealed class WsSqlLogWebFkValidator : WsSqlTableValidator<WsSqlLogWebFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlLogWebFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.LogWebRequest)

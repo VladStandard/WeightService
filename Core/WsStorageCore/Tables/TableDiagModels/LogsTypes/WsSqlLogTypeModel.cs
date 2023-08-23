@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsTypes;
 
-/// <summary>
-/// Table "LOG_TYPES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogTypeModel : WsSqlTableBase
@@ -20,12 +17,7 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         Number = 0x00;
         Icon = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlLogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Number = info.GetByte(nameof(Number));

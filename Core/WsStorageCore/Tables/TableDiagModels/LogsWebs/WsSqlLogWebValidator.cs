@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebs;
 
-/// <summary>
-/// Table validation "LOGS_WEBS".
-/// </summary>
 public sealed class WsSqlLogWebValidator : WsSqlTableValidator<WsSqlLogWebModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlLogWebValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.StampDt)

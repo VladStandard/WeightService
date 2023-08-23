@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusScales;
 
-/// <summary>
-/// Table "PLUS_SCALES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluScaleModel : WsSqlTableBase
@@ -16,22 +13,14 @@ public class WsSqlPluScaleModel : WsSqlTableBase
     [XmlElement] public virtual bool IsActive { get; set; }
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual WsSqlScaleModel Line { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluScaleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         IsActive = false;
         Plu = new();
         Line = new();
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPluScaleModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsActive = info.GetBoolean(nameof(IsActive));

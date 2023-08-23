@@ -20,11 +20,7 @@ public readonly struct ResponseMassaModel
         ScaleFactor = default;
         IsStable = default;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="response"></param>
+    
     public ResponseMassaModel(IReadOnlyList<byte> response)
     {
         if (response.Count < 10) return;

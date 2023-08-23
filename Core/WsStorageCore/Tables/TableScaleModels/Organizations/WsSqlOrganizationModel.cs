@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 
-/// <summary>
-/// Table "ORGANIZATIONS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrganizationModel : WsSqlTableBase
@@ -13,20 +10,12 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual int Gln { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlOrganizationModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Gln = 0;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlOrganizationModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Gln = info.GetInt32(nameof(Gln));

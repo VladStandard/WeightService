@@ -18,28 +18,19 @@ public class WsSqlBarcodeRightModel : SerializeBase
     public string ArmNumber { get; set; } = string.Empty;
     [XmlElement(nameof(Counter))]
     public string Counter { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeRightModel()
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeRightModel(string const1, string armNumber, string counter)
     {
         Const1 = const1;
         ArmNumber = armNumber;
         Counter = counter;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeRightModel(string barcode)
     {
         // 0  -3    -8
@@ -50,12 +41,7 @@ public class WsSqlBarcodeRightModel : SerializeBase
         ArmNumber = barcode.Substring(3, 5);
         Counter = barcode.Substring(8, 8);
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsSqlBarcodeRightModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;

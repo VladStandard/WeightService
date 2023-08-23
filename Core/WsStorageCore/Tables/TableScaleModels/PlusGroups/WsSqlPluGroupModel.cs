@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusGroups;
 
-/// <summary>
-/// Table "PLUS_GROUPS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluGroupModel : WsSqlTable1CBase
@@ -15,22 +12,14 @@ public class WsSqlPluGroupModel : WsSqlTable1CBase
     [XmlElement] public virtual bool IsGroup { get; set; }
     [XmlElement] public virtual string Code { get; set; }
     [XmlIgnore] public virtual Guid ParentGuid { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluGroupModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         IsGroup = false;
         Code = string.Empty;
         ParentGuid = Guid.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPluGroupModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IsGroup = info.GetBoolean(nameof(IsGroup));

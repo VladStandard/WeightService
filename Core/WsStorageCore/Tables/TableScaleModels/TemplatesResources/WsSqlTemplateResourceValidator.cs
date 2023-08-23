@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 /// </summary>
 public sealed class WsSqlTemplateResourceValidator : WsSqlTableValidator<WsSqlTemplateResourceModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlTemplateResourceValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

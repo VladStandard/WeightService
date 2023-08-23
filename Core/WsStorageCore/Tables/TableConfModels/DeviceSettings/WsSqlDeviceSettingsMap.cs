@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettings;
 /// </summary>
 public sealed class WsSqlDeviceSettingsMap : ClassMap<WsSqlDeviceSettingsModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceSettingsMap()
     {
         Schema(WsSqlSchemasUtils.Conf);

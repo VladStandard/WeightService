@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 /// </summary>
 public sealed class WsSqlPrinterResourceFkValidator : WsSqlTableValidator<WsSqlPrinterResourceFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPrinterResourceFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Printer)

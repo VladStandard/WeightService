@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusLabels;
 /// </summary>
 public sealed class WsSqlPluLabelValidator : WsSqlTableValidator<WsSqlPluLabelModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluLabelValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.PluScale)

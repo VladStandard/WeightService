@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Access;
 /// </summary>
 public sealed class WsSqlAccessValidator : WsSqlTableValidator<WsSqlAccessModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlAccessValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.LoginDt)

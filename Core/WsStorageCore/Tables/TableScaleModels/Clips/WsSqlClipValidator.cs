@@ -9,10 +9,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Clips;
 /// </summary>
 public sealed class WsSqlClipValidator : WsSqlTableValidator<WsSqlClipModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlClipValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

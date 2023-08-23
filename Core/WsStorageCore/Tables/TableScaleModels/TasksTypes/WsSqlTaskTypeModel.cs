@@ -16,12 +16,7 @@ public class WsSqlTaskTypeModel : WsSqlTableBase
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlTaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     public WsSqlTaskTypeModel(WsSqlTaskTypeModel item) : base(item) { }

@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
 
-/// <summary>
-/// Table validation "WorkShop".
-/// </summary>
 public sealed class WsSqlWorkShopValidator : WsSqlTableValidator<WsSqlWorkShopModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlWorkShopValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

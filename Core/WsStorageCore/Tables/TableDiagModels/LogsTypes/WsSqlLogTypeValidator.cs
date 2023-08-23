@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsTypes;
 
-/// <summary>
-/// Table validation "Hosts".
-/// </summary>
 public sealed class WsSqlLogTypeValidator : WsSqlTableValidator<WsSqlLogTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlLogTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Number)

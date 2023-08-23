@@ -28,18 +28,12 @@ public class WsSqlBarcodeBottomModel : SerializeBase
     public string Const4 { get; set; } = string.Empty;
     [XmlElement(nameof(PartNumber))]
     public string PartNumber { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeBottomModel()
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeBottomModel(string const1, string gtin, string const2, string weight, string const3, string date, string const4, string partNumber)
     {
         Const1 = const1;
@@ -51,10 +45,7 @@ public class WsSqlBarcodeBottomModel : SerializeBase
         Const4 = const4;
         PartNumber = partNumber;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeBottomModel(string barcode)
     {
         // 0 -2             -16  -20    -26-28    -34-36
@@ -73,12 +64,7 @@ public class WsSqlBarcodeBottomModel : SerializeBase
         Const4 = barcode.Substring(34, 2);
         PartNumber = barcode.Substring(36, 4);
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlBarcodeBottomModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;

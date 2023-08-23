@@ -30,7 +30,6 @@
   <ItemGroup>
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Raw\RawPrinterHelper.cs" />
     <Compile Include="Tsc\TscDriverHelper.cs" />
     <Compile Include="Tsc\TscPrintProperties.cs" />
     <Compile Include="Utils\MdDataFormatUtils.cs" />

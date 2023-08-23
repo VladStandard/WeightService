@@ -4,9 +4,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Интерфейс модели представления XAML.
-/// </summary>
 #nullable enable
 public interface IWsViewModel : INotifyPropertyChanged
 {

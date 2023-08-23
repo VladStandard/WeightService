@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Devices;
 /// </summary>
 public sealed class WsSqlDeviceValidator : WsSqlTableValidator<WsSqlDeviceModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlDeviceValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.LoginDt)

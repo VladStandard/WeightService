@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.ProductSeries;
 /// </summary>
 public sealed class WsSqlProductSeriesValidator : WsSqlTableValidator<WsSqlProductSeriesModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlProductSeriesValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.Sscc)

@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
 
-/// <summary>
-/// Table map "TASKS_TYPES".
-/// </summary>
 public sealed class WsSqlTaskTypeMap : ClassMap<WsSqlTaskTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTaskTypeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

@@ -13,9 +13,6 @@ public class WsSqlViewBarcodeModel: WsSqlTableBase
     public virtual string ValueRight { get; init; }
     public virtual string ValueBottom { get; init; }
     
-    /// <summary>
-	/// Constructor.
-	/// </summary>
 	public WsSqlViewBarcodeModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;

@@ -25,10 +25,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         // This code need for print labels.
         set => _ = value;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PluWeighing = null;

@@ -14,20 +14,12 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string Address { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlProductionFacilityModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Address = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Address = info.GetString(nameof(Address));

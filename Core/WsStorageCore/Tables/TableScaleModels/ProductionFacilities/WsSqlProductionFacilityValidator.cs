@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.ProductionFacilities;
 /// </summary>
 public sealed class WsSqlProductionFacilityValidator : WsSqlTableValidator<WsSqlProductionFacilityModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlProductionFacilityValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)

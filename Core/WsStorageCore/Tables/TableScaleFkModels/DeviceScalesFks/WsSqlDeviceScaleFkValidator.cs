@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 /// </summary>
 public sealed class WsSqlDeviceScaleFkValidator : WsSqlTableValidator<WsSqlDeviceScaleFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlDeviceScaleFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Device)

@@ -13,16 +13,7 @@ public sealed record WsSqlViewWeightingAggrModel
     public string Line { get; init; }
     public string PluName { get; init; }
     public int PluNumber { get; init; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="changeDt"></param>
-    /// <param name="count"></param>
-    /// <param name="line"></param>
-    /// <param name="device"></param>
-    /// <param name="plu"></param>
-    // <param name="number"></param>
+    
     public WsSqlViewWeightingAggrModel(DateTime changeDt, int count, string line, string plu, int number)
     {
         ChangeDt = changeDt;

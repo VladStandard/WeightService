@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
 /// </summary>
 public sealed class WsSqlPluBrandFkValidator : WsSqlTableValidator<WsSqlPluBrandFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluBrandFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)

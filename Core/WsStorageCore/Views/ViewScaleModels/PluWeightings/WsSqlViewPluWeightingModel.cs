@@ -14,9 +14,6 @@ public class WsSqlViewPluWeightingModel: WsSqlTableBase
     public virtual decimal TareWeight { get; set; }
     public virtual decimal NettoWeight { get; set; }
     
-    /// <summary>
-	/// Constructor.
-	/// </summary>
 	public WsSqlViewPluWeightingModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;

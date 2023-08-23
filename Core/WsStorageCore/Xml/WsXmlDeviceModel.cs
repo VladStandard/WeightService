@@ -10,20 +10,12 @@ public class WsXmlDeviceModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     public virtual WsSqlScaleModel Scale { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsXmlDeviceModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Scale = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsXmlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));

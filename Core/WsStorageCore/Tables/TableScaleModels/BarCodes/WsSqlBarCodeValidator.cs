@@ -9,10 +9,7 @@ namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsSqlBarCodeValidator : WsSqlTableValidator<WsSqlBarCodeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlBarCodeValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.TypeTop)

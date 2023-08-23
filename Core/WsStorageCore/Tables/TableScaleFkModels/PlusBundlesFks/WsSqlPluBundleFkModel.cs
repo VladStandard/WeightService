@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
 
-/// <summary>
-/// Table "PLUS_BUNDLES_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluBundleFkModel : WsSqlTableBase
@@ -14,22 +11,14 @@ public class WsSqlPluBundleFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlBundleModel Bundle { get; set; }
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluBundleFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Bundle = new();
         Plu = new();
 
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPluBundleFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));

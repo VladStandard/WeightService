@@ -23,17 +23,13 @@ public sealed class NomenclatureDirect : WsSqlSerializeBase
 	[XmlElement] public string NomenclatureType { get; set; } = string.Empty;
 	[XmlElement] public string VATRate { get; set; } = string.Empty;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public NomenclatureDirect()
     {
         Load();
     }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	/// <param name="id"></param>
 	public NomenclatureDirect(long id)
     {

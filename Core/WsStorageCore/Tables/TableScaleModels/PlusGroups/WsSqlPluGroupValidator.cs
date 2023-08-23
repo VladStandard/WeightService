@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusGroups;
 /// </summary>
 public sealed class WsSqlPluGroupValidator : WsSqlTableValidator<WsSqlPluGroupModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluGroupValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

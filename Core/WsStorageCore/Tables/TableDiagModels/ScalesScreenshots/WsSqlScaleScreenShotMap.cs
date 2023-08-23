@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 
-/// <summary>
-/// Table map "diag.SCALES_SCREENSHOTS".
-/// </summary>
 public sealed class WsSqlScaleScreenShotMap : ClassMap<WsSqlScaleScreenShotModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlScaleScreenShotMap()
     {
         Schema(WsSqlSchemasUtils.Diag);

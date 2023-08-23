@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Clips;
 
-/// <summary>
-/// Table map "CLIPS".
-/// </summary>
 public sealed class WsSqlClipMap : ClassMap<WsSqlClipModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlClipMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

@@ -14,19 +14,11 @@ public class WsSqlWorkShopModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlProductionFacilityModel ProductionFacility { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlWorkShopModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         ProductionFacility = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlWorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));

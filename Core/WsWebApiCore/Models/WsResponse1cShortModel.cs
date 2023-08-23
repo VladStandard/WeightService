@@ -38,12 +38,7 @@ public sealed class WsResponse1CShortModel : WsResponseDebugInfoBase
         Errors = errors;
         ResponseQuery = responseQuery;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsResponse1CShortModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SuccessesCount = info.GetInt32(nameof(SuccessesCount));

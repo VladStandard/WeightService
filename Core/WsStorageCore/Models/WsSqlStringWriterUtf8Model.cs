@@ -9,33 +9,25 @@ public class WsSqlStringWriterUtf8Model : StringWriter
 
 	public override Encoding Encoding => Encoding.UTF8;
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlStringWriterUtf8Model()
 	{
 		//
 	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlStringWriterUtf8Model(IFormatProvider formatProvider) : base(formatProvider)
 	{
 		//
 	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlStringWriterUtf8Model(StringBuilder sb) : base(sb)
 	{
 		//
 	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlStringWriterUtf8Model(StringBuilder sb, IFormatProvider formatProvider) : base(sb, formatProvider)
 	{
 		//

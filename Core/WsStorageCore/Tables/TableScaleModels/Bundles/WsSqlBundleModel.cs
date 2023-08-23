@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Bundles;
 
-/// <summary>
-/// Table "BUNDLES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBundleModel : WsSqlTable1CBase
@@ -18,12 +15,7 @@ public class WsSqlBundleModel : WsSqlTable1CBase
     {
        Weight = 0;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlBundleModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));

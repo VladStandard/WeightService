@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
 /// </summary>
 public sealed class WsSqlWorkshopMap : ClassMap<WsSqlWorkShopModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlWorkshopMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

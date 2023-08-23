@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Scales;
 
-/// <summary>
-/// Маппинг таблицы SCALES.
-/// </summary>
 public sealed class WsSqlScaleMap : ClassMap<WsSqlScaleModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlScaleMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

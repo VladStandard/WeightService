@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebs;
 
-/// <summary>
-/// Table "LOGS_WEBS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogWebModel : WsSqlTableBase
@@ -23,10 +20,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
     [XmlElement] public virtual int CountAll { get; set; }
     [XmlElement] public virtual int CountSuccess { get; set; }
     [XmlElement] public virtual int CountErrors { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlLogWebModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Version = string.Empty;
@@ -40,12 +34,7 @@ public class WsSqlLogWebModel : WsSqlTableBase
         CountSuccess = default;
         CountErrors = default;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlLogWebModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Version = info.GetString(nameof(Version));

@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Тип контекста БД.
-/// </summary>
 public enum WsSqlEnumContextType
 {
     Db,

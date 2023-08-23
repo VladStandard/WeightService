@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
-/// <summary>
-/// Table "PLUS_WEIGHINGS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluWeighingModel : WsSqlTableBase
@@ -20,10 +17,7 @@ public class WsSqlPluWeighingModel : WsSqlTableBase
     [XmlElement] public virtual decimal NettoWeight { get; set; }
     [XmlElement] public virtual decimal WeightTare { get; set; }
     [XmlElement] public virtual int RegNum { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluWeighingModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PluScale = new();

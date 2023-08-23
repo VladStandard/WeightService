@@ -11,12 +11,7 @@ public class WsSqlSerializeBase : SerializeBase
     [XmlIgnore] public WsSqlConnectFactory SqlConnect { get; private set; } = WsSqlConnectFactory.Instance;
 
     public WsSqlSerializeBase() { }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlSerializeBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //

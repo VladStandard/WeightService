@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Contragents;
 
-/// <summary>
-/// Table "CONTRAGENTS_V2".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlContragentModel : WsSqlTableBase
@@ -17,10 +14,7 @@ public class WsSqlContragentModel : WsSqlTableBase
     public virtual string IdRRefAsString { get => IdRRef.ToString(); set => IdRRef = Guid.Parse(value); }
     [XmlElement] public virtual int DwhId { get; set; }
     [XmlElement] public virtual string Xml { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlContragentModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         FullName = string.Empty;
@@ -28,12 +22,7 @@ public class WsSqlContragentModel : WsSqlTableBase
         DwhId = 0;
         Xml = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlContragentModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         FullName = info.GetString(nameof(FullName));

@@ -3,15 +3,9 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 
-/// <summary>
-/// Table map "BARCODES".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsSqlBarCodeMap : ClassMap<WsSqlBarCodeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlBarCodeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

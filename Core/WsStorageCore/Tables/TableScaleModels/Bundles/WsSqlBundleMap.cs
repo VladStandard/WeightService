@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Bundles;
 
-/// <summary>
-/// Table map "BUNDLES".
-/// </summary>
 public sealed class WsSqlBundleMap : ClassMap<WsSqlBundleModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlBundleMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableRefModels.Plus1CFk;
 /// </summary>
 public sealed class WsSqlPlu1CFkValidator : WsSqlTableValidator<WsSqlPlu1CFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPlu1CFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, true)
     {
         RuleFor(item => item.Plu)

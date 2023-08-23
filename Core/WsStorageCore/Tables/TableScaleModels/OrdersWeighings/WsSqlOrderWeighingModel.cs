@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 
-/// <summary>
-/// Table "ORDERS_WEIGHINGS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderWeighingModel : WsSqlTableBase
@@ -14,21 +11,13 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlOrderModel Order { get; set; }
     [XmlElement] public virtual WsSqlPluWeighingModel PluWeighing { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlOrderWeighingModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Order = new();
         PluWeighing = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlOrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Order = (WsSqlOrderModel)info.GetValue(nameof(Order), typeof(WsSqlOrderModel));

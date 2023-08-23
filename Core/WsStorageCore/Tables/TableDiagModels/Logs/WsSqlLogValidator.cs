@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.Logs;
 
-/// <summary>
-/// Table validation "LOGS".
-/// </summary>
 public sealed class WsSqlLogValidator : WsSqlTableValidator<WsSqlLogModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.Version)

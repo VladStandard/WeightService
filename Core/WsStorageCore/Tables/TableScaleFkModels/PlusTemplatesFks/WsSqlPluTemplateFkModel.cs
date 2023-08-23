@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 
-/// <summary>
-/// Table "PLUS_TEMPLATES_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluTemplateFkModel : WsSqlTableBase
@@ -14,10 +11,7 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual WsSqlTemplateModel Template { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluTemplateFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();

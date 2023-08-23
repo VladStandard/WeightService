@@ -4,9 +4,6 @@
 
 namespace WsDataCore.Common;
 
-/// <summary>
-/// Интерфейс WinForms контрола.
-/// </summary>
 #nullable enable
 public interface IWsFormUserControl
 {

@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableConfModels.DeviceSettings;
 
-/// <summary>
-/// Валидатор таблицы "DEVICES_SETTINGS".
-/// </summary>
 public sealed class WsSqlDeviceSettingsValidator : WsSqlTableValidator<WsSqlDeviceSettingsModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlDeviceSettingsValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

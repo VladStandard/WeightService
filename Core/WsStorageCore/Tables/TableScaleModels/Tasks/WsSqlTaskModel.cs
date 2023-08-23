@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Tasks;
 
-/// <summary>
-/// Table "TASKS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTaskModel : WsSqlTableBase
@@ -15,22 +12,14 @@ public class WsSqlTaskModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlTaskTypeModel TaskType { get; set; }
     [XmlElement] public virtual WsSqlScaleModel Scale { get; set; }
     [XmlElement] public virtual bool Enabled { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlTaskModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         TaskType = new();
         Scale = new();
         Enabled = false;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlTaskModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         TaskType = (WsSqlTaskTypeModel)info.GetValue(nameof(TaskType), typeof(WsSqlTaskTypeModel));

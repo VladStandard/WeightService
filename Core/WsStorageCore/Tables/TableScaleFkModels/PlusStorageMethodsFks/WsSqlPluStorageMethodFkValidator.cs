@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 /// </summary>
 public sealed class WsSqlPluStorageMethodFkValidator : WsSqlTableValidator<WsSqlPluStorageMethodFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluStorageMethodFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Plu)

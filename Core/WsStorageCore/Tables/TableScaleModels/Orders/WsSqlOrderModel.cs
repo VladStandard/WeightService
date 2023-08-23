@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Orders;
 
-/// <summary>
-/// Table "ORDERS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderModel : WsSqlTableBase
@@ -17,10 +14,7 @@ public class WsSqlOrderModel : WsSqlTableBase
     [XmlElement] public virtual DateTime ProdDt { get; set; }
     [XmlElement] public virtual int BoxCount { get; set; }
     [XmlElement] public virtual int PalletCount { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlOrderModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         BeginDt = DateTime.MinValue;
@@ -29,12 +23,7 @@ public class WsSqlOrderModel : WsSqlTableBase
         BoxCount = default;
         PalletCount = default;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlOrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         BeginDt = info.GetDateTime(nameof(BeginDt));

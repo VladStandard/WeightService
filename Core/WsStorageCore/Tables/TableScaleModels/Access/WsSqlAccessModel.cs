@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Access;
 
-/// <summary>
-/// Table "ACCESS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlAccessModel : WsSqlTableBase
@@ -16,10 +13,7 @@ public class WsSqlAccessModel : WsSqlTableBase
     [XmlElement] public virtual byte Rights { get; set; }
 
     [XmlIgnore] public virtual WsEnumAccessRights RightsEnum => (WsEnumAccessRights)Rights;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlAccessModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;

@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusCharacteristics;
 
-/// <summary>
-/// Table map "NOMENCLATURES_CHARACTERISTICS".
-/// </summary>
 public sealed class WsSqlPluCharacteristicMap : ClassMap<WsSqlPluCharacteristicModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluCharacteristicMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

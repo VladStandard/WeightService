@@ -18,12 +18,7 @@ public class WsResponseDebugInfoBase : SerializeDebugBase
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     public WsResponseDebugInfoBase(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         ServiceInfo = (WsServiceInfoModel?)info.GetValue(nameof(ServiceInfo), typeof(WsServiceInfoModel));

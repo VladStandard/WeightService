@@ -5,9 +5,6 @@ using WsSqlTableBase = WsStorageCore.Common.WsSqlTableBase;
 
 namespace WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 
-/// <summary>
-/// Table "DEVICES_TYPES_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceTypeFkModel : WsSqlTableBase
@@ -16,10 +13,7 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
     [XmlElement] public virtual WsSqlDeviceTypeModel Type { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlDeviceTypeFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = new();

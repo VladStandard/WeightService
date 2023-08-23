@@ -39,12 +39,7 @@ public sealed class WsResponse1CRecordModel : SerializeBase
         Message = ex.Message;
         InnerMessage = ex.InnerException?.Message;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsResponse1CRecordModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         object? uid = info.GetValue(nameof(Uid), typeof(Guid));

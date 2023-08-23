@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 
-/// <summary>
-/// Table "PLUS_CHARACTERISTICS_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
@@ -15,9 +12,6 @@ public class WsSqlPluCharacteristicsFkModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual WsSqlPluCharacteristicModel Characteristic { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluCharacteristicsFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();

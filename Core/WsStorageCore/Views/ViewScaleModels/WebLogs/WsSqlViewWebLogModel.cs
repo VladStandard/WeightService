@@ -15,9 +15,7 @@ public class WsSqlViewWebLogModel : WsSqlTableBase
     public virtual string LogType { get; set; }
 	public virtual string AppVersion { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlViewWebLogModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
 		RequestUrl = string.Empty;

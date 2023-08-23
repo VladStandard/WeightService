@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 /// </summary>
 public sealed class WsSqlOrganizationValidator : WsSqlTableValidator<WsSqlOrganizationModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlOrganizationValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

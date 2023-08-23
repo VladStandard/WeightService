@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsMemories;
 
-/// <summary>
-/// Table "diag.LOGS_MEMORIES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogMemoryModel : WsSqlTableBase
@@ -18,9 +15,6 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlAppModel App { get; set; }
     [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogMemoryModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         SizeAppMb = default;

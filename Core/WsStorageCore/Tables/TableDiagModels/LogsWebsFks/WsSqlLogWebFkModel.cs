@@ -5,9 +5,6 @@ using WsSqlTableBase = WsStorageCore.Common.WsSqlTableBase;
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
 
-/// <summary>
-/// Table "LOGS_WEBS_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogWebFkModel : WsSqlTableBase
@@ -24,10 +21,7 @@ public class WsSqlLogWebFkModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlLogTypeModel LogType { get => _logType; set => _logType = value; }
     private WsSqlDeviceModel _device;
     [XmlElement] public virtual WsSqlDeviceModel Device { get => _device; set => _device = value; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlLogWebFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _logWebRequest = new();

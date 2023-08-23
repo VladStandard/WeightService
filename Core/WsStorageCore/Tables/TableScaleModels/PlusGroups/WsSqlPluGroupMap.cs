@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusGroups;
 
-/// <summary>
-/// Table map "PLUS_GROUPS".
-/// </summary>
 public sealed class WsSqlPluGroupMap : ClassMap<WsSqlPluGroupModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluGroupMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 
-/// <summary>
-/// Table map "PLUS_STORAGE_METHODS".
-/// </summary>
 public sealed class WsSqlPluStorageMethodMap : ClassMap<WsSqlPluStorageMethodModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluStorageMethodMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

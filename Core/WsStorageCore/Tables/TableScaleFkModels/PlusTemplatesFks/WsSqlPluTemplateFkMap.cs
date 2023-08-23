@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 
-/// <summary>
-/// Table map "PLUS_TEMPLATES_FK".
-/// </summary>
 public sealed class WsSqlPluTemplateFkMap : ClassMap<WsSqlPluTemplateFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluTemplateFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

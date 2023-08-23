@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
-/// <summary>
-/// Table "PLUS_STORAGE_METHODS_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
@@ -15,10 +12,7 @@ public class WsSqlPluStorageMethodFkModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual WsSqlPluStorageMethodModel Method { get; set; }
     [XmlElement] public virtual WsSqlTemplateResourceModel Resource { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluStorageMethodFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();

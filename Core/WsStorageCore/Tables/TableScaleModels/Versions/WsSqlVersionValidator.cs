@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Versions;
 
-/// <summary>
-/// Table validation "VERSIONS".
-/// </summary>
 public sealed class WsSqlVersionValidator : WsSqlTableValidator<WsSqlVersionModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlVersionValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.ReleaseDt)

@@ -30,18 +30,12 @@ public class WsSqlBarcodeTopModel : SerializeBase
     public string Zames { get; set; } = string.Empty;
     [XmlElement(nameof(Crc))]
     public string Crc { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeTopModel()
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeTopModel(string const1, string armNumber, string counter, string date, string time, string plu, string weight,
         string zames, string crc)
     {
@@ -55,10 +49,7 @@ public class WsSqlBarcodeTopModel : SerializeBase
         Zames = zames;
         Crc = crc;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarcodeTopModel(string barcode, bool useCrc)
     {
         // 0  -3    -8       -16    -22    -28 -31   -36 -39
@@ -77,12 +68,7 @@ public class WsSqlBarcodeTopModel : SerializeBase
                 Crc = barcode.Substring(39, 1);
         }
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsSqlBarcodeTopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Const1 = info.GetString(nameof(Const1)) ?? string.Empty;

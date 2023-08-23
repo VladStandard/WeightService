@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
-/// <summary>
-/// Table "ZebraPrinterResourceRef".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterResourceFkModel : WsSqlTableBase
@@ -14,21 +11,13 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlPrinterModel Printer { get; set; }
     [XmlElement] public virtual WsSqlTemplateResourceModel TemplateResource { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPrinterResourceFkModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Printer = new();
         TemplateResource = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPrinterResourceFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Printer = (WsSqlPrinterModel)info.GetValue(nameof(Printer), typeof(WsSqlPrinterModel));

@@ -14,10 +14,7 @@ public class WsSqlVersionModel : WsSqlTableBase
 
     public virtual DateTime ReleaseDt { get; set; }
     public virtual short Version { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlVersionModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         ReleaseDt = DateTime.MinValue;

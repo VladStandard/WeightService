@@ -15,10 +15,7 @@ public class WsSqlTemplateModel : WsSqlTableBase
     [XmlElement] public virtual string CategoryId { get; set; }
     [XmlElement] public virtual string Title { get; set; }
     [XmlElement] public virtual string Data { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlTemplateModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         CategoryId = string.Empty;

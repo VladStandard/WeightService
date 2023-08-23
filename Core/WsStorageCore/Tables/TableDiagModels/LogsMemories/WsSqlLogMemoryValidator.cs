@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsMemories;
 
-/// <summary>
-/// Table validation "diag.LOGS_MEMORIES".
-/// </summary>
 public sealed class WsSqlLogMemoryValidator : WsSqlTableValidator<WsSqlLogMemoryModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogMemoryValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
     {
         RuleFor(item => item.SizeAppMb)

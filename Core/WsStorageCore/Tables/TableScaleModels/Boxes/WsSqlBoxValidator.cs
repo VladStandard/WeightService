@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Boxes;
 /// </summary>
 public sealed class WsSqlBoxValidator : WsSqlTableValidator<WsSqlBoxModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlBoxValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

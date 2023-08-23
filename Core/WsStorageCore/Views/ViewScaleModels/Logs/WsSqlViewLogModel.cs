@@ -19,9 +19,7 @@ public class WsSqlViewLogModel : WsSqlTableBase
 	public virtual string LogType { get; set; }
 	public virtual string Message { get; set; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlViewLogModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
 		Line = string.Empty;

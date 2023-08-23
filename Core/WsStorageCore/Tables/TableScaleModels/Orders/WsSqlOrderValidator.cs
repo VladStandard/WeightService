@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Orders;
 /// </summary>
 public sealed class WsSqlOrderValidator : WsSqlTableValidator<WsSqlOrderModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlOrderValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

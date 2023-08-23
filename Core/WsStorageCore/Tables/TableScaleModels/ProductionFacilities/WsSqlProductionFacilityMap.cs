@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableScaleModels.ProductionFacilities;
 /// </summary>
 public sealed class WsSqlProductionFacilityMap : ClassMap<WsSqlProductionFacilityModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlProductionFacilityMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

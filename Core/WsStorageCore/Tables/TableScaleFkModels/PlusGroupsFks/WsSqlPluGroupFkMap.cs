@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusGroupsFks;
 
-/// <summary>
-/// Table map "PLUS_GROUPS_FK".
-/// </summary>
 public sealed class WsSqlPluGroupFkMap : ClassMap<WsSqlPluGroupFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluGroupFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

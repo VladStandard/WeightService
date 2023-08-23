@@ -2,11 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using MDSoft.NetUtils;
+
 namespace WsDataCore.Models;
 
-/// <summary>
-/// Весовые настройки.
-/// </summary>
 public sealed class WsWeighingSettingsModel
 {
     #region Public and private fields and properties

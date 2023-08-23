@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.PrintersTypes;
 /// </summary>
 public sealed class WsSqlPrinterTypeValidator : WsSqlTableValidator<WsSqlPrinterTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPrinterTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)

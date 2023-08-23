@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Printers;
 
-/// <summary>
-/// Table validation "ZebraPrinter".
-/// </summary>
 public sealed class WsSqlPrinterValidator : WsSqlTableValidator<WsSqlPrinterModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlPrinterValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.DarknessLevel)

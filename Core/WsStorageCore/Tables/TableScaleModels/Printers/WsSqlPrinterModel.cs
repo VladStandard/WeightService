@@ -5,9 +5,6 @@ using System.Net.NetworkInformation;
 
 namespace WsStorageCore.Tables.TableScaleModels.Printers;
 
-/// <summary>
-/// Table "ZebraPrinter".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterModel : WsSqlTableBase
@@ -30,9 +27,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
     [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
     [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPrinterModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         Ip = string.Empty;

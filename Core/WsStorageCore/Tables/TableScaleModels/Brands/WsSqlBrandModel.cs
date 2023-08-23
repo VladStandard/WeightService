@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Brands;
 
-/// <summary>
-/// Table "BRANDS".
-/// </summary>
 [Serializable]
 [XmlRoot("Brand", Namespace = "", IsNullable = false)]
 [DebuggerDisplay("{ToString()}")]
@@ -14,20 +11,12 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     #region Public and private fields, properties, constructor
 
     [XmlAttribute] public virtual string Code { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBrandModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Code = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlBrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Code = info.GetString(nameof(Code));

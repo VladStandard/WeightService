@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 /// </summary>
 public sealed class WsSqlTemplateResourceMap : ClassMap<WsSqlTemplateResourceModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTemplateResourceMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

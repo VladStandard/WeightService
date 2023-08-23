@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Clips;
 
-/// <summary>
-/// Table "CLIPS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlClipModel : WsSqlTable1CBase
@@ -18,12 +15,7 @@ public class WsSqlClipModel : WsSqlTable1CBase
     {
         Weight = 0;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlClipModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));

@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsMemories;
 
-/// <summary>
-/// Table map "diag.LOGS_MEMORIES".
-/// </summary>
 public sealed class WsSqlLogMemoryMap : ClassMap<WsSqlLogMemoryModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlLogMemoryMap()
     {
         Schema(WsSqlSchemasUtils.Diag);

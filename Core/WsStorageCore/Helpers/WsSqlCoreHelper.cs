@@ -3,8 +3,6 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
-using System;
-
 namespace WsStorageCore.Helpers;
 
 public sealed class WsSqlCoreHelper

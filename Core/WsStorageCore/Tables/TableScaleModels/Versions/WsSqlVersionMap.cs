@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableScaleModels.Versions;
 /// </summary>
 public sealed class WsSqlVersionMap : ClassMap<WsSqlVersionModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlVersionMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

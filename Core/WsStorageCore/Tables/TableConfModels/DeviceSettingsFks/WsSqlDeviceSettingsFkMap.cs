@@ -8,9 +8,6 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 /// </summary>
 public sealed class WsSqlDeviceSettingsFkMap : ClassMap<WsSqlDeviceSettingsFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceSettingsFkMap()
     {
         Schema(WsSqlSchemasUtils.Conf);

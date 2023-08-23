@@ -24,12 +24,7 @@ public class WsSqlProductSeriesModel : WsSqlTableBase
         Sscc = string.Empty;
         Uid = Guid.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlProductSeriesModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Scale = (WsSqlScaleModel)info.GetValue(nameof(Scale), typeof(WsSqlScaleModel));

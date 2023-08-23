@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 
-/// <summary>
-/// Table map "DEVICES_TYPES_FK".
-/// </summary>
 public sealed class WsSqlDeviceTypeFkMap : ClassMap<WsSqlDeviceTypeFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceTypeFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

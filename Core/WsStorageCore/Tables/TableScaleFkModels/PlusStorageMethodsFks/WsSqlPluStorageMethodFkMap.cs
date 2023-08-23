@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
-/// <summary>
-/// Table map "PLUS_STORAGE_METHODS_FK".
-/// </summary>
 public sealed class WsSqlPluStorageMethodFkMap : ClassMap<WsSqlPluStorageMethodFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluStorageMethodFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

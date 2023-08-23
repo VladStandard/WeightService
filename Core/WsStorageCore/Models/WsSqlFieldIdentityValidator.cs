@@ -5,9 +5,6 @@ namespace WsStorageCore.Models;
 
 public class WsSqlFieldIdentityValidator : AbstractValidator<WsSqlFieldIdentityModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlFieldIdentityValidator()
     {
         RuleFor(item => item.Id)

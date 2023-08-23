@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 
-/// <summary>
-/// Table map "ORGANIZATIONS".
-/// </summary>
 public sealed class WsSqlOrganizationMap : ClassMap<WsSqlOrganizationModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlOrganizationMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

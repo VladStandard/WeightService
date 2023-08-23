@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 
-/// <summary>
-/// Валидатор таблицы "DEVICES_SETTINGS_FK".
-/// </summary>
 public sealed class WsSqlDeviceSettingsFkValidator : WsSqlTableValidator<WsSqlDeviceSettingsFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlDeviceSettingsFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Device)

@@ -218,12 +218,7 @@ public readonly struct ResponseParseModel
         Len = Array.Empty<byte>();
         Massa = new();
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="cmdType"></param>
-    /// <param name="response"></param>
+    
     public ResponseParseModel(MassaCmdType cmdType, byte[] response) : this()
     {
         CmdType = cmdType;

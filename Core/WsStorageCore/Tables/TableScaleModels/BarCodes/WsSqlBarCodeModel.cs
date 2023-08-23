@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 
-/// <summary>
-/// Table "BARCODES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBarCodeModel : WsSqlTableBase
@@ -19,10 +16,7 @@ public class WsSqlBarCodeModel : WsSqlTableBase
     [XmlElement] public virtual string TypeBottom { get; set; }
     [XmlElement] public virtual string ValueBottom { get; set; }
     [XmlIgnore] public virtual WsSqlPluLabelModel PluLabel { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlBarCodeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         TypeTop = string.Empty;

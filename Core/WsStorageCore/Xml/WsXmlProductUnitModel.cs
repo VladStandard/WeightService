@@ -28,12 +28,7 @@ public class WsXmlProductUnitModel : ISerializable, IWsSqlObjectBase
 		Okei = string.Empty;
         Description = string.Empty;
 	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
+    
 	private WsXmlProductUnitModel(SerializationInfo info, StreamingContext context)
 	{
 		Heft = info.GetDecimal(nameof(Heft));

@@ -44,12 +44,7 @@ public sealed class WsResponseBarCodeModel : SerializeBase
         ValueBottom = string.Empty;
         PluLabelGuid = Guid.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsResponseBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         IdentityValueUid = new(info.GetString(WsWebConstants.Guid) ?? string.Empty);

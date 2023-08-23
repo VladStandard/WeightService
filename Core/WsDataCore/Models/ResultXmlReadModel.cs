@@ -3,9 +3,6 @@
 
 namespace WsDataCore.Models;
 
-/// <summary>
-/// Результат чтения XML-тега.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class ResultXmlReadModel
 {

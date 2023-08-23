@@ -17,9 +17,7 @@ public class WsJsonSettingsModel : ISerializable
 	[NonSerialized] private string _connectionString;
 	public string ConnectionString { get => _connectionString; set => _connectionString = value; }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	/// <param name="jsonSettingsSql"></param>
 	/// <param name="isCheckProperties"></param>
 	public WsJsonSettingsModel(WsJsonSettingsSqlModel jsonSettingsSql, bool isCheckProperties)
@@ -34,14 +32,10 @@ public class WsJsonSettingsModel : ISerializable
 		CheckProperties(isCheckProperties);
 	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsJsonSettingsModel() : this(new(), false) { }
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
+
 	/// <param name="info"></param>
 	/// <param name="context"></param>
 	protected WsJsonSettingsModel(SerializationInfo info, StreamingContext context)

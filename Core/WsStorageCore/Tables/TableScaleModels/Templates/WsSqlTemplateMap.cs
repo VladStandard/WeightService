@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Templates;
 
-/// <summary>
-/// Table map "Templates".
-/// </summary>
 public sealed class WsSqlTemplateMap : ClassMap<WsSqlTemplateModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlTemplateMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

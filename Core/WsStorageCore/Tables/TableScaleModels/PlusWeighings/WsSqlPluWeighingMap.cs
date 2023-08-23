@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
-/// <summary>
-/// Table map "PLUS_WEIGHINGS".
-/// </summary>
 public sealed class WsSqlPluWeighingMap : ClassMap<WsSqlPluWeighingModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluWeighingMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

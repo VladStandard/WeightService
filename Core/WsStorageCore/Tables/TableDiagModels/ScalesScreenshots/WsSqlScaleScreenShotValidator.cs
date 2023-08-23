@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 /// </summary>
 public sealed class WsSqlScaleScreenShotValidator : WsSqlTableValidator<WsSqlScaleScreenShotModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlScaleScreenShotValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Scale)

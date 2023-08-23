@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 /// </summary>
 public sealed class WsSqlPluWeighingValidator : WsSqlTableValidator<WsSqlPluWeighingModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluWeighingValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Kneading)

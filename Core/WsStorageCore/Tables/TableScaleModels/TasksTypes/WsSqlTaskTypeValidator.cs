@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
 
-/// <summary>
-/// Table validation "TASKS_TYPES".
-/// </summary>
 public sealed class WsSqlTaskTypeValidator : WsSqlTableValidator<WsSqlTaskTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlTaskTypeValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)

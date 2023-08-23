@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Apps;
 /// </summary>
 public sealed class WsSqlAppValidator : WsSqlTableValidator<WsSqlAppModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlAppValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)

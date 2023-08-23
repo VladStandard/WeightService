@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Contragents;
 
-/// <summary>
-/// Table map "CONTRAGENTS_V2".
-/// </summary>
 public sealed class WsSqlContragentMap : ClassMap<WsSqlContragentModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlContragentMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

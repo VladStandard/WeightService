@@ -3,28 +3,17 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PrintersTypes;
 
-/// <summary>
-/// Table "ZebraPrinterType".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPrinterTypeModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         //
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlPrinterTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //

@@ -31,7 +31,7 @@
       <RadzenDataGridColumn TItem="@WsSqlViewWeightingAggrModel" Title="@WsLocaleCore.Table.DayOfWeek"
                             SortProperty="ChangeDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
-          @WsEnumUtils.GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
+          @GetDayOfWeekRu(itemCast.ChangeDt.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="Count" Width="15%"/>

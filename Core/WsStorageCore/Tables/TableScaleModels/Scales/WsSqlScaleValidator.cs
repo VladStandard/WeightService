@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Scales;
 
-/// <summary>
-/// Валидатор таблицы SCALES.
-/// </summary>
 public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlScaleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Description)

@@ -35,9 +35,22 @@ public sealed partial class PluWeightingsAggr : ComponentBase
 
     private void GetSectionData()
     {
-        PluWeightAggrs = WeightingAggrRepository.GetList(new WsSqlCrudConfigModel());
+        PluWeightAggrs = WeightingAggrRepository.GetList(new());
         StateHasChanged();
     }
+    
+    public static string GetDayOfWeekRu(DayOfWeek day) => 
+        day switch
+        {
+            DayOfWeek.Monday => "Понедельник",
+            DayOfWeek.Tuesday => "Вторник",
+            DayOfWeek.Wednesday => "Среда",
+            DayOfWeek.Thursday => "Четверг",
+            DayOfWeek.Friday => "Пятница",
+            DayOfWeek.Saturday => "Суббота",
+            DayOfWeek.Sunday => "Воскресенье",
+            _ => string.Empty
+        };
 
     #endregion
 }

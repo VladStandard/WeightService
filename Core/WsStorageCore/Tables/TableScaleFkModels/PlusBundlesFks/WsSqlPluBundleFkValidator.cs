@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusBundlesFks;
 /// </summary>
 public sealed class WsSqlPluBundleFkValidator : WsSqlTableValidator<WsSqlPluBundleFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluBundleFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)

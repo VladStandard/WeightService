@@ -5,9 +5,6 @@ using WsSqlTableBase = WsStorageCore.Common.WsSqlTableBase;
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
 
-/// <summary>
-/// Table "PLUS_BRANDS_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluBrandFkModel : WsSqlTableBase
@@ -16,10 +13,7 @@ public class WsSqlPluBrandFkModel : WsSqlTableBase
 
     [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
     [XmlElement] public virtual WsSqlBrandModel Brand { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluBrandFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();

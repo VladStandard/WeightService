@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.DeviceTypes;
 
-/// <summary>
-/// Table map "DEVICES_TYPES".
-/// </summary>
 public sealed class WsSqlDeviceTypeMap : ClassMap<WsSqlDeviceTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceTypeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

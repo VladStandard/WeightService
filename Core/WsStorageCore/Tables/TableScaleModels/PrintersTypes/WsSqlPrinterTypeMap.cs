@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PrintersTypes;
 
-/// <summary>
-/// Table map "ZebraPrinterType".
-/// </summary>
 public sealed class WsSqlPrinterTypeMap : ClassMap<WsSqlPrinterTypeModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPrinterTypeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

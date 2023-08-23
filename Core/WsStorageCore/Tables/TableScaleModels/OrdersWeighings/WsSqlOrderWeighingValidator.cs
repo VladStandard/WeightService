@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 /// </summary>
 public sealed class WsSqlOrderWeighingValidator : WsSqlTableValidator<WsSqlOrderWeighingModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlOrderWeighingValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Order)

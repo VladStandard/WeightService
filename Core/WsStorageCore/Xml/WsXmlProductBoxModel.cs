@@ -39,12 +39,7 @@ public class WsXmlProductBoxModel : ISerializable, IWsSqlObjectBase
 		Okei = string.Empty;
 		Unit = string.Empty;
 	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
+    
 	private WsXmlProductBoxModel(SerializationInfo info, StreamingContext context)
 	{
 		Description = info.GetString(nameof(Description));

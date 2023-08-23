@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Barcode interface.
-/// </summary>
 public interface IWsSqlBarCodeHelper
 {
     int GetEanCheckDigit(string code);

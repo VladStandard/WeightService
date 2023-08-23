@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.DeviceTypes;
 
-/// <summary>
-/// Table "DEVICES_TYPES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceTypeModel : WsSqlTableBase
@@ -13,10 +10,7 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string PrettyName { get; set; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlDeviceTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PrettyName = string.Empty;

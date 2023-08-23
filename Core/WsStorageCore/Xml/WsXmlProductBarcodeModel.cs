@@ -20,12 +20,7 @@ public class WsXmlProductBarcodeModel : ISerializable, IWsSqlObjectBase
 		Type = string.Empty;
 		Barcode = string.Empty;
 	}
-
-	/// <summary>
-	/// Constructor.
-	/// </summary>
-	/// <param name="info"></param>
-	/// <param name="context"></param>
+    
 	private WsXmlProductBarcodeModel(SerializationInfo info, StreamingContext context)
 	{
 		Type = info.GetString(nameof(Type));

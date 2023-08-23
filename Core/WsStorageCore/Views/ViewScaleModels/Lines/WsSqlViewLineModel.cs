@@ -13,9 +13,6 @@ public class WsSqlViewLineModel : WsSqlTableBase
     public virtual string WorkShop { get; set; }
     public virtual int Counter { get; set; }
     
-    /// <summary>
-	/// Constructor.
-	/// </summary>
 	public WsSqlViewLineModel() : base(WsSqlEnumFieldIdentity.Id)
 	{
         Number = 0;

@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 /// </summary>
 public sealed class WsSqlPluCharacteristicsFkValidator : WsSqlTableValidator<WsSqlPluCharacteristicsFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluCharacteristicsFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)

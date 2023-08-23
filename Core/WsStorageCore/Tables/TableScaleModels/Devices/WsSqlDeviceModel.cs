@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Devices;
 
-/// <summary>
-/// Table "DEVICES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceModel : WsSqlTableBase
@@ -27,9 +24,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
 
     [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ipv4}";
     
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlDeviceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         LoginDt = DateTime.MinValue;

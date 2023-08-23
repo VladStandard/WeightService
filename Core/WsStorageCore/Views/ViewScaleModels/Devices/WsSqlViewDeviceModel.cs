@@ -28,10 +28,7 @@ public class WsSqlViewDeviceModel : WsSqlTableBase
     }
     
     [XmlIgnore] public string ValuePrettyLookMinus => GetValueAsString('-');
-    
-    /// <summary>
-	/// Constructor.
-	/// </summary>
+
 	public WsSqlViewDeviceModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         LoginDate = new();

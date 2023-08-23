@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Boxes;
 
-/// <summary>
-/// Table "BOXES".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBoxModel : WsSqlTable1CBase
@@ -18,12 +15,7 @@ public class WsSqlBoxModel : WsSqlTable1CBase
     {
         Weight = 0;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlBoxModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Weight = info.GetDecimal(nameof(Weight));

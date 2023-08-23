@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusGroupsFks;
 /// </summary>
 public sealed class WsSqlPluGroupFkValidator : WsSqlTableValidator<WsSqlPluGroupFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluGroupFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         //RuleFor(item => item.Plu)

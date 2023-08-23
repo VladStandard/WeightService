@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.Brands;
 
-/// <summary>
-/// Table map "BRANDS".
-/// </summary>
 public sealed class WsSqlBrandMap : ClassMap<WsSqlBrandModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlBrandMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

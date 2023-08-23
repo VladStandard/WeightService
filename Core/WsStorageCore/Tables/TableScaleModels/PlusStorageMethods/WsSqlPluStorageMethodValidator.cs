@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 /// </summary>
 public sealed class WsSqlPluStorageMethodValidator : WsSqlTableValidator<WsSqlPluStorageMethodModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlPluStorageMethodValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.MinTemp)

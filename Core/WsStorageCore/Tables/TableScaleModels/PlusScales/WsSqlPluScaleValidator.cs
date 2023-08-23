@@ -3,15 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusScales;
 
-/// <summary>
-/// Table validation "PLUS_SCALES".
-/// </summary>
 public sealed class WsSqlPluScaleValidator : WsSqlTableValidator<WsSqlPluScaleModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
     public WsSqlPluScaleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Plu)

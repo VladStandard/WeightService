@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Contragents;
 /// </summary>
 public sealed class WsSqlContragentValidator : WsSqlTableValidator<WsSqlContragentModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlContragentValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

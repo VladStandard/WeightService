@@ -8,10 +8,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Bundles;
 /// </summary>
 public sealed class WsSqlBundleValidator : WsSqlTableValidator<WsSqlBundleModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="isCheckIdentity"></param>
+
     public WsSqlBundleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)

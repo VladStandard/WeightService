@@ -4,9 +4,6 @@
 
 namespace WsStorageCore.Common;
 
-/// <summary>
-/// Интерфейс базового объекта SQL.
-/// </summary>
 public interface IWsSqlObjectBase
 {
     string ToString();

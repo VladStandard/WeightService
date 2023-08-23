@@ -16,9 +16,6 @@ public class WsSqlViewPluLabelModel: WsSqlTableBase
     public virtual string PluName { get; set; }
     public virtual string Template { get; set; }
     
-    /// <summary>
-	/// Constructor.
-	/// </summary>
 	public WsSqlViewPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
         PluNumber = 0;

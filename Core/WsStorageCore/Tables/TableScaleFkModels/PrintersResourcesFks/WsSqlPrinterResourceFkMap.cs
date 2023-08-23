@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
-/// <summary>
-/// Table map "ZebraPrinterResourceRef".
-/// </summary>
 public sealed class WsSqlPrinterResourceFkMap : ClassMap<WsSqlPrinterResourceFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPrinterResourceFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

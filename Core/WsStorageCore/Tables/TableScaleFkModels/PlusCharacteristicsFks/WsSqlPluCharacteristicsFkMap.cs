@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusCharacteristicsFks;
 
-/// <summary>
-/// Table map "PLUS_CHARACTERISTICS_FK".
-/// </summary>
 public sealed class WsSqlPluCharacteristicsFkMap : ClassMap<WsSqlPluCharacteristicsFkModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluCharacteristicsFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

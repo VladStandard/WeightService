@@ -84,9 +84,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
     [XmlElement] public virtual short AttachmentsCount { get; set; }
     [XmlIgnore] public override string DisplayName => $"{Number} | {Name}";
     
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlPluModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         BoxTypeGuid = Guid.Empty;

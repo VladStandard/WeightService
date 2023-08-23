@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableDiagModels.Logs;
 
-/// <summary>
-/// Table "LOGS".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogModel : WsSqlTableBase
@@ -32,12 +29,7 @@ public class WsSqlLogModel : WsSqlTableBase
         Member = string.Empty;
         Message = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     protected WsSqlLogModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Device = (WsSqlDeviceModel?)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));

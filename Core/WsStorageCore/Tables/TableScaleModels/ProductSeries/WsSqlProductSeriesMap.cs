@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.ProductSeries;
 
-/// <summary>
-/// Table map "ProductSeries".
-/// </summary>
 public sealed class WsSqlProductSeriesMap : ClassMap<WsSqlProductSeriesModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlProductSeriesMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

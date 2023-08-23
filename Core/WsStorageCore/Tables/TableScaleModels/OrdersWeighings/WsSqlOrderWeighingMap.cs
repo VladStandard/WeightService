@@ -3,14 +3,8 @@
 
 namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 
-/// <summary>
-/// Table map "ORDERS_WEIGHINGS".
-/// </summary>
 public sealed class WsSqlOrderWeighingMap : ClassMap<WsSqlOrderWeighingModel>
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
     public WsSqlOrderWeighingMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);

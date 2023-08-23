@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 
-/// <summary>
-/// Table "PLUS_FK".
-/// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluFkModel : WsSqlTableBase
@@ -18,10 +15,7 @@ public class WsSqlPluFkModel : WsSqlTableBase
     [XmlElement] public virtual WsSqlPluModel Parent { get => _parent; set => _parent = value; }
     private WsSqlPluModel? _category;
     [XmlElement] public virtual WsSqlPluModel? Category { get => _category; set => _category = value; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
+    
     public WsSqlPluFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _plu = new();

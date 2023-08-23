@@ -63,12 +63,7 @@ public class WsXmlProductModel : ISerializable, IWsSqlObjectBase
 	    NameFull = string.Empty;
 	    AdditionalDescriptionOfNomenclature = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     private WsXmlProductModel(SerializationInfo info, StreamingContext context)
     {
 	    Category = info.GetString(nameof(Category));
