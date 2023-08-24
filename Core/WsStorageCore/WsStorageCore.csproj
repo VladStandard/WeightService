@@ -27,12 +27,4 @@
   <ItemGroup>
 	<Compile Include="..\..\IsExternalInit.cs" Visible="false" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Schemas\Diag\" />
-    <Folder Include="Schemas\Conf\" />
-    <Folder Include="Schemas\DbScales\" />
-    <Folder Include="Schemas\Sscc\" />
-    <Folder Include="Schemas\Ref\" />
-    <Folder Include="Schemas\Rep\" />
-  </ItemGroup>
 </Project>

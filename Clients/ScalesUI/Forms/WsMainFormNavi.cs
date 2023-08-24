@@ -154,6 +154,7 @@ public partial class WsMainForm
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         if (IsMagicClose) return;
+        WsFormNavigationUtils.ClearNewDialogs();
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             // Сброс предупреждения.

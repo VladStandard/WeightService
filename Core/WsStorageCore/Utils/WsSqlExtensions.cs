@@ -3,9 +3,6 @@
 
 namespace WsStorageCore.Utils;
 
-/// <summary>
-/// SQL extensions.
-/// </summary>
 public static class WsSqlExtensions
 {
     #region Public methods

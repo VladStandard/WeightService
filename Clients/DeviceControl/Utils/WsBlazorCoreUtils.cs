@@ -3,9 +3,6 @@
 
 namespace DeviceControl.Utils;
 
-/// <summary>
-/// Утилиты Blazor.
-/// </summary>
 public static class WsBlazorCoreUtils
 {
     #region Public and private methods

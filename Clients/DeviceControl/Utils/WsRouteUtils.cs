@@ -3,9 +3,6 @@
 
 namespace DeviceControl.Utils;
 
-/// <summary>
-/// Утилиты роутинга.
-/// </summary>
 public static class WsRouteUtils
 {
     #region Графики

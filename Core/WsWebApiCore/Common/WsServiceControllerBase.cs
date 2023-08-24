@@ -3,9 +3,6 @@
 
 namespace WsWebApiCore.Common;
 
-/// <summary>
-/// Базовый класс веб-контроллера.
-/// </summary>
 public class WsServiceControllerBase : ControllerBase
 {
     #region Public and private fields, properties, constructor

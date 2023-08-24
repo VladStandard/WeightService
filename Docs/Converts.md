@@ -3,9 +3,8 @@
 - [Image to ZPL](http://www.jcgonzalez.com/img-to-zpl-online)
 - [Text Cyrillic to Latin](https://www.branah.com/cyrillic-to-latin)
 - [Text to Hex](https://online-toolz.com/tools/text-hex-convertor.php)
-- [Text to Hex](Notepad++ -> Plugins -> Converter -> ASCII -> HEX)
+  - Notepad++ -> Plugins -> Converter -> ASCII -> HEX
 - [XML tools](https://onlinexmltools.com/prettify-xml)
-- [ZPL to print label](http://ip_address/dir -> Create script)
 - [ZPL to virtual label](http://labelary.com/viewer.html)
 - [Создание штрих-кодов GS1 с помощью сценария ZPL](https://supportcommunity.zebra.com/s/article/Creating-GS1-Barcodes-with-Zebra-Printers-for-Data-Matrix-and-Code-128-using-ZPL?language=ru)
 
