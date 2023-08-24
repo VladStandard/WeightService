@@ -103,4 +103,3 @@ global using WsStorageCore.Views.ViewDiagModels.TableSize;
 global using WsStorageCore.Views.ViewRefModels.PluLines;
 global using WsStorageCore.Views.ViewRefModels.PluNestings;
 global using WsStorageCore.Views.ViewRefModels.PluStorageMethods;
-global using static WsStorageCore.Utils.WsSqlQueriesScales.Tables;

@@ -9,7 +9,7 @@ public static class WsBlazorCoreUtils
 
     public static string GetLibVersion()
     {
-        FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
         if (string.IsNullOrEmpty(fieVersionInfo.FileVersion))
             return string.Empty;
         

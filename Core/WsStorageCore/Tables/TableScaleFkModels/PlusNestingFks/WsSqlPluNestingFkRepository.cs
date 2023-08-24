@@ -72,8 +72,8 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
 
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlPluNestingFkModel> items = new List<WsSqlPluNestingFkModel>();
-        if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = PluNestingFks.GetList(false);
+        List<WsSqlPluNestingFkModel> items = new ();
+        if (string.IsNullOrEmpty(sqlCrudConfig.NativeQuery)) sqlCrudConfig.NativeQuery = GetQuery(false);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(sqlCrudConfig);
         foreach (object obj in objects)
         {
@@ -168,13 +168,76 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
         WsSqlCrudConfigModel sqlCrudConfig = new()
         {
             NativeParameters = new() { new("P_UID", uid) },
-            NativeQuery = PluNestingFks.GetList(true)
+            NativeQuery = GetQuery(true)
         };
         return GetEnumerable(sqlCrudConfig);
     }
 
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluNumber(short number) => 
         GetEnumerableByPluUid(ContextPlu.GetItemByNumber(number).IdentityValueUid);
-
+    
+    
+    private static string GetQuery(bool isSetPluUid) => WsSqlQueries.TrimQuery(@$"
+-- PLUS_NESTING_FK SELECT AS OBJECTS
+SELECT 
+-- [DB_SCALES].[PLUS_NESTING_FK] | 0 - 10
+ [PNFK].[UID]
+,[PNFK].[CREATE_DT]
+,[PNFK].[CHANGE_DT]
+,[PNFK].[IS_MARKED]
+,[PNFK].[IS_DEFAULT]
+,[PNFK].[BUNDLE_COUNT]
+,[PNFK].[WEIGHT_MAX]
+,[PNFK].[WEIGHT_MIN]
+,[PNFK].[WEIGHT_NOM]
+,[PNFK].[PLU_BUNDLE_FK]
+,[PNFK].[BOX_UID]
+-- [DB_SCALES].[PLUS_BUNDLES_FK] | 11 - 16
+,[PBFK].[UID] [PLU_BUNDLE_FK_UID]
+,[PBFK].[CREATE_DT] [PLU_BUNDLE_FK_CREATE_DT]
+,[PBFK].[CHANGE_DT] [PLU_BUNDLE_FK_CHANGE_DT]
+,[PBFK].[IS_MARKED] [PLU_BUNDLE_FK_IS_MARKED]
+,[PBFK].[PLU_UID] [PLU_BUNDLE_FK_PLU_UID]
+,[PBFK].[BUNDLE_UID] [PLU_BUNDLE_FK_BUNDLE_UID]
+-- [DB_SCALES].[PLUS] | 17 - 30
+,[P].[UID] [PLU_UID]
+,[P].[CREATE_DT][PLU_CREATE_DT]
+,[P].[CHANGE_DT] [PLU_CHANGE_DT]
+,[P].[IS_MARKED] [PLU_IS_MARKED]
+,[P].[NUMBER] [PLU_NUMBER]
+,[P].[NAME] [PLU_NAME]
+,[P].[FULL_NAME] [PLU_FULL_NAME]
+,[P].[DESCRIPTION] [PLU_DESCRIPTION]
+,[P].[SHELF_LIFE_DAYS] [PLU_SHELF_LIFE_DAYS]
+,[P].[GTIN] [PLU_GTIN]
+,[P].[EAN13] [PLU_EAN13]
+,[P].[ITF14] [PLU_ITF14]
+,[P].[IS_CHECK_WEIGHT] [PLU_IS_CHECK_WEIGHT]
+-- [DB_SCALES].[BUNDLES] | 30 - 35
+,[BU].[UID] [BUNDLE_UID]
+,[BU].[CREATE_DT] [BUNDLE_CREATE_DT]
+,[BU].[CHANGE_DT] [BUNDLE_CHANGE_DT]
+,[BU].[IS_MARKED] [BUNDLE_IS_MARKED]
+,[BU].[NAME] [BUNDLE_NAME]
+,[BU].[WEIGHT] [BUNDLE_WEIGHT]
+-- [DB_SCALES].[BOXES] | 36 - 41
+,[B].[UID] [BOX_UID]
+,[B].[CREATE_DT] [BOX_CREATE_DT]
+,[B].[CHANGE_DT] [BOX_CHANGE_DT]
+,[B].[IS_MARKED] [BOX_IS_MARKED]
+,[B].[NAME] [BOX_NAME]
+,[B].[WEIGHT] [BOX_WEIGHT]
+-- UID_1C | 42 - 44
+,[P].[UID_1C] [PLU_UID_1C]
+,[B].[UID_1C] [BOX_UID_1C]
+,[BU].[UID_1C] [BUNDLE_UID_1C]
+FROM [DB_SCALES].[PLUS_NESTING_FK] [PNFK]
+LEFT JOIN [DB_SCALES].[PLUS_BUNDLES_FK] [PBFK] ON [PNFK].[PLU_BUNDLE_FK] = [PBFK].[UID]
+LEFT JOIN [DB_SCALES].[PLUS] [P] ON [PBFK].[PLU_UID] = [P].[UID]
+LEFT JOIN [DB_SCALES].[BUNDLES] [BU] ON [PBFK].[BUNDLE_UID] = [BU].[UID]
+LEFT JOIN [DB_SCALES].[BOXES] [B] ON [PNFK].[BOX_UID] = [B].[UID]
+{(isSetPluUid ? "WHERE [P].[UID] = :P_UID" : "")}
+ORDER BY [P].[NUMBER];");
+                
     #endregion
 }

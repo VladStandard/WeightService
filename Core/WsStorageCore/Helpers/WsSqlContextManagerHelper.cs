@@ -24,7 +24,6 @@ public sealed class WsSqlContextManagerHelper
 
     private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
-    private WsSqlContextCoreHelper ContextCore => WsSqlContextCoreHelper.Instance;
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
@@ -306,14 +305,7 @@ public sealed class WsSqlContextManagerHelper
         }
         return 0;
     }
-
-    public List<WsSqlTableBase> GetTableModels() => ContextCore.GetTableModels();
-
-    public List<Type> GetTableTypes() => ContextCore.GetTableTypes();
-
-    public List<Type> GetTableMaps() => ContextCore.GetTableMaps();
-
-    public List<Type> GetTableValidators() => ContextCore.GetTableValidators();
+    
 
     #endregion
 }

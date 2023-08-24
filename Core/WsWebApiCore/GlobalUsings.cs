@@ -4,7 +4,6 @@ global using WsDataCore.Utils;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Data.SqlClient;
-global using Newtonsoft.Json;
 global using NHibernate;
 global using RestSharp;
 global using System.Collections;
