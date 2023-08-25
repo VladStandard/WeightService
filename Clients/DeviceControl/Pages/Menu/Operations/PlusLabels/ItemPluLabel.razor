@@ -65,20 +65,6 @@
                     Text="@WsLocaleCore.DeviceControl.TableActionCopy"/>
     </td>
   </tr>
-  <AuthorizeView Roles="@WsUserAccessStr.Admin">
-    <tr>
-      <td>@WsLocaleCore.Table.Xml</td>
-      <td colspan="3">
-        @if (SqlItemCast.Xml is not null)
-        {
-          <RadzenTextArea
-            Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray;"
-            Disabled=false ReadOnly=true
-            Value=@(WsDataFormatUtils.GetPrettyXmlOrJson(SqlItemCast.Xml.OuterXml)) Rows=20/>
-        }
-      </td>
-    </tr>
-  </AuthorizeView>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>

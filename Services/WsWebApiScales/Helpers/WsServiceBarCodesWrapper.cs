@@ -19,17 +19,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
     #endregion
 
     #region Public and private methods
-
-    /// <summary>
-    /// Get top barcode.
-    /// </summary>
-    /// <param name="barcode"></param>
-    /// <param name="useCrc"></param>
-    /// <param name="format"></param>
-    /// <param name="isDebug"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
+    
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetBarcodeTop)]
@@ -43,16 +33,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version);
         return result;
     }
-
-    /// <summary>
-    /// Get down barcode.
-    /// </summary>
-    /// <param name="barcode"></param>
-    /// <param name="format"></param>
-    /// <param name="isDebug"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
+    
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetBarcodeBottom)]
@@ -66,16 +47,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version);
         return result;
     }
-
-    /// <summary>
-    /// Get right barcode.
-    /// </summary>
-    /// <param name="barcode"></param>
-    /// <param name="format"></param>
-    /// <param name="isDebug"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
+    
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetBarcodeRight)]
@@ -89,17 +61,7 @@ public sealed class WsServiceBarCodesWrapper : WsServiceControllerBase
             requestStampDt, barcode, result.Content ?? string.Empty, format, host, version);
         return result;
     }
-
-    /// <summary>
-    /// Get barcode.
-    /// </summary>
-    /// <param name="dtEnd"></param>
-    /// <param name="format"></param>
-    /// <param name="dtStart"></param>
-    /// <param name="isDebug"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
+    
     [AllowAnonymous]
     [HttpGet]
     [Route(WsLocaleWebServiceUtils.GetBarcodes)]

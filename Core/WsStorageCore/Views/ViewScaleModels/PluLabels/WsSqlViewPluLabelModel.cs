@@ -14,7 +14,8 @@ public class WsSqlViewPluLabelModel: WsSqlTableBase
     public virtual int PluNumber { get; set; }
     public virtual string Line { get; set; }
     public virtual string PluName { get; set; }
-    public virtual string Template { get; set; }
+    public virtual string WorkShop { get; set; }
+    public string PluType => WeightingDate == DateTime.MinValue ? "Штучная" : "Весовая";
     
 	public WsSqlViewPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
 	{
@@ -24,7 +25,7 @@ public class WsSqlViewPluLabelModel: WsSqlTableBase
         WeightingDate = new();
         Line = string.Empty;
         PluName = string.Empty;
-        Template = string.Empty;
+        WorkShop = string.Empty;
     }
 
 	#endregion
@@ -35,7 +36,7 @@ public class WsSqlViewPluLabelModel: WsSqlTableBase
         $"{nameof(PluNumber)}: {PluNumber}. " +
 		$"{nameof(Line)}: {Line}. " +
 		$"{nameof(PluName)}: {PluName}. " +
-		$"{nameof(Template)}: {Template}.";
+		$"{nameof(WorkShop)}: {WorkShop}.";
 
     #endregion
 }

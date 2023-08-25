@@ -383,16 +383,15 @@ ORDER BY [CREATE_DT] DESC");
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 -- Table LOGS diagram summary
 SELECT {WsSqlQueries.GetTopRecords(records)}
-	 [UID]
-	,[CREATE_DT]
-	,[IS_MARKED]
-	,[PROD_DT]
-	,[EXPIRATION_DT]
-	,[WEIGHING_DT]
-	,[LINE]
-	,[PLU_NUMBER]
-	,[PLU_NAME]
-	,[TEMPLATE_TITLE]
+		 [UID]
+		,[CREATE_DT]
+		,[IS_MARKED]
+		,[PROD_DT]
+		,[WEIGHING_DT]
+		,[LINE]
+		,[PLU_NAME]
+		,[PLU_NUMBER]
+		,[WORKSHOP]
 FROM [db_scales].[VIEW_PLUS_LABELS]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");

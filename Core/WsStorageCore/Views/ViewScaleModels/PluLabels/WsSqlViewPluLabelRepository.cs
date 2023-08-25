@@ -15,19 +15,18 @@ public class WsSqlViewPluLabelRepository : IViewPluLabelRepository
         foreach (object obj in objects)
         {
             int i = 0;
-            if (obj is not object[] item || item.Length < 10 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
+            if (obj is not object[] item || item.Length < 9 || !Guid.TryParse(Convert.ToString(item[i++]), out var uid)) break;
             result.Add(new()
             {
                 IdentityValueUid = uid,
                 CreateDt = Convert.ToDateTime(item[i++]),
                 IsMarked = Convert.ToBoolean(item[i++]),
                 ProductDate = Convert.ToDateTime(item[i++]),
-                ExpirationDate = Convert.ToDateTime(item[i++]),
                 WeightingDate = Convert.ToDateTime(item[i++]),
                 Line = item[i++] as string ?? string.Empty,
-                PluNumber = Convert.ToInt32(item[i++]),
                 PluName = item[i++] as string ?? string.Empty,
-                Template = item[i] as string ?? string.Empty
+                PluNumber = Convert.ToInt32(item[i++]),
+                WorkShop = item[i] as string ?? string.Empty
             });
         }
         return result;

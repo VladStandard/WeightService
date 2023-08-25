@@ -59,13 +59,7 @@ public class WsJsonSettingsModel : ISerializable
         $"{nameof(SelectTopRowsCount)}: {SelectTopRowsCount}. " +
         $"{nameof(Version)}: {Version}. " +
         $"{nameof(AllowedHosts)}: {AllowedHosts}. ";
-
-    /// <summary>
-	/// Check properties.
-	/// </summary>
-	/// <param name="isGenerateException"></param>
-	/// <returns></returns>
-	/// <exception cref="ArgumentNullException"></exception>
+    
 	public bool CheckProperties(bool isGenerateException)
 	{
 		if (string.IsNullOrEmpty(Sql.DataSource))
