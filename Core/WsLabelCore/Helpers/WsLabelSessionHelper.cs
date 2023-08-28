@@ -169,7 +169,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             WsEnumConfiguration.DevelopVS => WsLocaleCore.Sql.SqlServerVS,
             WsEnumConfiguration.ReleaseAleksandrov => WsLocaleCore.Sql.SqlServerReleaseAleksandrov,
             WsEnumConfiguration.ReleaseMorozov => WsLocaleCore.Sql.SqlServerReleaseMorozov,
-            WsEnumConfiguration.ReleaseVS => WsLocaleCore.Sql.SqlServerReleaseVS,
+            WsEnumConfiguration.ReleaseVS => "",
             _ => throw new ArgumentOutOfRangeException()
         };
 

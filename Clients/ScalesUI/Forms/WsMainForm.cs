@@ -229,7 +229,7 @@ public sealed partial class WsMainForm : Form
             new(0_500, 0_500), new(0_500, 0_500),
             new(0_500, 0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle}. {LabelSession.PublishDescription}.");
+        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle} {LabelSession.PublishDescription}");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
