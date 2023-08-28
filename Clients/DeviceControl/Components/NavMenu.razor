@@ -5,7 +5,7 @@
   <div class="top-row pl-4 navbar">
     <a class="navbar-brand" href="">
       <RadzenLabel Style="margin-top: -7px; text-align: center; font-size: 14px; color: white"
-                   Text="@WsLocaleCore.Strings.AppDevicesControlName"/>
+                   Text="@WsLocaleCore.Strings.AppDevicesControlName" />
     </a>
   </div>
 
@@ -13,7 +13,7 @@
     <AuthorizeView Roles="@WsUserAccessStr.Read">
       @* Графики *@
       <RadzenPanelMenuItem Text="@LocaleBlazor.SectionCharts">
-          <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.ChartMemory" Path="@WsRouteUtils.SectionChartMemory" />
+        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.ChartMemory" Path="@WsRouteUtils.SectionChartMemory" />
           <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.ChartReport" Path="@WsRouteUtils.SectionChartReports" />
       </RadzenPanelMenuItem>
       @* Устройства *@
@@ -55,7 +55,7 @@
       <RadzenPanelMenuItem Text="@WsLocaleCore.Menu.MenuReports">
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@WsRouteUtils.SectionLogs"/>
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@WsRouteUtils.SectionLogsWebService"/>
-        <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@WsRouteUtils.SectionScalesScreenShots"/>
+        @* <RadzenPanelMenuItem Icon="article" Text="@LocaleBlazor.SectionScreenShots" Path="@WsRouteUtils.SectionScalesScreenShots"/> *@
         <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.DeviceControl.LogsMemory" Path="@WsRouteUtils.SectionLogsMemory"/>
       </RadzenPanelMenuItem>
     </AuthorizeView>

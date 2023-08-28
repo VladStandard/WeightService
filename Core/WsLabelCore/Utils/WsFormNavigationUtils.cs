@@ -441,7 +441,7 @@ public static class WsFormNavigationUtils
         }
         catch (Exception ex)
         {
-            ActionMakeScreenShot(win32Window, LabelSession.Line);
+            // ActionMakeScreenShot(win32Window, LabelSession.Line);
             CatchException(showNavigation, ex);
         }
     }
