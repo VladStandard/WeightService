@@ -8,7 +8,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
 
     [XmlElement] public virtual DateTime LoginDt { get; set; }
     [XmlElement] public virtual DateTime LogoutDt { get; set; }
-    [XmlElement] public virtual string PrettyName { get; set; }
     [XmlElement] public virtual string Ipv4 { get; set; }
     [XmlElement] public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
     
@@ -25,7 +24,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
     {
         LoginDt = DateTime.MinValue;
         LogoutDt = DateTime.MinValue;
-        PrettyName = string.Empty;
         Ipv4 = string.Empty;
         MacAddress = new();
     }
@@ -39,7 +37,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
     {
         LoginDt = info.GetDateTime(nameof(LoginDt));
         LogoutDt = info.GetDateTime(nameof(LogoutDt));
-        PrettyName = info.GetString(nameof(PrettyName));
         Ipv4 = info.GetString(nameof(Ipv4));
         MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
     }
@@ -48,7 +45,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
     {
         LoginDt = item.LoginDt;
         LogoutDt = item.LogoutDt;
-        PrettyName = item.PrettyName;
         Ipv4 = item.Ipv4;
         MacAddress = new(item.MacAddress);
     }
@@ -75,7 +71,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(LoginDt, DateTime.MinValue) &&
         Equals(LogoutDt, DateTime.MinValue) &&
-        Equals(PrettyName, string.Empty) &&
         Equals(Ipv4, string.Empty) &&
         MacAddress.EqualsDefault();
 
@@ -89,7 +84,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         base.GetObjectData(info, context);
         info.AddValue(nameof(LoginDt), LoginDt);
         info.AddValue(nameof(LogoutDt), LogoutDt);
-        info.AddValue(nameof(PrettyName), PrettyName);
         info.AddValue(nameof(Ipv4), Ipv4);
         info.AddValue(nameof(MacAddress), MacAddress);
     }
@@ -111,7 +105,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(LoginDt, item.LoginDt) &&
         Equals(LogoutDt, item.LogoutDt) &&
-        Equals(PrettyName, item.PrettyName) &&
         Equals(Ipv4, item.Ipv4) &&
         MacAddress.Equals(item.MacAddress);
 

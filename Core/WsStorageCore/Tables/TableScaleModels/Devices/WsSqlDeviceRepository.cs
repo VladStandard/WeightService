@@ -38,7 +38,6 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
         if (device.IsNew)
         {
             device.Name = name;
-            device.PrettyName = name;
             device.Ipv4 = MdNetUtils.GetLocalIpAddress();
         }
         return SaveOrUpdate(device);

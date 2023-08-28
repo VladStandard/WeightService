@@ -343,7 +343,6 @@ public static class WsFormNavigationUtils
                 device = new()
                 {
                     Name = device.Name,
-                    PrettyName = device.Name,
                     Ipv4 = ip,
                     MacAddress = new(mac),
                     CreateDt = DateTime.Now,

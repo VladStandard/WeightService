@@ -238,7 +238,6 @@ public class WsDataTestsHelper
                 device.LoginDt.Returns(DateTime.Now);
                 device.LogoutDt.Returns(DateTime.Now);
                 device.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
-                device.PrettyName.Returns(WsLocaleCore.Sql.SqlItemFieldPrettyName);
                 device.Ipv4.Returns(WsLocaleCore.Sql.SqlItemFieldIp);
                 device.MacAddressValue.Returns(WsLocaleCore.Sql.SqlItemFieldMac);
                 break;

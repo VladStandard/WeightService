@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // Статьи по теме
 // https://blazor.radzen.com/themes
 // https://forum.radzen.com/t/how-to-implement-dark-light-theme/13054
