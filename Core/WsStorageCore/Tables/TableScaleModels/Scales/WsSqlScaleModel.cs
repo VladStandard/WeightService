@@ -1,4 +1,5 @@
 using WsDataCore.Protocols;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 
 namespace WsStorageCore.Tables.TableScaleModels.Scales;
 

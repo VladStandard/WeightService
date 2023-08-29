@@ -1,10 +1,13 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace DeviceControl.Pages.Menu.References.Workshops;
 
 public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopModel>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlProductionFacilityModel> ProductionFacilityModels { get; set; }
+    private List<WsSqlProductionSiteModel> ProductionSiteModels { get; set; }
 
     #endregion
 
@@ -13,7 +16,7 @@ public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopModel>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        ProductionFacilityModels = new WsSqlAreaRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        ProductionSiteModels = new WsSqlProductionSiteRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
     }
 
     #endregion

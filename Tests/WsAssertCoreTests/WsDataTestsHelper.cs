@@ -1,3 +1,6 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace WsAssertCoreTests;
 
 public class WsDataTestsHelper
@@ -395,7 +398,7 @@ public class WsDataTestsHelper
             case WsSqlPrinterTypeModel printerType:
                 printerType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 break;
-            case WsSqlProductionFacilityModel productionFacility:
+            case WsSqlProductionSiteModel productionFacility:
                 productionFacility.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 productionFacility.Address.Returns(WsLocaleCore.Sql.SqlItemFieldAddress);
                 break;
@@ -435,7 +438,7 @@ public class WsDataTestsHelper
                 break;
             case WsSqlWorkShopModel workShop:
                 workShop.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
-                workShop.ProductionFacility = CreateNewSubstitute<WsSqlProductionFacilityModel>(isNotDefault);
+                workShop.ProductionSite = CreateNewSubstitute<WsSqlProductionSiteModel>(isNotDefault);
                 break;
         }
         return item;

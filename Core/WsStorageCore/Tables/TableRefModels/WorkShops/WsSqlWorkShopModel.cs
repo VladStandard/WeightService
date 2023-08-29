@@ -1,4 +1,6 @@
-namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+
+namespace WsStorageCore.Tables.TableRefModels.WorkShops;
 
 /// <summary>
 /// Table "WorkShop".
@@ -9,21 +11,21 @@ public class WsSqlWorkShopModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlProductionFacilityModel ProductionFacility { get; set; }
+    [XmlElement] public virtual WsSqlProductionSiteModel ProductionSite { get; set; }
 
-    public WsSqlWorkShopModel() : base(WsSqlEnumFieldIdentity.Id)
+    public WsSqlWorkShopModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
-        ProductionFacility = new();
+        ProductionSite = new();
     }
     
     protected WsSqlWorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));
+        ProductionSite = (WsSqlProductionSiteModel)info.GetValue(nameof(ProductionSite), typeof(WsSqlProductionSiteModel));
     }
 
     public WsSqlWorkShopModel(WsSqlWorkShopModel item) : base(item)
     {
-        ProductionFacility = new(item.ProductionFacility);
+        ProductionSite = new(item.ProductionSite);
     }
 
     #endregion
@@ -33,7 +35,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     public override string ToString() =>
         $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
-        $"{nameof(ProductionFacility)}: {ProductionFacility}. ";
+        $"{nameof(ProductionSite)}: {ProductionSite}. ";
 
     public override bool Equals(object obj)
     {
@@ -49,7 +51,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        ProductionFacility.EqualsDefault();
+        ProductionSite.EqualsDefault();
 
     /// <summary>
     /// Get object data for serialization info.
@@ -59,13 +61,13 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
-        info.AddValue(nameof(ProductionFacility), ProductionFacility);
+        info.AddValue(nameof(ProductionSite), ProductionSite);
     }
 
     public override void FillProperties()
     {
         base.FillProperties();
-        ProductionFacility.FillProperties();
+        ProductionSite.FillProperties();
     }
 
     #endregion
@@ -74,7 +76,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
 
     public virtual bool Equals(WsSqlWorkShopModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        ProductionFacility.Equals(item.ProductionFacility);
+        ProductionSite.Equals(item.ProductionSite);
 
     #endregion
 }

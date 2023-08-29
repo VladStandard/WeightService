@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
 namespace WsStorageCore.Models;
 
 [Serializable]
@@ -14,7 +15,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlIgnore] private WsSqlViewPluNestingModel ViewPluNesting { get; set; }
     [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
     [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
-    [XmlIgnore] private WsSqlProductionFacilityModel ProductionFacility { get; set; }
+    [XmlIgnore] private WsSqlProductionSiteModel ProductionSite { get; set; }
 
     #endregion
 
@@ -31,7 +32,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string Nesting { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string NestingCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: "; set => _ = value; }
     [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount} {WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
-    [XmlElement] public virtual string Address { get => ProductionFacility.Address; set => _ = value; }
+    [XmlElement] public virtual string Address { get => ProductionSite.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
     [XmlElement] public virtual string PluName { get => PluScale.Plu.Name; set => _ = value; }
@@ -186,12 +187,12 @@ public class WsSqlPluLabelContextModel : SerializeBase
     }
 
     public WsSqlPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlViewPluNestingModel viewPluNesting,
-        WsSqlPluScaleModel pluScale, WsSqlProductionFacilityModel productionFacility, WsSqlPluWeighingModel pluWeighing)
+        WsSqlPluScaleModel pluScale, WsSqlProductionSiteModel productionSite, WsSqlPluWeighingModel pluWeighing)
     {
         PluLabel = pluLabel;
         ViewPluNesting = viewPluNesting;
         PluScale = pluScale;
-        ProductionFacility = productionFacility;
+        ProductionSite = productionSite;
         PluWeighing = pluWeighing;
     }
 
@@ -206,7 +207,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         ViewPluNesting = (WsSqlViewPluNestingModel)info.GetValue(nameof(ViewPluNesting), typeof(WsSqlViewPluNestingModel));
         PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
         PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
-        ProductionFacility = (WsSqlProductionFacilityModel)info.GetValue(nameof(ProductionFacility), typeof(WsSqlProductionFacilityModel));
+        ProductionSite = (WsSqlProductionSiteModel)info.GetValue(nameof(ProductionSite), typeof(WsSqlProductionSiteModel));
 
         //Address = info.GetString(nameof(Address));
         //BarCodeGtin14 = info.GetString(nameof(BarCodeGtin14));
@@ -236,7 +237,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         info.AddValue(nameof(PluLabel), PluLabel);
         info.AddValue(nameof(ViewPluNesting), ViewPluNesting);
         info.AddValue(nameof(PluScale), PluScale);
-        info.AddValue(nameof(ProductionFacility), ProductionFacility);
+        info.AddValue(nameof(ProductionSite), ProductionSite);
         info.AddValue(nameof(PluWeighing), PluWeighing);
 
         //info.AddValue(nameof(Address), Address);

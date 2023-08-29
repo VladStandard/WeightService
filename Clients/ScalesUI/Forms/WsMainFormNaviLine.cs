@@ -49,7 +49,7 @@ public partial class WsMainForm
         // Настроить сессию для ПО `Печать этикеток`.
         LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
             WsFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId,
-            WsFormNavigationUtils.LinesUserControl.ViewModel.Area);
+            WsFormNavigationUtils.LinesUserControl.ViewModel.ProductionSite);
     }
 
     #endregion

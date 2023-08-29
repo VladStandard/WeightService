@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -37,7 +39,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public ushort PlusPageRowCount => 4;
     public int PlusPageNumber { get; set; }
     public WsSqlDeviceScaleFkModel DeviceScaleFk { get; private set; }
-    public WsSqlProductionFacilityModel Area { get; private set; }
+    public WsSqlProductionSiteModel Area { get; private set; }
     public WsSqlScaleModel Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
     private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
@@ -56,7 +58,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
 
     public WsLabelSessionHelper()
     {
-        Area = ContextManager.AreaRepository.GetNewItem();
+        Area = ContextManager.ProductionSiteRepository.GetNewItem();
         PluLine = ContextManager.PluLineRepository.GetNewItem();
         Line = ContextManager.LineRepository.GetNewItem();
         PluWeighing = ContextManager.PluWeighingRepository.GetNewItem();
@@ -110,7 +112,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <param name="lineId"></param>
     /// <param name="area"></param>
     public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, 
-        long lineId = -1, WsSqlProductionFacilityModel? area = null)
+        long lineId = -1, WsSqlProductionSiteModel? area = null)
     {
         lock (_locker)
         {
@@ -133,7 +135,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);
             // Line.
             SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.LineRepository.GetItemById(lineId));
-            // Area.
+            // ProductionSite.
             if (area is not null)
                 SetArea(area);
             // Other.
@@ -180,9 +182,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Смена площадки.
     /// </summary>
-    private void SetArea(WsSqlProductionFacilityModel area)
+    private void SetArea(WsSqlProductionSiteModel area)
     {
-        Area = area.IsExists ? area : ContextManager.AreaRepository.GetNewItem();
+        Area = area.IsExists ? area : ContextManager.ProductionSiteRepository.GetNewItem();
         // Журналирование смены площадки.
         ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
     }
@@ -197,9 +199,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
         if (workShop.IsExists)
             Area = ContextCache.Areas.Find(
-                item => item.IdentityValueId.Equals(workShop.ProductionFacility.IdentityValueId));
+                item => item.IdentityValueId.Equals(workShop.ProductionSite.IdentityValueId));
         else
-            Area = ContextManager.AreaRepository.GetNewItem();
+            Area = ContextManager.ProductionSiteRepository.GetNewItem();
         // Журналирование смены площадки.
         ContextManager.ContextItem.SaveLogInformation(
             $"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");

@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
@@ -9,9 +11,9 @@ public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, IWsViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlProductionFacilityModel Area { get; set; } = new();
+    public WsSqlProductionSiteModel ProductionSite { get; set; } = new();
     public WsSqlScaleModel Line { get; set; } = new();
-    public List<WsSqlProductionFacilityModel> Areas { get; set; } = new();
+    public List<WsSqlProductionSiteModel> ProductionSites { get; set; } = new();
     public List<WsSqlScaleModel> Lines { get; set; } = new();
     public WsSqlDeviceModel Device => WsSqlContextManagerHelper.Instance.DeviceRepository.GetItemByLine(Line);
 

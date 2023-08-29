@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -26,7 +28,7 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
     private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
     private WsSqlPlu1CRepository Plu1CRepository { get; } = new();
-    private WsSqlAreaRepository AreaRepository { get; } = new();
+    private WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
     private WsSqlBundleRepository BundleRepository  { get; } = new();
     private WsSqlLineRepository LineRepository  { get; } = new();
     private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
@@ -65,7 +67,7 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluNestingFkModel> PlusNestingFks { get; private set; } = new();
     public List<WsSqlPluGroupModel> PlusGroups { get; private set; } = new();
     public List<WsSqlPluModel> Plus { get; private set; } = new();
-    public List<WsSqlProductionFacilityModel> Areas { get; private set; } = new();
+    public List<WsSqlProductionSiteModel> Areas { get; private set; } = new();
     public List<WsSqlScaleModel> Lines { get; private set; } = new();
     public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
 
@@ -164,9 +166,9 @@ public sealed class WsSqlContextCacheHelper
         if (Plus.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus.Count))
             Plus = PluRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.ProductionFacilities));
+        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.ProductionSites));
         if (Areas.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Areas.Count))
-            Areas = AreaRepository.GetEnumerable(SqlCrudConfig).ToList();
+            Areas = ProductionSiteRepository.GetEnumerable(SqlCrudConfig).ToList();
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.WorkShops));
         if (WorkShops.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)WorkShops.Count))
@@ -193,7 +195,7 @@ public sealed class WsSqlContextCacheHelper
 
         // Таблицы.
         if (!Areas.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Areas))
-            Areas = AreaRepository.GetEnumerable(SqlCrudConfig).ToList();
+            Areas = ProductionSiteRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!WorkShops.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.WorkShops))
             WorkShops = WorkShopRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Plus.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Plus))

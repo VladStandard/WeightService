@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]

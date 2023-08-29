@@ -27,6 +27,6 @@ public sealed class WsSqlScaleMap : ClassMap<WsSqlScaleModel>
         Map(item => item.ClickOnce).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CLICK_ONCE").Not.Nullable().Default("");
         References(item => item.PrinterMain).Column("ZebraPrinterId").Nullable();
         References(item => item.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();
-        References(item => item.WorkShop).Column("WorkShopId").Nullable();
+        References(item => item.WorkShop).Column("WORKSHOP_UID").Nullable();
     }
 }

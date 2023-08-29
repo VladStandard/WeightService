@@ -1,4 +1,5 @@
 using WsStorageCore.Tables.TableDirectModels;
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
 
 namespace WsStorageCore.Utils;
 
@@ -114,7 +115,7 @@ public static class WsDataFormatUtils
     /// <param name="area"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static string PrintCmdReplaceArea(WsSqlProductionFacilityModel? area, string value)
+    public static string PrintCmdReplaceArea(WsSqlProductionSiteModel? area, string value)
     {
         string result = value;
         if (string.IsNullOrEmpty(result))

@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace WsStorageCore.Tables.TableScaleModels.Scales;
 
 public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>

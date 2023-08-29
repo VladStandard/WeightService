@@ -46,19 +46,19 @@ public static class WsSqlTablesUtils
     public static string PlusStorageMethodsFks => "PLUS_STORAGE_METHODS_FK";
     public static string PlusTemplatesFks => "PLUS_TEMPLATES_FK";
     public static string PlusWeightings => "PLUS_WEIGHINGS";
-    public static string Printers => "ZebraPrinter";
-    public static string PrintersResourcesFks => "ZebraPrinterResourceRef";
-    public static string PrintersTypes => "ZebraPrinterType";
-    public static string ProductionFacilities => "ProductionFacility";
-    public static string ProductSeries => "ProductSeries";
-    public static string Scales => "Scales";
+    public static string ProductionSites => "PRODUCTION_SITES";
     public static string ScalesScreenshots => "SCALES_SCREENSHOTS";
     public static string Tasks => "TASKS";
     public static string TasksTypes => "TASKS_TYPES";
     public static string Templates => "Templates";
     public static string TemplatesResources => "TEMPLATES_RESOURCES";
     public static string Versions => "VERSIONS";
-    public static string WorkShops => "WorkShop";
-
+    public static string WorkShops => "WORKSHOPS";
+    public static string ProductSeries => "ProductSeries";
+    public static string Printers => "ZebraPrinter";
+    public static string PrintersResourcesFks => "ZebraPrinterResourceRef";
+    public static string PrintersTypes => "ZebraPrinterType";
+    public static string Scales => "Scales";
+    
     #endregion
 }

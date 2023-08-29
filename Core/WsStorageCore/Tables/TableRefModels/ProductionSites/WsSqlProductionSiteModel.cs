@@ -1,31 +1,27 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// ReSharper disable MissingXmlDoc
-
-namespace WsStorageCore.Tables.TableScaleModels.ProductionFacilities;
+namespace WsStorageCore.Tables.TableRefModels.ProductionSites;
 
 /// <summary>
-/// Table "ProductionFacility".
+/// Table "ProductionSite".
 /// </summary>
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlProductionFacilityModel : WsSqlTableBase
+public class WsSqlProductionSiteModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     [XmlElement] public virtual string Address { get; set; }
     
-    public WsSqlProductionFacilityModel() : base(WsSqlEnumFieldIdentity.Id)
+    public WsSqlProductionSiteModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Address = string.Empty;
     }
     
-    protected WsSqlProductionFacilityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected WsSqlProductionSiteModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Address = info.GetString(nameof(Address));
     }
 
-    public WsSqlProductionFacilityModel(WsSqlProductionFacilityModel item) : base(item)
+    public WsSqlProductionSiteModel(WsSqlProductionSiteModel item) : base(item)
     {
         Address = item.Address;
     }
@@ -41,7 +37,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((WsSqlProductionFacilityModel)obj);
+        return Equals((WsSqlProductionSiteModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -72,7 +68,7 @@ public class WsSqlProductionFacilityModel : WsSqlTableBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(WsSqlProductionFacilityModel item) =>
+    public virtual bool Equals(WsSqlProductionSiteModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Address, item.Address);
 

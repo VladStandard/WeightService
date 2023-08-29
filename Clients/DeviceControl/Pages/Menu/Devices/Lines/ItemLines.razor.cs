@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
 public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>

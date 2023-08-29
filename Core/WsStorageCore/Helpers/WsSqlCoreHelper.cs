@@ -3,6 +3,8 @@
 // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
 // https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
 
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace WsStorageCore.Helpers;
 
 public sealed class WsSqlCoreHelper
@@ -151,7 +153,7 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterResourceFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionFacilityMap>());
+        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionSiteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductSeriesMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleScreenShotMap>());
@@ -878,7 +880,7 @@ public sealed class WsSqlCoreHelper
                 task.Scale = GetItemByIdentity<WsSqlScaleModel>(task.Scale.Identity);
                 break;
             case WsSqlWorkShopModel workshop:
-                workshop.ProductionFacility = GetItemByIdentity<WsSqlProductionFacilityModel>(workshop.ProductionFacility.Identity);
+                workshop.ProductionSite = GetItemByIdentity<WsSqlProductionSiteModel>(workshop.ProductionSite.Identity);
                 break;
             case WsSqlPlu1CFkModel plu1CFk:
                 plu1CFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1CFk.Plu.Identity);

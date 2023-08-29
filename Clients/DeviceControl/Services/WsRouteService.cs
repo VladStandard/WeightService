@@ -1,3 +1,5 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace DeviceControl.Services;
 
 public class WsRouteService
@@ -61,7 +63,7 @@ public class WsRouteService
             WsSqlPluWeighingModel => WsRouteUtils.SectionPlusWeightings,
             WsSqlPrinterModel => WsRouteUtils.SectionPrinters,
             WsSqlPrinterTypeModel => WsRouteUtils.SectionPrinterTypes,
-            WsSqlProductionFacilityModel => WsRouteUtils.SectionProductionFacilities,
+            WsSqlProductionSiteModel => WsRouteUtils.SectionProductionFacilities,
             WsSqlScaleModel => WsRouteUtils.SectionLines,
             WsSqlScaleScreenShotModel => WsRouteUtils.SectionScalesScreenShots,
             WsSqlTemplateModel => WsRouteUtils.SectionTemplates,

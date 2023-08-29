@@ -139,9 +139,9 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsLines(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сессии пользователя.
-        LinesUserControl.ViewModel.Areas = LabelSession.ContextCache.Areas;
+        LinesUserControl.ViewModel.ProductionSites = LabelSession.ContextCache.Areas;
         LinesUserControl.ViewModel.Lines = LabelSession.ContextCache.Lines;
-        LinesUserControl.ViewModel.Area = LabelSession.Area;
+        LinesUserControl.ViewModel.ProductionSite = LabelSession.Area;
         LinesUserControl.ViewModel.Line = LabelSession.Line;
 
         LinesUserControl.ViewModel.UpdateCommandsFromActions();

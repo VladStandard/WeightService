@@ -1,5 +1,7 @@
 using WsDataCore.Enums;
 using WsLocalizationCore.Utils;
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
@@ -378,7 +380,7 @@ public sealed class DataCoreHelper
 			case WsSqlPrinterTypeModel printerType:
 				printerType.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
 				break;
-			case WsSqlProductionFacilityModel productionFacility:
+			case WsSqlProductionSiteModel productionFacility:
 				productionFacility.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
 				productionFacility.Address.Returns(WsLocaleCore.Sql.SqlItemFieldAddress);
 				break;
@@ -418,7 +420,7 @@ public sealed class DataCoreHelper
 				break;
 			case WsSqlWorkShopModel workShop:
 				workShop.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
-				workShop.ProductionFacility = CreateNewSubstitute<WsSqlProductionFacilityModel>(isNotDefault);
+				workShop.ProductionSite = CreateNewSubstitute<WsSqlProductionSiteModel>(isNotDefault);
 				break;
 		}
 		return item;

@@ -1,12 +1,12 @@
 @page "/section/workshops/new"
-@page "/section/workshops/{Id:long}"
+@page "/section/workshops/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.WorkShops
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.WorkShops.WsSqlWorkShopModel>
+@using WsStorageCore.Tables.TableRefModels.WorkShops
+@inherits ItemBase<WsStorageCore.Tables.TableRefModels.WorkShops.WsSqlWorkShopModel>
 
 <ItemTopBar TItem="@WsSqlWorkShopModel" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
@@ -24,10 +24,10 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.ProductionFacility)" Text="@WsLocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.ProductionSite)" Text="@WsLocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.ProductionFacility" Data="@ProductionFacilityModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.ProductionSite" Data="@ProductionSiteModels" TextProperty="DisplayName"/>
     </td>
     <td/>
     <td/>

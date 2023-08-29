@@ -33,17 +33,17 @@ public partial class WsXamlLinesPage
         {
             // Площадки.
             comboBoxArea.SetBinding(ItemsControl.ItemsSourceProperty,
-                new Binding(nameof(viewModel.Areas)) { Mode = BindingMode.OneWay, Source = viewModel });
+                new Binding(nameof(viewModel.ProductionSites)) { Mode = BindingMode.OneWay, Source = viewModel });
             comboBoxArea.SetBinding(Selector.SelectedItemProperty,
-                new Binding(nameof(viewModel.Area)) { Mode = BindingMode.TwoWay, Source = viewModel });
+                new Binding(nameof(viewModel.ProductionSite)) { Mode = BindingMode.TwoWay, Source = viewModel });
             comboBoxArea.SetBinding(Selector.SelectedValueProperty,
-                new Binding(nameof(viewModel.Area.Name))
+                new Binding(nameof(viewModel.ProductionSite.Name))
                 {
                     Mode = BindingMode.OneWay,
-                    Source = viewModel.Area
+                    Source = viewModel.ProductionSite
                 });
-            comboBoxArea.DisplayMemberPath = nameof(viewModel.Area.Name);
-            comboBoxArea.SelectedValuePath = nameof(viewModel.Area.Name);
+            comboBoxArea.DisplayMemberPath = nameof(viewModel.ProductionSite.Name);
+            comboBoxArea.SelectedValuePath = nameof(viewModel.ProductionSite.Name);
             labelArea.SetBinding(ContentProperty,
                 new Binding(nameof(WsLocaleCore.Table.Area)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
 

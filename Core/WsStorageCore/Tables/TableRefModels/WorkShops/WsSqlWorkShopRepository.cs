@@ -1,10 +1,8 @@
-namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
+namespace WsStorageCore.Tables.TableRefModels.WorkShops;
 
 public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWorkShopModel>
 {
     #region Public and private methods
-
-    public WsSqlWorkShopModel GetItemById(long id) => SqlCore.GetItemById<WsSqlWorkShopModel>(id);
 
     public WsSqlWorkShopModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlWorkShopModel>();
 

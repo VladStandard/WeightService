@@ -1,3 +1,4 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 
@@ -320,7 +321,7 @@ public sealed class WsPrintSessionHelper
 
         pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
         
-        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionFacilityModel>(LabelSession.Area, true, true);
+        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionSiteModel>(LabelSession.Area, true, true);
         pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
 
         WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 

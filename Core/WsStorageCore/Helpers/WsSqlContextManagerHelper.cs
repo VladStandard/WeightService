@@ -1,3 +1,4 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 
 namespace WsStorageCore.Helpers;
@@ -26,7 +27,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
     public WsSqlAppRepository AppRepository { get; } = new();
-    public WsSqlAreaRepository AreaRepository { get; } = new();
+    public WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
     public WsSqlBoxRepository BoxRepository { get; } = new();
     public WsSqlBrandRepository BrandRepository { get; } = new();
     public WsSqlBundleRepository BundleRepository { get; } = new();

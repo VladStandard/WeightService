@@ -1,13 +1,13 @@
 @page "/section/production_facilities/new"
-@page "/section/production_facilities/{Id:long}"
+@page "/section/production_facilities/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.ProductionFacilities
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.ProductionFacilities.WsSqlProductionFacilityModel>
+@using WsStorageCore.Tables.TableRefModels.ProductionSites
+@inherits ItemBase<WsStorageCore.Tables.TableRefModels.ProductionSites.WsSqlProductionSiteModel>
 
-<ItemTopBar TItem="@WsSqlProductionFacilityModel" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlProductionSiteModel" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

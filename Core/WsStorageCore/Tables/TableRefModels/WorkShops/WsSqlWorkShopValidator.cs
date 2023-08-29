@@ -1,4 +1,6 @@
-namespace WsStorageCore.Tables.TableScaleModels.WorkShops;
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+
+namespace WsStorageCore.Tables.TableRefModels.WorkShops;
 
 public sealed class WsSqlWorkShopValidator : WsSqlTableValidator<WsSqlWorkShopModel>
 {
@@ -6,10 +8,11 @@ public sealed class WsSqlWorkShopValidator : WsSqlTableValidator<WsSqlWorkShopMo
     {
         RuleFor(item => item.Name)
             .NotEmpty()
+            .MaximumLength(128)
             .NotNull();
-        RuleFor(item => item.ProductionFacility)
+        RuleFor(item => item.ProductionSite)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlProductionFacilityValidator(isCheckIdentity));
+            .SetValidator(new WsSqlProductionSiteValidator(isCheckIdentity));
     }
 }

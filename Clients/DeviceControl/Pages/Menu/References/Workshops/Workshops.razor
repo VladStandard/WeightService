@@ -3,8 +3,8 @@
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.WorkShops
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.WorkShops.WsSqlWorkShopModel>
+@using WsStorageCore.Tables.TableRefModels.WorkShops
+@inherits SectionBase<WsStorageCore.Tables.TableRefModels.WorkShops.WsSqlWorkShopModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionWorkShops"
@@ -27,7 +27,7 @@
     <TItemContent TItem="@WsSqlWorkShopModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="40%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductionFacility" Property="ProductionFacility.Name" Width="40%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductionFacility" Property="ProductionSite.Name" Width="40%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

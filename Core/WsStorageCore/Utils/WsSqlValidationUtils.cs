@@ -1,3 +1,6 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace WsStorageCore.Utils;
 
 public class WsSqlValidationUtils
@@ -55,7 +58,7 @@ public class WsSqlValidationUtils
             var cls when cls == typeof(WsSqlPrinterModel) => new WsSqlPrinterValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlPrinterResourceFkModel) => new WsSqlPrinterResourceFkValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlPrinterTypeModel) => new WsSqlPrinterTypeValidator(isCheckIdentity),
-            var cls when cls == typeof(WsSqlProductionFacilityModel) => new WsSqlProductionFacilityValidator(isCheckIdentity),
+            var cls when cls == typeof(WsSqlProductionSiteModel) => new WsSqlProductionSiteValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlProductSeriesModel) => new WsSqlProductSeriesValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlScaleModel) => new WsSqlScaleValidator(isCheckIdentity),
             var cls when cls == typeof(WsSqlTaskModel) => new WsSqlTaskValidator(isCheckIdentity),
@@ -112,7 +115,7 @@ public class WsSqlValidationUtils
             WsSqlPrinterModel printer => new WsSqlPrinterValidator(isCheckIdentity).Validate(printer),
             WsSqlPrinterResourceFkModel printerResource => new WsSqlPrinterResourceFkValidator(isCheckIdentity).Validate(printerResource),
             WsSqlPrinterTypeModel printerType => new WsSqlPrinterTypeValidator(isCheckIdentity).Validate(printerType),
-            WsSqlProductionFacilityModel productionFacility => new WsSqlProductionFacilityValidator(isCheckIdentity).Validate(productionFacility),
+            WsSqlProductionSiteModel productionFacility => new WsSqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
             WsSqlProductSeriesModel productSeries => new WsSqlProductSeriesValidator(isCheckIdentity).Validate(productSeries),
             WsSqlScaleModel scale => new WsSqlScaleValidator(isCheckIdentity).Validate(scale),
             WsSqlScaleScreenShotModel scaleScreenShot => new WsSqlScaleScreenShotValidator(isCheckIdentity).Validate(scaleScreenShot),

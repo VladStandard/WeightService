@@ -1,16 +1,18 @@
+using WsStorageCore.Tables.TableRefModels.ProductionSites;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
 public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlAreaRepository AreaRepository { get; set; } = new();
+    private WsSqlProductionSiteRepository ProductionSiteRepository { get; set; } = new();
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlProductionFacilityModel> items = AreaRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlProductionSiteModel> items = ProductionSiteRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
