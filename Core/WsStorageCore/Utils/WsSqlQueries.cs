@@ -4,8 +4,7 @@ public static class WsSqlQueries
 {
     #region Public and private methods
 
-    public static string GetTopRecords(int topRecords) =>
-            topRecords == 0 ? string.Empty : $"TOP {topRecords}";
+    public static string GetTopRecords(int topRecords) => topRecords == 0 ? string.Empty : $"TOP {topRecords}";
 
     public static string GetWhereAppDeviceName(string appName, string deviceName)
     {
@@ -63,25 +62,6 @@ public static class WsSqlQueries
             _ => string.Empty
         };
     
-    public static string GetWhereIsMarked(WsSqlEnumIsMarked isMarked, string alias) => isMarked switch
-        {
-            WsSqlEnumIsMarked.ShowOnlyActual => $"WHERE {alias}.[IS_MARKED]=0",
-            WsSqlEnumIsMarked.ShowOnlyHide => $"WHERE {alias}.[IS_MARKED]=1",
-            _ => string.Empty
-        };
-    
-    public static string GetWhereIsMarkedAndNumber(WsSqlEnumIsMarked isMarked, string aliasLog, string aliasLogType,
-        Guid logTypeUid) => isMarked switch
-        {
-            WsSqlEnumIsMarked.ShowAll => logTypeUid != Guid.Empty
-                ? $"WHERE {aliasLogType}.[UID]='{logTypeUid}'" : string.Empty,
-            WsSqlEnumIsMarked.ShowOnlyActual => logTypeUid != Guid.Empty
-                ? $"WHERE {aliasLog}.[IS_MARKED]=0 AND {aliasLogType}.[UID]='{logTypeUid}'" : $"WHERE {aliasLog}.[IS_MARKED]=0",
-            WsSqlEnumIsMarked.ShowOnlyHide => logTypeUid != Guid.Empty
-                ? $"WHERE {aliasLog}.[IS_MARKED]=0 AND {aliasLogType}.[UID]='{logTypeUid}'" : $"WHERE {aliasLog}.[IS_MARKED]=1",
-            _ => string.Empty
-        };
-
     public static string GetWhereScaleId(ushort scaleId) => scaleId > 0 ? $"WHERE [SCALE_ID]={scaleId}" : string.Empty;
 
     public static string GetWherePluNumber(ushort pluNumber) => pluNumber > 0 ? $"WHERE [PLU_NUMBER]={pluNumber}" : string.Empty;

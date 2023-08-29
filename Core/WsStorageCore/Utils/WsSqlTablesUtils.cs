@@ -21,16 +21,11 @@ public static class WsSqlTablesUtils
     public static string DeviceSettingsFks => "DEVICES_SETTINGS_FK";
     public static string DevicesTypes => "DEVICES_TYPES";
     public static string DevicesTypesFks => "DEVICES_TYPES_FK";
-    public static string Hosts => "Hosts";
-    public static string Labels => "Labels";
     public static string Logs => "LOGS";
     public static string LogsMemories => "LOGS_MEMORIES";
     public static string LogsTypes => "LOG_TYPES";
     public static string LogsWebs => "LOGS_WEB_SERVICES";
     public static string LogWebFks => "LOGS_WEB_SERVICES_FK";
-    public static string NestingFks => "NESTING_FK";
-    public static string Nomenclatures => "NOMENCLATURES";
-    public static string NomenclaturesDeprecated => "Nomenclature";
     public static string Orders => "ORDERS";
     public static string OrdersWeighings => "ORDERS_WEIGHINGS";
     public static string Organizations => "ORGANIZATIONS";
@@ -63,7 +58,6 @@ public static class WsSqlTablesUtils
     public static string Templates => "Templates";
     public static string TemplatesResources => "TEMPLATES_RESOURCES";
     public static string Versions => "VERSIONS";
-    public static string WeightingFacts => "WeithingFact";
     public static string WorkShops => "WorkShop";
 
     #endregion
