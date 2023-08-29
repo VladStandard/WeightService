@@ -248,6 +248,8 @@ public sealed class WsLocaleTable : WsLocalizationBase
     public string Zpl => Lang == WsEnumLanguage.English ? "ZPL" : "ЗПЛ";
     public string СurrentMemory => Lang == WsEnumLanguage.English ? "Current ram mb" : "Текущая озу мб";
     public string MaxMemory => Lang == WsEnumLanguage.English ? "Максимальная ram mb" : "Максимальная озу мб";
+    public string WithoutWeightCount => Lang == WsEnumLanguage.English ? "Count" : "Кол-во шт";
+    public string WeightCount => Lang == WsEnumLanguage.English ? "Count" : "Кол-во вес";
     
     #endregion
 }

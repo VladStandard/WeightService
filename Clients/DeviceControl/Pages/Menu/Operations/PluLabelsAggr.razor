@@ -1,0 +1,39 @@
+@page "/section/plus_labels_aggr"
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@using WsDataCore.Utils
+@using DeviceControl.Components.Rz
+@using DeviceControl.Utils
+@using WsStorageCore.Views.ViewPrintModels.PluLabelAggr
+@inherits ComponentBase
+
+<MudPaper Outlined="true" Class="mb-2">
+  <MudToolBar Dense="true">
+    <RadzenLabel Style="font-size: 15px;" Text="@WsLocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
+    <RadzenButton
+      Icon="refresh"
+      ButtonStyle="@ButtonStyle.Primary"
+      Style="margin-left: 20px; width: 60px;"
+      Size="@ButtonSize.Small"
+      Click="@GetSectionData"/>
+    <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text="@SqlListCountResult"/>
+    <RadzenLabel Style="margin-left: 20px; font-size: 13px; " Text="@GetAverageCountResult"/>
+  </MudToolBar>
+</MudPaper>
+
+<RzDataGrid
+  TItem="@WsSqlViewPluLabelAggrModel"
+  Data="@PluWeightAggrs">
+  <Columns>
+    <TItemContent TItem="@WsSqlViewPluLabelAggrModel">
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@WsStrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn TItem="@WsSqlViewPluLabelAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="CreateDt.DayOfWeek" Width="15%">
+        <Template Context="itemCast">
+          @GetDayOfWeekRu(itemCast.CreateDt.DayOfWeek)
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WithoutWeightCount" Property="WithoutWeightCount" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeightCount" Property="WeightCount" Width="15%"/>
+      <RadzenDataGridColumn Title="Всего" Property="TotalCount" Width="15%" />
+    </TItemContent>
+  </Columns>
+</RzDataGrid>

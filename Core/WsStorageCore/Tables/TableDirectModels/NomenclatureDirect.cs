@@ -70,7 +70,7 @@ public sealed class NomenclatureDirect : WsSqlSerializeBase
                     Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                     Name = SqlConnect.GetValueAsString(reader, "Name");
                     CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                    ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt");
+                    ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDt");
                     RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                     Code = SqlConnect.GetValueAsString(reader, "Code");
                     IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
@@ -155,7 +155,7 @@ SELECT @ID as ID";
 				        Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
 				        Name = SqlConnect.GetValueAsString(reader, "Name"),
 				        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-				        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
+				        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDt"),
 				        RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
 				        Code = SqlConnect.GetValueAsString(reader, "Code"),
 				        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),

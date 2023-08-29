@@ -134,8 +134,8 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionTemplateResources => Lang == WsEnumLanguage.English ? "Template resources" : "Ресурсы шаблонов";
     public string SectionTemplates => Lang == WsEnumLanguage.English ? "Templates" : "Шаблоны";
     public string SectionWeighings => Lang == WsEnumLanguage.English ? "Weighings" : "Взвешивания";
-    public string SectionWeithingFactsAggregation => Lang == WsEnumLanguage.English ? "Aggregation weithings" : "Агрегированные взвешивания";
-    public string SectionWeithingFactsAggregationShort => Lang == WsEnumLanguage.English ? "Aggr. weithings" : "Агр. взвешивания";
+    public string SectionWeithingFactsAggregation => Lang == WsEnumLanguage.English ? "Aggregation weithings" : "Агрегированные этикетки";
+    public string SectionWeithingFactsAggregationShort => Lang == WsEnumLanguage.English ? "Aggr. weithings" : "Агр. этикетки";
     public string SectionWeithingFactsAggregationWithoutPlu => Lang == WsEnumLanguage.English ? "Aggregation weithings without PLU" : "Агрегированные взвешивания без ПЛУ";
     public string SectionWeithingFactsAggregationWithPLU => Lang == WsEnumLanguage.English ? "Aggregation weithings with PLU" : "Агрегированные взвешивания с ПЛУ";
     public string SectionWorkShops => Lang == WsEnumLanguage.English ? "Workshops" : "Цеха";

@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Tables\TableDiagModels\LogsMemories\" />
+    <Folder Include="Views\ViewPrintModels\" />
   </ItemGroup>
 
 </Project>

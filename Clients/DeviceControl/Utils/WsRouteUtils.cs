@@ -27,7 +27,7 @@ public static class WsRouteUtils
     public static string SectionPlusNestingFks => "/section/plus_nesting";
     public static string SectionPlusBundlesFks => "/section/plus_bundles";
     public static string SectionPlusWeightings => "/section/plus_weightings";
-    public static string SectionPlusWeightingsAggr => "/section/plus_weightings_aggr";
+    public static string SectionPlusLabelsAggr => "/section/plus_labels_aggr";
 
     #endregion
 

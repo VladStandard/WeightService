@@ -423,15 +423,14 @@ FROM [db_scales].[VIEW_DEVICES]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [NAME] ASC");
 
-        public static string GetWeightingsAggr(int records) => WsSqlQueries.TrimQuery($@"
+        public static string GetLabelsAggr(int records) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}
-		 [CHANGE_DT]
-		,[COUNT]
-		,[LINE]
-        ,[PLU_NAME]
-        ,[PLU_NUMBER]
-FROM [db_scales].[VIEW_AGGR_WEIGHTINGS]
-ORDER BY [CHANGE_DT] DESC;");
+		 [CREATE_DT]
+		,[WITHOUT_WEIGHT_COUNT]
+		,[WEIGHT_COUNT]
+		,[COUNT_TOTAL]
+FROM [PRINT].[VIEW_PLUS_LABELS_AGGR]
+ORDER BY [CREATE_DT] DESC;");
     }
 }

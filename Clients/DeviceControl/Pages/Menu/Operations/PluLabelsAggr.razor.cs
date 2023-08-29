@@ -1,17 +1,23 @@
-using WsStorageCore.Views.ViewScaleModels.Aggregations;
+using WsStorageCore.Views.ViewPrintModels.PluLabelAggr;
 
 namespace DeviceControl.Pages.Menu.Operations;
 
-public sealed partial class PluWeightingsAggr : ComponentBase
+public sealed partial class PluLabelsAggr : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewWeightingAggrRepository WeightingAggrRepository { get; } = new();
-    private bool IsShowPlu { get; set; }
+    private WsSqlViewPluLabelAggrRepository PluLabelAggrRepository { get; } = new();
     private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
-    private List<WsSqlViewWeightingAggrModel> PluWeightAggrs { get; set; }
-
-    public PluWeightingsAggr()
+    private string GetAverageCountResult => $"Средняя производительность: {GetAverageCount():### ### ###}";
+    private List<WsSqlViewPluLabelAggrModel> PluWeightAggrs { get; set; }
+    
+    private int GetAverageCount()
+    {
+        if (PluWeightAggrs.Count == 0) return 0;
+        return PluWeightAggrs.Sum(item => item.TotalCount) / PluWeightAggrs.Count;
+    } 
+    
+    public PluLabelsAggr()
     {
         PluWeightAggrs = new();
     }
@@ -32,7 +38,7 @@ public sealed partial class PluWeightingsAggr : ComponentBase
 
     private void GetSectionData()
     {
-        PluWeightAggrs = WeightingAggrRepository.GetList(new());
+        PluWeightAggrs = PluLabelAggrRepository.GetList(new());
         StateHasChanged();
     }
     
