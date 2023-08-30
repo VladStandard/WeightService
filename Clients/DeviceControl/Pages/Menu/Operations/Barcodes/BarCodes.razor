@@ -24,11 +24,16 @@
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync">
+  RowDoubleClick="@SqlItemOpenAsync"
+  AllowFiltering="true"
+  FilterMode="FilterMode.Simple"
+  LogicalFilterOperator="@LogicalFilterOperator.And"
+  >
   <Columns>
     <TItemContent TItem="@WsSqlViewBarcodeModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" FormatString="@WsStrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" Filterable="false"
+                            FormatString="@WsStrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ValueRight" Property="ValueRight" Width="15%"/>

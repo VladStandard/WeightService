@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
@@ -63,6 +61,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string BarCodeEan13 { get => PluScale.Plu.Ean13; set => _ = value; }
     [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin.Length switch { 13 => WsSqlBarCodeController.Instance.GetGtinWithCheckDigit(PluScale.Plu.Gtin[..13]), 14 => PluScale.Plu.Gtin, _ => "ERROR" }; set => _ = value; }
     [XmlElement] public virtual string BarCodeItf14 { get => PluScale.Plu.Itf14; set => _ = value; }
+    
     /// <summary>
     /// Верхний ШК для шаблонов.
     /// TSC 60X150 ВЕС ШАПКА СПРАВА | TSC 60X150 ШТ ШАПКА СПРАВА | TSC 60X150 ВЕС ШАПКА СЛЕВА | TSC 60X150 ШТ ШАПКА СЛЕВА
@@ -80,9 +79,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Вес [5 симв]:       PluWeighingKg2 PluWeighingGr3
         Замес [3 симв]:     PluWeighingKneading
         */
-        get => $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
+        get => PluWeighing.IsNotNew ? $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}" :
+            $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
+    
     /// <summary>
     /// Верхний ШК для шаблонов с кодом 230.
     /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
@@ -104,6 +105,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         get => $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
+    
     /// <summary>
     /// Правый ШК для шаблонов.
     /// TSC 60X150 ВЕС ШАПКА СПРАВА | TSC 60X150 ШТ ШАПКА СПРАВА | TSC 60X150 ВЕС ШАПКА СЛЕВА | TSC 60X150 ШТ ШАПКА СЛЕВА
@@ -116,9 +118,10 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Номер АРМ [5 симв]: ScaleNumber
         Счётчик [8 симв]:   ScaleCounter8
         */
-        get => $"299{ScaleNumber}{ScaleCounter8}";
+        get => PluWeighing.IsNotNew ? $"299{ScaleNumber}{ScaleCounter8}" : $"234{ScaleNumber}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
+    
     /// <summary>
     /// Правый ШК для шаблонов с кодом 230.
     /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
@@ -136,6 +139,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         get => $"234{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
+    
     /// <summary>
     /// Правый ШК для шаблонов с кодом 234.
     /// TSC 60X150 ВЕС ШАПКА СПРАВА КОД 230 | TSC 60X150 ШТ ШАПКА СПРАВА КОД 230
@@ -152,6 +156,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         get => $"234{ScaleNumber}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
+    
     [XmlElement]
     public virtual string BarCodeBottom
     {
@@ -165,9 +170,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Константа [2 симв]:     10
         Номер партии [4 симв]:  LotNumberFormat
         */
-        get => $"01{BarCodeGtin14}3103{PluWeighingKg3}{PluWeighingGr3}11{ProductDateBarCodeFormat}10{LotNumberFormat}";
+        get => PluWeighing.IsNotNew ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}" 
+            : $"(01){BarCodeGtin14}(37){ViewPluNesting.BundleCount.ToString().PadLeft(8, '0')}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}";
         set => _ = value;
     }
+    
     [XmlElement]
     public virtual string BarCodeBottomString
     {
@@ -181,8 +188,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Константа [4 симв]:     (10)
         Номер партии [4 симв]:  LotNumberFormat
         */
-        get => $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}";
-
+        get => PluWeighing.IsNotNew ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}"
+            : $"(01){BarCodeGtin14}(37){ViewPluNesting.BundleCount.ToString().PadLeft(8, '0')}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}";
         set => _ = value;
     }
 

@@ -126,7 +126,7 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
     public void SetBarCodeBottom(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeBottom = TypeBarCodeGs128;
-        barCode.ValueBottom = pluLabelContext.BarCodeBottom;
+        barCode.ValueBottom = pluLabelContext.BarCodeBottomString;
     }
 
     //private string SetBarCodeInside(PluLabelModel pluLabel, PluLabelContextModel pluLabelContext, string template)
