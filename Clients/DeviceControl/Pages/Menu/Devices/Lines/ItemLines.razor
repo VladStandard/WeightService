@@ -81,4 +81,8 @@
   OnItemSave="@SqlItemSaveAsync"
   OnItemCancel="@RedirectBackAsync"/>
 
-<PlusLines Scale="@SqlItemCast"/>
+@if (SqlItemCast.IsNotNew)
+{
+  <PlusLines Scale="@SqlItemCast"/>
+}
+

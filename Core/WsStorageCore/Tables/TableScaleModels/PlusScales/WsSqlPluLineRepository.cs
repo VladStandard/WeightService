@@ -16,7 +16,15 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
             item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
         return SqlCore.GetItemByUid<WsSqlPluScaleModel>(viewPluScale.Identity.Uid);
     }
-
+    
+    public WsSqlPluScaleModel GetItemByLinePlu(WsSqlScaleModel line, WsSqlPluModel plu)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Line), line);
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Plu), plu);
+        return SqlCore.GetItemByCrud<WsSqlPluScaleModel>(sqlCrudConfig);
+    }
+    
     public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<WsSqlPluScaleModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);

@@ -6,13 +6,12 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 
     private WsSqlPluLineRepository PluLineRepository { get; } = new();
     [Parameter] public WsSqlScaleModel Scale { get; set; }
-    private bool HideNoneActivePlu { get; set; }
 
     public PlusLines() : base()
     {
-        HideNoneActivePlu = true;
+        ButtonSettings.IsShowMark = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings.IsShowSave = true;
+        SqlCrudConfigSection.AddFilter(new() {Name=nameof(WsSqlPluScaleModel.IsActive), Value = true});
     }
 
     #endregion
@@ -21,18 +20,30 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
 
     protected override void SetSqlSectionCast()
     {
-        // TODO: to repos
-        if (!HideNoneActivePlu)
-            SqlCrudConfigSection.ClearFilters();
-        else
-            SqlCrudConfigSection.AddFilter(
-                    new()
-                    {
-                        Name = nameof(WsSqlPluScaleModel.IsActive),
-                        Value = true
-                    }
-                );
         SqlSectionCast = PluLineRepository.GetListByLine(Scale, SqlCrudConfigSection);
+    }
+
+    protected override async Task SqlItemNewAsync()
+    {
+        await DialogService.OpenAsync<AddPlusLines>($"{Scale.Description} | ПЛУ", 
+        new(){ {"Line", Scale} }, 
+        new() { Width = "1000px", Height = "700px"});
+    }
+    protected override async Task SqlItemDeleteAsync()
+    {
+        SqlItemCast.IsActive = false;
+        await base.SqlItemDeleteAsync();
+    }
+
+    protected override async Task SqlItemOpenAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        RouteService.NavigateItemRoute(SqlItemCast.Plu);
+    }
+
+    protected override async Task SqlItemOpenNewTabAsync()
+    {
+        await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast.Plu), "_blank");
     }
 
     #endregion

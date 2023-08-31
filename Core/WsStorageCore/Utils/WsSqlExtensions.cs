@@ -34,6 +34,7 @@ public static class WsSqlExtensions
                 WsSqlEnumFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
                 WsSqlEnumFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
                 WsSqlEnumFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
+                WsSqlEnumFieldComparer.NotIn => Restrictions.Not(Restrictions.In(filter.Name, filter.Values)),
                 _ => throw new ArgumentOutOfRangeException(nameof(filter.Comparer), filter.Comparer.ToString())
             });
         }

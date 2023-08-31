@@ -11,6 +11,7 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
     
     protected override void SetSqlSectionCast()
     {
+        SqlCrudConfigSection.AddFilter(new() {Name = nameof(WsSqlPluModel.IsGroup), Comparer = WsSqlEnumFieldComparer.Equal, Value = false});
         SqlSectionCast = new WsSqlPluRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 

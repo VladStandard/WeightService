@@ -9,4 +9,5 @@ public enum WsSqlEnumFieldComparer
     MoreOrEqual,
     LessOrEqual,
     In,
+    NotIn,
 }

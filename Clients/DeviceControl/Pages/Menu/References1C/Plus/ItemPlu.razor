@@ -43,11 +43,11 @@
     <td>@WsLocaleCore.Table.Ean13</td>
     <td><RzTextBox @bind-Value="@SqlItemCast.Ean13"/></td>
     <td>@WsLocaleCore.Table.Gtin</td>
-    <td><RzTextBox @bind-Value="@SqlItemCast.Gtin"/></td>
+    <td>@SqlItemCast.Gtin"</td>
   </tr>
   <tr>
     <td>@WsLocaleCore.Table.Itf14</td>
-    <td><RzTextBox @bind-Value="@SqlItemCast.Itf14"/></td>
+    <td>@SqlItemCast.Itf14</td>
     <td>@WsLocaleCore.Table.ShelfLifeDays</td>
     <td>@SqlItemCast.ShelfLifeDays</td>
   </tr>
@@ -60,8 +60,6 @@
     <td>
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
     </td>
-    <td/>
-    <td/>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>

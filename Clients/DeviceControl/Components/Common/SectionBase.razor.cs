@@ -172,7 +172,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected async Task SqlItemDeleteAsync()
+    protected virtual async Task SqlItemDeleteAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -186,7 +186,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected async Task SqlItemMarkAsync()
+    protected virtual async Task SqlItemMarkAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null) return;
@@ -199,7 +199,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected async Task SqlItemNewAsync()
+    protected virtual async Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RunActionsWithQuestion(WsLocaleCore.Table.TableNew, WsLocaleCore.Dialog.DialogQuestion, () =>
@@ -210,14 +210,14 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     }
 
     [Authorize(Roles = WsUserAccessStr.Read)]
-    protected async Task SqlItemOpenAsync()
+    protected virtual async Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateItemRoute(SqlItemCast);
     }
 
     [Authorize(Roles = WsUserAccessStr.Read)]
-    private async Task SqlItemOpenNewTabAsync()
+    protected virtual async Task SqlItemOpenNewTabAsync()
     {
         await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast), "_blank");
     }
