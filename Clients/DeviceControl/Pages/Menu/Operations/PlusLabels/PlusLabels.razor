@@ -24,17 +24,20 @@
   IsLoading="@IsLoading"
   CellContextMenu="@OnCellContextMenu"
   RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync">
+  RowDoubleClick="@SqlItemOpenAsync"
+  AllowFiltering="true"
+  FilterMode="FilterMode.Simple"
+  LogicalFilterOperator="@LogicalFilterOperator.And">
   <Columns>
     <TItemContent TItem="@WsSqlViewPluLabelModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@WsStrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@WsStrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="PluNumber" Width="5%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="PluNumber" Width="5%" />
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="PluName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="PluType" Width="8%" />
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="PluType" Width="8%" Filterable="false" />
     </TItemContent>
   </Columns>
 </RzDataGrid>
