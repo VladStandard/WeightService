@@ -23,7 +23,7 @@ public static class WsServiceUtilsGetXml
     /// <param name="xml"></param>
     /// <returns></returns>
     public static List<WsXmlContentRecord<WsSqlPluModel>> GetXmlPluList(XElement xml) =>
-        WsServiceUtilsGetXmlContent.GetNodesListCore<WsSqlPluModel>(xml, WsLocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
+  WsServiceUtilsGetXmlContent.GetNodesListCore<WsSqlPluModel>(xml, WsLocaleCore.WebService.XmlItemNomenclature, (xmlNode, itemXml) =>
         {
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
@@ -37,6 +37,8 @@ public static class WsServiceUtilsGetXml
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.MeasurementType));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.GroupGuid));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.AttachmentsCount));
+            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Ean13));
+            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Itf14));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeGuid));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeName));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.BoxTypeWeight));
@@ -49,7 +51,6 @@ public static class WsServiceUtilsGetXml
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PluNumber");
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Description));
             WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ShelfLife");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Gtin));
         });
 
     /// <summary>

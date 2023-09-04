@@ -126,6 +126,7 @@ public static class WsServiceUtilsGetXmlContent
         }
     }
 
+    // TODO: fix ITF, EAN
     private static void SetItemPropertyFromXmlAttributeForPlu(XmlNode xmlNode, WsSqlPluModel pluXml, string xmlPropertyName)
     {
         switch (xmlPropertyName.ToUpper())
@@ -194,8 +195,11 @@ public static class WsServiceUtilsGetXmlContent
             case "ATTACHMENTSCOUNT":
                 pluXml.AttachmentsCount = GetXmlAttributeShort(xmlNode, pluXml, xmlPropertyName);
                 break;
-            case "GTIN":
-                pluXml.Gtin = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName, false);
+            case "ITF14":
+                pluXml.Itf14 = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName, false);
+                break;
+            case "EAN13":
+                pluXml.Ean13 = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
                 break;
         }
     }

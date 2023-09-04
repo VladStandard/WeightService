@@ -302,8 +302,8 @@ public class WsSqlPluModel : WsSqlTable1CBase
             Gtin = plu.Gtin;
         if (!string.IsNullOrEmpty(plu.Ean13))
             Ean13 = plu.Ean13;
-        if (!string.IsNullOrEmpty(plu.Itf14))
-            Itf14 = plu.Itf14;
+        
+        Itf14 = plu.Itf14;
         
         if (!Equals(plu.ParentGuid, Guid.Empty))
             ParentGuid = plu.ParentGuid;
@@ -330,6 +330,11 @@ public class WsSqlPluModel : WsSqlTable1CBase
         
         if (!IsGroup && plu.AttachmentsCount <= 0) throw new ArgumentException(nameof(AttachmentsCount));
         AttachmentsCount = plu.AttachmentsCount;
+    }
+
+    public virtual void UpdateGtin()
+    {
+        Gtin = IsCheckWeight ? "0" + Ean13 : Itf14;
     }
 
     #endregion

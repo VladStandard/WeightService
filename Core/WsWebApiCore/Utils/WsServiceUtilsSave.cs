@@ -52,6 +52,7 @@ public static class WsServiceUtilsSave
     {
         try
         {
+            pluXml.UpdateGtin();
             // Проверка на пустой Uid1C.
             if (Equals(pluXml.Uid1C, Guid.Empty))
             {
@@ -65,6 +66,7 @@ public static class WsServiceUtilsSave
             if (pluDb is not null)
             {
                 // Обновить найденную запись.
+                pluDb.UpdateProperties(pluXml);
                 WsServiceUtilsUpdate.UpdateItemDb(response, pluXml, pluDb);
                 return;
             }
@@ -74,6 +76,7 @@ public static class WsServiceUtilsSave
             if (pluDb is not null)
             {
                 // Обновить найденную запись.
+                pluDb.UpdateProperties(pluXml);
                 WsServiceUtilsUpdate.UpdateItemDb(response, pluXml, pluDb);
                 // Обновить кэш.
                 WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus);

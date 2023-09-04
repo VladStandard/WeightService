@@ -30,7 +30,7 @@ public sealed class WsServiceBrandsWrapper : WsServiceControllerBase
         DateTime requestStampDt = DateTime.Now;
         ContentResult result = WsServiceUtilsGet.GetAcceptVersion(version) switch
         {
-            // Новый ответ 1С - не найдено.
+            // РќРѕРІС‹Р№ РѕС‚РІРµС‚ 1РЎ - РЅРµ РЅР°Р№РґРµРЅРѕ.
             WsSqlEnumAcceptVersion.V2 => WsServiceUtilsGetXmlContent.GetContentResult(() => WsServiceUtilsResponse.NewResponse1CIsNotFound(
                     $"Version {version} {WsLocaleCore.WebService.IsNotFound}!", format, isDebug, SessionFactory), format),
             _ => WsServiceUtilsGetXmlContent.GetContentResult(() => BrandsController.NewResponseBrands(xml, format, isDebug, SessionFactory), format)
