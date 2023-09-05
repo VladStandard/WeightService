@@ -10,9 +10,11 @@ public sealed class WsSqlBrandValidator : WsSqlTableValidator<WsSqlBrandModel>
     {
         RuleFor(item => item.Name)
             .NotEmpty()
-            .NotNull();
+            .NotNull()
+            .MaximumLength(128);
         RuleFor(item => item.Code)
             .NotEmpty()
-            .NotNull();
+            .NotNull()
+            .Length(9);
     }
 }
