@@ -173,6 +173,10 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluNumber(short number) => 
         GetEnumerableByPluUid(ContextPlu.GetItemByNumber(number).IdentityValueUid);
     
+    public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUidActual(Guid? uid)
+    {
+        return GetEnumerableByPluUid(uid).Where(item => item.IsMarked == false);
+    }
     
     private static string GetQuery(bool isSetPluUid) => WsSqlQueries.TrimQuery(@$"
 -- PLUS_NESTING_FK SELECT AS OBJECTS

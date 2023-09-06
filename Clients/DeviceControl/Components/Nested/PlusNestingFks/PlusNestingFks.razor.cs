@@ -7,6 +7,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     public PlusNestingFks() : base()
     {
+        IsGuiShowFilterMarked = false;
         ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
     }
 
@@ -16,7 +17,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = PluNestingFkRepository.GetEnumerableByPluUid(SqlItem?.IdentityValueUid).ToList();
+        SqlSectionCast = PluNestingFkRepository.GetEnumerableByPluUidActual(SqlItem?.IdentityValueUid).ToList();
     }
 
     #endregion
