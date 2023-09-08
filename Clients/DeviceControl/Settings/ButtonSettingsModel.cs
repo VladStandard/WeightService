@@ -22,6 +22,7 @@ public class ButtonSettingsModel
     #endregion
 
     #region Public and private methods
+    
     public static ButtonSettingsModel CreateForItem() =>
         new(false, false, false, true, true);
 
