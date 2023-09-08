@@ -23,5 +23,6 @@ public sealed class WsSqlPluMap : ClassMap<WsSqlPluModel>
         Map(item => item.IsCheckWeight).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_CHECK_WEIGHT").Not.Nullable().Default("1");
         Map(item => item.Code).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CODE").Length(30).Not.Nullable();
         Map(item => item.Uid1C).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
+        References(item => item.Bundle).Column("BUNDLE_UID").Not.Nullable();
     }
 }

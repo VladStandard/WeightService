@@ -1,5 +1,6 @@
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -40,7 +41,6 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     private WsSqlPluCharacteristicRepository PluCharacteristicRepository { get; } = new();
     private WsSqlPluCharacteristicsFkRepository PluCharacteristicFkRepository { get; } = new();
-    private WsSqlPluBundleFkRepository PluBundleFkRepository { get; } = new();
     private WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
 
     #endregion
@@ -58,7 +58,6 @@ public sealed class WsSqlContextCacheHelper
     //private List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
     public List<WsSqlPlu1CFkModel> Plus1CFks { get; private set; } = new();
     public List<WsSqlPluBrandFkModel> PlusBrandsFks { get; private set; } = new();
-    public List<WsSqlPluBundleFkModel> PlusBundlesFks { get; private set; } = new();
     public List<WsSqlPluCharacteristicModel> PlusCharacteristics { get; private set; } = new();
     public List<WsSqlPluCharacteristicsFkModel> PlusCharacteristicsFks { get; private set; } = new();
     public List<WsSqlPluClipFkModel> PlusClipsFks { get; private set; } = new();
@@ -129,11 +128,7 @@ public sealed class WsSqlContextCacheHelper
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusBrandsFks));
         if (PlusBrandsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusBrandsFks.Count))
             PlusBrandsFks = PluBrandFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusBundlesFks));
-        if (PlusBundlesFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusBundlesFks.Count))
-            PlusBundlesFks = PluBundleFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-
+        
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusCharacteristics));
         if (PlusCharacteristics.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusCharacteristics.Count))
             PlusCharacteristics = PluCharacteristicRepository.GetEnumerable(SqlCrudConfig).ToList();
@@ -208,8 +203,6 @@ public sealed class WsSqlContextCacheHelper
             Boxes = BoxRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Bundles.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Bundles))
             Bundles = BundleRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!PlusBundlesFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBundlesFks))
-            PlusBundlesFks = PluBundleFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!PlusBrandsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluBrandsFks))
             PlusBrandsFks = PluBrandFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Clips.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Clips))
@@ -312,7 +305,6 @@ public sealed class WsSqlContextCacheHelper
         Plus.Clear();
         Plus1CFks.Clear();
         PlusBrandsFks.Clear();
-        PlusBundlesFks.Clear();
         PlusCharacteristics.Clear();
         PlusCharacteristicsFks.Clear();
         PlusClipsFks.Clear();
@@ -366,9 +358,6 @@ public sealed class WsSqlContextCacheHelper
                 break;
             case WsSqlEnumTableName.PluBrandsFks:
                 PlusBrandsFks.Clear();
-                break;
-            case WsSqlEnumTableName.PluBundlesFks:
-                PlusBundlesFks.Clear();
                 break;
             case WsSqlEnumTableName.PluCharacteristics:
                 PlusCharacteristics.Clear();

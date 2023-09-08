@@ -338,10 +338,6 @@ public class WsDataTestsHelper
                 plu.Itf14.Returns(WsLocaleCore.Sql.SqlItemFieldItf14);
                 plu.Code.Returns(WsLocaleCore.Sql.SqlItemFieldCode);
                 break;
-            case WsSqlPluBundleFkModel pluBundle:
-                pluBundle.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                pluBundle.Bundle = CreateNewSubstitute<WsSqlBundleModel>(isNotDefault);
-                break;
             case WsSqlPluClipFkModel pluClips:
                 pluClips.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluClips.Clip = CreateNewSubstitute<WsSqlClipModel>(isNotDefault);
@@ -383,7 +379,7 @@ public class WsDataTestsHelper
                 break;
             case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.IsDefault.Returns(false);
-                pluNestingFk.PluBundle = CreateNewSubstitute<WsSqlPluBundleFkModel>(isNotDefault);
+                pluNestingFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluNestingFk.Box = CreateNewSubstitute<WsSqlBoxModel>(isNotDefault);
                 pluNestingFk.BundleCount.Returns((short)0);
                 break;

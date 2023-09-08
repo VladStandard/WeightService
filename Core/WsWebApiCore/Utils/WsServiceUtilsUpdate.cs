@@ -139,20 +139,7 @@ public static class WsServiceUtilsUpdate
         WsServiceUtils.SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
-
-    /// <summary>
-    /// Обновить связь пакета и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <returns></returns>
-    public static void UpdatePluBundleFkDb(WsSqlPluBundleFkModel itemXml, WsSqlPluBundleFkModel? itemDb)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        //if (isCounter) response.Successes.Add(new(uid1C));
-    }
+    
 
     /// <summary>
     /// Обновить связь номенклатурной характеристики и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.

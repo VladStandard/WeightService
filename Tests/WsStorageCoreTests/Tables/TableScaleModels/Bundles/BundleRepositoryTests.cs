@@ -10,13 +10,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         SqlCrudConfig.SelectTopRowsCount = 1;
         return BundleRepository.GetEnumerable(SqlCrudConfig).First();
     }
-
-    private WsSqlPluBundleFkModel GetFirstBundleFkModel()
-    {
-        SqlCrudConfig.SelectTopRowsCount = 1;
-        return new WsSqlPluBundleFkRepository().GetEnumerable(SqlCrudConfig).First();
-    }
-
+    
     [Test]
     public void GetList()
     {
@@ -24,22 +18,6 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlBundleModel> items = BundleRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
-    }
-
-    [Test]
-    public void GetItemByPlu()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            WsSqlPluBundleFkModel bundleFkModel = GetFirstBundleFkModel();
-            WsSqlBundleModel oldBundle = bundleFkModel.Bundle;
-            WsSqlBundleModel bundleByPlu = BundleRepository.GetItemByPlu(bundleFkModel.Plu);
-
-            Assert.That(bundleByPlu.IsNotNew, Is.True);
-            Assert.That(bundleByPlu, Is.EqualTo(oldBundle));
-
-            TestContext.WriteLine(bundleByPlu);
         }, false, DefaultConfigurations);
     }
 

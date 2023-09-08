@@ -7,10 +7,10 @@ public sealed class WsSqlPluNestingFkValidator : WsSqlTableValidator<WsSqlPluNes
 {
     public WsSqlPluNestingFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
-        RuleFor(item => item.PluBundle)
+        RuleFor(item => item.Plu)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new WsSqlPluBundleFkValidator(isCheckIdentity));
+            .SetValidator(new WsSqlPluValidator(isCheckIdentity));
         RuleFor(item => item.BundleCount)
             .NotNull();
         RuleFor(item => item.Box)

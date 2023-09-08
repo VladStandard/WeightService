@@ -13,7 +13,6 @@ public enum WsSqlEnumTableName
     //DeviceSettingsFks,
     Lines,                  // вместо Scales
     PluBrandsFks,
-    PluBundlesFks,
     PluCharacteristics,
     PluCharacteristicsFks,
     PluClipsFks,

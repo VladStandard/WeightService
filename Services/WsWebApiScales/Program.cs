@@ -13,7 +13,7 @@ builder.Services.AddSingleton(WsSqlCoreHelper.Instance.SessionFactory);
 builder.Services.AddScoped(_ => WsSqlCoreHelper.Instance.SessionFactory.OpenSession());
 
 builder.Services.AddTransient<BrandService>();
-
+builder.Services.AddTransient<PluCharacteristicService>();
 
 // POST XML from body.
 builder.Services.AddMvc(options =>

@@ -301,32 +301,6 @@ public static class WsServiceUtilsGet
     }
 
     /// <summary>
-    /// Получить связь пакета ПЛУ.
-    /// </summary>
-    /// <param name="contextType"></param>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <returns></returns>
-    public static WsSqlPluBundleFkModel GetItemPluBundleFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-        Guid uid1C, Guid uid1CException, string refName)
-    {
-        WsSqlPluBundleFkModel result = contextType switch
-        {
-            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBundlesFks.Find(item => item.Plu.Uid1C.Equals(uid1C))
-                                      ?? WsServiceUtils.ContextManager.PluBundleFkRepository.GetNewItem(),
-            _ => throw new ArgumentException(),
-        };
-        if (result.IsNew)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-        }
-        return result;
-    }
-
-    /// <summary>
     /// Получить список связей обмена ПЛУ 1С по GUID_1C.
     /// </summary>
     /// <param name="uid1C"></param>
@@ -362,10 +336,10 @@ public static class WsServiceUtilsGet
     {
         WsSqlPluNestingFkModel result = contextType switch
         {
-            WsSqlEnumContextType.Cache => 
-                WsServiceUtils.ContextCache.PlusNestingFks.Find(
-                    item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C) && item.IsDefault)
-                    ?? WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem(),
+            // WsSqlEnumContextType.Cache => 
+            //     WsServiceUtils.ContextCache.PlusNestingFks.Find(
+            //         item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C) && item.IsDefault)
+            //         ?? WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem(),
             _ => throw new ArgumentException(),
         };
         if (result.IsNew)
@@ -392,10 +366,10 @@ public static class WsServiceUtilsGet
     {
         List<WsSqlPluNestingFkModel> result = contextType switch
         {
-            WsSqlEnumContextType.Cache => 
-                WsServiceUtils.ContextCache.PlusNestingFks.Where(
-                    item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C)).ToList(),
-            _ => throw new ArgumentException(),
+            // WsSqlEnumContextType.Cache => 
+            //     WsServiceUtils.ContextCache.PlusNestingFks.Where(
+            //         item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C)).ToList(),
+            // _ => throw new ArgumentException(),
         };
         if (!result.Any())
         {

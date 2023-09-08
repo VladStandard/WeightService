@@ -9,7 +9,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
 
     protected override IResolveConstraint SortOrderValue =>
         Is.Ordered.Using((IComparer<WsSqlPluNestingFkModel>)Comparer<WsSqlPluNestingFkModel>.Create((x, y) =>
-            x.PluBundle.Plu.Number.CompareTo(y.PluBundle.Plu.Number))).Ascending;
+            x.Plu.Number.CompareTo(y.Plu.Number))).Ascending;
 
     [Test]
     public void GetList()
@@ -28,7 +28,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetEnumerableByPluNumber(312).ToList();
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
-                Assert.That(pluNestingFk.PluBundle.Plu.Number, Is.EqualTo(312));
+                Assert.That(pluNestingFk.Plu.Number, Is.EqualTo(312));
             ParseRecords(plusNestingFks);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
@@ -41,7 +41,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
             Guid uid = Guid.Parse("99A2AD82-63BB-4FC0-B5E1-1DE2AD86BD0F");
             IEnumerable<WsSqlPluNestingFkModel> plusNestingFks = PluNestingFkRepository.GetEnumerableByPluUid(uid).ToList();
             foreach (WsSqlPluNestingFkModel pluNestingFk in plusNestingFks)
-                Assert.That(pluNestingFk.PluBundle.Plu.IdentityValueUid, Is.EqualTo(uid));
+                Assert.That(pluNestingFk.Plu.IdentityValueUid, Is.EqualTo(uid));
             ParseRecords(plusNestingFks);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }

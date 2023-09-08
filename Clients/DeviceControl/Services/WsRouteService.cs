@@ -54,7 +54,6 @@ public class WsRouteService
             WsSqlLogWebFkModel => WsRouteUtils.SectionLogsWebService,
             WsSqlPluGroupModel => WsRouteUtils.SectionPlusGroups,
             WsSqlOrganizationModel => WsRouteUtils.SectionOrganizations,
-            WsSqlPluBundleFkModel => WsRouteUtils.SectionPlusBundlesFks,
             WsSqlPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlPluModel => WsRouteUtils.SectionPlus,
             WsSqlPluScaleModel => WsRouteUtils.SectionPlusLines,

@@ -21,6 +21,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
     [XmlElement] public virtual string Gtin { get; set; }
     [XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
+    [XmlIgnore] public virtual WsSqlBundleModel Bundle { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
     /// <summary>
     /// Родитель.
@@ -110,6 +111,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
         ParentGuid = Guid.Empty;
         ShelfLifeDays = default;
         AttachmentsCount = default;
+        Bundle = new();
     }
 
     /// <summary>

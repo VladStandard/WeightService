@@ -6,7 +6,6 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
 
     private WsSqlBoxRepository ContextBox { get; } = new();
     private WsSqlPluRepository ContextPlu { get; } = new();
-    private WsSqlPluBundleFkRepository ContextPluBundle { get; } = new();
 
     #endregion
 
@@ -16,57 +15,12 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     {
         WsSqlPluNestingFkModel item = SqlCore.GetItemNewEmpty<WsSqlPluNestingFkModel>();
         item.Box = ContextBox.GetNewItem();
-        item.PluBundle = ContextPluBundle.GetNewItem();
+        item.Plu = ContextPlu.GetNewItem();
         return item;
     }
 
     public WsSqlViewPluNestingModel GetNewView() => new();
-
-    /// <summary>
-    /// Force update list.
-    /// </summary>
-    /// <param name="pluNestingFks"></param>
-    /// <param name="sqlCrudConfig"></param>
-    public IEnumerable<WsSqlPluNestingFkModel> UpdatePluNestingFks(WsSqlCrudConfigModel sqlCrudConfig, 
-        out IEnumerable<WsSqlPluNestingFkModel> pluNestingFks) =>
-        pluNestingFks = GetEnumerable(sqlCrudConfig);
-
-    /// <summary>
-    /// Get item by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="pluNestingFks"></param>
-    /// <param name="plu"></param>
-    /// <param name="bundle"></param>
-    /// <param name="box"></param>
-    /// <returns></returns>
-    public WsSqlPluNestingFkModel GetPluNestingFk(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, WsSqlBundleModel bundle, WsSqlBoxModel box)
-    {
-        WsSqlPluNestingFkModel pluNestingFk = pluNestingFks.Find(item => Equals(item.PluBundle.Plu, plu) &&
-                                                                    Equals(item.PluBundle.Bundle, bundle) && Equals(item.Box, box));
-        return pluNestingFk.IsExists ? pluNestingFk : new();
-    }
-
-    /// <summary>
-    /// Get item by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="pluNestingFks"></param>
-    /// <param name="plu"></param>
-    /// <param name="bundle"></param>
-    /// <param name="box"></param>
-    /// <returns></returns>
-    public short GetPluNestingFkBundleCount(List<WsSqlPluNestingFkModel> pluNestingFks, WsSqlPluModel plu, WsSqlBundleModel bundle, WsSqlBoxModel box) =>
-        GetPluNestingFk(pluNestingFks, plu, bundle, box).BundleCount;
-
-    /// <summary>
-    /// Get item PluStorageMethod by Plu.
-    /// Use UpdatePluStorageMethodFks for force update.
-    /// </summary>
-    /// <param name="pluNestingFk"></param>
-    /// <returns></returns>
-    public short GetPluNestingFkBundleCount(WsSqlPluNestingFkModel pluNestingFk) => pluNestingFk.BundleCount;
-
+    
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         List<WsSqlPluNestingFkModel> items = new ();
@@ -78,43 +32,36 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
             {
                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                 {
-                    WsSqlPluBundleFkModel pluBundle = new();
+                    WsSqlPluModel plu = new();
                     // -- [DB_SCALES].[PLUS_BUNDLES_FK] | 11 - 16
-                    if (Guid.TryParse(Convert.ToString(item[11]), out Guid pluBundleUid))
-                    {
-                        pluBundle.IdentityValueUid = pluBundleUid;
-                        pluBundle.CreateDt = Convert.ToDateTime(item[12]);
-                        pluBundle.ChangeDt = Convert.ToDateTime(item[13]);
-                        pluBundle.IsMarked = Convert.ToBoolean(item[14]);
-                    }
     
                     // -- [DB_SCALES].[PLUS] | 17 - 30
                     if (Guid.TryParse(Convert.ToString(item[17]), out Guid pluUid))
                     {
-                        pluBundle.Plu.IdentityValueUid = pluUid;
-                        pluBundle.Plu.CreateDt = Convert.ToDateTime(item[18]);
-                        pluBundle.Plu.ChangeDt = Convert.ToDateTime(item[19]);
-                        pluBundle.Plu.IsMarked = Convert.ToBoolean(item[20]);
-                        pluBundle.Plu.Number = Convert.ToInt16(item[21]);
-                        pluBundle.Plu.Name = Convert.ToString(item[22]);
-                        pluBundle.Plu.FullName = Convert.ToString(item[23]);
-                        pluBundle.Plu.Description = Convert.ToString(item[24]);
-                        pluBundle.Plu.ShelfLifeDays = Convert.ToByte(item[25]);
-                        pluBundle.Plu.Gtin = Convert.ToString(item[26]);
-                        pluBundle.Plu.Ean13 = Convert.ToString(item[27]);
-                        pluBundle.Plu.Itf14 = Convert.ToString(item[28]);
-                        pluBundle.Plu.IsCheckWeight = Convert.ToBoolean(item[29]);
+                        plu.IdentityValueUid = pluUid;
+                        plu.CreateDt = Convert.ToDateTime(item[18]);
+                        plu.ChangeDt = Convert.ToDateTime(item[19]);
+                        plu.IsMarked = Convert.ToBoolean(item[20]);
+                        plu.Number = Convert.ToInt16(item[21]);
+                        plu.Name = Convert.ToString(item[22]);
+                        plu.FullName = Convert.ToString(item[23]);
+                        plu.Description = Convert.ToString(item[24]);
+                        plu.ShelfLifeDays = Convert.ToByte(item[25]);
+                        plu.Gtin = Convert.ToString(item[26]);
+                        plu.Ean13 = Convert.ToString(item[27]);
+                        plu.Itf14 = Convert.ToString(item[28]);
+                        plu.IsCheckWeight = Convert.ToBoolean(item[29]);
                     }
     
                     // -- [DB_SCALES].[BUNDLES] | 30 - 35
                     if (Guid.TryParse(Convert.ToString(item[30]), out Guid bundleUid))
                     {
-                        pluBundle.Bundle.IdentityValueUid = bundleUid;
-                        pluBundle.Bundle.CreateDt = Convert.ToDateTime(item[31]);
-                        pluBundle.Bundle.ChangeDt = Convert.ToDateTime(item[32]);
-                        pluBundle.Bundle.IsMarked = Convert.ToBoolean(item[33]);
-                        pluBundle.Bundle.Name = Convert.ToString(item[34]);
-                        pluBundle.Bundle.Weight = Convert.ToDecimal(item[35]);
+                        plu.Bundle.IdentityValueUid = bundleUid;
+                        plu.Bundle.CreateDt = Convert.ToDateTime(item[31]);
+                        plu.Bundle.ChangeDt = Convert.ToDateTime(item[32]);
+                        plu.Bundle.IsMarked = Convert.ToBoolean(item[33]);
+                        plu.Bundle.Name = Convert.ToString(item[34]);
+                        plu.Bundle.Weight = Convert.ToDecimal(item[35]);
                     }
     
                     WsSqlBoxModel box = new();
@@ -131,11 +78,11 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     
                     // -- UID_1C | 42 - 44
                     if (Guid.TryParse(Convert.ToString(item[42]), out Guid pluUid1C))
-                        pluBundle.Plu.Uid1C = pluUid1C;
+                        plu.Uid1C = pluUid1C;
                     if (Guid.TryParse(Convert.ToString(item[43]), out Guid boxUid1C))
                         box.Uid1C = boxUid1C;
                     if (Guid.TryParse(Convert.ToString(item[44]), out Guid bundleUid1C))
-                        pluBundle.Bundle.Uid1C = bundleUid1C;
+                        plu.Bundle.Uid1C = bundleUid1C;
                     // All.
                     items.Add(new()
                     {
@@ -148,7 +95,7 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
                         WeightMax = Convert.ToDecimal(item[6]),
                         WeightMin = Convert.ToDecimal(item[7]),
                         WeightNom = Convert.ToDecimal(item[8]),
-                        PluBundle = pluBundle,
+                        Plu = new(),
                         Box = box
                     });
                 }
@@ -176,6 +123,21 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUidActual(Guid? uid)
     {
         return GetEnumerableByPluUid(uid).Where(item => item.IsMarked == false);
+    }
+
+    public WsSqlPluNestingFkModel GetDefaultByPlu(WsSqlPluModel plu)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluTemplateFkModel.Plu), plu);
+        sqlCrudConfig.AddFilter(new() {Name = nameof(WsSqlPluNestingFkModel.IsDefault), Comparer = WsSqlEnumFieldComparer.Equal, Value = true});
+        return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
+    }
+    
+    public WsSqlPluNestingFkModel GetByAttachmentsCount(short attachmentsCount)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(new() {Name = nameof(WsSqlPluNestingFkModel.BundleCount), Comparer = WsSqlEnumFieldComparer.Equal, Value = attachmentsCount});
+        return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
     
     private static string GetQuery(bool isSetPluUid) => WsSqlQueries.TrimQuery(@$"

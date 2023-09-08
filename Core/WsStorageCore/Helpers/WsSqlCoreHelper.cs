@@ -135,7 +135,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBrandFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBundleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
@@ -812,10 +811,6 @@ public sealed class WsSqlCoreHelper
                 pluBrandFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluBrandFk.Plu.Identity);
                 pluBrandFk.Brand = GetItemByIdentity<WsSqlBrandModel>(pluBrandFk.Brand.Identity);
                 break;
-            case WsSqlPluBundleFkModel pluBundle:
-                pluBundle.Plu = GetItemByIdentity<WsSqlPluModel>(pluBundle.Plu.Identity);
-                pluBundle.Bundle = GetItemByIdentity<WsSqlBundleModel>(pluBundle.Bundle.Identity);
-                break;
             case WsSqlPluClipFkModel pluClip:
                 pluClip.Clip = GetItemByIdentity<WsSqlClipModel>(pluClip.Clip.Identity);
                 pluClip.Plu = GetItemByIdentity<WsSqlPluModel>(pluClip.Plu.Identity);
@@ -837,7 +832,7 @@ public sealed class WsSqlCoreHelper
                 pluWeighing.Series = GetItemNullableByIdentity<WsSqlProductSeriesModel>(pluWeighing.Series?.Identity);
                 break;
             case WsSqlPluNestingFkModel pluNestingFk:
-                pluNestingFk.PluBundle = GetItemByIdentity<WsSqlPluBundleFkModel>(pluNestingFk.PluBundle.Identity);
+                pluNestingFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluNestingFk.Plu.Identity);
                 pluNestingFk.Box = GetItemByIdentity<WsSqlBoxModel>(pluNestingFk.Box.Identity);
                 break;
             case WsSqlPluGroupFkModel pluGroupFk:
@@ -884,6 +879,9 @@ public sealed class WsSqlCoreHelper
                 break;
             case WsSqlPlu1CFkModel plu1CFk:
                 plu1CFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1CFk.Plu.Identity);
+                break;
+            case WsSqlPluModel plu:
+                plu.Bundle = GetItemByIdentity<WsSqlBundleModel>(plu.Bundle.Identity);
                 break;
         }
     }

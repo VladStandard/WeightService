@@ -61,6 +61,14 @@
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
     </td>
   </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@WsLocaleCore.Table.Bundle"/>
+    </td>
+    <td>@SqlItemCast.Bundle.Name</td>
+    <td></td>
+    <td></td>
+  </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>

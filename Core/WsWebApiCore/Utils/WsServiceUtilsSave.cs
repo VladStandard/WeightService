@@ -335,108 +335,6 @@ public static class WsServiceUtilsSave
     }
 
     /// <summary>
-    /// Сохранить связь пакета и ПЛУ.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluXml"></param>
-    /// <returns></returns>
-    public static WsSqlPluBundleFkModel SavePluBundleFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
-    {
-        WsSqlPluBundleFkModel pluBundleFk = WsServiceUtils.ContextManager.PluBundleFkRepository.GetNewItem();
-        try
-        {
-            // Получить ПЛУ.
-            WsSqlPluModel pluDb = WsServiceUtilsGet.GetItemPlu(WsSqlEnumContextType.Cache, response,
-                pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
-            if (pluDb.IsNotExists) return pluBundleFk;
-            // Получить пакет.
-            WsSqlBundleModel bundleDb = WsServiceUtilsGet.GetItemBundle(WsSqlEnumContextType.Cache, response,
-                pluXml.PackageTypeGuid, pluXml.Uid1C, WsLocaleCore.WebService.FieldBundle);
-            if (bundleDb.IsNotExists) return pluBundleFk;
-            // Связь пакета и ПЛУ.
-            pluBundleFk = new()
-            {
-                IdentityValueUid = Guid.NewGuid(),
-                Plu = pluDb,
-                Bundle = bundleDb,
-            };
-            // Поиск по Identity | UQ_BUNDLES_FK.
-            WsSqlPluBundleFkModel? pluBundleFkDb = WsServiceUtils.ContextCache.PlusBundlesFks.Find(item => Equals(item.Plu.Uid1C, pluBundleFk.Plu.Uid1C));
-            if (pluBundleFkDb is not null)
-            {
-                // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdatePluBundleFkDb(pluBundleFk, pluBundleFkDb);
-                // Обновить кэш.
-                WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBundlesFks);
-                return pluBundleFkDb;
-            }
-            // Не найдено -> Добавить новую запись.
-            WsServiceUtilsUpdate.SaveItemDb(response, pluBundleFk, false, pluXml.Uid1C);
-            // Обновить кэш.
-            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBundlesFks);
-        }
-        catch (Exception ex)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
-        }
-        return pluBundleFk;
-    }
-
-    /// <summary>
-    /// Сохранить вложенность ПЛУ по-умолчанию.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="pluBundleFk"></param>
-    /// <param name="pluXml"></param>
-    public static WsSqlPluNestingFkModel SavePluNestingFkDefault(WsResponse1CShortModel response, WsSqlPluBundleFkModel pluBundleFk, 
-        WsSqlPluModel pluXml)
-    {
-        try
-        {
-            // Получить коробку.
-            WsSqlBoxModel boxDb = WsServiceUtilsGet.GetBox(WsSqlEnumContextType.Cache, response,
-                pluXml.BoxTypeGuid, pluXml.Uid1C, "Коробка");
-            if (boxDb.IsNotExists) return WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem();
-            // Связь вложенности ПЛУ.
-            WsSqlPluNestingFkModel pluNestingFk = new()
-            {
-                IdentityValueUid = Guid.NewGuid(),
-                PluBundle = pluBundleFk,
-                Box = boxDb,
-                BundleCount = pluXml.AttachmentsCount,
-                IsDefault = true,
-                IsMarked = pluXml.IsMarked,
-            };
-            // Поиск представления.
-            WsSqlPluNestingFkModel? pluNestingFkDb = WsServiceUtils.ContextCache.PlusNestingFks.Find(item =>
-                Equals(item.Box.Uid1C, pluNestingFk.Box.Uid1C) &&
-                Equals(item.PluBundle.Plu.Uid1C, pluNestingFk.PluBundle.Plu.Uid1C) &&
-                Equals(item.PluBundle.Bundle.Uid1C, pluNestingFk.PluBundle.Bundle.Uid1C) &&
-                Equals(item.BundleCount, pluXml.AttachmentsCount));
-            if (pluNestingFkDb is not null)
-            {
-                // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdatePluNestingFk(pluNestingFkDb, pluNestingFk);
-                // Обновить кэш.
-                WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
-                WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
-                return pluNestingFkDb;
-            }
-            // Не найдено -> Добавить новую запись.
-            WsServiceUtilsUpdate.SaveItemDb(response, pluNestingFk, false, pluXml.Uid1C);
-            // Обновить кэш.
-            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PlusNestingFks);
-            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
-            return pluNestingFk;
-        }
-        catch (Exception ex)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
-        }
-        return WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem();
-    }
-
-    /// <summary>
     /// Сохранить остальные вложенности и ПЛУ.
     /// </summary>
     /// <param name="response"></param>
@@ -481,7 +379,7 @@ public static class WsServiceUtilsSave
         }
         catch (Exception ex)
         {
-            WsServiceUtilsResponse.AddResponseException(response, pluNestingFk.PluBundle.Plu.Uid1C, ex);
+            // WsServiceUtilsResponse.AddResponseException(response, pluNestingFk.PluBundle.Plu.Uid1C, ex);
         }
     }
 

@@ -16,8 +16,7 @@ public sealed class WsSqlPluNestingFkMap : ClassMap<WsSqlPluNestingFkModel>
         Map(item => item.WeightMax).CustomSqlType(WsSqlFieldTypeUtils.Decimal103).Column("WEIGHT_MAX").Not.Nullable().Unique();
         Map(item => item.WeightMin).CustomSqlType(WsSqlFieldTypeUtils.Decimal103).Column("WEIGHT_MIN").Not.Nullable().Unique();
         Map(item => item.WeightNom).CustomSqlType(WsSqlFieldTypeUtils.Decimal103).Column("WEIGHT_NOM").Not.Nullable().Unique();
-        References(item => item.Box).Column("BOX_UID").Unique().Not.Nullable();
-        //References(item => item.Plu).Column("PLU_BUNDLE_FK.PLU_UID").Unique().Not.Nullable();
-        References(item => item.PluBundle).Column("PLU_BUNDLE_FK").Unique().Not.Nullable();
+        References(item => item.Box).Column("BOX_UID").Not.Nullable();
+        References(item => item.Plu).Column("PLU_UID").Not.Nullable();
     }
 }

@@ -9,15 +9,6 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     #region Public and private methods
 
     public WsSqlBundleModel GetNewItem() => SqlCore.GetItemNewEmpty<WsSqlBundleModel>();
-
-    public WsSqlBundleModel GetItemByPlu(WsSqlPluModel plu)
-    {
-        if (plu.IsNew)
-            return new();
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluBundleFkModel.Plu), plu);
-        return SqlCore.GetItemByCrud<WsSqlPluBundleFkModel>(sqlCrudConfig).Bundle;
-    }
     
     public WsSqlBundleModel GetItemByUid1C(Guid uid1C)
     {

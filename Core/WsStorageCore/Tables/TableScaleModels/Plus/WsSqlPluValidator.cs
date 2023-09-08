@@ -42,6 +42,10 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
         RuleFor(item => item.FullName)
             .NotNull()
             .When(item => item.IsGroup);
+        RuleFor(item => item.Bundle)
+            .NotEmpty()
+            .NotNull()
+            .SetValidator(new WsSqlBundleValidator(isCheckIdentity));
     }
 
     public WsSqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, true, true) { }

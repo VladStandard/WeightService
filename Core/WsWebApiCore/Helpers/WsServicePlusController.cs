@@ -64,20 +64,20 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Сохранить связь клипсы ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluClipFk(response, pluXml);
                 
-                if (pluXml.ParseResult.IsStatusSuccess)
-                {
-                    // Сохранить связь пакета и ПЛУ.
-                    WsSqlPluBundleFkModel pluBundleFk = WsServiceUtilsSave.SavePluBundleFk(response, pluXml);
-                    if (pluXml.ParseResult.IsStatusSuccess)
-                    {
-                        // Сохранить вложенность ПЛУ по-умолчанию.
-                        WsSqlPluNestingFkModel pluNestingFkDefault =
-                            WsServiceUtilsSave.SavePluNestingFkDefault(response, pluBundleFk, pluXml);
-                        // Сохранить остальные вложенности и ПЛУ.
-                        if (pluXml.ParseResult.IsStatusSuccess)
-                            WsServiceUtilsSave.SavePluNestingFkOther(response, pluNestingFkDefault, pluXml);
-                    }
-                }
+                // if (pluXml.ParseResult.IsStatusSuccess)
+                // {
+                //     // Сохранить связь пакета и ПЛУ.
+                //     WsSqlPluBundleFkModel pluBundleFk = WsServiceUtilsSave.SavePluBundleFk(response, pluXml);
+                //     if (pluXml.ParseResult.IsStatusSuccess)
+                //     {
+                //         // Сохранить вложенность ПЛУ по-умолчанию.
+                //         WsSqlPluNestingFkModel pluNestingFkDefault =
+                //             WsServiceUtilsSave.SavePluNestingFkDefault(response, pluBundleFk, pluXml);
+                //         // Сохранить остальные вложенности и ПЛУ.
+                //         if (pluXml.ParseResult.IsStatusSuccess)
+                //             WsServiceUtilsSave.SavePluNestingFkOther(response, pluNestingFkDefault, pluXml);
+                //     }
+                // }
 
                 // Исключение.
                 if (pluXml.ParseResult.IsStatusError)
