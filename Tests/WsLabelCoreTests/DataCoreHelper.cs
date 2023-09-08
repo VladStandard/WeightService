@@ -279,10 +279,6 @@ public sealed class DataCoreHelper
                 logWebFk.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
 				break;
-			case WsSqlPluGroupModel pluGroup:
-                pluGroup.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
-                pluGroup.Code.Returns(WsLocaleCore.Sql.SqlItemFieldCode);
-                break;
             case WsSqlPluCharacteristicModel nomenclatureCharacteristic:
                 nomenclatureCharacteristic.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
                 nomenclatureCharacteristic.AttachmentsCount.Returns(3);
@@ -294,10 +290,6 @@ public sealed class DataCoreHelper
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                break;
-            case WsSqlPluGroupFkModel pluGroupFk:
-                pluGroupFk.PluGroup = CreateNewSubstitute<WsSqlPluGroupModel>(isNotDefault);
-                pluGroupFk.Parent = CreateNewSubstitute<WsSqlPluGroupModel>(isNotDefault);
                 break;
 			case WsSqlOrderModel order:
 				order.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);

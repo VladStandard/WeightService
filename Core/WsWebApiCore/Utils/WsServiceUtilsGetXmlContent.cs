@@ -85,9 +85,6 @@ public static class WsServiceUtilsGetXmlContent
             case WsSqlPluModel pluXml:
                 SetItemPropertyFromXmlAttributeForPlu(xmlNode, pluXml, xmlPropertyName);
                 break;
-            case WsSqlPluGroupModel pluGroupXml:
-                SetItemPropertyFromXmlAttributeForPluGroup(xmlNode, pluGroupXml, xmlPropertyName);
-                break;
             case WsSqlPluCharacteristicModel pluCharacteristicXml:
                 SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
@@ -200,25 +197,6 @@ public static class WsServiceUtilsGetXmlContent
                 break;
             case "EAN13":
                 pluXml.Ean13 = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
-                break;
-        }
-    }
-
-    private static void SetItemPropertyFromXmlAttributeForPluGroup(XmlNode xmlNode, WsSqlPluGroupModel pluGroupXml, string xmlPropertyName)
-    {
-        switch (xmlPropertyName.ToUpper())
-        {
-            case "GUID":
-                pluGroupXml.Uid1C = GetXmlAttributeGuid(xmlNode, pluGroupXml, xmlPropertyName);
-                break;
-            case "ISGROUP":
-                pluGroupXml.IsGroup = GetXmlAttributeBool(xmlNode, pluGroupXml, xmlPropertyName);
-                break;
-            case "CODE":
-                pluGroupXml.Code = GetXmlAttributeString(xmlNode, pluGroupXml, xmlPropertyName);
-                break;
-            case "GROUPGUID":
-                pluGroupXml.ParentGuid = GetXmlAttributeGuid(xmlNode, pluGroupXml, xmlPropertyName);
                 break;
         }
     }

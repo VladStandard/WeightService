@@ -52,7 +52,6 @@ public class WsRouteService
             WsSqlDeviceTypeModel => WsRouteUtils.SectionDevicesTypes,
             WsSqlLogModel => WsRouteUtils.SectionLogs,
             WsSqlLogWebFkModel => WsRouteUtils.SectionLogsWebService,
-            WsSqlPluGroupModel => WsRouteUtils.SectionPlusGroups,
             WsSqlOrganizationModel => WsRouteUtils.SectionOrganizations,
             WsSqlPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlPluModel => WsRouteUtils.SectionPlus,

@@ -88,41 +88,8 @@ public static class WsServiceUtilsUpdate
         WsServiceUtils.SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
-
-    /// <summary>
-    /// Обновить номенклатурную группу в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    public static void UpdatePluGroupDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluGroupModel itemXml, WsSqlPluGroupModel? itemDb, bool isCounter)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
-    }
-
-    /// <summary>
-    /// Обновить связь номенклатурной группы и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    public static void UpdatePluGroupFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluGroupFkModel itemXml, WsSqlPluGroupFkModel? itemDb, bool isCounter)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
-    }
-
+    
+    
     /// <summary>
     /// Обновить связь бренда и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>

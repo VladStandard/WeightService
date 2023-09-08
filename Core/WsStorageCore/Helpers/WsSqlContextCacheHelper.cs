@@ -26,8 +26,6 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlBoxRepository BoxRepository { get; } = new();
     private WsSqlBrandRepository BrandRepository { get; } = new();
     private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
-    private WsSqlPluGroupRepository PluGroupRepository { get; } = new();
-    private WsSqlPluGroupFkRepository PluGroupFkRepository { get; } = new();
     private WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     private WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
     private WsSqlBundleRepository BundleRepository  { get; } = new();
@@ -62,9 +60,7 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlPluCharacteristicsFkModel> PlusCharacteristicsFks { get; private set; } = new();
     public List<WsSqlPluClipFkModel> PlusClipsFks { get; private set; } = new();
     public List<WsSqlPluFkModel> PlusFks { get; private set; } = new();
-    public List<WsSqlPluGroupFkModel> PlusGroupsFks { get; private set; } = new();
     public List<WsSqlPluNestingFkModel> PlusNestingFks { get; private set; } = new();
-    public List<WsSqlPluGroupModel> PlusGroups { get; private set; } = new();
     public List<WsSqlPluModel> Plus { get; private set; } = new();
     public List<WsSqlProductionSiteModel> Areas { get; private set; } = new();
     public List<WsSqlScaleModel> Lines { get; private set; } = new();
@@ -145,17 +141,9 @@ public sealed class WsSqlContextCacheHelper
         if (PlusFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusFks.Count))
             PlusFks = PluFkRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusGroupsFks));
-        if (PlusGroupsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroupsFks.Count))
-            PlusGroupsFks = PluGroupFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusNestingFks));
         if (PlusNestingFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusNestingFks.Count))
             PlusNestingFks = PluNestingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-
-        table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.PlusGroups));
-        if (PlusGroups.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)PlusGroups.Count))
-            PlusGroups = PluGroupRepository.GetEnumerable(SqlCrudConfig).ToList();
 
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus));
         if (Plus.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus.Count))
@@ -219,10 +207,6 @@ public sealed class WsSqlContextCacheHelper
             PlusCharacteristics = PluCharacteristicRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!PlusCharacteristicsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluCharacteristicsFks))
             PlusCharacteristicsFks = PluCharacteristicFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!PlusGroups.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroups))
-            PlusGroups = PluGroupRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!PlusGroupsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluGroupsFks))
-            PlusGroupsFks = PluGroupFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!PlusNestingFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PlusNestingFks))
             PlusNestingFks = PluNestingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Brands.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.Brands))
@@ -309,8 +293,6 @@ public sealed class WsSqlContextCacheHelper
         PlusCharacteristicsFks.Clear();
         PlusClipsFks.Clear();
         PlusFks.Clear();
-        PlusGroups.Clear();
-        PlusGroupsFks.Clear();
         PlusNestingFks.Clear();
         WorkShops.Clear();
         // Представления.
@@ -370,12 +352,6 @@ public sealed class WsSqlContextCacheHelper
                 break;
             case WsSqlEnumTableName.PluFks:
                 PlusFks.Clear();
-                break;
-            case WsSqlEnumTableName.PluGroups:
-                PlusGroups.Clear();
-                break;
-            case WsSqlEnumTableName.PluGroupsFks:
-                PlusGroupsFks.Clear();
                 break;
             case WsSqlEnumTableName.PlusNestingFks:
                 PlusNestingFks.Clear();
