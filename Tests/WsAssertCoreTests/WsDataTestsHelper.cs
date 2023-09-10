@@ -296,14 +296,6 @@ public class WsDataTestsHelper
                 logWebFk.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
                 logWebFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
                 break;
-            case WsSqlPluCharacteristicModel nomenclatureCharacteristic:
-                nomenclatureCharacteristic.Name.Returns(WsLocaleCore.Sql.SqlItemFieldName);
-                nomenclatureCharacteristic.AttachmentsCount.Returns(3);
-                break;
-            case WsSqlPluCharacteristicsFkModel nomenclatureCharacteristicFk:
-                nomenclatureCharacteristicFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
-                nomenclatureCharacteristicFk.Characteristic = CreateNewSubstitute<WsSqlPluCharacteristicModel>(isNotDefault);
-                break;
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);

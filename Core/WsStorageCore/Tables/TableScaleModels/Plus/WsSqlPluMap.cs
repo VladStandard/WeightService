@@ -17,11 +17,11 @@ public sealed class WsSqlPluMap : ClassMap<WsSqlPluModel>
         Map(item => item.FullName).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("FULL_NAME").Not.Nullable();
         Map(item => item.Description).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("DESCRIPTION").Not.Nullable();
         Map(item => item.ShelfLifeDays).CustomSqlType(WsSqlFieldTypeUtils.TinyInt).Column("SHELF_LIFE_DAYS").Not.Nullable();
-        Map(item => item.Gtin).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("GTIN").Length(150).Not.Nullable().Default(string.Empty);
-        Map(item => item.Ean13).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("EAN13").Length(150).Not.Nullable().Default(string.Empty);
-        Map(item => item.Itf14).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("ITF14").Length(150).Not.Nullable().Default(string.Empty);
+        Map(item => item.Gtin).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("GTIN").Length(14).Not.Nullable().Default(string.Empty);
+        Map(item => item.Ean13).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("EAN13").Length(13).Not.Nullable().Default(string.Empty);
+        Map(item => item.Itf14).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("ITF14").Length(14).Not.Nullable().Default(string.Empty);
         Map(item => item.IsCheckWeight).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_CHECK_WEIGHT").Not.Nullable().Default("1");
-        Map(item => item.Code).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CODE").Length(30).Not.Nullable();
+        Map(item => item.Code).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CODE").Length(11).Not.Nullable();
         Map(item => item.Uid1C).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
         References(item => item.Bundle).Column("BUNDLE_UID").Not.Nullable();
     }

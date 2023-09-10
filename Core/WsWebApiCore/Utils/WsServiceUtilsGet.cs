@@ -28,25 +28,25 @@ public static class WsServiceUtilsGet
     /// <param name="uid1CException"></param>
     /// <param name="refName"></param>
     /// <returns></returns>
-    public static WsSqlBrandModel GetItemBrand(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-        Guid uid1C, Guid uid1CException, string refName)
-    {
-        WsSqlBrandModel result = contextType switch
-        {
-            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
-                                          ?? WsServiceUtils.ContextManager.BrandRepository.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.BrandRepository.GetItemByUid1C(uid1C),
-        };
-        if (!Equals(uid1C, Guid.Empty))
-        {
-            if (result.IsNew)
-            {
-                WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                    new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            }
-        }
-        return result;
-    }
+    // public static WsSqlBrandModel GetItemBrand(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+    //     Guid uid1C, Guid uid1CException, string refName)
+    // {
+    //     WsSqlBrandModel result = contextType switch
+    //     {
+    //         WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.Brands.Find(item => item.Uid1C.Equals(uid1C))
+    //                                       ?? WsServiceUtils.ContextManager.BrandRepository.GetNewItem(),
+    //         _ => WsServiceUtils.ContextManager.BrandRepository.GetItemByUid1C(uid1C),
+    //     };
+    //     if (!Equals(uid1C, Guid.Empty))
+    //     {
+    //         if (result.IsNew)
+    //         {
+    //             WsServiceUtilsResponse.AddResponseException(response, uid1CException,
+    //                 new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+    //         }
+    //     }
+    //     return result;
+    // }
 
     /// <summary>
     /// Получить пакет.
@@ -190,61 +190,6 @@ public static class WsServiceUtilsGet
     }
 
     /// <summary>
-    /// Получить характеристику ПЛУ.
-    /// </summary>
-    /// <param name="contextType"></param>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <returns></returns>
-    public static WsSqlPluCharacteristicModel GetItemPluCharacteristic(WsSqlEnumContextType contextType, 
-        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
-    {
-        WsSqlPluCharacteristicModel result = contextType switch
-        {
-            WsSqlEnumContextType.Cache => 
-                WsServiceUtils.ContextCache.PlusCharacteristics.Find(
-                    item => item.Uid1C.Equals(uid1C))
-                ?? WsServiceUtils.ContextManager.PluCharacteristicRepository.GetNewItem(),
-            _ => WsServiceUtils.ContextManager.PluCharacteristicRepository.GetItemByUid1C(uid1C),
-        };
-        if (result.IsNew)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// Получить связь характеристики ПЛУ.
-    /// </summary>
-    /// <param name="contextType"></param>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <returns></returns>
-    public static WsSqlPluCharacteristicsFkModel GetItemPluCharacteristicFk(WsSqlEnumContextType contextType, 
-        WsResponse1CShortModel response, Guid uid1C, Guid uid1CException, string refName)
-    {
-        WsSqlPluCharacteristicsFkModel result = contextType switch
-        {
-            WsSqlEnumContextType.Cache => 
-                WsServiceUtils.ContextCache.PlusCharacteristicsFks.Find(item =>
-                Equals(item.Characteristic.Uid1C, uid1C)) ?? WsServiceUtils.ContextManager.PluCharacteristicsFkRepository.GetNewItem(),
-            _ => throw new ArgumentException(),
-        };
-        if (result.IsNew)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{uid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-        }
-        return result;
-    }
-
-    /// <summary>
     /// Получить связь бренда ПЛУ.
     /// </summary>
     /// <param name="contextType"></param>
@@ -319,38 +264,7 @@ public static class WsServiceUtilsGet
         }
         return plus1CFks;
     }
-
-    /// <summary>
-    /// Получить вложенность ПЛУ по-умолчанию.
-    /// </summary>
-    /// <param name="contextType"></param>
-    /// <param name="response"></param>
-    /// <param name="pluUid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <param name="characteristicXml"></param>
-    /// <returns></returns>
-    public static WsSqlPluNestingFkModel GetItemPluNestingFkDefault(WsSqlEnumContextType contextType,
-        WsResponse1CShortModel response, Guid pluUid1C, Guid uid1CException, string refName,
-        WsSqlPluCharacteristicModel characteristicXml)
-    {
-        WsSqlPluNestingFkModel result = contextType switch
-        {
-            // WsSqlEnumContextType.Cache => 
-            //     WsServiceUtils.ContextCache.PlusNestingFks.Find(
-            //         item => item.PluBundle.Plu.Uid1C.Equals(pluUid1C) && item.IsDefault)
-            //         ?? WsServiceUtils.ContextManager.PluNestingFkRepository.GetNewItem(),
-            _ => throw new ArgumentException(),
-        };
-        if (result.IsNew)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-            characteristicXml.ParseResult.Status = WsEnumParseStatus.Error;
-            //characteristicXml.ParseResult.Exception = new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!");
-        }
-        return result;
-    }
+    
 
     /// <summary>
     /// Получить список вложенностей ПЛУ.

@@ -135,8 +135,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrganizationMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBrandFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluCharacteristicsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluLabelMap>());
@@ -832,10 +830,6 @@ public sealed class WsSqlCoreHelper
             case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluNestingFk.Plu.Identity);
                 pluNestingFk.Box = GetItemByIdentity<WsSqlBoxModel>(pluNestingFk.Box.Identity);
-                break;
-            case WsSqlPluCharacteristicsFkModel pluCharacteristicsFk:
-                pluCharacteristicsFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluCharacteristicsFk.Plu.Identity);
-                pluCharacteristicsFk.Characteristic = GetItemByIdentity<WsSqlPluCharacteristicModel>(pluCharacteristicsFk.Characteristic.Identity);
                 break;
             case WsSqlPluStorageMethodFkModel pluStorageMethod:
                 pluStorageMethod.Plu = GetItemByIdentity<WsSqlPluModel>(pluStorageMethod.Plu.Identity);

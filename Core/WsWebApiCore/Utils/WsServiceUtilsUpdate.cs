@@ -106,43 +106,6 @@ public static class WsServiceUtilsUpdate
         WsServiceUtils.SqlCore.Update(itemDb);
         if (isCounter) response.Successes.Add(new(uid1C));
     }
-    
-
-    /// <summary>
-    /// Обновить связь номенклатурной характеристики и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    public static void UpdatePluCharacteristic(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicModel itemXml,
-        WsSqlPluCharacteristicModel? itemDb, bool isCounter)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
-    }
-
-    /// <summary>
-    /// Обновить связь номенклатурной характеристики и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    public static void UpdatePluCharacteristicFk(WsResponse1CShortModel response, Guid uid1C, WsSqlPluCharacteristicsFkModel itemXml,
-        WsSqlPluCharacteristicsFkModel? itemDb, bool isCounter)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
-    }
 
     /// <summary>
     /// Обновить связь вложенности и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
@@ -172,85 +135,7 @@ public static class WsServiceUtilsUpdate
             UpdatePlu1CFkDbCore(plu);
         }
     }
-
-    /// <summary>
-    /// Обновить таблицу связей ПЛУ для обмена.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="recordXml"></param>
-    internal static List<WsSqlPlu1CFkModel> UpdatePlus1CFksDb<T>(WsResponse1CShortModel response,
-        WsXmlContentRecord<T> recordXml) where T : WsSqlTable1CBase, new()
-    {
-        List<WsSqlPlu1CFkModel> plus1CFksDb = new();
-        switch (recordXml)
-        {
-            // ПЛУ.
-            case WsXmlContentRecord<WsSqlPluModel> pluXml:
-                plus1CFksDb = WsServiceUtilsGet.GetPlus1CFksByGuid1C(pluXml.Item.Uid1C);
-                break;
-            // Характеристика ПЛУ.
-            case WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml:
-                plus1CFksDb = WsServiceUtilsGet.GetPlus1CFksByGuid1C(pluCharacteristicXml.Item.NomenclatureGuid);
-                break;
-        }
-        // Обновить таблицу связей ПЛУ для обмена.
-        plus1CFksDb.ForEach(item => UpdatePlu1CFkDbCore(response, recordXml, item));
-        return plus1CFksDb;
-    }
-
-    /// <summary>
-    /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="response"></param>
-    /// <param name="recordXml"></param>
-    /// <param name="plu1CFk"></param>
-    private static void UpdatePlu1CFkDbCore<T>(WsResponse1CShortModel response, WsXmlContentRecord<T> recordXml,
-        WsSqlPlu1CFkModel plu1CFk) where T : WsSqlTable1CBase, new()
-    {
-        WsSqlPlu1CFkModel? plu1CFkCache =
-            WsServiceUtils.ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu1CFk.Plu.IdentityValueUid));
-
-        // В кэше не найдено - сохранить.
-        if (plu1CFkCache is null)
-        {
-            plu1CFk.UpdateProperties(recordXml.Content);
-            WsServiceUtils.SqlCore.Save(plu1CFk);
-            // Загрузить кэш.
-            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
-        }
-        // В кэше найдено - обновить.
-        else
-        {
-            plu1CFk.RequestDataString = recordXml.Content;
-            plu1CFkCache.UpdateProperties(plu1CFk);
-            WsSqlPlu1CFkValidator validator = new(true);
-            ValidationResult validation = validator.Validate(plu1CFkCache);
-            // Валидация не пройдена!
-            if (!validation.IsValid)
-            {
-                // Загрузка ПЛУ.
-                if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
-                    WsServiceUtilsResponse.AddResponseExceptionString(response, pluXml.Item.Uid1C,
-                        string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
-                // Загрузка характеристики ПЛУ.
-                else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
-                    WsServiceUtilsResponse.AddResponseExceptionString(response, pluCharacteristicXml.Item.NomenclatureGuid,
-                        string.Join(',', validation.Errors.Select(item => item.ErrorMessage).ToList()));
-            }
-            // Валидация пройдена успешно.
-            else
-            {
-                // Загрузка ПЛУ.
-                if (recordXml is WsXmlContentRecord<WsSqlPluModel> pluXml)
-                    WsServiceUtils.SqlCore.Update(plu1CFkCache);
-                // Загрузка характеристики ПЛУ.
-                //else if (recordXml is WsXmlContentRecord<WsSqlPluCharacteristicModel> pluCharacteristicXml)
-                //    WsServiceUtils.SqlCore.Update(plu1CFkCache);
-            }
-        }
-    }
-
+    
     /// <summary>
     /// Обновить данные записи в таблице связей обмена ПЛУ 1С.
     /// </summary>

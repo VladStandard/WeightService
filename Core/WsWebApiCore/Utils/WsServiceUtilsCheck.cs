@@ -95,15 +95,6 @@ public static class WsServiceUtilsCheck
             }
         }
         // Загрузка характеристики ПЛУ.
-        else if (itemXml is WsSqlPluCharacteristicModel pluCharacteristicXml)
-        {
-            if (!Equals(pluCharacteristicXml.NomenclatureGuid, plu1CFkDb.Plu.Uid1C))
-            {
-                itemXml.ParseResult.Status = WsEnumParseStatus.Error;
-                itemXml.ParseResult.Exception =
-                    $"{WsLocaleCore.WebService.FieldNomenclatureIsErrorUid1C} '{plu1CFkDb.Plu.Number}' {WsLocaleCore.WebService.WithFieldCode} '{plu1CFkDb.Plu.Code}'";
-            }
-        }
         // Загрузка ПЛУ выключена по UID_1C.
         if (!plu1CFkDb.IsEnabled)
         {

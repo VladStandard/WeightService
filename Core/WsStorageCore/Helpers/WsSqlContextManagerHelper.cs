@@ -41,8 +41,6 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlLogRepository LogRepository { get; set; } = new();
     public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluBrandFkRepository PluBrandFkRepository { get; } = new();
-    public WsSqlPluCharacteristicRepository PluCharacteristicRepository { get; } = new();
-    public WsSqlPluCharacteristicsFkRepository PluCharacteristicsFkRepository { get; } = new();
     public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
     public WsSqlPluFkRepository PluFkRepository { get; } = new();
     public WsSqlPluLabelRepository PluLabelRepository { get; } = new();

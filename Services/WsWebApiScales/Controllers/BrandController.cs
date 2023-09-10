@@ -10,7 +10,7 @@ namespace WsWebApiScales.Controllers;
 public class BrandController : ControllerBase
 { 
     private readonly BrandService _brandService;
-
+    
     public BrandController(BrandService brandService)
     {
         _brandService = brandService;

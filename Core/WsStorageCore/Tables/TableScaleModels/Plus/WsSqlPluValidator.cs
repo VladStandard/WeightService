@@ -14,19 +14,27 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
             .GreaterThanOrEqualTo(byte.MinValue)
             .LessThanOrEqualTo(byte.MaxValue);
         RuleFor(item => item.Gtin)
-            .NotNull();
+            .NotNull()
+            .Empty().When(item => item.IsGroup)
+            .Length(14).When(item => item.IsGroup == false);
         RuleFor(item => item.Ean13)
-            .NotNull();
+            .NotNull()
+            .Empty().When(item => item.IsGroup)
+            .Length(13).When(item => item.IsGroup == false);
         RuleFor(item => item.Itf14)
-            .NotNull();
+            .NotNull()
+            .Empty().When(item => item.IsGroup || item.IsCheckWeight)
+            .Length(14).When(item => item.IsGroup == false);
         RuleFor(item => item.IsCheckWeight)
             .NotNull();
         RuleFor(item => item.Code)
-            .NotNull();
+            .NotNull()
+            .NotEmpty()
+            .Length(11);
         RuleFor(item => item.Name)
             .NotEmpty()
+            .MaximumLength(150)
             .NotNull();
-        // !IsGroup.
         RuleFor(item => item.Number)
             .NotNull()
             .GreaterThanOrEqualTo((short)0)
@@ -35,9 +43,9 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
         RuleFor(item => item.FullName)
             .NotNull()
             .When(item => !item.IsGroup);
-        // IsGroup.
         RuleFor(item => item.Number)
             .NotNull()
+            .NotEmpty()
             .When(item => item.IsGroup);
         RuleFor(item => item.FullName)
             .NotNull()

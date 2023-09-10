@@ -84,44 +84,6 @@ public static class WsServiceUtilsGetXml
         nameof(WsSqlPluModel.ParentGuid),
         nameof(WsSqlPluModel.ShelfLifeDays),
     };
-
-    /// <summary>
-    /// Получить список групп из XML.
-    /// </summary>
-    /// <param name="xml"></param>
-    /// <returns></returns>
-    public static List<WsXmlContentRecord<WsSqlPluGroupModel>> GetXmlPluGroupsList(XElement xml) =>
-        WsServiceUtilsGetXmlContent.GetNodesListCore<WsSqlPluGroupModel>(xml, WsLocaleCore.WebService.XmlItemNomenclatureGroup, (xmlNode, itemXml) =>
-        {
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsGroup));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Code));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BoxTypeGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "BrandGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "CategoryGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ClipTypeGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "GroupGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "PackageTypeGuid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "ParentGroupGuid");
-        });
-
-    /// <summary>
-    /// Заполнить список характеристик ПЛУ из XML.
-    /// </summary>
-    /// <param name="xml"></param>
-    /// <returns></returns>
-    public static List<WsXmlContentRecord<WsSqlPluCharacteristicModel>> GetXmlPluCharacteristicsList(XElement xml) =>
-        WsServiceUtilsGetXmlContent.GetNodesListCore<WsSqlPluCharacteristicModel>(xml, WsLocaleCore.WebService.XmlItemCharacteristic, (xmlNode, itemXml) =>
-        {
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "Guid");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.IsMarked));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, nameof(itemXml.Name));
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "AttachmentsCount");
-            WsServiceUtilsGetXmlContent.SetItemPropertyFromXmlAttribute(xmlNode, itemXml, "NomenclatureGuid");
-        });
-
+    
     #endregion
 }

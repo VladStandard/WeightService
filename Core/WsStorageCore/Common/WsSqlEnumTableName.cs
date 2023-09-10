@@ -6,7 +6,6 @@ public enum WsSqlEnumTableName
     All,
     Areas,                  // вместо ProductionFacilities
     Boxes,
-    Brands,
     Bundles,
     Clips,
     //DeviceSettings,

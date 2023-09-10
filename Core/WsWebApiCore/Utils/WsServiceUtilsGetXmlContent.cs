@@ -85,9 +85,6 @@ public static class WsServiceUtilsGetXmlContent
             case WsSqlPluModel pluXml:
                 SetItemPropertyFromXmlAttributeForPlu(xmlNode, pluXml, xmlPropertyName);
                 break;
-            case WsSqlPluCharacteristicModel pluCharacteristicXml:
-                SetItemPropertyFromXmlAttributeForPluCharacteristic(xmlNode, pluCharacteristicXml, xmlPropertyName);
-                break;
         }
     }
 
@@ -197,23 +194,6 @@ public static class WsServiceUtilsGetXmlContent
                 break;
             case "EAN13":
                 pluXml.Ean13 = GetXmlAttributeString(xmlNode, pluXml, xmlPropertyName);
-                break;
-        }
-    }
-
-    private static void SetItemPropertyFromXmlAttributeForPluCharacteristic(XmlNode xmlNode, 
-        WsSqlPluCharacteristicModel pluCharacteristicXml, string xmlPropertyName)
-    {
-        switch (xmlPropertyName.ToUpper())
-        {
-            case "GUID":
-                pluCharacteristicXml.Uid1C = GetXmlAttributeGuid(xmlNode, pluCharacteristicXml, xmlPropertyName);
-                break;
-            case "NOMENCLATUREGUID":
-                pluCharacteristicXml.NomenclatureGuid = GetXmlAttributeGuid(xmlNode, pluCharacteristicXml, xmlPropertyName);
-                break;
-            case "ATTACHMENTSCOUNT":
-                pluCharacteristicXml.AttachmentsCount = GetXmlAttributeDecimal(xmlNode, pluCharacteristicXml, xmlPropertyName);
                 break;
         }
     }

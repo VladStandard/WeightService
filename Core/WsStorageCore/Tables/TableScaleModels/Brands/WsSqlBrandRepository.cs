@@ -17,17 +17,12 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
         return SqlCore.GetEnumerableNotNullable<WsSqlBrandModel>(sqlCrudConfig);
     }
     
-    /// <summary>
-    /// Получить бренд по полю UID_1C.
-    /// </summary>
-    /// <param name="uid1C"></param>
-    /// <returns></returns>
     public WsSqlBrandModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C });
         return SqlCore.GetItemByCrud<WsSqlBrandModel>(sqlCrudConfig);
     }
-
+    
     #endregion
 }

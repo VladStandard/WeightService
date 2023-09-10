@@ -89,7 +89,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public IEnumerable<WsSqlPluModel> GetEnumerableByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid });
+        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid });
         return GetEnumerable(sqlCrudConfig);
     }
 
