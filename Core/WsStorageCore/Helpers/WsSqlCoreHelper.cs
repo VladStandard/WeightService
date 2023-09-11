@@ -150,7 +150,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionSiteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductSeriesMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleScreenShotMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTemplateMap>());
@@ -849,9 +848,6 @@ public sealed class WsSqlCoreHelper
                 scale.PrinterMain = GetItemNullableByIdentity<WsSqlPrinterModel>(scale.PrinterMain?.Identity);
                 scale.PrinterShipping = GetItemNullableByIdentity<WsSqlPrinterModel>(scale.PrinterShipping?.Identity);
                 scale.WorkShop = GetItemNullableByIdentity<WsSqlWorkShopModel>(scale.WorkShop?.Identity);
-                break;
-            case WsSqlScaleScreenShotModel scaleScreenShot:
-                scaleScreenShot.Scale = GetItemByIdentity<WsSqlScaleModel>(scaleScreenShot.Scale.Identity);
                 break;
             case WsSqlTaskModel task:
                 task.TaskType = GetItemByIdentity<WsSqlTaskTypeModel>(task.TaskType.Identity);

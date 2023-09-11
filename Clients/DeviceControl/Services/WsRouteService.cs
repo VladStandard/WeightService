@@ -63,7 +63,6 @@ public class WsRouteService
             WsSqlPrinterTypeModel => WsRouteUtils.SectionPrinterTypes,
             WsSqlProductionSiteModel => WsRouteUtils.SectionProductionFacilities,
             WsSqlScaleModel => WsRouteUtils.SectionLines,
-            WsSqlScaleScreenShotModel => WsRouteUtils.SectionScalesScreenShots,
             WsSqlTemplateModel => WsRouteUtils.SectionTemplates,
             WsSqlTemplateResourceModel => WsRouteUtils.SectionTemplateResources,
             WsSqlVersionModel => WsRouteUtils.SectionVersions,

@@ -406,20 +406,7 @@ public static class WsFormNavigationUtils
     public static void CatchExceptionSimple(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         CatchExceptionSimpleCore(ex, filePath, lineNumber, memberName);
-
-    private static void MakeScreenShot(IWin32Window win32Window, WsSqlScaleModel scale)
-    {
-        if (win32Window is not Form form) return;
-        using MemoryStream memoryStream = new();
-        using Bitmap bitmap = new(form.Width, form.Height);
-        using Graphics graphics = Graphics.FromImage(bitmap);
-        graphics.CopyFromScreen(form.Location.X, form.Location.Y, 0, 0, form.Size);
-        using Image img = bitmap;
-        img.Save(memoryStream, ImageFormat.Png);
-        WsSqlScaleScreenShotModel scaleScreenShot = new() { Scale = scale, ScreenShot = memoryStream.ToArray() };
-        SqlCore.Save(scaleScreenShot);
-    }
-
+    
     public static void ActionTryCatch(Action action)
     {
         try
@@ -443,22 +430,6 @@ public static class WsFormNavigationUtils
         {
             // ActionMakeScreenShot(win32Window, LabelSession.Line);
             CatchException(showNavigation, ex);
-        }
-    }
-
-    private static void ActionMakeScreenShot(IWin32Window win32Window, WsSqlScaleModel scale)
-    {
-        if (WsDebugHelper.Instance.IsDevelop) return;
-        try
-        {
-            MakeScreenShot(win32Window, scale);
-            PluginMemory.MemorySize.Execute();
-            ContextManager.LogMemoryRepository.Save(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
-            GC.Collect();
-        }
-        catch (Exception ex)
-        {
-            CatchExceptionSimple(ex);
         }
     }
     

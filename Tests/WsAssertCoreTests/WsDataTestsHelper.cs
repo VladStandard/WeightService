@@ -393,10 +393,6 @@ public class WsDataTestsHelper
                 scale.PrinterShipping = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
-            case WsSqlScaleScreenShotModel scaleScreenShot:
-                scaleScreenShot.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
-                scaleScreenShot.ScreenShot.Returns(new byte[] { 0x00 });
-                break;
             case WsSqlTaskModel task:
                 task.TaskType = CreateNewSubstitute<WsSqlTaskTypeModel>(isNotDefault);
                 task.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);

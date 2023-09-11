@@ -108,7 +108,6 @@ public class WsSqlValidationUtils
             WsSqlProductionSiteModel productionFacility => new WsSqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
             WsSqlProductSeriesModel productSeries => new WsSqlProductSeriesValidator(isCheckIdentity).Validate(productSeries),
             WsSqlScaleModel scale => new WsSqlScaleValidator(isCheckIdentity).Validate(scale),
-            WsSqlScaleScreenShotModel scaleScreenShot => new WsSqlScaleScreenShotValidator(isCheckIdentity).Validate(scaleScreenShot),
             WsSqlTaskModel task => new WsSqlTaskValidator(isCheckIdentity).Validate(task),
             WsSqlTaskTypeModel taskType => new WsSqlTaskTypeValidator(isCheckIdentity).Validate(taskType),
             WsSqlTemplateModel template => new WsSqlTemplateValidator(isCheckIdentity).Validate(template),
