@@ -91,23 +91,6 @@ public static class WsServiceUtilsUpdate
     
     
     /// <summary>
-    /// Обновить связь бренда и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
-    /// </summary>
-    /// <param name="response"></param>
-    /// <param name="uid1C"></param>
-    /// <param name="itemXml"></param>
-    /// <param name="itemDb"></param>
-    /// <param name="isCounter"></param>
-    /// <returns></returns>
-    public static void UpdatePluBrandFkDb(WsResponse1CShortModel response, Guid uid1C, WsSqlPluBrandFkModel itemXml, WsSqlPluBrandFkModel? itemDb, bool isCounter)
-    {
-        if (itemDb is null || itemDb.IsNew) return;
-        itemDb.UpdateProperties(itemXml);
-        WsServiceUtils.SqlCore.Update(itemDb);
-        if (isCounter) response.Successes.Add(new(uid1C));
-    }
-
-    /// <summary>
     /// Обновить связь вложенности и ПЛУ в БД. Не использовать вместе с UpdateItem1cDb.
     /// </summary>
     /// <param name="itemXml"></param>

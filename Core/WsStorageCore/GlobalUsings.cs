@@ -56,7 +56,6 @@ global using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 global using WsStorageCore.Tables.TableRefModels.Plus1CFk;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
-global using WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;

@@ -25,7 +25,6 @@ global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.Tables.TableRefModels.Plus1CFk;
-global using WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;

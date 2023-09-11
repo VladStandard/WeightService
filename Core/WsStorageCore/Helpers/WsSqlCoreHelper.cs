@@ -134,7 +134,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrganizationMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluBrandFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluLabelMap>());
@@ -802,10 +801,6 @@ public sealed class WsSqlCoreHelper
                 pluFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluFk.Plu.Identity);
                 pluFk.Parent = GetItemByIdentity<WsSqlPluModel>(pluFk.Parent.Identity);
                 pluFk.Category = GetItemByIdentity<WsSqlPluModel>(pluFk.Category?.Identity);
-                break;
-            case WsSqlPluBrandFkModel pluBrandFk:
-                pluBrandFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluBrandFk.Plu.Identity);
-                pluBrandFk.Brand = GetItemByIdentity<WsSqlBrandModel>(pluBrandFk.Brand.Identity);
                 break;
             case WsSqlPluClipFkModel pluClip:
                 pluClip.Clip = GetItemByIdentity<WsSqlClipModel>(pluClip.Clip.Identity);

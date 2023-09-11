@@ -24,6 +24,6 @@ public sealed class WsSqlPluMap : ClassMap<WsSqlPluModel>
         Map(item => item.Code).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CODE").Length(11).Not.Nullable();
         Map(item => item.Uid1C).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID_1C").Not.Nullable().Default(Guid.Empty.ToString());
         References(item => item.Bundle).Column("BUNDLE_UID").Not.Nullable();
-        References(item => item.Bundle).Column("BRAND_UID").Not.Nullable();
+        References(item => item.Brand).Column("BRAND_UID").Not.Nullable();
     }
 }

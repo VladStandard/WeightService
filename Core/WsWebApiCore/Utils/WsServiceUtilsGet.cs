@@ -189,33 +189,33 @@ public static class WsServiceUtilsGet
         return result;
     }
 
-    /// <summary>
-    /// Получить связь бренда ПЛУ.
-    /// </summary>
-    /// <param name="contextType"></param>
-    /// <param name="response"></param>
-    /// <param name="pluUid1C"></param>
-    /// <param name="brandUid1C"></param>
-    /// <param name="uid1CException"></param>
-    /// <param name="refName"></param>
-    /// <returns></returns>
-    public static WsSqlPluBrandFkModel GetItemPluBrandFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
-        Guid pluUid1C, Guid brandUid1C, Guid uid1CException, string refName)
-    {
-        WsSqlPluBrandFkModel result = contextType switch
-        {
-            WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBrandsFks.Find(item =>
-                item.Plu.Uid1C.Equals(pluUid1C) && item.Brand.Uid1C.Equals(brandUid1C))
-                ?? WsServiceUtils.ContextManager.PluBrandFkRepository.GetNewItem(),
-            _ => throw new ArgumentException(),
-        };
-        if (result.IsNew)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, uid1CException,
-                new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
-        }
-        return result;
-    }
+    // /// <summary>
+    // /// Получить связь бренда ПЛУ.
+    // /// </summary>
+    // /// <param name="contextType"></param>
+    // /// <param name="response"></param>
+    // /// <param name="pluUid1C"></param>
+    // /// <param name="brandUid1C"></param>
+    // /// <param name="uid1CException"></param>
+    // /// <param name="refName"></param>
+    // /// <returns></returns>
+    // public static WsSqlPluBrandFkModel GetItemPluBrandFk(WsSqlEnumContextType contextType, WsResponse1CShortModel response,
+    //     Guid pluUid1C, Guid brandUid1C, Guid uid1CException, string refName)
+    // {
+    //     WsSqlPluBrandFkModel result = contextType switch
+    //     {
+    //         WsSqlEnumContextType.Cache => WsServiceUtils.ContextCache.PlusBrandsFks.Find(item =>
+    //             item.Plu.Uid1C.Equals(pluUid1C) && item.Brand.Uid1C.Equals(brandUid1C))
+    //             ?? WsServiceUtils.ContextManager.PluBrandFkRepository.GetNewItem(),
+    //         _ => throw new ArgumentException(),
+    //     };
+    //     if (result.IsNew)
+    //     {
+    //         WsServiceUtilsResponse.AddResponseException(response, uid1CException,
+    //             new($"{refName} {WsLocaleCore.WebService.With} '{pluUid1C}' {WsLocaleCore.WebService.IsNotFound}!"));
+    //     }
+    //     return result;
+    // }
 
     /// <summary>
     /// Получить связь клипсы ПЛУ.

@@ -20,7 +20,6 @@ global using WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
 global using WsStorageCore.Tables.TableDiagModels.ScalesScreenshots;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
-global using WsStorageCore.Tables.TableScaleFkModels.PlusBrandsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;

@@ -92,7 +92,6 @@ public class WsSqlValidationUtils
             WsSqlOrderModel order => new WsSqlOrderValidator(isCheckIdentity).Validate(order),
             WsSqlOrderWeighingModel orderWeighing => new WsSqlOrderWeighingValidator(isCheckIdentity).Validate(orderWeighing),
             WsSqlOrganizationModel organization => new WsSqlOrganizationValidator(isCheckIdentity).Validate(organization),
-            WsSqlPluBrandFkModel pluBrandFk => new WsSqlPluBrandFkValidator(isCheckIdentity).Validate(pluBrandFk),
             WsSqlPluClipFkModel pluClip => new WsSqlPluClipFkValidator(isCheckIdentity).Validate(pluClip),
             WsSqlPluFkModel pluFk => new WsSqlPluFkValidator(isCheckIdentity).Validate(pluFk),
             WsSqlPluLabelModel pluLabel => new WsSqlPluLabelValidator(isCheckIdentity).Validate(pluLabel),

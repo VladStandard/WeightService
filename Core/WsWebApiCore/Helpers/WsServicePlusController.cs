@@ -60,7 +60,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
                 // Сохранить связь ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluFks(response, pluXml);
                 // Сохранить связь бренда.
-                if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluBrandFk(response, pluXml);
+                // if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluBrandFk(response, pluXml);
                 // Сохранить связь клипсы ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsSave.SavePluClipFk(response, pluXml);
                 

@@ -209,46 +209,46 @@ public static class WsServiceUtilsSave
     /// </summary>
     /// <param name="response"></param>
     /// <param name="pluXml"></param>
-    public static void SavePluBrandFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
-    {
-        try
-        {
-            if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
-            // Получить ПЛУ.
-            WsSqlPluModel pluDb = WsServiceUtilsGet.GetItemPlu(WsSqlEnumContextType.Cache, response,
-                pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
-            if (pluDb.IsNotExists) return;
-            // Получить бренд.
-            WsSqlBrandModel brandDb = new( );
-            if (brandDb.IsNotExists) return;
-            // Связь бренда и ПЛУ.
-            WsSqlPluBrandFkModel pluBrandFk = new()
-            {
-                IdentityValueUid = Guid.NewGuid(),
-                Plu = pluDb,
-                Brand = brandDb
-            };
-            // Поиск по Identity | UQ_PLUS_CLIP_PLU_FK.
-            WsSqlPluBrandFkModel pluBrandFkDb = WsServiceUtilsGet.GetItemPluBrandFk(WsSqlEnumContextType.Cache, response,
-                pluBrandFk.Plu.Uid1C, pluBrandFk.Brand.Uid1C, pluXml.Uid1C, "Связь бренда ПЛУ");
-            if (pluBrandFkDb.IsExists)
-            {
-                // Обновить найденную запись.
-                WsServiceUtilsUpdate.UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
-                // Обновить кэш.
-                WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
-                return;
-            }
-            // Не найдено -> Добавить новую запись.
-            WsServiceUtilsUpdate.SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C);
-            // Обновить кэш.
-            WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
-        }
-        catch (Exception ex)
-        {
-            WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
-        }
-    }
+    // public static void SavePluBrandFk(WsResponse1CShortModel response, WsSqlPluModel pluXml)
+    // {
+    //     try
+    //     {
+    //         if (Equals(pluXml.BrandGuid, Guid.Empty)) return;
+    //         // Получить ПЛУ.
+    //         WsSqlPluModel pluDb = WsServiceUtilsGet.GetItemPlu(WsSqlEnumContextType.Cache, response,
+    //             pluXml.Uid1C, pluXml.Uid1C, WsLocaleCore.WebService.FieldNomenclature);
+    //         if (pluDb.IsNotExists) return;
+    //         // Получить бренд.
+    //         WsSqlBrandModel brandDb = new( );
+    //         if (brandDb.IsNotExists) return;
+    //         // Связь бренда и ПЛУ.
+    //         WsSqlPluBrandFkModel pluBrandFk = new()
+    //         {
+    //             IdentityValueUid = Guid.NewGuid(),
+    //             Plu = pluDb,
+    //             Brand = brandDb
+    //         };
+    //         // Поиск по Identity | UQ_PLUS_CLIP_PLU_FK.
+    //         WsSqlPluBrandFkModel pluBrandFkDb = WsServiceUtilsGet.GetItemPluBrandFk(WsSqlEnumContextType.Cache, response,
+    //             pluBrandFk.Plu.Uid1C, pluBrandFk.Brand.Uid1C, pluXml.Uid1C, "Связь бренда ПЛУ");
+    //         if (pluBrandFkDb.IsExists)
+    //         {
+    //             // Обновить найденную запись.
+    //             WsServiceUtilsUpdate.UpdatePluBrandFkDb(response, pluXml.Uid1C, pluBrandFk, pluBrandFkDb, false);
+    //             // Обновить кэш.
+    //             WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
+    //             return;
+    //         }
+    //         // Не найдено -> Добавить новую запись.
+    //         WsServiceUtilsUpdate.SaveItemDb(response, pluBrandFk, false, pluXml.Uid1C);
+    //         // Обновить кэш.
+    //         WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.PluBrandsFks);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         WsServiceUtilsResponse.AddResponseException(response, pluXml.Uid1C, ex);
+    //     }
+    // }
 
     /// <summary>
     /// Сохранить связь клипсы ПЛУ.
