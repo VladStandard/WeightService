@@ -4,7 +4,7 @@ public sealed class WsSqlBrandMap : ClassMap<WsSqlBrandModel>
 {
     public WsSqlBrandMap()
     {
-        Schema(WsSqlSchemasUtils.DbScales);
+        Schema(WsSqlSchemasUtils.Ref1C);
         Table(WsSqlTablesUtils.Brands);
         LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();

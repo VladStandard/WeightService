@@ -24,9 +24,9 @@ public class ResponseDto
         Errors = new();
     }
     
-    public void AddSuccess(Guid uid)
+    public void AddSuccess(Guid uid, string msg = "")
     {
-        Successes.Add(new() { Guid = uid });
+        Successes.Add(new() { Guid = uid , Message = msg});
         SuccessesCount = Successes.Count;
     }
     

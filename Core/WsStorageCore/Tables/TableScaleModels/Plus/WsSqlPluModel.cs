@@ -12,7 +12,7 @@ namespace WsStorageCore.Tables.TableScaleModels.Plus;
 public class WsSqlPluModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
-
+    
     [XmlElement] public virtual bool IsGroup { get; set; }
     [XmlElement] public virtual short Number { get; set; }
     [XmlElement] public virtual string Code { get; set; }
@@ -21,7 +21,6 @@ public class WsSqlPluModel : WsSqlTable1CBase
     [XmlElement] public virtual string Gtin { get; set; }
     [XmlElement] public virtual string Ean13 { get; set; }
     [XmlElement] public virtual string Itf14 { get; set; }
-    [XmlIgnore] public virtual WsSqlBundleModel Bundle { get; set; }
     [XmlElement] public virtual bool IsCheckWeight { get; set; }
     /// <summary>
     /// Родитель.
@@ -83,6 +82,9 @@ public class WsSqlPluModel : WsSqlTable1CBase
     /// Кол-во вложений.
     /// </summary>
     [XmlElement] public virtual short AttachmentsCount { get; set; }
+    
+    [XmlIgnore] public virtual WsSqlBundleModel Bundle { get; set; }
+    [XmlIgnore] public virtual WsSqlBrandModel Brand { get; set; }
     [XmlIgnore] public override string DisplayName => $"{Number} | {Name}";
     
     public WsSqlPluModel() : base(WsSqlEnumFieldIdentity.Uid)
@@ -111,6 +113,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
         ParentGuid = Guid.Empty;
         ShelfLifeDays = default;
         AttachmentsCount = default;
+        Brand = new();
         Bundle = new();
     }
 
@@ -174,6 +177,8 @@ public class WsSqlPluModel : WsSqlTable1CBase
         IsCheckWeight = item.IsCheckWeight;
         AttachmentsCount = item.AttachmentsCount;
         MeasurementType = item.MeasurementType;
+        Brand = new(item.Brand);
+        Bundle = new(item.Bundle);
     }
 
     #endregion

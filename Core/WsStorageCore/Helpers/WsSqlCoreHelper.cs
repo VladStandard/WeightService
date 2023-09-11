@@ -870,6 +870,7 @@ public sealed class WsSqlCoreHelper
                 break;
             case WsSqlPluModel plu:
                 plu.Bundle = GetItemByIdentity<WsSqlBundleModel>(plu.Bundle.Identity);
+                plu.Brand = GetItemByIdentity<WsSqlBrandModel>(plu.Brand.Identity);
                 break;
         }
     }

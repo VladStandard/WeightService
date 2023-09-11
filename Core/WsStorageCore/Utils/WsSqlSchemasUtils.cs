@@ -10,6 +10,8 @@ public static class WsSqlSchemasUtils
     public static string Conf => "CONF";
     public static string Diag => "DIAG";
     public static string Ref => "REF";
+    public static string Ref1C => "REF_1C";
+    public static string Print => "PRINT";
     public static string DbScales => "db_scales";
 
     #endregion

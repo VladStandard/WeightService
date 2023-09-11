@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using WsWebApiScales.Utils;
 
 namespace WsWebApiScales.Dto.PluCharacteristic;
 
@@ -10,7 +9,7 @@ public class PluCharacteristicDto
     public Guid Guid { get; set; }
 
     [XmlAttribute("IsMarked")]
-    public int IsMarked { get; set; }
+    public bool IsMarked { get; set; }
 
     [XmlAttribute("NomenclatureGuid")]
     public Guid PluGuid { get; set; }
@@ -20,8 +19,4 @@ public class PluCharacteristicDto
 
     [XmlAttribute("AttachmentsCount")]
     public string AttachmentsCount { get; set; } = string.Empty;
-    
-    public decimal AttachmentsCountAsDecimal => CastUtil.StringToDecimal(AttachmentsCount);
- 
-    public bool IsMarkedAsBool => IsMarked != 0;
 }

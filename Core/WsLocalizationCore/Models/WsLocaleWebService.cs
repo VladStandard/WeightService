@@ -51,7 +51,6 @@ public sealed class WsLocaleWebService : WsLocalizationBase
     public string XmlItemCharacteristic => "Characteristic";
     public string XmlItemNomenclature => "Nomenclature";
     public string XmlItemNomenclatureGroup => "NomenclatureGroup";
-    public string AttachmentsCountMustBeInt() => "Кол-во вложений должно быть целое!";
     public string PluFoundMoreThen1() => "Найдено более 1 номенклатуры!";
     public string PluNotFound() => "Номенклатуры не найдено!";
     public string FieldPluCharacteristicMustBeNotDefault() => "Характеристика совпадает со вложенностью по-молчанию!";

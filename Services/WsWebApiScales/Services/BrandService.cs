@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableScaleModels.Brands;
+using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Validators;
@@ -8,48 +9,39 @@ namespace WsWebApiScales.Services;
 
 public class BrandService
 {
-    private static void SaveBrand(ResponseDto response, BrandDto brandDto)
+    
+    private readonly ResponseDto _responseDto;
+
+    public BrandService(ResponseDto responseDto)
     {
-        WsSqlBrandModel brand = new()
-        {
-            Uid1C = brandDto.Guid,
-            Name = brandDto.Name,
-            Code = brandDto.Code,
-            IsMarked = brandDto.IsMarkedAsBool,
-        };
-        response.AddSuccess(brandDto.Guid);
-        WsServiceUtils.SqlCore.Save(brand);
+        _responseDto = responseDto;
     }
     
-    private static bool UpdateBrandModel(ResponseDto response, WsSqlBrandModel? brandDb, BrandDto brandDto)
+    private void UpdateOrCreate(BrandDto brandDto)
     {
-        if (brandDb is null)
-            return false;
-        brandDb.Uid1C = brandDto.Guid;
+        WsSqlBrandRepository brandRepository = new();
+        
+        WsSqlBrandModel brandDb = brandRepository.GetItemByUid1C(brandDto.Guid);
+
         brandDb.Name = brandDto.Name;
         brandDb.Code = brandDto.Code;
-        brandDb.IsMarked = brandDto.IsMarkedAsBool;
-        response.AddSuccess(brandDto.Guid);
-        WsServiceUtils.SqlCore.Update(brandDb);
-        return true;
-    }
-    
-    private static bool UpdateBrandIfExists(ResponseDto response, BrandDto brandDto)
-    {
-        WsSqlBrandModel? brandDb = WsServiceUtils.ContextCache.Brands.Find(item => Equals(item.Uid1C, brandDto.Guid));
-        if (UpdateBrandModel(response, brandDb, brandDto)) return true;
+        brandDb.IsMarked = brandDto.IsMarked;
         
-        brandDb = WsServiceUtils.ContextCache.Brands.Find(item => Equals(item.Code, brandDto.Code));
-        return UpdateBrandModel(response, brandDb, brandDto);
+        if (brandDb.IsNotExists)
+        {
+            brandDb.Uid1C = brandDto.Guid;
+            WsServiceUtils.SqlCore.Save(brandDb);
+        }
+        else
+        {
+            WsServiceUtils.SqlCore.Update(brandDb);
+        }
+        
+        _responseDto.AddSuccess(brandDto.Guid);
     }
     
     public ResponseDto LoadBrands(BrandsDto brandsDto)
     {
-
-        ResponseDto response = new();
-        
-        WsServiceUtils.ContextCache.Load();
-        
         foreach (BrandDto brandDto in brandsDto.Brands)
         {
             BrandDtoValidator validator = new();
@@ -57,16 +49,14 @@ public class BrandService
 
             if (validationResult.IsValid)
             {
-                if (UpdateBrandIfExists(response, brandDto)) continue;
-                SaveBrand(response, brandDto);
+                UpdateOrCreate(brandDto);
                 continue;
             }
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            response.AddError(brandDto.Guid, string.Join(" | ", errors));
+            _responseDto.AddError(brandDto.Guid, string.Join(" | ", errors));
         }
-        WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Brands);
 
-        return response;
+        return _responseDto;
     }
     
 }

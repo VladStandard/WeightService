@@ -39,7 +39,7 @@ public sealed class WsServicePlusController : WsServiceControllerBase
             {
                 WsSqlPluModel pluXml = record.Item;
                 // Обновить таблицу связей ПЛУ для обмена.
-                List<WsSqlPlu1CFkModel> plus1CFksDb = WsServiceUtilsUpdate.UpdatePlus1CFksDb(response, record);
+                List<WsSqlPlu1CFkModel> plus1CFksDb = new();
                 // Проверить разрешение обмена для ПЛУ.
                 if (pluXml.ParseResult.IsStatusSuccess) WsServiceUtilsCheck.CheckEnabledPlu(pluXml, plus1CFksDb);
 
