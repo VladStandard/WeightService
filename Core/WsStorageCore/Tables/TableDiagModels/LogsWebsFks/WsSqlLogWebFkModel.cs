@@ -1,5 +1,3 @@
-using WsSqlTableBase = WsStorageCore.Common.WsSqlTableBase;
-
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebsFks;
 
 [Serializable]

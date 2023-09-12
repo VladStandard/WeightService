@@ -39,20 +39,4 @@ public class WsServiceControllerBaseTests
             PrintViewRecords(WsTestsUtils.ContextManager.Plu1CRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList());
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
-    
-    [Test]
-    public void Get_list_plus_1c_fks()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            if (WsTestsUtils.ContextManager.SqlCore.SessionFactory is null)
-                throw new ArgumentException(nameof(WsTestsUtils.ContextManager.SqlCore.SessionFactory));
-            WsSqlPluModel plu301 = WsTestsUtils.ContextManager.PluRepository.GetItemByNumber(301);
-            TestContext.WriteLine($"{nameof(plu301)}: {plu301}");
-            // Получить список связей обмена ПЛУ 1С по GUID_1C.
-            List<WsSqlPlu1CFkModel> plus1CFks = WsServiceUtilsGet.GetPlus1CFksByGuid1C(plu301.Uid1C);
-            Assert.IsTrue(plus1CFks.Any());
-            PrintViewRecords(plus1CFks);
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
-    }
 }

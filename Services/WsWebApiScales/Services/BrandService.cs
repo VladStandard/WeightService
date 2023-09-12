@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableScaleModels.Brands;
-using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Validators;
@@ -19,9 +18,7 @@ public class BrandService
     
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        WsSqlBrandRepository brandRepository = new();
-        
-        WsSqlBrandModel brandDb = brandRepository.GetItemByUid1C(brandDto.Guid);
+        WsSqlBrandModel brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
 
         brandDb.Name = brandDto.Name;
         brandDb.Code = brandDto.Code;
@@ -36,17 +33,36 @@ public class BrandService
         {
             WsServiceUtils.SqlCore.Update(brandDb);
         }
+        _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - изменен");
+    }
+    
+    private void IsMarkedBrand(BrandDto brandDto)
+    {
+        WsSqlBrandModel brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
         
-        _responseDto.AddSuccess(brandDto.Guid);
+        if (brandDb.IsNotExists)
+        {
+            _responseDto.AddSuccess(brandDto.Guid, "Бренд не найден для удаления");
+        }
+        else
+        {
+            brandDb.IsMarked = brandDto.IsMarked;
+            WsServiceUtils.SqlCore.Update(brandDb);
+            _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - удален");
+        }
     }
     
     public ResponseDto LoadBrands(BrandsDto brandsDto)
     {
         foreach (BrandDto brandDto in brandsDto.Brands)
         {
-            BrandDtoValidator validator = new();
-            ValidationResult validationResult = validator.Validate(brandDto);
-
+            if (brandDto.IsMarked)
+            {
+                IsMarkedBrand(brandDto);
+                continue;
+            }
+            ValidationResult validationResult = new BrandDtoValidator().Validate(brandDto);
+    
             if (validationResult.IsValid)
             {
                 UpdateOrCreate(brandDto);

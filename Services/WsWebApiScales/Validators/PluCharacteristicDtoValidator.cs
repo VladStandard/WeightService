@@ -14,7 +14,10 @@ public class PluCharacteristicDtoValidator : AbstractValidator<PluCharacteristic
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("Поле 'Name' обязательно для заполнения.")
             .MaximumLength(128).WithMessage("Поле 'Name' не должно превышать 128 символов.");
-        RuleFor(dto => dto.AttachmentsCountAsDecimal)
-            .PrecisionScale(10, 3, false);
+        RuleFor(dto => dto.AttachmentsCount)
+            .NotEmpty().WithMessage("Поле 'AttachmentsCount' обязательно.")
+            .Must(item=>!item.Contains(".") && !item.Contains(",")).WithMessage("Поле 'AttachmentsCount' не должно быть дробным.");
+        RuleFor(dto => dto.AttachmentsCountAsInt)
+            .Must(item=>item > 0).WithMessage("Поле 'AttachmentsCount' должно быть больше 0.");
     }
 }

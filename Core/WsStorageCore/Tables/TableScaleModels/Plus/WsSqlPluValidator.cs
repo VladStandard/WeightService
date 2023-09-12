@@ -62,24 +62,3 @@ public sealed class WsSqlPluValidator : WsSqlTableValidator<WsSqlPluModel>
 
     public WsSqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, true, true) { }
 }
-/*
-Пустые атрибуты у групп
-FullName
-CategoryGuid
-BrandGuid
-MeasurementType
-GroupGuid
-AttachmentsCount
-BoxTypeGuid
-BoxTypeName
-BoxTypeWeight
-PackageTypeGuid
-PackageTypeName
-PackageTypeWeight
-ClipTypeGuid
-ClipTypeName
-ClipTypeWeight
-PluNumber
-Description
-ShelfLife
-*/

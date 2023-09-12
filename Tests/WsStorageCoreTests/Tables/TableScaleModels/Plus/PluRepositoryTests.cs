@@ -63,19 +63,5 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
-
-    [Test]
-    public void GetListByUid1C()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            Guid uid = Guid.Parse("B912B17D-E328-11EC-BD1B-00155D8A460F");
-            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByUid1C(uid).ToList();
-
-            foreach (WsSqlPluModel plu in plus)
-                Assert.That(plu.Uid1C, Is.EqualTo(uid));
-
-            ParseRecords(plus);
-        }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
-    }
+    
 }

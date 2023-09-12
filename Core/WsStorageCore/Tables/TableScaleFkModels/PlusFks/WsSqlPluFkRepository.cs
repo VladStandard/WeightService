@@ -31,5 +31,12 @@ public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkMo
         return items.ToList();
     }
     
+    public WsSqlPluFkModel GetByPlu(WsSqlPluModel plu)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluStorageMethodFkModel.Plu), plu);
+        return SqlCore.GetItemByCrud<WsSqlPluFkModel>(sqlCrudConfig);
+    }
+    
     #endregion
 }

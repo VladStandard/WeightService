@@ -19,4 +19,11 @@ public class PluCharacteristicDto
 
     [XmlAttribute("AttachmentsCount")]
     public string AttachmentsCount { get; set; } = string.Empty;
+
+    public int AttachmentsCountAsInt => ParseIntOrMin(AttachmentsCount);
+    
+    private static int ParseIntOrMin(string value)
+    {
+        return int.TryParse(value, out int parsed) ? parsed : int.MinValue;
+    }
 }

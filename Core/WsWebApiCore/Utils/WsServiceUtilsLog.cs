@@ -81,8 +81,8 @@ public static class WsServiceUtilsLog
             int countErrors = WsServiceUtilsGetXmlContent.GetAttributeValueAsInt(responseData, nameof(WsResponse1CShortModel.ErrorsCount));
 
             // Log into DB.
-            WsServiceUtils.ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, WsEnumLogType.Information,
-                $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
+            // WsServiceUtils.ContextManager.ContextItem.SaveLogWebService(requestStampDt, requestData, responseStampDt, responseData, WsEnumLogType.Information,
+            //     $"{host}/{url}", "", "", format, countAll, countSuccess, countErrors);
 
             // Add meta data.
             string metaDataRequest = $"DateTime stamp: {requestStampDt}" + Environment.NewLine;
@@ -107,24 +107,6 @@ public static class WsServiceUtilsLog
             //WsDataContext.DataAccess.SaveLogMemory(PluginMemory.GetMemorySizeAppMb(), PluginMemory.GetMemorySizeFreeMb());
         }).ConfigureAwait(true);
     }
-
-    /// <summary>
-    /// Логирование запроса и ответа.
-    /// </summary>
-    /// <param name="appName"></param>
-    /// <param name="url"></param>
-    /// <param name="requestStampDt"></param>
-    /// <param name="requestXml"></param>
-    /// <param name="responseData"></param>
-    /// <param name="format"></param>
-    /// <param name="host"></param>
-    /// <param name="version"></param>
-    /// <returns></returns>
-    public static void LogWebServiceFk(string appName, string url, DateTime requestStampDt, XElement requestXml,
-        string responseData, string format, string host, string version) =>
-        LogWebServiceFk(appName, url, requestStampDt, requestXml.ToString(), responseData,
-            format, host, version);
-
 
     #endregion
 }

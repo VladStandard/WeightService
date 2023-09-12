@@ -1,5 +1,8 @@
 ﻿using FluentValidation.Results;
+using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
+using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.Tables.TableScaleModels.Boxes;
+using WsStorageCore.Tables.TableScaleModels.Brands;
 using WsStorageCore.Tables.TableScaleModels.Bundles;
 using WsStorageCore.Tables.TableScaleModels.Clips;
 using WsStorageCore.Tables.TableScaleModels.Plus;
@@ -22,32 +25,36 @@ public class PluService
     
     public ActionResult<ResponseDto> LoadPlu(PlusDto plusDto)
     {
-        
-        foreach (PluDto pluDto in plusDto.plus)
+        foreach (PluDto pluDto in plusDto.plus.OrderBy(item=>item.PluNumber))
         {
-            if (pluDto.IsMarked) SetPluIsMarked(pluDto);
+            WsSqlPluModel pluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.Uid);
+            if (pluDto.IsMarked) SetPluIsMarked(pluDb);
             
             ValidationResult validationResult = new PluDtoValidator().Validate(pluDto);
            
-            if (validationResult.IsValid)
+            //SetPluIsMarked(pluDto);
+            if (!validationResult.IsValid)
             {
-                SaveOrUpdateClip(pluDto.ClipTypeGuid, pluDto.ClipTypeName, pluDto.ClipTypeWeight);
-                SaveOrUpdateBox(pluDto.BoxTypeGuid, pluDto.BoxTypeName, pluDto.BoxTypeWeight);
-                SaveOrUpdateBundle(pluDto.PackageTypeGuid, pluDto.PackageTypeName, pluDto.PackageTypeWeight);
-                SaveOrUpdatePlu(pluDto);
-                // TODO: PluClipsSave
+                List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                _responseDto.AddError(pluDto.Uid, string.Join(" | ", errors));
                 continue;
             }
-            SetPluIsMarked(pluDto);
-
-            List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            _responseDto.AddError(pluDto.Uid, string.Join(" | ", errors));
-
+            
+            SaveOrUpdateClip(pluDto.ClipTypeGuid, pluDto.ClipTypeName, pluDto.ClipTypeWeight);
+            SaveOrUpdateBox(pluDto.BoxTypeGuid, pluDto.BoxTypeName, pluDto.BoxTypeWeight);
+            SaveOrUpdateBundle(pluDto.PackageTypeGuid, pluDto.PackageTypeName, pluDto.PackageTypeWeight);
+            SaveOrUpdatePlu(pluDb, pluDto);
+            SaveOrUpdatePluFk(pluDb, pluDto);
+            SaveOrUpdatePluNesting(pluDb, pluDto);
+            _responseDto.AddSuccess(pluDto.Uid, $"Номенклатура {pluDb.Number} обновлена");
         }
         return _responseDto;
     }
-    
-    private static void SaveOrUpdateClip(Guid clip1CUid, string clipName, decimal clipWeight)
+
+    //TODO: REFACTOR
+    #region REFACTORED
+
+     private static void SaveOrUpdateClip(Guid clip1CUid, string clipName, decimal clipWeight)
     {
         WsSqlClipModel clipDb = new WsSqlClipRepository().GetItemByUid1C(clip1CUid);
 
@@ -110,39 +117,80 @@ public class PluService
         }
         WsServiceUtils.SqlCore.Update(bundleDb);
     }
-    private static void SaveOrUpdatePlu(PluDto pluDto)
+    private static void SaveOrUpdatePlu(WsSqlPluModel plu, PluDto pluDto)
     {
-        WsSqlPluModel pluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.Uid);
+        plu.Name = pluDto.Name;
+        plu.FullName = pluDto.FullName;
+        plu.Description = pluDto.Description;
+        plu.IsMarked = pluDto.IsMarked;
+        plu.IsGroup = pluDto.IsGroup;
+        plu.Number = (short)pluDto.PluNumber;
+        plu.ShelfLifeDays = (byte)pluDto.ShelfLife;
+        plu.IsCheckWeight = pluDto.IsCheckWeight;
+        plu.Bundle = new WsSqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
+        plu.Brand = new WsSqlBrandRepository().GetItemByUid1C(pluDto.BrandGuid);
+        plu.Code = pluDto.Code;
+        plu.Ean13 = pluDto.Ean13;
+        plu.Itf14 = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "";
+        plu.Gtin = pluDto.IsCheckWeight == false ? pluDto.Ean13 : "0" + pluDto.Ean13;
         
-        
-        pluDb.Name = pluDto.Name;
-        pluDb.FullName = pluDto.FullName;
-        pluDb.Description = pluDto.Description;
-        pluDb.IsMarked = pluDto.IsMarked;
-        pluDb.IsGroup = pluDto.IsGroup;
-        pluDb.Number = (short)pluDto.PluNumber;
-        pluDb.ShelfLifeDays = (byte)pluDto.ShelfLife;
-        pluDb.IsCheckWeight = pluDto.IsCheckWeight;
-        pluDb.Bundle = new WsSqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
-        pluDb.Code = pluDto.Code;
-        pluDb.Ean13 = pluDto.Ean13;
-        pluDb.Itf14 = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "";
-        pluDb.Gtin = pluDto.IsCheckWeight == false ? pluDto.Ean13 : "0" + pluDto.Ean13;
-        
-        if (pluDb.IsNew)
+        if (plu.IsNew)
         {
-            pluDb.Uid1C = pluDto.Uid;
-            WsServiceUtils.SqlCore.Save(pluDb);
+            plu.Uid1C = pluDto.Uid;
+            WsServiceUtils.SqlCore.Save(plu);
             return;
         }
-        WsServiceUtils.SqlCore.Update(pluDb);
+        WsServiceUtils.SqlCore.Update(plu);
     }
-    private static void SetPluIsMarked(PluDto pluDto)
+    private static void SaveOrUpdatePluFk(WsSqlPluModel plu, PluDto pluDto)
     {
-        WsSqlPluModel pluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.Uid);
-        if (!pluDb.IsExists) return;
-        pluDb.IsMarked = true;
-        WsServiceUtils.SqlCore.Update(pluDb);
+        if (Equals(pluDto.ParentGroupGuid, Guid.Empty)) return;
+        if (plu.IsNotExists) return;
+        
+        WsSqlPluModel parentPluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.ParentGroupGuid);
+        if (parentPluDb.IsNotExists) return;
+        
+        WsSqlPluModel categoryDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.CategoryGuid);
 
+        WsSqlPluFkModel pluFkDb = new WsSqlPluFkRepository().GetByPlu(plu);
+
+        pluFkDb.Parent = parentPluDb;
+        pluFkDb.Category = categoryDb.IsExists ? categoryDb : null;
+        
+        if (pluFkDb.IsNew)
+        {
+            pluFkDb.Plu = plu;
+            WsServiceUtils.SqlCore.Save(pluFkDb);
+            return;
+        }
+        WsServiceUtils.SqlCore.Update(pluFkDb);
     }
+    private static void SetPluIsMarked(WsSqlPluModel plu)
+    {
+        if (plu.IsNotExists) return;
+        plu.IsMarked = true;
+        WsServiceUtils.SqlCore.Update(plu);
+    }
+    private static void SaveOrUpdatePluNesting(WsSqlPluModel plu, PluDto pluDto)
+    {
+        WsSqlBoxModel boxDb = new WsSqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
+        if (boxDb.IsNotExists) return;
+
+        WsSqlPluNestingFkModel pluNestingDb = new WsSqlPluNestingFkRepository().GetDefaultByPlu(plu);
+        
+        pluNestingDb.IsDefault = true;
+        pluNestingDb.BundleCount = pluDto.AttachmentsCount;
+        pluNestingDb.Box = boxDb;
+        
+        if (pluNestingDb.IsNew)
+        {
+            pluNestingDb.Plu = plu;
+            WsServiceUtils.SqlCore.Save(pluNestingDb);
+            return;
+        }
+        WsServiceUtils.SqlCore.Update(pluNestingDb);
+    }
+
+     #endregion
+   
 }

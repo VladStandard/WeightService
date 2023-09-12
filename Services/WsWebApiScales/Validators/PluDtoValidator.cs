@@ -11,7 +11,7 @@ public class PluDtoValidator : AbstractValidator<PluDto>
             .NotEmpty().WithMessage("Поле 'Guid' обязательно для заполнения.");
         RuleFor(dto => dto.PluNumber)
             .Equal(0).When(item => item.IsGroup).WithMessage("Поле 'PluNumber' должно больше 0, при IsGroup = 1.")
-            .GreaterThan(0).WithMessage("Поле 'PluNumber' должно больше 0.")
+            .GreaterThan(0).When(item => !item.IsGroup).WithMessage("Поле 'PluNumber' должно больше 0.")
             .LessThanOrEqualTo(999).WithMessage("Поле 'PluNumber' должно быть меньше 1000.");
         RuleFor(dto => dto.Description)
             .Empty().When(item => item.IsGroup).WithMessage("Поле Description у PluGroup должно быть пустым.")

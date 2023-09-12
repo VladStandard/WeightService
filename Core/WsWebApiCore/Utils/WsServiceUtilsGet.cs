@@ -246,27 +246,6 @@ public static class WsServiceUtilsGet
     }
 
     /// <summary>
-    /// Получить список связей обмена ПЛУ 1С по GUID_1C.
-    /// </summary>
-    /// <param name="uid1C"></param>
-    public static List<WsSqlPlu1CFkModel> GetPlus1CFksByGuid1C(Guid uid1C)
-    {
-        List<WsSqlPlu1CFkModel> plus1CFks = new();
-        WsServiceUtils.ContextCache.Load(WsSqlEnumTableName.Plus1CFks);
-        // Получить список ПЛУ по UID_1C.
-        List<WsSqlPluModel> plusDb = WsServiceUtils.ContextManager.PluRepository.GetEnumerableByUid1C(uid1C).ToList();
-        foreach (WsSqlPluModel plu in plusDb)
-        {
-            WsSqlPlu1CFkModel? plu1CFkCache =
-                WsServiceUtils.ContextCache.Plus1CFks.Find(item => item.Plu.IdentityValueUid.Equals(plu.IdentityValueUid));
-            if (plu1CFkCache is not null)
-                plus1CFks.Add(plu1CFkCache);
-        }
-        return plus1CFks;
-    }
-    
-
-    /// <summary>
     /// Получить список вложенностей ПЛУ.
     /// </summary>
     /// <param name="contextType"></param>

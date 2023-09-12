@@ -145,7 +145,6 @@ public class PluDto : IXmlSerializable
         string? attributeValue = reader.GetAttribute(attributeName)?.Replace(',', '.');
         return decimal.TryParse(attributeValue, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsed) ? parsed : default;
     }
-   
     
     private static string ParseStringOrDefault(XmlReader reader, string attributeName) =>
         reader.GetAttribute(attributeName) ?? string.Empty;

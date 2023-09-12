@@ -3,7 +3,8 @@ namespace DeviceControl.Components.Nested.PlusNestingFks;
 public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 {
     #region Public and private fields, properties, constructor
-
+    
+    [Parameter] public WsSqlPluModel Plu { get; set; }
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     public PlusNestingFks() : base()
     {
@@ -17,7 +18,7 @@ public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = PluNestingFkRepository.GetEnumerableByPluUidActual(SqlItem?.IdentityValueUid).ToList();
+        SqlSectionCast = PluNestingFkRepository.GetEnumerableByPluUidActual(Plu).ToList();
     }
 
     #endregion

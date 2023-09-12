@@ -134,19 +134,7 @@ public sealed class WsSqlContextItemHelper
     #endregion
 
     #region Public and private methods - LogWeb
-
-    public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
-        string url, string parameters, string headers, WsEnumFormatType formatType, int countAll, int countSuccess, int countErrors) =>
-        SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
-            url, parameters, headers, (byte)formatType, countAll, countSuccess, countErrors);
-
-    public void SaveLogWebService(DateTime requestStampDt, string requestDataString,
-        DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
-        string url, string parameters, string headers, string format, int countAll, int countSuccess, int countErrors) =>
-        SaveLogWebService(requestStampDt, requestDataString, responseStampDt, responseDataString, logType,
-            url, parameters, headers, (byte)WsDataFormatUtils.GetFormatType(format), countAll, countSuccess, countErrors);
-
+    
     private void SaveLogWebService(DateTime requestStampDt, string requestDataString,
         DateTime responseStampDt, string responseDataString, WsEnumLogType logType,
         string url, string parameters, string headers,
