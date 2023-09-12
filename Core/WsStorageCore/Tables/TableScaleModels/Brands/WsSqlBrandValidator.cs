@@ -9,7 +9,6 @@ public sealed class WsSqlBrandValidator : WsSqlTableValidator<WsSqlBrandModel>
     public WsSqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Name)
-            .NotEmpty()
             .NotNull()
             .MaximumLength(128);
         RuleFor(item => item.Code)

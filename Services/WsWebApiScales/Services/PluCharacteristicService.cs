@@ -1,10 +1,11 @@
 ﻿using FluentValidation.Results;
-
+using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.Tables.TableScaleModels.Boxes;
 using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiScales.Dto.PluCharacteristic;
 using WsWebApiScales.Dto.Response;
+using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 namespace WsWebApiScales.Services;
@@ -12,14 +13,20 @@ namespace WsWebApiScales.Services;
 public class PluCharacteristicService
 {
     private readonly ResponseDto _responseDto;
-
-    public PluCharacteristicService(ResponseDto responseDto)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    
+    public PluCharacteristicService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
     {
         _responseDto = responseDto;
+        _httpContextAccessor = httpContextAccessor;
     }
-    
+
     public ActionResult<ResponseDto> LoadCharacteristics(PluCharacteristicsDto pluCharacteristics)
     {
+        
+        DateTime requestTime = DateTime.Now;
+        string currentUrl = _httpContextAccessor?.HttpContext?.Request.Path ?? string.Empty; 
+        
         WsSqlPluRepository pluRepository = new();
         foreach (PluCharacteristicDto pluCharacteristicDto in pluCharacteristics.Characteristics.OrderBy(item=>item.AttachmentsCountAsInt))
         {
@@ -45,6 +52,10 @@ public class PluCharacteristicService
             PluCharacteristicSaveOrUpdate(pluDb, pluCharacteristicDto);
 
         }
+        new WsSqlLogWebRepository().Save(requestTime,   
+        XmlUtil.SerializeToXml(pluCharacteristics),   
+        XmlUtil.SerializeToXml(_responseDto), currentUrl, _responseDto.SuccessesCount, _responseDto.ErrorsCount);
+        
         return _responseDto;
     }
     

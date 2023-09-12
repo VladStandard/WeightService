@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace WsWebApiScales.Dto.Plu;
 
+
 public class PluDto : IXmlSerializable
 {
     #region Default
@@ -131,8 +132,76 @@ public class PluDto : IXmlSerializable
         reader.Read(); 
     }
 
-    public void WriteXml(XmlWriter writer) {}
-    
+    public void WriteXml(XmlWriter writer)
+    {
+        writer.WriteStartElement("PluDto");
+
+        #region Default
+
+        WriteXmlElement(writer, "GUID", Uid.ToString());
+        WriteXmlElement(writer, nameof(IsMarked), IsMarked ? "1" : "0");
+
+        #endregion
+
+        #region Uid
+
+        WriteXmlElement(writer, nameof(ParentGroupGuid), ParentGroupGuid.ToString());
+        WriteXmlElement(writer, nameof(CategoryGuid), CategoryGuid.ToString());
+        WriteXmlElement(writer, nameof(BrandGuid), BrandGuid.ToString());
+        WriteXmlElement(writer, nameof(GroupGuid), GroupGuid.ToString());
+        WriteXmlElement(writer, nameof(BoxTypeGuid), BoxTypeGuid.ToString());
+        WriteXmlElement(writer, nameof(ClipTypeGuid), ClipTypeGuid.ToString());
+        WriteXmlElement(writer, nameof(PackageTypeGuid), PackageTypeGuid.ToString());
+
+        #endregion
+
+        #region Name
+
+        WriteXmlElement(writer, nameof(Name), Name);
+        WriteXmlElement(writer, nameof(FullName), FullName);
+        WriteXmlElement(writer, nameof(BoxTypeName), BoxTypeName);
+        WriteXmlElement(writer, nameof(ClipTypeName), ClipTypeName);
+        WriteXmlElement(writer, nameof(PackageTypeName), PackageTypeName);
+
+        #endregion
+
+        #region Weight
+
+        WriteXmlElement(writer, nameof(BoxTypeWeight), BoxTypeWeight.ToString(CultureInfo.InvariantCulture));
+        WriteXmlElement(writer, nameof(PackageTypeWeight), PackageTypeWeight.ToString(CultureInfo.InvariantCulture));
+        WriteXmlElement(writer, nameof(ClipTypeWeight), ClipTypeWeight.ToString(CultureInfo.InvariantCulture));
+
+        #endregion
+
+        #region Codes
+
+        WriteXmlElement(writer, nameof(Code), Code);
+        WriteXmlElement(writer, nameof(Ean13), Ean13);
+        WriteXmlElement(writer, nameof(Itf14), Itf14);
+
+        #endregion
+
+        #region Other
+
+        WriteXmlElement(writer, nameof(IsGroup), IsGroup ? "1" : "0");
+        WriteXmlElement(writer, nameof(MeasurementType), MeasurementType);
+        WriteXmlElement(writer, nameof(Description), Description);
+        WriteXmlElement(writer, nameof(AttachmentsCount), AttachmentsCount.ToString());
+        WriteXmlElement(writer, nameof(PluNumber), PluNumber.ToString());
+        WriteXmlElement(writer, nameof(ShelfLife), ShelfLife.ToString());
+
+        #endregion
+
+        writer.WriteEndElement();
+    }
+
+    private static void WriteXmlElement(XmlWriter writer, string elementName, string elementValue)
+    {
+        writer.WriteStartAttribute(elementName);
+        writer.WriteString(elementValue);
+        writer.WriteEndAttribute();
+    }
+        
     private static Guid ParseGuidOrDefault(XmlReader reader, string attributeName) => 
         Guid.TryParse(reader.GetAttribute(attributeName), out Guid parsed) ? parsed : Guid.Empty;
     

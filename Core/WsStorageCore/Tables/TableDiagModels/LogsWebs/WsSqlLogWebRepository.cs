@@ -9,4 +9,23 @@ public class WsSqlLogWebRepository: WsSqlTableRepositoryBase<WsSqlLogWebModel>
             sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc);
         return SqlCore.GetEnumerableNotNullable<WsSqlLogWebModel>(sqlCrudConfig).ToList();
     }
+    
+    public void Save(DateTime requestStampDt, string requestDataString, string responseDataString, string url,
+        int success, int errors)
+    {
+        WsSqlLogWebModel webLog = new()
+        {
+            CreateDt = requestStampDt,
+            StampDt = DateTime.Now,
+            Version = WsAppVersionHelper.Instance.Version,
+            Url = url,
+            DataRequest = requestDataString,
+            DataResponse = responseDataString,
+            CountSuccess = success,
+            CountErrors = errors,
+            CountAll = errors + success
+        };
+        SqlCore.Save(webLog, WsSqlEnumSessionType.IsolatedAsync);
+    }
+
 }

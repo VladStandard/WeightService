@@ -1,3 +1,4 @@
+using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace DeviceControl.Services;
@@ -51,7 +52,6 @@ public class WsRouteService
             WsSqlDeviceScaleFkModel => WsRouteUtils.SectionDevicesScalesFk,
             WsSqlDeviceTypeModel => WsRouteUtils.SectionDevicesTypes,
             WsSqlLogModel => WsRouteUtils.SectionLogs,
-            WsSqlLogWebFkModel => WsRouteUtils.SectionLogsWebService,
             WsSqlOrganizationModel => WsRouteUtils.SectionOrganizations,
             WsSqlPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlPluModel => WsRouteUtils.SectionPlus,
@@ -74,7 +74,7 @@ public class WsRouteService
             WsSqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,
             WsSqlViewDeviceModel => WsRouteUtils.SectionDevices,
-            WsSqlViewWebLogModel => WsRouteUtils.SectionLogsWebService,
+            WsSqlLogWebModel => WsRouteUtils.SectionLogsWebService,
             _ => string.Empty
         };
 }

@@ -7,4 +7,7 @@ public class BrandsDto
 {
     [XmlElement("Brand")]
     public List<BrandDto> Brands { get; set; }
+    
+    [XmlAttribute("Count")]
+    public int Count { get; set; }
 }

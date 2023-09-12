@@ -1,8 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using WsStorageCore.Tables.TableDiagModels.LogsWebs;
+
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 
-public sealed partial class WebServiceLogs : SectionBase<WsSqlViewWebLogModel>
+public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebModel>
 {
     #region Public and private fields, properties, constructor
 
@@ -21,7 +21,8 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlViewWebLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewWebLogRepository.GetList(SqlCrudConfigSection).ToList();
+        WsSqlCrudConfigModel crud = WsSqlCrudConfigFactory.GetCrudAll();
+        SqlSectionCast = new WsSqlLogWebRepository().GetList(crud).ToList();
     }
 
     #endregion

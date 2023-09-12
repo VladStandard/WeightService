@@ -129,7 +129,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMemoryMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
@@ -788,13 +787,6 @@ public sealed class WsSqlCoreHelper
             case WsSqlLogMemoryModel logMemory:
                 logMemory.App = GetItemByIdentity<WsSqlAppModel>(logMemory.App.Identity);
                 logMemory.Device = GetItemByIdentity<WsSqlDeviceModel>(logMemory.Device.Identity);
-                break;
-            case WsSqlLogWebFkModel logWebFk:
-                logWebFk.LogWebRequest = GetItemByIdentity<WsSqlLogWebModel>(logWebFk.LogWebRequest.Identity);
-                logWebFk.LogWebResponse = GetItemByIdentity<WsSqlLogWebModel>(logWebFk.LogWebResponse.Identity);
-                logWebFk.App = GetItemByIdentity<WsSqlAppModel>(logWebFk.App.Identity);
-                logWebFk.LogType = GetItemByIdentity<WsSqlLogTypeModel>(logWebFk.LogType.Identity);
-                logWebFk.Device = GetItemByIdentity<WsSqlDeviceModel>(logWebFk.Device.Identity);
                 break;
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluFk.Plu.Identity);

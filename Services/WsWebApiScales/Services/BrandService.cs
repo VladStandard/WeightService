@@ -1,7 +1,9 @@
 ﻿using FluentValidation.Results;
+using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableScaleModels.Brands;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
+using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 namespace WsWebApiScales.Services;
@@ -10,10 +12,12 @@ public class BrandService
 {
     
     private readonly ResponseDto _responseDto;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public BrandService(ResponseDto responseDto)
+    public BrandService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
     {
         _responseDto = responseDto;
+        _httpContextAccessor = httpContextAccessor;
     }
     
     private void UpdateOrCreate(BrandDto brandDto)
@@ -54,6 +58,9 @@ public class BrandService
     
     public ResponseDto LoadBrands(BrandsDto brandsDto)
     {
+        DateTime requestTime = DateTime.Now;
+        string currentUrl = _httpContextAccessor?.HttpContext?.Request.Path ?? string.Empty; 
+        
         foreach (BrandDto brandDto in brandsDto.Brands)
         {
             if (brandDto.IsMarked)
@@ -71,6 +78,11 @@ public class BrandService
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
             _responseDto.AddError(brandDto.Guid, string.Join(" | ", errors));
         }
+
+      
+        new WsSqlLogWebRepository().Save(requestTime,   
+        XmlUtil.SerializeToXml(brandsDto),   
+        XmlUtil.SerializeToXml(_responseDto), currentUrl, _responseDto.SuccessesCount, _responseDto.ErrorsCount);
 
         return _responseDto;
     }

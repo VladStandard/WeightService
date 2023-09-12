@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.Tables.TableScaleModels.Boxes;
@@ -8,6 +9,7 @@ using WsStorageCore.Tables.TableScaleModels.Clips;
 using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiScales.Dto.Plu;
 using WsWebApiScales.Dto.Response;
+using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 
@@ -17,14 +19,19 @@ namespace WsWebApiScales.Services;
 public class PluService
 { 
     private readonly ResponseDto _responseDto;
-    
-    public PluService(ResponseDto responseDto)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    public PluService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
     {
         _responseDto = responseDto;
+        _httpContextAccessor = httpContextAccessor;
     }
     
     public ActionResult<ResponseDto> LoadPlu(PlusDto plusDto)
     {
+        DateTime requestTime = DateTime.Now;
+        string currentUrl = _httpContextAccessor?.HttpContext?.Request.Path ?? string.Empty; 
+
+        
         foreach (PluDto pluDto in plusDto.plus.OrderBy(item=>item.PluNumber))
         {
             WsSqlPluModel pluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.Uid);
@@ -48,6 +55,11 @@ public class PluService
             SaveOrUpdatePluNesting(pluDb, pluDto);
             _responseDto.AddSuccess(pluDto.Uid, $"Номенклатура {pluDb.Number} обновлена");
         }
+        
+        new WsSqlLogWebRepository().Save(requestTime,   
+        XmlUtil.SerializeToXml(plusDto),   
+        XmlUtil.SerializeToXml(_responseDto), currentUrl, _responseDto.SuccessesCount, _responseDto.ErrorsCount);
+        
         return _responseDto;
     }
 

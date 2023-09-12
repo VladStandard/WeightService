@@ -16,6 +16,7 @@ builder.Services.AddTransient<ResponseDto>();
 builder.Services.AddTransient<PluService>();
 builder.Services.AddTransient<BrandService>();
 builder.Services.AddTransient<PluCharacteristicService>();
+builder.Services.AddHttpContextAccessor();
 
 // POST XML from body.
 builder.Services.AddMvc(options =>
@@ -32,6 +33,7 @@ builder.Services.AddControllers(options => {
 });
 
 
+
 WebApplication app = builder.Build();
 
 
@@ -39,5 +41,7 @@ WebApplication app = builder.Build();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRouting();
+// app.UseMiddleware<RequestResponseLoggingMiddleware>(); // Разместите здесь
 app.MapControllers();
 app.Run();

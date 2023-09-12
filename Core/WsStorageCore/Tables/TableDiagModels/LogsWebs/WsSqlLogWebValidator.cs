@@ -10,18 +10,12 @@ public sealed class WsSqlLogWebValidator : WsSqlTableValidator<WsSqlLogWebModel>
             .GreaterThanOrEqualTo(new DateTime(2020, 01, 01));
         RuleFor(item => item.Version)
             .NotNull();
-        RuleFor(item => item.Direction)
-            .NotNull();
         RuleFor(item => item.Url)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Params)
+        RuleFor(item => item.DataRequest)
             .NotNull();
-        RuleFor(item => item.Headers)
-            .NotNull();
-        RuleFor(item => item.DataType)
-            .NotNull();
-        RuleFor(item => item.DataString)
+        RuleFor(item => item.DataResponse)
             .NotNull();
         RuleFor(item => item.CountAll)
             .NotNull()

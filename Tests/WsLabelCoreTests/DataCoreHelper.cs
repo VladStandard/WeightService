@@ -261,24 +261,12 @@ public sealed class DataCoreHelper
             case WsSqlLogWebModel logWeb:
                 logWeb.StampDt.Returns(DateTime.Now);
                 logWeb.Version.Returns(WsLocaleCore.Sql.SqlItemFieldVersion);
-                logWeb.Direction.Returns((byte)0);
                 logWeb.Url.Returns(WsLocaleCore.Sql.SqlItemFieldUrl);
-                logWeb.Params.Returns(string.Empty);
-                logWeb.Headers.Returns(string.Empty);
-                logWeb.DataString.Returns(string.Empty);
-                logWeb.DataType.Returns((byte)0);
+                logWeb.DataRequest.Returns(string.Empty);
                 logWeb.CountAll.Returns(2);
                 logWeb.CountSuccess.Returns(1);
                 logWeb.CountErrors.Returns(1);
                 break;
-			case WsSqlLogWebFkModel logWebFk:
-                logWebFk.LogWebRequest = CreateNewSubstitute<WsSqlLogWebModel>(isNotDefault);
-                logWebFk.LogWebResponse = CreateNewSubstitute<WsSqlLogWebModel>(isNotDefault);
-                logWebFk.LogWebResponse.Direction.Returns((byte)1);
-                logWebFk.App = CreateNewSubstitute<WsSqlAppModel>(isNotDefault);
-                logWebFk.LogType = CreateNewSubstitute<WsSqlLogTypeModel>(isNotDefault);
-                logWebFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
-				break;
             case WsSqlPluFkModel pluFk:
                 pluFk.Plu = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);
                 pluFk.Parent = CreateNewSubstitute<WsSqlPluModel>(isNotDefault);

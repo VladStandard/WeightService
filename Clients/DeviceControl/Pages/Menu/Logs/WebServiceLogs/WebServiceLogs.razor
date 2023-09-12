@@ -4,8 +4,9 @@
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
 @using DeviceControl.Utils
+@using WsStorageCore.Tables.TableDiagModels.LogsWebs
 @using WsStorageCore.Views.ViewScaleModels.WebLogs
-@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.WebLogs.WsSqlViewWebLogModel>
+@inherits SectionBase<WsSqlLogWebModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.WebService.Name"
@@ -17,7 +18,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlViewWebLogModel"
+  TItem="@WsSqlLogWebModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -26,15 +27,15 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlViewWebLogModel">
+    <TItemContent TItem="@WsSqlLogWebModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%"
-                            FormatString="@WsStrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="AppVersion" Width="15%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.RequestUrl" Property="RequestUrl" Width="40%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="RequestCountAll" Width="15%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Success" Property="ResponseCountSuccess" Width="15%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Error" Property="ResponseCountError" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="Version" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.RequestUrl" Property="Url" Width="40%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="CountAll" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Success" Property="CountSuccess" Width="15%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Error" Property="CountErrors" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>
