@@ -16,8 +16,6 @@ public sealed partial class ItemPlu : ItemBase<WsSqlPluModel>
     {
         Template = new();
         PluTemplateFk = new();
-
-        ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
 
     #endregion

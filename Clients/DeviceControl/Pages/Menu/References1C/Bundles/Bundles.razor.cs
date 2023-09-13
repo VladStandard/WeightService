@@ -6,7 +6,7 @@ public sealed partial class Bundles : SectionBase<WsSqlBundleModel>
 
     public Bundles() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
     
     protected override void SetSqlSectionCast()

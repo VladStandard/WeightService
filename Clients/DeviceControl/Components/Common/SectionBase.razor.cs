@@ -43,6 +43,10 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
         SqlCrudConfigSection.SelectTopRowsCount = int.TryParse(rowCount, out int parsedNumber) ? parsedNumber : 200;
         ContextMenuItems = GetContextMenuItems();
         GetSectionData();
+        
+        #pragma warning disable BL0005
+        DataGrid.PageSize = 15; 
+        #pragma warning restore BL0005
     }
 
     protected void SqlItemSet(TItem item)

@@ -6,7 +6,7 @@ public sealed partial class Clips : SectionBase<WsSqlClipModel>
     
     public Clips() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
     
     protected override void SetSqlSectionCast()

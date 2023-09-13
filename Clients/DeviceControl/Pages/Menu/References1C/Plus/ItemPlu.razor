@@ -31,6 +31,16 @@
   </tr>
   <tr>
     <td>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@WsLocaleCore.Table.Bundle"/>
+    </td>
+    <td>@SqlItemCast.Bundle.Name</td>
+    <td>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Brand)" Text="@WsLocaleCore.Table.Brand"/>
+    </td>
+    <td>@SqlItemCast.Brand.Name</td>
+  </tr>
+  <tr>
+    <td>
       <RadzenLink Path="@WsRouteService.GetItemRoute(Template)" Text="@WsLocaleCore.Table.Template"/>
     </td>
     <td>@Template.Title</td>
@@ -41,7 +51,7 @@
   </tr>
   <tr>
     <td>@WsLocaleCore.Table.Ean13</td>
-    <td><RzTextBox @bind-Value="@SqlItemCast.Ean13"/></td>
+    <td>@SqlItemCast.Ean13</td>
     <td>@WsLocaleCore.Table.Gtin</td>
     <td>@SqlItemCast.Gtin</td>
   </tr>
@@ -54,20 +64,12 @@
   <tr>
     <td>@WsLocaleCore.Table.FullName</td>
     <td>
-      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.FullName"/>
+      <RadzenTextArea Style="width: 100%; height: 100px;" Disabled="true" Value="@SqlItemCast.FullName"/>
     </td>
     <td>@WsLocaleCore.Table.Description</td>
     <td>
-      <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
+      <RadzenTextArea Style="width: 100%; height: 100px;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
     </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@WsLocaleCore.Table.Bundle"/>
-    </td>
-    <td>@SqlItemCast.Bundle.Name</td>
-    <td></td>
-    <td></td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>

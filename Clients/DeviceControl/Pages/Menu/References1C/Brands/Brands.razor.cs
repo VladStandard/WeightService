@@ -6,7 +6,7 @@ public sealed partial class Brands : SectionBase<WsSqlBrandModel>
 
     public Brands() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
     
     protected override void SetSqlSectionCast()

@@ -6,7 +6,7 @@ public sealed partial class Boxes : SectionBase<WsSqlBoxModel>
 
     public Boxes() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
     
     protected override void SetSqlSectionCast()

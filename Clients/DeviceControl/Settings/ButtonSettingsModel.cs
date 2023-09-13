@@ -34,6 +34,9 @@ public class ButtonSettingsModel
 
     public static ButtonSettingsModel CreateForStaticSection() =>
         new(true, true, false, false, false);
+    
+    public static ButtonSettingsModel CreateForStatic1CSection() =>
+        new(false, false, false, false, false);
 
     #endregion
 }
