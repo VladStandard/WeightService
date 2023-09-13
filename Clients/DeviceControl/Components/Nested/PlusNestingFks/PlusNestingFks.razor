@@ -25,17 +25,14 @@
   <Columns>
     <TItemContent TItem="@WsSqlPluNestingFkModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" SortProperty="Plu.IsCheckWeight" Width="5%">
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.IsDefault" SortProperty="IsDefault" Width="10%">
         <Template Context="itemCast">
-          <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
+          <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsDefault"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="Plu.Number" Width="5%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="Plu.Name" Width="27%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Bundle" Property="Plu.Bundle.Name" Width="15%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Box" Property="Box.Name" Width="28%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="BundleCount" Width="5%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weight" Property="WeightTare" Width="5%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Box" Property="Box.Name" Width="70%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Count" Property="BundleCount" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weight" Property="WeightTare" Width="10%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

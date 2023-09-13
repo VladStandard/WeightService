@@ -126,7 +126,7 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string SectionProductionFacilities => Lang == WsEnumLanguage.English ? "Production facilities" : "Производственные площадки";
     public string SectionProductionFacilitiesShort => Lang == WsEnumLanguage.English ? "Facilities" : "Площадки";
     public string SectionReferences => Lang == WsEnumLanguage.English ? "References" : "Справочники";
-    public string SectionReferences1C => Lang == WsEnumLanguage.English ? "References 1C" : "Справочники 1C";
+    public string SectionReferences1C => Lang == WsEnumLanguage.English ? "References 1C" : "Данные из 1C";
     public string SectionScales => Lang == WsEnumLanguage.English ? "Lines" : "Линии";
     public string SectionScreenShots => Lang == WsEnumLanguage.English ? "Screenshots" : "Скриншоты";
     public string SectionTaskModules => Lang == WsEnumLanguage.English ? "Task Modules" : "Модули задач";

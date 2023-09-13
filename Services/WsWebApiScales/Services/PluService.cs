@@ -144,7 +144,7 @@ public class PluService
         plu.Code = pluDto.Code;
         plu.Ean13 = pluDto.Ean13;
         plu.Itf14 = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "";
-        plu.Gtin = pluDto.IsCheckWeight == false ? pluDto.Ean13 : "0" + pluDto.Ean13;
+        plu.Gtin = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "0" + pluDto.Ean13;
         
         if (plu.IsNew)
         {

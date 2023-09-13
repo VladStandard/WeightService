@@ -15,6 +15,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
     [XmlElement] public virtual decimal WeightMax { get; set; }
     [XmlElement] public virtual decimal WeightMin { get; set; }
     [XmlElement] public virtual decimal WeightNom { get; set; }
+    public virtual Guid Uid1C { get; set; }
     [XmlIgnore] public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
     [XmlElement] public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
     [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";

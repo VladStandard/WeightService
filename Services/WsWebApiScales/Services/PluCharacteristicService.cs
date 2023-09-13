@@ -74,7 +74,7 @@ public class PluCharacteristicService
             _responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - характеристика совпадает со вложенностью по-молчанию!");
             return;
         }
-        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByAttachmentsCountAndPlu(plu, (short)pluCharacteristicDto.AttachmentsCountAsInt);
+        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         if (nesting.IsNew)
         {
             _responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} не найдена для удаления!");
@@ -115,7 +115,7 @@ public class PluCharacteristicService
             return;
         }
             
-        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByAttachmentsCountAndPlu(plu, (short)pluCharacteristicDto.AttachmentsCountAsInt);
+        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         
         WsSqlBoxModel boxDb = new WsSqlBoxRepository().GetItemByUid1C(new("71bc8e8a-99cf-11ea-a220-a4bf0139eb1b"));
         if (boxDb.IsNew)
@@ -130,6 +130,7 @@ public class PluCharacteristicService
         nesting.Name = pluCharacteristicDto.Name;
         nesting.IsMarked = pluCharacteristicDto.IsMarked;
         nesting.BundleCount = (short)pluCharacteristicDto.AttachmentsCountAsInt;
+        nesting.Uid1C = pluCharacteristicDto.Guid;
             
         if (nesting.IsNew)
             WsServiceUtils.SqlCore.Save(nesting);

@@ -27,6 +27,17 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
         return SqlCore.GetEnumerableNotNullable<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
 
+    public WsSqlPluNestingFkModel GetByPluAndUid1C(WsSqlPluModel plu, Guid uid1C)
+    {
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluTemplateFkModel.Plu), plu);
+        sqlCrudConfig.AddFilter(new()
+        {
+            Name = nameof(WsSqlPluNestingFkModel.Uid1C),
+            Value = uid1C
+        });
+        return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
+    }
     public WsSqlPluNestingFkModel GetDefaultByPlu(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
