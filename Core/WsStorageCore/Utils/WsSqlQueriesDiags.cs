@@ -4,14 +4,6 @@ public static class WsSqlQueriesDiags
 {
     public static class Views
     {
-        /// <summary>
-        /// Получить журналы устройств из представления [diag].[VIEW_LOGS_DEVICES].
-        /// </summary>
-        /// <param name="appName"></param>
-        /// <param name="deviceName"></param>
-        /// <param name="timeInterval"></param>
-        /// <param name="records"></param>
-        /// <returns></returns>
         public static string GetViewLogsDevices(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records)
         {
             string where = timeInterval switch
@@ -39,15 +31,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
 FROM [DIAG].[VIEW_LOGS_DEVICES] {where}
 ORDER BY [CREATE_DT] DESC;");
         }
-
-        /// <summary>
-        /// Получить агрегированные журналы устройств из представления [diag].[VIEW_LOGS_DEVICES_AGGR].
-        /// </summary>
-        /// <param name="appName"></param>
-        /// <param name="deviceName"></param>
-        /// <param name="timeInterval"></param>
-        /// <param name="records"></param>
-        /// <returns></returns>
+        
         public static string GetViewLogsDevicesAggr(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records)
         {
             string where = timeInterval switch
@@ -97,15 +81,7 @@ FROM [DIAG].[VIEW_LOGS_DEVICES_AGGR] {where}
 ORDER BY [CREATE_DT] DESC, [LOG_TYPE];"),
             };
         }
-
-        /// <summary>
-        /// Получить логи памяти из представления [diag].[VIEW_LOGS_MEMORIES].
-        /// </summary>
-        /// <param name="appName"></param>
-        /// <param name="deviceName"></param>
-        /// <param name="timeInterval"></param>
-        /// <param name="records"></param>
-        /// <returns></returns>
+        
         public static string GetViewLogsMemory(string appName, string deviceName, WsSqlEnumTimeInterval timeInterval, int records)
         {
             string where = timeInterval switch
@@ -129,12 +105,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
 FROM [diag].[VIEW_LOGS_MEMORIES] {where}
 ORDER BY [CREATE_DT] DESC;");
         }
-
-        /// <summary>
-        /// Получить логи размеров таблиц из представления [diag].[VIEW_TABLES_SIZES].
-        /// </summary>
-        /// <param name="records"></param>
-        /// <returns></returns>
+        
         public static string GetViewTablesSizes(int records = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}
@@ -148,24 +119,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
     ,[FILENAME]
 FROM [diag].[VIEW_TABLES_SIZES]
 ORDER BY [USED_SPACE_MB] DESC");
-
-        /// <summary>
-        /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
-        /// </summary>
-        /// <param name="scaleId"></param>
-        /// <param name="pluNumber"></param>
-        /// <param name="records"></param>
-        /// <returns></returns>
-        public static string GetViewPlusScales(ushort scaleId, ushort pluNumber, int records = 0) =>
-            GetViewPlusScales(scaleId, new List<ushort> { pluNumber }, records);
-
-        /// <summary>
-        /// Получить список ПЛУ линий из представления [REF].[VIEW_PLUS_SCALES].
-        /// </summary>
-        /// <param name="scaleId"></param>
-        /// <param name="pluNumbers"></param>
-        /// <param name="records"></param>
-        /// <returns></returns>
+        
         public static string GetViewPlusScales(ushort scaleId, IEnumerable<ushort> pluNumbers, int records = 0) =>
             WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
@@ -191,12 +145,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
     ,[TEMPLATE_NAME]
 FROM [REF].[VIEW_PLUS_SCALES] {WsSqlQueries.GetWhereScaleId(scaleId)} {WsSqlQueries.GetWherePluNumbers(pluNumbers.ToList(), true)}
 ORDER BY [SCALE_ID], [PLU_NUMBER];");
-
-        /// <summary>
-        /// Получить список способов хранения ПЛУ из представления [REF].[VIEW_PLUS_STORAGE_METHODS].
-        /// </summary>
-        /// <param name="records"></param>
-        /// <returns></returns>
+        
         public static string GetViewPlusStorageMethods(int records = 0) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}
@@ -224,12 +173,7 @@ SELECT {WsSqlQueries.GetTopRecords(records)}
 	,[TEMPLATE_NAME]
 FROM [REF].[VIEW_PLUS_STORAGE_METHODS]
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
-
-        /// <summary>
-        /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
-        /// </summary>
-        /// <param name="pluNumber"></param>
-        /// <returns></returns>
+        
         public static string GetViewPlusNesting29(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT 
@@ -264,12 +208,7 @@ SELECT
 	,[TARE_WEIGHT]
 FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
-
-        /// <summary>
-        /// Получить список вложенностей ПЛУ из представления [REF].[VIEW_PLUS_NESTING].
-        /// </summary>
-        /// <param name="pluNumber"></param>
-        /// <returns></returns>
+        
         public static string GetViewPlusNesting32(ushort pluNumber) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT 

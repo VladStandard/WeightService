@@ -1,6 +1,6 @@
 namespace WsWebApiCore.Models;
 
-public sealed class WsWebRequestTerra1000 : IWsWebRequest
+public sealed class WsWebRequestTerra1000
 {
     #region Public and private methods
 

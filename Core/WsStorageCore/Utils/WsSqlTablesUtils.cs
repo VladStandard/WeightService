@@ -31,14 +31,8 @@ public static class WsSqlTablesUtils
     public static string Organizations => "ORGANIZATIONS";
     public static string Plus => "PLUS";
     public static string Plus1CFks => "PLUS_1C_FK";
-    public static string PlusBrandsFks => "PLUS_BRANDS_FK";
-    public static string PlusBundlesFks => "PLUS_BUNDLES_FK";
-    public static string PlusCharacteristics => "PLUS_CHARACTERISTICS";
-    public static string PlusCharacteristicsFks => "PLUS_CHARACTERISTICS_FK";
     public static string PlusClipsFks => "PLUS_CLIPS_FK";
     public static string PlusFks => "PLUS_FK";
-    public static string PlusGroups => "PLUS_GROUPS";
-    public static string PlusGroupsFks => "PLUS_GROUPS_FK";
     public static string PlusLabels => "PLUS_LABELS";
     public static string PlusNestingFks => "PLUS_NESTING_FK";
     public static string PlusScales => "PLUS_SCALES";
@@ -47,7 +41,6 @@ public static class WsSqlTablesUtils
     public static string PlusTemplatesFks => "PLUS_TEMPLATES_FK";
     public static string PlusWeightings => "PLUS_WEIGHINGS";
     public static string ProductionSites => "PRODUCTION_SITES";
-    public static string ScalesScreenshots => "SCALES_SCREENSHOTS";
     public static string Tasks => "TASKS";
     public static string TasksTypes => "TASKS_TYPES";
     public static string Templates => "Templates";

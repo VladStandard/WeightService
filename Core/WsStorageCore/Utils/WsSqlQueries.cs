@@ -17,18 +17,6 @@ public static class WsSqlQueries
             : $"WHERE [APP_NAME] = '{appName}' AND [DEVICE_NAME] = '{deviceName}' ";
     }
 
-    public static string GetWhereAppDeviceNameCreateDt(string appName, string deviceName, DateTime? createDt) =>
-        string.IsNullOrEmpty(appName) || createDt is null ? GetWhereAppDeviceName(appName, deviceName) 
-        : $"WHERE [APP_NAME] = '{appName}' AND CAST([CREATE_DT] AS DATE) = '{createDt:yyyy-MM-dd}'";
-    
-    public static string GetWhereAppDeviceNameToday(string appName, string deviceName)
-    {
-        string strWhere = GetWhereAppDeviceName(appName, deviceName);
-        string strWhereAdd = $"CAST([CREATE_DT] AS DATE) = '{DateTime.Now:yyyy-MM-dd}'";
-        return string.IsNullOrEmpty(strWhere) ? $"WHERE {strWhereAdd}" : $"{strWhere} AND {strWhereAdd}";
-
-    }
-
     public static string GetWhereAppDeviceNameDay(string appName, string deviceName)
     {
         string strWhere = GetWhereAppDeviceName(appName, deviceName);

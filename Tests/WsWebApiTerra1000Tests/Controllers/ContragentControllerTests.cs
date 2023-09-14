@@ -1,8 +1,19 @@
+using System.Collections.Generic;
 namespace WsWebApiTerra1000Tests.Controllers;
 
 [TestFixture]
 public sealed class ContragentControllerTests
 {
+    public static List<int> GetListContragentId => new()
+    {
+        -2147482738,
+        -2147477242,
+        -2147478355,
+        -2147482505,
+        -2147482782,
+    };
+    
+    
     [Test]
     public void GetListContragent_Execute_DoesNotThrow()
     {
@@ -10,7 +21,7 @@ public sealed class ContragentControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListContragent(WsSqlEnumServerType.All))
             {
-                foreach (long id in WsServiceUtilsTests.GetListContragentId)
+                foreach (long id in GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();
@@ -27,7 +38,7 @@ public sealed class ContragentControllerTests
         {
             foreach (string url in new WsWebRequestTerra1000().GetListContragentV2(WsSqlEnumServerType.All))
             {
-                foreach (long id in WsServiceUtilsTests.GetListContragentId)
+                foreach (long id in GetListContragentId)
                 {
                     await GetContragentAsync(url, null, id);
                     TestContext.WriteLine();

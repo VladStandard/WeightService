@@ -6,17 +6,7 @@ namespace WsWebApiCore.Utils;
 public static class WsServiceUtilsRequest
 {
     #region Public and private methods
-
-    public static QueryParameter GetQueryParameterFormatJson() => new("format", "json");
-
-    public static QueryParameter GetQueryParameterFormatXml() => new("format", "xml");
-
-    private static RestRequest GetRequestFormatJson() => new RestRequest().AddQueryParameter("format", "json");
-
-    private static RestRequest GetRequestFormatXml() => new RestRequest().AddQueryParameter("format", "xml");
-
-    public static List<RestRequest> GetRequestFormats() => new() { GetRequestFormatJson(), GetRequestFormatXml() };
-
+    
     public static RestRequest GetRequestCodeOrId(string? code, long? id)
     {
         RestRequest request = new();

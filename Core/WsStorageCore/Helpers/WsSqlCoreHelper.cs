@@ -760,9 +760,6 @@ public sealed class WsSqlCoreHelper
     {
         switch (item)
         {
-            case WsXmlDeviceModel xmlDevice:
-                xmlDevice.Scale = GetItemByIdentity<WsSqlScaleModel>(xmlDevice.Scale.Identity);
-                break;
             case WsSqlLogModel log:
                 log.App = GetItemByIdentity<WsSqlAppModel>(log.App?.Identity);
                 log.Device = GetItemNullableByIdentity<WsSqlDeviceModel>(log.Device?.Identity);
