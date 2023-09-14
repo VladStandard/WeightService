@@ -32,7 +32,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
     [XmlElement] public virtual bool IsShipping { get; set; }
     [XmlElement] public virtual bool IsOrder { get; set; }
-    [XmlElement] public virtual bool IsKneading { get; set; }
+    [XmlElement] public virtual bool IsKneading { get; set; } = true;
     [XmlIgnore] public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
     [XmlElement] public virtual string ClickOnce { get; set; } = "";
 

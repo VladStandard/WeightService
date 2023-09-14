@@ -12,30 +12,30 @@
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
 
-	<Border
+    <Border
 		BorderBrush="DimGray"
 		BorderThickness="1"
 		CornerRadius="5">
-		<Grid x:Name="gridLocal">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.5*" />
-				<ColumnDefinition Width="2*" />
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="0.75*" />
-				<RowDefinition Height="0.75*" />
-				<RowDefinition Height="0.5*" />
-				<RowDefinition Height="0.5*" />
-				<RowDefinition Height="2.25*" />
-				<RowDefinition Height="1*" />
-			</Grid.RowDefinitions>
-			<Label
+        <Grid x:Name="gridLocal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*" />
+                <RowDefinition Height="0.75*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="2.25*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Label
 				x:Name="labelPlu"
 				Margin="3"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="Plu" />
-			<Label
+            <Label
 				x:Name="labelPluValue"
 				Grid.Column="1"
 				Margin="3"
@@ -43,7 +43,7 @@
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Content="Plu name" />
-			<Label
+            <Label
 				x:Name="labelPluNesting"
 				Grid.Row="1"
 				Grid.Column="0"
@@ -51,7 +51,7 @@
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="Nesting" />
-			<ComboBox
+            <ComboBox
 				x:Name="comboBoxPlusNesting"
 				Grid.Row="1"
 				Grid.Column="1"
@@ -61,13 +61,13 @@
 				VerticalContentAlignment="Center"
 				Background="Transparent"
 				FontSize="26">
-				<ComboBox.ItemContainerStyle>
-					<Style TargetType="ComboBoxItem">
-						<Setter Property="Padding" Value="20,0,0,0" />
-					</Style>
-				</ComboBox.ItemContainerStyle>
-			</ComboBox>
-			<Label
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Padding" Value="20,0,0,0" />
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+            <Label
 				x:Name="labelTareWeight"
 				Grid.Row="2"
 				Grid.Column="0"
@@ -75,7 +75,7 @@
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Center"
 				Content="TareWeight" />
-			<Label
+            <Label
 				x:Name="labelTareWeightValue"
 				Grid.Row="2"
 				Grid.Column="1"
@@ -84,52 +84,11 @@
 				HorizontalContentAlignment="Left"
 				VerticalContentAlignment="Center"
 				Content="TareWeightWithKg" />
-			<Label
-				x:Name="labelIsEnabled"
-				Grid.Row="3"
-				Grid.Column="0"
-				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Content="Exchange" />
-			<CheckBox
-				x:Name="checkBoxIsEnabled"
-				Grid.Row="3"
-				Grid.Column="1"
-				Margin="3"
-				Padding="20,0,0,0"
-				HorizontalContentAlignment="Left"
-				VerticalContentAlignment="Center"
-				Background="Transparent"
-				Content="WebServiceExchange"
-				IsChecked="False"
-				IsEnabled="False" />
-			<Label
-				x:Name="label1C"
-				Grid.Row="4"
-				Grid.Column="0"
-				Margin="3"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				Content="1C" />
-			<TextBox
-				x:Name="textBox1CValue"
-				Grid.Row="4"
-				Grid.Column="1"
-				Margin="3"
-				Padding="20,0,0,0"
-				HorizontalContentAlignment="Left"
-				VerticalContentAlignment="Center"
-				Background="Transparent"
-				FontSize="18"
-				IsReadOnly="True"
-				Text="1C content"
-				TextWrapping="Wrap" />
-			<ItemsControl
+            <ItemsControl
 				Grid.Row="5"
 				Grid.ColumnSpan="2"
 				Margin="2" />
-		</Grid>
-	</Border>
+        </Grid>
+    </Border>
 
 </common:WsXamlBasePage>

@@ -19,7 +19,6 @@ global using WsDataCore.Models;
 global using WsDataCore.Settings.Helpers;
 global using WsDataCore.Utils;
 global using WsLabelCore.Common;
-global using WsLabelCore.Controls;
 global using WsLabelCore.Helpers;
 global using WsLabelCore.Models;
 global using WsLabelCore.Pages;

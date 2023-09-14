@@ -23,7 +23,7 @@ public sealed class WsSqlScaleMap : ClassMap<WsSqlScaleModel>
         Map(item => item.ScaleFactor).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("ScaleFactor").Default("1000");
         Map(item => item.IsShipping).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_SHIPPING").Not.Nullable().Default("0");
         Map(item => item.ShippingLength).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("SHIPPING_LEN").Not.Nullable().Default("0");
-        Map(item => item.IsKneading).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_KNEADING").Not.Nullable().Default("0");
+        Map(item => item.IsKneading).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_KNEADING").Not.Nullable().Default("1");
         Map(item => item.ClickOnce).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CLICK_ONCE").Not.Nullable().Default("");
         References(item => item.PrinterMain).Column("ZebraPrinterId").Nullable();
         References(item => item.PrinterShipping).Column("SHIPPING_PRINTER_ID").Nullable();

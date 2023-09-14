@@ -194,38 +194,10 @@ public sealed class WsPrintSessionHelper
     private void PrintLabelCount(ref WsSqlTemplateModel template, bool isClearBuffer)
     {
         byte labelsCount = LabelSession.WeighingSettings.LabelsCountMain;
-        // Шаблон с указанием кол-ва штучной продукции.
-        if (template.Data.Contains("^PQ1") && !LabelSession.PluLine.Plu.IsCheckWeight)
-        {
-            // Без инкремента счётчика печати штучной продукции.
-            if (!LabelSession.IsIncrementCounter)
-            {
-                // Изменить кол-во этикеток.
-                template.Data = template.Data.Replace("^PQ1", $"^PQ{labelsCount}");
-                // Печать этикетки ПЛУ.
-                PrintLabelCore(ref template, isClearBuffer, false);
-            }
-            // Инкремент счётчика печати штучной продукции.
-            else
-            {
-                // Цикл по штучным этикеткам.
-                for (int i = 1; i <= labelsCount; i++)
-                {
-                    // Печать этикетки ПЛУ.
-                    PrintLabelCore(ref template, isClearBuffer, true);
-                }
-            }
-        }
-        // Шаблон без указания кол-ва.
-        else
-        {
-            // Цикл по штучным этикеткам.
-            for (int i = 1; i <= labelsCount; i++)
-            {
-                // Печать этикетки ПЛУ.
-                PrintLabelCore(ref template, isClearBuffer, true);
-            }
-        }
+        if (LabelSession.PluLine.Plu.IsCheckWeight) return;
+        //template.Data = template.Data.Replace("^PQ1", $"^PQ{labelsCount}");
+        for (int i = 1; i <= labelsCount; i++)
+            PrintLabelCore(ref template, isClearBuffer, true);
     }
 
     /// <summary>

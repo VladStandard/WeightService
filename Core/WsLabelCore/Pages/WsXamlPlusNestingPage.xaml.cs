@@ -58,22 +58,6 @@ public partial class WsXamlPlusNestingPage
             labelTareWeightValue.SetBinding(ContentProperty,
                 new Binding(nameof(viewModel.PluNesting.TareWeightWithKg)) { Mode = BindingMode.OneWay, Source = viewModel.PluNesting });
 
-            // Обмен между 1С и веб-сервисом.
-            labelIsEnabled.SetBinding(ContentProperty,
-                new Binding(nameof(WsLocaleCore.Table.IsEnabled)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
-            checkBoxIsEnabled.DataContext = viewModel;
-            checkBoxIsEnabled.SetBinding(ContentProperty,
-                new Binding(nameof(WsLocaleCore.Table.WebServiceExchange)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
-            checkBoxIsEnabled.SetBinding(ToggleButton.IsCheckedProperty,
-                new Binding(nameof(viewModel.PluNesting.WebServiceIsEnabled)) { Mode = BindingMode.OneWay, Source = viewModel.PluNesting });
-
-            // 1C.
-            label1C.SetBinding(ContentProperty,
-                new Binding(nameof(WsLocaleCore.Table.ImportFrom1C)) { Mode = BindingMode.OneWay, Source = WsLocaleCore.Table });
-            textBox1CValue.DataContext = viewModel;
-            textBox1CValue.SetBinding(TextBox.TextProperty,
-                new Binding(nameof(viewModel.PluNesting.WebServiceXml)) { Mode = BindingMode.OneWay, Source = viewModel.PluNesting });
-
             // Настроить список кнопок.
             SetupListButtons(gridLocal, 5, 0, 1, 2);
         });

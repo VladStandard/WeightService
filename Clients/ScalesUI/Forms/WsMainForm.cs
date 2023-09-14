@@ -25,6 +25,7 @@ public sealed partial class WsMainForm : Form
     private Button ButtonPrint { get; set; }
     private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
+    
     /// <summary>
     /// Магический флаг закрытия после нажатия кнопки OK.
     /// </summary>
@@ -96,23 +97,21 @@ public sealed partial class WsMainForm : Form
             LoadNavigationWaitUserControl();
             // Настроить сессию для ПО `Печать этикеток`.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
+            
             if (LabelSession.DeviceScaleFk.IsNew)
             {
                 string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(
-                    message + Environment.NewLine + Environment.NewLine + WsLocaleCore.LabelPrint.CommunicateWithAdmin,
-                    ActionExit, WsFormNavigationUtils.NavigationUserControl.Width);
-                // Навигация в контрол диалога Ок.
+                
                 WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
-                    WsEnumDialogType.Ok, new() { ActionFinally });
-                ContextManager.ContextItem.SaveLogError(new Exception(message));
+                    WsEnumDialogType.Ok, new() { ActionCloseAfterNotLine });
+
                 return;
             }
             // Проверка повторного запуска.
-            _ = new Mutex(true, System.Windows.Forms.Application.ProductName, out bool isCreatedNew);
+            _ = new Mutex(true, Application.ProductName, out bool isCreatedNew);
             if (!isCreatedNew)
             {
-                string message = $"{WsLocaleCore.Strings.Application} {System.Windows.Forms.Application.ProductName} {WsLocaleCore.LabelPrint.AlreadyRunning}!";
+                string message = $"{WsLocaleCore.Strings.Application} {Application.ProductName} {WsLocaleCore.LabelPrint.AlreadyRunning}!";
                 WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
                     WsFormNavigationUtils.NavigationUserControl.Width);
                 // Навигация в контрол диалога Ок.
@@ -136,14 +135,14 @@ public sealed partial class WsMainForm : Form
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
             ContextManager.LineRepository.Update(LabelSession.Line);
             StringBuilder log = new();
-            log.AppendLine($"{WsLocaleData.Program.IsLoaded}.");
-            log.AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.");
-            log.AppendLine($"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
+            log.AppendLine($"{WsLocaleData.Program.IsLoaded}.")
+                .AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.")
+                .AppendLine($"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
             ContextManager.ContextItem.SaveLogInformation(log);
         });
     }
 
-    private static void ActionExit() => System.Windows.Forms.Application.Exit();
+    private static void ActionExit() => Application.Exit();
 
     /// <summary>
     /// Настроить плагины.

@@ -50,8 +50,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             // Сохранить.
-            SaveIsIncrementCounter = LabelSession.IsIncrementCounter;
-            checkBoxIsIncrementCounter.Checked = SaveIsIncrementCounter;
             SaveProductDate = LabelSession.ProductDate;
             SaveKneading = LabelSession.WeighingSettings.Kneading;
             SavePalletSize = LabelSession.WeighingSettings.LabelsCountMain;
@@ -67,12 +65,10 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     {
         // Замес.
         labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
-        // Инкремент счётчика.
-        labelCounter.Visible = checkBoxIsIncrementCounter.Visible =
-            // Размер палеты.
-            labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
-                buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                    LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
+        // Размер палеты.
+        labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
+            buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
+                LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
 
         fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
         fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
@@ -102,7 +98,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
-            LabelSession.SetIsIncrementCounter(SaveIsIncrementCounter);
             LabelSession.ProductDate = SaveProductDate;
             LabelSession.WeighingSettings.Kneading = SaveKneading;
             LabelSession.WeighingSettings.LabelsCountMain = SavePalletSize;
@@ -132,7 +127,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
             CheckWeightCount();
-            checkBoxIsIncrementCounter_CheckedChanged(checkBoxIsIncrementCounter, e);
             ViewModel.CmdYes.Relay();
         });
     }
@@ -242,26 +236,9 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         labelProdDate.Text = WsLocaleCore.LabelPrint.FieldProductDate;
         // Размер палеты.
         labelPalletSize.Text = WsLocaleCore.LabelPrint.FieldPalletSize;
-        // Инкремент счётчика.
-        labelCounter.Text = WsLocaleCore.LabelPrint.FieldLabelCounter;
-        checkBoxIsIncrementCounter.Text = WsLocaleCore.LabelPrint.FieldIsIncrementCounterEnable;
         // Кнопки.
         buttonYes.Text = WsLocaleCore.Buttons.Ok;
         buttonCancel.Text = WsLocaleCore.Buttons.Cancel;
-    }
-
-    /// <summary>
-    /// Инкремент счётчика печати штучной продукции.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void checkBoxIsIncrementCounter_CheckedChanged(object sender, EventArgs e)
-    {
-        WsFormNavigationUtils.ActionTryCatch(() =>
-        {
-            if (sender is not CheckBox checkBox) return;
-            LabelSession.SetIsIncrementCounter(checkBox.Checked);
-        });
     }
 
     #endregion

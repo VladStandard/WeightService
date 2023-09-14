@@ -171,8 +171,6 @@ public partial class WsMainForm
     {
         ActionFinally();
         UserSession.StopwatchMain.Restart();
-        // Навигация в контрол ожидания.
-        WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl, WsLocaleCore.LabelPrint.AppExit, WsLocaleCore.LabelPrint.AppExitDescription);
         // Планировщик.
         WsScheduler.Close();
         // Плагины.
@@ -186,6 +184,25 @@ public partial class WsMainForm
         ContextManager.LogMemoryRepository.Save(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
         ContextManager.ContextItem.SaveLogInformation(
             WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
+        // Магический флаг.
+        IsMagicClose = true;
+        Close();
+    }
+
+    private void ActionCloseAfterNotLine()
+    {
+        UserSession.StopwatchMain.Restart();
+        // Планировщик.
+        WsScheduler.Close();
+        // Плагины.
+        UserSession.PluginsClose();
+        // Шрифты.
+        FontsSettings.Close();
+        // Логи.
+        UserSession.StopwatchMain.Stop();
+        ContextManager.LogMemoryRepository.Save(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+        ContextManager.ContextItem.SaveLogInformation(
+        WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.
         IsMagicClose = true;
         Close();

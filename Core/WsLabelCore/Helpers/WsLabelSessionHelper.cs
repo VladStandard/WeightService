@@ -48,10 +48,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
     public WsSqlViewPluNestingModel ViewPluNesting { get; private set; }
     private readonly object _locker = new();
-    /// <summary>
-    /// Инкремент счётчика печати штучной продукции.
-    /// </summary>
-    public bool IsIncrementCounter { get; private set; } = true;
 
     public WsLocalizationManager Localization { get; set; } = new();
 
@@ -145,19 +141,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             WeighingSettings = new();
         }
     }
-
-    ///// <summary>
-    ///// Настроить устройство ПО `Печать этикеток`.
-    ///// </summary>
-    //public void SetSessionForLabelPrint()
-    //{
-    //    lock (_locker)
-    //    {
-    //        // Обновить кэш.
-    //        ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettings);
-    //        ContextCache.Load(WsStorageCore.Common.WsSqlEnumTableName.DeviceSettingsFks);
-    //    }
-    //}
+    
 
     /// <summary>
     /// Задать настройки публикации.
@@ -283,15 +267,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             ContextManager.ContextItem.SaveLogInformation(
                 $"{WsLocaleCore.LabelPrint.SetPluNesting(ViewPluNesting.PluNumber, ViewPluNesting.PluName, ViewPluNesting.BundleCount)}");
     }
-
-    /// <summary>
-    /// Задать Инкремент счётчика печати штучной продукции.
-    /// </summary>
-    /// <param name="isIncrementCounter"></param>
-    public void SetIsIncrementCounter(bool isIncrementCounter)
-    {
-        IsIncrementCounter = isIncrementCounter;
-    }
+    
 
     /// <summary>
     /// Инкремент счётчика этикеток.

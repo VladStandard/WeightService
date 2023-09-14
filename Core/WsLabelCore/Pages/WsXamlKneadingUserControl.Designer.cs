@@ -49,8 +49,6 @@ partial class WsXamlKneadingUserControl
             this.buttonSet120 = new System.Windows.Forms.Button();
             this.buttonSet1 = new System.Windows.Forms.Button();
             this.layoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.labelCounter = new System.Windows.Forms.Label();
-            this.checkBoxIsIncrementCounter = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanelBottom = new System.Windows.Forms.FlowLayoutPanel();
             this.layoutPanel.SuspendLayout();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -306,7 +304,7 @@ partial class WsXamlKneadingUserControl
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.layoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
-            this.layoutPanel.Controls.Add(this.labelCounter, 1, 3);
+      
             this.layoutPanel.Controls.Add(this.buttonPalletSizeNext, 5, 4);
             this.layoutPanel.Controls.Add(this.buttonPalletSizePrev, 4, 4);
             this.layoutPanel.Controls.Add(this.buttonPalletSize10, 6, 4);
@@ -323,7 +321,6 @@ partial class WsXamlKneadingUserControl
             this.layoutPanel.Controls.Add(this.buttonSet60, 5, 5);
             this.layoutPanel.Controls.Add(this.buttonSet120, 6, 5);
             this.layoutPanel.Controls.Add(this.buttonSet1, 3, 5);
-            this.layoutPanel.Controls.Add(this.checkBoxIsIncrementCounter, 3, 3);
             this.layoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutPanel.Location = new System.Drawing.Point(0, 0);
             this.layoutPanel.Name = "layoutPanel";
@@ -337,36 +334,6 @@ partial class WsXamlKneadingUserControl
             this.layoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.5F));
             this.layoutPanel.Size = new System.Drawing.Size(900, 400);
             this.layoutPanel.TabIndex = 7;
-            // 
-            // labelCounter
-            // 
-            this.labelCounter.AutoSize = true;
-            this.labelCounter.BackColor = System.Drawing.Color.Transparent;
-            this.labelCounter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCounter.Location = new System.Drawing.Point(25, 165);
-            this.labelCounter.Margin = new System.Windows.Forms.Padding(3);
-            this.labelCounter.Name = "labelCounter";
-            this.labelCounter.Size = new System.Drawing.Size(228, 70);
-            this.labelCounter.TabIndex = 23;
-            this.labelCounter.Text = "labelCounter";
-            this.labelCounter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // checkBoxIsIncrementCounter
-            // 
-            this.checkBoxIsIncrementCounter.AutoSize = true;
-            this.checkBoxIsIncrementCounter.Checked = true;
-            this.checkBoxIsIncrementCounter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.layoutPanel.SetColumnSpan(this.checkBoxIsIncrementCounter, 4);
-            this.checkBoxIsIncrementCounter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBoxIsIncrementCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.checkBoxIsIncrementCounter.Location = new System.Drawing.Point(304, 165);
-            this.checkBoxIsIncrementCounter.Name = "checkBoxIsIncrementCounter";
-            this.checkBoxIsIncrementCounter.Size = new System.Drawing.Size(570, 70);
-            this.checkBoxIsIncrementCounter.TabIndex = 24;
-            this.checkBoxIsIncrementCounter.Text = "checkBoxIsIncrementCounter";
-            this.checkBoxIsIncrementCounter.UseVisualStyleBackColor = true;
-            this.checkBoxIsIncrementCounter.CheckedChanged += new System.EventHandler(this.checkBoxIsIncrementCounter_CheckedChanged);
             // 
             // flowLayoutPanelBottom
             // 
@@ -419,6 +386,4 @@ partial class WsXamlKneadingUserControl
     private Button buttonSet1;
     private TableLayoutPanel layoutPanel;
     private FlowLayoutPanel flowLayoutPanelBottom;
-    private Label labelCounter;
-    private CheckBox checkBoxIsIncrementCounter;
 }
