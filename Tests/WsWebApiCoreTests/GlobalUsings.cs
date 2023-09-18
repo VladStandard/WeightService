@@ -6,7 +6,6 @@ global using WsAssertCoreTests;
 global using WsDataCore.Enums;
 global using WsLocalizationCore.Utils;
 global using WsStorageCore.Tables.TableRefModels.Plus1CFk;
-global using WsStorageCore.Tables.TableScaleModels.Brands;
 global using WsStorageCore.Tables.TableScaleModels.Plus;
 global using WsStorageCore.Utils;
 global using WsWebApiCore.Models;

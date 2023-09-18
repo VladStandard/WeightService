@@ -1,9 +1,9 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
+using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.Tables.TableScaleModels.Boxes;
-using WsStorageCore.Tables.TableScaleModels.Brands;
 using WsStorageCore.Tables.TableScaleModels.Bundles;
 using WsStorageCore.Tables.TableScaleModels.Clips;
 using WsStorageCore.Tables.TableScaleModels.Plus;

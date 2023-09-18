@@ -37,7 +37,6 @@ global using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 global using WsStorageCore.Tables.TableScaleModels.Access;
 global using WsStorageCore.Tables.TableScaleModels.BarCodes;
 global using WsStorageCore.Tables.TableScaleModels.Boxes;
-global using WsStorageCore.Tables.TableScaleModels.Brands;
 global using WsStorageCore.Tables.TableScaleModels.Bundles;
 global using WsStorageCore.Tables.TableScaleModels.Clips;
 global using WsStorageCore.Tables.TableScaleModels.Contragents;

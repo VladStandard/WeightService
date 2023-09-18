@@ -1,4 +1,5 @@
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
+using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace DeviceControl.Services;

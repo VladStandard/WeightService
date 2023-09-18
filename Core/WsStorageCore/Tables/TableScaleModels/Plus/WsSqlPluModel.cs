@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
+using WsStorageCore.Tables.TableRef1cModels.Brands;
 namespace WsStorageCore.Tables.TableScaleModels.Plus;
 
 /// <summary>

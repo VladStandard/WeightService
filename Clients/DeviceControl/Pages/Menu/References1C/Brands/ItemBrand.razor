@@ -3,8 +3,8 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Brands
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Brands.WsSqlBrandModel>
+@using WsStorageCore.Tables.TableRef1cModels.Brands
+@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Brands.WsSqlBrandModel>
 
 <ItemTopBar TItem="@WsSqlBrandModel" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
 

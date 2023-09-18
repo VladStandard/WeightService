@@ -1,4 +1,4 @@
-namespace WsStorageCore.Tables.TableScaleModels.Brands;
+namespace WsStorageCore.Tables.TableRef1cModels.Brands;
 
 /// <summary>
 /// Table validation "BRANDS".

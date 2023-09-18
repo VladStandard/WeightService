@@ -1,3 +1,4 @@
+using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 

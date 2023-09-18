@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
-using WsStorageCore.Tables.TableScaleModels.Brands;
+using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Utils;
