@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-// https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
-// https://docs.microsoft.com/ru-ru/dotnet/api/system.data.sqlclient.sqlconnection.connectionstring
-
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace WsStorageCore.Helpers;

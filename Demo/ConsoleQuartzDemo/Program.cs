@@ -8,7 +8,7 @@ namespace ConsoleQuartzDemo;
 
 internal class Program
 {
-    #region Public and private fields and properties
+     #region Public and private fields and properties
 
     private static WsQuartzHelper Quartz { get; set; } = WsQuartzHelper.Instance;
 
@@ -35,9 +35,11 @@ internal class Program
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
         await Console.Out.WriteLineAsync($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Start schedule. Wait 10 minutes. Press enter to exit.");
+
         Quartz.AddJob(WsQuartzUtils.CronExpression.EverySeconds(), Method1, "jobSample1", "triggerName1", "triggerGroup1");
         Quartz.AddJob(WsQuartzUtils.CronExpression.EverySeconds(10), Method2, "jobSample2", "triggerName2", "triggerGroup2");
-        Quartz.AddJob(WsQuartzUtils.CronExpression.EverySeconds(15), Method1, "jobSample3", "triggerName3", "triggerGroup3");
+        Quartz.AddJob(WsQuartzUtils.CronExpression.EverySeconds(15), Method3, "jobSample3", "triggerName3", "triggerGroup3");
+        
         while (true)
         {
             if (stopwatch.Elapsed.Minutes > 9)

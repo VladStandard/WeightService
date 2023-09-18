@@ -44,7 +44,6 @@ global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.Utils;
-global using WsStorageCore.Xml;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettings;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 global using WsStorageCore.Tables.TableDiagModels.Logs;

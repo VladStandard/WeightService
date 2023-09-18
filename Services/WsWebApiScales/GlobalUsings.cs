@@ -9,6 +9,5 @@ global using WsLocalizationCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Utils;
-global using WsStorageCore.WebApiModels.BarCodes;
 global using WsWebApiCore.Common;
 global using WsWebApiCore.Utils;

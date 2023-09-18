@@ -6,7 +6,7 @@ public sealed class WsSqlViewTableSizeRepository : IViewTableSizeRepository
     
     public IEnumerable<WsSqlViewTableSizeModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        List<WsSqlViewTableSizeModel> result = new List<WsSqlViewTableSizeModel>();
+        List<WsSqlViewTableSizeModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(sqlCrudConfig.SelectTopRowsCount);
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         foreach (object obj in objects)

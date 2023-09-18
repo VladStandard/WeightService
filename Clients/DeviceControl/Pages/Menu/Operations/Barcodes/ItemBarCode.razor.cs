@@ -1,3 +1,4 @@
+using WsStorageCore.WebApiModels.BarCodes;
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
 public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeModel>
