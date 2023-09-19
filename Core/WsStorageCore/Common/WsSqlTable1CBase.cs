@@ -65,12 +65,5 @@ public class WsSqlTable1CBase : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Uid1C, Guid.Empty);
 
-    public virtual void UpdateProperties(WsSqlTable1CBase item)
-    {
-        base.UpdateProperties(item, false);
-        
-        Uid1C = item.Uid1C;
-    }
-
     #endregion
 }

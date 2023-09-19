@@ -55,7 +55,6 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Description = WsLocaleCore.Sql.SqlItemFieldDescription;
         Data.FillProperties();
     }
 

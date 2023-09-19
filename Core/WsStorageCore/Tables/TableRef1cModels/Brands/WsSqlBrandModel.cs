@@ -41,12 +41,6 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Code, string.Empty);
 
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Code = WsLocaleCore.Sql.SqlItemFieldCode;
-    }
-
     #endregion
 
     #region Public and private methods - virtual

@@ -14,10 +14,8 @@ public class WsSqlTableBase : SerializeBase
     [XmlElement] public virtual bool IsMarked { get; set; }
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
-
     [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
     [XmlIgnore] public virtual bool IsNew => Identity.IsNew;
-    [XmlIgnore] public virtual bool IsIdentityUid => Identity.IsUid;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
     [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
@@ -113,7 +111,7 @@ public class WsSqlTableBase : SerializeBase
 
     public virtual bool EqualsDefault() =>
         Identity.EqualsDefault() &&
-        IsIdentityUid ? Equals(IdentityValueUid, Guid.Empty) : Equals(IdentityValueId, default(long)) &&
+        Identity.IsUid ? Equals(IdentityValueUid, Guid.Empty) : Equals(IdentityValueId, default(long)) &&
         Equals(CreateDt, DateTime.MinValue) &&
         Equals(ChangeDt, DateTime.MinValue) &&
         Equals(IsMarked, false) &&
@@ -162,7 +160,7 @@ public class WsSqlTableBase : SerializeBase
 
     public virtual void OnPropertyChanged([CallerMemberName] string memberName = "")
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
+        PropertyChanged?.Invoke(this, new(memberName));
     }
 
     #endregion

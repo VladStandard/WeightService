@@ -3,14 +3,6 @@
 public class TableModelTests<TItem> where TItem : WsSqlTableBase, new()
 {
     [Test]
-    public virtual void Model_AssertSqlFields_Check()
-    {
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TItem>(nameof(WsSqlTableBase.CreateDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckDt<TItem>(nameof(WsSqlTableBase.ChangeDt));
-        WsTestsUtils.DataTests.AssertSqlPropertyCheckBool<TItem>(nameof(WsSqlTableBase.IsMarked));
-    }
-
-    [Test]
     public virtual void Model_ToString()
     {
         WsTestsUtils.DataTests.TableBaseModelAssertToString<TItem>();

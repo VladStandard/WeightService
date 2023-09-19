@@ -80,11 +80,8 @@ public class WsSqlBarCodeModel : WsSqlTableBase
     {
         base.FillProperties();
         TypeTop = WsSqlBarcodeType.Default.ToString();
-        ValueTop = WsLocaleCore.Sql.SqlItemFieldValue;
         TypeRight = WsSqlBarcodeType.Default.ToString();
-        ValueRight = WsLocaleCore.Sql.SqlItemFieldValue;
         TypeBottom = WsSqlBarcodeType.Default.ToString();
-        ValueBottom = WsLocaleCore.Sql.SqlItemFieldValue;
         PluLabel.FillProperties();
     }
 

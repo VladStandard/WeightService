@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 using WsStorageCore.Tables.TableRef1cModels.Brands;
@@ -93,32 +91,7 @@ public class WsSqlPluModel : WsSqlTable1CBase
         Equals(Ean13, string.Empty) &&
         Equals(Itf14, string.Empty) &&
         Equals(IsCheckWeight, false);
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(IsGroup), IsGroup);
-        info.AddValue(nameof(ParentGuid), ParentGuid);
-        info.AddValue(nameof(Number), Number);
-        info.AddValue(nameof(FullName), FullName);
-        info.AddValue(nameof(ShelfLifeDays), ShelfLifeDays);
-        info.AddValue(nameof(Gtin), Gtin);
-        info.AddValue(nameof(Ean13), Ean13);
-        info.AddValue(nameof(Itf14), Itf14);
-        info.AddValue(nameof(IsCheckWeight), IsCheckWeight);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Code = WsLocaleCore.Sql.SqlItemFieldCode;
-        Number = 100;
-        FullName = WsLocaleCore.Sql.SqlItemFieldFullName;
-        Gtin = WsLocaleCore.Sql.SqlItemFieldGtin;
-        Ean13 = WsLocaleCore.Sql.SqlItemFieldEan13;
-        Itf14 = WsLocaleCore.Sql.SqlItemFieldItf14;
-    }
-
+    
     #endregion
 
     #region Public and private methods - virtual
