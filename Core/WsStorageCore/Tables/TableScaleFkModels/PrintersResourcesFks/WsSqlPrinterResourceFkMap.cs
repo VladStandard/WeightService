@@ -6,7 +6,7 @@ public sealed class WsSqlPrinterResourceFkMap : ClassMap<WsSqlPrinterResourceFkM
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PrintersResourcesFks);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueId).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
         Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CreateDate").Not.Nullable();

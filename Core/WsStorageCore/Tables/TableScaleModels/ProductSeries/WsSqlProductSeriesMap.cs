@@ -6,7 +6,7 @@ public sealed class WsSqlProductSeriesMap : ClassMap<WsSqlProductSeriesModel>
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.ProductSeries);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueId).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
         Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime27).Column("CreateDate").Not.Nullable();
         Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");

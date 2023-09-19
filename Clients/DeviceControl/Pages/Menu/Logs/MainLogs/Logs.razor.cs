@@ -14,7 +14,6 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
     public Logs() : base()
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
-        sqlCrudConfig.IsFillReferences = false;
         
         LogTypes = LogTypeRepository.GetEnumerable(sqlCrudConfig).ToList();
         Lines = LineRepository.GetEnumerable(sqlCrudConfig).ToList();

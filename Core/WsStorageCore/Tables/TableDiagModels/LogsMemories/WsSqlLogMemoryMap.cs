@@ -6,7 +6,7 @@ public sealed class WsSqlLogMemoryMap : ClassMap<WsSqlLogMemoryModel>
     {
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsMemories);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
         Map(item => item.SizeAppMb).CustomSqlType(WsSqlFieldTypeUtils.SmallInt).Column("SIZE_APP_MB").Not.Nullable().Default("0");

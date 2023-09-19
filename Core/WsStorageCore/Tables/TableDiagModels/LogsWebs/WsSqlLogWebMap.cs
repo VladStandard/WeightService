@@ -6,7 +6,7 @@ public sealed class WsSqlLogWebMap : ClassMap<WsSqlLogWebModel>
     {
         Schema(WsSqlSchemasUtils.Diag);
         Table(WsSqlTablesUtils.LogsWebs);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
         Map(item => item.StampDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("STAMP_DT").Not.Nullable();

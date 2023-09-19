@@ -9,7 +9,7 @@ public sealed class WsSqlDeviceSettingsFkMap : ClassMap<WsSqlDeviceSettingsFkMod
     {
         Schema(WsSqlSchemasUtils.Conf);
         Table(WsSqlTablesUtils.DeviceSettingsFks);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.IsEnabled).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_ENABLED").Not.Nullable().Default("0");
         References(item => item.Device).Column("DEVICE_UID").Not.Nullable();

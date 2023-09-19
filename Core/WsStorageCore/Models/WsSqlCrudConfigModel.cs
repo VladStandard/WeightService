@@ -8,7 +8,6 @@ public class WsSqlCrudConfigModel
     private int _selectTopRowsCount;
     private WsSqlEnumIsMarked _isMarked;
     public string NativeQuery { get; set; }
-    public bool IsFillReferences { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
     public List<WsSqlFieldFilterModel> Filters { get; private set; }
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
@@ -45,8 +44,6 @@ public class WsSqlCrudConfigModel
 
     public WsSqlCrudConfigModel()
     {
-        IsFillReferences = true;
-        
         Orders = new();
         Filters = new();
         NativeParameters = new();
@@ -64,8 +61,6 @@ public class WsSqlCrudConfigModel
     /// <param name="sqlCrudConfig"></param>
     public WsSqlCrudConfigModel(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IsFillReferences = sqlCrudConfig.IsFillReferences;
-        
         Orders = new(sqlCrudConfig.Orders);
         Filters = new(sqlCrudConfig.Filters);
         NativeParameters = new(sqlCrudConfig.NativeParameters);

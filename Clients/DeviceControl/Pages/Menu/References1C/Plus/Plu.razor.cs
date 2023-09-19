@@ -7,7 +7,6 @@ public sealed partial class Plu : SectionBase<WsSqlPluModel>
     public Plu() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
-        SqlCrudConfigSection.IsFillReferences = false;
     }
     
     protected override void SetSqlSectionCast()

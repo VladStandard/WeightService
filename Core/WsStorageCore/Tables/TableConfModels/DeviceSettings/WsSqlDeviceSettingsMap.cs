@@ -9,7 +9,7 @@ public sealed class WsSqlDeviceSettingsMap : ClassMap<WsSqlDeviceSettingsModel>
     {
         Schema(WsSqlSchemasUtils.Conf);
         Table(WsSqlTablesUtils.DeviceSettings);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("DT_CREATE").Not.Nullable();
         Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("DT_CHANGE").Not.Nullable();

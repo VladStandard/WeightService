@@ -6,7 +6,7 @@ public sealed class WsSqlTaskMap : ClassMap<WsSqlTaskModel>
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Tasks);
-        LazyLoad();
+        Not.LazyLoad();
         Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
         Map(item => item.Enabled).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("ENABLED").Not.Nullable().Default("0");
         Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");

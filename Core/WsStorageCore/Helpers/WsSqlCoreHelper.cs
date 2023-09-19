@@ -439,8 +439,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
-            if (sqlCrudConfig.IsFillReferences)
-                FillReferences(item);
         });
         return !dbResult.IsOk ? null : item;
     }
@@ -543,9 +541,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>();
-            if (sqlCrudConfig.IsFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -558,9 +553,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = await criteria.ListAsync<T>();
-            if (sqlCrudConfig.IsFillReferences)
-                foreach (T item in items)
-                    await FillReferencesAsync(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -573,9 +565,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, maxResults);
             items = criteria.List<T>();
-            if (isFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -589,9 +578,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, maxResults);
             items = await criteria.ListAsync<T>();
-            if (isFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -604,9 +590,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>();
-            if (sqlCrudConfig.IsFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk)
             items = null;
@@ -621,9 +604,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = await criteria.ListAsync<T>();
-            if (sqlCrudConfig.IsFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk)
             items = null;
@@ -637,9 +617,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, maxResults);
             items = criteria.List<T>();
-            if (isFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -653,9 +630,6 @@ public sealed class WsSqlCoreHelper
         {
             ICriteria criteria = GetCriteria<T>(session, maxResults);
             items = await criteria.ListAsync<T>();
-            if (isFillReferences)
-                foreach (T item in items)
-                    FillReferences(item);
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -746,116 +720,6 @@ public sealed class WsSqlCoreHelper
 
     public async Task<IList<T>> GetListNotNullableAsync<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
         await GetListNullableAsync<T>(maxResults, isFillReferences) ?? new List<T>();
-
-    #endregion
-
-    #region Public and private methods - Fill references
-    
-    // TODO: Следует перенести в клиентский слой доступа к данным + Тесты
-    private void FillReferences<T>(T? item) where T : WsSqlTableBase, new()
-    {
-        switch (item)
-        {
-            case WsSqlLogModel log:
-                log.App = GetItemByIdentity<WsSqlAppModel>(log.App?.Identity);
-                log.Device = GetItemNullableByIdentity<WsSqlDeviceModel>(log.Device?.Identity);
-                log.LogType = GetItemByIdentity<WsSqlLogTypeModel>(log.LogType?.Identity);
-                break;
-            // Scales.
-            case WsSqlBarCodeModel barcode:
-                barcode.PluLabel = GetItemByIdentity<WsSqlPluLabelModel>(barcode.PluLabel.Identity);
-                break;
-            case WsSqlDeviceTypeFkModel deviceTypeFk:
-                deviceTypeFk.Device = GetItemByIdentity<WsSqlDeviceModel>(deviceTypeFk.Device.Identity);
-                deviceTypeFk.Type = GetItemByIdentity<WsSqlDeviceTypeModel>(deviceTypeFk.Type.Identity);
-                break;
-            case WsSqlDeviceScaleFkModel deviceScaleFk:
-                deviceScaleFk.Device = GetItemByIdentity<WsSqlDeviceModel>(deviceScaleFk.Device.Identity);
-                deviceScaleFk.Scale = GetItemByIdentity<WsSqlScaleModel>(deviceScaleFk.Scale.Identity);
-                break;
-            case WsSqlDeviceSettingsFkModel deviceSettingsFk:
-                deviceSettingsFk.Device = GetItemByIdentity<WsSqlDeviceModel>(deviceSettingsFk.Device.Identity);
-                deviceSettingsFk.Setting = GetItemByIdentity<WsSqlDeviceSettingsModel>(deviceSettingsFk.Setting.Identity);
-                break;
-            case WsSqlLogMemoryModel logMemory:
-                logMemory.App = GetItemByIdentity<WsSqlAppModel>(logMemory.App.Identity);
-                logMemory.Device = GetItemByIdentity<WsSqlDeviceModel>(logMemory.Device.Identity);
-                break;
-            case WsSqlPluFkModel pluFk:
-                pluFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluFk.Plu.Identity);
-                pluFk.Parent = GetItemByIdentity<WsSqlPluModel>(pluFk.Parent.Identity);
-                pluFk.Category = GetItemByIdentity<WsSqlPluModel>(pluFk.Category?.Identity);
-                break;
-            case WsSqlPluClipFkModel pluClip:
-                pluClip.Clip = GetItemByIdentity<WsSqlClipModel>(pluClip.Clip.Identity);
-                pluClip.Plu = GetItemByIdentity<WsSqlPluModel>(pluClip.Plu.Identity);
-                break;
-            case WsSqlPluLabelModel pluLabel:
-                pluLabel.PluWeighing = GetItemNullableByIdentity<WsSqlPluWeighingModel>(pluLabel.PluWeighing?.Identity);
-                pluLabel.PluScale = GetItemByIdentity<WsSqlPluScaleModel>(pluLabel.PluScale.Identity);
-                break;
-            case WsSqlPluScaleModel pluScale:
-                pluScale.Plu = GetItemByIdentity<WsSqlPluModel>(pluScale.Plu.Identity);
-                pluScale.Line = GetItemByIdentity<WsSqlScaleModel>(pluScale.Line.Identity);
-                break;
-            case WsSqlPluTemplateFkModel pluTemplateFk:
-                pluTemplateFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluTemplateFk.Plu.Identity);
-                pluTemplateFk.Template = GetItemByIdentity<WsSqlTemplateModel>(pluTemplateFk.Template.Identity);
-                break;
-            case WsSqlPluWeighingModel pluWeighing:
-                pluWeighing.PluScale = GetItemByIdentity<WsSqlPluScaleModel>(pluWeighing.PluScale.Identity);
-                pluWeighing.Series = GetItemNullableByIdentity<WsSqlProductSeriesModel>(pluWeighing.Series?.Identity);
-                break;
-            case WsSqlPluNestingFkModel pluNestingFk:
-                pluNestingFk.Plu = GetItemByIdentity<WsSqlPluModel>(pluNestingFk.Plu.Identity);
-                pluNestingFk.Box = GetItemByIdentity<WsSqlBoxModel>(pluNestingFk.Box.Identity);
-                break;
-            case WsSqlPluStorageMethodFkModel pluStorageMethod:
-                pluStorageMethod.Plu = GetItemByIdentity<WsSqlPluModel>(pluStorageMethod.Plu.Identity);
-                pluStorageMethod.Method = GetItemByIdentity<WsSqlPluStorageMethodModel>(pluStorageMethod.Method.Identity);
-                pluStorageMethod.Resource = GetItemByIdentity<WsSqlTemplateResourceModel>(pluStorageMethod.Resource.Identity);
-                break;
-            case WsSqlOrderWeighingModel orderWeighing:
-                orderWeighing.Order = GetItemByIdentity<WsSqlOrderModel>(orderWeighing.Order.Identity);
-                orderWeighing.PluWeighing = GetItemByIdentity<WsSqlPluWeighingModel>(orderWeighing.PluWeighing.Identity);
-                break;
-            case WsSqlPrinterModel printer:
-                printer.PrinterType = GetItemByIdentity<WsSqlPrinterTypeModel>(printer.PrinterType.Identity);
-                break;
-            case WsSqlPrinterResourceFkModel printerResource:
-                printerResource.Printer = GetItemByIdentity<WsSqlPrinterModel>(printerResource.Printer.Identity);
-                printerResource.TemplateResource = GetItemByIdentity<WsSqlTemplateResourceModel>(printerResource.TemplateResource.Identity);
-                break;
-            case WsSqlProductSeriesModel product:
-                product.Scale = GetItemByIdentity<WsSqlScaleModel>(product.Scale.Identity);
-                break;
-            case WsSqlScaleModel scale:
-                scale.PrinterMain = GetItemNullableByIdentity<WsSqlPrinterModel>(scale.PrinterMain?.Identity);
-                scale.PrinterShipping = GetItemNullableByIdentity<WsSqlPrinterModel>(scale.PrinterShipping?.Identity);
-                scale.WorkShop = GetItemNullableByIdentity<WsSqlWorkShopModel>(scale.WorkShop?.Identity);
-                break;
-            case WsSqlTaskModel task:
-                task.TaskType = GetItemByIdentity<WsSqlTaskTypeModel>(task.TaskType.Identity);
-                task.Scale = GetItemByIdentity<WsSqlScaleModel>(task.Scale.Identity);
-                break;
-            case WsSqlWorkShopModel workshop:
-                workshop.ProductionSite = GetItemByIdentity<WsSqlProductionSiteModel>(workshop.ProductionSite.Identity);
-                break;
-            case WsSqlPlu1CFkModel plu1CFk:
-                plu1CFk.Plu = GetItemByIdentity<WsSqlPluModel>(plu1CFk.Plu.Identity);
-                break;
-            case WsSqlPluModel plu:
-                plu.Bundle = GetItemByIdentity<WsSqlBundleModel>(plu.Bundle.Identity);
-                plu.Brand = GetItemByIdentity<WsSqlBrandModel>(plu.Brand.Identity);
-                break;
-        }
-    }
-
-    private async Task FillReferencesAsync<T>(T? item) where T : WsSqlTableBase, new()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        FillReferences(item);
-    }
 
     #endregion
 }
