@@ -6,8 +6,8 @@
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2023</Copyright>
-    <FileVersion>1.0.1.0</FileVersion>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>latest</LangVersion>
     <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
@@ -27,6 +27,6 @@
     <ProjectReference Include="..\..\Core\WsWebApiCore\WsWebApiCore.csproj" />
   </ItemGroup>
 	<PropertyGroup>
-		<Version>1.0.1.0</Version>
+		<Version>1.0.2.0</Version>
 	</PropertyGroup>
 </Project>
