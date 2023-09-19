@@ -28,7 +28,7 @@ public class BrandService
         brandDb.Code = brandDto.Code;
         brandDb.IsMarked = brandDto.IsMarked;
         
-        if (brandDb.IsNotExists)
+        if (brandDb.IsNew)
         {
             brandDb.Uid1C = brandDto.Guid;
             WsServiceUtils.SqlCore.Save(brandDb);
@@ -44,7 +44,7 @@ public class BrandService
     {
         WsSqlBrandModel brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
         
-        if (brandDb.IsNotExists)
+        if (brandDb.IsNew)
         {
             _responseDto.AddSuccess(brandDto.Guid, "Бренд не найден для удаления");
         }

@@ -77,7 +77,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Вес [5 симв]:       PluWeighingKg2 PluWeighingGr3
         Замес [3 симв]:     PluWeighingKneading
         */
-        get => PluWeighing.IsNotNew ? $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}" :
+        get => PluWeighing.IsExists ? $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}" :
             $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
@@ -116,7 +116,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Номер АРМ [5 симв]: ScaleNumber
         Счётчик [8 симв]:   ScaleCounter8
         */
-        get => PluWeighing.IsNotNew ? $"299{ScaleNumber}{ScaleCounter8}" : $"234{ScaleNumber}{ScaleCounter6}{ProductDateBarCodeFormat}";
+        get => PluWeighing.IsExists ? $"299{ScaleNumber}{ScaleCounter8}" : $"234{ScaleNumber}{ScaleCounter6}{ProductDateBarCodeFormat}";
         set => _ = value;
     }
     
@@ -168,7 +168,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Константа [2 симв]:     10
         Номер партии [4 симв]:  LotNumberFormat
         */
-        get => PluWeighing.IsNotNew ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}" 
+        get => PluWeighing.IsExists ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}" 
             : $"(01){BarCodeGtin14}(37){ViewPluNesting.BundleCount.ToString().PadLeft(8, '0')}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}";
         set => _ = value;
     }
@@ -186,7 +186,7 @@ public class WsSqlPluLabelContextModel : SerializeBase
         Константа [4 симв]:     (10)
         Номер партии [4 симв]:  LotNumberFormat
         */
-        get => PluWeighing.IsNotNew ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}"
+        get => PluWeighing.IsExists ? $"(01){BarCodeGtin14}(3103){PluWeighingKg3}{PluWeighingGr3}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}"
             : $"(01){BarCodeGtin14}(37){ViewPluNesting.BundleCount.ToString().PadLeft(8, '0')}(11){ProductDateBarCodeFormat}(10){LotNumberFormat}";
         set => _ = value;
     }

@@ -30,7 +30,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
             WsSqlPluModel plu = oldPluStorageMethodFk.Plu;
             WsSqlPluStorageMethodFkModel pluStorageMethodFksByPlu = PluStorageMethodFkRepository.GetItemByPlu(plu);
 
-            Assert.That(pluStorageMethodFksByPlu.IsNotNew, Is.True);
+            Assert.That(pluStorageMethodFksByPlu.IsExists, Is.True);
             Assert.That(pluStorageMethodFksByPlu, Is.EqualTo(oldPluStorageMethodFk));
 
             TestContext.WriteLine(pluStorageMethodFksByPlu);

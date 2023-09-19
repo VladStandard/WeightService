@@ -28,7 +28,7 @@ public sealed class WsSqlViewBarcodeRepository : IViewBarcodeRepository
         object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
         return objects
             .Select(ParseViewModel)
-            .Where(barcodeModel => barcodeModel.IsNotNew)
+            .Where(barcodeModel => barcodeModel.IsExists)
             .ToList();
     }
 }

@@ -29,7 +29,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             WsSqlBundleModel oldBundle = GetFirstBundleModel();
             WsSqlBundleModel bundleBy1C = BundleRepository.GetItemByUid1C(oldBundle.Uid1C);
 
-            Assert.That(bundleBy1C.IsNotNew, Is.True);
+            Assert.That(bundleBy1C.IsExists, Is.True);
             Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
 
             TestContext.WriteLine(bundleBy1C);

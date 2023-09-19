@@ -56,7 +56,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlDeviceModel device = DeviceRepository.GetNewItem();
-            Assert.That(device.IsNotExists, Is.True);
+            Assert.That(device.IsNew, Is.True);
             TestContext.WriteLine($"New item: {device.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

@@ -30,7 +30,7 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
             WsSqlDeviceModel device = oldDeviceLines.Device;
             WsSqlDeviceScaleFkModel deviceLinesByDevice = DeviceLineFkRepository.GetItemByDevice(device);
 
-            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
+            Assert.That(deviceLinesByDevice.IsExists, Is.True);
             Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceLines));
 
             TestContext.WriteLine(deviceLinesByDevice);
@@ -46,7 +46,7 @@ public sealed class DeviceLineFkRepositoryTests : TableRepositoryTests
             WsSqlScaleModel line = oldDeviceLines.Scale;
             WsSqlDeviceScaleFkModel deviceLinesByLine = DeviceLineFkRepository.GetItemByLine(line);
 
-            Assert.That(deviceLinesByLine.IsNotNew, Is.True);
+            Assert.That(deviceLinesByLine.IsExists, Is.True);
             Assert.That(deviceLinesByLine, Is.EqualTo(oldDeviceLines));
 
             TestContext.WriteLine(deviceLinesByLine);

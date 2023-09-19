@@ -32,7 +32,7 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
             WsSqlScaleModel line = oldProductSeries.Scale;
             WsSqlProductSeriesModel seriesByLine = ProductSeriesRepository.GetItemByLineNotClose(line);
 
-            Assert.That(seriesByLine.IsNotNew, Is.True);
+            Assert.That(seriesByLine.IsExists, Is.True);
             Assert.That(seriesByLine.IsClose, Is.EqualTo(false));
             Assert.That(seriesByLine, Is.EqualTo(oldProductSeries));
 

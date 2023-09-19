@@ -74,7 +74,7 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (LabelSession.Line.IsNotNew)
+            if (LabelSession.Line.IsExists)
             {
                 MassaDevice.Init(LabelSession.Line.DeviceComPort,
                     LabelSession.Line.DeviceReceiveTimeout,

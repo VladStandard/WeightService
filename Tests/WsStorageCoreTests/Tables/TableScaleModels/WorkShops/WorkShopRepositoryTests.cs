@@ -23,7 +23,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlWorkShopModel app = WorkShopRepository.GetNewItem();
-            Assert.That(app.IsNotExists, Is.True);
+            Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

@@ -157,10 +157,10 @@ public class PluService
     private static void SaveOrUpdatePluFk(WsSqlPluModel plu, PluDto pluDto)
     {
         if (Equals(pluDto.ParentGroupGuid, Guid.Empty)) return;
-        if (plu.IsNotExists) return;
+        if (plu.IsNew) return;
         
         WsSqlPluModel parentPluDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.ParentGroupGuid);
-        if (parentPluDb.IsNotExists) return;
+        if (parentPluDb.IsNew) return;
         
         WsSqlPluModel categoryDb = new WsSqlPluRepository().GetItemByUid1C(pluDto.CategoryGuid);
 
@@ -179,14 +179,14 @@ public class PluService
     }
     private static void SetPluIsMarked(WsSqlPluModel plu)
     {
-        if (plu.IsNotExists) return;
+        if (plu.IsNew) return;
         plu.IsMarked = true;
         WsServiceUtils.SqlCore.Update(plu);
     }
     private static void SaveOrUpdatePluNesting(WsSqlPluModel plu, PluDto pluDto)
     {
         WsSqlBoxModel boxDb = new WsSqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
-        if (boxDb.IsNotExists) return;
+        if (boxDb.IsNew) return;
 
         WsSqlPluNestingFkModel pluNestingDb = new WsSqlPluNestingFkRepository().GetDefaultByPlu(plu);
         

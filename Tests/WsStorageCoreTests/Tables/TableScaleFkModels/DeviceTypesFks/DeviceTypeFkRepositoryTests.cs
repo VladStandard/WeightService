@@ -30,7 +30,7 @@ public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
             WsSqlDeviceModel device = oldDeviceTypeFk.Device;
             WsSqlDeviceTypeFkModel deviceLinesByDevice = DeviceTypeFkRepository.GetItemByDevice(device);
 
-            Assert.That(deviceLinesByDevice.IsNotNew, Is.True);
+            Assert.That(deviceLinesByDevice.IsExists, Is.True);
             Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceTypeFk));
 
             TestContext.WriteLine(deviceLinesByDevice);

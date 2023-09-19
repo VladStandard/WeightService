@@ -50,7 +50,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlAppModel app = AppRepository.GetNewItem();
-            Assert.That(app.IsNotExists, Is.True);
+            Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

@@ -50,7 +50,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
 
             WsSqlScaleModel lineByDevice = LineRepository.GetItemByDevice(device);
 
-            Assert.That(lineByDevice.IsNotNew, Is.True);
+            Assert.That(lineByDevice.IsExists, Is.True);
             Assert.That(lineByDevice, Is.EqualTo(oldLine));
 
             TestContext.WriteLine(lineByDevice);

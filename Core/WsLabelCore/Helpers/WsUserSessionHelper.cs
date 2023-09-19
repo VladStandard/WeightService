@@ -166,7 +166,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             if (!(LabelSession.PluWeighing.NettoWeight >= LabelSession.ViewPluNesting.WeightMin && LabelSession.PluWeighing.NettoWeight <=
                     LabelSession.ViewPluNesting.WeightMax))
             {
-                if (LabelSession.PluWeighing.IsNotNew)
+                if (LabelSession.PluWeighing.IsExists)
                 {
                     MdInvokeControl.SetVisible(fieldWarning, true);
                     string message = WsLocaleCore.LabelPrint.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,

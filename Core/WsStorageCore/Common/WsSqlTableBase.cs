@@ -16,9 +16,7 @@ public class WsSqlTableBase : SerializeBase
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
 
     [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
-    [XmlIgnore] public virtual bool IsNotExists => Identity.IsNotExists;
-    [XmlIgnore] public virtual bool IsNew => IsNotExists;
-    [XmlIgnore] public virtual bool IsNotNew => IsExists;
+    [XmlIgnore] public virtual bool IsNew => Identity.IsNew;
     [XmlIgnore] public virtual bool IsIdentityUid => Identity.IsUid;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
     [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;

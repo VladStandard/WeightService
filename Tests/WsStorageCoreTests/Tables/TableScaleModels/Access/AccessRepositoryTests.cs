@@ -63,7 +63,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             WsSqlAccessModel access = AccessRepository.GetNewItem();
-            Assert.That(access.IsNotExists, Is.True);
+            Assert.That(access.IsNew, Is.True);
             TestContext.WriteLine($"New item: {access.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }

@@ -30,7 +30,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
             WsSqlPluModel plu = oldPluTemplateFk.Plu;
             WsSqlPluTemplateFkModel pluTemplateByPlu = PluTemplateFkRepository.GetItemByPlu(plu);
 
-            Assert.That(pluTemplateByPlu.IsNotNew, Is.True);
+            Assert.That(pluTemplateByPlu.IsExists, Is.True);
             Assert.That(pluTemplateByPlu, Is.EqualTo(oldPluTemplateFk));
 
             TestContext.WriteLine(pluTemplateByPlu);

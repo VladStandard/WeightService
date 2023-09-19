@@ -68,7 +68,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
         // Размер палеты.
         labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =
-                LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: false };
+                LabelSession.PluLine is { IsExists: true, Plu.IsCheckWeight: false };
 
         fieldProdDate.Text = LabelSession.ProductDate.ToString("dd.MM.yyyy");
         fieldKneading.Text = $@"{LabelSession.WeighingSettings.Kneading}";
@@ -107,7 +107,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 
     private void CheckWeightCount()
     {
-        if (LabelSession.PluLine is { IsNotNew: true, Plu.IsCheckWeight: true } &&
+        if (LabelSession.PluLine is { IsExists: true, Plu.IsCheckWeight: true } &&
             LabelSession.WeighingSettings.LabelsCountMain > 1)
         {
             //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 

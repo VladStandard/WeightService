@@ -105,7 +105,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public virtual void SetUid(Guid value) => Uid = value;
 
-    public virtual bool IsNotExists => Name switch
+    public virtual bool IsNew => Name switch
     {
         WsSqlEnumFieldIdentity.Id => Equals(Id, default(long)),
         WsSqlEnumFieldIdentity.Uid => Equals(Uid, Guid.Empty),
