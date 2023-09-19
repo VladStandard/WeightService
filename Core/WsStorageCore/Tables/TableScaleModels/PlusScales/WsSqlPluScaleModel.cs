@@ -1,18 +1,15 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusScales;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluScaleModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual bool IsActive { get; set; }
-    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual WsSqlScaleModel Line { get; set; }
+    public virtual bool IsActive { get; set; }
+    public virtual WsSqlPluModel Plu { get; set; }
+    public virtual WsSqlScaleModel Line { get; set; }
     
     public WsSqlPluScaleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -21,13 +18,6 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Line = new();
     }
     
-    protected WsSqlPluScaleModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        IsActive = info.GetBoolean(nameof(IsActive));
-        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Line = (WsSqlScaleModel)info.GetValue(nameof(Line), typeof(WsSqlScaleModel));
-    }
-
     public WsSqlPluScaleModel(WsSqlPluScaleModel item) : base(item)
     {
         IsActive = item.IsActive;
@@ -58,14 +48,6 @@ public class WsSqlPluScaleModel : WsSqlTableBase
         Equals(IsActive, false) &&
         Plu.EqualsDefault() &&
         Line.EqualsDefault();
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(IsActive), IsActive);
-        info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Line), Line);
-    }
 
     public override void FillProperties()
     {

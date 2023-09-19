@@ -3,7 +3,6 @@ namespace WsStorageCore.Tables.TableScaleModels.Versions;
 /// <summary>
 /// Table "VERSIONS".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlVersionModel : WsSqlTableBase
 {
@@ -17,18 +16,7 @@ public class WsSqlVersionModel : WsSqlTableBase
         ReleaseDt = DateTime.MinValue;
         Version = 0;
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlVersionModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        ReleaseDt = info.GetDateTime(nameof(ReleaseDt));
-        Version = info.GetInt16(nameof(Version));
-    }
-
+    
     public WsSqlVersionModel(WsSqlVersionModel item) : base(item)
     {
         ReleaseDt = item.ReleaseDt;
@@ -57,13 +45,6 @@ public class WsSqlVersionModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(ReleaseDt, DateTime.MinValue) &&
         Equals(Version, (short)0);
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(ReleaseDt), ReleaseDt);
-        info.AddValue(nameof(Version), Version);
-    }
 
     public override void FillProperties()
     {

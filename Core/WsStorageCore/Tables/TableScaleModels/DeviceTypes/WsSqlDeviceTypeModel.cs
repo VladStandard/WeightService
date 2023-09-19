@@ -1,28 +1,17 @@
 namespace WsStorageCore.Tables.TableScaleModels.DeviceTypes;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string PrettyName { get; set; }
+    public virtual string PrettyName { get; set; }
     
     public WsSqlDeviceTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PrettyName = string.Empty;
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-	/// <param name="context"></param>
-	protected WsSqlDeviceTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        PrettyName = info.GetString(nameof(PrettyName));
-    }
-
+    
     public WsSqlDeviceTypeModel(WsSqlDeviceTypeModel item) : base(item)
     {
         PrettyName = item.PrettyName;
@@ -49,23 +38,7 @@ public class WsSqlDeviceTypeModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(PrettyName, string.Empty);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(PrettyName), PrettyName);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
-
+    
     #endregion
 
     #region Public and private methods - virtual

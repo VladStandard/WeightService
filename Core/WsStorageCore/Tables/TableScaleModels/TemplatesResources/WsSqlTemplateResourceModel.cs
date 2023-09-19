@@ -3,16 +3,15 @@ namespace WsStorageCore.Tables.TableScaleModels.TemplatesResources;
 /// <summary>
 /// Table "TEMPLATES_RESOURCES".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTemplateResourceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Type { get; set; }
-    [XmlElement] public virtual WsSqlFieldBinaryModel Data { get; set; }
+    public virtual string Type { get; set; }
+    public virtual WsSqlFieldBinaryModel Data { get; set; }
 
-    [XmlIgnore] public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
+    public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
     
     public WsSqlTemplateResourceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -20,12 +19,6 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
         Data = new();
     }
     
-    protected WsSqlTemplateResourceModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Type = info.GetString(nameof(Type));
-        Data = (WsSqlFieldBinaryModel)info.GetValue(nameof(Data), typeof(WsSqlFieldBinaryModel));
-    }
-
     public WsSqlTemplateResourceModel(WsSqlTemplateResourceModel item) : base(item)
     {
         Type = item.Type;
@@ -58,19 +51,7 @@ public class WsSqlTemplateResourceModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Type, string.Empty) &&
         Data.Equals(new());
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Type), Type);
-        info.AddValue(nameof(Data), Data);
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

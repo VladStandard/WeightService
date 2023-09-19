@@ -1,24 +1,17 @@
 namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderWeighingModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlOrderModel Order { get; set; }
-    [XmlElement] public virtual WsSqlPluWeighingModel PluWeighing { get; set; }
+    public virtual WsSqlOrderModel Order { get; set; }
+    public virtual WsSqlPluWeighingModel PluWeighing { get; set; }
     
     public WsSqlOrderWeighingModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Order = new();
         PluWeighing = new();
-    }
-    
-    protected WsSqlOrderWeighingModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Order = (WsSqlOrderModel)info.GetValue(nameof(Order), typeof(WsSqlOrderModel));
-        PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
     }
 
     public WsSqlOrderWeighingModel(WsSqlOrderWeighingModel item) : base(item)
@@ -52,18 +45,6 @@ public class WsSqlOrderWeighingModel : WsSqlTableBase
         base.EqualsDefault() &&
         Order.EqualsDefault() &&
         PluWeighing.EqualsDefault();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Order), Order);
-        info.AddValue(nameof(PluWeighing), PluWeighing);
-    }
 
     public override void FillProperties()
     {

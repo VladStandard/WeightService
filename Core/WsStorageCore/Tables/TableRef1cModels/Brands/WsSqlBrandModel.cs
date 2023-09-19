@@ -1,24 +1,17 @@
 namespace WsStorageCore.Tables.TableRef1cModels.Brands;
 
-[Serializable]
-[XmlRoot("Brand", Namespace = "", IsNullable = false)]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBrandModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlAttribute] public virtual string Code { get; set; }
+    public virtual string Code { get; set; }
     
     public WsSqlBrandModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Code = string.Empty;
     }
     
-    protected WsSqlBrandModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Code = info.GetString(nameof(Code));
-    }
-
     public WsSqlBrandModel(WsSqlBrandModel item) : base(item)
     {
         Code = item.Code;
@@ -48,17 +41,6 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Code, string.Empty);
 
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Code), Code);
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();
@@ -72,13 +54,6 @@ public class WsSqlBrandModel : WsSqlTable1CBase
     public virtual bool Equals(WsSqlBrandModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Code, item.Code);
-
-    public virtual void UpdateProperties(WsSqlBrandModel item)
-    {
-        // Get properties from /api/send_brands/.
-        Uid1C = item.Uid1C;
-        Code = item.Code;
-    }
-
+    
     #endregion
 }

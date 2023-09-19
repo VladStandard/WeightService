@@ -25,8 +25,6 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
-    //[XmlElement] public virtual string CurrentDateBarCode { get => $"{DateTime.Now:yyMMdd}"; set => _ = value; }
-    //[XmlElement] public virtual string CurrentTimeBarCode { get => $"{DateTime.Now:HHmmss}"; set => _ = value; }
     [XmlElement] public virtual string Nesting { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
     [XmlElement] public virtual string NestingCaption { get => $"{WsLocaleCore.LabelPrint.LabelContextNesting}: "; set => _ = value; }
     [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount} {WsLocaleCore.Table.NestingMeasurement}"; set => _ = value; }
@@ -246,20 +244,6 @@ public class WsSqlPluLabelContextModel : SerializeBase
         info.AddValue(nameof(PluScale), PluScale);
         info.AddValue(nameof(ProductionSite), ProductionSite);
         info.AddValue(nameof(PluWeighing), PluWeighing);
-
-        //info.AddValue(nameof(Address), Address);
-        //info.AddValue(nameof(BarCodeGtin14), BarCodeGtin14);
-        //info.AddValue(nameof(ExpirationDt), ExpirationDt);
-        //info.AddValue(nameof(LotNumberFormat), LotNumberFormat);
-        //info.AddValue(nameof(Nesting), Nesting);
-        //info.AddValue(nameof(PluDescription), PluDescription);
-        //info.AddValue(nameof(PluFullName), PluFullName);
-        //info.AddValue(nameof(PluName), PluName);
-        //info.AddValue(nameof(PluNestingWeightTare), PluNestingWeightTare);
-        //info.AddValue(nameof(PluNumber), PluNumber);
-        //info.AddValue(nameof(ProductDateBarCodeFormat), ProductDateBarCodeFormat);
-        //info.AddValue(nameof(ProductDt), ProductDt);
-        //info.AddValue(nameof(ProductTimeBarCodeFormat), ProductTimeBarCodeFormat);
     }
 
     #endregion

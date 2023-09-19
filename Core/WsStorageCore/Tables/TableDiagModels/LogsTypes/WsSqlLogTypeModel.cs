@@ -1,13 +1,12 @@
 namespace WsStorageCore.Tables.TableDiagModels.LogsTypes;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual byte Number { get; set; }
-    [XmlElement] public virtual string Icon { get; set; }
+    public virtual byte Number { get; set; }
+    public virtual string Icon { get; set; }
 
     public WsSqlLogTypeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -15,12 +14,6 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         Icon = string.Empty;
     }
     
-    protected WsSqlLogTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Number = info.GetByte(nameof(Number));
-        Icon = info.GetString(nameof(Icon));
-    }
-
     public WsSqlLogTypeModel(WsSqlLogTypeModel item) : base(item)
     {
         Number = item.Number;
@@ -50,18 +43,6 @@ public class WsSqlLogTypeModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(Number, (byte)0x00) &&
         Equals(Icon, string.Empty);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Number), Number);
-        info.AddValue(nameof(Icon), Icon);
-    }
 
     public override void FillProperties()
     {

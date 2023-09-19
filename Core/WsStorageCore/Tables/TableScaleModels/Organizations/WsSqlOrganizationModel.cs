@@ -1,23 +1,17 @@
 namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrganizationModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual int Gln { get; set; }
+    public virtual int Gln { get; set; }
     
     public WsSqlOrganizationModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Gln = 0;
     }
     
-    protected WsSqlOrganizationModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Gln = info.GetInt32(nameof(Gln));
-    }
-
     public WsSqlOrganizationModel(WsSqlOrganizationModel item) : base(item)
     {
         Gln = item.Gln;
@@ -47,22 +41,6 @@ public class WsSqlOrganizationModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Gln, 0);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Gln), Gln);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
 
     #endregion
 

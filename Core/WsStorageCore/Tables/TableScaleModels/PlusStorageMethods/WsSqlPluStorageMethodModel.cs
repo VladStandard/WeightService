@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
@@ -10,24 +8,13 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual short MinTemp { get; set; }
-    [XmlElement] public virtual short MaxTemp { get; set; }
+    public virtual short MinTemp { get; set; }
+    public virtual short MaxTemp { get; set; }
     
     public WsSqlPluStorageMethodModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         MinTemp = default;
         MaxTemp = default;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPluStorageMethodModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        MinTemp = info.GetInt16(nameof(MinTemp));
-        MaxTemp = info.GetInt16(nameof(MaxTemp));
     }
 
     public WsSqlPluStorageMethodModel(WsSqlPluStorageMethodModel item) : base(item)
@@ -62,14 +49,7 @@ public class WsSqlPluStorageMethodModel : WsSqlTableBase
         base.EqualsDefault() &&
         Equals(MinTemp, default(short)) &&
         Equals(MaxTemp, default(short));
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(MinTemp), MinTemp);
-        info.AddValue(nameof(MaxTemp), MaxTemp);
-    }
-
+    
     #endregion
 
     #region Public and private methods - virtual

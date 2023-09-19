@@ -1,19 +1,18 @@
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebs;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogWebModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DateTime StampDt { get; set; } = DateTime.MinValue;
-    [XmlElement] public virtual string Version { get; set; }
-    [XmlElement] public virtual string Url { get; set; }
-    [XmlElement] public virtual string DataRequest { get; set; }
-    [XmlElement] public virtual string DataResponse { get; set; }
-    [XmlElement] public virtual int CountAll { get; set; }
-    [XmlElement] public virtual int CountSuccess { get; set; }
-    [XmlElement] public virtual int CountErrors { get; set; }
+    public virtual DateTime StampDt { get; set; } = DateTime.MinValue;
+    public virtual string Version { get; set; }
+    public virtual string Url { get; set; }
+    public virtual string DataRequest { get; set; }
+    public virtual string DataResponse { get; set; }
+    public virtual int CountAll { get; set; }
+    public virtual int CountSuccess { get; set; }
+    public virtual int CountErrors { get; set; }
     
     public WsSqlLogWebModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -26,16 +25,6 @@ public class WsSqlLogWebModel : WsSqlTableBase
         CountErrors = default;
     }
     
-    protected WsSqlLogWebModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Version = info.GetString(nameof(Version));
-        Url = info.GetString(nameof(Url));
-        DataRequest = info.GetString(nameof(DataRequest));
-        CountAll = info.GetInt32(nameof(CountAll));
-        CountSuccess = info.GetInt32(nameof(CountSuccess));
-        CountAll = info.GetInt32(nameof(CountErrors));
-    }
-
     public WsSqlLogWebModel(WsSqlLogWebModel item) : base(item)
     {
         StampDt = item.StampDt;
@@ -77,24 +66,6 @@ public class WsSqlLogWebModel : WsSqlTableBase
         Equals(CountAll, default(int)) &&
         Equals(CountSuccess, default(int)) &&
         Equals(CountErrors, default(int));
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(StampDt), StampDt);
-        info.AddValue(nameof(Version), Version);
-        info.AddValue(nameof(DataResponse), DataResponse);
-        info.AddValue(nameof(Url), Url);
-        info.AddValue(nameof(DataRequest), DataRequest);
-        info.AddValue(nameof(CountAll), CountAll);
-        info.AddValue(nameof(CountSuccess), CountSuccess);
-        info.AddValue(nameof(CountErrors), CountErrors);
-    }
 
     public override void FillProperties()
     {

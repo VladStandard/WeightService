@@ -1,31 +1,17 @@
-using WsSqlTableBase = WsStorageCore.Common.WsSqlTableBase;
-
 namespace WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceTypeFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlDeviceModel Device { get; set; }
-    [XmlElement] public virtual WsSqlDeviceTypeModel Type { get; set; }
+    public virtual WsSqlDeviceModel Device { get; set; }
+    public virtual WsSqlDeviceTypeModel Type { get; set; }
     
     public WsSqlDeviceTypeFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Device = new();
         Type = new();
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlDeviceTypeFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Device = (WsSqlDeviceModel)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
-        Type = (WsSqlDeviceTypeModel)info.GetValue(nameof(WsSqlDeviceTypeModel), typeof(WsSqlDeviceTypeModel));
     }
 
     public WsSqlDeviceTypeFkModel(WsSqlDeviceTypeFkModel item) : base(item)
@@ -59,33 +45,12 @@ public class WsSqlDeviceTypeFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Device.EqualsDefault() &&
         Type.EqualsDefault();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Device), Device);
-        info.AddValue(nameof(Type), Type);
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();
         Device.FillProperties();
         Type.FillProperties();
-    }
-
-    public virtual void UpdateProperties(WsSqlDeviceTypeFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-        
-        Device = new(item.Device);
-        Type = new(item.Type);
     }
 
     #endregion

@@ -1,19 +1,18 @@
 namespace WsStorageCore.Tables.TableDiagModels.Logs;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlLogModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement(IsNullable = true)] public virtual WsSqlDeviceModel? Device { get; set; }
-    [XmlElement(IsNullable = true)] public virtual WsSqlAppModel? App { get; set; }
-    [XmlElement(IsNullable = true)] public virtual WsSqlLogTypeModel? LogType { get; set; }
-    [XmlElement] public virtual string Version { get; set; }
-    [XmlElement] public virtual string File { get; set; }
-    [XmlElement] public virtual int Line { get; set; }
-    [XmlElement] public virtual string Member { get; set; }
-    [XmlElement] public virtual string Message { get; set; }
+    public virtual WsSqlDeviceModel? Device { get; set; }
+    public virtual WsSqlAppModel? App { get; set; }
+    public virtual WsSqlLogTypeModel? LogType { get; set; }
+    public virtual string Version { get; set; }
+    public virtual string File { get; set; }
+    public virtual int Line { get; set; }
+    public virtual string Member { get; set; }
+    public virtual string Message { get; set; }
 
     public WsSqlLogModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -25,18 +24,6 @@ public class WsSqlLogModel : WsSqlTableBase
         Line = 0;
         Member = string.Empty;
         Message = string.Empty;
-    }
-    
-    protected WsSqlLogModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Device = (WsSqlDeviceModel?)info.GetValue(nameof(Device), typeof(WsSqlDeviceModel));
-        App = (WsSqlAppModel?)info.GetValue(nameof(App), typeof(WsSqlAppModel));
-        LogType = (WsSqlLogTypeModel?)info.GetValue(nameof(LogType), typeof(WsSqlLogTypeModel));
-        Version = info.GetString(nameof(Version));
-        File = info.GetString(nameof(File));
-        Line = info.GetInt32(nameof(Line));
-        Member = info.GetString(nameof(Member));
-        Message = info.GetString(nameof(Message));
     }
 
     public WsSqlLogModel(WsSqlLogModel item) : base(item)
@@ -81,24 +68,6 @@ public class WsSqlLogModel : WsSqlTableBase
         (Device is null || Device.EqualsDefault()) &&
         (App is null || App.EqualsDefault()) &&
         (LogType is null || LogType.EqualsDefault());
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Version), Version);
-        info.AddValue(nameof(File), File);
-        info.AddValue(nameof(Line), Line);
-        info.AddValue(nameof(Member), Member);
-        info.AddValue(nameof(Message), Message);
-        info.AddValue(nameof(Device), Device);
-        info.AddValue(nameof(App), App);
-        info.AddValue(nameof(LogType), LogType);
-    }
 
     public override void ClearNullProperties()
     {

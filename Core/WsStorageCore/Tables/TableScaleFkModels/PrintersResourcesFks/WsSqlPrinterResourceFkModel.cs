@@ -1,13 +1,12 @@
 namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterResourceFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlPrinterModel Printer { get; set; }
-    [XmlElement] public virtual WsSqlTemplateResourceModel TemplateResource { get; set; }
+    public virtual WsSqlPrinterModel Printer { get; set; }
+    public virtual WsSqlTemplateResourceModel TemplateResource { get; set; }
     
     public WsSqlPrinterResourceFkModel() : base(WsSqlEnumFieldIdentity.Id)
     {
@@ -15,12 +14,6 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         TemplateResource = new();
     }
     
-    protected WsSqlPrinterResourceFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Printer = (WsSqlPrinterModel)info.GetValue(nameof(Printer), typeof(WsSqlPrinterModel));
-        TemplateResource = (WsSqlTemplateResourceModel)info.GetValue(nameof(TemplateResource), typeof(WsSqlTemplateResourceModel));
-    }
-
     public WsSqlPrinterResourceFkModel(WsSqlPrinterResourceFkModel item) : base(item)
     {
         Printer = new(item.Printer);
@@ -52,18 +45,6 @@ public class WsSqlPrinterResourceFkModel : WsSqlTableBase
         base.EqualsDefault() &&
         Printer.EqualsDefault() &&
         TemplateResource.EqualsDefault();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Printer), Printer);
-        info.AddValue(nameof(TemplateResource), TemplateResource);
-    }
 
     public override void FillProperties()
     {

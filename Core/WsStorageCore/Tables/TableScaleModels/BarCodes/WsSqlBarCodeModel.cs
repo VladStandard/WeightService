@@ -1,18 +1,17 @@
 namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBarCodeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string TypeTop { get; set; }
-    [XmlElement] public virtual string ValueTop { get; set; }
-    [XmlElement] public virtual string TypeRight { get; set; }
-    [XmlElement] public virtual string ValueRight { get; set; }
-    [XmlElement] public virtual string TypeBottom { get; set; }
-    [XmlElement] public virtual string ValueBottom { get; set; }
-    [XmlIgnore] public virtual WsSqlPluLabelModel PluLabel { get; set; }
+    public virtual string TypeTop { get; set; }
+    public virtual string ValueTop { get; set; }
+    public virtual string TypeRight { get; set; }
+    public virtual string ValueRight { get; set; }
+    public virtual string TypeBottom { get; set; }
+    public virtual string ValueBottom { get; set; }
+    public virtual WsSqlPluLabelModel PluLabel { get; set; }
     
     public WsSqlBarCodeModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -24,32 +23,12 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         ValueBottom = string.Empty;
         PluLabel = new();
     }
-
-    /// <summary>
-    /// Constructor with parameters.
-    /// </summary>
-    /// <param name="pluLabel"></param>
+    
     public WsSqlBarCodeModel(WsSqlPluLabelModel pluLabel) : this()
     {
         PluLabel = pluLabel;
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlBarCodeModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        TypeTop = info.GetString(nameof(TypeTop));
-        ValueTop = info.GetString(nameof(ValueTop));
-        TypeRight = info.GetString(nameof(TypeRight));
-        ValueRight = info.GetString(nameof(ValueRight));
-        TypeBottom = info.GetString(nameof(TypeBottom));
-        ValueBottom = info.GetString(nameof(ValueBottom));
-        PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
-    }
-
+    
     public WsSqlBarCodeModel(WsSqlBarCodeModel item) : base(item)
     {
         TypeTop = item.TypeTop;
@@ -96,24 +75,6 @@ public class WsSqlBarCodeModel : WsSqlTableBase
         Equals(TypeBottom, string.Empty) &&
         Equals(ValueBottom, string.Empty) &&
         PluLabel.EqualsDefault();
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(TypeTop), TypeTop);
-        info.AddValue(nameof(ValueTop), ValueTop);
-        info.AddValue(nameof(TypeRight), TypeRight);
-        info.AddValue(nameof(ValueRight), ValueRight);
-        info.AddValue(nameof(TypeBottom), TypeBottom);
-        info.AddValue(nameof(ValueBottom), ValueBottom);
-        info.AddValue(nameof(PluLabel), PluLabel);
-    }
-
-    public override void ClearNullProperties()
-    {
-        //if (PluLabel is not null && PluLabel.Identity.EqualsDefault())
-        // PluLabel = null;
-    }
 
     public override void FillProperties()
     {

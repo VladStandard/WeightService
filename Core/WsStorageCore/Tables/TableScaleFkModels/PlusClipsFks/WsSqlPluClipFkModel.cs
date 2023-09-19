@@ -1,13 +1,12 @@
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluClipFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlClipModel Clip { get; set; }
-    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
+    public virtual WsSqlClipModel Clip { get; set; }
+    public virtual WsSqlPluModel Plu { get; set; }
     
     public WsSqlPluClipFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -59,34 +58,13 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
         Clip.EqualsDefault() &&
         Plu.EqualsDefault();
 
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Clip), Clip);
-        info.AddValue(nameof(Plu), Plu);
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();
         Clip.FillProperties();
         Plu.FillProperties();
     }
-
-    public virtual void UpdateProperties(WsSqlPluClipFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-        
-        Plu = new(item.Plu);
-        Clip = new(item.Clip);
-    }
-
+    
     #endregion
 
     #region Public and private methods - virtual

@@ -3,7 +3,6 @@ namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
 /// <summary>
 /// Table "TASKS_TYPES".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTaskTypeModel : WsSqlTableBase
 {
@@ -13,8 +12,6 @@ public class WsSqlTaskTypeModel : WsSqlTableBase
     {
         //
     }
-    
-    protected WsSqlTaskTypeModel(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     public WsSqlTaskTypeModel(WsSqlTaskTypeModel item) : base(item) { }
 
@@ -37,8 +34,6 @@ public class WsSqlTaskTypeModel : WsSqlTableBase
     public override int GetHashCode() => base.GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() => base.EqualsDefault();
 
     #endregion
 

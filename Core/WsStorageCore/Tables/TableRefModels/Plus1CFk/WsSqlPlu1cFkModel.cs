@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace WsStorageCore.Tables.TableRefModels.Plus1CFk;
@@ -7,38 +5,20 @@ namespace WsStorageCore.Tables.TableRefModels.Plus1CFk;
 /// <summary>
 /// Доменная модель таблицы REF.PLUS_1C_FK.
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPlu1CFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual bool IsEnabled { get; set; }
-    [XmlElement] public virtual string RequestDataString { get; set; }
+    public virtual WsSqlPluModel Plu { get; set; }
+    public virtual bool IsEnabled { get; set; }
+    public virtual string RequestDataString { get; set; }
 
     public WsSqlPlu1CFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         IsEnabled = false;
         RequestDataString = string.Empty;
-    }
-
-    public WsSqlPlu1CFkModel(WsSqlPluModel plu) : this()
-    {
-        Plu = plu;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPlu1CFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        IsEnabled = info.GetBoolean(nameof(IsEnabled));
-        RequestDataString = info.GetString(nameof(RequestDataString));
     }
 
     public WsSqlPlu1CFkModel(WsSqlPlu1CFkModel item) : base(item)
@@ -71,31 +51,7 @@ public class WsSqlPlu1CFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Equals(IsEnabled, default) &&
         Equals(RequestDataString, string.Empty);
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(IsEnabled), IsEnabled);
-        info.AddValue(nameof(RequestDataString), RequestDataString);
-    }
-
-    public virtual void UpdateProperties(string requestDataString)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        RequestDataString = requestDataString;
-    }
-
-    public virtual void UpdateProperties(WsSqlPlu1CFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-
-        Plu = new(item.Plu);
-        IsEnabled = item.IsEnabled;
-        RequestDataString = item.RequestDataString;
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

@@ -6,7 +6,7 @@ public class WsSqlBundleModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual decimal Weight { get; set; }
+    public virtual decimal Weight { get; set; }
 
     public WsSqlBundleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -44,26 +44,6 @@ public class WsSqlBundleModel : WsSqlTable1CBase
 
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() && Equals(Weight, (decimal)0);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Weight), Weight);
-    }
-
-    public virtual void UpdateProperties(WsSqlPluModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        Uid1C = item.PackageTypeGuid;
-        Name = item.PackageTypeName;
-        Weight = item.PackageTypeWeight;
-        if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
-    }
 
     #endregion
 

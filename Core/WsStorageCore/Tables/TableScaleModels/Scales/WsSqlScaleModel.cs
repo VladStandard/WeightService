@@ -6,56 +6,34 @@ namespace WsStorageCore.Tables.TableScaleModels.Scales;
 /// <summary>
 /// Модель таблицы SCALES.
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlScaleModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement(IsNullable = true)] public virtual WsSqlWorkShopModel? WorkShop { get; set; }
-    [XmlElement(IsNullable = true)] public virtual WsSqlPrinterModel? PrinterMain { get; set; }
-    [XmlElement(IsNullable = true)] public virtual WsSqlPrinterModel? PrinterShipping { get; set; }
-    [XmlElement] public virtual byte ShippingLength { get; set; }
-    [XmlElement(IsNullable = true)] public virtual short? DeviceSendTimeout { get; set; }
-    [XmlElement(IsNullable = true)] public virtual short? DeviceReceiveTimeout { get; set; }
-    [XmlElement] public virtual string DeviceComPort { get; set; } = "";
-    [XmlElement] public virtual string ZebraIp { get; set; } = "";
-    [XmlElement(IsNullable = true)] public virtual short? ZebraPort { get; set; }
-    [XmlElement] public virtual int Number { get; set; }
-    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
+    public virtual WsSqlWorkShopModel? WorkShop { get; set; }
+    public virtual WsSqlPrinterModel? PrinterMain { get; set; }
+    public virtual WsSqlPrinterModel? PrinterShipping { get; set; }
+    public virtual byte ShippingLength { get; set; }
+    public virtual short? DeviceSendTimeout { get; set; }
+    public virtual short? DeviceReceiveTimeout { get; set; }
+    public virtual string DeviceComPort { get; set; } = "";
+    public virtual string ZebraIp { get; set; } = "";
+    public virtual short? ZebraPort { get; set; }
+    public virtual int Number { get; set; }
+    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
+    
     private int _labelCounter;
-    /// <summary>
-    /// Счётчик этикеток (от 1 до 1_000_000).
-    /// </summary>
-    [XmlElement]
+    
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
-    [XmlElement(IsNullable = true)] public virtual int? ScaleFactor { get; set; }
-    [XmlElement] public virtual bool IsShipping { get; set; }
-    [XmlElement] public virtual bool IsOrder { get; set; }
-    [XmlElement] public virtual bool IsKneading { get; set; } = true;
-    [XmlIgnore] public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
-    [XmlElement] public virtual string ClickOnce { get; set; } = "";
+    public virtual int? ScaleFactor { get; set; }
+    public virtual bool IsShipping { get; set; }
+    public virtual bool IsOrder { get; set; }
+    public virtual bool IsKneading { get; set; } = true;
+    public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
+    public virtual string ClickOnce { get; set; } = "";
 
     public WsSqlScaleModel() : base(WsSqlEnumFieldIdentity.Id) { }
-
-    protected WsSqlScaleModel(SerializationInfo info, StreamingContext context) : this()
-    {
-        WorkShop = (WsSqlWorkShopModel?)info.GetValue(nameof(WorkShop), typeof(WsSqlWorkShopModel));
-        PrinterMain = (WsSqlPrinterModel?)info.GetValue(nameof(PrinterMain), typeof(WsSqlPrinterModel));
-        PrinterShipping = (WsSqlPrinterModel?)info.GetValue(nameof(PrinterShipping), typeof(WsSqlPrinterModel));
-        ShippingLength = info.GetByte(nameof(ShippingLength));
-        DeviceSendTimeout = (short?)info.GetValue(nameof(DeviceSendTimeout), typeof(short));
-        DeviceReceiveTimeout = (short?)info.GetValue(nameof(DeviceReceiveTimeout), typeof(short));
-        DeviceComPort = info.GetString(nameof(DeviceComPort));
-        ZebraIp = info.GetString(nameof(ZebraIp));
-        ZebraPort = (short?)info.GetValue(nameof(ZebraPort), typeof(short));
-        Number = info.GetInt32(nameof(Number));
-        LabelCounter = info.GetInt32(nameof(LabelCounter));
-        ScaleFactor = (int?)info.GetValue(nameof(ScaleFactor), typeof(int));
-        IsShipping = info.GetBoolean(nameof(IsShipping));
-        IsOrder = info.GetBoolean(nameof(IsOrder));
-        IsKneading = info.GetBoolean(nameof(IsKneading));
-    }
 
     public WsSqlScaleModel(WsSqlScaleModel item) : base(item)
     {

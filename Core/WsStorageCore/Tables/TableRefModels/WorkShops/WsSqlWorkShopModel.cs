@@ -5,22 +5,16 @@ namespace WsStorageCore.Tables.TableRefModels.WorkShops;
 /// <summary>
 /// Table "WorkShop".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlWorkShopModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlProductionSiteModel ProductionSite { get; set; }
+    public virtual WsSqlProductionSiteModel ProductionSite { get; set; }
 
     public WsSqlWorkShopModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         ProductionSite = new();
-    }
-    
-    protected WsSqlWorkShopModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        ProductionSite = (WsSqlProductionSiteModel)info.GetValue(nameof(ProductionSite), typeof(WsSqlProductionSiteModel));
     }
 
     public WsSqlWorkShopModel(WsSqlWorkShopModel item) : base(item)
@@ -52,18 +46,7 @@ public class WsSqlWorkShopModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         ProductionSite.EqualsDefault();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(ProductionSite), ProductionSite);
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

@@ -3,23 +3,12 @@ namespace WsStorageCore.Tables.TableScaleModels.Apps;
 /// <summary>
 /// Table "APPS".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlAppModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
     public WsSqlAppModel() : base(WsSqlEnumFieldIdentity.Uid)
-    {
-        //
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlAppModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }
@@ -43,8 +32,6 @@ public class WsSqlAppModel : WsSqlTableBase
     public override int GetHashCode() => base.GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() => base.EqualsDefault();
 
     #endregion
 

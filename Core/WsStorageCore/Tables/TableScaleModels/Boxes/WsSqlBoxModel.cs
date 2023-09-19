@@ -1,21 +1,15 @@
 namespace WsStorageCore.Tables.TableScaleModels.Boxes;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBoxModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual decimal Weight { get; set; }
+    public virtual decimal Weight { get; set; }
 
     public WsSqlBoxModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Weight = 0;
-    }
-    
-    protected WsSqlBoxModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Weight = info.GetDecimal(nameof(Weight));
     }
 
     public WsSqlBoxModel(WsSqlBoxModel item) : base(item)
@@ -45,26 +39,6 @@ public class WsSqlBoxModel : WsSqlTable1CBase
     public new virtual bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Weight, (decimal)0);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Weight), Weight);
-    }
-
-    public virtual void UpdateProperties(WsSqlPluModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        Uid1C = item.BoxTypeGuid;
-        Name = item.BoxTypeName;
-        Weight = item.BoxTypeWeight;
-        if (Equals(Weight, default)) throw new ArgumentException(nameof(Weight));
-    }
 
     #endregion
 

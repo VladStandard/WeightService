@@ -3,22 +3,16 @@ namespace WsStorageCore.Tables.TableRefModels.ProductionSites;
 /// <summary>
 /// Table "ProductionSite".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlProductionSiteModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Address { get; set; }
+    public virtual string Address { get; set; }
     
     public WsSqlProductionSiteModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Address = string.Empty;
-    }
-    
-    protected WsSqlProductionSiteModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Address = info.GetString(nameof(Address));
     }
 
     public WsSqlProductionSiteModel(WsSqlProductionSiteModel item) : base(item)
@@ -47,22 +41,6 @@ public class WsSqlProductionSiteModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Address, string.Empty);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Address), Address);
-    }
-
-    public override void FillProperties()
-    {
-        base.FillProperties();
-    }
 
     #endregion
 

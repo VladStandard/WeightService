@@ -3,33 +3,20 @@ namespace WsStorageCore.Tables.TableScaleModels.Templates;
 /// <summary>
 /// Table "Templates".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTemplateModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string CategoryId { get; set; }
-    [XmlElement] public virtual string Title { get; set; }
-    [XmlElement] public virtual string Data { get; set; }
+    public virtual string CategoryId { get; set; } 
+    public virtual string Title { get; set; }
+    public virtual string Data { get; set; }
     
     public WsSqlTemplateModel() : base(WsSqlEnumFieldIdentity.Id)
     {
         CategoryId = string.Empty;
         Title = string.Empty;
         Data = string.Empty;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlTemplateModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        CategoryId = info.GetString(nameof(CategoryId));
-        Title = info.GetString(nameof(Title));
-        Data = info.GetString(nameof(Data));
     }
 
     public WsSqlTemplateModel(WsSqlTemplateModel item) : base(item)
@@ -62,19 +49,6 @@ public class WsSqlTemplateModel : WsSqlTableBase
         Equals(CategoryId, string.Empty) &&
         Equals(Title, string.Empty) &&
         Equals(Data, string.Empty);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(CategoryId), CategoryId);
-        info.AddValue(nameof(Title), Title);
-        info.AddValue(nameof(Data), Data);
-    }
 
     public override void FillProperties()
     {

@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusLabels;
@@ -7,25 +5,21 @@ namespace WsStorageCore.Tables.TableScaleModels.PlusLabels;
 /// <summary>
 /// Table "PLUS_LABELS".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluLabelModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-
-    [XmlElement(IsNullable = true)] public virtual WsSqlPluWeighingModel? PluWeighing { get; set; }
-    [XmlElement] public virtual WsSqlPluScaleModel PluScale { get; set; }
-    [XmlElement] public virtual string Zpl { get; set; }
-    [XmlIgnore] public virtual XmlDocument? Xml { get; set; }
-    [XmlElement] public virtual DateTime ProductDt { get; set; }
-    [XmlElement]
+    public virtual WsSqlPluWeighingModel? PluWeighing { get; set; }
+    public virtual WsSqlPluScaleModel PluScale { get; set; }
+    public virtual string Zpl { get; set; }
+    public virtual XmlDocument? Xml { get; set; }
+    public virtual DateTime ProductDt { get; set; }
     public virtual DateTime ExpirationDt
     {
         get => PluScale.IsNew ? DateTime.MinValue : ProductDt.AddDays(PluScale.Plu.ShelfLifeDays);
-        // This code need for print labels.
         set => _ = value;
     }
-    
+
     public WsSqlPluLabelModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         PluWeighing = null;
@@ -34,21 +28,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         Xml = null;
         ProductDt = DateTime.MinValue;
         ExpirationDt = DateTime.MinValue;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPluLabelModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        PluWeighing = (WsSqlPluWeighingModel?)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
-        PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
-        Zpl = info.GetString(nameof(Zpl));
-        Xml = (XmlDocument)info.GetValue(nameof(Xml), typeof(XmlDocument));
-        ProductDt = info.GetDateTime(nameof(ProductDt));
-        ExpirationDt = info.GetDateTime(nameof(ExpirationDt));
     }
 
     public WsSqlPluLabelModel(WsSqlPluLabelModel item) : base(item)
@@ -91,17 +70,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         Equals(ProductDt, DateTime.MinValue) &&
         (PluWeighing is null || PluWeighing.EqualsDefault()) &&
         PluScale.EqualsDefault();
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(PluWeighing), PluWeighing);
-        info.AddValue(nameof(PluScale), PluScale);
-        info.AddValue(nameof(Zpl), Zpl);
-        info.AddValue(nameof(Xml), Xml);
-        info.AddValue(nameof(ProductDt), ProductDt);
-        info.AddValue(nameof(ExpirationDt), ExpirationDt);
-    }
 
     public override void ClearNullProperties()
     {

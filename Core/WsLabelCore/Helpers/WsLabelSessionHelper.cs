@@ -215,24 +215,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         // Журналирование смены ПЛУ на линии.
         if (PluLine.IsExists)
             ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetPlu(PluLine.Plu.Number, PluLine.Plu.Name)}");
-
-        if (PluLine.IsNotNew)
-        {
-            WsSqlBundleModel bundle = PluLine.Plu.Bundle;
-            if (bundle.IsExists)
-            {
-                PluLine.Plu.PackageTypeGuid = bundle.IdentityValueUid;
-                PluLine.Plu.PackageTypeName = bundle.Name;
-                PluLine.Plu.PackageTypeWeight = bundle.Weight;
-            }
-            WsSqlClipModel clip = WsSqlContextManagerHelper.Instance.PlusClipFkRepository.GetItemByPlu(PluLine.Plu).Clip;
-            if (clip.IsExists)
-            {
-                PluLine.Plu.ClipTypeGuid = clip.IdentityValueUid;
-                PluLine.Plu.ClipTypeName = clip.Name;
-                PluLine.Plu.ClipTypeWeight = clip.Weight;
-            }
-        }
+        
         if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
         if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
         if (Line.IsShipping)

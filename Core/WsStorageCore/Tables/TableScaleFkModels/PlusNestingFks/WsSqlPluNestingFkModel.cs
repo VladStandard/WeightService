@@ -3,22 +3,21 @@ namespace WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 /// <summary>
 /// Доменная модель таблицы PLUS_NESTING_FK.
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluNestingFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
-    [XmlElement] public virtual WsSqlBoxModel Box { get; set; }
-    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual bool IsDefault { get; set; }
-    [XmlElement] public virtual short BundleCount { get; set; }
-    [XmlElement] public virtual decimal WeightMax { get; set; }
-    [XmlElement] public virtual decimal WeightMin { get; set; }
-    [XmlElement] public virtual decimal WeightNom { get; set; }
+    public virtual WsSqlBoxModel Box { get; set; }
+    public virtual WsSqlPluModel Plu { get; set; }
+    public virtual bool IsDefault { get; set; }
+    public virtual short BundleCount { get; set; }
+    public virtual decimal WeightMax { get; set; }
+    public virtual decimal WeightMin { get; set; }
+    public virtual decimal WeightNom { get; set; }
     public virtual Guid Uid1C { get; set; }
-    [XmlIgnore] public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
-    [XmlElement] public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
-    [XmlIgnore] public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
+    public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
+    public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
+    public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     
     public WsSqlPluNestingFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -31,25 +30,7 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         WeightMin = 0;
         WeightNom = 0;
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPluNestingFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Box = (WsSqlBoxModel)info.GetValue(nameof(Box), typeof(WsSqlBoxModel));
-        //Plu = (PluModel)info.GetValue(nameof(Plu), typeof(PluModel));
-        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        IsDefault = info.GetBoolean(nameof(IsDefault));
-        BundleCount = info.GetInt16(nameof(BundleCount));
-        WeightMax = info.GetDecimal(nameof(WeightMax));
-        WeightMin = info.GetDecimal(nameof(WeightMin));
-        WeightNom = info.GetDecimal(nameof(WeightNom));
-        WeightTare = info.GetDecimal(nameof(WeightTare));
-    }
-
+    
     public WsSqlPluNestingFkModel(WsSqlPluNestingFkModel item) : base(item)
     {
         Box = new(item.Box);
@@ -96,41 +77,12 @@ public class WsSqlPluNestingFkModel : WsSqlTableBase
         Equals(WeightNom, default(decimal)) &&
         Equals(BundleCount, default(short));
 
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Box), Box);
-        //info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(IsDefault), IsDefault);
-        info.AddValue(nameof(BundleCount), BundleCount);
-        info.AddValue(nameof(WeightMax), WeightMax);
-        info.AddValue(nameof(WeightMin), WeightMin);
-        info.AddValue(nameof(WeightNom), WeightNom);
-        info.AddValue(nameof(WeightTare), WeightTare);
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();
         Box.FillProperties();
         Plu.FillProperties();
         BundleCount = 0;
-    }
-
-    public virtual void UpdateProperties(WsSqlPluNestingFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-        
-        IsDefault = item.IsDefault;
-        Plu = new(item.Plu);
-        Box = new(item.Box);
     }
 
     #endregion

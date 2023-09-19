@@ -1,42 +1,24 @@
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
 
     private WsSqlPluModel _plu;
-    [XmlElement] public virtual WsSqlPluModel Plu { get => _plu; set => _plu = value; }
+    public virtual WsSqlPluModel Plu { get => _plu; set => _plu = value; }
+    
     private WsSqlPluModel _parent;
-    [XmlElement] public virtual WsSqlPluModel Parent { get => _parent; set => _parent = value; }
+    public virtual WsSqlPluModel Parent { get => _parent; set => _parent = value; }
+    
     private WsSqlPluModel? _category;
-    [XmlElement] public virtual WsSqlPluModel? Category { get => _category; set => _category = value; }
+    public virtual WsSqlPluModel? Category { get => _category; set => _category = value; }
     
     public WsSqlPluFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         _plu = new();
         _parent = new();
         _category = null;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPluFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        _plu = (WsSqlPluModel)info.GetValue(nameof(_plu), typeof(WsSqlPluModel));
-        _parent = (WsSqlPluModel)info.GetValue(nameof(_parent), typeof(WsSqlPluModel));
-        _category = (WsSqlPluModel)info.GetValue(nameof(_category), typeof(WsSqlPluModel));
-    }
-
-    public WsSqlPluFkModel(WsSqlPluFkModel item) : base(item)
-    {
-        Plu = new(item.Plu);
-        Parent = new(item.Parent);
-        Category = item.Category is null ? null : new(item.Category);
     }
 
     #endregion
@@ -65,36 +47,13 @@ public class WsSqlPluFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Parent.EqualsDefault() &&
         Category is null;
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Parent), Parent);
-        info.AddValue(nameof(Category), Category);
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();
         Plu.FillProperties();
         Parent.FillProperties();
         Category?.FillProperties();
-    }
-
-    public virtual void UpdateProperties(WsSqlPluFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-        
-        Plu = new(item.Plu);
-        Parent = new(item.Parent);
-        Category = item.Category is null ? null : new(item.Category);
     }
 
     #endregion

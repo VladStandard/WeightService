@@ -1,17 +1,11 @@
 namespace WsStorageCore.Tables.TableScaleModels.PrintersTypes;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPrinterTypeModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
     
     public WsSqlPrinterTypeModel() : base(WsSqlEnumFieldIdentity.Id)
-    {
-        //
-    }
-    
-    protected WsSqlPrinterTypeModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         //
     }
@@ -37,8 +31,6 @@ public class WsSqlPrinterTypeModel : WsSqlTableBase
     public override int GetHashCode() => base.GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() => base.EqualsDefault();
 
     #endregion
 

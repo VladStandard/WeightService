@@ -1,29 +1,17 @@
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlPluTemplateFkModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlPluModel Plu { get; set; }
-    [XmlElement] public virtual WsSqlTemplateModel Template { get; set; }
+    public virtual WsSqlPluModel Plu { get; set; }
+    public virtual WsSqlTemplateModel Template { get; set; }
     
     public WsSqlPluTemplateFkModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Plu = new();
         Template = new();
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlPluTemplateFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));
-        Template = (WsSqlTemplateModel)info.GetValue(nameof(Template), typeof(WsSqlTemplateModel));
     }
 
     public WsSqlPluTemplateFkModel(WsSqlPluTemplateFkModel item) : base(item)
@@ -58,32 +46,11 @@ public class WsSqlPluTemplateFkModel : WsSqlTableBase
         Plu.EqualsDefault() &&
         Template.EqualsDefault();
 
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Plu), Plu);
-        info.AddValue(nameof(Template), Template);
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();
         Plu.FillProperties();
         Template.FillProperties();
-    }
-
-    public virtual void UpdateProperties(WsSqlPluTemplateFkModel item)
-    {
-        // Get properties from /api/send_nomenclatures/.
-        base.UpdateProperties(item, true);
-        
-        Plu = new(item.Plu);
-        Template = new(item.Template);
     }
 
     #endregion

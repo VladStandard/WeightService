@@ -3,22 +3,14 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettings;
 /// <summary>
 /// Таблица "DEVICES_SETTINGS".
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceSettingsModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public override string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : GetLocalizationName(Name);
+    public override string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : GetLocalizationName(Name);
 
     public WsSqlDeviceSettingsModel() : base(WsSqlEnumFieldIdentity.Uid) { }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlDeviceSettingsModel(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     public WsSqlDeviceSettingsModel(WsSqlDeviceSettingsModel item) : base(item) { }
 
@@ -39,11 +31,6 @@ public class WsSqlDeviceSettingsModel : WsSqlTableBase
     public override int GetHashCode() => base.GetHashCode();
 
     public override bool EqualsNew() => Equals(new());
-
-    public virtual void UpdateProperties(WsSqlDeviceSettingsModel item)
-    {
-        base.UpdateProperties(item, false);
-    }
 
     #endregion
 

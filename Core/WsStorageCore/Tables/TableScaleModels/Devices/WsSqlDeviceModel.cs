@@ -1,24 +1,16 @@
 namespace WsStorageCore.Tables.TableScaleModels.Devices;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlDeviceModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DateTime LoginDt { get; set; }
-    [XmlElement] public virtual DateTime LogoutDt { get; set; }
-    [XmlElement] public virtual string Ipv4 { get; set; }
-    [XmlElement] public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
-    
-    [XmlElement]
-    public virtual string MacAddressValue
-    {
-        get => MacAddress.Value;
-        set => MacAddress.Value = value;
-    }
-
-    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ipv4}";
+    public virtual DateTime LoginDt { get; set; }
+    public virtual DateTime LogoutDt { get; set; }
+    public virtual string Ipv4 { get; set; }
+    public virtual WsSqlFieldMacAddressModel MacAddress { get; set; } 
+    public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; } 
+    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ipv4}";
     
     public WsSqlDeviceModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -26,19 +18,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         LogoutDt = DateTime.MinValue;
         Ipv4 = string.Empty;
         MacAddress = new();
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    protected WsSqlDeviceModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        LoginDt = info.GetDateTime(nameof(LoginDt));
-        LogoutDt = info.GetDateTime(nameof(LogoutDt));
-        Ipv4 = info.GetString(nameof(Ipv4));
-        MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
     }
 
     public WsSqlDeviceModel(WsSqlDeviceModel item) : base(item)
@@ -73,21 +52,7 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(LogoutDt, DateTime.MinValue) &&
         Equals(Ipv4, string.Empty) &&
         MacAddress.EqualsDefault();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(LoginDt), LoginDt);
-        info.AddValue(nameof(LogoutDt), LogoutDt);
-        info.AddValue(nameof(Ipv4), Ipv4);
-        info.AddValue(nameof(MacAddress), MacAddress);
-    }
-
+    
     public override void FillProperties()
     {
         base.FillProperties();
@@ -107,11 +72,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         Equals(LogoutDt, item.LogoutDt) &&
         Equals(Ipv4, item.Ipv4) &&
         MacAddress.Equals(item.MacAddress);
-
-    public virtual void UpdateProperties(WsSqlDeviceModel item)
-    {
-        base.UpdateProperties(item, false);
-    }
-
+    
     #endregion
 }

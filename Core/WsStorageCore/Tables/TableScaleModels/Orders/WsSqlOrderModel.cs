@@ -1,16 +1,15 @@
 namespace WsStorageCore.Tables.TableScaleModels.Orders;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlOrderModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual DateTime BeginDt { get; set; }
-    [XmlElement] public virtual DateTime EndDt { get; set; }
-    [XmlElement] public virtual DateTime ProdDt { get; set; }
-    [XmlElement] public virtual int BoxCount { get; set; }
-    [XmlElement] public virtual int PalletCount { get; set; }
+    public virtual DateTime BeginDt { get; set; }
+    public virtual DateTime EndDt { get; set; }
+    public virtual DateTime ProdDt { get; set; }
+    public virtual int BoxCount { get; set; }
+    public virtual int PalletCount { get; set; }
     
     public WsSqlOrderModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
@@ -21,15 +20,6 @@ public class WsSqlOrderModel : WsSqlTableBase
         PalletCount = default;
     }
     
-    protected WsSqlOrderModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        BeginDt = info.GetDateTime(nameof(BeginDt));
-        EndDt = info.GetDateTime(nameof(EndDt));
-        ProdDt = info.GetDateTime(nameof(ProdDt));
-        BoxCount = info.GetInt32(nameof(BoxCount));
-        PalletCount = info.GetInt32(nameof(PalletCount));
-    }
-
     public WsSqlOrderModel(WsSqlOrderModel item) : base(item)
     {
         BeginDt = item.BeginDt;
@@ -70,21 +60,6 @@ public class WsSqlOrderModel : WsSqlTableBase
         Equals(ProdDt, DateTime.MinValue) &&
         Equals(BoxCount, 0) &&
         Equals(PalletCount, 0);
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(BeginDt), BeginDt);
-        info.AddValue(nameof(EndDt), EndDt);
-        info.AddValue(nameof(ProdDt), ProdDt);
-        info.AddValue(nameof(BoxCount), BoxCount);
-        info.AddValue(nameof(PalletCount), PalletCount);
-    }
 
     public override void FillProperties()
     {
