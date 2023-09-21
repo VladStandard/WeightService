@@ -26,7 +26,8 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerableByDevice(WsSqlDeviceModel device)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlDeviceSettingsFkModel.Device), device);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlDeviceSettingsFkModel.Device), device));
+        
         IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
         items = items
             .OrderBy(item => item.Device.Name)

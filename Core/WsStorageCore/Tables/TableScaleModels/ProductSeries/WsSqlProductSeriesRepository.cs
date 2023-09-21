@@ -5,8 +5,10 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
     public WsSqlProductSeriesModel GetItemByLineNotClose(WsSqlScaleModel line)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlProductSeriesModel.Scale), line);
+        sqlCrudConfig.AddFilters(new() {
+            SqlRestrictions.Equal(nameof(WsSqlProductSeriesModel.IsClose), false),
+            SqlRestrictions.EqualFk(nameof(WsSqlProductSeriesModel.Scale), line)
+        });
         return SqlCore.GetItemByCrud<WsSqlProductSeriesModel>(sqlCrudConfig);
     }
     

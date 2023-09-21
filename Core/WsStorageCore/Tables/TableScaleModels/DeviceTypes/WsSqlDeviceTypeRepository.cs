@@ -11,7 +11,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
     public WsSqlDeviceTypeModel GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.Name), Value = name});
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlDeviceTypeModel.Name), name));
         return SqlCore.GetItemByCrud<WsSqlDeviceTypeModel>(sqlCrudConfig);
     }
 

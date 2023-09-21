@@ -27,19 +27,17 @@ public sealed partial class AddPlusLines
         if (firstRender)
         {
             WsSqlCrudConfigModel sqlCrud = WsSqlCrudConfigFactory.GetCrudActual();
-            sqlCrud.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Line), Line);
-            sqlCrud.AddFilter(new() {Name=nameof(WsSqlPluScaleModel.IsActive), Value = true});
-          
+            sqlCrud.AddFilters(new() {
+                SqlRestrictions.EqualFk(nameof(WsSqlPluScaleModel.Line), Line),
+                SqlRestrictions.Equal(nameof(WsSqlPluScaleModel.IsActive), true)
+            });
             List<short> pluNumbersActive = new WsSqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
-
+            
             sqlCrud = WsSqlCrudConfigFactory.GetCrudActual();
-            sqlCrud.AddFilters(
-                new()
-                {
-                    new() {Name = nameof(WsSqlPluModel.IsGroup), Comparer = WsSqlEnumFieldComparer.Equal, Value = false},
-                    new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.NotIn, Values =  pluNumbersActive.Cast<object>().ToList() }
-                }
-            );
+            sqlCrud.AddFilters(new() {
+                SqlRestrictions.Equal(nameof(WsSqlPluModel.IsGroup), false),
+                SqlRestrictions.NotIn(nameof(WsSqlPluModel.Number),  pluNumbersActive.Cast<object>().ToList())
+            });
             Plus = new WsSqlPluRepository().GetEnumerable(sqlCrud).ToList();
             StateHasChanged();
         }

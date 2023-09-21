@@ -6,7 +6,9 @@ public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel
     public WsSqlLogTypeModel GetItemByEnumType(WsEnumLogType logType)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlLogTypeModel.Number), Value = (byte)logType } );
+        sqlCrudConfig.AddFilter(
+            SqlRestrictions.Equal(nameof(WsSqlLogTypeModel.Number), (byte)logType)
+        );
         return SqlCore.GetItemByCrud<WsSqlLogTypeModel>(sqlCrudConfig);
     }
     

@@ -23,29 +23,27 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUidActual(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluNestingFkModel.Plu), plu);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlPluNestingFkModel.Plu), plu));
         return SqlCore.GetEnumerableNotNullable<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
 
     public WsSqlPluNestingFkModel GetByPluAndUid1C(WsSqlPluModel plu, Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluTemplateFkModel.Plu), plu);
-        sqlCrudConfig.AddFilter(new()
-        {
-            Name = nameof(WsSqlPluNestingFkModel.Uid1C),
-            Value = uid1C
+        
+        sqlCrudConfig.AddFilters(new() {
+            SqlRestrictions.Equal(nameof(WsSqlPluNestingFkModel.Uid1C), uid1C),
+            SqlRestrictions.EqualFk(nameof(WsSqlPluNestingFkModel.Plu), plu)
         });
+        
         return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
     public WsSqlPluNestingFkModel GetDefaultByPlu(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluTemplateFkModel.Plu), plu);
-        sqlCrudConfig.AddFilter(new()
-        {
-            Name = nameof(WsSqlPluNestingFkModel.IsDefault),
-            Value = true
+        sqlCrudConfig.AddFilters(new() {
+            SqlRestrictions.Equal(nameof(WsSqlPluNestingFkModel.IsDefault), true),
+            SqlRestrictions.EqualFk(nameof(WsSqlPluTemplateFkModel.Plu), plu)
         });
         return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
@@ -53,12 +51,11 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
     public WsSqlPluNestingFkModel GetByAttachmentsCountAndPlu(WsSqlPluModel plu, short attachmentsCount)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new()
-        {
-            Name = nameof(WsSqlPluNestingFkModel.BundleCount),
-            Value = attachmentsCount
+        
+        sqlCrudConfig.AddFilters(new() {
+            SqlRestrictions.Equal(nameof(WsSqlPluNestingFkModel.BundleCount), attachmentsCount),
+            SqlRestrictions.EqualFk(nameof(WsSqlPluNestingFkModel.Plu), plu)
         });
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluNestingFkModel.Plu), plu);
         return SqlCore.GetItemByCrud<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
 }

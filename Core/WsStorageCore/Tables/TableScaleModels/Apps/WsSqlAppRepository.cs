@@ -10,7 +10,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     public WsSqlAppModel GetItemByName(string appName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() {Name = nameof(WsSqlTableBase.Name), Value = appName});
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.Name), appName));
         return SqlCore.GetItemByCrud<WsSqlAppModel>(sqlCrudConfig);
     }
 
@@ -53,7 +53,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppModel>
     }
     
     public List<WsSqlAppModel> GetList(int maxResults) => 
-        SqlCore.GetEnumerableNotNullable<WsSqlAppModel>(maxResults, true).ToList();
+        SqlCore.GetEnumerableNotNullable<WsSqlAppModel>(maxResults).ToList();
 
     #endregion
 }

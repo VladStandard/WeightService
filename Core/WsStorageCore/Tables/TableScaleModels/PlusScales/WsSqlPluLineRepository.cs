@@ -20,8 +20,11 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
     public WsSqlPluScaleModel GetItemByLinePlu(WsSqlScaleModel line, WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Line), line);
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Plu), plu);
+        sqlCrudConfig.AddFilters(new()
+        {
+            SqlRestrictions.EqualFk(nameof(WsSqlPluScaleModel.Line), line),
+            SqlRestrictions.EqualFk(nameof(WsSqlPluScaleModel.Plu), plu)
+        });
         return SqlCore.GetItemByCrud<WsSqlPluScaleModel>(sqlCrudConfig);
     }
     
@@ -35,7 +38,7 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
 
     public List<WsSqlPluScaleModel> GetListByLine(WsSqlScaleModel line, WsSqlCrudConfigModel sqlCrudConfig)
     {
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluScaleModel.Line), line);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlPluScaleModel.Line), line));
         return GetList(sqlCrudConfig);
     }
     #endregion

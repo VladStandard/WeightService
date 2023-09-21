@@ -18,19 +18,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public WsSqlPluModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTable1CBase.Uid1C), Value = uid1C });
-        return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
-    }
-
-    /// <summary>
-    /// Получить ПЛУ по полю номер.
-    /// </summary>
-    /// <param name="number"></param>
-    /// <returns></returns>
-    public WsSqlPluModel GetItemByNumber(short number)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Number), Value = number });
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
         return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 
@@ -44,40 +32,11 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
             sqlCrudConfig.AddOrder(nameof(WsSqlPluModel.Number));
         return SqlCore.GetEnumerableNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
-
-    /// <summary>
-    /// Получить список ПЛУ по номеру.
-    /// </summary>
-    /// <param name="number"></param>
-    /// <returns></returns>
+    
     public IEnumerable<WsSqlPluModel> GetEnumerableByNumber(short number)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Number), Value = number });
-        return GetEnumerable(sqlCrudConfig);
-    }
-
-    public IEnumerable<WsSqlPluModel> GetEnumerableByNumbers(List<short> numbers, WsSqlEnumIsMarked isMarked)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new()
-        {
-            Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.In,
-            Values = numbers.Cast<object>().ToList()
-        });
-        return GetEnumerable(sqlCrudConfig);
-    }
-
-    public IEnumerable<WsSqlPluModel> GetEnumerableByRange(short minNumber, short maxNumber)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilters(
-            new()
-            {
-                new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.LessOrEqual, Value = maxNumber },
-                new() { Name = nameof(WsSqlPluModel.Number), Comparer = WsSqlEnumFieldComparer.MoreOrEqual, Value = minNumber }
-            }
-        );
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlPluModel.Number), number));
         return GetEnumerable(sqlCrudConfig);
     }
 
@@ -89,7 +48,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public WsSqlPluModel GetByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlPluModel.Uid1C), Value = uid });
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlPluModel.Uid1C), uid));
         return SqlCore.GetItemByCrud<WsSqlPluModel>(sqlCrudConfig);
     }
 

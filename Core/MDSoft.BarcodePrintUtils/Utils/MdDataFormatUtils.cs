@@ -10,7 +10,11 @@ public static class MdDataFormatUtils
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddOrder(nameof(WsSqlTemplateResourceModel.Name));
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTemplateResourceModel.Type), Value = "ZPL"});
+      
+        sqlCrudConfig.AddFilter(
+            SqlRestrictions.Equal(nameof(WsSqlTemplateResourceModel.Type), "ZPL")
+        );
+        
         IEnumerable<WsSqlTemplateResourceModel>? templateResources = WsSqlCoreHelper.Instance.GetEnumerableNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         return _templateResources = templateResources is not null ? templateResources.ToList() : new();
     }

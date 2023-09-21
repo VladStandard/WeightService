@@ -35,9 +35,6 @@ public sealed class WsSqlCoreHelper
 
         FluentConfiguration = Fluently.Configure().Database(SqlConfiguration);
         AddConfigurationMappings(FluentConfiguration);
-        // Будь осторожен. Ошибки маппингов ведут к Exception!
-        //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
-        //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
         FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     }
 
@@ -79,11 +76,7 @@ public sealed class WsSqlCoreHelper
     #endregion
 
     #region Public and private methods - Base
-
-    /// <summary>
-    /// Получить строку подключения к БД.
-    /// </summary>
-    /// <returns></returns>
+    
     private string GetConnectionString() => JsonSettings.IsRemote
         ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
           $"Initial Catalog={JsonSettings.Remote.Sql.InitialCatalog}; " +
@@ -97,11 +90,7 @@ public sealed class WsSqlCoreHelper
           $"Integrated Security={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
           (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
           $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
-
-    /// <summary>
-    /// Получить сервер БД.
-    /// </summary>
-    /// <returns></returns>
+    
     public string GetConnectionServer() => JsonSettings.IsRemote
         ? $"Server = {JsonSettings.Remote.Sql.DataSource} | DB = {JsonSettings.Remote.Sql.InitialCatalog}"
         : $"Server = {JsonSettings.Local.Sql.DataSource} | DB = {JsonSettings.Local.Sql.InitialCatalog}";
@@ -163,8 +152,10 @@ public sealed class WsSqlCoreHelper
         ICriteria criteria = session.CreateCriteria(typeof(T));
         if (sqlCrudConfig.SelectTopRowsCount > 0)
             criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
-        if (sqlCrudConfig.Filters.Any())
-            criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
+        
+        foreach (ICriterion filter in sqlCrudConfig.Filters)
+            criteria.Add(filter);
+        
         if (sqlCrudConfig.Orders.Any())
         {
             List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
@@ -185,8 +176,10 @@ public sealed class WsSqlCoreHelper
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
         criteria.SetMaxResults(1);
-        if (sqlCrudConfig.Filters.Any())
-            criteria.SetCriteriaFilters(sqlCrudConfig.Filters);
+        
+        foreach (ICriterion filter in sqlCrudConfig.Filters)
+            criteria.Add(filter);
+        
         if (sqlCrudConfig.Orders.Any())
         {
             List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
@@ -448,7 +441,7 @@ public sealed class WsSqlCoreHelper
         if (uid == null) 
             return null;
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueUid), Value = uid });
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueUid),  uid));
         return GetItemNullableByCrud<T>(sqlCrudConfig);
     }
     
@@ -456,7 +449,7 @@ public sealed class WsSqlCoreHelper
     {
         if (id == null) return new();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(new() { Name = nameof(WsSqlTableBase.IdentityValueId), Value = id });
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueId),  id));
         return GetItemNullableByCrud<T>(sqlCrudConfig);
     }
 
@@ -496,40 +489,6 @@ public sealed class WsSqlCoreHelper
         return result;
     }
 
-    // TODO: исправить
-    // public WsSqlCrudResultModel IsItemExists<T>(T? item) where T : WsSqlTableBase
-    // {
-    //     if (item is null) return new(false);
-    //     bool result = false;
-    //     WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-    //     {
-    //         result = session.Query<T>().Any(item2 => item2.IsAny(item));    //
-    //         //result = session.Query<T>().Any(item => item.Identity.Equals(item.Identity));
-
-    //
-    //         //IQueryable<T> query = session.Query<T>().Where(item => item.Equals(item));
-    //         //result = query.IsAny();
-    //     });
-    //     if (!result) 
-    //         dbResult = dbResult with { IsOk = false };
-    //     return dbResult;
-    // }
-
-    //public bool IsItemExists<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
-    //{
-    //    bool result = false;
-    //    WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-    //    {
-    //        int saveCount = JsonSettings.Local.SelectTopRowsCount;
-    //        JsonSettings.Local.SelectTopRowsCount = 1;
-    //        ICriteria criteria = GetCriteriaFirst<T>(session, sqlCrudConfig);
-    //        result = criteria.IsAny();
-    //        JsonSettings.Local.SelectTopRowsCount = saveCount;
-    //    });
-    //    if (!dbResult.IsOk) result = false;
-    //    return result;
-    //}
-
     #endregion
 
     #region Public and private methods - Enumerable
@@ -539,10 +498,10 @@ public sealed class WsSqlCoreHelper
         IEnumerable<T>? items = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items = criteria.List<T>();
+            items = GetCriteria<T>(session, sqlCrudConfig).List<T>();
         });
-        if (!dbResult.IsOk) items = null;
+        if (!dbResult.IsOk)
+            items = null;
         return items;
     }
 
@@ -551,26 +510,24 @@ public sealed class WsSqlCoreHelper
         IEnumerable<T>? items = null;
         WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items = await criteria.ListAsync<T>();
+            items = await GetCriteria<T>(session, sqlCrudConfig).ListAsync<T>();
         });
         if (!dbResult.IsOk) items = null;
         return items;
     }
 
-    private IEnumerable<T>? GetEnumerableNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    private IEnumerable<T>? GetEnumerableNullable<T>(int maxResults) where T : WsSqlTableBase, new()
     {
         IEnumerable<T>? items = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, maxResults);
-            items = criteria.List<T>();
+            items = GetCriteria<T>(session, maxResults).List<T>();
         });
         if (!dbResult.IsOk) items = null;
         return items;
     }
 
-    private async Task<IEnumerable<T>?> GetEnumerableNullableAsync<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    private async Task<IEnumerable<T>?> GetEnumerableNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         IEnumerable<T>? items = null;
@@ -596,40 +553,24 @@ public sealed class WsSqlCoreHelper
         return items;
     }
 
-    private async Task<IList<T>?> GetListNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        IList<T>? items = null;
-        WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
-        {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items = await criteria.ListAsync<T>();
-        });
-        if (!dbResult.IsOk)
-            items = null;
-        return items;
-    }
-
-    private IList<T>? GetListNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    private IList<T>? GetListNullable<T>(int maxResults) where T : WsSqlTableBase, new()
     {
         IList<T>? items = null;
         WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, maxResults);
-            items = criteria.List<T>();
+            items =  GetCriteria<T>(session, maxResults).List<T>();
         });
         if (!dbResult.IsOk) items = null;
         return items;
     }
 
-    private async Task<IList<T>?> GetListNullableAsync<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new()
+    private async Task<IList<T>?> GetListNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         IList<T>? items = null;
         WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, maxResults);
-            items = await criteria.ListAsync<T>();
+            items = await GetCriteria<T>(session, maxResults).ListAsync<T>();
         });
         if (!dbResult.IsOk) items = null;
         return items;
@@ -706,20 +647,20 @@ public sealed class WsSqlCoreHelper
     public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
         await GetEnumerableNullableAsync<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
 
-    public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
-        GetEnumerableNullable<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
+    public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults) where T : WsSqlTableBase, new() => 
+        GetEnumerableNullable<T>(maxResults) ?? Enumerable.Empty<T>();
 
-    public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
-        await GetEnumerableNullableAsync<T>(maxResults, isFillReferences) ?? Enumerable.Empty<T>();
+    public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new() => 
+        await GetEnumerableNullableAsync<T>(maxResults) ?? Enumerable.Empty<T>();
 
     public IList<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
         GetListNullable<T>(sqlCrudConfig) ?? new List<T>();
 
-    public IList<T> GetListNotNullable<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
-        GetListNullable<T>(maxResults, isFillReferences) ?? new List<T>();
+    public IList<T> GetListNotNullable<T>(int maxResults) where T : WsSqlTableBase, new() => 
+        GetListNullable<T>(maxResults) ?? new List<T>();
 
-    public async Task<IList<T>> GetListNotNullableAsync<T>(int maxResults, bool isFillReferences) where T : WsSqlTableBase, new() => 
-        await GetListNullableAsync<T>(maxResults, isFillReferences) ?? new List<T>();
+    public async Task<IList<T>> GetListNotNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new() => 
+        await GetListNullableAsync<T>(maxResults) ?? new List<T>();
 
     #endregion
 }

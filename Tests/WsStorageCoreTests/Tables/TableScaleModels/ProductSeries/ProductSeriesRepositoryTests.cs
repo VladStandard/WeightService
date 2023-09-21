@@ -9,7 +9,7 @@ public sealed class ProductSeriesRepositoryTests : TableRepositoryTests
     private WsSqlProductSeriesModel GetFirstNotCloseSeriesModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        SqlCrudConfig.Filters.Add(new() { Name = nameof(WsSqlProductSeriesModel.IsClose), Value = false });
+        SqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlProductSeriesModel.IsClose), false));
         return ProductSeriesRepository.GetList(SqlCrudConfig).First();
     }
 

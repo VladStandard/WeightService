@@ -13,7 +13,7 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
         if (plu.IsNew)
             return new();
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluStorageMethodFkModel.Plu), plu);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlPluStorageMethodFkModel.Plu), plu));
         return SqlCore.GetItemByCrud<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
     }
 

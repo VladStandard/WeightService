@@ -11,7 +11,7 @@ public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
     {
         ButtonSettings.IsShowMark = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        SqlCrudConfigSection.AddFilter(new() {Name=nameof(WsSqlPluScaleModel.IsActive), Value = true});
+        SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(WsSqlPluScaleModel.IsActive), true));
     }
 
     #endregion

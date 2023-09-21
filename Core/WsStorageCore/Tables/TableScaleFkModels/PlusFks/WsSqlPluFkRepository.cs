@@ -34,7 +34,7 @@ public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkMo
     public WsSqlPluFkModel GetByPlu(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFkIdentityFilter(nameof(WsSqlPluStorageMethodFkModel.Plu), plu);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlPluStorageMethodFkModel.Plu), plu));
         return SqlCore.GetItemByCrud<WsSqlPluFkModel>(sqlCrudConfig);
     }
     

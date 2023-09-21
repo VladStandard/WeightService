@@ -20,26 +20,6 @@ public static class WsSqlExtensions
         return false;
     }
 
-    public static void SetCriteriaFilters(this ICriteria criteria, List<WsSqlFieldFilterModel> filters)
-    {
-        if (!filters.Any()) return;
-        foreach (WsSqlFieldFilterModel filter in filters)
-        {
-            criteria.Add(filter.Comparer switch
-            {
-                WsSqlEnumFieldComparer.Less => Restrictions.Lt(filter.Name, filter.Value),
-                WsSqlEnumFieldComparer.More => Restrictions.Gt(filter.Name, filter.Value),
-                WsSqlEnumFieldComparer.LessOrEqual => Restrictions.Le(filter.Name, filter.Value),
-                WsSqlEnumFieldComparer.MoreOrEqual => Restrictions.Ge(filter.Name, filter.Value),
-                WsSqlEnumFieldComparer.Equal => Restrictions.Eq(filter.Name, filter.Value),
-                WsSqlEnumFieldComparer.NotEqual => Restrictions.Not(Restrictions.Eq(filter.Name, filter.Value)),
-                WsSqlEnumFieldComparer.In => Restrictions.In(filter.Name, filter.Values),
-                WsSqlEnumFieldComparer.NotIn => Restrictions.Not(Restrictions.In(filter.Name, filter.Values)),
-                _ => throw new ArgumentOutOfRangeException(nameof(filter.Comparer), filter.Comparer.ToString())
-            });
-        }
-    }
-
     public static void SetCriteriaOrder(this ICriteria criteria, List<WsSqlFieldOrderModel>? orders)
     {
         if (orders is null) return;

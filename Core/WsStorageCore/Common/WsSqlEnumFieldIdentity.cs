@@ -5,5 +5,4 @@ public enum WsSqlEnumFieldIdentity
     Empty,
     Id,
     Uid,
-    Test
 }

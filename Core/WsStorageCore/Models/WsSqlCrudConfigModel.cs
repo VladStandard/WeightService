@@ -3,13 +3,20 @@ namespace WsStorageCore.Models;
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlCrudConfigModel
 {
-    #region Public and private fields, properties, constructor
+    #region private var
 
-    private int _selectTopRowsCount;
+    private readonly ICriterion _isMarkedTrueFilter = SqlRestrictions.IsMarked();
+    private readonly ICriterion _isMarkedFalseFilter = SqlRestrictions.IsActual();
     private WsSqlEnumIsMarked _isMarked;
+    private int _selectTopRowsCount;
+    
+    #endregion
+    
+    #region Public and private fields, properties, constructor
+    
     public string NativeQuery { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
-    public List<WsSqlFieldFilterModel> Filters { get; private set; }
+    public List<ICriterion> Filters { get; private set; }
     public List<WsSqlFieldOrderModel> Orders { get; private set; }
     public int OldTopRowsCount { get; set; }
     public int SelectTopRowsCount
@@ -27,21 +34,23 @@ public class WsSqlCrudConfigModel
         set
         {
             _isMarked = value;
-            RemoveFilters(GetFiltersIsMarked(true));
-            RemoveFilters(GetFiltersIsMarked(false));
+            RemoveFilter(_isMarkedFalseFilter);
+            RemoveFilter(_isMarkedTrueFilter);
             switch (_isMarked)
             {
                 case WsSqlEnumIsMarked.ShowOnlyActual:
-                    AddFilters(GetFiltersIsMarked(false));
+                    RemoveFilter(_isMarkedTrueFilter);
+                    AddFilter(_isMarkedFalseFilter);
                     break;
                 case WsSqlEnumIsMarked.ShowOnlyHide:
-                    AddFilters(GetFiltersIsMarked(true));
+                    RemoveFilter(_isMarkedFalseFilter);
+                    AddFilter(_isMarkedTrueFilter);
                     break;
             }
         }
     }
     public bool IsReadUncommitted { get; set; }
-
+    
     public WsSqlCrudConfigModel()
     {
         Orders = new();
@@ -54,11 +63,7 @@ public class WsSqlCrudConfigModel
         NativeQuery = string.Empty;
         IsMarked = WsSqlEnumIsMarked.ShowAll;
     }
-
-    /// <summary>
-    /// Реализация метода Copy.
-    /// </summary>
-    /// <param name="sqlCrudConfig"></param>
+    
     public WsSqlCrudConfigModel(WsSqlCrudConfigModel sqlCrudConfig)
     {
         Orders = new(sqlCrudConfig.Orders);
@@ -76,57 +81,25 @@ public class WsSqlCrudConfigModel
     
     #region Filters
 
-    private List<WsSqlFieldFilterModel> GetFiltersIsMarked(bool isMarked) =>
-        new() { new() { Name = nameof(WsSqlTableBase.IsMarked), Value = isMarked } };
-
-    /// <summary>
-    /// Добавить фильтр идентификатора.
-    /// </summary>
-    /// <param name="fkPropertyName"></param>
-    /// <param name="item"></param>
-    public void AddFkIdentityFilter(string fkPropertyName, WsSqlTableBase item)
+    public void AddFilter(ICriterion filter)
     {
-        switch (item.Identity)
-        {
-            case { Name: WsSqlEnumFieldIdentity.Uid }:
-                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}", 
-                    Value = item.Identity.Uid });
-                break;
-            case { Name: WsSqlEnumFieldIdentity.Id }:
-                Filters.Add( new() { Name = $"{fkPropertyName}.{nameof(WsSqlTableBase.IdentityValueId)}", 
-                    Value = item.Identity.Id });
-                break;
-        }
-    }
-
-    public void AddFilter(WsSqlFieldFilterModel filter)
-    {
-        if (Filters.Any())
-            Filters.RemoveAll(item => item.Name.Equals(filter.Name) && item.Comparer.Equals(filter.Comparer));
+        Filters.Remove(filter);
         Filters.Add(filter);
     }
-    public void AddFilters(List<WsSqlFieldFilterModel> filters)
+    public void AddFilters(List<ICriterion> filters)
     {
-        foreach (WsSqlFieldFilterModel filter in filters)
+        foreach (ICriterion filter in filters)
             AddFilter(filter);
     }
 
-    public void RemoveFilter(WsSqlFieldFilterModel filter)
+    public void RemoveFilter(ICriterion filter)
     {
-        if (!Filters.Any())
-            return;
-        Filters.RemoveAll(item =>
-        {
-            if (!item.Name.Equals(filter.Name) || !item.Comparer.Equals(filter.Comparer))
-                return false;
-            if (filter.Value is not null)
-                return item.Value is not null && item.Value.Equals(filter.Value);
-            return filter.Values.SequenceEqual(item.Values);
-        });
+        Filters.RemoveAll(filter.Equals);
     }
-    public void RemoveFilters(List<WsSqlFieldFilterModel> filters)
+    
+    public void RemoveFilters(List<ICriterion> filters)
     {
-        foreach (WsSqlFieldFilterModel filter in filters)
+        foreach (ICriterion filter in filters)
             RemoveFilter(filter);
     }
     

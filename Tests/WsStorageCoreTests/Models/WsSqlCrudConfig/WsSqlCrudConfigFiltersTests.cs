@@ -1,3 +1,4 @@
+using NHibernate.Criterion;
 namespace WsStorageCoreTests.Models.WsSqlCrudConfig;
 
 [TestFixture]
@@ -9,9 +10,7 @@ public sealed class WsSqlCrudConfigFiltersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
-
+            sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
 
             TestContext.WriteLine(sqlCrudConfig);
@@ -24,12 +23,11 @@ public sealed class WsSqlCrudConfigFiltersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
+            sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
             sqlCrudConfig.AddFilters(new()
             {
-                new() { Name = "Test № 2", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data2" },
-                new() { Name = "Test № 3", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data3" },
+                SqlRestrictions.Equal("Test № 2", "data2"),
+                SqlRestrictions.Equal("Test № 3", "data3"),
             });
 
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(3));
@@ -44,15 +42,16 @@ public sealed class WsSqlCrudConfigFiltersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
+            ICriterion filter1 = SqlRestrictions.Equal("Test № 1", "data");
+            sqlCrudConfig.AddFilter(filter1);
             sqlCrudConfig.AddFilters(new()
             {
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data4" },
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Less, Value = "data56" },
+                SqlRestrictions.Equal("Test № 1", "data4"),
+                SqlRestrictions.Less("Test № 1", "data56"),
+                filter1
             });
 
-            Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(2));
+            Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(3));
 
             TestContext.WriteLine(sqlCrudConfig);
         });
@@ -64,60 +63,52 @@ public sealed class WsSqlCrudConfigFiltersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
-            sqlCrudConfig.RemoveFilter(new()
-                { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
-
+            ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
+            
+            sqlCrudConfig.AddFilter(isMarkedTrue);
+            sqlCrudConfig.RemoveFilter(isMarkedTrue);
+    
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(0));
-
+    
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-
+    
     [Test]
     public void CheckDeleteManyFilters()
     {
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
-            sqlCrudConfig.AddFilters(new()
-            {
-                new() { Name = "Test № 2", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data2" },
-                new() { Name = "Test № 3", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data3" },
-            });
+            
+            ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
+            ICriterion isMarkedFalse = SqlRestrictions.IsActual();
 
-            sqlCrudConfig.RemoveFilters(new()
-            {
-                new() { Name = "Test № 2", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data2" },
-                new() { Name = "Test № 3", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data3" },
-            });
-
+            sqlCrudConfig.AddFilters(new() { isMarkedTrue, isMarkedFalse });
+            sqlCrudConfig.RemoveFilters(new() { isMarkedTrue });
+            
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
-
+    
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
-
+    
     [Test]
     public void CheckDeleteAllFilters()
     {
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddFilter(
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data" });
-            sqlCrudConfig.AddFilters(new()
-            {
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Equal, Value = "data4" },
-                new() { Name = "Test № 1", Comparer = WsSqlEnumFieldComparer.Less, Value = "data56" },
-            });
+                  
+            ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
+            ICriterion isMarkedFalse = SqlRestrictions.IsActual();
 
+            sqlCrudConfig.AddFilters(new() { isMarkedTrue, isMarkedFalse });
+            sqlCrudConfig.RemoveFilters(new() { isMarkedTrue, isMarkedFalse});
+            
             sqlCrudConfig.ClearFilters();
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(0));
-
+    
             TestContext.WriteLine(sqlCrudConfig);
         });
     }

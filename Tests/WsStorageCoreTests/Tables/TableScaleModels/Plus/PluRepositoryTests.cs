@@ -30,38 +30,5 @@ public sealed class PluRepositoryTests : TableRepositoryTests
             ParseRecords(plus);
         }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
     }
-
-    [Test]
-    public void GetListByNumbers()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            List<short> numbers = new() { 301, 1301 };
-            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByNumbers(numbers, WsSqlEnumIsMarked.ShowAll).ToList();
-
-            Assert.That(plus.Any(), Is.True);
-            foreach (WsSqlPluModel plu in plus)
-                Assert.That(numbers, Does.Contain(plu.Number));
-
-            ParseRecords(plus);
-        }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
-    }
-
-    [Test]
-    public void GetListByRangeNumber()
-    {
-        WsTestsUtils.DataTests.AssertAction(() =>
-        {
-            const short minNumber = 200;
-            const short maxNumber = 300;
-            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByRange(minNumber, maxNumber).ToList();
-
-            Assert.That(plus.Any(), Is.True);
-            foreach (WsSqlPluModel plu in plus)
-                Assert.That(plu.Number is >= minNumber and <= maxNumber, Is.True);
-
-            ParseRecords(plus);
-        }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
-    }
     
 }

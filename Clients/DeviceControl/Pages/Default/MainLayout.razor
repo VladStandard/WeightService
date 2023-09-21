@@ -16,12 +16,9 @@
     <div style="flex-grow: 1;">
         <div>
             <RadzenMenu class="top_menu">
-                <RadzenMenuItem Icon="people"
-                                Text="@User?.Identity?.Name"
-                                Path=@($"{WsRouteUtils.Profile}") />
+                <RadzenMenuItem Icon="people" Text="@User?.Identity?.Name" Path=@($"{WsRouteUtils.Profile}") />
                 <AuthorizeView Roles="@WsUserAccessStr.Admin">
-                    <RadzenMenuItem Text="@VerBlazor"
-                                    Path=@($"{WsRouteUtils.SystemAppInfo}") />
+                    <RadzenMenuItem Text="@VerBlazor" Path=@($"{WsRouteUtils.SystemAppInfo}") />
                 </AuthorizeView>
             </RadzenMenu>
         </div>
