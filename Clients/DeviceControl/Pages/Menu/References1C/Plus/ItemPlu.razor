@@ -6,6 +6,7 @@
 @using DeviceControl.Components.Nested.PlusNestingFks
 @using DeviceControl.Utils
 @using WsStorageCore.Tables.TableScaleModels.Plus
+@using DeviceControl.Components.Rz
 @inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Plus.WsSqlPluModel>
 
 <ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
@@ -40,9 +41,11 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(Template)" Text="@WsLocaleCore.Table.Template"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(PluTemplateFk.Template)" Text="@WsLocaleCore.Table.Template"/>
     </td>
-    <td>@Template.Title</td>
+    <td>
+      <RzDropDown @bind-Value="@PluTemplateFk.Template" Data="@Templates" TextProperty="Title" />
+    </td>
     <td>
       <RadzenLink Path="@WsRouteService.GetItemRoute(StorageMethod)" Text="@WsLocaleCore.Table.PluStorage"/>
     </td>
