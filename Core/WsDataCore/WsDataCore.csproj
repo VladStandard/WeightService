@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
 	<Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
 	<Platforms>AnyCPU;x64;x86</Platforms>
@@ -110,7 +110,7 @@
     <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>1.0.2.0</Version>
+    <Version>1.0.3.0</Version>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|AnyCPU'">
