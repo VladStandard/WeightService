@@ -15,9 +15,11 @@ public class WsSqlCrudConfigModel
     #region Public and private fields, properties, constructor
     
     public string NativeQuery { get; set; }
+    public bool IsResultOrder { get; set; }
+    public bool IsReadUncommitted { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
-    public List<ICriterion> Filters { get; private set; }
-    public List<Order> Orders { get; private set; }
+    public List<ICriterion> Filters { get; private init; }
+    public List<Order> Orders { get; private init; }
     public int OldTopRowsCount { get; set; }
     public int SelectTopRowsCount
     {
@@ -27,15 +29,13 @@ public class WsSqlCrudConfigModel
             _selectTopRowsCount = value;
         }
     }
-    public bool IsResultOrder { get; set; }
+    
     public WsSqlEnumIsMarked IsMarked
     {
         get => _isMarked; 
         set
         {
             _isMarked = value;
-            RemoveFilter(_isMarkedFalseFilter);
-            RemoveFilter(_isMarkedTrueFilter);
             switch (_isMarked)
             {
                 case WsSqlEnumIsMarked.ShowOnlyActual:
@@ -46,11 +46,16 @@ public class WsSqlCrudConfigModel
                     RemoveFilter(_isMarkedFalseFilter);
                     AddFilter(_isMarkedTrueFilter);
                     break;
+                case WsSqlEnumIsMarked.ShowAll:
+                    RemoveFilter(_isMarkedFalseFilter);
+                    RemoveFilter(_isMarkedTrueFilter);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
-    public bool IsReadUncommitted { get; set; }
-    
+
     public WsSqlCrudConfigModel()
     {
         Orders = new();
@@ -86,12 +91,13 @@ public class WsSqlCrudConfigModel
         RemoveFilter(filter);
         Filters.Add(filter);
     }
+    
     public void AddFilters(List<ICriterion> filters)
     {
         foreach (ICriterion filter in filters)
             AddFilter(filter);
     }
-
+    
     public void RemoveFilter(ICriterion filter)
     {
         Filters.RemoveAll(f => filter.ToString().Equals(f.ToString()));

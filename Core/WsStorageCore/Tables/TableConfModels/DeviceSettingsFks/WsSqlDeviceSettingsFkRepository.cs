@@ -19,8 +19,7 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
 
     public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerableByLine(WsSqlScaleModel line)
     {
-        WsSqlDeviceModel device = WsSqlContextManagerHelper.Instance.DeviceRepository.GetItemByLine(line);
-        return GetEnumerableByDevice(device);
+        return GetEnumerableByDevice(line.Device);
     }
 
     public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerableByDevice(WsSqlDeviceModel device)

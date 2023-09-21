@@ -120,7 +120,7 @@ public static class WsFormNavigationUtils
     {
         // Загрузка из сессии пользователя.
         DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
-        DeviceSettingsUserControl.ViewModel.Device = ContextManager.DeviceRepository.GetItemByLine(LabelSession.Line);
+        DeviceSettingsUserControl.ViewModel.Device = LabelSession.Line.Device;
         DeviceSettingsUserControl.ViewModel.Devices =
             WsSqlContextManagerHelper.Instance.DeviceRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList();
         DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(

@@ -3,9 +3,7 @@ namespace DeviceControl.Pages.Menu.Operations.PlusWeightings;
 public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingModel>
 {
     #region Public and private fields, properties, constructor
-
-    private List<WsSqlDeviceScaleFkModel> DeviceScaleFk { get; set; }
-
+    
     private WsSqlViewPluWeightingRepository ViewPluWeightingRepository { get; } = new();
     
     public PluWeightings() : base()

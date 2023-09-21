@@ -11,13 +11,6 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
         return SqlCore.GetItemByCrud<WsSqlDeviceModel>(sqlCrudConfig);
     }
     
-    public WsSqlDeviceModel GetItemByLine(WsSqlScaleModel line)
-    {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlDeviceScaleFkModel.Scale), line));
-        return SqlCore.GetItemByCrud<WsSqlDeviceScaleFkModel>(sqlCrudConfig).Device;
-    }
-    
     public WsSqlDeviceModel SaveOrUpdate (WsSqlDeviceModel deviceModel)
     {
         deviceModel.LoginDt = DateTime.Now;

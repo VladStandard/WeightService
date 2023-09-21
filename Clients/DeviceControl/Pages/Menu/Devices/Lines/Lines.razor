@@ -3,8 +3,7 @@
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
 @using DeviceControl.Utils
-@using WsStorageCore.Views.ViewScaleModels.Lines
-@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.Lines.WsSqlViewLineModel>
+@inherits SectionBase<WsSqlScaleModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionScales"
@@ -16,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlViewLineModel"
+  TItem="@WsSqlScaleModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,14 +23,14 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlViewLineModel">
+    <TItemContent TItem="@WsSqlScaleModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Description" Width="20%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Number" Property="Number" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="HostName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Printer" Property="Printer" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Counter" Property="Counter" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="Device.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Printer" Property="PrinterMain.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Counter" Property="LabelCounter" Width="10%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

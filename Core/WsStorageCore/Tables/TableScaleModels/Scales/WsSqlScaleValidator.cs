@@ -15,7 +15,9 @@ public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
             .GreaterThanOrEqualTo(10000)
             .LessThanOrEqualTo(99999);
         RuleFor(item => item.WorkShop)
-            .SetValidator(new WsSqlWorkShopValidator(isCheckIdentity)!);
+            .SetValidator(new WsSqlWorkShopValidator(isCheckIdentity));
+        RuleFor(item => item.Device)
+            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
         RuleFor(item => item.PrinterMain)
             .SetValidator(new WsSqlPrinterValidator(isCheckIdentity)!);
         RuleFor(item => item.PrinterShipping)

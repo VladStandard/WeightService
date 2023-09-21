@@ -62,7 +62,6 @@ public static class WsRouteUtils
     public static string SectionBrands => "/section/brands";
     public static string SectionBundles => "/section/bundles";
     public static string SectionContragents => "/section/contragents";
-    public static string SectionDevicesScalesFk => "/section/devices_scales_fks";
     public static string SectionOrganizations => "/section/organizations";
     public static string SectionProductionFacilities => "/section/production_facilities";
     public static string SectionLines => "/section/lines";

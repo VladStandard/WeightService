@@ -28,15 +28,6 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
         DeviceType = DeviceTypeFk.Type;
     }
 
-    protected override bool ValidateItemBeforeSave()
-    { 
-        DeviceTypeFk.Type = DeviceType;
-        DeviceTypeFk.Device = SqlItemCast; 
-        if (!SqlItemValidateWithMsg(DeviceTypeFk, !(DeviceTypeFk?.IsNew ?? false))) 
-            return false;
-        return base.ValidateItemBeforeSave();
-    }
-
     protected override void ItemSave()
     {
         base.ItemSave();

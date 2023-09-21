@@ -27,31 +27,18 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
-    public WsSqlAppRepository AppRepository { get; } = new();
     public WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
-    public WsSqlBoxRepository BoxRepository { get; } = new();
-    public WsSqlBrandRepository BrandRepository { get; } = new();
-    public WsSqlBundleRepository BundleRepository { get; } = new();
-    public WsSqlClipRepository ClipRepository { get; } = new();
-    public WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
     public WsSqlDeviceRepository DeviceRepository { get; } = new();
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
-    public WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
     public WsSqlLogMemoryRepository LogMemoryRepository { get; } = new();
-    public WsSqlLogRepository LogRepository { get; set; } = new();
     public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
-    public WsSqlPluFkRepository PluFkRepository { get; } = new();
     public WsSqlPluLabelRepository PluLabelRepository { get; } = new();
     public WsSqlPluLineRepository PluLineRepository { get; } = new();
     public WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
-    public WsSqlPluRepository PluRepository { get; } = new();
     public WsSqlPluStorageMethodFkRepository SqlPluStorageMethodFkRepository { get; } = new();
     public WsSqlPluWeighingRepository PluWeighingRepository { get; } = new();
-    public WsSqlViewLogDeviceAggrRepository ViewLogDeviceAggrRepository { get; } = new();
-    public WsSqlViewLogDeviceRepository ViewLogDeviceRepository { get; } = new();
-    public WsSqlViewLogMemoryRepository ViewLogMemoryRepository { get; } = new();
 
     #endregion
 

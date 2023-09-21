@@ -5,11 +5,6 @@ namespace WsStorageCore.Tables.TableScaleModels.Scales;
 /// </summary>
 public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleModel>
 {
-    #region Public and private fields, properties, constructor
-
-    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
-
-    #endregion
 
     #region Public and private methods
 
@@ -19,7 +14,9 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleMod
 
     public WsSqlScaleModel GetItemByDevice(WsSqlDeviceModel device)
     {
-        return DeviceLineFkRepository.GetItemByDevice(device).Scale;
+        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlScaleModel.Device), device));
+        return SqlCore.GetItemByCrud<WsSqlScaleModel>(sqlCrudConfig);
     }
 
     public IEnumerable<WsSqlScaleModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)

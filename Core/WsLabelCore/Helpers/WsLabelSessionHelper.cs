@@ -38,7 +38,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public ushort PlusPageSize => 16;
     public ushort PlusPageRowCount => 4;
     public int PlusPageNumber { get; set; }
-    public WsSqlDeviceScaleFkModel DeviceScaleFk { get; private set; }
     public WsSqlProductionSiteModel Area { get; private set; }
     public WsSqlScaleModel Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
@@ -58,7 +57,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         PluLine = ContextManager.PluLineRepository.GetNewItem();
         Line = ContextManager.LineRepository.GetNewItem();
         PluWeighing = ContextManager.PluWeighingRepository.GetNewItem();
-        DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetNewItem();
         ViewPluNesting = ContextManager.PluNestingFkRepository.GetNewView();
         WeighingSettings = new();
     }
@@ -128,9 +126,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
                 deviceTypeFk.Type = deviceType;
                 ContextManager.SqlCore.Save(deviceTypeFk);
             }
-            DeviceScaleFk = ContextManager.DeviceLineFkRepository.GetItemByDevice(deviceTypeFk.Device);
+            Line = ContextManager.LineRepository.GetItemByDevice(deviceTypeFk.Device);
             // Line.
-            SetLine(lineId <= 0 ? DeviceScaleFk.Scale : ContextManager.LineRepository.GetItemById(lineId));
+            SetLine(lineId <= 0 ? Line : ContextManager.LineRepository.GetItemById(lineId));
             // ProductionSite.
             if (area is not null)
                 SetArea(area);

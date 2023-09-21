@@ -53,7 +53,6 @@ global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 global using WsStorageCore.Tables.TableDirectModels;
-global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 global using WsStorageCore.Tables.TableScaleModels.BarCodes;
 global using WsStorageCore.Tables.TableScaleModels.Bundles;

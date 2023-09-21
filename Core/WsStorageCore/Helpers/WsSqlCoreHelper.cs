@@ -106,7 +106,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlClipMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceScaleFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());

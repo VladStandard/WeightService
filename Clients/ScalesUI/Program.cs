@@ -20,7 +20,7 @@ internal static class Program
         // Лог.
         StringBuilder log = new();
         log.AppendLine(WsLocaleCore.LabelPrint.RegistrationIsComplete);
-        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, LabelSession.DeviceScaleFk.Scale.Description));
+        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, LabelSession.Line.Description));
         log.AppendLine($"{WsLocaleCore.LabelPrint.ClickOnceIntallDirectory}: {WsAssemblyUtils.GetClickOnceNetworkInstallDirectory()}");
         ContextManager.ContextItem.SaveLogInformation(log);
         // Режим работы.

@@ -51,7 +51,6 @@ global using WsStorageCore.Tables.TableDiagModels.LogsMemories;
 global using WsStorageCore.Tables.TableDiagModels.LogsTypes;
 global using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 global using WsStorageCore.Tables.TableRefModels.Plus1CFk;
-global using WsStorageCore.Tables.TableScaleFkModels.DeviceScalesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusClipsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusFks;

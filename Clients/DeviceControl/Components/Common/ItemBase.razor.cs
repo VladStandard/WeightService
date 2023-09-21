@@ -35,16 +35,9 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
     protected async Task SqlItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        if (!ValidateItemBeforeSave()) return;
         RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, ItemSave);
         
         RouteService.NavigateSectionRoute(SqlItemCast);
-    }
-
-    protected virtual bool ValidateItemBeforeSave()
-    {
-        return SqlItemValidateWithMsg(SqlItem, !(SqlItem?.IsNew ?? false));
     }
     
     protected virtual void ItemSave()

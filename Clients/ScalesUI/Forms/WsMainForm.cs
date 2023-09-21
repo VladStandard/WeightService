@@ -98,7 +98,7 @@ public sealed partial class WsMainForm : Form
             // Настроить сессию для ПО `Печать этикеток`.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             
-            if (LabelSession.DeviceScaleFk.IsNew)
+            if (LabelSession.Line.IsNew)
             {
                 string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(LabelSession.DeviceName);
                 

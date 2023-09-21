@@ -283,21 +283,6 @@ select {WsSqlQueries.GetTopRecords(records)}
 FROM [diag].[VIEW_LOGS_WEB_SERVICES]
 order by [CREATE_DT] DESC");
 
-        public static string GetLines(int records, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-select {WsSqlQueries.GetTopRecords(records)}
-	 [ID]
-	,[IS_MARKED]
-	,[NAME]
-	,[NUMBER]
-	,[HOST_NAME]
-	,[PRINTER]
-	,[WORKSHOP]
-	,[COUNTER]
-FROM [db_scales].[VIEW_LINES]
-{WsSqlQueries.GetWhereIsMarked(isMarked)}
-ORDER BY [NAME] ASC");
-
         public static string GetBarcodes(int records, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(records)}

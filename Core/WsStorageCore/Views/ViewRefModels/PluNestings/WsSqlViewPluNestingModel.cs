@@ -36,8 +36,8 @@ public sealed class WsSqlViewPluNestingModel : WsSqlViewBase
     public string TareWeightWithKg => $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg}";
     public string TareWeightDescription =>
         $"{(string.IsNullOrEmpty(BoxName) ? WsLocaleCore.WebService.BoxZero : BoxName)} + " +
-        $"({(string.IsNullOrEmpty(BundleName) ? WsLocaleCore.WebService.BundleZero : BundleName)} * {BundleCount}) + " +
-        $"{(IsDefault ? "(По умолчанию)" : string.Empty)}";
+        $"({(string.IsNullOrEmpty(BundleName) ? WsLocaleCore.WebService.BundleZero : BundleName)} * {BundleCount})" +
+        $"{(IsDefault ? " + (По умолчанию)" : string.Empty)}";
     
     public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
     public string PluNumberName => $"{PluNumber} | {PluName}";

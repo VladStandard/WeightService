@@ -228,10 +228,6 @@ public sealed class DataCoreHelper
                 deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
 				deviceTypeFk.Type = CreateNewSubstitute<WsSqlDeviceTypeModel>(isNotDefault);
 				break;
-			case WsSqlDeviceScaleFkModel deviceScaleFk:
-                deviceScaleFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
-				deviceScaleFk.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
-				break;
 			case WsSqlLogModel log:
 				log.Version.Returns(WsLocaleCore.Sql.SqlItemFieldVersion);
 				log.File.Returns(WsLocaleCore.Sql.SqlItemFieldFile);

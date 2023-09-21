@@ -4,8 +4,8 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private WsSqlLineRepository LineRepository { get; } = new();
-    private WsSqlDeviceLineFkRepository DeviceLineFkRepository { get; } = new();
-
+    private WsSqlDeviceRepository DeviceRepository { get; } = new();
+    
     private WsSqlScaleModel GetFirstLineModel()
     {
         return LineRepository.GetEnumerable(SqlCrudConfig).First();
@@ -44,15 +44,13 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfig.SelectTopRowsCount = 1;
-            WsSqlDeviceScaleFkModel devicesScale = DeviceLineFkRepository.GetList(SqlCrudConfig).First();
-            WsSqlDeviceModel device = devicesScale.Device;
-            WsSqlScaleModel oldLine = devicesScale.Scale;
+            WsSqlScaleModel oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();
 
-            WsSqlScaleModel lineByDevice = LineRepository.GetItemByDevice(device);
+            WsSqlScaleModel lineByDevice = LineRepository.GetItemByDevice(oldScale.Device);
 
             Assert.That(lineByDevice.IsExists, Is.True);
-            Assert.That(lineByDevice, Is.EqualTo(oldLine));
-
+            Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldScale.IdentityValueId));
+            
             TestContext.WriteLine(lineByDevice);
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
     }
