@@ -83,7 +83,7 @@ public class WsSqlCrudConfigModel
 
     public void AddFilter(ICriterion filter)
     {
-        Filters.Remove(filter);
+        RemoveFilter(filter);
         Filters.Add(filter);
     }
     public void AddFilters(List<ICriterion> filters)
@@ -94,7 +94,7 @@ public class WsSqlCrudConfigModel
 
     public void RemoveFilter(ICriterion filter)
     {
-        Filters.RemoveAll(filter.Equals);
+        Filters.RemoveAll(f => filter.ToString().Equals(f.ToString()));
     }
     
     public void RemoveFilters(List<ICriterion> filters)
@@ -127,6 +127,7 @@ public class WsSqlCrudConfigModel
             return;
         Orders.RemoveAll(item => order.ToString().Equals(item.ToString()));
     }
+    
     public void RemoveOrders(List<Order> orders)
     {
         foreach (Order order in orders)

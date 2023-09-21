@@ -12,7 +12,6 @@ public sealed class WsSqlCrudConfigFiltersTests
             WsSqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
-
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
@@ -48,11 +47,11 @@ public sealed class WsSqlCrudConfigFiltersTests
             {
                 SqlRestrictions.Equal("Test № 1", "data4"),
                 SqlRestrictions.Less("Test № 1", "data56"),
-                filter1
+                SqlRestrictions.Equal("Test № 1", "data")
             });
-
+            
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(3));
-
+            
             TestContext.WriteLine(sqlCrudConfig);
         });
     }
