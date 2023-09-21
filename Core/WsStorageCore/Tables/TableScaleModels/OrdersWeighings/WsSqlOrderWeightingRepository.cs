@@ -4,8 +4,6 @@ public sealed class WsSqlOrderWeightingRepository : WsSqlTableRepositoryBase<WsS
 {
     public List<WsSqlOrderWeighingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
         return SqlCore.GetEnumerableNotNullable<WsSqlOrderWeighingModel>(sqlCrudConfig).ToList();
     }
 

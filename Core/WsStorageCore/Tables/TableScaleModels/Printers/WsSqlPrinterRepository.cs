@@ -5,7 +5,7 @@ public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterModel
     public IEnumerable<WsSqlPrinterModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlPrinterModel>(sqlCrudConfig);
     }
 }

@@ -12,7 +12,7 @@ public sealed class WsSqlDeviceSettingsRepository : WsSqlTableRepositoryBase<WsS
     public IEnumerable<WsSqlDeviceSettingsModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsModel>(sqlCrudConfig);
     }
 

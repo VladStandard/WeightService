@@ -9,14 +9,14 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
     public IEnumerable<WsSqlWorkShopModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlWorkShopModel>(sqlCrudConfig);
     }
 
     public async Task<IEnumerable<WsSqlWorkShopModel>> GetEnumerableAsync(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return await SqlCore.GetEnumerableNotNullableAsync<WsSqlWorkShopModel>(sqlCrudConfig);
     }
 

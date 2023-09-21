@@ -17,7 +17,7 @@ public class WsSqlCrudConfigModel
     public string NativeQuery { get; set; }
     public List<SqlParameter> NativeParameters { get; set; }
     public List<ICriterion> Filters { get; private set; }
-    public List<WsSqlFieldOrderModel> Orders { get; private set; }
+    public List<Order> Orders { get; private set; }
     public int OldTopRowsCount { get; set; }
     public int SelectTopRowsCount
     {
@@ -109,30 +109,29 @@ public class WsSqlCrudConfigModel
 
     #region Orders
     
-    private void AddOrder(WsSqlFieldOrderModel order)
+    public void AddOrder(Order order)
     {
         RemoveOrder(order);
         Orders.Add(order);
     }
-    public void AddOrder(string key, WsSqlEnumOrder order = WsSqlEnumOrder.Asc) => AddOrder(new(key, order));
-    public void AddOrders(List<WsSqlFieldOrderModel> orders)
+    
+    public void AddOrders(List<Order> orders)
     {
-        foreach (WsSqlFieldOrderModel order in orders)
+        foreach (Order order in orders)
             AddOrder(order);
     }
 
-    private void RemoveOrder(WsSqlFieldOrderModel order)
+    public void RemoveOrder(Order order)
     {
         if (!Orders.Any())
             return;
-        Orders.RemoveAll(item => item.Name.Equals(order.Name));
+        Orders.RemoveAll(item => order.ToString().Equals(item.ToString()));
     }
-    public void RemoveOrders(List<WsSqlFieldOrderModel> orders)
+    public void RemoveOrders(List<Order> orders)
     {
-        foreach (WsSqlFieldOrderModel order in orders)
+        foreach (Order order in orders)
             RemoveOrder(order);
     }
-    public void RemoveOrder(string key, WsSqlEnumOrder order = WsSqlEnumOrder.Asc) => RemoveOrder(new(key, order));
     
     public void ClearOrders() => Orders.Clear();
     

@@ -15,7 +15,7 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
     public List<WsSqlProductSeriesModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.CreateDt), WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerableNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig).ToList();
     }
 }

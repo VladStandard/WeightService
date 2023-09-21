@@ -9,7 +9,7 @@ public static class MdDataFormatUtils
     {
         if (!isForceUpdate && _templateResources.Any()) return _templateResources;
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddOrder(nameof(WsSqlTemplateResourceModel.Name));
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
       
         sqlCrudConfig.AddFilter(
             SqlRestrictions.Equal(nameof(WsSqlTemplateResourceModel.Type), "ZPL")

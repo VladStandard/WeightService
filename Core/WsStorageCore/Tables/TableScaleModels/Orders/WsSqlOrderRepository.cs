@@ -4,8 +4,6 @@ public class WsSqlOrderRepository : WsSqlTableRepositoryBase<WsSqlOrderModel>
 {
     public List<WsSqlOrderModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
         return SqlCore.GetEnumerableNotNullable<WsSqlOrderModel>(sqlCrudConfig).ToList();
     }
 

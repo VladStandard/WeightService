@@ -156,12 +156,9 @@ public sealed class WsSqlCoreHelper
         foreach (ICriterion filter in sqlCrudConfig.Filters)
             criteria.Add(filter);
         
-        if (sqlCrudConfig.Orders.Any())
-        {
-            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
-            if (orders.Any())
-                criteria.SetCriteriaOrder(orders);
-        }
+        foreach (Order order in sqlCrudConfig.Orders)
+            criteria.AddOrder(order);
+        
         return criteria;
     }
 
@@ -180,12 +177,9 @@ public sealed class WsSqlCoreHelper
         foreach (ICriterion filter in sqlCrudConfig.Filters)
             criteria.Add(filter);
         
-        if (sqlCrudConfig.Orders.Any())
-        {
-            List<WsSqlFieldOrderModel> orders = sqlCrudConfig.Orders.Where(item => !string.IsNullOrEmpty(item.Name)).ToList();
-            if (orders.Any())
-                criteria.SetCriteriaOrder(orders);
-        }
+        foreach (Order order in sqlCrudConfig.Orders)
+            criteria.AddOrder(order);
+        
         return criteria;
     }
 

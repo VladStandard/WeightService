@@ -5,7 +5,7 @@ public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarCo
     public List<WsSqlBarCodeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerableNotNullable<WsSqlBarCodeModel>(sqlCrudConfig).ToList();
     }
 }

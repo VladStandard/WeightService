@@ -1,3 +1,4 @@
+using NHibernate.Criterion;
 namespace WsStorageCoreTests.Models.WsSqlCrudConfig;
 
 [TestFixture]
@@ -9,7 +10,7 @@ public sealed class WsSqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrder("data № 1");
+            sqlCrudConfig.AddOrder(SqlOrder.Asc("data № 1"));
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
 
@@ -23,11 +24,11 @@ public sealed class WsSqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrder("Test № 1", WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 2"),
-                new("Test № 3"),
+                SqlOrder.Asc("Test № 2"),
+                SqlOrder.Asc("Test № 3"),
             });
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(3));
@@ -42,11 +43,11 @@ public sealed class WsSqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrder("Test № 1", WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 1"),
-                new("Test № 3"),
+                SqlOrder.Desc("Test № 1"),
+                SqlOrder.Asc("Test № 3"),
             });
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(2));
@@ -61,8 +62,8 @@ public sealed class WsSqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             WsSqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrder("Test № 1", WsSqlEnumOrder.Desc);
-            sqlCrudConfig.RemoveOrder("Test № 1", WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.Asc("Test № 1"));
+            sqlCrudConfig.RemoveOrder(SqlOrder.Desc("Test № 1"));
 
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(0));
 
@@ -78,15 +79,15 @@ public sealed class WsSqlCrudConfigOrdersTests
             WsSqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 1", WsSqlEnumOrder.Desc),
-                new("Test № 2", WsSqlEnumOrder.Desc),
-                new("Test № 3"),
+                SqlOrder.Desc("Test № 1"),
+                SqlOrder.Desc("Test № 2"),
+                SqlOrder.Asc("Test № 3"),
             });
 
             sqlCrudConfig.RemoveOrders(new()
             {
-                new("Test № 2", WsSqlEnumOrder.Desc),
-                new("Test № 3"),
+                SqlOrder.Desc("Test № 2"),
+                SqlOrder.Asc("Test № 3"),
             });
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
@@ -103,9 +104,9 @@ public sealed class WsSqlCrudConfigOrdersTests
             WsSqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrders(new()
             {
-                new("Test № 1", WsSqlEnumOrder.Desc),
-                new("Test № 2"),
-                new("Test № 3"),
+                SqlOrder.Desc("Test № 1"),
+                SqlOrder.Asc("Test № 2"),
+                SqlOrder.Asc("Test № 3"),
             });
 
             sqlCrudConfig.ClearOrders();

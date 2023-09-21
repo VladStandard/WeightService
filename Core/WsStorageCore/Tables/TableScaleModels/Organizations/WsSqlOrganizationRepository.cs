@@ -5,7 +5,7 @@ public class WsSqlOrganizationRepository : WsSqlTableRepositoryBase<WsSqlOrganiz
     public List<WsSqlOrganizationModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlOrganizationModel>(sqlCrudConfig).ToList();
     }
 }

@@ -37,9 +37,10 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
         SqlCore.Save(pluLabel);
     }
 
-    public List<WsSqlPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig) {
+    public List<WsSqlPluLabelModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
+    {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.ChangeDt), WsSqlEnumOrder.Desc);
+            sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerableNotNullable<WsSqlPluLabelModel>(sqlCrudConfig).ToList();
     }
 

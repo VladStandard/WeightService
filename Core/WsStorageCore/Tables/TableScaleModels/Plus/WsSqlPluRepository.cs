@@ -29,7 +29,7 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     public IEnumerable<WsSqlPluModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlPluModel.Number));
+            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(WsSqlPluModel.Number)));
         return SqlCore.GetEnumerableNotNullable<WsSqlPluModel>(sqlCrudConfig);
     }
     

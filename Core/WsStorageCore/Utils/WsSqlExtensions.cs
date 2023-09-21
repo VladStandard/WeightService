@@ -19,24 +19,7 @@ public static class WsSqlExtensions
         }
         return false;
     }
-
-    public static void SetCriteriaOrder(this ICriteria criteria, List<WsSqlFieldOrderModel>? orders)
-    {
-        if (orders is null) return;
-
-        foreach (WsSqlFieldOrderModel order in orders)
-        {
-            switch (order.Direction)
-            {
-                case WsSqlEnumOrder.Asc:
-                    criteria.AddOrder(Order.Asc(order.Name));
-                    break;
-                case WsSqlEnumOrder.Desc:
-                    criteria.AddOrder(Order.Desc(order.Name));
-                    break;
-            }
-        }
-    }
+    
 
     #endregion
 }

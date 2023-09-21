@@ -13,14 +13,14 @@ public sealed class WsSqlProductionSiteRepository : WsSqlTableRepositoryBase<WsS
     public IEnumerable<WsSqlProductionSiteModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlProductionSiteModel>(sqlCrudConfig);
     }
 
     public async Task<IEnumerable<WsSqlProductionSiteModel>> GetEnumerableAsync(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return await SqlCore.GetEnumerableNotNullableAsync<WsSqlProductionSiteModel>(sqlCrudConfig);
     }
 

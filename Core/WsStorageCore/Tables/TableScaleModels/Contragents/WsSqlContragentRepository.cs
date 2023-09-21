@@ -5,7 +5,7 @@ public class WsSqlContragentRepository : WsSqlTableRepositoryBase<WsSqlContragen
     public List<WsSqlContragentModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(nameof(WsSqlTableBase.Name));
+            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerableNotNullable<WsSqlContragentModel>(sqlCrudConfig).ToList();
     }
 }
