@@ -5,8 +5,6 @@ namespace WsStorageCore.Utils;
 /// </summary>
 public static class WsSqlTablesUtils
 {
-    #region Public and private fields, properties, constructor
-
     public static string Access => "ACCESS";
     public static string Apps => "APPS";
     public static string BarCodes => "BARCODES";
@@ -52,6 +50,4 @@ public static class WsSqlTablesUtils
     public static string PrintersResourcesFks => "ZebraPrinterResourceRef";
     public static string PrintersTypes => "ZebraPrinterType";
     public static string Scales => "Scales";
-    
-    #endregion
 }

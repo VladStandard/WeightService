@@ -20,15 +20,6 @@ public static class WsWebConstants
     public const string Goods = @"Goods";
     public const string Guid = @"Guid";
     public const string Info = @"Info";
-    public const string InnerException = @"InnerException";
-    public const string Items = @"Items";
-    public const string LineNumber = @"LineNumber";
-    public const string MemberName = @"MemberName";
-    public const string Message = @"Message";
-    public const string PluNumber = @"PluNumber";
-    public const string Query = @"Query";
-    public const string QueryParameter = @"QueryParameter";
-    public const string Record = @"Record";
     public const string Response = @"Response";
     public const string Shipments = @"Shipments";
     public const string Simple = @"Simple";

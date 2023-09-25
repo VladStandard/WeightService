@@ -1,6 +1,6 @@
+using WsWebApiCore.Settings;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Services;
-using WsWebApiScales.Settings;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +42,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRouting();
-// app.UseMiddleware<RequestResponseLoggingMiddleware>(); // Разместите здесь
+
 app.MapControllers();
 app.Run();

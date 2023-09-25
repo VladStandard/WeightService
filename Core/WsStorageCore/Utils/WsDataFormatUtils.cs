@@ -1,6 +1,3 @@
-using WsStorageCore.Tables.TableDirectModels;
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-
 namespace WsStorageCore.Utils;
 
 public static class WsDataFormatUtils
@@ -50,27 +47,7 @@ public static class WsDataFormatUtils
     /// <param name="json"></param>
     private static string GetPrettyJson(string json) =>
         string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
-
-    public static XmlDocument XmlCompatibleReplace(XmlDocument xmlDocument)
-    {
-        XmlDocument result = new();
-        result.LoadXml(XmlCompatibleReplace(xmlDocument.OuterXml));
-        return result;
-    }
-
-    private static string XmlCompatibleReplace(string xml)
-    {
-        if (string.IsNullOrEmpty(xml)) return xml;
-
-        //xml = xml.Replace(nameof(TableDirectModels.HostDirect), "HostEntity");
-        xml = xml.Replace(nameof(NomenclatureDirect), "NomenclatureEntity");
-        //xml = xml.Replace(nameof(TableDirectModels.PrinterDirect), "ZebraPrinterEntity");
-        xml = xml.Replace(nameof(ProductSeriesDirect), "ProductSeriesEntity");
-        xml = xml.Replace(nameof(SsccDirect), "SsccEntity");
-
-        return xml;
-    }
-
+    
     public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 
     public static string XsltTransformation(string xslInput, string? xmlInput)
@@ -109,50 +86,6 @@ public static class WsDataFormatUtils
         return SpecialCharacters.Contains(value);
     }
 
-    /// <summary>
-    /// Replace area-resource.
-    /// </summary>
-    /// <param name="area"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public static string PrintCmdReplaceArea(WsSqlProductionSiteModel? area, string value)
-    {
-        string result = value;
-        if (string.IsNullOrEmpty(result))
-            return result;
-        if (area is not null)
-        {
-            string areaName = area.Name;
-            if (string.IsNullOrEmpty(areaName))
-                return result;
-            string resourceHex = ZplUtils.ConvertStringToHex(areaName);
-            result = result.Replace($"[AREA]", resourceHex);
-        }
-        return result;
-    }
-
-    public static string XmlMerge(string xmlParent, string xmlChild)
-    {
-        string result = string.Empty;
-        bool isSkipHeader = false;
-        foreach (string lineParent in xmlParent.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
-        {
-            if (isSkipHeader && !string.IsNullOrEmpty(xmlChild))
-            {
-                foreach (string lineChild in xmlChild.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
-                {
-                    if (!lineChild.StartsWith("<?xml "))
-                        result += "\t" + lineChild + Environment.NewLine;
-                }
-                xmlChild = string.Empty;
-            }
-            if (lineParent.StartsWith("<") && !lineParent.StartsWith("<?xml "))
-                isSkipHeader = true;
-            result += lineParent + Environment.NewLine;
-        }
-        return result;
-    }
-
     public static XmlDocument XmlMerge(XmlDocument documentA, XmlDocument documentB)
     {
         if (documentA.DocumentElement is not null && documentB.DocumentElement is not null)
@@ -175,38 +108,10 @@ public static class WsDataFormatUtils
     }
 
     #endregion
-
-    #region Public and private methods - Properties
-
-    public static object? GetPropertyDefaultValue<T>(T item, string name)
-    {
-        AttributeCollection? attributes = TypeDescriptor.GetProperties(item)[name]?.Attributes;
-        Attribute? attribute = attributes?[typeof(DefaultValueAttribute)];
-        if (attribute is DefaultValueAttribute defaultValueAttribute)
-            return defaultValueAttribute.Value;
-        return null;
-    }
-
-    public static string GetPropertyDefaultValueAsString<T>(T item, string name) =>
-        GetPropertyDefaultValue(item, name)?.ToString() ?? string.Empty;
-
-    public static int GetPropertyDefaultValueAsInt<T>(T item, string name) =>
-        GetPropertyDefaultValue(item, name) is int value ? value : default;
-
-    public static bool GetPropertyDefaultValueAsBool<T>(T item, string name) => GetPropertyDefaultValue(item, name) is bool value ? value : default;
-
-    public static IEnumerable<string> GetPropertiesNames<T>(T item) =>
-        (from PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(item) select propertyDescriptor.Name).ToList();
-
-    #endregion
+    
 
     #region Public and private methods - Serialize
-
-    public static XmlReaderSettings GetXmlReaderSettings() => new()
-    {
-        ConformanceLevel = ConformanceLevel.Document
-    };
-
+    
     public static XmlWriterSettings GetXmlWriterSettings() => new()
     {
         ConformanceLevel = ConformanceLevel.Document,
@@ -216,18 +121,7 @@ public static class WsDataFormatUtils
     };
 
     public static string SerializeAsJson<T>(T item) => JsonConvert.SerializeObject(item);
-
-    public static string SerializeByMemoryStream<T>(T item)
-    {
-        MemoryStream memoryStream = new();
-        IFormatter binaryFormatter = new BinaryFormatter();
-        binaryFormatter.Serialize(memoryStream, item);
-        using StreamReader streamReader = new(memoryStream);
-        memoryStream.Position = 0;
-        string result = streamReader.ReadToEnd();
-        memoryStream.Close();
-        return result;
-    }
+    
 
     public static string SerializeAsXmlString<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
     {
@@ -259,39 +153,6 @@ public static class WsDataFormatUtils
         }
     }
 
-    //public static string SerializeAsXmlString(string item, bool isAddEmptyNamespace, bool isUtf16)
-    //{
-    //    XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(string) })[0];
-
-    //    using StringWriter stringWriter = isUtf16 ? new StringWriter() : new WsSqlStringWriterUtf8Model();
-
-    //    switch (isAddEmptyNamespace)
-    //    {
-    //        case true:
-    //        {
-    //            XmlSerializerNamespaces emptyNamespaces = new();
-    //            emptyNamespaces.Add(string.Empty, string.Empty);
-    //            using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-    //            xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
-    //            xmlWriter.Flush();
-    //            xmlWriter.Close();
-    //            break;
-    //        }
-    //        default:
-    //            xmlSerializer.Serialize(stringWriter, item);
-    //            break;
-    //    }
-    //    return stringWriter.ToString();
-    //}
-
-    private static string SerializeAsHtml<T>(T item) => WsSqlQueries.TrimQuery(@$"
-<html>
-<body>
-    {item}
-</body>
-</html>
-        ");
-
     public static XmlDocument SerializeAsXmlDocument<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
     {
         XmlDocument xmlDocument = new();
@@ -313,32 +174,11 @@ public static class WsDataFormatUtils
         return (T)xmlSerializer.Deserialize(new MemoryStream(encoding.GetBytes(xml)));
     }
 
-    public static T DeserializeFromXmlVersion2<T>(string xml)
-    {
-        // Don't use it.
-        // XmlSerializer xmlSerializer = new(typeof(T));
-        // Use it.
-        XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
-        using TextReader reader = new StringReader(xml);
-        return (T)xmlSerializer.Deserialize(reader);
-    }
-
-    public static T DeserializeFromMemoryStream<T>(MemoryStream memoryStream) where T : new()
-    {
-        memoryStream.Position = 0;
-        IFormatter formatter = new BinaryFormatter();
-        memoryStream.Seek(0, SeekOrigin.Begin);
-        object? obj = formatter.Deserialize(memoryStream);
-        return obj is null ? new() : (T)obj;
-    }
-
     #endregion
 
     #region Public and private methods - Content
 
-    public static string SerializeAsText<T>(ISerializable item) => item?.ToString() ?? string.Empty;
-
-    public static string SerializeAsText(string item) => item?.ToString() ?? string.Empty;
+    public static string SerializeAsText(ISerializable item) => item.ToString() ?? string.Empty;
 
     private static ContentResult GetContentResultCore(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) => new()
     {
@@ -347,19 +187,14 @@ public static class WsDataFormatUtils
         Content = content as string ?? content.ToString(),
     };
 
-    private static ContentResult GetContentResultCore(string formatString, object content, HttpStatusCode statusCode) =>
-        GetContentResultCore(WsDataUtils.GetFormatType(formatString), content, statusCode);
-
     private static ContentResult GetContentResult(WsEnumFormatType formatType, object content, HttpStatusCode statusCode) =>
         GetContentResultCore(formatType, content, statusCode);
 
     public static ContentResult GetContentResult<T>(ISerializable item, string format, HttpStatusCode statusCode) =>
         GetFormatType(format) switch
         {
-            WsEnumFormatType.Text => GetContentResult(WsEnumFormatType.Text, SerializeAsText<T>(item), statusCode),
-            WsEnumFormatType.JavaScript => GetContentResult(WsEnumFormatType.JavaScript, SerializeAsText<T>(item), statusCode),
+            WsEnumFormatType.Text => GetContentResult(WsEnumFormatType.Text, SerializeAsText(item), statusCode),
             WsEnumFormatType.Json => GetContentResult(WsEnumFormatType.Json, SerializeAsJson(item), statusCode),
-            WsEnumFormatType.Html => GetContentResult(WsEnumFormatType.Html, SerializeAsHtml(item), statusCode),
             WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetContentResult(WsEnumFormatType.XmlUtf8, SerializeAsXmlString<T>(item, true, false), statusCode),
             WsEnumFormatType.XmlUtf16 => GetContentResult(WsEnumFormatType.XmlUtf16, SerializeAsXmlString<T>(item, true, true), statusCode),
             _ => throw WsDataUtils.GetArgumentException(nameof(format))
@@ -368,44 +203,20 @@ public static class WsDataFormatUtils
     public static WsEnumFormatType GetFormatType(string format) => format.ToUpper() switch
     {
         "TEXT" => WsEnumFormatType.Text,
-        "JAVASCRIPT" => WsEnumFormatType.JavaScript,
         "JSON" => WsEnumFormatType.Json,
-        "HTML" => WsEnumFormatType.Html,
         "XML" or "" or "XMLUTF8" => WsEnumFormatType.Xml,
         "XMLUTF16" => WsEnumFormatType.XmlUtf16,
         _ => throw WsDataUtils.GetArgumentException(nameof(format))
     };
-
-    public static IDictionary<string, object> ObjectToDictionary<T>(T item)
-    {
-        IDictionary<string, object> result = new Dictionary<string, object>();
-        if (item is null)
-            return result;
-        object[] indexer = Array.Empty<object>();
-        foreach (PropertyInfo info in item.GetType().GetProperties())
-        {
-            object value = info.GetValue(item, indexer);
-            result.Add(info.Name, value);
-        }
-        return result;
-    }
-
+    
     public static string GetContent<T>(ISerializable item, WsEnumFormatType formatType, bool isAddEmptyNamespace) => formatType switch
     {
-        WsEnumFormatType.Text => SerializeAsText<T>(item),
-        WsEnumFormatType.JavaScript => GetPrettyXmlOrJson(SerializeAsJson(item)),
+        WsEnumFormatType.Text => SerializeAsText(item),
         WsEnumFormatType.Json => GetPrettyXmlOrJson(SerializeAsJson(item)),
-        WsEnumFormatType.Html => SerializeAsHtml(item),
         WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, false)),
         WsEnumFormatType.XmlUtf16 => GetPrettyXml(SerializeAsXmlString<T>(item, isAddEmptyNamespace, true)),
         _ => throw WsDataUtils.GetArgumentException(nameof(formatType))
     };
-
-    public static DateTime GetDateTimeMonth(DateTime dt) =>
-        new DateTime(dt.Year, dt.Month, 1);
-
-    public static DateTime GetDateTimeYear(DateTime dt) =>
-        new DateTime(dt.Year, 1, 1);
-
+    
     #endregion
 }

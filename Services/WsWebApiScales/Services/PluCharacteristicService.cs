@@ -3,9 +3,9 @@ using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 using WsStorageCore.Tables.TableScaleModels.Boxes;
 using WsStorageCore.Tables.TableScaleModels.Plus;
+using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.PluCharacteristic;
 using WsWebApiScales.Dto.Response;
-using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 namespace WsWebApiScales.Services;
@@ -82,7 +82,7 @@ public class PluCharacteristicService
         }
    
         nesting.IsMarked = true;
-        WsServiceUtils.SqlCore.Update(nesting);
+        WsSqlCoreHelper.Instance.Update(nesting);
         
         _responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} удалена!");
     }
@@ -133,9 +133,9 @@ public class PluCharacteristicService
         nesting.Uid1C = pluCharacteristicDto.Guid;
             
         if (nesting.IsNew)
-            WsServiceUtils.SqlCore.Save(nesting);
+            WsSqlCoreHelper.Instance.Save(nesting);
         else 
-            WsServiceUtils.SqlCore.Update(nesting);
+            WsSqlCoreHelper.Instance.Update(nesting);
         _responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура: {plu.Number} / Удалить {pluCharacteristicDto.IsMarked} / AttachmentsCount {nesting.BundleCount}");
 
     }

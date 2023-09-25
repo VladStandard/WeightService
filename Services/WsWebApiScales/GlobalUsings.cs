@@ -1,13 +1,4 @@
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Net.Http.Headers;
-global using NHibernate;
-global using System.Net;
-global using System.Xml.Linq;
-global using WsDataCore.Enums;
-global using WsLocalizationCore.Utils;
-global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
-global using WsStorageCore.Utils;
-global using WsWebApiCore.Common;
-global using WsWebApiCore.Utils;

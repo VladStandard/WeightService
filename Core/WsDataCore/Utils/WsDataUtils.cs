@@ -95,9 +95,7 @@ public static class WsDataUtils
     public static WsEnumFormatType GetFormatType(string formatString) => formatString.ToUpper() switch
     {
         "TEXT" => WsEnumFormatType.Text,
-        "JAVASCRIPT" => WsEnumFormatType.JavaScript,
         "JSON" => WsEnumFormatType.Json,
-        "HTML" => WsEnumFormatType.Html,
         "XML" or "" or "XMLUTF8" => WsEnumFormatType.Xml,
         "XMLUTF16" => WsEnumFormatType.XmlUtf16,
         _ => throw GetArgumentException(nameof(formatString))
@@ -106,9 +104,7 @@ public static class WsDataUtils
     public static string GetContentType(WsEnumFormatType formatType) => formatType switch
     {
         WsEnumFormatType.Text => "application/text",
-        WsEnumFormatType.JavaScript => "application/js",
         WsEnumFormatType.Json => "application/json",
-        WsEnumFormatType.Html => "application/html",
         WsEnumFormatType.Xml or WsEnumFormatType.XmlUtf8 or WsEnumFormatType.XmlUtf16 => "application/xml",
         _ => throw GetArgumentException(nameof(formatType))
     };

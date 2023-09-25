@@ -7,9 +7,9 @@ using WsStorageCore.Tables.TableScaleModels.Boxes;
 using WsStorageCore.Tables.TableScaleModels.Bundles;
 using WsStorageCore.Tables.TableScaleModels.Clips;
 using WsStorageCore.Tables.TableScaleModels.Plus;
+using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.Plu;
 using WsWebApiScales.Dto.Response;
-using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 
@@ -82,10 +82,10 @@ public class PluService
         if (clipDb.IsNew)
         {
             clipDb.Uid1C = clip1CUid;
-            WsServiceUtils.SqlCore.Save(clipDb);
+            WsSqlCoreHelper.Instance.Save(clipDb);
             return;
         }
-        WsServiceUtils.SqlCore.Update(clipDb);
+        WsSqlCoreHelper.Instance.Update(clipDb);
     }
     private static void SaveOrUpdateBox(Guid box1CUid, string boxName, decimal boxWeight)
     {
@@ -103,10 +103,10 @@ public class PluService
         if (boxDb.IsNew)
         {
             boxDb.Uid1C = box1CUid;
-            WsServiceUtils.SqlCore.Save(boxDb);
+            WsSqlCoreHelper.Instance.Save(boxDb);
             return;
         }
-        WsServiceUtils.SqlCore.Update(boxDb);
+        WsSqlCoreHelper.Instance.Update(boxDb);
     }
     private static void SaveOrUpdateBundle(Guid bundle1CGuid, string bundleName, decimal bundleWeight)
     {
@@ -124,10 +124,10 @@ public class PluService
         if (bundleDb.IsNew)
         {
             bundleDb.Uid1C = bundle1CGuid;
-            WsServiceUtils.SqlCore.Save(bundleDb);
+            WsSqlCoreHelper.Instance.Save(bundleDb);
             return;
         }
-        WsServiceUtils.SqlCore.Update(bundleDb);
+        WsSqlCoreHelper.Instance.Update(bundleDb);
     }
     private static void SaveOrUpdatePlu(WsSqlPluModel plu, PluDto pluDto)
     {
@@ -149,10 +149,10 @@ public class PluService
         if (plu.IsNew)
         {
             plu.Uid1C = pluDto.Uid;
-            WsServiceUtils.SqlCore.Save(plu);
+            WsSqlCoreHelper.Instance.Save(plu);
             return;
         }
-        WsServiceUtils.SqlCore.Update(plu);
+        WsSqlCoreHelper.Instance.Update(plu);
     }
     private static void SaveOrUpdatePluFk(WsSqlPluModel plu, PluDto pluDto)
     {
@@ -172,16 +172,16 @@ public class PluService
         if (pluFkDb.IsNew)
         {
             pluFkDb.Plu = plu;
-            WsServiceUtils.SqlCore.Save(pluFkDb);
+            WsSqlCoreHelper.Instance.Save(pluFkDb);
             return;
         }
-        WsServiceUtils.SqlCore.Update(pluFkDb);
+        WsSqlCoreHelper.Instance.Update(pluFkDb);
     }
     private static void SetPluIsMarked(WsSqlPluModel plu)
     {
         if (plu.IsNew) return;
         plu.IsMarked = true;
-        WsServiceUtils.SqlCore.Update(plu);
+        WsSqlCoreHelper.Instance.Update(plu);
     }
     private static void SaveOrUpdatePluNesting(WsSqlPluModel plu, PluDto pluDto)
     {
@@ -197,10 +197,10 @@ public class PluService
         if (pluNestingDb.IsNew)
         {
             pluNestingDb.Plu = plu;
-            WsServiceUtils.SqlCore.Save(pluNestingDb);
+            WsSqlCoreHelper.Instance.Save(pluNestingDb);
             return;
         }
-        WsServiceUtils.SqlCore.Update(pluNestingDb);
+        WsSqlCoreHelper.Instance.Update(pluNestingDb);
     }
 
      #endregion

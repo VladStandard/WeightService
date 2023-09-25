@@ -18,7 +18,7 @@ public class BrandController : ControllerBase
 
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ActionResult<ResponseDto> LoadBrands([FromBody] BrandsDto brandsDto)
+    public ActionResult<ResponseDto> LoadBrands([FromBody] BrandsDto brandsDto) 
         => _brandService.LoadBrands(brandsDto);
     
 }

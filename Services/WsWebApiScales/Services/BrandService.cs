@@ -1,9 +1,9 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableRef1cModels.Brands;
+using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
-using WsWebApiScales.Utils;
 using WsWebApiScales.Validators;
 
 namespace WsWebApiScales.Services;
@@ -31,11 +31,11 @@ public class BrandService
         if (brandDb.IsNew)
         {
             brandDb.Uid1C = brandDto.Guid;
-            WsServiceUtils.SqlCore.Save(brandDb);
+            WsSqlCoreHelper.Instance.Save(brandDb);
         }
         else
         {
-            WsServiceUtils.SqlCore.Update(brandDb);
+            WsSqlCoreHelper.Instance.Update(brandDb);
         }
         _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - изменен");
     }
@@ -51,7 +51,7 @@ public class BrandService
         else
         {
             brandDb.IsMarked = brandDto.IsMarked;
-            WsServiceUtils.SqlCore.Update(brandDb);
+            WsSqlCoreHelper.Instance.Update(brandDb);
             _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - удален");
         }
     }

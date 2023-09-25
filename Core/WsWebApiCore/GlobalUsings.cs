@@ -1,17 +1,2 @@
-global using WsDataCore.Enums;
-global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.Data.SqlClient;
-global using NHibernate;
-global using RestSharp;
-global using System.Globalization;
-global using System.Net;
-global using System.Runtime.CompilerServices;
-global using System.Runtime.Serialization;
 global using System.Xml.Serialization;
 global using System.Xml;
-global using WsDataCore.Serialization;
-global using WsLocalizationCore.Utils;
-global using WsStorageCore.Common;
-global using WsStorageCore.Helpers;
-global using WsStorageCore.Utils;
-global using WsWebApiCore.Models;

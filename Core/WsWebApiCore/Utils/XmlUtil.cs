@@ -1,8 +1,6 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
-namespace WsWebApiScales.Utils;
+﻿namespace WsWebApiCore.Utils;
 
-public class XmlUtil
+public static class XmlUtil
 {
     public static string SerializeToXml<T>(T obj)
     {
