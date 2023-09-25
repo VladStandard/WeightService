@@ -32,19 +32,6 @@ public class DataSourceDicsHelper
             "zpl"
         };
 
-    public List<WsEnumTypeModel<WsEnumAccessRights>> GetTemplateAccessRights(byte? accessRights = null)
-    {
-        List<WsEnumTypeModel<WsEnumAccessRights>> result = new()
-        {
-            new($"{WsEnumAccessRights.None}", WsEnumAccessRights.None),
-            new($"{WsEnumAccessRights.Read}", WsEnumAccessRights.Read),
-            new($"{WsEnumAccessRights.Write}", WsEnumAccessRights.Write)
-        };
-        if (accessRights >= (byte)WsEnumAccessRights.Admin)
-            result.Add(new($"{WsEnumAccessRights.Admin}", WsEnumAccessRights.Admin));
-        return result;
-    }
-
     public List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguages() => WsLocaleCore.Lang switch
     {
         WsEnumLanguage.English => GetTemplateLanguagesEng(),
