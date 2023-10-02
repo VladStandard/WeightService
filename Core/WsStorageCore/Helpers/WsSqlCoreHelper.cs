@@ -49,9 +49,7 @@ public sealed class WsSqlCoreHelper
             SessionFactory = FluentConfiguration?.BuildSessionFactory();
         }
     }
-
-    // Будь осторожен. Настройка SqlConfiguration.DefaultSchema ведёт к Exception!
-    // Вместо dbo используются: db_scales, ref, diag.
+    
     private void SetSqlConfiguration(bool isShowSql)
     {
         string connectionString = GetConnectionString();
@@ -151,29 +149,9 @@ public sealed class WsSqlCoreHelper
     private ICriteria GetCriteria<T>(ISession session, WsSqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
+        
         if (sqlCrudConfig.SelectTopRowsCount > 0)
             criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
-        
-        foreach (ICriterion filter in sqlCrudConfig.Filters)
-            criteria.Add(filter);
-        
-        foreach (Order order in sqlCrudConfig.Orders)
-            criteria.AddOrder(order);
-        
-        return criteria;
-    }
-
-    private ICriteria GetCriteria<T>(ISession session, int maxResults) where T : class, new()
-    {
-        ICriteria criteria = session.CreateCriteria(typeof(T));
-        criteria.SetMaxResults(maxResults);
-        return criteria;
-    }
-
-    private ICriteria GetCriteriaFirst<T>(ISession session, WsSqlCrudConfigModel sqlCrudConfig) where T : class, new()
-    {
-        ICriteria criteria = session.CreateCriteria(typeof(T));
-        criteria.SetMaxResults(1);
         
         foreach (ICriterion filter in sqlCrudConfig.Filters)
             criteria.Add(filter);
@@ -187,8 +165,6 @@ public sealed class WsSqlCoreHelper
     /// <summary>
     /// Select in isolated session.
     /// </summary>
-    /// <param name="action"></param>
-    /// <returns></returns>
     private WsSqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
     {
         if (SessionFactory is null)
@@ -217,21 +193,8 @@ public sealed class WsSqlCoreHelper
     }
 
     /// <summary>
-    /// Select in isolated session.
-    /// </summary>
-    /// <param name="action"></param>
-    /// <returns></returns>
-    private async Task<WsSqlCrudResultModel> ExecuteSelectCoreAsync(Action<ISession> action)
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        return ExecuteSelectCore(action);
-    }
-
-    /// <summary>
     /// New transaction with action.
     /// </summary>
-    /// <param name="action"></param>
-    /// <returns></returns>
     private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
     {
         if (SessionFactory is null)
@@ -267,11 +230,7 @@ public sealed class WsSqlCoreHelper
     public bool IsConnected()
     {
         bool result = false;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            result = session.IsConnected;
-        });
-        if (!dbResult.IsOk) result = false;
+        ExecuteSelectCore(session => { result = session.IsConnected; });
         return result;
     }
 
@@ -306,173 +265,130 @@ public sealed class WsSqlCoreHelper
     public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
         ExecQueryNative(query, new List<SqlParameter> { parameter });
 
-    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        item.ClearNullProperties();
-        item.CreateDt = DateTime.Now;
-        item.ChangeDt = DateTime.Now;
-        
-        switch (sessionType)
-        {
-            case WsSqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Save(item));
-                break;
-            case WsSqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.SaveAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
-    public void Save<T>(T? item, WsSqlFieldIdentityModel? identity, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) 
-        where T : WsSqlTableBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        item.ClearNullProperties();
-        item.CreateDt = DateTime.Now;
-        item.ChangeDt = DateTime.Now;
-
-        object? id = identity?.GetValueAsObjectNullable();
-        if (Equals(identity?.Name, WsSqlEnumFieldIdentity.Uid) && Equals(id, Guid.Empty))
-            id = Guid.NewGuid();
-        
-        switch (sessionType)
-        {
-            case WsSqlEnumSessionType.Isolated:
-                if (id is null)
-                    ExecuteTransactionCore(session => session.Save(item));
-                else
-                    ExecuteTransactionCore(session => session.Save(item, id));
-                break;
-            case WsSqlEnumSessionType.IsolatedAsync:
-                if (id is null)
-                    ExecuteTransactionCore(session => session.SaveAsync(item));
-                else
-                    ExecuteTransactionCore(session => session.SaveAsync(item, id));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
-    public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        item.ClearNullProperties();
-        item.ChangeDt = DateTime.Now;
-
-        switch (sessionType)
-        {
-            case WsSqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Update(item));
-                break;
-            case WsSqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.UpdateAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
-    public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        switch (sessionType)
-        {
-            case WsSqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Delete(item));
-                break;
-            case WsSqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.DeleteAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-        
-    }
-
-    public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        item.IsMarked = !item.IsMarked;
-
-        switch (sessionType)
-        {
-            case WsSqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Update(item));
-                break;
-            case WsSqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.UpdateAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
     #endregion
+    
+    #region CRUD
+
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+{
+    if (item is null) throw new ArgumentException();
+
+    item.ClearNullProperties();
+    item.CreateDt = DateTime.Now;
+    item.ChangeDt = DateTime.Now;
+    
+    switch (sessionType)
+    {
+        case WsSqlEnumSessionType.Isolated:
+            ExecuteTransactionCore(session => session.Save(item));
+            break;
+        case WsSqlEnumSessionType.IsolatedAsync:
+            ExecuteTransactionCore(session => session.SaveAsync(item));
+            break;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+    }
+}
+
+public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+{
+    if (item is null) throw new ArgumentException();
+
+    item.ClearNullProperties();
+    item.ChangeDt = DateTime.Now;
+
+    switch (sessionType)
+    {
+        case WsSqlEnumSessionType.Isolated:
+            ExecuteTransactionCore(session => session.Update(item));
+            break;
+        case WsSqlEnumSessionType.IsolatedAsync:
+            ExecuteTransactionCore(session => session.UpdateAsync(item));
+            break;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+    }
+}
+
+public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+{
+    if (item is null) throw new ArgumentException();
+
+    switch (sessionType)
+    {
+        case WsSqlEnumSessionType.Isolated:
+            ExecuteTransactionCore(session => session.Delete(item));
+            break;
+        case WsSqlEnumSessionType.IsolatedAsync:
+            ExecuteTransactionCore(session => session.DeleteAsync(item));
+            break;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+    }
+    
+}
+
+public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+{
+    if (item is null) throw new ArgumentException();
+
+    item.IsMarked = !item.IsMarked;
+
+    switch (sessionType)
+    {
+        case WsSqlEnumSessionType.Isolated:
+            ExecuteTransactionCore(session => session.Update(item));
+            break;
+        case WsSqlEnumSessionType.IsolatedAsync:
+            ExecuteTransactionCore(session => session.UpdateAsync(item));
+            break;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+    }
+}
+
+#endregion
     
     #region Public and private methods - GetItem
 
-    private T? GetItemNullableByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         T? item = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
         });
-        return !dbResult.IsOk ? null : item;
+        return item ?? GetItemNewEmpty<T>();;
     }
     
-    private T? GetItemNullableByUid<T>(Guid? uid) where T : WsSqlTableBase, new()
+    public T GetItemByUid<T>(Guid uid) where T : WsSqlTableBase, new()
     {
-        if (uid == null) 
-            return null;
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueUid),  uid));
-        return GetItemNullableByCrud<T>(sqlCrudConfig);
+        return GetItemByCrud<T>(sqlCrudConfig);
     }
-    
-    private T? GetItemNullableById<T>(long? id) where T : WsSqlTableBase, new()
-    {
-        if (id == null) return new();
+
+    public T GetItemById<T>(long id) where T : WsSqlTableBase, new() {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueId),  id));
-        return GetItemNullableByCrud<T>(sqlCrudConfig);
+        return GetItemByCrud<T>(sqlCrudConfig);
     }
 
-    private T? GetItemNullableByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() =>
-        identity?.Name switch
+    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() {
+        return identity?.Name switch
         {
-            WsSqlEnumFieldIdentity.Uid => GetItemNullableByUid<T>(identity.Uid),
-            WsSqlEnumFieldIdentity.Id => GetItemNullableById<T>(identity.Id),
-            _ => null
+            WsSqlEnumFieldIdentity.Uid => GetItemByUid<T>(identity.Uid),
+            WsSqlEnumFieldIdentity.Id => GetItemById<T>(identity.Id),
+            _ => GetItemNewEmpty<T>()
         };
-
-    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
-        GetItemNullableByCrud<T>(sqlCrudConfig) ?? GetItemNewEmpty<T>();
-
-    public T GetItemByUid<T>(Guid? uid) where T : WsSqlTableBase, new() => 
-        GetItemNullableByUid<T>(uid) ?? GetItemNewEmpty<T>();
-
-    public T GetItemById<T>(long? id) where T : WsSqlTableBase, new() => 
-        GetItemNullableById<T>(id) ?? GetItemNewEmpty<T>();
-
-    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() => 
-        GetItemNullableByIdentity<T>(identity) ?? GetItemNewEmpty<T>();
+    }
 
     public T GetItemFirst<T>() where T : WsSqlTableBase, new()
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.SelectTopRowsCount = 1;
-        T result = GetItemNullableByCrud<T>(sqlCrudConfig) ?? new T();
+        T result = GetItemByCrud<T>(sqlCrudConfig);
         result.FillProperties();
         return result;
     }
@@ -486,176 +402,52 @@ public sealed class WsSqlCoreHelper
 
     #endregion
 
-    #region Public and private methods - Enumerable
+    #region Public and private methods - GetList
 
-    public IEnumerable<T>? GetEnumerableNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
-        IEnumerable<T>? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        List<T> items = new();
+        ExecuteSelectCore(session =>
         {
-            items = GetCriteria<T>(session, sqlCrudConfig).List<T>();
+            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            items.AddRange(criteria.List<T>());
         });
-        if (!dbResult.IsOk)
-            items = null;
         return items;
     }
 
-    public async Task<IEnumerable<T>?> GetEnumerableNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
-        IEnumerable<T>? items = null;
-        WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
-        {
-            items = await GetCriteria<T>(session, sqlCrudConfig).ListAsync<T>();
-        });
-        if (!dbResult.IsOk) items = null;
-        return items;
-    }
-
-    private IEnumerable<T>? GetEnumerableNullable<T>(int maxResults) where T : WsSqlTableBase, new()
-    {
-        IEnumerable<T>? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            items = GetCriteria<T>(session, maxResults).List<T>();
-        });
-        if (!dbResult.IsOk) items = null;
-        return items;
-    }
-
-    private async Task<IEnumerable<T>?> GetEnumerableNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        IEnumerable<T>? items = null;
-        WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
-        {
-            ICriteria criteria = GetCriteria<T>(session, maxResults);
-            items = await criteria.ListAsync<T>();
-        });
-        if (!dbResult.IsOk) items = null;
-        return items;
-    }
-
-    private IList<T>? GetListNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
-    {
-        IList<T>? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        IEnumerable<T> items = Enumerable.Empty<T>();
+        ExecuteSelectCore(session =>
         {
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             items = criteria.List<T>();
         });
-        if (!dbResult.IsOk)
-            items = null;
         return items;
     }
-
-    private IList<T>? GetListNullable<T>(int maxResults) where T : WsSqlTableBase, new()
+    
+    public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter>? parameters = null)
     {
-        IList<T>? items = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            items =  GetCriteria<T>(session, maxResults).List<T>();
-        });
-        if (!dbResult.IsOk) items = null;
-        return items;
-    }
-
-    private async Task<IList<T>?> GetListNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        IList<T>? items = null;
-        WsSqlCrudResultModel dbResult = await ExecuteSelectCoreAsync(async session =>
-        {
-            items = await GetCriteria<T>(session, maxResults).ListAsync<T>();
-        });
-        if (!dbResult.IsOk) items = null;
-        return items;
-    }
-
-    private IEnumerable<T>? GetNativeArrayNullable<T>(string query, IList<SqlParameter> parameters) 
-        where T : WsSqlTableBase, new()
-    {
-        IEnumerable<T>? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
+        parameters ??= new();
+        object[] result = Array.Empty<object>();
+        ExecuteSelectCore(session =>
         {
             ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is not null) result = sqlQuery.List<T>();
-        });
-        if (!dbResult.IsOk) result = null;
-        return result;
-    }
-
-    public T? GetNativeItemNullable<T>(string query, IList<SqlParameter> parameters) where T : WsSqlTableBase, new()
-    {
-        T? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is not null)
+            if (sqlQuery is null)
+                return;
+            
+            IList? listEntities = sqlQuery.List();
+            result = new object[listEntities.Count];
+            for (int i = 0; i < result.Length; i++)
             {
-                //sqlQuery.AddEntity(typeof(T));
-                IList<T>? list = sqlQuery.List<T>();
-                result = list.First();
+                if (listEntities[i] is object[] records)
+                    result[i] = records;
+                else
+                    result[i] = listEntities[i];
             }
         });
-        if (!dbResult.IsOk) result = null;
         return result;
     }
-
-    private object[]? GetNativeArrayObjectsNullable(string query, IList<SqlParameter> parameters)
-    {
-        object[]? result = null;
-        WsSqlCrudResultModel dbResult = ExecuteSelectCore(session =>
-        {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is not null)
-            {
-                IList? listEntities = sqlQuery.List();
-                result = new object[listEntities.Count];
-                for (int i = 0; i < result.Length; i++)
-                {
-                    if (listEntities[i] is object[] records)
-                        result[i] = records;
-                    else
-                        result[i] = listEntities[i];
-                }
-            }
-        });
-        if (!dbResult.IsOk) result = null;
-        return result;
-    }
-
-    public object[] GetArrayObjectsNotNullable(string query) => GetArrayObjectsNotNullable(query, new());
-
-    private object[] GetArrayObjectsNotNullable(string query, List<SqlParameter> parameters) =>
-        GetNativeArrayObjectsNullable(query, parameters) ?? Array.Empty<object>();
-
-    public object[] GetArrayObjectsNotNullable(WsSqlCrudConfigModel sqlCrudConfig) =>
-        GetNativeArrayObjectsNullable(sqlCrudConfig.NativeQuery, sqlCrudConfig.NativeParameters) ?? Array.Empty<object>();
-
-    #endregion
-
-    #region Public and private methods - GetList
-
-    public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
-        GetEnumerableNullable<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
-
-    public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() => 
-        await GetEnumerableNullableAsync<T>(sqlCrudConfig) ?? Enumerable.Empty<T>();
-
-    public IEnumerable<T> GetEnumerableNotNullable<T>(int maxResults) where T : WsSqlTableBase, new() => 
-        GetEnumerableNullable<T>(maxResults) ?? Enumerable.Empty<T>();
-
-    public async Task<IEnumerable<T>> GetEnumerableNotNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new() => 
-        await GetEnumerableNullableAsync<T>(maxResults) ?? Enumerable.Empty<T>();
-
-    public IList<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new() =>
-        GetListNullable<T>(sqlCrudConfig) ?? new List<T>();
-
-    public IList<T> GetListNotNullable<T>(int maxResults) where T : WsSqlTableBase, new() => 
-        GetListNullable<T>(maxResults) ?? new List<T>();
-
-    public async Task<IList<T>> GetListNotNullableAsync<T>(int maxResults) where T : WsSqlTableBase, new() => 
-        await GetListNullableAsync<T>(maxResults) ?? new List<T>();
-
+    
     #endregion
 }

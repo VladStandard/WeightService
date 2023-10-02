@@ -15,9 +15,6 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerableNotNullable<WsSqlLogModel>(sqlCrudConfig);
     }
-    
-    public async Task<IEnumerable<WsSqlLogModel>> GetEnumerableAsync(int maxResults) => 
-        await SqlCore.GetEnumerableNotNullableAsync<WsSqlLogModel>(maxResults);
 
     public IList<WsSqlLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
@@ -26,7 +23,4 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetListNotNullable<WsSqlLogModel>(sqlCrudConfig);
     }
-    
-    public async Task<IList<WsSqlLogModel>> GetListAsync(int maxResults) => 
-        await SqlCore.GetListNotNullableAsync<WsSqlLogModel>(maxResults);
 }
