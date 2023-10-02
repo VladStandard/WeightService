@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableDiagModels.LogsTypes;
 
 public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel>

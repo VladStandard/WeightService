@@ -27,10 +27,10 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(Device)" Text="@WsLocaleCore.Table.Host"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Device)" Text="@WsLocaleCore.Table.Host"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@Device" Data="@HostModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.Device" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
       <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
@@ -52,25 +52,12 @@
     </td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.DeviceReceiveTimeout</td>
-    <td>
-      <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceReceiveTimeout"/>
-    </td>
-
-    <td>@WsLocaleCore.Table.DeviceSendTimeout</td>
-    <td>
-      <RzNumeric Min="0" @bind-Value="@SqlItemCast.DeviceSendTimeout"/>
-    </td>
-  </tr>
-  <tr>
     <td>@WsLocaleCore.Table.DeviceNumber</td>
     <td>
       <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
-    <td>@WsLocaleCore.Table.ScaleFactor</td>
-    <td>
-      <RzNumeric @bind-Value="@SqlItemCast.ScaleFactor"/>
-    </td>
+    <td></td>
+    <td></td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>

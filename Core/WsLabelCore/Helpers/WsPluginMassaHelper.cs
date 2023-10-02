@@ -76,9 +76,7 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
         {
             if (LabelSession.Line.IsExists)
             {
-                MassaDevice.Init(LabelSession.Line.DeviceComPort,
-                    LabelSession.Line.DeviceReceiveTimeout,
-                    LabelSession.Line.DeviceSendTimeout, GetData);
+                MassaDevice.Init(LabelSession.Line.DeviceComPort, GetData);
             }
             SetControlsTextDefault();
         });

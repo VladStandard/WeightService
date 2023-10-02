@@ -5,8 +5,7 @@ namespace DeviceControl.Pages.Menu.Devices.Lines;
 public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
-
-    private WsSqlDeviceModel Device { get; set; }
+    
     private List<WsEnumTypeModel<string>> ComPorts { get; set; }
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
     private List<WsSqlDeviceModel> HostModels { get; set; }
@@ -15,7 +14,6 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
     public ItemLines() : base()
     {
         ComPorts = new();
-        Device = new();
         HostModels = new();
         PrinterModels = new();
         WorkShopModels = new();

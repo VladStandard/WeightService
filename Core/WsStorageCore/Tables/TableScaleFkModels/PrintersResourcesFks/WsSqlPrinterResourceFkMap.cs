@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 
 public sealed class WsSqlPrinterResourceFkMap : ClassMap<WsSqlPrinterResourceFkModel>

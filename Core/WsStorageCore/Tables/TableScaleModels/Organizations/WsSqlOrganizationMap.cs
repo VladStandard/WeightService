@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Organizations;
 
 public sealed class WsSqlOrganizationMap : ClassMap<WsSqlOrganizationModel>

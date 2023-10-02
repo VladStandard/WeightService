@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.PrintersTypes;
 
 public sealed class WsSqlPrinterTypeMap : ClassMap<WsSqlPrinterTypeModel>

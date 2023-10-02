@@ -7,20 +7,20 @@ public static class WsSqlFieldTypeUtils
 {
     #region Public and private fields, properties, constructor
 
-    public static string Bit => "BIT";
-    public static string Date => "DATE";
-    public static string DateTime => "DATETIME";
-    public static string DateTime27 => "DATETIME(2,7)";
-    public static string Decimal => "DECIMAL";
-    public static string Decimal103 => "DECIMAL(10,3)";
-    public static string Int => "INT";
-    public static string NvarChar => "NVARCHAR";
-    public static string SmallInt => "SMALLINT";
-    public static string TinyInt => "TINYINT";
-    public static string UniqueIdentifier => "UNIQUEIDENTIFIER";
-    public static string VarBinary => "VARBINARY";
-    public static string VarChar => "VARCHAR";
-    public static string Xml => "XML";
+    public const string Bit = "BIT";
+    public const string Date = "DATE";
+    public const string DateTime = "DATETIME";
+    public const string DateTime27 = "DATETIME(2,7)";
+    public const string Decimal = "DECIMAL";
+    public const string Decimal103 = "DECIMAL(10,3)";
+    public const string Int = "INT";
+    public const string NvarChar = "NVARCHAR";
+    public const string SmallInt = "SMALLINT";
+    public const string TinyInt = "TINYINT";
+    public const string UniqueIdentifier = "UNIQUEIDENTIFIER";
+    public const string VarBinary = "VARBINARY";
+    public const string VarChar = "VARCHAR";
+    public const string Xml = "XML";
 
     #endregion
 }

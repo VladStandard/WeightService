@@ -1,3 +1,4 @@
+using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Tables.TableRef1cModels.Brands;
 
 public sealed class WsSqlBrandMap : ClassMap<WsSqlBrandModel>

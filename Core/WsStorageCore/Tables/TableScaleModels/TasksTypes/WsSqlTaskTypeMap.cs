@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.TasksTypes;
 
 public sealed class WsSqlTaskTypeMap : ClassMap<WsSqlTaskTypeModel>

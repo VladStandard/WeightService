@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 
 public sealed class WsSqlPluStorageMethodMap : ClassMap<WsSqlPluStorageMethodModel>

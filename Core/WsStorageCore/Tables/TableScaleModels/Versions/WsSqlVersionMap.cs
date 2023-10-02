@@ -1,3 +1,4 @@
+using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Tables.TableScaleModels.Versions;
 
 /// <summary>

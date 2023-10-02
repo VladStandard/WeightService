@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.PlusLabels;
 
 public sealed class WsSqlPluLabelMap : ClassMap<WsSqlPluLabelModel>

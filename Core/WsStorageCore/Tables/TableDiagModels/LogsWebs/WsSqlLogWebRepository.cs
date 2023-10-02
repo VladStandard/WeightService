@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebs;
 
 public class WsSqlLogWebRepository: WsSqlTableRepositoryBase<WsSqlLogWebModel>

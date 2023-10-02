@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.OrdersWeighings;
 
 public sealed class WsSqlOrderWeighingMap : ClassMap<WsSqlOrderWeighingModel>

@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 
 public sealed class WsSqlDeviceTypeFkMap : ClassMap<WsSqlDeviceTypeFkModel>

@@ -37,12 +37,12 @@ public class WsMassaDeviceHelper : WsBaseHelper
 		_massaResponseCallback = _ => { };
     }
 
-    public void Init(string portName, short? readTimeout, short? writeTimeout, MassaResponseCallback massaCallback)
+    public void Init(string portName,  MassaResponseCallback massaCallback)
 	{
 		base.Init();
 		PortName = portName;
-		ReadTimeout = readTimeout ?? 0_100;
-		WriteTimeout = writeTimeout ?? 0_100;
+		ReadTimeout = 0_100;
+		WriteTimeout = 0_100;
 		_massaResponseCallback = massaCallback;
 		SerialPort = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
 		IsOpenResult = false;

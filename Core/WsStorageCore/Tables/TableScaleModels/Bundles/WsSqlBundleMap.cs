@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Bundles;
 
 public sealed class WsSqlBundleMap : ClassMap<WsSqlBundleModel>

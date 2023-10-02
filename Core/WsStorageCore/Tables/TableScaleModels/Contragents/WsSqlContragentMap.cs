@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Contragents;
 
 public sealed class WsSqlContragentMap : ClassMap<WsSqlContragentModel>

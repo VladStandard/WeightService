@@ -1,3 +1,4 @@
+using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 
 public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSqlPluNestingFkModel>

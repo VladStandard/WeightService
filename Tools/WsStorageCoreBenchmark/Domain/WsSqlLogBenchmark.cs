@@ -1,4 +1,3 @@
-using System.Diagnostics;
 namespace WsStorageCoreBenchmark.Domain;
 
 public class WsSqlLogBenchmark : WsBenchmarkBase
@@ -69,16 +68,6 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [Benchmark]
     [InvocationCount(5)]
     [IterationCount(1)]
-    public void GetEnumerable()
-    {
-        IEnumerable<WsSqlLogModel> items = LogRepository.GetEnumerable(CountRecords);
-        if (!items.Any())
-            Console.WriteLine("GetEnumerable: no items!");
-    }
-
-    [Benchmark]
-    [InvocationCount(5)]
-    [IterationCount(1)]
     public void GetEnumerableAsync()
     {
         _ = Task.Run(async () =>
@@ -87,16 +76,6 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
             if (!items.Any())
                 Console.WriteLine("GetEnumerableAsync: no items!");
         }).ConfigureAwait(true);
-    }
-
-    [Benchmark]
-    [InvocationCount(5)]
-    [IterationCount(1)]
-    public void GetList()
-    {
-        IList<WsSqlLogModel> items = LogRepository.GetList(CountRecords);
-        if (!items.Any())
-            Console.WriteLine("GetEnumerable: no items!");
     }
 
     [Benchmark]

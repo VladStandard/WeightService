@@ -3,7 +3,7 @@ namespace WsStorageCore.WebApiModels.BarCodes;
 /// <summary>
 /// Barcode down entity.
 /// </summary>
-[XmlRoot(WsWebConstants.BarcodeRight, Namespace = "", IsNullable = false)]
+[XmlRoot("BarcodeRight", Namespace = "", IsNullable = false)]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlBarcodeRightModel : SerializeBase
 {

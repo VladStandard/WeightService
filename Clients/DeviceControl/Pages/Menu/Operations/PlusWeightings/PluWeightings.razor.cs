@@ -8,7 +8,7 @@ public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingMod
     
     public PluWeightings() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
 
     #endregion

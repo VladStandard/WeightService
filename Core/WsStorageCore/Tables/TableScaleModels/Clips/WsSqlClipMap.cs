@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Clips;
 
 public sealed class WsSqlClipMap : ClassMap<WsSqlClipModel>

@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 
 /// <summary>

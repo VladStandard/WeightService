@@ -8,7 +8,7 @@ public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
     
     public BarCodes() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
 
     #endregion

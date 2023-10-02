@@ -8,7 +8,7 @@ public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
     
     public PlusLabels() : base()
     {
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
     }
 
     #endregion

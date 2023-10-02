@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Templates;
 
 public sealed class WsSqlTemplateMap : ClassMap<WsSqlTemplateModel>

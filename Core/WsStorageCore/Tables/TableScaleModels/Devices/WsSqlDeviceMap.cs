@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.Devices;
 
 public sealed class WsSqlDeviceMap : ClassMap<WsSqlDeviceModel>

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Utils;
+﻿namespace WsStorageCore.OrmUtils;
 
 public static class SqlOrder
 {

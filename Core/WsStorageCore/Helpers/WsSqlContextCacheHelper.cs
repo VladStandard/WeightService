@@ -1,4 +1,4 @@
-using WsStorageCore.Tables.TableRef1cModels.Brands;
+using WsStorageCore.OrmUtils;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 
@@ -25,7 +25,6 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlViewPluStorageMethodRepository ViewPluStorageMethodRepository { get; } = new();
     private WsSqlViewTableSizeRepository ViewTableSizeRepository { get; } = new();
     private WsSqlBoxRepository BoxRepository { get; } = new();
-    private WsSqlBrandRepository BrandRepository { get; } = new();
     private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
     private WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     private WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
@@ -33,8 +32,6 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlLineRepository LineRepository  { get; } = new();
     private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
     private WsSqlClipRepository ClipRepository { get; } = new();
-    //private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
-    //private WsSqlDeviceSettingsFkRepository DeviceSettingFkRepository { get; } = new();
     private WsSqlPluRepository PluRepository { get; } = new();
     private WsSqlPluFkRepository PluFkRepository { get; } = new();
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
@@ -98,15 +95,7 @@ public sealed class WsSqlContextCacheHelper
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Clips));
         if (Clips.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Clips.Count))
             Clips = ClipRepository.GetEnumerable(SqlCrudConfig).ToList();
-
-        //table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettings));
-        //if (DeviceSettings.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettings.Count))
-        //    DeviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
-
-        //table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.DeviceSettingsFks));
-        //if (DeviceSettingsFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)DeviceSettingsFks.Count))
-        //    DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
-
+        
         table = tableSize.Find(item => item.Table.Equals(WsSqlTablesUtils.Plus1CFks));
         if (Plus1CFks.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Plus1CFks.Count))
             Plus1CFks = Plu1CRepository.GetEnumerable(SqlCrudConfig).ToList();
@@ -252,8 +241,6 @@ public sealed class WsSqlContextCacheHelper
         Boxes.Clear();
         Bundles.Clear();
         Clips.Clear();
-        //DeviceSettings.Clear();
-        //DeviceSettingsFks.Clear();
         Lines.Clear();
         Plus.Clear();
         Plus1CFks.Clear();
@@ -261,7 +248,6 @@ public sealed class WsSqlContextCacheHelper
         PlusFks.Clear();
         PlusNestingFks.Clear();
         WorkShops.Clear();
-        // Представления.
         ViewPlusLines.Clear();
         ViewPlusNesting.Clear();
         ViewPlusStorageMethods.Clear();
@@ -292,12 +278,6 @@ public sealed class WsSqlContextCacheHelper
             case WsSqlEnumTableName.Clips:
                 Clips.Clear();
                 break;
-            //case WsSqlEnumTableName.DeviceSettings:
-            //    DeviceSettings.Clear();
-            //    break;
-            //case WsSqlEnumTableName.DeviceSettingsFks:
-            //    DeviceSettingsFks.Clear();
-            //    break;
             case WsSqlEnumTableName.Lines:
                 Lines.Clear();
                 break;

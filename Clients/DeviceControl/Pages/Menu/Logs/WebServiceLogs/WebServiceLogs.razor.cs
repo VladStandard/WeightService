@@ -12,7 +12,8 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebModel>
     {
         IsGuiShowFilterMarked = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        ButtonSettings = ButtonSettingsModel.CreateForStaticSection();
+        ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
+        
     }
 
     #endregion

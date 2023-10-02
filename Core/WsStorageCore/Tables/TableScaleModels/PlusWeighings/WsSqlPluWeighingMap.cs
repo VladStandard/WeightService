@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 
 public sealed class WsSqlPluWeighingMap : ClassMap<WsSqlPluWeighingModel>

@@ -1,4 +1,4 @@
-﻿namespace WsStorageCore.Utils;
+﻿namespace WsStorageCore.OrmUtils;
 
 public static class SqlRestrictions
 {
@@ -6,16 +6,18 @@ public static class SqlRestrictions
 
     public static ICriterion Equal(string propertyName, object value) => Restrictions.Eq(propertyName, value);
     
-    public static ICriterion EqualFk(string propertyName, WsSqlTableBase item) =>
-        item.Identity.Name switch
+    public static ICriterion EqualFk(string propertyName, WsSqlTableBase item)
+    {
+        return item.Identity.Name switch
         {
-            WsSqlEnumFieldIdentity.Uid => 
-                Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}", item.Identity.Uid),
-            WsSqlEnumFieldIdentity.Id => 
-                Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueId)}", item.Identity.Id),
+            WsSqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}",
+            item.Identity.Uid),
+            WsSqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueId)}",
+            item.Identity.Id),
             _ => throw new ArgumentException("Unsupported field identity.")
         };
-    
+    }
+
     public static ICriterion NotEqual(string propertyName, object value) => 
         Restrictions.Not(Restrictions.Eq(propertyName, value));
     

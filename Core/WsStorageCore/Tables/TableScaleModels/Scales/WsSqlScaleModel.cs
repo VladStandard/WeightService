@@ -16,18 +16,13 @@ public class WsSqlScaleModel : WsSqlTableBase
     public virtual WsSqlPrinterModel? PrinterMain { get; set; }
     public virtual WsSqlPrinterModel? PrinterShipping { get; set; }
     public virtual byte ShippingLength { get; set; }
-    public virtual short? DeviceSendTimeout { get; set; }
-    public virtual short? DeviceReceiveTimeout { get; set; }
     public virtual string DeviceComPort { get; set; } = "";
-    public virtual string ZebraIp { get; set; } = "";
-    public virtual short? ZebraPort { get; set; }
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
     
     private int _labelCounter;
     
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
-    public virtual int? ScaleFactor { get; set; }
     public virtual bool IsShipping { get; set; }
     public virtual bool IsOrder { get; set; }
     public virtual bool IsKneading { get; set; } = true;
@@ -49,15 +44,10 @@ public class WsSqlScaleModel : WsSqlTableBase
         IsShipping = item.IsShipping;
         IsKneading = item.IsKneading;
         ShippingLength = item.ShippingLength;
-        DeviceSendTimeout = item.DeviceSendTimeout;
-        DeviceReceiveTimeout = item.DeviceReceiveTimeout;
         DeviceComPort = item.DeviceComPort;
-        ZebraIp = item.ZebraIp;
-        ZebraPort = item.ZebraPort;
         IsOrder = item.IsOrder;
         Number = item.Number;
         LabelCounter = item.LabelCounter;
-        ScaleFactor = item.ScaleFactor;
     }
 
     #endregion
@@ -80,15 +70,10 @@ public class WsSqlScaleModel : WsSqlTableBase
 
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
-        Equals(DeviceSendTimeout, null) &&
-        Equals(DeviceReceiveTimeout, null) &&
         Equals(DeviceComPort, string.Empty) &&
-        Equals(ZebraIp, string.Empty) &&
-        Equals(ZebraPort, null) &&
         Equals(IsOrder, false) &&
         Equals(Number, 0) &&
         Equals(LabelCounter, 0) &&
-        Equals(ScaleFactor, null) &&
         Equals(IsShipping, false) &&
         Equals(IsKneading, false) &&
         Equals(ShippingLength, (byte)0) && 
@@ -112,7 +97,6 @@ public class WsSqlScaleModel : WsSqlTableBase
         PrinterMain?.FillProperties();
         PrinterShipping?.FillProperties();
         Device.FillProperties();
-        ScaleFactor = 1000;
         DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
 
@@ -122,15 +106,10 @@ public class WsSqlScaleModel : WsSqlTableBase
 
     public virtual bool Equals(WsSqlScaleModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
-        Equals(DeviceSendTimeout, item.DeviceSendTimeout) &&
-        Equals(DeviceReceiveTimeout, item.DeviceReceiveTimeout) &&
         Equals(DeviceComPort, item.DeviceComPort) &&
-        Equals(ZebraIp, item.ZebraIp) &&
-        Equals(ZebraPort, item.ZebraPort) &&
         Equals(IsOrder, item.IsOrder) &&
         Equals(Number, item.Number) &&
         Equals(LabelCounter, item.LabelCounter) &&
-        Equals(ScaleFactor, item.ScaleFactor) &&
         Equals(IsShipping, item.IsShipping) &&
         Equals(IsKneading, item.IsKneading) &&
         ShippingLength.Equals(item.ShippingLength) &&

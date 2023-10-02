@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
+﻿using WsStorageCore.OrmUtils;
+namespace WsStorageCoreTests.Tables.TableScaleModels.ProductSeries;
 
 [TestFixture]
 public sealed class ProductSeriesRepositoryTests : TableRepositoryTests

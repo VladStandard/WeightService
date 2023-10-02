@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableDiagModels.LogsWebs;
 
 public sealed class WsSqlLogWebMap : ClassMap<WsSqlLogWebModel>

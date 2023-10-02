@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 
 public sealed class WsSqlPluFkMap : ClassMap<WsSqlPluFkModel>

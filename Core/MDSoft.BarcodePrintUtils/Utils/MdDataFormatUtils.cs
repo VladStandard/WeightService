@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace MDSoft.BarcodePrintUtils.Utils;
 
 #nullable enable

@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableRefModels.Plus1CFk;
 
 public sealed class WsSqlPlu1CFkMap : ClassMap<WsSqlPlu1CFkModel>

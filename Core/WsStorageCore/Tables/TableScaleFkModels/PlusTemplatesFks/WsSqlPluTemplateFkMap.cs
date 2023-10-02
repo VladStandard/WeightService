@@ -1,3 +1,5 @@
+using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
 
 public sealed class WsSqlPluTemplateFkMap : ClassMap<WsSqlPluTemplateFkModel>

@@ -1,3 +1,4 @@
+using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Tables.TableScaleModels.Apps;
 
 public sealed class WsSqlAppMap : ClassMap<WsSqlAppModel>
