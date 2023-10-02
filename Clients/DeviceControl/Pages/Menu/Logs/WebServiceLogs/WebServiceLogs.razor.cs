@@ -6,8 +6,6 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebModel>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewWebLogRepository ViewWebLogRepository { get; } = new();
-
     public WebServiceLogs() : base()
     {
         IsGuiShowFilterMarked = false;

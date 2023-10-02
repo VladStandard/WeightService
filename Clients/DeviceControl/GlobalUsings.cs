@@ -60,4 +60,3 @@ global using WsStorageCore.Views.ViewScaleModels.Devices;
 global using WsStorageCore.Views.ViewScaleModels.Logs;
 global using WsStorageCore.Views.ViewScaleModels.PluLabels;
 global using WsStorageCore.Views.ViewScaleModels.PluWeightings;
-global using WsStorageCore.Views.ViewScaleModels.WebLogs;
