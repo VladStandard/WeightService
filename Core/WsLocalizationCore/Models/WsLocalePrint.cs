@@ -13,7 +13,7 @@ public sealed class WsLocalePrint : WsLocalizationBase
     public string DeviceCheckConnect => Lang == WsEnumLanguage.English ? "Check the device connection." : "Проверьте подключение устройства.";
     public string DeviceCommunication => Lang == WsEnumLanguage.English ? "Communication with the printer" : "Связь с принтером";
     public string DeviceIsUnavailable => Lang == WsEnumLanguage.English ? "Printer is unavailable!" : "Принтер не доступен!";
-    public string DeviceMainCheckStatus => Lang == WsEnumLanguage.English ? "Check the main printer status!" : "Проверьте состояние основного принтера!";
+    public string DeviceMainCheckStatus => Lang == WsEnumLanguage.English ? "Check the main printer status!" : "Основной принтер:";
     public string DeviceMainIsUnavailable => Lang == WsEnumLanguage.English ? "Main printer is unavailable!" : "Основной принтер не доступен!";
     public string DeviceName => Lang == WsEnumLanguage.English ? "Printer name" : "Имя принтера";
     public string DeviceNameIsUnavailable => Lang == WsEnumLanguage.English ? "Device is unavailable" : "Устройство не доступно";

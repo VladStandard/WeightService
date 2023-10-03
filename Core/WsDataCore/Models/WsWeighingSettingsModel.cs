@@ -66,9 +66,6 @@ public sealed class WsWeighingSettingsModel
     /// <summary>
     /// Получить наименование принтера.
     /// </summary>
-    /// <param name="isMain"></param>
-    /// <param name="printBrand"></param>
-    /// <returns></returns>
     private string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
         ? printBrand switch
         {
@@ -86,10 +83,8 @@ public sealed class WsWeighingSettingsModel
     public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer,
         bool isConnected, int scaleCounter, string deviceStatus, int labelPrintedCount, byte labelCount) =>
         $"{GetPrintName(isMain, printBrand)} {printer.Name} | {printer.Ip} | " +
-        //$"{LocaleCore.Table.Status}: {MdNetUtils.GetPingStatus(printer.PingStatus)} | " +
         $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
-        //$"{deviceStatus} | " +
         $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";
 
     #endregion

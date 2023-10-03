@@ -94,9 +94,7 @@ public class TscPrintProperties
     public ushort FeedMm { get; set; }
 
     #endregion
-
-    #region Public and private methods
-
+    
     public void Setup(WsEnumPrintLabelSize size)
     {
         switch (size)
@@ -118,16 +116,8 @@ public class TscPrintProperties
                 Height = 100.0;
                 break;
             case WsEnumPrintLabelSize.Size80x100:
-                //if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
-                //{
                 Width = 83.00;
                 Height = 101.50;
-                //}
-                //else
-                //{
-                //	Width = 83.00;
-                //	Height = 101.50;
-                //}
                 break;
             case WsEnumPrintLabelSize.Size100x100:
                 Width = 100.0;
@@ -146,6 +136,4 @@ public class TscPrintProperties
         Vertical = VerticalDefault;
         Offset = OffsetDefault;
     }
-
-    #endregion
 }

@@ -5,9 +5,9 @@ namespace WsPrintCore.Zpl;
 public static class ZplUtils
 {
     #region Public and private methods
-    
-    const string _blockFhFd = "^FH^FD";  // ^FH^FD -- Field Hexadecimal Indicator & Field Data
-    const string _blockFs = "^FS";       // ^FS -- Field Separator
+
+    private const string BlockFhFd = "^FH^FD";
+    private const string BlockFs = "^FS";
 
     public static string ConvertStringToHex(string zpl)
     {
@@ -18,26 +18,26 @@ public static class ZplUtils
         for (int i = 0; i < zpl.Length; i++)
         {
             // ^FH^FD -- Field Hexadecimal Indicator & Field Data
-            if (zpl.Length > i - 1 + _blockFhFd.Length)
+            if (zpl.Length > i - 1 + BlockFhFd.Length)
             {
-                if (zpl.Substring(i, _blockFhFd.Length) == _blockFhFd)
+                if (zpl.Substring(i, BlockFhFd.Length) == BlockFhFd)
                     dataBlockPosition = WsEnumDataBlockPosition.Start;
             }
             // Data between ^FH^FD and ^FS.
             if (dataBlockPosition == WsEnumDataBlockPosition.Start)
             {
-                if (i - _blockFhFd.Length > 0)
+                if (i - BlockFhFd.Length > 0)
                 {
-                    if (zpl.Substring(i - _blockFhFd.Length - 1, _blockFhFd.Length) == _blockFhFd)
+                    if (zpl.Substring(i - BlockFhFd.Length - 1, BlockFhFd.Length) == BlockFhFd)
                         dataBlockPosition = WsEnumDataBlockPosition.Between;
                 }
             }
             // ^FS -- Field Separator
-            if (dataBlockPosition == WsEnumDataBlockPosition.Start || dataBlockPosition == WsEnumDataBlockPosition.Between)
+            if (dataBlockPosition is WsEnumDataBlockPosition.Start or WsEnumDataBlockPosition.Between)
             {
-                if (zpl.Length > i - 1 + _blockFs.Length)
+                if (zpl.Length > i - 1 + BlockFs.Length)
                 {
-                    if (zpl.Substring(i, _blockFs.Length) == _blockFs)
+                    if (zpl.Substring(i, BlockFs.Length) == BlockFs)
                         dataBlockPosition = WsEnumDataBlockPosition.End;
                 }
             }

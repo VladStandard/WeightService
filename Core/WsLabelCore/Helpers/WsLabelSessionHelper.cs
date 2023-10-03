@@ -102,9 +102,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Настроить сессию для ПО `Печать этикеток`.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="lineId"></param>
-    /// <param name="area"></param>
     public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, 
         long lineId = -1, WsSqlProductionSiteModel? area = null)
     {
@@ -118,7 +115,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
             device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
                 device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
             // DeviceTypeFk.
-            WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);;
+            WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
             if (deviceTypeFk.IsNew)
             {
                 WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
@@ -176,7 +173,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     private void SetAreaByLineWorkShop()
     {
-        if (Line.WorkShop is null) return;
         WsSqlWorkShopModel workShop = ContextCache.WorkShops.Find(
             item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
         if (workShop.IsExists)

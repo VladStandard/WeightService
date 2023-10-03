@@ -18,8 +18,6 @@ public class TscDriverHelper
 
 	public WsEnumPrintTscDll TscDll { get; set; }
 	public TscPrintProperties Properties { get; } = new();
-	public string TextPrepare { get; set; }
-
 	public string Cmd { get; set; }
 
 	#endregion

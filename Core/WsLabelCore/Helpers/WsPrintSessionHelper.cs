@@ -33,8 +33,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Проверить подключение и готовность основного принтера TSC.
     /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
     public bool CheckPrintIsConnectAndReadyTscMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintTscMain is null) return false;
@@ -63,8 +61,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Проверить подключение и готовность основного принтера ZEBRA.
     /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
     public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraMain is null) return false;
@@ -154,8 +150,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки.
     /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <param name="isClearBuffer"></param>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
         // Заказ в разработке.
@@ -173,11 +167,9 @@ public sealed class WsPrintSessionHelper
         // Выбор типа ПЛУ.
         switch (LabelSession.PluLine.Plu.IsCheckWeight)
         {
-            // Весовая ПЛУ.
             case true:
                 PrintLabelCore(ref template, isClearBuffer, false);
                 break;
-            // Штучная ПЛУ.
             default:
                 PrintLabelCount(ref template, isClearBuffer);
                 break;
@@ -189,8 +181,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки штучной ПЛУ.
     /// </summary>
-    /// <param name="template"></param>
-    /// <param name="isClearBuffer"></param>
     private void PrintLabelCount(ref WsSqlTemplateModel template, bool isClearBuffer)
     {
         byte labelsCount = LabelSession.WeighingSettings.LabelsCountMain;
@@ -203,9 +193,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки ПЛУ.
     /// </summary>
-    /// <param name="template"></param>
-    /// <param name="isClearBuffer"></param>
-    /// <param name="isReloadTemplete"></param>
     private void PrintLabelCore(ref WsSqlTemplateModel template, bool isClearBuffer, bool isReloadTemplete)
     {
         try
@@ -270,8 +257,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Создать и сохранить этикетку из шаблона.
     /// </summary>
-    /// <param name="template"></param>
-    /// <returns></returns>
     private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
     {
         // Исправление времени продукции.

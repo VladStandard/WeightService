@@ -391,12 +391,12 @@ public partial class WsMainForm
                 if (!PrintSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
                     return;
             // Проверить подключение и готовность транспортного принтера.
-            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
-                if (!PrintSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
-                    return;
-            if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
-                if (!PrintSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
-                    return;
+            // if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
+            //     if (!PrintSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
+            //         return;
+            // if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
+            //     if (!PrintSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
+            //         return;
         }
 
         // Печать этикетки.

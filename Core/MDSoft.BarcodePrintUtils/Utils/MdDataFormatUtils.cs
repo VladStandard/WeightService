@@ -2,7 +2,6 @@ using WsStorageCore.OrmUtils;
 
 namespace MDSoft.BarcodePrintUtils.Utils;
 
-#nullable enable
 public static class MdDataFormatUtils
 {
     private static List<WsSqlTemplateResourceModel> _templateResources = new();
