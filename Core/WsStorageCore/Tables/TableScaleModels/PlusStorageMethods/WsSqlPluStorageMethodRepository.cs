@@ -8,6 +8,6 @@ public class WsSqlPluStorageMethodRepository : WsSqlTableRepositoryBase<WsSqlPlu
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluStorageMethodModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlPluStorageMethodModel>(sqlCrudConfig).ToList();
     }
 }

@@ -31,7 +31,7 @@ public sealed class WsSqlPluLineRepository : WsSqlTableRepositoryBase<WsSqlPluSc
     
     public List<WsSqlPluScaleModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlPluScaleModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluScaleModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluScaleModel> items = SqlCore.GetEnumerable<WsSqlPluScaleModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();

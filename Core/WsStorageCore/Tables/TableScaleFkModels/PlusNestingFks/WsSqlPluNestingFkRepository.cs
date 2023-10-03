@@ -18,14 +18,14 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
 
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluNestingFkModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
     
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUidActual(WsSqlPluModel plu)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlPluNestingFkModel.Plu), plu));
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluNestingFkModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlPluNestingFkModel>(sqlCrudConfig);
     }
 
     public WsSqlPluNestingFkModel GetByPluAndUid1C(WsSqlPluModel plu, Guid uid1C)

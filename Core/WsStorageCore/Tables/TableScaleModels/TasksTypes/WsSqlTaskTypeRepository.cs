@@ -8,6 +8,6 @@ public class WsSqlTaskTypeRepository : WsSqlTableRepositoryBase<WsSqlTaskTypeMod
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlTaskTypeModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlTaskTypeModel>(sqlCrudConfig).ToList();
     }
 }

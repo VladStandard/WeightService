@@ -9,7 +9,7 @@ public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
         List<WsSqlViewPluNestingModel> result = new();
         
         string query = WsSqlQueriesDiags.Views.GetViewPlusNesting32(pluNumber);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             if (obj is not object[] item || item.Length < 32) break;
@@ -33,7 +33,7 @@ public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
         if (!result.Any())
         {
             query = WsSqlQueriesDiags.Views.GetViewPlusNesting29(pluNumber);
-            objects = SqlCore.GetArrayObjectsNotNullable(query);
+            objects = SqlCore.GetArrayObjects(query);
             foreach (object obj in objects)
             {
                 if (obj is not object[] item || item.Length < 29) break;

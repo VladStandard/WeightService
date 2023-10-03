@@ -22,7 +22,7 @@ public sealed class WsSqlBundleRepository : WsSqlTableRepositoryBase<WsSqlBundle
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlBundleModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlBundleModel>(sqlCrudConfig);
     }
 
     #endregion

@@ -4,7 +4,7 @@ public class WsSqlOrderRepository : WsSqlTableRepositoryBase<WsSqlOrderModel>
 {
     public List<WsSqlOrderModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        return SqlCore.GetEnumerableNotNullable<WsSqlOrderModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlOrderModel>(sqlCrudConfig).ToList();
     }
 
 }

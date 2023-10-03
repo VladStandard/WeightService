@@ -67,13 +67,13 @@ public sealed class NomenclatureDirect : WsSqlSerializeBase
             {
                 while (reader.Read())
                 {
-                    Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                    Id = SqlConnect.GetValue<long>(reader, "ID");
                     Name = SqlConnect.GetValueAsString(reader, "Name");
-                    CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                    ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDt");
+                    CreateDate = SqlConnect.GetValue<DateTime>(reader, "CreateDate");
+                    ChangeDt = SqlConnect.GetValue<DateTime>(reader, "CreateDt");
                     RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                     Code = SqlConnect.GetValueAsString(reader, "Code");
-                    IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
+                    IsMarked = SqlConnect.GetValue<bool>(reader, "Marked");
                     NameFull = SqlConnect.GetValueAsString(reader, "NameFull");
                     Description = SqlConnect.GetValueAsString(reader, "Description");
                     Comment = SqlConnect.GetValueAsString(reader, "Comment");
@@ -128,7 +128,7 @@ SELECT @ID as ID";
             {
                 while (reader.Read())
                 {
-                    Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                    Id = SqlConnect.GetValue<long>(reader, "ID");
                 }
             }
             reader.Close();
@@ -152,13 +152,13 @@ SELECT @ID as ID";
 		        {
 			        NomenclatureDirect nomenclature = new()
 			        {
-				        Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+				        Id = SqlConnect.GetValue<int>(reader, "Id"),
 				        Name = SqlConnect.GetValueAsString(reader, "Name"),
-				        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-				        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDt"),
+				        CreateDate = SqlConnect.GetValue<DateTime>(reader, "CreateDate"),
+				        ChangeDt = SqlConnect.GetValue<DateTime>(reader, "CreateDt"),
 				        RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
 				        Code = SqlConnect.GetValueAsString(reader, "Code"),
-				        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
+				        IsMarked = SqlConnect.GetValue<bool>(reader, "Marked"),
 				        NameFull = SqlConnect.GetValueAsString(reader, "NameFull"),
 				        Description = SqlConnect.GetValueAsString(reader, "Description"),
 				        Comment = SqlConnect.GetValueAsString(reader, "Comment"),

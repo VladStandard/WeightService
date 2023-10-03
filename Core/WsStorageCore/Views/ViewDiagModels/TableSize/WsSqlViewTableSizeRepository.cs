@@ -8,7 +8,7 @@ public sealed class WsSqlViewTableSizeRepository : IViewTableSizeRepository
     {
         List<WsSqlViewTableSizeModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewTablesSizes(sqlCrudConfig.SelectTopRowsCount);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

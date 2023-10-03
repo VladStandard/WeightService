@@ -404,7 +404,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
 
     #region Public and private methods - GetList
 
-    public List<T> GetListNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public List<T> GetList<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         List<T> items = new();
         ExecuteSelectCore(session =>
@@ -415,7 +415,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         return items;
     }
 
-    public IEnumerable<T> GetEnumerableNotNullable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public IEnumerable<T> GetEnumerable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         ExecuteSelectCore(session =>
@@ -426,7 +426,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         return items;
     }
     
-    public object[] GetArrayObjectsNotNullable(string query, List<SqlParameter>? parameters = null)
+    public object[] GetArrayObjects(string query, List<SqlParameter>? parameters = null)
     {
         parameters ??= new();
         object[] result = Array.Empty<object>();

@@ -10,7 +10,7 @@ public sealed class WsSqlViewLogMemoryRepository : IViewLogMemoryRepository
 
     private IList<WsSqlViewLogMemoryModel> GetListByQuery(string query)
     {
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         IList<WsSqlViewLogMemoryModel> result = new List<WsSqlViewLogMemoryModel>(objects.Length);
         foreach (object obj in objects)
         {

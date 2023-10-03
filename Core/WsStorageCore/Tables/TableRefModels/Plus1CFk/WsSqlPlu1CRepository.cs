@@ -11,7 +11,7 @@ public sealed class WsSqlPlu1CRepository : WsSqlTableRepositoryBase<WsSqlPlu1CFk
 
     public IEnumerable<WsSqlPlu1CFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlPlu1CFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPlu1CFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPlu1CFkModel> items = SqlCore.GetEnumerable<WsSqlPlu1CFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items.OrderBy(item => item.Plu.Number);
         return items;

@@ -25,7 +25,7 @@ public sealed class WsSqlViewBarcodeRepository : IViewBarcodeRepository
     public IList<WsSqlViewBarcodeModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
         string query = WsSqlQueriesDiags.Views.GetBarcodes(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         return objects
             .Select(ParseViewModel)
             .Where(barcodeModel => barcodeModel.IsExists)

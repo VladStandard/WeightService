@@ -32,7 +32,7 @@ public class WsSqlViewDbFileSizeRepository : IViewDbFileSizeRepository
 
     public List<WsSqlViewDbFileSizeInfoModel> GetList()
     {
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(GetDbFileSizes());
+        object[] objects = SqlCore.GetArrayObjects(GetDbFileSizes());
         List<WsSqlViewDbFileSizeInfoModel> result = new();
         foreach (object obj in objects)
         {

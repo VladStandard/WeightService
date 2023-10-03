@@ -20,7 +20,7 @@ public sealed class WsSqlPluStorageMethodFkRepository : WsSqlTableRepositoryBase
 
     public List<WsSqlPluStorageMethodFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlPluStorageMethodFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluStorageMethodFkModel> items = SqlCore.GetEnumerable<WsSqlPluStorageMethodFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();

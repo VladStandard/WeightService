@@ -11,7 +11,7 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
     
     public IEnumerable<WsSqlDeviceSettingsFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Device.Name)
@@ -29,7 +29,7 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlDeviceSettingsFkModel.Device), device));
         
-        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlDeviceSettingsFkModel> items = SqlCore.GetEnumerable<WsSqlDeviceSettingsFkModel>(sqlCrudConfig);
         items = items
             .OrderBy(item => item.Device.Name)
             .ThenBy(item => item.Setting.Name);

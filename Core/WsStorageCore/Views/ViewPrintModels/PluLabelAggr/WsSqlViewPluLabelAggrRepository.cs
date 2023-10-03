@@ -8,7 +8,7 @@ public sealed class WsSqlViewPluLabelAggrRepository : IViewPluLabelAggrRepositor
     {
         List<WsSqlViewPluLabelAggrModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetLabelsAggr(sqlCrudConfig.SelectTopRowsCount);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

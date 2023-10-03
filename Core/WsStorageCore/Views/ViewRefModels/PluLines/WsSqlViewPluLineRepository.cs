@@ -27,7 +27,7 @@ public class WsSqlViewPluLineRepository : IViewPluLineRepository
     {
         List<WsSqlViewPluLineModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusScales(scaleId, pluNumbers, topRecords);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

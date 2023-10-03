@@ -8,7 +8,7 @@ public class WsSqlViewPluStorageMethodRepository : IViewStorageMethodsRepository
     {
         List<WsSqlViewPluStorageMethodModel> result = new();
         string query = WsSqlQueriesDiags.Views.GetViewPlusStorageMethods(sqlCrudConfig.SelectTopRowsCount);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

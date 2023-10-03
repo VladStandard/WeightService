@@ -51,7 +51,7 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlAccessModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlAccessModel>(sqlCrudConfig).ToList();
     }
 
     #endregion

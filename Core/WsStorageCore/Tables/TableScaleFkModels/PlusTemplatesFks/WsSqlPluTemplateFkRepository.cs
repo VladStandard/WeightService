@@ -15,7 +15,7 @@ public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluSto
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
-        IEnumerable<WsSqlPluTemplateFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluTemplateFkModel> items = SqlCore.GetEnumerable<WsSqlPluTemplateFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Template.Title)

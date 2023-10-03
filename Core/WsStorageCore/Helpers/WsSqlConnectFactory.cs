@@ -31,7 +31,7 @@ public sealed class WsSqlConnectFactory
         return new(WsSqlCoreHelper.JsonSettings.Local.ConnectionString);
     }
 
-    public T GetValueAsNotNullable<T>(SqlDataReader reader, string fieldName) where T : struct
+    public T GetValue<T>(SqlDataReader reader, string fieldName) where T : struct
     {
         object value = reader[fieldName];
         Type t = typeof(T);

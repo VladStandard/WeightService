@@ -10,7 +10,7 @@ public sealed class WsSqlViewLogDeviceRepository : IViewLogDeviceRepository
 
     private IList<WsSqlViewLogDeviceModel> GetListByQuery(string query)
     {
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         List<WsSqlViewLogDeviceModel> result = new(objects.Length);
         foreach (object obj in objects)
         {

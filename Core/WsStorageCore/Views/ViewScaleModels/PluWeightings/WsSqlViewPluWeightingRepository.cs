@@ -8,7 +8,7 @@ public class WsSqlViewPluWeightingRepository : IViewPluWeightingRepository
     {
         IList<WsSqlViewPluWeightingModel> result = new List<WsSqlViewPluWeightingModel>();
         string query = WsSqlQueriesDiags.Views.GetPluWeightings(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

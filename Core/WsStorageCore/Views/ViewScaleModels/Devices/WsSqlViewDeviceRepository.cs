@@ -8,7 +8,7 @@ public class WsSqlViewDeviceRepository : IViewDeviceRepository
     {
         IList<WsSqlViewDeviceModel> result = new List<WsSqlViewDeviceModel>();
         string query = WsSqlQueriesDiags.Views.GetDevices(sqlCrudConfig.SelectTopRowsCount, sqlCrudConfig.IsMarked);
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

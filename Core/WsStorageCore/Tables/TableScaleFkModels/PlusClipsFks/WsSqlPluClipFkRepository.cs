@@ -22,7 +22,7 @@ public sealed class WsSqlPluClipFkRepository : WsSqlTableRepositoryBase<WsSqlPlu
     public IEnumerable<WsSqlPluClipFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig) {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluClipFkModel.Clip)}.{nameof(ClipModel.Name)}", SqlOrderDirection.Asc));
-        IEnumerable<WsSqlPluClipFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluClipFkModel>(sqlCrudConfig).ToList();
+        IEnumerable<WsSqlPluClipFkModel> items = SqlCore.GetEnumerable<WsSqlPluClipFkModel>(sqlCrudConfig).ToList();
         if (items.Any())
         {
             WsSqlPluClipFkModel pluClipFk = items.First();

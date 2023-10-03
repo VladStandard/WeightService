@@ -4,7 +4,7 @@ public sealed class WsSqlOrderWeightingRepository : WsSqlTableRepositoryBase<WsS
 {
     public List<WsSqlOrderWeighingModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        return SqlCore.GetEnumerableNotNullable<WsSqlOrderWeighingModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlOrderWeighingModel>(sqlCrudConfig).ToList();
     }
 
 }

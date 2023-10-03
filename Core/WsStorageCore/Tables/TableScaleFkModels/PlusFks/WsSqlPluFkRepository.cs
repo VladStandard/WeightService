@@ -26,7 +26,7 @@ public sealed class WsSqlPluFkRepository : WsSqlTableRepositoryBase<WsSqlPluFkMo
 
     public IEnumerable<WsSqlPluFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlPluFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPluFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPluFkModel> items = SqlCore.GetEnumerable<WsSqlPluFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();

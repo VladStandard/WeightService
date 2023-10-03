@@ -16,7 +16,7 @@ public sealed class WsSqlProductionSiteRepository : WsSqlTableRepositoryBase<WsS
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlProductionSiteModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlProductionSiteModel>(sqlCrudConfig);
     }
 
     #endregion

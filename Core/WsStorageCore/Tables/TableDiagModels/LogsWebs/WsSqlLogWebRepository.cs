@@ -9,7 +9,7 @@ public class WsSqlLogWebRepository: WsSqlTableRepositoryBase<WsSqlLogWebModel>
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlLogWebModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlLogWebModel>(sqlCrudConfig).ToList();
     }
     
     public void Save(DateTime requestStampDt, string requestDataString, string responseDataString, string url,

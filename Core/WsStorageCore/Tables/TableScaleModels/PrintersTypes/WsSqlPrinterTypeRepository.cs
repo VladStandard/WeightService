@@ -8,6 +8,6 @@ public class WsSqlPrinterTypeRepository : WsSqlTableRepositoryBase<WsSqlPrinterT
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlPrinterTypeModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlPrinterTypeModel>(sqlCrudConfig).ToList();
     }
 }

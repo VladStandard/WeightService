@@ -13,7 +13,7 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlLogModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlLogModel>(sqlCrudConfig);
     }
 
     public IList<WsSqlLogModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
@@ -21,6 +21,6 @@ public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogModel>
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetListNotNullable<WsSqlLogModel>(sqlCrudConfig);
+        return SqlCore.GetList<WsSqlLogModel>(sqlCrudConfig);
     }
 }

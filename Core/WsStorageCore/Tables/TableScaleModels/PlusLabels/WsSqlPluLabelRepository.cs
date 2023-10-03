@@ -11,17 +11,6 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
 
     #region Public and private methods
 
-    //public WsSqlPluLabelModel GetNewItem()
-    //{
-    //    WsSqlPluLabelModel item = SqlCore.GetItemNewEmpty<WsSqlPluLabelModel>();
-    //    item.Plu = ContextPlu.GetNewItem();
-    //    item.Parent = ContextPlu.GetNewItem();
-    //    item.Category = null;
-    //    return item;
-    //}
-
-    //public List<WsSqlPluLabelModel> GetList() => ContextList.GetListNotNullablePlusFks(SqlCrudConfig);
-
     /// <summary>
     /// Сохранить этикетку ПЛУ.
     /// </summary>
@@ -43,7 +32,7 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlPluLabelModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlPluLabelModel>(sqlCrudConfig).ToList();
     }
 
     #endregion

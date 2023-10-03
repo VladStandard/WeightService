@@ -7,7 +7,7 @@ public class WsSqlViewLogRepository : IViewLogRepository
     private IList<WsSqlViewLogModel> ReadQuery(string query)
     {
         IList<WsSqlViewLogModel> result = new List<WsSqlViewLogModel>();
-        object[] objects = SqlCore.GetArrayObjectsNotNullable(query);
+        object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
             int i = 0;

@@ -18,6 +18,6 @@ public class WsSqlProductSeriesRepository: WsSqlTableRepositoryBase<WsSqlProduct
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlProductSeriesModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlProductSeriesModel>(sqlCrudConfig).ToList();
     }
 }

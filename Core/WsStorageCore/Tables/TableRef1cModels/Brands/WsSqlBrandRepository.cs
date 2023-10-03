@@ -16,7 +16,7 @@ public sealed class WsSqlBrandRepository : WsSqlTableRepositoryBase<WsSqlBrandMo
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlBrandModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlBrandModel>(sqlCrudConfig);
     }
     
     public WsSqlBrandModel GetItemByUid1C(Guid uid1C)

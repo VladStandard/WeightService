@@ -8,6 +8,6 @@ public class WsSqlContragentRepository : WsSqlTableRepositoryBase<WsSqlContragen
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlContragentModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlContragentModel>(sqlCrudConfig).ToList();
     }
 }

@@ -19,6 +19,6 @@ public class WsSqlLogTypeRepository : WsSqlTableRepositoryBase<WsSqlLogTypeModel
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(WsSqlLogTypeModel.Number)));
-        return SqlCore.GetEnumerableNotNullable<WsSqlLogTypeModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlLogTypeModel>(sqlCrudConfig);
     }
 }

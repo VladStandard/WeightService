@@ -13,7 +13,7 @@ public class WsSqlDeviceTypeFkRepository : WsSqlTableRepositoryBase<WsSqlDeviceT
 
     public List<WsSqlDeviceTypeFkModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlDeviceTypeFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlDeviceTypeFkModel> items = SqlCore.GetEnumerable<WsSqlDeviceTypeFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Type.Name)

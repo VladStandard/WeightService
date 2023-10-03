@@ -36,7 +36,7 @@ public class WsSqlDeviceTypeRepository : WsSqlTableRepositoryBase<WsSqlDeviceTyp
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceTypeModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlDeviceTypeModel>(sqlCrudConfig).ToList();
     }
 
     #endregion

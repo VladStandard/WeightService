@@ -12,7 +12,7 @@ public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWork
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlWorkShopModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlWorkShopModel>(sqlCrudConfig);
     }
 
     #endregion

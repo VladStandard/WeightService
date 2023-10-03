@@ -4,7 +4,7 @@ public class WsSqlTemplateResourceRepository : WsSqlTableRepositoryBase<WsSqlTem
 {
     public List<WsSqlTemplateResourceModel> GetList(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<WsSqlTemplateResourceModel> items = SqlCore.GetEnumerableNotNullable<WsSqlTemplateResourceModel>(sqlCrudConfig);
+        IEnumerable<WsSqlTemplateResourceModel> items = SqlCore.GetEnumerable<WsSqlTemplateResourceModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Name)

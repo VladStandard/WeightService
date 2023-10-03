@@ -15,7 +15,7 @@ public sealed class WsSqlDeviceSettingsRepository : WsSqlTableRepositoryBase<WsS
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerableNotNullable<WsSqlDeviceSettingsModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlDeviceSettingsModel>(sqlCrudConfig);
     }
 
     #endregion

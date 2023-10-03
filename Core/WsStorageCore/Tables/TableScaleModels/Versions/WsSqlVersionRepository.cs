@@ -8,6 +8,6 @@ public class WsSqlVersionRepository : WsSqlTableRepositoryBase<WsSqlVersionModel
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(WsSqlVersionModel.Version)));
-        return SqlCore.GetEnumerableNotNullable<WsSqlVersionModel>(sqlCrudConfig).ToList();
+        return SqlCore.GetEnumerable<WsSqlVersionModel>(sqlCrudConfig).ToList();
     }
 }

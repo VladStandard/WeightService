@@ -6,7 +6,7 @@ public class WsSqlPrinterResourceFkRepository : WsSqlTableRepositoryBase<WsSqlPr
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new(nameof(WsSqlTableBase.Name), SqlOrderDirection.Asc));
-        IEnumerable<WsSqlPrinterResourceFkModel> items = SqlCore.GetEnumerableNotNullable<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
+        IEnumerable<WsSqlPrinterResourceFkModel> items = SqlCore.GetEnumerable<WsSqlPrinterResourceFkModel>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
                 .OrderBy(item => item.Printer.Name)
