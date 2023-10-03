@@ -52,7 +52,7 @@ public sealed class WsPluginModel : WsBaseHelper
     /// <param name="action"></param>
     public void Execute(Action action)
     {
-        Close();
+        Dispose();
         Execute();
         Cts = new();
 
@@ -105,10 +105,10 @@ public sealed class WsPluginModel : WsBaseHelper
         });
     }
     
-    public override void Close()
+    public override void Dispose()
     {
         // Need to check.
-        base.Close();
+        base.Dispose();
 
         Cts.Cancel();
         WsPluginConfigModel.WaitSync(Config.WaitClose);

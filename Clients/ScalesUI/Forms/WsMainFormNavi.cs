@@ -253,7 +253,7 @@ public partial class WsMainForm
                 // Запустить процесс.
                 if (File.Exists(WsLocalizationUtils.AppScalesTerminal))
                 {
-                    UserSession.PluginMassa.Close();
+                    UserSession.PluginMassa.Dispose();
                     WsProcHelper.Instance.Run(WsLocalizationUtils.AppScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
                     PluginMassaExecute();
                     ActionFinally();

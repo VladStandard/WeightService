@@ -1,6 +1,6 @@
 namespace WsDataCore.Common;
 
-public class WsBaseHelper
+public class WsBaseHelper : IDisposable
 {
     #region Public and private fields, properties, constructor
 
@@ -29,7 +29,7 @@ public class WsBaseHelper
         IsExecute = true;
     }
 
-    public virtual void Close()
+    public virtual void Dispose()
     {
         if (!IsExecute) return;
         IsExecute = false;

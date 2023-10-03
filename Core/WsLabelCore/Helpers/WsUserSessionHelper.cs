@@ -31,13 +31,13 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
     public void PluginsClose()
     {
-        PluginMemory.Close();
-        PluginMassa.Close();
-        LabelSession.PluginPrintTscMain?.Close();
-        LabelSession.PluginPrintZebraMain?.Close();
-        LabelSession.PluginPrintTscShipping?.Close();
-        LabelSession.PluginPrintZebraShipping?.Close();
-        PluginLabels.Close();
+        PluginMemory.Dispose();
+        PluginMassa.Dispose();
+        LabelSession.PluginPrintTscMain?.Dispose();
+        LabelSession.PluginPrintZebraMain?.Dispose();
+        LabelSession.PluginPrintTscShipping?.Dispose();
+        LabelSession.PluginPrintZebraShipping?.Dispose();
+        PluginLabels.Dispose();
     }
 
     /// <summary>

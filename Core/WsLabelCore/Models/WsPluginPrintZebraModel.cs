@@ -197,9 +197,9 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
 
     public void GetOdometorUserLabel() => SendCmdToZebra(@"! U1 getvar ""odometer.user_label_count""");
 
-    public override void Close()
+    public override void Dispose()
     {
-        base.Close();
+        base.Dispose();
         ZebraConnection?.Close();
     }
 

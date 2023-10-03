@@ -49,9 +49,9 @@ public sealed class MemorySizeModel : WsBaseHelper
         PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
     }
 
-    public override void Close()
+    public override void Dispose()
     {
-        base.Close();
+        base.Dispose();
         VirtualCurrent = null;
         PhysicalCurrent = null;
         VirtualFree = null;

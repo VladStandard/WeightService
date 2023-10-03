@@ -167,12 +167,12 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
         MdInvokeControl.SetForeColor(FieldNettoWeight, Equals(IsStable, true) && weight > 0 ? Color.Green : Color.Red);
     }
 
-    public override void Close()
+    public override void Dispose()
     {
-        base.Close();
+        base.Dispose();
 
         //MassaStable.StopwatchStable.Stop();
-        MassaDevice.Close();
+        MassaDevice.Dispose();
 
         ResponseParseScalePar = new();
         ResponseParseGet = new();

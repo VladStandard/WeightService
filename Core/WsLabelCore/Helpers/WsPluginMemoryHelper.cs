@@ -58,15 +58,7 @@ public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
         RequestItem.Execute(MemorySize.Execute);
         ResponseItem.Execute(Response);
     }
-
-    //private string GetMemoryState() =>
-    //    $"{LocaleCore.Scales.Memory} | {LocaleCore.Scales.MemoryBusy}: " +
-    //    (MemorySize.PhysicalCurrent is not null ? $"{MemorySize.PhysicalCurrent.MegaBytes:N0} MB" : "- MB") +
-    //    $" | {LocaleCore.Scales.MemoryFree}: " +
-    //    (MemorySize.PhysicalFree is not null ? $"{MemorySize.PhysicalFree.MegaBytes:N0} MB" : "- MB") +
-    //    $" | {LocaleCore.Scales.MemoryAll}: " +
-    //    (MemorySize.PhysicalTotal is not null ? $"{MemorySize.PhysicalTotal.MegaBytes:N0} MB" : "- MB");
-
+    
     /// <summary>
     /// Строка состояния памяти.
     /// </summary>
@@ -86,10 +78,10 @@ public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
         //MdInvokeControl.SetText(FieldMemoryExt, $"{LocaleCore.Scales.Threads}: {Process.GetCurrentProcess().Threads.Count}");
     }
 
-    public override void Close()
+    public override void Dispose()
     {
-        base.Close();
-        MemorySize.Close();
+        base.Dispose();
+        MemorySize.Dispose();
     }
 
     #endregion

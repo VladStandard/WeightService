@@ -42,7 +42,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
 
     ~WsPluginPrintTscModel()
     {
-        Close();
+        Dispose();
     }
 
     #endregion
@@ -155,10 +155,10 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         //if (odometerValue >= 0) SetOdometorUserLabel(odometerValue);
     }
 
-    public override void Close()
+    public override void Dispose()
     {
-        base.Close();
-        // Close WsTcpClient.
+        base.Dispose();
+        // Dispose WsTcpClient.
         if (_wsTcpClient is not null)
         {
             if (IsConnected)
