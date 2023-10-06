@@ -29,15 +29,11 @@ public sealed class WsPrintSessionHelper
     #endregion
 
     #region Public and private methods
-
-    /// <summary>
-    /// Проверить подключение и готовность основного принтера TSC.
-    /// </summary>
+    
     public bool CheckPrintIsConnectAndReadyTscMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintTscMain is null) return false;
         LabelSession.PluginPrintTscMain.ReopenTsc();
-        // Подключение.
         if (!LabelSession.PluginPrintTscMain.IsConnected)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
@@ -46,34 +42,13 @@ public sealed class WsPrintSessionHelper
             ContextManager.ContextItem.SaveLogError(message);
             return false;
         }
-        // Готовность.
-        //if (!LabelSession.PluginPrintTscMain.CheckDeviceStatusTsc())
-        //{
-        //    MdInvokeControl.SetVisible(fieldWarning, true);
-        //    MdInvokeControl.SetText(fieldWarning, 
-        //        $"{LocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintTscMain.GetDeviceStatusTsc()}");
-        //    ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
-        //    return false;
-        //}
         return true;
     }
-
-    /// <summary>
-    /// Проверить подключение и готовность основного принтера ZEBRA.
-    /// </summary>
+    
     public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraMain is null) return false;
         LabelSession.PluginPrintZebraMain.ReopenZebra();
-        // Подключение.
-        if (!LabelSession.PluginPrintZebraMain.IsConnected)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
-            MdInvokeControl.SetText(fieldWarning, message);
-            ContextManager.ContextItem.SaveLogError(message);
-            return false;
-        }
         // Готовность.
         if (!LabelSession.PluginPrintZebraMain.CheckDeviceStatusZebra())
         {
