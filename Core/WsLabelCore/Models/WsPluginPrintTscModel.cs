@@ -56,21 +56,12 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        try
-        {
-            PrintModel = WsEnumPrintModel.Tsc;
-            Printer = printer;
-            FieldPrint = fieldPrint;
-            PrintName = printer.Name;
-            TscDriver.Setup(WsEnumPrintChannel.Ethernet, printer.Ip, printer.Port, WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi.Dpi300);
-            MdInvokeControl.SetText(FieldPrint,
-                $"{WsLocaleCore.Print.NameMainTsc} | {Printer.Ip}");
-            TscDriver.Properties.PrintName = printer.Name;
-        }
-        catch (Exception ex)
-        {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintTsc);
-        }
+     
+        PrintModel = WsEnumPrintModel.Tsc;
+        Printer = printer;
+        FieldPrint = fieldPrint;
+        PrintName = printer.Name;
+        TscDriver.Setup(WsEnumPrintChannel.Ethernet, printer.Ip, printer.Port, WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi.Dpi300);
     }
 
     public override void Execute()
@@ -98,8 +89,8 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     {
         // Метки.
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(PrintModel, Printer, IsConnected,
-                LabelSession.Line.LabelCounter, LabelPrintedCount, GetLabelCount()));
+            LabelSession.WeighingSettings.GetPrintDescription(Printer, IsConnected,
+                LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount));
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 

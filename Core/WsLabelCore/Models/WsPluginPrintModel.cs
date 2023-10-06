@@ -32,39 +32,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
 
     #region Public and private methods
 
-    //private void Request()
-    //{
-    //    // Метка.
-    //    MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
-
-    //    //if (!Printer.PingStatus.Equals(IPStatus.Success)) return;
-    //    if (!IsConnected) return;
-    //    if (PrintBrand == PrintBrand.Tsc) return;
-        
-    //    if (PrintBrand == PrintBrand.Zebra)
-    //    {
-    //        if (ZebraConnection is null)
-    //            ZebraConnection = ZebraConnectionBuilder.Build(Printer.Ip);
-    //        if (!ZebraConnection.Connected)
-    //            ZebraConnection.Open();
-    //        if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
-    //            ZebraStatus = null;
-    //        else
-    //        {
-    //            try
-    //            {
-    //                ZebraStatus = ZebraDriver.GetCurrentStatus();
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                WsFormNavigationUtils.CatchExceptionSimple(ex);
-    //                SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
-    //            }
-    //        }
-    //    }
-    //}
-
-    protected byte GetLabelCount() => LabelSession.WeighingSettings.LabelsCountMain;
+    protected byte LabelCount => LabelSession.WeighingSettings.LabelsCountMain;
 
     private readonly object _lockWmi = new();
     protected MdWmiWinPrinterModel GetWin32Printer(string name)

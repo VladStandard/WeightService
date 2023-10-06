@@ -35,8 +35,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         PluginMassa.Dispose();
         LabelSession.PluginPrintTscMain?.Dispose();
         LabelSession.PluginPrintZebraMain?.Dispose();
-        LabelSession.PluginPrintTscShipping?.Dispose();
-        LabelSession.PluginPrintZebraShipping?.Dispose();
         PluginLabels.Dispose();
     }
 

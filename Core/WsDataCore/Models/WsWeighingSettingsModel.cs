@@ -38,20 +38,6 @@ public sealed class WsWeighingSettingsModel
                 _labelsCountMain = value;
         }
     }
-    private byte _labelsCountShipping;
-    public byte LabelsCountShipping
-    {
-        get => _labelsCountShipping;
-        set
-        {
-            if (value < KneadingMinValue)
-                _labelsCountShipping = LabelsCountMinValue;
-            else if (value > KneadingMaxValue)
-                _labelsCountShipping = LabelsCountMaxValue;
-            else
-                _labelsCountShipping = value;
-        }
-    }
 
     public WsWeighingSettingsModel()
     {
@@ -74,9 +60,9 @@ public sealed class WsWeighingSettingsModel
             _ => WsLocaleCore.Print.DeviceName
         };
 
-    public string GetPrintDescription(WsEnumPrintModel printBrand, MdPrinterModel printer,
+    public string GetPrintDescription(MdPrinterModel printer,
         bool isConnected, int scaleCounter, int labelPrintedCount, byte labelCount) =>
-        $"{GetPrintName(printBrand)} {printer.Name} | {printer.Ip} | " +
+        $"{printer.Name} | {printer.Ip} | " +
         $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";

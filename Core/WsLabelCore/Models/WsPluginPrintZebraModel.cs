@@ -43,18 +43,10 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        try
-        {
-            PrintModel = WsEnumPrintModel.Zebra;
-            Printer = printer;
-            FieldPrint = fieldPrint;
-            PrintName = printer.Name;
-            MdInvokeControl.SetText(FieldPrint, $"{WsLocaleCore.Print.NameMainZebra} | {Printer.Ip}");
-        }
-        catch (Exception ex)
-        {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
-        }
+        PrintModel = WsEnumPrintModel.Zebra;
+        Printer = printer;
+        FieldPrint = fieldPrint;
+        PrintName = printer.Name;
     }
 
     public override void Execute()
@@ -90,10 +82,10 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
 
     private void RequestZebra()
     {
-        // Метки.
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(PrintModel, Printer, IsConnected,
-                LabelSession.Line.LabelCounter, LabelPrintedCount, GetLabelCount()));
+            LabelSession.WeighingSettings.GetPrintDescription(Printer, IsConnected,
+                LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount));
+        MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 
     public string GetDeviceStatusZebra()
@@ -121,37 +113,6 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     }
 
     public bool CheckDeviceStatusZebra() => GetDeviceStatusZebra() == WsLocaleCore.Print.StatusIsReadyToPrint;
-
-    public string GetZebraPrintMode()
-    {
-        if (ZebraStatus is null) return WsLocaleCore.Print.ModeUnknown;
-        lock (ZebraStatus)
-        {
-            if (ZebraStatus.printMode == ZplPrintMode.REWIND)
-                return WsLocaleCore.Print.ModeRewind;
-            if (ZebraStatus.printMode == ZplPrintMode.PEEL_OFF)
-                return WsLocaleCore.Print.ModePeelOff;
-            if (ZebraStatus.printMode == ZplPrintMode.TEAR_OFF)
-                return WsLocaleCore.Print.ModeTearOff;
-            if (ZebraStatus.printMode == ZplPrintMode.CUTTER)
-                return WsLocaleCore.Print.ModeCutter;
-            if (ZebraStatus.printMode == ZplPrintMode.APPLICATOR)
-                return WsLocaleCore.Print.ModeApplicator;
-            if (ZebraStatus.printMode == ZplPrintMode.DELAYED_CUT)
-                return WsLocaleCore.Print.ModeDelayedCut;
-            if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_PEEL)
-                return WsLocaleCore.Print.ModeLinerlessPeel;
-            if (ZebraStatus.printMode == ZplPrintMode.LINERLESS_REWIND)
-                return WsLocaleCore.Print.ModeLinerlessRewind;
-            if (ZebraStatus.printMode == ZplPrintMode.PARTIAL_CUTTER)
-                return WsLocaleCore.Print.ModePartialCutter;
-            if (ZebraStatus.printMode == ZplPrintMode.RFID)
-                return WsLocaleCore.Print.ModeRfid;
-            if (ZebraStatus.printMode == ZplPrintMode.KIOSK)
-                return WsLocaleCore.Print.ModeKiosk;
-        }
-        return WsLocaleCore.Print.ModeUnknown;
-    }
 
     public void SendCmdToZebra(string cmd)
     {

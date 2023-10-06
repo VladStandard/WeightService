@@ -24,8 +24,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
-    public WsPluginPrintTscModel? PluginPrintTscShipping { get; set; }
-    public WsPluginPrintZebraModel? PluginPrintZebraShipping { get; set; }
     private ProductSeriesDirect ProductSeries { get; set; } = new();
     public WsEnumPrintModel PrintModelMain => Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsSqlPluWeighingModel PluWeighing { get; set; }
@@ -88,11 +86,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     {
         if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
         if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
-        if (Line.IsShipping)
-        {
-            if (PluginPrintTscShipping is not null) PluginPrintTscShipping.LabelPrintedCount = 1;
-            if (PluginPrintZebraShipping is not null) PluginPrintZebraShipping.LabelPrintedCount = 1;
-        }
         ProductSeries.Load();
     }
 
@@ -209,11 +202,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
         
         if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
         if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
-        if (Line.IsShipping)
-        {
-            if (PluginPrintTscShipping is not null) PluginPrintTscShipping.LabelPrintedCount = 1;
-            if (PluginPrintZebraShipping is not null) PluginPrintZebraShipping.LabelPrintedCount = 1;
-        }
         // Смена вложенности ПЛУ.
         SetViewPluNesting();
     }

@@ -126,11 +126,6 @@ public sealed class WsPrintSessionHelper
             {
                 LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
                 LabelSession.PluginPrintZebraMain?.ClearPrintBuffer();
-                if (LabelSession.Line.IsShipping)
-                {
-                    LabelSession.PluginPrintTscShipping?.ClearPrintBuffer();
-                    LabelSession.PluginPrintZebraShipping?.ClearPrintBuffer();
-                }
             }
             // TODO: исправить здесь
             //// Отправить команду в принтер.
