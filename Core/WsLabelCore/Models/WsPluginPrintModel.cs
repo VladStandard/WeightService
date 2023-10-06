@@ -10,11 +10,9 @@ public class WsPluginPrintModel : WsPluginBaseHelper
 
     public byte LabelPrintedCount { get; set; }
     protected Label FieldPrint { get; set; } = new();
-    protected Label FieldPrintExt { get; set; } = new();
     protected WsEnumPrintModel PrintModel { get; set; }
     protected MdPrinterModel Printer { get; set; }
     protected static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    protected bool IsMain { get; set; }
     protected string PrintName { get; set; }
 
     #endregion
@@ -66,8 +64,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
     //    }
     //}
 
-    protected byte GetLabelCount() =>
-        IsMain ? LabelSession.WeighingSettings.LabelsCountMain : LabelSession.WeighingSettings.LabelsCountShipping;
+    protected byte GetLabelCount() => LabelSession.WeighingSettings.LabelsCountMain;
 
     private readonly object _lockWmi = new();
     protected MdWmiWinPrinterModel GetWin32Printer(string name)

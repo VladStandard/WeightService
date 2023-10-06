@@ -222,21 +222,6 @@ namespace ScalesUI.Forms
             this.fieldMemory.Text = "fieldMemory";
             this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // fieldPrintMainExt
-            // 
-            this.fieldPrintMainExt.AutoSize = true;
-            this.fieldPrintMainExt.BackColor = System.Drawing.Color.Transparent;
-            this.fieldPrintMainExt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintMainExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintMainExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintMainExt.Location = new System.Drawing.Point(8, 402);
-            this.fieldPrintMainExt.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPrintMainExt.Name = "fieldPrintMainExt";
-            this.fieldPrintMainExt.Size = new System.Drawing.Size(127, 19);
-            this.fieldPrintMainExt.TabIndex = 52;
-            this.fieldPrintMainExt.Text = "fieldPrintMainExt";
-            this.fieldPrintMainExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // fieldMassaExt
             // 
             this.fieldMassaExt.AutoSize = true;

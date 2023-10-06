@@ -50,7 +50,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     #region Public and private methods
 
     public void InitTsc(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        MdPrinterModel printer, Label fieldPrint, Label fieldPrintExt, bool isMain)
+        MdPrinterModel printer, Label fieldPrint)
     {
         Init();
         ReopenItem.Config = configReopen;
@@ -61,13 +61,10 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
             PrintModel = WsEnumPrintModel.Tsc;
             Printer = printer;
             FieldPrint = fieldPrint;
-            FieldPrintExt = fieldPrintExt;
-            IsMain = isMain;
             PrintName = printer.Name;
-            MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
             TscDriver.Setup(WsEnumPrintChannel.Ethernet, printer.Ip, printer.Port, WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi.Dpi300);
             MdInvokeControl.SetText(FieldPrint,
-                $"{(IsMain ? WsLocaleCore.Print.NameMainTsc : WsLocaleCore.Print.NameShippingTsc)} | {Printer.Ip}");
+                $"{WsLocaleCore.Print.NameMainTsc} | {Printer.Ip}");
             TscDriver.Properties.PrintName = printer.Name;
         }
         catch (Exception ex)
@@ -100,10 +97,9 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void RequestTsc()
     {
         // Метки.
-        MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
-                LabelSession.Line.LabelCounter, GetDeviceStatusTsc(), LabelPrintedCount, GetLabelCount()));
+            LabelSession.WeighingSettings.GetPrintDescription(PrintModel, Printer, IsConnected,
+                LabelSession.Line.LabelCounter, LabelPrintedCount, GetLabelCount()));
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 

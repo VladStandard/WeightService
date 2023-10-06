@@ -66,23 +66,17 @@ public sealed class WsWeighingSettingsModel
     /// <summary>
     /// Получить наименование принтера.
     /// </summary>
-    private string GetPrintName(bool isMain, WsEnumPrintModel printBrand) => isMain
-        ? printBrand switch
+    private string GetPrintName(WsEnumPrintModel printBrand) =>
+        printBrand switch
         {
             WsEnumPrintModel.Zebra => WsLocaleCore.Print.NameMainZebra,
             WsEnumPrintModel.Tsc => WsLocaleCore.Print.NameMainTsc,
             _ => WsLocaleCore.Print.DeviceName
-        }
-        : printBrand switch
-        {
-            WsEnumPrintModel.Zebra => WsLocaleCore.Print.NameShippingZebra,
-            WsEnumPrintModel.Tsc => WsLocaleCore.Print.NameShippingTsc,
-            _ => WsLocaleCore.Print.DeviceNameIsUnavailable
         };
 
-    public string GetPrintDescription(bool isMain, WsEnumPrintModel printBrand, MdPrinterModel printer,
-        bool isConnected, int scaleCounter, string deviceStatus, int labelPrintedCount, byte labelCount) =>
-        $"{GetPrintName(isMain, printBrand)} {printer.Name} | {printer.Ip} | " +
+    public string GetPrintDescription(WsEnumPrintModel printBrand, MdPrinterModel printer,
+        bool isConnected, int scaleCounter, int labelPrintedCount, byte labelCount) =>
+        $"{GetPrintName(printBrand)} {printer.Name} | {printer.Ip} | " +
         $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";

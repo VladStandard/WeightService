@@ -37,7 +37,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     #region Public and private methods
 
     public void InitZebra(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        MdPrinterModel printer, Label fieldPrint, Label fieldPrintExt, bool isMain)
+        MdPrinterModel printer, Label fieldPrint)
     {
         Init();
         ReopenItem.Config = configReopen;
@@ -48,12 +48,8 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
             PrintModel = WsEnumPrintModel.Zebra;
             Printer = printer;
             FieldPrint = fieldPrint;
-            FieldPrintExt = fieldPrintExt;
-            IsMain = isMain;
             PrintName = printer.Name;
-            MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
-            MdInvokeControl.SetText(FieldPrint,
-                $"{(IsMain ? WsLocaleCore.Print.NameMainZebra : WsLocaleCore.Print.NameShippingZebra)} | {Printer.Ip}");
+            MdInvokeControl.SetText(FieldPrint, $"{WsLocaleCore.Print.NameMainZebra} | {Printer.Ip}");
         }
         catch (Exception ex)
         {
@@ -95,10 +91,9 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     private void RequestZebra()
     {
         // Метки.
-        MdInvokeControl.SetText(FieldPrintExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
         MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(IsMain, PrintModel, Printer, IsConnected,
-                LabelSession.Line.LabelCounter, GetDeviceStatusZebra(), LabelPrintedCount, GetLabelCount()));
+            LabelSession.WeighingSettings.GetPrintDescription(PrintModel, Printer, IsConnected,
+                LabelSession.Line.LabelCounter, LabelPrintedCount, GetLabelCount()));
     }
 
     public string GetDeviceStatusZebra()

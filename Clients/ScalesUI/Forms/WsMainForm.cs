@@ -169,7 +169,7 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintTscMain = new();
                 LabelSession.PluginPrintTscMain.InitTsc(new(0_500, 0_500),
                 new(0_500, 0_500), new(0_500, 0_500),
-                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintTscMain.Execute();
@@ -178,7 +178,7 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintZebraMain = new();
                 LabelSession.PluginPrintZebraMain.InitZebra(new(0_500, 0_500),
                 new(0_500, 0_500), new(0_500, 0_500),
-                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain, fieldPrintMainExt, true);
+                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintZebraMain.Execute();
