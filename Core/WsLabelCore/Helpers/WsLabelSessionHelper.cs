@@ -27,10 +27,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     public WsPluginPrintTscModel? PluginPrintTscShipping { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraShipping { get; set; }
     private ProductSeriesDirect ProductSeries { get; set; } = new();
-    public WsEnumPrintModel PrintModelMain =>
-        Line.PrinterMain is not null && Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
-    public WsEnumPrintModel PrintModelShipping =>
-        Line.PrinterShipping is not null && Line.PrinterShipping.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
+    public WsEnumPrintModel PrintModelMain => Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsSqlPluWeighingModel PluWeighing { get; set; }
     public WsWeighingSettingsModel WeighingSettings { get; private set; }
     public WsSqlPluScaleModel PluLine { get; private set; }

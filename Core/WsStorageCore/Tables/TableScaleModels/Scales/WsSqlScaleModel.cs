@@ -13,7 +13,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     
     public virtual WsSqlDeviceModel Device { get; set; }
     public virtual WsSqlWorkShopModel WorkShop { get; set; }
-    public virtual WsSqlPrinterModel? PrinterMain { get; set; }
+    public virtual WsSqlPrinterModel PrinterMain { get; set; }
     public virtual WsSqlPrinterModel? PrinterShipping { get; set; }
     public virtual byte ShippingLength { get; set; }
     public virtual string DeviceComPort { get; set; } = "";
@@ -33,13 +33,14 @@ public class WsSqlScaleModel : WsSqlTableBase
     {
         WorkShop = new();
         Device = new();
+        PrinterMain = new();
     }
 
     public WsSqlScaleModel(WsSqlScaleModel item) : base(item)
     {
         Device = new(item.Device);
         WorkShop = new(item.WorkShop);
-        PrinterMain = item.PrinterMain is null ? null : new(item.PrinterMain);
+        PrinterMain = new(item.PrinterMain);
         PrinterShipping = item.PrinterShipping is null ? null : new(item.PrinterShipping);
         IsShipping = item.IsShipping;
         IsKneading = item.IsKneading;
@@ -79,13 +80,11 @@ public class WsSqlScaleModel : WsSqlTableBase
         Equals(ShippingLength, (byte)0) && 
         WorkShop.EqualsDefault() &&
         Device.EqualsDefault() &&
-        (PrinterMain is null || PrinterMain.EqualsDefault()) &&
+        PrinterMain.EqualsDefault() &&
         (PrinterShipping is null || PrinterShipping.EqualsDefault());
 
     public override void ClearNullProperties()
     {
-        if (PrinterMain is not null && PrinterMain.Identity.EqualsDefault())
-            PrinterMain = null;
         if (PrinterShipping is not null && PrinterShipping.Identity.EqualsDefault())
             PrinterShipping = null;
     }
@@ -115,8 +114,7 @@ public class WsSqlScaleModel : WsSqlTableBase
         ShippingLength.Equals(item.ShippingLength) &&
         WorkShop.Equals(item.WorkShop) &&
         Device.Equals(item.WorkShop) &&
-        (PrinterMain is null && item.PrinterMain is null || PrinterMain is not null &&
-            item.PrinterMain is not null && PrinterMain.Equals(item.PrinterMain)) &&
+        (PrinterMain.Equals(item.PrinterMain)) &&
         (PrinterShipping is null && item.PrinterShipping is null || PrinterShipping is not null &&
             item.PrinterShipping is not null && PrinterShipping.Equals(item.PrinterShipping));
 

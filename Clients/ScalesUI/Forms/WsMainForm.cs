@@ -51,6 +51,8 @@ public sealed partial class WsMainForm : Form
         SetupButtons();
         // Загрузка шрифтов.
         LoadFonts();
+        LoadLocalizationStatic(WsEnumLanguage.Russian);
+        
         _ = Task.Run(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -155,8 +157,6 @@ public sealed partial class WsMainForm : Form
         UserSession.PluginMemory.Execute();
 
         // Весовая платформа Масса-К.
-        //UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_100, 0_100),
-        //    new(0_050, 0_100), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
         UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_150, 0_150),
             new(0_150, 0_150), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
         PluginMassaExecute();

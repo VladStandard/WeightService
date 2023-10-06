@@ -64,7 +64,7 @@ public partial class WsMainForm
         MdInvokeControl.Select(ButtonPrint);
         // Задать текст линии.
         MdInvokeControl.SetText(ButtonLine, 
-            $"{(LabelSession.Line.WorkShop is null ? WsLocaleCore.Table.FieldEmpty : LabelSession.Area.Name)}" +
+            $"{LabelSession.Area.Name}" +
             $"{Environment.NewLine}{WsLocaleCore.Table.Number}: {LabelSession.Line.Number} | {LabelSession.Line.Description}");
         // Задать текст вложенности ПЛУ.
         MdInvokeControl.SetText(ButtonPluNestingFk, LabelSession.ViewPluNesting.GetSmartName());
@@ -390,17 +390,10 @@ public partial class WsMainForm
             if (LabelSession.PluginPrintZebraMain is not null)
                 if (!PrintSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
                     return;
-            // Проверить подключение и готовность транспортного принтера.
-            // if (LabelSession.Line.IsShipping && LabelSession.PluginPrintTscShipping is not null)
-            //     if (!PrintSession.CheckPrintIsConnectAndReadyTscShipping(fieldWarning))
-            //         return;
-            // if (LabelSession.Line.IsShipping && LabelSession.PluginPrintZebraShipping is not null)
-            //     if (!PrintSession.CheckPrintIsConnectAndReadyZebraShipping(fieldWarning))
-            //         return;
+            // Печать этикетки.
+            PrintSession.PrintLabel(fieldWarning, false);
         }
-
-        // Печать этикетки.
-        PrintSession.PrintLabel(fieldWarning, false);
+        
     }
 
     #endregion

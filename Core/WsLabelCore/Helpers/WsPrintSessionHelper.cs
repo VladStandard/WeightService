@@ -87,67 +87,6 @@ public sealed class WsPrintSessionHelper
     }
 
     /// <summary>
-    /// Проверить подключение и готовность транспортного принтера TSC.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckPrintIsConnectAndReadyTscShipping(Label fieldWarning)
-    {
-        if (LabelSession.PluginPrintTscShipping is null) return false;
-        LabelSession.PluginPrintTscShipping.ReopenTsc();
-        // Подключение.
-        if (!LabelSession.PluginPrintTscShipping.IsConnected)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{WsLocaleCore.Print.DeviceShippingIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
-            MdInvokeControl.SetText(fieldWarning, message);
-            ContextManager.ContextItem.SaveLogError(message);
-            return false;
-        }
-        // Готовность.
-        //if (!LabelSession.PluginPrintTscShipping.CheckDeviceStatusTsc())
-        //{
-        //    MdInvokeControl.SetVisible(fieldWarning, true);
-        //    MdInvokeControl.SetText(fieldWarning, 
-        //        $"{WsLocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintTscShipping.GetDeviceStatusTsc()}");
-        //    ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
-        //    return false;
-        //}
-        return true;
-    }
-
-    /// <summary>
-    /// Проверить подключение и готовность транспортного принтера ZEBRA.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckPrintIsConnectAndReadyZebraShipping(Label fieldWarning)
-    {
-        if (LabelSession.PluginPrintZebraShipping is null) return false;
-        LabelSession.PluginPrintZebraShipping.ReopenZebra();
-        // Подключение.
-        if (!LabelSession.PluginPrintZebraShipping.IsConnected)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = 
-                $"{WsLocaleCore.Print.DeviceShippingIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
-            MdInvokeControl.SetText(fieldWarning, message);
-            ContextManager.ContextItem.SaveLogError(message);
-            return false;
-        }
-        // Готовность.
-        if (!LabelSession.PluginPrintZebraShipping.CheckDeviceStatusZebra())
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, 
-                $"{WsLocaleCore.Print.DeviceShippingCheckStatus} {LabelSession.PluginPrintZebraShipping.GetDeviceStatusZebra()}");
-            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Печать этикетки.
     /// </summary>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
