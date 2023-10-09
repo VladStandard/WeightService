@@ -60,16 +60,13 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     #region Public and private methods
 
     public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        Label fieldNettoWeight, Label fieldMassa, Label fieldMassaExt, Action resetWarning)
+        Label fieldNettoWeight, Label fieldMassa, Action resetWarning)
     {
-        Init();
-        
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
         FieldNettoWeight = fieldNettoWeight;
         FieldMassa = fieldMassa;
-        FieldMassaExt = fieldMassaExt;
         ResetWarning = resetWarning;
 
         WsFormNavigationUtils.ActionTryCatch(() =>
@@ -78,7 +75,6 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
             {
                 MassaDevice.Init(LabelSession.Line.DeviceComPort, GetData);
             }
-            SetControlsTextDefault();
         });
     }
 
@@ -93,8 +89,6 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 
     private void Reopen()
     {
-        MdInvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ReopenCounter}");
-
         if (LabelSession.PluLine.Plu.IsNew) return;
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
         
@@ -118,7 +112,7 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     private void Response()
     {
         if (!LabelSession.PluLine.Plu.IsCheckWeight)
-            SetControlsTextDefault();
+            MdInvokeControl.SetVisible(FieldMassa, false);
         else
             SetLabelsText();
     }
@@ -127,7 +121,6 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     {
         MdInvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {WsLocaleCore.LabelPrint.WeightUnitKg}");
         MdInvokeControl.SetText(FieldMassa, WsLocaleCore.LabelPrint.ComPort);
-        MdInvokeControl.SetText(FieldMassaExt, $"{ReopenCounter} | {RequestCounter} | {ResponseCounter}");
     }
 
     /// <summary>
@@ -135,27 +128,24 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     /// </summary>
     private void SetLabelsText()
     {
+        MdInvokeControl.SetVisible(FieldMassa, true);
+        MdInvokeControl.SetForeColor(FieldMassa, Color.Red);
+        string name = $"{WsLocaleCore.LabelPrint.MassaK} | {MassaDevice.ComPort}";
         switch (MassaDevice.SerialPort.AdapterStatus)
         {
             case UsbAdapterStatus.IsDataNotExists:
-                MdInvokeControl.SetText(FieldMassa,
-                    $"{WsLocaleCore.LabelPrint.MassaK} | {WsLocaleCore.LabelPrint.IsDataNotExists}");
+                MdInvokeControl.SetText(FieldMassa, $"{name} | {WsLocaleCore.LabelPrint.IsDataNotExists}");
                 break;
             case UsbAdapterStatus.IsException:
-                MdInvokeControl.SetText(FieldMassa,
-                    $"{WsLocaleCore.LabelPrint.MassaK} | {WsLocaleCore.LabelPrint.IsException(MassaDevice.SerialPort.Exception.Message)}");
+                MdInvokeControl.SetText(FieldMassa, $"{name} | {WsLocaleCore.LabelPrint.IsException(MassaDevice.SerialPort.Exception.Message)}");
                 break;
-
             case UsbAdapterStatus.IsNotConnectWithMassa:
-                MdInvokeControl.SetText(FieldMassa, 
-                    $"{WsLocaleCore.LabelPrint.MassaK} | {WsLocaleCore.LabelPrint.IsNotConnectWithMassa}");
+                MdInvokeControl.SetText(FieldMassa, $"{name} | Отключены");
                 break;
             default:
-                MdInvokeControl.SetText(FieldMassa, $"{(MassaDevice.IsOpenPort
-                    ? $"{WsLocaleCore.LabelPrint.MassaK} | {WsLocaleCore.LabelPrint.StateIsResponsed} | "
-                    : $"{WsLocaleCore.LabelPrint.MassaK} | {WsLocaleCore.LabelPrint.StateIsNotResponsed} | ")} | {ResponseParseGet.Message}");
+                MdInvokeControl.SetForeColor(FieldMassa, Color.Green);
+                MdInvokeControl.SetText(FieldMassa, $"{name} | Подключены | {ResponseParseGet.Message}");
                 break;
-        
         }
 
         decimal weight = LabelSession.PluLine.IsNew 

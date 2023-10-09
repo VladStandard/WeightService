@@ -5,7 +5,7 @@ namespace WsLabelCore.Common;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public class WsPluginBaseHelper : WsBaseHelper
+public class WsPluginBaseHelper : IDisposable
 {
     #region Public and private fields and properties
 
@@ -16,9 +16,6 @@ public class WsPluginBaseHelper : WsBaseHelper
     protected WsPluginModel ReopenItem { get; }
     protected WsPluginModel RequestItem { get; }
     protected WsPluginModel ResponseItem { get; }
-    protected int ReopenCounter => ReopenItem.SafeCounter;
-    protected int RequestCounter => RequestItem.SafeCounter;
-    protected int ResponseCounter => ResponseItem.SafeCounter;
 
     #endregion
 
@@ -27,16 +24,25 @@ public class WsPluginBaseHelper : WsBaseHelper
     protected WsPluginBaseHelper()
     {
         PluginType = WsEnumPluginType.Default;
-        ReopenItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };
-        RequestItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };
-        ResponseItem = new() { Config = new(waitExecute: 0_250, waitClose: 0_250) };
+        ReopenItem = new() { Config = new(waitExecute: 0_250) };
+        RequestItem = new() { Config = new(waitExecute: 0_250) };
+        ResponseItem = new() { Config = new(waitExecute: 0_250) };
     }
 
     #endregion
 
     #region Public and private methods
-
+    
+    
     public override string ToString() => $"{PluginType} | {ReopenItem} | {RequestItem} | {ResponseItem}";
+    
+    public virtual void Dispose()
+    {
+    }
 
+    public virtual void Execute()
+    {
+    }
+    
     #endregion
 }

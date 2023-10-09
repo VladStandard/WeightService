@@ -10,18 +10,9 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
 
     private Connection? ZebraConnection { get; set; }
     private string ZebraPeelerStatus { get; set; }
-    private ZebraPrinter? _zebraDriver;
-    private ZebraPrinter? ZebraDriver
-    {
-        get
-        {
-            if (ZebraConnection is not null && _zebraDriver is null)
-                _zebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection);
-            return _zebraDriver;
-        }
-    }
+    private ZebraPrinter? ZebraDriver { get; set; }
     private ZebraPrinterStatus? ZebraStatus { get; set; }
-    public bool IsConnected => ZebraStatus is not null && ZebraStatus.isReadyToPrint;
+    public bool IsConnected => ZebraStatus != null;
 
     #endregion
 
@@ -39,7 +30,6 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     public void InitZebra(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         MdPrinterModel printer, Label fieldPrint)
     {
-        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
@@ -47,13 +37,13 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         Printer = printer;
         FieldPrint = fieldPrint;
         PrintName = printer.Name;
+        RequestZebra();
     }
 
     public override void Execute()
     {
         base.Execute();
-        //ReopenItem.Execute(ReopenZebra);
-        RequestItem.Execute(RequestZebra);
+        ReopenItem.Execute(ReopenZebra);
         //ResponseItem.Execute(ResponseZebra);
     }
 
@@ -61,31 +51,30 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     {
         try
         {
-            ZebraConnection ??= ZebraConnectionBuilder.Build($"TCP_MULTI:{Printer.Ip}");
+            ZebraConnection ??= new TcpConnection(Printer.Ip, TcpConnection.DEFAULT_CPCL_TCP_PORT);
             if (!ZebraConnection.Connected)
             {
                 ZebraConnection.Open();
+                ZebraDriver = ZebraPrinterFactory.GetInstance(ZebraConnection);
             }
-            if (ZebraDriver is null || ZebraConnection is null || !ZebraConnection.Connected)
-                ZebraStatus = null;
-            else
-            {
-                ZebraStatus = ZebraDriver.GetCurrentStatus();
-            }
+            ZebraStatus = ZebraDriver?.GetCurrentStatus();
         }
         catch (Exception ex)
         {
             WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
-            //SendCmdToZebra(ZplUtils.ZplHostStatusReturn);
+            ZebraConnection = null;
+            ZebraStatus = null;
+            ZebraDriver = null;
         }
+        RequestZebra();
     }
 
     private void RequestZebra()
     {
+        MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
         MdInvokeControl.SetText(FieldPrint,
             LabelSession.WeighingSettings.GetPrintDescription(Printer, IsConnected,
                 LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount));
-        MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 
     public string GetDeviceStatusZebra()
@@ -150,9 +139,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     }
 
     public void SetOdometorUserLabel(int value) => SendCmdToZebra($@"! U1 setvar ""odometer.user_label_count"" ""{value}""");
-
-    public void GetOdometorUserLabel() => SendCmdToZebra(@"! U1 getvar ""odometer.user_label_count""");
-
+    
     public override void Dispose()
     {
         base.Dispose();

@@ -3,84 +3,77 @@ namespace WsLabelCore.Models;
 /// <summary>
 /// Конфиг плагина.
 /// </summary>
-#nullable enable
 [DebuggerDisplay("{ToString()}")]
 public sealed class WsPluginConfigModel
 {
-    #region Public and private fields and properties
-
-    public ushort WaitClose { get; }
+    #region Public Properties
+    
     public ushort WaitExecute { get; }
-    private const ushort WaitSleep = 0_100;
-    public const ushort WaitLowLimit = 0_100;
-    private const ushort WaitHighLimit = 3_000;
-    public Stopwatch StopwatchExecute { get; }
 
     #endregion
 
-    #region Constructor and destructor
+    #region Constants
+    
+    private const ushort DefaultWaitExecute = 100;
+    private const ushort WaitSleep = 100;
+    public const ushort WaitLowLimit = 100;
+    private const ushort WaitHighLimit = 5000;
 
-    public WsPluginConfigModel(ushort waitExecute = 0, ushort waitClose = 0)
+    #endregion
+
+    #region Constructors
+
+    public WsPluginConfigModel(ushort waitExecute = DefaultWaitExecute)
     {
-        WaitExecute = waitExecute == 0 ? (ushort)0_100 : waitExecute;
-        WaitClose = waitClose == 0 ? (ushort)0_500 : waitClose;
-        StopwatchExecute = Stopwatch.StartNew();
+        WaitExecute = ClampToLimits(waitExecute);
     }
 
-    public WsPluginConfigModel() : this(0) { }
+    public WsPluginConfigModel() : this(DefaultWaitExecute) { }
 
-    public static void WaitSync(ushort miliSeconds)
+    #endregion
+
+    #region Public Methods
+
+    public static void WaitSync(ushort milliseconds)
     {
+        milliseconds = ClampToLimits(milliseconds);
         Stopwatch stopwatchSleep = Stopwatch.StartNew();
-        if (miliSeconds < WaitLowLimit)
-            miliSeconds = WaitLowLimit;
-        if (miliSeconds > WaitHighLimit)
-            miliSeconds = WaitHighLimit;
-        stopwatchSleep.Restart();
-        while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
+
+        while (stopwatchSleep.Elapsed.TotalMilliseconds < milliseconds)
         {
             Thread.Sleep(WaitSleep);
             System.Windows.Forms.Application.DoEvents();
         }
+
         stopwatchSleep.Stop();
     }
 
-    public async Task WaitAsync(ushort miliSeconds)
+    public static async Task WaitAsync(ushort milliseconds)
     {
+        milliseconds = ClampToLimits(milliseconds);
         Stopwatch stopwatchSleep = Stopwatch.StartNew();
-        if (miliSeconds < WaitLowLimit)
-            miliSeconds = WaitLowLimit;
-        if (miliSeconds > WaitHighLimit)
-            miliSeconds = WaitHighLimit;
-        stopwatchSleep.Restart();
-        while ((ushort)stopwatchSleep.Elapsed.TotalMilliseconds < miliSeconds)
+
+        while (stopwatchSleep.Elapsed.TotalMilliseconds < milliseconds)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
+            await Task.Delay(WaitSleep).ConfigureAwait(true);
             System.Windows.Forms.Application.DoEvents();
         }
+
         stopwatchSleep.Stop();
     }
 
-    public static void WaitSync(Stopwatch stopwatch, ushort wait)
-    {
-        stopwatch.Restart();
-        while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
-        {
-            Thread.Sleep(WaitSleep);
-            System.Windows.Forms.Application.DoEvents();
-        }
-        stopwatch.Stop();
-    }
+    #endregion
 
-    public async Task WaitAsync(Stopwatch stopwatch, ushort wait)
+    #region Private Methods
+
+    private static ushort ClampToLimits(ushort value)
     {
-        stopwatch.Restart();
-        while ((ushort)stopwatch.Elapsed.TotalMilliseconds < wait)
+        return value switch
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(WaitSleep)).ConfigureAwait(true);
-            System.Windows.Forms.Application.DoEvents();
-        }
-        stopwatch.Stop();
+            < WaitLowLimit => WaitLowLimit,
+            > WaitHighLimit => WaitHighLimit,
+            _ => value
+        };
     }
 
     #endregion

@@ -152,23 +152,22 @@ public sealed partial class WsMainForm : Form
     private void SetupPlugins()
     {
         // Память.
-        UserSession.PluginMemory.Init(new(2_000, 1_000), new(1_000, 1_000),
-            new(1_000, 1_000), fieldMemory);
+        UserSession.PluginMemory.Init(new(2_000), new(1_000),
+            new(1_000), fieldMemory);
         UserSession.PluginMemory.Execute();
 
         // Весовая платформа Масса-К.
-        UserSession.PluginMassa.Init(new(1_000, 1_000), new(0_150, 0_150),
-            new(0_150, 0_150), fieldNettoWeight, fieldMassa, fieldMassaExt, ResetWarning);
+        UserSession.PluginMassa.Init(new(1_000), new(0_150),
+            new(0_150), fieldNettoWeight, fieldMassa, ResetWarning);
         PluginMassaExecute();
-        MdInvokeControl.SetVisible(fieldMassaExt, Debug.IsDevelop);
 
         // Основной принтер.
         switch (LabelSession.PrintModelMain)
         {
             case WsEnumPrintModel.Tsc:
                 LabelSession.PluginPrintTscMain = new();
-                LabelSession.PluginPrintTscMain.InitTsc(new(0_500, 0_500),
-                new(0_500, 0_500), new(0_500, 0_500),
+                LabelSession.PluginPrintTscMain.InitTsc(new(0_500),
+                new(0_500), new(0_500),
                 GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
@@ -176,8 +175,8 @@ public sealed partial class WsMainForm : Form
                 break;
             case WsEnumPrintModel.Zebra:
                 LabelSession.PluginPrintZebraMain = new();
-                LabelSession.PluginPrintZebraMain.InitZebra(new(0_500, 0_500),
-                new(0_500, 0_500), new(0_500, 0_500),
+                LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
+                new(0_500), new(0_500),
                 GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
@@ -190,8 +189,8 @@ public sealed partial class WsMainForm : Form
 
         // Метки.
         UserSession.PluginLabels.Init(
-            new(0_500, 0_500), new(0_500, 0_500),
-            new(0_500, 0_500), fieldPlu, fieldProductDate, fieldKneading);
+            new(0_500), new(0_500),
+            new(0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
         MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle} {LabelSession.PublishDescription}");
         MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
@@ -211,7 +210,6 @@ public sealed partial class WsMainForm : Form
 
         fieldPrintMain.Font = FontsSettings.FontLabelsGray;
         fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
-        fieldMassaExt.Font = FontsSettings.FontLabelsGray;
         fieldMassa.Font = FontsSettings.FontLabelsGray;
         fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;

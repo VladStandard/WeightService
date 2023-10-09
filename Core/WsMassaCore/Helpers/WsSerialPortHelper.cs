@@ -74,8 +74,7 @@ public class WsSerialPortHelper
 				AdapterStatus = UsbAdapterStatus.IsNotConnectWithMassa;
 				return;
 			}
-			else
-				AdapterStatus = UsbAdapterStatus.IsConnectWithMassa;
+            AdapterStatus = UsbAdapterStatus.IsConnectWithMassa;
 
 			SerialPort.PortName = portName;
 			SerialPort.BaudRate = Convert.ToInt32(baudRate);

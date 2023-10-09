@@ -1,8 +1,6 @@
-using WsDataCore.Common;
-
 namespace WsMassaCore.Helpers;
 
-public class WsMassaDeviceHelper : WsBaseHelper
+public class WsMassaDeviceHelper : IDisposable
 {
 	#region Design pattern "Lazy Singleton"
 
@@ -30,6 +28,8 @@ public class WsMassaDeviceHelper : WsBaseHelper
 	private MassaResponseCallback _massaResponseCallback;
 	private readonly object _locker = new();
 
+    public string ComPort => PortName;
+
     public WsMassaDeviceHelper()
     {
         PortName = string.Empty;
@@ -39,7 +39,6 @@ public class WsMassaDeviceHelper : WsBaseHelper
 
     public void Init(string portName,  MassaResponseCallback massaCallback)
 	{
-		base.Init();
 		PortName = portName;
 		ReadTimeout = 0_100;
 		WriteTimeout = 0_100;
@@ -54,11 +53,6 @@ public class WsMassaDeviceHelper : WsBaseHelper
 	#endregion
 
 	#region Public and private methods - ISerialPortView
-
-	public void SetController(WsSerialPortHelper controller)
-	{
-		SerialPort = controller;
-	}
 
     private void PortOpenCallback(object sender, SerialPortEventArgs e)
 	{
@@ -108,9 +102,8 @@ public class WsMassaDeviceHelper : WsBaseHelper
 
 	#region Public and private methods
 
-    public override void Execute()
+    public void Execute()
 	{
-		base.Execute();
 		if (IsOpenPort) return;
 		SerialPort.Open(PortName, ReadTimeout, WriteTimeout);
 	}
@@ -121,9 +114,8 @@ public class WsMassaDeviceHelper : WsBaseHelper
 		SendBytesCount += WsMassaExchangeHelper.Instance.Request.Length;
 	}
 
-    public override void Dispose()
+    public void Dispose()
 	{
-		base.Dispose();
 		SerialPort.Close();
 	}
 

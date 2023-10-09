@@ -37,7 +37,6 @@ namespace ScalesUI.Forms
             this.fieldWarning = new System.Windows.Forms.Label();
             this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldPrintMainExt = new System.Windows.Forms.Label();
-            this.fieldMassaExt = new System.Windows.Forms.Label();
             this.fieldMassa = new System.Windows.Forms.Label();
             this.labelTareWeight = new System.Windows.Forms.Label();
             this.labelKneading = new System.Windows.Forms.Label();
@@ -118,7 +117,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
             this.layoutPanelMain.Controls.Add(this.fieldMemory, 2, 7);
             this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
-            this.layoutPanelMain.Controls.Add(this.fieldMassaExt, 1, 8);
             this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
             this.layoutPanelMain.Controls.Add(this.labelTareWeight, 2, 3);
             this.layoutPanelMain.Controls.Add(this.labelNettoWeight, 2, 2);
@@ -221,21 +219,6 @@ namespace ScalesUI.Forms
             this.fieldMemory.TabIndex = 53;
             this.fieldMemory.Text = "fieldMemory";
             this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // fieldMassaExt
-            // 
-            this.fieldMassaExt.AutoSize = true;
-            this.fieldMassaExt.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaExt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMassaExt.Location = new System.Drawing.Point(8, 377);
-            this.fieldMassaExt.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaExt.Name = "fieldMassaExt";
-            this.fieldMassaExt.Size = new System.Drawing.Size(127, 19);
-            this.fieldMassaExt.TabIndex = 51;
-            this.fieldMassaExt.Text = "fieldMassaExt";
-            this.fieldMassaExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fieldMassa
             // 
@@ -467,7 +450,6 @@ namespace ScalesUI.Forms
         private System.Windows.Forms.Label fieldPrintMain;
         private System.Windows.Forms.Label fieldMassa;
         private System.Windows.Forms.Label fieldPrintMainExt;
-        private System.Windows.Forms.Label fieldMassaExt;
         private System.Windows.Forms.Label fieldMemory;
         private System.Windows.Forms.Label fieldWarning;
         private System.Windows.Forms.Label fieldPrintShipping;

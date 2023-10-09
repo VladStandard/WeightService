@@ -42,7 +42,6 @@ public sealed class WsPluginMemoryHelper : WsPluginBaseHelper
 
     public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse, Label fieldMemory)
     {
-        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;

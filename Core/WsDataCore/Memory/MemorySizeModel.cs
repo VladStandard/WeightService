@@ -1,7 +1,7 @@
 namespace WsDataCore.Memory;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed class MemorySizeModel : WsBaseHelper
+public sealed class MemorySizeModel : IDisposable
 {
     #region Public and private fields, properties, constructor
 
@@ -33,10 +33,8 @@ public sealed class MemorySizeModel : WsBaseHelper
 
     public override string ToString() => $"{nameof(GetMemorySizeAppMb)}: {GetMemorySizeAppMb()} | {nameof(GetMemorySizeFreeMb)}: {GetMemorySizeTotalMb()}";
         
-    public override void Execute()
+    public void Execute()
     {
-        base.Execute();
-
         if (PhysicalCurrent is not null)
             PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
         if (VirtualCurrent is not null)
@@ -49,9 +47,8 @@ public sealed class MemorySizeModel : WsBaseHelper
         PhysicalTotal = new() { Bytes = getWmi.TotalPhysical };
     }
 
-    public override void Dispose()
+    public void Dispose()
     {
-        base.Dispose();
         VirtualCurrent = null;
         PhysicalCurrent = null;
         VirtualFree = null;

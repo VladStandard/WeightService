@@ -63,7 +63,7 @@ public sealed class WsWeighingSettingsModel
     public string GetPrintDescription(MdPrinterModel printer,
         bool isConnected, int scaleCounter, int labelPrintedCount, byte labelCount) =>
         $"{printer.Name} | {printer.Ip} | " +
-        $"{WsLocaleCore.Table.Status}: {(isConnected ? MdNetLocalization.Instance.StatusSuccess : MdNetLocalization.Instance.StatusUnknown)} | " +
+        $"{(isConnected ? "Подключен" : "Отключен")} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";
 

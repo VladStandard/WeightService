@@ -48,7 +48,6 @@ public sealed class WsPrintSessionHelper
     public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraMain is null) return false;
-        LabelSession.PluginPrintZebraMain.ReopenZebra();
         // Готовность.
         if (!LabelSession.PluginPrintZebraMain.CheckDeviceStatusZebra())
         {

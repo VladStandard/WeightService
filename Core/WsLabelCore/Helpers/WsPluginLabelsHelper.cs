@@ -36,7 +36,6 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
     public void Init(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         Label fieldPlu, Label fieldProductDate, Label fieldKneading)
     {
-        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;

@@ -652,7 +652,7 @@
         },
         "StateIsResponsed": {
             "en": "is responsed",
-            "ru": "есть ответ"
+            "ru": "Подключены"
         },
         "SwitchDeviceSettings": {
             "en": "Switch device settings",

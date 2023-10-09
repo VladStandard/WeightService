@@ -52,7 +52,6 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     public void InitTsc(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
         MdPrinterModel printer, Label fieldPrint)
     {
-        Init();
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
