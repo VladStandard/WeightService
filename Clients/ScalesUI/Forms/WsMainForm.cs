@@ -176,12 +176,12 @@ public sealed partial class WsMainForm : Form
             case WsEnumPrintModel.Zebra:
                 LabelSession.PluginPrintZebraMain = new();
                 LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
-                new(0_500), new(0_500),
+                new(0_250), new(0_250),
                 GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintZebraMain.Execute();
-                LabelSession.PluginPrintZebraMain.SetOdometorUserLabel(1);
+                // LabelSession.PluginPrintZebraMain.SetOdometorUserLabel(1);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

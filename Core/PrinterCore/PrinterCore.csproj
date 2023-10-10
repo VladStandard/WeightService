@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net481</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Zebra.Printer.SDK" Version="2.15.2634" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj" />
+    </ItemGroup>
+
+</Project>

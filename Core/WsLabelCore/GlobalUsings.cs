@@ -71,10 +71,12 @@ global using WsStorageCore.Views.ViewRefModels.PluLines;
 global using WsStorageCore.Views.ViewRefModels.PluNestings;
 global using Zebra.Sdk.Comm;
 global using Zebra.Sdk.Printer;
+global using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
+global using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 global using FontStyle = System.Drawing.FontStyle;
 global using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
 global using Binding = System.Windows.Data.Binding;
 global using Label = System.Windows.Forms.Label;
 global using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-global using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
-global using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
+
+

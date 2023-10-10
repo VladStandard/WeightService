@@ -124,7 +124,7 @@ public sealed class WsPrintSessionHelper
             if (isClearBuffer)
             {
                 LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
-                LabelSession.PluginPrintZebraMain?.ClearPrintBuffer();
+                // LabelSession.PluginPrintZebraMain?.ClearPrintBuffer();
             }
             // TODO: исправить здесь
             //// Отправить команду в принтер.
@@ -140,14 +140,10 @@ public sealed class WsPrintSessionHelper
             //        LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
             //    }
             //}
-            //else
-            //{
-            //    // Отправить команду в принтер.
-            //    LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-            //}
             // Отправить команду в принтер.
             LabelSession.PluginPrintTscMain?.SendCmdToTsc(pluLabelWithContext.PluLabel);
             LabelSession.PluginPrintZebraMain?.SendCmdToZebra(pluLabelWithContext.PluLabel.Zpl);
+            
             // Пересоздать шаблон.
             if (isReloadTemplete)
                 template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;

@@ -295,6 +295,10 @@
       <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
       <Name>MDSoft.BarcodePrintUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PrinterCore\PrinterCore.csproj">
+      <Project>{b83302bf-7d7e-48c3-b7ec-8f0a42aa6adf}</Project>
+      <Name>PrinterCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">
       <Project>{B5DE7B8C-16AE-4027-9BA5-F977605B850B}</Project>
       <Name>WsDataCore</Name>
