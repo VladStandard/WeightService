@@ -191,7 +191,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         LabelSession.PluWeighing = new()
         {
             PluScale = LabelSession.PluLine,
-            Kneading = LabelSession.WeighingSettings.Kneading,
+            Kneading = (short)LabelSession.WeighingSettings.Kneading,
             NettoWeight = LabelSession.PluLine.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
                 : LabelSession.ViewPluNesting.WeightNom,
             WeightTare = LabelSession.ViewPluNesting.TareWeight,

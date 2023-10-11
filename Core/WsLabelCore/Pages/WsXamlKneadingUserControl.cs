@@ -19,16 +19,12 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     /// <summary>
     /// Сохранение замеса.
     /// </summary>
-    private short SaveKneading { get; set; }
+    private int SaveKneading { get; set; }
     /// <summary>
     /// Сохранение размера палеты.
     /// </summary>
     private byte SavePalletSize { get; set; }
-    /// <summary>
-    /// Сохранение использования инкремента счётчика этикеток.
-    /// </summary>
-    private bool SaveIsIncrementCounter { get; set; }
-
+    
     public WsXamlKneadingUserControl() : base(WsEnumNavigationPage.Kneading)
     {
         InitializeComponent();
@@ -83,7 +79,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
             digitsForm.Close();
             digitsForm.Dispose();
             if (result == DialogResult.OK)
-                LabelSession.WeighingSettings.Kneading = (byte)digitsForm.InputValue;
+                LabelSession.WeighingSettings.Kneading = digitsForm.InputValue;
             SetupControls();
         });
     }
@@ -91,8 +87,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     /// <summary>
     /// Возврат Отмена.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ButtonCancel_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
@@ -107,11 +101,8 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
 
     private void CheckWeightCount()
     {
-        if (LabelSession.PluLine is { IsExists: true, Plu.IsCheckWeight: true } &&
-            LabelSession.WeighingSettings.LabelsCountMain > 1)
+        if (LabelSession is { PluLine: { IsExists: true, Plu.IsCheckWeight: true }, WeighingSettings.LabelsCountMain: > 1 })
         {
-            //WpfUtils.ShowNewOperationControl(this, LocaleCore.Scales.CheckPluWeightCount, true, LogType.Information, null, 
-            //    LabelSession.HostName, nameof(ScalesUI));
             LabelSession.WeighingSettings.LabelsCountMain = 1;
         }
         fieldPalletSize.Text = $@"{LabelSession.WeighingSettings.LabelsCountMain}";

@@ -6,20 +6,15 @@ public sealed class WsWeighingSettingsModel
 {
     #region Public and private fields and properties
 
-    private byte KneadingMinValue => 1;
-    private byte KneadingMaxValue => 140;
-    private short _kneading;
-    public short Kneading
+    private int KneadingMinValue => 1;
+    private int KneadingMaxValue => 140;
+    private int _kneading;
+    public int Kneading
     {
         get => _kneading;
         set
-        {
-            if (value < KneadingMinValue)
-                _kneading = KneadingMinValue;
-            else if (value > KneadingMaxValue)
-                _kneading = KneadingMaxValue;
-            else
-                _kneading = value;
+        { 
+            _kneading = Math.Min(Math.Max(value, KneadingMinValue), KneadingMaxValue);
         }
     }
     private byte LabelsCountMinValue => 1;
@@ -30,12 +25,7 @@ public sealed class WsWeighingSettingsModel
         get => _labelsCountMain;
         set
         {
-            if (value < KneadingMinValue)
-                _labelsCountMain = LabelsCountMinValue;
-            else if (value > KneadingMaxValue)
-                _labelsCountMain = LabelsCountMaxValue;
-            else
-                _labelsCountMain = value;
+            _labelsCountMain = Math.Min(Math.Max(value, LabelsCountMinValue), LabelsCountMaxValue);
         }
     }
 
