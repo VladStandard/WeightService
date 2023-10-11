@@ -1,11 +1,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("MDSoft.BarcodePrintUtils")]
+[assembly: AssemblyTitle("PrinterCore")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Damian Morozov")]
-[assembly: AssemblyProduct("MDSoft.BarcodePrintUtils")]
+[assembly: AssemblyCompany("Владимирский стандарт")]
+[assembly: AssemblyProduct("PrinterCore")]
 [assembly: AssemblyCopyright("Copyright © Владимирский стандарт 2020 - 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

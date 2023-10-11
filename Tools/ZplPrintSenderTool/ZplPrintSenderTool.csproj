@@ -177,9 +177,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
-      <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
-      <Name>MDSoft.BarcodePrintUtils</Name>
+    <ProjectReference Include="..\..\Core\PrinterCore\PrinterCore.csproj">
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
+      <Name>PrinterCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\WsPrintCore\WsPrintCore.csproj">
       <Project>{E2BC4403-B429-421A-A192-402A7DB5ECF8}</Project>

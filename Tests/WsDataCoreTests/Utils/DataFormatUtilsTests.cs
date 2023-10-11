@@ -1,4 +1,4 @@
-//using MDSoft.BarcodePrintUtils.Utils;
+//using PrinterCore.Utils;
 
 namespace WsDataCoreTests.Utils;
 

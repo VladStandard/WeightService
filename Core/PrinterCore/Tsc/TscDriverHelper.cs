@@ -1,7 +1,6 @@
 using System.Threading;
 using WsPrintCore.Common;
-
-namespace MDSoft.BarcodePrintUtils.Tsc;
+namespace PrinterCore.Tsc;
 
 public class TscDriverHelper
 {

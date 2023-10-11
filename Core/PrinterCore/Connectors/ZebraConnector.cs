@@ -2,7 +2,6 @@
 using PrinterCore.Enums;
 using WsLocalizationCore.Utils;
 using WsStorageCore.Helpers;
-
 namespace PrinterCore.Connectors;
 
 public class ZebraConnector : IPrinterConnector

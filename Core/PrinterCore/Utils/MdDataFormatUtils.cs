@@ -1,6 +1,5 @@
 using WsStorageCore.OrmUtils;
-
-namespace MDSoft.BarcodePrintUtils.Utils;
+namespace PrinterCore.Utils;
 
 public static class MdDataFormatUtils
 {

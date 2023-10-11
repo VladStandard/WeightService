@@ -274,12 +274,8 @@
     <None Include="Resources\settings_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj">
-      <Project>{A713AB22-2C23-48B6-8974-2FD7230012F7}</Project>
-      <Name>MDSoft.BarcodePrintUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PrinterCore\PrinterCore.csproj">
-      <Project>{b83302bf-7d7e-48c3-b7ec-8f0a42aa6adf}</Project>
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
       <Name>PrinterCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">

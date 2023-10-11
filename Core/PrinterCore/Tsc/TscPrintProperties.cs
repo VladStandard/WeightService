@@ -1,6 +1,6 @@
 using WsPrintCore.Common;
 
-namespace MDSoft.BarcodePrintUtils.Tsc;
+namespace PrinterCore.Tsc;
 
 public class TscPrintProperties
 {

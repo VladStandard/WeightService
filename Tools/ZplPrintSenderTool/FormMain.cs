@@ -289,7 +289,7 @@ public partial class FormMain : Form
         toolStripStatusLabel.Text = $@"Server {e.IpPort} connected";
     }
 
-    private void WsTcpClientDataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
+    private void WsTcpClientDataReceived(object sender, DataReceivedEventArgs e)
     {
         string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
         received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";

@@ -1,5 +1,4 @@
-﻿using WsStorageCore.Tables.TableScaleModels.PlusLabels;
-namespace PrinterCore.Common;
+﻿namespace PrinterCore.Common;
 
 public interface IPrinter : IDisposable
 {

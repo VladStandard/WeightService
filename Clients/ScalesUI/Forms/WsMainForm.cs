@@ -201,11 +201,9 @@ public sealed partial class WsMainForm : Form
     {
         ActionSettings = new()
         {
-            // Устройства.
             IsDevice = true,
             IsPlu = true,
             IsNesting = true,
-            // Действия.
             IsKneading = true,
             IsNewPallet = false,
             IsPrint = true,

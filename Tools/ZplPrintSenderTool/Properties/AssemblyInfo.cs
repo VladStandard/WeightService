@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ZplPrintSenderTool")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Damian Morozov")]
+[assembly: AssemblyCompany("Владимирский стандарт")]
 [assembly: AssemblyProduct("")]
 [assembly: AssemblyCopyright("Copyright © 2020 - 2023")]
 [assembly: AssemblyTrademark("")]

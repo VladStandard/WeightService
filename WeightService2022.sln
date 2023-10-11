@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{604FDA3A-86DD-467C-BC95-F5E9A4A44F3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDSoft.BarcodePrintUtils", "Core\MDSoft.BarcodePrintUtils\MDSoft.BarcodePrintUtils.csproj", "{A713AB22-2C23-48B6-8974-2FD7230012F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterCore", "Core\PrinterCore\PrinterCore.csproj", "{A713AB22-2C23-48B6-8974-2FD7230012F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalizationCore", "Core\WsLocalizationCore\WsLocalizationCore.csproj", "{024AC0D8-3E29-482B-B08A-6BF591B0F9E5}"
 EndProject
@@ -68,8 +68,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZplPrintSenderTool", "Tools\ZplPrintSenderTool\ZplPrintSenderTool.csproj", "{5973F987-103A-455D-A5E3-C7429906657A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsStorageCoreBenchmark", "Tools\WsStorageCoreBenchmark\WsStorageCoreBenchmark.csproj", "{54CEC8F0-8971-463C-A7B6-2EAA52879632}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterCore", "Core\PrinterCore\PrinterCore.csproj", "{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1065,42 +1063,6 @@ Global
 		{54CEC8F0-8971-463C-A7B6-2EAA52879632}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 		{54CEC8F0-8971-463C-A7B6-2EAA52879632}.ReleaseVS|x86.ActiveCfg = ReleaseVS|x86
 		{54CEC8F0-8971-463C-A7B6-2EAA52879632}.ReleaseVS|x86.Build.0 = ReleaseVS|x86
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopAleksandrov|x86.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopMorozov|x86.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.DevelopVS|x86.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseAleksandrov|x86.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseMorozov|x86.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|Any CPU.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|Any CPU.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|x64.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|x64.Build.0 = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|x86.ActiveCfg = Debug|Any CPU
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF}.ReleaseVS|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1133,7 +1095,6 @@ Global
 		{AB204B9C-C58F-4567-A9BD-46A78A6D49BA} = {9EFDDDBD-0814-4C94-90E7-348DA29E426F}
 		{5973F987-103A-455D-A5E3-C7429906657A} = {9EFDDDBD-0814-4C94-90E7-348DA29E426F}
 		{54CEC8F0-8971-463C-A7B6-2EAA52879632} = {9EFDDDBD-0814-4C94-90E7-348DA29E426F}
-		{B83302BF-7D7E-48C3-B7EC-8F0A42AA6ADF} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
