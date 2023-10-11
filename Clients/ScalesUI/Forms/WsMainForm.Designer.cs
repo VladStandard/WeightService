@@ -35,7 +35,6 @@ namespace ScalesUI.Forms
             this.fieldPrintShippingExt = new System.Windows.Forms.Label();
             this.fieldPrintShipping = new System.Windows.Forms.Label();
             this.fieldWarning = new System.Windows.Forms.Label();
-            this.fieldMemory = new System.Windows.Forms.Label();
             this.fieldPrintMainExt = new System.Windows.Forms.Label();
             this.fieldMassa = new System.Windows.Forms.Label();
             this.labelTareWeight = new System.Windows.Forms.Label();
@@ -115,7 +114,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 10);
             this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
-            this.layoutPanelMain.Controls.Add(this.fieldMemory, 2, 7);
             this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
             this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
             this.layoutPanelMain.Controls.Add(this.labelTareWeight, 2, 3);
@@ -203,22 +201,6 @@ namespace ScalesUI.Forms
             this.fieldWarning.Text = "Warning";
             this.fieldWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldWarning.Visible = false;
-            // 
-            // fieldMemory
-            // 
-            this.fieldMemory.AutoSize = true;
-            this.fieldMemory.BackColor = System.Drawing.Color.Transparent;
-            this.layoutPanelMain.SetColumnSpan(this.fieldMemory, 3);
-            this.fieldMemory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemory.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldMemory.Location = new System.Drawing.Point(141, 352);
-            this.fieldMemory.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMemory.Name = "fieldMemory";
-            this.fieldMemory.Size = new System.Drawing.Size(873, 19);
-            this.fieldMemory.TabIndex = 53;
-            this.fieldMemory.Text = "fieldMemory";
-            this.fieldMemory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fieldMassa
             // 
@@ -450,7 +432,6 @@ namespace ScalesUI.Forms
         private System.Windows.Forms.Label fieldPrintMain;
         private System.Windows.Forms.Label fieldMassa;
         private System.Windows.Forms.Label fieldPrintMainExt;
-        private System.Windows.Forms.Label fieldMemory;
         private System.Windows.Forms.Label fieldWarning;
         private System.Windows.Forms.Label fieldPrintShipping;
         private System.Windows.Forms.Label fieldPrintShippingExt;

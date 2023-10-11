@@ -45,27 +45,14 @@ public sealed partial class WsMainForm : Form
     /// </summary>
     private void MainFormLoadAtBackground()
     {
-        // Назначить хуки мышки.
         MouseSubscribe();
-        // Настройка кнопок.
         SetupButtons();
-        // Загрузка шрифтов.
         LoadFonts();
         LoadLocalizationStatic(WsEnumLanguage.Russian);
         
-        _ = Task.Run(async () =>
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            // Прочее.
-            LabelSession.NewPallet();
-            MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
-            MdInvokeControl.SetText(fieldProductDate, string.Empty);
-            // Настроить плагины.
-            SetupPlugins();
-            LoadLocalizationStatic(WsEnumLanguage.Russian);
-            // Планировщик.
-            WsScheduler.Load(this);
-        }).ConfigureAwait(false);
+        LabelSession.NewPallet();
+        SetupPlugins();
+        WsScheduler.Load(this);
         // Загрузить WinForms-контролы.
         LoadNavigationUserControl();
     }
@@ -122,17 +109,14 @@ public sealed partial class WsMainForm : Form
                 ContextManager.ContextItem.SaveLogWarning(message);
                 return;
             }
-            // Навигация в контрол ожидания.
-            WsFormNavigationUtils.NavigateToExistsWait(ShowFormUserControl,  WsLocaleCore.LabelPrint.AppLoad, WsLocaleCore.LabelPrint.AppLoadDescription);
             // Загрузка фоном.
             MainFormLoadAtBackground();
-            // Авто-возврат из контрола на главную форму.
-            WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.Relay();
+            WsFormNavigationUtils.ActionBackFromNavigation();
+            ActionFinally();
+
             // Применить настройки устройства.
             ReturnOkFromDeviceSettings();
             // Лог памяти.
-            ContextManager.LogMemoryRepository.Save(
-                UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
             UserSession.StopwatchMain.Stop();
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
             ContextManager.LineRepository.Update(LabelSession.Line);
@@ -151,11 +135,6 @@ public sealed partial class WsMainForm : Form
     /// </summary>
     private void SetupPlugins()
     {
-        // Память.
-        UserSession.PluginMemory.Init(new(2_000), new(1_000),
-            new(1_000), fieldMemory);
-        UserSession.PluginMemory.Execute();
-
         // Весовая платформа Масса-К.
         UserSession.PluginMassa.Init(new(1_000), new(0_150),
             new(0_150), fieldNettoWeight, fieldMassa, ResetWarning);
@@ -192,8 +171,6 @@ public sealed partial class WsMainForm : Form
             new(0_500), new(0_500),
             new(0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
-        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle} {LabelSession.PublishDescription}");
-        MdInvokeControl.SetBackColor(fieldTitle, Color.Transparent);
     }
 
     /// <summary>
@@ -213,8 +190,6 @@ public sealed partial class WsMainForm : Form
         fieldMassa.Font = FontsSettings.FontLabelsGray;
         fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
         fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;
-        fieldMemory.Font = FontsSettings.FontLabelsGray;
-
         fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
         labelTareWeight.Font = FontsSettings.FontLabelsBlack;
@@ -418,6 +393,10 @@ public sealed partial class WsMainForm : Form
         MdInvokeControl.SetText(labelTareWeight, WsLocaleCore.LabelPrint.FieldWeightTare);
         MdInvokeControl.SetText(labelProductDate, WsLocaleCore.LabelPrint.FieldDate);
         MdInvokeControl.SetText(labelKneading, WsLocaleCore.LabelPrint.FieldKneading);
+        
+        MdInvokeControl.SetText(fieldTitle, $"{WsAppVersionHelper.Instance.AppTitle} {LabelSession.PublishDescription}");
+        MdInvokeControl.SetText(this, WsAppVersionHelper.Instance.AppTitle);
+        MdInvokeControl.SetText(fieldProductDate, string.Empty);
     }
 
     #endregion

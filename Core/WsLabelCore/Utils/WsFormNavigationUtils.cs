@@ -15,10 +15,6 @@ public static class WsFormNavigationUtils
     /// </summary>
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     /// <summary>
-    /// Плагин замеров памяти.
-    /// </summary>
-    private static WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
-    /// <summary>
     /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
     /// </summary>
     private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
@@ -26,10 +22,6 @@ public static class WsFormNavigationUtils
     /// SQL-менеджер доступа к данным БД (используется клиентами).
     /// </summary>
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    /// <summary>
-    /// WinForms-контрол ожидания.
-    /// </summary>
-    public static WsXamlWaitUserControl WaitUserControl { get; } = new();
     /// <summary>
     /// WinForms-контрол диалога.
     /// </summary>
@@ -245,22 +237,6 @@ public static class WsFormNavigationUtils
         showNavigation(DigitsUserControl, WsLocaleCore.LabelPrint.OperationControl);
         NavigationUserControl.SwitchUserControl(DigitsUserControl);
     }
-
-    /// <summary>
-    /// Навигация в WinForms-контрол ожидания.
-    /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    public static void NavigateToExistsWait(Action<WsFormBaseUserControl, string> showNavigation, 
-        string title, string message)
-    {
-        WaitUserControl.ViewModel.Message = message;
-        WaitUserControl.ViewModel.SetupButtonsCustom(message, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(WaitUserControl, title);
-        NavigationUserControl.SwitchUserControl(WaitUserControl);
-    }
-
     /// <summary>
     /// Навигация в WinForms-контрол замеса.
     /// </summary>

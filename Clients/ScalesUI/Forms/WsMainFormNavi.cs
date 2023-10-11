@@ -12,10 +12,6 @@ public partial class WsMainForm
         // Навигация.
         WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
         WsFormNavigationUtils.NavigationUserControl.Visible = false;
-        // WinForms-контрол ожидания.
-        WsFormNavigationUtils.WaitUserControl.SetupUserControl();
-        WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.AddAction(WsFormNavigationUtils.ActionBackFromNavigation);
-        WsFormNavigationUtils.WaitUserControl.ViewModel.CmdCustom.AddAction(ActionFinally);
         // Настройка главной формы.
         CenterToScreen();
         // Применить настройки устройства.
@@ -109,9 +105,6 @@ public partial class WsMainForm
             case WsXamlPlusNestingUserControl plusNestingUserControl:
                 plusNestingUserControl.SetupUserControl();
                 break;
-            case WsXamlWaitUserControl waitUserControl:
-                waitUserControl.SetupUserControl();
-                break;
             default:
                 throw new ArgumentException(nameof(userControl));
         }
@@ -139,7 +132,6 @@ public partial class WsMainForm
     /// <param name="e"></param>
     private void ActionClose(object sender, EventArgs e)
     {
-        // Redirect into MainForm_FormClosing.
         Close();
     }
 

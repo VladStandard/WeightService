@@ -17,12 +17,6 @@ internal static class Program
         // Настройка.
         AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.App);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
-        // Лог.
-        StringBuilder log = new();
-        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationIsComplete);
-        log.AppendLine(WsLocaleCore.LabelPrint.RegistrationSuccess(LabelSession.DeviceName, LabelSession.Line.Description));
-        log.AppendLine($"{WsLocaleCore.LabelPrint.ClickOnceIntallDirectory}: {WsAssemblyUtils.GetClickOnceNetworkInstallDirectory()}");
-        ContextManager.ContextItem.SaveLogInformation(log);
         // Режим работы.
         WsDebugHelper.Instance.IsSkipDialogs = false;
         // Запуск.

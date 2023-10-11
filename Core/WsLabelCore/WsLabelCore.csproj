@@ -52,12 +52,6 @@
     <Compile Include="Pages\WsXamlDeviceSettingsUserControl.Designer.cs">
       <DependentUpon>WsXamlDeviceSettingsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WsXamlWaitUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Pages\WsXamlWaitUserControl.Designer.cs">
-      <DependentUpon>WsXamlWaitUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Pages\WsXamlDialogUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -105,16 +99,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Helpers\WsLabelSessionHelper.cs" />
-    <Compile Include="Pages\WsXamlWaitPage.xaml.cs">
-      <DependentUpon>WsXamlWaitPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\WsXamlDialogPage.xaml.cs">
       <DependentUpon>WsXamlDialogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\WsFormNavigationUtils.cs" />
     <Compile Include="Utils\WsFormUtils.cs" />
     <Compile Include="ViewModels\WsXamlDeviceSettingsViewModel.cs" />
-    <Compile Include="ViewModels\WsXamlWaitViewModel.cs" />
     <Compile Include="ViewModels\WsXamlDialogViewModel.cs" />
     <Compile Include="ViewModels\WsXamlPlusLineViewModel.cs" />
     <Compile Include="ViewModels\WsXamlKneadingViewModel.cs" />
@@ -210,9 +200,6 @@
     <EmbeddedResource Include="Pages\WsXamlDeviceSettingsUserControl.resx">
       <DependentUpon>WsXamlDeviceSettingsUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\WsXamlWaitUserControl.resx">
-      <DependentUpon>WsXamlWaitUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pages\WsXamlDialogUserControl.resx">
       <DependentUpon>WsXamlDialogUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,10 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Pages\WsXamlDeviceSettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\WsXamlWaitPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

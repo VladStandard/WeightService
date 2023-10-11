@@ -59,8 +59,6 @@ WsSqlContextManagerHelper.Instance.SetupJsonWebApp(app.Environment.ContentRootPa
 
 try
 {
-    // Лог памяти.
-    new WsSqlLogMemoryRepository().Save(app.Environment.ApplicationName);
     app.Run();
 }
 catch (Exception ex)

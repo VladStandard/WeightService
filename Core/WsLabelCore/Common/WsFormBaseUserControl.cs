@@ -60,10 +60,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
                 Page = new WsXamlPlusNestingPage();
                 SetupElementHost();
                 break;
-            case WsEnumNavigationPage.Wait:
-                Page = new WsXamlWaitPage();
-                SetupElementHost();
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(formUserControl), formUserControl, formUserControl.ToString());
         }
