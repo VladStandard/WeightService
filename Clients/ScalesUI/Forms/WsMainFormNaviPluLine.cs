@@ -47,7 +47,7 @@ public partial class WsMainForm
     /// </summary>
     private void ReturnOkFromPlusLine()
     {
-        LabelSession.SetPluLine(((WsXamlPlusLineViewModel)WsFormNavigationUtils.PlusLineUserControl.ViewModel).PluLine);
+        LabelSession.SetPluLine(WsFormNavigationUtils.PlusLineUserControl.ViewModel.PluLine);
 
         LabelSession.WeighingSettings.Kneading = 1;
         LabelSession.ProductDate = DateTime.Now;

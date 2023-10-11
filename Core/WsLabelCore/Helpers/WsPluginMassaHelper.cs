@@ -29,13 +29,12 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     public decimal WeightNet
     {
         get => _weightNet;
-        set { if (!IsWeightNetFake) _weightNet = value; }
+        set { _weightNet = value; }
     }
     private int ScaleFactor { get ; set; } = 1_000;
     private ResponseParseModel ResponseParseGet { get; set; }
     private ResponseParseModel ResponseParseScalePar { get; set; }
     private ResponseParseModel ResponseParseSet { get; set; }
-    public bool IsWeightNetFake { get; set; }
     private Action ResetWarning { get; set; }
 
     /// <summary>

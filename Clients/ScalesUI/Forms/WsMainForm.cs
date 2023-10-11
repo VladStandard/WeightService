@@ -23,7 +23,6 @@ public sealed partial class WsMainForm : Form
     private Button ButtonNewPallet { get; set; }
     private Button ButtonPlu { get; set; }
     private Button ButtonPrint { get; set; }
-    private Button ButtonScalesInit { get; set; }
     private Button ButtonScalesTerminal { get; set; }
     
     /// <summary>
@@ -40,50 +39,14 @@ public sealed partial class WsMainForm : Form
 
     #region Public and private methods - MainForm
 
-    /// <summary>
-    /// Загрузить данные в фоне.
-    /// </summary>
-    private void MainFormLoadAtBackground()
-    {
-        MouseSubscribe();
-        SetupButtons();
-        LoadFonts();
-        LoadLocalizationStatic(WsEnumLanguage.Russian);
-        
-        LabelSession.NewPallet();
-        SetupPlugins();
-        WsScheduler.Load(this);
-        // Загрузить WinForms-контролы.
-        LoadNavigationUserControl();
-    }
-
-    private MdPrinterModel GetMdPrinter(WsSqlPrinterModel scalePrinter) => new()
-    {
-        Name = scalePrinter.Name,
-        Ip = scalePrinter.Ip,
-        Port = scalePrinter.Port,
-        Password = scalePrinter.Password,
-        PeelOffSet = scalePrinter.PeelOffSet,
-        DarknessLevel = scalePrinter.DarknessLevel,
-        HttpStatusCode = scalePrinter.HttpStatusCode,
-        PingStatus = scalePrinter.PingStatus,
-        HttpStatusException = scalePrinter.HttpStatusException,
-    };
-
-    /// <summary>
-    /// Загрузить форму.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void MainForm_Load(object sender, EventArgs e)
+    private void OnLoad(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             UserSession.StopwatchMain = Stopwatch.StartNew();
-            UserSession.StopwatchMain.Restart();
             WsLocaleCore.Lang = WsLocaleData.Lang = WsEnumLanguage.Russian;
-            // Загрузить WinForms-контрол ожидания.
-            LoadNavigationWaitUserControl();
+ 
+            SetupNavigationUserControl();
             // Настроить сессию для ПО `Печать этикеток`.
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             
@@ -111,21 +74,44 @@ public sealed partial class WsMainForm : Form
             }
             // Загрузка фоном.
             MainFormLoadAtBackground();
+            
             WsFormNavigationUtils.ActionBackFromNavigation();
             ActionFinally();
 
             // Применить настройки устройства.
             ReturnOkFromDeviceSettings();
             // Лог памяти.
-            UserSession.StopwatchMain.Stop();
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
             ContextManager.LineRepository.Update(LabelSession.Line);
-            StringBuilder log = new();
-            log.AppendLine($"{WsLocaleData.Program.IsLoaded}.")
-                .AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.")
-                .AppendLine($"{nameof(WsLocaleData.Program.TimeSpent)}: {UserSession.StopwatchMain.Elapsed}.");
-            ContextManager.ContextItem.SaveLogInformation(log);
+            SaveStartLog();
         });
+    }
+
+    private void SaveStartLog()
+    {
+        UserSession.StopwatchMain.Stop();
+         StringBuilder log = new();
+         log.AppendLine($"{WsLocaleData.Program.IsLoaded}.")
+             .AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.")
+             .AppendLine($"Время загрузки: {UserSession.StopwatchMain.Elapsed}.");
+         ContextManager.ContextItem.SaveLogInformation(log);
+     }
+     
+    /// <summary>
+    /// Загрузить данные в фоне.
+    /// </summary>
+    private void MainFormLoadAtBackground()
+    {
+        MouseSubscribe();
+        SetupButtons();
+        LoadFonts();
+        LoadLocalizationStatic(WsEnumLanguage.Russian);
+        
+        LabelSession.NewPallet();
+        SetupPlugins();
+        WsScheduler.Load(this);
+        // Загрузить WinForms-контролы.
+        LoadNavigationUserControl();
     }
 
     private static void ActionExit() => Application.Exit();
@@ -147,7 +133,7 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintTscMain = new();
                 LabelSession.PluginPrintTscMain.InitTsc(new(0_500),
                 new(0_500), new(0_500),
-                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
+                LabelSession.Line.PrinterMain, fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintTscMain.Execute();
@@ -156,7 +142,7 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintZebraMain = new();
                 LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
                 new(0_250), new(0_250),
-                GetMdPrinter(LabelSession.Line.PrinterMain), fieldPrintMain);
+                LabelSession.Line.PrinterMain, fieldPrintMain);
                 MdInvokeControl.SetVisible(fieldPrintMain, true);
                 MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintZebraMain.Execute();
@@ -202,7 +188,6 @@ public sealed partial class WsMainForm : Form
         ButtonPluNestingFk.Font = FontsSettings.FontButtonsSmall;
 
         ButtonScalesTerminal.Font = FontsSettings.FontButtons;
-        ButtonScalesInit.Font = FontsSettings.FontButtons;
         ButtonNewPallet.Font = FontsSettings.FontButtons;
         ButtonKneading.Font = FontsSettings.FontButtons;
         ButtonPrint.Font = FontsSettings.FontButtons;
@@ -223,9 +208,7 @@ public sealed partial class WsMainForm : Form
             // Действия.
             IsKneading = true,
             IsNewPallet = false,
-            IsOrder = LabelSession.Line.IsOrder,
             IsPrint = true,
-            IsScalesInit = false,
             IsScalesTerminal = true,
         };
 
@@ -287,17 +270,6 @@ public sealed partial class WsMainForm : Form
         else
         {
             ButtonScalesTerminal = new();
-        }
-
-        if (ActionSettings.IsScalesInit)
-        {
-            ButtonScalesInit =
-                WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesInit), columnCount++, 0);
-            ButtonScalesInit.Click += ActionScalesInit;
-        }
-        else
-        {
-            ButtonScalesInit = new();
         }
 
         if (ActionSettings.IsNewPallet)
@@ -365,15 +337,12 @@ public sealed partial class WsMainForm : Form
     /// <summary>
     /// Обработчик нажатий мышки.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
-        if (e.Button.Equals(MouseButtons.Middle))
-        {
-            e.Handled = true;
-            ActionPreparePrint(sender, e);
-        }
+        if (!e.Button.Equals(MouseButtons.Middle))
+            return;
+        e.Handled = true;
+        ActionPreparePrint(sender, e);
     }
 
     /// <summary>
@@ -384,7 +353,6 @@ public sealed partial class WsMainForm : Form
     {
         WsLocaleCore.Lang = WsLocaleData.Lang = lang;
         MdInvokeControl.SetText(ButtonScalesTerminal, WsLocaleCore.LabelPrint.ButtonRunScalesTerminal());
-        MdInvokeControl.SetText(ButtonScalesInit, WsLocaleCore.LabelPrint.ButtonScalesInitShort);
         MdInvokeControl.SetText(ButtonNewPallet, WsLocaleCore.LabelPrint.ButtonNewPallet());
         MdInvokeControl.SetText(ButtonKneading, WsLocaleCore.LabelPrint.ButtonSetKneading);
         MdInvokeControl.SetText(ButtonPlu, WsLocaleCore.LabelPrint.ButtonPlu);

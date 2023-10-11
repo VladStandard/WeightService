@@ -6,11 +6,9 @@ public partial class WsMainForm
 
     private void ActionSwitchDeviceSettings(object sender, EventArgs e)
     {
-        // Загрузить WinForms-контрол настроек устройства.
         LoadNavigationDeviceSettings();
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
-            // Сброс предупреждения.
             ResetWarning();
             // Обновить кэш.
             //ContextCache.Load(WsSqlEnumTableName.DeviceSettings);

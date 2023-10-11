@@ -33,8 +33,6 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string ButtonAddKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonAddKneading)}");
     public string ButtonPlu => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonPlu)}");
     public string ButtonScalesInit => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInit)}");
-    public string ButtonScalesInitShort => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInitShort)}");
-    public string ButtonSelectOrder => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonScalesInitShort)}");
     public string ButtonSetKneading => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonSetKneading)}");
     public string ButtonSettings => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(ButtonSettings)}");
     public string CheckAllPassed => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(CheckAllPassed)}");

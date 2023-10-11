@@ -7,17 +7,12 @@ public partial class WsMainForm
     /// <summary>
     /// Сменить замес.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ActionKneading(object sender, EventArgs e)
     {
-        // Загрузить WinForms-контрол смены замеса.
         LoadNavigationKneading();
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
-            // Сброс предупреждения.
             ResetWarning();
-            // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
             // Навигация в WinForms-контрол замеса.
             WsFormNavigationUtils.NavigateToExistsKneading(ShowFormUserControl);

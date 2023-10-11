@@ -1,5 +1,3 @@
-using MDSoft.NetUtils;
-
 namespace WsDataCore.Models;
 
 public sealed class WsWeighingSettingsModel
@@ -39,20 +37,9 @@ public sealed class WsWeighingSettingsModel
 
     #region Public and private methods
 
-    /// <summary>
-    /// Получить наименование принтера.
-    /// </summary>
-    private string GetPrintName(WsEnumPrintModel printBrand) =>
-        printBrand switch
-        {
-            WsEnumPrintModel.Zebra => WsLocaleCore.Print.NameMainZebra,
-            WsEnumPrintModel.Tsc => WsLocaleCore.Print.NameMainTsc,
-            _ => WsLocaleCore.Print.DeviceName
-        };
-
-    public string GetPrintDescription(MdPrinterModel printer,
+    public string GetPrintDescription(string ip, string name,
         bool isConnected, int scaleCounter, int labelPrintedCount, byte labelCount) =>
-        $"{printer.Name} | {printer.Ip} | " +
+        $"{name} | {ip} | " +
         $"{(isConnected ? "Подключен" : "Отключен")} | " +
         $"{WsLocaleCore.Table.LabelCounter}: {scaleCounter} | " +
         $"{WsLocaleCore.LabelPrint.Labels}: {labelPrintedCount} {WsLocaleCore.Strings.From} {labelCount}";

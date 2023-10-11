@@ -3,23 +3,16 @@ namespace ScalesUI.Forms;
 public partial class WsMainForm
 {
     #region Public and private methods
-
-    /// <summary>
-    /// Загрузить WinForms-контрол ожидания.
-    /// </summary>
-    private void LoadNavigationWaitUserControl()
+    
+    private void SetupNavigationUserControl()
     {
-        // Навигация.
         WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
         WsFormNavigationUtils.NavigationUserControl.Visible = false;
-        // Настройка главной формы.
         CenterToScreen();
-        // Применить настройки устройства.
         ReturnOkFromDeviceSettings();
-        // Добавить контрол.
+        
         Controls.Add(WsFormNavigationUtils.NavigationUserControl);
-        // Настройки главной формы.
-        FormBorderStyle = Debug.IsDevelop ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+        FormBorderStyle = FormBorderStyle.None;
         TopMost = !Debug.IsDevelop;
     }
 
@@ -108,8 +101,6 @@ public partial class WsMainForm
             default:
                 throw new ArgumentException(nameof(userControl));
         }
-        // Приводит к задвоенному вызову MouseDownExt.
-        //System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
@@ -121,15 +112,11 @@ public partial class WsMainForm
         MdInvokeControl.SetVisible(WsFormNavigationUtils.NavigationUserControl, false);
         MdInvokeControl.SetVisible(layoutPanelMain, true);
         layoutPanelMain.Refresh();
-        // Приводит к задвоенному вызову MouseDownExt.
-        //System.Windows.Forms.Application.DoEvents();
     }
 
     /// <summary>
     /// Закрыть программу.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ActionClose(object sender, EventArgs e)
     {
         Close();
@@ -138,15 +125,12 @@ public partial class WsMainForm
     /// <summary>
     /// Закрытие программы.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         if (IsMagicClose) return;
         WsFormNavigationUtils.ClearNewDialogs();
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            // Сброс предупреждения.
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
@@ -161,15 +145,11 @@ public partial class WsMainForm
     /// </summary>
     private void ActionCloseYes()
     {
-        ActionFinally();
         UserSession.StopwatchMain.Restart();
-        // Планировщик.
+        ActionFinally();
         WsScheduler.Close();
-        // Плагины.
         UserSession.PluginsClose();
-        // Шрифты.
         FontsSettings.Close();
-        // Завершить хуки мышки.
         MouseUnsubscribe();
         // Логи.
         UserSession.StopwatchMain.Stop();
@@ -212,7 +192,6 @@ public partial class WsMainForm
     /// <summary>
     /// Проверить наличие ПЛУ.
     /// </summary>
-    /// <returns></returns>
     private bool ActionCheckPluIsNew()
     {
         if (LabelSession.PluLine.Plu.IsNew)
@@ -228,21 +207,16 @@ public partial class WsMainForm
     /// <summary>
     /// Запустить ПО.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ActionScalesTerminal(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
-            // Сброс предупреждения.
             ResetWarning();
-            // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
                 $"{WsLocaleCore.LabelPrint.QuestionRunApp} ScalesTerminal?",
                 true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionFinally, ActionYes });
             void ActionYes()
             {
-                // Запустить процесс.
                 if (File.Exists(WsLocalizationUtils.AppScalesTerminal))
                 {
                     UserSession.PluginMassa.Dispose();
@@ -252,7 +226,6 @@ public partial class WsMainForm
                 }
                 else
                 {
-                    // Навигация в контрол диалога Ок.
                     WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
                         WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal), true,
                         WsEnumLogType.Error, WsEnumDialogType.Ok, new() { ActionFinally });
@@ -261,58 +234,7 @@ public partial class WsMainForm
             }
         });
     }
-
-    /// <summary>
-    /// Инициализировать весовую платформу Масса-К.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ActionScalesInit(object sender, EventArgs e)
-    {
-        WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
-        {
-            // Сброс предупреждения.
-            ResetWarning();
-            if (!LabelSession.PluLine.Plu.IsCheckWeight)
-            {
-                // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, WsLocaleCore.LabelPrint.PluNotSelectWeight,
-                    true, WsEnumLogType.Warning, WsEnumDialogType.Ok, new() { ActionFinally });
-                return;
-            }
-            if (!UserSession.PluginMassa.MassaDevice.IsOpenPort)
-            {
-                // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, WsLocaleCore.LabelPrint.MassaIsNotRespond,
-                    true, WsEnumLogType.Warning, WsEnumDialogType.Ok, new() { ActionFinally });
-                return;
-            }
-            // Навигация в контрол диалога Отмена/Да.
-            WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                WsLocaleCore.LabelPrint.QuestionPerformOperation, true, WsEnumLogType.Question,
-                WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
-            void ActionYes()
-            {
-                // Fix negative weight.
-                //if (UserSession.PluginMassa.WeightNet < 0)
-                //{
-                //    UserSession.PluginMassa.ResetMassa();
-                //}
-                // Проверить наличие весовой платформы Масса-К.
-                if (!UserSession.CheckWeightMassaDeviceExists()) return;
-                LabelSession.SetPluLine();
-
-                PluginMassaExecute();
-                UserSession.PluginMassa.GetInit();
-            }
-        });
-    }
-
-    /// <summary>
-    /// Новая паллета.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
+    
     private void ActionNewPallet(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
@@ -322,70 +244,37 @@ public partial class WsMainForm
             LabelSession.NewPallet();
         });
     }
-
-    /// <summary>
-    /// Сброс предупреждения.
-    /// </summary>
+    
     private void ResetWarning()
     {
         MdInvokeControl.SetText(fieldWarning, string.Empty);
         MdInvokeControl.SetVisible(fieldWarning, false);
     }
-
-    /// <summary>
-    /// Подготовка к печати.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
+    
     private void ActionPreparePrint(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
-            // Сброс предупреждения.
             ResetWarning();
-            // Проверить наличие ПЛУ.
             if (!UserSession.CheckPluIsEmpty(fieldWarning)) return;
-            // Проверить наличие вложенности ПЛУ.
             if (!UserSession.CheckViewPluNesting(LabelSession.PluLine.Plu, fieldWarning)) return;
-            // Проверить наличие весовой платформы Масса-К.
             if (!UserSession.CheckWeightMassaDeviceExists()) return;
-            // Проверить стабилизацию весовой платформы Масса-К.
             if (!UserSession.CheckWeightMassaIsStable(fieldWarning)) return;
-            // Проверить ГТИН ПЛУ.
-            if (!UserSession.CheckPluGtin(fieldWarning)) return;
-            // Использовать фейк-данные для веса ПЛУ.
-            //UserSession.SetPluWeighingFakeForDevelop(ShowFormUserControl, ActionPreparePrintStep2);
-            // Проверить отрицательный вес.
-            if (!UserSession.CheckWeightIsNegative(fieldWarning)) { ActionFinally(); return; }
-            // Создать новое взвешивание ПЛУ.
+            if (!UserSession.CheckWeight(fieldWarning)) { ActionFinally(); return; }
             UserSession.NewPluWeighing();
-            // Проверить границы веса.
-            if (!UserSession.CheckWeightThresholds(fieldWarning)) { ActionFinally(); return; }
-            // Печать этикетки.
-            ActionPrintLabel(true);
+            ActionPrintLabel();
         });
     }
-
-    /// <summary>
-    /// Печать этикетки.
-    /// </summary>
-    /// <param name="isCheckPrinter">Проверить подключение и готовность принтера</param>
-    /// <returns></returns>
-    private void ActionPrintLabel(bool isCheckPrinter)
+    
+    private void ActionPrintLabel()
     {
-        if (isCheckPrinter)
-        {
-            // Проверить подключение и готовность основного принтера.
-            if (LabelSession.PluginPrintTscMain is not null)
-                if (!PrintSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
-                    return;
-            if (LabelSession.PluginPrintZebraMain is not null)
-                if (!PrintSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
-                    return;
-            // Печать этикетки.
-            PrintSession.PrintLabel(fieldWarning, false);
-        }
-        
+        if (LabelSession.PluginPrintTscMain is not null)
+            if (!PrintSession.CheckPrintIsConnectAndReadyTscMain(fieldWarning))
+                return;
+        if (LabelSession.PluginPrintZebraMain is not null)
+            if (!PrintSession.CheckPrintIsConnectAndReadyZebraMain(fieldWarning))
+                return;
+        PrintSession.PrintLabel(fieldWarning, false);
     }
 
     #endregion

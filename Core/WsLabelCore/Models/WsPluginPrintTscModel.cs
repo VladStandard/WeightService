@@ -1,4 +1,5 @@
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+using WsStorageCore.Tables.TableScaleModels.Printers;
 
 namespace WsLabelCore.Models;
 
@@ -50,7 +51,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     #region Public and private methods
 
     public void InitTsc(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        MdPrinterModel printer, Label fieldPrint)
+        WsSqlPrinterModel printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
@@ -87,9 +88,10 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void RequestTsc()
     {
         // Метки.
-        MdInvokeControl.SetText(FieldPrint,
-            LabelSession.WeighingSettings.GetPrintDescription(Printer, IsConnected,
-                LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount));
+        MdInvokeControl.SetText(
+        FieldPrint, LabelSession.WeighingSettings.GetPrintDescription(Printer.Ip, Printer.Name,
+            IsConnected, LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount)
+        );
         MdInvokeControl.SetForeColor(FieldPrint, IsConnected.Equals(true) ? Color.Green : Color.Red);
     }
 

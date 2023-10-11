@@ -1,6 +1,7 @@
 using PrinterCore.Common;
 using PrinterCore.Connectors;
 using PrinterCore.Enums;
+using WsStorageCore.Tables.TableScaleModels.Printers;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -28,7 +29,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     }
     
     public void InitZebra(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        MdPrinterModel printer, Label fieldPrint)
+        WsSqlPrinterModel printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
@@ -50,8 +51,10 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     {
         _connector.UpdateStatus();
         MdInvokeControl.SetForeColor(FieldPrint, _connector.IsConnected ? Color.Green : Color.Red);
-        MdInvokeControl.SetText(FieldPrint, LabelSession.WeighingSettings.GetPrintDescription(Printer, 
-            _connector.IsConnected, LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount));
+        MdInvokeControl.SetText(
+            FieldPrint, LabelSession.WeighingSettings.GetPrintDescription(Printer.Ip, Printer.Name,
+            _connector.IsConnected, LabelSession.Line.LabelCounter, LabelPrintedCount, LabelCount)
+        );
     }
 
     public string GetDeviceStatusZebra()

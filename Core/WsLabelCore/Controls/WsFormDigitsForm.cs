@@ -73,7 +73,7 @@ public sealed partial class WsFormDigitsForm : Form
     private void btnNum_Click(object sender, EventArgs e)
     {
         string num = (string)(sender as Control)?.Tag;
-        _inputValueShadow = int.Parse(_inputValueShadow + num);
+        _inputValueShadow = int.TryParse(_inputValueShadow + num, out int newValue) ? newValue : 0;
         ShowPin(_inputValueShadow);
     }
 
@@ -99,7 +99,9 @@ public sealed partial class WsFormDigitsForm : Form
     private void btnClose_Click(object sender, EventArgs e)
     {
         InputValue = _inputValueShadow;
-        DialogResult = (InputValue != 0) ? DialogResult.OK : DialogResult.Cancel;
+        if (InputValue == 0)
+            InputValue = 1;
+        DialogResult = DialogResult.OK;
         Close();
     }
 

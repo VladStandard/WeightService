@@ -70,10 +70,6 @@
             "en": "Initialize scales",
             "ru": "Инициализировать весы"
         },
-        "ButtonScalesInitShort": {
-            "en": ">0<",
-            "ru": ">0<"
-        },
         "ButtonSelectOrder": {
             "en": "Order",
             "ru": "Заказ"

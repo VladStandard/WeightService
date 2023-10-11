@@ -47,7 +47,7 @@ public partial class WsMainForm
     /// Возврат ОК из контрола смены вложенности ПЛУ.
     /// </summary>
     private void ReturnOkFromPlusNesting() =>
-        LabelSession.SetViewPluNesting(((WsXamlPlusNestingViewModel)WsFormNavigationUtils.PlusNestingUserControl.ViewModel).PluNesting);
+        LabelSession.SetViewPluNesting(WsFormNavigationUtils.PlusNestingUserControl.ViewModel.PluNesting);
 
     /// <summary>
     /// Возврат Отмена из контрола смены вложенности ПЛУ.

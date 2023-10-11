@@ -407,7 +407,7 @@ namespace ScalesUI.Forms
             this.Text = "Печать этикеток";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.layoutPanelMain.ResumeLayout(false);
             this.layoutPanelMain.PerformLayout();
             this.layoutPanelTop.ResumeLayout(false);

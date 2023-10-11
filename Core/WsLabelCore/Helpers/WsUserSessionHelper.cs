@@ -61,7 +61,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaDeviceExists()
     {
-        if (Debug.IsDevelop) return true;
         return LabelSession.PluLine is { IsNew: false, Plu.IsCheckWeight: false } || true;
     }
 
@@ -72,42 +71,16 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <returns></returns>
     public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
-        if (Debug.IsDevelop) return true;
-        if (LabelSession.PluLine.Plu.IsCheckWeight && !PluginMassa.IsStable)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, $"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
-            ContextManager.ContextItem.SaveLogWarning($"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
-            return false;
-        }
-        return true;
+        if (!LabelSession.PluLine.Plu.IsCheckWeight || PluginMassa.IsStable)
+            return true;
+        MdInvokeControl.SetVisible(fieldWarning, true);
+        MdInvokeControl.SetText(fieldWarning, $"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
+        ContextManager.ContextItem.SaveLogWarning($"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
+        return false;
     }
-
-    /// <summary>
-    /// Проверить ГТИН ПЛУ.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckPluGtin(Label fieldWarning)
+    
+    public bool CheckWeight(Label fieldWarning)
     {
-        if (string.IsNullOrEmpty(LabelSession.PluLine.Plu.Gtin))
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluGtinIsNotSet);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluGtinIsNotSet);
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Проверить отрицательный вес.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckWeightIsNegative(Label fieldWarning)
-    {
-        if (PluginMassa.IsWeightNetFake) return true;
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
 
         if (PluginMassa.WeightNet <= 0)
@@ -119,65 +92,30 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         }
 
         decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight < WsLocalizationUtils.MassaThresholdValue || weight < WsLocalizationUtils.MassaThresholdPositive)
+        if (weight is < WsLocalizationUtils.MassaThresholdValue or < WsLocalizationUtils.MassaThresholdPositive)
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
             ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
             return false;
         }
-        return true;
-    }
+        
+        if (LabelSession.ViewPluNesting is not { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
+            return true;
 
-    /// <summary>
-    /// Проверить положительный вес.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckWeightIsPositive(Label fieldWarning)
-    {
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
-
-        decimal weight = PluginMassa.WeightNet - (LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.TareWeight);
-        if (weight > WsLocalizationUtils.MassaThresholdValue)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Проверить границы веса.
-    /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
-    public bool CheckWeightThresholds(Label fieldWarning)
-    {
-        if (PluginMassa.IsWeightNetFake) return true;
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) return true;
-
-        if (LabelSession.ViewPluNesting is { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
-        {
-            if (!(LabelSession.PluWeighing.NettoWeight >= LabelSession.ViewPluNesting.WeightMin && LabelSession.PluWeighing.NettoWeight <=
-                    LabelSession.ViewPluNesting.WeightMax))
-            {
-                if (LabelSession.PluWeighing.IsExists)
-                {
-                    MdInvokeControl.SetVisible(fieldWarning, true);
-                    string message = WsLocaleCore.LabelPrint.CheckWeightThresholds(LabelSession.PluWeighing.NettoWeight,
-                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMax,
-                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightNom,
-                        LabelSession.PluLine.IsNew ? 0 : LabelSession.ViewPluNesting.WeightMin);
-                    MdInvokeControl.SetText(fieldWarning, message);
-                    ContextManager.ContextItem.SaveLogError(message);
-                }
-                return false;
-            }
-        }
-        return true;
+        decimal weightMax = LabelSession.ViewPluNesting.WeightMax;
+        decimal weightMin = LabelSession.ViewPluNesting.WeightMin;
+        decimal weightNom = LabelSession.ViewPluNesting.WeightNom;
+        
+        if (PluginMassa.WeightNet >= weightMin && PluginMassa.WeightNet <= weightMax)
+            return true;
+        
+        MdInvokeControl.SetVisible(fieldWarning, true);
+        string message = WsLocaleCore.LabelPrint.CheckWeightThresholds(PluginMassa.WeightNet, 
+            weightMax, weightNom, weightMin);
+        MdInvokeControl.SetText(fieldWarning, message);
+        ContextManager.ContextItem.SaveLogError(message);
+        return false;
     }
 
     /// <summary>
@@ -203,38 +141,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     }
 
     /// <summary>
-    /// Использовать фейк-данные для веса ПЛУ.
-    /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="returnPreparePrint"></param>
-    public void SetPluWeighingFakeForDevelop(Action<WsFormBaseUserControl, string> showNavigation, Action returnPreparePrint)
-    {
-        if (Debug.IsSkipDialogs) { ActionCancel(); return; }
-        if (Debug.IsRelease) { ActionCancel(); return; }
-        if (!LabelSession.PluLine.Plu.IsCheckWeight) { ActionCancel(); return; }
-        if (PluginMassa.WeightNet > 0) { ActionCancel(); return; }
-
-        // Навигация в новый WinForms-контрол диалога.
-        WsFormNavigationUtils.NavigateToNewDialog(showNavigation, WsLocaleCore.Print.QuestionUseFakeData,
-            true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionCancel, ActionYes });
-        void ActionCancel()
-        {
-            if (PluginMassa.IsWeightNetFake)
-            {
-                PluginMassa.IsWeightNetFake = false;
-                PluginMassa.WeightNet = 0;
-            }
-            returnPreparePrint.Invoke();
-        }
-        void ActionYes()
-        {
-            PluginMassa.WeightNet = WsStrUtils.NextDecimal(LabelSession.ViewPluNesting.WeightMin, LabelSession.ViewPluNesting.WeightMax);
-            PluginMassa.IsWeightNetFake = true;
-            returnPreparePrint.Invoke();
-        }
-    }
-
-    /// <summary>
     /// Save or update weighing products.
     /// </summary>
     private void SaveOrUpdatePluWeighing()
@@ -250,9 +156,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Проверить наличие вложенности ПЛУ.
     /// </summary>
-    /// <param name="plu"></param>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
     public bool CheckViewPluNesting(WsSqlPluModel plu, Label fieldWarning)
     {
         if (LabelSession.ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
