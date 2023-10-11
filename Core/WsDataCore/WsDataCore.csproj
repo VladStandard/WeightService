@@ -80,20 +80,12 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <CopyToPublishDirectory>Never</CopyToPublishDirectory>
       </None>
-      <None Update="FodyWeavers.xml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
       <None Update="machine.config">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ZplTemplates\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FodyWeavers.xsd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
