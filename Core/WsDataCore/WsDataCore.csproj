@@ -33,25 +33,15 @@
     <EmbeddedResource Include="Resources\settings_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="FrameworkExtract.System.Deployment" Version="4.0.30319" />
     <PackageReference Include="IndexRange" Version="1.0.2" />
-    <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
     <PackageReference Include="MDSoft.Wmi" Version="0.2.50" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.55.0" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-    <PackageReference Include="Quartz" Version="3.7.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="System.Management" Version="8.0.0-preview.3.23174.8" />
   </ItemGroup>
@@ -107,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
-    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <Version>1.0.3.0</Version>

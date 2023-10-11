@@ -23,4 +23,3 @@ global using WsDataCore.Enums;
 global using WsDataCore.Models;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Utils;
-global using WsPrintCore.Common;
