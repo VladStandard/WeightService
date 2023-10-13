@@ -1,8 +1,5 @@
 namespace ScalesUI.Forms;
 
-/// <summary>
-/// Главная форма.
-/// </summary>
 public sealed partial class WsMainForm : Form
 {
     #region Public and private fields, properties, constructor
@@ -17,13 +14,13 @@ public sealed partial class WsMainForm : Form
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    private Button ButtonLine { get; set; }
-    private Button ButtonPluNestingFk { get; set; }
-    private Button ButtonKneading { get; set; }
-    private Button ButtonNewPallet { get; set; }
-    private Button ButtonPlu { get; set; }
-    private Button ButtonPrint { get; set; }
-    private Button ButtonScalesTerminal { get; set; }
+    private Button ButtonLine { get; set; } = new();
+    private Button ButtonPluNestingFk { get; set; } = new();
+    private Button ButtonKneading { get; set; } = new();
+    private Button ButtonNewPallet { get; set; } = new();
+    private Button ButtonPlu { get; set; } = new();
+    private Button ButtonPrint { get; set; } = new();
+    private Button ButtonScalesTerminal { get; set; } = new();
     
     /// <summary>
     /// Магический флаг закрытия после нажатия кнопки OK.
@@ -39,50 +36,49 @@ public sealed partial class WsMainForm : Form
 
     #region Public and private methods - MainForm
 
+    private bool IsNewLine()
+    {
+        if (LabelSession.Line.IsExists)
+        {
+            return false;
+        }
+        string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(WsLabelSessionHelper.DeviceName);
+        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+        WsEnumDialogType.Ok, new() { ActionCloseAfterNotLine });
+        return true;
+    }
+
+    private bool IsAppExists()
+    {
+        _ = new Mutex(true, Application.ProductName, out bool isCreatedNew);
+        if (isCreatedNew) return false;
+        string message = $"{WsLocaleCore.Strings.Application} {Application.ProductName} {WsLocaleCore.LabelPrint.AlreadyRunning}!";
+        WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
+        WsFormNavigationUtils.NavigationUserControl.Width);
+        // Навигация в контрол диалога Ок.
+        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+        WsEnumDialogType.Ok, new() { ActionFinally });
+        ContextManager.ContextItem.SaveLogWarning(message);
+        return true;
+    }
+     
     private void OnLoad(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
+            if (IsAppExists()) return;
+            
             UserSession.StopwatchMain = Stopwatch.StartNew();
             WsLocaleCore.Lang = WsLocaleData.Lang = WsEnumLanguage.Russian;
- 
+            
             SetupNavigationUserControl();
-            // Настроить сессию для ПО `Печать этикеток`.
+            
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
+            if (IsNewLine()) return;
             
-            if (LabelSession.Line.IsNew)
-            {
-                string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(LabelSession.DeviceName);
-                
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
-                    WsEnumDialogType.Ok, new() { ActionCloseAfterNotLine });
-
-                return;
-            }
-            // Проверка повторного запуска.
-            _ = new Mutex(true, Application.ProductName, out bool isCreatedNew);
-            if (!isCreatedNew)
-            {
-                string message = $"{WsLocaleCore.Strings.Application} {Application.ProductName} {WsLocaleCore.LabelPrint.AlreadyRunning}!";
-                WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
-                    WsFormNavigationUtils.NavigationUserControl.Width);
-                // Навигация в контрол диалога Ок.
-                WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
-                    WsEnumDialogType.Ok, new() { ActionFinally });
-                ContextManager.ContextItem.SaveLogWarning(message);
-                return;
-            }
-            // Загрузка фоном.
             MainFormLoadAtBackground();
-            
-            WsFormNavigationUtils.ActionBackFromNavigation();
             ActionFinally();
-
-            // Применить настройки устройства.
             ReturnOkFromDeviceSettings();
-            // Лог памяти.
-            LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
-            ContextManager.LineRepository.Update(LabelSession.Line);
             SaveStartLog();
         });
     }
@@ -96,46 +92,38 @@ public sealed partial class WsMainForm : Form
              .AppendLine($"Время загрузки: {UserSession.StopwatchMain.Elapsed}.");
          ContextManager.ContextItem.SaveLogInformation(log);
      }
-     
-    /// <summary>
-    /// Загрузить данные в фоне.
-    /// </summary>
+    
     private void MainFormLoadAtBackground()
     {
         MouseSubscribe();
         SetupButtons();
         LoadFonts();
         LoadLocalizationStatic(WsEnumLanguage.Russian);
-        
         LabelSession.NewPallet();
         SetupPlugins();
         WsScheduler.Load(this);
-        // Загрузить WinForms-контролы.
         LoadNavigationUserControl();
     }
 
     private static void ActionExit() => Application.Exit();
-
-    /// <summary>
-    /// Настроить плагины.
-    /// </summary>
+    
     private void SetupPlugins()
     {
-        // Весовая платформа Масса-К.
         UserSession.PluginMassa.Init(new(1_000), new(0_150),
             new(0_150), fieldNettoWeight, fieldMassa, ResetWarning);
         PluginMassaExecute();
 
+        MdInvokeControl.SetVisible(fieldPrintMain, true);
+        MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
         // Основной принтер.
         switch (LabelSession.PrintModelMain)
         {
+
             case WsEnumPrintModel.Tsc:
                 LabelSession.PluginPrintTscMain = new();
                 LabelSession.PluginPrintTscMain.InitTsc(new(0_500),
                 new(0_500), new(0_500),
                 LabelSession.Line.PrinterMain, fieldPrintMain);
-                MdInvokeControl.SetVisible(fieldPrintMain, true);
-                MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintTscMain.Execute();
                 break;
             case WsEnumPrintModel.Zebra:
@@ -143,25 +131,18 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
                 new(0_250), new(0_250),
                 LabelSession.Line.PrinterMain, fieldPrintMain);
-                MdInvokeControl.SetVisible(fieldPrintMain, true);
-                MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
                 LabelSession.PluginPrintZebraMain.Execute();
                 // LabelSession.PluginPrintZebraMain.SetOdometorUserLabel(1);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        // Метки.
         UserSession.PluginLabels.Init(
             new(0_500), new(0_500),
             new(0_500), fieldPlu, fieldProductDate, fieldKneading);
         UserSession.PluginLabels.Execute();
     }
-
-    /// <summary>
-    /// Загрузить шрифты.
-    /// </summary>
+    
     private void LoadFonts()
     {
         fieldTitle.Font = FontsSettings.FontLabelsTitle;
@@ -193,10 +174,7 @@ public sealed partial class WsMainForm : Form
         ButtonPrint.Font = FontsSettings.FontButtons;
         ButtonPrint.BackColor = ColorTranslator.FromHtml("#ff7f50");
     }
-
-    /// <summary>
-    /// Настроить кнопки.
-    /// </summary>
+    
     private void SetupButtons()
     {
         ActionSettings = new()
@@ -213,10 +191,7 @@ public sealed partial class WsMainForm : Form
         CreateButtonsDevices();
         CreateButtonsActions();
     }
-
-    /// <summary>
-    /// Создать кнопки устройств.
-    /// </summary>
+    
     private void CreateButtonsDevices()
     {
         TableLayoutPanel layoutPanelDevice = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelDevice),
@@ -228,31 +203,22 @@ public sealed partial class WsMainForm : Form
             ButtonLine = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonLine), 1, rowCount++);
             ButtonLine.Click += ActionSwitchLine;
         }
-        else ButtonLine = new();
-
         if (ActionSettings.IsPlu)
         {
             ButtonPlu = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPlu), 1, rowCount++);
             ButtonPlu.Click += ActionSwitchPluLine;
         }
-        else ButtonPlu = new();
-
         if (ActionSettings.IsNesting)
         {
             ButtonPluNestingFk = WsFormUtils.NewTableLayoutPanelButton(layoutPanelDevice, nameof(ButtonPluNestingFk), 1, rowCount++);
             ButtonPluNestingFk.Click += ActionSwitchPluNesting;
         }
-        else ActionSettings = new();
-
         layoutPanelDevice.ColumnCount = 1;
         WsFormUtils.SetTableLayoutPanelColumnStyles(layoutPanelDevice);
         layoutPanelDevice.RowCount = rowCount;
         WsFormUtils.SetTableLayoutPanelRowStyles(layoutPanelDevice);
     }
-
-    /// <summary>
-    /// Создать кнопки действий.
-    /// </summary>
+    
     private void CreateButtonsActions()
     {
         TableLayoutPanel layoutPanelActions = WsFormUtils.NewTableLayoutPanel(layoutPanelMain, nameof(layoutPanelActions),
@@ -265,43 +231,24 @@ public sealed partial class WsMainForm : Form
                 WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonScalesTerminal), columnCount++, 0);
             ButtonScalesTerminal.Click += ActionScalesTerminal;
         }
-        else
-        {
-            ButtonScalesTerminal = new();
-        }
-
         if (ActionSettings.IsNewPallet)
         {
             ButtonNewPallet =
                 WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonNewPallet), columnCount++, 0);
             ButtonNewPallet.Click += ActionNewPallet;
         }
-        else
-        {
-            ButtonNewPallet = new();
-        }
-
         if (ActionSettings.IsKneading)
         {
             ButtonKneading = 
                 WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonKneading), columnCount++, 0);
             ButtonKneading.Click += ActionKneading;
         }
-        else
-        {
-            ButtonKneading = new();
-        }
-
         if (ActionSettings.IsPrint)
         {
             ButtonPrint =
                 WsFormUtils.NewTableLayoutPanelButton(layoutPanelActions, nameof(ButtonPrint), columnCount++, 0);
             ButtonPrint.Click += ActionPreparePrint;
             ButtonPrint.Focus();
-        }
-        else
-        {
-            ButtonPrint = new();
         }
 
         layoutPanelActions.ColumnCount = columnCount;
@@ -313,28 +260,19 @@ public sealed partial class WsMainForm : Form
     #endregion
 
     #region Public and private methods - Controls
-
-    /// <summary>
-    /// Назначить хуки мышки.
-    /// </summary>
+    
     private void MouseSubscribe()
     {
         KeyboardMouseEvents = Hook.AppEvents();
         KeyboardMouseEvents.MouseDownExt += MouseDownExt;
     }
-
-    /// <summary>
-    /// Завершить хуки мышки.
-    /// </summary>
+    
     private void MouseUnsubscribe()
     {
         KeyboardMouseEvents.MouseDownExt -= MouseDownExt;
         KeyboardMouseEvents.Dispose();
     }
-
-    /// <summary>
-    /// Обработчик нажатий мышки.
-    /// </summary>
+    
     private void MouseDownExt(object sender, MouseEventExtArgs e)
     {
         if (!e.Button.Equals(MouseButtons.Middle))
@@ -342,11 +280,7 @@ public sealed partial class WsMainForm : Form
         e.Handled = true;
         ActionPreparePrint(sender, e);
     }
-
-    /// <summary>
-    /// Загрузить локализацию.
-    /// </summary>
-    /// <param name="lang"></param>
+    
     private void LoadLocalizationStatic(WsEnumLanguage lang)
     {
         WsLocaleCore.Lang = WsLocaleData.Lang = lang;

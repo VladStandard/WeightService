@@ -58,19 +58,19 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <returns></returns>
     private void CreatePluUserControls()
     {
-        List<WsSqlViewPluLineModel> viewPlusScales = ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, LabelSession.PlusPageSize);
+        List<WsSqlViewPluLineModel> viewPlusScales = ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, WsLabelSessionHelper.PlusPageSize);
         if (!viewPlusScales.Any())
         {
             PluUserControls = new WsFormPluControl?[0, 0];
             return;
         }
 
-        PluUserControls = new WsFormPluControl[LabelSession.PlusPageColumnCount, LabelSession.PlusPageRowCount];
+        PluUserControls = new WsFormPluControl[WsLabelSessionHelper.PlusPageColumnCount, WsLabelSessionHelper.PlusPageRowCount];
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            for (ushort rowNumber = 0, counter = 0; rowNumber < LabelSession.PlusPageRowCount; ++rowNumber)
+            for (ushort rowNumber = 0, counter = 0; rowNumber < WsLabelSessionHelper.PlusPageRowCount; ++rowNumber)
             {
-                for (ushort columnNumber = 0; columnNumber < LabelSession.PlusPageColumnCount; ++columnNumber)
+                for (ushort columnNumber = 0; columnNumber < WsLabelSessionHelper.PlusPageColumnCount; ++columnNumber)
                 {
                     if (counter >= viewPlusScales.Count) break;
                     PluUserControls[columnNumber, rowNumber] = new(viewPlusScales[counter], ActionPluSelect);

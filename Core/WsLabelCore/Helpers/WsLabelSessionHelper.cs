@@ -6,7 +6,7 @@ namespace WsLabelCore.Helpers;
 /// Пользовательская сессия.
 /// </summary>
 #nullable enable
-public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
+public sealed class WsLabelSessionHelper : BaseViewModel
 {
     #region Design pattern "Lazy Singleton"
 
@@ -18,33 +18,32 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     #endregion
 
     #region Public and private fields and properties
-
-    private WsDebugHelper Debug => WsDebugHelper.Instance;
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    
+    private static WsDebugHelper Debug => WsDebugHelper.Instance;
+    private static DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
+    private static DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
+    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    
+    private ProductSeriesDirect ProductSeries { get; set; } = new();
+    
+    public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    public static ushort PlusPageColumnCount => 4;
+    public static ushort PlusPageSize => 16;
+    public static ushort PlusPageRowCount => 4;
+    public static string DeviceName => MdNetUtils.GetLocalDeviceName(false);
+    public WsEnumPrintModel PrintModelMain => Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
-    private ProductSeriesDirect ProductSeries { get; set; } = new();
-    public WsEnumPrintModel PrintModelMain => Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsSqlPluWeighingModel PluWeighing { get; set; }
     public WsWeighingSettingsModel WeighingSettings { get; private set; }
     public WsSqlPluScaleModel PluLine { get; private set; }
-    public ushort PlusPageColumnCount => 4;
-    public ushort PlusPageSize => 16;
-    public ushort PlusPageRowCount => 4;
     public int PlusPageNumber { get; set; }
     public WsSqlProductionSiteModel Area { get; private set; }
     public WsSqlScaleModel Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
-    private DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
-    private DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
     public DateTime ProductDate { get; set; }
-    public string DeviceName => MdNetUtils.GetLocalDeviceName(false);
     public WsSqlViewPluNestingModel ViewPluNesting { get; private set; }
-    private readonly object _locker = new();
-
     public WsLocalizationManager Localization { get; set; } = new();
-
 
     public WsLabelSessionHelper()
     {
@@ -92,46 +91,43 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Настроить сессию для ПО `Печать этикеток`.
     /// </summary>
-    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation, 
-        long lineId = -1, WsSqlProductionSiteModel? area = null)
+    public void SetSessionForLabelPrint(Action<WsFormBaseUserControl, string> showNavigation)
     {
-        lock (_locker)
+        SetSqlPublish();
+        ContextCache.LoadGlobal();
+        WsSqlDeviceModel device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
+        device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
+        device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
+        WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
+        if (deviceTypeFk.IsNew)
         {
-            SetSqlPublish();
-            // Обновить кэш.
-            ContextCache.LoadGlobal();
-            // Device.
-            WsSqlDeviceModel device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
-            device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
-                device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
-            // DeviceTypeFk.
-            WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
-            if (deviceTypeFk.IsNew)
-            {
-                WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
-                deviceTypeFk.Device = device;
-                deviceTypeFk.Type = deviceType;
-                ContextManager.SqlCore.Save(deviceTypeFk);
-            }
-            Line = ContextManager.LineRepository.GetItemByDevice(deviceTypeFk.Device);
-            // Line.
-            SetLine(lineId <= 0 ? Line : ContextManager.LineRepository.GetItemById(lineId));
-            // ProductionSite.
-            if (area is not null)
-                SetArea(area);
-            // Other.
-            ProductDate = DateTime.Now;
-             // Новая серия, упаковка продукции, новая паллета.
-            ProductSeries = new(Line);
-            WeighingSettings = new();
+            WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
+            deviceTypeFk.Device = device;
+            deviceTypeFk.Type = deviceType;
+            ContextManager.SqlCore.Save(deviceTypeFk);
         }
+        Line = ContextManager.LineRepository.GetItemByDevice(deviceTypeFk.Device);
+        SetAreaByLineWorkShop();
+        SetPluLine();
+        ProductDate = DateTime.Now;
+        ProductSeries = new(Line);
+        WeighingSettings = new();
     }
     
+    public void SetSessionForLabelPrintCustom(WsSqlScaleModel line, WsSqlProductionSiteModel area)
+    {
+        ContextCache.LoadGlobal();
+        Line = line;
+        SetAreaByLineWorkShop();
+        SetPluLine();
+        SetArea(area);
+        ProductDate = DateTime.Now;
+        ProductSeries = new(Line);
+        WeighingSettings = new();
+    }
 
     /// <summary>
     /// Задать настройки публикации.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
@@ -153,8 +149,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// </summary>
     private void SetArea(WsSqlProductionSiteModel area)
     {
-        Area = area.IsExists ? area : ContextManager.ProductionSiteRepository.GetNewItem();
-        // Журналирование смены площадки.
+        Area = area;
         ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
     }
 
@@ -176,21 +171,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Смена линии.
-    /// </summary>
-    private void SetLine(WsSqlScaleModel? line = null)
-    {
-        Line = line ?? ContextManager.LineRepository.GetNewItem();
-        // Журналирование смены линии.
-        if (Line.IsExists)
-            ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetLine(Line.IdentityValueId, Line.Description)}");
-        // Смена площадки из цеха линии.
-        SetAreaByLineWorkShop();
-        // Смена ПЛУ линии.
-        SetPluLine();
-    }
-
-    /// <summary>
     /// Смена ПЛУ линии.
     /// </summary>
     public void SetPluLine(WsSqlPluScaleModel? pluLine = null)
@@ -209,7 +189,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel, INotifyPropertyChanged
     /// <summary>
     /// Смена вложенности ПЛУ.
     /// </summary>
-    /// <param name="viewPluNesting"></param>
     public void SetViewPluNesting(WsSqlViewPluNestingModel? viewPluNesting = null)
     {
         if (viewPluNesting is null && PluLine.IsExists)

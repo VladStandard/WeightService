@@ -111,7 +111,6 @@ public sealed class WsPrintSessionHelper
     {
         try
         {
-            // #WS-T-710 Печать этикеток. Исправление счётчика этикеток
             if (!LabelSession.PluLine.Line.Number.Equals(LabelSession.Line.Number))
                 LabelSession.PluLine.Line = LabelSession.Line;
             // Инкремент счётчика этикеток.
@@ -127,20 +126,6 @@ public sealed class WsPrintSessionHelper
                 LabelSession.PluginPrintTscMain?.ClearPrintBuffer();
                 // LabelSession.PluginPrintZebraMain?.ClearPrintBuffer();
             }
-            // TODO: исправить здесь
-            //// Отправить команду в принтер.
-            //if (Debug.IsDevelop)
-            //{
-            //    // Навигация в контрол диалога Отмена/Да.
-            //    WsFormNavigationUtils.NavigateToNewDialog(showNavigation,
-            //        LocaleCore.Print.QuestionPrintSendCmd, true, WsEnumLogType.Question, WsEnumDialogType.CancelYes,
-            //        new() { () => { }, ActionYes });
-            //    void ActionYes()
-            //    {
-            //        // Отправить команду в принтер.
-            //        LabelSession.PluginPrintMain.SendCmd(pluLabelWithContext.PluLabel);
-            //    }
-            //}
             // Отправить команду в принтер.
             LabelSession.PluginPrintTscMain?.SendCmdToTsc(pluLabelWithContext.PluLabel);
             LabelSession.PluginPrintZebraMain?.SendCmdToZebra(pluLabelWithContext.PluLabel.Zpl);
@@ -211,12 +196,9 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Replace temperature storage method.
     /// </summary>
-    /// <param name="pluLabel"></param>
-    /// <returns></returns>
     private Action<string> ActionReplaceStorageMethod(WsSqlPluLabelModel pluLabel) =>
         zpl =>
         {
-            // Patch for using table `PLUS_STORAGE_METHODS_FK`.
             if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
                 WsSqlTemplateResourceModel resource = 
@@ -230,8 +212,6 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Создать ШК из этикетки.
     /// </summary>
-    /// <param name="pluLabel"></param>
-    /// <param name="pluLabelContext"></param>
     private void CreateAndSaveBarCodes(WsSqlPluLabelModel pluLabel, WsSqlPluLabelContextModel pluLabelContext)
     {
         WsSqlBarCodeModel barCode = new(pluLabel);

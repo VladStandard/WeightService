@@ -49,7 +49,6 @@ public partial class WsMainForm
     /// </summary>
     private void ActionFinally()
     {
-        // Выделить кнопку печати.
         MdInvokeControl.Select(ButtonPrint);
         // Задать текст линии.
         MdInvokeControl.SetText(ButtonLine, 

@@ -7,8 +7,6 @@ public partial class WsMainForm
     /// <summary>
     /// Сменить ПЛУ линии.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ActionSwitchPluLine(object sender, EventArgs e)
     {
         // Загрузить WinForms-контрол смены ПЛУ линии.

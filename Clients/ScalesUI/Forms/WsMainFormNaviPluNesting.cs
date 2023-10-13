@@ -7,8 +7,6 @@ public partial class WsMainForm
     /// <summary>
     /// Сменить вложенность ПЛУ.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ActionSwitchPluNesting(object sender, EventArgs e)
     {
         // Загрузить WinForms-контрол смены вложенности ПЛУ.

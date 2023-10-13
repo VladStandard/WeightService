@@ -12,12 +12,9 @@ public partial class WsMainForm
         LoadNavigationLine();
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
-            // Сброс предупреждения.
             ResetWarning();
-            // Обновить кэш.
             ContextCache.Load(WsSqlEnumTableName.Areas);
             ContextCache.Load(WsSqlEnumTableName.Lines);
-            // Навигация в контрол линии.
             WsFormNavigationUtils.NavigateToExistsLines(ShowFormUserControl);
         });
     }
@@ -40,8 +37,8 @@ public partial class WsMainForm
     
     private void ReturnOkFromLines()
     {
-        LabelSession.SetSessionForLabelPrint(ShowFormUserControl,
-            WsFormNavigationUtils.LinesUserControl.ViewModel.Line.IdentityValueId,
+        LabelSession.SetSessionForLabelPrintCustom(
+            WsFormNavigationUtils.LinesUserControl.ViewModel.Line,
             WsFormNavigationUtils.LinesUserControl.ViewModel.ProductionSite);
     }
 

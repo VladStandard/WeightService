@@ -41,15 +41,6 @@ public partial class WsMainForm
     // TODO: подумать об универсальном алгоритме для всех настроек
     private void ReturnOkFromDeviceSettings()
     {
-        _ = Task.Run(async () =>
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            
-            // Настроить устройство ПО `Печать этикеток`.
-            //LabelSession.SetSessionForLabelPrint();
-        }).ConfigureAwait(false);
-        
-        //this.SwitchResolution(Debug.IsDevelop ? WsEnumScreenResolution.Value1366x768 : WsEnumScreenResolution.FullScreen);
         bool isFormFullScreen = true;
         foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetEnumerableByLine(LabelSession.Line))
         {
@@ -76,7 +67,7 @@ public partial class WsMainForm
             }
         }
         if (isFormFullScreen)
-            this.SwitchResolution(WsEnumScreenResolution.FullScreen);
+            this.SetupResolution();
     }
 
     #endregion

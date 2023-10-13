@@ -13,13 +13,6 @@ public static class WsFormUtils
     /// <summary>
     /// Create a TableLayoutPanel.
     /// </summary>
-    /// <param name="layoutPanelMain"></param>
-    /// <param name="name"></param>
-    /// <param name="column"></param>
-    /// <param name="row"></param>
-    /// <param name="columnSpan"></param>
-    /// <param name="tabIndex"></param>
-    /// <returns></returns>
     public static TableLayoutPanel NewTableLayoutPanel(TableLayoutPanel layoutPanelMain, string name,
         int column, int row, int columnSpan, int tabIndex)
     {
@@ -43,11 +36,6 @@ public static class WsFormUtils
     /// <summary>
     /// Create a Button.
     /// </summary>
-    /// <param name="layoutPanel"></param>
-    /// <param name="name"></param>
-    /// <param name="column"></param>
-    /// <param name="row"></param>
-    /// <returns></returns>
     public static Button NewTableLayoutPanelButton(TableLayoutPanel layoutPanel, string name, int column, int row)
     {
         Button button = new()
@@ -70,7 +58,6 @@ public static class WsFormUtils
     /// <summary>
     /// Set the ColumnStyles for TableLayoutPanel.
     /// </summary>
-    /// <param name="layoutPanel"></param>
     public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel layoutPanel)
     {
         float columnSize = (float)100 / layoutPanel.ColumnCount;
@@ -84,15 +71,12 @@ public static class WsFormUtils
     /// <summary>
     /// Set the ColumnStyles for TableLayoutPanel.
     /// </summary>
-    /// <param name="layoutPanel"></param>
     public static void SetTableLayoutPanelRowStyles(TableLayoutPanel layoutPanel)
     {
         float size = (float)100 / layoutPanel.RowCount;
         layoutPanel.RowStyles.Clear();
         for (int i = 0; i < layoutPanel.RowCount; i++)
-        {
             layoutPanel.RowStyles.Add(new(SizeType.Percent, size));
-        }
     }
 
     #endregion

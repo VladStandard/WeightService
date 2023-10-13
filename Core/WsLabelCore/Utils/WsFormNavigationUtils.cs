@@ -131,8 +131,8 @@ public static class WsFormNavigationUtils
     public static void NavigateToExistsLines(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сессии пользователя.
-        LinesUserControl.ViewModel.ProductionSites = LabelSession.ContextCache.Areas;
-        LinesUserControl.ViewModel.Lines = LabelSession.ContextCache.Lines;
+        LinesUserControl.ViewModel.ProductionSites = WsLabelSessionHelper.ContextCache.Areas;
+        LinesUserControl.ViewModel.Lines = WsLabelSessionHelper.ContextCache.Lines;
         LinesUserControl.ViewModel.ProductionSite = LabelSession.Area;
         LinesUserControl.ViewModel.Line = LabelSession.Line;
 
@@ -189,16 +189,14 @@ public static class WsFormNavigationUtils
     {
         foreach (Control control in NavigationUserControl.Controls)
         {
-            if (control is TableLayoutPanel tableLayoutPanel)
+            if (control is not TableLayoutPanel tableLayoutPanel)
+                continue;
+            foreach (Control control2 in tableLayoutPanel.Controls)
             {
-                foreach (Control control2 in tableLayoutPanel.Controls)
-                {
-                    if (control2 is WsXamlDialogUserControl dialogUserControl)
-                    {
-                        if (dialogUserControl.Tag is not null && dialogUserControl.Tag.Equals(DialogTempTag))
-                            dialogUserControl.Dispose();
-                    }
-                }
+                if (control2 is not WsXamlDialogUserControl dialogUserControl)
+                    continue;
+                if (dialogUserControl.Tag is not null && dialogUserControl.Tag.Equals(DialogTempTag))
+                    dialogUserControl.Dispose();
             }
         }
         GC.Collect();
@@ -207,11 +205,7 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол диалога Ок.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="message"></param>
-    /// <param name="isLog"></param>
-    /// <param name="logType"></param>
-    public static void NavigateToExistsDialogOk(Action<WsFormBaseUserControl, string> showNavigation, 
+    private static void NavigateToExistsDialogOk(Action<WsFormBaseUserControl, string> showNavigation, 
         string message, bool isLog, WsEnumLogType logType)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
@@ -255,7 +249,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол смены ПЛУ линии.
     /// </summary>
-    /// <param name="showNavigation"></param>
     public static void NavigateToExistsPlusLine(Action<WsFormBaseUserControl, string> showNavigation)
     {
         PlusLineUserControl.ViewModel.UpdateCommandsFromActions();
@@ -267,7 +260,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол смены вложенности ПЛУ.
     /// </summary>
-    /// <param name="showNavigation"></param>
     public static void NavigateToExistsPlusNesting(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сесси пользователя.
@@ -310,7 +302,6 @@ public static class WsFormNavigationUtils
     {
         if (device.IsNew)
         {
-            // Навигация в WinForms-контрол диалога Отмена/Да.
             NavigateToNewDialog(showNavigation,
                 WsLocaleCore.LabelPrint.HostNotFound(device.Name) + Environment.NewLine + WsLocaleCore.LabelPrint.QuestionWriteToDb,
                 false, WsEnumLogType.Information, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
@@ -361,24 +352,13 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Show catch exception window.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="ex"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <returns></returns>
-    public static void CatchException(Action<WsFormBaseUserControl, string> showNavigation, Exception ex,
+    private static void CatchException(Action<WsFormBaseUserControl, string> showNavigation, Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         CatchExceptionCore(showNavigation, ex, filePath, lineNumber, memberName);
 
     /// <summary>
     /// Show catch exception window.
     /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="filePath"></param>
-    /// <param name="lineNumber"></param>
-    /// <param name="memberName"></param>
-    /// <returns></returns>
     public static void CatchExceptionSimple(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         CatchExceptionSimpleCore(ex, filePath, lineNumber, memberName);
