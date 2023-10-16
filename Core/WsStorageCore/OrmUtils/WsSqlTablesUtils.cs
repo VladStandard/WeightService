@@ -43,7 +43,6 @@ public static class WsSqlTablesUtils
     public const string TemplatesResources = "TEMPLATES_RESOURCES";
     public const string Versions = "VERSIONS";
     public const string WorkShops = "WORKSHOPS";
-    public const string ProductSeries = "ProductSeries";
     public const string Printers = "ZebraPrinter";
     public const string PrintersResourcesFks = "ZebraPrinterResourceRef";
     public const string PrintersTypes = "ZebraPrinterType";

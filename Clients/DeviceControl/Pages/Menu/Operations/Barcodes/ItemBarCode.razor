@@ -35,12 +35,12 @@
   @if (SqlItemCast.PluLabel.PluWeighing is not null)
   {
     <tr>
-      <td>@WsLocaleCore.Table.ProductSeries</td>
-      <td>@SqlItemCast.PluLabel.PluWeighing.Series?.Sscc</td>
       <td>
         <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
       </td>
       <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>
+      <td></td>
+      <td></td>
     </tr>
   }
   <tr>

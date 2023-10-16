@@ -131,7 +131,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterResourceFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionSiteMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductSeriesMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskTypeMap>());
@@ -165,7 +164,7 @@ public sealed class WsSqlCoreHelper
     /// <summary>
     /// Select in isolated session.
     /// </summary>
-    private WsSqlCrudResultModel ExecuteSelectCore(Action<ISession> action)
+    private void ExecuteSelectCore(Action<ISession> action)
     {
         if (SessionFactory is null)
             throw new ArgumentException(nameof(SessionFactory));
@@ -177,11 +176,11 @@ public sealed class WsSqlCoreHelper
             {
                 action(session);
                 session.Clear();
-                return new(true);
+                return;
             }
             catch (Exception ex)
             {
-                return new(ex);
+                return;
             }
             finally
             {

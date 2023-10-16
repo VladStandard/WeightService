@@ -71,7 +71,6 @@ public sealed class WsLocaleDeviceControl : WsLocalizationDeviceControl
     public string ItemPluWeighing => Lang == WsEnumLanguage.English ? "Plu weighings" : "Взвешивание ПЛУ";
     public string ItemProductionFacilities => Lang == WsEnumLanguage.English ? "Prod. facilities" : "Производственные площадки";
     public string ItemProductionFacility => Lang == WsEnumLanguage.English ? "Prod. facility" : "Произв. площадка";
-    public string ItemProductSeries => Lang == WsEnumLanguage.English ? "Product series" : "Серия продукта";
     public string ItemResource => Lang == WsEnumLanguage.English ? "Resource" : "Ресурс";
     public string ItemScale => Lang == WsEnumLanguage.English ? "Line" : "Линия";
     public string ItemScreenShot => Lang == WsEnumLanguage.English ? "ScreenShot" : "Скриншот";

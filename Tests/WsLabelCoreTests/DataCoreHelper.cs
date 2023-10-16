@@ -196,8 +196,6 @@ public sealed class DataCoreHelper
 				access.Rights.Returns((byte)WsEnumAccessRights.None);
 				access.LoginDt.Returns(DateTime.Now);
 				break;
-			case WsSqlAppModel app:
-				break;
 			case WsSqlBarCodeModel barCode:
 				barCode.TypeTop.Returns(WsSqlBarcodeType.Default.ToString());
 				barCode.TypeRight.Returns(WsSqlBarcodeType.Default.ToString());
@@ -214,15 +212,11 @@ public sealed class DataCoreHelper
             case WsSqlClipModel clip:
                 clip.Weight.Returns(2);
                 break;
-            case WsSqlContragentModel contragent:
-				break;
 			case WsSqlDeviceModel device:
                 device.LoginDt.Returns(DateTime.Now);
 				device.LogoutDt.Returns(DateTime.Now);
 				device.Ipv4.Returns(WsLocaleCore.Sql.SqlItemFieldIp);
 				device.MacAddressValue.Returns(WsLocaleCore.Sql.SqlItemFieldMac);
-				break;
-			case WsSqlDeviceTypeModel deviceType:
 				break;
 			case WsSqlDeviceTypeFkModel deviceTypeFk:
                 deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);
@@ -295,13 +289,10 @@ public sealed class DataCoreHelper
                 pluTemplateFk.Template = CreateNewSubstitute<WsSqlTemplateModel>(isNotDefault);
 				break;
 			case WsSqlPluWeighingModel pluWeighing:
-				pluWeighing.Sscc.Returns(WsLocaleCore.Sql.SqlItemFieldSscc);
 				pluWeighing.NettoWeight.Returns(1.1M);
 				pluWeighing.WeightTare.Returns(0.25M);
-				pluWeighing.RegNum.Returns(1);
 				pluWeighing.Kneading.Returns((short)1);
 				pluWeighing.PluScale = CreateNewSubstitute<WsSqlPluScaleModel>(isNotDefault);
-				pluWeighing.Series = CreateNewSubstitute<WsSqlProductSeriesModel>(isNotDefault);
 				break;
             case WsSqlPluNestingFkModel pluNestingFk:
                 pluNestingFk.IsDefault.Returns(false);
@@ -317,15 +308,6 @@ public sealed class DataCoreHelper
 				printerResource.Printer = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
 				printerResource.TemplateResource = CreateNewSubstitute<WsSqlTemplateResourceModel>(isNotDefault);
 				break;
-			case WsSqlPrinterTypeModel printerType:
-				break;
-			case WsSqlProductionSiteModel productionFacility:
-				break;
-			case WsSqlProductSeriesModel productSeries:
-				productSeries.Sscc.Returns(WsLocaleCore.Sql.SqlItemFieldSscc);
-				productSeries.IsClose.Returns(false);
-				productSeries.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
-				break;
 			case WsSqlScaleModel scale:
                 scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
@@ -335,10 +317,6 @@ public sealed class DataCoreHelper
 			case WsSqlTaskModel task:
 				task.TaskType = CreateNewSubstitute<WsSqlTaskTypeModel>(isNotDefault);
 				task.Scale = CreateNewSubstitute<WsSqlScaleModel>(isNotDefault);
-				break;
-			case WsSqlTaskTypeModel taskType:
-				break;
-			case WsSqlTemplateModel template:
 				break;
 			case WsSqlTemplateResourceModel templateResource:
                 templateResource.Type.Returns(WsLocaleCore.Sql.SqlItemFieldTemplateResourceType);

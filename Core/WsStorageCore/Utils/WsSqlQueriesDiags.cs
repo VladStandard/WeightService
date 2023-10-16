@@ -317,7 +317,7 @@ ORDER BY [CREATE_DT] DESC");
         public static string GetPluWeightings(int records, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(records)}
-		 [UID]
+	 [UID]
 	,[IS_MARKED]
 	,[CREATE_DT]
 	,[LINE]

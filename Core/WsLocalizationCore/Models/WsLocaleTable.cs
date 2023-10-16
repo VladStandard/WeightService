@@ -161,7 +161,6 @@ public sealed class WsLocaleTable : WsLocalizationBase
     public string Product => Lang == WsEnumLanguage.English ? "Product" : "Продукт";
     public string ProductDt => Lang == WsEnumLanguage.English ? "Product date" : "Дата продукции";
     public string ProductionFacility => Lang == WsEnumLanguage.English ? "Production facility" : "Производственная площадка";
-    public string ProductSeries => Lang == WsEnumLanguage.English ? "Product series" : "Серия продукта";
     public string RegNum => Lang == WsEnumLanguage.English ? "# reg" : "№ регистрации";
     public string ReleaseDt => Lang == WsEnumLanguage.English ? "Release date" : "Дата релиза";
     public string Request => Lang == WsEnumLanguage.English ? "Request" : "Запрос";

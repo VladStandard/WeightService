@@ -40,7 +40,6 @@ global using WsStorageCore.Tables.TableScaleModels.PlusScales;
 global using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
 global using WsStorageCore.Tables.TableScaleModels.Printers;
 global using WsStorageCore.Tables.TableScaleModels.PrintersTypes;
-global using WsStorageCore.Tables.TableScaleModels.ProductSeries;
 global using WsStorageCore.Tables.TableScaleModels.Scales;
 global using WsStorageCore.Tables.TableScaleModels.Tasks;
 global using WsStorageCore.Tables.TableScaleModels.TasksTypes;

@@ -99,6 +99,7 @@ public sealed partial class WsMainForm : Form
         SetupButtons();
         LoadFonts();
         LoadLocalizationStatic(WsEnumLanguage.Russian);
+        
         LabelSession.NewPallet();
         SetupPlugins();
         WsScheduler.Load(this);

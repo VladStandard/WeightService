@@ -24,8 +24,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     private static DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
-    private ProductSeriesDirect ProductSeries { get; set; } = new();
-    
     public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public static ushort PlusPageColumnCount => 4;
     public static ushort PlusPageSize => 16;
@@ -85,7 +83,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     {
         if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
         if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
-        ProductSeries.Load();
     }
 
     /// <summary>
@@ -110,7 +107,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel
         SetAreaByLineWorkShop();
         SetPluLine();
         ProductDate = DateTime.Now;
-        ProductSeries = new(Line);
         WeighingSettings = new();
     }
     
@@ -122,7 +118,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel
         SetPluLine();
         SetArea(area);
         ProductDate = DateTime.Now;
-        ProductSeries = new(Line);
         WeighingSettings = new();
     }
 

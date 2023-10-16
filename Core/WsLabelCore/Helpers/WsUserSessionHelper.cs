@@ -123,9 +123,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// </summary>
     public void NewPluWeighing()
     {
-        WsSqlProductSeriesModel productSeries =
-            new WsSqlProductSeriesRepository().GetItemByLineNotClose(LabelSession.PluLine.Line);
-
         LabelSession.PluWeighing = new()
         {
             PluScale = LabelSession.PluLine,
@@ -133,7 +130,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             NettoWeight = LabelSession.PluLine.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
                 : LabelSession.ViewPluNesting.WeightNom,
             WeightTare = LabelSession.ViewPluNesting.TareWeight,
-            Series = productSeries,
         };
 
         // Save or update weighing products.

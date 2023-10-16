@@ -60,14 +60,12 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, 
 
     protected virtual void SetSqlItemCast()
     {
-        if (SqlItemCast.Identity.Name == WsSqlEnumFieldIdentity.Id) 
-            SqlItemCast = ContextManager.SqlCore.GetItemById<TItem>(Id);
-        else if (SqlItemCast.Identity.Name == WsSqlEnumFieldIdentity.Uid)
-            SqlItemCast = ContextManager.SqlCore.GetItemByUid<TItem>(Uid);
-
-        if (!SqlItemCast.IsNew)
-            return;
-        SqlItemCast = SqlItemNewEmpty<TItem>();
+        SqlItemCast = SqlItemCast.Identity.Name switch
+        {
+            WsSqlEnumFieldIdentity.Id => ContextManager.SqlCore.GetItemById<TItem>(Id),
+            WsSqlEnumFieldIdentity.Uid => ContextManager.SqlCore.GetItemByUid<TItem>(Uid),
+            _ => new()
+        };
     }
 
     #endregion
