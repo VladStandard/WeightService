@@ -102,7 +102,7 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
     public void SetBarCodeTop(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeTop = TypeBarCodeTop;
-        barCode.ValueTop = pluLabelContext.BarCodeTop;
+        barCode.ValueTop = pluLabelContext.BarCodeTopV230;
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
     public void SetBarCodeRight(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeRight = TypeBarCodeGs128;
-        barCode.ValueRight = pluLabelContext.BarCodeRight;
+        barCode.ValueRight = pluLabelContext.BarCodeRightV234;
     }
 
     ///  <summary>

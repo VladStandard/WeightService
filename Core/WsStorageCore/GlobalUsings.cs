@@ -55,7 +55,6 @@ global using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 global using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
-global using WsStorageCore.Tables.TableScaleFkModels.PrintersResourcesFks;
 global using WsStorageCore.Tables.TableScaleModels.Access;
 global using WsStorageCore.Tables.TableScaleModels.Apps;
 global using WsStorageCore.Tables.TableScaleModels.BarCodes;

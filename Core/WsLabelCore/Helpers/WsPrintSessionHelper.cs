@@ -107,7 +107,7 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки ПЛУ.
     /// </summary>
-    private void PrintLabelCore(ref WsSqlTemplateModel template, bool isClearBuffer, bool isReloadTemplete)
+    private void PrintLabelCore(ref WsSqlTemplateModel template, bool isClearBuffer, bool isReloadTemplate)
     {
         try
         {
@@ -131,7 +131,7 @@ public sealed class WsPrintSessionHelper
             LabelSession.PluginPrintZebraMain?.SendCmdToZebra(pluLabelWithContext.PluLabel.Zpl);
             
             // Пересоздать шаблон.
-            if (isReloadTemplete)
+            if (isReloadTemplate)
                 template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
             // Журнал событий.
             ContextManager.ContextItem.SaveLogInformation(
@@ -156,32 +156,15 @@ public sealed class WsPrintSessionHelper
 
         WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
             ProductDt = LabelSession.ProductDate };
-
-        // Раскомментировать при повторной ошибке сериализации.
-        //string str = WsDataFormatUtils.SerializeAsXmlString<WsSqlScaleModel>(LabelSession.Line, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlScaleModel>(LabelSession.Line, true, true);
-        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluScaleModel>(LabelSession.PluLine, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluScaleModel>(LabelSession.PluLine, true, true);
-        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluWeighingModel>(LabelSession.PluWeighing, true, true);
-        //pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluWeighingModel>(LabelSession.PluWeighing, true, true);
-        //str = WsDataFormatUtils.SerializeAsXmlString<WsSqlPluLabelModel>(pluLabel, true, true);
-
-        pluLabel.Xml = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelModel>(pluLabel, true, true);
         
-        XmlDocument xmlArea = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlProductionSiteModel>(LabelSession.Area, true, true);
-        pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlArea);
-
         WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
             LabelSession.Area, LabelSession.PluWeighing);
         XmlDocument xmlLabelContext = WsDataFormatUtils.SerializeAsXmlDocument<WsSqlPluLabelContextModel>
             (pluLabelContext, true, true);
-        pluLabel.Xml = WsDataFormatUtils.XmlMerge(pluLabel.Xml, xmlLabelContext);
-
-        // Патч шаблона:
-        template.Data = template.Data.Replace("PluLabelModel", nameof(WsSqlPluLabelModel));
+        
         template.Data = template.Data.Replace("PluLabelContextModel", nameof(WsSqlPluLabelContextModel));
-
-        pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, pluLabel.Xml.OuterXml);
+        
+        pluLabel.Zpl = WsDataFormatUtils.XsltTransformation(template.Data, xmlLabelContext.OuterXml);
         pluLabel.Zpl = WsDataFormatUtils.XmlReplaceNextLine(pluLabel.Zpl);
         pluLabel.Zpl = ZplUtils.ConvertStringToHex(pluLabel.Zpl);
         // Заменить zpl-ресурсы из таблицы ресурсов шаблонов.

@@ -128,7 +128,6 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluTemplateFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluWeighingMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterResourceFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionSiteMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());

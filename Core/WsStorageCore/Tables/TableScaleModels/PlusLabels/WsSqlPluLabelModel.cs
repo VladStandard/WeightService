@@ -12,7 +12,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public virtual WsSqlPluWeighingModel? PluWeighing { get; set; }
     public virtual WsSqlPluScaleModel PluScale { get; set; }
     public virtual string Zpl { get; set; }
-    public virtual XmlDocument? Xml { get; set; }
     public virtual DateTime ProductDt { get; set; }
     public virtual DateTime ExpirationDt
     {
@@ -25,7 +24,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         PluWeighing = null;
         PluScale = new();
         Zpl = string.Empty;
-        Xml = null;
         ProductDt = DateTime.MinValue;
         ExpirationDt = DateTime.MinValue;
     }
@@ -36,7 +34,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         PluWeighing = item.PluWeighing is null ? null : new(item.PluWeighing);
         PluScale = new(item.PluScale);
         Zpl = item.Zpl;
-        Xml = item.Xml is { } ? WsDataFormatUtils.DeserializeFromXml<XmlDocument>(item.Xml.OuterXml, Encoding.UTF8) : null;
         ProductDt = item.ProductDt;
         ExpirationDt = item.ExpirationDt;
     }
@@ -48,8 +45,7 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public override string ToString() =>
         $"{nameof(ProductDt)}: {ProductDt}. " +
         $"{nameof(PluScale.Plu.Number)}: {PluScale.Plu.Number}. " +
-        $"{nameof(Zpl)}: {Zpl.Length}. " +
-        $"{nameof(Xml)}: {(Xml is null ? 0 : Xml.OuterXml.Length)}. ";
+        $"{nameof(Zpl)}: {Zpl.Length}.";
 
     public override bool Equals(object obj)
     {
@@ -66,7 +62,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(Zpl, string.Empty) &&
-        Equals(Xml, null) &&
         Equals(ProductDt, DateTime.MinValue) &&
         (PluWeighing is null || PluWeighing.EqualsDefault()) &&
         PluScale.EqualsDefault();
@@ -91,7 +86,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         Equals(ExpirationDt, item.ExpirationDt) &&
         (PluWeighing is null && item.PluWeighing is null || PluWeighing is not null &&
             item.PluWeighing is not null && PluWeighing.Equals(item.PluWeighing)) &&
-        (Xml is null && item.Xml is null || Xml is not null && item.Xml is not null && Xml.Equals(item.Xml)) &&
         PluScale.Equals(item.PluScale);
 
     #endregion

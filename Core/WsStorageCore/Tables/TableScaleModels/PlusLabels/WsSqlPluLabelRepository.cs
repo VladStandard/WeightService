@@ -17,14 +17,6 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
     /// <param name="pluLabel"></param>
     public void Save(WsSqlPluLabelModel pluLabel)
     {
-        switch (WsDebugHelper.Instance.Config)
-        {
-            case WsEnumConfiguration.ReleaseAleksandrov:
-            case WsEnumConfiguration.ReleaseMorozov:
-            case WsEnumConfiguration.ReleaseVS:
-                pluLabel.Xml = null;
-                break;
-        }
         SqlCore.Save(pluLabel);
     }
 

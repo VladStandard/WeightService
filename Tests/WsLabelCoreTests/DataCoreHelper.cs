@@ -304,10 +304,6 @@ public sealed class DataCoreHelper
 				printer.DarknessLevel.Returns((short)1);
 				printer.PrinterType = CreateNewSubstitute<WsSqlPrinterTypeModel>(isNotDefault);
 				break;
-			case WsSqlPrinterResourceFkModel printerResource:
-				printerResource.Printer = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
-				printerResource.TemplateResource = CreateNewSubstitute<WsSqlTemplateResourceModel>(isNotDefault);
-				break;
 			case WsSqlScaleModel scale:
                 scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopModel>(isNotDefault);
 				scale.PrinterMain = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
