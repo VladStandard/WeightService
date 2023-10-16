@@ -14,8 +14,8 @@ public class WsSqlTableBase : SerializeBase
     [XmlElement] public virtual bool IsMarked { get; set; }
     [XmlElement] public virtual string Name { get; set; } = string.Empty;
     [XmlElement] public virtual string Description { get; set; } = string.Empty;
-    [XmlIgnore] public virtual bool IsExists => Identity.IsExists;
-    [XmlIgnore] public virtual bool IsNew => Identity.IsNew;
+    [XmlIgnore] public bool IsExists => Identity.IsExists;
+    [XmlIgnore] public bool IsNew => Identity.IsNew;
     [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
     [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
@@ -27,11 +27,6 @@ public class WsSqlTableBase : SerializeBase
     public WsSqlTableBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
-    }
-
-    public WsSqlTableBase(WsSqlFieldIdentityModel identity) : this()
-    {
-        Identity = new(identity);
     }
 
     protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
@@ -85,12 +80,7 @@ public class WsSqlTableBase : SerializeBase
     }
 
     public override int GetHashCode() => Identity.GetHashCode();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
+    
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);
@@ -123,29 +113,10 @@ public class WsSqlTableBase : SerializeBase
     {
         ChangeDt = CreateDt = DateTime.Now;
     }
-
-    public virtual void ClearNullProperties()
-    {
-        //throw new NotImplementedException();
-    }
-
+    
     public virtual void FillProperties()
     {
         SetDtNow();
-    }
-
-    protected virtual void UpdateProperties(WsSqlTableBase item, bool isSkipName)
-    {
-        if (!item.CreateDt.Equals(DateTime.MinValue))
-            CreateDt = item.CreateDt;
-        if (!item.ChangeDt.Equals(DateTime.MinValue))
-            ChangeDt = item.ChangeDt;
-        IsMarked = item.IsMarked;
-        if (!isSkipName && string.IsNullOrEmpty(item.Name)) throw new ArgumentException(nameof(Name));
-        Name = item.Name;
-        if (!string.IsNullOrEmpty(item.Description))
-            Description = item.Description;
-        ParseResult = new(item.ParseResult);
     }
 
     protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";

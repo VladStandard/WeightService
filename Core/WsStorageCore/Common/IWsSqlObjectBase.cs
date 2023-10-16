@@ -9,6 +9,5 @@ public interface IWsSqlObjectBase
     bool EqualsNew();
     int GetHashCode();
     void GetObjectData(SerializationInfo info, StreamingContext context);
-    void ClearNullProperties();
     void FillProperties();
 }

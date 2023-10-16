@@ -83,12 +83,6 @@ public class WsSqlScaleModel : WsSqlTableBase
         PrinterMain.EqualsDefault() &&
         (PrinterShipping is null || PrinterShipping.EqualsDefault());
 
-    public override void ClearNullProperties()
-    {
-        if (PrinterShipping is not null && PrinterShipping.Identity.EqualsDefault())
-            PrinterShipping = null;
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();

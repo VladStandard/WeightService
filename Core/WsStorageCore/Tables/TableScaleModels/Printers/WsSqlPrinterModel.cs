@@ -17,11 +17,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
     [XmlElement] public virtual bool PeelOffSet { get; set; }
     [XmlElement] public virtual short DarknessLevel { get; set; }
     [XmlIgnore] public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
-    [XmlIgnore] public virtual HttpStatusCode HttpStatusCode { get; set; }
-    [XmlIgnore] public virtual IPStatus PingStatus { get; set; }
-    [XmlIgnore] public virtual bool IsPing => PingStatus == IPStatus.Success;
-    [XmlIgnore] public virtual Exception? HttpStatusException { get; set; }
-    [XmlIgnore] public virtual bool IsConnect => HttpStatusCode == HttpStatusCode.OK;
     [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
     public WsSqlPrinterModel() : base(WsSqlEnumFieldIdentity.Id)
@@ -33,8 +28,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         MacAddress = new();
         PeelOffSet = false;
         DarknessLevel = 0;
-        HttpStatusCode = HttpStatusCode.BadRequest;
-        HttpStatusException = null;
     }
 
     /// <summary>
@@ -62,9 +55,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         MacAddress = new(item.MacAddress);
         PeelOffSet = item.PeelOffSet;
         DarknessLevel = item.DarknessLevel;
-        HttpStatusCode = item.HttpStatusCode;
-        HttpStatusException = item.HttpStatusException;
-
     }
 
     #endregion
@@ -76,9 +66,7 @@ public class WsSqlPrinterModel : WsSqlTableBase
         $"{nameof(PrinterType)}: {PrinterType}. " +
         $"{nameof(MacAddress)}: {MacAddress}. " +
         $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
-        $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
-        $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " +
-        $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
+        $"{nameof(DarknessLevel)}: {DarknessLevel}.";
 
     public override bool Equals(object obj)
     {
@@ -99,8 +87,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         Equals(Password, string.Empty) &&
         Equals(PeelOffSet, false) &&
         Equals(DarknessLevel, (short)0) &&
-        Equals(HttpStatusCode, HttpStatusCode.BadRequest) &&
-        Equals(HttpStatusException, null) &&
         PrinterType.EqualsDefault() &&
         MacAddress.EqualsDefault();
 
@@ -136,8 +122,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         Equals(Password, item.Password) &&
         Equals(PeelOffSet, item.PeelOffSet) &&
         Equals(DarknessLevel, item.DarknessLevel) &&
-        Equals(HttpStatusCode, item.HttpStatusCode) &&
-        Equals(HttpStatusException, item.HttpStatusException) &&
         PrinterType.Equals(item.PrinterType) &&
         MacAddress.Equals(item.MacAddress);
 

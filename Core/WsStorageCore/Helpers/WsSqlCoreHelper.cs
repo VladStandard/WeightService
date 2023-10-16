@@ -271,8 +271,6 @@ public sealed class WsSqlCoreHelper
     public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
 {
     if (item is null) throw new ArgumentException();
-
-    item.ClearNullProperties();
     item.CreateDt = DateTime.Now;
     item.ChangeDt = DateTime.Now;
     
@@ -292,8 +290,6 @@ public sealed class WsSqlCoreHelper
 public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
 {
     if (item is null) throw new ArgumentException();
-
-    item.ClearNullProperties();
     item.ChangeDt = DateTime.Now;
 
     switch (sessionType)

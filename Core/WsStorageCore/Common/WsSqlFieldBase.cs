@@ -60,11 +60,6 @@ public class WsSqlFieldBase : SerializeBase, IWsSqlObjectBase
 
     public virtual bool EqualsDefault() => Equals(FieldName, string.Empty);
 
-    public virtual void ClearNullProperties()
-    {
-        throw new NotImplementedException();
-    }
-
     public virtual void FillProperties()
     {
         //throw new NotImplementedException();

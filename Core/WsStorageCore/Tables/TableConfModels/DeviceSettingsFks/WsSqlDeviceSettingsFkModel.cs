@@ -59,7 +59,15 @@ public class WsSqlDeviceSettingsFkModel : WsSqlTableBase
     
     public virtual void UpdateProperties(WsSqlDeviceSettingsFkModel item, WsSqlDeviceModel device, WsSqlDeviceSettingsModel setting)
     {
-        base.UpdateProperties(item, true);
+        if (!item.CreateDt.Equals(DateTime.MinValue))
+            CreateDt = item.CreateDt;
+        if (!item.ChangeDt.Equals(DateTime.MinValue))
+            ChangeDt = item.ChangeDt;
+        IsMarked = item.IsMarked;
+        Name = item.Name;
+        if (!string.IsNullOrEmpty(item.Description))
+            Description = item.Description;
+        ParseResult = new(item.ParseResult);
         IsEnabled = item.IsEnabled;
         Device = new(device);
         Setting = new(setting);

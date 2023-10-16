@@ -71,14 +71,6 @@ public class WsSqlPluLabelModel : WsSqlTableBase
         (PluWeighing is null || PluWeighing.EqualsDefault()) &&
         PluScale.EqualsDefault();
 
-    public override void ClearNullProperties()
-    {
-        if (PluWeighing is not null && PluWeighing.Identity.EqualsDefault())
-            PluWeighing = null;
-        //if (PluScale.Identity.EqualsDefault())
-        //       PluScale = new();
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();

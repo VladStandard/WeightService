@@ -69,14 +69,6 @@ public class WsSqlLogModel : WsSqlTableBase
         (App is null || App.EqualsDefault()) &&
         (LogType is null || LogType.EqualsDefault());
 
-    public override void ClearNullProperties()
-    {
-        if (App is not null && App.Identity.EqualsDefault())
-            App = null;
-        if (LogType is not null && LogType.Identity.EqualsDefault())
-            LogType = null;
-    }
-
     public override void FillProperties()
     {
         base.FillProperties();
