@@ -12,7 +12,6 @@ public sealed class WsLocaleSql : WsLocalizationBase
     public string SqlItemFieldMac => "001122334455";
     public string SqlItemFieldMember => Lang == WsEnumLanguage.English ? "Method" : "Метод";
     public string SqlItemFieldMessage => Lang == WsEnumLanguage.English ? "Message" : "Сообщение";
-    public string SqlItemFieldSscc => Lang == WsEnumLanguage.English ? "SSCC code" : "SSCC код";
     public string SqlItemFieldTemplateData => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     public string SqlItemFieldTemplateResourceType => "ZPL";
     public string SqlItemFieldUrl => "https://{{local}}/api/info/";
@@ -20,11 +19,7 @@ public sealed class WsLocaleSql : WsLocalizationBase
     public string SqlItemFieldZpl => Lang == WsEnumLanguage.English ? "ZPL" : "ЗПЛ";
     public string SqlServerDevelopAleksandrov => Lang == WsEnumLanguage.English ? "Development environment | Aleksandrov" : "Среда разработки | Александров";
     public string SqlServerDevelopMorozov => Lang == WsEnumLanguage.English ? "Development environment | Morozov" : "Среда разработки | Морозов";
-    // ReSharper disable once InconsistentNaming
     public string SqlServerVS => Lang == WsEnumLanguage.English ? "Development environment" : "Среда разработки";
-    // ReSharper disable once InconsistentNaming
-    public string SqlServerReleaseAleksandrov => Lang == WsEnumLanguage.English ? "Product environment | Aleksandrov" : "Рабочая среда | Александров";
-    public string SqlServerReleaseMorozov => Lang == WsEnumLanguage.English ? "Product environment | Morozov" : "Рабочая среда | Морозов";
     
     #endregion
 }

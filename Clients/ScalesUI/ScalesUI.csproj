@@ -171,12 +171,6 @@
     <None Include="App.DevelopVS.config">
       <DependentUpon>App.config</DependentUpon>
     </None>
-    <None Include="App.ReleaseAleksandrov.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.ReleaseMorozov.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
     <None Include="App.ReleaseVS.config">
       <DependentUpon>App.config</DependentUpon>
     </None>

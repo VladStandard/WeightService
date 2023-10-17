@@ -7,7 +7,5 @@ public enum WsEnumConfiguration
     DevelopAleksandrov,
     DevelopMorozov,
     DevelopVS,
-    ReleaseAleksandrov,
-    ReleaseMorozov,
     ReleaseVS,
 }

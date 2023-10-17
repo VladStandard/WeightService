@@ -21,8 +21,6 @@ public sealed class WsDebugHelper
         WsEnumConfiguration.DevelopAleksandrov => true,
         WsEnumConfiguration.DevelopMorozov => true,
         WsEnumConfiguration.DevelopVS => true,
-        WsEnumConfiguration.ReleaseAleksandrov => false,
-        WsEnumConfiguration.ReleaseMorozov => false,
         WsEnumConfiguration.ReleaseVS => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
@@ -42,10 +40,6 @@ public sealed class WsDebugHelper
         WsEnumConfiguration.DevelopMorozov;
 #elif DEVELOPVS
         WsEnumConfiguration.DevelopVS;
-#elif RELEASEALEKSANDROV
-        WsEnumConfiguration.ReleaseAleksandrov;
-#elif RELEASEMOROZOV
-        WsEnumConfiguration.ReleaseMorozov;
 #elif RELEASEVS
         WsEnumConfiguration.ReleaseVS;
 #else

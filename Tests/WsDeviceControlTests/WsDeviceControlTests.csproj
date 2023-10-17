@@ -12,8 +12,8 @@
         <NeutralLanguage>en</NeutralLanguage>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
-        <Platforms>AnyCPU;x64;x86</Platforms>
-		<Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+        <Platforms>x64</Platforms>
+		<Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="bunit" Version="1.23.9" />

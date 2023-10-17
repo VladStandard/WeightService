@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Configuration Condition=" '$(Configuration)' == '' ">DevelopVS</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{03F82B97-71C5-4E00-AA9E-54DC604089C0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ConsoleQuartzDemo</RootNamespace>
@@ -17,8 +17,8 @@
     </NuGetPackageImportStamp>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+    <Platforms>x64;</Platforms>
+    <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

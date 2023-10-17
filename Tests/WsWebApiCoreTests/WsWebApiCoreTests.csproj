@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <Version>1.0.3.0</Version>
     <LangVersion>latest</LangVersion>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Configurations>DevelopVS;ReleaseVS;ReleaseAleksandrov;DevelopMorozov;DevelopAleksandrov;ReleaseMorozov</Configurations>
+    <Platforms>x64</Platforms>
+    <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

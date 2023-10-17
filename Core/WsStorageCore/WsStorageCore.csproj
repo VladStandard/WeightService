@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov;ReleaseAleksandrov;ReleaseMorozov</Configurations>
+    <Platforms>x64</Platforms>
+    <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov</Configurations>
     <Version>1.0.3.0</Version>
   </PropertyGroup>
   <ItemGroup>

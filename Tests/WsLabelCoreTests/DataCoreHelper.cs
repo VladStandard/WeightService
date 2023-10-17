@@ -53,22 +53,6 @@ public sealed class DataCoreHelper
         TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
     }
 
-    private void SetupReleaseAleksandrov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
-    }
-
-    private void SetupReleaseMorozov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsReleaseMorozov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsLabelCoreTests), isShowSql);
-        TestContext.WriteLine($"{nameof(JsonSettings.IsRemote)}: {JsonSettings.IsRemote}");
-        TestContext.WriteLine(JsonSettings.IsRemote ? JsonSettings.Remote : JsonSettings.Local);
-    }
-
     private void SetupReleaseVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),

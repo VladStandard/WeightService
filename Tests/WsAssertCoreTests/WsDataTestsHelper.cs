@@ -15,7 +15,6 @@ public class WsDataTestsHelper
 
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    private WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
 
     #endregion
 
@@ -41,21 +40,7 @@ public class WsDataTestsHelper
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
         TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
     }
-
-    private void SetupReleaseAleksandrov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsReleaseAleksandrov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
-    }
-
-    private void SetupReleaseMorozov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsReleaseMorozov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
-    }
-
+    
     private void SetupReleaseVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
@@ -82,18 +67,6 @@ public class WsDataTestsHelper
             if (publishTypes.Contains(WsEnumConfiguration.DevelopVS))
             {
                 SetupDevelopVs(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
-            if (publishTypes.Contains(WsEnumConfiguration.ReleaseAleksandrov))
-            {
-                SetupReleaseAleksandrov(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
-            if (publishTypes.Contains(WsEnumConfiguration.ReleaseMorozov))
-            {
-                SetupReleaseMorozov(isShowSql);
                 action();
                 TestContext.WriteLine();
             }

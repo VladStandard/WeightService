@@ -1,6 +1,4 @@
-using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
-using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 
 namespace WsStorageCore.Helpers;
 
@@ -140,13 +138,7 @@ public sealed class WsSqlContextManagerHelper
 
     public void SetupJsonTestsDevelopVs(string localDir, string deviceName, string appName, bool isShowSql) =>
         SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameDevelopVs, isShowSql);
-
-    public void SetupJsonTestsReleaseAleksandrov(string localDir, string deviceName, string appName, bool isShowSql) =>
-        SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameReleaseAleksandrov, isShowSql);
-
-    public void SetupJsonTestsReleaseMorozov(string localDir, string deviceName, string appName, bool isShowSql) =>
-        SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameReleaseMorozov, isShowSql);
-
+    
     public void SetupJsonTestsReleaseVs(string localDir, string deviceName, string appName, bool isShowSql) =>
         SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameReleaseVs, isShowSql);
 
@@ -217,8 +209,6 @@ public sealed class WsSqlContextManagerHelper
         {
             case WsEnumConfiguration.DevelopAleksandrov:
             case WsEnumConfiguration.DevelopMorozov:
-            case WsEnumConfiguration.ReleaseAleksandrov:
-            case WsEnumConfiguration.ReleaseMorozov:
                 return;
         }
         SetupConfigsCore(JsonSettings.RemoteDir, true, fileName);

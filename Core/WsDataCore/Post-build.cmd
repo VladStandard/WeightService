@@ -23,8 +23,6 @@ xcopy "appsettings.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /
 xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-xcopy "appsettings.ReleaseAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-xcopy "appsettings.ReleaseMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.ReleaseVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 echo [v] The files "appsettings*.json" has been successfully copied.
 xcopy "machine.config" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
