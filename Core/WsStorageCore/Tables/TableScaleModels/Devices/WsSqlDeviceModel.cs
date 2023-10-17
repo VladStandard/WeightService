@@ -58,8 +58,6 @@ public class WsSqlDeviceModel : WsSqlTableBase
         base.FillProperties();
         LoginDt = DateTime.Now;
         LogoutDt = DateTime.Now;
-        Ipv4 = WsLocaleCore.Sql.SqlItemFieldIp;
-        MacAddressValue = WsLocaleCore.Sql.SqlItemFieldMac;
     }
 
     #endregion

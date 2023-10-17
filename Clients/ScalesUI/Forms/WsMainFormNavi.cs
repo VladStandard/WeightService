@@ -152,7 +152,6 @@ public partial class WsMainForm
         MouseUnsubscribe();
         // Логи.
         UserSession.StopwatchMain.Stop();
-        ContextManager.LogMemoryRepository.Save(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
         ContextManager.ContextItem.SaveLogInformation(
             WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.
@@ -171,7 +170,6 @@ public partial class WsMainForm
         FontsSettings.Close();
         // Логи.
         UserSession.StopwatchMain.Stop();
-        ContextManager.LogMemoryRepository.Save(UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
         ContextManager.ContextItem.SaveLogInformation(
         WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.

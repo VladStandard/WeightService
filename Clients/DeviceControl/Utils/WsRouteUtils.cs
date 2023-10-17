@@ -2,13 +2,6 @@ namespace DeviceControl.Utils;
 
 public static class WsRouteUtils
 {
-    #region Графики
-
-    public static string SectionChartMemory => "/section/logs_chart_memory";
-    public static string SectionChartReports => "/section/logs_chart_reports";
-
-    #endregion
-
     #region Администрирование
 
     public static string SystemAppInfo => "/system";
@@ -33,7 +26,6 @@ public static class WsRouteUtils
     #region Диагностика
 
     public static string SectionLogs => "/section/logs";
-    public static string SectionLogsMemory => "/section/logs_memory";
     public static string SectionLogsWebService => "/section/logs_web_service";
     public static string SectionScalesScreenShots => "/section/logs_screenshots";
     

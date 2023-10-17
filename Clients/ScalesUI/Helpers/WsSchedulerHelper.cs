@@ -43,17 +43,18 @@ internal sealed class WsSchedulerHelper
             $"job{nameof(ScheduleEveryDays)}", $"trigger{nameof(ScheduleEveryDays)}",
             $"triggerGroup{nameof(ScheduleEveryDays)}");
     }
-
+    
+    
     private void ScheduleEveryMinutes10()
     {
         if (FormMain is null) throw new ArgumentException(nameof(FormMain));
 
         lock (_lockerMinutes10)
         {
-            WsFormNavigationUtils.ActionTryCatch(() =>
-            {
-                ContextManager.LogMemoryRepository.Save(
-                    UserSession.PluginMemory.GetMemorySizeAppMb(), UserSession.PluginMemory.GetMemorySizeFreeMb());
+            WsFormNavigationUtils.ActionTryCatch(() => {
+                // TODO: FIX LOG MEMORY
+                UserSession.PluginMemory.GetMemorySizeAppMb();
+                UserSession.PluginMemory.GetMemorySizeFreeMb();
                 GC.Collect();
             });
         }

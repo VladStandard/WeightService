@@ -2,6 +2,7 @@ using WsStorageCore.Tables.TableDiagModels.LogsWebs;
 using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
+
 namespace DeviceControl.Services;
 
 public class WsRouteService
@@ -48,7 +49,6 @@ public class WsRouteService
             WsSqlBoxModel => WsRouteUtils.SectionBoxes,
             WsSqlBrandModel => WsRouteUtils.SectionBrands,
             WsSqlBundleModel => WsRouteUtils.SectionBundles,
-            WsSqlContragentModel => WsRouteUtils.SectionContragents,
             WsSqlDeviceModel => WsRouteUtils.SectionDevices,
             WsSqlDeviceTypeModel => WsRouteUtils.SectionDevicesTypes,
             WsSqlLogModel => WsRouteUtils.SectionLogs,

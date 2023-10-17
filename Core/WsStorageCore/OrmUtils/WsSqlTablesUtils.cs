@@ -12,14 +12,12 @@ public static class WsSqlTablesUtils
     public const string Brands = "BRANDS";
     public const string Bundles = "BUNDLES";
     public const string Clips = "CLIPS";
-    public const string Contragents = "CONTRAGENTS_V2";
     public const string Devices = "DEVICES";
     public const string DeviceSettings = "DEVICES_SETTINGS";
     public const string DeviceSettingsFks = "DEVICES_SETTINGS_FK";
     public const string DevicesTypes = "DEVICES_TYPES";
     public const string DevicesTypesFks = "DEVICES_TYPES_FK";
     public const string Logs = "LOGS";
-    public const string LogsMemories = "LOGS_MEMORIES";
     public const string LogsTypes = "LOG_TYPES";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
     public const string Orders = "ORDERS";
@@ -44,7 +42,6 @@ public static class WsSqlTablesUtils
     public const string Versions = "VERSIONS";
     public const string WorkShops = "WORKSHOPS";
     public const string Printers = "ZebraPrinter";
-    public const string PrintersResourcesFks = "ZebraPrinterResourceRef";
     public const string PrintersTypes = "ZebraPrinterType";
     public const string Scales = "Scales";
 }

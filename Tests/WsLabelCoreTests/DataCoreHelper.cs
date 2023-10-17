@@ -1,6 +1,5 @@
 using WsDataCore.Enums;
 using WsLocalizationCore.Utils;
-using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
@@ -188,8 +187,6 @@ public sealed class DataCoreHelper
             case WsSqlBoxModel box:
                 box.Weight.Returns(3);
                 break;
-            case WsSqlBrandModel brand:
-				break;
 			case WsSqlBundleModel bundle:
                 bundle.Weight.Returns(3);
                 break;
@@ -199,8 +196,6 @@ public sealed class DataCoreHelper
 			case WsSqlDeviceModel device:
                 device.LoginDt.Returns(DateTime.Now);
 				device.LogoutDt.Returns(DateTime.Now);
-				device.Ipv4.Returns(WsLocaleCore.Sql.SqlItemFieldIp);
-				device.MacAddressValue.Returns(WsLocaleCore.Sql.SqlItemFieldMac);
 				break;
 			case WsSqlDeviceTypeFkModel deviceTypeFk:
                 deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceModel>(isNotDefault);

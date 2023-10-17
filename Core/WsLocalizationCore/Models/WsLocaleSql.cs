@@ -8,8 +8,6 @@ public sealed class WsLocaleSql : WsLocalizationBase
     public string SqlItemFieldFile => Lang == WsEnumLanguage.English ? "Test.cs" : "Тест.cs";
     public string SqlItemFieldIcon => Lang == WsEnumLanguage.English ? "Icon" : "Иконка";
     public string SqlItemFieldInnerException => Lang == WsEnumLanguage.English ? "Inner exception" : "Вложенное исключение";
-    public string SqlItemFieldIp => "127.0.0.1";
-    public string SqlItemFieldMac => "001122334455";
     public string SqlItemFieldMember => Lang == WsEnumLanguage.English ? "Method" : "Метод";
     public string SqlItemFieldMessage => Lang == WsEnumLanguage.English ? "Message" : "Сообщение";
     public string SqlItemFieldTemplateData => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";

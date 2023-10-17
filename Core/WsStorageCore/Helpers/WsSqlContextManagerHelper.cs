@@ -29,7 +29,6 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlDeviceRepository DeviceRepository { get; } = new();
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
-    public WsSqlLogMemoryRepository LogMemoryRepository { get; } = new();
     public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
     public WsSqlPluLabelRepository PluLabelRepository { get; } = new();

@@ -104,14 +104,12 @@ public sealed class WsSqlCoreHelper
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBrandMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBundleMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlClipMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlContragentMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMemoryMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogTypeMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebMap>());
         fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderMap>());
