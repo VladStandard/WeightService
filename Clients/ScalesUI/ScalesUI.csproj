@@ -210,10 +210,6 @@
       <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
       <Name>WsLocalizationCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\WsMassaCore\WsMassaCore.csproj">
-      <Project>{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}</Project>
-      <Name>WsMassaCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\WsPrintCore\WsPrintCore.csproj">
       <Project>{E2BC4403-B429-421A-A192-402A7DB5ECF8}</Project>
       <Name>WsPrintCore</Name>
