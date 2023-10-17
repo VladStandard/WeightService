@@ -15,7 +15,6 @@ global using DeviceControl.Services;
 global using DeviceControl.Settings;
 global using DeviceControl.Utils;
 global using FluentNHibernate.Conventions;
-global using Microsoft.AspNetCore.Authentication.Negotiate;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.Extensions.Caching.Memory;

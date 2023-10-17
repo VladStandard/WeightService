@@ -1,5 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 // https://stackoverflow.com/questions/19517292/adding-dynamic-buttons-in-wpf
 
 using System.Windows.Input;
@@ -9,7 +7,6 @@ using MvvmHelpers.Commands;
 namespace WsDataCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
-#nullable enable
 public sealed partial class WsActionCommandModel : WsViewModelBase
 {
     #region Public and private fields, properties, constructor

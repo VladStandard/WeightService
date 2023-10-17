@@ -85,13 +85,6 @@ public static class WsDataUtils
         return memoryStream.ToArray();
     }
 
-    public static Image GetImage(byte[] bytes, bool useBase64)
-    {
-        MemoryStream ms = new(bytes, 0, bytes.Length);
-        ms.Write(useBase64 ? Convert.FromBase64String(bytes.ToString()) : bytes, 0, bytes.Length);
-        return Image.FromStream(ms, true);
-    }
-
     public static WsEnumFormatType GetFormatType(string formatString) => formatString.ToUpper() switch
     {
         "TEXT" => WsEnumFormatType.Text,

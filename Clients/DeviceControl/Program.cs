@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Negotiate;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add

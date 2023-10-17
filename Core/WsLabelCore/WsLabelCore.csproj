@@ -146,12 +146,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CodingSeb.Localization">
-      <Version>1.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="CodingSeb.Localization.JsonFileLoader">
-      <Version>1.3.0</Version>
-    </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.1</Version>
     </PackageReference>
@@ -161,35 +155,14 @@
     <PackageReference Include="MDSoft.WinFormsUtils">
       <Version>0.2.50</Version>
     </PackageReference>
-    <PackageReference Include="MDSoft.WpfUtils">
-      <Version>0.2.50</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Data.SqlClient">
-      <Version>5.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Nito.AsyncEx">
       <Version>5.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" PrivateAssets="All">
-      <Version>4.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Quartz">
-      <Version>3.7.0</Version>
     </PackageReference>
     <PackageReference Include="Refractored.MvvmHelpers">
       <Version>1.6.2</Version>
     </PackageReference>
     <PackageReference Include="SuperSimpleTcp">
       <Version>3.0.13</Version>
-    </PackageReference>
-    <PackageReference Include="System.Data.DataSetExtensions">
-      <Version>4.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="WPF-UI">
-      <Version>2.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Zebra.Printer.SDK">
-      <Version>2.15.2634</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -44,19 +44,10 @@
     <Compile Include="Utils\SerialPortUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">
-      <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
-      <Name>WsDataCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj">
       <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
       <Name>WsStorageCore</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Quartz">
-      <Version>3.7.0</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
