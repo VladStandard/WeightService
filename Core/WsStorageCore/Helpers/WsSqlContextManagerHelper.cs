@@ -186,7 +186,6 @@ public sealed class WsSqlContextManagerHelper
     /// <summary>
     /// #WS-T-1105: Fix jitDebugging error for Debug configs.
     /// </summary>
-    /// <param name="localDir"></param>
     private void CheckMachineConfigUpdates(string localDir)
     {
         string fileName = "machine.config";

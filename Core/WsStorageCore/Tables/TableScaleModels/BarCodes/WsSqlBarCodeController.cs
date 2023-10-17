@@ -97,8 +97,6 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
     /// Set BarCodeTop from PluLabel.
     /// Example: 298987650000006722101713525011300335001
     /// </summary>
-    /// <param name="barCode"></param>
-    /// <param name="pluLabelContext"></param>
     public void SetBarCodeTop(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeTop = TypeBarCodeTop;
@@ -109,8 +107,6 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
     /// Set BarCodeRight from PluLabel.
     /// Example: ;2999876500000067
     /// </summary>
-    /// <param name="barCode"></param>
-    /// <param name="pluLabelContext"></param>
     public void SetBarCodeRight(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeRight = TypeBarCodeGs128;

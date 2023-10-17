@@ -60,9 +60,6 @@ public static class WsLocalizationUtils
     /// <summary>
     /// Копировать файл.
     /// </summary>
-    /// <param name="localFile"></param>
-    /// <param name="remoteFile"></param>
-    /// <param name="remoteFileShortName"></param>
     private static void CopyFile(string localFile, string remoteFile, string remoteFileShortName)
     {
         if (!string.IsNullOrEmpty(localFile))

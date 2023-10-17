@@ -134,8 +134,6 @@ public static class DataCoreEnums
 	/// <summary>
 	/// String value.
 	/// </summary>
-	/// <param name="str"></param>
-	/// <returns></returns>
 	public static string AsString(this string str)
 	{
 		return str == null ? "<null>" : str == "" ? "<empty>" : str;

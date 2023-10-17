@@ -33,8 +33,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
     /// <summary>
     /// Constructor for serialization.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlPrinterModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Ip = info.GetString(nameof(Ip));

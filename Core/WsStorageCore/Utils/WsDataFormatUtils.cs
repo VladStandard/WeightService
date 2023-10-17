@@ -15,7 +15,6 @@ public static class WsDataFormatUtils
     /// <summary>
     /// Get pretty formatted XML or JSON string.
     /// </summary>
-    /// <param name="value"></param>
     public static string GetPrettyXmlOrJson(string value)
     {
         if (value.StartsWith("<") && value.EndsWith(">"))
@@ -28,7 +27,6 @@ public static class WsDataFormatUtils
     /// <summary>
     /// Get pretty formatted XML string.
     /// </summary>
-    /// <param name="xml"></param>
     public static string GetPrettyXml(string xml)
     {
         try
@@ -44,7 +42,6 @@ public static class WsDataFormatUtils
     /// <summary>
     /// Get pretty formatted JSON string.
     /// </summary>
-    /// <param name="json"></param>
     private static string GetPrettyJson(string json) =>
         string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
     

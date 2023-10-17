@@ -13,10 +13,7 @@ public class WsJsonSettingsModel : ISerializable
 	public string AllowedHosts { get; set; }
 	[NonSerialized] private string _connectionString;
 	public string ConnectionString { get => _connectionString; set => _connectionString = value; }
-
-
-	/// <param name="jsonSettingsSql"></param>
-	/// <param name="isCheckProperties"></param>
+    
 	public WsJsonSettingsModel(WsJsonSettingsSqlModel jsonSettingsSql, bool isCheckProperties)
 	{
 		Sql = jsonSettingsSql;
@@ -32,9 +29,7 @@ public class WsJsonSettingsModel : ISerializable
 
 	public WsJsonSettingsModel() : this(new(), false) { }
 
-
-	/// <param name="info"></param>
-	/// <param name="context"></param>
+    
 	protected WsJsonSettingsModel(SerializationInfo info, StreamingContext context)
 	{
 		Sql = (WsJsonSettingsSqlModel)info.GetValue(nameof(Sql), typeof(WsJsonSettingsSqlModel));

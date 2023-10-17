@@ -115,7 +115,6 @@ public sealed partial class WsMainForm : Form
         PluginMassaExecute();
 
         MdInvokeControl.SetVisible(fieldPrintMain, true);
-        MdInvokeControl.SetVisible(fieldPrintMainExt, Debug.IsDevelop);
         // Основной принтер.
         switch (LabelSession.PrintModelMain)
         {
@@ -156,8 +155,6 @@ public sealed partial class WsMainForm : Form
         fieldPrintMain.Font = FontsSettings.FontLabelsGray;
         fieldPrintShipping.Font = FontsSettings.FontLabelsGray;
         fieldMassa.Font = FontsSettings.FontLabelsGray;
-        fieldPrintMainExt.Font = FontsSettings.FontLabelsGray;
-        fieldPrintShippingExt.Font = FontsSettings.FontLabelsGray;
         fieldWarning.Font = FontsSettings.FontLabelsBlack;
         labelNettoWeight.Font = FontsSettings.FontLabelsBlack;
         labelTareWeight.Font = FontsSettings.FontLabelsBlack;

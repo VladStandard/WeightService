@@ -23,7 +23,6 @@ public sealed partial class WsFormNavigationUserControl : UserControl
     /// <summary>
     /// Перейти в контрол.
     /// </summary>
-    /// <param name="formUserControl"></param>
     public void SwitchUserControl(WsFormBaseUserControl formUserControl)
     {
         foreach (Control formControl in layoutPanelUser.Controls)
@@ -47,7 +46,6 @@ public sealed partial class WsFormNavigationUserControl : UserControl
     /// <summary>
     /// Задать заголовок.
     /// </summary>
-    /// <param name="title"></param>
     public void SetTitle(string title) => MdInvokeControl.SetText(fieldTitle, title);
 
     #endregion

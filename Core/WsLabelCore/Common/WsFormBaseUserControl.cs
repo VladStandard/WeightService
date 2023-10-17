@@ -83,8 +83,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     /// <summary>
     /// Настроить действия диалога.
     /// </summary>
-    /// <param name="dialogType"></param>
-    /// <param name="actions"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public void SetupActions(WsEnumDialogType dialogType, List<Action> actions)
     {
@@ -115,10 +113,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     /// <summary>
     /// Настроить кнопки.
     /// </summary>
-    /// <param name="dialogType"></param>
-    /// <param name="actions"></param>
-    /// <param name="message"></param>
-    /// <param name="width"></param>
     public void SetupButtons(WsEnumDialogType dialogType, List<Action> actions, string message, int width)
     {
         switch (dialogType)

@@ -111,7 +111,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка действия Ок.
     /// </summary>
-    /// <param name="actionOk"></param>
     private void AddActionsOk(Action actionOk)
     {
         HideCommandsVisibility();
@@ -123,7 +122,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кастом действия.
     /// </summary>
-    /// <param name="actionCustom"></param>
     private void AddActionsCustom(Action actionCustom)
     {
         HideCommandsVisibility();
@@ -135,8 +133,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка действий Отмена/Да.
     /// </summary>
-    /// <param name="actionCancel"></param>
-    /// <param name="actionYes"></param>
     private void AddActionsCancelYes(Action actionCancel, Action actionYes)
     {
         HideCommandsVisibility();
@@ -161,8 +157,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка действий Нет/Да.
     /// </summary>
-    /// <param name="actionNo"></param>
-    /// <param name="actionYes"></param>
     private void AddActionsNoYes(Action actionNo, Action actionYes)
     {
         HideCommandsVisibility();
@@ -218,8 +212,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Обработчик нажатия кнопки.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     public void Button_KeyUp(object sender, KeyEventArgs e)
     {
         switch (e.Key)
@@ -236,17 +228,11 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка ширины кнопок.
     /// </summary>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsWidth(int controlWidth) => ButtonWidth = !Commands.Any() ? controlWidth - 15 : controlWidth / Commands.Count - 15;
 
     /// <summary>
     /// Настройка кнопок Отмена/Да.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionCancel"></param>
-    /// <param name="actionYes"></param>
-    /// <param name="actionBack"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, Action actionBack, int controlWidth)
     {
         Message = message;
@@ -258,10 +244,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Отмена/Да.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionCancel"></param>
-    /// <param name="actionYes"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsCancelYes(string message, Action actionCancel, Action actionYes, int controlWidth)
     {
         Message = message;
@@ -272,11 +254,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Нет/Да.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionNo"></param>
-    /// <param name="actionYes"></param>
-    /// <param name="actionBack"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, Action actionBack, int controlWidth)
     {
         Message = message;
@@ -288,10 +265,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Нет/Да.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionNo"></param>
-    /// <param name="actionYes"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsNoYes(string message, Action actionNo, Action actionYes, int controlWidth)
     {
         Message = message;
@@ -302,7 +275,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Отмена/Да.
     /// </summary>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsCancelYes(int controlWidth)
     {
         Message = string.Empty;
@@ -313,9 +285,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Ок.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionOk"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsOk(string message, Action actionOk, int controlWidth)
     {
         Message = message;
@@ -326,10 +295,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кнопок Ок.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionOk"></param>
-    /// <param name="actionBack"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsOk(string message, Action actionOk, Action actionBack, int controlWidth)
     {
         Message = message;
@@ -341,9 +306,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Настройка кастом кнопки.
     /// </summary>
-    /// <param name="message"></param>
-    /// <param name="actionCustom"></param>
-    /// <param name="controlWidth"></param>
     public void SetupButtonsCustom(string message, Action actionCustom, int controlWidth)
     {
         Message = message;
@@ -354,7 +316,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     /// <summary>
     /// Задать команды.
     /// </summary>
-    /// <param name="commands"></param>
     public void SetCommands(ObservableCollection<WsActionCommandModel> commands)
     {
         Commands = commands;

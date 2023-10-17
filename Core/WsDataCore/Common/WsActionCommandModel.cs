@@ -44,7 +44,6 @@ public sealed partial class WsActionCommandModel : WsViewModelBase
     /// <summary>
     /// Настройка действий.
     /// </summary>
-    /// <param name="actions"></param>
     public void AddActions(List<Action> actions)
     {
         Action = null;
@@ -55,7 +54,6 @@ public sealed partial class WsActionCommandModel : WsViewModelBase
     /// <summary>
     /// Добавить действие.
     /// </summary>
-    /// <param name="action"></param>
     public void AddAction(Action action)
     {
         if (Action is null || (Action is not null && Action.GetInvocationList().Length == 0))

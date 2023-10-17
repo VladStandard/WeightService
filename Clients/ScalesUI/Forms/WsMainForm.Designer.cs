@@ -10,7 +10,6 @@ namespace ScalesUI.Forms
         /// <summary>
         /// Освободить все используемые ресурсы.
         /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components is not null))
@@ -32,10 +31,8 @@ namespace ScalesUI.Forms
             this.fieldTareWeight = new System.Windows.Forms.Label();
             this.fieldNettoWeight = new System.Windows.Forms.Label();
             this.layoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldPrintShippingExt = new System.Windows.Forms.Label();
             this.fieldPrintShipping = new System.Windows.Forms.Label();
             this.fieldWarning = new System.Windows.Forms.Label();
-            this.fieldPrintMainExt = new System.Windows.Forms.Label();
             this.fieldMassa = new System.Windows.Forms.Label();
             this.labelTareWeight = new System.Windows.Forms.Label();
             this.labelKneading = new System.Windows.Forms.Label();
@@ -111,10 +108,8 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.layoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.5F));
-            this.layoutPanelMain.Controls.Add(this.fieldPrintShippingExt, 1, 10);
             this.layoutPanelMain.Controls.Add(this.fieldPrintShipping, 2, 10);
             this.layoutPanelMain.Controls.Add(this.fieldWarning, 1, 6);
-            this.layoutPanelMain.Controls.Add(this.fieldPrintMainExt, 1, 9);
             this.layoutPanelMain.Controls.Add(this.fieldMassa, 2, 8);
             this.layoutPanelMain.Controls.Add(this.labelTareWeight, 2, 3);
             this.layoutPanelMain.Controls.Add(this.labelNettoWeight, 2, 2);
@@ -149,22 +144,6 @@ namespace ScalesUI.Forms
             this.layoutPanelMain.Size = new System.Drawing.Size(1024, 668);
             this.layoutPanelMain.TabIndex = 7;
             this.layoutPanelMain.Visible = false;
-            // 
-            // fieldPrintShippingExt
-            // 
-            this.fieldPrintShippingExt.AutoSize = true;
-            this.fieldPrintShippingExt.BackColor = System.Drawing.Color.Transparent;
-            this.fieldPrintShippingExt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintShippingExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintShippingExt.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.fieldPrintShippingExt.Location = new System.Drawing.Point(8, 427);
-            this.fieldPrintShippingExt.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPrintShippingExt.Name = "fieldPrintShippingExt";
-            this.fieldPrintShippingExt.Size = new System.Drawing.Size(127, 19);
-            this.fieldPrintShippingExt.TabIndex = 68;
-            this.fieldPrintShippingExt.Text = "fieldPrintShippingExt";
-            this.fieldPrintShippingExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPrintShippingExt.Visible = false;
             // 
             // fieldPrintShipping
             // 
@@ -431,10 +410,8 @@ namespace ScalesUI.Forms
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.Label fieldPrintMain;
         private System.Windows.Forms.Label fieldMassa;
-        private System.Windows.Forms.Label fieldPrintMainExt;
         private System.Windows.Forms.Label fieldWarning;
         private System.Windows.Forms.Label fieldPrintShipping;
-        private System.Windows.Forms.Label fieldPrintShippingExt;
         private TableLayoutPanel layoutPanelTop;
         private PictureBox pictureBoxClose;
         private Label fieldTitle;

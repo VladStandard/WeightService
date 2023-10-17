@@ -23,8 +23,6 @@ public class WsSqlLogMemoryModel : WsSqlTableBase
     /// <summary>
     /// Constructor for serialization.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlLogMemoryModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         SizeAppMb = info.GetInt16(nameof(SizeAppMb));

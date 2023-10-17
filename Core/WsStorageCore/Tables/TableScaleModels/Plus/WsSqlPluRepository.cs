@@ -15,8 +15,6 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <summary>
     /// Получить ПЛУ по полю UID_1C.
     /// </summary>
-    /// <param name="uid1C"></param>
-    /// <returns></returns>
     public WsSqlPluModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
@@ -45,8 +43,6 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <summary>
     /// Получить ПЛУ по UID_1C.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <returns></returns>
     public WsSqlPluModel GetByUid1C(Guid uid)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
@@ -57,8 +53,6 @@ public sealed class WsSqlPluRepository : WsSqlTableRepositoryBase<WsSqlPluModel>
     /// <summary>
     /// Получить список валидаторов ПЛУ линии.
     /// </summary>
-    /// <param name="viewPluLine"></param>
-    /// <returns></returns>
     public IEnumerable<string> GetEnumerableValidatesViewPluLine(WsSqlViewPluLineModel viewPluLine)
     {
         List<string> validates = new();

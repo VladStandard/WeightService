@@ -29,8 +29,6 @@ public record WsSqlViewRecordBase
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         info.AddValue(nameof(Identity), Identity);

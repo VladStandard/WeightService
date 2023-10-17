@@ -41,8 +41,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Проверить наличие ПЛУ.
     /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
     public bool CheckPluIsEmpty(Label fieldWarning)
     {
         if (LabelSession.PluLine.IsNew)
@@ -67,8 +65,6 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Проверить стабилизацию весовой платформы Масса-К.
     /// </summary>
-    /// <param name="fieldWarning"></param>
-    /// <returns></returns>
     public bool CheckWeightMassaIsStable(Label fieldWarning)
     {
         if (!LabelSession.PluLine.Plu.IsCheckWeight || PluginMassa.IsStable)

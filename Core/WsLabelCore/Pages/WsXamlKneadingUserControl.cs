@@ -111,8 +111,6 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     /// <summary>
     /// Возврат Да.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ButtonYes_Click(object sender, EventArgs e)
     {
         WsFormNavigationUtils.ActionTryCatch(() =>

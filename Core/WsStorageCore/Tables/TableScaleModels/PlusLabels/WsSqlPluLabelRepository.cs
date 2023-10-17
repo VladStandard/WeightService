@@ -14,7 +14,6 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
     /// <summary>
     /// Сохранить этикетку ПЛУ.
     /// </summary>
-    /// <param name="pluLabel"></param>
     public void Save(WsSqlPluLabelModel pluLabel)
     {
         SqlCore.Save(pluLabel);

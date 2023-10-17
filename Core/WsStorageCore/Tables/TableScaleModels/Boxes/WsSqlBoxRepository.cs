@@ -22,8 +22,6 @@ public sealed class WsSqlBoxRepository : WsSqlTableRepositoryBase<WsSqlBoxModel>
     /// <summary>
     /// Получить коробку по полю UID_1C.
     /// </summary>
-    /// <param name="uid1C"></param>
-    /// <returns></returns>
     public WsSqlBoxModel GetItemByUid1C(Guid uid1C)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();

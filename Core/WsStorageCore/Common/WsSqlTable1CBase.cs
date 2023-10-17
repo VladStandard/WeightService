@@ -48,8 +48,6 @@ public class WsSqlTable1CBase : WsSqlTableBase
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         base.GetObjectData(info, context);

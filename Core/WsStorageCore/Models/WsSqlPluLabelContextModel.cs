@@ -129,8 +129,6 @@ public class WsSqlPluLabelContextModel : SerializeBase
     /// <summary>
     /// Constructor for serialization.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));

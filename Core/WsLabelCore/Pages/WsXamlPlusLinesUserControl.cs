@@ -105,8 +105,6 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <summary>
     /// Перейти на страницу назад.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ButtonPreviousScroll_Click(object sender, EventArgs e)
     {
         LabelSession.PlusPageNumber = LabelSession.PlusPageNumber > 0 ? LabelSession.PlusPageNumber - 1: default;
@@ -118,8 +116,6 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <summary>
     /// Перейти на страницу вперёд.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void ButtonNextScroll_Click(object sender, EventArgs e)
     {
         int countPage = LabelSession.GetPlusPageCount();
@@ -134,8 +130,6 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <summary>
     /// Настроить панель ПЛУ.
     /// </summary>
-    /// <param name="columnCount"></param>
-    /// <param name="rowCount"></param>
     private void SetupLayoutPanelPlus(int columnCount, int rowCount)
     {
         layoutPanelPlus.ColumnStyles.Clear();
@@ -215,15 +209,11 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <summary>
     /// Отмена.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void buttonCancel_Click(object sender, EventArgs e) => ViewModel.CmdCancel.Relay();
     
     /// <summary>
     /// Изменение размера.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void WsXamlPlusLinesUserControl_SizeChanged(object sender, EventArgs e)
     {
         // Настроить размеры контролов ПЛУ линий.

@@ -35,8 +35,6 @@ public class WsXamlBasePage : UserControl//, IWsXamlPage
     /// <summary>
     /// Обновить модель представления.
     /// </summary>
-    /// <param name="viewModel"></param>
-    /// <param name="grid"></param>
     public void SetupViewModel(IWsViewModel viewModel, Grid? grid = null)
     {
         if (viewModel is not WsXamlBaseViewModel baseViewModel) return;
@@ -96,11 +94,6 @@ public class WsXamlBasePage : UserControl//, IWsXamlPage
     /// <summary>
     /// Настроить список кнопок.
     /// </summary>
-    /// <param name="grid"></param>
-    /// <param name="row"></param>
-    /// <param name="column"></param>
-    /// <param name="rowSpan"></param>
-    /// <param name="columnSpan"></param>
     protected void SetupListButtons(Grid grid, int row, int column, int rowSpan = 1, int columnSpan = 1)
     {
         // Проверки и пересоздание.

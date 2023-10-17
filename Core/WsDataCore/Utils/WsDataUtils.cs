@@ -117,16 +117,12 @@ public static class WsDataUtils
     /// <summary>
     /// Форматировать валюту.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
     public static string FormatCurrencyAsUsd(object value) => 
         ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("en-US"));
 
     /// <summary>
     /// Форматировать месяц.
     /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
     public static string FormatAsMonth(object? value) => 
         value is null ? string.Empty : Convert.ToDateTime(value).ToString("MMM");
 

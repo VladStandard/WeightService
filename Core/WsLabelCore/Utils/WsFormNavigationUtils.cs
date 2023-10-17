@@ -107,7 +107,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол настроек устройства.
     /// </summary>
-    /// <param name="showNavigation"></param>
     public static void NavigateToExistsDeviceSettings(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сессии пользователя.
@@ -127,7 +126,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол смены линии.
     /// </summary>
-    /// <param name="showNavigation"></param>
     public static void NavigateToExistsLines(Action<WsFormBaseUserControl, string> showNavigation)
     {
         // Загрузка из сессии пользователя.
@@ -145,12 +143,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в существующий WinForms-контрол диалога Отмена/Да.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="message"></param>
-    /// <param name="isLog"></param>
-    /// <param name="logType"></param>
-    /// <param name="actionCancel"></param>
-    /// <param name="actionYes"></param>
     public static void NavigateToExistsDialogCancelYes(Action<WsFormBaseUserControl, string> showNavigation,
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
@@ -163,12 +155,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в новый WinForms-контрол диалога.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="message"></param>
-    /// <param name="isLog"></param>
-    /// <param name="logType"></param>
-    /// <param name="dialogType"></param>
-    /// <param name="actions"></param>
     public static void NavigateToNewDialog(Action<WsFormBaseUserControl, string> showNavigation,
         string message, bool isLog, WsEnumLogType logType, WsEnumDialogType dialogType, List<Action> actions)
     {
@@ -217,12 +203,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол ввода цифр.
     /// </summary>
-    /// <param name="showNavigation"></param>
-    /// <param name="message"></param>
-    /// <param name="isLog"></param>
-    /// <param name="logType"></param>
-    /// <param name="actionCancel"></param>
-    /// <param name="actionYes"></param>
     public static void NavigateToExistsDigitsUserControl(Action<WsFormBaseUserControl, string> showNavigation,
         string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
     {
@@ -234,7 +214,6 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// Навигация в WinForms-контрол замеса.
     /// </summary>
-    /// <param name="showNavigation"></param>
     public static void NavigateToExistsKneading(Action<WsFormBaseUserControl, string> showNavigation)
     {
         KneadingUserControl.ViewModel.UpdateCommandsFromActions();

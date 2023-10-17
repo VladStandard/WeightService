@@ -14,8 +14,6 @@ public class SerializeBase : ISerializable
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         //

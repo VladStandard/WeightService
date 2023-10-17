@@ -18,8 +18,6 @@ public class WsSqlPluClipFkModel : WsSqlTableBase
     /// <summary>
     /// Constructor for serialization.
     /// </summary>
-    /// <param name="info"></param>
-    /// <param name="context"></param>
     protected WsSqlPluClipFkModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Plu = (WsSqlPluModel)info.GetValue(nameof(Plu), typeof(WsSqlPluModel));

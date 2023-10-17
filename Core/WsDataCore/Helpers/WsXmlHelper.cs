@@ -16,9 +16,6 @@ public sealed class WsXmlHelper
 	/// <summary>
 	/// Проверки.
 	/// </summary>
-	/// <param name="inputUri"></param>
-	/// <param name="elements"></param>
-	/// <param name="value"></param>
 	public void Checks(string inputUri, Collection<WsXmlTagModel> elements, string? value = null)
 	{
 		if (!File.Exists(inputUri))
@@ -42,10 +39,6 @@ public sealed class WsXmlHelper
 	/// <summary>
 	/// Чтение.
 	/// </summary>
-	/// <param name="inputUri"></param>
-	/// <param name="elements"></param>
-	/// <param name="getValueFromName"></param>
-	/// <returns></returns>
 	public ResultXmlReadModel Read(string inputUri, Collection<WsXmlTagModel> elements, string? getValueFromName = null)
 	{
 		Collection<string> str = new();
@@ -65,11 +58,6 @@ public sealed class WsXmlHelper
 	/// <summary>
 	/// Чтение внутри.
 	/// </summary>
-	/// <param name="xmlReader"></param>
-	/// <param name="elements"></param>
-	/// <param name="getValueFromName"></param>
-	/// <param name="value"></param>
-	/// <param name="str"></param>
     private void ReadInside(XmlTextReader xmlReader, Collection<WsXmlTagModel> elements, string getValueFromName, ref string value,
 		Collection<string> str)
 	{
@@ -172,11 +160,6 @@ public sealed class WsXmlHelper
 	/// <summary>
 	/// Запись.
 	/// </summary>
-	/// <param name="fileName"></param>
-	/// <param name="elements"></param>
-	/// <param name="key"></param>
-	/// <param name="value"></param>
-	/// <returns></returns>
 	public ResultXmlReadModel Write(string fileName, Collection<WsXmlTagModel> elements, string key, string value)
 	{
 		StringBuilder sb = new();

@@ -54,8 +54,6 @@ public sealed class WsFormPluControl : UserControl
     /// <summary>
     /// Создать метку ПЛУ линии.
     /// </summary>
-    /// <param name="viewPluScale"></param>
-    /// <returns></returns>
     private Label CreateLabelPlu(WsSqlViewPluLineModel viewPluScale) => new()
     {
         Font = FontsSettings.FontLabelsBlack,
@@ -72,8 +70,6 @@ public sealed class WsFormPluControl : UserControl
     /// <summary>
     /// Создать метку информации ПЛУ линии.
     /// </summary>
-    /// <param name="viewPluScale"></param>
-    /// <returns></returns>
     private Label CreateLabelPluTemplate(WsSqlViewPluLineModel viewPluScale)
     {
         List<string> validates = PluRepository.GetEnumerableValidatesViewPluLine(viewPluScale).ToList();
