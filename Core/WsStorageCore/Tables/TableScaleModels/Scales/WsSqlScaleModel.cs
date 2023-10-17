@@ -34,6 +34,12 @@ public class WsSqlScaleModel : WsSqlTableBase
         WorkShop = new();
         Device = new();
         PrinterMain = new();
+        Number = 0;
+        LabelCounter = 0;
+        IsShipping = false;
+        IsKneading = false;
+        ShippingLength = 0;
+        PrinterShipping = null;
     }
 
     public WsSqlScaleModel(WsSqlScaleModel item) : base(item)
@@ -87,7 +93,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     {
         base.FillProperties();
         WorkShop.FillProperties();
-        PrinterMain?.FillProperties();
+        PrinterMain.FillProperties();
         PrinterShipping?.FillProperties();
         Device.FillProperties();
         DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
@@ -107,10 +113,8 @@ public class WsSqlScaleModel : WsSqlTableBase
         Equals(IsKneading, item.IsKneading) &&
         ShippingLength.Equals(item.ShippingLength) &&
         WorkShop.Equals(item.WorkShop) &&
-        Device.Equals(item.WorkShop) &&
-        (PrinterMain.Equals(item.PrinterMain)) &&
-        (PrinterShipping is null && item.PrinterShipping is null || PrinterShipping is not null &&
-            item.PrinterShipping is not null && PrinterShipping.Equals(item.PrinterShipping));
+        Device.Equals(item.Device) &&
+        PrinterMain.Equals(item.PrinterMain);
 
     #endregion
 }

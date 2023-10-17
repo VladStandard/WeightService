@@ -18,7 +18,7 @@ public sealed class WsSqlPluNestingFkRepository : WsSqlTableRepositoryBase<WsSql
 
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
-        return SqlCore.GetEnumerable<WsSqlPluNestingFkModel>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<WsSqlPluNestingFkModel>(sqlCrudConfig).OrderBy(x => x.Plu.Number);
     }
     
     public IEnumerable<WsSqlPluNestingFkModel> GetEnumerableByPluUidActual(WsSqlPluModel plu)
