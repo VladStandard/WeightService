@@ -16,6 +16,8 @@ public sealed class WsSqlPluLabelRepository : WsSqlTableRepositoryBase<WsSqlPluL
     /// </summary>
     public void Save(WsSqlPluLabelModel pluLabel)
     {
+        if (!pluLabel.PluScale.Plu.IsCheckWeight)
+            pluLabel.PluWeighing = null;
         SqlCore.Save(pluLabel);
     }
 
