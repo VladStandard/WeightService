@@ -14,22 +14,22 @@ public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeModel>
 
     #region Public and private methods
 
-    private string GetBarcodeTop(WsEnumFormatType formatType)
+    private string GetBarcodeTop()
     {
         WsSqlBarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, formatType, true);
+        return WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, WsEnumFormatType.Json, false);
     }
 
-    private string GetBarcodeRight(WsEnumFormatType formatType)
+    private string GetBarcodeRight()
     {
         WsSqlBarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, formatType, true);
+        return WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, WsEnumFormatType.Json, false);
     }
 
-    private string GetBarcodeBottom(WsEnumFormatType formatType)
+    private string GetBarcodeBottom()
     {
         WsSqlBarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, formatType, true);
+        return WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, WsEnumFormatType.Json, false);
     }
 
     #endregion

@@ -1,5 +1,7 @@
 namespace WsStorageCore.Tables.TableScaleModels.BarCodes;
 
+
+// TODO: refactor barcode controller
 /// <summary>
 /// Barcode helper.
 /// </summary>
@@ -16,8 +18,8 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
 
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] private string TypeBarCodeGs128 => "GS1-128";
-    [XmlIgnore] private string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
+    private string TypeBarCodeGs128 => "GS1-128";
+    private string TypeBarCodeTop => "Interleaved 2 of 5 Bar Code";
 
     #endregion
 
@@ -92,61 +94,24 @@ public class WsSqlBarCodeController : IWsSqlBarCodeHelper
             _ => $"{code}{GetGtinCheckDigitV3(code)}"
         };
     }
-
-    /// <summary>
-    /// Set BarCodeTop from PluLabel.
-    /// Example: 298987650000006722101713525011300335001
-    /// </summary>
+    
     public void SetBarCodeTop(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeTop = TypeBarCodeTop;
-        barCode.ValueTop = pluLabelContext.BarCodeTopV230;
+        barCode.ValueTop = pluLabelContext.BarCodeTop;
     }
-
-    /// <summary>
-    /// Set BarCodeRight from PluLabel.
-    /// Example: ;2999876500000067
-    /// </summary>
+    
     public void SetBarCodeRight(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeRight = TypeBarCodeGs128;
-        barCode.ValueRight = pluLabelContext.BarCodeRightV234;
+        barCode.ValueRight = pluLabelContext.BarCodeRight;
     }
-
-    ///  <summary>
-    /// Set BarCodeBottom from PluLabel.
-    ///  Example: ;0112600076000000310300033511221017102210
-    ///  </summary>
-    ///  <param name="barCode"></param>
-    ///  <param name="pluLabelContext"></param>
+    
     public void SetBarCodeBottom(WsSqlBarCodeModel barCode, WsSqlPluLabelContextModel pluLabelContext)
     {
         barCode.TypeBottom = TypeBarCodeGs128;
-        barCode.ValueBottom = pluLabelContext.BarCodeBottomString;
+        barCode.ValueBottom = pluLabelContext.BarCodeBottom;
     }
-
-    //private string SetBarCodeInside(PluLabelModel pluLabel, PluLabelContextModel pluLabelContext, string template)
-    //{
-    //    string value = string.Empty;
-    //    if (pluLabel.Zpl.Contains(template))
-    //    {
-    //        string zpl = pluLabel.Zpl;
-    //        if (string.IsNullOrEmpty(zpl)) return value;
-    //        if (string.IsNullOrEmpty(template)) return value;
-    //        if (string.IsNullOrEmpty(SubTemplateFd)) return value;
-    //        if (!zpl.Contains(SubTemplateFd)) return value;
-
-    //        int start = zpl.IndexOf(template, StringComparison.Ordinal) + template.Length;
-    //        zpl = zpl.Substring(start, pluLabel.Zpl.Length - start);
-    //        zpl = zpl.Split('\n')[0];
-    //        start = zpl.IndexOf(SubTemplateFd, StringComparison.Ordinal) + SubTemplateFd.Length;
-    //        zpl = zpl.Substring(start, zpl.Length - start);
-    //        value = zpl
-    //            .TrimStart('\r', ' ', '\n', '\t', '>', ';')
-    //            .TrimEnd('\r', ' ', '\n', '\t', '>', ';');
-    //    }
-    //    return value;
-    //}
-
+    
     #endregion
 }
