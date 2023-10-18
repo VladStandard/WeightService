@@ -6,7 +6,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
 {
     #region Public and private fields, properties, constructor
     
-    private List<WsEnumTypeModel<string>> ComPorts { get; set; }
+    private List<string> ComPorts { get; set; }
     private List<WsSqlPrinterModel> PrinterModels { get; set; }
     private List<WsSqlDeviceModel> HostModels { get; set; }
     private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
@@ -29,7 +29,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
         PrinterModels = new WsSqlPrinterRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
         HostModels = new WsSqlDeviceRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
         WorkShopModels = new WsSqlWorkShopRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
-        ComPorts = MdSerialPortsUtils.GetListTypeComPorts(WsEnumLanguage.English);
+        ComPorts = MdSerialPortsUtils.ComPorts;
     }
 
     #endregion

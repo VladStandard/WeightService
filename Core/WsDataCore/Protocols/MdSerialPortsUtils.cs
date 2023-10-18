@@ -1,47 +1,37 @@
-namespace WsDataCore.Protocols;
-
-// TODO: FIX Serial Ports
-public static class MdSerialPortsUtils
+namespace WsDataCore.Protocols
 {
-    #region Public and private methods
-
-    public static List<string> GetListComPorts(WsEnumLanguage lang)
+    public static class MdSerialPortsUtils
     {
-        List<string> result = new();
-        for (int i = 1; i < 256; i++)
+        private static List<string> _comPorts = new();
+
+        public static List<string> ComPorts
         {
-            switch (lang)
+            get
             {
-                case WsEnumLanguage.Russian:
-                    result.Add($"КОМ{i}");
-                    break;
-                default:
-                    result.Add($"COM{i}");
-                    break;
+                if (_comPorts.Count == 0)
+                {
+                    _comPorts = GetListComPorts();
+                }
+                return _comPorts;
             }
         }
-        return result;
-    }
 
-    public static List<WsEnumTypeModel<string>> GetListTypeComPorts(WsEnumLanguage lang)
-    {
-        List<WsEnumTypeModel<string>> result = new();
-        for (int i = 1; i < 256; i++)
+        #region Public Methods
+
+        public static string GenerateComPort(int number)
         {
-            switch (lang)
-            {
-                case WsEnumLanguage.Russian:
-                    result.Add(new($"КОМ{i}", GenerateComPort(i)));
-                    break;
-                default:
-                    result.Add(new($"COM{i}", GenerateComPort(i)));
-                    break;
-            }
+            return $"COM{number}";
         }
-        return result;
-    }
         
-    public static string GenerateComPort(int number) => $"COM{number}";
+        #endregion
 
-    #endregion
+        #region Private Methods
+
+        private static List<string> GetListComPorts()
+        {
+            return Enumerable.Range(1, 255).Select(i => $"COM{i}").ToList();
+        }
+
+        #endregion
+    }
 }
