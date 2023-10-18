@@ -18,9 +18,7 @@ public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleModel>
             .SetValidator(new WsSqlWorkShopValidator(isCheckIdentity));
         RuleFor(item => item.Device)
             .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
-        RuleFor(item => item.PrinterMain)
-            .SetValidator(new WsSqlPrinterValidator(isCheckIdentity)!);
-        RuleFor(item => item.PrinterShipping)
+        RuleFor(item => item.Printer)
             .SetValidator(new WsSqlPrinterValidator(isCheckIdentity)!);
     }
 }

@@ -57,7 +57,7 @@ public sealed class WsPluginLabelsHelper : WsPluginBaseHelper
         RequestItem.Execute(Request);
     }
 
-    private void Reopen() => MdInvokeControl.SetVisible(FieldKneading, LabelSession.Line.IsKneading);
+    private void Reopen() => MdInvokeControl.SetVisible(FieldKneading, true);
 
     private void Request()
     {

@@ -13,9 +13,7 @@ public class WsSqlScaleModel : WsSqlTableBase
     
     public virtual WsSqlDeviceModel Device { get; set; }
     public virtual WsSqlWorkShopModel WorkShop { get; set; }
-    public virtual WsSqlPrinterModel PrinterMain { get; set; }
-    public virtual WsSqlPrinterModel? PrinterShipping { get; set; }
-    public virtual byte ShippingLength { get; set; }
+    public virtual WsSqlPrinterModel Printer { get; set; }
     public virtual string DeviceComPort { get; set; } = "";
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
@@ -23,9 +21,6 @@ public class WsSqlScaleModel : WsSqlTableBase
     private int _labelCounter;
     
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
-    public virtual bool IsShipping { get; set; }
-    public virtual bool IsOrder { get; set; }
-    public virtual bool IsKneading { get; set; } = true;
     public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
     public virtual string ClickOnce { get; set; } = "";
 
@@ -33,26 +28,17 @@ public class WsSqlScaleModel : WsSqlTableBase
     {
         WorkShop = new();
         Device = new();
-        PrinterMain = new();
+        Printer = new();
         Number = 0;
         LabelCounter = 0;
-        IsShipping = false;
-        IsKneading = false;
-        ShippingLength = 0;
-        PrinterShipping = null;
     }
 
     public WsSqlScaleModel(WsSqlScaleModel item) : base(item)
     {
         Device = new(item.Device);
         WorkShop = new(item.WorkShop);
-        PrinterMain = new(item.PrinterMain);
-        PrinterShipping = item.PrinterShipping is null ? null : new(item.PrinterShipping);
-        IsShipping = item.IsShipping;
-        IsKneading = item.IsKneading;
-        ShippingLength = item.ShippingLength;
+        Printer = new(item.Printer);
         DeviceComPort = item.DeviceComPort;
-        IsOrder = item.IsOrder;
         Number = item.Number;
         LabelCounter = item.LabelCounter;
     }
@@ -78,23 +64,17 @@ public class WsSqlScaleModel : WsSqlTableBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         Equals(DeviceComPort, string.Empty) &&
-        Equals(IsOrder, false) &&
         Equals(Number, 0) &&
         Equals(LabelCounter, 0) &&
-        Equals(IsShipping, false) &&
-        Equals(IsKneading, false) &&
-        Equals(ShippingLength, (byte)0) && 
         WorkShop.EqualsDefault() &&
         Device.EqualsDefault() &&
-        PrinterMain.EqualsDefault() &&
-        (PrinterShipping is null || PrinterShipping.EqualsDefault());
+        Printer.EqualsDefault();
 
     public override void FillProperties()
     {
         base.FillProperties();
         WorkShop.FillProperties();
-        PrinterMain.FillProperties();
-        PrinterShipping?.FillProperties();
+        Printer.FillProperties();
         Device.FillProperties();
         DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
@@ -106,15 +86,11 @@ public class WsSqlScaleModel : WsSqlTableBase
     public virtual bool Equals(WsSqlScaleModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(DeviceComPort, item.DeviceComPort) &&
-        Equals(IsOrder, item.IsOrder) &&
         Equals(Number, item.Number) &&
         Equals(LabelCounter, item.LabelCounter) &&
-        Equals(IsShipping, item.IsShipping) &&
-        Equals(IsKneading, item.IsKneading) &&
-        ShippingLength.Equals(item.ShippingLength) &&
         WorkShop.Equals(item.WorkShop) &&
         Device.Equals(item.Device) &&
-        PrinterMain.Equals(item.PrinterMain);
+        Printer.Equals(item.Printer);
 
     #endregion
 }

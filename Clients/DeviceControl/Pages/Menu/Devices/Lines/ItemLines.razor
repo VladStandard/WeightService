@@ -33,10 +33,10 @@
       <RzDropDown @bind-Value="@SqlItemCast.Device" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PrinterMain)" Text="@WsLocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Printer)" Text="@WsLocaleCore.Print.NameMain"/>
     </td>
     <td>
-      <RzDropDownNullable @bind-Value="@SqlItemCast.PrinterMain" Data="@PrinterModels" TextProperty="DisplayName" />
+      <RzDropDownNullable @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="DisplayName" />
     </td>
   </tr>
   <tr>

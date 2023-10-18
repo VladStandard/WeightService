@@ -60,7 +60,7 @@ public sealed partial class WsXamlKneadingUserControl : WsFormBaseUserControl, I
     private void SetupControls()
     {
         // Замес.
-        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = LabelSession.Line.IsKneading;
+        labelKneading.Visible = fieldKneading.Visible = buttonKneading.Visible = true;
         // Размер палеты.
         labelPalletSize.Visible = fieldPalletSize.Visible = buttonPalletSizePrev.Visible = buttonPalletSizeNext.Visible =
             buttonPalletSize10.Visible = buttonSet1.Visible = buttonSet40.Visible = buttonSet60.Visible = buttonSet120.Visible =

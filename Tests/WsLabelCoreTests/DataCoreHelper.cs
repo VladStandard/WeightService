@@ -285,8 +285,7 @@ public sealed class DataCoreHelper
 				break;
 			case WsSqlScaleModel scale:
                 scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopModel>(isNotDefault);
-				scale.PrinterMain = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
-				scale.PrinterShipping = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
+				scale.Printer = CreateNewSubstitute<WsSqlPrinterModel>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
 			case WsSqlTaskModel task:

@@ -66,8 +66,6 @@ public sealed class WsPrintSessionHelper
     /// </summary>
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
-        // Заказ в разработке.
-        if (LabelSession.Line is { IsOrder: true }) throw new("Order under construct!");
         // Получить шаблон этикетки.
         WsSqlTemplateModel template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
         // Проверить наличие шаблона этикетки.

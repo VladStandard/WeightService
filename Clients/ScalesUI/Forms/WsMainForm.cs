@@ -123,14 +123,14 @@ public sealed partial class WsMainForm : Form
                 LabelSession.PluginPrintTscMain = new();
                 LabelSession.PluginPrintTscMain.InitTsc(new(0_500),
                 new(0_500), new(0_500),
-                LabelSession.Line.PrinterMain, fieldPrintMain);
+                LabelSession.Line.Printer, fieldPrintMain);
                 LabelSession.PluginPrintTscMain.Execute();
                 break;
             case WsEnumPrintModel.Zebra:
                 LabelSession.PluginPrintZebraMain = new();
                 LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
                 new(0_250), new(0_250),
-                LabelSession.Line.PrinterMain, fieldPrintMain);
+                LabelSession.Line.Printer, fieldPrintMain);
                 LabelSession.PluginPrintZebraMain.Execute();
                 // LabelSession.PluginPrintZebraMain.SetOdometorUserLabel(1);
                 break;

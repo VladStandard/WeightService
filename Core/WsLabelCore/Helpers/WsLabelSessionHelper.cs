@@ -29,7 +29,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     public static ushort PlusPageSize => 16;
     public static ushort PlusPageRowCount => 4;
     public static string DeviceName => MdNetUtils.GetLocalDeviceName(false);
-    public WsEnumPrintModel PrintModelMain => Line.PrinterMain.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
+    public WsEnumPrintModel PrintModelMain => Line.Printer.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
     public WsSqlPluWeighingModel PluWeighing { get; set; }
