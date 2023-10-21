@@ -1,5 +1,3 @@
-using System.Net.NetworkInformation;
-
 namespace WsStorageCore.Tables.TableScaleModels.Printers;
 
 [Serializable]
@@ -8,16 +6,16 @@ public class WsSqlPrinterModel : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual string Ip { get; set; }
-    [XmlElement] public virtual short Port { get; set; }
-    [XmlElement] public virtual string Password { get; set; }
-    [XmlElement] public virtual WsSqlPrinterTypeModel PrinterType { get; set; }
-    [XmlElement] public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
-    [XmlElement] public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
-    [XmlElement] public virtual bool PeelOffSet { get; set; }
-    [XmlElement] public virtual short DarknessLevel { get; set; }
-    [XmlIgnore] public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
-    [XmlIgnore] public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
+    public virtual string Ip { get; set; }
+    public virtual short Port { get; set; }
+    public virtual string Password { get; set; }
+    public virtual WsSqlPrinterTypeModel PrinterType { get; set; }
+    public virtual WsSqlFieldMacAddressModel MacAddress { get; set; }
+    public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
+    public virtual bool PeelOffSet { get; set; }
+    public virtual short DarknessLevel { get; set; }
+    public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
+    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
     public WsSqlPrinterModel() : base(WsSqlEnumFieldIdentity.Id)
     {
@@ -28,20 +26,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         MacAddress = new();
         PeelOffSet = false;
         DarknessLevel = 0;
-    }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    protected WsSqlPrinterModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Ip = info.GetString(nameof(Ip));
-        Port = info.GetInt16(nameof(Port));
-        Password = info.GetString(nameof(Password));
-        PrinterType = (WsSqlPrinterTypeModel)info.GetValue(nameof(PrinterType), typeof(WsSqlPrinterTypeModel));
-        MacAddress = (WsSqlFieldMacAddressModel)info.GetValue(nameof(MacAddress), typeof(WsSqlFieldMacAddressModel));
-        PeelOffSet = info.GetBoolean(nameof(PeelOffSet));
-        DarknessLevel = info.GetInt16(nameof(DarknessLevel));
     }
 
     public WsSqlPrinterModel(WsSqlPrinterModel item) : base(item)
@@ -87,18 +71,6 @@ public class WsSqlPrinterModel : WsSqlTableBase
         Equals(DarknessLevel, (short)0) &&
         PrinterType.EqualsDefault() &&
         MacAddress.EqualsDefault();
-
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Ip), Ip);
-        info.AddValue(nameof(Port), Port);
-        info.AddValue(nameof(Password), Password);
-        info.AddValue(nameof(PrinterType), PrinterType);
-        info.AddValue(nameof(MacAddress), MacAddress);
-        info.AddValue(nameof(PeelOffSet), PeelOffSet);
-        info.AddValue(nameof(DarknessLevel), DarknessLevel);
-    }
 
     public override void FillProperties()
     {

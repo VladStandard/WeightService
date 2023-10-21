@@ -19,10 +19,4 @@ public class TableModelTests<TItem> where TItem : WsSqlTableBase, new()
     {
         WsTestsUtils.DataTests.TableBaseModelAssertEqualsDefault<TItem>();
     }
-
-    [Test]
-    public void Model_Serialize()
-    {
-        WsTestsUtils.DataTests.TableBaseModelAssertSerialize<TItem>();
-    }
 }

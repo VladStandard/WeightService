@@ -1,3 +1,4 @@
+using WsStorageCore.Tables.TableRef1cModels.Plus;
 namespace DeviceControl.Components.Nested.PlusNestingFks;
 
 public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>

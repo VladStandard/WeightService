@@ -1,17 +1,42 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
-public sealed class WsSqlPluStorageMethodFkMap : ClassMap<WsSqlPluStorageMethodFkModel>
+public sealed class WsSqlPluStorageMethodFkMap : ClassMapping<WsSqlPluStorageMethodFkModel>
 {
     public WsSqlPluStorageMethodFkMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusStorageMethodsFks);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        References(item => item.Plu).Column("PLU_UID").Not.Nullable();
-        References(item => item.Method).Column("METHOD_UID").Not.Nullable();
-        References(item => item.Resource).Column("RESOURCE_UID").Not.Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        ManyToOne(x => x.Plu, m =>
+        {
+            m.Column("PLU_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.Method, m =>
+        {
+            m.Column("METHOD_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.Resource, m =>
+        {
+            m.Column("RESOURCE_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
     }
 }

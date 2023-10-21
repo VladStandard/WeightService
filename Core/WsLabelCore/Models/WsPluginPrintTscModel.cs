@@ -114,8 +114,9 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void WsTcpClientDataSent(object sender, DataSentEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
-            $"Server {e.IpPort} data sent {e.BytesSent} bytes", WsLocaleCore.LabelPrint.PluginPrintTsc);
+        // TODO: FIX
+        // WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformationWithDescription(
+        //     $"Server {e.IpPort} data sent {e.BytesSent} bytes", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
     private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)

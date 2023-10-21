@@ -1,3 +1,5 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
@@ -5,16 +7,39 @@ namespace WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;
 /// <summary>
 /// Маппинг таблицы "DEVICES_SETTINGS_FK".
 /// </summary>
-public sealed class WsSqlDeviceSettingsFkMap : ClassMap<WsSqlDeviceSettingsFkModel>
+public sealed class WsSqlDeviceSettingsFkMap : ClassMapping<WsSqlDeviceSettingsFkModel>
 {
     public WsSqlDeviceSettingsFkMap()
     {
         Schema(WsSqlSchemasUtils.Conf);
         Table(WsSqlTablesUtils.DeviceSettingsFks);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.IsEnabled).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_ENABLED").Not.Nullable().Default("0");
-        References(item => item.Device).Column("DEVICE_UID").Not.Nullable();
-        References(item => item.Setting).Column("SETTING_UID").Not.Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.IsEnabled, m =>
+        {
+            m.Column("IS_ENABLED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.Device, m =>
+        {
+            m.Column("DEVICE_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.Setting, m =>
+        {
+            m.Column("SETTING_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
     }
 }

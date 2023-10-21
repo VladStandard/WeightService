@@ -1,3 +1,8 @@
+using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Dialect;
+using NHibernate.Driver;
+using NHibernate.Mapping.ByCode;
 using WsStorageCore.OrmUtils;
 using WsStorageCore.Tables.TableRef1cModels.Brands;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
@@ -26,40 +31,27 @@ public sealed class WsSqlCoreHelper
     
     public ISessionFactory? SessionFactory { get; private set; }
 
-    public MsSqlConfiguration? SqlConfiguration { get; private set; }
-
-    private FluentConfiguration? FluentConfiguration { get; set; }
-
-    private void SetFluentConfiguration()
-    {
-        if (SqlConfiguration is null)
-            throw new ArgumentNullException(nameof(SqlConfiguration));
-
-        FluentConfiguration = Fluently.Configure().Database(SqlConfiguration);
-        AddConfigurationMappings(FluentConfiguration);
-        FluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-    }
+    private Configuration SqlConfiguration { get; set; } = new();
 
     public void SetSessionFactory(bool isShowSql)
     {
         lock (LockerSessionFactory)
         {
             SetSqlConfiguration(isShowSql);
-            SetFluentConfiguration();
-            SessionFactory = FluentConfiguration?.BuildSessionFactory();
+            AddConfigurationMappings();
+            SessionFactory = SqlConfiguration.BuildSessionFactory();
         }
     }
     
     private void SetSqlConfiguration(bool isShowSql)
     {
-        string connectionString = GetConnectionString();
-        if (string.IsNullOrEmpty(connectionString))
-            throw new ArgumentNullException(nameof(connectionString));
-
-        SqlConfiguration = MsSqlConfiguration.MsSql2012.ConnectionString(connectionString);
-        if (isShowSql)
-            SqlConfiguration.ShowSql();
-        SqlConfiguration.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
+        SqlConfiguration = new();
+        SqlConfiguration.DataBaseIntegration(db => {
+            db.ConnectionString = GetConnectionString();
+            db.Dialect<MsSql2012Dialect>();
+            db.Driver<SqlClientDriver>();
+            db.LogSqlInConsole = isShowSql;
+        });
     }
 
     private void Close()
@@ -95,47 +87,49 @@ public sealed class WsSqlCoreHelper
         ? $"Server = {JsonSettings.Remote.Sql.DataSource} | DB = {JsonSettings.Remote.Sql.InitialCatalog}"
         : $"Server = {JsonSettings.Local.Sql.DataSource} | DB = {JsonSettings.Local.Sql.InitialCatalog}";
 
-    public void AddConfigurationMappings(FluentConfiguration fluentConfiguration)
+    private void AddConfigurationMappings()
     {
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAccessMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlAppMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBarCodeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBoxMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBrandMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlBundleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlClipMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceSettingsFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlDeviceTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlLogWebMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrderWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlOrganizationMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluClipFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluLabelMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluNestingFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluStorageMethodFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluStorageMethodMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluTemplateFkMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPluWeighingMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPrinterTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlProductionSiteMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlScaleMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTaskTypeMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTemplateMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlTemplateResourceMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlVersionMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlWorkshopMap>());
-        fluentConfiguration.Mappings(m => m.FluentMappings.Add<WsSqlPlu1CFkMap>());
+        ModelMapper mapper = new();
+        
+        mapper.AddMapping<WsSqlAccessMap>();
+        mapper.AddMapping<WsSqlBoxMap>();
+        mapper.AddMapping<WsSqlClipMap>();
+        mapper.AddMapping<WsSqlPluClipFkMap>();
+        mapper.AddMapping<WsSqlBundleMap>();
+        mapper.AddMapping<WsSqlBrandMap>();
+        mapper.AddMapping<WsSqlProductionSiteMap>();
+        mapper.AddMapping<WsSqlWorkshopMap>();
+        mapper.AddMapping<WsSqlAppMap>();
+        mapper.AddMapping<WsSqlLogTypeMap>();
+        mapper.AddMapping<WsSqlTemplateMap>();
+        mapper.AddMapping<WsSqlTemplateResourceMap>();
+        mapper.AddMapping<WsSqlVersionMap>();
+        mapper.AddMapping<WsSqlPrinterTypeMap>();
+        mapper.AddMapping<WsSqlPrinterMap>();
+        mapper.AddMapping<WsSqlDeviceTypeMap>();
+        mapper.AddMapping<WsSqlDeviceMap>();
+        mapper.AddMapping<WsSqlScaleMap>();
+        mapper.AddMapping<WsSqlPluMap>();
+        mapper.AddMapping<WsSqlPluScaleMap>();
+        mapper.AddMapping<WsSqlPluWeighingMap>();
+        mapper.AddMapping<WsSqlPluLabelMap>();
+        mapper.AddMapping<WsSqlBarCodeMap>();
+        mapper.AddMapping<WsSqlOrganizationMap>();
+        mapper.AddMapping<WsSqlPluStorageMethodMap>();
+        mapper.AddMapping<WsSqlTaskTypeMap>();
+        mapper.AddMapping<WsSqlTaskMap>();
+        mapper.AddMapping<WsSqlLogWebMap>();
+        mapper.AddMapping<WsSqlDeviceSettingsMap>();
+        mapper.AddMapping<WsSqlDeviceSettingsFkMap>();
+        mapper.AddMapping<WsSqlDeviceTypeFkMap>();
+        mapper.AddMapping<WsSqlPluFkMap>();
+        mapper.AddMapping<WsSqlPluNestingFkMap>();
+        mapper.AddMapping<WsSqlPluStorageMethodFkMap>();
+        mapper.AddMapping<WsSqlPluTemplateFkMap>();
+        mapper.AddMapping<WsSqlLogMap>();
+        
+        HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+        SqlConfiguration.AddMapping(mapping);
     }
 
     #endregion
@@ -173,7 +167,6 @@ public sealed class WsSqlCoreHelper
             {
                 action(session);
                 session.Clear();
-                return;
             }
             catch (Exception ex)
             {

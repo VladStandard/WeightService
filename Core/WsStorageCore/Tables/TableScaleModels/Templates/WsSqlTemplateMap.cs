@@ -1,20 +1,64 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableScaleModels.Templates;
 
-public sealed class WsSqlTemplateMap : ClassMap<WsSqlTemplateModel>
+public sealed class WsSqlTemplateMap : ClassMapping<WsSqlTemplateModel>
 {
     public WsSqlTemplateMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Templates);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueId).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CreateDate").Not.Nullable();
-        Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("ModifiedDate").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("Marked").Not.Nullable().Default("0");
-        Map(item => item.CategoryId).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CategoryID").Length(150).Not.Nullable();
-        Map(item => item.Title).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("Title").Length(250).Nullable();
-        Map(item => item.Data).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("DATA").Not.Nullable();
+        
+        Id(x => x.IdentityValueId, m =>
+        {
+            m.Column("Id");
+            m.Type(NHibernateUtil.Int64);
+            m.Generator(Generators.Identity);
+        });
+
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CreateDate");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ChangeDt, m =>
+        {
+            m.Column("ModifiedDate");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("Marked");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.CategoryId, m =>
+        {
+            m.Column("CategoryID");
+            m.Type(NHibernateUtil.String);
+            m.Length(150);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Title, m =>
+        {
+            m.Column("Title");
+            m.Type(NHibernateUtil.String);
+            m.Length(250);
+        });
+
+        Property(x => x.Data, m =>
+        {
+            m.Column("DATA");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
     }
 }

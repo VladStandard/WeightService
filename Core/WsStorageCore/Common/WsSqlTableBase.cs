@@ -1,23 +1,22 @@
 namespace WsStorageCore.Common;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTableBase : SerializeBase
+public class WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual WsSqlFieldIdentityModel Identity { get; set; }
-    [XmlElement] public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
-    [XmlElement] public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
-    [XmlElement] public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
-    [XmlElement] public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
-    [XmlElement] public virtual bool IsMarked { get; set; }
-    [XmlElement] public virtual string Name { get; set; } = string.Empty;
-    [XmlElement] public virtual string Description { get; set; } = string.Empty;
-    [XmlIgnore] public bool IsExists => Identity.IsExists;
-    [XmlIgnore] public bool IsNew => Identity.IsNew;
-    [XmlIgnore] public virtual ParseResultModel ParseResult { get; set; } = new();
-    [XmlIgnore] public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
+    public virtual WsSqlFieldIdentityModel Identity { get; set; }
+    public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
+    public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
+    public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
+    public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
+    public virtual bool IsMarked { get; set; }
+    public virtual string Name { get; set; } = string.Empty;
+    public virtual string Description { get; set; } = string.Empty;
+    public virtual bool IsExists => Identity.IsExists;
+    public virtual bool IsNew => Identity.IsNew;
+    public virtual ParseResultModel ParseResult { get; set; } = new();
+    public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
     public WsSqlTableBase()
     {
@@ -53,8 +52,6 @@ public class WsSqlTableBase : SerializeBase
 
     #endregion
 
-    #region Public and private methods - override
-
     public override string ToString() =>
         (CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty) + 
         (ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty) + 
@@ -80,20 +77,6 @@ public class WsSqlTableBase : SerializeBase
     }
 
     public override int GetHashCode() => Identity.GetHashCode();
-    
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Identity), Identity);
-        info.AddValue(nameof(ChangeDt), ChangeDt);
-        info.AddValue(nameof(CreateDt), CreateDt);
-        info.AddValue(nameof(IsMarked), IsMarked);
-        info.AddValue(nameof(Name), Name);
-        info.AddValue(nameof(Description), Description);
-        info.AddValue(nameof(ParseResult), ParseResult);
-    }
-
-    #endregion
 
     #region Public and private methods - virtual
 

@@ -141,29 +141,7 @@ public class WsDataTestsHelper
             Assert.AreEqual(baseEqualsNew, itemEqualsNew);
         });
     }
-
-    public void TableBaseModelAssertSerialize<T>() where T : WsSqlTableBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            // Arrange.
-            T item1 = new();
-            WsSqlTableBase base1 = new();
-            // Act.
-            string xml1 = WsDataFormatUtils.SerializeAsXmlString<T>(item1, true, true);
-            string xml2 = WsDataFormatUtils.SerializeAsXmlString<WsSqlTableBase>(base1, true, true);
-            // Assert.
-            Assert.AreNotEqual(xml1, xml2);
-            // Act.
-            T item2 = WsDataFormatUtils.DeserializeFromXml<T>(xml1);
-            TestContext.WriteLine($"{nameof(item2)}: {item2}");
-            WsSqlTableBase base2 = WsDataFormatUtils.DeserializeFromXml<WsSqlTableBase>(xml2);
-            TestContext.WriteLine($"{nameof(base2)}: {base2}");
-            // Assert.
-            Assert.AreNotEqual(item2, base2);
-        });
-    }
-
+    
     public void TableBaseModelAssertToString<T>() where T : WsSqlTableBase, new()
     {
         Assert.DoesNotThrow(() =>

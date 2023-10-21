@@ -1,4 +1,4 @@
-namespace WsStorageCore.Tables.TableScaleModels.Bundles;
+namespace WsStorageCore.Tables.TableRef1cModels.Bundles;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
@@ -11,11 +11,6 @@ public class WsSqlBundleModel : WsSqlTable1CBase
     public WsSqlBundleModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
        Weight = 0;
-    }
-    
-    protected WsSqlBundleModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Weight = info.GetDecimal(nameof(Weight));
     }
 
     public WsSqlBundleModel(WsSqlBundleModel item) : base(item)

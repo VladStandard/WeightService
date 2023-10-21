@@ -52,7 +52,6 @@ global using WsStorageCore.Tables.TableScaleFkModels.DeviceTypesFks;
 global using WsStorageCore.Tables.TableScaleModels.BarCodes;
 global using WsStorageCore.Tables.TableScaleModels.Devices;
 global using WsStorageCore.Tables.TableScaleModels.DeviceTypes;
-global using WsStorageCore.Tables.TableScaleModels.Plus;
 global using WsStorageCore.Tables.TableScaleModels.PlusScales;
 global using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
 global using WsStorageCore.Tables.TableScaleModels.Scales;
@@ -66,5 +65,4 @@ global using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
 global using Binding = System.Windows.Data.Binding;
 global using Label = System.Windows.Forms.Label;
 global using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-
-
+global using WsStorageCore.Tables.TableRef1cModels.Plus;

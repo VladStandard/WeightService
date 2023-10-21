@@ -8,12 +8,12 @@
     <Version>1.0.3.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="3.3.0" />
     <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="NHibernate" Version="5.4.6" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WsDataCore\WsDataCore.csproj" />

@@ -1,18 +1,49 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableScaleModels.Tasks;
 
-public sealed class WsSqlTaskMap : ClassMap<WsSqlTaskModel>
+public sealed class WsSqlTaskMap : ClassMapping<WsSqlTaskModel>
 {
     public WsSqlTaskMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Tasks);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.Enabled).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("ENABLED").Not.Nullable().Default("0");
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
-        References(item => item.TaskType).Column("TASK_UID").Not.Nullable();
-        References(item => item.Scale).Column("SCALE_ID").Not.Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.Enabled, m =>
+        {
+            m.Column("ENABLED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("IS_MARKED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.TaskType, m =>
+        {
+            m.Column("TASK_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.Scale, m =>
+        {
+            m.Column("SCALE_ID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
     }
 }

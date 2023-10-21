@@ -6,7 +6,7 @@ public class WsSqlTable1CBase : WsSqlTableBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlIgnore] public virtual Guid Uid1C { get; set; }
+    public virtual Guid Uid1C { get; set; }
 
     public WsSqlTable1CBase() : base()
     {
@@ -17,12 +17,7 @@ public class WsSqlTable1CBase : WsSqlTableBase
     {
         Uid1C = Guid.Empty;
     }
-
-    protected WsSqlTable1CBase(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Uid1C = info.GetValue(nameof(Uid1C), typeof(Guid)) is Guid uid1C ? uid1C : Guid.Empty;
-    }
-
+    
     public WsSqlTable1CBase(WsSqlTable1CBase item) : base(item)
     {
         Uid1C = item.Uid1C;
@@ -44,15 +39,6 @@ public class WsSqlTable1CBase : WsSqlTableBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Uid1C), Uid1C);
-    }
 
     #endregion
 

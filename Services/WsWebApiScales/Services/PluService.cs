@@ -1,12 +1,12 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
+using WsStorageCore.Tables.TableRef1cModels.Boxes;
 using WsStorageCore.Tables.TableRef1cModels.Brands;
+using WsStorageCore.Tables.TableRef1cModels.Bundles;
+using WsStorageCore.Tables.TableRef1cModels.Clips;
+using WsStorageCore.Tables.TableRef1cModels.Plus;
 using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
-using WsStorageCore.Tables.TableScaleModels.Boxes;
-using WsStorageCore.Tables.TableScaleModels.Bundles;
-using WsStorageCore.Tables.TableScaleModels.Clips;
-using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.Plu;
 using WsWebApiScales.Dto.Response;

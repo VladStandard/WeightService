@@ -3,8 +3,8 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Bundles
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Bundles.WsSqlBundleModel>
+@using WsStorageCore.Tables.TableRef1cModels.Bundles
+@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Bundles.WsSqlBundleModel>
 
 <ItemTopBar TItem="WsSqlBundleModel" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 

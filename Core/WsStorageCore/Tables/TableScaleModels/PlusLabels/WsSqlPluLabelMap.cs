@@ -1,22 +1,77 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableScaleModels.PlusLabels;
 
-public sealed class WsSqlPluLabelMap : ClassMap<WsSqlPluLabelModel>
+public sealed class WsSqlPluLabelMap : ClassMapping<WsSqlPluLabelModel>
 {
     public WsSqlPluLabelMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.PlusLabels);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
-        Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CHANGE_DT").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(item => item.Zpl).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("ZPL").Not.Nullable().Default("");
-        Map(item => item.ProductDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("PROD_DT").Not.Nullable();
-        Map(item => item.ExpirationDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("EXPIRATION_DT").Not.Nullable();
-        References(item => item.PluWeighing).Column("PLU_WEIGHING_UID").Nullable();
-        References(item => item.PluScale).Column("PLU_SCALE_UID").Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CREATE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ChangeDt, m =>
+        {
+            m.Column("CHANGE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("IS_MARKED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Zpl, m =>
+        {
+            m.Column("ZPL");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ProductDt, m =>
+        {
+            m.Column("PROD_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ExpirationDt, m =>
+        {
+            m.Column("EXPIRATION_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.PluWeighing, m =>
+        {
+            m.Column("PLU_WEIGHING_UID");
+            m.NotNullable(false);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.PluScale, m =>
+        {
+            m.Column("PLU_SCALE_UID");
+            m.NotNullable(false);
+            m.Lazy(LazyRelation.NoLazy);
+        });
     }
 }

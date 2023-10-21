@@ -1,17 +1,43 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableDiagModels.LogsTypes;
 
-public sealed class WsSqlLogTypeMap : ClassMap<WsSqlLogTypeModel>
+public sealed class WsSqlLogTypeMap : ClassMapping<WsSqlLogTypeModel>
 {
     public WsSqlLogTypeMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.LogsTypes);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(item => item.Number).CustomSqlType(WsSqlFieldTypeUtils.TinyInt).Column("NUMBER").Not.Nullable();
-        Map(item => item.Icon).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("ICON").Length(32).Not.Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("IS_MARKED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Number, m =>
+        {
+            m.Column("NUMBER");
+            m.Type(NHibernateUtil.Byte);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Icon, m =>
+        {
+            m.Column("ICON");
+            m.Type(NHibernateUtil.String);
+            m.Length(32);
+            m.NotNullable(true);
+        });
     }
 }

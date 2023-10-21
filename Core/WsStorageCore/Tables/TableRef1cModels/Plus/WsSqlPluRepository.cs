@@ -1,6 +1,5 @@
 using WsStorageCore.OrmUtils;
-
-namespace WsStorageCore.Tables.TableScaleModels.Plus;
+namespace WsStorageCore.Tables.TableRef1cModels.Plus;
 
 /// <summary>
 /// SQL-контроллер таблицы PLUS.

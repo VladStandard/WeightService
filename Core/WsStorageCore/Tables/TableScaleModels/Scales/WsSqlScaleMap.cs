@@ -1,25 +1,98 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableScaleModels.Scales;
 
-public sealed class WsSqlScaleMap : ClassMap<WsSqlScaleModel>
+public sealed class WsSqlScaleMap : ClassMapping<WsSqlScaleModel>
 {
     public WsSqlScaleMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Scales);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueId).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CreateDate").Not.Nullable();
-        Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("ModifiedDate").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("Marked").Not.Nullable().Default("0");
-        Map(item => item.Description).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("Description").Length(150);
-        Map(item => item.DeviceComPort).CustomSqlType(WsSqlFieldTypeUtils.VarChar).Column("DeviceComPort").Length(5);
-        Map(item => item.Number).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("NUMBER").Not.Nullable();
-        Map(item => item.LabelCounter).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("COUNTER").Not.Nullable();
-        Map(item => item.ClickOnce).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("CLICK_ONCE").Not.Nullable().Default("");
-        References(item => item.Printer).Column("ZebraPrinterId").Nullable();
-        References(item => item.WorkShop).Column("WORKSHOP_UID").Not.Nullable();
-        References(item => item.Device).Column("DEVICE_UID").Not.Nullable();
+
+        Id(x => x.IdentityValueId, m =>
+        {
+            m.Column("Id");
+            m.Type(NHibernateUtil.Int64);
+            m.Generator(Generators.Identity);
+        });
+
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CreateDate");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ChangeDt, m =>
+        {
+            m.Column("ModifiedDate");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("Marked");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Description, m =>
+        {
+            m.Column("Description");
+            m.Type(NHibernateUtil.String);
+            m.Length(150);
+        });
+
+        Property(x => x.DeviceComPort, m =>
+        {
+            m.Column("DeviceComPort");
+            m.Type(NHibernateUtil.String);
+            m.Length(5);
+        });
+
+        Property(x => x.Number, m =>
+        {
+            m.Column("NUMBER");
+            m.Type(NHibernateUtil.Int32);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.LabelCounter, m =>
+        {
+            m.Column("COUNTER");
+            m.Type(NHibernateUtil.Int32);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ClickOnce, m =>
+        {
+            m.Column("CLICK_ONCE");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.Printer, m =>
+        {
+            m.Column("ZebraPrinterId");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.WorkShop, m =>
+        {
+            m.Column("WORKSHOP_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
+        ManyToOne(x => x.Device, m =>
+        {
+            m.Column("DEVICE_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
     }
 }

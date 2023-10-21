@@ -1,3 +1,5 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 
 namespace WsStorageCore.Tables.TableRefModels.WorkShops;
@@ -5,18 +7,54 @@ namespace WsStorageCore.Tables.TableRefModels.WorkShops;
 /// <summary>
 /// Table map "WorkShop".
 /// </summary>
-public sealed class WsSqlWorkshopMap : ClassMap<WsSqlWorkShopModel>
+public class WsSqlWorkshopMap : ClassMapping<WsSqlWorkShopModel>
 {
     public WsSqlWorkshopMap()
     {
         Schema(WsSqlSchemasUtils.Ref);
         Table(WsSqlTablesUtils.WorkShops);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.Int).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
-        Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CHANGE_DT").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(item => item.Name).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("NAME").Not.Nullable().Length(128);
-        References(item => item.ProductionSite).Column("PRODUCTION_SITES_UID").Not.Nullable();
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CREATE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ChangeDt, m =>
+        {
+            m.Column("CHANGE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("IS_MARKED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Name, m =>
+        {
+            m.Column("NAME");
+            m.Type(NHibernateUtil.String);
+            m.Length(128);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.ProductionSite, m =>
+        {
+            m.Column("PRODUCTION_SITES_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy); 
+        });
     }
 }

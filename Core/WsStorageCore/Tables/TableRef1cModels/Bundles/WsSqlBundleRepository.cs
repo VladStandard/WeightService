@@ -1,5 +1,5 @@
 using WsStorageCore.OrmUtils;
-namespace WsStorageCore.Tables.TableScaleModels.Bundles;
+namespace WsStorageCore.Tables.TableRef1cModels.Bundles;
 
 /// <summary>
 /// SQL-контроллер таблицы BUNDLES.

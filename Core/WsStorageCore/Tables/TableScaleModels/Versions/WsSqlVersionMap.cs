@@ -1,23 +1,75 @@
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Tables.TableScaleModels.Versions;
 
 /// <summary>
 /// Table map "VERSIONS".
 /// </summary>
-public sealed class WsSqlVersionMap : ClassMap<WsSqlVersionModel>
+public sealed class WsSqlVersionMap : ClassMapping<WsSqlVersionModel>
 {
     public WsSqlVersionMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
         Table(WsSqlTablesUtils.Versions);
-        Not.LazyLoad();
-        Id(item => item.IdentityValueUid).CustomSqlType(WsSqlFieldTypeUtils.UniqueIdentifier).Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-        Map(item => item.CreateDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CREATE_DT").Not.Nullable();
-        Map(item => item.ChangeDt).CustomSqlType(WsSqlFieldTypeUtils.DateTime).Column("CHANGE_DT").Not.Nullable();
-        Map(item => item.IsMarked).CustomSqlType(WsSqlFieldTypeUtils.Bit).Column("IS_MARKED").Not.Nullable().Default("0");
-        Map(item => item.ReleaseDt).CustomSqlType(WsSqlFieldTypeUtils.Date).Column("RELEASE_DT").Not.Nullable();
-        Map(item => item.Name).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("NAME").Length(256).Not.Nullable();
-        Map(item => item.Description).CustomSqlType(WsSqlFieldTypeUtils.NvarChar).Column("DESCRIPTION").Length(256).Not.Nullable().Default("");
-        Map(item => item.Version).CustomSqlType(WsSqlFieldTypeUtils.SmallInt).Column("VERSION").Not.Nullable();
+        Lazy(false);
+
+        Id(x => x.IdentityValueUid, m =>
+        {
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
+        });
+
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CREATE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ChangeDt, m =>
+        {
+            m.Column("CHANGE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.IsMarked, m =>
+        {
+            m.Column("IS_MARKED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ReleaseDt, m =>
+        {
+            m.Column("RELEASE_DT");
+            m.Type(NHibernateUtil.Date);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Name, m =>
+        {
+            m.Column("NAME");
+            m.Type(NHibernateUtil.String);
+            m.Length(256);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Description, m =>
+        {
+            m.Column("DESCRIPTION");
+            m.Type(NHibernateUtil.String);
+            m.Length(256);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Version, m =>
+        {
+            m.Column("VERSION");
+            m.Type(NHibernateUtil.Int16);
+            m.NotNullable(true);
+        });
     }
 }

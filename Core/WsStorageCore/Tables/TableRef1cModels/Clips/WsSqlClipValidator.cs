@@ -1,4 +1,4 @@
-namespace WsStorageCore.Tables.TableScaleModels.Clips;
+namespace WsStorageCore.Tables.TableRef1cModels.Clips;
 
 
 /// <summary>

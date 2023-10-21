@@ -1,7 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
-
 using WsStorageCore.Tables.TableRef1cModels.Brands;
-namespace WsStorageCore.Tables.TableScaleModels.Plus;
+namespace WsStorageCore.Tables.TableRef1cModels.Plus;
 
 /// <summary>
 /// Table "PLUS".

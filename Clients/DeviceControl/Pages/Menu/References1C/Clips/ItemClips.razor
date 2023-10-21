@@ -3,8 +3,8 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Clips
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Clips.WsSqlClipModel>
+@using WsStorageCore.Tables.TableRef1cModels.Clips
+@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Clips.WsSqlClipModel>
 
 <ItemTopBar TItem="@WsSqlClipModel" Title="@WsLocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">

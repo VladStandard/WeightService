@@ -1,18 +1,18 @@
-namespace WsStorageCore.Tables.TableScaleModels.Clips;
+namespace WsStorageCore.Tables.TableRef1cModels.Boxes;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlClipModel : WsSqlTable1CBase
+public class WsSqlBoxModel : WsSqlTable1CBase
 {
     #region Public and private fields, properties, constructor
 
     public virtual decimal Weight { get; set; }
 
-    public WsSqlClipModel() : base(WsSqlEnumFieldIdentity.Uid)
+    public WsSqlBoxModel() : base(WsSqlEnumFieldIdentity.Uid)
     {
         Weight = 0;
     }
-    
-    public WsSqlClipModel(WsSqlClipModel item) : base(item)
+
+    public WsSqlBoxModel(WsSqlBoxModel item) : base(item)
     {
         Weight = item.Weight;
     }
@@ -21,14 +21,15 @@ public class WsSqlClipModel : WsSqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Name} | {Weight}";
+    public override string ToString() =>
+        $"{Uid1C} | {Name} | {Weight}";
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((WsSqlClipModel)obj);
+        return Equals((WsSqlBoxModel)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -36,15 +37,16 @@ public class WsSqlClipModel : WsSqlTable1CBase
     public override bool EqualsNew() => Equals(new());
 
     public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(Weight, (decimal)0);
+        base.EqualsDefault() &&
+        Equals(Weight, (decimal)0);
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(WsSqlClipModel item) =>
+    public virtual bool Equals(WsSqlBoxModel item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
-    
+
     #endregion
 }

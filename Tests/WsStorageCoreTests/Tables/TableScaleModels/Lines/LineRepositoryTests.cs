@@ -4,8 +4,6 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private WsSqlLineRepository LineRepository { get; } = new();
-    private WsSqlDeviceRepository DeviceRepository { get; } = new();
-    
     private WsSqlScaleModel GetFirstLineModel()
     {
         return LineRepository.GetEnumerable(SqlCrudConfig).First();

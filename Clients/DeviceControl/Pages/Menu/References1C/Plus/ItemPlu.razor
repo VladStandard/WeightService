@@ -5,9 +5,9 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusNestingFks
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Plus
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Plus.WsSqlPluModel>
+@using WsStorageCore.Tables.TableRef1cModels.Plus
+@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Plus.WsSqlPluModel>
 
 <ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 

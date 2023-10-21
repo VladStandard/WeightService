@@ -12,7 +12,7 @@ public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
         object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] item || item.Length < 32) break;
+            if (obj is not object[] item || item.Length < 31) break;
             int i = 0;
             result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
                 Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
@@ -36,7 +36,7 @@ public class WsSqlViewPluNestingRepository : IViewPluNestingRepository
             objects = SqlCore.GetArrayObjects(query);
             foreach (object obj in objects)
             {
-                if (obj is not object[] item || item.Length < 29) break;
+                if (obj is not object[] item || item.Length < 28) break;
                 int i = 0;
                 result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
                     Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),

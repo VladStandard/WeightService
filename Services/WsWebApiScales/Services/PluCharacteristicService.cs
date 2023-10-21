@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 using WsStorageCore.Tables.TableDiagModels.LogsWebs;
+using WsStorageCore.Tables.TableRef1cModels.Boxes;
+using WsStorageCore.Tables.TableRef1cModels.Plus;
 using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
-using WsStorageCore.Tables.TableScaleModels.Boxes;
-using WsStorageCore.Tables.TableScaleModels.Plus;
 using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.PluCharacteristic;
 using WsWebApiScales.Dto.Response;

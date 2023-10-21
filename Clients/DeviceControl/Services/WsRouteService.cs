@@ -30,7 +30,7 @@ public class WsRouteService
     {
         string page = GetSectionRoute(item);
         
-        if (page.IsEmpty() || item == null)
+        if (string.IsNullOrEmpty(page) || item == null)
             return string.Empty;
         
         return item.Identity.Name switch

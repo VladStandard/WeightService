@@ -1,6 +1,5 @@
 using WsStorageCore.OrmUtils;
-
-namespace WsStorageCore.Tables.TableScaleModels.Boxes;
+namespace WsStorageCore.Tables.TableRef1cModels.Boxes;
 
 /// <summary>
 /// SQL-контроллер таблицы коробок.

@@ -1,15 +1,14 @@
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
+namespace WsStorageCore.Tables.TableRef1cModels.Clips;
 
-namespace WsStorageCore.Tables.TableScaleModels.Devices;
-
-public sealed class WsSqlDeviceMap : ClassMapping<WsSqlDeviceModel>
+public sealed class WsSqlClipMap : ClassMapping<WsSqlClipModel>
 {
-    public WsSqlDeviceMap()
+    public WsSqlClipMap()
     {
         Schema(WsSqlSchemasUtils.DbScales);
-        Table(WsSqlTablesUtils.Devices);
+        Table(WsSqlTablesUtils.Clips);
 
         Id(x => x.IdentityValueUid, m =>
         {
@@ -32,20 +31,6 @@ public sealed class WsSqlDeviceMap : ClassMapping<WsSqlDeviceModel>
             m.NotNullable(true);
         });
 
-        Property(x => x.LoginDt, m =>
-        {
-            m.Column("LOGIN_DT");
-            m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.LogoutDt, m =>
-        {
-            m.Column("LOGOUT_DT");
-            m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
         Property(x => x.IsMarked, m =>
         {
             m.Column("IS_MARKED");
@@ -58,21 +43,24 @@ public sealed class WsSqlDeviceMap : ClassMapping<WsSqlDeviceModel>
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(128);
+            m.Unique(true);
             m.NotNullable(true);
         });
 
-        Property(x => x.Ipv4, m =>
+        Property(x => x.Weight, m =>
         {
-            m.Column("IP_V4");
-            m.Type(NHibernateUtil.String);
-            m.Length(15);
+            m.Column("WEIGHT");
+            m.Type(NHibernateUtil.Decimal);
+            m.Precision(10);
+            m.Scale(3);
+            m.NotNullable(true);
         });
 
-        Property(x => x.MacAddressValue, m =>
+        Property(x => x.Uid1C, m =>
         {
-            m.Column("MAC");
-            m.Type(NHibernateUtil.String);
-            m.Length(12);
+            m.Column("UID_1C");
+            m.Type(NHibernateUtil.Guid);
+            m.NotNullable(true);
         });
     }
 }

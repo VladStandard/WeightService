@@ -3,8 +3,8 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Boxes
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Boxes.WsSqlBoxModel>
+@using WsStorageCore.Tables.TableRef1cModels.Boxes
+@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Boxes.WsSqlBoxModel>
 
 <ItemTopBar TItem="WsSqlBoxModel" Title="@WsLocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/>
 

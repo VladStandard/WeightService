@@ -1,4 +1,5 @@
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using Environment=System.Environment;
 
 namespace WsStorageCore.Helpers;
 
@@ -24,12 +25,10 @@ public sealed class WsSqlContextManagerHelper
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public MsSqlConfiguration? SqlConfiguration => SqlCore.SqlConfiguration;
     public WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
     public WsSqlDeviceRepository DeviceRepository { get; } = new();
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
-    public WsSqlPlu1CRepository Plu1CRepository { get; } = new();
     public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
     public WsSqlPluLabelRepository PluLabelRepository { get; } = new();
     public WsSqlPluLineRepository PluLineRepository { get; } = new();

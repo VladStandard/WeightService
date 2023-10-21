@@ -1,4 +1,4 @@
-namespace WsStorageCore.Tables.TableScaleModels.Bundles;
+namespace WsStorageCore.Tables.TableRef1cModels.Bundles;
 
 /// <summary>
 /// Table validation "BUNDLES".

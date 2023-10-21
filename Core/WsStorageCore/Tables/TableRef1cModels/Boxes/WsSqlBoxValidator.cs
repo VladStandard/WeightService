@@ -1,4 +1,4 @@
-namespace WsStorageCore.Tables.TableScaleModels.Boxes;
+namespace WsStorageCore.Tables.TableRef1cModels.Boxes;
 
 /// <summary>
 /// Table validation "BOXES".

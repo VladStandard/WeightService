@@ -38,8 +38,6 @@ public static class WsSqlValidationUtils
             WsSqlLogModel log => new WsSqlLogValidator(isCheckIdentity).Validate(log),
             WsSqlLogTypeModel logType => new WsSqlLogTypeValidator(isCheckIdentity).Validate(logType),
             WsSqlLogWebModel logWeb => new WsSqlLogWebValidator(isCheckIdentity).Validate(logWeb),
-            WsSqlOrderModel order => new WsSqlOrderValidator(isCheckIdentity).Validate(order),
-            WsSqlOrderWeighingModel orderWeighing => new WsSqlOrderWeighingValidator(isCheckIdentity).Validate(orderWeighing),
             WsSqlOrganizationModel organization => new WsSqlOrganizationValidator(isCheckIdentity).Validate(organization),
             WsSqlPluClipFkModel pluClip => new WsSqlPluClipFkValidator(isCheckIdentity).Validate(pluClip),
             WsSqlPluFkModel pluFk => new WsSqlPluFkValidator(isCheckIdentity).Validate(pluFk),
@@ -63,7 +61,6 @@ public static class WsSqlValidationUtils
             WsSqlWorkShopModel workShop => new WsSqlWorkShopValidator(isCheckIdentity).Validate(workShop),
             WsSqlAccessModel access => new WsSqlAccessValidator(isCheckIdentity).Validate(access),
             WsSqlAppModel app => new WsSqlAppValidator(isCheckIdentity).Validate(app),
-            WsSqlPlu1CFkModel app => new WsSqlPlu1CFkValidator(isCheckIdentity).Validate(app),
             _ => throw new NotImplementedException()
         };
 

@@ -19,9 +19,9 @@ public class WsSqlLogModel : WsSqlTableBase
         Device = null;
         App = null;
         LogType = null;
+        Line = 0;
         Version = string.Empty;
         File = string.Empty;
-        Line = 0;
         Member = string.Empty;
         Message = string.Empty;
     }
@@ -77,7 +77,6 @@ public class WsSqlLogModel : WsSqlTableBase
         File = WsLocaleCore.Sql.SqlItemFieldFile;
         Line = 1;
         Member = WsLocaleCore.Sql.SqlItemFieldMember;
-        //LogType = new();
         Message = WsLocaleCore.Sql.SqlItemFieldMessage;
 
         Device?.FillProperties();
