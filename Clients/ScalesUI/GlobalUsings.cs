@@ -20,7 +20,6 @@ global using WsLabelCore.Pages;
 global using WsLabelCore.Utils;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Utils;
-global using WsPrintCore.Common;
 global using WsScheduleCore.Helpers;
 global using WsScheduleCore.Utils;
 global using WsStorageCore.Common;

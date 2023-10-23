@@ -182,7 +182,6 @@ public sealed class WsLocalizationLabelPrint : WsLocalizationBase
     public string TranslationError => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(TranslationError)}");
     public string UpperValue => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(UpperValue)}");
     public string WeightGenderMan => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightGenderMan)}");
-    public string WeightGenderWoman => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightGenderWoman)}");
     public string WeightingControl => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightingControl)}");
     public string WeightingIsCalc => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightingIsCalc)}");
     public string WeightingIsStableDescription => Locale.Translate($"{WsLocalizationUtils.AppLabelPrint}.{nameof(WeightingIsStableDescription)}");

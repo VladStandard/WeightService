@@ -1,4 +1,4 @@
-namespace WsPrintCore.Common;
+namespace PrinterCore.Enums;
 
 public enum WsEnumPrintSensor
 {

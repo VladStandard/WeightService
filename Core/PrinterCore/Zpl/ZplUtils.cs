@@ -1,6 +1,6 @@
-using WsPrintCore.Common;
-
-namespace WsPrintCore.Zpl;
+using System.Text;
+using PrinterCore.Enums;
+namespace PrinterCore.Zpl;
 
 public static class ZplUtils
 {

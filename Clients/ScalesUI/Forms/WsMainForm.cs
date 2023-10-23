@@ -1,3 +1,4 @@
+using PrinterCore.Enums;
 namespace ScalesUI.Forms;
 
 public sealed partial class WsMainForm : Form

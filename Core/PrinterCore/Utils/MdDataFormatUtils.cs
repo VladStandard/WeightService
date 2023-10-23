@@ -1,3 +1,4 @@
+using PrinterCore.Zpl;
 using WsStorageCore.OrmUtils;
 namespace PrinterCore.Utils;
 

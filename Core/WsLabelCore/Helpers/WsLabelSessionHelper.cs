@@ -1,3 +1,4 @@
+using PrinterCore.Enums;
 using WsStorageCore.Tables.TableRefModels.ProductionSites;
 using WsStorageCore.Tables.TableRefModels.WorkShops;
 namespace WsLabelCore.Helpers;

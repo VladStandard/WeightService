@@ -1,4 +1,4 @@
-namespace WsPrintCore.Zpl;
+namespace PrinterCore.Zpl;
 
 public static class ZplSamples
 {

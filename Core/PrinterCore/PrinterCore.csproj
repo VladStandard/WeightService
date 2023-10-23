@@ -32,6 +32,17 @@
     <Compile Include="Common\IPrinterConnector.cs" />
     <Compile Include="Connectors\ZebraConnector.cs" />
     <Compile Include="Enums\PrinterStates.cs" />
+    <Compile Include="Enums\WsEnumDataBlockPosition.cs" />
+    <Compile Include="Enums\WsEnumPrintChannel.cs" />
+    <Compile Include="Enums\WsEnumPrintDensity.cs" />
+    <Compile Include="Enums\WsEnumPrintLabelDpi.cs" />
+    <Compile Include="Enums\WsEnumPrintLabelSize.cs" />
+    <Compile Include="Enums\WsEnumPrintModel.cs" />
+    <Compile Include="Enums\WsEnumPrintSendType.cs" />
+    <Compile Include="Enums\WsEnumPrintSensor.cs" />
+    <Compile Include="Enums\WsEnumPrintSpeed.cs" />
+    <Compile Include="Enums\WsEnumPrintStatus.cs" />
+    <Compile Include="Enums\WsEnumPrintTscDll.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Handlers\ZebraReconnectHandler.cs" />
     <Compile Include="Printers\ZebraPrinter.cs" />
@@ -39,6 +50,8 @@
     <Compile Include="Tsc\TscDriverHelper.cs" />
     <Compile Include="Tsc\TscPrintProperties.cs" />
     <Compile Include="Utils\MdDataFormatUtils.cs" />
+    <Compile Include="Zpl\ZplSamples.cs" />
+    <Compile Include="Zpl\ZplUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Zebra.Printer.SDK">
@@ -58,17 +71,10 @@
       <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
       <Name>WsLocalizationCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WsPrintCore\WsPrintCore.csproj">
-      <Project>{e2bc4403-b429-421a-a192-402a7db5ecf8}</Project>
-      <Name>WsPrintCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WsStorageCore\WsStorageCore.csproj">
       <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
       <Name>WsStorageCore</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Tsc\TSC cmd.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,5 @@
 using System.Threading;
-using WsPrintCore.Common;
+using PrinterCore.Enums;
 namespace PrinterCore.Tsc;
 
 public class TscDriverHelper

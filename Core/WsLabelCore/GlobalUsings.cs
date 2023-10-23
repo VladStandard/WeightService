@@ -43,8 +43,6 @@ global using WsLocalizationCore.Utils;
 global using WsMassaCore.Enums;
 global using WsMassaCore.Helpers;
 global using WsMassaCore.Models;
-global using WsPrintCore.Common;
-global using WsPrintCore.Zpl;
 global using WsStorageCore.Helpers;
 global using WsStorageCore.Models;
 global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;

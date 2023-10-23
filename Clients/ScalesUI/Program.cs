@@ -17,8 +17,6 @@ internal static class Program
         // Настройка.
         AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.App);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
-        // Режим работы.
-        WsDebugHelper.Instance.IsSkipDialogs = false;
         // Запуск.
         Application.Run(new WsMainForm());
     }

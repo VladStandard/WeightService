@@ -1,3 +1,4 @@
+using PrinterCore.Enums;
 using WsStorageCore.Tables.TableScaleModels.PlusLabels;
 using WsStorageCore.Tables.TableScaleModels.Printers;
 

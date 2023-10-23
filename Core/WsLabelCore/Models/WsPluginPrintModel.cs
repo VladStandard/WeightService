@@ -1,3 +1,4 @@
+using PrinterCore.Enums;
 using WsStorageCore.Tables.TableScaleModels.Printers;
 namespace WsLabelCore.Models;
 

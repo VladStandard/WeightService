@@ -198,6 +198,10 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\PrinterCore\PrinterCore.csproj">
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
+      <Name>PrinterCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj">
       <Project>{B5DE7B8C-16AE-4027-9BA5-F977605B850B}</Project>
       <Name>WsDataCore</Name>
@@ -209,10 +213,6 @@
     <ProjectReference Include="..\..\Core\WsLocalizationCore\WsLocalizationCore.csproj">
       <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
       <Name>WsLocalizationCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\WsPrintCore\WsPrintCore.csproj">
-      <Project>{E2BC4403-B429-421A-A192-402A7DB5ECF8}</Project>
-      <Name>WsPrintCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\WsScheduleCore\WsScheduleCore.csproj">
       <Project>{13678A17-222A-4F45-85D7-261629C4FA17}</Project>

@@ -1,3 +1,4 @@
+using PrinterCore.Enums;
 namespace ZplPrintSenderTool;
 
 public partial class FormMain : Form
