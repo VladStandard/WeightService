@@ -12,8 +12,8 @@ public class WsMassaDeviceHelper : IDisposable
 	#endregion
 
 	#region Public and private fields and properties
-
-	public bool IsOpenPort => SerialPort.SerialPort.IsOpen;
+    
+    private readonly object _locker = new();
     private bool IsOpenResult { get; set; }
     private bool IsCloseResult { get; set; }
     private bool IsResponseResult { get; set; }
@@ -21,12 +21,13 @@ public class WsMassaDeviceHelper : IDisposable
     private int ReadTimeout { get; set; }
     private int WriteTimeout { get; set; }
     private string PortName { get; set; }
-	public WsSerialPortHelper SerialPort { get; private set; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
+    private MassaResponseCallback _massaResponseCallback;
+    
+    public bool IsOpenPort => SerialPort.SerialPort.IsOpen;
+    public WsSerialPortHelper SerialPort { get; private set; }
 	public delegate void MassaResponseCallback(byte[] response);
-	private MassaResponseCallback _massaResponseCallback;
-	private readonly object _locker = new();
 
     public string ComPort => PortName;
 

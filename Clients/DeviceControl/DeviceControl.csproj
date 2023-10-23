@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>1.0.3.0</Version>
+        <Version>1.1.0.0</Version>
         <Authors>Владимирский стандарт</Authors>
         <Company>Владимирский стандарт</Company>
         <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -11,8 +11,8 @@
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
         <NeutralLanguage>ru-RU</NeutralLanguage>
-        <FileVersion>1.0.3.0</FileVersion>
-        <AssemblyVersion>1.0.3.0</AssemblyVersion>
+        <FileVersion>1.1.0.0</FileVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>

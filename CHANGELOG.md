@@ -4,15 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-- Периодическая сверка данных с веб-сервисом. Вывод предупреждения о расхождении информации
-- Доработать таблицу взвешиваний (учёт всей необходимой информации)
-- Распространить метод UpdateProperties (см. BrandModel)
-- #WS-T-611 БД. Удалить табличную функцию GetTemplatesObjByID
-- #WS-T-1035 Печать этикеток. Исправление плагина принтера Zebra
-- #WS-T-1048 БД. Добавить новое представление "Агрегированные этикетки"
-- #WS-T-1049 Фреймворк. Добавить модель и тесты на представление "Агрегированные этикетки"
-- #WS-T-1050 Управление устройствами. Добавить раздел "Агрегированные этикетки"
+## [1.1.3] - 2023-10-23
+- SQL.
+  - Удалены таблицы: [db_scales].[ZebraPrinterResourceRef], [db_scales].[ORDERS], [db_scales].[ORDERS_WEIGHINGS]
+  - Удалено представление: [diag].[VIEW_LOGS_MEMORIES]
+- Печать этикеток
+  - Исправлена печать через принтер Zebra
+  - Произведен рефактор кода, исправлены мелкие баги (смена замеса, загрузка приложения, калибровка весов)
+  - Исправлены конфигурации запуска (удалены AnuCpu/x32)
+- Слой ОРМ
+  - Перенос орм с FluentNHibernate на NHibernate 
+- Удалены лишние зависимости и проекты
+
 
 ## [1.0.3] - 2023-09-21
 - SQL. Удалена таблица: [db_scales].[DEVICES_SCALES_FK], [db_scales].[VIEW_LINES]

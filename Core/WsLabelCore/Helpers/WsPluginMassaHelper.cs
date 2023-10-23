@@ -16,21 +16,17 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
 
     #region Public and private fields and properties
 
+    private readonly object _locker = new();
+
     private WsMassaRequestHelper MassaRequest => WsMassaRequestHelper.Instance;
     private WsMassaExchangeHelper MassaExchange => WsMassaExchangeHelper.Instance;
-    public WsMassaDeviceHelper MassaDevice => WsMassaDeviceHelper.Instance;
-    public WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
+    private WsMassaDeviceHelper MassaDevice => WsMassaDeviceHelper.Instance;
+    private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private Label FieldMassa { get; set; }
     private Label FieldMassaExt { get; set; }
     private Label FieldNettoWeight { get; set; }
-    private readonly object _locker = new();
     public bool IsStable { get; private set; }
-    private decimal _weightNet;
-    public decimal WeightNet
-    {
-        get => _weightNet;
-        set { _weightNet = value; }
-    }
+    public decimal WeightNet { get; private set; }
     private int ScaleFactor { get ; set; } = 1_000;
     private ResponseParseModel ResponseParseGet { get; set; }
     private ResponseParseModel ResponseParseScalePar { get; set; }
@@ -67,20 +63,12 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
         FieldNettoWeight = fieldNettoWeight;
         FieldMassa = fieldMassa;
         ResetWarning = resetWarning;
-
-        WsFormNavigationUtils.ActionTryCatch(() =>
-        {
-            if (LabelSession.Line.IsExists)
-            {
-                MassaDevice.Init(LabelSession.Line.DeviceComPort, GetData);
-            }
-        });
+        MassaDevice.Init(LabelSession.Line.DeviceComPort, GetData);
     }
 
     public override void Execute()
     {
         base.Execute();
-        
         ReopenItem.Execute(Reopen);
         RequestItem.Execute(Request);
         ResponseItem.Execute(Response);
@@ -90,22 +78,16 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     {
         if (LabelSession.PluLine.Plu.IsNew) return;
         if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
-        
         MassaDevice.Execute();
     }
 
     private void Request()
     {
         if (LabelSession.PluLine.Plu.IsNew) return;
-        if (LabelSession.PluLine.Plu.IsCheckWeight)
-        {
-            if (MassaDevice.IsOpenPort)
-            {
-                GetMassa();
-                SendData();
-            }
-            //else ResetMassa();
-        }
+        if (!LabelSession.PluLine.Plu.IsCheckWeight) return;
+        if (!MassaDevice.IsOpenPort) return;
+        GetMassa();
+        SendData();
     }
 
     private void Response()
@@ -114,12 +96,6 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
             MdInvokeControl.SetVisible(FieldMassa, false);
         else
             SetLabelsText();
-    }
-
-    private void SetControlsTextDefault()
-    {
-        MdInvokeControl.SetText(FieldNettoWeight, $"{0:0.000} {WsLocaleCore.LabelPrint.WeightUnitKg}");
-        MdInvokeControl.SetText(FieldMassa, WsLocaleCore.LabelPrint.ComPort);
     }
 
     /// <summary>
@@ -159,9 +135,10 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
     public override void Dispose()
     {
         base.Dispose();
-
-        //MassaStable.StopwatchStable.Stop();
         MassaDevice.Dispose();
+        ReopenItem.Dispose();
+        RequestItem.Dispose();
+        ResponseItem.Dispose();
 
         ResponseParseScalePar = new();
         ResponseParseGet = new();
@@ -205,7 +182,6 @@ public sealed class WsPluginMassaHelper : WsPluginBaseHelper
             case MassaCmdType.SetZero:
                 MassaExchange.Request = MassaRequest.CMD_SET_ZERO;
                 break;
-
             case MassaCmdType.UdpPoll:
                 MassaExchange.Request = MassaRequest.CMD_UDP_POLL;
                 break;

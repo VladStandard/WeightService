@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <Configurations>DevelopVS;ReleaseVS;DevelopAleksandrov;DevelopMorozov</Configurations>
     <Platforms>x64</Platforms>
-    <Version>1.0.3.0</Version>
+    <Version>1.1.0.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x64'">
     <DebugType>full</DebugType>

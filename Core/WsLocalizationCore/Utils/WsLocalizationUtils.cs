@@ -8,10 +8,10 @@ public static class WsLocalizationUtils
     /// ПО Печать этикеток.
     /// </summary>
     public static string AppLabelPrint => nameof(AppLabelPrint);
-    public const string AppScalesTerminal = "C:\\Program Files (x86)\\Massa-K\\ScalesTerminal 100\\ScalesTerminal.exe";
+    public const string AppScalesTerminal = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
     public const decimal MassaThresholdPositive = 0.050M;
     public const decimal MassaThresholdValue = 0.010M;
-    private const string LocalDirectoryLocales = @"Locales";
+    private const string LocalDirectoryLocales = "Locales";
     private const string RemoteDirectoryLocales = @"\\palych\install\VSSoft\Locales\";
     public static string Tests => nameof(Tests);
 

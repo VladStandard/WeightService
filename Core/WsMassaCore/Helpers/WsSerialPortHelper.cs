@@ -3,13 +3,13 @@ namespace WsMassaCore.Helpers;
 public class WsSerialPortHelper
 {
 	#region Public and private fields and properties
-
+    
+    private readonly object _locker = new();
 	public SerialPort SerialPort { get; }
     private Action<object, SerialPortEventArgs> OpenCallback { get; }
     private Action<object, SerialPortEventArgs> CloseCallback { get; }
     private Action<object, SerialPortEventArgs> ResponseCallback { get; }
 	private Action<Exception, string, int, string> ExceptionAction { get; }
-    private readonly object _locker = new();
 	public UsbAdapterStatus AdapterStatus { get; private set; }
 	public Exception Exception { get; private set; }
 
@@ -148,8 +148,7 @@ public class WsSerialPortHelper
         lock (_locker) DataReceivedCore();
     }
 
-	public bool Send(string str) => 
-        !string.IsNullOrEmpty(str) && Send(Encoding.Default.GetBytes(str));
+	public bool Send(string str) => !string.IsNullOrEmpty(str) && Send(Encoding.Default.GetBytes(str));
 
     public bool Send(byte[] bytes,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
