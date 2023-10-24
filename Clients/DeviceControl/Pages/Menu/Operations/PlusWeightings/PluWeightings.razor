@@ -1,11 +1,8 @@
 @page "/section/plus_weightings"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Views.ViewScaleModels.PluWeightings
-@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.PluWeightings.WsSqlViewPluWeightingModel>
+@inherits SectionBase<WsSqlViewPluWeightingModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusWeightings"

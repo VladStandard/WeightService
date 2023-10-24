@@ -1,11 +1,8 @@
-@page "/section/barcodes"
+﻿@page "/section/barcodes"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Views.ViewScaleModels.Barcodes
-@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.Barcodes.WsSqlViewBarcodeModel>
+@inherits SectionBase<WsSqlViewBarcodeModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBarCodes"

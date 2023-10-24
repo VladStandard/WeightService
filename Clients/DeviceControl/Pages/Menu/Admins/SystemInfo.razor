@@ -1,7 +1,6 @@
 @page "/system"
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
 @inherits ComponentBase
 
 <MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.SystemInfo</MudElement>

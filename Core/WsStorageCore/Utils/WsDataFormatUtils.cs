@@ -1,3 +1,4 @@
+using Formatting=Newtonsoft.Json.Formatting;
 namespace WsStorageCore.Utils;
 
 public static class WsDataFormatUtils
@@ -43,7 +44,7 @@ public static class WsDataFormatUtils
     /// Get pretty formatted JSON string.
     /// </summary>
     private static string GetPrettyJson(string json) =>
-        string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Newtonsoft.Json.Formatting.Indented);
+        string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Formatting.Indented);
     
     public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 

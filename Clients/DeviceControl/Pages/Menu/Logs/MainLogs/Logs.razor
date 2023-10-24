@@ -1,11 +1,8 @@
-@page "/section/logs"
+﻿@page "/section/logs"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Views.ViewScaleModels.Logs
-@inherits SectionBase<WsStorageCore.Views.ViewScaleModels.Logs.WsSqlViewLogModel>
+@inherits SectionBase<WsSqlViewLogModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.System.SystemLogs"

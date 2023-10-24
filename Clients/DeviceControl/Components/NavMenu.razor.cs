@@ -1,5 +1,4 @@
 using WsLocalizationCore.DeviceControlModels;
-
 namespace DeviceControl.Components;
 
 public sealed partial class NavMenu : ComponentBase
