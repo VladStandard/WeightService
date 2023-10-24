@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Admins;
 
-public sealed partial class Versions : SectionBase<WsSqlVersionModel>
+public sealed partial class Versions : SectionBase<WsSqlVersionEntity>
 {
     #region Public and private fields, properties, constructor
 

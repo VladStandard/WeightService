@@ -1,7 +1,10 @@
 using PrinterCore.Utils;
 using PrinterCore.Zpl;
-using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
-using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+using WsStorageCore.Entities.SchemaScale.BarCodes;
+using WsStorageCore.Entities.SchemaScale.PlusLabels;
+using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using WsStorageCore.Entities.SchemaScale.Templates;
+using WsStorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace WsLabelCore.Helpers;
 
@@ -67,7 +70,7 @@ public sealed class WsPrintSessionHelper
     public void PrintLabel(Label fieldWarning, bool isClearBuffer)
     {
         // Получить шаблон этикетки.
-        WsSqlTemplateModel template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
+        WsSqlTemplateEntity template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
         // Проверить наличие шаблона этикетки.
         if (template.IsNew)
         {
@@ -93,7 +96,7 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки штучной ПЛУ.
     /// </summary>
-    private void PrintLabelCount(ref WsSqlTemplateModel template, bool isClearBuffer)
+    private void PrintLabelCount(ref WsSqlTemplateEntity template, bool isClearBuffer)
     {
         byte labelsCount = LabelSession.WeighingSettings.LabelsCountMain;
         if (LabelSession.PluLine.Plu.IsCheckWeight) return;
@@ -105,7 +108,7 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Печать этикетки ПЛУ.
     /// </summary>
-    private void PrintLabelCore(ref WsSqlTemplateModel template, bool isClearBuffer, bool isReloadTemplate)
+    private void PrintLabelCore(ref WsSqlTemplateEntity template, bool isClearBuffer, bool isReloadTemplate)
     {
         try
         {
@@ -114,7 +117,7 @@ public sealed class WsPrintSessionHelper
             // Инкремент счётчика этикеток.
             LabelSession.AddLineCounter();
             // Создать и сохранить этикетку из шаблона.
-            (WsSqlPluLabelModel PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
+            (WsSqlPluLabelEntity PluLabel, WsSqlPluLabelContextModel PluLabelContext) pluLabelWithContext = 
                 CreateAndSavePluLabel(template);
             // Создать ШК из этикетки.
             CreateAndSaveBarCodes(pluLabelWithContext.PluLabel, pluLabelWithContext.PluLabelContext);
@@ -145,14 +148,14 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Создать и сохранить этикетку из шаблона.
     /// </summary>
-    private (WsSqlPluLabelModel, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateModel template)
+    private (WsSqlPluLabelEntity, WsSqlPluLabelContextModel) CreateAndSavePluLabel(WsSqlTemplateEntity template)
     {
         // Исправление времени продукции.
         LabelSession.ProductDate = 
             new(LabelSession.ProductDate.Year, LabelSession.ProductDate.Month, LabelSession.ProductDate.Day,
                 DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-        WsSqlPluLabelModel pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
+        WsSqlPluLabelEntity pluLabel = new() { PluWeighing = LabelSession.PluWeighing, PluScale = LabelSession.PluLine, 
             ProductDt = LabelSession.ProductDate };
         
         WsSqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
@@ -177,12 +180,12 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Replace temperature storage method.
     /// </summary>
-    private Action<string> ActionReplaceStorageMethod(WsSqlPluLabelModel pluLabel) =>
+    private Action<string> ActionReplaceStorageMethod(WsSqlPluLabelEntity pluLabel) =>
         zpl =>
         {
             if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceModel resource = 
+                WsSqlTemplateResourceEntity resource = 
                     ContextManager.SqlPluStorageMethodFkRepository.GetItemByPlu(pluLabel.PluScale.Plu).Resource;
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
@@ -193,9 +196,9 @@ public sealed class WsPrintSessionHelper
     /// <summary>
     /// Создать ШК из этикетки.
     /// </summary>
-    private void CreateAndSaveBarCodes(WsSqlPluLabelModel pluLabel, WsSqlPluLabelContextModel pluLabelContext)
+    private void CreateAndSaveBarCodes(WsSqlPluLabelEntity pluLabel, WsSqlPluLabelContextModel pluLabelContext)
     {
-        WsSqlBarCodeModel barCode = new(pluLabel);
+        WsSqlBarCodeEntity barCode = new(pluLabel);
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);

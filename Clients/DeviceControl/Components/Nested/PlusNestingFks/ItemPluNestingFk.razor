@@ -1,13 +1,10 @@
-@page "/section/plus_nesting/new"
+﻿@page "/section/plus_nesting/new"
 @page "/section/plus_nesting/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks
-@inherits ItemBase<WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
+@inherits ItemBase<WsSqlPluNestingFkEntity>
 
-<ItemTopBar TItem="@WsSqlPluNestingFkModel" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluNestingFkEntity" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaScale.DeviceTypes;
 namespace WsStorageCoreTests.Tables.TableScaleModels.DeviceTypes;
 
 [TestFixture]

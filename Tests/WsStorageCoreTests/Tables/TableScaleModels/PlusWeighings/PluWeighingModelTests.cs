@@ -1,8 +1,8 @@
-using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
+using WsStorageCore.Entities.SchemaScale.PlusWeightings;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 
 [TestFixture]
-public sealed class PluWeighingModelTests : TableModelTests<WsSqlPluWeighingModel>
+public sealed class PluWeighingModelTests : TableModelTests<WsSqlPluWeighingEntity>
 {
 }

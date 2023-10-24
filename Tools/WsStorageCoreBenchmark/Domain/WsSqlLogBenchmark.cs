@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaDiag.Logs;
 namespace WsStorageCoreBenchmark.Domain;
 
 public class WsSqlLogBenchmark : WsBenchmarkBase
@@ -32,7 +33,7 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     public void CreateNewFor()
     {
         for (int i = 0; i < CountRecords; i++)
-            _ = new WsSqlLogModel();
+            _ = new WsSqlLogEntity();
     }
 
     [Benchmark]
@@ -43,14 +44,14 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
         _ = GetEnumerableLogs();
     }
 
-    private IEnumerable<WsSqlLogModel> GetEnumerableLogs() { for (int i = 0; i < CountRecords; i++) yield return new(); }
+    private IEnumerable<WsSqlLogEntity> GetEnumerableLogs() { for (int i = 0; i < CountRecords; i++) yield return new(); }
 
     [Benchmark]
     [InvocationCount(5)]
     [IterationCount(1)]
     public void CreateNewArray()
     {
-        WsSqlLogModel[] items = new WsSqlLogModel[1000];
+        WsSqlLogEntity[] items = new WsSqlLogEntity[1000];
         for (int i = 0; i < CountRecords; i++)
             items[i] = new();
     }
@@ -60,7 +61,7 @@ public class WsSqlLogBenchmark : WsBenchmarkBase
     [IterationCount(1)]
     public void CreateNewList()
     {
-        IList<WsSqlLogModel> items = new List<WsSqlLogModel>();
+        IList<WsSqlLogEntity> items = new List<WsSqlLogEntity>();
         for (int i = 0; i < CountRecords; i++)
             items.Add(new());
     }

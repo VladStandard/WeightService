@@ -1,4 +1,4 @@
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
+﻿using WsStorageCore.Entities.SchemaRef.ProductionSites;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
@@ -12,7 +12,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlProductionSiteModel> items = ProductionSiteRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

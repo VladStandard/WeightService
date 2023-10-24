@@ -2,11 +2,9 @@
 @page "/section/clips/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Clips
-@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Clips.WsSqlClipModel>
+@inherits ItemBase<WsSqlClipEntity>
 
-<ItemTopBar TItem="@WsSqlClipModel" Title="@WsLocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlClipEntity" Title="@WsLocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
     <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
     <tbody>

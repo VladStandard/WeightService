@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
+﻿using WsStorageCore.Entities.SchemaRef1c.Clips;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
 [TestFixture]
-public sealed class ClipModelTests : TableModelTests<WsSqlClipModel>
+public sealed class ClipModelTests : TableModelTests<WsSqlClipEntity>
 {
 }

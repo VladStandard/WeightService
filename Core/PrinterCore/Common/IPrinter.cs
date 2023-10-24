@@ -4,5 +4,5 @@ public interface IPrinter : IDisposable
 {
     // protected IPrinterConnector Connector { get; set; }
     //
-    // protected bool PrintLabel(WsSqlPluLabelModel pluLabel);
+    // protected bool PrintLabel(WsSqlPluLabelEntity pluLabel);
 }

@@ -1,3 +1,6 @@
+using WsStorageCore.Entities.SchemaConf.DeviceSettings;
+using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
+using WsStorageCore.Entities.SchemaScale.Devices;
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]
@@ -12,14 +15,14 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceModel> devices = DeviceRepository.GetEnumerable(SqlCrudConfig);
-            IEnumerable<WsSqlDeviceSettingsModel> deviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
-            List<WsSqlDeviceSettingsFkModel> deviceSettingsFks = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig).ToList();
+            IEnumerable<WsSqlDeviceEntity> devices = DeviceRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceSettingsEntity> deviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
+            List<WsSqlDeviceSettingsFkEntity> deviceSettingsFks = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-            foreach (WsSqlDeviceModel device in devices)
-            foreach (WsSqlDeviceSettingsModel setting in deviceSettings)
+            foreach (WsSqlDeviceEntity device in devices)
+            foreach (WsSqlDeviceSettingsEntity setting in deviceSettings)
             {
-                WsSqlDeviceSettingsFkModel? deviceSettingsFk = deviceSettingsFks.Find(
+                WsSqlDeviceSettingsFkEntity? deviceSettingsFk = deviceSettingsFks.Find(
                     x => x.Device.Equals(device) && x.Setting.Equals(setting));
                 if (deviceSettingsFk is not null)
                     continue;
@@ -37,7 +40,7 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceSettingsFkModel> items = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceSettingsFkEntity> items = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -47,12 +50,12 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceModel> devices = DeviceRepository.GetEnumerable(SqlCrudConfig).ToList();
+            IEnumerable<WsSqlDeviceEntity> devices = DeviceRepository.GetEnumerable(SqlCrudConfig).ToList();
             ParseRecords(devices);
 
-            foreach (WsSqlDeviceModel device in devices)
+            foreach (WsSqlDeviceEntity device in devices)
             {
-                IEnumerable<WsSqlDeviceSettingsFkModel> deviceSettings = DeviceSettingsFkRepository.GetEnumerableByDevice(device);
+                IEnumerable<WsSqlDeviceSettingsFkEntity> deviceSettings = DeviceSettingsFkRepository.GetEnumerableByDevice(device);
                 ParseRecords(deviceSettings);
             }
         }, false, DefaultConfigurations);

@@ -1,4 +1,5 @@
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Entities.SchemaRef.ProductionSites;
+using WsStorageCore.Entities.SchemaScale.Scales;
 
 namespace WsLabelCore.ViewModels;
 
@@ -7,14 +8,14 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel, IWsViewModel
+public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlProductionSiteModel ProductionSite { get; set; } = new();
-    public WsSqlScaleModel Line { get; set; } = new();
-    public List<WsSqlProductionSiteModel> ProductionSites { get; set; } = new();
-    public List<WsSqlScaleModel> Lines { get; set; } = new();
+    public WsSqlProductionSiteEntity ProductionSite { get; set; } = new();
+    public WsSqlScaleEntity Line { get; set; } = new();
+    public List<WsSqlProductionSiteEntity> ProductionSites { get; set; } = new();
+    public List<WsSqlScaleEntity> Lines { get; set; } = new();
 
     public WsXamlLinesViewModel()
     {

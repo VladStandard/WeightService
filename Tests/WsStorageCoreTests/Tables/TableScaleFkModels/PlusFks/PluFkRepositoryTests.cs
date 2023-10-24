@@ -1,4 +1,4 @@
-using WsStorageCore.Tables.TableScaleFkModels.PlusFks;
+﻿using WsStorageCore.Entities.SchemaScale.PlusFks;
 
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusFks;
 
@@ -12,7 +12,7 @@ public sealed class PluFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPluFkModel> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

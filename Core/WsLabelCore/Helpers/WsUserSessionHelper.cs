@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef1c.Plus;
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -148,7 +149,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Проверить наличие вложенности ПЛУ.
     /// </summary>
-    public bool CheckViewPluNesting(WsSqlPluModel plu, Label fieldWarning)
+    public bool CheckViewPluNesting(WsSqlPluEntity plu, Label fieldWarning)
     {
         if (LabelSession.ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
 

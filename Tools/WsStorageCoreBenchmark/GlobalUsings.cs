@@ -4,7 +4,6 @@ global using BenchmarkDotNet.Jobs;
 global using BenchmarkDotNet.Reports;
 global using BenchmarkDotNet.Running;
 global using WsBenchmarkCore.Common;
-global using WsStorageCore.Tables.TableDiagModels.Logs;
 global using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
 global using WsStorageCoreBenchmark.Domain;
 global using WsStorageCoreBenchmark.Template;

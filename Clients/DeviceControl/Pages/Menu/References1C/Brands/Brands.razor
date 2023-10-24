@@ -1,11 +1,8 @@
-@page "/section/brands"
+﻿@page "/section/brands"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Brands
-@inherits SectionBase<WsStorageCore.Tables.TableRef1cModels.Brands.WsSqlBrandModel>
+@inherits SectionBase<WsSqlBrandEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBrands"
@@ -17,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlBrandModel"
+  TItem="@WsSqlBrandEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -25,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlBrandModel">
+    <TItemContent TItem="@WsSqlBrandEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ChangeDt" Property="CreateDt" Width="33%" FormatString="@WsStrUtils.FormatDtDefault"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="43%"/>

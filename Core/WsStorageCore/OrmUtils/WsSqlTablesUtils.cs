@@ -20,11 +20,8 @@ public static class WsSqlTablesUtils
     public const string Logs = "LOGS";
     public const string LogsTypes = "LOG_TYPES";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
-    public const string Orders = "ORDERS";
-    public const string OrdersWeighings = "ORDERS_WEIGHINGS";
     public const string Organizations = "ORGANIZATIONS";
     public const string Plus = "PLUS";
-    public const string Plus1CFks = "PLUS_1C_FK";
     public const string PlusClipsFks = "PLUS_CLIPS_FK";
     public const string PlusFks = "PLUS_FK";
     public const string PlusLabels = "PLUS_LABELS";

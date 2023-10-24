@@ -18,8 +18,8 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public WsSqlAppModel App { get; private set; } = new();
-    public WsSqlDeviceModel Device { get; private set; } = new();
+    public WsSqlAppEntity App { get; private set; } = new();
+    public WsSqlDeviceEntity Device { get; private set; } = new();
 
     #endregion
 
@@ -53,9 +53,9 @@ public sealed class WsSqlContextItemHelper
         WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
         WsStrUtils.SetStringValueTrim(ref memberName, 32);
         WsStrUtils.SetStringValueTrim(ref message, 1024);
-        WsSqlLogTypeModel logTypeItem = new WsSqlLogTypeRepository().GetItemByEnumType(logType);
+        WsSqlLogTypeEntity logTypeItem = new WsSqlLogTypeRepository().GetItemByEnumType(logType);
 
-        WsSqlLogModel log = new()
+        WsSqlLogEntity log = new()
         {
             CreateDt = DateTime.Now,
             ChangeDt = DateTime.Now,

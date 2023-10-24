@@ -3,11 +3,11 @@
 
 namespace DeviceControl.Pages.Menu.Devices.Printers;
 
-public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterModel>
+public sealed partial class ItemPrinter : ItemBase<WsSqlPrinterEntity>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlPrinterTypeModel> PrinterTypeModels { get; set; }
+    private List<WsSqlPrinterTypeEntity> PrinterTypeModels { get; set; }
 
     #endregion
 

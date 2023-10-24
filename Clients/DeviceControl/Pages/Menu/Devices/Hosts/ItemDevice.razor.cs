@@ -1,6 +1,7 @@
+using WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
 namespace DeviceControl.Pages.Menu.Devices.Hosts;
 
-public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
+public sealed partial class ItemDevice : ItemBase<WsSqlDeviceEntity>
 {
     #region Public and private fields, properties, constructor
 
@@ -8,7 +9,7 @@ public sealed partial class ItemDevice : ItemBase<WsSqlDeviceModel>
     private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; } = new();
     private List<WsSqlDeviceTypeModel> DeviceTypes { get; set; }
     private WsSqlDeviceTypeModel DeviceType { get; set; }
-    private WsSqlDeviceTypeFkModel DeviceTypeFk { get; set; }
+    private WsSqlDeviceTypeFkEntity DeviceTypeFk { get; set; }
 
     #endregion
 

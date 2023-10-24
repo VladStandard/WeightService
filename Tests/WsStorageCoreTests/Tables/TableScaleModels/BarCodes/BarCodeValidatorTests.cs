@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
+﻿using WsStorageCore.Entities.SchemaScale.BarCodes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
-public sealed class BarCodeValidatorTests : TableValidatorTests<WsSqlBarCodeModel>
+public sealed class BarCodeValidatorTests : TableValidatorTests<WsSqlBarCodeEntity>
 {
 }

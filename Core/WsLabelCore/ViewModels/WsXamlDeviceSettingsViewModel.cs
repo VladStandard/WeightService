@@ -1,3 +1,6 @@
+using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
+using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaScale.Scales;
 namespace WsLabelCore.ViewModels;
 
 /// <summary>
@@ -5,14 +8,14 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel, IWsViewModel
+public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlScaleModel Line { get; set; } = new();
-    public WsSqlDeviceModel Device { get; set; } = new();
-    public List<WsSqlDeviceModel> Devices { get; set; } = new();
-    public ObservableCollection<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
+    public WsSqlScaleEntity Line { get; set; } = new();
+    public WsSqlDeviceEntity Device { get; set; } = new();
+    public List<WsSqlDeviceEntity> Devices { get; set; } = new();
+    public ObservableCollection<WsSqlDeviceSettingsFkEntity> DeviceSettingsFks { get; set; } = new();
 
     public WsXamlDeviceSettingsViewModel()
     {

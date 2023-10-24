@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -42,7 +43,7 @@ public partial class WsMainForm
     private void ReturnOkFromDeviceSettings()
     {
         bool isFormFullScreen = true;
-        foreach (WsSqlDeviceSettingsFkModel deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetEnumerableByLine(LabelSession.Line))
+        foreach (WsSqlDeviceSettingsFkEntity deviceSettingsFk in ContextManager.DeviceSettingsFksRepository.GetEnumerableByLine(LabelSession.Line))
         {
             switch (deviceSettingsFk.Setting.Name)
             {

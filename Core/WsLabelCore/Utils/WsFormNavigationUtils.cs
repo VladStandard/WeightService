@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using WsStorageCore.Entities.SchemaScale.Devices;
 
 namespace WsLabelCore.Utils;
 
@@ -276,8 +277,8 @@ public static class WsFormNavigationUtils
         }
     }
 
-    public static WsSqlDeviceModel SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
-        WsSqlDeviceModel device, string ip, string mac)
+    public static WsSqlDeviceEntity SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
+        WsSqlDeviceEntity device, string ip, string mac)
     {
         if (device.IsNew)
         {

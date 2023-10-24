@@ -2,9 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Clips
-@inherits SectionBase<WsStorageCore.Tables.TableRef1cModels.Clips.WsSqlClipModel>
+@inherits SectionBase<WsSqlClipEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.Clips"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlClipModel"
+  TItem="@WsSqlClipEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlClipModel">
+    <TItemContent TItem="@WsSqlClipEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="50%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" Property="Weight" Width="50%" />

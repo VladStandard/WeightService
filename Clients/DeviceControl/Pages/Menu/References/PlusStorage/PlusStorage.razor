@@ -1,10 +1,8 @@
-@page "/section/plus_storage"
+﻿@page "/section/plus_storage"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.PlusStorageMethods.WsSqlPluStorageMethodModel>
+@inherits SectionBase<WsSqlPluStorageMethodEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusStorage"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPluStorageMethodModel"
+  TItem="@WsSqlPluStorageMethodEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPluStorageMethodModel">
+    <TItemContent TItem="@WsSqlPluStorageMethodEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="33%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.TempMinimal" Property="MinTemp" Width="33%"/>

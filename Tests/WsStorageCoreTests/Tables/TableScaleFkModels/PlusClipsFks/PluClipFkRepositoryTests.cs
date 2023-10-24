@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaScale.PlusClipsFks;
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusClipsFks;
 
 [TestFixture]
@@ -5,7 +6,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluClipFkRepository PluClipFkRepository { get; } = new();
 
-    private WsSqlPluClipFkModel GetFirstPluClipFkModel()
+    private WsSqlPluClipFkEntity GetFirstPluClipFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluClipFkRepository.GetEnumerable(SqlCrudConfig).First();
@@ -16,7 +17,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPluClipFkModel> items = PluClipFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlPluClipFkEntity> items = PluClipFkRepository.GetEnumerable(SqlCrudConfig);
             //ParseRecords(items);
         }, false, DefaultConfigurations);
     }

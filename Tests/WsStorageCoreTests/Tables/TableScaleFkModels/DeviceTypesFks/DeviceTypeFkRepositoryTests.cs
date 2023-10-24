@@ -1,11 +1,13 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
+﻿using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.DeviceTypesFks;
 
 [TestFixture]
 public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceTypeFkRepository DeviceTypeFkRepository { get; } = new();
 
-    private WsSqlDeviceTypeFkModel GetFirstDeviceTypeFk()
+    private WsSqlDeviceTypeFkEntity GetFirstDeviceTypeFk()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return DeviceTypeFkRepository.GetList(SqlCrudConfig).First();
@@ -16,7 +18,7 @@ public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlDeviceTypeFkModel> items = DeviceTypeFkRepository.GetList(SqlCrudConfig);
+            List<WsSqlDeviceTypeFkEntity> items = DeviceTypeFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -26,9 +28,9 @@ public sealed class DeviceTypeFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlDeviceTypeFkModel oldDeviceTypeFk = GetFirstDeviceTypeFk();
-            WsSqlDeviceModel device = oldDeviceTypeFk.Device;
-            WsSqlDeviceTypeFkModel deviceLinesByDevice = DeviceTypeFkRepository.GetItemByDevice(device);
+            WsSqlDeviceTypeFkEntity oldDeviceTypeFk = GetFirstDeviceTypeFk();
+            WsSqlDeviceEntity device = oldDeviceTypeFk.Device;
+            WsSqlDeviceTypeFkEntity deviceLinesByDevice = DeviceTypeFkRepository.GetItemByDevice(device);
 
             Assert.That(deviceLinesByDevice.IsExists, Is.True);
             Assert.That(deviceLinesByDevice, Is.EqualTo(oldDeviceTypeFk));

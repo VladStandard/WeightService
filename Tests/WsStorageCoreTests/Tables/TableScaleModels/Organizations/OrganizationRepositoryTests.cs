@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Organizations;
+﻿using WsStorageCore.Entities.SchemaScale.Organizations;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Organizations;
 
 [TestFixture]
 public sealed class OrganizationRepositoryTests : TableRepositoryTests
@@ -10,7 +11,7 @@ public sealed class OrganizationRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlOrganizationModel> items = OrganizationRepository.GetList(SqlCrudConfig);
+            List<WsSqlOrganizationEntity> items = OrganizationRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

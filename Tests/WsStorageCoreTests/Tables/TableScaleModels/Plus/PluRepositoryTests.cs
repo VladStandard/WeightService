@@ -1,17 +1,18 @@
+﻿using WsStorageCore.Entities.SchemaRef1c.Plus;
 namespace WsStorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
 public sealed class PluRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluRepository PluRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlPluModel.Number)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlPluEntity.Number)).Ascending;
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPluModel> items = PluRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlPluEntity> items = PluRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -21,10 +22,10 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPluModel> plus = PluRepository.GetEnumerableByNumber(301).ToList();
+            IEnumerable<WsSqlPluEntity> plus = PluRepository.GetEnumerableByNumber(301).ToList();
 
             Assert.That(plus.Any(), Is.True);
-            foreach (WsSqlPluModel plu in plus)
+            foreach (WsSqlPluEntity plu in plus)
                 Assert.That(plu.Number, Is.EqualTo(301));
 
             ParseRecords(plus);

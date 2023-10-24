@@ -1,7 +1,7 @@
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
+using WsStorageCore.Entities.SchemaRef.ProductionSites;
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
-public sealed class ProductionFacilitieModelTests : TableModelTests<WsSqlProductionSiteModel>
+public sealed class ProductionFacilitieModelTests : TableModelTests<WsSqlProductionSiteEntity>
 {
 }

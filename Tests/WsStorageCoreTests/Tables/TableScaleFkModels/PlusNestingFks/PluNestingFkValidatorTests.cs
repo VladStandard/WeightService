@@ -1,8 +1,7 @@
-﻿using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
-
+﻿using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-public sealed class PluNestingFkValidatorTests : TableValidatorTests<WsSqlPluNestingFkModel>
+public sealed class PluNestingFkValidatorTests : TableValidatorTests<WsSqlPluNestingFkEntity>
 {
 }

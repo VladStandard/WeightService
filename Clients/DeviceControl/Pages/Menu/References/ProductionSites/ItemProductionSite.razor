@@ -3,11 +3,9 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRefModels.ProductionSites
-@inherits ItemBase<WsStorageCore.Tables.TableRefModels.ProductionSites.WsSqlProductionSiteModel>
+@inherits ItemBase<WsSqlProductionSiteEntity>
 
-<ItemTopBar TItem="@WsSqlProductionSiteModel" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlProductionSiteEntity" Title="@WsLocaleCore.DeviceControl.ItemProductionFacility" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

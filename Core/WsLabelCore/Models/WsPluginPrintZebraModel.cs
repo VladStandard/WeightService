@@ -1,7 +1,7 @@
 using PrinterCore.Common;
 using PrinterCore.Connectors;
 using PrinterCore.Enums;
-using WsStorageCore.Tables.TableScaleModels.Printers;
+using WsStorageCore.Entities.SchemaScale.Printers;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -29,7 +29,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     }
     
     public void InitZebra(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        WsSqlPrinterModel printer, Label fieldPrint)
+        WsSqlPrinterEntity printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;

@@ -1,12 +1,10 @@
-@page "/section/bundles/new"
+﻿@page "/section/bundles/new"
 @page "/section/bundles/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Bundles
-@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Bundles.WsSqlBundleModel>
+@inherits ItemBase<WsSqlBundleEntity>
 
-<ItemTopBar TItem="WsSqlBundleModel" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlBundleEntity" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

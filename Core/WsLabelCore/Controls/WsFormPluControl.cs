@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using WsStorageCore.Entities.SchemaRef1c.Plus;
 
 namespace WsLabelCore.Controls;
 

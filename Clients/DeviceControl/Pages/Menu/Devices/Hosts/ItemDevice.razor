@@ -1,14 +1,11 @@
 @page "/section/devices/new"
 @page "/section/devices/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Devices
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Devices.WsSqlDeviceModel>
+@inherits ItemBase<WsSqlDeviceEntity>
 
-<ItemTopBar TItem="@WsSqlDeviceModel" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlDeviceEntity" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>

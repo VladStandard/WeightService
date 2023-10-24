@@ -1,13 +1,10 @@
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-using WsStorageCore.Tables.TableRefModels.WorkShops;
-
 namespace DeviceControl.Pages.Menu.References.Workshops;
 
-public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopModel>
+public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopEntity>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlProductionSiteModel> ProductionSiteModels { get; set; }
+    private List<WsSqlProductionSiteEntity> ProductionSiteModels { get; set; }
 
     #endregion
 

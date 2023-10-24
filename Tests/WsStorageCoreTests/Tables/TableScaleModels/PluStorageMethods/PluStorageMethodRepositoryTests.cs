@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
+﻿using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 
@@ -12,7 +12,7 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluStorageMethodModel> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
+            List<WsSqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

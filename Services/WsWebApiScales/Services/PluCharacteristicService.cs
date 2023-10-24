@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
-using WsStorageCore.Tables.TableDiagModels.LogsWebs;
-using WsStorageCore.Tables.TableRef1cModels.Boxes;
-using WsStorageCore.Tables.TableRef1cModels.Plus;
-using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks;
+using WsStorageCore.Entities.SchemaDiag.LogsWebs;
+using WsStorageCore.Entities.SchemaRef1c.Boxes;
+using WsStorageCore.Entities.SchemaRef1c.Plus;
+using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
 using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.PluCharacteristic;
 using WsWebApiScales.Dto.Response;
@@ -30,7 +30,7 @@ public class PluCharacteristicService
         WsSqlPluRepository pluRepository = new();
         foreach (PluCharacteristicDto pluCharacteristicDto in pluCharacteristics.Characteristics.OrderBy(item=>item.AttachmentsCountAsInt))
         {
-            WsSqlPluModel pluDb = pluRepository.GetByUid1C(pluCharacteristicDto.PluGuid);
+            WsSqlPluEntity pluDb = pluRepository.GetByUid1C(pluCharacteristicDto.PluGuid);
 
             if (pluCharacteristicDto.IsMarked)
             {
@@ -62,11 +62,11 @@ public class PluCharacteristicService
     //TODO: REFACTOR
     #region REFACTORED
     
-    private void SetCharacteristicIsMarked(WsSqlPluModel plu, PluCharacteristicDto pluCharacteristicDto)
+    private void SetCharacteristicIsMarked(WsSqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
         WsSqlPluNestingFkRepository pluNestingFkRepository = new();
         
-        WsSqlPluNestingFkModel pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
+        WsSqlPluNestingFkEntity pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
         
         if (pluNestingFkDefault.IsExists && 
             pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
@@ -74,7 +74,7 @@ public class PluCharacteristicService
             _responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - характеристика совпадает со вложенностью по-молчанию!");
             return;
         }
-        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
+        WsSqlPluNestingFkEntity nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         if (nesting.IsNew)
         {
             _responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} не найдена для удаления!");
@@ -87,7 +87,7 @@ public class PluCharacteristicService
         _responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} удалена!");
     }
     
-    private bool IsPluValid(WsSqlPluModel plu, PluCharacteristicDto pluCharacteristicDto)
+    private bool IsPluValid(WsSqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
         if (plu.IsNew)
         {
@@ -102,11 +102,11 @@ public class PluCharacteristicService
         return true;
     }
 
-    private void PluCharacteristicSaveOrUpdate(WsSqlPluModel plu, PluCharacteristicDto pluCharacteristicDto)
+    private void PluCharacteristicSaveOrUpdate(WsSqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
         WsSqlPluNestingFkRepository pluNestingFkRepository = new();
         
-        WsSqlPluNestingFkModel pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
+        WsSqlPluNestingFkEntity pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
         
         if (pluNestingFkDefault.IsExists && 
             pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
@@ -115,9 +115,9 @@ public class PluCharacteristicService
             return;
         }
             
-        WsSqlPluNestingFkModel nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
+        WsSqlPluNestingFkEntity nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         
-        WsSqlBoxModel boxDb = new WsSqlBoxRepository().GetItemByUid1C(new("71bc8e8a-99cf-11ea-a220-a4bf0139eb1b"));
+        WsSqlBoxEntity boxDb = new WsSqlBoxRepository().GetItemByUid1C(new("71bc8e8a-99cf-11ea-a220-a4bf0139eb1b"));
         if (boxDb.IsNew)
         {
             _responseDto.AddError(pluCharacteristicDto.Guid, "Невозможно установить коробку");

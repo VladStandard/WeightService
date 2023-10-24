@@ -1,8 +1,6 @@
-using WsStorageCore.Tables.TableDiagModels.LogsWebs;
-
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 
-public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebModel>
+public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebEntity>
 {
     #region Public and private fields, properties, constructor
 

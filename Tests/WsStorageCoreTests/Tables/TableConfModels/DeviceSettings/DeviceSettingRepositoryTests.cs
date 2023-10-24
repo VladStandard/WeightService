@@ -1,3 +1,4 @@
+﻿using WsStorageCore.Entities.SchemaConf.DeviceSettings;
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettings;
 
 [TestFixture]
@@ -10,7 +11,7 @@ public sealed class DeviceSettingsRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceSettingsModel> items = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceSettingsEntity> items = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

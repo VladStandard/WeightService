@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Tasks;
+﻿using WsStorageCore.Entities.SchemaScale.Tasks;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Tasks;
 
 [TestFixture]
-public sealed class TaskValidatorTests : TableValidatorTests<WsSqlTaskModel>
+public sealed class TaskValidatorTests : TableValidatorTests<WsSqlTaskEntity>
 {
 }

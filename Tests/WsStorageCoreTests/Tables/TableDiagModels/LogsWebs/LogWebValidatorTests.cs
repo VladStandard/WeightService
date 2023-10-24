@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
+﻿using WsStorageCore.Entities.SchemaDiag.LogsWebs;
+namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
 
 [TestFixture]
-public sealed class LogWebValidatorTests : TableValidatorTests<WsSqlLogWebModel>
+public sealed class LogWebValidatorTests : TableValidatorTests<WsSqlLogWebEntity>
 {
 }

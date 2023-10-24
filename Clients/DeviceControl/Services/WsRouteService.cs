@@ -1,8 +1,3 @@
-using WsStorageCore.Tables.TableDiagModels.LogsWebs;
-using WsStorageCore.Tables.TableRef1cModels.Brands;
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-using WsStorageCore.Tables.TableRefModels.WorkShops;
-
 namespace DeviceControl.Services;
 
 public class WsRouteService
@@ -44,36 +39,36 @@ public class WsRouteService
     public static string GetSectionRoute(WsSqlTableBase? item) =>
         item switch
         {
-            WsSqlAccessModel => WsRouteUtils.SectionAccess,
-            WsSqlBarCodeModel => WsRouteUtils.SectionBarCodes,
-            WsSqlBoxModel => WsRouteUtils.SectionBoxes,
-            WsSqlBrandModel => WsRouteUtils.SectionBrands,
-            WsSqlBundleModel => WsRouteUtils.SectionBundles,
-            WsSqlDeviceModel => WsRouteUtils.SectionDevices,
+            WsSqlAccessEntity => WsRouteUtils.SectionAccess,
+            WsSqlBarCodeEntity => WsRouteUtils.SectionBarCodes,
+            WsSqlBoxEntity => WsRouteUtils.SectionBoxes,
+            WsSqlBrandEntity => WsRouteUtils.SectionBrands,
+            WsSqlBundleEntity => WsRouteUtils.SectionBundles,
+            WsSqlDeviceEntity => WsRouteUtils.SectionDevices,
             WsSqlDeviceTypeModel => WsRouteUtils.SectionDevicesTypes,
-            WsSqlLogModel => WsRouteUtils.SectionLogs,
-            WsSqlOrganizationModel => WsRouteUtils.SectionOrganizations,
-            WsSqlPluLabelModel => WsRouteUtils.SectionPlusLabels,
-            WsSqlPluModel => WsRouteUtils.SectionPlus,
-            WsSqlPluScaleModel => WsRouteUtils.SectionPlusLines,
-            WsSqlPluNestingFkModel => WsRouteUtils.SectionPlusNestingFks,
-            WsSqlPluStorageMethodModel => WsRouteUtils.SectionPlusStorage,
-            WsSqlPluWeighingModel => WsRouteUtils.SectionPlusWeightings,
-            WsSqlPrinterModel => WsRouteUtils.SectionPrinters,
-            WsSqlPrinterTypeModel => WsRouteUtils.SectionPrinterTypes,
-            WsSqlProductionSiteModel => WsRouteUtils.SectionProductionFacilities,
-            WsSqlScaleModel => WsRouteUtils.SectionLines,
-            WsSqlTemplateModel => WsRouteUtils.SectionTemplates,
-            WsSqlTemplateResourceModel => WsRouteUtils.SectionTemplateResources,
-            WsSqlVersionModel => WsRouteUtils.SectionVersions,
-            WsSqlWorkShopModel => WsRouteUtils.SectionWorkShops,
-            WsSqlClipModel => WsRouteUtils.SectionClips,
+            WsSqlLogEntity => WsRouteUtils.SectionLogs,
+            WsSqlOrganizationEntity => WsRouteUtils.SectionOrganizations,
+            WsSqlPluLabelEntity => WsRouteUtils.SectionPlusLabels,
+            WsSqlPluEntity => WsRouteUtils.SectionPlus,
+            WsSqlPluScaleEntity => WsRouteUtils.SectionPlusLines,
+            WsSqlPluNestingFkEntity => WsRouteUtils.SectionPlusNestingFks,
+            WsSqlPluStorageMethodEntity => WsRouteUtils.SectionPlusStorage,
+            WsSqlPluWeighingEntity => WsRouteUtils.SectionPlusWeightings,
+            WsSqlPrinterEntity => WsRouteUtils.SectionPrinters,
+            WsSqlPrinterTypeEntity => WsRouteUtils.SectionPrinterTypes,
+            WsSqlProductionSiteEntity => WsRouteUtils.SectionProductionFacilities,
+            WsSqlScaleEntity => WsRouteUtils.SectionLines,
+            WsSqlTemplateEntity => WsRouteUtils.SectionTemplates,
+            WsSqlTemplateResourceEntity => WsRouteUtils.SectionTemplateResources,
+            WsSqlVersionEntity => WsRouteUtils.SectionVersions,
+            WsSqlWorkShopEntity => WsRouteUtils.SectionWorkShops,
+            WsSqlClipEntity => WsRouteUtils.SectionClips,
             WsSqlViewLogModel => WsRouteUtils.SectionLogs,
             WsSqlViewBarcodeModel => WsRouteUtils.SectionBarCodes,
             WsSqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,
             WsSqlViewDeviceModel => WsRouteUtils.SectionDevices,
-            WsSqlLogWebModel => WsRouteUtils.SectionLogsWebService,
+            WsSqlLogWebEntity => WsRouteUtils.SectionLogsWebService,
             _ => string.Empty
         };
 }

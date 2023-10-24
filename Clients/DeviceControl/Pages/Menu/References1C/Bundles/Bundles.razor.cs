@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Bundles;
 
-public sealed partial class Bundles : SectionBase<WsSqlBundleModel>
+public sealed partial class Bundles : SectionBase<WsSqlBundleEntity>
 {
     #region Public and private fields, properties, constructor
 

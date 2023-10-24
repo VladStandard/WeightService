@@ -2,9 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRefModels.WorkShops
-@inherits SectionBase<WsStorageCore.Tables.TableRefModels.WorkShops.WsSqlWorkShopModel>
+@inherits SectionBase<WsSqlWorkShopEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionWorkShops"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlWorkShopModel"
+  TItem="@WsSqlWorkShopEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlWorkShopModel">
+    <TItemContent TItem="@WsSqlWorkShopEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="40%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductionFacility" Property="ProductionSite.Name" Width="40%"/>

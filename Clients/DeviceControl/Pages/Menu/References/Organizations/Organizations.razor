@@ -1,10 +1,8 @@
-@page "/section/organizations"
+﻿@page "/section/organizations"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Organizations
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Organizations.WsSqlOrganizationModel>
+@inherits SectionBase<WsSqlOrganizationEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionOrganizations"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlOrganizationModel"
+  TItem="@WsSqlOrganizationEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlOrganizationModel">
+    <TItemContent TItem="@WsSqlOrganizationEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Gln" Property="Gln" Width="25%"/>

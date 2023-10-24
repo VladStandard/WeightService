@@ -1,10 +1,8 @@
-@page "/section/bundles"
+﻿@page "/section/bundles"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Bundles
-@inherits SectionBase<WsStorageCore.Tables.TableRef1cModels.Bundles.WsSqlBundleModel>
+@inherits SectionBase<WsSqlBundleEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionBundles"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlBundleModel"
+  TItem="@WsSqlBundleEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlBundleModel">
+    <TItemContent TItem="@WsSqlBundleEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.BundleWeight" Property="Weight"/>

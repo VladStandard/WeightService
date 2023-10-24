@@ -1,10 +1,8 @@
-@page "/section/printers"
+﻿@page "/section/printers"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Printers
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Printers.WsSqlPrinterModel>
+@inherits SectionBase<WsSqlPrinterEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.Print.Names"
@@ -16,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPrinterModel"
+  TItem="@WsSqlPrinterEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -24,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPrinterModel">
+    <TItemContent TItem="@WsSqlPrinterEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="20%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Print.Type" Property="PrinterType.Name" Width="20%"/>

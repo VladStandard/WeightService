@@ -1,13 +1,11 @@
-@page "/section/organizations/new"
+﻿@page "/section/organizations/new"
 @page "/section/organizations/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Organizations
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Organizations.WsSqlOrganizationModel>
+@inherits ItemBase<WsSqlOrganizationEntity>
 
-<ItemTopBar TItem="WsSqlOrganizationModel" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlOrganizationEntity" Title="@WsLocaleCore.DeviceControl.ItemContragent" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

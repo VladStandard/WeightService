@@ -1,15 +1,12 @@
-@page "/section/plus/new"
+﻿@page "/section/plus/new"
 @page "/section/plus/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusNestingFks
-@using DeviceControl.Utils
 @using DeviceControl.Components.Rz
-@using WsStorageCore.Tables.TableRef1cModels.Plus
-@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Plus.WsSqlPluModel>
+@inherits ItemBase<WsSqlPluEntity>
 
-<ItemTopBar TItem="@WsSqlPluModel" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluEntity" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>

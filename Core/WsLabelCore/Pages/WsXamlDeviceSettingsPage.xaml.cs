@@ -1,4 +1,5 @@
 using System.Windows.Controls;
+using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
 
 namespace WsLabelCore.Pages;
 
@@ -67,7 +68,7 @@ public partial class WsXamlDeviceSettingsPage
     {
         //if (!ViewModel.IsLoaded) return;
         if (sender is not CheckBox checkBox) return;
-        if (checkBox.DataContext is not WsSqlDeviceSettingsFkModel deviceSettingsFk) return;
+        if (checkBox.DataContext is not WsSqlDeviceSettingsFkEntity deviceSettingsFk) return;
         if (deviceSettingsFk.IsEnabled) return;
         deviceSettingsFk.IsEnabled = true;
         WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.UpdateItemAsync(deviceSettingsFk);
@@ -77,7 +78,7 @@ public partial class WsXamlDeviceSettingsPage
     {
         //if (!ViewModel.IsLoaded) return;
         if (sender is not CheckBox checkBox) return;
-        if (checkBox.DataContext is not WsSqlDeviceSettingsFkModel deviceSettingsFk) return;
+        if (checkBox.DataContext is not WsSqlDeviceSettingsFkEntity deviceSettingsFk) return;
         if (!deviceSettingsFk.IsEnabled) return;
         deviceSettingsFk.IsEnabled = false;
         WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.UpdateItemAsync(deviceSettingsFk);

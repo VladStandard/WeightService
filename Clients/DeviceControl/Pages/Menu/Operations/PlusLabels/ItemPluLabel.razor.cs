@@ -1,8 +1,7 @@
-using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
-
+using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
-public sealed partial class ItemPluLabel : ItemBase<WsSqlPluLabelModel>
+public sealed partial class ItemPluLabel : ItemBase<WsSqlPluLabelEntity>
 {
     #region Public and private fields, properties, constructor
 

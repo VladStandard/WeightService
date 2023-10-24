@@ -1,11 +1,8 @@
-@page "/system_sql_versions"
+﻿@page "/system_sql_versions"
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Versions
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.Versions.WsSqlVersionModel>
+@inherits SectionBase<WsSqlVersionEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.VersionsDb"
@@ -17,11 +14,11 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlVersionModel"
+  TItem="@WsSqlVersionEntity"
   @ref="@DataGrid"
   Data="@SqlSectionCast">
   <Columns>
-    <TItemContent TItem="@WsSqlVersionModel">
+    <TItemContent TItem="@WsSqlVersionEntity">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%"
                             FormatString="@WsStrUtils.FormatDtShort"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="10%"/>

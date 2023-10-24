@@ -1,8 +1,8 @@
-using WsStorageCore.Tables.TableScaleModels.PlusStorageMethods;
+using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 
 [TestFixture]
-public sealed class PluStorageMethodModelTests : TableModelTests<WsSqlPluStorageMethodModel>
+public sealed class PluStorageMethodModelTests : TableModelTests<WsSqlPluStorageMethodEntity>
 {
 }

@@ -1,20 +1,19 @@
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
 @using DeviceControl.Components.Item
+@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 
 <div Style="display: flex; margin-bottom: 10px">
-  <RadzenDropDown TValue="List<WsSqlPluModel>" @bind-Value="@SelectedPlus" Data="@Plus" TextProperty="DisplayName"
+  <RadzenDropDown TValue="List<WsSqlPluEntity>" @bind-Value="@SelectedPlus" Data="@Plus" TextProperty="DisplayName"
                 Multiple="true" AllowFiltering="true" AllowClear="true" Placeholder="Select plu" AllowSelectAll="false"
                 Style="width: 100%;" />
 </div>
 
 <RzDataGrid
-  TItem="@WsSqlPluModel"
+  TItem="@WsSqlPluEntity"
   PagerPosition = "PagerPosition.Bottom"
   Data="@SelectedPlus">
   <Columns>
-    <TItemContent TItem="@WsSqlPluModel">
+    <TItemContent TItem="@WsSqlPluEntity">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" SortProperty="IsCheckWeight">
         <Template Context="itemCast">

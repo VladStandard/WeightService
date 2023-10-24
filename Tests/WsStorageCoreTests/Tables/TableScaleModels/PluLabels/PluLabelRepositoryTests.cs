@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+﻿using WsStorageCore.Entities.SchemaScale.PlusLabels;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 
@@ -13,7 +13,7 @@ public sealed class PluLabelRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
+            List<WsSqlPluLabelEntity> items = PluLabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

@@ -1,8 +1,8 @@
-﻿using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+﻿using WsStorageCore.Entities.SchemaScale.PlusLabels;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 
 [TestFixture]
-public sealed class PluLabelValidatorTests : TableValidatorTests<WsSqlPluLabelModel>
+public sealed class PluLabelValidatorTests : TableValidatorTests<WsSqlPluLabelEntity>
 {
 }

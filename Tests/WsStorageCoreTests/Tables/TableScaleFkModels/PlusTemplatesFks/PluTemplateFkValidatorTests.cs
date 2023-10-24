@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
+﻿using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
+namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 
 [TestFixture]
-public sealed class PluTemplateFkValidatorTests : TableValidatorTests<WsSqlPluTemplateFkModel>
+public sealed class PluTemplateFkValidatorTests : TableValidatorTests<WsSqlPluTemplateFkEntity>
 {
 }

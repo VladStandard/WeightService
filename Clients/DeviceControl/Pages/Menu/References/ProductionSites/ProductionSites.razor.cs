@@ -1,8 +1,6 @@
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-
 namespace DeviceControl.Pages.Menu.References.ProductionSites;
 
-public sealed partial class ProductionSites : SectionBase<WsSqlProductionSiteModel>
+public sealed partial class ProductionSites : SectionBase<WsSqlProductionSiteEntity>
 {
     protected override void SetSqlSectionCast()
     {

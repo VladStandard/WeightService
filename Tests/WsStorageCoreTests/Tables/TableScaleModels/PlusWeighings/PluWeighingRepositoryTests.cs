@@ -1,4 +1,4 @@
-﻿using WsStorageCore.Tables.TableScaleModels.PlusWeighings;
+﻿using WsStorageCore.Entities.SchemaScale.PlusWeightings;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 
@@ -13,7 +13,7 @@ public sealed class PluWeighingRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluWeighingModel> items = PluWeighingRepository.GetList(SqlCrudConfig);
+            List<WsSqlPluWeighingEntity> items = PluWeighingRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

@@ -1,3 +1,4 @@
+﻿using WsStorageCore.Entities.SchemaRef1c.Boxes;
 namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 
 [TestFixture]
@@ -10,7 +11,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlBoxModel> items = BoxRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlBoxEntity> items = BoxRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

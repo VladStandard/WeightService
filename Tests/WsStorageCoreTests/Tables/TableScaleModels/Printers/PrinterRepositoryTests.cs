@@ -1,3 +1,4 @@
+﻿using WsStorageCore.Entities.SchemaScale.Printers;
 namespace WsStorageCoreTests.Tables.TableScaleModels.Printers;
 
 [TestFixture]
@@ -10,7 +11,7 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPrinterModel> items = PrinterRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlPrinterEntity> items = PrinterRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

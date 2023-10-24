@@ -1,15 +1,13 @@
-using WsStorageCore.Tables.TableRefModels.WorkShops;
-
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class ItemLines : ItemBase<WsSqlScaleModel>
+public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
 {
     #region Public and private fields, properties, constructor
     
     private List<string> ComPorts { get; set; }
-    private List<WsSqlPrinterModel> PrinterModels { get; set; }
-    private List<WsSqlDeviceModel> HostModels { get; set; }
-    private List<WsSqlWorkShopModel> WorkShopModels { get; set; }
+    private List<WsSqlPrinterEntity> PrinterModels { get; set; }
+    private List<WsSqlDeviceEntity> HostModels { get; set; }
+    private List<WsSqlWorkShopEntity> WorkShopModels { get; set; }
 
     public ItemLines() : base()
     {

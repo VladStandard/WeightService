@@ -1,11 +1,9 @@
 @page "/section/logs/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableDiagModels.Logs
-@inherits ItemBase<WsStorageCore.Tables.TableDiagModels.Logs.WsSqlLogModel>
+@inherits ItemBase<WsSqlLogEntity>
 
-<ItemTopBar TItem="WsSqlLogModel" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="WsSqlLogEntity" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>

@@ -1,7 +1,4 @@
 using WsStorageCore.OrmUtils;
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-using WsStorageCore.Tables.TableRefModels.WorkShops;
-
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -42,18 +39,18 @@ public sealed class WsSqlContextCacheHelper
     private WsSqlCrudConfigModel SqlCrudConfig => WsSqlCrudConfigFactory.GetCrudAll();
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
-    public List<WsSqlBoxModel> Boxes { get; private set; } = new();
-    public List<WsSqlBundleModel> Bundles { get; private set; } = new();
-    public List<WsSqlClipModel> Clips { get; private set; } = new();
-    //private List<WsSqlDeviceSettingsModel> DeviceSettings { get; set; } = new();
-    //private List<WsSqlDeviceSettingsFkModel> DeviceSettingsFks { get; set; } = new();
-    public List<WsSqlPluClipFkModel> PlusClipsFks { get; private set; } = new();
-    public List<WsSqlPluFkModel> PlusFks { get; private set; } = new();
-    public List<WsSqlPluNestingFkModel> PlusNestingFks { get; private set; } = new();
-    public List<WsSqlPluModel> Plus { get; private set; } = new();
-    public List<WsSqlProductionSiteModel> Areas { get; private set; } = new();
-    public List<WsSqlScaleModel> Lines { get; private set; } = new();
-    public List<WsSqlWorkShopModel> WorkShops { get; private set; } = new();
+    public List<WsSqlBoxEntity> Boxes { get; private set; } = new();
+    public List<WsSqlBundleEntity> Bundles { get; private set; } = new();
+    public List<WsSqlClipEntity> Clips { get; private set; } = new();
+    //private List<WsSqlDeviceSettingsEntity> DeviceSettings { get; set; } = new();
+    //private List<WsSqlDeviceSettingsFkEntity> DeviceSettingsFks { get; set; } = new();
+    public List<WsSqlPluClipFkEntity> PlusClipsFks { get; private set; } = new();
+    public List<WsSqlPluFkEntity> PlusFks { get; private set; } = new();
+    public List<WsSqlPluNestingFkEntity> PlusNestingFks { get; private set; } = new();
+    public List<WsSqlPluEntity> Plus { get; private set; } = new();
+    public List<WsSqlProductionSiteEntity> Areas { get; private set; } = new();
+    public List<WsSqlScaleEntity> Lines { get; private set; } = new();
+    public List<WsSqlWorkShopEntity> WorkShops { get; private set; } = new();
 
     #endregion
 

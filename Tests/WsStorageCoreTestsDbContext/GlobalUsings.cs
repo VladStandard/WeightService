@@ -4,4 +4,3 @@ global using WsAssertCoreTests;
 global using WsDataCore.Enums;
 global using WsDataCore.Memory;
 global using WsStorageCore.Common;
-global using WsStorageCore.Tables.TableScaleModels.Scales;

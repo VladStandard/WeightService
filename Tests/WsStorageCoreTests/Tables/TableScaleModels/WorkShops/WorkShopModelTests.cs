@@ -1,8 +1,8 @@
-using WsStorageCore.Tables.TableRefModels.WorkShops;
+using WsStorageCore.Entities.SchemaRef.WorkShops;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]
-public sealed class WorkShopModelTests : TableModelTests<WsSqlWorkShopModel>
+public sealed class WorkShopModelTests : TableModelTests<WsSqlWorkShopEntity>
 {
 }

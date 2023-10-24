@@ -1,18 +1,18 @@
 using WsStorageCore.OrmUtils;
 namespace DeviceControl.Components.Nested.PlusLines;
 
-public sealed partial class PlusLines : SectionBase<WsSqlPluScaleModel>
+public sealed partial class PlusLines : SectionBase<WsSqlPluScaleEntity>
 {
     #region Public and private fields, properties, constructor
 
     private WsSqlPluLineRepository PluLineRepository { get; } = new();
-    [Parameter] public WsSqlScaleModel Scale { get; set; }
+    [Parameter] public WsSqlScaleEntity Scale { get; set; }
 
     public PlusLines() : base()
     {
         ButtonSettings.IsShowMark = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(WsSqlPluScaleModel.IsActive), true));
+        SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(WsSqlPluScaleEntity.IsActive), true));
     }
 
     #endregion

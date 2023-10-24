@@ -1,3 +1,4 @@
+﻿using WsStorageCore.Entities.SchemaRef1c.Clips;
 namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
 [TestFixture]
@@ -10,7 +11,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlClipModel> items = ClipRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlClipEntity> items = ClipRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

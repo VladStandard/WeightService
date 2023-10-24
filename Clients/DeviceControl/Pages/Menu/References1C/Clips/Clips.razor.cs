@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Clips;
 
-public sealed partial class Clips : SectionBase<WsSqlClipModel>
+public sealed partial class Clips : SectionBase<WsSqlClipEntity>
 {
     #region Public and private fields, properties, constructor
     

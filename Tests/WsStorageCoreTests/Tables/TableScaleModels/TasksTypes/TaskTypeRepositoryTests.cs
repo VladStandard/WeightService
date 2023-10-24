@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.TasksTypes;
+﻿using WsStorageCore.Entities.SchemaScale.TasksTypes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.TasksTypes;
 
 [TestFixture]
 public sealed class TaskTypeRepositoryTests : TableRepositoryTests
@@ -10,7 +11,7 @@ public sealed class TaskTypeRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlTaskTypeModel> items = TaskTypeRepository.GetList(SqlCrudConfig);
+            List<WsSqlTaskTypeEntity> items = TaskTypeRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

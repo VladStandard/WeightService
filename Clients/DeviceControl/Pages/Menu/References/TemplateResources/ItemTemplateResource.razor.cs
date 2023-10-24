@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References.TemplateResources;
 
-public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourceModel>
+public sealed partial class ItemTemplateResource : ItemBase<WsSqlTemplateResourceEntity>
 {
     #region Public and private methods
 

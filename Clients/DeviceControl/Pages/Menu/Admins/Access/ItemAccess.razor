@@ -1,14 +1,11 @@
 @page "/section/access/new"
 @page "/section/access/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Access
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Access.WsSqlAccessModel>
+@inherits ItemBase<WsSqlAccessEntity>
 
-<ItemTopBar TItem="@WsSqlAccessModel" Title="@WsLocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlAccessEntity" Title="@WsLocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

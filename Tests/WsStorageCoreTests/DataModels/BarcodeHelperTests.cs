@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaScale.BarCodes;
 namespace WsStorageCoreTests.DataModels;
 
 [TestFixture]

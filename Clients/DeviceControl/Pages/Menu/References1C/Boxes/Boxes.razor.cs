@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Boxes;
 
-public sealed partial class Boxes : SectionBase<WsSqlBoxModel>
+public sealed partial class Boxes : SectionBase<WsSqlBoxEntity>
 {
     #region Public and private fields, properties, constructor
 

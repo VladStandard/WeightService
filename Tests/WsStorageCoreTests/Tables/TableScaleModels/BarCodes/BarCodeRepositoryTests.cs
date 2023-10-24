@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
+﻿using WsStorageCore.Entities.SchemaScale.BarCodes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
 public sealed class BarCodeRepositoryTests : TableRepositoryTests
@@ -12,7 +13,7 @@ public sealed class BarCodeRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlBarCodeModel> items = BarcodeRepository.GetList(SqlCrudConfig);
+            List<WsSqlBarCodeEntity> items = BarcodeRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

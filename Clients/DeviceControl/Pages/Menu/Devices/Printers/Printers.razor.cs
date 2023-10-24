@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Devices.Printers;
 
-public sealed partial class Printers : SectionBase<WsSqlPrinterModel>
+public sealed partial class Printers : SectionBase<WsSqlPrinterEntity>
 {
     protected override void SetSqlSectionCast()
     {

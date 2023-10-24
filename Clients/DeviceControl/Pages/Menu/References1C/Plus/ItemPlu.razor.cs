@@ -1,16 +1,15 @@
-using WsStorageCore.Tables.TableScaleFkModels.PlusStorageMethodsFks;
-using WsStorageCore.Tables.TableScaleFkModels.PlusTemplatesFks;
-
+using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 namespace DeviceControl.Pages.Menu.References1C.Plus;
 
-public sealed partial class ItemPlu : ItemBase<WsSqlPluModel>
+public sealed partial class ItemPlu : ItemBase<WsSqlPluEntity>
 {
     #region Public and private fields, properties, constructor
     
-    private WsSqlPluStorageMethodModel StorageMethod { get; set; }
-    private WsSqlPluStorageMethodFkModel StorageMethodFk { get; set; }
-    private WsSqlPluTemplateFkModel PluTemplateFk { get; set; }
-    private List<WsSqlTemplateModel> Templates { get; set; }
+    private WsSqlPluStorageMethodEntity StorageMethod { get; set; }
+    private WsSqlPluStorageMethodFkEntity StorageMethodFk { get; set; }
+    private WsSqlPluTemplateFkEntity PluTemplateFk { get; set; }
+    private List<WsSqlTemplateEntity> Templates { get; set; }
 
     public ItemPlu() : base()
     {

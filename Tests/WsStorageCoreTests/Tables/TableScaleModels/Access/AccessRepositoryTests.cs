@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using WsStorageCore.Entities.SchemaScale.Access;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
 
@@ -21,7 +22,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlAccessModel> items = AccessRepository.GetList(SqlCrudConfig);
+            List<WsSqlAccessEntity> items = AccessRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -31,8 +32,8 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAccessModel access = AccessRepository.GetItemByNameOrCreate(CurrentUser);
-            WsSqlAccessModel accessByUid = AccessRepository.GetItemByUid(access.IdentityValueUid);
+            WsSqlAccessEntity access = AccessRepository.GetItemByNameOrCreate(CurrentUser);
+            WsSqlAccessEntity accessByUid = AccessRepository.GetItemByUid(access.IdentityValueUid);
 
             Assert.That(access.IsExists, Is.True);
             Assert.That(accessByUid.IsExists, Is.True);
@@ -46,9 +47,9 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAccessModel accessByName = AccessRepository.GetItemByUsername(CurrentUser);
+            WsSqlAccessEntity accessByName = AccessRepository.GetItemByUsername(CurrentUser);
             Guid uid = accessByName.IdentityValueUid;
-            WsSqlAccessModel accessByUid = AccessRepository.GetItemByUid(uid);
+            WsSqlAccessEntity accessByUid = AccessRepository.GetItemByUid(uid);
 
             Assert.That(accessByUid.IsExists, Is.True);
             Assert.That(accessByUid.IdentityValueUid, Is.EqualTo(uid));
@@ -62,7 +63,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAccessModel access = AccessRepository.GetNewItem();
+            WsSqlAccessEntity access = AccessRepository.GetNewItem();
             Assert.That(access.IsNew, Is.True);
             TestContext.WriteLine($"New item: {access.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

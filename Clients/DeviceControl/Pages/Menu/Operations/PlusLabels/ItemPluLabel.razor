@@ -1,14 +1,10 @@
 @page "/section/plus_labels/new"
 @page "/section/plus_labels/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
-@using WsDataCore.Utils
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.PlusLabels
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.PlusLabels.WsSqlPluLabelModel>
+@inherits ItemBase<WsSqlPluLabelEntity>
 
-<ItemTopBar TItem="@WsSqlPluLabelModel" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluLabelEntity" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

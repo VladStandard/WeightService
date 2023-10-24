@@ -1,11 +1,8 @@
 @page "/section/logs_web_service"
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
-@using WsDataCore.Utils
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableDiagModels.LogsWebs
-@inherits SectionBase<WsSqlLogWebModel>
+@inherits SectionBase<WsSqlLogWebEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.WebService.Name"
@@ -17,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlLogWebModel"
+  TItem="@WsSqlLogWebEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -26,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlLogWebModel">
+    <TItemContent TItem="@WsSqlLogWebEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>

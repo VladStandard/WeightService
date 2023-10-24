@@ -1,6 +1,6 @@
 using PrinterCore.Enums;
-using WsStorageCore.Tables.TableScaleModels.PlusLabels;
-using WsStorageCore.Tables.TableScaleModels.Printers;
+using WsStorageCore.Entities.SchemaScale.PlusLabels;
+using WsStorageCore.Entities.SchemaScale.Printers;
 
 namespace WsLabelCore.Models;
 
@@ -52,7 +52,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     #region Public and private methods
 
     public void InitTsc(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        WsSqlPrinterModel printer, Label fieldPrint)
+        WsSqlPrinterEntity printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
@@ -131,7 +131,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
 
     public bool CheckDeviceStatusTsc() => GetDeviceStatusTsc() == WsLocaleCore.Print.StatusIsReadyToPrint;
 
-    public void SendCmdToTsc(WsSqlPluLabelModel pluLabel)
+    public void SendCmdToTsc(WsSqlPluLabelEntity pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
         ReopenTsc();

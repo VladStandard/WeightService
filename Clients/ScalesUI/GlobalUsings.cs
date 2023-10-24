@@ -24,4 +24,3 @@ global using WsScheduleCore.Helpers;
 global using WsScheduleCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
-global using WsStorageCore.Tables.TableConfModels.DeviceSettingsFks;

@@ -1,6 +1,12 @@
 using PrinterCore.Enums;
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
-using WsStorageCore.Tables.TableRefModels.WorkShops;
+using WsStorageCore.Entities.SchemaRef.ProductionSites;
+using WsStorageCore.Entities.SchemaRef.WorkShops;
+using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaScale.DeviceTypes;
+using WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
+using WsStorageCore.Entities.SchemaScale.PlusScales;
+using WsStorageCore.Entities.SchemaScale.PlusWeightings;
+using WsStorageCore.Entities.SchemaScale.Scales;
 namespace WsLabelCore.Helpers;
 
 /// <summary>
@@ -33,12 +39,12 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     public WsEnumPrintModel PrintModelMain => Line.Printer.PrinterType.Name.Contains("TSC ") ? WsEnumPrintModel.Tsc : WsEnumPrintModel.Zebra;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
-    public WsSqlPluWeighingModel PluWeighing { get; set; }
+    public WsSqlPluWeighingEntity PluWeighing { get; set; }
     public WsWeighingSettingsModel WeighingSettings { get; private set; }
-    public WsSqlPluScaleModel PluLine { get; private set; }
+    public WsSqlPluScaleEntity PluLine { get; private set; }
     public int PlusPageNumber { get; set; }
-    public WsSqlProductionSiteModel Area { get; private set; }
-    public WsSqlScaleModel Line { get; private set; }
+    public WsSqlProductionSiteEntity Area { get; private set; }
+    public WsSqlScaleEntity Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
     public DateTime ProductDate { get; set; }
     public WsSqlViewPluNestingModel ViewPluNesting { get; private set; }
@@ -93,10 +99,10 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     {
         SetSqlPublish();
         ContextCache.LoadGlobal();
-        WsSqlDeviceModel device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
+        WsSqlDeviceEntity device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
         device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
         device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
-        WsSqlDeviceTypeFkModel deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
+        WsSqlDeviceTypeFkEntity deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
         if (deviceTypeFk.IsNew)
         {
             WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
@@ -111,7 +117,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
         WeighingSettings = new();
     }
     
-    public void SetSessionForLabelPrintCustom(WsSqlScaleModel line, WsSqlProductionSiteModel area)
+    public void SetSessionForLabelPrintCustom(WsSqlScaleEntity line, WsSqlProductionSiteEntity area)
     {
         ContextCache.LoadGlobal();
         Line = line;
@@ -141,7 +147,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// <summary>
     /// Смена площадки.
     /// </summary>
-    private void SetArea(WsSqlProductionSiteModel area)
+    private void SetArea(WsSqlProductionSiteEntity area)
     {
         Area = area;
         ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
@@ -152,7 +158,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// </summary>
     private void SetAreaByLineWorkShop()
     {
-        WsSqlWorkShopModel workShop = ContextCache.WorkShops.Find(
+        WsSqlWorkShopEntity workShop = ContextCache.WorkShops.Find(
             item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
         if (workShop.IsExists)
             Area = ContextCache.Areas.Find(
@@ -167,7 +173,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// <summary>
     /// Смена ПЛУ линии.
     /// </summary>
-    public void SetPluLine(WsSqlPluScaleModel? pluLine = null)
+    public void SetPluLine(WsSqlPluScaleEntity? pluLine = null)
     {
         PluLine = pluLine ?? ContextManager.PluLineRepository.GetNewItem();
         // Журналирование смены ПЛУ на линии.

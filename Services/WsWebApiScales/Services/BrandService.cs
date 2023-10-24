@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
-using WsStorageCore.Tables.TableDiagModels.LogsWebs;
-using WsStorageCore.Tables.TableRef1cModels.Brands;
+using WsStorageCore.Entities.SchemaDiag.LogsWebs;
+using WsStorageCore.Entities.SchemaRef1c.Brands;
 using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
@@ -22,7 +22,7 @@ public class BrandService
     
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        WsSqlBrandModel brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
+        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
 
         brandDb.Name = brandDto.Name;
         brandDb.Code = brandDto.Code;
@@ -42,7 +42,7 @@ public class BrandService
     
     private void IsMarkedBrand(BrandDto brandDto)
     {
-        WsSqlBrandModel brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
+        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
         
         if (brandDb.IsNew)
         {

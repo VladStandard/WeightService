@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
+﻿using WsStorageCore.Entities.SchemaRef1c.Bundles;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 
 [TestFixture]
-public sealed class BundleValidatorTests : TableValidatorTests<WsSqlBundleModel>
+public sealed class BundleValidatorTests : TableValidatorTests<WsSqlBundleEntity>
 {
 }

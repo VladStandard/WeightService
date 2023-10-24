@@ -15,7 +15,6 @@ public class WsSqlTableBase
     public virtual string Description { get; set; } = string.Empty;
     public virtual bool IsExists => Identity.IsExists;
     public virtual bool IsNew => Identity.IsNew;
-    public virtual ParseResultModel ParseResult { get; set; } = new();
     public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
     public WsSqlTableBase()
@@ -36,7 +35,6 @@ public class WsSqlTableBase
         IsMarked = info.GetBoolean(nameof(IsMarked));
         Name = info.GetString(nameof(Name));
         Description = info.GetString(nameof(Description));
-        ParseResult = (ParseResultModel)info.GetValue(nameof(ParseResult), typeof(ParseResultModel));
     }
 
     public WsSqlTableBase(WsSqlTableBase item)
@@ -47,7 +45,6 @@ public class WsSqlTableBase
         IsMarked = item.IsMarked;
         Name = item.Name;
         Description = item.Description;
-        ParseResult = new(item.ParseResult);
     }
 
     #endregion
@@ -65,8 +62,7 @@ public class WsSqlTableBase
         Equals(ChangeDt, item.ChangeDt) &&
         Equals(IsMarked, item.IsMarked) &&
         Equals(Name, item.Name) &&
-        Equals(Description, item.Description) &&
-        Equals(ParseResult, item.ParseResult);
+        Equals(Description, item.Description);
 
     public override bool Equals(object obj)
     {
@@ -89,8 +85,7 @@ public class WsSqlTableBase
         Equals(ChangeDt, DateTime.MinValue) &&
         Equals(IsMarked, false) &&
         Equals(Name, string.Empty) &&
-        Equals(Description, string.Empty) &&
-        ParseResult.EqualsDefault();
+        Equals(Description, string.Empty);
 
     public virtual void SetDtNow()
     {
@@ -105,17 +100,6 @@ public class WsSqlTableBase
     protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";
     
     protected virtual string GetIsBool(bool isBool, string positive, string negative) => isBool? positive : negative;
-
-    #endregion
-
-    #region INotifyPropertyChanged
-
-    public virtual event PropertyChangedEventHandler? PropertyChanged;
-
-    public virtual void OnPropertyChanged([CallerMemberName] string memberName = "")
-    {
-        PropertyChanged?.Invoke(this, new(memberName));
-    }
 
     #endregion
 }

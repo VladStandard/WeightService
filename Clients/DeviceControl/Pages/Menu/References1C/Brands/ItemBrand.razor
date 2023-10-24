@@ -1,12 +1,10 @@
-@page "/section/brands/new"
+﻿@page "/section/brands/new"
 @page "/section/brands/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Brands
-@inherits ItemBase<WsStorageCore.Tables.TableRef1cModels.Brands.WsSqlBrandModel>
+@inherits ItemBase<WsSqlBrandEntity>
 
-<ItemTopBar TItem="@WsSqlBrandModel" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlBrandEntity" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

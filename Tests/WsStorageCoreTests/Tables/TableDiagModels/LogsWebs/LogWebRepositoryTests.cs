@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
+﻿using WsStorageCore.Entities.SchemaDiag.LogsWebs;
+namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
 
 [TestFixture]
 public sealed class LogWebsRepositoryTests : TableRepositoryTests
@@ -11,7 +12,7 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlLogWebModel> items = LogWebRepository.GetList(SqlCrudConfig);
+            List<WsSqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

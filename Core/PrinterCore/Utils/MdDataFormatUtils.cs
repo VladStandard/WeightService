@@ -1,10 +1,11 @@
 using PrinterCore.Zpl;
+using WsStorageCore.Entities.SchemaScale.TemplatesResources;
 using WsStorageCore.OrmUtils;
 namespace PrinterCore.Utils;
 
 public static class MdDataFormatUtils
 {
-    private static List<WsSqlTemplateResourceModel> _templateResources = new();
+    private static List<WsSqlTemplateResourceEntity> _templateResources = new();
 
     private static void LoadTemplatesResources(bool isForceUpdate)
     {
@@ -15,7 +16,7 @@ public static class MdDataFormatUtils
         
         sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         sqlCrudConfig.AddFilter(
-            SqlRestrictions.Equal(nameof(WsSqlTemplateResourceModel.Type), "ZPL")
+            SqlRestrictions.Equal(nameof(WsSqlTemplateResourceEntity.Type), "ZPL")
         );
         _templateResources = new WsSqlTemplateResourceRepository().GetList(sqlCrudConfig);
     }
@@ -29,7 +30,7 @@ public static class MdDataFormatUtils
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         LoadTemplatesResources(false);
-        foreach (WsSqlTemplateResourceModel resource in _templateResources)
+        foreach (WsSqlTemplateResourceEntity resource in _templateResources)
         {
             string name = $"[{resource.Name}]";
             if (!zpl.Contains(name))

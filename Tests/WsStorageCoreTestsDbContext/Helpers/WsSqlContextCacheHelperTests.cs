@@ -1,4 +1,5 @@
 
+using WsStorageCore.Entities.SchemaScale.Scales;
 namespace WsStorageCoreTestsDbContext.Helpers;
 
 [TestFixture]
@@ -19,11 +20,11 @@ public sealed class WsSqlContextCacheHelperTests
     public void Get_cache_view_plus_lines_current() =>
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlScaleModel> lines = LineRepository.GetEnumerable(new()).ToList();
+            List<WsSqlScaleEntity> lines = LineRepository.GetEnumerable(new()).ToList();
             Assert.That(lines.Any(), Is.True);
 
             bool isPrintFirst = false;
-            foreach (WsSqlScaleModel line in lines)
+            foreach (WsSqlScaleEntity line in lines)
             {
                 if (isPrintFirst) break;
                 isPrintFirst = true;

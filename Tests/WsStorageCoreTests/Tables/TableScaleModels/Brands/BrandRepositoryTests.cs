@@ -1,4 +1,4 @@
-using WsStorageCore.Tables.TableRef1cModels.Brands;
+﻿using WsStorageCore.Entities.SchemaRef1c.Brands;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 
@@ -12,7 +12,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlBrandModel> items = BrandRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

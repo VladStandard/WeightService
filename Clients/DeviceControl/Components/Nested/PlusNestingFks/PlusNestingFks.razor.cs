@@ -1,11 +1,10 @@
-using WsStorageCore.Tables.TableRef1cModels.Plus;
 namespace DeviceControl.Components.Nested.PlusNestingFks;
 
-public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkModel>
+public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkEntity>
 {
     #region Public and private fields, properties, constructor
     
-    [Parameter] public WsSqlPluModel Plu { get; set; }
+    [Parameter] public WsSqlPluEntity Plu { get; set; }
     private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     public PlusNestingFks() : base()
     {

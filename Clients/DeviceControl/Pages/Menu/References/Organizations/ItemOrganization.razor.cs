@@ -1,5 +1,5 @@
 namespace DeviceControl.Pages.Menu.References.Organizations;
 
-public sealed partial class ItemOrganization : ItemBase<WsSqlOrganizationModel>
+public sealed partial class ItemOrganization : ItemBase<WsSqlOrganizationEntity>
 {
 }

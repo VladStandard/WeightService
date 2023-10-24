@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Admins.Access;
 
-public sealed partial class Access : SectionBase<WsSqlAccessModel>
+public sealed partial class Access : SectionBase<WsSqlAccessEntity>
 {
     protected override void SetSqlSectionCast()
     {

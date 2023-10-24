@@ -1,8 +1,6 @@
-using WsStorageCore.Tables.TableRefModels.WorkShops;
-
 namespace DeviceControl.Pages.Menu.References.Workshops;
 
-public sealed partial class Workshops : SectionBase<WsSqlWorkShopModel>
+public sealed partial class Workshops : SectionBase<WsSqlWorkShopEntity>
 {
     protected override void SetSqlSectionCast()
     {

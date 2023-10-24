@@ -1,6 +1,7 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
+﻿using WsStorageCore.Entities.SchemaRef1c.Boxes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 
 [TestFixture]
-public sealed class BoxModelTests : TableModelTests<WsSqlBoxModel>
+public sealed class BoxModelTests : TableModelTests<WsSqlBoxEntity>
 {
 }

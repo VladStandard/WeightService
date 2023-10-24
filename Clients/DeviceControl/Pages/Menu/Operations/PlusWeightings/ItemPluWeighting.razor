@@ -1,13 +1,10 @@
 @page "/section/plus_weightings/new"
 @page "/section/plus_weightings/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.PlusWeighings
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.PlusWeighings.WsSqlPluWeighingModel>
+@inherits ItemBase<WsSqlPluWeighingEntity>
 
-<ItemTopBar TItem="@WsSqlPluWeighingModel" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPluWeighingEntity" Title="@WsLocaleCore.DeviceControl.ItemPluWeighing" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

@@ -1,10 +1,8 @@
-@page "/section/devices_types"
+﻿@page "/section/devices_types"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.DeviceTypes
-@inherits SectionBase<WsStorageCore.Tables.TableScaleModels.DeviceTypes.WsSqlDeviceTypeModel>
+@inherits SectionBase<WsSqlDeviceTypeModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.DeviceType"

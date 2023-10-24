@@ -1,14 +1,11 @@
 @page "/section/workshops/new"
 @page "/section/workshops/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRefModels.WorkShops
-@inherits ItemBase<WsStorageCore.Tables.TableRefModels.WorkShops.WsSqlWorkShopModel>
+@inherits ItemBase<WsSqlWorkShopEntity>
 
-<ItemTopBar TItem="@WsSqlWorkShopModel" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlWorkShopEntity" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>

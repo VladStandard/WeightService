@@ -1,14 +1,10 @@
 @page "/section/barcodes/new"
 @page "/section/barcodes/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
-@using WsDataCore.Enums
 @using DeviceControl.Components.Item
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.BarCodes
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.BarCodes.WsSqlBarCodeModel>
+@inherits ItemBase<WsSqlBarCodeEntity>
 
-<ItemTopBar TItem="@WsSqlBarCodeModel" Title="@WsLocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlBarCodeEntity" Title="@WsLocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

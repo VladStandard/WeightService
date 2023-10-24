@@ -1,6 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
-using WsStorageCore.Tables.TableRefModels.ProductionSites;
 namespace WsStorageCore.Models;
 
 [Serializable]
@@ -9,11 +8,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
 {
     #region Public and private properties - References
 
-    [XmlIgnore] public WsSqlPluLabelModel PluLabel { get; private set; }
+    [XmlIgnore] public WsSqlPluLabelEntity PluLabel { get; private set; }
     [XmlIgnore] private WsSqlViewPluNestingModel ViewPluNesting { get; set; }
-    [XmlIgnore] private WsSqlPluScaleModel PluScale { get; set; }
-    [XmlIgnore] private WsSqlPluWeighingModel PluWeighing { get; set; }
-    [XmlIgnore] private WsSqlProductionSiteModel ProductionSite { get; set; }
+    [XmlIgnore] private WsSqlPluScaleEntity PluScale { get; set; }
+    [XmlIgnore] private WsSqlPluWeighingEntity PluWeighing { get; set; }
+    [XmlIgnore] private WsSqlProductionSiteEntity ProductionSite { get; set; }
 
     #endregion
 
@@ -99,8 +98,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
         set => _ = value;
     }
     
-    public WsSqlPluLabelContextModel(WsSqlPluLabelModel pluLabel, WsSqlViewPluNestingModel viewPluNesting,
-        WsSqlPluScaleModel pluScale, WsSqlProductionSiteModel productionSite, WsSqlPluWeighingModel pluWeighing)
+    public WsSqlPluLabelContextModel(WsSqlPluLabelEntity pluLabel, WsSqlViewPluNestingModel viewPluNesting,
+        WsSqlPluScaleEntity pluScale, WsSqlProductionSiteEntity productionSite, WsSqlPluWeighingEntity pluWeighing)
     {
         PluLabel = pluLabel;
         ViewPluNesting = viewPluNesting;
@@ -114,11 +113,11 @@ public class WsSqlPluLabelContextModel : SerializeBase
     /// </summary>
     protected WsSqlPluLabelContextModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        PluLabel = (WsSqlPluLabelModel)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelModel));
+        PluLabel = (WsSqlPluLabelEntity)info.GetValue(nameof(PluLabel), typeof(WsSqlPluLabelEntity));
         ViewPluNesting = (WsSqlViewPluNestingModel)info.GetValue(nameof(ViewPluNesting), typeof(WsSqlViewPluNestingModel));
-        PluScale = (WsSqlPluScaleModel)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleModel));
-        PluWeighing = (WsSqlPluWeighingModel)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingModel));
-        ProductionSite = (WsSqlProductionSiteModel)info.GetValue(nameof(ProductionSite), typeof(WsSqlProductionSiteModel));
+        PluScale = (WsSqlPluScaleEntity)info.GetValue(nameof(PluScale), typeof(WsSqlPluScaleEntity));
+        PluWeighing = (WsSqlPluWeighingEntity)info.GetValue(nameof(PluWeighing), typeof(WsSqlPluWeighingEntity));
+        ProductionSite = (WsSqlProductionSiteEntity)info.GetValue(nameof(ProductionSite), typeof(WsSqlProductionSiteEntity));
 
         //Address = info.GetString(nameof(Address));
         //BarCodeGtin14 = info.GetString(nameof(BarCodeGtin14));

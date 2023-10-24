@@ -1,14 +1,11 @@
 @page "/section/printers/new"
 @page "/section/printers/{Id:long}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using DeviceControl.Services
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleModels.Printers
-@inherits ItemBase<WsStorageCore.Tables.TableScaleModels.Printers.WsSqlPrinterModel>
+@inherits ItemBase<WsSqlPrinterEntity>
 
-<ItemTopBar TItem="@WsSqlPrinterModel" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@WsSqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>

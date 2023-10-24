@@ -1,11 +1,12 @@
+using WsStorageCore.Entities.SchemaDiag.LogsTypes;
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
 public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 {
     private string? CurrentLogType { get; set; }
     private string? CurrentLine { get; set; }
-    private List<WsSqlLogTypeModel> LogTypes { get; set; }
-    private List<WsSqlScaleModel> Lines { get; set; }
+    private List<WsSqlLogTypeEntity> LogTypes { get; set; }
+    private List<WsSqlScaleEntity> Lines { get; set; }
 
     private WsSqlViewLogRepository ViewLogRepository { get; } = new();
     private WsSqlLogTypeRepository LogTypeRepository  { get; } = new();

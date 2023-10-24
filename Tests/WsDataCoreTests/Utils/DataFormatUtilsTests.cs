@@ -10,9 +10,9 @@ public sealed class DataFormatUtilsTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            //List<WsSqlTemplateResourceModel> templateResources = MdDataFormatUtils.LoadTemplatesResources(true);
+            //List<WsSqlTemplateResourceEntity> templateResources = MdDataFormatUtils.LoadTemplatesResources(true);
             //Assert.That(templateResources.Any(), Is.True);
-            //foreach (WsSqlTemplateResourceModel templateResource in templateResources)
+            //foreach (WsSqlTemplateResourceEntity templateResource in templateResources)
             //{
             //    TestContext.WriteLine(templateResource);
             //}

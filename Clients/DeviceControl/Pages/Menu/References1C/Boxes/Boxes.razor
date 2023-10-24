@@ -1,10 +1,8 @@
-@page "/section/boxes"
+﻿@page "/section/boxes"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableRef1cModels.Boxes
-@inherits SectionBase<WsStorageCore.Tables.TableRef1cModels.Boxes.WsSqlBoxModel>
+@inherits SectionBase<WsSqlBoxEntity>
 
 
 <SectionTopBar
@@ -17,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlBoxModel"
+  TItem="@WsSqlBoxEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -25,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlBoxModel">
+    <TItemContent TItem="@WsSqlBoxEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="75%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.BoxWeight" Property="Weight"/>

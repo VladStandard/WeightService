@@ -1,9 +1,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using DeviceControl.Utils
-@using WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks
-@inherits SectionBase<WsStorageCore.Tables.TableScaleFkModels.PlusNestingFks.WsSqlPluNestingFkModel>
+@inherits SectionBase<WsSqlPluNestingFkEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusNestingFk"
@@ -15,7 +13,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPluNestingFkModel"
+  TItem="@WsSqlPluNestingFkEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -23,7 +21,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPluNestingFkModel">
+    <TItemContent TItem="@WsSqlPluNestingFkEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.IsDefault" SortProperty="IsDefault" Width="10%">
         <Template Context="itemCast">

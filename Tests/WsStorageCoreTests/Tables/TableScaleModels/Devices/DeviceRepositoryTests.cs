@@ -1,4 +1,5 @@
-using MDSoft.NetUtils;
+﻿using MDSoft.NetUtils;
+using WsStorageCore.Entities.SchemaScale.Devices;
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Devices;
 
@@ -12,7 +13,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceModel> items = DeviceRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlDeviceEntity> items = DeviceRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }
@@ -23,8 +24,8 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlDeviceModel device = DeviceRepository.GetItemByNameOrCreate(pcName);
-            WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(device.IdentityValueUid);
+            WsSqlDeviceEntity device = DeviceRepository.GetItemByNameOrCreate(pcName);
+            WsSqlDeviceEntity deviceByUid = DeviceRepository.GetItemByUid(device.IdentityValueUid);
 
             Assert.That(device.IsExists, Is.True);
             Assert.That(deviceByUid.IsExists, Is.True);
@@ -39,9 +40,9 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlDeviceModel deviceByName = DeviceRepository.GetItemByName(pcName);
+            WsSqlDeviceEntity deviceByName = DeviceRepository.GetItemByName(pcName);
             Guid uid = deviceByName.IdentityValueUid;
-            WsSqlDeviceModel deviceByUid = DeviceRepository.GetItemByUid(uid);
+            WsSqlDeviceEntity deviceByUid = DeviceRepository.GetItemByUid(uid);
 
             Assert.That(deviceByUid.IsExists, Is.True);
             Assert.That(deviceByUid.IdentityValueUid, Is.EqualTo(uid));
@@ -55,7 +56,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlDeviceModel device = DeviceRepository.GetNewItem();
+            WsSqlDeviceEntity device = DeviceRepository.GetNewItem();
             Assert.That(device.IsNew, Is.True);
             TestContext.WriteLine($"New item: {device.IdentityValueUid}");
         }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });

@@ -1,4 +1,5 @@
-﻿namespace WsStorageCoreTests.Tables.TableScaleModels.PrintersTypes;
+﻿using WsStorageCore.Entities.SchemaScale.PrintersTypes;
+namespace WsStorageCoreTests.Tables.TableScaleModels.PrintersTypes;
 
 [TestFixture]
 public sealed class PrinterTypeRepositoryTests : TableRepositoryTests
@@ -10,7 +11,7 @@ public sealed class PrinterTypeRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPrinterTypeModel> items = PrinterTypeRepository.GetList(SqlCrudConfig);
+            List<WsSqlPrinterTypeEntity> items = PrinterTypeRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false, DefaultConfigurations);
     }

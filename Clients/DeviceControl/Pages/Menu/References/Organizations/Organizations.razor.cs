@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References.Organizations;
 
-public sealed partial class Organizations : SectionBase<WsSqlOrganizationModel>
+public sealed partial class Organizations : SectionBase<WsSqlOrganizationEntity>
 {
     protected override void SetSqlSectionCast()
     {

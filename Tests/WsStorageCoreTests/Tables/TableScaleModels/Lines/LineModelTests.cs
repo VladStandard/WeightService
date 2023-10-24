@@ -1,6 +1,7 @@
+using WsStorageCore.Entities.SchemaScale.Scales;
 namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]
-public sealed class LineModelTests : TableModelTests<WsSqlScaleModel>
+public sealed class LineModelTests : TableModelTests<WsSqlScaleEntity>
 {
 }
