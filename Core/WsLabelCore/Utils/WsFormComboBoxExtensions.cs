@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 namespace WsLabelCore.Utils;
 
 /// <summary>
@@ -6,7 +7,7 @@ namespace WsLabelCore.Utils;
 #nullable enable
 public static class WsFormComboBoxExtensions
 {
-    public static void SetEventWithItems(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+    public static void SetEventWithItems(this ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
     {
         if (!sourceList.Any() || selectedIndex < 0) return;
 
@@ -21,7 +22,7 @@ public static class WsFormComboBoxExtensions
             SetEventWithItemsWork(comboBox, eventHandler, sourceList, selectedIndex);
     }
 
-    private static void SetEventWithItemsWork(this System.Windows.Forms.ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, 
+    private static void SetEventWithItemsWork(this ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, 
         int selectedIndex = 0)
     {
         comboBox.SelectedIndexChanged -= eventHandler;

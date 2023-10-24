@@ -1,6 +1,6 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ScalesUITests")]
+[assembly: InternalsVisibleTo("ScalesUITests")]
 [assembly: AssemblyTitle("ScalesUI")]
 [assembly: AssemblyDescription("Печать этикеток")]
 [assembly: AssemblyConfiguration("")]

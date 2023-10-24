@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using WsWebApiScales.Dto.PluCharacteristic;
-
 namespace WsWebApiScales.Validators;
 
 public class PluCharacteristicDtoValidator : AbstractValidator<PluCharacteristicDto>

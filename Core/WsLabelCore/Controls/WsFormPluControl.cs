@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 using WsStorageCore.Entities.SchemaRef1c.Plus;
-
+using SystemColors=System.Drawing.SystemColors;
 namespace WsLabelCore.Controls;
 
 /// <summary>
@@ -30,7 +30,7 @@ public sealed class WsFormPluControl : UserControl
         Dock = DockStyle.Fill;
         Visible = true;
         Location = new(0, 0);
-        BackColor = System.Drawing.SystemColors.Control;
+        BackColor = SystemColors.Control;
         ActionPluSelect = actionPluSelect;
         Tag = viewPluScale;
         Click += PluSelect;

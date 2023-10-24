@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
-
 namespace WsLabelCore.Pages;
 
 /// <summary>

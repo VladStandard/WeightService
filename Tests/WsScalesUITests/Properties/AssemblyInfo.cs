@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-
 [assembly: AssemblyTitle("WsScalesUITests")]
 [assembly: AssemblyDescription("Тесты печати этикеток")]
 [assembly: AssemblyConfiguration("")]

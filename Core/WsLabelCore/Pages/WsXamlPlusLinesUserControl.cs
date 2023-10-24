@@ -1,6 +1,4 @@
 using System.Windows.Forms;
-using Control = System.Windows.Forms.Control;
-
 namespace WsLabelCore.Pages;
 
 /// <summary>

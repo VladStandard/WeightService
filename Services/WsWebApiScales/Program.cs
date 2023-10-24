@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc.Formatters;
 using WsWebApiCore.Settings;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Services;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales), false);
@@ -29,7 +29,7 @@ builder.Services.AddMvc(options =>
 
 
 builder.Services.AddControllers(options => {
-    options.OutputFormatters.Add(new Microsoft.AspNetCore.Mvc.Formatters.XmlSerializerOutputFormatter());
+    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
 });
 
 

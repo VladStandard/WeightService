@@ -1,9 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using WsScheduleCore.Helpers;
 using WsScheduleCore.Utils;
-
 namespace ConsoleQuartzDemo;
 
 internal class Program
@@ -47,7 +47,7 @@ internal class Program
             ConsoleKeyInfo key = Console.ReadKey();
             if (key.Key == ConsoleKey.Enter)
                 break;
-            System.Threading.Thread.Sleep(10);
+            Thread.Sleep(10);
         }
         Quartz.Close();
         await Console.Out.WriteLineAsync("Finish");

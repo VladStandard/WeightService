@@ -1,7 +1,7 @@
 using PrinterCore.Enums;
 using WsStorageCore.Entities.SchemaScale.PlusLabels;
 using WsStorageCore.Entities.SchemaScale.Printers;
-
+using DataReceivedEventArgs=SuperSimpleTcp.DataReceivedEventArgs;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -103,7 +103,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
             $"Server {e.IpPort} connected", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
-    private void WsTcpClientDataReceived(object sender, SuperSimpleTcp.DataReceivedEventArgs e)
+    private void WsTcpClientDataReceived(object sender, DataReceivedEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
         string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);

@@ -32,8 +32,6 @@ using WsStorageCore.Entities.SchemaScale.TasksTypes;
 using WsStorageCore.Entities.SchemaScale.Templates;
 using WsStorageCore.Entities.SchemaScale.TemplatesResources;
 using WsStorageCore.Entities.SchemaScale.Versions;
-
-
 namespace WsLabelCoreTests;
 
 public sealed class DataCoreHelper

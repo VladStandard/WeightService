@@ -1,4 +1,5 @@
 using PrinterCore.Enums;
+using TSCSDK;
 namespace ZplPrintSenderTool;
 
 public partial class FormMain : Form
@@ -6,7 +7,7 @@ public partial class FormMain : Form
 
     #region Public and private fields and properties
 
-    private readonly TSCSDK.driver _driver = new();
+    private readonly driver _driver = new();
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
     private readonly object _lockTcpClient = new();
     private SimpleTcpClient? _wsTcpClient;

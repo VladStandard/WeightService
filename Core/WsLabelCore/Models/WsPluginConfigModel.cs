@@ -1,3 +1,4 @@
+using Application=System.Windows.Forms.Application;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -42,7 +43,7 @@ public sealed class WsPluginConfigModel
         while (stopwatchSleep.Elapsed.TotalMilliseconds < milliseconds)
         {
             Thread.Sleep(WaitSleep);
-            System.Windows.Forms.Application.DoEvents();
+            Application.DoEvents();
         }
 
         stopwatchSleep.Stop();
@@ -56,7 +57,7 @@ public sealed class WsPluginConfigModel
         while (stopwatchSleep.Elapsed.TotalMilliseconds < milliseconds)
         {
             await Task.Delay(WaitSleep).ConfigureAwait(true);
-            System.Windows.Forms.Application.DoEvents();
+            Application.DoEvents();
         }
 
         stopwatchSleep.Stop();

@@ -1,5 +1,4 @@
 using WsStorageCore.Entities.SchemaRef.WorkShops;
-
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]

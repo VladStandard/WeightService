@@ -1,5 +1,4 @@
-using WsStorageCore.Views.ViewScaleModels.Devices;
-
+﻿using WsStorageCore.Views.ViewScaleModels.Devices;
 namespace WsStorageCoreTests.Views.ViewScaleModels.Devices;
 
 [TestFixture]

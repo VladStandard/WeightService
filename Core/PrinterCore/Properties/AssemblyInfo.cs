@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
-
 [assembly: AssemblyTitle("PrinterCore")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

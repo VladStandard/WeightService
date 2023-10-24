@@ -1,5 +1,4 @@
-using WsStorageCore.Views.ViewScaleModels.Logs;
-
+﻿using WsStorageCore.Views.ViewScaleModels.Logs;
 namespace WsStorageCoreTests.Views.ViewScaleModels.Logs;
 
 [TestFixture]

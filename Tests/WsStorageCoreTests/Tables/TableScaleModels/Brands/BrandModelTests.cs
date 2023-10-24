@@ -1,5 +1,4 @@
 using WsStorageCore.Entities.SchemaRef1c.Brands;
-
 namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 
 [TestFixture]

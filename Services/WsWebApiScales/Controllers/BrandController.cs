@@ -1,7 +1,6 @@
 ﻿using WsWebApiScales.Dto.Brand;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Services;
-
 namespace WsWebApiScales.Controllers;
 
 [AllowAnonymous]

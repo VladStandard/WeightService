@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-
 namespace SerialPortExchangeTool;
 
 static class Program

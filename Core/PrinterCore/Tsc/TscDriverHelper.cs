@@ -1,5 +1,6 @@
 using System.Threading;
 using PrinterCore.Enums;
+using TSCSDK;
 namespace PrinterCore.Tsc;
 
 public class TscDriverHelper
@@ -87,7 +88,7 @@ public class TscDriverHelper
 		switch (Properties.Channel)
 		{
 			case WsEnumPrintChannel.Name:
-				TSCSDK.driver driver = new();
+				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
 				result = driver.driver_status(Properties.PrintName);
@@ -173,7 +174,7 @@ public class TscDriverHelper
 		switch (Properties.Channel)
 		{
 			case WsEnumPrintChannel.Name:
-				TSCSDK.driver driver = new();
+				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
 				//driver.setup(Properties.Width.ToString(), Properties.Height.ToString(), Properties.Speed.ToString(),
@@ -193,7 +194,7 @@ public class TscDriverHelper
 				//driver.closeport_mult(9100);
 				break;
 			case WsEnumPrintChannel.Ethernet:
-				TSCSDK.ethernet ethernet = new();
+				ethernet ethernet = new();
 				ethernet.openport(Properties.PrintIp, Properties.PrintPort);
 				ethernet.clearbuffer();
 				//ethernet.setup(Properties.Width.ToString(), Properties.Height.ToString(), Properties.Speed.ToString(),
@@ -220,13 +221,13 @@ public class TscDriverHelper
 		switch (Properties.Channel)
 		{
 			case WsEnumPrintChannel.Name:
-				TSCSDK.driver driver = new();
+				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
 				driver.closeport();
 				break;
 			case WsEnumPrintChannel.Ethernet:
-				TSCSDK.ethernet ethernet = new();
+				ethernet ethernet = new();
 				ethernet.openport(Properties.PrintIp, Properties.PrintPort);
 				ethernet.clearbuffer();
 				ethernet.closeport();

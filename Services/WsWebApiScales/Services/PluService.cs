@@ -11,8 +11,6 @@ using WsWebApiCore.Utils;
 using WsWebApiScales.Dto.Plu;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Validators;
-
-
 namespace WsWebApiScales.Services;
 
 

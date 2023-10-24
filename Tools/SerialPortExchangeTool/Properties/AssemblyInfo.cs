@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-
 [assembly: AssemblyTitle("SerialPortExchangeTool")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-
+using SystemColors=System.Drawing.SystemColors;
 namespace WsLabelCore.Utils;
 
 /// <summary>
@@ -45,7 +45,7 @@ public static class WsFormUtils
             Visible = true,
             BackColor = Color.Transparent,
             Dock = DockStyle.Fill,
-            ForeColor = System.Drawing.SystemColors.ControlText,
+            ForeColor = SystemColors.ControlText,
             Margin = new(5, 2, 5, 2),
             Size = new(100, 100),
             UseVisualStyleBackColor = false,

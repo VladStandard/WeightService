@@ -1,5 +1,4 @@
 ﻿using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
-
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]

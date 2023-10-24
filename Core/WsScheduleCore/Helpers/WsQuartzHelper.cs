@@ -1,5 +1,4 @@
 using WsScheduleCore.Utils;
-
 namespace WsScheduleCore.Helpers;
 
 public class WsQuartzHelper

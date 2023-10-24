@@ -1,5 +1,4 @@
 using System.Windows.Forms;
-
 namespace WsLabelCore.Controls;
 
 public sealed partial class WsFormDigitsForm : Form

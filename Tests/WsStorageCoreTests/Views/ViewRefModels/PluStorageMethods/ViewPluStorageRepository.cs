@@ -1,5 +1,4 @@
 using WsStorageCore.Views.ViewRefModels.PluStorageMethods;
-
 namespace WsStorageCoreTests.Views.ViewRefModels.PluStorageMethods;
 
 public class ViewPluStorageRepository : ViewRepositoryTests

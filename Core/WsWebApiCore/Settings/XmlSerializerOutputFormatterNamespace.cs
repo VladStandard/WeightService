@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
-
 namespace WsWebApiCore.Settings;
 
 public class XmlSerializerOutputFormatterNamespace : XmlSerializerOutputFormatter

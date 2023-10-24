@@ -1,6 +1,5 @@
 using System.Reflection.Emit;
 using WsDataCore.Settings.Helpers;
-
 namespace WsDataCoreTests.Helpers;
 
 [TestFixture]

@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-
 namespace WsWebApiScales.Dto.Plu;
 
 [XmlRoot("Nomenclatures")]

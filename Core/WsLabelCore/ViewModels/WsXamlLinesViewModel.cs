@@ -1,6 +1,5 @@
 using WsStorageCore.Entities.SchemaRef.ProductionSites;
 using WsStorageCore.Entities.SchemaScale.Scales;
-
 namespace WsLabelCore.ViewModels;
 
 /// <summary>

@@ -1,6 +1,5 @@
 using System.Windows.Forms;
 using WsStorageCore.Entities.SchemaScale.Devices;
-
 namespace WsLabelCore.Utils;
 
 /// <summary>

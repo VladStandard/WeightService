@@ -1,5 +1,4 @@
 using System.Windows.Forms;
-
 namespace WsLabelCore.Utils;
 
 public static class WsFormExtensions

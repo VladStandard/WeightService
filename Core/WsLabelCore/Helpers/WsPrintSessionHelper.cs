@@ -5,7 +5,6 @@ using WsStorageCore.Entities.SchemaScale.PlusLabels;
 using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using WsStorageCore.Entities.SchemaScale.Templates;
 using WsStorageCore.Entities.SchemaScale.TemplatesResources;
-
 namespace WsLabelCore.Helpers;
 
 /// <summary>

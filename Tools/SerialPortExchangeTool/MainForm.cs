@@ -1,13 +1,13 @@
 using System;
-using System.IO.Ports;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
+using NullFX.CRC;
 using WsDataCore.Utils;
 using WsMassaCore.Helpers;
 using WsMassaCore.Models;
 using WsMassaCore.Utils;
-
 namespace SerialPortExchangeTool;
 
 public partial class MainForm : Form
@@ -442,7 +442,7 @@ public partial class MainForm : Form
         {
             //Add 2 bytes CRC to the end of the data
             byte[] senddata = Bytes.Hex2Bytes(sendText);
-            byte[] crcbytes = BitConverter.GetBytes(NullFX.CRC.Crc16.ComputeChecksum(NullFX.CRC.Crc16Algorithm.Ccitt, senddata));
+            byte[] crcbytes = BitConverter.GetBytes(Crc16.ComputeChecksum(Crc16Algorithm.Ccitt, senddata));
             sendText += "-" + BitConverter.ToString(crcbytes, 1, 1);
             sendText += "-" + BitConverter.ToString(crcbytes, 0, 1);
         }
@@ -470,7 +470,7 @@ public partial class MainForm : Form
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         {
             string fName = saveFileDialog.FileName;
-            System.IO.File.WriteAllText(fName, receivetbx.Text);
+            File.WriteAllText(fName, receivetbx.Text);
         }
     }
 
@@ -487,7 +487,7 @@ public partial class MainForm : Form
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         {
             string fName = saveFileDialog.FileName;
-            System.IO.File.WriteAllText(fName, sendtbx.Text);
+            File.WriteAllText(fName, sendtbx.Text);
         }
     }
 
