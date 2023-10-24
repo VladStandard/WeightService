@@ -60,7 +60,8 @@ public class WsSqlPluLabelContextModel : SerializeBase
     [XmlElement]
     public virtual string BarCodeTop
     {
-        get => $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
+        get => PluWeighing.IsExists ? $"298{ScaleNumber}{ScaleCounter8}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}"
+            : $"233{ScaleNumber}{PluNesting2}{ScaleCounter6}{ProductDateBarCodeFormat}{ProductTimeBarCodeFormat}{PluNumber}{PluWeighingKg2}{PluWeighingGr3}{PluWeighingKneading}";
         set => _ = value;
     }
     
