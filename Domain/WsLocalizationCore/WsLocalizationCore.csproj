@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Platforms>x64</Platforms>
+        <LangVersion>latest</LangVersion>
+        <Version>1.1.0.0</Version>
+        <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="CodingSeb.Localization" Version="1.3.0"/>
+        <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.3.0"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
+        <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Locales\Tests.loc.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Locales\LabelPrint.loc.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="Post-build.cmd"/>
+    </Target>
+</Project>

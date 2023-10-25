@@ -1,9 +1,0 @@
-global using System.Security.Cryptography;
-global using BenchmarkDotNet.Attributes;
-global using BenchmarkDotNet.Jobs;
-global using BenchmarkDotNet.Reports;
-global using BenchmarkDotNet.Running;
-global using WsBenchmarkCore.Common;
-global using WsStorageCore.Views.ViewDiagModels.LogsDevicesAggr;
-global using WsStorageCoreBenchmark.Domain;
-global using WsStorageCoreBenchmark.Template;
