@@ -11,7 +11,7 @@ public sealed class WsSqlAppRepository : WsSqlTableRepositoryBase<WsSqlAppEntity
     public WsSqlAppEntity GetItemByName(string appName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.Name), appName));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlEntityBase.Name), appName));
         return SqlCore.GetItemByCrud<WsSqlAppEntity>(sqlCrudConfig);
     }
 

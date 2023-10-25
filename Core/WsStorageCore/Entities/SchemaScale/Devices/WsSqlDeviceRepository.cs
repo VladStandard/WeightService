@@ -8,7 +8,7 @@ public sealed class WsSqlDeviceRepository : WsSqlTableRepositoryBase<WsSqlDevice
     public WsSqlDeviceEntity GetItemByName(string name)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.Name), name));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlEntityBase.Name), name));
         return SqlCore.GetItemByCrud<WsSqlDeviceEntity>(sqlCrudConfig);
     }
     

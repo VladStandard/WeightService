@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluTemplateFkEntity : WsSqlTableBase
+public class WsSqlPluTemplateFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

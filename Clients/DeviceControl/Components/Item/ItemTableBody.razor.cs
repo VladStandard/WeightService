@@ -4,7 +4,7 @@ public sealed partial class ItemTableBody : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public WsSqlTableBase SqlItem { get; set; }
+    [Parameter] public WsSqlEntityBase SqlItem { get; set; }
 
     private bool IsSqlItem1C => SqlItem is WsSqlTable1CBase;
 

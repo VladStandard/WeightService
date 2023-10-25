@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewScaleModels.PluWeightings;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewPluWeightingModel: WsSqlTableBase
+public class WsSqlViewPluWeightingModel: WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

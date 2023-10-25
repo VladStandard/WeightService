@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCoreTests.Tables.Common;
 
-public class TableValidatorTests<TItem> where TItem : WsSqlTableBase, new()
+public class TableValidatorTests<TItem> where TItem : WsSqlEntityBase, new()
 {
     [Test]
     public virtual void Model_Validate_IsFalse()

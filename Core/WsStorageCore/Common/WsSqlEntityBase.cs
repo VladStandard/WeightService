@@ -1,7 +1,7 @@
 namespace WsStorageCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTableBase
+public class WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 
@@ -17,27 +17,17 @@ public class WsSqlTableBase
     public virtual bool IsNew => Identity.IsNew;
     public virtual string DisplayName => IsNew ? WsLocaleCore.Table.FieldEmpty : Name;
 
-    public WsSqlTableBase()
+    public WsSqlEntityBase()
     {
         Identity = new(WsSqlEnumFieldIdentity.Empty);
     }
 
-    public WsSqlTableBase(WsSqlEnumFieldIdentity identityName) : this()
+    public WsSqlEntityBase(WsSqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }
 
-    protected WsSqlTableBase(SerializationInfo info, StreamingContext context)
-    {
-        Identity = (WsSqlFieldIdentityModel)info.GetValue(nameof(Identity), typeof(WsSqlFieldIdentityModel));
-        CreateDt = info.GetDateTime(nameof(CreateDt));
-        ChangeDt = info.GetDateTime(nameof(ChangeDt));
-        IsMarked = info.GetBoolean(nameof(IsMarked));
-        Name = info.GetString(nameof(Name));
-        Description = info.GetString(nameof(Description));
-    }
-
-    public WsSqlTableBase(WsSqlTableBase item)
+    public WsSqlEntityBase(WsSqlEntityBase item)
     {
         Identity = new(item.Identity);
         CreateDt = item.CreateDt;
@@ -56,7 +46,7 @@ public class WsSqlTableBase
         (string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ") + 
         (string.IsNullOrEmpty(Description) ? string.Empty : $"{Description}");
 
-    public virtual bool Equals(WsSqlTableBase item) =>
+    public virtual bool Equals(WsSqlEntityBase item) =>
         ReferenceEquals(this, item) || Identity.Equals(item.Identity) && //-V3130
         Equals(CreateDt, item.CreateDt) &&
         Equals(ChangeDt, item.ChangeDt) &&
@@ -69,7 +59,7 @@ public class WsSqlTableBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((WsSqlTableBase)obj);
+        return Equals((WsSqlEntityBase)obj);
     }
 
     public override int GetHashCode() => Identity.GetHashCode();

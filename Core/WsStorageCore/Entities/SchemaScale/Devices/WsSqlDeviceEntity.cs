@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.Devices;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlDeviceEntity : WsSqlTableBase
+public class WsSqlDeviceEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

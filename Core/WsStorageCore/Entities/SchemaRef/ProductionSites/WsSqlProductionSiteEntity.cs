@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaRef.ProductionSites;
 /// Table "ProductionSite".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlProductionSiteEntity : WsSqlTableBase
+public class WsSqlProductionSiteEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

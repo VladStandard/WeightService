@@ -9,19 +9,19 @@ public class WsRouteService
         _navigationManager = navigationManager;
     }
 
-    public void NavigateItemRoute(WsSqlTableBase? item)
+    public void NavigateItemRoute(WsSqlEntityBase? item)
     {
         if (item == null)
             return;
         _navigationManager.NavigateTo(GetItemRoute(item));
     }
 
-    public void NavigateSectionRoute(WsSqlTableBase item)
+    public void NavigateSectionRoute(WsSqlEntityBase item)
     {
         _navigationManager.NavigateTo(GetSectionRoute(item));
     }
 
-    public static string GetItemRoute(WsSqlTableBase? item)
+    public static string GetItemRoute(WsSqlEntityBase? item)
     {
         string page = GetSectionRoute(item);
         
@@ -36,7 +36,7 @@ public class WsRouteService
         };
     }
 
-    public static string GetSectionRoute(WsSqlTableBase? item) =>
+    public static string GetSectionRoute(WsSqlEntityBase? item) =>
         item switch
         {
             WsSqlAccessEntity => WsRouteUtils.SectionAccess,

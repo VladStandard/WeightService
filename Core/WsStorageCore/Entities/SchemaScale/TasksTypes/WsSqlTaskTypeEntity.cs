@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaScale.TasksTypes;
 /// Table "TASKS_TYPES".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTaskTypeEntity : WsSqlTableBase
+public class WsSqlTaskTypeEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

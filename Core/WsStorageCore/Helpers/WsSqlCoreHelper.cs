@@ -254,7 +254,7 @@ public sealed class WsSqlCoreHelper
     
     #region CRUD
 
-    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+    public void Save<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlEntityBase
 {
     if (item is null) throw new ArgumentException();
     item.CreateDt = DateTime.Now;
@@ -273,7 +273,7 @@ public sealed class WsSqlCoreHelper
     }
 }
 
-public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlEntityBase
 {
     if (item is null) throw new ArgumentException();
     item.ChangeDt = DateTime.Now;
@@ -291,7 +291,7 @@ public void Update<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessi
     }
 }
 
-public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlEntityBase
 {
     if (item is null) throw new ArgumentException();
 
@@ -309,7 +309,7 @@ public void Delete<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessi
     
 }
 
-public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlTableBase
+public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSessionType.Isolated) where T : WsSqlEntityBase
 {
     if (item is null) throw new ArgumentException();
 
@@ -332,7 +332,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
     
     #region Public and private methods - GetItem
 
-    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public T GetItemByCrud<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlEntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session =>
@@ -343,20 +343,20 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         return item ?? GetItemNewEmpty<T>();;
     }
     
-    public T GetItemByUid<T>(Guid uid) where T : WsSqlTableBase, new()
+    public T GetItemByUid<T>(Guid uid) where T : WsSqlEntityBase, new()
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueUid),  uid));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlEntityBase.IdentityValueUid),  uid));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
 
-    public T GetItemById<T>(long id) where T : WsSqlTableBase, new() {
+    public T GetItemById<T>(long id) where T : WsSqlEntityBase, new() {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.IdentityValueId),  id));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlEntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
 
-    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlTableBase, new() {
+    public T GetItemByIdentity<T>(WsSqlFieldIdentityModel? identity) where T : WsSqlEntityBase, new() {
         return identity?.Name switch
         {
             WsSqlEnumFieldIdentity.Uid => GetItemByUid<T>(identity.Uid),
@@ -365,7 +365,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         };
     }
 
-    public T GetItemFirst<T>() where T : WsSqlTableBase, new()
+    public T GetItemFirst<T>() where T : WsSqlEntityBase, new()
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.SelectTopRowsCount = 1;
@@ -374,7 +374,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         return result;
     }
 
-    public T GetItemNewEmpty<T>() where T : WsSqlTableBase, new()
+    public T GetItemNewEmpty<T>() where T : WsSqlEntityBase, new()
     {
         T result = new();
         result.FillProperties();
@@ -385,7 +385,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
 
     #region Public and private methods - GetList
 
-    public List<T> GetList<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public List<T> GetList<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlEntityBase, new()
     {
         List<T> items = new();
         ExecuteSelectCore(session =>
@@ -396,7 +396,7 @@ public void Mark<T>(T? item, WsSqlEnumSessionType sessionType = WsSqlEnumSession
         return items;
     }
 
-    public IEnumerable<T> GetEnumerable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlTableBase, new()
+    public IEnumerable<T> GetEnumerable<T>(WsSqlCrudConfigModel sqlCrudConfig) where T : WsSqlEntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         ExecuteSelectCore(session =>

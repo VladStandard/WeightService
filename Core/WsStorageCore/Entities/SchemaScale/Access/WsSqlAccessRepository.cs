@@ -16,7 +16,7 @@ public sealed class WsSqlAccessRepository : WsSqlTableRepositoryBase<WsSqlAccess
     public WsSqlAccessEntity GetItemByUsername(string userName)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlTableBase.Name), userName));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(WsSqlEntityBase.Name), userName));
         return SqlCore.GetItemByCrud<WsSqlAccessEntity>(sqlCrudConfig);
     }
     

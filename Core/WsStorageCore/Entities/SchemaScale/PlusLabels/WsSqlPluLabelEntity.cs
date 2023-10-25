@@ -6,7 +6,7 @@ namespace WsStorageCore.Entities.SchemaScale.PlusLabels;
 /// Table "PLUS_LABELS".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluLabelEntity : WsSqlTableBase
+public class WsSqlPluLabelEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     public virtual WsSqlPluWeighingEntity? PluWeighing { get; set; }

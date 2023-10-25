@@ -3,7 +3,7 @@
 namespace WsStorageCore.Entities.SchemaScale.PlusWeightings;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluWeighingEntity : WsSqlTableBase
+public class WsSqlPluWeighingEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

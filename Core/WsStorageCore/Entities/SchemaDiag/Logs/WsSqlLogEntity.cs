@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlLogEntity : WsSqlTableBase
+public class WsSqlLogEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

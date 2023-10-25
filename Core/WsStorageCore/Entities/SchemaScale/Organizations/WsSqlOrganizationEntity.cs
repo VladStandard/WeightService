@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.Organizations;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlOrganizationEntity : WsSqlTableBase
+public class WsSqlOrganizationEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

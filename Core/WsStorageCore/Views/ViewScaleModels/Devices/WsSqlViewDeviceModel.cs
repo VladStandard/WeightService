@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewScaleModels.Devices;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewDeviceModel : WsSqlTableBase
+public class WsSqlViewDeviceModel : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewScaleModels.Barcodes;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewBarcodeModel: WsSqlTableBase
+public class WsSqlViewBarcodeModel: WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

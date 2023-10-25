@@ -117,7 +117,7 @@ public sealed class DataCoreHelper
 		}
 	}
     
-    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
+    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlEntityBase, new() =>
 		AssertValidate(item, assertResult);
     
     private void AssertValidate<T>(T item, bool assertResult) where T : class, new()
@@ -139,7 +139,7 @@ public sealed class DataCoreHelper
 		});
 	}
 
-	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlTableBase, new()
+	public object? GetSqlPropertyValue<T>(bool isNotDefault, string propertyName) where T : WsSqlEntityBase, new()
 	{
 		// Arrange
 		T item = CreateNewSubstitute<T>(isNotDefault);
@@ -149,7 +149,7 @@ public sealed class DataCoreHelper
 		return value;
 	}
 
-	public void AssertSqlPropertyCheckDt<T>(string propertyName) where T : WsSqlTableBase, new()
+	public void AssertSqlPropertyCheckDt<T>(string propertyName) where T : WsSqlEntityBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -161,7 +161,7 @@ public sealed class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlPropertyCheckBool<T>(string propertyName) where T : WsSqlTableBase, new()
+	public void AssertSqlPropertyCheckBool<T>(string propertyName) where T : WsSqlEntityBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -173,7 +173,7 @@ public sealed class DataCoreHelper
 		}
 	}
 
-	public void AssertSqlPropertyCheckString<T>(string propertyName) where T : WsSqlTableBase, new()
+	public void AssertSqlPropertyCheckString<T>(string propertyName) where T : WsSqlEntityBase, new()
 	{
 		// Arrange & Act.
 		object? value = GetSqlPropertyValue<T>(true, propertyName);
@@ -185,7 +185,7 @@ public sealed class DataCoreHelper
 		}
 	}
 
-	public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlTableBase, new()
+	public T CreateNewSubstitute<T>(bool isNotDefault) where T : WsSqlEntityBase, new()
 	{
 		WsSqlFieldIdentityModel fieldIdentity = Substitute.For<WsSqlFieldIdentityModel>(WsSqlEnumFieldIdentity.Empty);
 		fieldIdentity.Uid.Returns(Guid.NewGuid());
@@ -325,13 +325,13 @@ public sealed class DataCoreHelper
 		return item;
 	}
 
-	public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlTableBase, new()
+	public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlEntityBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			WsSqlTableBase baseItem = new();
+			WsSqlEntityBase baseItem = new();
 			// Act.
 			bool itemEqualsNew = item.EqualsNew();
 			bool baseEqualsNew = baseItem.EqualsNew();
@@ -355,13 +355,13 @@ public sealed class DataCoreHelper
 		});
 	}
 
-	public void TableBaseModelAssertToString<T>() where T : WsSqlTableBase, new()
+	public void TableBaseModelAssertToString<T>() where T : WsSqlEntityBase, new()
 	{
 		Assert.DoesNotThrow(() =>
 		{
 			// Arrange.
 			T item = new();
-			WsSqlTableBase baseItem = new();
+			WsSqlEntityBase baseItem = new();
 			// Act.
 			string itemString = item.ToString();
 			string baseString = baseItem.ToString();

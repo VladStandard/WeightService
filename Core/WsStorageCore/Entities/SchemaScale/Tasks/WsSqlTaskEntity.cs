@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.Tasks;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTaskEntity : WsSqlTableBase
+public class WsSqlTaskEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

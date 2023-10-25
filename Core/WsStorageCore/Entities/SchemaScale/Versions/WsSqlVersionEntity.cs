@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaScale.Versions;
 /// Table "VERSIONS".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlVersionEntity : WsSqlTableBase
+public class WsSqlVersionEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewScaleModels.PluLabels;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewPluLabelModel: WsSqlTableBase
+public class WsSqlViewPluLabelModel: WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaRef.WorkShops;
 /// Table "WorkShop".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlWorkShopEntity : WsSqlTableBase
+public class WsSqlWorkShopEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

@@ -20,7 +20,7 @@ public class RazorComponentBase : LayoutComponentBase
 
     #region Public and private methods - Actions
 
-    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : WsSqlTableBase, new()
+    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : WsSqlEntityBase, new()
     {
         string detailAddition = string.Empty;
         bool result = WsSqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
@@ -43,18 +43,18 @@ public class RazorComponentBase : LayoutComponentBase
         }
     }
 
-    protected bool SqlItemValidate<T>(T item) where T : WsSqlTableBase, new()
+    protected bool SqlItemValidate<T>(T item) where T : WsSqlEntityBase, new()
     {
         string detailAddition = string.Empty;
         return WsSqlValidationUtils.IsValidation(item, ref detailAddition, !item.IsNew);
     }
     
-    protected static TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlTableBase, new()
+    protected static TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlEntityBase, new()
     {
         return ContextManager.SqlCore.GetItemNewEmpty<TItem>();
     }
 
-    protected void SqlItemSave<T>(T? item) where T : WsSqlTableBase, new()
+    protected void SqlItemSave<T>(T? item) where T : WsSqlEntityBase, new()
     {
         if (item is null || !SqlItemValidate(item)) 
             return;
@@ -64,7 +64,7 @@ public class RazorComponentBase : LayoutComponentBase
             ContextManager.SqlCore.Update(item);
     }
 
-    protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlTableBase, new()
+    protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlEntityBase, new()
     {
         if (items is null) return;
 

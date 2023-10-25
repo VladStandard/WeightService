@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 public sealed class PluWeighingRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluWeighingRepository PluWeighingRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetList()

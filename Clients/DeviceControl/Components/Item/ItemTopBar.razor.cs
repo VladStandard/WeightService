@@ -1,6 +1,6 @@
 namespace DeviceControl.Components.Item;
 
-public partial class ItemTopBar<TItem> : ComponentBase where TItem : WsSqlTableBase, new()
+public partial class ItemTopBar<TItem> : ComponentBase where TItem : WsSqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
     [Parameter] public EventCallback OnItemUpdate { get; set; }

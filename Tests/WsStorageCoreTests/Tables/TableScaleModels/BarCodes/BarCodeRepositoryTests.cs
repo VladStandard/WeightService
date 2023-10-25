@@ -6,7 +6,7 @@ public sealed class BarCodeRepositoryTests : TableRepositoryTests
 {
     private WsSqlBarcodeRepository BarcodeRepository { get; } = new();
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetList()

@@ -1,12 +1,12 @@
 namespace DeviceControl.Components.Common;
 
-public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
+public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase, new()
 {
     [Inject] protected WsJsService JsService { get; private set; } = default!;
     [Inject] protected WsRouteService RouteService { get; set; } = default!;
     [Parameter] public Guid Uid { get; set; }
     [Parameter] public long Id { get; set; }
-    protected WsSqlTableBase? SqlItem { get; private set; }
+    protected WsSqlEntityBase? SqlItem { get; private set; }
 
     #region Public and private fields, properties, constructor
 

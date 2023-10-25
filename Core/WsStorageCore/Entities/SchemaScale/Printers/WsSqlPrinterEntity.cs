@@ -2,7 +2,7 @@ namespace WsStorageCore.Entities.SchemaScale.Printers;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPrinterEntity : WsSqlTableBase
+public class WsSqlPrinterEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

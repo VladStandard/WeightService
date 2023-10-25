@@ -23,7 +23,7 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleEnt
     public IEnumerable<WsSqlScaleEntity> GetEnumerable(WsSqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(WsSqlTableBase.Description)));
+            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(WsSqlEntityBase.Description)));
         return SqlCore.GetEnumerable<WsSqlScaleEntity>(sqlCrudConfig);
     }
 

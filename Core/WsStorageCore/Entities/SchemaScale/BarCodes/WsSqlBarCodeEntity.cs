@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.BarCodes;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlBarCodeEntity : WsSqlTableBase
+public class WsSqlBarCodeEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

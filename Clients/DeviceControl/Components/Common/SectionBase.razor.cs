@@ -1,6 +1,6 @@
 namespace DeviceControl.Components.Common;
 
-public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBase, new()
+public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
 
@@ -9,7 +9,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlTableBas
     [Inject] protected WsRouteService RouteService { get; set; } = default!;
     [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
     [Inject] protected ContextMenuService ContextMenuService { get; set; } = default!;
-    [Parameter] public WsSqlTableBase? SqlItem { get; set; }
+    [Parameter] public WsSqlEntityBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     private List<TItem> SqlSectionSave { get; set; }

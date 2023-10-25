@@ -2,7 +2,7 @@ namespace WsStorageCore.Common;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTable1CBase : WsSqlTableBase
+public class WsSqlTable1CBase : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

@@ -5,7 +5,7 @@ namespace WsStorageCore.Entities.SchemaScale.Scales;
 /// Модель таблицы SCALES.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlScaleEntity : WsSqlTableBase
+public class WsSqlScaleEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

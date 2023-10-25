@@ -12,7 +12,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
         return LogRepository.GetList(SqlCrudConfig).First();
     }
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetEnumerable()

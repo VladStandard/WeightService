@@ -10,7 +10,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         return LineRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Description)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.Description)).Ascending;
 
     [Test, Order(1)]
     public void GetList()

@@ -1,6 +1,6 @@
 namespace DeviceControl.Components.Section;
 
-public partial class SectionIsMarked<TItem> : ComponentBase where TItem : WsSqlTableBase, new()
+public partial class SectionIsMarked<TItem> : ComponentBase where TItem : WsSqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
 

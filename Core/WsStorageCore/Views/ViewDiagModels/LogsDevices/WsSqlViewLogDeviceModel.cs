@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewDiagModels.LogsDevices;
 
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsSqlViewLogDeviceModel : WsSqlTableBase
+public sealed class WsSqlViewLogDeviceModel : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     public string LineName { get; init; }

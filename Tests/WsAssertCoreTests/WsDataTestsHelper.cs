@@ -86,7 +86,7 @@ public class WsDataTestsHelper
             TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
     }
 
-    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlTableBase, new() =>
+    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlEntityBase, new() =>
         AssertSqlTablesValidate(item, assertResult);
 
     private void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
@@ -109,7 +109,7 @@ public class WsDataTestsHelper
     }
     
 
-    public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlTableBase, new()
+    public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -118,7 +118,7 @@ public class WsDataTestsHelper
         });
     }
     
-    public void TableBaseModelAssertEqualsDefault<T>() where T : WsSqlTableBase, new()
+    public void TableBaseModelAssertEqualsDefault<T>() where T : WsSqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -142,13 +142,13 @@ public class WsDataTestsHelper
         });
     }
     
-    public void TableBaseModelAssertToString<T>() where T : WsSqlTableBase, new()
+    public void TableBaseModelAssertToString<T>() where T : WsSqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
             // Arrange.
             T item = new();
-            WsSqlTableBase baseItem = new();
+            WsSqlEntityBase baseItem = new();
             // Act.
             string itemString = item.ToString();
             string baseString = baseItem.ToString();

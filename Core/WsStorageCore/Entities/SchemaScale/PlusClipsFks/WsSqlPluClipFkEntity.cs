@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.PlusClipsFks;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluClipFkEntity : WsSqlTableBase
+public class WsSqlPluClipFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 
@@ -14,16 +14,7 @@ public class WsSqlPluClipFkEntity : WsSqlTableBase
         Plu = new();
 
     }
-
-    /// <summary>
-    /// Constructor for serialization.
-    /// </summary>
-    protected WsSqlPluClipFkEntity(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Plu = (WsSqlPluEntity)info.GetValue(nameof(Plu), typeof(WsSqlPluEntity));
-        Clip = (WsSqlClipEntity)info.GetValue(nameof(Clip), typeof(WsSqlClipEntity));
-    }
-
+    
     public WsSqlPluClipFkEntity(WsSqlPluClipFkEntity item) : base(item)
     {
         Clip = new(item.Clip);

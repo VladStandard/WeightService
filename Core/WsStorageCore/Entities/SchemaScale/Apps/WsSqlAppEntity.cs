@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaScale.Apps;
 /// Table "APPS".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlAppEntity : WsSqlTableBase
+public class WsSqlAppEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

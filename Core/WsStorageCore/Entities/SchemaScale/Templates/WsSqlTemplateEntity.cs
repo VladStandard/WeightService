@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaScale.Templates;
 /// Table "Templates".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTemplateEntity : WsSqlTableBase
+public class WsSqlTemplateEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

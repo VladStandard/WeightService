@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaScale.PlusNestingFks;
 /// Доменная модель таблицы PLUS_NESTING_FK.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluNestingFkEntity : WsSqlTableBase
+public class WsSqlPluNestingFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     public virtual WsSqlBoxEntity Box { get; set; }

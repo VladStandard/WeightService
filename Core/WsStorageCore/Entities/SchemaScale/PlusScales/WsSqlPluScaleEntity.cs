@@ -3,7 +3,7 @@
 namespace WsStorageCore.Entities.SchemaScale.PlusScales;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluScaleEntity : WsSqlTableBase
+public class WsSqlPluScaleEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

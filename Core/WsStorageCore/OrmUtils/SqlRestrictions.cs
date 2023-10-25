@@ -6,13 +6,13 @@ public static class SqlRestrictions
 
     public static ICriterion Equal(string propertyName, object value) => Restrictions.Eq(propertyName, value);
     
-    public static ICriterion EqualFk(string propertyName, WsSqlTableBase item)
+    public static ICriterion EqualFk(string propertyName, WsSqlEntityBase item)
     {
         return item.Identity.Name switch
         {
-            WsSqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueUid)}",
+            WsSqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(WsSqlEntityBase.IdentityValueUid)}",
             item.Identity.Uid),
-            WsSqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(WsSqlTableBase.IdentityValueId)}",
+            WsSqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(WsSqlEntityBase.IdentityValueId)}",
             item.Identity.Id),
             _ => throw new ArgumentException("Unsupported field identity.")
         };
@@ -23,9 +23,9 @@ public static class SqlRestrictions
     
     public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(WsSqlTable1CBase.Uid1C), uid1C);
     
-    public static ICriterion IsMarked() => Restrictions.Eq(nameof(WsSqlTableBase.IsMarked), true);
+    public static ICriterion IsMarked() => Restrictions.Eq(nameof(WsSqlEntityBase.IsMarked), true);
     
-    public static ICriterion IsActual() => Restrictions.Eq(nameof(WsSqlTableBase.IsMarked), false);
+    public static ICriterion IsActual() => Restrictions.Eq(nameof(WsSqlEntityBase.IsMarked), false);
     
     #endregion
 

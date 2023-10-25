@@ -1,7 +1,7 @@
 namespace WsStorageCore.Models;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlTableBase
+public class WsSqlTableValidator<T> : AbstractValidator<T> where T : WsSqlEntityBase
 {
     protected WsSqlTableValidator(bool isCheckIdentity, bool isCheckCreateDt, bool isCheckChangeDt)
     {

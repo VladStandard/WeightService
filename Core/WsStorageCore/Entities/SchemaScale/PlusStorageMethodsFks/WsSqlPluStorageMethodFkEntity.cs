@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlPluStorageMethodFkEntity : WsSqlTableBase
+public class WsSqlPluStorageMethodFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

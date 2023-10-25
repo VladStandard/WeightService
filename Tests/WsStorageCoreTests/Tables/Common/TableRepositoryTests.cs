@@ -17,9 +17,9 @@ public class TableRepositoryTests
         SqlCrudConfig = new() { SelectTopRowsCount = 10, IsResultOrder = true };
     }
 
-    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.Name)).Ascending;
+    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.Name)).Ascending;
 
-    protected void ParseRecords<T>(IEnumerable<T> items) where T : WsSqlTableBase, new()
+    protected void ParseRecords<T>(IEnumerable<T> items) where T : WsSqlEntityBase, new()
     {
         List<T> list = items.ToList();
         Assert.That(list.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");

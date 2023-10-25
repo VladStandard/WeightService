@@ -1,7 +1,7 @@
 namespace WsStorageCore.Views.ViewScaleModels.Logs;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlViewLogModel : WsSqlTableBase
+public class WsSqlViewLogModel : WsSqlEntityBase
 {
 	#region Public and private fields, properties, constructor
 

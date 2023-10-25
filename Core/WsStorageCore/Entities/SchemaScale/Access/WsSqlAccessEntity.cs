@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.Access;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlAccessEntity : WsSqlTableBase
+public class WsSqlAccessEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

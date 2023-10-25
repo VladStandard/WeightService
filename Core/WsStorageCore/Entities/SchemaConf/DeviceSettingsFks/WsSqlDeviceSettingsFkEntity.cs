@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
 /// Таблица "DEVICES_SETTINGS_FK".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlDeviceSettingsFkEntity : WsSqlTableBase
+public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     

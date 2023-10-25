@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 public sealed class PluLabelRepositoryTests : TableRepositoryTests
 {
     private WsSqlPluLabelRepository PluLabelRepository { get; set; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlTableBase.ChangeDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetList()

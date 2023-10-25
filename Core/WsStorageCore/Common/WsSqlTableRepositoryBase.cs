@@ -1,6 +1,6 @@
 namespace WsStorageCore.Common;
 
-public class WsSqlTableRepositoryBase<T> : IWsSqlTableBaseRepository<T> where T : WsSqlTableBase, new()
+public class WsSqlTableRepositoryBase<T> : IWsSqlTableBaseRepository<T> where T : WsSqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
 

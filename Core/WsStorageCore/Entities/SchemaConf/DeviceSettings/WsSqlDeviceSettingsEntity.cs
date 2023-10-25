@@ -4,7 +4,7 @@ namespace WsStorageCore.Entities.SchemaConf.DeviceSettings;
 /// Таблица "DEVICES_SETTINGS".
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlDeviceSettingsEntity : WsSqlTableBase
+public class WsSqlDeviceSettingsEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

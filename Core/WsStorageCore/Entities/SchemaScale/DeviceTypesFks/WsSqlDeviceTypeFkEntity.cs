@@ -1,7 +1,7 @@
 namespace WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
 
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlDeviceTypeFkEntity : WsSqlTableBase
+public class WsSqlDeviceTypeFkEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 

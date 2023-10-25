@@ -7,7 +7,7 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
     private WsSqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
 
     protected override IResolveConstraint SortOrderValue =>
-        Is.Ordered.By(nameof(WsSqlTableBase.Name)).Ascending.Then.By(nameof(WsSqlTemplateResourceEntity.Type)).Ascending;
+        Is.Ordered.By(nameof(WsSqlEntityBase.Name)).Ascending.Then.By(nameof(WsSqlTemplateResourceEntity.Type)).Ascending;
 
     [Test]
     public void GetList()
