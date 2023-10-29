@@ -1,233 +1,230 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">DevelopVS</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-        <ProjectGuid>{0F26292C-8B1B-4CE7-A1B7-D432ED7E492C}</ProjectGuid>
-        <OutputType>WinExe</OutputType>
-        <RootNamespace>ScalesUI</RootNamespace>
-        <AssemblyName>ScalesUI</AssemblyName>
-        <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <Deterministic>true</Deterministic>
-        <IsWebBootstrapper>false</IsWebBootstrapper>
-        <NuGetPackageImportStamp>
-        </NuGetPackageImportStamp>
-        <TargetFrameworkProfile/>
-        <LangVersion>latest</LangVersion>
-        <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-16-Stend\</PublishUrl>
-        <Install>true</Install>
-        <InstallFrom>Unc</InstallFrom>
-        <UpdateEnabled>true</UpdateEnabled>
-        <UpdateMode>Foreground</UpdateMode>
-        <UpdateInterval>7</UpdateInterval>
-        <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-        <UpdatePeriodically>false</UpdatePeriodically>
-        <UpdateRequired>false</UpdateRequired>
-        <MapFileExtensions>false</MapFileExtensions>
-        <TargetCulture>ru</TargetCulture>
-        <ProductName>ScalesUI</ProductName>
-        <PublisherName>Vladimir Standard</PublisherName>
-        <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-        <WebPage>publish.htm</WebPage>
-        <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-        <ApplicationRevision>0</ApplicationRevision>
-        <ApplicationVersion>1.1.0.0</ApplicationVersion>
-        <UseApplicationTrust>false</UseApplicationTrust>
-        <CreateDesktopShortcut>true</CreateDesktopShortcut>
-        <PublishWizardCompleted>true</PublishWizardCompleted>
-        <BootstrapperEnabled>true</BootstrapperEnabled>
-        <BootstrapperComponentsLocation>Absolute</BootstrapperComponentsLocation>
-        <BootstrapperComponentsUrl>\\palych\Install\NET\</BootstrapperComponentsUrl>
-    </PropertyGroup>
-    <PropertyGroup>
-        <StartupObject>ScalesUI.Program</StartupObject>
-    </PropertyGroup>
-    <PropertyGroup>
-        <ApplicationIcon>ScalesUI.ico</ApplicationIcon>
-    </PropertyGroup>
-    <PropertyGroup>
-        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    </PropertyGroup>
-    <PropertyGroup>
-        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    </PropertyGroup>
-    <PropertyGroup>
-        <ManifestCertificateThumbprint>4F81E2B818691F5823AE40971B06D9D349FA5BD1</ManifestCertificateThumbprint>
-    </PropertyGroup>
-    <PropertyGroup>
-        <ManifestKeyFile>ScalesUI2_TemporaryKey.pfx</ManifestKeyFile>
-    </PropertyGroup>
-    <PropertyGroup>
-        <GenerateManifests>true</GenerateManifests>
-    </PropertyGroup>
-    <PropertyGroup>
-        <SignManifests>false</SignManifests>
-    </PropertyGroup>
-    <PropertyGroup>
-        <TargetZone>LocalIntranet</TargetZone>
-    </PropertyGroup>
-    <PropertyGroup>
-        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="PresentationCore"/>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
-        <Reference Include="System.Net"/>
-        <Reference Include="System.Transactions"/>
-        <Reference Include="System.Windows"/>
-        <Reference Include="System.Xaml"/>
-        <Reference Include="System.Drawing"/>
-        <Reference Include="System.Windows.Forms"/>
-        <Reference Include="System.Xml"/>
-        <Reference Include="System.Xml.Linq"/>
-        <Reference Include="WindowsBase"/>
-        <Reference Include="WindowsFormsIntegration"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Forms\WsMainForm.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainForm.Designer.cs">
-            <DependentUpon>WsMainForm.cs</DependentUpon>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNaviDeviceSettings.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNaviPluLine.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNaviKneading.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNaviLine.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="Forms\WsMainFormNavi.cs">
-            <SubType>Form</SubType>
-        </Compile>
-        <Compile Include="GlobalUsings.cs"/>
-        <Compile Include="Helpers\WsSchedulerHelper.cs"/>
-        <Compile Include="Program.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Properties\Resources.Designer.cs">
-            <AutoGen>True</AutoGen>
-            <DesignTime>True</DesignTime>
-            <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
-        <Compile Include="Properties\Settings.Designer.cs">
-            <AutoGen>True</AutoGen>
-            <DesignTimeSharedInput>True</DesignTimeSharedInput>
-            <DependentUpon>Settings.settings</DependentUpon>
-        </Compile>
-        <None Include="Properties\app.manifest"/>
-        <None Include="Properties\Settings.settings">
-            <Generator>SettingsSingleFileGenerator</Generator>
-            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-        </None>
-        <EmbeddedResource Include="Forms\WsMainForm.resx">
-            <DependentUpon>WsMainForm.cs</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Include="Properties\Resources.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-            <SubType>Designer</SubType>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
-        <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
-            <Visible>False</Visible>
-            <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
-            <Install>true</Install>
-        </BootstrapperPackage>
-        <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-            <Visible>False</Visible>
-            <ProductName>.NET Framework 3.5 SP1</ProductName>
-            <Install>false</Install>
-        </BootstrapperPackage>
-    </ItemGroup>
-    <ItemGroup>
-        <WCFMetadata Include="Connected Services\"/>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <PropertyGroup>
-        <PreBuildEvent>
-        </PreBuildEvent>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Include="App.config"/>
-        <None Include="App.DevelopAleksandrov.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Include="App.DevelopMorozov.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Include="App.DevelopVS.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Include="App.ReleaseVS.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="README.md"/>
-        <None Include="Resources\exit_1.png"/>
-        <None Include="Resources\exit_2.png"/>
-        <None Include="Resources\left_1.png"/>
-        <None Include="Resources\settings_2.png"/>
-        <None Include="Resources\settings_3.png"/>
-        <None Include="Resources\settings_1.png"/>
-        <Content Include="ScalesUI.ico"/>
-    </ItemGroup>
-    <ItemGroup>
-        <PublishFile Include="System.Runtime.WindowsRuntime">
-            <Visible>False</Visible>
-            <Group>
-            </Group>
-            <TargetPath>
-            </TargetPath>
-            <PublishState>Include</PublishState>
-            <IncludeHash>True</IncludeHash>
-            <FileType>Assembly</FileType>
-        </PublishFile>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj">
-          <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
-          <Name>WsStorageCore</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Domain\PrinterCore\PrinterCore.csproj">
-          <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
-          <Name>PrinterCore</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj">
-          <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
-          <Name>WsDataCore</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Domain\WsLabelCore\WsLabelCore.csproj">
-          <Project>{c71c3398-8da4-4729-ac11-08f48207aff7}</Project>
-          <Name>WsLabelCore</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj">
-          <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
-          <Name>WsLocalizationCore</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\..\Domain\WsScheduleCore\WsScheduleCore.csproj">
-          <Project>{13678a17-222a-4f45-85d7-261629c4fa17}</Project>
-          <Name>WsScheduleCore</Name>
-        </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="MouseKeyHook" Version="5.7.1"/>
-    </ItemGroup>
-    <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll"/>
-    <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
-        <TransformXml Source="App.config" Transform="App.$(Configuration).config" Destination="App.config" StackTrace="true"/>
-    </Target>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">DevelopVS</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{0F26292C-8B1B-4CE7-A1B7-D432ED7E492C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ScalesUI</RootNamespace>
+    <AssemblyName>ScalesUI</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <LangVersion>latest</LangVersion>
+    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-16-Stend\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <TargetCulture>ru</TargetCulture>
+    <ProductName>ScalesUI</ProductName>
+    <PublisherName>Vladimir Standard</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Absolute</BootstrapperComponentsLocation>
+    <BootstrapperComponentsUrl>\\palych\Install\NET\</BootstrapperComponentsUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ScalesUI.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ScalesUI.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>4F81E2B818691F5823AE40971B06D9D349FA5BD1</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ScalesUI2_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\WsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WsMainForm.Designer.cs">
+      <DependentUpon>WsMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WsMainFormNaviPluLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WsMainFormNaviKneading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WsMainFormNaviLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WsMainFormNavi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\WsSchedulerHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Forms\WsMainForm.resx">
+      <DependentUpon>WsMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="App.DevelopAleksandrov.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.DevelopMorozov.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.DevelopVS.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.ReleaseVS.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="Resources\exit_1.png" />
+    <None Include="Resources\exit_2.png" />
+    <None Include="Resources\left_1.png" />
+    <None Include="Resources\settings_2.png" />
+    <None Include="Resources\settings_3.png" />
+    <None Include="Resources\settings_1.png" />
+    <Content Include="ScalesUI.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="System.Runtime.WindowsRuntime">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj">
+      <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
+      <Name>WsStorageCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\PrinterCore\PrinterCore.csproj">
+      <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
+      <Name>PrinterCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj">
+      <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
+      <Name>WsDataCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\WsLabelCore\WsLabelCore.csproj">
+      <Project>{c71c3398-8da4-4729-ac11-08f48207aff7}</Project>
+      <Name>WsLabelCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj">
+      <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
+      <Name>WsLocalizationCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\WsScheduleCore\WsScheduleCore.csproj">
+      <Project>{13678a17-222a-4f45-85d7-261629c4fa17}</Project>
+      <Name>WsScheduleCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MouseKeyHook" Version="5.7.1" />
+  </ItemGroup>
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
+    <TransformXml Source="App.config" Transform="App.$(Configuration).config" Destination="App.config" StackTrace="true" />
+  </Target>
 </Project>

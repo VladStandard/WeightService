@@ -115,8 +115,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlTaskTypeMap>();
         mapper.AddMapping<WsSqlTaskMap>();
         mapper.AddMapping<WsSqlLogWebMap>();
-        mapper.AddMapping<WsSqlDeviceSettingsMap>();
-        mapper.AddMapping<WsSqlDeviceSettingsFkMap>();
         mapper.AddMapping<WsSqlPluFkMap>();
         mapper.AddMapping<WsSqlPluNestingFkMap>();
         mapper.AddMapping<WsSqlPluStorageMethodFkMap>();

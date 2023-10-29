@@ -5,7 +5,7 @@ namespace WsLabelCore.ViewModels;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-public sealed class WsXamlDialogViewModel : WsXamlBaseViewModel, IWsViewModel
+public sealed class WsXamlDialogViewModel : WsXamlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 

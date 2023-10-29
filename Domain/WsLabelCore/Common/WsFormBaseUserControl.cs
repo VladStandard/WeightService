@@ -33,10 +33,6 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
         ElementHost = new() { Dock = DockStyle.Fill };
         switch (formUserControl)
         {
-            case WsEnumNavigationPage.DeviceSettings:
-                Page = new WsXamlDeviceSettingsPage();
-                SetupElementHost();
-                break;
             case WsEnumNavigationPage.Dialog:
                 Page = new WsXamlDialogPage();
                 SetupElementHost();

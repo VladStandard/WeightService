@@ -1,4 +1,3 @@
-using PrinterCore.Enums;
 using WsStorageCore.Enums;
 namespace ScalesUI.Forms;
 
@@ -78,10 +77,9 @@ public sealed partial class WsMainForm : Form
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
             if (IsNewLine()) return;
             
+            this.SetupResolution();
             MainFormLoadAtBackground();
-            ActionFinally();
-            ReturnOkFromDeviceSettings();
-            SaveStartLog();
+            ActionFinally(); SaveStartLog();
         });
     }
 

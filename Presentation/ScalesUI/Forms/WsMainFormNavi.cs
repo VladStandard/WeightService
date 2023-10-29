@@ -9,7 +9,6 @@ public partial class WsMainForm
         WsFormNavigationUtils.NavigationUserControl.Dock = DockStyle.Fill;
         WsFormNavigationUtils.NavigationUserControl.Visible = false;
         CenterToScreen();
-        ReturnOkFromDeviceSettings();
         
         Controls.Add(WsFormNavigationUtils.NavigationUserControl);
         FormBorderStyle = FormBorderStyle.None;
@@ -76,9 +75,6 @@ public partial class WsMainForm
         MdInvokeControl.SetVisible(userControl, true);
         switch (userControl)
         {
-            case WsXamlDeviceSettingsUserControl deviceSettingsUserControl:
-                deviceSettingsUserControl.SetupUserControl();
-                break;
             case WsXamlDialogUserControl dialogUserControl:
                 dialogUserControl.SetupUserControl();
                 break;

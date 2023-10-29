@@ -47,12 +47,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     public ObservableCollection<WsActionCommandModel> Commands { get; private set; } = new();
 
     /// <summary>
-    /// Список команд без кастом.
-    /// </summary>
-    public ObservableCollection<WsActionCommandModel> CommandsWithoutCustom => 
-        new(Commands.Where(item => !item.Equals(CmdCustom)));
-
-    /// <summary>
     /// Список видимых команд без кастом.
     /// </summary>
     public ObservableCollection<WsActionCommandModel> CommandsSmart => 
@@ -80,7 +74,6 @@ public class WsXamlBaseViewModel : WsViewModelBase, IWsViewModel
     public Visibility MessageVisibility => string.IsNullOrEmpty(Message) ? Visibility.Hidden : Visibility.Visible;
 
     protected WsEnumNavigationPage FormUserControl { get; init; } = WsEnumNavigationPage.Default;
-    public bool IsLoaded { get; set; }
 
     public WsXamlBaseViewModel()
     {

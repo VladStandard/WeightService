@@ -1,4 +1,4 @@
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsLabelCore.Utils;
 
@@ -31,10 +31,6 @@ public static class WsFormNavigationUtils
     /// </summary>
     public static WsXamlDigitsUserControl DigitsUserControl { get; } = new();
     /// <summary>
-    /// WinForms-контрол настроек устройства.
-    /// </summary>
-    public static WsXamlDeviceSettingsUserControl DeviceSettingsUserControl { get; } = new();
-    /// <summary>
     /// WinForms-контрол смены линии.
     /// </summary>
     public static WsXamlLinesUserControl LinesUserControl { get; } = new();
@@ -62,10 +58,6 @@ public static class WsFormNavigationUtils
     /// Флаг загрузки WinForms-контрола смены замеса.
     /// </summary>
     public static bool IsLoadKneading{ get; set; }
-    /// <summary>
-    /// Флаг загрузки WinForms-контрола настройки устройства.
-    /// </summary>
-    public static bool IsLoadDeviceSettings { get; set; }
     /// <summary>
     /// Флаг загрузки WinForms-контрола смены линии.
     /// </summary>
@@ -103,26 +95,7 @@ public static class WsFormNavigationUtils
         }
         MdInvokeControl.SetVisible(NavigationUserControl, false);
     }
-
-    /// <summary>
-    /// Навигация в WinForms-контрол настроек устройства.
-    /// </summary>
-    public static void NavigateToExistsDeviceSettings(Action<WsFormBaseUserControl, string> showNavigation)
-    {
-        // Загрузка из сессии пользователя.
-        DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
-        DeviceSettingsUserControl.ViewModel.Host = LabelSession.Line.Host;
-        DeviceSettingsUserControl.ViewModel.Devices =
-            WsSqlContextManagerHelper.Instance.HostRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList();
-        DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(
-            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetEnumerableByDevice(DeviceSettingsUserControl.ViewModel.Host));
-
-        DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
-        DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
-        showNavigation(DeviceSettingsUserControl, WsLocaleCore.LabelPrint.SwitchDeviceSettings);
-        NavigationUserControl.SwitchUserControl(DeviceSettingsUserControl);
-    }
-
+    
     /// <summary>
     /// Навигация в WinForms-контрол смены линии.
     /// </summary>

@@ -29,8 +29,6 @@ public static class WsSqlValidationUtils
             WsSqlBundleEntity bundle => new WsSqlBundleValidator(isCheckIdentity).Validate(bundle),
             WsSqlClipEntity clip => new WsSqlClipValidator(isCheckIdentity).Validate(clip),
             WsSqlHostEntity device => new WsSqlHostValidator(isCheckIdentity).Validate(device),
-            WsSqlDeviceSettingsEntity deviceSettings => new WsSqlDeviceSettingsValidator(isCheckIdentity).Validate(deviceSettings),
-            WsSqlDeviceSettingsFkEntity deviceSettingsFks => new WsSqlDeviceSettingsFkValidator(isCheckIdentity).Validate(deviceSettingsFks),
             WsSqlLogEntity log => new WsSqlLogValidator(isCheckIdentity).Validate(log),
             WsSqlLogTypeEntity logType => new WsSqlLogTypeValidator(isCheckIdentity).Validate(logType),
             WsSqlLogWebEntity logWeb => new WsSqlLogWebValidator(isCheckIdentity).Validate(logWeb),
