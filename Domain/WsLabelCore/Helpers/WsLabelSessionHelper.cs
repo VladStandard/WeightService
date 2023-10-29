@@ -1,9 +1,6 @@
-using PrinterCore.Enums;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.ProductionSites;
 using WsStorageCore.Entities.SchemaRef.WorkShops;
-using WsStorageCore.Entities.SchemaScale.Devices;
-using WsStorageCore.Entities.SchemaScale.DeviceTypes;
-using WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
 using WsStorageCore.Entities.SchemaScale.PlusScales;
 using WsStorageCore.Entities.SchemaScale.PlusWeightings;
 using WsStorageCore.Entities.SchemaScale.Scales;
@@ -98,18 +95,9 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     {
         SetSqlPublish();
         ContextCache.LoadGlobal();
-        WsSqlDeviceEntity device = ContextManager.DeviceRepository.GetItemByName(DeviceName);
-        device = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation,
-        device, MdNetUtils.GetLocalIpAddress(), MdNetUtils.GetLocalMacAddress());
-        WsSqlDeviceTypeFkEntity deviceTypeFk = new WsSqlDeviceTypeFkRepository().GetItemByDevice(device);
-        if (deviceTypeFk.IsNew)
-        {
-            WsSqlDeviceTypeModel deviceType = new WsSqlDeviceTypeRepository().GetItemByName("Monoblock");
-            deviceTypeFk.Device = device;
-            deviceTypeFk.Type = deviceType;
-            ContextManager.SqlCore.Save(deviceTypeFk);
-        }
-        Line = ContextManager.LineRepository.GetItemByDevice(deviceTypeFk.Device);
+        WsSqlHostEntity host = ContextManager.HostRepository.GetItemByName(DeviceName);
+        host = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation, host, MdNetUtils.GetLocalIpAddress());
+        Line = ContextManager.LineRepository.GetItemByHost(host);
         SetAreaByLineWorkShop();
         SetPluLine();
         ProductDate = DateTime.Now;

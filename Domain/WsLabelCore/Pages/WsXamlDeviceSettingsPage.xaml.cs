@@ -38,15 +38,15 @@ public partial class WsXamlDeviceSettingsPage
             comboBoxDevice.SetBinding(ItemsControl.ItemsSourceProperty,
                 new Binding(nameof(ViewModelCast.Devices)) { Mode = BindingMode.OneWay, Source = ViewModelCast });
             comboBoxDevice.SetBinding(Selector.SelectedItemProperty,
-                new Binding(nameof(ViewModelCast.Device)) { Mode = BindingMode.TwoWay, Source = ViewModelCast });
+                new Binding(nameof(ViewModelCast.Host)) { Mode = BindingMode.TwoWay, Source = ViewModelCast });
             comboBoxDevice.SetBinding(Selector.SelectedValueProperty,
-                new Binding($"{nameof(ViewModelCast.Device.Name)}")
+                new Binding($"{nameof(ViewModelCast.Host.Name)}")
                 {
                     Mode = BindingMode.OneWay,
-                    Source = ViewModelCast.Device
+                    Source = ViewModelCast.Host
                 });
-            comboBoxDevice.DisplayMemberPath = nameof(ViewModelCast.Device.Name);
-            comboBoxDevice.SelectedValuePath = nameof(ViewModelCast.Device.Name);
+            comboBoxDevice.DisplayMemberPath = nameof(ViewModelCast.Host.Name);
+            comboBoxDevice.SelectedValuePath = nameof(ViewModelCast.Host.Name);
 
             // Таблица "Настройки".
             dataGridSettings.SetBinding(ItemsControl.ItemsSourceProperty,

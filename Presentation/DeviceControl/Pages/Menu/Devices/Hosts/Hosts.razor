@@ -1,8 +1,9 @@
-﻿@page "/section/devices"
+﻿@page "/section/hosts"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlViewDeviceModel>
+@using WsStorageCore.Entities.SchemaRef.Hosts
+@inherits SectionBase<WsStorageCore.Entities.SchemaRef.Hosts.WsSqlHostEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionHosts"
@@ -14,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlViewDeviceModel"
+  TItem="@WsSqlHostEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,16 +23,12 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlViewDeviceModel">
+    <TItemContent TItem="@WsSqlHostEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDate" Width="10%"
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDt" Width="10%"
                             FormatString="@WsStrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LogoutDt" Property="LogoutDate" Width="10%"
-                            FormatString="@WsStrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="TypeName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceIp" Property="Ip" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceMac" Property="ValuePrettyLookMinus" Width="20%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="30%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceIp" Property="Ip" Width="30%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

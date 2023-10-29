@@ -1,5 +1,5 @@
 using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
-using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaScale.Scales;
 namespace WsLabelCore.ViewModels;
 
@@ -13,8 +13,8 @@ public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel
     #region Public and private fields, properties, constructor
 
     public WsSqlScaleEntity Line { get; set; } = new();
-    public WsSqlDeviceEntity Device { get; set; } = new();
-    public List<WsSqlDeviceEntity> Devices { get; set; } = new();
+    public WsSqlHostEntity Host { get; set; } = new();
+    public List<WsSqlHostEntity> Devices { get; set; } = new();
     public ObservableCollection<WsSqlDeviceSettingsFkEntity> DeviceSettingsFks { get; set; } = new();
 
     public WsXamlDeviceSettingsViewModel()
@@ -29,7 +29,7 @@ public sealed class WsXamlDeviceSettingsViewModel : WsXamlBaseViewModel
     public override string ToString() =>
         $"{FormUserControl} | " +
         (Commands.Any() ? $"{string.Join(" | ", Commands.Select(item => item.ToString()))}" : $"{nameof(Commands)} is <Empty>") +
-        $"{Line} | {Device}";
+        $"{Line} | {Host}";
 
     #endregion
 }

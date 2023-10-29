@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
 public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
@@ -6,7 +7,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
     
     private List<string> ComPorts { get; set; }
     private List<WsSqlPrinterEntity> PrinterModels { get; set; }
-    private List<WsSqlDeviceEntity> HostModels { get; set; }
+    private List<WsSqlHostEntity> HostModels { get; set; }
     private List<WsSqlWorkShopEntity> WorkShopModels { get; set; }
 
     public ItemLines() : base()
@@ -25,7 +26,7 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
     {
         base.SetSqlItemCast();
         PrinterModels = new WsSqlPrinterRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
-        HostModels = new WsSqlDeviceRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        HostModels = new WsSqlHostRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
         WorkShopModels = new WsSqlWorkShopRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
         ComPorts = MdSerialPortsUtils.ComPorts;
     }

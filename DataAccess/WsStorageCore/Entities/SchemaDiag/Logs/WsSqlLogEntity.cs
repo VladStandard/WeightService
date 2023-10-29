@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 [DebuggerDisplay("{ToString()}")]
@@ -5,7 +6,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
 
-    public virtual WsSqlDeviceEntity? Device { get; set; }
+    public virtual WsSqlHostEntity? Device { get; set; }
     public virtual WsSqlAppEntity? App { get; set; }
     public virtual WsSqlLogTypeEntity? LogType { get; set; }
     public virtual string Version { get; set; }

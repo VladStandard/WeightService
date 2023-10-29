@@ -3,6 +3,7 @@ using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.Printers;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Helpers;
@@ -102,8 +103,7 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlTemplateResourceMap>();
         mapper.AddMapping<WsSqlVersionMap>();
         mapper.AddMapping<WsSqlPrinterMap>();
-        mapper.AddMapping<WsSqlDeviceTypeMap>();
-        mapper.AddMapping<WsSqlDeviceMap>();
+        mapper.AddMapping<WsSqlHostMap>();
         mapper.AddMapping<WsSqlScaleMap>();
         mapper.AddMapping<WsSqlPluMap>();
         mapper.AddMapping<WsSqlPluScaleMap>();
@@ -117,7 +117,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlLogWebMap>();
         mapper.AddMapping<WsSqlDeviceSettingsMap>();
         mapper.AddMapping<WsSqlDeviceSettingsFkMap>();
-        mapper.AddMapping<WsSqlDeviceTypeFkMap>();
         mapper.AddMapping<WsSqlPluFkMap>();
         mapper.AddMapping<WsSqlPluNestingFkMap>();
         mapper.AddMapping<WsSqlPluStorageMethodFkMap>();

@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsLabelCore.Utils;
 
 /// <summary>
@@ -111,11 +111,11 @@ public static class WsFormNavigationUtils
     {
         // Загрузка из сессии пользователя.
         DeviceSettingsUserControl.ViewModel.Line = LabelSession.Line;
-        DeviceSettingsUserControl.ViewModel.Device = LabelSession.Line.Device;
+        DeviceSettingsUserControl.ViewModel.Host = LabelSession.Line.Host;
         DeviceSettingsUserControl.ViewModel.Devices =
-            WsSqlContextManagerHelper.Instance.DeviceRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList();
+            WsSqlContextManagerHelper.Instance.HostRepository.GetEnumerable(WsSqlCrudConfigFactory.GetCrudAll()).ToList();
         DeviceSettingsUserControl.ViewModel.DeviceSettingsFks = new(
-            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetEnumerableByDevice(DeviceSettingsUserControl.ViewModel.Device));
+            WsSqlContextManagerHelper.Instance.DeviceSettingsFksRepository.GetEnumerableByDevice(DeviceSettingsUserControl.ViewModel.Host));
 
         DeviceSettingsUserControl.ViewModel.UpdateCommandsFromActions();
         DeviceSettingsUserControl.ViewModel.SetupButtonsCancelYes(NavigationUserControl.Width);
@@ -276,39 +276,37 @@ public static class WsFormNavigationUtils
         }
     }
 
-    public static WsSqlDeviceEntity SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
-        WsSqlDeviceEntity device, string ip, string mac)
+    public static WsSqlHostEntity SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
+        WsSqlHostEntity host, string ip)
     {
-        if (device.IsNew)
+        if (host.IsNew)
         {
             NavigateToNewDialog(showNavigation,
-                WsLocaleCore.LabelPrint.HostNotFound(device.Name) + Environment.NewLine + WsLocaleCore.LabelPrint.QuestionWriteToDb,
+                WsLocaleCore.LabelPrint.HostNotFound(host.Name) + Environment.NewLine + WsLocaleCore.LabelPrint.QuestionWriteToDb,
                 false, WsEnumLogType.Information, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
             void ActionYes()
             {
-                device = new()
+                host = new()
                 {
-                    Name = device.Name,
-                    Ipv4 = ip,
-                    MacAddress = new(mac),
+                    Name = host.Name,
+                    Ip = ip,
                     CreateDt = DateTime.Now,
                     ChangeDt = DateTime.Now,
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
-                SqlCore.Save(device);
+                SqlCore.Save(host);
             }
         }
         else
         {
-            device.Ipv4 = ip;
-            device.MacAddress = new(mac);
-            device.ChangeDt = DateTime.Now;
-            device.LoginDt = DateTime.Now;
-            device.IsMarked = false;
-            SqlCore.Update(device);
+            host.Ip = ip;
+            host.ChangeDt = DateTime.Now;
+            host.LoginDt = DateTime.Now;
+            host.IsMarked = false;
+            SqlCore.Update(host);
         }
-        return device;
+        return host;
     }
 
     private static void CatchExceptionCore(Action<WsFormBaseUserControl, string> showNavigation, Exception ex, 

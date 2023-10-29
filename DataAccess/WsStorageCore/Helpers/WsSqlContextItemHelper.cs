@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -19,7 +20,7 @@ public sealed class WsSqlContextItemHelper
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public WsSqlAppEntity App { get; private set; } = new();
-    public WsSqlDeviceEntity Device { get; private set; } = new();
+    public WsSqlHostEntity Host { get; private set; } = new();
 
     #endregion
 
@@ -27,13 +28,13 @@ public sealed class WsSqlContextItemHelper
 
     public void SetupLog(string deviceName, string appName)
     {
-        WsSqlDeviceRepository deviceRepository = new();
+        WsSqlHostRepository hostRepository = new();
         WsSqlAppRepository appRepository = new(); 
-        if (Device.IsNew)
+        if (Host.IsNew)
         {
             if (string.IsNullOrEmpty(deviceName))
                 deviceName = MdNetUtils.GetLocalDeviceName(false);
-            Device = deviceRepository.GetItemByName(deviceName);
+            Host = hostRepository.GetItemByName(deviceName);
         }
 
         if (App.IsNew)
@@ -60,7 +61,7 @@ public sealed class WsSqlContextItemHelper
             CreateDt = DateTime.Now,
             ChangeDt = DateTime.Now,
             IsMarked = false,
-            Device = Device,
+            Device = Host,
             App = App,
             LogType = logTypeItem,
             Version = WsAppVersionHelper.Instance.Version,

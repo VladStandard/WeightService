@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.Printers;
 namespace WsStorageCore.Entities.SchemaScale.Scales;
 
@@ -15,8 +16,8 @@ public sealed class WsSqlScaleValidator : WsSqlTableValidator<WsSqlScaleEntity>
             .LessThanOrEqualTo(99999);
         RuleFor(item => item.WorkShop)
             .SetValidator(new WsSqlWorkShopValidator(isCheckIdentity));
-        RuleFor(item => item.Device)
-            .SetValidator(new WsSqlDeviceValidator(isCheckIdentity));
+        RuleFor(item => item.Host)
+            .SetValidator(new WsSqlHostValidator(isCheckIdentity));
         RuleFor(item => item.Printer)
             .SetValidator(new WsSqlPrinterValidator(isCheckIdentity)!);
     }

@@ -8,7 +8,6 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
     public virtual string Ip { get; set; }
     public virtual short Port { get; set; }
     public virtual PrinterTypeEnum Type { get; set; }
-    public virtual string MacAddress { get; set; }
     public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
     public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
@@ -17,7 +16,6 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
         Ip = string.Empty;
         Port = 0;
         Type = PrinterTypeEnum.Tsc;
-        MacAddress = string.Empty;
     }
 
     public WsSqlPrinterEntity(WsSqlPrinterEntity item) : base(item)
@@ -25,7 +23,6 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
         Ip = item.Ip;
         Port = item.Port;
         Type = item.Type;
-        MacAddress = item.MacAddress;
     }
 
     #endregion
@@ -34,8 +31,7 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
 
     public override string ToString() =>
         $"{GetIsMarked()} | " +
-        $"{nameof(Type)}: {Type}. " +
-        $"{nameof(MacAddress)}: {MacAddress}.";
+        $"{nameof(Type)}: {Type}.";
 
     public override bool Equals(object obj)
     {
@@ -53,8 +49,7 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
         base.EqualsDefault() &&
         Equals(Ip, string.Empty) &&
         Equals(Port, (short)0) &&
-        Equals(Type, PrinterTypeEnum.Tsc) &&
-        Equals(MacAddress, string.Empty);
+        Equals(Type, PrinterTypeEnum.Tsc);
          
 
     public override void FillProperties()
@@ -71,8 +66,7 @@ public class WsSqlPrinterEntity : WsSqlEntityBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Ip, item.Ip) &&
         Equals(Port, item.Port) &&
-        Equals(Type, PrinterTypeEnum.Tsc) &&
-        Equals(MacAddress, item.MacAddress);
+        Equals(Type, PrinterTypeEnum.Tsc);
 
     #endregion
 }

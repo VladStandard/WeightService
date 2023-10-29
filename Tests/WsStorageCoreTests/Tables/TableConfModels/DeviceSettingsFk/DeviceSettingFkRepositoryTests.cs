@@ -1,13 +1,13 @@
 using WsStorageCore.Entities.SchemaConf.DeviceSettings;
 using WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
-using WsStorageCore.Entities.SchemaScale.Devices;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCoreTests.Tables.TableConfModels.DeviceSettingsFk;
 
 [TestFixture]
 public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
 {
     private WsSqlDeviceSettingsFkRepository DeviceSettingsFkRepository { get; } = new();
-    private WsSqlDeviceRepository DeviceRepository { get; } = new();
+    private WsSqlHostRepository HostRepository { get; } = new();
     private WsSqlDeviceSettingsRepository DeviceSettingsRepository { get; } = new();
 
     [Test, Order(1)]
@@ -15,15 +15,15 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceEntity> devices = DeviceRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<WsSqlHostEntity> devices = HostRepository.GetEnumerable(SqlCrudConfig);
             IEnumerable<WsSqlDeviceSettingsEntity> deviceSettings = DeviceSettingsRepository.GetEnumerable(SqlCrudConfig).ToList();
             List<WsSqlDeviceSettingsFkEntity> deviceSettingsFks = DeviceSettingsFkRepository.GetEnumerable(SqlCrudConfig).ToList();
 
-            foreach (WsSqlDeviceEntity device in devices)
+            foreach (WsSqlHostEntity device in devices)
             foreach (WsSqlDeviceSettingsEntity setting in deviceSettings)
             {
                 WsSqlDeviceSettingsFkEntity? deviceSettingsFk = deviceSettingsFks.Find(
-                    x => x.Device.Equals(device) && x.Setting.Equals(setting));
+                    x => x.Host.Equals(device) && x.Setting.Equals(setting));
                 if (deviceSettingsFk is not null)
                     continue;
                 deviceSettingsFk = DeviceSettingsFkRepository.GetNewItem();
@@ -50,10 +50,10 @@ public sealed class DeviceSettingsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlDeviceEntity> devices = DeviceRepository.GetEnumerable(SqlCrudConfig).ToList();
+            IEnumerable<WsSqlHostEntity> devices = HostRepository.GetEnumerable(SqlCrudConfig).ToList();
             ParseRecords(devices);
 
-            foreach (WsSqlDeviceEntity device in devices)
+            foreach (WsSqlHostEntity device in devices)
             {
                 IEnumerable<WsSqlDeviceSettingsFkEntity> deviceSettings = DeviceSettingsFkRepository.GetEnumerableByDevice(device);
                 ParseRecords(deviceSettings);

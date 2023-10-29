@@ -87,9 +87,9 @@ public sealed class WsSqlScaleMap : ClassMapping<WsSqlScaleEntity>
             m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.Device, m =>
+        ManyToOne(x => x.Host, m =>
         {
-            m.Column("DEVICE_UID");
+            m.Column("HOST_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

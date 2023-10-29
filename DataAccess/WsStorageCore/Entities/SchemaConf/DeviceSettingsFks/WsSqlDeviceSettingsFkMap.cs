@@ -25,7 +25,7 @@ public sealed class WsSqlDeviceSettingsFkMap : ClassMapping<WsSqlDeviceSettingsF
             m.NotNullable(true);
         });
 
-        ManyToOne(x => x.Device, m => {
+        ManyToOne(x => x.Host, m => {
             m.Column("DEVICE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);

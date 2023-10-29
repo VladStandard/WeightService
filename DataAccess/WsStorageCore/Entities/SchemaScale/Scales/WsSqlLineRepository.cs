@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.Scales;
 
@@ -13,10 +14,10 @@ public sealed class WsSqlLineRepository : WsSqlTableRepositoryBase<WsSqlScaleEnt
 
     public WsSqlScaleEntity GetItemById(long id) => SqlCore.GetItemById<WsSqlScaleEntity>(id);
 
-    public WsSqlScaleEntity GetItemByDevice(WsSqlDeviceEntity device)
+    public WsSqlScaleEntity GetItemByHost(WsSqlHostEntity host)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlScaleEntity.Device), device));
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlScaleEntity.Host), host));
         return SqlCore.GetItemByCrud<WsSqlScaleEntity>(sqlCrudConfig);
     }
 

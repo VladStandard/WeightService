@@ -3,6 +3,7 @@ using WsLocalizationCore.Utils;
 using WsStorageCore.Entities.SchemaDiag.Logs;
 using WsStorageCore.Entities.SchemaDiag.LogsTypes;
 using WsStorageCore.Entities.SchemaDiag.LogsWebs;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.ProductionSites;
 using WsStorageCore.Entities.SchemaRef.WorkShops;
 using WsStorageCore.Entities.SchemaRef1c.Boxes;
@@ -11,9 +12,6 @@ using WsStorageCore.Entities.SchemaRef1c.Clips;
 using WsStorageCore.Entities.SchemaRef1c.Plus;
 using WsStorageCore.Entities.SchemaScale.Access;
 using WsStorageCore.Entities.SchemaScale.BarCodes;
-using WsStorageCore.Entities.SchemaScale.Devices;
-using WsStorageCore.Entities.SchemaScale.DeviceTypes;
-using WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
 using WsStorageCore.Entities.SchemaScale.Organizations;
 using WsStorageCore.Entities.SchemaScale.PlusClipsFks;
 using WsStorageCore.Entities.SchemaScale.PlusFks;
@@ -217,13 +215,8 @@ public sealed class DataCoreHelper
             case WsSqlClipEntity clip:
                 clip.Weight.Returns(2);
                 break;
-			case WsSqlDeviceEntity device:
+			case WsSqlHostEntity device:
                 device.LoginDt.Returns(DateTime.Now);
-				device.LogoutDt.Returns(DateTime.Now);
-				break;
-			case WsSqlDeviceTypeFkEntity deviceTypeFk:
-                deviceTypeFk.Device = CreateNewSubstitute<WsSqlDeviceEntity>(isNotDefault);
-				deviceTypeFk.Type = CreateNewSubstitute<WsSqlDeviceTypeModel>(isNotDefault);
 				break;
 			case WsSqlLogEntity log:
 				log.Version.Returns(WsLocaleCore.Sql.SqlItemFieldVersion);

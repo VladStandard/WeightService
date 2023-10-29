@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
 
@@ -14,25 +15,25 @@ public sealed class WsSqlDeviceSettingsFkRepository : WsSqlTableRepositoryBase<W
             SqlCore.GetEnumerable<WsSqlDeviceSettingsFkEntity>(sqlCrudConfig);
         if (sqlCrudConfig.IsResultOrder)
             items = items
-                .OrderBy(item => item.Device.Name)
+                .OrderBy(item => item.Host.Name)
                 .ThenBy(item => item.Setting.Name);
         return items;
     }
 
     public IEnumerable<WsSqlDeviceSettingsFkEntity> GetEnumerableByLine(WsSqlScaleEntity line)
     {
-        return GetEnumerableByDevice(line.Device);
+        return GetEnumerableByDevice(line.Host);
     }
 
-    public IEnumerable<WsSqlDeviceSettingsFkEntity> GetEnumerableByDevice(WsSqlDeviceEntity device)
+    public IEnumerable<WsSqlDeviceSettingsFkEntity> GetEnumerableByDevice(WsSqlHostEntity host)
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlDeviceSettingsFkEntity.Device), device));
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(WsSqlDeviceSettingsFkEntity.Host), host));
 
         IEnumerable<WsSqlDeviceSettingsFkEntity> items =
             SqlCore.GetEnumerable<WsSqlDeviceSettingsFkEntity>(sqlCrudConfig);
         items = items
-            .OrderBy(item => item.Device.Name)
+            .OrderBy(item => item.Host.Name)
             .ThenBy(item => item.Setting.Name);
         return items;
     }

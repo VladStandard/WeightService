@@ -1,14 +1,14 @@
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 using WsStorageCore.OrmUtils;
-namespace WsStorageCore.Entities.SchemaScale.DeviceTypesFks;
+namespace WsStorageCore.Entities.SchemaRef.Hosts;
 
-public sealed class WsSqlDeviceTypeFkMap : ClassMapping<WsSqlDeviceTypeFkEntity>
+public sealed class WsSqlHostMap : ClassMapping<WsSqlHostEntity>
 {
-    public WsSqlDeviceTypeFkMap()
+    public WsSqlHostMap()
     {
-        Schema(WsSqlSchemasUtils.DbScales);
-        Table(WsSqlTablesUtils.DevicesTypesFks);
+        Schema(WsSqlSchemasUtils.Ref);
+        Table(WsSqlTablesUtils.Hosts);
 
         Id(x => x.IdentityValueUid, m =>
         {
@@ -31,6 +31,13 @@ public sealed class WsSqlDeviceTypeFkMap : ClassMapping<WsSqlDeviceTypeFkEntity>
             m.NotNullable(true);
         });
 
+        Property(x => x.LoginDt, m =>
+        {
+            m.Column("LOGIN_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+        
         Property(x => x.IsMarked, m =>
         {
             m.Column("IS_MARKED");
@@ -38,18 +45,19 @@ public sealed class WsSqlDeviceTypeFkMap : ClassMapping<WsSqlDeviceTypeFkEntity>
             m.NotNullable(true);
         });
 
-        ManyToOne(x => x.Device, m =>
+        Property(x => x.Name, m =>
         {
-            m.Column("DEVICE_UID");
+            m.Column("NAME");
+            m.Type(NHibernateUtil.String);
+            m.Length(128);
             m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.Type, m =>
+        Property(x => x.Ip, m =>
         {
-            m.Column("TYPE_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
+            m.Column("IP");
+            m.Type(NHibernateUtil.String);
+            m.Length(15);
         });
     }
 }

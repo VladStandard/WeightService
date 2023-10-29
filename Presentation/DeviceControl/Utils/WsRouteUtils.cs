@@ -17,7 +17,6 @@ public static class WsRouteUtils
     public static string SectionPlusLabels => "/section/plus_labels";
     public static string SectionPlusStorage => "/section/plus_storage";
     public static string SectionPlusNestingFks => "/section/plus_nesting";
-    public static string SectionPlusBundlesFks => "/section/plus_bundles";
     public static string SectionPlusWeightings => "/section/plus_weightings";
     public static string SectionPlusLabelsAggr => "/section/plus_labels_aggr";
 
@@ -27,21 +26,18 @@ public static class WsRouteUtils
 
     public static string SectionLogs => "/section/logs";
     public static string SectionLogsWebService => "/section/logs_web_service";
-    public static string SectionScalesScreenShots => "/section/logs_screenshots";
     
     #endregion
     
     #region Принтеры
     
     public static string SectionPrinters => "/section/printers";
-    public static string SectionPrinterTypes => "/section/printers_types";
     
     #endregion
     
     #region Устройства
     
-    public static string SectionDevices => "/section/devices";
-    public static string SectionDevicesTypes => "/section/devices_types";
+    public static string SectionHosts => "/section/hosts";
     
     #endregion
 
@@ -53,7 +49,6 @@ public static class WsRouteUtils
     public static string SectionBoxes => "/section/boxes";
     public static string SectionBrands => "/section/brands";
     public static string SectionBundles => "/section/bundles";
-    public static string SectionContragents => "/section/contragents";
     public static string SectionOrganizations => "/section/organizations";
     public static string SectionProductionFacilities => "/section/production_facilities";
     public static string SectionLines => "/section/lines";

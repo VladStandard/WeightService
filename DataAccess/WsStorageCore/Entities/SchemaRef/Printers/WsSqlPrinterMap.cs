@@ -60,14 +60,6 @@ public class WsSqlPrinterMap : ClassMapping<WsSqlPrinterEntity>
             m.Type(NHibernateUtil.Int16);
         });
 
-        Property(x => x.MacAddress, m =>
-        {
-            m.Column("MAC_ADDRESS");
-            m.Type(NHibernateUtil.String);
-            m.Length(20);
-        });
-        
-
         Property(x => x.Type, m =>
         {
             m.Column("TYPE");

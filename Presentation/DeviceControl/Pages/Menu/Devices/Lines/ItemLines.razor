@@ -24,10 +24,10 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Device)" Text="@WsLocaleCore.Table.Host"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Host)" Text="@WsLocaleCore.Table.Host"/>
     </td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.Device" Data="@HostModels" TextProperty="DisplayName"/>
+      <RzDropDown @bind-Value="@SqlItemCast.Host" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
       <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Printer)" Text="@WsLocaleCore.Print.NameMain"/>

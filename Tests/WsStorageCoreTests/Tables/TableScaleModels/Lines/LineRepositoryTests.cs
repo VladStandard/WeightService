@@ -45,7 +45,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             SqlCrudConfig.SelectTopRowsCount = 1;
             WsSqlScaleEntity oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();
 
-            WsSqlScaleEntity lineByDevice = LineRepository.GetItemByDevice(oldScale.Device);
+            WsSqlScaleEntity lineByDevice = LineRepository.GetItemByHost(oldScale.Host);
 
             Assert.That(lineByDevice.IsExists, Is.True);
             Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldScale.IdentityValueId));

@@ -1,4 +1,5 @@
 using WsDataCore.Protocols;
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.Printers;
 namespace WsStorageCore.Entities.SchemaScale.Scales;
 
@@ -10,7 +11,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
 {
     #region Public and private fields, properties, constructor
     
-    public virtual WsSqlDeviceEntity Device { get; set; }
+    public virtual WsSqlHostEntity Host { get; set; }
     public virtual WsSqlWorkShopEntity WorkShop { get; set; }
     public virtual WsSqlPrinterEntity Printer { get; set; }
     public virtual string DeviceComPort { get; set; } = "";
@@ -26,7 +27,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
     public WsSqlScaleEntity() : base(WsSqlEnumFieldIdentity.Id)
     {
         WorkShop = new();
-        Device = new();
+        Host = new();
         Printer = new();
         Number = 0;
         LabelCounter = 0;
@@ -34,7 +35,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
 
     public WsSqlScaleEntity(WsSqlScaleEntity item) : base(item)
     {
-        Device = new(item.Device);
+        Host = new(item.Host);
         WorkShop = new(item.WorkShop);
         Printer = new(item.Printer);
         DeviceComPort = item.DeviceComPort;
@@ -66,7 +67,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
         Equals(Number, 0) &&
         Equals(LabelCounter, 0) &&
         WorkShop.EqualsDefault() &&
-        Device.EqualsDefault() &&
+        Host.EqualsDefault() &&
         Printer.EqualsDefault();
 
     public override void FillProperties()
@@ -74,7 +75,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
         base.FillProperties();
         WorkShop.FillProperties();
         Printer.FillProperties();
-        Device.FillProperties();
+        Host.FillProperties();
         DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
 
@@ -88,7 +89,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
         Equals(Number, item.Number) &&
         Equals(LabelCounter, item.LabelCounter) &&
         WorkShop.Equals(item.WorkShop) &&
-        Device.Equals(item.Device) &&
+        Host.Equals(item.Host) &&
         Printer.Equals(item.Printer);
 
     #endregion

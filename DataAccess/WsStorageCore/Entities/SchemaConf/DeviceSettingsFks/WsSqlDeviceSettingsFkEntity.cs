@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCore.Entities.SchemaConf.DeviceSettingsFks;
 
 /// <summary>
@@ -9,19 +10,19 @@ public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
     #region Public and private fields, properties, constructor
 
     public virtual bool IsEnabled { get; set; }
-    public virtual WsSqlDeviceEntity Device { get; set; }
+    public virtual WsSqlHostEntity Host { get; set; }
     public virtual WsSqlDeviceSettingsEntity Setting { get; set; }
 
     public WsSqlDeviceSettingsFkEntity() : base(WsSqlEnumFieldIdentity.Uid)
     {
-        Device = new();
+        Host = new();
         Setting = new();
     }
 
     public WsSqlDeviceSettingsFkEntity(WsSqlDeviceSettingsFkEntity item) : base(item)
     {
         IsEnabled = item.IsEnabled;
-        Device = new(item.Device);
+        Host = new(item.Host);
         Setting = new(item.Setting);
     }
 
@@ -30,7 +31,7 @@ public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | {Device} | {Setting} | {GetIsBool(IsEnabled, "Enabled", "Disabled")}";
+        $"{GetIsMarked()} | {Host} | {Setting} | {GetIsBool(IsEnabled, "Enabled", "Disabled")}";
 
     public override bool Equals(object obj)
     {
@@ -47,17 +48,17 @@ public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
     public override bool EqualsDefault() =>
         base.EqualsDefault() &&
         IsEnabled.Equals(false) &&
-        Device.EqualsDefault() &&
+        Host.EqualsDefault() &&
         Setting.EqualsDefault();
 
     public override void FillProperties()
     {
         base.FillProperties();
-        Device.FillProperties();
+        Host.FillProperties();
         Setting.FillProperties();
     }
 
-    public virtual void UpdateProperties(WsSqlDeviceSettingsFkEntity item, WsSqlDeviceEntity device,
+    public virtual void UpdateProperties(WsSqlDeviceSettingsFkEntity item, WsSqlHostEntity host,
         WsSqlDeviceSettingsEntity setting)
     {
         if (!item.CreateDt.Equals(DateTime.MinValue))
@@ -69,7 +70,7 @@ public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
         if (!string.IsNullOrEmpty(item.Description))
             Description = item.Description;
         IsEnabled = item.IsEnabled;
-        Device = new(device);
+        Host = new(host);
         Setting = new(setting);
     }
 
@@ -80,7 +81,7 @@ public class WsSqlDeviceSettingsFkEntity : WsSqlEntityBase
     public virtual bool Equals(WsSqlDeviceSettingsFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         IsEnabled.Equals(item.IsEnabled) &&
-        Device.Equals(item.Device) &&
+        Host.Equals(item.Host) &&
         Setting.Equals(item.Setting);
 
     #endregion

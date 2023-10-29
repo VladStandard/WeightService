@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.Printers;
 namespace WsStorageCore.Utils;
 
@@ -27,11 +28,9 @@ public static class WsSqlValidationUtils
             WsSqlBrandEntity brand => new WsSqlBrandValidator(isCheckIdentity).Validate(brand),
             WsSqlBundleEntity bundle => new WsSqlBundleValidator(isCheckIdentity).Validate(bundle),
             WsSqlClipEntity clip => new WsSqlClipValidator(isCheckIdentity).Validate(clip),
-            WsSqlDeviceEntity device => new WsSqlDeviceValidator(isCheckIdentity).Validate(device),
+            WsSqlHostEntity device => new WsSqlHostValidator(isCheckIdentity).Validate(device),
             WsSqlDeviceSettingsEntity deviceSettings => new WsSqlDeviceSettingsValidator(isCheckIdentity).Validate(deviceSettings),
             WsSqlDeviceSettingsFkEntity deviceSettingsFks => new WsSqlDeviceSettingsFkValidator(isCheckIdentity).Validate(deviceSettingsFks),
-            WsSqlDeviceTypeFkEntity deviceTypeFk => new WsSqlDeviceTypeFkValidator(isCheckIdentity).Validate(deviceTypeFk),
-            WsSqlDeviceTypeModel deviceType => new WsSqlDeviceTypeValidator(isCheckIdentity).Validate(deviceType),
             WsSqlLogEntity log => new WsSqlLogValidator(isCheckIdentity).Validate(log),
             WsSqlLogTypeEntity logType => new WsSqlLogTypeValidator(isCheckIdentity).Validate(logType),
             WsSqlLogWebEntity logWeb => new WsSqlLogWebValidator(isCheckIdentity).Validate(logWeb),

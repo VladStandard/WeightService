@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -23,7 +24,7 @@ public sealed class WsSqlContextManagerHelper
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     public WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
-    public WsSqlDeviceRepository DeviceRepository { get; } = new();
+    public WsSqlHostRepository HostRepository { get; } = new();
     public WsSqlDeviceSettingsFkRepository DeviceSettingsFksRepository { get; } = new();
     public WsSqlLineRepository LineRepository { get; } = new();
     public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();

@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Services;
 
 public class WsRouteService
@@ -44,8 +45,7 @@ public class WsRouteService
             WsSqlBoxEntity => WsRouteUtils.SectionBoxes,
             WsSqlBrandEntity => WsRouteUtils.SectionBrands,
             WsSqlBundleEntity => WsRouteUtils.SectionBundles,
-            WsSqlDeviceEntity => WsRouteUtils.SectionDevices,
-            WsSqlDeviceTypeModel => WsRouteUtils.SectionDevicesTypes,
+            WsSqlHostEntity => WsRouteUtils.SectionHosts,
             WsSqlLogEntity => WsRouteUtils.SectionLogs,
             WsSqlOrganizationEntity => WsRouteUtils.SectionOrganizations,
             WsSqlPluLabelEntity => WsRouteUtils.SectionPlusLabels,
@@ -66,7 +66,6 @@ public class WsRouteService
             WsSqlViewBarcodeModel => WsRouteUtils.SectionBarCodes,
             WsSqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,
-            WsSqlViewDeviceModel => WsRouteUtils.SectionDevices,
             WsSqlLogWebEntity => WsRouteUtils.SectionLogsWebService,
             _ => string.Empty
         };
