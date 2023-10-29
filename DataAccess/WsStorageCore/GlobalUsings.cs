@@ -69,8 +69,6 @@ global using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 global using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 global using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 global using WsStorageCore.Entities.SchemaScale.PlusWeightings;
-global using WsStorageCore.Entities.SchemaScale.Printers;
-global using WsStorageCore.Entities.SchemaScale.PrintersTypes;
 global using WsStorageCore.Entities.SchemaScale.Scales;
 global using WsStorageCore.Entities.SchemaScale.Tasks;
 global using WsStorageCore.Entities.SchemaScale.TasksTypes;

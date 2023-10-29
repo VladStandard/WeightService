@@ -24,8 +24,6 @@ using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using WsStorageCore.Entities.SchemaScale.PlusWeightings;
-using WsStorageCore.Entities.SchemaScale.Printers;
-using WsStorageCore.Entities.SchemaScale.PrintersTypes;
 using WsStorageCore.Entities.SchemaScale.Scales;
 using WsStorageCore.Entities.SchemaScale.Tasks;
 using WsStorageCore.Entities.SchemaScale.TasksTypes;
@@ -297,13 +295,8 @@ public sealed class DataCoreHelper
                 pluNestingFk.Box = CreateNewSubstitute<WsSqlBoxEntity>(isNotDefault);
                 pluNestingFk.BundleCount.Returns((short)0);
                 break;
-            case WsSqlPrinterEntity printer:
-				printer.DarknessLevel.Returns((short)1);
-				printer.PrinterType = CreateNewSubstitute<WsSqlPrinterTypeEntity>(isNotDefault);
-				break;
 			case WsSqlScaleEntity scale:
                 scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopEntity>(isNotDefault);
-				scale.Printer = CreateNewSubstitute<WsSqlPrinterEntity>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
 			case WsSqlTaskEntity task:

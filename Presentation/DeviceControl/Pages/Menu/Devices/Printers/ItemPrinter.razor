@@ -1,8 +1,9 @@
 @page "/section/printers/new"
-@page "/section/printers/{Id:long}"
+@page "/section/printers/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
+@using WsStorageCore.Enums
 @inherits ItemBase<WsSqlPrinterEntity>
 
 <ItemTopBar TItem="@WsSqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
@@ -18,15 +19,13 @@
     </td>
     <td>@WsLocaleCore.Print.Mac</td>
     <td>
-      <RzTextBox @bind-Value="@SqlItemCast.MacAddress.Value"/>
+      <RzTextBox @bind-Value="@SqlItemCast.MacAddress"/>
     </td>
   </tr>
   <tr>
+    <td>@WsLocaleCore.Print.Type</td>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PrinterType)" Text="@WsLocaleCore.Print.Type"/>
-    </td>
-    <td>
-      <RzDropDown @bind-Value="@SqlItemCast.PrinterType" Data="@PrinterTypeModels" TextProperty="DisplayName"/>
+      <RzDropDown TItem="PrinterTypeEnum"  @bind-Value="@SqlItemCast.Type" Data="@Enum.GetValues(typeof(PrinterTypeEnum))" />
     </td>
     <td>@WsLocaleCore.Print.Port</td>
     <td>
@@ -40,10 +39,8 @@
     <td>
       <RzTextBox Placeholder="Ip address" @bind-Value="@SqlItemCast.Ip"/>
     </td>
-    <td>@WsLocaleCore.Print.Password</td>
-    <td>
-      <RzTextBox @bind-Value="@SqlItemCast.Password"/>
-    </td>
+    <td></td>
+    <td></td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>

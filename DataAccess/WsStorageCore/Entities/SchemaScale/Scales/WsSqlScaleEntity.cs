@@ -1,4 +1,5 @@
 using WsDataCore.Protocols;
+using WsStorageCore.Entities.SchemaRef.Printers;
 namespace WsStorageCore.Entities.SchemaScale.Scales;
 
 /// <summary>

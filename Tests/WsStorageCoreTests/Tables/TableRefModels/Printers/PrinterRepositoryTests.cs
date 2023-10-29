@@ -1,5 +1,5 @@
-﻿using WsStorageCore.Entities.SchemaScale.Printers;
-namespace WsStorageCoreTests.Tables.TableScaleModels.Printers;
+﻿using WsStorageCore.Entities.SchemaRef.Printers;
+namespace WsStorageCoreTests.Tables.TableRefModels.Printers;
 
 [TestFixture]
 public sealed class PrinterRepositoryTests : TableRepositoryTests

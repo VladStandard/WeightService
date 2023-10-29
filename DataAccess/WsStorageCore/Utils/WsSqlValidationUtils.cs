@@ -1,3 +1,4 @@
+using WsStorageCore.Entities.SchemaRef.Printers;
 namespace WsStorageCore.Utils;
 
 public static class WsSqlValidationUtils
@@ -45,8 +46,6 @@ public static class WsSqlValidationUtils
             WsSqlPluStorageMethodEntity plusStorageMethod => new WsSqlPluStorageMethodValidator(isCheckIdentity).Validate(plusStorageMethod),
             WsSqlPluTemplateFkEntity pluTemplate => new WsSqlPluTemplateFkValidator(isCheckIdentity).Validate(pluTemplate),
             WsSqlPluWeighingEntity pluWeighing => new WsSqlPluWeighingValidator(isCheckIdentity).Validate(pluWeighing),
-            WsSqlPrinterEntity printer => new WsSqlPrinterValidator(isCheckIdentity).Validate(printer),
-            WsSqlPrinterTypeEntity printerType => new WsSqlPrinterTypeValidator(isCheckIdentity).Validate(printerType),
             WsSqlProductionSiteEntity productionFacility => new WsSqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
             WsSqlScaleEntity scale => new WsSqlScaleValidator(isCheckIdentity).Validate(scale),
             WsSqlTaskEntity task => new WsSqlTaskValidator(isCheckIdentity).Validate(task),
@@ -57,7 +56,7 @@ public static class WsSqlValidationUtils
             WsSqlWorkShopEntity workShop => new WsSqlWorkShopValidator(isCheckIdentity).Validate(workShop),
             WsSqlAccessEntity access => new WsSqlAccessValidator(isCheckIdentity).Validate(access),
             WsSqlAppEntity app => new WsSqlAppValidator(isCheckIdentity).Validate(app),
-            _ => throw new NotImplementedException()
+            WsSqlPrinterEntity printer => new WsSqlPrinterValidator(isCheckIdentity).Validate(printer),
         };
 
     public static bool IsValidation<T>(T? item, ref string detailAddition, bool isCheckIdentity) where T : class, new()

@@ -55,7 +55,6 @@ public class WsRouteService
             WsSqlPluStorageMethodEntity => WsRouteUtils.SectionPlusStorage,
             WsSqlPluWeighingEntity => WsRouteUtils.SectionPlusWeightings,
             WsSqlPrinterEntity => WsRouteUtils.SectionPrinters,
-            WsSqlPrinterTypeEntity => WsRouteUtils.SectionPrinterTypes,
             WsSqlProductionSiteEntity => WsRouteUtils.SectionProductionFacilities,
             WsSqlScaleEntity => WsRouteUtils.SectionLines,
             WsSqlTemplateEntity => WsRouteUtils.SectionTemplates,

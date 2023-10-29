@@ -75,7 +75,7 @@ public sealed class WsSqlScaleMap : ClassMapping<WsSqlScaleEntity>
 
         ManyToOne(x => x.Printer, m =>
         {
-            m.Column("ZebraPrinterId");
+            m.Column("PRINTER_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

@@ -37,7 +37,6 @@
         <Compile Include="Enums\WsEnumPrintDensity.cs"/>
         <Compile Include="Enums\WsEnumPrintLabelDpi.cs"/>
         <Compile Include="Enums\WsEnumPrintLabelSize.cs"/>
-        <Compile Include="Enums\WsEnumPrintModel.cs"/>
         <Compile Include="Enums\WsEnumPrintSendType.cs"/>
         <Compile Include="Enums\WsEnumPrintSensor.cs"/>
         <Compile Include="Enums\WsEnumPrintSpeed.cs"/>

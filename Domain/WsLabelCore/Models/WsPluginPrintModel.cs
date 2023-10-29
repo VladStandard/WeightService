@@ -1,5 +1,5 @@
-using PrinterCore.Enums;
-using WsStorageCore.Entities.SchemaScale.Printers;
+using WsStorageCore.Entities.SchemaRef.Printers;
+using WsStorageCore.Enums;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -12,7 +12,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
 
     public byte LabelPrintedCount { get; set; }
     protected Label FieldPrint { get; set; } = new();
-    protected WsEnumPrintModel PrintModel { get; set; }
+    protected PrinterTypeEnum PrintModel { get; set; }
     protected WsSqlPrinterEntity Printer { get; set; }
     protected static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     protected string PrintName { get; set; }

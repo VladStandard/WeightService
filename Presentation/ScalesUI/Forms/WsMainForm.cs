@@ -1,4 +1,5 @@
 using PrinterCore.Enums;
+using WsStorageCore.Enums;
 namespace ScalesUI.Forms;
 
 public sealed partial class WsMainForm : Form
@@ -117,17 +118,17 @@ public sealed partial class WsMainForm : Form
 
         MdInvokeControl.SetVisible(fieldPrintMain, true);
         // Основной принтер.
-        switch (LabelSession.PrintModelMain)
+        switch (LabelSession.Line.Printer.Type)
         {
 
-            case WsEnumPrintModel.Tsc:
+            case PrinterTypeEnum.Tsc:
                 LabelSession.PluginPrintTscMain = new();
                 LabelSession.PluginPrintTscMain.InitTsc(new(0_500),
                 new(0_500), new(0_500),
                 LabelSession.Line.Printer, fieldPrintMain);
                 LabelSession.PluginPrintTscMain.Execute();
                 break;
-            case WsEnumPrintModel.Zebra:
+            case PrinterTypeEnum.Zebra:
                 LabelSession.PluginPrintZebraMain = new();
                 LabelSession.PluginPrintZebraMain.InitZebra(new(5000),
                 new(0_250), new(0_250),

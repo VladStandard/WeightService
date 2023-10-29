@@ -1,7 +1,8 @@
 using PrinterCore.Common;
 using PrinterCore.Connectors;
 using PrinterCore.Enums;
-using WsStorageCore.Entities.SchemaScale.Printers;
+using WsStorageCore.Entities.SchemaRef.Printers;
+using WsStorageCore.Enums;
 namespace WsLabelCore.Models;
 
 /// <summary>
@@ -34,7 +35,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
         ResponseItem.Config = configResponse;
-        PrintModel = WsEnumPrintModel.Zebra;
+        PrintModel = PrinterTypeEnum.Zebra;
         Printer = printer;
         FieldPrint = fieldPrint;
         PrintName = printer.Name;

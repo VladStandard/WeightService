@@ -3,6 +3,7 @@ using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
+using WsStorageCore.Entities.SchemaRef.Printers;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Helpers;
 
@@ -100,7 +101,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlTemplateMap>();
         mapper.AddMapping<WsSqlTemplateResourceMap>();
         mapper.AddMapping<WsSqlVersionMap>();
-        mapper.AddMapping<WsSqlPrinterTypeMap>();
         mapper.AddMapping<WsSqlPrinterMap>();
         mapper.AddMapping<WsSqlDeviceTypeMap>();
         mapper.AddMapping<WsSqlDeviceMap>();

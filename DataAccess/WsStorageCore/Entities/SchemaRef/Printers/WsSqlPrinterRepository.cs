@@ -1,5 +1,5 @@
-using WsStorageCore.OrmUtils;
-namespace WsStorageCore.Entities.SchemaScale.Printers;
+﻿using WsStorageCore.OrmUtils;
+namespace WsStorageCore.Entities.SchemaRef.Printers;
 
 public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterEntity>
 {
@@ -9,4 +9,5 @@ public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterEntit
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<WsSqlPrinterEntity>(sqlCrudConfig);
     }
+
 }

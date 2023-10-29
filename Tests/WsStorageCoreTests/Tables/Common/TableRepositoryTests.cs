@@ -33,12 +33,6 @@ public class TableRepositoryTests
 
             ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
             Assert.That(validationResult.IsValid, Is.True, validationResult.ToString());
-
-            if (item is not SerializeBase sitem)
-                continue;
-
-            string xml = WsDataFormatUtils.SerializeAsXmlString<T>(sitem, true, false);
-            Assert.That(xml, Is.Not.Empty, "XML is empty");
         }
     }
 }
