@@ -72,6 +72,13 @@ public sealed class WsSqlScaleMap : ClassMapping<WsSqlScaleEntity>
             m.Type(NHibernateUtil.String);
             m.NotNullable(true);
         });
+        
+        Property(x => x.Version, m =>
+        {
+            m.Column("VerScalesUI");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(false);
+        });
 
         ManyToOne(x => x.Printer, m =>
         {

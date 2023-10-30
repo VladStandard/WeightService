@@ -23,9 +23,11 @@ public class WsSqlScaleEntity : WsSqlEntityBase
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
     public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
     public virtual string ClickOnce { get; set; } = "";
-
+    public virtual string Version { get; set; } = "";
+    
     public WsSqlScaleEntity() : base(WsSqlEnumFieldIdentity.Id)
     {
+        Version = string.Empty;
         WorkShop = new();
         Host = new();
         Printer = new();
@@ -41,6 +43,7 @@ public class WsSqlScaleEntity : WsSqlEntityBase
         DeviceComPort = item.DeviceComPort;
         Number = item.Number;
         LabelCounter = item.LabelCounter;
+        Version = item.Version;
     }
 
     #endregion
@@ -90,7 +93,8 @@ public class WsSqlScaleEntity : WsSqlEntityBase
         Equals(LabelCounter, item.LabelCounter) &&
         WorkShop.Equals(item.WorkShop) &&
         Host.Equals(item.Host) &&
-        Printer.Equals(item.Printer);
+        Printer.Equals(item.Printer) &&
+        Version.Equals(item.Version);
 
     #endregion
 }

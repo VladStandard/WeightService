@@ -6,12 +6,21 @@ public static class WsAssemblyUtils
     
     public static string GetAppVersion(Assembly executingAssembly)
     {
-        FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-        string result = fieVersionInfo.FileVersion;
+        FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+        string result = fileVersionInfo.FileVersion;
+
         if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
-            result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
+        {
+            int lastIndex = result.LastIndexOf(".0", StringComparison.Ordinal);
+            if (lastIndex > 0)
+            {
+                result = result.Substring(0, lastIndex);
+            }
+        }
+
         return result;
     }
+
     
     public static string GetClickOnceNetworkInstallDirectory()
     {

@@ -1,3 +1,5 @@
+using WsDataCore.Utils;
+using WsStorageCore.Entities.SchemaScale.Scales;
 using WsStorageCore.Enums;
 namespace ScalesUI.Forms;
 
@@ -5,9 +7,9 @@ public sealed partial class WsMainForm : Form
 {
     #region Public and private fields, properties, constructor
 
-    private ActionSettingsModel ActionSettings { get; set; }
     private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
+    private ActionSettingsModel ActionSettings { get; set; }
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
@@ -75,7 +77,13 @@ public sealed partial class WsMainForm : Form
             SetupNavigationUserControl();
             
             LabelSession.SetSessionForLabelPrint(ShowFormUserControl);
+            
             if (IsNewLine()) return;
+            
+            LabelSession.Line.Version = WsAssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
+            LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
+            
+            new WsSqlLineRepository().Update(LabelSession.Line);
             
             this.SetupResolution();
             MainFormLoadAtBackground();
