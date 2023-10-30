@@ -42,8 +42,6 @@ public sealed class WsSqlContextCacheHelper
     public List<WsSqlBoxEntity> Boxes { get; private set; } = new();
     public List<WsSqlBundleEntity> Bundles { get; private set; } = new();
     public List<WsSqlClipEntity> Clips { get; private set; } = new();
-    //private List<WsSqlDeviceSettingsEntity> DeviceSettings { get; set; } = new();
-    //private List<WsSqlDeviceSettingsFkEntity> DeviceSettingsFks { get; set; } = new();
     public List<WsSqlPluClipFkEntity> PlusClipsFks { get; private set; } = new();
     public List<WsSqlPluFkEntity> PlusFks { get; private set; } = new();
     public List<WsSqlPluNestingFkEntity> PlusNestingFks { get; private set; } = new();
@@ -195,17 +193,7 @@ public sealed class WsSqlContextCacheHelper
         Load(WsSqlEnumTableName.ViewPlusNesting);
         Load(WsSqlEnumTableName.ViewPlusStorageMethods);
     }
-
-    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId) =>
-        ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive).ToList();
-
-    public List<WsSqlViewPluLineModel> GetViewPlusScalesDb(ushort scaleId, int pageNumber, ushort pageSize) =>
-        ViewPlusLines.Where(item => Equals(item.ScaleId, scaleId) && item.IsActive)
-            .Skip(pageNumber * pageSize)
-            .Take(pageSize)
-            .ToList();
-
-
+    
     #endregion
 
     #region Public and private methods - Локальный кэш
@@ -240,64 +228,6 @@ public sealed class WsSqlContextCacheHelper
         ViewPlusLines.Clear();
         ViewPlusNesting.Clear();
         ViewPlusStorageMethods.Clear();
-    }
-
-    /// <summary>
-    /// Очистить кеш.
-    /// </summary>
-    public void Clear(WsSqlEnumTableName tableName)
-    {
-        switch (tableName)
-        {
-            case WsSqlEnumTableName.None:
-                break;
-            case WsSqlEnumTableName.All:
-                Clear();
-                break;
-            // Таблицы.
-            case WsSqlEnumTableName.Areas:
-                Areas.Clear();
-                break;
-            case WsSqlEnumTableName.Boxes:
-                Boxes.Clear();
-                break;
-            case WsSqlEnumTableName.Bundles:
-                Bundles.Clear();
-                break;
-            case WsSqlEnumTableName.Clips:
-                Clips.Clear();
-                break;
-            case WsSqlEnumTableName.Lines:
-                Lines.Clear();
-                break;
-            case WsSqlEnumTableName.PluClipsFks:
-                PlusClipsFks.Clear();
-                break;
-            case WsSqlEnumTableName.PluFks:
-                PlusFks.Clear();
-                break;
-            case WsSqlEnumTableName.PlusNestingFks:
-                PlusNestingFks.Clear();
-                break;
-            case WsSqlEnumTableName.Plus:
-                Plus.Clear();
-                break;
-            case WsSqlEnumTableName.WorkShops:
-                WorkShops.Clear();
-                break;
-            // Представления.
-            case WsSqlEnumTableName.ViewPlusLines:
-                ViewPlusLines.Clear();
-                break;
-            case WsSqlEnumTableName.ViewPlusNesting:
-                ViewPlusNesting.Clear();
-                break;
-            case WsSqlEnumTableName.ViewPlusStorageMethods:
-                ViewPlusStorageMethods.Clear();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(tableName), tableName, null);
-        }
     }
 
     #endregion

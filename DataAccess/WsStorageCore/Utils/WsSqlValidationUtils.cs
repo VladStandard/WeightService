@@ -45,8 +45,6 @@ public static class WsSqlValidationUtils
             WsSqlPluWeighingEntity pluWeighing => new WsSqlPluWeighingValidator(isCheckIdentity).Validate(pluWeighing),
             WsSqlProductionSiteEntity productionFacility => new WsSqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
             WsSqlScaleEntity scale => new WsSqlScaleValidator(isCheckIdentity).Validate(scale),
-            WsSqlTaskEntity task => new WsSqlTaskValidator(isCheckIdentity).Validate(task),
-            WsSqlTaskTypeEntity taskType => new WsSqlTaskTypeValidator(isCheckIdentity).Validate(taskType),
             WsSqlTemplateEntity template => new WsSqlTemplateValidator(isCheckIdentity).Validate(template),
             WsSqlTemplateResourceEntity templateResource => new WsSqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
             WsSqlVersionEntity version => new WsSqlVersionValidator(isCheckIdentity).Validate(version),

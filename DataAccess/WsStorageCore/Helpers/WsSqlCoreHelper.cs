@@ -112,8 +112,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlBarCodeMap>();
         mapper.AddMapping<WsSqlOrganizationMap>();
         mapper.AddMapping<WsSqlPluStorageMethodMap>();
-        mapper.AddMapping<WsSqlTaskTypeMap>();
-        mapper.AddMapping<WsSqlTaskMap>();
         mapper.AddMapping<WsSqlLogWebMap>();
         mapper.AddMapping<WsSqlPluFkMap>();
         mapper.AddMapping<WsSqlPluNestingFkMap>();
@@ -208,14 +206,7 @@ public sealed class WsSqlCoreHelper
             }
         }
     }
-
-    public bool IsConnected()
-    {
-        bool result = false;
-        ExecuteSelectCore(session => { result = session.IsConnected; });
-        return result;
-    }
-
+    
     private ISQLQuery? GetSqlQuery(ISession session, string query, IList<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return null;
@@ -230,23 +221,7 @@ public sealed class WsSqlCoreHelper
         }
         return sqlQuery;
     }
-
-    private WsSqlCrudResultModel ExecQueryNative(string query, IList<SqlParameter> parameters)
-    {
-        if (string.IsNullOrEmpty(query)) return new(new ArgumentException());
-        return ExecuteTransactionCore(session =>
-        {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is not null)
-            {
-                _ = sqlQuery.ExecuteUpdate();
-            }
-        });
-    }
-
-    public WsSqlCrudResultModel ExecQueryNative(string query, SqlParameter parameter) =>
-        ExecQueryNative(query, new List<SqlParameter> { parameter });
-
+    
     #endregion
     
     #region CRUD

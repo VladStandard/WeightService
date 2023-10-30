@@ -151,16 +151,16 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(records)}
 	 [UID]
 	,[CREATE_DT]
-	,[LINE]
-	,[HOSTNAME]
-	,[APP]
+	,[LINE_NAME]
+	,[DEVICE_NAME]
+	,[APP_NAME]
 	,[VERSION]
-	,[FILE]
+	,[FILE_NAME]
 	,[CODE_LINE]
 	,[MEMBER]
 	,[LOG_TYPE]
 	,[MESSAGE]
-from [db_scales].[VIEW_LOGS]
+from [DIAG].[VIEW_LOGS_DEVICES]
 WHERE
 {logType}
 {currentLine}

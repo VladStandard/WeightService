@@ -23,8 +23,6 @@ using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using WsStorageCore.Entities.SchemaScale.PlusWeightings;
 using WsStorageCore.Entities.SchemaScale.Scales;
-using WsStorageCore.Entities.SchemaScale.Tasks;
-using WsStorageCore.Entities.SchemaScale.TasksTypes;
 using WsStorageCore.Entities.SchemaScale.Templates;
 using WsStorageCore.Entities.SchemaScale.TemplatesResources;
 using WsStorageCore.Entities.SchemaScale.Versions;
@@ -292,10 +290,6 @@ public sealed class DataCoreHelper
                 scale.WorkShop = CreateNewSubstitute<WsSqlWorkShopEntity>(isNotDefault);
                 scale.Number.Returns(10000);
                 break;
-			case WsSqlTaskEntity task:
-				task.TaskType = CreateNewSubstitute<WsSqlTaskTypeEntity>(isNotDefault);
-				task.Scale = CreateNewSubstitute<WsSqlScaleEntity>(isNotDefault);
-				break;
 			case WsSqlTemplateResourceEntity templateResource:
                 templateResource.Type.Returns(WsLocaleCore.Sql.SqlItemFieldTemplateResourceType);
                 templateResource.DataValue.Returns(new byte[] { 0x00 } );

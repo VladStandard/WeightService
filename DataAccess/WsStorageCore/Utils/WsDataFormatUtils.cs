@@ -3,14 +3,6 @@ namespace WsStorageCore.Utils;
 
 public static class WsDataFormatUtils
 {
-    #region Public and private fields and properties
-
-    private static readonly char[] DigitsCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-    private static readonly char[] SpecialCharacters = { ' ', ',', '.', '-', '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '"', '№', ';', ':', '?', '/', '|', '\\', '{', '}', '<', '>' };
-
-    #endregion
-
     #region Public and private methods
 
     /// <summary>
@@ -64,45 +56,6 @@ public static class WsDataFormatUtils
         xslt.Transform(xmlReaderXml, xmlWriter);
         string result = stringWriter.ToString();
         return result;
-    }
-
-    public static bool IsCyrillic(char value)
-    {
-        char[] cyrillic = Enumerable
-            .Range(UnicodeRanges.Cyrillic.FirstCodePoint, UnicodeRanges.Cyrillic.Length)
-            .Select(ch => (char)ch)
-            .ToArray();
-        return Array.BinarySearch(cyrillic, value) >= 0;
-    }
-
-    public static bool IsDigit(char value) => DigitsCharacters.Contains(value);
-
-    public static bool IsSpecial(char value, bool isExcludeTop = true)
-    {
-        if (isExcludeTop && value == '^')
-            return false;
-        return SpecialCharacters.Contains(value);
-    }
-
-    public static XmlDocument XmlMerge(XmlDocument documentA, XmlDocument documentB)
-    {
-        if (documentA.DocumentElement is not null && documentB.DocumentElement is not null)
-        {
-            if (!Equals(documentA.DocumentElement.Name, documentB.DocumentElement.Name))
-            {
-                XmlNode xmlImport = documentA.ImportNode(documentB.DocumentElement, true);
-                documentA.DocumentElement.AppendChild(xmlImport);
-            }
-            else
-            {
-                foreach (XmlNode xmlNode in documentB.DocumentElement.ChildNodes)
-                {
-                    XmlNode xmlImport = documentA.ImportNode(xmlNode, true);
-                    documentA.DocumentElement.AppendChild(xmlImport);
-                }
-            }
-        }
-        return documentA;
     }
 
     #endregion

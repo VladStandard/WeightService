@@ -1,6 +1,5 @@
 namespace WsStorageCore.Common;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class WsSqlTable1CBase : WsSqlEntityBase
 {
