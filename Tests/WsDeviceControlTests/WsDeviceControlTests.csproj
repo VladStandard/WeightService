@@ -22,7 +22,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Clients\DeviceControl\DeviceControl.csproj" />
+        <ProjectReference Include="..\..\Presentation\DeviceControl\DeviceControl.csproj" />
         <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
     </ItemGroup>
 </Project>
