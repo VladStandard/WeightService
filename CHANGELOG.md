@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2023-10-30
+- SQL.
+    - Удалены таблицы: [db_scales].[ZebraPrinter], [db_scales].[ZebraPrinterType], [diag].[LOGS_MEMORIES], [CONF].[DEVICES_SETTINGS_FK],
+        [CONF].[DEVICES_SETTINGS], [db_scales].[DEVICES], [db_scales].[TASKS], [db_scales].[TASKS_TYPES], [db_scales].[DEVICES_TYPES].
+    - Добавлены таблицы: [REF].[HOSTS], [REF].[PRINTERS]
+- Печать этикеток
+  - Сохранение ClickOnce каталога и версии ПО в WsSqlScaleEntity
+  - Удаление старых моделей ОРМ
+  - Подключение новых моделей ОРМ
+
 ## [1.1.3] - 2023-10-23
 - SQL.
   - Удалены таблицы: [db_scales].[ZebraPrinterResourceRef], [db_scales].[ORDERS], [db_scales].[ORDERS_WEIGHINGS]
@@ -15,7 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Слой ОРМ
   - Перенос орм с FluentNHibernate на NHibernate 
 - Удалены лишние зависимости и проекты
-
 
 ## [1.0.3] - 2023-09-21
 - SQL. Удалена таблица: [db_scales].[DEVICES_SCALES_FK], [db_scales].[VIEW_LINES]

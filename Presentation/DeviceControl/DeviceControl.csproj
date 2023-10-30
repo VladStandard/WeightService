@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>1.1.0.0</Version>
+        <Version>1.1.5.0</Version>
         <Authors>Владимирский стандарт</Authors>
         <Company>Владимирский стандарт</Company>
         <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
@@ -11,29 +11,29 @@
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
         <NeutralLanguage>ru-RU</NeutralLanguage>
-        <FileVersion>1.1.0.0</FileVersion>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <FileVersion>1.1.5.0</FileVersion>
+        <AssemblyVersion>1.1.5.0</AssemblyVersion>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>
         <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.12"/>
-        <PackageReference Include="MudBlazor" Version="6.11.0"/>
-        <PackageReference Include="Radzen.Blazor" Version="4.17.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.12" />
+        <PackageReference Include="MudBlazor" Version="6.11.0" />
+        <PackageReference Include="Radzen.Blazor" Version="4.17.1" />
     </ItemGroup>
     <ItemGroup>
-        <SupportedPlatform Include="browser"/>
+        <SupportedPlatform Include="browser" />
     </ItemGroup>
     <ItemGroup>
-        <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;"/>
+        <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
-        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true"/>
+        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>
 </Project>

@@ -4,38 +4,38 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.1.0.0</Version>
+        <Version>1.1.5.0</Version>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>
         <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Enums\**"/>
-        <Compile Remove="Helpers\**"/>
-        <Compile Remove="Models\**"/>
-        <EmbeddedResource Remove="Enums\**"/>
-        <EmbeddedResource Remove="Helpers\**"/>
-        <EmbeddedResource Remove="Models\**"/>
-        <None Remove="Enums\**"/>
-        <None Remove="Helpers\**"/>
-        <None Remove="Models\**"/>
+        <Compile Remove="Enums\**" />
+        <Compile Remove="Helpers\**" />
+        <Compile Remove="Models\**" />
+        <EmbeddedResource Remove="Enums\**" />
+        <EmbeddedResource Remove="Helpers\**" />
+        <EmbeddedResource Remove="Models\**" />
+        <None Remove="Enums\**" />
+        <None Remove="Helpers\**" />
+        <None Remove="Models\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
-        <PackageReference Include="NUnit" Version="3.13.3"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj"/>
-        <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj"/>
-        <ProjectReference Include="..\..\Core\WsWebApiCore\WsWebApiCore.csproj"/>
-        <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj"/>
+        <ProjectReference Include="..\..\Core\WsDataCore\WsDataCore.csproj" />
+        <ProjectReference Include="..\..\Core\WsStorageCore\WsStorageCore.csproj" />
+        <ProjectReference Include="..\..\Core\WsWebApiCore\WsWebApiCore.csproj" />
+        <ProjectReference Include="..\WsAssertCoreTests\WsAssertCoreTests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="RestSharp"/>
+        <Using Include="RestSharp" />
     </ItemGroup>
 
 </Project>
