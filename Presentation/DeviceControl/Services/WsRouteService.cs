@@ -47,7 +47,6 @@ public class WsRouteService
             WsSqlBundleEntity => WsRouteUtils.SectionBundles,
             WsSqlHostEntity => WsRouteUtils.SectionHosts,
             WsSqlLogEntity => WsRouteUtils.SectionLogs,
-            WsSqlOrganizationEntity => WsRouteUtils.SectionOrganizations,
             WsSqlPluLabelEntity => WsRouteUtils.SectionPlusLabels,
             WsSqlPluEntity => WsRouteUtils.SectionPlus,
             WsSqlPluScaleEntity => WsRouteUtils.SectionPlusLines,

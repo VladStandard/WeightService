@@ -26,11 +26,6 @@ public sealed class WsSqlViewPluStorageMethodModel : WsSqlViewBase
     public ushort TemplateId { get; init; }
     public bool TemplateIsMarked { get; init; }
     public string TemplateName { get; init; }
-
-    public WsSqlViewPluStorageMethodModel() : this(Guid.Empty, Guid.Empty, default, default, default, string.Empty,
-        string.Empty, string.Empty, string.Empty,
-        Guid.Empty, default, string.Empty, default, default, default, default,
-        Guid.Empty, default, string.Empty, default, default, string.Empty) { }
     
     public WsSqlViewPluStorageMethodModel(Guid uid, Guid pluUid, bool pluIsMarked, bool pluIsWeight, ushort pluNumber, string pluName,
         string pluGtin, string pluEan13, string pluItf14,

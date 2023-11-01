@@ -33,6 +33,10 @@
       <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Menu\References\Organizations\ItemOrganization.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Menu\References\Organizations\Organizations.razor" />
+    </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>

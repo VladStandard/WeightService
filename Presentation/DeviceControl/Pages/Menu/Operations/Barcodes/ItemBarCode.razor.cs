@@ -17,19 +17,19 @@ public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeEntity>
     private string GetBarcodeTop()
     {
         WsSqlBarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeTopModel>(barcodeTop, WsEnumFormatType.Json, false);
+        return WsDataFormatUtils.SerializeAsJson(barcodeTop);
     }
 
     private string GetBarcodeRight()
     {
         WsSqlBarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeRightModel>(barcodeRight, WsEnumFormatType.Json, false);
+        return WsDataFormatUtils.SerializeAsJson(barcodeRight);
     }
 
     private string GetBarcodeBottom()
     {
         WsSqlBarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
-        return WsDataFormatUtils.GetContent<WsSqlBarcodeBottomModel>(barcodeBottom, WsEnumFormatType.Json, false);
+        return WsDataFormatUtils.SerializeAsJson(barcodeBottom);
     }
 
     #endregion

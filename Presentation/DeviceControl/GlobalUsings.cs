@@ -42,7 +42,6 @@ global using WsStorageCore.Entities.SchemaRef1c.Clips;
 global using WsStorageCore.Entities.SchemaRef1c.Plus;
 global using WsStorageCore.Entities.SchemaScale.Access;
 global using WsStorageCore.Entities.SchemaScale.BarCodes;
-global using WsStorageCore.Entities.SchemaScale.Organizations;
 global using WsStorageCore.Entities.SchemaScale.PlusLabels;
 global using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
 global using WsStorageCore.Entities.SchemaScale.PlusScales;

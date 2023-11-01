@@ -1,5 +1,3 @@
-// ReSharper disable VirtualMemberCallInConstructor
-
 namespace WsStorageCore.Models;
 
 [Serializable]

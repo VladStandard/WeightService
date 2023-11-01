@@ -213,21 +213,6 @@ FROM [db_scales].[VIEW_PLUS_WEIGHTINGS]
 {WsSqlQueries.GetWhereIsMarked(isMarked)}
 ORDER BY [CREATE_DT] DESC");
 
-        public static string GetDevices(int records, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-select {WsSqlQueries.GetTopRecords(records)}
-	 [UID]
-	,[IS_MARKED]
-	,[LOGIN_DT]
-	,[LOGOUT_DT]
-	,[NAME]
-	,[TYPE_NAME]
-	,[IP]
-	,[MAC]
-FROM [db_scales].[VIEW_DEVICES]
-{WsSqlQueries.GetWhereIsMarked(isMarked)}
-ORDER BY [NAME] ASC");
-
         public static string GetLabelsAggr(int records) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SELECT {WsSqlQueries.GetTopRecords(records)}

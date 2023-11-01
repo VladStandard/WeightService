@@ -23,13 +23,6 @@ public record WsSqlViewIdentityModel
         Uid = Guid.Empty;
     }
 
-    protected WsSqlViewIdentityModel(SerializationInfo info, StreamingContext context)
-    {
-        Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
-        Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
-        Id = info.GetInt64(nameof(Id));
-    }
-
     public WsSqlViewIdentityModel(WsSqlViewIdentityModel item)
     {
         Name = item.Name;

@@ -110,7 +110,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlPluWeighingMap>();
         mapper.AddMapping<WsSqlPluLabelMap>();
         mapper.AddMapping<WsSqlBarCodeMap>();
-        mapper.AddMapping<WsSqlOrganizationMap>();
         mapper.AddMapping<WsSqlPluStorageMethodMap>();
         mapper.AddMapping<WsSqlLogWebMap>();
         mapper.AddMapping<WsSqlPluFkMap>();
@@ -175,7 +174,7 @@ public sealed class WsSqlCoreHelper
     /// <summary>
     /// New transaction with action.
     /// </summary>
-    private WsSqlCrudResultModel ExecuteTransactionCore(Action<ISession> action)
+    private void ExecuteTransactionCore(Action<ISession> action)
     {
         if (SessionFactory is null)
             throw new ArgumentException(nameof(SessionFactory));
@@ -187,15 +186,12 @@ public sealed class WsSqlCoreHelper
             try
             {
                 action(session);
-                //session.Flush(); // call in next step
                 transaction.Commit();
                 session.Clear();
-                return new(true);
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                return new(ex);
             }
             finally
             {

@@ -11,7 +11,6 @@ public sealed partial class WsMainForm : Form
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private ActionSettingsModel ActionSettings { get; set; }
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
-    private WsSchedulerHelper WsScheduler => WsSchedulerHelper.Instance;
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsPrintSessionHelper PrintSession => WsPrintSessionHelper.Instance;
     private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
@@ -110,7 +109,6 @@ public sealed partial class WsMainForm : Form
         
         LabelSession.NewPallet();
         SetupPlugins();
-        WsScheduler.Load(this);
         LoadNavigationUserControl();
     }
 

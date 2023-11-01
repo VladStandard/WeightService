@@ -1,6 +1,5 @@
-
 using WsStorageCore.Entities.SchemaScale.Scales;
-namespace WsStorageCoreTestsDbContext.Helpers;
+namespace WsStorageCoreTests;
 
 [TestFixture]
 public sealed class WsSqlContextCacheHelperTests

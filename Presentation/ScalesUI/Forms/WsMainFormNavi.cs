@@ -142,7 +142,6 @@ public partial class WsMainForm
     {
         UserSession.StopwatchMain.Restart();
         ActionFinally();
-        WsScheduler.Close();
         UserSession.PluginsClose();
         FontsSettings.Close();
         MouseUnsubscribe();
@@ -158,8 +157,6 @@ public partial class WsMainForm
     private void ActionCloseAfterNotLine()
     {
         UserSession.StopwatchMain.Restart();
-        // Планировщик.
-        WsScheduler.Close();
         // Плагины.
         UserSession.PluginsClose();
         // Шрифты.

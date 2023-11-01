@@ -109,7 +109,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Helpers\WsSchedulerHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -210,10 +209,6 @@
     <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj">
       <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>
       <Name>WsLocalizationCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Domain\WsScheduleCore\WsScheduleCore.csproj">
-      <Project>{13678a17-222a-4f45-85d7-261629c4fa17}</Project>
-      <Name>WsScheduleCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

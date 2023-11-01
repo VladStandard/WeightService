@@ -37,30 +37,25 @@ public sealed class WsPrintSessionHelper
     {
         if (LabelSession.PluginPrintTscMain is null) return false;
         LabelSession.PluginPrintTscMain.ReopenTsc();
-        if (!LabelSession.PluginPrintTscMain.IsConnected)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
-            MdInvokeControl.SetText(fieldWarning, message);
-            ContextManager.ContextItem.SaveLogError(message);
-            return false;
-        }
-        return true;
+        if (LabelSession.PluginPrintTscMain.IsConnected)
+            return true;
+        MdInvokeControl.SetVisible(fieldWarning, true);
+        string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
+        MdInvokeControl.SetText(fieldWarning, message);
+        ContextManager.ContextItem.SaveLogError(message);
+        return false;
     }
     
     public bool CheckPrintIsConnectAndReadyZebraMain(Label fieldWarning)
     {
         if (LabelSession.PluginPrintZebraMain is null) return false;
-        // Готовность.
-        if (!LabelSession.PluginPrintZebraMain.CheckDeviceStatusZebra())
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, 
-                $"{WsLocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
-            ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
-            return false;
-        }
-        return true;
+        if (LabelSession.PluginPrintZebraMain.CheckDeviceStatusZebra())
+            return true;
+        MdInvokeControl.SetVisible(fieldWarning, true);
+        MdInvokeControl.SetText(fieldWarning, 
+        $"{WsLocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
+        ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+        return false;
     }
 
     /// <summary>

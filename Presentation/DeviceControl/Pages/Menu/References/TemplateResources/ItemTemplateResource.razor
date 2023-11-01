@@ -20,19 +20,15 @@
       <RadzenTextBox Style="width: 100%; text-align: left;" @bind-Value="@SqlItemCast.Type"/>
     </td>
   </tr>
-
-  @if (IsNotBlackType(SqlItemCast.Type))
-  {
-    <tr>
-      <td>@WsLocaleCore.Table.ImageData</td>
-      <td colspan="3">
-        <RadzenTextArea
-          Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
-          Rows="18"
-          @bind-Value="@(SqlItemCast.Data.ValueUnicode)"/>
-      </td>
-    </tr>
-  }
+  <tr>
+    <td>@WsLocaleCore.Table.ImageData</td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px;"
+        Rows="18"
+        @bind-Value="@(SqlItemCast.Data.ValueUnicode)"/>
+    </td>
+  </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>
 </MudSimpleTable>
