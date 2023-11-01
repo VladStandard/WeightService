@@ -1,3 +1,4 @@
+using WsStorageCore.Enums;
 namespace ScalesUI.Forms;
 
 public partial class WsMainForm
@@ -129,7 +130,7 @@ public partial class WsMainForm
             ResetWarning();
             // Навигация в контрол диалога Отмена/Да.
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
-                $"{WsLocaleCore.LabelPrint.QuestionCloseApp}?", true, WsEnumLogType.Question, 
+                $"{WsLocaleCore.LabelPrint.QuestionCloseApp}?", false, LogTypeEnum.Info, 
                 WsEnumDialogType.CancelYes, new() { ActionCloseCancel, ActionCloseYes});
             e.Cancel = true;
         });
@@ -204,7 +205,7 @@ public partial class WsMainForm
             ResetWarning();
             WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
                 $"{WsLocaleCore.LabelPrint.QuestionRunApp} ScalesTerminal?",
-                true, WsEnumLogType.Question, WsEnumDialogType.CancelYes, new() { ActionFinally, ActionYes });
+                false, LogTypeEnum.Info, WsEnumDialogType.CancelYes, new() { ActionFinally, ActionYes });
             void ActionYes()
             {
                 if (File.Exists(WsLocalizationUtils.AppScalesTerminal))
@@ -218,7 +219,7 @@ public partial class WsMainForm
                 {
                     WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
                         WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal), true,
-                        WsEnumLogType.Error, WsEnumDialogType.Ok, new() { ActionFinally });
+                        LogTypeEnum.Error, WsEnumDialogType.Ok, new() { ActionFinally });
                     ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal));
                 }
             }

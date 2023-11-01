@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using WsStorageCore.Entities.SchemaRef.Hosts;
+using WsStorageCore.Enums;
 namespace WsLabelCore.Utils;
 
 /// <summary>
@@ -117,7 +118,7 @@ public static class WsFormNavigationUtils
     /// Навигация в существующий WinForms-контрол диалога Отмена/Да.
     /// </summary>
     public static void NavigateToExistsDialogCancelYes(Action<WsFormBaseUserControl, string> showNavigation,
-        string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
+        string message, bool isLog, LogTypeEnum logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DialogUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
@@ -129,7 +130,7 @@ public static class WsFormNavigationUtils
     /// Навигация в новый WinForms-контрол диалога.
     /// </summary>
     public static void NavigateToNewDialog(Action<WsFormBaseUserControl, string> showNavigation,
-        string message, bool isLog, WsEnumLogType logType, WsEnumDialogType dialogType, List<Action> actions)
+        string message, bool isLog, LogTypeEnum logType, WsEnumDialogType dialogType, List<Action> actions)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         WsXamlDialogUserControl dialog = new();
@@ -165,7 +166,7 @@ public static class WsFormNavigationUtils
     /// Навигация в WinForms-контрол диалога Ок.
     /// </summary>
     private static void NavigateToExistsDialogOk(Action<WsFormBaseUserControl, string> showNavigation, 
-        string message, bool isLog, WsEnumLogType logType)
+        string message, bool isLog, LogTypeEnum logType)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DialogUserControl.ViewModel.SetupButtonsOk(message, ActionBackFromNavigation, NavigationUserControl.Width);
@@ -177,7 +178,7 @@ public static class WsFormNavigationUtils
     /// Навигация в WinForms-контрол ввода цифр.
     /// </summary>
     public static void NavigateToExistsDigitsUserControl(Action<WsFormBaseUserControl, string> showNavigation,
-        string message, bool isLog, WsEnumLogType logType, Action actionCancel, Action actionYes)
+        string message, bool isLog, LogTypeEnum logType, Action actionCancel, Action actionYes)
     {
         if (isLog) ShowNewOperationControlLogType(message, logType);
         DigitsUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
@@ -225,27 +226,23 @@ public static class WsFormNavigationUtils
         NavigationUserControl.SwitchUserControl(PlusNestingUserControl);
     }
 
-    private static void ShowNewOperationControlLogType(string message, WsEnumLogType logType,
+    private static void ShowNewOperationControlLogType(string message, LogTypeEnum logType,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         switch (logType)
         {
-            case WsEnumLogType.Error:
+            case LogTypeEnum.Error:
                 ContextManager.ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
-            case WsEnumLogType.Information:
-            case WsEnumLogType.None:
+            case LogTypeEnum.Info:
                 ContextManager.ContextItem.SaveLogInformation(message);
                 break;
-            case WsEnumLogType.Question:
-                ContextManager.ContextItem.SaveLogQuestion(message);
-                break;
-            case WsEnumLogType.Warning:
+            case LogTypeEnum.Warning:
                 ContextManager.ContextItem.SaveLogWarning(message);
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(logType), logType.ToString());
-        
+                ContextManager.ContextItem.SaveLogWarning(message);
+                break;
         }
     }
 
@@ -256,7 +253,7 @@ public static class WsFormNavigationUtils
         {
             NavigateToNewDialog(showNavigation,
                 WsLocaleCore.LabelPrint.HostNotFound(host.Name) + Environment.NewLine + WsLocaleCore.LabelPrint.QuestionWriteToDb,
-                false, WsEnumLogType.Information, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
+                false, LogTypeEnum.Info, WsEnumDialogType.CancelYes, new() { () => { }, ActionYes });
             void ActionYes()
             {
                 host = new()
@@ -293,7 +290,7 @@ public static class WsFormNavigationUtils
         // Навигация в WinForms-контрол диалога Ок.
         NavigateToExistsDialogOk(showNavigation, 
             $"{WsLocaleCore.LabelPrint.Method}: {memberName}." + Environment.NewLine +
-            $"{WsLocaleCore.LabelPrint.Line}: {lineNumber}." + Environment.NewLine + message, true, WsEnumLogType.Error);
+            $"{WsLocaleCore.LabelPrint.Line}: {lineNumber}." + Environment.NewLine + message, true, LogTypeEnum.Error);
     }
 
     private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName) => 

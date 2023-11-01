@@ -142,31 +142,6 @@ SELECT
 FROM [REF].[VIEW_PLUS_NESTING] {WsSqlQueries.GetWherePluNumber(pluNumber)}
 ORDER BY [PLU_NUMBER], [PLU_NAME];");
 
-        public static string GetLogs(int records, string? logType, string? currentLine)
-        {
-            logType = logType != null ? $"LOG_TYPE = '{logType}'" : "1=1";
-            currentLine = currentLine != null ? $"AND LINE = '{currentLine}'" : "AND 1=1";
-            return WsSqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-select {WsSqlQueries.GetTopRecords(records)}
-	 [UID]
-	,[CREATE_DT]
-	,[LINE_NAME]
-	,[DEVICE_NAME]
-	,[APP_NAME]
-	,[VERSION]
-	,[FILE_NAME]
-	,[CODE_LINE]
-	,[MEMBER]
-	,[LOG_TYPE]
-	,[MESSAGE]
-from [DIAG].[VIEW_LOGS_DEVICES]
-WHERE
-{logType}
-{currentLine}
-order by [CREATE_DT] DESC");
-        }
-
         public static string GetBarcodes(int records, WsSqlEnumIsMarked isMarked) => WsSqlQueries.TrimQuery($@"
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select {WsSqlQueries.GetTopRecords(records)}

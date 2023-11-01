@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
+using WsStorageCore.Enums;
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 [DebuggerDisplay("{ToString()}")]
@@ -8,7 +9,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
 
     public virtual WsSqlHostEntity? Device { get; set; }
     public virtual WsSqlAppEntity? App { get; set; }
-    public virtual WsSqlLogTypeEntity? LogType { get; set; }
+    public virtual LogTypeEnum Type { get; set; }
     public virtual string Version { get; set; }
     public virtual string File { get; set; }
     public virtual int Line { get; set; }
@@ -19,7 +20,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
     {
         Device = null;
         App = null;
-        LogType = null;
+        Type = LogTypeEnum.Info;
         Line = 0;
         Version = string.Empty;
         File = string.Empty;
@@ -31,7 +32,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
     {
         Device = item.Device is null ? null : new(item.Device);
         App = item.App is null ? null : new(item.App);
-        LogType = item.LogType is null ? null : new(item.LogType);
+        Type = item.Type;
         Version = item.Version;
         File = item.File;
         Line = item.Line;
@@ -44,7 +45,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | {Device?.Name ?? "null"} | {App?.Name ?? "null"} | {LogType?.Icon ?? "null"} | {Version} | {File} " +
+        $"{GetIsMarked()} | {Device?.Name ?? "null"} | {App?.Name ?? "null"} | {Type.ToString()} | {Version} | {File} " +
         $"{Line} | {Member} | {Message}";
 
     public override bool Equals(object obj)
@@ -68,7 +69,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
         Equals(Message, string.Empty) &&
         (Device is null || Device.EqualsDefault()) &&
         (App is null || App.EqualsDefault()) &&
-        (LogType is null || LogType.EqualsDefault());
+        (Type is LogTypeEnum.Info);
 
     public override void FillProperties()
     {
@@ -79,10 +80,10 @@ public class WsSqlLogEntity : WsSqlEntityBase
         Line = 1;
         Member = WsLocaleCore.Sql.SqlItemFieldMember;
         Message = WsLocaleCore.Sql.SqlItemFieldMessage;
-
+        Type = LogTypeEnum.Info;
+        
         Device?.FillProperties();
         App?.FillProperties();
-        LogType?.FillProperties();
     }
 
     #endregion
@@ -100,8 +101,7 @@ public class WsSqlLogEntity : WsSqlEntityBase
         (Device is null && item.Device is null ||
          Device is not null && item.Device is not null && Device.Equals(item.Device)) &&
         (App is null && item.App is null || App is not null && item.App is not null && App.Equals(item.App)) &&
-        (LogType is null && item.LogType is null ||
-         LogType is not null && item.LogType is not null && LogType.Equals(item.LogType));
+        Type.Equals(item.Type);
 
     #endregion
 }

@@ -61,7 +61,6 @@ public class WsRouteService
             WsSqlVersionEntity => WsRouteUtils.SectionVersions,
             WsSqlWorkShopEntity => WsRouteUtils.SectionWorkShops,
             WsSqlClipEntity => WsRouteUtils.SectionClips,
-            WsSqlViewLogModel => WsRouteUtils.SectionLogs,
             WsSqlViewBarcodeModel => WsRouteUtils.SectionBarCodes,
             WsSqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
             WsSqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,

@@ -98,7 +98,6 @@ public sealed class WsSqlCoreHelper
         mapper.AddMapping<WsSqlProductionSiteMap>();
         mapper.AddMapping<WsSqlWorkshopMap>();
         mapper.AddMapping<WsSqlAppMap>();
-        mapper.AddMapping<WsSqlLogTypeMap>();
         mapper.AddMapping<WsSqlTemplateMap>();
         mapper.AddMapping<WsSqlTemplateResourceMap>();
         mapper.AddMapping<WsSqlVersionMap>();

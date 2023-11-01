@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
+using WsStorageCore.Enums;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -45,16 +46,15 @@ public sealed class WsSqlContextItemHelper
         }
     }
 
-    private void SaveLogCore(StringBuilder message, WsEnumLogType logType, string filePath, int lineNumber,
+    private void SaveLogCore(StringBuilder message, LogTypeEnum logType, string filePath, int lineNumber,
         string memberName) =>
         SaveLogCore(message.ToString(), logType, filePath, lineNumber, memberName);
 
-    private void SaveLogCore(string message, WsEnumLogType logType, string filePath, int lineNumber, string memberName)
+    private void SaveLogCore(string message, LogTypeEnum logType, string filePath, int lineNumber, string memberName)
     {
         WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
         WsStrUtils.SetStringValueTrim(ref memberName, 32);
         WsStrUtils.SetStringValueTrim(ref message, 1024);
-        WsSqlLogTypeEntity logTypeItem = new WsSqlLogTypeRepository().GetItemByEnumType(logType);
 
         WsSqlLogEntity log = new()
         {
@@ -63,7 +63,7 @@ public sealed class WsSqlContextItemHelper
             IsMarked = false,
             Device = Host,
             App = App,
-            LogType = logTypeItem,
+            Type = logType,
             Version = WsAppVersionHelper.Instance.Version,
             File = filePath,
             Line = lineNumber,
@@ -77,18 +77,18 @@ public sealed class WsSqlContextItemHelper
     {
         string message = ex.Message;
         if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
-        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
     }
 
     public void SaveLogErrorWithInfo(Exception ex, string description, string filePath, int lineNumber, string memberName)
     {
         string message = ex.Message;
         if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
-        SaveLogCore($"{description} | {message}", WsEnumLogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore($"{description} | {message}", LogTypeEnum.Error, filePath, lineNumber, memberName);
     }
 
     public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
-        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
 
     public void SaveLogError(Exception ex,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
@@ -100,31 +100,23 @@ public sealed class WsSqlContextItemHelper
 
     public void SaveLogError(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Error, filePath, lineNumber, memberName);
-
-    public void SaveLogStop(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Stop, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
     
     public void SaveLogInformation(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Info, filePath, lineNumber, memberName);
     
     public void SaveLogInformation(StringBuilder message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Information, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Info, filePath, lineNumber, memberName);
 
     public void SaveLogInformationWithDescription(string message, string description,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore($"{description} | {message}", WsEnumLogType.Information, filePath, lineNumber, memberName);
+        SaveLogCore($"{description} | {message}", LogTypeEnum.Info, filePath, lineNumber, memberName);
 
     public void SaveLogWarning(string message,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Warning, filePath, lineNumber, memberName);
-
-    public void SaveLogQuestion(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, WsEnumLogType.Question, filePath, lineNumber, memberName);
+        SaveLogCore(message, LogTypeEnum.Warning, filePath, lineNumber, memberName);
 
     #endregion
 

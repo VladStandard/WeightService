@@ -1,22 +1,18 @@
-using WsStorageCore.Entities.SchemaDiag.LogsTypes;
+using WsStorageCore.Enums;
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
-public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
+public sealed partial class Logs : SectionBase<WsSqlLogEntity>
 {
-    private string? CurrentLogType { get; set; }
-    private string? CurrentLine { get; set; }
-    private List<WsSqlLogTypeEntity> LogTypes { get; set; }
+    private LogTypeEnum? CurrentLogType { get; set; }
+    private WsSqlScaleEntity? CurrentLine { get; set; }
     private List<WsSqlScaleEntity> Lines { get; set; }
-
-    private WsSqlViewLogRepository ViewLogRepository { get; } = new();
-    private WsSqlLogTypeRepository LogTypeRepository  { get; } = new();
+    private WsSqlLogRepository LogRepository { get; } = new();
     private WsSqlLineRepository LineRepository { get; } = new();
 
     public Logs() : base()
     {
         WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
         
-        LogTypes = LogTypeRepository.GetEnumerable(sqlCrudConfig).ToList();
         Lines = LineRepository.GetEnumerable(sqlCrudConfig).ToList();
         
         IsGuiShowFilterMarked = false;
@@ -27,6 +23,6 @@ public sealed partial class Logs : SectionBase<WsSqlViewLogModel>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = ViewLogRepository.GetListByLogTypeAndLineName(SqlCrudConfigSection, CurrentLogType, CurrentLine).ToList();
+        SqlSectionCast = LogRepository.GetListByLogTypeAndLineName(SqlCrudConfigSection, CurrentLogType, CurrentLine).ToList();
     }
 }

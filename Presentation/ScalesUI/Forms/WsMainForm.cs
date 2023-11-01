@@ -45,7 +45,7 @@ public sealed partial class WsMainForm : Form
             return false;
         }
         string message = WsLocaleCore.LabelPrint.RegistrationWarningLineNotFound(WsLabelSessionHelper.DeviceName);
-        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, LogTypeEnum.Error,
         WsEnumDialogType.Ok, new() { ActionCloseAfterNotLine });
         return true;
     }
@@ -58,7 +58,7 @@ public sealed partial class WsMainForm : Form
         WsFormNavigationUtils.DialogUserControl.ViewModel.SetupButtonsOk(message, ActionExit, 
         WsFormNavigationUtils.NavigationUserControl.Width);
         // Навигация в контрол диалога Ок.
-        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, WsEnumLogType.Error,
+        WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, LogTypeEnum.Error,
         WsEnumDialogType.Ok, new() { ActionFinally });
         ContextManager.ContextItem.SaveLogWarning(message);
         return true;

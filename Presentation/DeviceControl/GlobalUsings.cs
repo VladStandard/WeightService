@@ -28,7 +28,6 @@ global using WsStorageCore.Helpers;
 global using WsStorageCore.Views.ViewDiagModels.TableSize;
 global using WsStorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 global using WsStorageCore.Views.ViewScaleModels.Barcodes;
-global using WsStorageCore.Views.ViewScaleModels.Logs;
 global using WsStorageCore.Views.ViewScaleModels.PluLabels;
 global using WsStorageCore.Views.ViewScaleModels.PluWeightings;
 global using WsStorageCore.Entities.SchemaDiag.Logs;

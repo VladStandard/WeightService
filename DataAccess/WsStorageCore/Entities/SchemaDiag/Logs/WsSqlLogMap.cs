@@ -1,5 +1,7 @@
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Type;
+using WsStorageCore.Enums;
 using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
@@ -66,17 +68,19 @@ public sealed class WsSqlLogMap : ClassMapping<WsSqlLogEntity>
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });
-
+        
+        Property(x => x.Type, m =>
+        {
+            m.Column("TYPE");
+            m.NotNullable(true);
+            m.Type<EnumStringType<LogTypeEnum>>();
+            m.Length(15);
+        });
+        
         ManyToOne(x => x.App, m => {
             m.Column("APP_UID");
             m.Lazy(LazyRelation.NoLazy);
-            m.NotNullable(true);
-        });
-
-        ManyToOne(x => x.LogType, m => {
-            m.Column("LOG_TYPE_UID");
-            m.Lazy(LazyRelation.NoLazy);
-            m.NotNullable(true);
+            m.NotNullable(false);
         });
     }
 }

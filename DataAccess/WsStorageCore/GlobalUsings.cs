@@ -39,7 +39,6 @@ global using WsStorageCore.Views.ViewRefModels.PluLines;
 global using WsStorageCore.Views.ViewRefModels.PluNestings;
 global using WsStorageCore.Views.ViewRefModels.PluStorageMethods;
 global using WsStorageCore.Entities.SchemaDiag.Logs;
-global using WsStorageCore.Entities.SchemaDiag.LogsTypes;
 global using WsStorageCore.Entities.SchemaDiag.LogsWebs;
 global using WsStorageCore.Entities.SchemaRef.ProductionSites;
 global using WsStorageCore.Entities.SchemaRef.WorkShops;

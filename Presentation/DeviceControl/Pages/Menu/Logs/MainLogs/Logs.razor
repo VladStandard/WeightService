@@ -2,7 +2,8 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlViewLogModel>
+@using WsStorageCore.Enums
+@inherits SectionBase<WsSqlLogEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.System.SystemLogs"
@@ -15,24 +16,24 @@
   />
 
 <div Style="display: flex; margin-bottom: 2px">
+  <RzDropDownNullable
+                      Style="width: 50%; display: inline-block;"
+                      TItem="LogTypeEnum"
+                      @bind-Value="@CurrentLogType"
+                      Data="@Enum.GetValues(typeof(LogTypeEnum))"
+                      Change="@(() => GetSectionData())"
+                      Placeholder="Types: All"/>
   <RzDropDownNullable Style="width: 50%; display: inline-block;"
-              @bind-Value="@CurrentLogType"
-              Data="@LogTypes"
-              ValueProperty="Icon"
-              TextProperty="Icon" Change="@(() => GetSectionData())"
-              Placeholder="LogTypes: All"/>
-  <RzDropDownNullable Style="width: 50%; display: inline-block;"
-              @bind-Value="@CurrentLine"
-              Data="@Lines"
-              FilterOperator="StringFilterOperator.Contains"
-              AllowFiltering="true"
-              ValueProperty="Description"
-              TextProperty="Description" Change="@(() => GetSectionData())"
-              Placeholder="Lines: All"/>
+                      @bind-Value="@CurrentLine"
+                      Data="@Lines"
+                      FilterOperator="StringFilterOperator.Contains"
+                      AllowFiltering="true"
+                      TextProperty="Description" Change="@(() => GetSectionData())"
+                      Placeholder="Lines: All"/>
 </div>
 
 <RzDataGrid
-  TItem="@WsSqlViewLogModel"
+  TItem="@WsSqlLogEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -40,15 +41,14 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlViewLogModel">
+    <TItemContent TItem="@WsSqlLogEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="14%"
                             FormatString="@WsStrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="14%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="Host" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="App" Width="13%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="Device.Name" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.App" Property="App.Name" Width="13%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="6%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LogType" Property="LogType" Width="10%"/>
+      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LogType" Property="Type" Width="10%"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Message" Property="Message" Width="30%"/>
     </TItemContent>
   </Columns>

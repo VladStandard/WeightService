@@ -30,7 +30,6 @@ public static class WsSqlValidationUtils
             WsSqlClipEntity clip => new WsSqlClipValidator(isCheckIdentity).Validate(clip),
             WsSqlHostEntity device => new WsSqlHostValidator(isCheckIdentity).Validate(device),
             WsSqlLogEntity log => new WsSqlLogValidator(isCheckIdentity).Validate(log),
-            WsSqlLogTypeEntity logType => new WsSqlLogTypeValidator(isCheckIdentity).Validate(logType),
             WsSqlLogWebEntity logWeb => new WsSqlLogWebValidator(isCheckIdentity).Validate(logWeb),
             WsSqlPluClipFkEntity pluClip => new WsSqlPluClipFkValidator(isCheckIdentity).Validate(pluClip),
             WsSqlPluFkEntity pluFk => new WsSqlPluFkValidator(isCheckIdentity).Validate(pluFk),
