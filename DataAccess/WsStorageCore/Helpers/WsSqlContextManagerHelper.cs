@@ -23,16 +23,7 @@ public sealed class WsSqlContextManagerHelper
     public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public WsSqlProductionSiteRepository ProductionSiteRepository { get; } = new();
-    public WsSqlHostRepository HostRepository { get; } = new();
-    public WsSqlLineRepository LineRepository { get; } = new();
-    public WsSqlPluClipFkRepository PlusClipFkRepository { get; } = new();
-    public WsSqlPluLabelRepository PluLabelRepository { get; } = new();
-    public WsSqlPluLineRepository PluLineRepository { get; } = new();
-    public WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
-    public WsSqlPluStorageMethodFkRepository SqlPluStorageMethodFkRepository { get; } = new();
-    public WsSqlPluWeighingRepository PluWeighingRepository { get; } = new();
-
+    
     #endregion
 
     #region Public and private methods
@@ -79,23 +70,7 @@ public sealed class WsSqlContextManagerHelper
         }
         return jsonObject is not null;
     }
-
-    public void SetupJsonConsole(string localDir, string appName)
-    {
-        try
-        {
-            CheckConfigsUpdates(localDir, JsonSettings.JsonFileName);
-            if (!SetupConfigsCore(localDir, false, JsonSettings.JsonFileName))
-                throw new(WsLocaleCore.System.ConfigLocalFileException);
-            SqlCore.SetSessionFactory(false);
-            ContextItem.SetupLog(appName);
-        }
-        catch (Exception ex)
-        {
-            FileLogger.StoreException(ex);
-        }
-    }
-
+    
     public void SetupJsonScales(string localDir, string appName)
     {
         try
@@ -162,7 +137,6 @@ public sealed class WsSqlContextManagerHelper
 
             SqlCore.SetSessionFactory(isShowSql);
             ContextItem.SetupLog(appName ?? string.Empty);
-            ContextItem.SaveLogInformation(WsLocaleCore.DeviceControl.WebAppIsStarted);
         }
         catch (Exception ex)
         {

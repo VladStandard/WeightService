@@ -20,12 +20,15 @@ public sealed class WsSqlContextItemHelper
     #region Public and private fields, properties, constructor
 
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    public WsSqlAppEntity App { get; private set; } = new();
-    public WsSqlHostEntity Host { get; private set; } = new();
+    private WsSqlAppEntity App { get; set; } = new();
+    private WsSqlHostEntity Host { get; set; } = new();
 
     #endregion
 
     #region Public and private methods - Logs
+
+
+    #region Private
 
     public void SetupLog(string deviceName, string appName)
     {
@@ -45,11 +48,9 @@ public sealed class WsSqlContextItemHelper
             App = appRepository.GetItemByNameOrCreate(appName);
         }
     }
-
-    private void SaveLogCore(StringBuilder message, LogTypeEnum logType, string filePath, int lineNumber,
-        string memberName) =>
-        SaveLogCore(message.ToString(), logType, filePath, lineNumber, memberName);
-
+    
+    public void SetupLog(string appName) => SetupLog("", appName);
+    
     private void SaveLogCore(string message, LogTypeEnum logType, string filePath, int lineNumber, string memberName)
     {
         WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
@@ -73,57 +74,39 @@ public sealed class WsSqlContextItemHelper
         SqlCore.Save(log, WsSqlEnumSessionType.IsolatedAsync);
     }
 
+    #endregion
+    
     public void SaveLogErrorWithInfo(Exception ex, string filePath, int lineNumber, string memberName)
     {
         string message = ex.Message;
         if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
         SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
     }
+    
+    public void SaveLogError(Exception ex, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+        SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
-    public void SaveLogErrorWithInfo(Exception ex, string description, string filePath, int lineNumber, string memberName)
+    public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
+        SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
+
+    public void SaveLogErrorWithDescription(Exception ex, string description, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         string message = ex.Message;
         if (ex.InnerException is not null) message += " | " + ex.InnerException.Message;
         SaveLogCore($"{description} | {message}", LogTypeEnum.Error, filePath, lineNumber, memberName);
     }
 
-    public void SaveLogErrorWithInfo(string message, string filePath, int lineNumber, string memberName) =>
-        SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
-
-    public void SaveLogError(Exception ex,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
-
-    public void SaveLogErrorWithDescription(Exception ex, string description,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogErrorWithInfo(ex, description, filePath, lineNumber, memberName);
-
-    public void SaveLogError(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+    public void SaveLogError(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, LogTypeEnum.Error, filePath, lineNumber, memberName);
     
-    public void SaveLogInformation(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+    public void SaveLogInformation(string message, string description = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        if (description != string.Empty) message = $"{description} | {message}";
         SaveLogCore(message, LogTypeEnum.Info, filePath, lineNumber, memberName);
-    
-    public void SaveLogInformation(StringBuilder message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore(message, LogTypeEnum.Info, filePath, lineNumber, memberName);
+    }
 
-    public void SaveLogInformationWithDescription(string message, string description,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
-        SaveLogCore($"{description} | {message}", LogTypeEnum.Info, filePath, lineNumber, memberName);
-
-    public void SaveLogWarning(string message,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
+    public void SaveLogWarning(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
         SaveLogCore(message, LogTypeEnum.Warning, filePath, lineNumber, memberName);
 
     #endregion
-
-    #region Public and private methods - LogMemory
-
-    public void SetupLog(string appName) => SetupLog("", appName);
-
-    #endregion
-    
 }

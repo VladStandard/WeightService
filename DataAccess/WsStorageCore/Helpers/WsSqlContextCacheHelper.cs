@@ -37,7 +37,6 @@ public sealed class WsSqlContextCacheHelper
     #region Public and private fields, properties, constructor - Глобальный кэш таблиц
     
     private WsSqlCrudConfigModel SqlCrudConfig => WsSqlCrudConfigFactory.GetCrudAll();
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlEnumTableName TableName { get; set; } = WsSqlEnumTableName.None;
     public List<WsSqlBoxEntity> Boxes { get; private set; } = new();
     public List<WsSqlBundleEntity> Bundles { get; private set; } = new();
@@ -154,7 +153,7 @@ public sealed class WsSqlContextCacheHelper
         //if (!DeviceSettingsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.DeviceSettingsFks))
         //    DeviceSettingsFks = DeviceSettingFkRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!PlusClipsFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PluClipsFks))
-            PlusClipsFks = ContextManager.PlusClipFkRepository.GetEnumerable(SqlCrudConfig).ToList();
+            PlusClipsFks = new WsSqlPluClipFkRepository().GetEnumerable(SqlCrudConfig).ToList();
         
         if (!PlusNestingFks.Any() || Equals(tableName, WsSqlEnumTableName.All) || Equals(tableName, WsSqlEnumTableName.PlusNestingFks))
             PlusNestingFks = PluNestingFkRepository.GetEnumerable(SqlCrudConfig).ToList();

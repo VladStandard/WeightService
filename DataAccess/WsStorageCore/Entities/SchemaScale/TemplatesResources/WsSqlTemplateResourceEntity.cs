@@ -51,12 +51,6 @@ public class WsSqlTemplateResourceEntity : WsSqlEntityBase
         base.EqualsDefault() &&
         Equals(Type, string.Empty) &&
         Data.Equals(new());
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Data.FillProperties();
-    }
 
     #endregion
 

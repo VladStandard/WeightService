@@ -1,7 +1,6 @@
 namespace WsStorageCore.Models;
 
-[Serializable]
-public class WsSqlFieldBinaryModel : WsSqlFieldBase
+public class WsSqlFieldBinaryModel
 {
     #region Public and private fields, properties, constructor
 
@@ -25,18 +24,12 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase
 
     public WsSqlFieldBinaryModel() : base()
     {
-        FieldName = nameof(WsSqlFieldBinaryModel);
         Value = Array.Empty<byte>();
     }
     
-    protected WsSqlFieldBinaryModel(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-        Value = (byte[])info.GetValue(nameof(Value), typeof(byte[]));
-    }
 
-    public WsSqlFieldBinaryModel(WsSqlFieldBinaryModel item) : base(item)
+    public WsSqlFieldBinaryModel(WsSqlFieldBinaryModel item)
     {
-        FieldName = nameof(WsSqlFieldBinaryModel);
         Value = WsDataUtils.ByteClone(item.Value);
     }
 
@@ -57,18 +50,10 @@ public class WsSqlFieldBinaryModel : WsSqlFieldBase
 
     public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
 
-    public override bool EqualsNew() => Equals(new());
+    public bool EqualsNew() => Equals(new());
 
-    public override bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
-
-    /// <summary>
-    /// Get object data for serialization info.
-    /// </summary>
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Value), Value);
-    }
+    public bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
+    
 
     #endregion
 

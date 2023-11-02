@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using WsStorageCore.Entities.SchemaScale.PlusScales;
 namespace WsLabelCore.Pages;
 
 /// <summary>
@@ -6,7 +7,6 @@ namespace WsLabelCore.Pages;
 /// </summary>
 #nullable enable
 [DebuggerDisplay("{ToString()}")]
-#nullable enable
 public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, IWsFormUserControl
 {
     #region Public and private fields, properties, constructor
@@ -89,7 +89,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ViewModel.PluLine = ContextManager.PluLineRepository.GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ViewModel.PluLine = new WsSqlPluLineRepository().GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 
@@ -124,35 +124,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
         LastPageNumber = LabelSession.PlusPageNumber;
         SetupFormControls();
     }
-
-    /// <summary>
-    /// Настроить панель ПЛУ.
-    /// </summary>
-    private void SetupLayoutPanelPlus(int columnCount, int rowCount)
-    {
-        layoutPanelPlus.ColumnStyles.Clear();
-        layoutPanelPlus.ColumnCount = columnCount > 0 ? columnCount : 1;
-        if (columnCount > 0)
-        {
-            int width = 100 / columnCount;
-            for (ushort i = 0; i < layoutPanelPlus.ColumnCount; i++)
-                layoutPanelPlus.ColumnStyles.Add(new(SizeType.Percent, width));
-        }
-        else
-            layoutPanelPlus.ColumnStyles.Add(new(SizeType.Percent, 100));
-
-        layoutPanelPlus.RowStyles.Clear();
-        layoutPanelPlus.RowCount = rowCount > 0 ? rowCount : 1;
-        if (rowCount > 0)
-        {
-            int height = 100 / layoutPanelPlus.RowCount;
-            for (ushort i = 0; i < layoutPanelPlus.RowCount; i++)
-                layoutPanelPlus.RowStyles.Add(new(SizeType.Percent, height));
-        }
-        else
-            layoutPanelPlus.RowStyles.Add(new(SizeType.Percent, 100));
-    }
-
+    
     /// <summary>
     /// Настроить контролы.
     /// </summary>

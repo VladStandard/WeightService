@@ -113,19 +113,7 @@ public static class WsFormNavigationUtils
         showNavigation(LinesUserControl, WsLocaleCore.LabelPrint.SwitchLine);
         NavigationUserControl.SwitchUserControl(LinesUserControl);
     }
-
-    /// <summary>
-    /// Навигация в существующий WinForms-контрол диалога Отмена/Да.
-    /// </summary>
-    public static void NavigateToExistsDialogCancelYes(Action<WsFormBaseUserControl, string> showNavigation,
-        string message, bool isLog, LogTypeEnum logType, Action actionCancel, Action actionYes)
-    {
-        if (isLog) ShowNewOperationControlLogType(message, logType);
-        DialogUserControl.ViewModel.SetupButtonsCancelYes(message, actionCancel, actionYes, ActionBackFromNavigation, NavigationUserControl.Width);
-        showNavigation(DialogUserControl, WsLocaleCore.LabelPrint.OperationControl);
-        NavigationUserControl.SwitchUserControl(DialogUserControl);
-    }
-
+    
     /// <summary>
     /// Навигация в новый WinForms-контрол диалога.
     /// </summary>

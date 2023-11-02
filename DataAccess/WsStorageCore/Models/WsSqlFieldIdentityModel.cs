@@ -3,21 +3,19 @@ namespace WsStorageCore.Models;
 /// <summary>
 /// DB field Identity model.
 /// </summary>
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class WsSqlFieldIdentityModel : WsSqlFieldBase
+public class WsSqlFieldIdentityModel
 {
     #region Public and private fields, properties, constructor
 
-    [XmlElement] public virtual WsSqlEnumFieldIdentity Name { get; private set; }
-    [XmlElement] public virtual Guid Uid { get; private set; }
-    [XmlElement] public virtual long Id { get; private set; }
-    [XmlIgnore] public virtual bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
-    [XmlIgnore] public virtual bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
+     public virtual WsSqlEnumFieldIdentity Name { get; }
+     public virtual Guid Uid { get; private set; }
+     public virtual long Id { get; private set; }
+     public virtual bool IsUid => Equals(Name, WsSqlEnumFieldIdentity.Uid);
+     public virtual bool IsId => Equals(Name, WsSqlEnumFieldIdentity.Id);
 
-    public WsSqlFieldIdentityModel() : base()
+    public WsSqlFieldIdentityModel()
     {
-        FieldName = nameof(WsSqlFieldIdentityModel);
         Name = WsSqlEnumFieldIdentity.Empty;
         Uid = Guid.Empty;
         Id = 0;
@@ -34,16 +32,8 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         Id = identityId;
     }
 
-    protected WsSqlFieldIdentityModel(SerializationInfo info, StreamingContext context) : base(info, context)
+    public WsSqlFieldIdentityModel(WsSqlFieldIdentityModel item)
     {
-        Name = (WsSqlEnumFieldIdentity)info.GetValue(nameof(Name), typeof(WsSqlEnumFieldIdentity));
-        Uid = Guid.Parse(info.GetString(nameof(Uid).ToUpper()));
-        Id = info.GetInt64(nameof(Id));
-    }
-
-    public WsSqlFieldIdentityModel(WsSqlFieldIdentityModel item) : base(item)
-    {
-        FieldName = nameof(WsSqlFieldIdentityModel);
         Name = item.Name;
         Uid = item.Uid;
         Id = item.Id;
@@ -55,14 +45,7 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
 
     public override string ToString() =>
         Name.Equals(WsSqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(WsSqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
-
-    public virtual object? GetValueAsObjectNullable() => Name switch
-    {
-        WsSqlEnumFieldIdentity.Id => Id,
-        WsSqlEnumFieldIdentity.Uid => Uid,
-        _ => null
-    };
-
+    
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -78,17 +61,9 @@ public class WsSqlFieldIdentityModel : WsSqlFieldBase
         _ => default
     };
 
-    public override bool EqualsNew() => Equals(new());
+    public bool EqualsNew() => Equals(new());
 
-    public override void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        base.GetObjectData(info, context);
-        info.AddValue(nameof(Name), Name);
-        info.AddValue(nameof(Id), Id);
-        info.AddValue(nameof(Uid), Uid);
-    }
-
-    public override bool EqualsDefault() =>
+    public bool EqualsDefault() =>
         Equals(Id, (long)0) &&
         Equals(Uid, Guid.Empty);
 

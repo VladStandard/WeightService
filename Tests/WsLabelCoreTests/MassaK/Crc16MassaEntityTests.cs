@@ -7,26 +7,25 @@ namespace WsLabelCoreTests.MassaK;
 [TestFixture]
 public sealed class Crc16MassaEntityTests
 {
-    private WsBytesHelper Bytes { get; set; } = WsBytesHelper.Instance;
     private WsMassaCrcHelper MassaCrc { get; set; } = WsMassaCrcHelper.Instance;
     private WsMassaRequestHelper MassaRequest { get; set; } = WsMassaRequestHelper.Instance;
     // READ     F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23  -- 0.000 кг
-    private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+    private readonly byte[] _getMassaResponse = { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
     [Test]
     public void ComputeChecksum_AreEqual()
     {
         Assert.DoesNotThrow(() =>
         {
-            byte[] request = new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x00, 0x00 };
+            byte[] request = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x00, 0x00 };
             byte[] requestCheck = MassaRequest.MakeRequestCrcRecalc(request);
             Assert.AreEqual(requestCheck, new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x23, 0x00 });
 
-            byte[] body = new byte[] { 0x23 };
+            byte[] body = { 0x23 };
             byte[] crc = MassaCrc.CrcGet(body);
             Assert.AreEqual(crc, new byte[] { 0x23, 0x00 });
 
-            body = getMassaResponse;
+            body = _getMassaResponse;
             crc = MassaCrc.CrcGet(body);
             Assert.AreEqual(crc, new byte[] { 0xFC, 0x23 });
             requestCheck = MassaRequest.MakeRequestCrcAdd(body);

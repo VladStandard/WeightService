@@ -97,7 +97,7 @@ public sealed partial class WsMainForm : Form
          log.AppendLine($"{WsLocaleData.Program.IsLoaded}.")
              .AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.")
              .AppendLine($"Время загрузки: {UserSession.StopwatchMain.Elapsed}.");
-         ContextManager.ContextItem.SaveLogInformation(log);
+         ContextManager.ContextItem.SaveLogInformation(log.ToString());
      }
     
     private void MainFormLoadAtBackground()

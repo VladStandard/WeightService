@@ -6,8 +6,7 @@ namespace WsStorageCore.OrmUtils;
 public static class WsSqlSchemasUtils
 {
     #region Public and private fields, properties, constructor
-
-    public const string Conf = "CONF";
+    
     public const string Diag = "DIAG";
     public const string Ref = "REF";
     public const string Ref1C = "REF_1C";

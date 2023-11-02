@@ -185,14 +185,12 @@ public partial class WsMainForm
     /// </summary>
     private bool ActionCheckPluIsNew()
     {
-        if (LabelSession.PluLine.Plu.IsNew)
-        {
-            MdInvokeControl.SetVisible(fieldWarning, true);
-            MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Table.FieldPluIsNotSelected);
-            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.Table.FieldPluIsNotSelected);
-            return false;
-        }
-        return true;
+        if (!LabelSession.PluLine.Plu.IsNew)
+            return true;
+        MdInvokeControl.SetVisible(fieldWarning, true);
+        MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Table.FieldPluIsNotSelected);
+        ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.Table.FieldPluIsNotSelected);
+        return false;
     }
 
     /// <summary>

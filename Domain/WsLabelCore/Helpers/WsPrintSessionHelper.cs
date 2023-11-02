@@ -2,6 +2,8 @@ using PrinterCore.Utils;
 using PrinterCore.Zpl;
 using WsStorageCore.Entities.SchemaScale.BarCodes;
 using WsStorageCore.Entities.SchemaScale.PlusLabels;
+using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
+using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using WsStorageCore.Entities.SchemaScale.Templates;
 using WsStorageCore.Entities.SchemaScale.TemplatesResources;
@@ -128,10 +130,6 @@ public sealed class WsPrintSessionHelper
             // Пересоздать шаблон.
             if (isReloadTemplate)
                 template = new WsSqlPluTemplateFkRepository().GetItemByPlu(LabelSession.PluLine.Plu).Template;
-            // Журнал событий.
-            ContextManager.ContextItem.SaveLogInformation(
-                $"{WsLocaleCore.LabelPrint.LabelPrint}: {pluLabelWithContext.PluLabelContext.PluNumber} | " +
-                $"{pluLabelWithContext.PluLabelContext.PluName}");
         }
         catch (Exception ex)
         {
@@ -166,7 +164,7 @@ public sealed class WsPrintSessionHelper
         _ = MdDataFormatUtils.PrintCmdReplaceZplResources(pluLabel.Zpl, ActionReplaceStorageMethod(pluLabel));
 
         // Сохранить этикетку.
-        ContextManager.PluLabelRepository.Save(pluLabel);
+        new WsSqlPluLabelRepository().Save(pluLabel);
 
         return (pluLabel, pluLabelContext);
     }
@@ -179,8 +177,7 @@ public sealed class WsPrintSessionHelper
         {
             if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
-                WsSqlTemplateResourceEntity resource = 
-                    ContextManager.SqlPluStorageMethodFkRepository.GetItemByPlu(pluLabel.PluScale.Plu).Resource;
+                WsSqlTemplateResourceEntity resource = new WsSqlPluStorageMethodFkRepository().GetItemByPlu(pluLabel.PluScale.Plu).Resource;
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
                 zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
             }

@@ -50,6 +50,7 @@ public static class WsSqlValidationUtils
             WsSqlAccessEntity access => new WsSqlAccessValidator(isCheckIdentity).Validate(access),
             WsSqlAppEntity app => new WsSqlAppValidator(isCheckIdentity).Validate(app),
             WsSqlPrinterEntity printer => new WsSqlPrinterValidator(isCheckIdentity).Validate(printer),
+            _ => throw new ArgumentOutOfRangeException(nameof(item), item, null)
         };
 
     public static bool IsValidation<T>(T? item, ref string detailAddition, bool isCheckIdentity) where T : class, new()
