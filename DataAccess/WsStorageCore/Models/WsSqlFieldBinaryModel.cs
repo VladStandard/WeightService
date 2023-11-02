@@ -3,26 +3,19 @@ namespace WsStorageCore.Models;
 public class WsSqlFieldBinaryModel
 {
     #region Public and private fields, properties, constructor
+    
+    public virtual byte[]? Value { get; set; }
 
-    [XmlElement(IsNullable = true)] public virtual byte[]? Value { get; set; }
-
-    [XmlIgnore]
-    public virtual string ValueAscii
-    {
-        get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Default.GetString(Value);
-        set => Value = Encoding.Default.GetBytes(value);
-    }
-
-    [XmlElement]
+    
     public virtual string ValueUnicode
     {
         get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    [XmlIgnore] public virtual string Info { get => WsDataUtils.GetBytesLength(Value, true); set => _ = value; }
+    public virtual string Info { get => WsDataUtils.GetBytesLength(Value, true); set => _ = value; }
 
-    public WsSqlFieldBinaryModel() : base()
+    public WsSqlFieldBinaryModel()
     {
         Value = Array.Empty<byte>();
     }
@@ -49,12 +42,7 @@ public class WsSqlFieldBinaryModel
     }
 
     public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
-
-    public bool EqualsNew() => Equals(new());
-
-    public bool EqualsDefault() => Value is not null && WsDataUtils.ByteEquals(Value, Array.Empty<byte>());
     
-
     #endregion
 
     #region Public and private methods - virtual

@@ -12,6 +12,7 @@ public class WsMassaDeviceHelper : IDisposable
 	#endregion
 
 	#region Public and private fields and properties
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     
     private readonly object _locker = new();
     private bool IsOpenResult { get; set; }
@@ -96,7 +97,7 @@ public class WsMassaDeviceHelper : IDisposable
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
 	{
 		IsExceptionResult = true;
-		WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+		ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 	}
 
 	#endregion

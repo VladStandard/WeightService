@@ -15,7 +15,7 @@ public class WsDataTestsHelper
 
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     #endregion
 
     #region Public and private methods
@@ -24,28 +24,28 @@ public class WsDataTestsHelper
     {
         ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
+        TestContext.WriteLine(SqlCore.GetConnectionServer());
     }
 
     private void SetupDevelopMorozov(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
+        TestContext.WriteLine(SqlCore.GetConnectionServer());
     }
 
     private void SetupDevelopVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
+        TestContext.WriteLine(SqlCore.GetConnectionServer());
     }
     
     private void SetupReleaseVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
             MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(ContextManager.SqlCore.GetConnectionServer());
+        TestContext.WriteLine(SqlCore.GetConnectionServer());
     }
 
     public void AssertAction(Action action, bool isShowSql, List<WsEnumConfiguration> publishTypes)
@@ -124,21 +124,6 @@ public class WsDataTestsHelper
         {
             T item = new();
             Assert.That(item.EqualsDefault(), Is.True);
-        });
-    }
-
-    public void FieldBaseModelAssertEqualsNew<T>() where T : WsSqlFieldBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            // Arrange.
-            T item = new();
-            WsSqlFieldBase baseItem = new();
-            // Act.
-            bool itemEqualsNew = item.EqualsNew();
-            bool baseEqualsNew = baseItem.EqualsNew();
-            // Assert.
-            Assert.AreEqual(baseEqualsNew, itemEqualsNew);
         });
     }
     

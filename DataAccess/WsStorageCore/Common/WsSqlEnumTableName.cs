@@ -4,17 +4,17 @@ public enum WsSqlEnumTableName
 {
     None,
     All,
-    Areas,// вместо ProductionFacilities
+    Areas,
     Boxes,
     Bundles,
     Clips,
-    Lines,// вместо Scales
+    Lines,
     PluClipsFks,
     PluFks,
     PlusNestingFks,
     Plus,
-    ViewPlusLines,// вместо PlusScales
-    ViewPlusNesting,// вместо PluNestingFks
-    ViewPlusStorageMethods,// вместо PluStorageMethodsFks
+    ViewPlusLines,
+    ViewPlusNesting,
+    ViewPlusStorageMethods,
     WorkShops,
 }

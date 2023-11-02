@@ -24,10 +24,11 @@ public sealed class WsLabelSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
     
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private static WsDebugHelper Debug => WsDebugHelper.Instance;
     private static DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private static DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
     public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     public static ushort PlusPageColumnCount => 4;
@@ -138,7 +139,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     private void SetArea(WsSqlProductionSiteEntity area)
     {
         Area = area;
-        ContextManager.ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
+        ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
     }
 
     /// <summary>
@@ -195,7 +196,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     {
         Line.LabelCounter++;
         PluLine.Line.LabelCounter = Line.LabelCounter;
-        ContextManager.SqlCore.Update(Line);
+        SqlCore.Update(Line);
     }
 
     #endregion

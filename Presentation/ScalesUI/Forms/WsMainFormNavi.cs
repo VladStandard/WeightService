@@ -3,6 +3,8 @@ namespace ScalesUI.Forms;
 
 public partial class WsMainForm
 {
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    
     #region Public and private methods
     
     private void SetupNavigationUserControl()
@@ -148,7 +150,7 @@ public partial class WsMainForm
         MouseUnsubscribe();
         // Логи.
         UserSession.StopwatchMain.Stop();
-        ContextManager.ContextItem.SaveLogInformation(
+        ContextItem.SaveLogInformation(
             WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.
         IsMagicClose = true;
@@ -164,7 +166,7 @@ public partial class WsMainForm
         FontsSettings.Close();
         // Логи.
         UserSession.StopwatchMain.Stop();
-        ContextManager.ContextItem.SaveLogInformation(
+        ContextItem.SaveLogInformation(
         WsLocaleData.Program.IsClosed + Environment.NewLine + $"{WsLocaleData.Program.TimeSpent}: {UserSession.StopwatchMain.Elapsed}.");
         // Магический флаг.
         IsMagicClose = true;
@@ -189,7 +191,7 @@ public partial class WsMainForm
             return true;
         MdInvokeControl.SetVisible(fieldWarning, true);
         MdInvokeControl.SetText(fieldWarning, WsLocaleCore.Table.FieldPluIsNotSelected);
-        ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.Table.FieldPluIsNotSelected);
+        ContextItem.SaveLogWarning(WsLocaleCore.Table.FieldPluIsNotSelected);
         return false;
     }
 
@@ -218,7 +220,7 @@ public partial class WsMainForm
                     WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl,
                         WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal), true,
                         LogTypeEnum.Error, WsEnumDialogType.Ok, new() { ActionFinally });
-                    ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal));
+                    ContextItem.SaveLogError(WsLocaleCore.LabelPrint.ProgramNotFound(WsLocalizationUtils.AppScalesTerminal));
                 }
             }
         });

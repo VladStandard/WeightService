@@ -12,7 +12,7 @@ namespace WsLabelCore.Models;
 public sealed class WsPluginPrintTscModel : WsPluginPrintModel
 {
     #region Public and private fields and properties
-
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
     private MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(PrintName);
     private readonly object _lockTcpClient = new();
@@ -83,7 +83,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         }
         catch (Exception ex)
         {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintTsc);
+            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintTsc);
         }
     }
 
@@ -100,7 +100,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void WsTcpClientConnected(object sender, ConnectionEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation(
+        ContextItem.SaveLogInformation(
             $"Server {e.IpPort} connected", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
@@ -109,7 +109,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
         if (!WsDebugHelper.Instance.IsDevelop) return;
         string received = e.Data.Array is null ? string.Empty : Encoding.UTF8.GetString(e.Data.Array, 0, e.Data.Count);
         received = string.IsNullOrEmpty(received) ? "0" : $"{received.Length} bytes with data '{received}'";
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation(
+        ContextItem.SaveLogInformation(
             $"Server {e.IpPort} data received {received}", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
@@ -124,7 +124,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     private void WsTcpClientDisconnected(object sender, ConnectionEventArgs e)
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
-        WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation(
+        ContextItem.SaveLogInformation(
             $"Server {e.IpPort} disconnected by {e.Reason} reason", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 

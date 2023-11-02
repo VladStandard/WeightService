@@ -6,14 +6,13 @@ namespace ScalesUI.Forms;
 public sealed partial class WsMainForm : Form
 {
     #region Public and private fields, properties, constructor
-
+    
     private WsDebugHelper Debug => WsDebugHelper.Instance;
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private ActionSettingsModel ActionSettings { get; set; }
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsPrintSessionHelper PrintSession => WsPrintSessionHelper.Instance;
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private Button ButtonLine { get; set; } = new();
@@ -60,7 +59,7 @@ public sealed partial class WsMainForm : Form
         // Навигация в контрол диалога Ок.
         WsFormNavigationUtils.NavigateToNewDialog(ShowFormUserControl, message, true, LogTypeEnum.Error,
         WsEnumDialogType.Ok, new() { ActionFinally });
-        ContextManager.ContextItem.SaveLogWarning(message);
+        ContextItem.SaveLogWarning(message);
         return true;
     }
      
@@ -97,7 +96,7 @@ public sealed partial class WsMainForm : Form
          log.AppendLine($"{WsLocaleData.Program.IsLoaded}.")
              .AppendLine($"{WsLocaleCore.LabelPrint.ScreenResolution}: {Width} x {Height}.")
              .AppendLine($"Время загрузки: {UserSession.StopwatchMain.Elapsed}.");
-         ContextManager.ContextItem.SaveLogInformation(log.ToString());
+         ContextItem.SaveLogInformation(log.ToString());
      }
     
     private void MainFormLoadAtBackground()

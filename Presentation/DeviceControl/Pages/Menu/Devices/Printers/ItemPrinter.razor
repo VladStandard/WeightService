@@ -1,9 +1,9 @@
 @page "/section/printers/new"
 @page "/section/printers/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@using WsStorageCore.Enums
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@using WsStorageCore.Enums
 @inherits ItemBase<WsSqlPrinterEntity>
 
 <ItemTopBar TItem="@WsSqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>

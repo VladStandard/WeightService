@@ -9,6 +9,8 @@ public class RazorComponentBase : LayoutComponentBase
     [Inject] protected DialogService DialogService { get; set; } = default!;
     [Inject] protected NotificationService NotificationService { get; set; } = default!;
     [Inject] protected WsUserService UserService { get; set; } = default!;
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
 
     #endregion
 
@@ -49,9 +51,9 @@ public class RazorComponentBase : LayoutComponentBase
         return WsSqlValidationUtils.IsValidation(item, ref detailAddition, !item.IsNew);
     }
     
-    protected static TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlEntityBase, new()
+    protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlEntityBase, new()
     {
-        return ContextManager.SqlCore.GetItemNewEmpty<TItem>();
+        return SqlCore.GetItemNewEmpty<TItem>();
     }
 
     protected void SqlItemSave<T>(T? item) where T : WsSqlEntityBase, new()
@@ -59,9 +61,9 @@ public class RazorComponentBase : LayoutComponentBase
         if (item is null || !SqlItemValidate(item)) 
             return;
         if (item.IsNew)
-            ContextManager.SqlCore.Save(item);
+            SqlCore.Save(item);
         else 
-            ContextManager.SqlCore.Update(item);
+            SqlCore.Update(item);
     }
 
     protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlEntityBase, new()
@@ -135,7 +137,7 @@ public class RazorComponentBase : LayoutComponentBase
             msg,
             BlazorAppSettingsHelper.DelayError
             );
-        ContextManager.ContextItem.SaveLogError(ex);
+        ContextItem.SaveLogError(ex);
     }
     
     #endregion

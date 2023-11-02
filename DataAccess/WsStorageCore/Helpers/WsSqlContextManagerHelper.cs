@@ -1,4 +1,3 @@
-using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace WsStorageCore.Helpers;
 
 /// <summary>
@@ -20,9 +19,9 @@ public sealed class WsSqlContextManagerHelper
 
     private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
-    public WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
-    public WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    public WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     
     #endregion
 

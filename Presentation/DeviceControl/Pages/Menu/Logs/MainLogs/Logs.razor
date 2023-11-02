@@ -1,8 +1,8 @@
 ﻿@page "/section/logs"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@using WsStorageCore.Enums
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@using WsStorageCore.Enums
 @inherits SectionBase<WsSqlLogEntity>
 
 <SectionTopBar

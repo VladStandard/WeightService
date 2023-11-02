@@ -11,6 +11,8 @@ public static class WsFormNavigationUtils
 {
     #region Public and private fields, properties, constructor
 
+    private static WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    
     /// <summary>
     /// Пользовательская сессия.
     /// </summary>
@@ -19,10 +21,7 @@ public static class WsFormNavigationUtils
     /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
     /// </summary>
     private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
-    /// <summary>
-    /// SQL-менеджер доступа к данным БД (используется клиентами).
-    /// </summary>
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+
     /// <summary>
     /// WinForms-контрол диалога.
     /// </summary>
@@ -220,16 +219,16 @@ public static class WsFormNavigationUtils
         switch (logType)
         {
             case LogTypeEnum.Error:
-                ContextManager.ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
+                ContextItem.SaveLogErrorWithInfo(message, filePath, lineNumber, memberName);
                 break;
             case LogTypeEnum.Info:
-                ContextManager.ContextItem.SaveLogInformation(message);
+                ContextItem.SaveLogInformation(message);
                 break;
             case LogTypeEnum.Warning:
-                ContextManager.ContextItem.SaveLogWarning(message);
+                ContextItem.SaveLogWarning(message);
                 break;
             default:
-                ContextManager.ContextItem.SaveLogWarning(message);
+                ContextItem.SaveLogWarning(message);
                 break;
         }
     }
@@ -270,7 +269,7 @@ public static class WsFormNavigationUtils
     private static void CatchExceptionCore(Action<WsFormBaseUserControl, string> showNavigation, Exception ex, 
         string filePath, int lineNumber, string memberName)
     {
-        ContextManager.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+        ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
         string message = ex.InnerException is null
             ? ex.Message
@@ -282,7 +281,7 @@ public static class WsFormNavigationUtils
     }
 
     private static void CatchExceptionSimpleCore(Exception ex, string filePath, int lineNumber, string memberName) => 
-        ContextManager.ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
+        ContextItem.SaveLogErrorWithInfo(ex, filePath, lineNumber, memberName);
 
     /// <summary>
     /// Show catch exception window.

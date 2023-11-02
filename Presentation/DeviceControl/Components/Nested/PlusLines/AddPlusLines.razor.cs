@@ -3,6 +3,8 @@ namespace DeviceControl.Components.Nested.PlusLines;
 
 public sealed partial class AddPlusLines
 {
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
     
     [Parameter] public WsSqlScaleEntity Line { get; set; }
@@ -12,7 +14,6 @@ public sealed partial class AddPlusLines
     private List<WsSqlPluEntity> SelectedPlus { get; set; }
     
     public ButtonSettingsModel ButtonSettings { get; set; }
-    protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
     public AddPlusLines()
     {
@@ -63,9 +64,9 @@ public sealed partial class AddPlusLines
             }
             else
             {
-                ContextManager.SqlCore.Update(pluScale);
+                SqlCore.Update(pluScale);
             }
-            ContextManager.SqlCore.Save(pluScale);
+            SqlCore.Save(pluScale);
         }
         ReloadPage();
     }

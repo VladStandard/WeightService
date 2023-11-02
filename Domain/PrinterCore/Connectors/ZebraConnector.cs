@@ -6,6 +6,7 @@ namespace PrinterCore.Connectors;
 
 public class ZebraConnector : IPrinterConnector
 {
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     private Connection? Connector { get; set; }
     private ZebraPrinter? Printer { get; set; }
     private ZebraPrinterStatus? Status { get; set; }
@@ -24,7 +25,7 @@ public class ZebraConnector : IPrinterConnector
         }
         catch (Exception ex)
         {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex,
+            ContextItem.SaveLogErrorWithDescription(ex,
             WsLocaleCore.LabelPrint.PluginPrintZebra);
             Dispose();
         }
@@ -40,7 +41,7 @@ public class ZebraConnector : IPrinterConnector
         }
         catch (Exception ex)
         {
-            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
+            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
             Dispose();
         }
         return false;

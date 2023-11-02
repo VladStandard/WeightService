@@ -17,13 +17,14 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     #endregion
 
     #region Public and private fields and properties
-
-    private WsDebugHelper Debug => WsDebugHelper.Instance;
+    
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
     public WsPluginMassaHelper PluginMassa => WsPluginMassaHelper.Instance;
     public WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     public Stopwatch StopwatchMain { get; set; } = new();
     
     #endregion
@@ -48,7 +49,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluNotSelect);
-            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.PluNotSelect);
+            ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.PluNotSelect);
             return false;
         }
         return true;
@@ -72,7 +73,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
             return true;
         MdInvokeControl.SetVisible(fieldWarning, true);
         MdInvokeControl.SetText(fieldWarning, $"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
-        ContextManager.ContextItem.SaveLogWarning($"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
+        ContextItem.SaveLogWarning($"{WsLocaleCore.LabelPrint.MassaIsNotCalc} {WsLocaleCore.LabelPrint.MassaWaitStable}.");
         return false;
     }
     
@@ -84,7 +85,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightIsZero);
-            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightIsZero);
+            ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightIsZero);
             return false;
         }
 
@@ -93,7 +94,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
-            ContextManager.ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
+            ContextItem.SaveLogWarning(WsLocaleCore.LabelPrint.CheckWeightThreshold(weight));
             return false;
         }
         
@@ -111,7 +112,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         string message = WsLocaleCore.LabelPrint.CheckWeightThresholds(PluginMassa.WeightNet, 
             weightMax, weightNom, weightMin);
         MdInvokeControl.SetText(fieldWarning, message);
-        ContextManager.ContextItem.SaveLogError(message);
+        ContextItem.SaveLogError(message);
         return false;
     }
 
@@ -141,9 +142,9 @@ public sealed class WsUserSessionHelper //: BaseViewModel
         if (!LabelSession.PluWeighing.PluScale.Plu.IsCheckWeight) return;
 
         if (LabelSession.PluWeighing.IsNew)
-            ContextManager.SqlCore.Save(LabelSession.PluWeighing);
+            SqlCore.Save(LabelSession.PluWeighing);
         else
-            ContextManager.SqlCore.Update(LabelSession.PluWeighing);
+            SqlCore.Update(LabelSession.PluWeighing);
     }
 
     /// <summary>
@@ -155,7 +156,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
         MdInvokeControl.SetVisible(fieldWarning, true);
         MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluPackageNotSelect);
-        ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluPackageNotSelect);
+        ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluPackageNotSelect);
         return false;
     }
 

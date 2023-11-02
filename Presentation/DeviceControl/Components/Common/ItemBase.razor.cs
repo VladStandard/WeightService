@@ -2,6 +2,8 @@ namespace DeviceControl.Components.Common;
 
 public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase, new()
 {
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    
     [Inject] protected WsJsService JsService { get; private set; } = default!;
     [Inject] protected WsRouteService RouteService { get; set; } = default!;
     [Parameter] public Guid Uid { get; set; }
@@ -62,8 +64,8 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase,
     {
         SqlItemCast = SqlItemCast.Identity.Name switch
         {
-            WsSqlEnumFieldIdentity.Id => ContextManager.SqlCore.GetItemById<TItem>(Id),
-            WsSqlEnumFieldIdentity.Uid => ContextManager.SqlCore.GetItemByUid<TItem>(Uid),
+            WsSqlEnumFieldIdentity.Id => SqlCore.GetItemById<TItem>(Id),
+            WsSqlEnumFieldIdentity.Uid => SqlCore.GetItemByUid<TItem>(Uid),
             _ => new()
         };
     }

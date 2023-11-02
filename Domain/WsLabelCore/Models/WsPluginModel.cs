@@ -14,6 +14,7 @@ public sealed class WsPluginModel : IDisposable
     public WsPluginConfigModel Config { get; set; }
     public WsEnumPluginType PluginType { get; set; }
     private CancellationTokenSource Cts { get; set; }
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
     
     public WsPluginModel()
     {
@@ -55,16 +56,16 @@ public sealed class WsPluginModel : IDisposable
                     switch (PluginType)
                     {
                         case WsEnumPluginType.Default:
-                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginDefault);
+                            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginDefault);
                             break;
                         case WsEnumPluginType.Massa:
-                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMassa);
+                            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMassa);
                             break;
                         case WsEnumPluginType.Memory:
-                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMemory);
+                            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginMemory);
                             break;
                         case WsEnumPluginType.Label:
-                            WsSqlContextManagerHelper.Instance.ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginLabel);
+                            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginLabel);
                             break;
                     }
                 }

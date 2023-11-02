@@ -3,16 +3,15 @@ namespace DeviceControl.Pages.Menu.Admins;
 public sealed partial class SqlInfo : ComponentBase
 {
     #region Public and private fields, properties, constructor
-
+    private static WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository { get; } = new();
     private List<WsSqlViewDbFileSizeInfoModel> DbFiles { get; set; }
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
     private static string SqlConnectionString => 
-        $"{ContextManager.JsonSettings.Local.Sql.DataSource} \\ " +
-        $"{ContextManager.JsonSettings.Local.Sql.InitialCatalog} \\ " +
-        $"{ContextManager.JsonSettings.Local.Sql.UserId}";
+        $"{JsonSettings.Local.Sql.DataSource} \\ " +
+        $"{JsonSettings.Local.Sql.InitialCatalog} \\ " +
+        $"{JsonSettings.Local.Sql.UserId}";
     
     public SqlInfo()
     {

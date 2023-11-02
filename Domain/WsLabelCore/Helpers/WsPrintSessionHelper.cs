@@ -2,7 +2,6 @@ using PrinterCore.Utils;
 using PrinterCore.Zpl;
 using WsStorageCore.Entities.SchemaScale.BarCodes;
 using WsStorageCore.Entities.SchemaScale.PlusLabels;
-using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using WsStorageCore.Entities.SchemaScale.Templates;
@@ -26,10 +25,11 @@ public sealed class WsPrintSessionHelper
 
     #region Public and private fields and properties
 
+    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private WsSqlBarCodeController BarCode => WsSqlBarCodeController.Instance;
     private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     
     #endregion
 
@@ -44,7 +44,7 @@ public sealed class WsPrintSessionHelper
         MdInvokeControl.SetVisible(fieldWarning, true);
         string message = $"{WsLocaleCore.Print.DeviceMainIsUnavailable} {WsLocaleCore.Print.DeviceCheckConnect}";
         MdInvokeControl.SetText(fieldWarning, message);
-        ContextManager.ContextItem.SaveLogError(message);
+        ContextItem.SaveLogError(message);
         return false;
     }
     
@@ -56,7 +56,7 @@ public sealed class WsPrintSessionHelper
         MdInvokeControl.SetVisible(fieldWarning, true);
         MdInvokeControl.SetText(fieldWarning, 
         $"{WsLocaleCore.Print.DeviceMainCheckStatus} {LabelSession.PluginPrintZebraMain.GetDeviceStatusZebra()}");
-        ContextManager.ContextItem.SaveLogError(fieldWarning.Text);
+        ContextItem.SaveLogError(fieldWarning.Text);
         return false;
     }
 
@@ -72,7 +72,7 @@ public sealed class WsPrintSessionHelper
         {
             MdInvokeControl.SetVisible(fieldWarning, true);
             MdInvokeControl.SetText(fieldWarning, WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
-            ContextManager.ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
+            ContextItem.SaveLogError(WsLocaleCore.LabelPrint.PluTemplateIsNotSet);
             return;
         }
         // Выбор типа ПЛУ.
@@ -193,7 +193,7 @@ public sealed class WsPrintSessionHelper
         BarCode.SetBarCodeTop(barCode, pluLabelContext);
         BarCode.SetBarCodeRight(barCode, pluLabelContext);
         BarCode.SetBarCodeBottom(barCode, pluLabelContext);
-        ContextManager.SqlCore.Save(barCode);
+        SqlCore.Save(barCode);
     }
 
     #endregion

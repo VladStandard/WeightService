@@ -3,7 +3,8 @@ namespace DeviceControl.Components.Common;
 public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
-
+    
+    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] protected WsJsService JsService { get; private set; } = default!;
     [Inject] protected WsRouteService RouteService { get; set; } = default!;
@@ -170,13 +171,13 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBa
         RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
-                ContextManager.SqlCore.Update(item);
+                SqlCore.Update(item);
             SqlSectionSave.Clear();
         });
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected virtual async Task SqlItemDeleteAsync()
+    protected async virtual Task SqlItemDeleteAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -184,26 +185,26 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBa
 
         RunActionsWithQuestion(WsLocaleCore.Table.TableDelete, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
-            ContextManager.SqlCore.Delete(SqlItem);
+            SqlCore.Delete(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected virtual async Task SqlItemMarkAsync()
+    protected async Task SqlItemMarkAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null) return;
 
         RunActionsWithQuestion(WsLocaleCore.Table.TableMark, WsLocaleCore.Dialog.DialogQuestion, () =>
         {
-            ContextManager.SqlCore.Mark(SqlItem);
+            SqlCore.Mark(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }
 
     [Authorize(Roles = WsUserAccessStr.Write)]
-    protected virtual async Task SqlItemNewAsync()
+    protected async virtual Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RunActionsWithQuestion(WsLocaleCore.Table.TableNew, WsLocaleCore.Dialog.DialogQuestion, () =>
@@ -214,14 +215,14 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBa
     }
 
     [Authorize(Roles = WsUserAccessStr.Read)]
-    protected virtual async Task SqlItemOpenAsync()
+    protected async virtual Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateItemRoute(SqlItemCast);
     }
 
     [Authorize(Roles = WsUserAccessStr.Read)]
-    protected virtual async Task SqlItemOpenNewTabAsync()
+    protected async virtual Task SqlItemOpenNewTabAsync()
     {
         await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast), "_blank");
     }
