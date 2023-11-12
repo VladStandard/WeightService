@@ -1,6 +1,3 @@
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.PlusLabels;
 
 public sealed class WsSqlPluLabelMap : ClassMapping<WsSqlPluLabelEntity>

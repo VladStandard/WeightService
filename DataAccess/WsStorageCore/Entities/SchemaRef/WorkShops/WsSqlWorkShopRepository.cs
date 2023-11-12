@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaRef.WorkShops;
 
 public sealed class WsSqlWorkShopRepository : WsSqlTableRepositoryBase<WsSqlWorkShopEntity>

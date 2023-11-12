@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaDiag.LogsWebs;
 
 public class WsSqlLogWebRepository : WsSqlTableRepositoryBase<WsSqlLogWebEntity>

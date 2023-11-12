@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
 
 public class WsSqlPluStorageMethodRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodEntity>

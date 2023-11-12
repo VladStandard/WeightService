@@ -1,8 +1,5 @@
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
-using NHibernate.Type;
 using WsStorageCore.Enums;
-using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 public sealed class WsSqlLogMap : ClassMapping<WsSqlLogEntity>

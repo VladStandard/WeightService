@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 public class WsSqlPluTemplateFkRepository : WsSqlTableRepositoryBase<WsSqlPluStorageMethodFkEntity>

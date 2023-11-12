@@ -1,4 +1,5 @@
 using WsStorageCore.Enums;
+
 namespace WsStorageCore.Entities.SchemaRef.Printers;
 
 [DebuggerDisplay("{ToString()}")]

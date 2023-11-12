@@ -1,5 +1,6 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Enums;
+
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 [DebuggerDisplay("{ToString()}")]

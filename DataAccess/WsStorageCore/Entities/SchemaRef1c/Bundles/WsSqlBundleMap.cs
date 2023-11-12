@@ -1,6 +1,3 @@
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaRef1c.Bundles;
 
 public sealed class WsSqlBundleMap : ClassMapping<WsSqlBundleEntity>

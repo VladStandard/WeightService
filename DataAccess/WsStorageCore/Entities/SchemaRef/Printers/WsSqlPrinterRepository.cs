@@ -1,5 +1,4 @@
-﻿using WsStorageCore.OrmUtils;
-namespace WsStorageCore.Entities.SchemaRef.Printers;
+﻿namespace WsStorageCore.Entities.SchemaRef.Printers;
 
 public class WsSqlPrinterRepository : WsSqlTableRepositoryBase<WsSqlPrinterEntity>
 {

@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+
 namespace WsStorageCore.Entities.SchemaScale.BarCodes;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]

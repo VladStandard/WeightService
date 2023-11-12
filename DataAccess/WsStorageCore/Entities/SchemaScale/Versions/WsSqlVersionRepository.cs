@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.Versions;
 
 public class WsSqlVersionRepository : WsSqlTableRepositoryBase<WsSqlVersionEntity>

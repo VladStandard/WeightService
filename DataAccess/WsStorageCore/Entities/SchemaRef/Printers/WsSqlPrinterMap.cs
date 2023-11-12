@@ -1,8 +1,5 @@
-﻿using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
-using NHibernate.Type;
-using WsStorageCore.Enums;
-using WsStorageCore.OrmUtils;
+﻿using WsStorageCore.Enums;
+
 namespace WsStorageCore.Entities.SchemaRef.Printers;
 
 public class WsSqlPrinterMap : ClassMapping<WsSqlPrinterEntity>

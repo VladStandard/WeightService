@@ -1,6 +1,3 @@
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.PlusWeightings;
 
 public sealed class WsSqlPluWeighingMap : ClassMapping<WsSqlPluWeighingEntity>

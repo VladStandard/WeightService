@@ -1,5 +1,5 @@
 using WsStorageCore.Enums;
-using WsStorageCore.OrmUtils;
+
 namespace WsStorageCore.Entities.SchemaDiag.Logs;
 
 public class WsSqlLogRepository : WsSqlTableRepositoryBase<WsSqlLogEntity>

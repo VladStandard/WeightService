@@ -1,4 +1,3 @@
-using WsStorageCore.OrmUtils;
 namespace WsStorageCore.Entities.SchemaScale.BarCodes;
 
 public sealed class WsSqlBarcodeRepository : WsSqlTableRepositoryBase<WsSqlBarCodeEntity>
