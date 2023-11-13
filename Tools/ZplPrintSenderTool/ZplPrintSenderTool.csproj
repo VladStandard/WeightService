@@ -53,12 +53,6 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopAleksandrov|x64'">
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopMorozov|x64'">
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevelopVS|x64'">
     <Nullable>enable</Nullable>
   </PropertyGroup>

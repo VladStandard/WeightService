@@ -18,8 +18,6 @@ public sealed class WsDebugHelper
     /// </summary>
     public bool IsDevelop => Config switch
     {
-        WsEnumConfiguration.DevelopAleksandrov => true,
-        WsEnumConfiguration.DevelopMorozov => true,
         WsEnumConfiguration.DevelopVS => true,
         WsEnumConfiguration.ReleaseVS => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
@@ -29,11 +27,7 @@ public sealed class WsDebugHelper
     /// Режим работы релиз.
     /// </summary>
     public WsEnumConfiguration Config =>
-#if DEVELOPALEKSANDROV
-        WsEnumConfiguration.DevelopAleksandrov;
-#elif DEVELOPMOROZOV
-        WsEnumConfiguration.DevelopMorozov;
-#elif DEVELOPVS
+#if  DEVELOPVS
         WsEnumConfiguration.DevelopVS;
 #elif RELEASEVS
         WsEnumConfiguration.ReleaseVS;

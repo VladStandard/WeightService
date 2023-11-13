@@ -20,8 +20,6 @@ ping "%~1" -n 1 | find "TTL=" >nul
 
 :isConnectGood <host>
 xcopy "appsettings.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-xcopy "appsettings.DevelopAleksandrov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
-xcopy "appsettings.DevelopMorozov.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.DevelopVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 xcopy "appsettings.ReleaseVS.json" "\\palych\Install\VSSoft\appsettings\" /Y /S /Q /F /R /V >nul
 echo [v] The files "appsettings*.json" has been successfully copied.

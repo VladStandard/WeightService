@@ -156,12 +156,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App.DevelopAleksandrov.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
-    <None Include="App.DevelopMorozov.config">
-      <DependentUpon>App.config</DependentUpon>
-    </None>
     <None Include="App.DevelopVS.config">
       <DependentUpon>App.config</DependentUpon>
     </None>

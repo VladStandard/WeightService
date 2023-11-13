@@ -122,8 +122,6 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     private void SetSqlPublish() =>
         PublishDescription = Debug.Config switch
         {
-            WsEnumConfiguration.DevelopAleksandrov => WsLocaleCore.Sql.SqlServerDevelopAleksandrov,
-            WsEnumConfiguration.DevelopMorozov => WsLocaleCore.Sql.SqlServerDevelopMorozov,
             WsEnumConfiguration.DevelopVS => WsLocaleCore.Sql.SqlServerVS,
             WsEnumConfiguration.ReleaseVS => "",
             _ => throw new ArgumentOutOfRangeException()

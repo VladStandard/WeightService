@@ -10,7 +10,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
+        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />

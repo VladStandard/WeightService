@@ -98,13 +98,6 @@ public sealed class WsSqlContextManagerHelper
         SqlCore.SetSessionFactory(isShowSql);
         ContextItem.SetupLog(deviceName, appName);
     }
-
-    public void SetupJsonTestsDevelopAleksandrov(string localDir, string deviceName, string appName, bool isShowSql) =>
-        SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameDevelopAleksandrov, isShowSql);
-
-    public void SetupJsonTestsDevelopMorozov(string localDir, string deviceName, string appName, bool isShowSql) =>
-        SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameDevelopMorozov, isShowSql);
-
     public void SetupJsonTestsDevelopVs(string localDir, string deviceName, string appName, bool isShowSql) =>
         SetupJsonTestsCore(localDir, deviceName, appName, JsonSettings.FileNameDevelopVs, isShowSql);
     
@@ -173,12 +166,6 @@ public sealed class WsSqlContextManagerHelper
     {
         string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
         CheckDirAndFile(remoteFile);
-        switch (WsDebugHelper.Instance.Config)
-        {
-            case WsEnumConfiguration.DevelopAleksandrov:
-            case WsEnumConfiguration.DevelopMorozov:
-                return;
-        }
         SetupConfigsCore(JsonSettings.RemoteDir, true, fileName);
 
         ushort version = GetJsonLocalVersion(localDir, fileName);

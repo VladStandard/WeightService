@@ -20,20 +20,6 @@ public class WsDataTestsHelper
 
     #region Public and private methods
 
-    private void SetupDevelopAleksandrov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsDevelopAleksandrov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(SqlCore.GetConnectionServer());
-    }
-
-    private void SetupDevelopMorozov(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsDevelopMorozov(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(SqlCore.GetConnectionServer());
-    }
-
     private void SetupDevelopVs(bool isShowSql)
     {
         ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
@@ -52,18 +38,6 @@ public class WsDataTestsHelper
     {
         Assert.DoesNotThrow(() =>
         {
-            if (publishTypes.Contains(WsEnumConfiguration.DevelopAleksandrov))
-            {
-                SetupDevelopAleksandrov(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
-            if (publishTypes.Contains(WsEnumConfiguration.DevelopMorozov))
-            {
-                SetupDevelopMorozov(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
             if (publishTypes.Contains(WsEnumConfiguration.DevelopVS))
             {
                 SetupDevelopVs(isShowSql);

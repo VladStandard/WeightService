@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
+        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />

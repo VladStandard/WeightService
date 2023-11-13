@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS;DevelopMorozov;DevelopAleksandrov</Configurations>
+        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
         <Compile Remove="Serialization\Utils\**" />
@@ -39,16 +39,6 @@
         <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     </ItemGroup>
     <ItemGroup>
-        <None Update="appsettings.DevelopAleksandrov.json">
-            <DependentUpon>appsettings.json</DependentUpon>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
-        <None Update="appsettings.DevelopMorozov.json">
-            <DependentUpon>appsettings.json</DependentUpon>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
         <None Update="appsettings.DevelopVS.json">
             <DependentUpon>appsettings.json</DependentUpon>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -81,12 +71,6 @@
         <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseVS|x64'">
-        <DebugType>none</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopMorozov|x64'">
-        <DebugType>none</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopAleksandrov|x64'">
         <DebugType>none</DebugType>
     </PropertyGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
