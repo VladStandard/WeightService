@@ -24,6 +24,6 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             WsSqlWorkShopEntity app = WorkShopRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
     }
 }

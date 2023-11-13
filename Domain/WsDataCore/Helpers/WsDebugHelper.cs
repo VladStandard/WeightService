@@ -18,8 +18,8 @@ public sealed class WsDebugHelper
     /// </summary>
     public bool IsDevelop => Config switch
     {
-        WsEnumConfiguration.DevelopVS => true,
-        WsEnumConfiguration.ReleaseVS => false,
+        WsEnumConfiguration.DevelopVs => true,
+        WsEnumConfiguration.ReleaseVs => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
     
@@ -30,7 +30,7 @@ public sealed class WsDebugHelper
 #if  DEVELOPVS
         WsEnumConfiguration.DevelopVS;
 #elif RELEASEVS
-        WsEnumConfiguration.ReleaseVS;
+        WsEnumConfiguration.ReleaseVs;
 #else
         WsEnumConfiguration.DevelopVS;
 #endif

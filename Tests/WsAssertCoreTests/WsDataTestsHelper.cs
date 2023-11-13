@@ -38,13 +38,13 @@ public class WsDataTestsHelper
     {
         Assert.DoesNotThrow(() =>
         {
-            if (publishTypes.Contains(WsEnumConfiguration.DevelopVS))
+            if (publishTypes.Contains(WsEnumConfiguration.DevelopVs))
             {
                 SetupDevelopVs(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
-            if (publishTypes.Contains(WsEnumConfiguration.ReleaseVS))
+            if (publishTypes.Contains(WsEnumConfiguration.ReleaseVs))
             {
                 SetupReleaseVs(isShowSql);
                 action();

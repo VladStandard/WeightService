@@ -26,7 +26,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
             Assert.That(access.IsExists, Is.True);
             Assert.That(accessByUid.IsExists, Is.True);
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
     }
 
     [Test, Order(3)]
@@ -42,7 +42,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
             Assert.That(appByUid.IdentityValueUid, Is.EqualTo(uid));
 
             TestContext.WriteLine($"Get item success: {appByUid.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
     }
 
     [Test, Order(4)]
@@ -53,6 +53,6 @@ public sealed class AppRepositoryTests : TableRepositoryTests
             WsSqlAppEntity app = AppRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS });
+        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
     }
 }

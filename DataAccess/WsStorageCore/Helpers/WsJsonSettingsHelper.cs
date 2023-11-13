@@ -59,8 +59,8 @@ public sealed class WsJsonSettingsHelper
     public string FileNameDevelopVs => "appsettings.DevelopVS.json";
     public string FileNameReleaseVs => "appsettings.ReleaseVS.json";
     public string JsonFileName => WsDebugHelper.Instance.Config switch {
-        WsEnumConfiguration.DevelopVS => FileNameDevelopVs,
-        WsEnumConfiguration.ReleaseVS => FileNameReleaseVs,
+        WsEnumConfiguration.DevelopVs => FileNameDevelopVs,
+        WsEnumConfiguration.ReleaseVs => FileNameReleaseVs,
         _ => FileNameDevelopVs };
     public string BinNetSubDir => WsDebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
 

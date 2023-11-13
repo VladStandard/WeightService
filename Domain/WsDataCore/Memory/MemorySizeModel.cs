@@ -11,8 +11,6 @@ public sealed class MemorySizeModel : IDisposable
     public MemorySizeConvertModel? PhysicalFree { get; private set; }
     private MemorySizeConvertModel? VirtualTotal { get; set; }
     public MemorySizeConvertModel? PhysicalTotal { get; private set; }
-    //public MemorySizeConvertModel VirtualAllocated =>
-    //    new(VirtualTotal is not null && VirtualFree is not null ? VirtualTotal.Bytes - VirtualFree.Bytes : 0);
     public MemorySizeConvertModel PhysicalAllocated =>
         new(PhysicalTotal is not null && PhysicalFree is not null ? PhysicalTotal.Bytes - PhysicalFree.Bytes : 0);
     private static MdWmiHelper Wmi => MdWmiHelper.Instance;

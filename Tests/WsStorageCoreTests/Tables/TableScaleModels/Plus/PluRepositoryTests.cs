@@ -29,7 +29,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
                 Assert.That(plu.Number, Is.EqualTo(301));
 
             ParseRecords(plus);
-        }, false, new() { WsEnumConfiguration.ReleaseVS, WsEnumConfiguration.DevelopVS });
+        }, false, new() { WsEnumConfiguration.ReleaseVs, WsEnumConfiguration.DevelopVs });
     }
     
 }

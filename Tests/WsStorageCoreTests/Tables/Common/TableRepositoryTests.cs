@@ -7,7 +7,7 @@ public class TableRepositoryTests
 
     public TableRepositoryTests()
     {
-        DefaultConfigurations = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
+        DefaultConfigurations = new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs };
         SqlCrudConfig = new();
     }
 

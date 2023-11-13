@@ -144,7 +144,7 @@ public sealed class WsSqlContextManagerHelper
         string fileName = "machine.config";
         string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
         CheckDirAndFile(remoteFile);
-        if (!WsDebugHelper.Instance.Config.Equals(WsEnumConfiguration.DevelopVS)) return;
+        if (!WsDebugHelper.Instance.Config.Equals(WsEnumConfiguration.DevelopVs)) return;
 
         string localFile = Path.Combine(localDir, fileName);
         if (File.Exists(localFile)) File.Delete(localFile);

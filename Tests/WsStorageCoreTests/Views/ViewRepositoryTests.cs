@@ -9,7 +9,7 @@ public class ViewRepositoryTests
     public ViewRepositoryTests()
     {
         SqlCrudConfig = new();
-        AllConfigurations = new() { WsEnumConfiguration.DevelopVS, WsEnumConfiguration.ReleaseVS };
+        AllConfigurations = new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs };
     }
 
     [SetUp]
