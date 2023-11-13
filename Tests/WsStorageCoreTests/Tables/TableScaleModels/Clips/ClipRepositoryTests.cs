@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Entities.SchemaRef1c.Clips;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
 [TestFixture]

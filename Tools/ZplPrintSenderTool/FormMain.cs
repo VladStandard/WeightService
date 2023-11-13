@@ -1,5 +1,6 @@
 using PrinterCore.Enums;
 using TSCSDK;
+
 namespace ZplPrintSenderTool;
 
 public partial class FormMain : Form

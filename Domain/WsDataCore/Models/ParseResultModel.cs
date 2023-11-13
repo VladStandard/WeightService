@@ -1,4 +1,5 @@
 using WsDataCore.Serialization;
+
 namespace WsDataCore.Models;
 
 [XmlRoot("ParseResult", Namespace = "", IsNullable = false)]

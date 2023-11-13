@@ -1,4 +1,5 @@
 using Application=System.Windows.Forms.Application;
+
 namespace WsLabelCore.Models;
 
 /// <summary>

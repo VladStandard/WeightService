@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Entities.SchemaScale.Scales;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 
 [TestFixture]

@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaRef1c.Plus;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>

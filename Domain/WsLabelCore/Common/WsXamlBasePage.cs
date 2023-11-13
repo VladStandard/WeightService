@@ -1,4 +1,5 @@
 using System.Windows.Controls;
+
 namespace WsLabelCore.Common;
 
 /// <summary>

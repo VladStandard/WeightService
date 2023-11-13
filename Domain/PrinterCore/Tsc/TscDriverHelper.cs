@@ -1,6 +1,7 @@
 using System.Threading;
 using PrinterCore.Enums;
 using TSCSDK;
+
 namespace PrinterCore.Tsc;
 
 public class TscDriverHelper

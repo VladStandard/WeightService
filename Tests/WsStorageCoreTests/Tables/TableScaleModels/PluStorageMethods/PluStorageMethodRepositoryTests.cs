@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Entities.SchemaScale.PlusStorageMethods;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 
 [TestFixture]

@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Entities.SchemaScale.BarCodes;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]

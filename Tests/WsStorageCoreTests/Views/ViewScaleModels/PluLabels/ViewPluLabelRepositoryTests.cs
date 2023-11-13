@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Views.ViewScaleModels.PluLabels;
+
 namespace WsStorageCoreTests.Views.ViewScaleModels.PluLabels;
 
 [TestFixture]

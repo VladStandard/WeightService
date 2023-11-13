@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+
 namespace WsDataCore.Helpers;
 
 public class WsFileLoggerHelper

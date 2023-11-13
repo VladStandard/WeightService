@@ -1,5 +1,6 @@
 ﻿using WsStorageCore.Entities.SchemaRef1c.Plus;
 using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 
 [TestFixture]

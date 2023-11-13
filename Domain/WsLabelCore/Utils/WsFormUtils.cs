@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using SystemColors=System.Drawing.SystemColors;
+
 namespace WsLabelCore.Utils;
 
 /// <summary>

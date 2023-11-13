@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
+
 namespace WsStorageCoreTests.Tables.TableRefModels.Devices;
 
 [TestFixture]

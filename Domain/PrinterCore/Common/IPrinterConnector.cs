@@ -1,4 +1,5 @@
 ﻿using PrinterCore.Enums;
+
 namespace PrinterCore.Common;
 
 public interface IPrinterConnector : IDisposable

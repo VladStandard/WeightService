@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Views.ViewScaleModels.Barcodes;
+
 namespace WsStorageCoreTests.Views.ViewScaleModels.Barcodes;
 
 [TestFixture]

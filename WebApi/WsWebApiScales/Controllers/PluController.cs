@@ -1,6 +1,7 @@
 ﻿using WsWebApiScales.Dto.Plu;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Services;
+
 namespace WsWebApiScales.Controllers;
 
 [AllowAnonymous]

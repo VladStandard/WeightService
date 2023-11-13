@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using WsStorageCore.Entities.SchemaRef1c.Plus;
 using SystemColors=System.Drawing.SystemColors;
+
 namespace WsLabelCore.Controls;
 
 /// <summary>

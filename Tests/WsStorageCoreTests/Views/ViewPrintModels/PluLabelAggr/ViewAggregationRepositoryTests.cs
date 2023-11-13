@@ -1,4 +1,5 @@
 using WsStorageCore.Views.ViewPrintModels.PluLabelAggr;
+
 namespace WsStorageCoreTests.Views.ViewPrintModels.PluLabelAggr;
 
 [TestFixture]

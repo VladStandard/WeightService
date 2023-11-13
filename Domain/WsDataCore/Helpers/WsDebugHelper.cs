@@ -28,7 +28,7 @@ public sealed class WsDebugHelper
     /// </summary>
     public WsEnumConfiguration Config =>
 #if  DEVELOPVS
-        WsEnumConfiguration.DevelopVS;
+        WsEnumConfiguration.DevelopVs;
 #elif RELEASEVS
         WsEnumConfiguration.ReleaseVs;
 #else

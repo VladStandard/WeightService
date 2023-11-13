@@ -88,7 +88,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\WsMainForm.cs" />
+    <Compile Include="Forms\WsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\WsMainForm.Designer.cs">
       <DependentUpon>WsMainForm.cs</DependentUpon>
     </Compile>

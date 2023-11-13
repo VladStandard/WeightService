@@ -1,6 +1,7 @@
 using PrinterCore.Zpl;
 using WsStorageCore.Entities.SchemaScale.TemplatesResources;
 using WsStorageCore.OrmUtils;
+
 namespace PrinterCore.Utils;
 
 public static class MdDataFormatUtils

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using WsWebApiCore.Settings;
 using WsWebApiScales.Dto.Response;
 using WsWebApiScales.Services;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales), false);

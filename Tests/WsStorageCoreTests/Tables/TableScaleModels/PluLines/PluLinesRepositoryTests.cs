@@ -1,5 +1,6 @@
 ﻿using WsStorageCore.Entities.SchemaScale.PlusScales;
 using WsStorageCore.Entities.SchemaScale.Scales;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 
 [TestFixture]

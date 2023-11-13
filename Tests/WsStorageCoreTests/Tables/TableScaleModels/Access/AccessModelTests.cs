@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaScale.Access;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.Access;
 
 [TestFixture]

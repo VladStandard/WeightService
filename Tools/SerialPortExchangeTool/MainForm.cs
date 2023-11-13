@@ -8,6 +8,7 @@ using WsDataCore.Utils;
 using WsMassaCore.Helpers;
 using WsMassaCore.Models;
 using WsMassaCore.Utils;
+
 namespace SerialPortExchangeTool;
 
 public partial class MainForm : Form

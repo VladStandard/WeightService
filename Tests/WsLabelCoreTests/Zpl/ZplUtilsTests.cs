@@ -1,4 +1,5 @@
 using PrinterCore.Zpl;
+
 namespace WsLabelCoreTests.Zpl;
 
 [TestFixture]

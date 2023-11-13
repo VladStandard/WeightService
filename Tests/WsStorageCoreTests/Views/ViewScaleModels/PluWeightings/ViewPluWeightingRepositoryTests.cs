@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Views.ViewScaleModels.PluWeightings;
+
 namespace WsStorageCoreTests.Views.ViewScaleModels.PluWeightings;
 
 [TestFixture]

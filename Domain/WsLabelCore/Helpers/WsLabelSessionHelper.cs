@@ -5,6 +5,7 @@ using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
 using WsStorageCore.Entities.SchemaScale.PlusScales;
 using WsStorageCore.Entities.SchemaScale.PlusWeightings;
 using WsStorageCore.Entities.SchemaScale.Scales;
+
 namespace WsLabelCore.Helpers;
 
 /// <summary>

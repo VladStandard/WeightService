@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Configuration;
+
 namespace ZplPrintSenderTool.Properties {
     
     

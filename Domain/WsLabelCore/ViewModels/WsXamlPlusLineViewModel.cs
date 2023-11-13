@@ -1,4 +1,5 @@
 using WsStorageCore.Entities.SchemaScale.PlusScales;
+
 namespace WsLabelCore.ViewModels;
 
 /// <summary>

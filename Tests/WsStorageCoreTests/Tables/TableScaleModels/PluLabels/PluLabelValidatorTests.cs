@@ -1,4 +1,5 @@
 ﻿using WsStorageCore.Entities.SchemaScale.PlusLabels;
+
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 
 [TestFixture]

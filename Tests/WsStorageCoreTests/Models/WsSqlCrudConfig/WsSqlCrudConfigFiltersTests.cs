@@ -1,5 +1,6 @@
 using NHibernate.Criterion;
 using WsStorageCore.OrmUtils;
+
 namespace WsStorageCoreTests.Models.WsSqlCrudConfig;
 
 [TestFixture]

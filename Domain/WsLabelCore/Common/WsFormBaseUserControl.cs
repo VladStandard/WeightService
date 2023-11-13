@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+
 namespace WsLabelCore.Common;
 
 /// <summary>

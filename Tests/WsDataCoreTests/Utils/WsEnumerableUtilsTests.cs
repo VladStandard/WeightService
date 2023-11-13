@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using WsDataCore.Common;
+
 namespace WsDataCoreTests.Utils;
 
 [TestFixture]

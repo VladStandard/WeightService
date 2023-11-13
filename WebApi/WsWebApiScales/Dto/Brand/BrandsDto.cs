@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+
 namespace WsWebApiScales.Dto.Brand;
 
 [XmlRoot("Brands")]

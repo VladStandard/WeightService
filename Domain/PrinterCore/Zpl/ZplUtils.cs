@@ -1,5 +1,6 @@
 using System.Text;
 using PrinterCore.Enums;
+
 namespace PrinterCore.Zpl;
 
 public static class ZplUtils

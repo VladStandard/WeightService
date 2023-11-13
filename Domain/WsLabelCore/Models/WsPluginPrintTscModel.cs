@@ -3,6 +3,7 @@ using WsStorageCore.Entities.SchemaRef.Printers;
 using WsStorageCore.Entities.SchemaScale.PlusLabels;
 using WsStorageCore.Enums;
 using DataReceivedEventArgs=SuperSimpleTcp.DataReceivedEventArgs;
+
 namespace WsLabelCore.Models;
 
 /// <summary>

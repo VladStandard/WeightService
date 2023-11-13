@@ -1,4 +1,5 @@
 using PrinterCore.Enums;
+
 namespace PrinterCore.Tsc;
 
 public class TscPrintProperties

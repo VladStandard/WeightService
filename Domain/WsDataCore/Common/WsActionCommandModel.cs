@@ -3,6 +3,7 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using MvvmHelpers.Commands;
+
 namespace WsDataCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
