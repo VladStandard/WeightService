@@ -40,19 +40,19 @@ public class BrandService
         _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - изменен");
     }
     
-    private void IsMarkedBrand(BrandDto brandDto)
+    private void IsMarkedBrand(Guid uid)
     {
-        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
+        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(uid);
         
         if (brandDb.IsNew)
         {
-            _responseDto.AddSuccess(brandDto.Guid, "Бренд не найден для удаления");
+            _responseDto.AddSuccess(uid, "Бренд не найден для удаления");
         }
         else
         {
-            brandDb.IsMarked = brandDto.IsMarked;
+            brandDb.IsMarked = true;
             WsSqlCoreHelper.Instance.Update(brandDb);
-            _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - удален");
+            _responseDto.AddSuccess(uid, $"Бренд - {brandDb.Name} - удален");
         }
     }
     
@@ -65,7 +65,7 @@ public class BrandService
         {
             if (brandDto.IsMarked)
             {
-                IsMarkedBrand(brandDto);
+                IsMarkedBrand(brandDto.Guid);
                 continue;
             }
             ValidationResult validationResult = new BrandDtoValidator().Validate(brandDto);

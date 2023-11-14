@@ -5,7 +5,7 @@ using WsWebApiScales.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-WsSqlContextManagerHelper.Instance.SetupJsonWebApp(builder.Environment.ContentRootPath, nameof(WsWebApiScales), false);
+WsSqlCoreHelper.Instance.SetSessionFactory(false);
 if (WsSqlCoreHelper.Instance.SessionFactory is null)
     throw new ArgumentException($"{nameof(WsSqlCoreHelper.Instance.SessionFactory)}");
 

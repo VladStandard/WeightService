@@ -20,33 +20,19 @@ public class WsDataTestsHelper
 
     #region Public and private methods
 
-    private void SetupDevelopVs(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsDevelopVs(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(SqlCore.GetConnectionServer());
-    }
-    
-    private void SetupReleaseVs(bool isShowSql)
-    {
-        ContextManager.SetupJsonTestsReleaseVs(Directory.GetCurrentDirectory(),
-            MdNetUtils.GetLocalDeviceName(true), nameof(WsAssertCoreTests), isShowSql);
-        TestContext.WriteLine(SqlCore.GetConnectionServer());
-    }
-
     public void AssertAction(Action action, bool isShowSql, List<WsEnumConfiguration> publishTypes)
     {
         Assert.DoesNotThrow(() =>
         {
             if (publishTypes.Contains(WsEnumConfiguration.DevelopVs))
             {
-                SetupDevelopVs(isShowSql);
+                SqlCore.SetSessionFactory(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
             if (publishTypes.Contains(WsEnumConfiguration.ReleaseVs))
             {
-                SetupReleaseVs(isShowSql);
+                SqlCore.SetSessionFactory(isShowSql);
                 action();
                 TestContext.WriteLine();
             }
@@ -59,30 +45,7 @@ public class WsDataTestsHelper
         foreach (ValidationFailure failure in result.Errors)
             TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
     }
-
-    public void AssertSqlValidate<T>(T item, bool assertResult) where T : WsSqlEntityBase, new() =>
-        AssertSqlTablesValidate(item, assertResult);
-
-    private void AssertSqlTablesValidate<T>(T item, bool assertResult) where T : class, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
-            FailureWriteLine(validationResult);
-            // Assert.
-            switch (assertResult)
-            {
-                case true:
-                    Assert.IsTrue(validationResult.IsValid);
-                    break;
-                default:
-                    Assert.IsFalse(validationResult.IsValid);
-                    break;
-            }
-        });
-    }
     
-
     public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>

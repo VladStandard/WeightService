@@ -3,15 +3,9 @@ namespace DeviceControl.Pages.Menu.Admins;
 public sealed partial class SqlInfo : ComponentBase
 {
     #region Public and private fields, properties, constructor
-    private static WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
     private WsSqlViewTableSizeRepository WsSqlViewTableSizeRepository { get; } = new();
     private List<WsSqlViewDbFileSizeInfoModel> DbFiles { get; set; }
     private List<WsSqlViewTableSizeModel> DbTables { get; set; }
-    
-    private static string SqlConnectionString => 
-        $"{JsonSettings.Local.Sql.DataSource} \\ " +
-        $"{JsonSettings.Local.Sql.InitialCatalog} \\ " +
-        $"{JsonSettings.Local.Sql.UserId}";
     
     public SqlInfo()
     {
@@ -45,6 +39,5 @@ public sealed partial class SqlInfo : ComponentBase
         args.Expandable = args.Data.Tables.Count > 0;
     }
     
-
     #endregion
 }

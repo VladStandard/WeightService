@@ -13,29 +13,6 @@ public sealed class WsJsonSettingsHelper
 
     #region Public and private fields, properties, constructor
 
-    public bool IsRemote { get; set; }
-    private WsJsonSettingsModel? _local;
-    public WsJsonSettingsModel Local
-    {
-        get
-        {
-            if (_local is null) throw new ArgumentNullException(nameof(Local));
-            _local.CheckProperties(true);
-            return _local;
-        }
-        set => _local = value;
-    }
-    private WsJsonSettingsModel? _remote;
-    public WsJsonSettingsModel Remote
-    {
-        get
-        {
-            if (_remote is null) throw new ArgumentNullException(nameof(Remote));
-            _remote.CheckProperties(true);
-            return _remote;
-        }
-        set => _remote = value;
-    }
 	private string _remoteDir = string.Empty;
 
     public string RemoteDir
@@ -56,13 +33,6 @@ public sealed class WsJsonSettingsHelper
 		    return _remoteDir;
 	    }
     }
-    public string FileNameDevelopVs => "appsettings.DevelopVS.json";
-    public string FileNameReleaseVs => "appsettings.ReleaseVS.json";
-    public string JsonFileName => WsDebugHelper.Instance.Config switch {
-        WsEnumConfiguration.DevelopVs => FileNameDevelopVs,
-        WsEnumConfiguration.ReleaseVs => FileNameReleaseVs,
-        _ => FileNameDevelopVs };
-    public string BinNetSubDir => WsDebugHelper.Instance.IsDevelop ? @"bin\Develop_x64\net7.0\" : @"bin\Release_x64\net7.0\";
-
+    
 	#endregion
 }

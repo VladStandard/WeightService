@@ -2,6 +2,7 @@
 .vs/
 .idea/
 .vscode/
+.configs/
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/

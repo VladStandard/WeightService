@@ -1,9 +1,11 @@
+using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using WsStorageCore.Entities.SchemaRef.Hosts;
 using WsStorageCore.Entities.SchemaRef.Printers;
+using WsStorageCore.Enums;
 
 namespace WsStorageCore.Helpers;
 
@@ -24,7 +26,7 @@ public sealed class WsSqlCoreHelper
     private object LockerSelect { get; } = new();
     private object LockerExecute { get; } = new();
 
-    public static WsJsonSettingsHelper JsonSettings => WsJsonSettingsHelper.Instance;
+    public static SqlSettings SqlSettings { get; set; } = new();
     
     public ISessionFactory? SessionFactory { get; private set; }
 
@@ -40,11 +42,23 @@ public sealed class WsSqlCoreHelper
         }
     }
     
+    private static SqlSettings LoadJsonConfig()
+    {
+        IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
+            .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
+            .Build();
+        
+        SqlSettings sqlSettings = new();
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettings);
+        return sqlSettings;
+    }
+    
     private void SetSqlConfiguration(bool isShowSql)
     {
+        SqlSettings = LoadJsonConfig();
         SqlConfiguration = new();
         SqlConfiguration.DataBaseIntegration(db => {
-            db.ConnectionString = GetConnectionString();
+            db.ConnectionString = SqlSettings.GetConnectionString();
             db.Dialect<MsSql2012Dialect>();
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
@@ -65,24 +79,8 @@ public sealed class WsSqlCoreHelper
     #endregion
 
     #region Public and private methods - Base
-    
-    private string GetConnectionString() => JsonSettings.IsRemote
-        ? $"Data Source={JsonSettings.Remote.Sql.DataSource}; " +
-          $"Initial Catalog={JsonSettings.Remote.Sql.InitialCatalog}; " +
-          $"Persist Security Info={JsonSettings.Remote.Sql.PersistSecurityInfo}; " +
-          $"Integrated Security={JsonSettings.Remote.Sql.PersistSecurityInfo}; " +
-          (JsonSettings.Remote.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Remote.Sql.UserId}; Password={JsonSettings.Remote.Sql.Password}; ") +
-          $"TrustServerCertificate={JsonSettings.Remote.Sql.TrustServerCertificate}; "
-        : $"Data Source={JsonSettings.Local.Sql.DataSource}; " +
-          $"Initial Catalog={JsonSettings.Local.Sql.InitialCatalog}; " +
-          $"Persist Security Info={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
-          $"Integrated Security={JsonSettings.Local.Sql.PersistSecurityInfo}; " +
-          (JsonSettings.Local.Sql.IntegratedSecurity ? "" : $"User ID={JsonSettings.Local.Sql.UserId}; Password={JsonSettings.Local.Sql.Password}; ") +
-          $"TrustServerCertificate={JsonSettings.Local.Sql.TrustServerCertificate}; ";
-    
-    public string GetConnectionServer() => JsonSettings.IsRemote
-        ? $"Server = {JsonSettings.Remote.Sql.DataSource} | DB = {JsonSettings.Remote.Sql.InitialCatalog}"
-        : $"Server = {JsonSettings.Local.Sql.DataSource} | DB = {JsonSettings.Local.Sql.InitialCatalog}";
+
+    public string GetConnectionServer() => $"Server = {SqlSettings.DataSource} | DB = {SqlSettings.InitialCatalog}";
 
     private void AddConfigurationMappings()
     {
@@ -119,7 +117,7 @@ public sealed class WsSqlCoreHelper
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
     }
-
+    
     #endregion
 
     #region Public and private methods - Base

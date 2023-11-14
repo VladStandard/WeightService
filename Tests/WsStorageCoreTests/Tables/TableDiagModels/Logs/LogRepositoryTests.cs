@@ -1,4 +1,5 @@
-﻿using WsStorageCore.Entities.SchemaDiag.Logs;
+﻿using NHibernate.Impl;
+using WsStorageCore.Entities.SchemaDiag.Logs;
 
 namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
 

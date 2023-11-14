@@ -34,20 +34,6 @@
         <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     </ItemGroup>
     <ItemGroup>
-        <None Update="appsettings.DevelopVS.json">
-            <DependentUpon>appsettings.json</DependentUpon>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
-        <None Update="appsettings.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
-        <None Update="appsettings.ReleaseVS.json">
-            <DependentUpon>appsettings.json</DependentUpon>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </None>
         <None Update="machine.config">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
@@ -62,13 +48,4 @@
         <Version>1.1.5.0</Version>
         <DebugType>portable</DebugType>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DevelopVS|x64'">
-        <DebugType>none</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseVS|x64'">
-        <DebugType>none</DebugType>
-    </PropertyGroup>
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="Post-build.cmd" />
-    </Target>
 </Project>

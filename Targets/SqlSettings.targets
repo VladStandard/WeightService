@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+        <None Include="$(SolutionDir).configs\sql\sqlconfig.$(ConfigurationName).json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>sqlconfig.json</Link>
+        </None>
+    </ItemGroup>
+</Project>

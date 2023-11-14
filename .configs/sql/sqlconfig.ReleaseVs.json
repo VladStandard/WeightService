@@ -1,0 +1,12 @@
+{
+    "SqlSettings": {
+        "DataSource": "PALYCH\\LUTON",
+        "InitialCatalog": "ScalesDB",
+        "UserId": "scale01",
+        "Password": "scale01",
+        "ConnectTimeout": 900,
+        "IntegratedSecurity": false,
+        "PersistSecurityInfo": false,
+        "TrustServerCertificate": true
+    }
+}

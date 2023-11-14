@@ -1,12 +1,9 @@
 global using System;
 global using System.Collections.Generic;
-global using System.IO;
 global using System.Threading;
 global using FluentValidation.Results;
-global using MDSoft.NetUtils;
 global using NUnit.Framework;
 global using WsDataCore.Enums;
 global using WsLocalizationCore.Utils;
 global using WsStorageCore.Common;
 global using WsStorageCore.Helpers;
-global using WsStorageCore.Utils;

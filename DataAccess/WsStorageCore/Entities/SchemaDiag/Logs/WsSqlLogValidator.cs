@@ -15,9 +15,9 @@ public sealed class WsSqlLogValidator : WsSqlTableValidator<WsSqlLogEntity>
         RuleFor(item => item.Member)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Type)
-            .NotEmpty()
-            .NotNull();
+        // RuleFor(item => item.Type)
+        //     .NotEmpty()
+        //     .NotNull();
         RuleFor(item => item.Message)
             .NotEmpty()
             .NotNull();

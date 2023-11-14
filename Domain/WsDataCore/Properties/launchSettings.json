@@ -1,9 +1,0 @@
-{
-    "profiles": {
-        "DataCore": {
-            "commandName": "Project",
-            "nativeDebugging": true,
-            "sqlDebugging": true
-        }
-    }
-}
