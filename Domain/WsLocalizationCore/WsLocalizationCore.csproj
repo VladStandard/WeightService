@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
         <LangVersion>latest</LangVersion>
-        <Version>1.1.5.0</Version>
+        <Version>1.1.9.0</Version>
         <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>

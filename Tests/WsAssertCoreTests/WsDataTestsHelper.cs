@@ -14,7 +14,6 @@ public class WsDataTestsHelper
     #region Public and private fields, properties, constructor
 
     public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    public WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
     #endregion
 

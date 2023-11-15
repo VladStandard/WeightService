@@ -16,7 +16,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <PublishUrl>\\palych\Install\VSSoft\Scales-3-Release-16-Stend\</PublishUrl>
+    <PublishUrl>\\palych\Install\VSSoft\Scales\Release-Kamni\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,14 +26,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
+    <SupportUrl>https://device-control.kolbasa-vs.local/</SupportUrl>
+    <ErrorReportUrl>https://device-control.kolbasa-vs.local/</ErrorReportUrl>
     <TargetCulture>ru</TargetCulture>
     <ProductName>ScalesUI</ProductName>
     <PublisherName>Vladimir Standard</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.5.0</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.1.9.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -216,4 +218,11 @@
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="App.config" Transform="App.$(Configuration).config" Destination="App.config" StackTrace="true" />
   </Target>
+  <ItemGroup>
+    <Content Include="$(SolutionDir).configs\sql\sqlconfig.$(ConfigurationName).json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>sqlconfig.json</Link>
+      <IsIncludeInPublishFolder>True</IsIncludeInPublishFolder>
+    </Content>
+  </ItemGroup>
 </Project>
