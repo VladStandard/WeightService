@@ -24,7 +24,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             List<WsSqlLogEntity> items = LogRepository.GetEnumerable(SqlCrudConfig).ToList();
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             IList<WsSqlLogEntity> items = LogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test]
@@ -50,7 +50,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             Assert.That(logByUid, Is.EqualTo(oldLog));
 
             TestContext.WriteLine($"Get item success: {logByUid.IdentityValueUid}");
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test]
@@ -61,6 +61,6 @@ public sealed class LogRepositoryTests : TableRepositoryTests
             WsSqlLogEntity log = LogRepository.GetItemFirst();
             Assert.That(log.IsExists, Is.True);
             TestContext.WriteLine($"{log}");
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

@@ -14,7 +14,7 @@ public sealed class WsSqlContextCacheHelperTests
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusLines);
             Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusLines.Any(), Is.True);
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
 
     [Test]
     public void Get_cache_view_plus_lines_current() =>
@@ -31,7 +31,7 @@ public sealed class WsSqlContextCacheHelperTests
                 WsTestsUtils.DataTests.ContextCache.LoadLocalViewPlusLines((ushort)line.IdentityValueId);
                 Assert.That(WsTestsUtils.DataTests.ContextCache.LocalViewPlusLines.Any(), Is.True);
             }
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
 
     [Test]
     public void Get_cache_view_plus_nesting() =>
@@ -40,7 +40,7 @@ public sealed class WsSqlContextCacheHelperTests
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
             Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusNesting.Any(), Is.True);
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     
     [Test]
     public void Get_cache_view_plus_storage_methods() =>
@@ -49,5 +49,5 @@ public sealed class WsSqlContextCacheHelperTests
             // Обновить кэш.
             WsTestsUtils.DataTests.ContextCache.Load(WsSqlEnumTableName.ViewPlusStorageMethods);
             Assert.That(WsTestsUtils.DataTests.ContextCache.ViewPlusStorageMethods.Any(), Is.True);
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
 }

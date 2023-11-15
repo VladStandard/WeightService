@@ -20,7 +20,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlPluClipFkEntity> items = PluClipFkRepository.GetEnumerable(SqlCrudConfig);
             //ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     //[Test]

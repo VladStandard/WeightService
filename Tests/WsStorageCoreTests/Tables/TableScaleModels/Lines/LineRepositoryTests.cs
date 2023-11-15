@@ -20,7 +20,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlScaleEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test, Order(3)]
@@ -35,7 +35,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             Assert.That(lineById.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
 
             TestContext.WriteLine($"Get item success: {lineById.Description}: {lineById.IdentityValueId}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 
     [Test, Order(4)]
@@ -52,6 +52,6 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldScale.IdentityValueId));
             
             TestContext.WriteLine(lineByDevice);
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 }

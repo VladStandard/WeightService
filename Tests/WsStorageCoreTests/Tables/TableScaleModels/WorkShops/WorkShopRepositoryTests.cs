@@ -14,7 +14,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlWorkShopEntity> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test, Order(2)]
@@ -25,6 +25,6 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             WsSqlWorkShopEntity app = WorkShopRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 }

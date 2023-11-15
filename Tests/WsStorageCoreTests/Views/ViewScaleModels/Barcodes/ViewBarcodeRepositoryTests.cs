@@ -17,6 +17,6 @@ public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
         {
             IList<WsSqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

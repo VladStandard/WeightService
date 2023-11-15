@@ -14,6 +14,6 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlBoxEntity> items = BoxRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

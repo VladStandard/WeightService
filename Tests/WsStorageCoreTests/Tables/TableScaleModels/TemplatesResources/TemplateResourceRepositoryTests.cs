@@ -17,6 +17,6 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
         {
             List<WsSqlTemplateResourceEntity> items = TemplateResourceRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

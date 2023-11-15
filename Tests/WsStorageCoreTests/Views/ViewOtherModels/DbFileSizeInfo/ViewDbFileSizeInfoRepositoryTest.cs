@@ -22,6 +22,6 @@ public sealed class ViewDbFileSizeInfoRepositoryTest : ViewRepositoryTests
                 TestContext.WriteLine($"{info.FileName}: {info.DbFillSize}%");
                 Assert.That(info.SizeMb, Is.LessThan(10240));
             }
-        }, false, AllConfigurations);
+        }, false);
     }
 }

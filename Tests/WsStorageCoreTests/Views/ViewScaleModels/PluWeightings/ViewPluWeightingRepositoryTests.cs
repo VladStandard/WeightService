@@ -17,6 +17,6 @@ public sealed class ViewPluWeightingRepositoryTests : ViewRepositoryTests
         {
             IList<WsSqlViewPluWeightingModel> items = ViewPluWeightingRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

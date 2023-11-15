@@ -18,7 +18,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlPluNestingFkEntity> items = PluNestingFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
     
 }

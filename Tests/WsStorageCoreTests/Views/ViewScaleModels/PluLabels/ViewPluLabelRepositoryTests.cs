@@ -18,6 +18,6 @@ public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
         {
             IEnumerable<WsSqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

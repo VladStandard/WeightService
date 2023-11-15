@@ -24,7 +24,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
         {
             List<WsSqlAccessEntity> items = AccessRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test, Order(2)]
@@ -39,7 +39,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
             Assert.That(accessByUid.IsExists, Is.True);
 
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 
     [Test, Order(3)]
@@ -55,7 +55,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
             Assert.That(accessByUid.IdentityValueUid, Is.EqualTo(uid));
 
             TestContext.WriteLine($"Get item success: {accessByUid.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 
     [Test, Order(4)]
@@ -66,6 +66,6 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
             WsSqlAccessEntity access = AccessRepository.GetNewItem();
             Assert.That(access.IsNew, Is.True);
             TestContext.WriteLine($"New item: {access.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 }

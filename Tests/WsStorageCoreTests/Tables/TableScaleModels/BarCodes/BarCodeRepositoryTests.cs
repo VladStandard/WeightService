@@ -16,6 +16,6 @@ public sealed class BarCodeRepositoryTests : TableRepositoryTests
         {
             List<WsSqlBarCodeEntity> items = BarcodeRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

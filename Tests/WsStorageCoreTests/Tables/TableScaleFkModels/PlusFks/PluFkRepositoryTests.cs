@@ -14,6 +14,6 @@ public sealed class PluFkRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

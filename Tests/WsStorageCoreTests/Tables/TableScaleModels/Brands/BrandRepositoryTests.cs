@@ -14,6 +14,6 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

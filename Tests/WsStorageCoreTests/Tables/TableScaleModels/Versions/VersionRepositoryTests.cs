@@ -15,6 +15,6 @@ public sealed class VersionRepositoryTests : TableRepositoryTests
         {
             List<WsSqlVersionEntity> items = VersionRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

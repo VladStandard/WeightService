@@ -14,6 +14,6 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlPrinterEntity> items = PrinterRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

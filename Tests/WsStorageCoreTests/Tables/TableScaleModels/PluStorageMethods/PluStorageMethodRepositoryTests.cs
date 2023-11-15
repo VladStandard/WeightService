@@ -14,6 +14,6 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

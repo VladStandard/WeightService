@@ -15,7 +15,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlHostEntity> items = HostRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test, Order(2)]
@@ -31,7 +31,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             Assert.That(hostByUid.IsExists, Is.True);
 
             TestContext.WriteLine($"Success created/updated: {host.Name}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 
     [Test, Order(3)]
@@ -48,7 +48,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             Assert.That(hostByUid.IdentityValueUid, Is.EqualTo(uid));
 
             TestContext.WriteLine($"Get item success: {hostByUid.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 
     [Test, Order(4)]
@@ -59,6 +59,6 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
             WsSqlHostEntity host = HostRepository.GetNewItem();
             Assert.That(host.IsNew, Is.True);
             TestContext.WriteLine($"New item: {host.IdentityValueUid}");
-        }, false, new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs });
+        }, false);
     }
 }

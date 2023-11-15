@@ -14,6 +14,6 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
         {
             IEnumerable<WsSqlClipEntity> items = ClipRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

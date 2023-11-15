@@ -17,6 +17,6 @@ public class ViewPluLineRepositoryTests : ViewRepositoryTests
         {
             IEnumerable<WsSqlViewPluLineModel> items = ViewPluLineRepository.GetEnumerable(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

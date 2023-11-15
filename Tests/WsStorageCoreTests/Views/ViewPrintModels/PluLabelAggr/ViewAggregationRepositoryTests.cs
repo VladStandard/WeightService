@@ -18,6 +18,6 @@ public sealed class ViewPluLabelAggrRepositoryTests : ViewRepositoryTests
             List<WsSqlViewPluLabelAggrModel> items = ViewPluLabelAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

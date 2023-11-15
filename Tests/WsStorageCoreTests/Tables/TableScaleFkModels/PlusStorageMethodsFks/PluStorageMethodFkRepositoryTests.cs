@@ -21,7 +21,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
         {
             List<WsSqlPluStorageMethodFkEntity> items = PluStorageMethodFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 
     [Test]
@@ -37,6 +37,6 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
             Assert.That(pluStorageMethodFksByPlu, Is.EqualTo(oldPluStorageMethodFk));
 
             TestContext.WriteLine(pluStorageMethodFksByPlu);
-        }, false, DefaultConfigurations);
+        }, false);
     }
 }

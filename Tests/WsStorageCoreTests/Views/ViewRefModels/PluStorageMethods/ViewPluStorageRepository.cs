@@ -18,6 +18,6 @@ public class ViewPluStorageRepository : ViewRepositoryTests
         {
             List<WsSqlViewPluStorageMethodModel> items = ViewPluStorageMethodRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }

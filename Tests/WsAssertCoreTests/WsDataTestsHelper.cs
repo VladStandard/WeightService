@@ -19,30 +19,14 @@ public class WsDataTestsHelper
 
     #region Public and private methods
 
-    public void AssertAction(Action action, bool isShowSql, List<WsEnumConfiguration> publishTypes)
+    public void AssertAction(Action action, bool isShowSql)
     {
         Assert.DoesNotThrow(() =>
         {
-            if (publishTypes.Contains(WsEnumConfiguration.DevelopVs))
-            {
-                SqlCore.SetSessionFactory(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
-            if (publishTypes.Contains(WsEnumConfiguration.ReleaseVs))
-            {
-                SqlCore.SetSessionFactory(isShowSql);
-                action();
-                TestContext.WriteLine();
-            }
+            SqlCore.SetSessionFactory(isShowSql);
+            action();
+            TestContext.WriteLine();
         });
-    }
-
-    private void FailureWriteLine(ValidationResult result)
-    {
-        if (result.IsValid) return;
-        foreach (ValidationFailure failure in result.Errors)
-            TestContext.WriteLine($"{WsLocaleCore.Validator.Property} {failure.PropertyName} {WsLocaleCore.Validator.FailedValidation}. {WsLocaleCore.Validator.Error}: {failure.ErrorMessage}");
     }
     
     public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlEntityBase, new()

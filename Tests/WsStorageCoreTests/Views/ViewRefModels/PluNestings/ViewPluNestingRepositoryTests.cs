@@ -17,6 +17,6 @@ public class ViewPluNestingRepositoryTests : ViewRepositoryTests
         {
             IEnumerable<WsSqlViewPluNestingModel> items = ViewPluNestingRepository.GetEnumerable();
             PrintViewRecords(items);
-        }, false, AllConfigurations);
+        }, false);
     }
 }
