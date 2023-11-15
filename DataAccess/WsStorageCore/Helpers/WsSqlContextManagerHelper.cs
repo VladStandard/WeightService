@@ -33,7 +33,6 @@ public sealed class WsSqlContextManagerHelper
         {
             // #WS-T-1105: Fix jitDebugging error for Debug configs.
             CheckMachineConfigUpdates(localDir);
-            SqlCore.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
             ContextItem.SetupLog(appName);
         }
         catch (Exception ex)

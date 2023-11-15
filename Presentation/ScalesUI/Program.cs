@@ -5,7 +5,8 @@ internal static class Program
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
     private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-
+    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    
     [STAThread]
     internal static void Main()
     {
@@ -15,8 +16,10 @@ internal static class Program
         // Проверить каталог и файлы локализации.
         WsLocalizationUtils.CheckDirectoryWithFiles();
         // Настройка.
-        AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.App);
+        SqlCore.SetSessionFactory(WsDebugHelper.Instance.IsDevelop);
         ContextManager.SetupJsonScales(Directory.GetCurrentDirectory(), typeof(Program).Assembly.GetName().Name);
+        AppVersion.Setup(Assembly.GetExecutingAssembly(), LabelSession.Localization.LabelPrint.App);
+
         // Запуск.
         Application.Run(new WsMainForm());
     }
