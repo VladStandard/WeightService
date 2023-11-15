@@ -1,27 +1,32 @@
 @inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
 <RadzenDialog />
 <RadzenContextMenu />
 <RadzenNotification />
 
-<div class="main_block">
-    <div style="@TmpStyle">
-        <NavMenu />
+<div class="main-wrapper">
+  <div class="main-container">
+    <NavMenu/>
+    <div class="viewer">
+      <div class="viewer-header">
+        <a href="@WsRouteUtils.Profile">
+          <div class="viewer-header__item">
+            <RadzenIcon Icon="people"/>
+            <p>@User?.Identity?.Name</p>
+          </div>
+        </a>
+        <AuthorizeView Roles="@WsUserAccessStr.Admin">
+          <a href="@WsRouteUtils.SystemAppInfo">
+            <div class="viewer-header__item">
+              <RadzenIcon Icon="history"/>
+              <p>@VerBlazor</p>
+            </div>
+          </a>
+        </AuthorizeView>
+      </div>
+      <div class="viewer-content">
+        @Body
+      </div>
     </div>
-    <div style="flex-grow: 1;">
-        <div>
-            <RadzenMenu class="top_menu">
-                <RadzenMenuItem Icon="people" Text="@User?.Identity?.Name" Path=@($"{WsRouteUtils.Profile}") />
-                <AuthorizeView Roles="@WsUserAccessStr.Admin">
-                    <RadzenMenuItem Text="@VerBlazor" Path=@($"{WsRouteUtils.SystemAppInfo}") />
-                </AuthorizeView>
-            </RadzenMenu>
-        </div>
-        <div style="padding: 10px">
-            @Body
-        </div>
-    </div>
+  </div>
 </div>

@@ -1,59 +1,25 @@
 @inherits ComponentBase
 
-<div class="@SidebarCss">
-  <div class="top-row pl-4 navbar">
-    <a class="navbar-brand" href="">
-      <RadzenLabel Style="margin-top: -7px; text-align: center; font-size: 14px; color: white"
-                   Text="@WsLocaleCore.Strings.AppDevicesControlName" />
+<div class="side-nav-container @SidebarThemeCss">
+  <div class="side-nav__label-container">
+    <a href="/">
+      <p class="side-nav__label">
+        @WsLocaleCore.Strings.AppDevicesControlName
+      </p>
     </a>
   </div>
 
-  <RadzenPanelMenu class="@ItemMenuCss">
-    <AuthorizeView Roles="@WsUserAccessStr.Read">
-      @* Устройства *@
-      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionDevices">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionScales" Path="@WsRouteUtils.SectionLines"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionHosts" Path="@WsRouteUtils.SectionHosts"/>
-        <RadzenPanelMenuItem Text="@WsLocaleCore.Print.Names" Path="@WsRouteUtils.SectionPrinters"/>
-      </RadzenPanelMenuItem>
-      @* Операции *@
-      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOperations">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionLabels" Path="@WsRouteUtils.SectionPlusLabels"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBarCodes" Path="@WsRouteUtils.SectionBarCodes"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeighings" Path="@WsRouteUtils.SectionPlusWeightings"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWeithingFactsAggregationShort" Path="@WsRouteUtils.SectionPlusLabelsAggr"/>
-      </RadzenPanelMenuItem>
-            @* Справочники 1C *@
-      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences1C">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlus" Path="@WsRouteUtils.SectionPlus"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBoxes" Path="@WsRouteUtils.SectionBoxes"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionClips" Path="@WsRouteUtils.SectionClips"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBundles" Path="@WsRouteUtils.SectionBundles"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionBrands" Path="@WsRouteUtils.SectionBrands"/>
-      </RadzenPanelMenuItem>
-      @* Справочники *@
-      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionReferences">
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionOrganizations" Path="@WsRouteUtils.SectionOrganizations"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionWorkShops" Path="@WsRouteUtils.SectionWorkShops"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionProductionFacilitiesShort" Path="@WsRouteUtils.SectionProductionFacilities"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplates" Path="@WsRouteUtils.SectionTemplates"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionTemplateResources" Path="@WsRouteUtils.SectionTemplateResources"/>
-        <RadzenPanelMenuItem Text="@LocaleBlazor.SectionPlusStorage" Path="@WsRouteUtils.SectionPlusStorage"/>
-      </RadzenPanelMenuItem>
-      @* Диагностика *@
-      <RadzenPanelMenuItem Text="@WsLocaleCore.Menu.MenuReports">
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.System.SystemLogsAll" Path="@WsRouteUtils.SectionLogs"/>
-        <RadzenPanelMenuItem Icon="article" Text="@WsLocaleCore.WebService.Name" Path="@WsRouteUtils.SectionLogsWebService"/>
-      </RadzenPanelMenuItem>
-    </AuthorizeView>
-    @* Администрирование *@
-    <AuthorizeView Roles="@WsUserAccessStr.Admin">
-      <RadzenPanelMenuItem Text="@LocaleBlazor.SectionAdministering">
-        <RadzenPanelMenuItem Icon="people" Text="@WsLocaleCore.System.Users" Path="@WsRouteUtils.SectionAccess"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.DatabaseInfo" Path="@WsRouteUtils.SystemDatabaseInfo"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.Menu.MenuDbVersionHistory" Path="@WsRouteUtils.SectionVersions"/>
-        <RadzenPanelMenuItem Icon="info" Text="@WsLocaleCore.System.SystemInfo" Path="@WsRouteUtils.SystemAppInfo"/>
-      </RadzenPanelMenuItem>
-    </AuthorizeView>
+  <RadzenPanelMenu>
+    @foreach (var menuSection in MenuSections)
+    {
+      <AuthorizeView Roles="@menuSection.RequiredRole">
+        <RadzenPanelMenuItem Text="@menuSection.Text">
+          @foreach (var subMenu in menuSection.SubItems)
+          {
+            <RadzenPanelMenuItem Text="@subMenu.Text" Path="@subMenu.Path" />
+          }
+        </RadzenPanelMenuItem>
+      </AuthorizeView>
+    }
   </RadzenPanelMenu>
 </div>

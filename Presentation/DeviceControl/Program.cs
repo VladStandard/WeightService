@@ -11,7 +11,6 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddOptions();
 builder.Services.AddHttpClient();
-builder.Services.AddMudServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
