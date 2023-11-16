@@ -1,5 +1,4 @@
 using System.Windows.Forms;
-using Ws.LabelCore.Helpers;
 
 namespace Ws.LabelCore.Utils;
 

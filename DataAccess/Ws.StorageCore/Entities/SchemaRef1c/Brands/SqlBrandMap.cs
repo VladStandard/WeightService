@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 public sealed class SqlBrandMap : ClassMapping<SqlBrandEntity>

@@ -1,5 +1,3 @@
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Models;
 namespace Ws.LabelCore.Helpers;
 
 /// <summary>

@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.Apps;
+﻿using Ws.StorageCore.Entities.SchemaScale.Apps;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Apps;
 

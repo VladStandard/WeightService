@@ -1,6 +1,3 @@
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Models;
-using Ws.LabelCore.Utils;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;

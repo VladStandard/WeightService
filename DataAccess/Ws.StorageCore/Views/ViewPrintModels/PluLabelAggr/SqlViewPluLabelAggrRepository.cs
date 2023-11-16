@@ -1,7 +1,4 @@
-﻿using Ws.StorageCore.Helpers;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.Utils;
-namespace Ws.StorageCore.Views.ViewPrintModels.PluLabelAggr;
+﻿namespace Ws.StorageCore.Views.ViewPrintModels.PluLabelAggr;
 
 public sealed class SqlViewPluLabelAggrRepository : IViewPluLabelAggrRepository
 {

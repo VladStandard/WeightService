@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui.LifecycleEvents;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,7 +24,7 @@ public partial class App : MauiWinUIApplication
                 windowsLifecycleBuilder.OnWindowCreated(window =>
                 {
                     window.ExtendsContentIntoTitleBar = false;
-                    IntPtr handle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+                    IntPtr handle = WindowNative.GetWindowHandle(window);
                     WindowId id = Win32Interop.GetWindowIdFromWindow(handle);
                     AppWindow appWindow = AppWindow.GetFromWindowId(id);
 

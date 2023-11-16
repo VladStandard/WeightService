@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.PlusLabels;
+﻿using Ws.StorageCore.Entities.SchemaScale.PlusLabels;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.PluLabels;
 

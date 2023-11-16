@@ -1,6 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Brands;
-using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 /// <summary>

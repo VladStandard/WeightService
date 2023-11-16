@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+
 namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
 public sealed partial class ItemPluLabel : ItemBase<SqlPluLabelEntity>

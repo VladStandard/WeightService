@@ -1,6 +1,3 @@
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 /// <summary>

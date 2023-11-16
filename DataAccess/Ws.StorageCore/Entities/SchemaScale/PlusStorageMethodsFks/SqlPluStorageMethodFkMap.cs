@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
 public sealed class SqlPluStorageMethodFkMap : ClassMapping<SqlPluStorageMethodFkEntity>

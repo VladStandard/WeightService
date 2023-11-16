@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.BarCodes;
+﻿using Ws.StorageCore.Entities.SchemaScale.BarCodes;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.BarCodes;
 

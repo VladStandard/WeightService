@@ -1,5 +1,3 @@
-using Ws.MassaCore.Enums;
-using Ws.MassaCore.Helpers;
 namespace Ws.MassaCore.Models;
 
 public readonly struct ResponseParseModel

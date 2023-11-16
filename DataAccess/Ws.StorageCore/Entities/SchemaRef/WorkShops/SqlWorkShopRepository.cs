@@ -1,6 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 public sealed class SqlWorkShopRepository : SqlTableRepositoryBase<SqlWorkShopEntity>

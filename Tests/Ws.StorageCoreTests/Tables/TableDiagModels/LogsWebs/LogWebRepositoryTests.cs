@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+﻿using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.LogsWebs;
 

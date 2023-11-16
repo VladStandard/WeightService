@@ -1,4 +1,3 @@
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.Versions;
 
 public sealed class SqlVersionValidator : SqlTableValidator<SqlVersionEntity>

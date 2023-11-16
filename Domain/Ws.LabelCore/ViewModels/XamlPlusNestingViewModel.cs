@@ -1,4 +1,3 @@
-using Ws.LabelCore.Common;
 namespace Ws.LabelCore.ViewModels;
 
 /// <summary>

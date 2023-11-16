@@ -1,5 +1,4 @@
 using System.Windows.Forms;
-using Ws.LabelCore.Helpers;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using SystemColors=System.Drawing.SystemColors;
 

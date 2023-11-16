@@ -1,5 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Entities.SchemaScale.PlusLabels;
 namespace Ws.StorageCore.Entities.SchemaScale.BarCodes;
 
 [DebuggerDisplay("{ToString()}")]

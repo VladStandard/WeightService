@@ -1,5 +1,4 @@
-﻿using Ws.StorageCore.Models;
-namespace Ws.StorageCore.Entities.SchemaRef.Printers;
+﻿namespace Ws.StorageCore.Entities.SchemaRef.Printers;
 
 public class SqlPrinterValidator : SqlTableValidator<SqlPrinterEntity>
 {

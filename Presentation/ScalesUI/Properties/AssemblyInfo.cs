@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
 [assembly: InternalsVisibleTo("ScalesUITests")]
 [assembly: AssemblyTitle("ScalesUI")]
 [assembly: AssemblyDescription("Печать этикеток")]

@@ -1,5 +1,3 @@
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusWeightings;
 
 /// <summary>

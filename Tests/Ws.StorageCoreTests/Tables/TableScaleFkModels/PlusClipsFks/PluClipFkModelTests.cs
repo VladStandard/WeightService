@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.PlusClipsFks;
+﻿using Ws.StorageCore.Entities.SchemaScale.PlusClipsFks;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleFkModels.PlusClipsFks;
 

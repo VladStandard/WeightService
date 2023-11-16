@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
 public sealed class SqlScaleMap : ClassMapping<SqlScaleEntity>

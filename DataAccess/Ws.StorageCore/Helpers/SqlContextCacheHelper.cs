@@ -1,21 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
-using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
-using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusClipsFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.OrmUtils;
-using Ws.StorageCore.Utils;
-using Ws.StorageCore.Views.ViewDiagModels.TableSize;
-using Ws.StorageCore.Views.ViewRefModels.PluLines;
-using Ws.StorageCore.Views.ViewRefModels.PluNestings;
-using Ws.StorageCore.Views.ViewRefModels.PluStorageMethods;
 namespace Ws.StorageCore.Helpers;
 
 /// <summary>

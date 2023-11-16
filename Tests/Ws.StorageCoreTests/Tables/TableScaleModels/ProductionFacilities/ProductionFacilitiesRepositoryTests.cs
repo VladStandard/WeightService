@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+﻿using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 

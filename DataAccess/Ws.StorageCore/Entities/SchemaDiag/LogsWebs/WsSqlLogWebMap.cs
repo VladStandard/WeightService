@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public sealed class WsSqlLogWebMap : ClassMapping<SqlLogWebEntity>

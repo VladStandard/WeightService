@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.LogsWebs;
 
 [TestFixture]

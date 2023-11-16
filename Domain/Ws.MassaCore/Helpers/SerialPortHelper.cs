@@ -1,6 +1,3 @@
-using Ws.MassaCore.Enums;
-using Ws.MassaCore.Models;
-using Ws.MassaCore.Utils;
 namespace Ws.MassaCore.Helpers;
 
 public class SerialPortHelper

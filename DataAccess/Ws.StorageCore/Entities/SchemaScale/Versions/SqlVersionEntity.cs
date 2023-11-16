@@ -1,4 +1,3 @@
-using Ws.StorageCore.Common;
 namespace Ws.StorageCore.Entities.SchemaScale.Versions;
 
 /// <summary>

@@ -1,8 +1,3 @@
-using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
-using Ws.StorageCore.Entities.SchemaScale.PlusLabels;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
-using Ws.StorageCore.Entities.SchemaScale.PlusWeightings;
-using Ws.StorageCore.Views.ViewRefModels.PluNestings;
 namespace Ws.StorageCore.Models;
 
 [Serializable]

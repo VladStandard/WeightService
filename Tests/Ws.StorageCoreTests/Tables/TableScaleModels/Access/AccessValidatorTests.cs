@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.Access;
+﻿using Ws.StorageCore.Entities.SchemaScale.Access;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Access;
 

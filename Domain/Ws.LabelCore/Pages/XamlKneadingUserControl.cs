@@ -1,8 +1,4 @@
 using System.Windows.Forms;
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Controls;
-using Ws.LabelCore.Utils;
-using Ws.LabelCore.ViewModels;
 
 namespace Ws.LabelCore.Pages;
 

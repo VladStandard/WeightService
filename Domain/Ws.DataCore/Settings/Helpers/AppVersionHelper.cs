@@ -1,4 +1,3 @@
-using Ws.DataCore.Enums;
 namespace Ws.DataCore.Settings.Helpers;
 
 public sealed class AppVersionHelper

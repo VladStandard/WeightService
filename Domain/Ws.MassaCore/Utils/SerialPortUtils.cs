@@ -1,4 +1,3 @@
-using Ws.MassaCore.Enums;
 namespace Ws.MassaCore.Utils;
 
 public static class SerialPortUtils

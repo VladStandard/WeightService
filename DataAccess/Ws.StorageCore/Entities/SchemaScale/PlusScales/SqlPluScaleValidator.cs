@@ -1,6 +1,3 @@
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 public sealed class SqlPluScaleValidator : SqlTableValidator<SqlPluScaleEntity>

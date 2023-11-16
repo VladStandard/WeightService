@@ -1,4 +1,3 @@
-using Ws.StorageCore.Common;
 namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
 [DebuggerDisplay("{ToString()}")]

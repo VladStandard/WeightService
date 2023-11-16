@@ -1,5 +1,3 @@
-using Ws.LabelCore.Common;
-using Ws.LabelCore.ViewModels;
 namespace Ws.LabelCore.Pages;
 
 /// <summary>

@@ -1,4 +1,3 @@
-using Ws.LabelCore.Common;
 using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 namespace Ws.LabelCore.ViewModels;

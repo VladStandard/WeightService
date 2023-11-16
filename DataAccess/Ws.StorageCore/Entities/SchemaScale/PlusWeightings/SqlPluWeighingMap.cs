@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusWeightings;
 
 public sealed class SqlPluWeighingMap : ClassMapping<SqlPluWeighingEntity>

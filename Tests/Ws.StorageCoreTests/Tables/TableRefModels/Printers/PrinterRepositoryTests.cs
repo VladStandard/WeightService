@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
+﻿using Ws.StorageCore.Entities.SchemaRef.Printers;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Printers;
 

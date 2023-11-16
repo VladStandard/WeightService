@@ -1,4 +1,5 @@
 ﻿using MDSoft.NetUtils;
+
 namespace ScalesHybrid.Pages;
 
 public partial class Index

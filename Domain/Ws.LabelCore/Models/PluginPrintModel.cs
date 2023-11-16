@@ -1,5 +1,3 @@
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Helpers;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Enums;
 

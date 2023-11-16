@@ -1,4 +1,3 @@
-using Ws.LabelCore.Models;
 namespace Ws.LabelCore.Common;
 
 /// <summary>

@@ -1,9 +1,4 @@
 using System.Windows.Forms;
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Controls;
-using Ws.LabelCore.Helpers;
-using Ws.LabelCore.Utils;
-using Ws.LabelCore.ViewModels;
 using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 namespace Ws.LabelCore.Pages;

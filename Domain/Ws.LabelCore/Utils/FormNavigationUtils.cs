@@ -1,8 +1,4 @@
 ﻿using System.Windows.Forms;
-using Ws.LabelCore.Common;
-using Ws.LabelCore.Controls;
-using Ws.LabelCore.Helpers;
-using Ws.LabelCore.Pages;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Enums;
 

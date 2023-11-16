@@ -1,8 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 [DebuggerDisplay("{ToString()}")]

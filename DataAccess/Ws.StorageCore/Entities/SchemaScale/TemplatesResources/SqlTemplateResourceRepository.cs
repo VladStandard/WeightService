@@ -1,5 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 public class SqlTemplateResourceRepository : SqlTableRepositoryBase<SqlTemplateResourceEntity>

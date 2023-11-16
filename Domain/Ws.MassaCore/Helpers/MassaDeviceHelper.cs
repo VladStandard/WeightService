@@ -1,4 +1,3 @@
-using Ws.MassaCore.Models;
 namespace Ws.MassaCore.Helpers;
 
 public class MassaDeviceHelper : IDisposable

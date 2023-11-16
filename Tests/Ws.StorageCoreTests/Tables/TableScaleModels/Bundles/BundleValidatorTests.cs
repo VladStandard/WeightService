@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
+﻿using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Bundles;
 

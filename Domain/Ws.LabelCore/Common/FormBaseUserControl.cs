@@ -1,7 +1,5 @@
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using Ws.LabelCore.Helpers;
-using Ws.LabelCore.Pages;
 
 namespace Ws.LabelCore.Common;
 

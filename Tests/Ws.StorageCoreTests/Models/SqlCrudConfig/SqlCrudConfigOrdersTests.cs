@@ -1,4 +1,5 @@
 using Ws.StorageCore.OrmUtils;
+
 namespace Ws.StorageCoreTests.Models.SqlCrudConfig;
 
 [TestFixture]

@@ -1,4 +1,3 @@
-using WsLocalizationCore.Common;
 namespace WsLocalizationCore.DeviceControlModels;
 
 public sealed class LocaleDeviceControl : LocalizationDeviceControl

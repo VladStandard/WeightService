@@ -1,6 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusClipsFks;
 
 [DebuggerDisplay("{ToString()}")]

@@ -1,5 +1,4 @@
-﻿using Ws.StorageCore.Models;
-namespace Ws.StorageCore.Views.ViewRefModels.PluStorageMethods;
+﻿namespace Ws.StorageCore.Views.ViewRefModels.PluStorageMethods;
 
 public interface IViewStorageMethodsRepository
 {

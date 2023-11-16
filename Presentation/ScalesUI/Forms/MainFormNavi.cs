@@ -1,4 +1,5 @@
 using Ws.StorageCore.Enums;
+
 namespace ScalesUI.Forms;
 
 public partial class MainForm

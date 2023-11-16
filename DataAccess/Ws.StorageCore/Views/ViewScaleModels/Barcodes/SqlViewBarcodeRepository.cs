@@ -1,6 +1,3 @@
-using Ws.StorageCore.Helpers;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.Utils;
 namespace Ws.StorageCore.Views.ViewScaleModels.Barcodes;
 
 public sealed class SqlViewBarcodeRepository : IViewBarcodeRepository

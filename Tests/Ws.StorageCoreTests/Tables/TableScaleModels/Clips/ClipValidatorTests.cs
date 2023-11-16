@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
+﻿using Ws.StorageCore.Entities.SchemaRef1c.Clips;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Clips;
 

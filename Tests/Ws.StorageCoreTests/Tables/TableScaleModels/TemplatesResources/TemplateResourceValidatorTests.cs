@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
+
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.TemplatesResources;
 
 [TestFixture]

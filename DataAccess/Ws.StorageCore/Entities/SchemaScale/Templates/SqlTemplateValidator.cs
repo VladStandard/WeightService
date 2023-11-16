@@ -1,4 +1,3 @@
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.Templates;
 
 public sealed class SqlTemplateValidator : SqlTableValidator<SqlTemplateEntity>

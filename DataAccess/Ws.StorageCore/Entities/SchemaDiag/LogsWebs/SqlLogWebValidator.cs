@@ -1,4 +1,3 @@
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public sealed class SqlLogWebValidator : SqlTableValidator<SqlLogWebEntity>

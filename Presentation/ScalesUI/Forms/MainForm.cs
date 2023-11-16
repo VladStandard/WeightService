@@ -1,6 +1,7 @@
 using Ws.DataCore.Utils;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Enums;
+
 namespace ScalesUI.Forms;
 
 public sealed partial class MainForm : Form

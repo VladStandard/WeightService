@@ -2,7 +2,6 @@
 // https://www.tahapaksu.com/crc/
 // https://github.com/nullfx/NullFX.CRC
 
-using Ws.MassaCore.Helpers;
 namespace Ws.LabelCoreTests.MassaK;
 
 [TestFixture]

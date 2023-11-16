@@ -1,6 +1,3 @@
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaScale.BarCodes;
 
 public sealed class SqlBarcodeRepository : SqlTableRepositoryBase<SqlBarCodeEntity>

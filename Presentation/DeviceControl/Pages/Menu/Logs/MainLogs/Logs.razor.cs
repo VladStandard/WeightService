@@ -1,4 +1,5 @@
 using Ws.StorageCore.Enums;
+
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
 public sealed partial class Logs : SectionBase<SqlLogEntity>

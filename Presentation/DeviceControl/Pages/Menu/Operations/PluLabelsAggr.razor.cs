@@ -1,4 +1,5 @@
 using Ws.StorageCore.Views.ViewPrintModels.PluLabelAggr;
+
 namespace DeviceControl.Pages.Menu.Operations;
 
 public sealed partial class PluLabelsAggr : ComponentBase

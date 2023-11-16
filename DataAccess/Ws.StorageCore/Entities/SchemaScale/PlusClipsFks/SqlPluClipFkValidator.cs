@@ -1,6 +1,3 @@
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Entities.SchemaScale.PlusClipsFks;
 
 /// <summary>

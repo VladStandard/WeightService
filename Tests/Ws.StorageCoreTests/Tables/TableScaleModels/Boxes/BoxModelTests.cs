@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
+﻿using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Boxes;
 

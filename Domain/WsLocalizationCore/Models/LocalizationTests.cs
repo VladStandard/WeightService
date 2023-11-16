@@ -1,5 +1,3 @@
-using WsLocalizationCore.Common;
-using WsLocalizationCore.Utils;
 namespace WsLocalizationCore.Models;
 
 [DebuggerDisplay("{ToString()}")]

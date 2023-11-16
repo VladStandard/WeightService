@@ -1,4 +1,3 @@
-using Ws.StorageCore.OrmUtils;
 namespace Ws.StorageCore.Entities.SchemaScale.BarCodes;
 
 [DebuggerDisplay("{ToString()}")]

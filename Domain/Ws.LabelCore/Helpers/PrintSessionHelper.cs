@@ -1,4 +1,3 @@
-using Ws.LabelCore.Utils;
 using Ws.PrinterCore.Utils;
 using Ws.PrinterCore.Zpl;
 using Ws.StorageCore.Entities.SchemaScale.BarCodes;

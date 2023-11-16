@@ -1,5 +1,5 @@
-using Ws.PrinterCore.Enums;
 using TSCSDK;
+using Ws.PrinterCore.Enums;
 
 namespace ZplPrintSenderTool;
 

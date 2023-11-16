@@ -1,5 +1,4 @@
-﻿using Ws.StorageCoreTests.Tables.Common;
-using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+﻿using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 

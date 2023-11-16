@@ -1,4 +1,3 @@
-using Ws.StorageCore.Models;
 namespace Ws.StorageCore.Views.ViewDiagModels.TableSize;
 
 public interface IViewTableSizeRepository
