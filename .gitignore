@@ -3,6 +3,7 @@
 .idea/
 .vscode/
 .configs/
+!WeightService2022.sln.DotSettings
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/
