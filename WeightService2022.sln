@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsStorageCore", "DataAccess
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsWebApiCore", "Domain\WsWebApiCore\WsWebApiCore.csproj", "{85DCDDF4-C8E2-402B-B95B-C20AAF34B040}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsWebApiScales", "WebApi\WsWebApiScales\WsWebApiScales.csproj", "{676DD41C-946A-4966-968E-9BE2045620B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.WebApiScales", "WebApi\Ws.WebApiScales\Ws.WebApiScales.csproj", "{676DD41C-946A-4966-968E-9BE2045620B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesUI", "Presentation\ScalesUI\ScalesUI.csproj", "{0F26292C-8B1B-4CE7-A1B7-D432ED7E492C}"
 EndProject
@@ -32,17 +32,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsDataCore", "Domain\WsData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsLabelCore", "Domain\WsLabelCore\WsLabelCore.csproj", "{C71C3398-8DA4-4729-AC11-08F48207AFF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsAssertCoreTests", "Tests\WsAssertCoreTests\WsAssertCoreTests.csproj", "{0083D85E-2759-419E-B283-2A6D36238BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.AssertCoreTests", "Tests\Ws.AssertCoreTests\Ws.AssertCoreTests.csproj", "{0083D85E-2759-419E-B283-2A6D36238BF5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsDataCoreTests", "Tests\WsDataCoreTests\WsDataCoreTests.csproj", "{3CBD15ED-DCD6-4147-9B3E-0B130C97B6F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.DataCoreTests", "Tests\Ws.DataCoreTests\Ws.DataCoreTests.csproj", "{3CBD15ED-DCD6-4147-9B3E-0B130C97B6F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsStorageCoreTests", "Tests\WsStorageCoreTests\WsStorageCoreTests.csproj", "{C3F29E5E-E856-4250-AAF4-B941B93772CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLabelCoreTests", "Tests\WsLabelCoreTests\WsLabelCoreTests.csproj", "{86A9C840-E60C-4235-B3F4-763AD7BDF1BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.LabelCoreTests", "Tests\Ws.LabelCoreTests\Ws.LabelCoreTests.csproj", "{86A9C840-E60C-4235-B3F4-763AD7BDF1BB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceControl", "Presentation\DeviceControl\DeviceControl.csproj", "{96751649-EBBA-45B6-A324-223F551DC9C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalizationCoreTests", "Tests\WsLocalizationCoreTests\WsLocalizationCoreTests.csproj", "{3EBB426C-C1DC-42E3-87A5-C139BA1FB2A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.LocalizationCoreTests", "Tests\Ws.LocalizationCoreTests\Ws.LocalizationCoreTests.csproj", "{3EBB426C-C1DC-42E3-87A5-C139BA1FB2A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortExchangeTool", "Tools\SerialPortExchangeTool\SerialPortExchangeTool.csproj", "{AB204B9C-C58F-4567-A9BD-46A78A6D49BA}"
 EndProject
