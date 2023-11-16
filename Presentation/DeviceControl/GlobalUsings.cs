@@ -18,7 +18,6 @@ global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.JSInterop;
-global using MudBlazor.Services;
 global using Radzen.Blazor;
 global using WsDataCore.Enums;
 global using WsDataCore.Helpers;

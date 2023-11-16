@@ -7,6 +7,7 @@ public partial class Profile : ComponentBase
     [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
     [Inject] private WsUserService UserService { get; set; } = default!;
     [Inject] private IHttpContextAccessor HttpContextAccess { get; set; } = default!;
+    
     private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private ClaimsPrincipal? User { get; set; }
     private List<WsEnumTypeModel<WsEnumLanguage>>? TemplateLanguages { get; set; }
@@ -67,7 +68,6 @@ public partial class Profile : ComponentBase
             _ => WsLocaleCore.Strings.AccessRightsNone
         };
     }
-
-
+    
     #endregion
 }

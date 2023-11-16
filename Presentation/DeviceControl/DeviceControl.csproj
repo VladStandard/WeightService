@@ -20,7 +20,6 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.12" />
-        <PackageReference Include="MudBlazor" Version="6.11.0" />
         <PackageReference Include="Radzen.Blazor" Version="4.17.1" />
     </ItemGroup>
     <ItemGroup>
@@ -36,6 +35,15 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\Menu\References\Organizations\ItemOrganization.razor" />
       <_ContentIncludedByDefault Remove="Pages\Menu\References\Organizations\Organizations.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
