@@ -4,9 +4,9 @@
 @using WsStorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.Entities.SchemaRef.Hosts.WsSqlHostEntity>
+@inherits ItemBase<WsStorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
-<ItemTopBar TItem="@WsSqlHostEntity" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlHostEntity" Title="@WsLocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>

@@ -1,7 +1,7 @@
 using WsStorageCore.WebApiModels.BarCodes;
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
-public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeEntity>
+public sealed partial class ItemBarCode : ItemBase<SqlBarCodeEntity>
 {
     #region Public and private fields, properties, constructor
 
@@ -16,20 +16,20 @@ public sealed partial class ItemBarCode : ItemBase<WsSqlBarCodeEntity>
 
     private string GetBarcodeTop()
     {
-        WsSqlBarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
-        return WsDataFormatUtils.SerializeAsJson(barcodeTop);
+        SqlBarcodeTopModel barcodeTop = new(SqlItemCast.ValueTop, false);
+        return DataFormatUtils.SerializeAsJson(barcodeTop);
     }
 
     private string GetBarcodeRight()
     {
-        WsSqlBarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
-        return WsDataFormatUtils.SerializeAsJson(barcodeRight);
+        SqlBarcodeRightModel barcodeRight = new(SqlItemCast.ValueRight);
+        return DataFormatUtils.SerializeAsJson(barcodeRight);
     }
 
     private string GetBarcodeBottom()
     {
-        WsSqlBarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
-        return WsDataFormatUtils.SerializeAsJson(barcodeBottom);
+        SqlBarcodeBottomModel barcodeBottom = new(SqlItemCast.ValueBottom);
+        return DataFormatUtils.SerializeAsJson(barcodeBottom);
     }
 
     #endregion

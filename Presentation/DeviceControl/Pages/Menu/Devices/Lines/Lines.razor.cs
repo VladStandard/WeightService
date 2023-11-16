@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class Lines : SectionBase<WsSqlScaleEntity>
+public sealed partial class Lines : SectionBase<SqlScaleEntity>
 {
     #region Public and private
 
-    private WsSqlLineRepository LineRepository { get; } = new();
+    private SqlLineRepository LineRepository { get; } = new();
 
     protected override void SetSqlSectionCast()
     {

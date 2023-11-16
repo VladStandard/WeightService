@@ -2,5 +2,5 @@
 
 public interface IViewStorageMethodsRepository
 {
-    List<WsSqlViewPluStorageMethodModel> GetList(WsSqlCrudConfigModel sqlCrudConfig);
+    List<SqlViewPluStorageMethodModel> GetList(SqlCrudConfigModel sqlCrudConfig);
 }

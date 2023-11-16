@@ -4,9 +4,9 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusNestingFks
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsSqlPluEntity>
+@inherits ItemBase<SqlPluEntity>
 
-<ItemTopBar TItem="@WsSqlPluEntity" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluEntity" Title="@WsLocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>

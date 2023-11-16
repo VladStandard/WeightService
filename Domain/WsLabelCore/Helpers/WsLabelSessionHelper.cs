@@ -25,37 +25,37 @@ public sealed class WsLabelSessionHelper : BaseViewModel
 
     #region Public and private fields and properties
     
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     private static WsDebugHelper Debug => WsDebugHelper.Instance;
     private static DateTime ProductDateMaxValue => DateTime.Now.AddDays(+31);
     private static DateTime ProductDateMinValue => DateTime.Now.AddDays(-31);
     
-    public static WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    public static SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
     public static ushort PlusPageColumnCount => 4;
     public static ushort PlusPageSize => 16;
     public static ushort PlusPageRowCount => 4;
     public static string DeviceName => Environment.MachineName;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
-    public WsSqlPluWeighingEntity PluWeighing { get; set; }
+    public SqlPluWeighingEntity PluWeighing { get; set; }
     public WsWeighingSettingsModel WeighingSettings { get; private set; }
-    public WsSqlPluScaleEntity PluLine { get; private set; }
+    public SqlPluScaleEntity PluLine { get; private set; }
     public int PlusPageNumber { get; set; }
-    public WsSqlProductionSiteEntity Area { get; private set; }
-    public WsSqlScaleEntity Line { get; private set; }
+    public SqlProductionSiteEntity Area { get; private set; }
+    public SqlScaleEntity Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
     public DateTime ProductDate { get; set; }
-    public WsSqlViewPluNestingModel ViewPluNesting { get; private set; }
+    public SqlViewPluNestingModel ViewPluNesting { get; private set; }
     public WsLocalizationManager Localization { get; set; } = new();
 
     public WsLabelSessionHelper()
     {
-        Area = new WsSqlProductionSiteRepository().GetNewItem();
-        PluLine = new WsSqlPluLineRepository().GetNewItem();
-        Line =  new WsSqlLineRepository().GetNewItem();
-        PluWeighing =  new WsSqlPluWeighingRepository().GetNewItem();
-        ViewPluNesting =  new WsSqlPluNestingFkRepository().GetNewView();
+        Area = new SqlProductionSiteRepository().GetNewItem();
+        PluLine = new SqlPluLineRepository().GetNewItem();
+        Line =  new SqlLineRepository().GetNewItem();
+        PluWeighing =  new SqlPluWeighingRepository().GetNewItem();
+        ViewPluNesting =  new SqlPluNestingFkRepository().GetNewView();
         WeighingSettings = new();
     }
 
@@ -98,16 +98,16 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     {
         SetSqlPublish();
         ContextCache.LoadGlobal();
-        WsSqlHostEntity host = new WsSqlHostRepository().GetItemByName(DeviceName);
+        SqlHostEntity host = new SqlHostRepository().GetItemByName(DeviceName);
         host = WsFormNavigationUtils.SetNewDeviceWithQuestion(showNavigation, host, MdNetUtils.GetLocalIpAddress());
-        Line = new WsSqlLineRepository().GetItemByHost(host);
+        Line = new SqlLineRepository().GetItemByHost(host);
         SetAreaByLineWorkShop();
         SetPluLine();
         ProductDate = DateTime.Now;
         WeighingSettings = new();
     }
     
-    public void SetSessionForLabelPrintCustom(WsSqlScaleEntity line, WsSqlProductionSiteEntity area)
+    public void SetSessionForLabelPrintCustom(SqlScaleEntity line, SqlProductionSiteEntity area)
     {
         ContextCache.LoadGlobal();
         Line = line;
@@ -135,7 +135,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// <summary>
     /// Смена площадки.
     /// </summary>
-    private void SetArea(WsSqlProductionSiteEntity area)
+    private void SetArea(SqlProductionSiteEntity area)
     {
         Area = area;
         ContextItem.SaveLogInformation($"{WsLocaleCore.LabelPrint.SetAreaWithParam(Area.IdentityValueId, Area.Name)}");
@@ -146,21 +146,21 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// </summary>
     private void SetAreaByLineWorkShop()
     {
-        WsSqlWorkShopEntity workShop = ContextCache.WorkShops.Find(
+        SqlWorkShopEntity workShop = ContextCache.WorkShops.Find(
             item => item.IdentityValueId.Equals(Line.WorkShop.IdentityValueId));
         if (workShop.IsExists)
             Area = ContextCache.Areas.Find(
             item => item.IdentityValueId.Equals(workShop.ProductionSite.IdentityValueId));
         else
-            Area = new WsSqlProductionSiteRepository().GetNewItem();
+            Area = new SqlProductionSiteRepository().GetNewItem();
     }
 
     /// <summary>
     /// Смена ПЛУ линии.
     /// </summary>
-    public void SetPluLine(WsSqlPluScaleEntity? pluLine = null)
+    public void SetPluLine(SqlPluScaleEntity? pluLine = null)
     {
-        PluLine = pluLine ?? new WsSqlPluLineRepository().GetNewItem();
+        PluLine = pluLine ?? new SqlPluLineRepository().GetNewItem();
         
         if (PluginPrintTscMain is not null) PluginPrintTscMain.LabelPrintedCount = 1;
         if (PluginPrintZebraMain is not null) PluginPrintZebraMain.LabelPrintedCount = 1;
@@ -171,17 +171,17 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     /// <summary>
     /// Смена вложенности ПЛУ.
     /// </summary>
-    public void SetViewPluNesting(WsSqlViewPluNestingModel? viewPluNesting = null)
+    public void SetViewPluNesting(SqlViewPluNestingModel? viewPluNesting = null)
     {
         if (viewPluNesting is null && PluLine.IsExists)
         {
             viewPluNesting = ContextCache.ViewPlusNesting.Find(
                 item => item.PluUid.Equals(PluLine.Plu.IdentityValueUid) && item.IsDefault);
-            ViewPluNesting = viewPluNesting ??  new WsSqlPluNestingFkRepository().GetNewView();
+            ViewPluNesting = viewPluNesting ??  new SqlPluNestingFkRepository().GetNewView();
         }
         else if (viewPluNesting is null)
         {
-            ViewPluNesting =  new WsSqlPluNestingFkRepository().GetNewView();
+            ViewPluNesting =  new SqlPluNestingFkRepository().GetNewView();
         }
         else
             ViewPluNesting = viewPluNesting;

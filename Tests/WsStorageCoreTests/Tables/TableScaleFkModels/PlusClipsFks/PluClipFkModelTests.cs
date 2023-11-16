@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusClipsFks;
 
 [TestFixture]
-public sealed class PluClipFkModelTests : TableModelTests<WsSqlPluClipFkEntity>
+public sealed class PluClipFkModelTests : TableModelTests<SqlPluClipFkEntity>
 {
 }

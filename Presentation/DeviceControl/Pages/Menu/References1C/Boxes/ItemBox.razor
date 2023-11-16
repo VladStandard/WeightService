@@ -2,9 +2,9 @@
 @page "/section/boxes/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlBoxEntity>
+@inherits ItemBase<SqlBoxEntity>
 
-<ItemTopBar TItem="WsSqlBoxEntity" Title="@WsLocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlBoxEntity" Title="@WsLocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

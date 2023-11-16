@@ -1,9 +1,9 @@
 @page "/section/logs_web_service/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlLogWebEntity>
+@inherits ItemBase<SqlLogWebEntity>
 
-<ItemTopBar TItem="WsSqlLogWebEntity" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlLogWebEntity" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 10, 35, 15, 35 })"/>
@@ -25,7 +25,7 @@
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
-        Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.DataRequest)"/>
+        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.DataRequest)"/>
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataRequest))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
@@ -38,7 +38,7 @@
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
-        Value="@WsDataFormatUtils.GetPrettyXml(SqlItemCast.DataResponse)"/>
+        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.DataResponse)"/>
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataResponse))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"

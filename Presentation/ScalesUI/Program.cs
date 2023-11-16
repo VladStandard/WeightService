@@ -3,9 +3,9 @@ namespace ScalesUI;
 internal static class Program
 {
     private static WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
-    private static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    private static SqlContextManagerHelper ContextManager => SqlContextManagerHelper.Instance;
     private static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private static SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
     [STAThread]
     internal static void Main()

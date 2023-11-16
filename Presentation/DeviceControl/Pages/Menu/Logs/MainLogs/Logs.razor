@@ -3,7 +3,7 @@
 @using WsStorageCore.Enums
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlLogEntity>
+@inherits SectionBase<SqlLogEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.System.SystemLogs"
@@ -33,7 +33,7 @@
 </div>
 
 <RzDataGrid
-  TItem="@WsSqlLogEntity"
+  TItem="@SqlLogEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -41,7 +41,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlLogEntity">
+    <TItemContent TItem="@SqlLogEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="14%"
                             FormatString="@WsStrUtils.FormatDtLong"/>

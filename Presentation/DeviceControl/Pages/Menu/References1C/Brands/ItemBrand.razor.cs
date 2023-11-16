@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Brands;
 
-public sealed partial class ItemBrand : ItemBase<WsSqlBrandEntity>
+public sealed partial class ItemBrand : ItemBase<SqlBrandEntity>
 {
     public ItemBrand() : base()
     {

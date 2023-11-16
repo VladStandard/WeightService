@@ -14,7 +14,7 @@ public class WsPluginPrintModel : WsPluginBaseHelper
     public byte LabelPrintedCount { get; set; }
     protected Label FieldPrint { get; set; } = new();
     protected PrinterTypeEnum PrintModel { get; set; }
-    protected WsSqlPrinterEntity Printer { get; set; }
+    protected SqlPrinterEntity Printer { get; set; }
     protected static WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     protected string PrintName { get; set; }
 

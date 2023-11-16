@@ -3,9 +3,9 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsSqlWorkShopEntity>
+@inherits ItemBase<SqlWorkShopEntity>
 
-<ItemTopBar TItem="@WsSqlWorkShopEntity" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlWorkShopEntity" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>

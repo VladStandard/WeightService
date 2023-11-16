@@ -5,10 +5,10 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.PluLabels;
 [TestFixture]
 public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
 {
-    private IViewPluLabelRepository PluLabelRepository { get; } = new WsSqlViewPluLabelRepository();
+    private IViewPluLabelRepository PluLabelRepository { get; } = new SqlViewPluLabelRepository();
 
     protected override IResolveConstraint SortOrderValue => Is
-        .Ordered.By(nameof(WsSqlViewPluLabelModel.CreateDt)).Descending;
+        .Ordered.By(nameof(SqlViewPluLabelModel.CreateDt)).Descending;
 
 
     [Test]
@@ -16,7 +16,7 @@ public sealed class ViewPluLabelRepositoryTests : ViewRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlViewPluLabelModel> items = PluLabelRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false);
     }

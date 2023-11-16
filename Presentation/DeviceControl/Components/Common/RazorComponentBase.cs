@@ -9,12 +9,12 @@ public class RazorComponentBase : LayoutComponentBase
     [Inject] protected DialogService DialogService { get; set; } = default!;
     [Inject] protected NotificationService NotificationService { get; set; } = default!;
     [Inject] protected WsUserService UserService { get; set; } = default!;
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
     #endregion
 
-    protected static WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
+    protected static SqlContextManagerHelper ContextManager => SqlContextManagerHelper.Instance;
 
     protected ClaimsPrincipal? User { get; set; }
 
@@ -22,10 +22,10 @@ public class RazorComponentBase : LayoutComponentBase
 
     #region Public and private methods - Actions
 
-    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : WsSqlEntityBase, new()
+    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : SqlEntityBase, new()
     {
         string detailAddition = string.Empty;
-        bool result = WsSqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
+        bool result = SqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
         switch (result)
         {
             case false:
@@ -45,18 +45,18 @@ public class RazorComponentBase : LayoutComponentBase
         }
     }
 
-    protected bool SqlItemValidate<T>(T item) where T : WsSqlEntityBase, new()
+    protected bool SqlItemValidate<T>(T item) where T : SqlEntityBase, new()
     {
         string detailAddition = string.Empty;
-        return WsSqlValidationUtils.IsValidation(item, ref detailAddition, !item.IsNew);
+        return SqlValidationUtils.IsValidation(item, ref detailAddition, !item.IsNew);
     }
     
-    protected TItem SqlItemNewEmpty<TItem>() where TItem : WsSqlEntityBase, new()
+    protected TItem SqlItemNewEmpty<TItem>() where TItem : SqlEntityBase, new()
     {
         return SqlCore.GetItemNewEmpty<TItem>();
     }
 
-    protected void SqlItemSave<T>(T? item) where T : WsSqlEntityBase, new()
+    protected void SqlItemSave<T>(T? item) where T : SqlEntityBase, new()
     {
         if (item is null || !SqlItemValidate(item)) 
             return;
@@ -66,7 +66,7 @@ public class RazorComponentBase : LayoutComponentBase
             SqlCore.Update(item);
     }
 
-    protected void SqlItemsSave<T>(List<T>? items) where T : WsSqlEntityBase, new()
+    protected void SqlItemsSave<T>(List<T>? items) where T : SqlEntityBase, new()
     {
         if (items is null) return;
 

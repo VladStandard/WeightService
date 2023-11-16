@@ -1,14 +1,14 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
+public sealed partial class ItemLines : ItemBase<SqlScaleEntity>
 {
     #region Public and private fields, properties, constructor
     
     private List<string> ComPorts { get; set; }
-    private List<WsSqlPrinterEntity> PrinterModels { get; set; }
-    private List<WsSqlHostEntity> HostModels { get; set; }
-    private List<WsSqlWorkShopEntity> WorkShopModels { get; set; }
+    private List<SqlPrinterEntity> PrinterModels { get; set; }
+    private List<SqlHostEntity> HostModels { get; set; }
+    private List<SqlWorkShopEntity> WorkShopModels { get; set; }
 
     public ItemLines() : base()
     {
@@ -25,9 +25,9 @@ public sealed partial class ItemLines : ItemBase<WsSqlScaleEntity>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterModels = new WsSqlPrinterRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
-        HostModels = new WsSqlHostRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
-        WorkShopModels = new WsSqlWorkShopRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        PrinterModels = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        HostModels = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        WorkShopModels = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         ComPorts = MdSerialPortsUtils.ComPorts;
     }
 

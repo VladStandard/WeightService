@@ -13,8 +13,8 @@ public partial class WsFormBaseUserControl : UserControl//, IWsFormUserControl
     #region Public and private fields, properties, constructor
 
     internal WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
-    internal WsSqlContextManagerHelper ContextManager => WsSqlContextManagerHelper.Instance;
-    internal WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    internal SqlContextManagerHelper ContextManager => SqlContextManagerHelper.Instance;
+    internal SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
     private ElementHost ElementHost { get; }
     protected WsXamlBasePage Page { get; }
 

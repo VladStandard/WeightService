@@ -5,12 +5,12 @@ using Ws.WebApiScales.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-WsSqlCoreHelper.Instance.SetSessionFactory(false);
-if (WsSqlCoreHelper.Instance.SessionFactory is null)
-    throw new ArgumentException($"{nameof(WsSqlCoreHelper.Instance.SessionFactory)}");
+SqlCoreHelper.Instance.SetSessionFactory(false);
+if (SqlCoreHelper.Instance.SessionFactory is null)
+    throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
 
-builder.Services.AddSingleton(WsSqlCoreHelper.Instance.SessionFactory);
-builder.Services.AddScoped(_ => WsSqlCoreHelper.Instance.SessionFactory.OpenSession());
+builder.Services.AddSingleton(SqlCoreHelper.Instance.SessionFactory);
+builder.Services.AddScoped(_ => SqlCoreHelper.Instance.SessionFactory.OpenSession());
 
 builder.Services.AddTransient<ResponseDto>();
 

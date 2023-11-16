@@ -13,7 +13,7 @@ public sealed class DataAccessHelperMapTests
     //
     //         FluentConfiguration fluentConfiguration =
     //             Fluently.Configure().Database(WsTestsUtils.ContextManager.SqlConfiguration);
-    //         WsSqlContextManagerHelper.Instance.SqlCore.AddConfigurationMappings(fluentConfiguration);
+    //         SqlContextManagerHelper.Instance.SqlCore.AddConfigurationMappings(fluentConfiguration);
     //         fluentConfiguration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
     //         ISessionFactory sessionFactory = fluentConfiguration.BuildSessionFactory();
     //         sessionFactory.OpenSession();

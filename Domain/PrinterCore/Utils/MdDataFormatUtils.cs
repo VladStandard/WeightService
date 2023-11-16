@@ -6,20 +6,20 @@ namespace PrinterCore.Utils;
 
 public static class MdDataFormatUtils
 {
-    private static List<WsSqlTemplateResourceEntity> _templateResources = new();
+    private static List<SqlTemplateResourceEntity> _templateResources = new();
 
     private static void LoadTemplatesResources(bool isForceUpdate)
     {
         if (!isForceUpdate && _templateResources.Any())
             return;
 
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         
         sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         sqlCrudConfig.AddFilter(
-            SqlRestrictions.Equal(nameof(WsSqlTemplateResourceEntity.Type), "ZPL")
+            SqlRestrictions.Equal(nameof(SqlTemplateResourceEntity.Type), "ZPL")
         );
-        _templateResources = new WsSqlTemplateResourceRepository().GetList(sqlCrudConfig);
+        _templateResources = new SqlTemplateResourceRepository().GetList(sqlCrudConfig);
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public static class MdDataFormatUtils
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         LoadTemplatesResources(false);
-        foreach (WsSqlTemplateResourceEntity resource in _templateResources)
+        foreach (SqlTemplateResourceEntity resource in _templateResources)
         {
             string name = $"[{resource.Name}]";
             if (!zpl.Contains(name))

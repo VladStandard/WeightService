@@ -10,7 +10,7 @@ public sealed class WsXamlPlusLineViewModel : WsXamlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlPluScaleEntity PluLine { get; set; } = new();
+    public SqlPluScaleEntity PluLine { get; set; } = new();
 
     public WsXamlPlusLineViewModel()
     {

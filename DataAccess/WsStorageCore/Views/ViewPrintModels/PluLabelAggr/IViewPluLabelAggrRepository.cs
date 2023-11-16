@@ -2,5 +2,5 @@
 
 public interface IViewPluLabelAggrRepository
 {
-    List<WsSqlViewPluLabelAggrModel> GetList(WsSqlCrudConfigModel sqlCrudConfig);
+    List<SqlViewPluLabelAggrModel> GetList(SqlCrudConfigModel sqlCrudConfig);
 }

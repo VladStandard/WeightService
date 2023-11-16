@@ -3,7 +3,7 @@
 @using WsStorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.Entities.SchemaRef.Hosts.WsSqlHostEntity>
+@inherits SectionBase<WsStorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionHosts"
@@ -15,7 +15,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlHostEntity"
+  TItem="@SqlHostEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlHostEntity">
+    <TItemContent TItem="@SqlHostEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDt" Width="10%"
                             FormatString="@WsStrUtils.FormatDtDefault"/>

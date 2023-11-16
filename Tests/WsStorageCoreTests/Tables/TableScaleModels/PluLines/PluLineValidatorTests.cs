@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 
 [TestFixture]
-public sealed class PluScaleValidatorTests : TableValidatorTests<WsSqlPluScaleEntity>
+public sealed class PluScaleValidatorTests : TableValidatorTests<SqlPluScaleEntity>
 {
 }

@@ -4,7 +4,7 @@ public partial class SectionActions : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
     [Parameter] public EventCallback OnSectionSave { get; set; }
 

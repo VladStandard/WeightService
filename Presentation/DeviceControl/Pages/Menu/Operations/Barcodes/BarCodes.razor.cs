@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Operations.Barcodes;
 
-public sealed partial class BarCodes : SectionBase<WsSqlViewBarcodeModel>
+public sealed partial class BarCodes : SectionBase<SqlViewBarcodeModel>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewBarcodeRepository ViewBarcodeRepository { get; } = new();
+    private SqlViewBarcodeRepository ViewBarcodeRepository { get; } = new();
     
     public BarCodes() : base()
     {

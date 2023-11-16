@@ -22,7 +22,7 @@ public class BrandService
     
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(brandDto.Guid);
+        SqlBrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(brandDto.Guid);
 
         brandDb.Name = brandDto.Name;
         brandDb.Code = brandDto.Code;
@@ -31,18 +31,18 @@ public class BrandService
         if (brandDb.IsNew)
         {
             brandDb.Uid1C = brandDto.Guid;
-            WsSqlCoreHelper.Instance.Save(brandDb);
+            SqlCoreHelper.Instance.Save(brandDb);
         }
         else
         {
-            WsSqlCoreHelper.Instance.Update(brandDb);
+            SqlCoreHelper.Instance.Update(brandDb);
         }
         _responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - изменен");
     }
     
     private void IsMarkedBrand(Guid uid)
     {
-        WsSqlBrandEntity brandDb = new WsSqlBrandRepository().GetItemByUid1C(uid);
+        SqlBrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(uid);
         
         if (brandDb.IsNew)
         {
@@ -51,7 +51,7 @@ public class BrandService
         else
         {
             brandDb.IsMarked = true;
-            WsSqlCoreHelper.Instance.Update(brandDb);
+            SqlCoreHelper.Instance.Update(brandDb);
             _responseDto.AddSuccess(uid, $"Бренд - {brandDb.Name} - удален");
         }
     }
@@ -80,7 +80,7 @@ public class BrandService
         }
 
       
-        new WsSqlLogWebRepository().Save(requestTime,   
+        new SqlLogWebRepository().Save(requestTime,   
         XmlUtil.SerializeToXml(brandsDto),   
         XmlUtil.SerializeToXml(_responseDto), currentUrl, _responseDto.SuccessesCount, _responseDto.ErrorsCount);
 

@@ -1,11 +1,11 @@
 using WsStorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Pages.Menu.Devices.Hosts;
 
-public sealed partial class Hosts : SectionBase<WsSqlHostEntity>
+public sealed partial class Hosts : SectionBase<SqlHostEntity>
 {
     #region Public and private methods
 
-    private WsSqlHostRepository HostRepository { get; } = new();
+    private SqlHostRepository HostRepository { get; } = new();
 
     protected override void SetSqlSectionCast()
     {

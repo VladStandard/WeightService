@@ -13,7 +13,7 @@
 //         Connector = new ZebraConnector();
 //     }
 //     
-//     public bool PrintLabel(WsSqlPluLabelEntity pluLabel) =>
+//     public bool PrintLabel(SqlPluLabelEntity pluLabel) =>
 //         Connector.SendCommand(pluLabel.Zpl);
 //     
 //     public void Dispose()

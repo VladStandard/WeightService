@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableRefModels.Printers;
 
 [TestFixture]
-public sealed class PrinterValidatorTests : TableValidatorTests<WsSqlPrinterEntity>
+public sealed class PrinterValidatorTests : TableValidatorTests<SqlPrinterEntity>
 {
 }

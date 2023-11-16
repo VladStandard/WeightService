@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.PlusWeighings;
 
 [TestFixture]
-public sealed class PluWeighingValidatorTests : TableValidatorTests<WsSqlPluWeighingEntity>
+public sealed class PluWeighingValidatorTests : TableValidatorTests<SqlPluWeighingEntity>
 {
 }

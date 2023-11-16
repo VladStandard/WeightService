@@ -13,8 +13,8 @@ public partial class WsMainForm
         WsFormNavigationUtils.ActionTryCatch(this, ShowFormUserControl, () =>
         {
             ResetWarning();
-            ContextCache.Load(WsSqlEnumTableName.Areas);
-            ContextCache.Load(WsSqlEnumTableName.Lines);
+            ContextCache.Load(SqlEnumTableName.Areas);
+            ContextCache.Load(SqlEnumTableName.Lines);
             WsFormNavigationUtils.NavigateToExistsLines(ShowFormUserControl);
         });
     }

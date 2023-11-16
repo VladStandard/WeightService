@@ -54,7 +54,7 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-WsSqlCoreHelper.Instance.SetSessionFactory(false);
+SqlCoreHelper.Instance.SetSessionFactory(false);
 
 try
 {

@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
-public sealed partial class ItemLog : ItemBase<WsSqlLogEntity>
+public sealed partial class ItemLog : ItemBase<SqlLogEntity>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlLineRepository LineRepository { get; } = new();
+    private SqlLineRepository LineRepository { get; } = new();
 
     public ItemLog() : base()
     {

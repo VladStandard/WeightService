@@ -4,9 +4,9 @@
 @using WsStorageCore.Enums
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsSqlPrinterEntity>
+@inherits ItemBase<SqlPrinterEntity>
 
-<ItemTopBar TItem="@WsSqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>

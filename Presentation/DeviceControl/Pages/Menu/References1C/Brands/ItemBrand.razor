@@ -2,9 +2,9 @@
 @page "/section/brands/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlBrandEntity>
+@inherits ItemBase<SqlBrandEntity>
 
-<ItemTopBar TItem="@WsSqlBrandEntity" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlBrandEntity" Title="@WsLocaleCore.DeviceControl.ItemBarCodeType" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

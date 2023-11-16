@@ -13,7 +13,7 @@ namespace WsLabelCore.Models;
 public sealed class WsPluginPrintTscModel : WsPluginPrintModel
 {
     #region Public and private fields and properties
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     private TscDriverHelper TscDriver { get; } = TscDriverHelper.Instance;
     private MdWmiWinPrinterModel TscWmiPrinter => GetWin32Printer(PrintName);
     private readonly object _lockTcpClient = new();
@@ -54,7 +54,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     #region Public and private methods
 
     public void InitTsc(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        WsSqlPrinterEntity printer, Label fieldPrint)
+        SqlPrinterEntity printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;
@@ -118,7 +118,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
     {
         if (!WsDebugHelper.Instance.IsDevelop) return;
         // TODO: FIX
-        // WsSqlContextManagerHelper.Instance.ContextItem.SaveLogInformation(
+        // SqlContextManagerHelper.Instance.ContextItem.SaveLogInformation(
         //     $"Server {e.IpPort} data sent {e.BytesSent} bytes", WsLocaleCore.LabelPrint.PluginPrintTsc);
     }
 
@@ -133,7 +133,7 @@ public sealed class WsPluginPrintTscModel : WsPluginPrintModel
 
     public bool CheckDeviceStatusTsc() => GetDeviceStatusTsc() == WsLocaleCore.Print.StatusIsReadyToPrint;
 
-    public void SendCmdToTsc(WsSqlPluLabelEntity pluLabel)
+    public void SendCmdToTsc(SqlPluLabelEntity pluLabel)
     {
         if (string.IsNullOrEmpty(pluLabel.Zpl)) return;
         ReopenTsc();

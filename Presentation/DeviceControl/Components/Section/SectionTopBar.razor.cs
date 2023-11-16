@@ -5,7 +5,7 @@ public partial class SectionTopBar : ComponentBase
     #region Public and private fields, properties, constructor
 
     [Parameter] public string Title { get; set; }
-    [Parameter] public WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
     [Parameter] public EventCallback<bool> OnSectionUpdate { get; set; }
     [Parameter] public EventCallback OnSectionAdd { get; set; }
@@ -13,11 +13,11 @@ public partial class SectionTopBar : ComponentBase
     [Parameter] public bool IsGuiShowFilterMarked { get; set; }
     private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
 
-    private static Dictionary<string, WsSqlEnumIsMarked> MarkedDict => new()
+    private static Dictionary<string, SqlEnumIsMarked> MarkedDict => new()
     {
-        { "Актуальные", WsSqlEnumIsMarked.ShowOnlyActual },
-        { "Cкрытые", WsSqlEnumIsMarked.ShowOnlyHide },
-        { "Все", WsSqlEnumIsMarked.ShowAll }
+        { "Актуальные", SqlEnumIsMarked.ShowOnlyActual },
+        { "Cкрытые", SqlEnumIsMarked.ShowOnlyHide },
+        { "Все", SqlEnumIsMarked.ShowAll }
     };
 
     private List<int> _rowCountList = new() { 0, 200, 400, 600, 800, 1000 };

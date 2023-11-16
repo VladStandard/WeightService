@@ -1,6 +1,6 @@
 namespace DeviceControl.Components.Nested.PlusNestingFks;
 
-public sealed partial class ItemPluNestingFk : ItemBase<WsSqlPluNestingFkEntity>
+public sealed partial class ItemPluNestingFk : ItemBase<SqlPluNestingFkEntity>
 {
     public ItemPluNestingFk() : base()
     {

@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Bundles;
 
-public sealed partial class Bundles : SectionBase<WsSqlBundleEntity>
+public sealed partial class Bundles : SectionBase<SqlBundleEntity>
 {
     #region Public and private fields, properties, constructor
 
@@ -11,7 +11,7 @@ public sealed partial class Bundles : SectionBase<WsSqlBundleEntity>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlBundleRepository().GetEnumerable(SqlCrudConfigSection).ToList();
+        SqlSectionCast = new SqlBundleRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
 
     #endregion

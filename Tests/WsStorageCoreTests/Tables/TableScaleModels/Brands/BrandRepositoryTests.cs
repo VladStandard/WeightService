@@ -5,14 +5,14 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 [TestFixture]
 public sealed class BrandRepositoryTests : TableRepositoryTests
 {
-    private WsSqlBrandRepository BrandRepository { get; } = new();
+    private SqlBrandRepository BrandRepository { get; } = new();
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

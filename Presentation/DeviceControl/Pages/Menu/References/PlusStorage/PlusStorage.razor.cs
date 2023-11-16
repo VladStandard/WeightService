@@ -1,9 +1,9 @@
 namespace DeviceControl.Pages.Menu.References.PlusStorage;
 
-public sealed partial class PlusStorage : SectionBase<WsSqlPluStorageMethodEntity>
+public sealed partial class PlusStorage : SectionBase<SqlPluStorageMethodEntity>
 {
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlPluStorageMethodRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new SqlPluStorageMethodRepository().GetList(SqlCrudConfigSection);
     }
 }

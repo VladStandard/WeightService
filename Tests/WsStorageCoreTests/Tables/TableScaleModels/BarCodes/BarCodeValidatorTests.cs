@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.BarCodes;
 
 [TestFixture]
-public sealed class BarCodeValidatorTests : TableValidatorTests<WsSqlBarCodeEntity>
+public sealed class BarCodeValidatorTests : TableValidatorTests<SqlBarCodeEntity>
 {
 }

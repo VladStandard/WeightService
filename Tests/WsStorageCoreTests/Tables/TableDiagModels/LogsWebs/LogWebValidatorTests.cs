@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableDiagModels.LogsWebs;
 
 [TestFixture]
-public sealed class LogWebValidatorTests : TableValidatorTests<WsSqlLogWebEntity>
+public sealed class LogWebValidatorTests : TableValidatorTests<SqlLogWebEntity>
 {
 }

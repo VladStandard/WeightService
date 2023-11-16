@@ -5,14 +5,14 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusFks;
 [TestFixture]
 public sealed class PluFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluFkRepository PluFkRepository { get; } = new();
+    private SqlPluFkRepository PluFkRepository { get; } = new();
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

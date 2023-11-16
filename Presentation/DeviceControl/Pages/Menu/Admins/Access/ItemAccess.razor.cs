@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Admins.Access;
 
-public sealed partial class ItemAccess : ItemBase<WsSqlAccessEntity>
+public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
 {
     #region Public and private fields, properties, constructor
     

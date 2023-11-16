@@ -3,15 +3,15 @@ namespace DeviceControl.Components.Nested.PlusLines;
 
 public sealed partial class AddPlusLines
 {
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
     
-    [Parameter] public WsSqlScaleEntity Line { get; set; }
+    [Parameter] public SqlScaleEntity Line { get; set; }
     
-    private List<WsSqlPluEntity> Plus { get; set; }
+    private List<SqlPluEntity> Plus { get; set; }
     
-    private List<WsSqlPluEntity> SelectedPlus { get; set; }
+    private List<SqlPluEntity> SelectedPlus { get; set; }
     
     public ButtonSettingsModel ButtonSettings { get; set; }
     
@@ -28,19 +28,19 @@ public sealed partial class AddPlusLines
     {
         if (firstRender)
         {
-            WsSqlCrudConfigModel sqlCrud = WsSqlCrudConfigFactory.GetCrudActual();
+            SqlCrudConfigModel sqlCrud = SqlCrudConfigFactory.GetCrudActual();
             sqlCrud.AddFilters(new() {
-                SqlRestrictions.EqualFk(nameof(WsSqlPluScaleEntity.Line), Line),
-                SqlRestrictions.Equal(nameof(WsSqlPluScaleEntity.IsActive), true)
+                SqlRestrictions.EqualFk(nameof(SqlPluScaleEntity.Line), Line),
+                SqlRestrictions.Equal(nameof(SqlPluScaleEntity.IsActive), true)
             });
-            List<short> pluNumbersActive = new WsSqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
+            List<short> pluNumbersActive = new SqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
             
-            sqlCrud = WsSqlCrudConfigFactory.GetCrudActual();
+            sqlCrud = SqlCrudConfigFactory.GetCrudActual();
             sqlCrud.AddFilters(new() {
-                SqlRestrictions.Equal(nameof(WsSqlPluEntity.IsGroup), false),
-                SqlRestrictions.NotIn(nameof(WsSqlPluEntity.Number),  pluNumbersActive.Cast<object>().ToList())
+                SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false),
+                SqlRestrictions.NotIn(nameof(SqlPluEntity.Number),  pluNumbersActive.Cast<object>().ToList())
             });
-            Plus = new WsSqlPluRepository().GetEnumerable(sqlCrud).ToList();
+            Plus = new SqlPluRepository().GetEnumerable(sqlCrud).ToList();
             StateHasChanged();
         }
         base.OnAfterRender(firstRender);
@@ -53,9 +53,9 @@ public sealed partial class AddPlusLines
     
     private void SaveItem()
     {
-        foreach (WsSqlPluEntity plu in SelectedPlus)
+        foreach (SqlPluEntity plu in SelectedPlus)
         {
-            WsSqlPluScaleEntity pluScale = new WsSqlPluLineRepository().GetItemByLinePlu(Line, plu);
+            SqlPluScaleEntity pluScale = new SqlPluLineRepository().GetItemByLinePlu(Line, plu);
             pluScale.IsActive = true;
             if (pluScale.IsNew)
             {

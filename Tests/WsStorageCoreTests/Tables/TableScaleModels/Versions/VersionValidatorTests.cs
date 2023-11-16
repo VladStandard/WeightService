@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Versions;
 
 [TestFixture]
-public sealed class VersionValidatorTests : TableValidatorTests<WsSqlVersionEntity>
+public sealed class VersionValidatorTests : TableValidatorTests<SqlVersionEntity>
 {
 }

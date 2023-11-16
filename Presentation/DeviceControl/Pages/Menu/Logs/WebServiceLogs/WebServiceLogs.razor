@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlLogWebEntity>
+@inherits SectionBase<SqlLogWebEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.WebService.Name"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlLogWebEntity"
+  TItem="@SqlLogWebEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -23,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlLogWebEntity">
+    <TItemContent TItem="@SqlLogWebEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@WsStrUtils.FormatDtLong"/>

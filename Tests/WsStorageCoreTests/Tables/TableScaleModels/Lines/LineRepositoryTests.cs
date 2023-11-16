@@ -5,20 +5,20 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Lines;
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLineRepository LineRepository { get; } = new();
-    private WsSqlScaleEntity GetFirstLineModel()
+    private SqlLineRepository LineRepository { get; } = new();
+    private SqlScaleEntity GetFirstLineModel()
     {
         return LineRepository.GetEnumerable(SqlCrudConfig).First();
     }
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.Description)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Description)).Ascending;
 
     [Test, Order(1)]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlScaleEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlScaleEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -28,8 +28,8 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlScaleEntity oldLine = GetFirstLineModel();
-            WsSqlScaleEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
+            SqlScaleEntity oldLine = GetFirstLineModel();
+            SqlScaleEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
 
             Assert.That(lineById.IsExists, Is.True);
             Assert.That(lineById.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
@@ -44,9 +44,9 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfig.SelectTopRowsCount = 1;
-            WsSqlScaleEntity oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();
+            SqlScaleEntity oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();
 
-            WsSqlScaleEntity lineByDevice = LineRepository.GetItemByHost(oldScale.Host);
+            SqlScaleEntity lineByDevice = LineRepository.GetItemByHost(oldScale.Host);
 
             Assert.That(lineByDevice.IsExists, Is.True);
             Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldScale.IdentityValueId));

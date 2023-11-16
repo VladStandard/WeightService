@@ -9,8 +9,8 @@ public sealed class WsXamlPlusNestingViewModel : WsXamlBaseViewModel, IWsViewMod
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlViewPluNestingModel PluNesting { get; set; } = new();
-    public List<WsSqlViewPluNestingModel> PlusNestings { get; set; } = new();
+    public SqlViewPluNestingModel PluNesting { get; set; } = new();
+    public List<SqlViewPluNestingModel> PlusNestings { get; set; } = new();
 
     public WsXamlPlusNestingViewModel()
     {

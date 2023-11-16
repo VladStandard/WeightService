@@ -19,8 +19,8 @@ public sealed class WsUserSessionHelper //: BaseViewModel
 
     #region Public and private fields and properties
     
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     public WsPluginLabelsHelper PluginLabels => WsPluginLabelsHelper.Instance;
@@ -151,7 +151,7 @@ public sealed class WsUserSessionHelper //: BaseViewModel
     /// <summary>
     /// Проверить наличие вложенности ПЛУ.
     /// </summary>
-    public bool CheckViewPluNesting(WsSqlPluEntity plu, Label fieldWarning)
+    public bool CheckViewPluNesting(SqlPluEntity plu, Label fieldWarning)
     {
         if (LabelSession.ViewPluNesting.PluNumber.Equals((ushort)plu.Number)) return true;
 

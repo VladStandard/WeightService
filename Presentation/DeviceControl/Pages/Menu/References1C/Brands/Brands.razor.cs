@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.References1C.Brands;
 
-public sealed partial class Brands : SectionBase<WsSqlBrandEntity>
+public sealed partial class Brands : SectionBase<SqlBrandEntity>
 {
     #region Public and private fields, properties, constructor
 
@@ -11,7 +11,7 @@ public sealed partial class Brands : SectionBase<WsSqlBrandEntity>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlBrandRepository().GetEnumerable(SqlCrudConfigSection).ToList();
+        SqlSectionCast = new SqlBrandRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
     
     #endregion

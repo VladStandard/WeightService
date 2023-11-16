@@ -5,14 +5,14 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.Apps;
 [TestFixture]
 public sealed class AppRepositoryTests : TableRepositoryTests
 {
-    private WsSqlAppRepository AppRepository { get; } = new();
+    private SqlAppRepository AppRepository { get; } = new();
 
     [Test, Order(1)]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlAppEntity> items = AppRepository.GetList(SqlCrudConfig);
+            List<SqlAppEntity> items = AppRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -22,8 +22,8 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAppEntity access = AppRepository.GetItemByNameOrCreate(nameof(WsStorageCoreTests));
-            WsSqlAppEntity accessByUid = AppRepository.GetItemByUid(access.IdentityValueUid);
+            SqlAppEntity access = AppRepository.GetItemByNameOrCreate(nameof(WsStorageCoreTests));
+            SqlAppEntity accessByUid = AppRepository.GetItemByUid(access.IdentityValueUid);
             Assert.That(access.IsExists, Is.True);
             Assert.That(accessByUid.IsExists, Is.True);
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
@@ -35,9 +35,9 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAppEntity appByName = AppRepository.GetItemByName(nameof(WsStorageCoreTests));
+            SqlAppEntity appByName = AppRepository.GetItemByName(nameof(WsStorageCoreTests));
             Guid uid = appByName.IdentityValueUid;
-            WsSqlAppEntity appByUid = AppRepository.GetItemByUid(uid);
+            SqlAppEntity appByUid = AppRepository.GetItemByUid(uid);
 
             Assert.That(appByUid.IsExists, Is.True);
             Assert.That(appByUid.IdentityValueUid, Is.EqualTo(uid));
@@ -51,7 +51,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlAppEntity app = AppRepository.GetNewItem();
+            SqlAppEntity app = AppRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
         }, false);

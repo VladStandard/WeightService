@@ -5,10 +5,10 @@ public sealed partial class PluLabelsAggr : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewPluLabelAggrRepository PluLabelAggrRepository { get; } = new();
+    private SqlViewPluLabelAggrRepository PluLabelAggrRepository { get; } = new();
     private string SqlListCountResult => $"{WsLocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
     private string GetAverageCountResult => $"Средняя производительность: {GetAverageCount():### ### ###}";
-    private List<WsSqlViewPluLabelAggrModel> PluWeightAggrs { get; set; }
+    private List<SqlViewPluLabelAggrModel> PluWeightAggrs { get; set; }
     
     private int GetAverageCount()
     {

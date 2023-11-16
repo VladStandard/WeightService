@@ -5,7 +5,7 @@ namespace WsStorageCoreTests.Views.ViewOtherModels.DbFileSizeInfo;
 [TestFixture]
 public sealed class ViewDbFileSizeInfoRepositoryTest : ViewRepositoryTests
 {
-    private IViewDbFileSizeRepository DbFileSizeRepository { get; } = new WsSqlViewDbFileSizeRepository();
+    private IViewDbFileSizeRepository DbFileSizeRepository { get; } = new SqlViewDbFileSizeRepository();
 
     protected override CollectionOrderedConstraint SortOrderValue =>
         Is.Ordered.By(nameof(WsSqlViewDbFileSizeInfoModel.SizeMb)).Descending

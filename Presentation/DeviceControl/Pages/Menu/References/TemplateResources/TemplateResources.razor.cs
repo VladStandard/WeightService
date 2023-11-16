@@ -1,15 +1,15 @@
 namespace DeviceControl.Pages.Menu.References.TemplateResources;
 
-public sealed partial class TemplateResources : SectionBase<WsSqlTemplateResourceEntity>
+public sealed partial class TemplateResources : SectionBase<SqlTemplateResourceEntity>
 {
     #region Public and private methods
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlTemplateResourceRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new SqlTemplateResourceRepository().GetList(SqlCrudConfigSection);
     }
     
-    private static string ConvertBytes(WsSqlTemplateResourceEntity templateResource)
+    private static string ConvertBytes(SqlTemplateResourceEntity templateResource)
     {
         return templateResource.DataValue.Length > 1024
             ? $"{templateResource.DataValue.Length / 1024:### ##0} {WsLocaleCore.Strings.DataSizeKBytes}"

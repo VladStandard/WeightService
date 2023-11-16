@@ -14,7 +14,7 @@ public sealed class WsPluginModel : IDisposable
     public WsPluginConfigModel Config { get; set; }
     public WsEnumPluginType PluginType { get; set; }
     private CancellationTokenSource Cts { get; set; }
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     
     public WsPluginModel()
     {

@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Admin)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlVersionEntity>
+@inherits SectionBase<SqlVersionEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.VersionsDb"
@@ -14,11 +14,11 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlVersionEntity"
+  TItem="@SqlVersionEntity"
   @ref="@DataGrid"
   Data="@SqlSectionCast">
   <Columns>
-    <TItemContent TItem="@WsSqlVersionEntity">
+    <TItemContent TItem="@SqlVersionEntity">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%"
                             FormatString="@WsStrUtils.FormatDtShort"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="10%"/>

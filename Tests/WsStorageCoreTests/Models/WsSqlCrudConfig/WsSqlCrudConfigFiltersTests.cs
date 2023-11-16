@@ -11,7 +11,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(1));
             TestContext.WriteLine(sqlCrudConfig);
@@ -23,7 +23,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
             sqlCrudConfig.AddFilters(new()
             {
@@ -42,7 +42,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             ICriterion filter1 = SqlRestrictions.Equal("Test № 1", "data");
             sqlCrudConfig.AddFilter(filter1);
             sqlCrudConfig.AddFilters(new()
@@ -63,7 +63,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
             
             sqlCrudConfig.AddFilter(isMarkedTrue);
@@ -80,7 +80,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             
             ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
             ICriterion isMarkedFalse = SqlRestrictions.IsActual();
@@ -99,7 +99,7 @@ public sealed class WsSqlCrudConfigFiltersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
                   
             ICriterion isMarkedTrue = SqlRestrictions.IsMarked();
             ICriterion isMarkedFalse = SqlRestrictions.IsActual();

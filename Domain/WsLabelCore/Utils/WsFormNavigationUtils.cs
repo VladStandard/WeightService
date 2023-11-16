@@ -12,7 +12,7 @@ public static class WsFormNavigationUtils
 {
     #region Public and private fields, properties, constructor
 
-    private static WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private static SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     
     /// <summary>
     /// Пользовательская сессия.
@@ -21,7 +21,7 @@ public static class WsFormNavigationUtils
     /// <summary>
     /// SQL-менеджер прямого доступа к данным БД (используется ядром фреймворка).
     /// </summary>
-    private static WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private static SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
     /// <summary>
     /// WinForms-контрол диалога.
@@ -205,7 +205,7 @@ public static class WsFormNavigationUtils
     {
         // Загрузка из сесси пользователя.
         PlusNestingUserControl.ViewModel.PlusNestings = 
-            new WsSqlViewPluNestingRepository().GetEnumerable((ushort)LabelSession.PluLine.Plu.Number).ToList();
+            new SqlViewPluNestingRepository().GetEnumerable((ushort)LabelSession.PluLine.Plu.Number).ToList();
         PlusNestingUserControl.ViewModel.PluNesting = LabelSession.ViewPluNesting;
 
         PlusNestingUserControl.ViewModel.UpdateCommandsFromActions();
@@ -234,8 +234,8 @@ public static class WsFormNavigationUtils
         }
     }
 
-    public static WsSqlHostEntity SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
-        WsSqlHostEntity host, string ip)
+    public static SqlHostEntity SetNewDeviceWithQuestion(Action<WsFormBaseUserControl, string> showNavigation,
+        SqlHostEntity host, string ip)
     {
         if (host.IsNew)
         {

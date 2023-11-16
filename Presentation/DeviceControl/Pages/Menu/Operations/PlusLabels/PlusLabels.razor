@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlViewPluLabelModel>
+@inherits SectionBase<SqlViewPluLabelModel>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionLabels"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlViewPluLabelModel"
+  TItem="@SqlViewPluLabelModel"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -26,7 +26,7 @@
   FilterMode="FilterMode.Simple"
   LogicalFilterOperator="@LogicalFilterOperator.And">
   <Columns>
-    <TItemContent TItem="@WsSqlViewPluLabelModel">
+    <TItemContent TItem="@SqlViewPluLabelModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>

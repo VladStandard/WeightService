@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusNestingFks;
 
 [TestFixture]
-public sealed class PluNestingFkValidatorTests : TableValidatorTests<WsSqlPluNestingFkEntity>
+public sealed class PluNestingFkValidatorTests : TableValidatorTests<SqlPluNestingFkEntity>
 {
 }

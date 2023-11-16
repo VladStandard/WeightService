@@ -2,9 +2,9 @@
 @page "/section/bundles/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlBundleEntity>
+@inherits ItemBase<SqlBundleEntity>
 
-<ItemTopBar TItem="WsSqlBundleEntity" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlBundleEntity" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

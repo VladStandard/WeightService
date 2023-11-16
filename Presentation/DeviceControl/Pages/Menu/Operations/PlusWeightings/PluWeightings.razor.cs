@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Operations.PlusWeightings;
 
-public sealed partial class PluWeightings : SectionBase<WsSqlViewPluWeightingModel>
+public sealed partial class PluWeightings : SectionBase<SqlViewPluWeightingModel>
 {
     #region Public and private fields, properties, constructor
     
-    private WsSqlViewPluWeightingRepository ViewPluWeightingRepository { get; } = new();
+    private SqlViewPluWeightingRepository ViewPluWeightingRepository { get; } = new();
     
     public PluWeightings() : base()
     {

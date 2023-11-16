@@ -12,10 +12,10 @@ public sealed class WsXamlLinesViewModel : WsXamlBaseViewModel
 {
     #region Public and private fields, properties, constructor
 
-    public WsSqlProductionSiteEntity ProductionSite { get; set; } = new();
-    public WsSqlScaleEntity Line { get; set; } = new();
-    public List<WsSqlProductionSiteEntity> ProductionSites { get; set; } = new();
-    public List<WsSqlScaleEntity> Lines { get; set; } = new();
+    public SqlProductionSiteEntity ProductionSite { get; set; } = new();
+    public SqlScaleEntity Line { get; set; } = new();
+    public List<SqlProductionSiteEntity> ProductionSites { get; set; } = new();
+    public List<SqlScaleEntity> Lines { get; set; } = new();
 
     public WsXamlLinesViewModel()
     {

@@ -12,7 +12,7 @@ namespace WsLabelCore.Controls;
 public sealed class WsFormPluControl : UserControl
 {
     #region Public and private fields, properties, constructor
-    private WsSqlPluRepository PluRepository { get; } = new();
+    private SqlPluRepository PluRepository { get; } = new();
     
     private WsFontsSettingsHelper FontsSettings => WsFontsSettingsHelper.Instance;
     private Label LabelPlu { get; }
@@ -23,7 +23,7 @@ public sealed class WsFormPluControl : UserControl
     private short LabelHeight => (short)(Height / 3 - ShiftLeft * 2);
     //private int LabelWidth => Width / 2 - ShiftLeft * 2;
 
-    public WsFormPluControl(WsSqlViewPluLineModel viewPluScale, Action<object, EventArgs> actionPluSelect)
+    public WsFormPluControl(SqlViewPluLineModel viewPluScale, Action<object, EventArgs> actionPluSelect)
     {
         Name = $"WsPluControl{viewPluScale.PluNumber}";
         Font = WsFontsSettingsHelper.Instance.FontLabelsBlack;
@@ -56,7 +56,7 @@ public sealed class WsFormPluControl : UserControl
     /// <summary>
     /// Создать метку ПЛУ линии.
     /// </summary>
-    private Label CreateLabelPlu(WsSqlViewPluLineModel viewPluScale) => new()
+    private Label CreateLabelPlu(SqlViewPluLineModel viewPluScale) => new()
     {
         Font = FontsSettings.FontLabelsBlack,
         AutoSize = false,
@@ -72,7 +72,7 @@ public sealed class WsFormPluControl : UserControl
     /// <summary>
     /// Создать метку информации ПЛУ линии.
     /// </summary>
-    private Label CreateLabelPluTemplate(WsSqlViewPluLineModel viewPluScale)
+    private Label CreateLabelPluTemplate(SqlViewPluLineModel viewPluScale)
     {
         List<string> validates = PluRepository.GetEnumerableValidatesViewPluLine(viewPluScale).ToList();
         return new()

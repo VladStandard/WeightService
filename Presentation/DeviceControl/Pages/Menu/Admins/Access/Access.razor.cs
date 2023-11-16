@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Admins.Access;
 
-public sealed partial class Access : SectionBase<WsSqlAccessEntity>
+public sealed partial class Access : SectionBase<SqlAccessEntity>
 {
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new WsSqlAccessRepository().GetList(SqlCrudConfigSection);
+        SqlSectionCast = new SqlAccessRepository().GetList(SqlCrudConfigSection);
     }
 
     private static string GetAccessRightsDescription(byte accessRights) =>

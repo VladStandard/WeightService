@@ -10,7 +10,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Asc("data № 1"));
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
@@ -24,7 +24,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
             sqlCrudConfig.AddOrders(new()
             {
@@ -43,7 +43,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
             sqlCrudConfig.AddOrders(new()
             {
@@ -62,7 +62,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Asc("Test № 1"));
             sqlCrudConfig.RemoveOrder(SqlOrder.Desc("Test № 1"));
 
@@ -77,7 +77,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrders(new()
             {
                 SqlOrder.Desc("Test № 1"),
@@ -102,7 +102,7 @@ public sealed class WsSqlCrudConfigOrdersTests
     {
         Assert.DoesNotThrow(() =>
         {
-            WsSqlCrudConfigModel sqlCrudConfig = new();
+            SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrders(new()
             {
                 SqlOrder.Desc("Test № 1"),

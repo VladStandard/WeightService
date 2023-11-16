@@ -10,19 +10,19 @@ public class WsRouteService
         _navigationManager = navigationManager;
     }
 
-    public void NavigateItemRoute(WsSqlEntityBase? item)
+    public void NavigateItemRoute(SqlEntityBase? item)
     {
         if (item == null)
             return;
         _navigationManager.NavigateTo(GetItemRoute(item));
     }
 
-    public void NavigateSectionRoute(WsSqlEntityBase item)
+    public void NavigateSectionRoute(SqlEntityBase item)
     {
         _navigationManager.NavigateTo(GetSectionRoute(item));
     }
 
-    public static string GetItemRoute(WsSqlEntityBase? item)
+    public static string GetItemRoute(SqlEntityBase? item)
     {
         string page = GetSectionRoute(item);
         
@@ -31,40 +31,40 @@ public class WsRouteService
         
         return item.Identity.Name switch
         {
-            WsSqlEnumFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
-            WsSqlEnumFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
+            SqlEnumFieldIdentity.Id => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueId}",
+            SqlEnumFieldIdentity.Uid => item.IsNew ? $"{page}/new" : $"{page}/{item.IdentityValueUid}",
             _ => page
         };
     }
 
-    public static string GetSectionRoute(WsSqlEntityBase? item) =>
+    public static string GetSectionRoute(SqlEntityBase? item) =>
         item switch
         {
-            WsSqlAccessEntity => WsRouteUtils.SectionAccess,
-            WsSqlBarCodeEntity => WsRouteUtils.SectionBarCodes,
-            WsSqlBoxEntity => WsRouteUtils.SectionBoxes,
-            WsSqlBrandEntity => WsRouteUtils.SectionBrands,
-            WsSqlBundleEntity => WsRouteUtils.SectionBundles,
-            WsSqlHostEntity => WsRouteUtils.SectionHosts,
-            WsSqlLogEntity => WsRouteUtils.SectionLogs,
-            WsSqlPluLabelEntity => WsRouteUtils.SectionPlusLabels,
-            WsSqlPluEntity => WsRouteUtils.SectionPlus,
-            WsSqlPluScaleEntity => WsRouteUtils.SectionPlusLines,
-            WsSqlPluNestingFkEntity => WsRouteUtils.SectionPlusNestingFks,
-            WsSqlPluStorageMethodEntity => WsRouteUtils.SectionPlusStorage,
-            WsSqlPluWeighingEntity => WsRouteUtils.SectionPlusWeightings,
-            WsSqlPrinterEntity => WsRouteUtils.SectionPrinters,
-            WsSqlProductionSiteEntity => WsRouteUtils.SectionProductionFacilities,
-            WsSqlScaleEntity => WsRouteUtils.SectionLines,
-            WsSqlTemplateEntity => WsRouteUtils.SectionTemplates,
-            WsSqlTemplateResourceEntity => WsRouteUtils.SectionTemplateResources,
-            WsSqlVersionEntity => WsRouteUtils.SectionVersions,
-            WsSqlWorkShopEntity => WsRouteUtils.SectionWorkShops,
-            WsSqlClipEntity => WsRouteUtils.SectionClips,
-            WsSqlViewBarcodeModel => WsRouteUtils.SectionBarCodes,
-            WsSqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
-            WsSqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,
-            WsSqlLogWebEntity => WsRouteUtils.SectionLogsWebService,
+            SqlAccessEntity => WsRouteUtils.SectionAccess,
+            SqlBarCodeEntity => WsRouteUtils.SectionBarCodes,
+            SqlBoxEntity => WsRouteUtils.SectionBoxes,
+            SqlBrandEntity => WsRouteUtils.SectionBrands,
+            SqlBundleEntity => WsRouteUtils.SectionBundles,
+            SqlHostEntity => WsRouteUtils.SectionHosts,
+            SqlLogEntity => WsRouteUtils.SectionLogs,
+            SqlPluLabelEntity => WsRouteUtils.SectionPlusLabels,
+            SqlPluEntity => WsRouteUtils.SectionPlus,
+            SqlPluScaleEntity => WsRouteUtils.SectionPlusLines,
+            SqlPluNestingFkEntity => WsRouteUtils.SectionPlusNestingFks,
+            SqlPluStorageMethodEntity => WsRouteUtils.SectionPlusStorage,
+            SqlPluWeighingEntity => WsRouteUtils.SectionPlusWeightings,
+            SqlPrinterEntity => WsRouteUtils.SectionPrinters,
+            SqlProductionSiteEntity => WsRouteUtils.SectionProductionFacilities,
+            SqlScaleEntity => WsRouteUtils.SectionLines,
+            SqlTemplateEntity => WsRouteUtils.SectionTemplates,
+            SqlTemplateResourceEntity => WsRouteUtils.SectionTemplateResources,
+            SqlVersionEntity => WsRouteUtils.SectionVersions,
+            SqlWorkShopEntity => WsRouteUtils.SectionWorkShops,
+            SqlClipEntity => WsRouteUtils.SectionClips,
+            SqlViewBarcodeModel => WsRouteUtils.SectionBarCodes,
+            SqlViewPluLabelModel => WsRouteUtils.SectionPlusLabels,
+            SqlViewPluWeightingModel => WsRouteUtils.SectionPlusWeightings,
+            SqlLogWebEntity => WsRouteUtils.SectionLogsWebService,
             _ => string.Empty
         };
 }

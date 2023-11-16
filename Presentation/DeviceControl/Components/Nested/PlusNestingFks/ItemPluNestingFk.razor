@@ -2,9 +2,9 @@
 @page "/section/plus_nesting/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlPluNestingFkEntity>
+@inherits ItemBase<SqlPluNestingFkEntity>
 
-<ItemTopBar TItem="@WsSqlPluNestingFkEntity" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluNestingFkEntity" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

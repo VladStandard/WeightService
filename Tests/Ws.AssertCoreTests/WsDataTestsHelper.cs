@@ -13,8 +13,8 @@ public class WsDataTestsHelper
 
     #region Public and private fields, properties, constructor
 
-    public WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    public SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     #endregion
 
     #region Public and private methods
@@ -29,7 +29,7 @@ public class WsDataTestsHelper
         });
     }
     
-    public void TableBaseModelAssertEqualsNew<T>() where T : WsSqlEntityBase, new()
+    public void TableBaseModelAssertEqualsNew<T>() where T : SqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -38,7 +38,7 @@ public class WsDataTestsHelper
         });
     }
     
-    public void TableBaseModelAssertEqualsDefault<T>() where T : WsSqlEntityBase, new()
+    public void TableBaseModelAssertEqualsDefault<T>() where T : SqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
@@ -47,13 +47,13 @@ public class WsDataTestsHelper
         });
     }
     
-    public void TableBaseModelAssertToString<T>() where T : WsSqlEntityBase, new()
+    public void TableBaseModelAssertToString<T>() where T : SqlEntityBase, new()
     {
         Assert.DoesNotThrow(() =>
         {
             // Arrange.
             T item = new();
-            WsSqlEntityBase baseItem = new();
+            SqlEntityBase baseItem = new();
             // Act.
             string itemString = item.ToString();
             string baseString = baseItem.ToString();

@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.Operations.PlusLabels;
 
-public sealed partial class PlusLabels : SectionBase<WsSqlViewPluLabelModel>
+public sealed partial class PlusLabels : SectionBase<SqlViewPluLabelModel>
 {
     #region Public and private fields, properties, constructor
 
-    private WsSqlViewPluLabelRepository PluLabelRepository { get; } = new();
+    private SqlViewPluLabelRepository PluLabelRepository { get; } = new();
     
     public PlusLabels() : base()
     {

@@ -13,7 +13,7 @@ public sealed partial class WsMainForm : Form
     private IKeyboardMouseEvents KeyboardMouseEvents { get; set; }
     private WsUserSessionHelper UserSession => WsUserSessionHelper.Instance;
     private WsPrintSessionHelper PrintSession => WsPrintSessionHelper.Instance;
-    private WsSqlContextCacheHelper ContextCache => WsSqlContextCacheHelper.Instance;
+    private SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
     private WsLabelSessionHelper LabelSession => WsLabelSessionHelper.Instance;
     private Button ButtonLine { get; set; } = new();
     private Button ButtonPluNestingFk { get; set; } = new();
@@ -81,7 +81,7 @@ public sealed partial class WsMainForm : Form
             LabelSession.Line.Version = WsAssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
             LabelSession.Line.ClickOnce = WsAssemblyUtils.GetClickOnceNetworkInstallDirectory();
             
-            new WsSqlLineRepository().Update(LabelSession.Line);
+            new SqlLineRepository().Update(LabelSession.Line);
             
             this.SetupResolution();
             MainFormLoadAtBackground();

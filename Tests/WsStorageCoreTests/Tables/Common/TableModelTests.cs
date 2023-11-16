@@ -1,6 +1,6 @@
 ﻿namespace WsStorageCoreTests.Tables.Common;
 
-public class TableModelTests<TItem> where TItem : WsSqlEntityBase, new()
+public class TableModelTests<TItem> where TItem : SqlEntityBase, new()
 {
     [Test]
     public virtual void Model_ToString()

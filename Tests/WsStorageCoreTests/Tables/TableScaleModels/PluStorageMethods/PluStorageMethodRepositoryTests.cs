@@ -5,14 +5,14 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PluStorageMethods;
 [TestFixture]
 public sealed class PluStorageRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluStorageMethodRepository PluStorageMethodRepository { get; } = new();
+    private SqlPluStorageMethodRepository PluStorageMethodRepository { get; } = new();
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
+            List<SqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

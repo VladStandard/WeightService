@@ -3,6 +3,6 @@ using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 
 [TestFixture]
-public sealed class PluTemplateFkModelTests : TableModelTests<WsSqlPluTemplateFkEntity>
+public sealed class PluTemplateFkModelTests : TableModelTests<SqlPluTemplateFkEntity>
 {
 }

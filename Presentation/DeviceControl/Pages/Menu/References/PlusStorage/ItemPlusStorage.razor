@@ -3,10 +3,10 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsSqlPluStorageMethodEntity>
+@inherits ItemBase<SqlPluStorageMethodEntity>
 
 
-<ItemTopBar TItem="WsSqlPluStorageMethodEntity" Title="@WsLocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlPluStorageMethodEntity" Title="@WsLocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })" />

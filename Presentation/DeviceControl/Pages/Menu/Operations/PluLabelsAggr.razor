@@ -19,12 +19,12 @@
 </MudPaper>
 
 <RzDataGrid
-  TItem="@WsSqlViewPluLabelAggrModel"
+  TItem="@SqlViewPluLabelAggrModel"
   Data="@PluWeightAggrs">
   <Columns>
-    <TItemContent TItem="@WsSqlViewPluLabelAggrModel">
+    <TItemContent TItem="@SqlViewPluLabelAggrModel">
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@WsStrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn TItem="@WsSqlViewPluLabelAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="CreateDt.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn TItem="@SqlViewPluLabelAggrModel" Title="@WsLocaleCore.Table.DayOfWeek" SortProperty="CreateDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @GetDayOfWeekRu(itemCast.CreateDt.DayOfWeek)
         </Template>

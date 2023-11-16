@@ -31,7 +31,7 @@ public sealed class WsPluginPrintZebraModel : WsPluginPrintModel
     }
     
     public void InitZebra(WsPluginConfigModel configReopen, WsPluginConfigModel configRequest, WsPluginConfigModel configResponse,
-        WsSqlPrinterEntity printer, Label fieldPrint)
+        SqlPrinterEntity printer, Label fieldPrint)
     {
         ReopenItem.Config = configReopen;
         RequestItem.Config = configRequest;

@@ -6,16 +6,16 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PluLines;
 [TestFixture]
 public sealed class PluLinesRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluLineRepository PluLineRepository { get; } = new();
+    private SqlPluLineRepository PluLineRepository { get; } = new();
 
     protected override IResolveConstraint SortOrderValue =>
         Is.Ordered.Using(
-            (IComparer<WsSqlPluScaleEntity>)Comparer<WsSqlPluScaleEntity>.Create((x, y) =>
+            (IComparer<SqlPluScaleEntity>)Comparer<SqlPluScaleEntity>.Create((x, y) =>
                 x.Plu.Number.CompareTo(y.Plu.Number))).Ascending;
 
-    private WsSqlPluScaleEntity GetFirstPluScaleModel()
+    private SqlPluScaleEntity GetFirstPluScaleModel()
     {
-        WsSqlCrudConfigModel sqlConfig = new() { SelectTopRowsCount = 1 };
+        SqlCrudConfigModel sqlConfig = new() { SelectTopRowsCount = 1 };
         return PluLineRepository.GetList(sqlConfig).First();
     }
 
@@ -24,7 +24,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluScaleEntity> items = PluLineRepository.GetList(SqlCrudConfig);
+            List<SqlPluScaleEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -34,10 +34,10 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlPluScaleEntity pluScale = GetFirstPluScaleModel();
-            WsSqlScaleEntity line = pluScale.Line;
-            List<WsSqlPluScaleEntity> pluLines = PluLineRepository.GetListByLine(line, SqlCrudConfig);
-            foreach (WsSqlPluScaleEntity pluLine in pluLines)
+            SqlPluScaleEntity pluScale = GetFirstPluScaleModel();
+            SqlScaleEntity line = pluScale.Line;
+            List<SqlPluScaleEntity> pluLines = PluLineRepository.GetListByLine(line, SqlCrudConfig);
+            foreach (SqlPluScaleEntity pluLine in pluLines)
             {
                 Assert.That(pluLine.Line, Is.EqualTo(line));
                 TestContext.WriteLine($"{pluLine}");

@@ -1,11 +1,11 @@
 namespace DeviceControl.Components.Nested.PlusNestingFks;
 
-public sealed partial class PlusNestingFks : SectionBase<WsSqlPluNestingFkEntity>
+public sealed partial class PlusNestingFks : SectionBase<SqlPluNestingFkEntity>
 {
     #region Public and private fields, properties, constructor
     
-    [Parameter] public WsSqlPluEntity Plu { get; set; }
-    private WsSqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
+    [Parameter] public SqlPluEntity Plu { get; set; }
+    private SqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
     public PlusNestingFks() : base()
     {
         IsGuiShowFilterMarked = false;

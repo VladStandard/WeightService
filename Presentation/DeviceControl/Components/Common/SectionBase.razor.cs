@@ -1,22 +1,22 @@
 namespace DeviceControl.Components.Common;
 
-public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBase, new()
+public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
     
-    private WsSqlCoreHelper SqlCore => WsSqlCoreHelper.Instance;
+    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] protected WsJsService JsService { get; private set; } = default!;
     [Inject] protected WsRouteService RouteService { get; set; } = default!;
     [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
     [Inject] protected ContextMenuService ContextMenuService { get; set; } = default!;
-    [Parameter] public WsSqlEntityBase? SqlItem { get; set; }
+    [Parameter] public SqlEntityBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
     protected List<TItem> SqlSectionCast { get; set; }
     private List<TItem> SqlSectionSave { get; set; }
     private List<ContextMenuItem> ContextMenuItems { get; set; } = new();
     protected TItem SqlItemCast => SqlItem is null ? new() : (TItem)SqlItem;
-    protected WsSqlCrudConfigModel SqlCrudConfigSection { get; set; }
+    protected SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     protected RadzenDataGrid<TItem> DataGrid { get; set; } = new();
     protected ButtonSettingsModel ButtonSettings { get; set; }
     protected bool IsLoading { get; set; } = true;
@@ -28,7 +28,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : WsSqlEntityBa
         SqlSectionCast = new();
         SqlSectionSave = new();
 
-        SqlCrudConfigSection = WsSqlCrudConfigFactory.GetCrudActual();
+        SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudActual();
         IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
         ButtonSettings = ButtonSettingsModel.CreateForSection();

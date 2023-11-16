@@ -1,11 +1,11 @@
 namespace WsStorageCore.Entities.SchemaDiag.LogsWebs;
 
-public sealed class WsSqlLogWebMap : ClassMapping<WsSqlLogWebEntity>
+public sealed class WsSqlLogWebMap : ClassMapping<SqlLogWebEntity>
 {
     public WsSqlLogWebMap()
     {
-        Schema(WsSqlSchemasUtils.Diag);
-        Table(WsSqlTablesUtils.LogsWebs);
+        Schema(SqlSchemasUtils.Diag);
+        Table(SqlTablesUtils.LogsWebs);
 
         Id(x => x.IdentityValueUid, m => {
             m.Column("UID");

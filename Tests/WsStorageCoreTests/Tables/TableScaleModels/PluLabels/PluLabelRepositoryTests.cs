@@ -5,15 +5,15 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.PluLabels;
 [TestFixture]
 public sealed class PluLabelRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluLabelRepository PluLabelRepository { get; set; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
+    private SqlPluLabelRepository PluLabelRepository { get; set; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluLabelEntity> items = PluLabelRepository.GetList(SqlCrudConfig);
+            List<SqlPluLabelEntity> items = PluLabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

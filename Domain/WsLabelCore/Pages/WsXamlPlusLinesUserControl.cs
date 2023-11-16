@@ -57,7 +57,7 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     /// <returns></returns>
     private void CreatePluUserControls()
     {
-        List<WsSqlViewPluLineModel> viewPlusScales = ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, WsLabelSessionHelper.PlusPageSize);
+        List<SqlViewPluLineModel> viewPlusScales = ContextCache.GetCurrentViewPlusScales(LabelSession.PlusPageNumber, WsLabelSessionHelper.PlusPageSize);
         if (!viewPlusScales.Any())
         {
             PluUserControls = new WsFormPluControl?[0, 0];
@@ -86,11 +86,11 @@ public sealed partial class WsXamlPlusLinesUserControl : WsFormBaseUserControl, 
     {
         WsFormNavigationUtils.ActionTryCatch(() =>
         {
-            if (sender is Control { Tag: WsSqlViewPluLineModel viewPluScale })
+            if (sender is Control { Tag: SqlViewPluLineModel viewPluScale })
             {
                 if (ContextCache.LocalViewPlusLines.Any())
                 {
-                    ViewModel.PluLine = new WsSqlPluLineRepository().GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
+                    ViewModel.PluLine = new SqlPluLineRepository().GetItem(viewPluScale.ScaleId, viewPluScale.PluNumber);
                 }
             }
 

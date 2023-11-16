@@ -3,7 +3,7 @@ namespace ScalesUI.Forms;
 
 public partial class WsMainForm
 {
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     
     #region Public and private methods
     

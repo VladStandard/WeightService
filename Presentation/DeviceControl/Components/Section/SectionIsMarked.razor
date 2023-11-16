@@ -3,7 +3,7 @@
 
 <RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center"
                       SortProperty="IsMarked" Title="@WsLocaleCore.Table.IsMarkedShort"
-                      Visible="@(SqlCrudConfigSection.IsMarked != WsSqlEnumIsMarked.ShowOnlyActual)">
+                      Visible="@(SqlCrudConfigSection.IsMarked != SqlEnumIsMarked.ShowOnlyActual)">
   <Template Context="item">
     @if (item.IsMarked)
     {

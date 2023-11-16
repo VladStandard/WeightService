@@ -2,6 +2,6 @@
 
 namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
-public sealed class ClipValidatorTests : TableValidatorTests<WsSqlClipEntity>
+public sealed class ClipValidatorTests : TableValidatorTests<SqlClipEntity>
 {
 }

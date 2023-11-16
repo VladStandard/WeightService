@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Logs.WebServiceLogs;
 
-public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebEntity>
+public sealed partial class WebServiceLogs : SectionBase<SqlLogWebEntity>
 {
     #region Public and private fields, properties, constructor
 
@@ -18,8 +18,8 @@ public sealed partial class WebServiceLogs : SectionBase<WsSqlLogWebEntity>
 
     protected override void SetSqlSectionCast()
     {
-        WsSqlCrudConfigModel crud = WsSqlCrudConfigFactory.GetCrudAll();
-        SqlSectionCast = new WsSqlLogWebRepository().GetList(crud).ToList();
+        SqlCrudConfigModel crud = SqlCrudConfigFactory.GetCrudAll();
+        SqlSectionCast = new SqlLogWebRepository().GetList(crud).ToList();
     }
 
     #endregion

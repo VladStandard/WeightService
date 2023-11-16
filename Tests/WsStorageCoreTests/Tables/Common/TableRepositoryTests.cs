@@ -2,7 +2,7 @@ namespace WsStorageCoreTests.Tables.Common;
 
 public class TableRepositoryTests
 {
-    protected WsSqlCrudConfigModel SqlCrudConfig { get; private set; }
+    protected SqlCrudConfigModel SqlCrudConfig { get; private set; }
     protected List<WsEnumConfiguration> DefaultConfigurations { get; }
 
     public TableRepositoryTests()
@@ -17,9 +17,9 @@ public class TableRepositoryTests
         SqlCrudConfig = new() { SelectTopRowsCount = 10, IsResultOrder = true };
     }
 
-    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.Name)).Ascending;
+    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Name)).Ascending;
 
-    protected void ParseRecords<T>(IEnumerable<T> items) where T : WsSqlEntityBase, new()
+    protected void ParseRecords<T>(IEnumerable<T> items) where T : SqlEntityBase, new()
     {
         List<T> list = items.ToList();
         Assert.That(list.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
@@ -29,9 +29,9 @@ public class TableRepositoryTests
 
         foreach (T item in list)
         {
-            TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString()));
+            TestContext.WriteLine(SqlQueries.TrimQuery(item.ToString()));
 
-            ValidationResult validationResult = WsSqlValidationUtils.GetValidationResult(item, true);
+            ValidationResult validationResult = SqlValidationUtils.GetValidationResult(item, true);
             Assert.That(validationResult.IsValid, Is.True, validationResult.ToString());
         }
     }

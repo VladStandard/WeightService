@@ -2,7 +2,7 @@ namespace WsStorageCoreTests.Views;
 
 public class ViewRepositoryTests
 {
-    protected WsSqlCrudConfigModel SqlCrudConfig { get; private set; }
+    protected SqlCrudConfigModel SqlCrudConfig { get; private set; }
     protected List<WsEnumConfiguration> AllConfigurations { get; }
     protected virtual IResolveConstraint SortOrderValue => throw new NotImplementedException();
 
@@ -25,6 +25,6 @@ public class ViewRepositoryTests
         Assert.That(list, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
         TestContext.WriteLine($"Print {list.Count} records.");
         foreach (T item in list)
-            TestContext.WriteLine(WsSqlQueries.TrimQuery(item.ToString() ?? string.Empty));
+            TestContext.WriteLine(SqlQueries.TrimQuery(item.ToString() ?? string.Empty));
     }
 }

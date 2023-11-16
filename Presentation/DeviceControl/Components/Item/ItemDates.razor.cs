@@ -4,7 +4,7 @@ public partial class ItemDates : ComponentBase
 {
     #region Public and private fields, properties, constructor
     
-    [Parameter] public WsSqlEntityBase SqlItem { get; set; }
+    [Parameter] public SqlEntityBase SqlItem { get; set; }
 
     #endregion
 }

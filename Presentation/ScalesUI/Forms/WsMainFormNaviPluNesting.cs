@@ -18,7 +18,7 @@ public partial class WsMainForm
             // Проверить наличие ПЛУ.
             if (!ActionCheckPluIsNew()) return;
             // Обновить кэш.
-            ContextCache.Load(WsSqlEnumTableName.ViewPlusNesting);
+            ContextCache.Load(SqlEnumTableName.ViewPlusNesting);
             // Навигация в контрол смены вложенности ПЛУ.
             WsFormNavigationUtils.NavigateToExistsPlusNesting(ShowFormUserControl);
         });

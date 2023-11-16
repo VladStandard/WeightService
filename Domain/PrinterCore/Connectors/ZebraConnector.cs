@@ -7,7 +7,7 @@ namespace PrinterCore.Connectors;
 
 public class ZebraConnector : IPrinterConnector
 {
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     private Connection? Connector { get; set; }
     private ZebraPrinter? Printer { get; set; }
     private ZebraPrinterStatus? Status { get; set; }

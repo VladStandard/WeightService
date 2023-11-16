@@ -5,14 +5,14 @@ namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 [TestFixture]
 public sealed class WorkShopRepositoryTests : TableRepositoryTests
 {
-    private WsSqlWorkShopRepository WorkShopRepository { get; } = new();
+    private SqlWorkShopRepository WorkShopRepository { get; } = new();
 
     [Test, Order(1)]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlWorkShopEntity> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlWorkShopEntity> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -22,7 +22,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlWorkShopEntity app = WorkShopRepository.GetNewItem();
+            SqlWorkShopEntity app = WorkShopRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);
             TestContext.WriteLine($"New item: {app.IdentityValueUid}");
         }, false);

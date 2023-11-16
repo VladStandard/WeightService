@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlAccessEntity>
+@inherits SectionBase<SqlAccessEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.Strings.AccessRights"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlAccessEntity"
+  TItem="@SqlAccessEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,9 +22,9 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlAccessEntity">
+    <TItemContent TItem="@SqlAccessEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="@WsSqlAccessEntity" Title="@WsLocaleCore.Table.AccessLevel"
+      <RadzenDataGridColumn TItem="@SqlAccessEntity" Title="@WsLocaleCore.Table.AccessLevel"
                             SortProperty="Rights" Width="30%">
         <Template Context="itemCast">
           @GetAccessRightsDescription(itemCast.Rights)

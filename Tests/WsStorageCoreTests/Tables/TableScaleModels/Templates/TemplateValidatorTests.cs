@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Templates;
 
 [TestFixture]
-public sealed class TemplateValidatorTests : TableValidatorTests<WsSqlTemplateEntity>
+public sealed class TemplateValidatorTests : TableValidatorTests<SqlTemplateEntity>
 {
 }

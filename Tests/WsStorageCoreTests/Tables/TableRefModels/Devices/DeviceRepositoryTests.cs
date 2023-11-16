@@ -6,14 +6,14 @@ namespace WsStorageCoreTests.Tables.TableRefModels.Devices;
 [TestFixture]
 public sealed class DeviceRepositoryTests : TableRepositoryTests
 {
-    private WsSqlHostRepository HostRepository { get; } = new();
+    private SqlHostRepository HostRepository { get; } = new();
 
     [Test, Order(1)]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<WsSqlHostEntity> items = HostRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlHostEntity> items = HostRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -24,8 +24,8 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlHostEntity host = HostRepository.GetItemByNameOrCreate(pcName);
-            WsSqlHostEntity hostByUid = HostRepository.GetItemByUid(host.IdentityValueUid);
+            SqlHostEntity host = HostRepository.GetItemByNameOrCreate(pcName);
+            SqlHostEntity hostByUid = HostRepository.GetItemByUid(host.IdentityValueUid);
 
             Assert.That(host.IsExists, Is.True);
             Assert.That(hostByUid.IsExists, Is.True);
@@ -40,9 +40,9 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
         WsTestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
-            WsSqlHostEntity hostByName = HostRepository.GetItemByName(pcName);
+            SqlHostEntity hostByName = HostRepository.GetItemByName(pcName);
             Guid uid = hostByName.IdentityValueUid;
-            WsSqlHostEntity hostByUid = HostRepository.GetItemByUid(uid);
+            SqlHostEntity hostByUid = HostRepository.GetItemByUid(uid);
 
             Assert.That(hostByUid.IsExists, Is.True);
             Assert.That(hostByUid.IdentityValueUid, Is.EqualTo(uid));
@@ -56,7 +56,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlHostEntity host = HostRepository.GetNewItem();
+            SqlHostEntity host = HostRepository.GetNewItem();
             Assert.That(host.IsNew, Is.True);
             TestContext.WriteLine($"New item: {host.IdentityValueUid}");
         }, false);

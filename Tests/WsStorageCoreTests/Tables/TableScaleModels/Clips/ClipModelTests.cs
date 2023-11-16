@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Clips;
 
 [TestFixture]
-public sealed class ClipModelTests : TableModelTests<WsSqlClipEntity>
+public sealed class ClipModelTests : TableModelTests<SqlClipEntity>
 {
 }

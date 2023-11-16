@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.ProductionFacilities;
 
 [TestFixture]
-public sealed class ProductionFacilityValidatorTests : TableValidatorTests<WsSqlProductionSiteEntity>
+public sealed class ProductionFacilityValidatorTests : TableValidatorTests<SqlProductionSiteEntity>
 {
 }

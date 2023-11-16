@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.WorkShops;
 
 [TestFixture]
-public sealed class WorkShopValidatorTests : TableValidatorTests<WsSqlWorkShopEntity>
+public sealed class WorkShopValidatorTests : TableValidatorTests<SqlWorkShopEntity>
 {
 }

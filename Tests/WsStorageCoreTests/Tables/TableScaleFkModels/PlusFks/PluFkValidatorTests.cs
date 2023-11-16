@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusFks;
 
 [TestFixture]
-public sealed class PluFkValidatorTests : TableValidatorTests<WsSqlPluFkEntity>
+public sealed class PluFkValidatorTests : TableValidatorTests<SqlPluFkEntity>
 {
 }

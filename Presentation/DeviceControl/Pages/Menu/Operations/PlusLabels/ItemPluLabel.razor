@@ -2,9 +2,9 @@
 @page "/section/plus_labels/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlPluLabelEntity>
+@inherits ItemBase<SqlPluLabelEntity>
 
-<ItemTopBar TItem="@WsSqlPluLabelEntity" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluLabelEntity" Title="@WsLocaleCore.DeviceControl.ItemLabel" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

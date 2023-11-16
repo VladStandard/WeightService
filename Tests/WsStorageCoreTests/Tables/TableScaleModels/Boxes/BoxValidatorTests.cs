@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Boxes;
 
 [TestFixture]
-public sealed class BoxValidatorTests : TableValidatorTests<WsSqlBoxEntity>
+public sealed class BoxValidatorTests : TableValidatorTests<SqlBoxEntity>
 {
 }

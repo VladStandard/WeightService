@@ -1,6 +1,6 @@
 namespace WsStorageCore.Views.ViewScaleModels.PluLabels;
 
-public interface IViewPluLabelRepository : IWsSqlViewBaseRepository<WsSqlViewPluLabelModel>
+public interface IViewPluLabelRepository : ISqlViewBaseRepository<SqlViewPluLabelModel>
 {
     //
 }

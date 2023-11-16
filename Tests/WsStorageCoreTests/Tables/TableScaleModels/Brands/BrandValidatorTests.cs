@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Brands;
 
 [TestFixture]
-public sealed class BrandValidatorTests : TableValidatorTests<WsSqlBrandEntity>
+public sealed class BrandValidatorTests : TableValidatorTests<SqlBrandEntity>
 {
 }

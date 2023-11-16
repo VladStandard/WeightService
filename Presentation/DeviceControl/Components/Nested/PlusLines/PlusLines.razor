@@ -1,7 +1,7 @@
 ﻿@attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsSqlPluScaleEntity>
+@inherits SectionBase<SqlPluScaleEntity>
 
 <SectionTopBar
   Title="@WsLocaleCore.DeviceControl.SectionPlusScales"
@@ -13,7 +13,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@WsSqlPluScaleEntity"
+  TItem="@SqlPluScaleEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@WsSqlPluScaleEntity">
+    <TItemContent TItem="@SqlPluScaleEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="Plu.Name" />
       <RadzenDataGridColumn Title="@WsLocaleCore.Table.NumberShort" Property="Plu.Number" />

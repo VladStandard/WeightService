@@ -1,17 +1,17 @@
 using WsStorageCore.Enums;
 namespace DeviceControl.Pages.Menu.Logs.MainLogs;
 
-public sealed partial class Logs : SectionBase<WsSqlLogEntity>
+public sealed partial class Logs : SectionBase<SqlLogEntity>
 {
     private LogTypeEnum? CurrentLogType { get; set; }
-    private WsSqlScaleEntity? CurrentLine { get; set; }
-    private List<WsSqlScaleEntity> Lines { get; set; }
-    private WsSqlLogRepository LogRepository { get; } = new();
-    private WsSqlLineRepository LineRepository { get; } = new();
+    private SqlScaleEntity? CurrentLine { get; set; }
+    private List<SqlScaleEntity> Lines { get; set; }
+    private SqlLogRepository LogRepository { get; } = new();
+    private SqlLineRepository LineRepository { get; } = new();
 
     public Logs() : base()
     {
-        WsSqlCrudConfigModel sqlCrudConfig = WsSqlCrudConfigFactory.GetCrudActual();
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudActual();
         
         Lines = LineRepository.GetEnumerable(sqlCrudConfig).ToList();
         

@@ -2,9 +2,9 @@
 @page "/section/templates_resources/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
 @using DeviceControl.Components.Item
-@inherits ItemBase<WsSqlTemplateResourceEntity>
+@inherits ItemBase<SqlTemplateResourceEntity>
 
-<ItemTopBar TItem="@WsSqlTemplateResourceEntity" Title="@WsLocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlTemplateResourceEntity" Title="@WsLocaleCore.DeviceControl.ItemTemplateResource" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

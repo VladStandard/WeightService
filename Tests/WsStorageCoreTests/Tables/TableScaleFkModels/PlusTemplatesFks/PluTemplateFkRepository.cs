@@ -6,9 +6,9 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusTemplatesFks;
 [TestFixture]
 public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluTemplateFkRepository PluTemplateFkRepository { get; set; } = new();
+    private SqlPluTemplateFkRepository PluTemplateFkRepository { get; set; } = new();
 
-    private WsSqlPluTemplateFkEntity GetFirstPluTemplateFkModel()
+    private SqlPluTemplateFkEntity GetFirstPluTemplateFkModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluTemplateFkRepository.GetList(SqlCrudConfig).First();
@@ -19,7 +19,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluTemplateFkEntity> items = PluTemplateFkRepository.GetList(SqlCrudConfig);
+            List<SqlPluTemplateFkEntity> items = PluTemplateFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -29,9 +29,9 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlPluTemplateFkEntity oldPluTemplateFk = GetFirstPluTemplateFkModel();
-            WsSqlPluEntity plu = oldPluTemplateFk.Plu;
-            WsSqlPluTemplateFkEntity pluTemplateByPlu = PluTemplateFkRepository.GetItemByPlu(plu);
+            SqlPluTemplateFkEntity oldPluTemplateFk = GetFirstPluTemplateFkModel();
+            SqlPluEntity plu = oldPluTemplateFk.Plu;
+            SqlPluTemplateFkEntity pluTemplateByPlu = PluTemplateFkRepository.GetItemByPlu(plu);
 
             Assert.That(pluTemplateByPlu.IsExists, Is.True);
             Assert.That(pluTemplateByPlu, Is.EqualTo(oldPluTemplateFk));

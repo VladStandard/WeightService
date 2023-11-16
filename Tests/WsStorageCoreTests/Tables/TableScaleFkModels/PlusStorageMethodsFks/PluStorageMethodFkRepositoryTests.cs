@@ -6,9 +6,9 @@ namespace WsStorageCoreTests.Tables.TableScaleFkModels.PlusStorageMethodsFks;
 [TestFixture]
 public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
 {
-    private WsSqlPluStorageMethodFkRepository PluStorageMethodFkRepository { get; } = new();
+    private SqlPluStorageMethodFkRepository PluStorageMethodFkRepository { get; } = new();
 
-    private WsSqlPluStorageMethodFkEntity GetFirstPluStorageMethodFk()
+    private SqlPluStorageMethodFkEntity GetFirstPluStorageMethodFk()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return PluStorageMethodFkRepository.GetList(SqlCrudConfig).First();
@@ -19,7 +19,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlPluStorageMethodFkEntity> items = PluStorageMethodFkRepository.GetList(SqlCrudConfig);
+            List<SqlPluStorageMethodFkEntity> items = PluStorageMethodFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -29,9 +29,9 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlPluStorageMethodFkEntity oldPluStorageMethodFk = GetFirstPluStorageMethodFk();
-            WsSqlPluEntity plu = oldPluStorageMethodFk.Plu;
-            WsSqlPluStorageMethodFkEntity pluStorageMethodFksByPlu = PluStorageMethodFkRepository.GetItemByPlu(plu);
+            SqlPluStorageMethodFkEntity oldPluStorageMethodFk = GetFirstPluStorageMethodFk();
+            SqlPluEntity plu = oldPluStorageMethodFk.Plu;
+            SqlPluStorageMethodFkEntity pluStorageMethodFksByPlu = PluStorageMethodFkRepository.GetItemByPlu(plu);
 
             Assert.That(pluStorageMethodFksByPlu.IsExists, Is.True);
             Assert.That(pluStorageMethodFksByPlu, Is.EqualTo(oldPluStorageMethodFk));

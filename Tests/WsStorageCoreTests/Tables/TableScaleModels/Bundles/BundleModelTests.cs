@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableScaleModels.Bundles;
 
 [TestFixture]
-public sealed class BundleModelTests : TableModelTests<WsSqlBundleEntity>
+public sealed class BundleModelTests : TableModelTests<SqlBundleEntity>
 {
 }

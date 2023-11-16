@@ -6,7 +6,7 @@ public static class SqlOrder
     
     public static Order Asc(string name) => Order.Asc(name);
     
-    public static Order CreateDtDesc() => Order.Desc(nameof(WsSqlEntityBase.CreateDt));
+    public static Order CreateDtDesc() => Order.Desc(nameof(SqlEntityBase.CreateDt));
     
-    public static Order NameAsc() => Order.Asc(nameof(WsSqlEntityBase.Name));
+    public static Order NameAsc() => Order.Asc(nameof(SqlEntityBase.Name));
 }

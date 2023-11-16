@@ -5,17 +5,17 @@ namespace WsStorageCoreTests.Views.ViewScaleModels.Barcodes;
 [TestFixture]
 public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
 {
-    private IViewBarcodeRepository ViewBarcodeRepository { get; } = new WsSqlViewBarcodeRepository();
+    private IViewBarcodeRepository ViewBarcodeRepository { get; } = new SqlViewBarcodeRepository();
 
     protected override IResolveConstraint SortOrderValue => Is
-        .Ordered.By(nameof(WsSqlViewBarcodeModel.CreateDt)).Descending;
+        .Ordered.By(nameof(SqlViewBarcodeModel.CreateDt)).Descending;
 
     [Test]
     public void GetList()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IList<WsSqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
+            IList<SqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);
         }, false);
     }

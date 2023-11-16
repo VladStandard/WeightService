@@ -6,22 +6,22 @@ namespace WsStorageCoreTests.Tables.TableDiagModels.Logs;
 [TestFixture]
 public sealed class LogRepositoryTests : TableRepositoryTests
 {
-    private WsSqlLogRepository LogRepository { get; } = new();
+    private SqlLogRepository LogRepository { get; } = new();
 
-    private WsSqlLogEntity GetFirstLogModel()
+    private SqlLogEntity GetFirstLogModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return LogRepository.GetList(SqlCrudConfig).First();
     }
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(WsSqlEntityBase.ChangeDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.ChangeDt)).Descending;
 
     [Test]
     public void GetEnumerable()
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            List<WsSqlLogEntity> items = LogRepository.GetEnumerable(SqlCrudConfig).ToList();
+            List<SqlLogEntity> items = LogRepository.GetEnumerable(SqlCrudConfig).ToList();
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
         }, false);
@@ -32,7 +32,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            IList<WsSqlLogEntity> items = LogRepository.GetList(SqlCrudConfig);
+            IList<SqlLogEntity> items = LogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
             ParseRecords(items);
         }, false);
@@ -43,8 +43,8 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlLogEntity oldLog = GetFirstLogModel();
-            WsSqlLogEntity logByUid = LogRepository.GetItemByUid(oldLog.IdentityValueUid);
+            SqlLogEntity oldLog = GetFirstLogModel();
+            SqlLogEntity logByUid = LogRepository.GetItemByUid(oldLog.IdentityValueUid);
 
             Assert.That(logByUid.IsExists, Is.True);
             Assert.That(logByUid, Is.EqualTo(oldLog));
@@ -58,7 +58,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     {
         WsTestsUtils.DataTests.AssertAction(() =>
         {
-            WsSqlLogEntity log = LogRepository.GetItemFirst();
+            SqlLogEntity log = LogRepository.GetItemFirst();
             Assert.That(log.IsExists, Is.True);
             TestContext.WriteLine($"{log}");
         }, false);

@@ -12,7 +12,7 @@ public class WsMassaDeviceHelper : IDisposable
 	#endregion
 
 	#region Public and private fields and properties
-    private WsSqlContextItemHelper ContextItem => WsSqlContextItemHelper.Instance;
+    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     
     private readonly object _locker = new();
     private bool IsOpenResult { get; set; }

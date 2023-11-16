@@ -3,6 +3,6 @@
 namespace WsStorageCoreTests.Tables.TableRefModels.Devices;
 
 [TestFixture]
-public sealed class DeviceValidatorTests : TableValidatorTests<WsSqlHostEntity>
+public sealed class DeviceValidatorTests : TableValidatorTests<SqlHostEntity>
 {
 }

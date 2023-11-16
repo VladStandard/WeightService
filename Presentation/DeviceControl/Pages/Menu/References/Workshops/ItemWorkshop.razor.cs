@@ -1,10 +1,10 @@
 namespace DeviceControl.Pages.Menu.References.Workshops;
 
-public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopEntity>
+public sealed partial class ItemWorkshop : ItemBase<SqlWorkShopEntity>
 {
     #region Public and private fields, properties, constructor
 
-    private List<WsSqlProductionSiteEntity> ProductionSiteModels { get; set; }
+    private List<SqlProductionSiteEntity> ProductionSiteModels { get; set; }
 
     #endregion
 
@@ -13,7 +13,7 @@ public sealed partial class ItemWorkshop : ItemBase<WsSqlWorkShopEntity>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        ProductionSiteModels = new WsSqlProductionSiteRepository().GetEnumerable(WsSqlCrudConfigFactory.GetCrudActual()).ToList();
+        ProductionSiteModels = new SqlProductionSiteRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
     }
 
     #endregion
