@@ -35,7 +35,7 @@ public sealed class WsLabelSessionHelper : BaseViewModel
     public static ushort PlusPageColumnCount => 4;
     public static ushort PlusPageSize => 16;
     public static ushort PlusPageRowCount => 4;
-    public static string DeviceName => MdNetUtils.GetLocalDeviceName(false);
+    public static string DeviceName => Environment.MachineName;
     public WsPluginPrintTscModel? PluginPrintTscMain { get; set; }
     public WsPluginPrintZebraModel? PluginPrintZebraMain { get; set; }
     public WsSqlPluWeighingEntity PluWeighing { get; set; }

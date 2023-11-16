@@ -128,6 +128,7 @@ Global
 		{938FDA57-21B9-4EEB-AE2C-D15546ED91F6}.DevelopVS|x64.Build.0 = DevelopVs|x64
 		{938FDA57-21B9-4EEB-AE2C-D15546ED91F6}.DevelopVS|x64.Deploy.0 = DevelopVs|x64
 		{938FDA57-21B9-4EEB-AE2C-D15546ED91F6}.ReleaseVS|x64.ActiveCfg = ReleaseVs|x64
+		{938FDA57-21B9-4EEB-AE2C-D15546ED91F6}.ReleaseVS|x64.Build.0 = ReleaseVs|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
