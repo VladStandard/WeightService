@@ -52,7 +52,7 @@
         <Compile Include="Pages\WsXamlDigitsUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
-        <Compile Include="Pages\WsXamlDigitsUserControl.Designer.cs">
+       <Compile Include="Pages\WsXamlDigitsUserControl.Designer.cs">
             <DependentUpon>WsXamlDigitsUserControl.cs</DependentUpon>
         </Compile>
         <Compile Include="Pages\WsXamlPlusNestingUserControl.cs">
