@@ -29,7 +29,7 @@
         <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />
+      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <ItemGroup>

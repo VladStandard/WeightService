@@ -1,9 +1,9 @@
 ﻿@page "/section/hosts"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsStorageCore.Entities.SchemaRef.Hosts
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<WsStorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
+@inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
 <SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionHosts"

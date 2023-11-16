@@ -1,7 +1,7 @@
 @page "/section/printers/new"
 @page "/section/printers/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsStorageCore.Enums
+@using Ws.StorageCore.Enums
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlPrinterEntity>

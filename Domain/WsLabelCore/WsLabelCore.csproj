@@ -229,9 +229,9 @@
         <None Include="Resources\settings_2.png" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj">
+        <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj">
           <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
-          <Name>WsStorageCore</Name>
+          <Name>Ws.StorageCore</Name>
         </ProjectReference>
         <ProjectReference Include="..\PrinterCore\PrinterCore.csproj">
             <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>

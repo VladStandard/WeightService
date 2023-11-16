@@ -13,7 +13,7 @@
         <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />
+      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\WsWebApiCore\WsWebApiCore.csproj" />
     </ItemGroup>
 </Project>

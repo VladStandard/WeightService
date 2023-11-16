@@ -1,11 +1,11 @@
 using PrinterCore.Utils;
 using PrinterCore.Zpl;
-using WsStorageCore.Entities.SchemaScale.BarCodes;
-using WsStorageCore.Entities.SchemaScale.PlusLabels;
-using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
-using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
-using WsStorageCore.Entities.SchemaScale.Templates;
-using WsStorageCore.Entities.SchemaScale.TemplatesResources;
+using Ws.StorageCore.Entities.SchemaScale.BarCodes;
+using Ws.StorageCore.Entities.SchemaScale.PlusLabels;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using Ws.StorageCore.Entities.SchemaScale.Templates;
+using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace WsLabelCore.Helpers;
 

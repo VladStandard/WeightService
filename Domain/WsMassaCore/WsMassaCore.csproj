@@ -44,9 +44,9 @@
         <Compile Include="Utils\SerialPortUtils.cs"/>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj">
+      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj">
         <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
-        <Name>WsStorageCore</Name>
+        <Name>Ws.StorageCore</Name>
       </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>

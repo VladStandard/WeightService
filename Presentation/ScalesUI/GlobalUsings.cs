@@ -19,5 +19,5 @@ global using WsLabelCore.Pages;
 global using WsLabelCore.Utils;
 global using WsLocalizationCore.Common;
 global using WsLocalizationCore.Utils;
-global using WsStorageCore.Common;
-global using WsStorageCore.Helpers;
+global using Ws.StorageCore.Common;
+global using Ws.StorageCore.Helpers;

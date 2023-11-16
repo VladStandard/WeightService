@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalizationCore", "Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsMassaCore", "Domain\WsMassaCore\WsMassaCore.csproj", "{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsStorageCore", "DataAccess\WsStorageCore\WsStorageCore.csproj", "{6F69D674-DA0E-4E6C-A5D8-7D1D33F14CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.StorageCore", "DataAccess\Ws.StorageCore\Ws.StorageCore.csproj", "{6F69D674-DA0E-4E6C-A5D8-7D1D33F14CD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsWebApiCore", "Domain\WsWebApiCore\WsWebApiCore.csproj", "{85DCDDF4-C8E2-402B-B95B-C20AAF34B040}"
 EndProject
@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.AssertCoreTests", "Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.DataCoreTests", "Tests\Ws.DataCoreTests\Ws.DataCoreTests.csproj", "{3CBD15ED-DCD6-4147-9B3E-0B130C97B6F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsStorageCoreTests", "Tests\WsStorageCoreTests\WsStorageCoreTests.csproj", "{C3F29E5E-E856-4250-AAF4-B941B93772CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.StorageCoreTests", "Tests\Ws.StorageCoreTests\Ws.StorageCoreTests.csproj", "{C3F29E5E-E856-4250-AAF4-B941B93772CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.LabelCoreTests", "Tests\Ws.LabelCoreTests\Ws.LabelCoreTests.csproj", "{86A9C840-E60C-4235-B3F4-763AD7BDF1BB}"
 EndProject

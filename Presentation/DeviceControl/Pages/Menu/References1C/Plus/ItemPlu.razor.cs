@@ -1,5 +1,5 @@
-using WsStorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
-using WsStorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 namespace DeviceControl.Pages.Menu.References1C.Plus;
 
 public sealed partial class ItemPlu : ItemBase<SqlPluEntity>

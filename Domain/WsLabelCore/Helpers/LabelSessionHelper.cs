@@ -1,10 +1,10 @@
-using WsStorageCore.Entities.SchemaRef.Hosts;
-using WsStorageCore.Entities.SchemaRef.ProductionSites;
-using WsStorageCore.Entities.SchemaRef.WorkShops;
-using WsStorageCore.Entities.SchemaScale.PlusNestingFks;
-using WsStorageCore.Entities.SchemaScale.PlusScales;
-using WsStorageCore.Entities.SchemaScale.PlusWeightings;
-using WsStorageCore.Entities.SchemaScale.Scales;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusScales;
+using Ws.StorageCore.Entities.SchemaScale.PlusWeightings;
+using Ws.StorageCore.Entities.SchemaScale.Scales;
 
 namespace WsLabelCore.Helpers;
 

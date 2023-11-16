@@ -58,9 +58,9 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj">
+        <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj">
           <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
-          <Name>WsStorageCore</Name>
+          <Name>Ws.StorageCore</Name>
         </ProjectReference>
         <ProjectReference Include="..\WsDataCore\WsDataCore.csproj">
             <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>

@@ -1,4 +1,4 @@
-using WsStorageCore.OrmUtils;
+using Ws.StorageCore.OrmUtils;
 namespace DeviceControl.Components.Nested.PlusLines;
 
 public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>

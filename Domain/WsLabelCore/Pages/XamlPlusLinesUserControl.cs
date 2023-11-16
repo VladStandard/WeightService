@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-using WsStorageCore.Entities.SchemaScale.PlusScales;
+using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 namespace WsLabelCore.Pages;
 

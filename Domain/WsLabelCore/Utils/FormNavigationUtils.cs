@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
-using WsStorageCore.Entities.SchemaRef.Hosts;
-using WsStorageCore.Enums;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Enums;
 
 namespace WsLabelCore.Utils;
 

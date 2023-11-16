@@ -1,6 +1,6 @@
 ﻿// using PrinterCore.Common;
 // using PrinterCore.Connectors;
-// using WsStorageCore.Tables.TableScaleModels.PlusLabels;
+// using Ws.StorageCore.Tables.TableScaleModels.PlusLabels;
 //
 // namespace PrinterCore.Printers;
 //

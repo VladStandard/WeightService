@@ -1,6 +1,6 @@
 using PrinterCore.Zpl;
-using WsStorageCore.Entities.SchemaScale.TemplatesResources;
-using WsStorageCore.OrmUtils;
+using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
+using Ws.StorageCore.OrmUtils;
 
 namespace PrinterCore.Utils;
 

@@ -9,4 +9,4 @@ global using WsMassaCore.Enums;
 global using WsMassaCore.Helpers;
 global using WsMassaCore.Models;
 global using WsMassaCore.Utils;
-global using WsStorageCore.Helpers;
+global using Ws.StorageCore.Helpers;

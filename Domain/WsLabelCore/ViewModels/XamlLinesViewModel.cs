@@ -1,5 +1,5 @@
-using WsStorageCore.Entities.SchemaRef.ProductionSites;
-using WsStorageCore.Entities.SchemaScale.Scales;
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.StorageCore.Entities.SchemaScale.Scales;
 
 namespace WsLabelCore.ViewModels;
 

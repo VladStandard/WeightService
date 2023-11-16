@@ -1,4 +1,4 @@
-using WsStorageCore.Entities.SchemaRef1c.Plus;
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 namespace WsLabelCore.Helpers;
 

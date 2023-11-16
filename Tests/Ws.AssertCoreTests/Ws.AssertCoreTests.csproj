@@ -13,7 +13,7 @@
         <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\WsStorageCore\WsStorageCore.csproj" />
+        <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
         <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj" />
         <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using PrinterCore.Common;
 using PrinterCore.Enums;
 using WsLocalizationCore.Utils;
-using WsStorageCore.Helpers;
+using Ws.StorageCore.Helpers;
 
 namespace PrinterCore.Connectors;
 

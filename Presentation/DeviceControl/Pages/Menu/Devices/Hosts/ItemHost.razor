@@ -1,10 +1,10 @@
 @page "/section/hosts/new"
 @page "/section/hosts/{Uid:guid}"
 @attribute [Authorize(Roles = WsUserAccessStr.Read)]
-@using WsStorageCore.Entities.SchemaRef.Hosts
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
-@inherits ItemBase<WsStorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
+@inherits ItemBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
 <ItemTopBar TItem="@SqlHostEntity" Title="@LocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
 

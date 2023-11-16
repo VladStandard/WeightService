@@ -1,5 +1,5 @@
-using WsStorageCore.Entities.SchemaRef.Printers;
-using WsStorageCore.Enums;
+using Ws.StorageCore.Entities.SchemaRef.Printers;
+using Ws.StorageCore.Enums;
 
 namespace WsLabelCore.Models;
 

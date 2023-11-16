@@ -1,4 +1,4 @@
-using WsStorageCore.OrmUtils;
+using Ws.StorageCore.OrmUtils;
 namespace DeviceControl.Pages.Menu.References1C.Plus;
 
 public sealed partial class Plu : SectionBase<SqlPluEntity>

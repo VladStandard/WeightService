@@ -1,4 +1,4 @@
-using WsStorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Pages.Menu.Devices.Hosts;
 
 public sealed partial class Hosts : SectionBase<SqlHostEntity>

@@ -1,4 +1,4 @@
-using WsStorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
 public sealed partial class ItemLines : ItemBase<SqlScaleEntity>

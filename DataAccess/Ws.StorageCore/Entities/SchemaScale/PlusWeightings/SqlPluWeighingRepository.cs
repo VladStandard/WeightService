@@ -1,0 +1,24 @@
+using Ws.StorageCore.Common;
+using Ws.StorageCore.Models;
+using Ws.StorageCore.OrmUtils;
+namespace Ws.StorageCore.Entities.SchemaScale.PlusWeightings;
+
+/// <summary>
+/// SQL-контроллер таблицы PLUS_WEIGHTINGS.
+/// Клиентский слой доступа к БД.
+/// </summary>
+public sealed class SqlPluWeighingRepository : SqlTableRepositoryBase<SqlPluWeighingEntity>
+{
+    #region Public and private methods
+
+    public SqlPluWeighingEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlPluWeighingEntity>();
+
+    public List<SqlPluWeighingEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    {
+        if (sqlCrudConfig.IsResultOrder)
+            sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
+        return SqlCore.GetEnumerable<SqlPluWeighingEntity>(sqlCrudConfig).ToList();
+    }
+    
+    #endregion
+}
