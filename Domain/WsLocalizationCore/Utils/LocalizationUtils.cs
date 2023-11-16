@@ -1,3 +1,4 @@
+using WsLocalizationCore.Common;
 namespace WsLocalizationCore.Utils;
 
 public static class LocalizationUtils

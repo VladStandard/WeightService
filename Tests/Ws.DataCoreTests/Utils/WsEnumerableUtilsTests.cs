@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using WsDataCore.Common;
+using Ws.DataCore.Common;
 
 namespace Ws.DataCoreTests.Utils;
 

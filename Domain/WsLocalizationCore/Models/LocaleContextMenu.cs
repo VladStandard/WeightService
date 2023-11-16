@@ -1,3 +1,4 @@
+using WsLocalizationCore.Common;
 namespace WsLocalizationCore.Models;
 
 public sealed class LocaleContextMenu : LocalizationBase

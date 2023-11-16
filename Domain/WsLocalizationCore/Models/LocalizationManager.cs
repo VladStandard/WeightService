@@ -1,3 +1,4 @@
+using WsLocalizationCore.Common;
 namespace WsLocalizationCore.Models;
 
 [DebuggerDisplay("{ToString()}")]

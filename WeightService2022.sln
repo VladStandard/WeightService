@@ -14,23 +14,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{9EFDDDBD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructurre", "Infrastructurre", "{E799E47F-67BB-4B10-BE06-297B00FD2954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterCore", "Domain\PrinterCore\PrinterCore.csproj", "{A713AB22-2C23-48B6-8974-2FD7230012F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.PrinterCore", "Domain\Ws.PrinterCore\Ws.PrinterCore.csproj", "{A713AB22-2C23-48B6-8974-2FD7230012F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsLocalizationCore", "Domain\WsLocalizationCore\WsLocalizationCore.csproj", "{024AC0D8-3E29-482B-B08A-6BF591B0F9E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsMassaCore", "Domain\WsMassaCore\WsMassaCore.csproj", "{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.MassaCore", "Domain\Ws.MassaCore\Ws.MassaCore.csproj", "{B16ECC51-2EF8-49E6-B77E-B8CC065550A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.StorageCore", "DataAccess\Ws.StorageCore\Ws.StorageCore.csproj", "{6F69D674-DA0E-4E6C-A5D8-7D1D33F14CD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsWebApiCore", "Domain\WsWebApiCore\WsWebApiCore.csproj", "{85DCDDF4-C8E2-402B-B95B-C20AAF34B040}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.WebApiCore", "Domain\Ws.WebApiCore\Ws.WebApiCore.csproj", "{85DCDDF4-C8E2-402B-B95B-C20AAF34B040}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.WebApiScales", "WebApi\Ws.WebApiScales\Ws.WebApiScales.csproj", "{676DD41C-946A-4966-968E-9BE2045620B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesUI", "Presentation\ScalesUI\ScalesUI.csproj", "{0F26292C-8B1B-4CE7-A1B7-D432ED7E492C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WsDataCore", "Domain\WsDataCore\WsDataCore.csproj", "{B5DE7B8C-16AE-4027-9BA5-F977605B850B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.DataCore", "Domain\Ws.DataCore\Ws.DataCore.csproj", "{B5DE7B8C-16AE-4027-9BA5-F977605B850B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsLabelCore", "Domain\WsLabelCore\WsLabelCore.csproj", "{C71C3398-8DA4-4729-AC11-08F48207AFF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.LabelCore", "Domain\Ws.LabelCore\Ws.LabelCore.csproj", "{C71C3398-8DA4-4729-AC11-08F48207AFF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.AssertCoreTests", "Tests\Ws.AssertCoreTests\Ws.AssertCoreTests.csproj", "{0083D85E-2759-419E-B283-2A6D36238BF5}"
 EndProject

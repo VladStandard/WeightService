@@ -48,7 +48,7 @@ public sealed class SqlContextItemHelper
         if (App.IsNew)
         {
             if (string.IsNullOrEmpty(appName))
-                appName = nameof(WsDataCore);
+                appName = nameof(DataCore);
             App = appRepository.GetItemByNameOrCreate(appName);
         }
     }

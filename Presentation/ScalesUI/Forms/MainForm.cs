@@ -1,4 +1,4 @@
-using WsDataCore.Utils;
+using Ws.DataCore.Utils;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Enums;
 namespace ScalesUI.Forms;

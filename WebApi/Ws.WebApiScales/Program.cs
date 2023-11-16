@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using WsWebApiCore.Settings;
+using Ws.WebApiCore.Settings;
 using Ws.WebApiScales.Dto.Response;
 using Ws.WebApiScales.Services;
 

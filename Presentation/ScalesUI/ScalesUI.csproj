@@ -194,17 +194,17 @@
       <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
       <Name>Ws.StorageCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Domain\PrinterCore\PrinterCore.csproj">
+    <ProjectReference Include="..\..\Domain\Ws.PrinterCore\Ws.PrinterCore.csproj">
       <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
-      <Name>PrinterCore</Name>
+      <Name>Ws.PrinterCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj">
+    <ProjectReference Include="..\..\Domain\Ws.DataCore\Ws.DataCore.csproj">
       <Project>{b5de7b8c-16ae-4027-9ba5-f977605b850b}</Project>
-      <Name>WsDataCore</Name>
+      <Name>Ws.DataCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Domain\WsLabelCore\WsLabelCore.csproj">
+    <ProjectReference Include="..\..\Domain\Ws.LabelCore\Ws.LabelCore.csproj">
       <Project>{c71c3398-8da4-4729-ac11-08f48207aff7}</Project>
-      <Name>WsLabelCore</Name>
+      <Name>Ws.LabelCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj">
       <Project>{024ac0d8-3e29-482b-b08a-6bf591b0f9e5}</Project>

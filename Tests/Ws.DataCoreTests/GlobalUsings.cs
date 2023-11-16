@@ -1,2 +1,2 @@
 global using System.Reflection;
-global using WsDataCore.Enums;
+global using Ws.DataCore.Enums;

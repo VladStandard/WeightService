@@ -25,7 +25,7 @@
         <Folder Include="Views\ViewPrintModels\" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj" />
+      <ProjectReference Include="..\..\Domain\Ws.DataCore\Ws.DataCore.csproj" />
     </ItemGroup>
     
     <Import Project="$(SolutionDir)\Targets\SqlSettings.targets" />

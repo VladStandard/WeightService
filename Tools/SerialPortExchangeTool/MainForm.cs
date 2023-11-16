@@ -4,10 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using NullFX.CRC;
-using WsDataCore.Utils;
-using WsMassaCore.Helpers;
-using WsMassaCore.Models;
-using WsMassaCore.Utils;
+using Ws.DataCore.Utils;
+using Ws.MassaCore.Helpers;
+using Ws.MassaCore.Models;
+using Ws.MassaCore.Utils;
 
 namespace SerialPortExchangeTool;
 

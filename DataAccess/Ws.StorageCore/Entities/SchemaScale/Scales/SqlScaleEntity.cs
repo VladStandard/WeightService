@@ -2,7 +2,7 @@ using Ws.StorageCore.Common;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
-using WsDataCore.Protocols;
+using Ws.DataCore.Protocols;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 

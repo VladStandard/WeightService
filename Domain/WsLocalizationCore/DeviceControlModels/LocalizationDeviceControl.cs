@@ -1,3 +1,4 @@
+using WsLocalizationCore.Common;
 namespace WsLocalizationCore.DeviceControlModels;
 
 public class LocalizationDeviceControl: LocalizationBase

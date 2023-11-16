@@ -16,7 +16,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Domain\WsDataCore\WsDataCore.csproj" />
-        <ProjectReference Include="..\..\Domain\WsLabelCore\WsLabelCore.csproj" />
+        <ProjectReference Include="..\..\Domain\Ws.DataCore\Ws.DataCore.csproj" />
+        <ProjectReference Include="..\..\Domain\Ws.LabelCore\Ws.LabelCore.csproj" />
     </ItemGroup>
 </Project>

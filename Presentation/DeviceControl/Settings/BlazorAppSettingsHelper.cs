@@ -1,5 +1,6 @@
-using WsDataCore.Memory;
-using WsDataCore.Models;
+using Ws.DataCore.Memory;
+using Ws.DataCore.Models;
+
 namespace DeviceControl.Settings;
 
 public class BlazorAppSettingsHelper

@@ -10,7 +10,7 @@ using Ws.StorageCore.Entities.SchemaRef1c.Clips;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using WsWebApiCore.Utils;
+using Ws.WebApiCore.Utils;
 
 namespace Ws.WebApiScales.Services;
 

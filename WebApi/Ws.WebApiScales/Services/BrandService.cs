@@ -4,7 +4,7 @@ using Ws.WebApiScales.Dto.Response;
 using Ws.WebApiScales.Validators;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
-using WsWebApiCore.Utils;
+using Ws.WebApiCore.Utils;
 
 namespace Ws.WebApiScales.Services;
 

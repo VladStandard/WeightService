@@ -1,4 +1,4 @@
-using PrinterCore.Zpl;
+using Ws.PrinterCore.Zpl;
 
 namespace Ws.LabelCoreTests.Zpl;
 

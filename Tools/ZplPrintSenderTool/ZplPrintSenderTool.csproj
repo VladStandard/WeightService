@@ -133,9 +133,9 @@
     <Content Include="ZPL.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\PrinterCore\PrinterCore.csproj">
+    <ProjectReference Include="..\..\Domain\Ws.PrinterCore\Ws.PrinterCore.csproj">
       <Project>{a713ab22-2c23-48b6-8974-2fd7230012f7}</Project>
-      <Name>PrinterCore</Name>
+      <Name>Ws.PrinterCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
