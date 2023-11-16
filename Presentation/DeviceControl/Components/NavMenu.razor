@@ -13,7 +13,7 @@
     @foreach (var menuSection in MenuSections)
     {
       <AuthorizeView Roles="@menuSection.RequiredRole">
-        <RadzenPanelMenuItem Text="@menuSection.Text">
+        <RadzenPanelMenuItem Icon="@menuSection.Icon" Text="@menuSection.Text">
           @foreach (var subMenu in menuSection.SubItems)
           {
             <RadzenPanelMenuItem Text="@subMenu.Text" Path="@subMenu.Path" />

@@ -3,33 +3,37 @@
 @using DeviceControl.Components.Rz
 @inherits ComponentBase
 
-<MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.UserInfo</MudElement>
-<MudSimpleTable Style="overflow-x: auto; " Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead />
-  <tbody>
-  <tr>
-    <td>@WsLocaleCore.Strings.AuthorizingUserName</td>
-    <td>@User?.Identity?.Name</td>
-  </tr>
-  <tr>
-    <td>@WsLocaleCore.Strings.AuthorizingApAddress</td>
-    <td>@IpAddress</td>
-  </tr>
-  <tr>
-    <td>@WsLocaleCore.Strings.AccessRights</td>
-    <td>@GetAccessRightsDescription(User)</td>
-  </tr>
-  <tr>
-    <td>@WsLocaleCore.Strings.Language</td>
-    <td>
-      <RzDropDown @bind-Value="@WsLocaleCore.Lang" Data="@Langs"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@WsLocaleCore.Strings.DefaultRowCount</td>
-    <td>
-      <RadzenNumeric Style="width: 100%" TValue="int" Min="0" Max="1000" @bind-Value="@DefaultRowCount" Change="@OnDefaultRowCountChanged"/>
-    </td>
-  </tr>
-  </tbody>
-</MudSimpleTable>
+<p class="page-title">@WsLocaleCore.System.UserInfo</p>
+
+<div class="info-table-wrapper">
+  <table class="info-table">
+    <ItemTableHead/>
+    <tbody>
+    <tr>
+      <td>@WsLocaleCore.Strings.AuthorizingUserName</td>
+      <td>@User?.Identity?.Name</td>
+    </tr>
+    <tr>
+      <td>@WsLocaleCore.Strings.AuthorizingApAddress</td>
+      <td>@IpAddress</td>
+    </tr>
+    <tr>
+      <td>@WsLocaleCore.Strings.AccessRights</td>
+      <td>@GetAccessRightsDescription(User)</td>
+    </tr>
+    <tr>
+      <td>@WsLocaleCore.Strings.Language</td>
+      <td>
+        <RzDropDown @bind-Value="@WsLocaleCore.Lang" Data="@Langs"/>
+      </td>
+    </tr>
+    <tr>
+      <td>@WsLocaleCore.Strings.DefaultRowCount</td>
+      <td>
+        <RadzenNumeric Style="width: 100%" TValue="int" Min="0" Max="1000" @bind-Value="@DefaultRowCount" Change="@OnDefaultRowCountChanged"/>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

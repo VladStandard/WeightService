@@ -4,9 +4,9 @@ namespace DeviceControl.Components;
 public sealed partial class NavMenu : ComponentBase
 {
     private static WsLocaleDeviceControl LocaleBlazor => new();
-
+    
     private static string SidebarThemeCss =>
-        WsDebugHelper.Instance.IsDevelop ? "side-nav_dev" : "side-nav_prod";
+        !WsDebugHelper.Instance.IsDevelop ? "side-nav_dev" : "side-nav_prod";
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {
@@ -14,6 +14,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = LocaleBlazor.SectionDevices,
             RequiredRole = WsUserAccessStr.Read,
+            Icon = "extension",
             SubItems = new List<MenuItem>
             {
                 new() { Text = LocaleBlazor.SectionScales, Path = WsRouteUtils.SectionLines },
@@ -25,6 +26,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = LocaleBlazor.SectionOperations,
             RequiredRole = WsUserAccessStr.Read,
+            Icon = "assignment",
             SubItems = new List<MenuItem>
             {
                 new() { Text = LocaleBlazor.SectionLabels, Path = WsRouteUtils.SectionPlusLabels },
@@ -37,6 +39,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = LocaleBlazor.SectionReferences1C,
             RequiredRole = WsUserAccessStr.Read,
+            Icon = "copyright",
             SubItems = new List<MenuItem>
             {
                 new() { Text = LocaleBlazor.SectionPlus, Path = WsRouteUtils.SectionPlus },
@@ -50,6 +53,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = LocaleBlazor.SectionReferences,
             RequiredRole = WsUserAccessStr.Read,
+            Icon = "description",
             SubItems = new List<MenuItem>
             {
                 new() { Text = LocaleBlazor.SectionOrganizations, Path = WsRouteUtils.SectionOrganizations },
@@ -64,6 +68,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = WsLocaleCore.Menu.MenuReports,
             RequiredRole = WsUserAccessStr.Read,
+            Icon = "build",
             SubItems = new List<MenuItem>
             {
                 new() { Text = WsLocaleCore.System.SystemLogsAll, Path = WsRouteUtils.SectionLogs },
@@ -74,6 +79,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Text = LocaleBlazor.SectionAdministering,
             RequiredRole = WsUserAccessStr.Admin,
+            Icon = "people",
             SubItems = new List<MenuItem>
             {
                 new() { Text = WsLocaleCore.System.Users, Path = WsRouteUtils.SectionAccess },
@@ -88,13 +94,14 @@ public sealed partial class NavMenu : ComponentBase
 
 internal class MenuItem
 {
-    public string Text { get; set; } = string.Empty;
-    public string Path { get; set; } = string.Empty;
+    public string Text { get; init; } = string.Empty;
+    public string Path { get; init; } = string.Empty;
 }
 
 internal class MenuSection
 {
-    public string Text { get; set; } = string.Empty;
-    public string RequiredRole { get; set; } = string.Empty;
-    public List<MenuItem> SubItems { get; set; } = new();
+    public string Text { get; init; } = string.Empty;
+    public string Icon { get; init; } = string.Empty;
+    public string RequiredRole { get; init; } = string.Empty;
+    public List<MenuItem> SubItems { get; init; } = new();
 }
