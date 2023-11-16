@@ -11,24 +11,24 @@ public sealed partial class NavMenu : ComponentBase
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {
-        new MenuSection
+        new()
         {
             Text = LocaleBlazor.SectionDevices,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "extension",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleBlazor.SectionScales, Path = WsRouteUtils.SectionLines },
                 new() { Text = LocaleBlazor.SectionHosts, Path = WsRouteUtils.SectionHosts },
                 new() { Text = LocaleCore.Print.Names, Path = WsRouteUtils.SectionPrinters }
             }
         },
-        new MenuSection
+        new()
         {
             Text = LocaleBlazor.SectionOperations,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "assignment",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleBlazor.SectionLabels, Path = WsRouteUtils.SectionPlusLabels },
                 new() { Text = LocaleBlazor.SectionBarCodes, Path = WsRouteUtils.SectionBarCodes },
@@ -36,12 +36,12 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Text = LocaleBlazor.SectionWeithingFactsAggregationShort, Path = WsRouteUtils.SectionPlusLabelsAggr }
             }
         },
-        new MenuSection
+        new()
         {
             Text = LocaleBlazor.SectionReferences1C,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "copyright",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleBlazor.SectionPlus, Path = WsRouteUtils.SectionPlus },
                 new() { Text = LocaleBlazor.SectionBoxes, Path = WsRouteUtils.SectionBoxes },
@@ -50,12 +50,12 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Text = LocaleBlazor.SectionBrands, Path = WsRouteUtils.SectionBrands }
             }
         },
-        new MenuSection
+        new()
         {
             Text = LocaleBlazor.SectionReferences,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "description",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleBlazor.SectionOrganizations, Path = WsRouteUtils.SectionOrganizations },
                 new() { Text = LocaleBlazor.SectionWorkShops, Path = WsRouteUtils.SectionWorkShops },
@@ -65,23 +65,23 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Text = LocaleBlazor.SectionPlusStorage, Path = WsRouteUtils.SectionPlusStorage }
             }
         },
-        new MenuSection
+        new()
         {
             Text = LocaleCore.Menu.MenuReports,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "build",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleCore.System.SystemLogsAll, Path = WsRouteUtils.SectionLogs },
                 new() { Text = LocaleCore.WebService.Name, Path = WsRouteUtils.SectionLogsWebService }
             }
         },
-        new MenuSection
+        new()
         {
             Text = LocaleBlazor.SectionAdministering,
             RequiredRole = WsUserAccessStr.Admin,
             Icon = "people",
-            SubItems = new List<MenuItem>
+            SubItems = new()
             {
                 new() { Text = LocaleCore.System.Users, Path = WsRouteUtils.SectionAccess },
                 new() { Text = LocaleCore.System.DatabaseInfo, Path = WsRouteUtils.SystemDatabaseInfo },

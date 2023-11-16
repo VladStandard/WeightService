@@ -10,8 +10,7 @@ public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()
-            .NotNull()
-            .LessThanOrEqualTo(DateTime.Now.Date.AddDays(1));
+            .NotNull();
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
