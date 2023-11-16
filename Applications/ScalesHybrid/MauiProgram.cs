@@ -4,9 +4,9 @@ using ScalesHybrid.Data;
 namespace ScalesHybrid;
 public static class MauiProgram
 {
-    public static MauiApp CreateMauiApp()
+    public static MauiAppBuilder CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder();
+        MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
@@ -23,6 +23,6 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<WeatherForecastService>();
 
-        return builder.Build();
+        return builder;
     }
 }
