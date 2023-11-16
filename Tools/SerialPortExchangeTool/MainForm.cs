@@ -15,8 +15,8 @@ public partial class MainForm : Form
 {
     #region Public and private fields and properties
 
-    private WsBytesHelper Bytes { get; } = WsBytesHelper.Instance;
-    private WsSerialPortHelper SerialPort { get; }
+    private BytesHelper Bytes { get; } = BytesHelper.Instance;
+    private SerialPortHelper SerialPort { get; }
     private int SendBytesCount { get; set; }
     private int ReceiveBytesCount { get; set; }
 
@@ -30,7 +30,7 @@ public partial class MainForm : Form
 
         Initialize();
         SerialPort = new(PortOpenCallback, PortCloseCallback, PortResponseCallback, PortExceptionCallback);
-        statusTimeLabel.Text = WsStrUtils.FormatDtRus(DateTime.Now, true);
+        statusTimeLabel.Text = StrUtils.FormatDtRus(DateTime.Now, true);
         toolStripStatusTx.Text = @"Sent: 0";
         toolStripStatusRx.Text = @"Received: 0";
         MaximizeBox = false;

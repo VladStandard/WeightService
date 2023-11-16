@@ -1,7 +1,7 @@
 namespace WsStorageCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
-public class SqlViewBase : WsViewModelBase
+public class SqlViewBase : ViewModelBase
 {
     #region Public and private fields, properties, constructor
 

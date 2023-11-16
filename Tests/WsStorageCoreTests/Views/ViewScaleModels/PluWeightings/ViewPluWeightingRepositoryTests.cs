@@ -13,7 +13,7 @@ public sealed class ViewPluWeightingRepositoryTests : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IList<SqlViewPluWeightingModel> items = ViewPluWeightingRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);

@@ -70,16 +70,16 @@ public partial class FormMain : Form
     #region Public and private methods
 
     private void SetupSendType() => 
-        SetComboBoxItems(comboBoxSendType, typeof(WsEnumPrintSendType), WsEnumPrintSendType.Default);
+        SetComboBoxItems(comboBoxSendType, typeof(EnumPrintSendType), EnumPrintSendType.Default);
 
     private void SetupLib() => 
-        SetComboBoxItems(comboBoxLibrary, typeof(WsEnumPrintTscDll), WsEnumPrintTscDll.TscLibNet32);
+        SetComboBoxItems(comboBoxLibrary, typeof(EnumPrintTscDll), EnumPrintTscDll.TscLibNet32);
 
     private void SetupLabelSize() => 
-        SetComboBoxItems(comboBoxLabelSize, typeof(WsEnumPrintLabelSize), WsEnumPrintLabelSize.Size80x100);
+        SetComboBoxItems(comboBoxLabelSize, typeof(EnumPrintLabelSize), EnumPrintLabelSize.Size80x100);
 
     private void SetupLabelDpi() => 
-        SetComboBoxItems(comboBoxLabelDpi, typeof(WsEnumPrintLabelDpi), WsEnumPrintLabelDpi.Dpi300);
+        SetComboBoxItems(comboBoxLabelDpi, typeof(EnumPrintLabelDpi), EnumPrintLabelDpi.Dpi300);
 
     private static void SetComboBoxItems(ComboBox comboBox, Type type, object valueDefault)
     {
@@ -103,44 +103,44 @@ public partial class FormMain : Form
         fieldIpPort.Text = !string.IsNullOrEmpty(Settings.Default.IpPort) ? Settings.Default.IpPort : "9100";
     }
 
-    private WsEnumPrintSendType GetSendType(string sendType)
+    private EnumPrintSendType GetSendType(string sendType)
     {
-        if (string.IsNullOrEmpty(sendType)) return WsEnumPrintSendType.Default;
-        foreach (WsEnumPrintSendType item in comboBoxSendType.Items)
+        if (string.IsNullOrEmpty(sendType)) return EnumPrintSendType.Default;
+        foreach (EnumPrintSendType item in comboBoxSendType.Items)
         {
             if (Equals(item.ToString(), sendType))
             {
                 return item;
             }
         }
-        return WsEnumPrintSendType.Default;
+        return EnumPrintSendType.Default;
     }
 
-    private WsEnumPrintLabelSize GetLabelSize()
+    private EnumPrintLabelSize GetLabelSize()
     {
         if (comboBoxLabelSize.Items.Count > 0)
         {
-            if (comboBoxLabelSize.Items[comboBoxLabelSize.SelectedIndex] is WsEnumPrintLabelSize printLabelSize)
+            if (comboBoxLabelSize.Items[comboBoxLabelSize.SelectedIndex] is EnumPrintLabelSize printLabelSize)
                 return printLabelSize;
         }
-        return WsEnumPrintLabelSize.Size80x100;
+        return EnumPrintLabelSize.Size80x100;
     }
 
-    private WsEnumPrintLabelDpi GetLabelDpi()
+    private EnumPrintLabelDpi GetLabelDpi()
     {
         if (comboBoxLabelDpi.Items.Count > 0)
         {
-            if (comboBoxLabelDpi.Items[comboBoxLabelDpi.SelectedIndex] is WsEnumPrintLabelDpi printLabelDpi)
+            if (comboBoxLabelDpi.Items[comboBoxLabelDpi.SelectedIndex] is EnumPrintLabelDpi printLabelDpi)
                 return printLabelDpi;
         }
-        return WsEnumPrintLabelDpi.Dpi300;
+        return EnumPrintLabelDpi.Dpi300;
     }
 
     private void ButtonLibInit_Click(object sender, EventArgs e)
     {
         TryAction(() =>
         {
-            TscDriver.Setup(WsEnumPrintChannel.Name, fieldName.Text, GetLabelSize(), GetLabelDpi());
+            TscDriver.Setup(EnumPrintChannel.Name, fieldName.Text, GetLabelSize(), GetLabelDpi());
             toolStripStatusLabel.Text = @"Init complete.";
         });
     }
@@ -149,7 +149,7 @@ public partial class FormMain : Form
     {
         TryAction(() =>
         {
-            TscDriver.Setup(WsEnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldIpPort.Text),
+            TscDriver.Setup(EnumPrintChannel.Ethernet, fieldIpAddress.Text, Convert.ToInt32(fieldIpPort.Text),
                 GetLabelSize(), GetLabelDpi());
             toolStripStatusLabel.Text = @"Init complete.";
         });
@@ -193,26 +193,26 @@ public partial class FormMain : Form
         {
             if (sender is not ComboBox cb)
                 return;
-            if (cb.SelectedItem is not WsEnumPrintSendType sendType)
+            if (cb.SelectedItem is not EnumPrintSendType sendType)
                 return;
             switch (sendType)
             {
-                case WsEnumPrintSendType.Default:
+                case EnumPrintSendType.Default:
                     SetUiEnable(false, false, false);
                     break;
-                case WsEnumPrintSendType.Serial:
+                case EnumPrintSendType.Serial:
                     SetUiEnable(false, false, false);
                     break;
-                case WsEnumPrintSendType.Tcp:
+                case EnumPrintSendType.Tcp:
                     SetUiEnable(true, false, true);
                     break;
-                case WsEnumPrintSendType.ZebraDriver:
+                case EnumPrintSendType.ZebraDriver:
                     SetUiEnable(true, true, false);
                     break;
-                case WsEnumPrintSendType.HprtDriver:
+                case EnumPrintSendType.HprtDriver:
                     SetUiEnable(true, true, false);
                     break;
-                case WsEnumPrintSendType.TscDriver:
+                case EnumPrintSendType.TscDriver:
                     SetUiEnable(true, true, false);
                     break;
                 default:

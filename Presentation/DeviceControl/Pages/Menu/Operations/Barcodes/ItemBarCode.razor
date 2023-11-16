@@ -4,7 +4,7 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlBarCodeEntity>
 
-<ItemTopBar TItem="@SqlBarCodeEntity" Title="@WsLocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlBarCodeEntity" Title="@LocaleCore.DeviceControl.ItemBarcode" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
@@ -12,17 +12,17 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@WsLocaleCore.Table.Line"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Line.Description</td>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@WsLocaleCore.Table.Label"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@LocaleCore.Table.Label"/>
     </td>
     <td>@SqlItemCast.PluLabel.IdentityValueUid</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@WsLocaleCore.Table.Plu"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Plu.DisplayName</td>
     <td/>
@@ -32,7 +32,7 @@
   {
     <tr>
       <td>
-        <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@WsLocaleCore.Table.Weighing"/>
+        <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
       </td>
       <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>
       <td></td>
@@ -40,37 +40,37 @@
     </tr>
   }
   <tr>
-    <td>@WsLocaleCore.Table.TypeTop</td>
+    <td>@LocaleCore.Table.TypeTop</td>
     <td>@SqlItemCast.TypeTop</td>
-    <td>@WsLocaleCore.Table.ValueTop</td>
+    <td>@LocaleCore.Table.ValueTop</td>
     <td>@SqlItemCast.ValueTop</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.Description</td>
+    <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeTop()" Rows="11"/>
     </td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.TypeRight</td>
+    <td>@LocaleCore.Table.TypeRight</td>
     <td>@SqlItemCast.TypeRight</td>
-    <td>@WsLocaleCore.Table.ValueRight</td>
+    <td>@LocaleCore.Table.ValueRight</td>
     <td>@SqlItemCast.ValueRight</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.Description</td>
+    <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeRight()" Rows="5"/>
     </td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.TypeBottom</td>
+    <td>@LocaleCore.Table.TypeBottom</td>
     <td>@SqlItemCast.TypeBottom</td>
-    <td>@WsLocaleCore.Table.ValueBottom</td>
+    <td>@LocaleCore.Table.ValueBottom</td>
     <td>@SqlItemCast.ValueBottom</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.Description</td>
+    <td>@LocaleCore.Table.Description</td>
     <td colspan="3">
       <RadzenTextArea Style="width: 100%;" Disabled="true" Value="@GetBarcodeBottom()" Rows="10"/>
     </td>

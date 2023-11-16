@@ -4,54 +4,54 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlPluNestingFkEntity>
 
-<ItemTopBar TItem="@SqlPluNestingFkEntity" Title="@WsLocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluNestingFkEntity" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@WsLocaleCore.Table.Name</td>
+    <td>@LocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@WsLocaleCore.Table.IsDefault</td>
+    <td>@LocaleCore.Table.IsDefault</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" @bind-Value="@SqlItemCast.IsDefault"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@WsLocaleCore.Table.Plu"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
-    <td>@WsLocaleCore.Table.NomenclatureCode</td>
+    <td>@LocaleCore.Table.NomenclatureCode</td>
     <td>@SqlItemCast.Plu.Code</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@WsLocaleCore.Table.PluBundleFk" />
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.PluBundleFk" />
     </td>
     <td>@SqlItemCast.Plu.Bundle.Name</td>
-    <td>@WsLocaleCore.Table.BundleWeight</td>
+    <td>@LocaleCore.Table.BundleWeight</td>
     <td>@SqlItemCast.Plu.Bundle.Weight</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Box)" Text="@WsLocaleCore.Table.Box"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/>
     </td>
     <td>@SqlItemCast.Box.Name</td>
-    <td>@WsLocaleCore.Table.BoxWeight</td>
+    <td>@LocaleCore.Table.BoxWeight</td>
     <td>@SqlItemCast.Box.Weight</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.NestingCount</td>
+    <td>@LocaleCore.Table.NestingCount</td>
     <td>@SqlItemCast.BundleCount</td>
-    <td>@WsLocaleCore.Table.WeightNominal</td>
+    <td>@LocaleCore.Table.WeightNominal</td>
     <td>@SqlItemCast.WeightNom</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.WeightMinimal</td>
+    <td>@LocaleCore.Table.WeightMinimal</td>
     <td>@SqlItemCast.WeightMin</td>
-    <td>@WsLocaleCore.Table.WeightMaximal</td>
+    <td>@LocaleCore.Table.WeightMaximal</td>
     <td>@SqlItemCast.WeightMax</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

@@ -32,23 +32,23 @@ public class DataSourceDicsHelper
             "zpl"
         };
 
-    public List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguages() => WsLocaleCore.Lang switch
+    public List<EnumTypeModel<EnumLanguage>> GetTemplateLanguages() => LocaleCore.Lang switch
     {
-        WsEnumLanguage.English => GetTemplateLanguagesEng(),
-        WsEnumLanguage.Russian => GetTemplateLanguagesRus(),
+        EnumLanguage.English => GetTemplateLanguagesEng(),
+        EnumLanguage.Russian => GetTemplateLanguagesRus(),
         _ => new()
     };
 
-    private List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguagesEng() => new()
+    private List<EnumTypeModel<EnumLanguage>> GetTemplateLanguagesEng() => new()
     {
-        new($"{WsEnumLanguage.English}", WsEnumLanguage.English),
-        new($"{WsEnumLanguage.Russian}", WsEnumLanguage.Russian)
+        new($"{EnumLanguage.English}", EnumLanguage.English),
+        new($"{EnumLanguage.Russian}", EnumLanguage.Russian)
     };
 
-    private List<WsEnumTypeModel<WsEnumLanguage>> GetTemplateLanguagesRus() => new()
+    private List<EnumTypeModel<EnumLanguage>> GetTemplateLanguagesRus() => new()
     {
-        new("Английский", WsEnumLanguage.English),
-        new("Русский", WsEnumLanguage.Russian)
+        new("Английский", EnumLanguage.English),
+        new("Русский", EnumLanguage.Russian)
     };
 
     #endregion

@@ -10,7 +10,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlAppEntity> items = AppRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
@@ -20,7 +20,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetOrCreate()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAppEntity access = AppRepository.GetItemByNameOrCreate(nameof(WsStorageCoreTests));
             SqlAppEntity accessByUid = AppRepository.GetItemByUid(access.IdentityValueUid);
@@ -33,7 +33,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     [Test, Order(3)]
     public void GetByUid()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAppEntity appByName = AppRepository.GetItemByName(nameof(WsStorageCoreTests));
             Guid uid = appByName.IdentityValueUid;
@@ -49,7 +49,7 @@ public sealed class AppRepositoryTests : TableRepositoryTests
     [Test, Order(4)]
     public void GetNewItem()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAppEntity app = AppRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);

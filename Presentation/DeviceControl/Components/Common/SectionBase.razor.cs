@@ -84,7 +84,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
     private List<ContextMenuItem> GetContextMenuItems()
     {
-        WsLocaleContextMenu locale = WsLocaleCore.ContextMenu;
+        LocaleContextMenu locale = LocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
             new() { Text = locale.Open, Value = WsContextMenuActionEnum.Open },
@@ -168,7 +168,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
                 SqlCore.Update(item);
@@ -183,7 +183,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(WsLocaleCore.Table.TableDelete, WsLocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlCore.Delete(SqlItem);
             DeleteMarkedOrDeleted();
@@ -196,7 +196,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(WsLocaleCore.Table.TableMark, WsLocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlCore.Mark(SqlItem);
             DeleteMarkedOrDeleted();
@@ -207,7 +207,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     protected async virtual Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(WsLocaleCore.Table.TableNew, WsLocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(LocaleCore.Table.TableNew, LocaleCore.Dialog.DialogQuestion, () =>
         {
             SqlItem = SqlItemNewEmpty<TItem>();
             RouteService.NavigateItemRoute(SqlItemCast);

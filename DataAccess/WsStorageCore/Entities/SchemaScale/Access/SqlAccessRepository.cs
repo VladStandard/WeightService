@@ -25,7 +25,7 @@ public sealed class SqlAccessRepository : SqlTableRepositoryBase<SqlAccessEntity
         if (access.IsNew)
         {
             access.Name = username;
-            access.Rights = (byte)WsEnumAccessRights.None;
+            access.Rights = (byte)EnumAccessRights.None;
         }
         return SaveOrUpdate(access);
     }

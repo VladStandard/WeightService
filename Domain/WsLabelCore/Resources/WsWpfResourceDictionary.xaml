@@ -4,17 +4,17 @@
 	xmlns:localization="clr-namespace:WsLocalizationCore.Models;assembly=WsLocalizationCore">
 
 	<SolidColorBrush x:Key="Brush" Color="Red" />
-	<localization:WsLocaleAction x:Key="LocaleAction" />
-	<localization:WsLocaleButtons x:Key="LocaleButtons" />
-	<localization:WsLocaleConvert x:Key="LocaleConvert" />
-    <localization:WsLocaleDialog x:Key="LocaleDialog" />
-	<localization:WsLocaleMemory x:Key="LocaleMemory" />
-	<localization:WsLocaleMenu x:Key="LocaleMenu" />
-	<localization:WsLocalePrint x:Key="LocalePrint" />
-	<localization:WsLocaleSettings x:Key="LocaleSettings" />
-	<localization:WsLocaleSql x:Key="LocaleSql" />
-	<localization:WsLocaleSystem x:Key="LocaleSystem" />
-	<localization:WsLocaleTable x:Key="LocaleTable" />
-	<localization:WsLocalizationLabelPrint x:Key="LocalizationLabelPrint" />
-	<localization:WsLocalizationManager x:Key="LocalizationManager" />
+	<localization:LocaleAction x:Key="LocaleAction" />
+	<localization:LocaleButtons x:Key="LocaleButtons" />
+	<localization:LocaleConvert x:Key="LocaleConvert" />
+    <localization:LocaleDialog x:Key="LocaleDialog" />
+	<localization:LocaleMemory x:Key="LocaleMemory" />
+	<localization:LocaleMenu x:Key="LocaleMenu" />
+	<localization:LocalePrint x:Key="LocalePrint" />
+	<localization:LocaleSettings x:Key="LocaleSettings" />
+	<localization:LocaleSql x:Key="LocaleSql" />
+	<localization:LocaleSystem x:Key="LocaleSystem" />
+	<localization:LocaleTable x:Key="LocaleTable" />
+	<localization:LocalizationLabelPrint x:Key="LocalizationLabelPrint" />
+	<localization:LocalizationManager x:Key="LocalizationManager" />
 </ResourceDictionary>

@@ -11,7 +11,7 @@ public sealed class PluLabelRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlPluLabelEntity> items = PluLabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);

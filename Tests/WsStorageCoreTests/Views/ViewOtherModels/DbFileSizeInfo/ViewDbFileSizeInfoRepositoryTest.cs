@@ -14,7 +14,7 @@ public sealed class ViewDbFileSizeInfoRepositoryTest : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<WsSqlViewDbFileSizeInfoModel> items = DbFileSizeRepository.GetList();
             foreach (WsSqlViewDbFileSizeInfoModel info in items)

@@ -6,14 +6,14 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlPrinterEntity>
 
-<ItemTopBar TItem="@SqlPrinterEntity" Title="@WsLocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPrinterEntity" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@WsLocaleCore.Table.Name</td>
+    <td>@LocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
@@ -21,18 +21,18 @@
     <td></td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Print.Type</td>
+    <td>@LocaleCore.Print.Type</td>
     <td>
       <RzDropDown TItem="PrinterTypeEnum"  @bind-Value="@SqlItemCast.Type" Data="@Enum.GetValues(typeof(PrinterTypeEnum))" />
     </td>
-    <td>@WsLocaleCore.Print.Port</td>
+    <td>@LocaleCore.Print.Port</td>
     <td>
       <RzNumeric Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@WsLocaleCore.Print.ControlPanel"/>
+      <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/>
     </td>
     <td>
       <RzTextBox Placeholder="Ip address" @bind-Value="@SqlItemCast.Ip"/>

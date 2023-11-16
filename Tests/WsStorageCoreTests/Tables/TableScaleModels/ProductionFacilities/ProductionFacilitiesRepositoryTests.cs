@@ -10,7 +10,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

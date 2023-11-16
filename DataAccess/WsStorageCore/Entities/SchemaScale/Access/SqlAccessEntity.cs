@@ -7,7 +7,7 @@ public class SqlAccessEntity : SqlEntityBase
 
     public virtual DateTime LoginDt { get; set; }
     public virtual byte Rights { get; set; }
-    public virtual WsEnumAccessRights RightsEnum => (WsEnumAccessRights)Rights;
+    public virtual EnumAccessRights RightsEnum => (EnumAccessRights)Rights;
     
     public SqlAccessEntity() : base(SqlEnumFieldIdentity.Uid)
     {
@@ -49,7 +49,7 @@ public class SqlAccessEntity : SqlEntityBase
         base.FillProperties();
         LoginDt = DateTime.Now;
         Name = "KOLBASA-VS\\";
-        Rights = (byte)WsEnumAccessRights.None;
+        Rights = (byte)EnumAccessRights.None;
     }
 
     #endregion

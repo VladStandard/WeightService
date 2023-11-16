@@ -90,25 +90,25 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\WsMainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainForm.Designer.cs">
-      <DependentUpon>WsMainForm.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviPluNesting.cs">
+    <Compile Include="Forms\MainFormNaviPluNesting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviPluLine.cs">
+    <Compile Include="Forms\MainFormNaviPluLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviKneading.cs">
+    <Compile Include="Forms\MainFormNaviKneading.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNaviLine.cs">
+    <Compile Include="Forms\MainFormNaviLine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WsMainFormNavi.cs">
+    <Compile Include="Forms\MainFormNavi.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
@@ -129,8 +129,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="Forms\WsMainForm.resx">
-      <DependentUpon>WsMainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -5,23 +5,23 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlAccessEntity>
 
-<ItemTopBar TItem="@SqlAccessEntity" Title="@WsLocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlAccessEntity" Title="@LocaleCore.Strings.AccessRights" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@WsLocaleCore.Table.User</td>
+    <td>@LocaleCore.Table.User</td>
     <td><RzTextBox @bind-Value="@SqlItemCast.Name"/></td>
-    <td>@WsLocaleCore.Strings.AccessRights</td>
+    <td>@LocaleCore.Strings.AccessRights</td>
     <td>
       <RzDropDown @bind-Value="@Rights" Data="@TemplateAccessRights"/>
     </td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.LoginDt</td>
-    <td>@string.Format(WsStrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
+    <td>@LocaleCore.Table.LoginDt</td>
+    <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
     <td/>
     <td/>
   </tr>

@@ -4,7 +4,7 @@
 @inherits SectionBase<SqlPluScaleEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.SectionPlusScales"
+  Title="@LocaleCore.DeviceControl.SectionPlusScales"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,9 +24,9 @@
   <Columns>
     <TItemContent TItem="@SqlPluScaleEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="Plu.Name" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.NumberShort" Property="Plu.Number" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="Plu.Name" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.NumberShort" Property="Plu.Number" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WeightShort" SortProperty="Plu.IsCheckWeight">
         <Template Context="itemCast">
           <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.Plu.IsCheckWeight"/>
         </Template>

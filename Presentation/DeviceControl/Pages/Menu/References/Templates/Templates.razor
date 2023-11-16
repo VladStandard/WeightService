@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlTemplateEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.SectionTemplates"
+  Title="@LocaleCore.DeviceControl.SectionTemplates"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,9 +24,9 @@
   <Columns>
     <TItemContent TItem="@SqlTemplateEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CategoryName" Property="CategoryId" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Title" Property="Title" Width="60%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Size" SortProperty="Data.Length" Width="30%">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CategoryName" Property="CategoryId" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Title" Property="Title" Width="60%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="Data.Length" Width="30%">
         <Template Context="itemCast">
           @ConvertBytes(itemCast)
         </Template>

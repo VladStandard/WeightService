@@ -16,7 +16,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlScaleEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
@@ -26,7 +26,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     [Test, Order(3)]
     public void GetById()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlScaleEntity oldLine = GetFirstLineModel();
             SqlScaleEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
@@ -41,7 +41,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     [Test, Order(4)]
     public void GetItemByDevice()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfig.SelectTopRowsCount = 1;
             SqlScaleEntity oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();

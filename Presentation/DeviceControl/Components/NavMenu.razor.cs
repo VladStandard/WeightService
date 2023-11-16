@@ -3,10 +3,10 @@ namespace DeviceControl.Components;
 
 public sealed partial class NavMenu : ComponentBase
 {
-    private static WsLocaleDeviceControl LocaleBlazor => new();
+    private static LocaleDeviceControl LocaleBlazor => new();
     
     private static string SidebarThemeCss =>
-        !WsDebugHelper.Instance.IsDevelop ? "side-nav_dev" : "side-nav_prod";
+        !DebugHelper.Instance.IsDevelop ? "side-nav_dev" : "side-nav_prod";
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {
@@ -19,7 +19,7 @@ public sealed partial class NavMenu : ComponentBase
             {
                 new() { Text = LocaleBlazor.SectionScales, Path = WsRouteUtils.SectionLines },
                 new() { Text = LocaleBlazor.SectionHosts, Path = WsRouteUtils.SectionHosts },
-                new() { Text = WsLocaleCore.Print.Names, Path = WsRouteUtils.SectionPrinters }
+                new() { Text = LocaleCore.Print.Names, Path = WsRouteUtils.SectionPrinters }
             }
         },
         new MenuSection
@@ -66,13 +66,13 @@ public sealed partial class NavMenu : ComponentBase
         },
         new MenuSection
         {
-            Text = WsLocaleCore.Menu.MenuReports,
+            Text = LocaleCore.Menu.MenuReports,
             RequiredRole = WsUserAccessStr.Read,
             Icon = "build",
             SubItems = new List<MenuItem>
             {
-                new() { Text = WsLocaleCore.System.SystemLogsAll, Path = WsRouteUtils.SectionLogs },
-                new() { Text = WsLocaleCore.WebService.Name, Path = WsRouteUtils.SectionLogsWebService }
+                new() { Text = LocaleCore.System.SystemLogsAll, Path = WsRouteUtils.SectionLogs },
+                new() { Text = LocaleCore.WebService.Name, Path = WsRouteUtils.SectionLogsWebService }
             }
         },
         new MenuSection
@@ -82,10 +82,10 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "people",
             SubItems = new List<MenuItem>
             {
-                new() { Text = WsLocaleCore.System.Users, Path = WsRouteUtils.SectionAccess },
-                new() { Text = WsLocaleCore.System.DatabaseInfo, Path = WsRouteUtils.SystemDatabaseInfo },
-                new() { Text = WsLocaleCore.Menu.MenuDbVersionHistory, Path = WsRouteUtils.SectionVersions },
-                new() { Text = WsLocaleCore.System.SystemInfo, Path = WsRouteUtils.SystemAppInfo }
+                new() { Text = LocaleCore.System.Users, Path = WsRouteUtils.SectionAccess },
+                new() { Text = LocaleCore.System.DatabaseInfo, Path = WsRouteUtils.SystemDatabaseInfo },
+                new() { Text = LocaleCore.Menu.MenuDbVersionHistory, Path = WsRouteUtils.SectionVersions },
+                new() { Text = LocaleCore.System.SystemInfo, Path = WsRouteUtils.SystemAppInfo }
             }
         }
     };

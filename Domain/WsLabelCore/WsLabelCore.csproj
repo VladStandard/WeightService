@@ -32,107 +32,107 @@
         <Reference Include="WindowsFormsIntegration"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Common\WsXamlVisibilityConverter.cs" />
-        <Compile Include="Common\WsXamlBasePage.cs" />
-        <Compile Include="Common\WsFormBaseUserControl.cs">
+        <Compile Include="Common\XamlVisibilityConverter.cs" />
+        <Compile Include="Common\XamlBasePage.cs" />
+        <Compile Include="Common\FormBaseUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
-        <Compile Include="Common\WsFormBaseUserControl.Designer.cs">
-            <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
+        <Compile Include="Common\FormBaseUserControl.Designer.cs">
+            <DependentUpon>FormBaseUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Models\WsPluginPrintZebraModel.cs" />
-        <Compile Include="Models\WsPluginPrintTscModel.cs" />
-        <Compile Include="Helpers\WsPrintSessionHelper.cs" />
-        <Compile Include="Pages\WsXamlDialogUserControl.cs">
+        <Compile Include="Models\PluginPrintZebraModel.cs" />
+        <Compile Include="Models\PluginPrintTscModel.cs" />
+        <Compile Include="Helpers\PrintSessionHelper.cs" />
+        <Compile Include="Pages\XamlDialogUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
         <Compile Include="Pages\WsXamlDialogUserControl.Designer.cs">
-            <DependentUpon>WsXamlDialogUserControl.cs</DependentUpon>
+            <DependentUpon>XamlDialogUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlDigitsUserControl.cs">
+        <Compile Include="Pages\XamlDigitsUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
        <Compile Include="Pages\WsXamlDigitsUserControl.Designer.cs">
-            <DependentUpon>WsXamlDigitsUserControl.cs</DependentUpon>
+            <DependentUpon>XamlDigitsUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlPlusNestingUserControl.cs">
+        <Compile Include="Pages\XamlPlusNestingUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
         <Compile Include="Pages\WsXamlPlusNestingUserControl.Designer.cs">
-            <DependentUpon>WsXamlPlusNestingUserControl.cs</DependentUpon>
+            <DependentUpon>XamlPlusNestingUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlLinesUserControl.cs">
+        <Compile Include="Pages\XamlLinesUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
         <Compile Include="Pages\WsXamlLinesUserControl.Designer.cs">
-            <DependentUpon>WsXamlLinesUserControl.cs</DependentUpon>
+            <DependentUpon>XamlLinesUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlKneadingUserControl.cs">
+        <Compile Include="Pages\XamlKneadingUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
         <Compile Include="Pages\WsXamlKneadingUserControl.Designer.cs">
-            <DependentUpon>WsXamlKneadingUserControl.cs</DependentUpon>
+            <DependentUpon>XamlKneadingUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Controls\WsFormNavigationUserControl.cs">
+        <Compile Include="Controls\FormNavigationUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
-        <Compile Include="Controls\WsFormNavigationUserControl.Designer.cs">
-            <DependentUpon>WsFormNavigationUserControl.cs</DependentUpon>
+        <Compile Include="Controls\FormNavigationUserControl.Designer.cs">
+            <DependentUpon>FormNavigationUserControl.cs</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlPlusLinesUserControl.cs">
+        <Compile Include="Pages\XamlPlusLinesUserControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
         <Compile Include="Pages\WsXamlPlusLinesUserControl.Designer.cs">
-            <DependentUpon>WsXamlPlusLinesUserControl.cs</DependentUpon>
+            <DependentUpon>XamlPlusLinesUserControl.cs</DependentUpon>
         </Compile>
         <Compile Include="GlobalUsings.cs" />
-        <Compile Include="Controls\WsFormPluControl.cs">
+        <Compile Include="Controls\FormPluControl.cs">
             <SubType>UserControl</SubType>
         </Compile>
-        <Compile Include="Helpers\WsLabelSessionHelper.cs" />
-        <Compile Include="Pages\WsXamlDialogPage.xaml.cs">
-            <DependentUpon>WsXamlDialogPage.xaml</DependentUpon>
+        <Compile Include="Helpers\LabelSessionHelper.cs" />
+        <Compile Include="Pages\XamlDialogPage.xaml.cs">
+            <DependentUpon>XamlDialogPage.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Utils\WsFormNavigationUtils.cs" />
-        <Compile Include="Utils\WsFormUtils.cs" />
-        <Compile Include="ViewModels\WsXamlDialogViewModel.cs" />
-        <Compile Include="ViewModels\WsXamlPlusLineViewModel.cs" />
-        <Compile Include="ViewModels\WsXamlKneadingViewModel.cs" />
-        <Compile Include="Controls\WsFormDigitsForm.cs">
+        <Compile Include="Utils\FormNavigationUtils.cs" />
+        <Compile Include="Utils\FormUtils.cs" />
+        <Compile Include="ViewModels\XamlDialogViewModel.cs" />
+        <Compile Include="ViewModels\XamlPlusLineViewModel.cs" />
+        <Compile Include="ViewModels\XamlKneadingViewModel.cs" />
+        <Compile Include="Controls\FormDigitsForm.cs">
             <SubType>Form</SubType>
         </Compile>
-        <Compile Include="Controls\WsFormDigitsForm.Designer.cs">
-            <DependentUpon>WsFormDigitsForm.cs</DependentUpon>
+        <Compile Include="Controls\FormDigitsForm.Designer.cs">
+            <DependentUpon>FormDigitsForm.cs</DependentUpon>
         </Compile>
-        <Compile Include="Helpers\WsUserSessionHelper.cs" />
+        <Compile Include="Helpers\UserSessionHelper.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Properties\Resources.Designer.cs">
             <AutoGen>True</AutoGen>
             <DesignTime>True</DesignTime>
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
-        <Compile Include="ViewModels\WsXamlLinesViewModel.cs" />
-        <Compile Include="ViewModels\WsXamlDigitsViewModel.cs" />
-        <Compile Include="ViewModels\WsXamlPlusNestingViewModel.cs" />
-        <Compile Include="Common\WsXamlBaseViewModel.cs" />
-        <Compile Include="Helpers\WsFontsSettingsHelper.cs" />
-        <Compile Include="Helpers\WsPluginLabelsHelper.cs" />
-        <Compile Include="Helpers\WsPluginMassaHelper.cs" />
-        <Compile Include="Helpers\WsPluginMemoryHelper.cs" />
-        <Compile Include="Models\WsPluginPrintModel.cs" />
-        <Compile Include="Models\WsPluginConfigModel.cs" />
-        <Compile Include="Common\WsPluginBaseHelper.cs" />
-        <Compile Include="Models\WsPluginModel.cs" />
-        <Compile Include="Utils\WsFormComboBoxExtensions.cs" />
-        <Compile Include="Utils\WsFormExtensions.cs" />
-        <Compile Include="Pages\WsXamlLinesPage.xaml.cs">
-            <DependentUpon>WsXamlLinesPage.xaml</DependentUpon>
+        <Compile Include="ViewModels\XamlLinesViewModel.cs" />
+        <Compile Include="ViewModels\XamlDigitsViewModel.cs" />
+        <Compile Include="ViewModels\XamlPlusNestingViewModel.cs" />
+        <Compile Include="Common\XamlBaseViewModel.cs" />
+        <Compile Include="Helpers\FontsSettingsHelper.cs" />
+        <Compile Include="Helpers\PluginLabelsHelper.cs" />
+        <Compile Include="Helpers\PluginMassaHelper.cs" />
+        <Compile Include="Helpers\PluginMemoryHelper.cs" />
+        <Compile Include="Models\PluginPrintModel.cs" />
+        <Compile Include="Models\PluginConfigModel.cs" />
+        <Compile Include="Common\PluginBaseHelper.cs" />
+        <Compile Include="Models\PluginModel.cs" />
+        <Compile Include="Utils\FormComboBoxExtensions.cs" />
+        <Compile Include="Utils\FormExtensions.cs" />
+        <Compile Include="Pages\XamlLinesPage.xaml.cs">
+            <DependentUpon>XamlLinesPage.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlDigitsPage.xaml.cs">
-            <DependentUpon>WsXamlDigitsPage.xaml</DependentUpon>
+        <Compile Include="Pages\XamlDigitsPage.xaml.cs">
+            <DependentUpon>XamlDigitsPage.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Pages\WsXamlPlusNestingPage.xaml.cs">
-            <DependentUpon>WsXamlPlusNestingPage.xaml</DependentUpon>
+        <Compile Include="Pages\XamlPlusNestingPage.xaml.cs">
+            <DependentUpon>XamlPlusNestingPage.xaml</DependentUpon>
         </Compile>
     </ItemGroup>
     <ItemGroup>
@@ -156,32 +156,32 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Common\WsFormBaseUserControl.resx">
-            <DependentUpon>WsFormBaseUserControl.cs</DependentUpon>
+        <EmbeddedResource Include="Common\FormBaseUserControl.resx">
+            <DependentUpon>FormBaseUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlDialogUserControl.resx">
-            <DependentUpon>WsXamlDialogUserControl.cs</DependentUpon>
+            <DependentUpon>XamlDialogUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlDigitsUserControl.resx">
-            <DependentUpon>WsXamlDigitsUserControl.cs</DependentUpon>
+            <DependentUpon>XamlDigitsUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlPlusNestingUserControl.resx">
-            <DependentUpon>WsXamlPlusNestingUserControl.cs</DependentUpon>
+            <DependentUpon>XamlPlusNestingUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlLinesUserControl.resx">
-            <DependentUpon>WsXamlLinesUserControl.cs</DependentUpon>
+            <DependentUpon>XamlLinesUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlKneadingUserControl.resx">
-            <DependentUpon>WsXamlKneadingUserControl.cs</DependentUpon>
+            <DependentUpon>XamlKneadingUserControl.cs</DependentUpon>
         </EmbeddedResource>
-        <EmbeddedResource Include="Controls\WsFormNavigationUserControl.resx">
-            <DependentUpon>WsFormNavigationUserControl.cs</DependentUpon>
+        <EmbeddedResource Include="Controls\FormNavigationUserControl.resx">
+            <DependentUpon>FormNavigationUserControl.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Pages\WsXamlPlusLinesUserControl.resx">
-            <DependentUpon>WsXamlPlusLinesUserControl.cs</DependentUpon>
+            <DependentUpon>XamlPlusLinesUserControl.cs</DependentUpon>
         </EmbeddedResource>
-        <EmbeddedResource Include="Controls\WsFormDigitsForm.resx">
-            <DependentUpon>WsFormDigitsForm.cs</DependentUpon>
+        <EmbeddedResource Include="Controls\FormDigitsForm.resx">
+            <DependentUpon>FormDigitsForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
@@ -189,19 +189,19 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <Page Include="Pages\WsXamlDialogPage.xaml">
+        <Page Include="Pages\XamlDialogPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
-        <Page Include="Pages\WsXamlLinesPage.xaml">
+        <Page Include="Pages\XamlLinesPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
-        <Page Include="Pages\WsXamlDigitsPage.xaml">
+        <Page Include="Pages\XamlDigitsPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
-        <Page Include="Pages\WsXamlPlusNestingPage.xaml">
+        <Page Include="Pages\XamlPlusNestingPage.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
@@ -254,15 +254,4 @@
         <None Include="Resources\left_1.png" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
-        <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
-    </ItemGroup>
-    <ItemGroup>
-      <Content Include="..\..\.configs\sql\sqlconfig.DevelopVs.json">
-        <Link>WeightService\.configs\sql\sqlconfig.DevelopVs.json</Link>
-      </Content>
-      <Content Include="..\..\.configs\sql\sqlconfig.ReleaseVs.json">
-        <Link>WeightService\.configs\sql\sqlconfig.ReleaseVs.json</Link>
-      </Content>
-    </ItemGroup>
 </Project>

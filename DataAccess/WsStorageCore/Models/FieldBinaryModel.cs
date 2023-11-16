@@ -13,7 +13,7 @@ public class FieldBinaryModel
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    public virtual string Info { get => WsDataUtils.GetBytesLength(Value, true); set => _ = value; }
+    public virtual string Info { get => DataUtils.GetBytesLength(Value, true); set => _ = value; }
 
     public FieldBinaryModel()
     {
@@ -23,7 +23,7 @@ public class FieldBinaryModel
 
     public FieldBinaryModel(FieldBinaryModel item)
     {
-        Value = WsDataUtils.ByteClone(item.Value);
+        Value = DataUtils.ByteClone(item.Value);
     }
 
     #endregion
@@ -48,7 +48,7 @@ public class FieldBinaryModel
     #region Public and private methods - virtual
 
     public virtual bool Equals(FieldBinaryModel item) =>
-        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || WsDataUtils.ByteEquals(Value, item.Value));
+        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
 
     #endregion
 }

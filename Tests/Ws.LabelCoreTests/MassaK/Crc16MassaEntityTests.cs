@@ -7,8 +7,8 @@ namespace Ws.LabelCoreTests.MassaK;
 [TestFixture]
 public sealed class Crc16MassaEntityTests
 {
-    private WsMassaCrcHelper MassaCrc { get; set; } = WsMassaCrcHelper.Instance;
-    private WsMassaRequestHelper MassaRequest { get; set; } = WsMassaRequestHelper.Instance;
+    private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
+    private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
     // READ     F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23  -- 0.000 кг
     private readonly byte[] _getMassaResponse = { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 

@@ -13,7 +13,7 @@ public sealed class ViewPluLabelAggrRepositoryTests : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlViewPluLabelAggrModel> items = ViewPluLabelAggrRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);

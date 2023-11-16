@@ -17,7 +17,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlPluStorageMethodFkEntity> items = PluStorageMethodFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
@@ -27,7 +27,7 @@ public sealed class PluStorageMethodsFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByPlu()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlPluStorageMethodFkEntity oldPluStorageMethodFk = GetFirstPluStorageMethodFk();
             SqlPluEntity plu = oldPluStorageMethodFk.Plu;

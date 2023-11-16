@@ -22,7 +22,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlPluScaleEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
@@ -32,7 +32,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     [Test]
     public void GetListByLine()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlPluScaleEntity pluScale = GetFirstPluScaleModel();
             SqlScaleEntity line = pluScale.Line;

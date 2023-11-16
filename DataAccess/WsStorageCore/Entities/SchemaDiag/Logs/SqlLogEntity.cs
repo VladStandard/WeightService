@@ -76,11 +76,11 @@ public class SqlLogEntity : SqlEntityBase
     {
         base.FillProperties();
 
-        Version = WsLocaleCore.Sql.SqlItemFieldVersion;
-        File = WsLocaleCore.Sql.SqlItemFieldFile;
+        Version = LocaleCore.Sql.SqlItemFieldVersion;
+        File = LocaleCore.Sql.SqlItemFieldFile;
         Line = 1;
-        Member = WsLocaleCore.Sql.SqlItemFieldMember;
-        Message = WsLocaleCore.Sql.SqlItemFieldMessage;
+        Member = LocaleCore.Sql.SqlItemFieldMember;
+        Message = LocaleCore.Sql.SqlItemFieldMessage;
         Type = LogTypeEnum.Info;
         
         Device?.FillProperties();

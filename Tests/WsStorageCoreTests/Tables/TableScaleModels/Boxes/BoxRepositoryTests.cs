@@ -10,7 +10,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlBoxEntity> items = BoxRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

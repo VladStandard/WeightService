@@ -17,7 +17,7 @@ public class SqlPluNestingFkEntity : SqlEntityBase
     public virtual Guid Uid1C { get; set; }
     public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
     public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
-    public virtual string WeightTareKg => $"{WeightTare} {WsLocaleCore.LabelPrint.WeightUnitKg}";
+    public virtual string WeightTareKg => $"{WeightTare} {LocaleCore.LabelPrint.WeightUnitKg}";
     
     public SqlPluNestingFkEntity() : base(SqlEnumFieldIdentity.Uid)
     {

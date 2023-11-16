@@ -19,7 +19,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     [Test]
     public void GetEnumerable()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlLogEntity> items = LogRepository.GetEnumerable(SqlCrudConfig).ToList();
             Assert.That(items.Any(), Is.True);
@@ -30,7 +30,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IList<SqlLogEntity> items = LogRepository.GetList(SqlCrudConfig);
             Assert.That(items.Any(), Is.True);
@@ -41,7 +41,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByUid()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlLogEntity oldLog = GetFirstLogModel();
             SqlLogEntity logByUid = LogRepository.GetItemByUid(oldLog.IdentityValueUid);
@@ -56,7 +56,7 @@ public sealed class LogRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemFirst()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlLogEntity log = LogRepository.GetItemFirst();
             Assert.That(log.IsExists, Is.True);

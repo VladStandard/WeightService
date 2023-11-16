@@ -11,7 +11,7 @@ public sealed class PluWeighingRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlPluWeighingEntity> items = PluWeighingRepository.GetList(SqlCrudConfig);
             ParseRecords(items);

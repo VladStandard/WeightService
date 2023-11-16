@@ -14,13 +14,13 @@
   Data="@SelectedPlus">
   <Columns>
     <TItemContent TItem="@SqlPluEntity">
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" SortProperty="IsCheckWeight">
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="IsCheckWeight">
         <Template Context="itemCast">
           <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Number" Property="Number"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -11,7 +11,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPluEntity> items = PluRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
@@ -21,7 +21,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     [Test]
     public void GetListByNumber()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPluEntity> plus = PluRepository.GetEnumerableByNumber(301).ToList();
 

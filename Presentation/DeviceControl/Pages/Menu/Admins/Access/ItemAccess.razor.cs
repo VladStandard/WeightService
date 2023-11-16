@@ -4,11 +4,11 @@ public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
 {
     #region Public and private fields, properties, constructor
     
-    private List<WsEnumAccessRights> TemplateAccessRights { get; set; }
+    private List<EnumAccessRights> TemplateAccessRights { get; set; }
 
-    private WsEnumAccessRights Rights
+    private EnumAccessRights Rights
     {
-        get => (WsEnumAccessRights)SqlItemCast.Rights;
+        get => (EnumAccessRights)SqlItemCast.Rights;
         set => SqlItemCast.Rights = (byte)value;
     }
     
@@ -22,16 +22,16 @@ public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
         TemplateAccessRights = GetTemplateAccessRights();
     }
     
-    private List<WsEnumAccessRights> GetTemplateAccessRights()
+    private List<EnumAccessRights> GetTemplateAccessRights()
     {
-        List<WsEnumAccessRights> result = new()
+        List<EnumAccessRights> result = new()
         {
-            WsEnumAccessRights.None,
-            WsEnumAccessRights.Read,
-            WsEnumAccessRights.Write
+            EnumAccessRights.None,
+            EnumAccessRights.Read,
+            EnumAccessRights.Write
         };
-        if (SqlItemCast.Rights >= (byte)WsEnumAccessRights.Write)
-            result.Add(WsEnumAccessRights.Admin);
+        if (SqlItemCast.Rights >= (byte)EnumAccessRights.Write)
+            result.Add(EnumAccessRights.Admin);
         return result;
     }
 

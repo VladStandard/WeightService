@@ -27,7 +27,7 @@ public class ZebraConnector : IPrinterConnector
         catch (Exception ex)
         {
             ContextItem.SaveLogErrorWithDescription(ex,
-            WsLocaleCore.LabelPrint.PluginPrintZebra);
+            LocaleCore.LabelPrint.PluginPrintZebra);
             Dispose();
         }
     }
@@ -42,7 +42,7 @@ public class ZebraConnector : IPrinterConnector
         }
         catch (Exception ex)
         {
-            ContextItem.SaveLogErrorWithDescription(ex, WsLocaleCore.LabelPrint.PluginPrintZebra);
+            ContextItem.SaveLogErrorWithDescription(ex, LocaleCore.LabelPrint.PluginPrintZebra);
             Dispose();
         }
         return false;

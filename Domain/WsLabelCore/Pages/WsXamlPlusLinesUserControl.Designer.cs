@@ -2,7 +2,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Pages;
 
-partial class WsXamlPlusLinesUserControl
+partial class XamlPlusLinesUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -145,13 +145,13 @@ partial class WsXamlPlusLinesUserControl
             this.buttonLeftScroll.UseVisualStyleBackColor = false;
             this.buttonLeftScroll.Click += new System.EventHandler(this.ButtonPreviousScroll_Click);
             // 
-            // WsXamlPlusLinesUserControl
+            // XamlPlusLinesUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.layoutPanelPlus);
-            this.Name = "WsXamlPlusLinesUserControl";
+            this.Name = "XamlPlusLinesUserControl";
             this.Size = new System.Drawing.Size(900, 500);
             this.SizeChanged += new System.EventHandler(this.WsXamlPlusLinesUserControl_SizeChanged);
             this.layoutPanelPlus.ResumeLayout(false);

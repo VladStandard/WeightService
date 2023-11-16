@@ -11,7 +11,7 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);

@@ -4,16 +4,16 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlBundleEntity>
 
-<ItemTopBar TItem="SqlBundleEntity" Title="@WsLocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlBundleEntity" Title="@LocaleCore.DeviceControl.ItemBundle" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@WsLocaleCore.Table.Name</td>
+    <td>@LocaleCore.Table.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@WsLocaleCore.Table.Weight</td>
+    <td>@LocaleCore.Table.Weight</td>
     <td>@SqlItemCast.Weight</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

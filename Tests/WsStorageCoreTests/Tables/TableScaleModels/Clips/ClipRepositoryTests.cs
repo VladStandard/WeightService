@@ -10,7 +10,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlClipEntity> items = ClipRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

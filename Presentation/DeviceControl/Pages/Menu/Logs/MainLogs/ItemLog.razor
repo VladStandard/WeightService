@@ -3,7 +3,7 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlLogEntity>
 
-<ItemTopBar TItem="SqlLogEntity" Title="@WsLocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlLogEntity" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
@@ -12,35 +12,35 @@
   @if (SqlItemCast.Device is not null)
   {
     <tr>
-      <td>@WsLocaleCore.Table.Line</td>
+      <td>@LocaleCore.Table.Line</td>
       <td>@LineRepository.GetItemByHost(SqlItemCast.Device).Description</td>
-      <td>@WsLocaleCore.Table.Host</td>
+      <td>@LocaleCore.Table.Host</td>
       <td>@SqlItemCast.Device.Name</td>
     </tr>
   }
   @if (SqlItemCast.App is not null)
   {
     <tr>
-      <td>@WsLocaleCore.Table.App</td>
+      <td>@LocaleCore.Table.App</td>
       <td>@SqlItemCast.App.Name</td>
-      <td>@WsLocaleCore.Table.Version</td>
+      <td>@LocaleCore.Table.Version</td>
       <td>@SqlItemCast.Version</td>
     </tr>
   }
   <tr>
-    <td>@WsLocaleCore.Table.File</td>
+    <td>@LocaleCore.Table.File</td>
     <td>@SqlItemCast.File</td>
-    <td>@WsLocaleCore.Table.Row</td>
+    <td>@LocaleCore.Table.Row</td>
     <td>@SqlItemCast.Line</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.Member</td>
+    <td>@LocaleCore.Table.Member</td>
     <td>@SqlItemCast.Member</td>
-    <td>@WsLocaleCore.Table.LogType</td>
+    <td>@LocaleCore.Table.LogType</td>
     <td>@SqlItemCast.Type</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Table.Message</td>
+    <td>@LocaleCore.Table.Message</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "

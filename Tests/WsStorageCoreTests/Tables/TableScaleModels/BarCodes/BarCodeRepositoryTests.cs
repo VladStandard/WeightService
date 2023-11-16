@@ -12,7 +12,7 @@ public sealed class BarCodeRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlBarCodeEntity> items = BarcodeRepository.GetList(SqlCrudConfig);
             ParseRecords(items);

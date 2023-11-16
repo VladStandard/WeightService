@@ -3,11 +3,11 @@ namespace WsStorageCoreTests.Tables.Common;
 public class TableRepositoryTests
 {
     protected SqlCrudConfigModel SqlCrudConfig { get; private set; }
-    protected List<WsEnumConfiguration> DefaultConfigurations { get; }
+    protected List<EnumConfiguration> DefaultConfigurations { get; }
 
     public TableRepositoryTests()
     {
-        DefaultConfigurations = new() { WsEnumConfiguration.DevelopVs, WsEnumConfiguration.ReleaseVs };
+        DefaultConfigurations = new() { EnumConfiguration.DevelopVs, EnumConfiguration.ReleaseVs };
         SqlCrudConfig = new();
     }
 
@@ -22,10 +22,10 @@ public class TableRepositoryTests
     protected void ParseRecords<T>(IEnumerable<T> items) where T : SqlEntityBase, new()
     {
         List<T> list = items.ToList();
-        Assert.That(list.Any(), Is.True, $"{WsLocaleCore.Tests.NoDataInDb}!");
-        Assert.That(list, SortOrderValue, $"{WsLocaleCore.Tests.SortingError}!");
+        Assert.That(list.Any(), Is.True, $"{LocaleCore.Tests.NoDataInDb}!");
+        Assert.That(list, SortOrderValue, $"{LocaleCore.Tests.SortingError}!");
 
-        TestContext.WriteLine($"{WsLocaleCore.Tests.Print} {list.Count} {WsLocaleCore.Tests.Records}.");
+        TestContext.WriteLine($"{LocaleCore.Tests.Print} {list.Count} {LocaleCore.Tests.Records}.");
 
         foreach (T item in list)
         {

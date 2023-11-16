@@ -199,8 +199,8 @@ public readonly struct ResponseParseModel
         }
     }
     public ResponseMassaModel Massa { get; }
-    private WsMassaCrcHelper MassaCrc { get; } = WsMassaCrcHelper.Instance;
-    private WsMassaRequestHelper MassaRequest { get; } = WsMassaRequestHelper.Instance;
+    private MassaCrcHelper MassaCrc { get; } = MassaCrcHelper.Instance;
+    private MassaRequestHelper MassaRequest { get; } = MassaRequestHelper.Instance;
 
     /// <summary>
     /// Default constructor.

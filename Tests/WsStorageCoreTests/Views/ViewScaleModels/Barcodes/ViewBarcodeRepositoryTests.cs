@@ -13,7 +13,7 @@ public sealed class ViewBarcodesRepositoryTests : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IList<SqlViewBarcodeModel> items = ViewBarcodeRepository.GetList(SqlCrudConfig);
             PrintViewRecords(items);

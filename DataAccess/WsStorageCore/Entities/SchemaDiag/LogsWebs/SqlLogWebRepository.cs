@@ -17,7 +17,7 @@ public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>
         {
             CreateDt = requestStampDt,
             StampDt = DateTime.Now,
-            Version = WsAppVersionHelper.Instance.Version,
+            Version = AppVersionHelper.Instance.Version,
             Url = url,
             DataRequest = requestDataString,
             DataResponse = responseDataString,

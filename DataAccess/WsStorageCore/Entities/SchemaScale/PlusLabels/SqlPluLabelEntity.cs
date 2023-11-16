@@ -69,7 +69,7 @@ public class SqlPluLabelEntity : SqlEntityBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Zpl = WsLocaleCore.Sql.SqlItemFieldZpl;
+        Zpl = LocaleCore.Sql.SqlItemFieldZpl;
         ProductDt = DateTime.Now;
         PluWeighing?.FillProperties();
         PluScale.FillProperties();

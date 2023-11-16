@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlClipEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.Strings.Clips"
+  Title="@LocaleCore.Strings.Clips"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,8 +24,8 @@
   <Columns>
     <TItemContent TItem="@SqlClipEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="50%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Weighted" Property="Weight" Width="50%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="50%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" Property="Weight" Width="50%" />
     </TItemContent>
   </Columns>
 </RzDataGrid>

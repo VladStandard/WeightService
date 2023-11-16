@@ -10,7 +10,7 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPrinterEntity> items = PrinterRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

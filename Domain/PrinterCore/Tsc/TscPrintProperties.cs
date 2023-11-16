@@ -31,28 +31,28 @@ public class TscPrintProperties
         }
     }
 
-    private const WsEnumPrintSpeed SpeedDefault = (WsEnumPrintSpeed)4;
-    private WsEnumPrintSpeed _speed;
-    public WsEnumPrintSpeed Speed
+    private const EnumPrintSpeed SpeedDefault = (EnumPrintSpeed)4;
+    private EnumPrintSpeed _speed;
+    public EnumPrintSpeed Speed
     {
         get => _speed;
-        set => _speed = value is >= 0 and <= (WsEnumPrintSpeed)12 ? value : SpeedDefault;
+        set => _speed = value is >= 0 and <= (EnumPrintSpeed)12 ? value : SpeedDefault;
     }
 
-    private const WsEnumPrintDensity DensityDefault = (WsEnumPrintDensity)6;
-    private WsEnumPrintDensity _density;
-    public WsEnumPrintDensity Density
+    private const EnumPrintDensity DensityDefault = (EnumPrintDensity)6;
+    private EnumPrintDensity _density;
+    public EnumPrintDensity Density
     {
         get => _density;
-        set => _density = value is >= 0 and <= (WsEnumPrintDensity)15 ? value : DensityDefault;
+        set => _density = value is >= 0 and <= (EnumPrintDensity)15 ? value : DensityDefault;
     }
 
-    private const WsEnumPrintSensor SensorDefault = 0;
-    private WsEnumPrintSensor _sensor;
-    public WsEnumPrintSensor Sensor
+    private const EnumPrintSensor SensorDefault = 0;
+    private EnumPrintSensor _sensor;
+    public EnumPrintSensor Sensor
     {
         get => _sensor;
-        set => _sensor = value is >= 0 and <= (WsEnumPrintSensor)1 ? value : SensorDefault;
+        set => _sensor = value is >= 0 and <= (EnumPrintSensor)1 ? value : SensorDefault;
     }
 
     private const int VerticalDefault = 0;
@@ -79,7 +79,7 @@ public class TscPrintProperties
         set => _cutterValue = value is >= 0 and <= 1000 ? value : CutterValueDefault;
     }
 
-    public WsEnumPrintChannel Channel { get; set; }
+    public EnumPrintChannel Channel { get; set; }
 
     public string PrintName { get; set; }
 
@@ -87,43 +87,43 @@ public class TscPrintProperties
 
     public int PrintPort { get; set; }
 
-    public WsEnumPrintLabelSize Size { get; set; }
+    public EnumPrintLabelSize Size { get; set; }
 
-    public WsEnumPrintLabelDpi Dpi { get; set; }
+    public EnumPrintLabelDpi Dpi { get; set; }
 
     public ushort FeedMm { get; set; }
 
     #endregion
     
-    public void Setup(WsEnumPrintLabelSize size)
+    public void Setup(EnumPrintLabelSize size)
     {
         switch (size)
         {
-            case WsEnumPrintLabelSize.Size40x60:
+            case EnumPrintLabelSize.Size40x60:
                 Width = 40.0;
                 Height = 60.0;
                 break;
-            case WsEnumPrintLabelSize.Size60x150:
+            case EnumPrintLabelSize.Size60x150:
                 Width = 60.0;
                 Height = 150.0;
                 break;
-            case WsEnumPrintLabelSize.Size60x90:
+            case EnumPrintLabelSize.Size60x90:
                 Width = 60.0;
                 Height = 90.0;
                 break;
-            case WsEnumPrintLabelSize.Size60x100:
+            case EnumPrintLabelSize.Size60x100:
                 Width = 60.0;
                 Height = 100.0;
                 break;
-            case WsEnumPrintLabelSize.Size80x100:
+            case EnumPrintLabelSize.Size80x100:
                 Width = 83.00;
                 Height = 101.50;
                 break;
-            case WsEnumPrintLabelSize.Size100x100:
+            case EnumPrintLabelSize.Size100x100:
                 Width = 100.0;
                 Height = 100.0;
                 break;
-            case WsEnumPrintLabelSize.Size100x110:
+            case EnumPrintLabelSize.Size100x110:
                 Width = 100.0;
                 Height = 110.0;
                 break;

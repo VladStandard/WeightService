@@ -10,8 +10,8 @@ public partial class Profile : ComponentBase
     
     private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private ClaimsPrincipal? User { get; set; }
-    private List<WsEnumTypeModel<WsEnumLanguage>>? TemplateLanguages { get; set; }
-    private List<WsEnumLanguage> Langs { get; set; }
+    private List<EnumTypeModel<EnumLanguage>>? TemplateLanguages { get; set; }
+    private List<EnumLanguage> Langs { get; set; }
     private int DefaultRowCount { get; set; }
 
     private string IpAddress =>
@@ -22,7 +22,7 @@ public partial class Profile : ComponentBase
     public Profile()
     {
         Langs = new();
-        foreach (WsEnumLanguage lang in Enum.GetValues(typeof(WsEnumLanguage)))
+        foreach (EnumLanguage lang in Enum.GetValues(typeof(EnumLanguage)))
             Langs.Add(lang);
         TemplateLanguages = BlazorAppSettingsHelper.Instance.DataSourceDics.GetTemplateLanguages();
     }
@@ -60,12 +60,12 @@ public partial class Profile : ComponentBase
             return string.Empty;
         string right = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value)
             .OrderByDescending(int.Parse).First();
-        return (WsEnumAccessRights)int.Parse(right) switch
+        return (EnumAccessRights)int.Parse(right) switch
         {
-            WsEnumAccessRights.Read => WsLocaleCore.Strings.AccessRightsRead,
-            WsEnumAccessRights.Write => WsLocaleCore.Strings.AccessRightsWrite,
-            WsEnumAccessRights.Admin => WsLocaleCore.Strings.AccessRightsAdmin,
-            _ => WsLocaleCore.Strings.AccessRightsNone
+            EnumAccessRights.Read => LocaleCore.Strings.AccessRightsRead,
+            EnumAccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
+            EnumAccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
+            _ => LocaleCore.Strings.AccessRightsNone
         };
     }
     

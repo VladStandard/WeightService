@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlScaleEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.SectionScales"
+  Title="@LocaleCore.DeviceControl.SectionScales"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,13 +24,13 @@
   <Columns>
     <TItemContent TItem="@SqlScaleEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="5%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Description" Width="15%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Number" Property="Number" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Device" Property="Host.Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Printer" Property="Printer.Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Counter" Property="LabelCounter" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="5%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="15%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="Printer.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Counter" Property="LabelCounter" Width="10%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

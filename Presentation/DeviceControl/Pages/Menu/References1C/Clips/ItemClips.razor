@@ -4,15 +4,15 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlClipEntity>
 
-<ItemTopBar TItem="@SqlClipEntity" Title="@WsLocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlClipEntity" Title="@LocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
     <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
     <tbody>
     <ItemTableBody SqlItem="@SqlItemCast"/>
     <tr>
-      <td>@WsLocaleCore.Table.Name</td>
+      <td>@LocaleCore.Table.Name</td>
       <td>@SqlItemCast.Name</td>
-      <td>@WsLocaleCore.Table.Weight</td>
+      <td>@LocaleCore.Table.Weight</td>
       <td>@SqlItemCast.Weight</td>
     </tr>
     <ItemDates SqlItem="@SqlItemCast"/>

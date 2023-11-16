@@ -17,12 +17,12 @@ public class SqlScaleEntity : SqlEntityBase
     public virtual SqlPrinterEntity Printer { get; set; }
     public virtual string DeviceComPort { get; set; } = "";
     public virtual int Number { get; set; }
-    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Description}";
+    public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Description}";
     
     private int _labelCounter;
     
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
-    public virtual string NumberWithDescription => $"{WsLocaleCore.Table.Number}: {Number} | {Description}";
+    public virtual string NumberWithDescription => $"{LocaleCore.Table.Number}: {Number} | {Description}";
     public virtual string ClickOnce { get; set; } = "";
     public virtual string Version { get; set; } = "";
     

@@ -10,7 +10,7 @@ public class SqlPrinterEntity : SqlEntityBase
     public virtual short Port { get; set; }
     public virtual PrinterTypeEnum Type { get; set; }
     public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
-    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
+    public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
 
     public SqlPrinterEntity() : base(SqlEnumFieldIdentity.Uid)
     {

@@ -5,18 +5,18 @@ public class TableModelTests<TItem> where TItem : SqlEntityBase, new()
     [Test]
     public virtual void Model_ToString()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertToString<TItem>();
+        TestsUtils.DataTests.TableBaseModelAssertToString<TItem>();
     }
 
     [Test]
     public virtual void Model_EqualsNew()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsNew<TItem>();
+        TestsUtils.DataTests.TableBaseModelAssertEqualsNew<TItem>();
     }
 
     [Test]
     public virtual void Model_EqualsDefault()
     {
-        WsTestsUtils.DataTests.TableBaseModelAssertEqualsDefault<TItem>();
+        TestsUtils.DataTests.TableBaseModelAssertEqualsDefault<TItem>();
     }
 }

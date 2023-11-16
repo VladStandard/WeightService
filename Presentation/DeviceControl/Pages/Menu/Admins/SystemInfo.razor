@@ -3,7 +3,7 @@
 @using DeviceControl.Components.Item
 @inherits ComponentBase
 
-<MudElement HtmlTag="h3" Class="ma-0">@WsLocaleCore.System.SystemInfo</MudElement>
+<MudElement HtmlTag="h3" Class="ma-0">@LocaleCore.System.SystemInfo</MudElement>
 <MudSimpleTable Style="overflow-x: auto;" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead />
   <tbody>
@@ -12,11 +12,11 @@
     <td colspan="2">@($"v{VerApp} / v{VerLibBlazorCore} / v{VerLibDataCore}")</td>
   </tr>
   <tr>
-    <td>@WsLocaleCore.Strings.HostName</td>
+    <td>@LocaleCore.Strings.HostName</td>
     <td colspan="2">@Environment.MachineName</td>
   </tr>
   <tr style="height: 200px;">
-    <td>@WsLocaleCore.Strings.DbAndMemoryGauge</td>
+    <td>@LocaleCore.Strings.DbAndMemoryGauge</td>
     <td>
       <div align="center">
         <h4>Windows</h4>

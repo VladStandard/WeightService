@@ -7,7 +7,7 @@ public class SqlHostEntity : SqlEntityBase
 
     public virtual DateTime LoginDt { get; set; }
     public virtual string Ip { get; set; }
-    public override string DisplayName => IsNew ?  WsLocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
+    public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
     
     public SqlHostEntity() : base(SqlEnumFieldIdentity.Uid)
     {

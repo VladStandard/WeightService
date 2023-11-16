@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlViewPluLabelModel>
 
 <SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.SectionLabels"
+  Title="@LocaleCore.DeviceControl.SectionLabels"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -28,13 +28,13 @@
   <Columns>
     <TItemContent TItem="@SqlViewPluLabelModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@WsStrUtils.FormatDtDefault" Filterable="false"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Line" Property="Line" Width="10%" Filterable="false" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.WorkShop" Property="WorkShop" Width="10%" Filterable="false" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.PluNumber" Property="PluNumber" Width="5%" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Plu" Property="PluName" Width="20%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Type" Property="PluType" Width="8%" Filterable="false" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ProductDt" Property="ProductDate" Width="8%" FormatString="@StrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="5%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="20%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="PluType" Width="8%" Filterable="false" />
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -5,7 +5,7 @@ public sealed class PluginMemoryTests
 {
     #region Public and private fields, properties, constructor
 
-    private WsPluginMemoryHelper PluginMemory => WsPluginMemoryHelper.Instance;
+    private PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
 
     #endregion
 

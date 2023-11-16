@@ -12,7 +12,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             Collection<int> col1 = new() { 1, 2, 3 };
-            Collection<int> col2 = WsEnumerableUtils.CopyCollection(col1);
+            Collection<int> col2 = EnumerableUtils.CopyCollection(col1);
             col2[1] = -1;
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
@@ -37,7 +37,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             Collection<string> col1 = new() { "1", "2", "3" };
-            Collection<string> col2 = WsEnumerableUtils.CopyCollection(col1);
+            Collection<string> col2 = EnumerableUtils.CopyCollection(col1);
             col2[1] = "-1";
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
@@ -61,8 +61,8 @@ public sealed class WsEnumerableUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            Collection<WsViewModelBase> col1 = new() { new(), new(), new() };
-            Collection<WsViewModelBase> col2 = WsEnumerableUtils.CopyClassesCollection(col1);
+            Collection<ViewModelBase> col1 = new() { new(), new(), new() };
+            Collection<ViewModelBase> col2 = EnumerableUtils.CopyClassesCollection(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 
@@ -90,7 +90,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             List<int> list1 = new() { 1, 2, 3 };
-            List<int> list2 = WsEnumerableUtils.CopyList(list1);
+            List<int> list2 = EnumerableUtils.CopyList(list1);
             list2[1] = -1;
             TestContext.WriteLine($"{nameof(list1)}: {string.Join(" | ", list1)}");
             TestContext.WriteLine($"{nameof(list2)}: {string.Join(" | ", list2)}");
@@ -115,7 +115,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             List<string> list1 = new() { "1", "2", "3" };
-            List<string> list2 = WsEnumerableUtils.CopyList(list1);
+            List<string> list2 = EnumerableUtils.CopyList(list1);
             list2[1] = "-1";
             TestContext.WriteLine($"{nameof(list1)}: {string.Join(" | ", list1)}");
             TestContext.WriteLine($"{nameof(list2)}: {string.Join(" | ", list2)}");
@@ -139,8 +139,8 @@ public sealed class WsEnumerableUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            List<WsViewModelBase> col1 = new() { new(), new(), new() };
-            List<WsViewModelBase> col2 = WsEnumerableUtils.CopyClassesList(col1);
+            List<ViewModelBase> col1 = new() { new(), new(), new() };
+            List<ViewModelBase> col2 = EnumerableUtils.CopyClassesList(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 
@@ -168,7 +168,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             Collection<int> col1 = new() { 1, 2, 3 };
-            Collection<int> col2 = WsEnumerableUtils.CopyCollection(col1);
+            Collection<int> col2 = EnumerableUtils.CopyCollection(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 
@@ -192,7 +192,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             Collection<string> col1 = new() { "1", "2", "3" };
-            Collection<string> col2 = WsEnumerableUtils.CopyCollection(col1);
+            Collection<string> col2 = EnumerableUtils.CopyCollection(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 
@@ -215,8 +215,8 @@ public sealed class WsEnumerableUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            Collection<WsViewModelBase> col1 = new() { new(), new(), new() };
-            Collection<WsViewModelBase> col2 = WsEnumerableUtils.CopyClassesCollection(col1);
+            Collection<ViewModelBase> col1 = new() { new(), new(), new() };
+            Collection<ViewModelBase> col2 = EnumerableUtils.CopyClassesCollection(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 
@@ -240,7 +240,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             List<int> list1 = new() { 1, 2, 3 };
-            List<int> list2 = WsEnumerableUtils.CopyList(list1);
+            List<int> list2 = EnumerableUtils.CopyList(list1);
             TestContext.WriteLine($"{nameof(list1)}: {string.Join(" | ", list1)}");
             TestContext.WriteLine($"{nameof(list2)}: {string.Join(" | ", list2)}");
 
@@ -264,7 +264,7 @@ public sealed class WsEnumerableUtilsTests
         Assert.DoesNotThrow(() =>
         {
             List<string> list1 = new() { "1", "2", "3" };
-            List<string> list2 = WsEnumerableUtils.CopyList(list1);
+            List<string> list2 = EnumerableUtils.CopyList(list1);
             TestContext.WriteLine($"{nameof(list1)}: {string.Join(" | ", list1)}");
             TestContext.WriteLine($"{nameof(list2)}: {string.Join(" | ", list2)}");
 
@@ -287,8 +287,8 @@ public sealed class WsEnumerableUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            List<WsViewModelBase> col1 = new() { new(), new(), new() };
-            List<WsViewModelBase> col2 = WsEnumerableUtils.CopyClassesList(col1);
+            List<ViewModelBase> col1 = new() { new(), new(), new() };
+            List<ViewModelBase> col2 = EnumerableUtils.CopyClassesList(col1);
             TestContext.WriteLine($"{nameof(col1)}: {string.Join(" | ", col1)}");
             TestContext.WriteLine($"{nameof(col2)}: {string.Join(" | ", col2)}");
 

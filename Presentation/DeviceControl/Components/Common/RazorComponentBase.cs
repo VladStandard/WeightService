@@ -33,7 +33,7 @@ public class RazorComponentBase : LayoutComponentBase
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Warning,
-                    Summary = WsLocaleCore.Action.ActionDataControl,
+                    Summary = LocaleCore.Action.ActionDataControl,
                     Detail = detailAddition,
                     Duration = BlazorAppSettingsHelper.DelayError
                 };
@@ -78,8 +78,8 @@ public class RazorComponentBase : LayoutComponentBase
     {
         return new()
         {
-            OkButtonText = WsLocaleCore.Dialog.DialogButtonYes,
-            CancelButtonText = WsLocaleCore.Dialog.DialogButtonCancel,
+            OkButtonText = LocaleCore.Dialog.DialogButtonYes,
+            CancelButtonText = LocaleCore.Dialog.DialogButtonCancel,
             CloseDialogOnEsc = true,
         };
     }
@@ -96,7 +96,7 @@ public class RazorComponentBase : LayoutComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                WsLocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
+                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
                 );
         }
         catch (Exception ex)
@@ -111,7 +111,7 @@ public class RazorComponentBase : LayoutComponentBase
     {
         try
         {
-            string question = string.IsNullOrEmpty(message) ? WsLocaleCore.Dialog.DialogQuestion : message;
+            string question = string.IsNullOrEmpty(message) ? LocaleCore.Dialog.DialogQuestion : message;
             Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
             if (dialog.Result == true)
                 RunAction(title, action);
@@ -125,7 +125,7 @@ public class RazorComponentBase : LayoutComponentBase
     private void NotificationException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
-            title = WsLocaleCore.Dialog.DialogResultFail;
+            title = LocaleCore.Dialog.DialogResultFail;
         
         string msg = ex.Message;
         if (!string.IsNullOrEmpty(ex.InnerException?.Message))

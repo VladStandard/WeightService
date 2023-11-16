@@ -54,9 +54,9 @@ public sealed class SqlContextItemHelper
     
     private void SaveLogCore(string message, LogTypeEnum logType, string filePath, int lineNumber, string memberName)
     {
-        WsStrUtils.SetStringValueTrim(ref filePath, 32, true);
-        WsStrUtils.SetStringValueTrim(ref memberName, 32);
-        WsStrUtils.SetStringValueTrim(ref message, 1024);
+        StrUtils.SetStringValueTrim(ref filePath, 32, true);
+        StrUtils.SetStringValueTrim(ref memberName, 32);
+        StrUtils.SetStringValueTrim(ref message, 1024);
 
         SqlLogEntity log = new()
         {
@@ -66,7 +66,7 @@ public sealed class SqlContextItemHelper
             Device = Host,
             App = App,
             Type = logType,
-            Version = WsAppVersionHelper.Instance.Version,
+            Version = AppVersionHelper.Instance.Version,
             File = filePath,
             Line = lineNumber,
             Member = memberName,

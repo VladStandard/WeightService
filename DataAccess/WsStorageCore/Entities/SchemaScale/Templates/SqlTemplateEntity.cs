@@ -53,7 +53,7 @@ public class SqlTemplateEntity : SqlEntityBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Data = WsLocaleCore.Sql.SqlItemFieldTemplateData;
+        Data = LocaleCore.Sql.SqlItemFieldTemplateData;
     }
 
     #endregion

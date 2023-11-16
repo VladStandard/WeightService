@@ -11,7 +11,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlHostEntity> items = HostRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
@@ -21,7 +21,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetOrCreate()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             SqlHostEntity host = HostRepository.GetItemByNameOrCreate(pcName);
@@ -37,7 +37,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     [Test, Order(3)]
     public void GetByUid()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             string pcName = MdNetUtils.GetLocalDeviceName(false);
             SqlHostEntity hostByName = HostRepository.GetItemByName(pcName);
@@ -54,7 +54,7 @@ public sealed class DeviceRepositoryTests : TableRepositoryTests
     [Test, Order(4)]
     public void GetNewItem()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlHostEntity host = HostRepository.GetNewItem();
             Assert.That(host.IsNew, Is.True);

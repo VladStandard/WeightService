@@ -11,7 +11,7 @@ public sealed class TemplatesRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlTemplateEntity> items = TemplateRepository.GetList(SqlCrudConfig);
             ParseRecords(items);

@@ -5,14 +5,14 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlWorkShopEntity>
 
-<ItemTopBar TItem="@SqlWorkShopEntity" Title="@WsLocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlWorkShopEntity" Title="@LocaleCore.DeviceControl.ItemWorkshop" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@WsLocaleCore.Table.Name</td>
+    <td>@LocaleCore.Table.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Name"/>
     </td>
@@ -21,7 +21,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.ProductionSite)" Text="@WsLocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.ProductionSite)" Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.ProductionSite" Data="@ProductionSiteModels" TextProperty="DisplayName"/>

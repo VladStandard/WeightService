@@ -37,7 +37,7 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : SqlEntityBase, n
     protected async Task SqlItemSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(WsLocaleCore.Table.TableSave, WsLocaleCore.Dialog.DialogQuestion, ItemSave);
+        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, ItemSave);
         
         RouteService.NavigateSectionRoute(SqlItemCast);
     }

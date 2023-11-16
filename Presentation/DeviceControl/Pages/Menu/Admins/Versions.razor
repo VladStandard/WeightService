@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlVersionEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.Strings.VersionsDb"
+  Title="@LocaleCore.Strings.VersionsDb"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -19,10 +19,10 @@
   Data="@SqlSectionCast">
   <Columns>
     <TItemContent TItem="@SqlVersionEntity">
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%"
-                            FormatString="@WsStrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Version" Property="Version" Width="10%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Description" Property="Description" Width="75%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.ReleaseDt" Property="ReleaseDt" Width="15%"
+                            FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="10%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Description" Property="Description" Width="75%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

@@ -1,6 +1,6 @@
 namespace WsLabelCore.Pages;
 
-partial class WsXamlLinesUserControl
+partial class XamlLinesUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -34,7 +34,7 @@ partial class WsXamlLinesUserControl
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.Color.Transparent;
-        this.Name = "WsXamlLinesUserControl";
+        this.Name = "XamlLinesUserControl";
         this.Size = new System.Drawing.Size(900, 500);
         this.ResumeLayout(false);
         this.PerformLayout();

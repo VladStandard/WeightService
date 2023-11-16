@@ -17,7 +17,7 @@ public class TscDriverHelper
 
 	#region Public and private fields and properties
 
-	public WsEnumPrintTscDll TscDll { get; set; }
+	public EnumPrintTscDll TscDll { get; set; }
 	public TscPrintProperties Properties { get; } = new();
 	public string Cmd { get; set; }
 
@@ -25,21 +25,21 @@ public class TscDriverHelper
 
 	#region Public and private methods
 
-	private void SetupInit(WsEnumPrintLabelSize size = WsEnumPrintLabelSize.Size80x100, WsEnumPrintLabelDpi dpi = WsEnumPrintLabelDpi.Dpi300)
+	private void SetupInit(EnumPrintLabelSize size = EnumPrintLabelSize.Size80x100, EnumPrintLabelDpi dpi = EnumPrintLabelDpi.Dpi300)
 	{
 		Properties.Size = size;
 		Properties.Dpi = dpi;
 		Properties.Setup(Properties.Size);
 	}
 
-	public void Setup(WsEnumPrintChannel channel, string name, WsEnumPrintLabelSize size, WsEnumPrintLabelDpi dpi)
+	public void Setup(EnumPrintChannel channel, string name, EnumPrintLabelSize size, EnumPrintLabelDpi dpi)
 	{
 		SetupInit(size, dpi);
 		Properties.Channel = channel;
 		Properties.PrintName = name;
 	}
 
-	public void Setup(WsEnumPrintChannel channel, string ip, int port, WsEnumPrintLabelSize size, WsEnumPrintLabelDpi dpi)
+	public void Setup(EnumPrintChannel channel, string ip, int port, EnumPrintLabelSize size, EnumPrintLabelDpi dpi)
 	{
 		SetupInit(size, dpi);
 		Properties.Channel = channel;
@@ -47,39 +47,39 @@ public class TscDriverHelper
 		Properties.PrintPort = port;
 	}
 
-	public WsEnumPrintStatus GetStatusAsEnum(byte? value)
+	public EnumPrintStatus GetStatusAsEnum(byte? value)
 	{
 		return value switch
 		{
 			// Normal
 			0x00 => 0x00,
 			// Head opened
-			0x01 => (WsEnumPrintStatus)0x01,
+			0x01 => (EnumPrintStatus)0x01,
 			// Paper Jam
-			0x02 => (WsEnumPrintStatus)0x02,
+			0x02 => (EnumPrintStatus)0x02,
 			// Paper Jam and head opened
-			0x03 => (WsEnumPrintStatus)0x03,
+			0x03 => (EnumPrintStatus)0x03,
 			// Out of paper
-			0x04 => (WsEnumPrintStatus)0x04,
+			0x04 => (EnumPrintStatus)0x04,
 			// Out of paper and head opened
-			0x05 => (WsEnumPrintStatus)0x05,
+			0x05 => (EnumPrintStatus)0x05,
 			// Out of ribbon
-			0x08 => (WsEnumPrintStatus)0x08,
+			0x08 => (EnumPrintStatus)0x08,
 			// Out of ribbon and head opened
-			0x09 => (WsEnumPrintStatus)0x09,
+			0x09 => (EnumPrintStatus)0x09,
 			// Out of ribbon and paper jam
-			0x0A => (WsEnumPrintStatus)0x0A,
+			0x0A => (EnumPrintStatus)0x0A,
 			// Out of ribbon, paper jam and head opened
-			0x0B => (WsEnumPrintStatus)0x0B,
+			0x0B => (EnumPrintStatus)0x0B,
 			// Out of ribbon and out of paper
-			0x0C => (WsEnumPrintStatus)0x0C,
+			0x0C => (EnumPrintStatus)0x0C,
 			// Out of ribbon, out of paper and head opened
-			0x0D => (WsEnumPrintStatus)0x0D,
+			0x0D => (EnumPrintStatus)0x0D,
 			// Pause
-			0x10 => (WsEnumPrintStatus)0x10,
+			0x10 => (EnumPrintStatus)0x10,
 			// Printing
-			0x20 => (WsEnumPrintStatus)0x20,
-			_ => WsEnumPrintStatus.HundredTwentyEight,
+			0x20 => (EnumPrintStatus)0x20,
+			_ => EnumPrintStatus.HundredTwentyEight,
 		};
 	}
 
@@ -88,14 +88,14 @@ public class TscDriverHelper
 		bool result = false;
 		switch (Properties.Channel)
 		{
-			case WsEnumPrintChannel.Name:
+			case EnumPrintChannel.Name:
 				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
 				result = driver.driver_status(Properties.PrintName);
 				driver.closeport();
 				break;
-			case WsEnumPrintChannel.Ethernet:
+			case EnumPrintChannel.Ethernet:
 				//
 				break;
 		}
@@ -174,7 +174,7 @@ public class TscDriverHelper
 
 		switch (Properties.Channel)
 		{
-			case WsEnumPrintChannel.Name:
+			case EnumPrintChannel.Name:
 				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
@@ -194,7 +194,7 @@ public class TscDriverHelper
 				driver.closeport();
 				//driver.closeport_mult(9100);
 				break;
-			case WsEnumPrintChannel.Ethernet:
+			case EnumPrintChannel.Ethernet:
 				ethernet ethernet = new();
 				ethernet.openport(Properties.PrintIp, Properties.PrintPort);
 				ethernet.clearbuffer();
@@ -221,13 +221,13 @@ public class TscDriverHelper
 	{
 		switch (Properties.Channel)
 		{
-			case WsEnumPrintChannel.Name:
+			case EnumPrintChannel.Name:
 				driver driver = new();
 				driver.openport(Properties.PrintName);
 				driver.clearbuffer();
 				driver.closeport();
 				break;
-			case WsEnumPrintChannel.Ethernet:
+			case EnumPrintChannel.Ethernet:
 				ethernet ethernet = new();
 				ethernet.openport(Properties.PrintIp, Properties.PrintPort);
 				ethernet.clearbuffer();

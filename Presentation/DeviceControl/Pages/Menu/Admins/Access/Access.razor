@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlAccessEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.Strings.AccessRights"
+  Title="@LocaleCore.Strings.AccessRights"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,15 +24,15 @@
   <Columns>
     <TItemContent TItem="@SqlAccessEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn TItem="@SqlAccessEntity" Title="@WsLocaleCore.Table.AccessLevel"
+      <RadzenDataGridColumn TItem="@SqlAccessEntity" Title="@LocaleCore.Table.AccessLevel"
                             SortProperty="Rights" Width="30%">
         <Template Context="itemCast">
           @GetAccessRightsDescription(itemCast.Rights)
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.User" Property="Name" Width="30%" />
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDt" Width="30%"
-                            FormatString="@WsStrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.User" Property="Name" Width="30%" />
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="30%"
+                            FormatString="@StrUtils.FormatDtLong"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

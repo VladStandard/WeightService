@@ -70,7 +70,7 @@ public class SqlLogWebEntity : SqlEntityBase
     public override void FillProperties()
     {
         base.FillProperties();
-        Version = WsLocaleCore.Sql.SqlItemFieldVersion;
+        Version = LocaleCore.Sql.SqlItemFieldVersion;
     }
 
     #endregion

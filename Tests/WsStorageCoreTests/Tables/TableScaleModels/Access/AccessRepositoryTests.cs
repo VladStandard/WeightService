@@ -20,7 +20,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlAccessEntity> items = AccessRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
@@ -30,7 +30,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetOrCreate()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAccessEntity access = AccessRepository.GetItemByNameOrCreate(CurrentUser);
             SqlAccessEntity accessByUid = AccessRepository.GetItemByUid(access.IdentityValueUid);
@@ -45,7 +45,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     [Test, Order(3)]
     public void GetByUid()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAccessEntity accessByName = AccessRepository.GetItemByUsername(CurrentUser);
             Guid uid = accessByName.IdentityValueUid;
@@ -61,7 +61,7 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
     [Test, Order(4)]
     public void GetNewItem()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlAccessEntity access = AccessRepository.GetNewItem();
             Assert.That(access.IsNew, Is.True);

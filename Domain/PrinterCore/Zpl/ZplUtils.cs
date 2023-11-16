@@ -14,7 +14,7 @@ public static class ZplUtils
     {
         if (string.IsNullOrEmpty(zpl)) return string.Empty;
         StringBuilder stringBuilder = new();
-        WsEnumDataBlockPosition dataBlockPosition = WsEnumDataBlockPosition.Outside;
+        EnumDataBlockPosition dataBlockPosition = EnumDataBlockPosition.Outside;
         List<string> hexReplace = new();
         for (int i = 0; i < zpl.Length; i++)
         {
@@ -22,41 +22,41 @@ public static class ZplUtils
             if (zpl.Length > i - 1 + BlockFhFd.Length)
             {
                 if (zpl.Substring(i, BlockFhFd.Length) == BlockFhFd)
-                    dataBlockPosition = WsEnumDataBlockPosition.Start;
+                    dataBlockPosition = EnumDataBlockPosition.Start;
             }
             // Data between ^FH^FD and ^FS.
-            if (dataBlockPosition == WsEnumDataBlockPosition.Start)
+            if (dataBlockPosition == EnumDataBlockPosition.Start)
             {
                 if (i - BlockFhFd.Length > 0)
                 {
                     if (zpl.Substring(i - BlockFhFd.Length - 1, BlockFhFd.Length) == BlockFhFd)
-                        dataBlockPosition = WsEnumDataBlockPosition.Between;
+                        dataBlockPosition = EnumDataBlockPosition.Between;
                 }
             }
             // ^FS -- Field Separator
-            if (dataBlockPosition is WsEnumDataBlockPosition.Start or WsEnumDataBlockPosition.Between)
+            if (dataBlockPosition is EnumDataBlockPosition.Start or EnumDataBlockPosition.Between)
             {
                 if (zpl.Length > i - 1 + BlockFs.Length)
                 {
                     if (zpl.Substring(i, BlockFs.Length) == BlockFs)
-                        dataBlockPosition = WsEnumDataBlockPosition.End;
+                        dataBlockPosition = EnumDataBlockPosition.End;
                 }
             }
             // Data between ^FH^FD and ^FS.
-            if (dataBlockPosition == WsEnumDataBlockPosition.Between)
+            if (dataBlockPosition == EnumDataBlockPosition.Between)
             {
                 hexReplace.AddRange(from byte b in Encoding.UTF8.GetBytes(zpl[i].ToString())
                                     select $"_{BitConverter.ToString(new byte[] { b }).ToUpper()}");
             }
-            if (dataBlockPosition == WsEnumDataBlockPosition.End)
+            if (dataBlockPosition == EnumDataBlockPosition.End)
             {
-                dataBlockPosition = WsEnumDataBlockPosition.Outside;
+                dataBlockPosition = EnumDataBlockPosition.Outside;
                 string hex = string.Join("", hexReplace);
                 stringBuilder.Append(hex);
                 stringBuilder.Append(Environment.NewLine);
                 hexReplace = new();
             }
-            if (dataBlockPosition != WsEnumDataBlockPosition.Between)
+            if (dataBlockPosition != EnumDataBlockPosition.Between)
                 stringBuilder.Append(zpl[i]);
         }
         return stringBuilder.ToString().Replace("_0D_0A", string.Empty);

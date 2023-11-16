@@ -13,7 +13,7 @@ public class ViewPluLineRepositoryTests : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlViewPluLineModel> items = ViewPluLineRepository.GetEnumerable(SqlCrudConfig);
             PrintViewRecords(items);

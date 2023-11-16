@@ -17,7 +17,7 @@ public sealed class SqlAccessValidator : SqlTableValidator<SqlAccessEntity>
             .NotNull();
         RuleFor(item => item.Rights)
             .NotNull()
-            .LessThanOrEqualTo((byte)WsEnumAccessRights.Admin)
-            .GreaterThanOrEqualTo((byte)WsEnumAccessRights.None);
+            .LessThanOrEqualTo((byte)EnumAccessRights.Admin)
+            .GreaterThanOrEqualTo((byte)EnumAccessRights.None);
     }
 }

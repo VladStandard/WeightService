@@ -17,7 +17,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlPluTemplateFkEntity> items = PluTemplateFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
@@ -27,7 +27,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByPlu()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlPluTemplateFkEntity oldPluTemplateFk = GetFirstPluTemplateFkModel();
             SqlPluEntity plu = oldPluTemplateFk.Plu;

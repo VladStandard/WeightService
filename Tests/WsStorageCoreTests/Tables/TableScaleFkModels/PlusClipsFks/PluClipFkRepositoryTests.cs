@@ -16,7 +16,7 @@ public sealed class PluClipsFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPluClipFkEntity> items = PluClipFkRepository.GetEnumerable(SqlCrudConfig);
             //ParseRecords(items);

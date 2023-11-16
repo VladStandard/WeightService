@@ -8,17 +8,17 @@ public sealed class ParseResultModel : SerializeBase
 {
     #region Public and private fields, properties, constructor
 
-    [XmlAttribute] public WsEnumParseStatus Status { get; set; }
+    [XmlAttribute] public EnumParseStatus Status { get; set; }
     [XmlAttribute] public string Message { get; set; }
     [XmlAttribute] public string Exception { get; set; }
     [XmlAttribute] public string InnerException { get; set; }
     
-    [XmlIgnore] public bool IsStatusSuccess => Equals(Status, WsEnumParseStatus.Success);
-    [XmlIgnore] public bool IsStatusError => Equals(Status, WsEnumParseStatus.Error);
+    [XmlIgnore] public bool IsStatusSuccess => Equals(Status, EnumParseStatus.Success);
+    [XmlIgnore] public bool IsStatusError => Equals(Status, EnumParseStatus.Error);
 
     public ParseResultModel()
     {
-        Status = WsEnumParseStatus.Unknown;
+        Status = EnumParseStatus.Unknown;
         Message = string.Empty;
         Exception = string.Empty;
         InnerException = string.Empty;
@@ -26,7 +26,7 @@ public sealed class ParseResultModel : SerializeBase
 
     private ParseResultModel(SerializationInfo info, StreamingContext context) : base(info, context)
     {
-        Status = (WsEnumParseStatus)info.GetValue(nameof(Status), typeof(WsEnumParseStatus));
+        Status = (EnumParseStatus)info.GetValue(nameof(Status), typeof(EnumParseStatus));
         Message = info.GetString(nameof(Message));
         Exception = info.GetString(nameof(Exception));
         InnerException = info.GetString(nameof(InnerException));
@@ -66,7 +66,7 @@ public sealed class ParseResultModel : SerializeBase
     public bool EqualsNew() => Equals(new());
 
     public bool EqualsDefault() =>
-        Equals(Status, WsEnumParseStatus.Unknown) &&
+        Equals(Status, EnumParseStatus.Unknown) &&
         Equals(Message, string.Empty) &&
         Equals(Exception, string.Empty) &&
         Equals(InnerException, string.Empty);
@@ -85,9 +85,9 @@ public sealed class ParseResultModel : SerializeBase
 
     public void FillProperties()
     {
-        Message = WsLocaleCore.Sql.SqlItemFieldMessage;
-        Exception = WsLocaleCore.Sql.SqlItemFieldException;
-        InnerException = WsLocaleCore.Sql.SqlItemFieldInnerException;
+        Message = LocaleCore.Sql.SqlItemFieldMessage;
+        Exception = LocaleCore.Sql.SqlItemFieldException;
+        InnerException = LocaleCore.Sql.SqlItemFieldInnerException;
     }
 
     #endregion

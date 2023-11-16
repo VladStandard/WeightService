@@ -16,7 +16,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlBundleEntity> items = BundleRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
@@ -26,7 +26,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByUid1C()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlBundleEntity oldBundle = GetFirstBundleModel();
             SqlBundleEntity bundleBy1C = BundleRepository.GetItemByUid1C(oldBundle.Uid1C);

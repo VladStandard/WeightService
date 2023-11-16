@@ -8,7 +8,7 @@ public sealed class WsAssemblyUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            string appVersion = WsAssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
+            string appVersion = AssemblyUtils.GetAppVersion(Assembly.GetExecutingAssembly());
             TestContext.WriteLine(appVersion);
             
             Assert.IsNotEmpty(appVersion);
@@ -20,7 +20,7 @@ public sealed class WsAssemblyUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            string runDirectory = WsAssemblyUtils.GetRunDirectory();
+            string runDirectory = AssemblyUtils.GetRunDirectory();
             TestContext.WriteLine(runDirectory);
             
             Assert.IsNotEmpty(runDirectory);
@@ -32,7 +32,7 @@ public sealed class WsAssemblyUtilsTests
     {
         Assert.DoesNotThrow(() =>
         {
-            string libVersion = WsAssemblyUtils.GetLibVersion();
+            string libVersion = AssemblyUtils.GetLibVersion();
             TestContext.WriteLine(libVersion);
 
             Assert.IsNotEmpty(libVersion);

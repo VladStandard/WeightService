@@ -13,7 +13,7 @@ public class ViewPluNestingRepositoryTests : ViewRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlViewPluNestingModel> items = ViewPluNestingRepository.GetEnumerable();
             PrintViewRecords(items);

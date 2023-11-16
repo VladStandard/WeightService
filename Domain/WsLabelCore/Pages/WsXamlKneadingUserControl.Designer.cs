@@ -2,7 +2,7 @@ using System.Windows.Forms;
 
 namespace WsLabelCore.Pages;
 
-partial class WsXamlKneadingUserControl
+partial class XamlKneadingUserControl
 {
     /// <summary> 
     /// Required designer variable.
@@ -346,14 +346,14 @@ partial class WsXamlKneadingUserControl
             this.flowLayoutPanelBottom.Size = new System.Drawing.Size(900, 100);
             this.flowLayoutPanelBottom.TabIndex = 8;
             // 
-            // WsXamlKneadingUserControl
+            // XamlKneadingUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.layoutPanel);
             this.Controls.Add(this.flowLayoutPanelBottom);
-            this.Name = "WsXamlKneadingUserControl";
+            this.Name = "XamlKneadingUserControl";
             this.Size = new System.Drawing.Size(900, 500);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KneadingUserControl_KeyUp);
             this.layoutPanel.ResumeLayout(false);

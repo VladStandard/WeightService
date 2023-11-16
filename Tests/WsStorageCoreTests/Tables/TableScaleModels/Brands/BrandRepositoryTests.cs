@@ -10,7 +10,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

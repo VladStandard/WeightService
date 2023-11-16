@@ -62,7 +62,7 @@ try
 }
 catch (Exception ex)
 {
-    WsFileLoggerHelper.Instance.StoreException(ex);
+    FileLoggerHelper.Instance.StoreException(ex);
 }
 
 #endregion

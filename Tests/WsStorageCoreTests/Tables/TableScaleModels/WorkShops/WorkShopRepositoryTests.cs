@@ -10,7 +10,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlWorkShopEntity> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
@@ -20,7 +20,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetNewItem()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             SqlWorkShopEntity app = WorkShopRepository.GetNewItem();
             Assert.That(app.IsNew, Is.True);

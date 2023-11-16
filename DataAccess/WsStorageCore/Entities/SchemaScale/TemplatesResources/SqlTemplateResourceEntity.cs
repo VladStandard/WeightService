@@ -23,7 +23,7 @@ public class SqlTemplateResourceEntity : SqlEntityBase
     {
         Type = item.Type;
         Data = new(item.Data);
-        DataValue = WsDataUtils.ByteClone(item.DataValue);
+        DataValue = DataUtils.ByteClone(item.DataValue);
     }
 
     #endregion

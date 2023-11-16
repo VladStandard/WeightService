@@ -6,7 +6,7 @@
 @inherits SectionBase<WsStorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
 <SectionTopBar
-  Title="@WsLocaleCore.DeviceControl.SectionHosts"
+  Title="@LocaleCore.DeviceControl.SectionHosts"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -25,10 +25,10 @@
   <Columns>
     <TItemContent TItem="@SqlHostEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.LoginDt" Property="LoginDt" Width="10%"
-                            FormatString="@WsStrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.Name" Property="Name" Width="30%"/>
-      <RadzenDataGridColumn Title="@WsLocaleCore.Table.DeviceIp" Property="Ip" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.LoginDt" Property="LoginDt" Width="10%"
+                            FormatString="@StrUtils.FormatDtDefault"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="30%"/>
+      <RadzenDataGridColumn Title="@LocaleCore.Table.DeviceIp" Property="Ip" Width="30%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

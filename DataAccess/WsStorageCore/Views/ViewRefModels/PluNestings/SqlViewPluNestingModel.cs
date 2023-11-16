@@ -33,10 +33,10 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
     public string BoxName { get; init; }
     public decimal BoxWeight { get; init; }
     public decimal TareWeight { get; init; }
-    public string TareWeightWithKg => $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg}";
+    public string TareWeightWithKg => $"{TareWeight} {LocaleCore.LabelPrint.WeightUnitKg}";
     public string TareWeightDescription =>
-        $"{(string.IsNullOrEmpty(BoxName) ? WsLocaleCore.WebService.BoxZero : BoxName)} + " +
-        $"({(string.IsNullOrEmpty(BundleName) ? WsLocaleCore.WebService.BundleZero : BundleName)} * {BundleCount})" +
+        $"{(string.IsNullOrEmpty(BoxName) ? LocaleCore.WebService.BoxZero : BoxName)} + " +
+        $"({(string.IsNullOrEmpty(BundleName) ? LocaleCore.WebService.BundleZero : BundleName)} * {BundleCount})" +
         $"{(IsDefault ? " + (По умолчанию)" : string.Empty)}";
     
     public string TareWeightValue => $"{BoxWeight} + ({BundleWeight} * {BundleCount})";
@@ -100,7 +100,7 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
 
     public override string ToString() => $"{TareWeightDescription} | {TareWeight}";
     
-    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {WsLocaleCore.LabelPrint.WeightUnitKg} | {PluName}" : "- 0 -";
+    public string GetSmartName() => TareWeight > 0 ? $"{TareWeight} {LocaleCore.LabelPrint.WeightUnitKg} | {PluName}" : "- 0 -";
     
     #endregion
 }

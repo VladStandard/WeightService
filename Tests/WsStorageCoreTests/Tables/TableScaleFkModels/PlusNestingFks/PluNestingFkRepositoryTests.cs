@@ -14,7 +14,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPluNestingFkEntity> items = PluNestingFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

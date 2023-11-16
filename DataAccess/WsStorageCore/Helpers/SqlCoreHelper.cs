@@ -154,7 +154,7 @@ public sealed class SqlCoreHelper
                 action(session);
                 session.Clear();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -185,7 +185,7 @@ public sealed class SqlCoreHelper
                 transaction.Commit();
                 session.Clear();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 transaction.Rollback();
             }

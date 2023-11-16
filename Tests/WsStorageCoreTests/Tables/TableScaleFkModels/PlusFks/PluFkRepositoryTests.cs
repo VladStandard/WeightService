@@ -10,7 +10,7 @@ public sealed class PluFkRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             IEnumerable<SqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);

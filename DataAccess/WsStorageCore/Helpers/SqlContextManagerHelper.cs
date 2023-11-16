@@ -17,8 +17,8 @@ public sealed class SqlContextManagerHelper
 
     #region Public and private fields, properties, constructor
 
-    private WsAppVersionHelper AppVersion => WsAppVersionHelper.Instance;
-    private WsFileLoggerHelper FileLogger => WsFileLoggerHelper.Instance;
+    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
     private JsonSettingsHelper JsonSettings => JsonSettingsHelper.Instance;
     private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
@@ -50,7 +50,7 @@ public sealed class SqlContextManagerHelper
         string fileName = "machine.config";
         string remoteFile = Path.Combine(JsonSettings.RemoteDir, fileName);
         CheckDirAndFile(remoteFile);
-        if (!WsDebugHelper.Instance.Config.Equals(WsEnumConfiguration.DevelopVs)) return;
+        if (!DebugHelper.Instance.Config.Equals(EnumConfiguration.DevelopVs)) return;
 
         string localFile = Path.Combine(localDir, fileName);
         if (File.Exists(localFile)) File.Delete(localFile);
@@ -60,7 +60,7 @@ public sealed class SqlContextManagerHelper
         streamReader.Close();
         streamReader.Dispose();
         if (string.IsNullOrEmpty(content))
-            throw new(WsLocaleCore.System.ConfigFileIsEmpty(remoteFile));
+            throw new(LocaleCore.System.ConfigFileIsEmpty(remoteFile));
 
         using StreamWriter streamWriter = File.CreateText(Path.Combine(localDir, fileName));
         streamWriter.Write(content);
@@ -71,9 +71,9 @@ public sealed class SqlContextManagerHelper
     private void CheckDirAndFile(string fileName)
     {
         if (!Directory.Exists(JsonSettings.RemoteDir))
-            throw new(WsLocaleCore.System.ConfigRemoteFolderNotFound);
+            throw new(LocaleCore.System.ConfigRemoteFolderNotFound);
         if (!File.Exists(fileName))
-            throw new(WsLocaleCore.System.ConfigRemoteFileNotFound);
+            throw new(LocaleCore.System.ConfigRemoteFileNotFound);
     }
     
 

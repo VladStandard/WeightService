@@ -11,7 +11,7 @@ public sealed class VersionRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        WsTestsUtils.DataTests.AssertAction(() =>
+        TestsUtils.DataTests.AssertAction(() =>
         {
             List<SqlVersionEntity> items = VersionRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
