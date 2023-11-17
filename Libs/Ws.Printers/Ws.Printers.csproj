@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Configurations>ReleaseVS;DevelopVS</Configurations>
+        <Platforms>x64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\" />
+      <Folder Include="Tsc\" />
+      <Folder Include="Zebra\" />
+    </ItemGroup>
+
+</Project>
