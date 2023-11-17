@@ -2,8 +2,5 @@
 
 public partial class MainLayout
 {
-    private static void ExitApp()
-    {
-        MauiWinUIApplication.Current.Exit();
-    }
+    private static void ExitApp() => MauiWinUIApplication.Current.Exit();
 }

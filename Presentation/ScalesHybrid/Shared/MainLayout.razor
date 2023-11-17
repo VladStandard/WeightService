@@ -1,17 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<div class="page-content__wrapper">
+  <div class="page-content__header">
+    <p>Title</p>
+    <div class="button-exit">
+      <button type="button" @onclick="@ExitApp">
+        Exit
+      </button>
     </div>
-
-    <main>
-        <div class="top-row px-4">
-          <button @onclick="@ExitApp">Exit</button>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+  </div>
+  <main class="page-content__container">
+    @Body
+  </main>
 </div>

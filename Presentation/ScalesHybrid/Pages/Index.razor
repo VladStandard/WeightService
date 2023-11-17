@@ -1,4 +1,61 @@
 ﻿@page "/"
 
-<h1>Hello, @host.Name - @host.Ip!</h1>
-Welcome to new Scales app.
+<div class="print-display">
+  <table class="print-display__table">
+    <tbody class="print-display__table">
+    <tr class="print-display__table-item">
+      <td class="print-display__table-label">Weight</td>
+      <td class="print-display__table-value">100lb</td>
+    </tr>
+    <tr class="print-display__table-item">
+      <td class="print-display__table-label">Date</td>
+      <td class="print-display__table-value">17.11.2023</td>
+    </tr>
+    <tr class="print-display__table-item">
+      <td class="print-display__table-label">Kneading</td>
+      <td class="print-display__table-value">1</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="func-sidebar">
+  <div class="plu-config-navbar">
+    <ul class="plu-config-navbar__list">
+      <li>
+        <button class="plu-config-navbar__list-item">
+          <p>Change line</p>
+        </button>
+      </li>
+      <li>
+        <button class="plu-config-navbar__list-item">
+          <p>Change plu</p>
+        </button>
+      </li>
+      <li>
+        <button class="plu-config-navbar__list-item">
+          <p>Change plu nesting</p>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="plu-print-sidebar">
+    <ul class="plu-print-sidebar__list">
+      <li>
+        <button class="plu-print-sidebar__list-item">
+          <p>Set kneading</p>
+        </button>
+      </li>
+      <li>
+        <button class="plu-print-sidebar__list-item">
+          <p>Print label</p>
+        </button>
+      </li>
+      <li>
+        <button class="plu-print-sidebar__list-item">
+          <p>Scales terminal</p>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
