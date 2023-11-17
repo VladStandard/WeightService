@@ -1,6 +1,6 @@
 ﻿@page "/section/plus_nesting/new"
 @page "/section/plus_nesting/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlPluNestingFkEntity>
 
@@ -20,7 +20,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
     <td>@LocaleCore.Table.NomenclatureCode</td>
@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.PluBundleFk" />
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.PluBundleFk" />
     </td>
     <td>@SqlItemCast.Plu.Bundle.Name</td>
     <td>@LocaleCore.Table.BundleWeight</td>
@@ -36,7 +36,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/>
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/>
     </td>
     <td>@SqlItemCast.Box.Name</td>
     <td>@LocaleCore.Table.BoxWeight</td>

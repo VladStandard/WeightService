@@ -1,6 +1,6 @@
 namespace DeviceControl.Utils;
 
-public static class WsRouteUtils
+public static class RouteUtils
 {
     #region Администрирование
 

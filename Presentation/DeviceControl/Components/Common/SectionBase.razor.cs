@@ -6,9 +6,9 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] protected WsJsService JsService { get; private set; } = default!;
-    [Inject] protected WsRouteService RouteService { get; set; } = default!;
-    [Inject] private WsLocalStorageService LocalStorage { get; set; } = default!;
+    [Inject] protected JsService JsService { get; private set; } = default!;
+    [Inject] protected RouteService RouteService { get; set; } = default!;
+    [Inject] private LocalStorageService LocalStorage { get; set; } = default!;
     [Inject] protected ContextMenuService ContextMenuService { get; set; } = default!;
     [Parameter] public SqlEntityBase? SqlItem { get; set; }
     protected IList<TItem> SelectedRow { get; set; }
@@ -87,30 +87,30 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         LocaleContextMenu locale = LocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
-            new() { Text = locale.Open, Value = WsContextMenuActionEnum.Open },
-            new() { Text = locale.OpenNewTab, Value = WsContextMenuActionEnum.OpenNewTab },
+            new() { Text = locale.Open, Value = ContextMenuActionEnum.Open },
+            new() { Text = locale.OpenNewTab, Value = ContextMenuActionEnum.OpenNewTab },
         };
 
-        if (User?.IsInRole(WsUserAccessStr.Write) != true)
+        if (User?.IsInRole(UserAccessStr.Write) != true)
             return contextMenuItems;
 
         if (ButtonSettings.IsShowMark)
-            contextMenuItems.Add(new() { Text = locale.Mark, Value = WsContextMenuActionEnum.Mark });
+            contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuActionEnum.Mark });
         if (ButtonSettings.IsShowDelete)
-            contextMenuItems.Add(new() { Text = locale.Delete, Value = WsContextMenuActionEnum.Delete });
+            contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuActionEnum.Delete });
 
         return contextMenuItems;
     }
 
     private void ParseContextMenuActions(MenuItemEventArgs e)
     {
-        WsContextMenuActionEnum menuAction = (WsContextMenuActionEnum)e.Value;
+        ContextMenuActionEnum menuAction = (ContextMenuActionEnum)e.Value;
         Func<Task> action = menuAction switch
         {
-            WsContextMenuActionEnum.OpenNewTab => SqlItemOpenNewTabAsync,
-            WsContextMenuActionEnum.Open => SqlItemOpenAsync,
-            WsContextMenuActionEnum.Mark => SqlItemMarkAsync,
-            WsContextMenuActionEnum.Delete => SqlItemDeleteAsync,
+            ContextMenuActionEnum.OpenNewTab => SqlItemOpenNewTabAsync,
+            ContextMenuActionEnum.Open => SqlItemOpenAsync,
+            ContextMenuActionEnum.Mark => SqlItemMarkAsync,
+            ContextMenuActionEnum.Delete => SqlItemDeleteAsync,
             _ => throw new NotImplementedException()
         };
 
@@ -164,7 +164,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
     #region Auth methods
 
-    [Authorize(Roles = WsUserAccessStr.Write)]
+    [Authorize(Roles = UserAccessStr.Write)]
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -176,7 +176,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         });
     }
 
-    [Authorize(Roles = WsUserAccessStr.Write)]
+    [Authorize(Roles = UserAccessStr.Write)]
     protected async virtual Task SqlItemDeleteAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -190,7 +190,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         });
     }
 
-    [Authorize(Roles = WsUserAccessStr.Write)]
+    [Authorize(Roles = UserAccessStr.Write)]
     protected async Task SqlItemMarkAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -203,7 +203,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         });
     }
 
-    [Authorize(Roles = WsUserAccessStr.Write)]
+    [Authorize(Roles = UserAccessStr.Write)]
     protected async virtual Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -214,17 +214,17 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         });
     }
 
-    [Authorize(Roles = WsUserAccessStr.Read)]
+    [Authorize(Roles = UserAccessStr.Read)]
     protected async virtual Task SqlItemOpenAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         RouteService.NavigateItemRoute(SqlItemCast);
     }
 
-    [Authorize(Roles = WsUserAccessStr.Read)]
+    [Authorize(Roles = UserAccessStr.Read)]
     protected async virtual Task SqlItemOpenNewTabAsync()
     {
-        await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast), "_blank");
+        await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast), "_blank");
     }
 
     #endregion

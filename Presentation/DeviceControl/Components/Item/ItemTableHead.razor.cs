@@ -4,7 +4,7 @@ public partial class ItemTableHead : ComponentBase
 {
     #region Public and private fields, properties, constructor
 
-    private WsCssStyleTableHeadModel TableHeadModel { get; set; }
+    private CssStyleTableHeadModel TableHeadModel { get; set; }
     [Parameter] public List<int> HeadWidth { get; set; } = new();
 
     #endregion
@@ -12,7 +12,7 @@ public partial class ItemTableHead : ComponentBase
     protected override void OnInitialized()
     {
         TableHeadModel = HeadWidth.Any() ? 
-            new(HeadWidth) : new WsCssStyleTableHeadModel();
+            new(HeadWidth) : new CssStyleTableHeadModel();
     }
     
 }

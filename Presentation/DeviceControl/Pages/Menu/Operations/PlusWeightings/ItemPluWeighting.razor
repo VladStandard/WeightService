@@ -1,6 +1,6 @@
 @page "/section/plus_weightings/new"
 @page "/section/plus_weightings/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlPluWeighingEntity>
 
@@ -12,7 +12,7 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluScale.Line.Description</td>
 
@@ -21,7 +21,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluScale.Plu)"
                   Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluScale.Plu.DisplayName</td>

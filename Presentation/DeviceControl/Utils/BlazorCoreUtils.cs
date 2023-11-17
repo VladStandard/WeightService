@@ -1,6 +1,6 @@
 namespace DeviceControl.Utils;
 
-public static class WsBlazorCoreUtils
+public static class BlazorCoreUtils
 {
     #region Public and private methods
 

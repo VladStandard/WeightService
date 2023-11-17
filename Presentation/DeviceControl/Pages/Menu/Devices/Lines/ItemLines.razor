@@ -1,6 +1,6 @@
 @page "/section/lines/new"
 @page "/section/lines/{Id:long}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusLines
 @using DeviceControl.Components.Rz
@@ -24,13 +24,13 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Host)" Text="@LocaleCore.Table.Host"/>
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Host)" Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Host" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.Printer)" Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Printer)" Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="DisplayName" />
@@ -38,7 +38,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@WsRouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName" />

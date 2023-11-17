@@ -9,14 +9,14 @@
     <NavMenu/>
     <div class="viewer">
       <div class="viewer-header">
-        <a href="@WsRouteUtils.Profile">
+        <a href="@RouteUtils.Profile">
           <div class="viewer-header__item">
             <RadzenIcon Icon="people"/>
             <p>@User?.Identity?.Name</p>
           </div>
         </a>
-        <AuthorizeView Roles="@WsUserAccessStr.Admin">
-          <a href="@WsRouteUtils.SystemAppInfo">
+        <AuthorizeView Roles="@UserAccessStr.Admin">
+          <a href="@RouteUtils.SystemAppInfo">
             <div class="viewer-header__item">
               <RadzenIcon Icon="history"/>
               <p>@VerBlazor</p>

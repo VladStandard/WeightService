@@ -1,12 +1,12 @@
 namespace DeviceControl.Services;
 
-public class WsCustomAuthStateProvider : AuthenticationStateProvider
+public class CustomAuthStateProvider : AuthenticationStateProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IWsUserRightsService _userRightsService;
+    private readonly IUserRightsService _userRightsService;
     private readonly IMemoryCache _cache;
 
-    public WsCustomAuthStateProvider(IHttpContextAccessor httpContextAccessor, IWsUserRightsService userRightsService, IMemoryCache cache)
+    public CustomAuthStateProvider(IHttpContextAccessor httpContextAccessor, IUserRightsService userRightsService, IMemoryCache cache)
     {
         _httpContextAccessor = httpContextAccessor;
         _userRightsService = userRightsService;

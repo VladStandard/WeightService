@@ -14,79 +14,79 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Text = LocaleBlazor.SectionDevices,
-            RequiredRole = WsUserAccessStr.Read,
+            RequiredRole = UserAccessStr.Read,
             Icon = "extension",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionScales, Path = WsRouteUtils.SectionLines },
-                new() { Text = LocaleBlazor.SectionHosts, Path = WsRouteUtils.SectionHosts },
-                new() { Text = LocaleCore.Print.Names, Path = WsRouteUtils.SectionPrinters }
+                new() { Text = LocaleBlazor.SectionScales, Path = RouteUtils.SectionLines },
+                new() { Text = LocaleBlazor.SectionHosts, Path = RouteUtils.SectionHosts },
+                new() { Text = LocaleCore.Print.Names, Path = RouteUtils.SectionPrinters }
             }
         },
         new()
         {
             Text = LocaleBlazor.SectionOperations,
-            RequiredRole = WsUserAccessStr.Read,
+            RequiredRole = UserAccessStr.Read,
             Icon = "assignment",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionLabels, Path = WsRouteUtils.SectionPlusLabels },
-                new() { Text = LocaleBlazor.SectionBarCodes, Path = WsRouteUtils.SectionBarCodes },
-                new() { Text = LocaleBlazor.SectionWeighings, Path = WsRouteUtils.SectionPlusWeightings },
-                new() { Text = LocaleBlazor.SectionWeithingFactsAggregationShort, Path = WsRouteUtils.SectionPlusLabelsAggr }
+                new() { Text = LocaleBlazor.SectionLabels, Path = RouteUtils.SectionPlusLabels },
+                new() { Text = LocaleBlazor.SectionBarCodes, Path = RouteUtils.SectionBarCodes },
+                new() { Text = LocaleBlazor.SectionWeighings, Path = RouteUtils.SectionPlusWeightings },
+                new() { Text = LocaleBlazor.SectionWeithingFactsAggregationShort, Path = RouteUtils.SectionPlusLabelsAggr }
             }
         },
         new()
         {
             Text = LocaleBlazor.SectionReferences1C,
-            RequiredRole = WsUserAccessStr.Read,
+            RequiredRole = UserAccessStr.Read,
             Icon = "copyright",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionPlus, Path = WsRouteUtils.SectionPlus },
-                new() { Text = LocaleBlazor.SectionBoxes, Path = WsRouteUtils.SectionBoxes },
-                new() { Text = LocaleBlazor.SectionClips, Path = WsRouteUtils.SectionClips },
-                new() { Text = LocaleBlazor.SectionBundles, Path = WsRouteUtils.SectionBundles },
-                new() { Text = LocaleBlazor.SectionBrands, Path = WsRouteUtils.SectionBrands }
+                new() { Text = LocaleBlazor.SectionPlus, Path = RouteUtils.SectionPlus },
+                new() { Text = LocaleBlazor.SectionBoxes, Path = RouteUtils.SectionBoxes },
+                new() { Text = LocaleBlazor.SectionClips, Path = RouteUtils.SectionClips },
+                new() { Text = LocaleBlazor.SectionBundles, Path = RouteUtils.SectionBundles },
+                new() { Text = LocaleBlazor.SectionBrands, Path = RouteUtils.SectionBrands }
             }
         },
         new()
         {
             Text = LocaleBlazor.SectionReferences,
-            RequiredRole = WsUserAccessStr.Read,
+            RequiredRole = UserAccessStr.Read,
             Icon = "description",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionOrganizations, Path = WsRouteUtils.SectionOrganizations },
-                new() { Text = LocaleBlazor.SectionWorkShops, Path = WsRouteUtils.SectionWorkShops },
-                new() { Text = LocaleBlazor.SectionProductionFacilitiesShort, Path = WsRouteUtils.SectionProductionFacilities },
-                new() { Text = LocaleBlazor.SectionTemplates, Path = WsRouteUtils.SectionTemplates },
-                new() { Text = LocaleBlazor.SectionTemplateResources, Path = WsRouteUtils.SectionTemplateResources },
-                new() { Text = LocaleBlazor.SectionPlusStorage, Path = WsRouteUtils.SectionPlusStorage }
+                new() { Text = LocaleBlazor.SectionOrganizations, Path = RouteUtils.SectionOrganizations },
+                new() { Text = LocaleBlazor.SectionWorkShops, Path = RouteUtils.SectionWorkShops },
+                new() { Text = LocaleBlazor.SectionProductionFacilitiesShort, Path = RouteUtils.SectionProductionFacilities },
+                new() { Text = LocaleBlazor.SectionTemplates, Path = RouteUtils.SectionTemplates },
+                new() { Text = LocaleBlazor.SectionTemplateResources, Path = RouteUtils.SectionTemplateResources },
+                new() { Text = LocaleBlazor.SectionPlusStorage, Path = RouteUtils.SectionPlusStorage }
             }
         },
         new()
         {
             Text = LocaleCore.Menu.MenuReports,
-            RequiredRole = WsUserAccessStr.Read,
+            RequiredRole = UserAccessStr.Read,
             Icon = "build",
             SubItems = new()
             {
-                new() { Text = LocaleCore.System.SystemLogsAll, Path = WsRouteUtils.SectionLogs },
-                new() { Text = LocaleCore.WebService.Name, Path = WsRouteUtils.SectionLogsWebService }
+                new() { Text = LocaleCore.System.SystemLogsAll, Path = RouteUtils.SectionLogs },
+                new() { Text = LocaleCore.WebService.Name, Path = RouteUtils.SectionLogsWebService }
             }
         },
         new()
         {
             Text = LocaleBlazor.SectionAdministering,
-            RequiredRole = WsUserAccessStr.Admin,
+            RequiredRole = UserAccessStr.Admin,
             Icon = "people",
             SubItems = new()
             {
-                new() { Text = LocaleCore.System.Users, Path = WsRouteUtils.SectionAccess },
-                new() { Text = LocaleCore.System.DatabaseInfo, Path = WsRouteUtils.SystemDatabaseInfo },
-                new() { Text = LocaleCore.Menu.MenuDbVersionHistory, Path = WsRouteUtils.SectionVersions },
-                new() { Text = LocaleCore.System.SystemInfo, Path = WsRouteUtils.SystemAppInfo }
+                new() { Text = LocaleCore.System.Users, Path = RouteUtils.SectionAccess },
+                new() { Text = LocaleCore.System.DatabaseInfo, Path = RouteUtils.SystemDatabaseInfo },
+                new() { Text = LocaleCore.Menu.MenuDbVersionHistory, Path = RouteUtils.SectionVersions },
+                new() { Text = LocaleCore.System.SystemInfo, Path = RouteUtils.SystemAppInfo }
             }
         }
     };

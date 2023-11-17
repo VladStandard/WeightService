@@ -1,6 +1,6 @@
 ﻿@page "/section/boxes/new"
 @page "/section/boxes/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlBoxEntity>
 
