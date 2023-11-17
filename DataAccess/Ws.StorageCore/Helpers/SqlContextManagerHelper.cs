@@ -1,9 +1,6 @@
 namespace Ws.StorageCore.Helpers;
 
-/// <summary>
-/// SQL-менеджер доступа к данным БД (используется клиентами).
-/// Клиентский слой доступа к БД.
-/// </summary>
+[Obsolete("Will be deleted soon")]
 public sealed class SqlContextManagerHelper
 {
     #region Design pattern "Lazy Singleton"
@@ -16,12 +13,10 @@ public sealed class SqlContextManagerHelper
     #endregion
 
     #region Public and private fields, properties, constructor
-
-    private AppVersionHelper AppVersion => AppVersionHelper.Instance;
+    
     private FileLoggerHelper FileLogger => FileLoggerHelper.Instance;
     private JsonSettingsHelper JsonSettings => JsonSettingsHelper.Instance;
     private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
-    private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
     #endregion
 

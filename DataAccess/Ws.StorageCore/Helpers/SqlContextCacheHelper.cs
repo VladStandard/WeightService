@@ -1,8 +1,6 @@
 namespace Ws.StorageCore.Helpers;
 
-/// <summary>
-/// Помощник кэша.
-/// </summary>
+[Obsolete("Will be deleted soon")]
 public sealed class SqlContextCacheHelper
 {
     #region Design pattern "Lazy Singleton"

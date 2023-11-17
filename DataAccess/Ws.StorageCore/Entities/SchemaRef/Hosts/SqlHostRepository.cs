@@ -11,14 +11,12 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
         return SqlCore.GetItemByCrud<SqlHostEntity>(sqlCrudConfig);
     }
     
-    public SqlHostEntity SaveOrUpdate (SqlHostEntity hostEntity)
+    public SqlHostEntity SaveOrUpdate(SqlHostEntity hostEntity)
     {
-        hostEntity.LoginDt = DateTime.Now;
         if (!hostEntity.IsNew)
             SqlCore.Update(hostEntity);
         else
         {
-            hostEntity.LoginDt = DateTime.Now;
             SqlCore.Save(hostEntity);
         }
         return hostEntity;
@@ -27,11 +25,13 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
     public SqlHostEntity GetItemByNameOrCreate(string name)
     {
         SqlHostEntity host = GetItemByName(name);
-        if (host.IsNew)
-        {
+
+        if (host.IsNew) 
             host.Name = name;
-            host.Ip = MdNetUtils.GetLocalIpAddress();
-        }
+        
+        host.Ip = MdNetUtils.GetLocalIpAddress();
+        host.LoginDt = DateTime.Now;
+        
         return SaveOrUpdate(host);
     }
     

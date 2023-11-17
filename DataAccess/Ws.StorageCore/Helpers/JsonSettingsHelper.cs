@@ -1,5 +1,6 @@
 namespace Ws.StorageCore.Helpers;
 
+[Obsolete("Will be deleted soon")]
 public sealed class JsonSettingsHelper
 {
     #region Design pattern "Lazy Singleton"
