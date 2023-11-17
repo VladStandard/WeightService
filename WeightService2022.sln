@@ -124,10 +124,10 @@ Global
 		{5973F987-103A-455D-A5E3-C7429906657A}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{5973F987-103A-455D-A5E3-C7429906657A}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{5973F987-103A-455D-A5E3-C7429906657A}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
-		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.DevelopVS|x64.ActiveCfg = DevelopVs|x64
-		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.DevelopVS|x64.Build.0 = DevelopVs|x64
-		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.ActiveCfg = DevelopVs|x64
-		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.Build.0 = DevelopVs|x64
+		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

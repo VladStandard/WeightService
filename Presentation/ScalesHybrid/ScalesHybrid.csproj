@@ -24,17 +24,8 @@
         <ApplicationVersion>1</ApplicationVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-        <Configurations>DevelopVs;ReleaseVs</Configurations>
+        <Configurations>ReleaseVS;DevelopVS</Configurations>
         <Platforms>x64</Platforms>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'DevelopVs' ">
-      <PlatformTarget>x64</PlatformTarget>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseVs' ">
-      <Optimize>true</Optimize>
-      <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>

@@ -18,6 +18,7 @@ public partial class App : MauiWinUIApplication
     protected override MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiProgram.CreateMauiApp();
+#if RELEASE_VS
         builder.ConfigureLifecycleEvents(events => {
             events.AddWindows(windowsLifecycleBuilder =>
             {
@@ -36,6 +37,7 @@ public partial class App : MauiWinUIApplication
                 });
             });
         });
+#endif
         return builder.Build();
     }
 }
