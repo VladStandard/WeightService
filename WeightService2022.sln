@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZplPrintSenderTool", "Tools
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesHybrid", "Presentation\ScalesHybrid\ScalesHybrid.csproj", "{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Services", "Domain\Ws.Services\Ws.Services.csproj", "{2FD7890F-F1B3-493A-A883-B555F98D18D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -128,6 +130,10 @@ Global
 		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{2FD7890F-F1B3-493A-A883-B555F98D18D9}.DevelopVS|x64.ActiveCfg = Debug|Any CPU
+		{2FD7890F-F1B3-493A-A883-B555F98D18D9}.DevelopVS|x64.Build.0 = Debug|Any CPU
+		{2FD7890F-F1B3-493A-A883-B555F98D18D9}.ReleaseVS|x64.ActiveCfg = Debug|Any CPU
+		{2FD7890F-F1B3-493A-A883-B555F98D18D9}.ReleaseVS|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +157,7 @@ Global
 		{AB204B9C-C58F-4567-A9BD-46A78A6D49BA} = {9EFDDDBD-0814-4C94-90E7-348DA29E426F}
 		{5973F987-103A-455D-A5E3-C7429906657A} = {9EFDDDBD-0814-4C94-90E7-348DA29E426F}
 		{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9} = {F20FF1E7-9D46-4912-B830-EF82E287B995}
+		{2FD7890F-F1B3-493A-A883-B555F98D18D9} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}

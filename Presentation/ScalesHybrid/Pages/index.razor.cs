@@ -1,9 +1,9 @@
-﻿using MDSoft.NetUtils;
+﻿using Microsoft.AspNetCore.Components;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace ScalesHybrid.Pages;
 
-public partial class Index
+public partial class Index : ComponentBase
 {
-    private static string PcName => MdNetUtils.GetLocalDeviceName(false);
-    private static string PcIp => MdNetUtils.GetLocalIpAddress();
+    private SqlHostEntity host { get; set; }
 }

@@ -47,12 +47,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
+      <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
     </ItemGroup>
 
 </Project>

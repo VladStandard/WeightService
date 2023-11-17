@@ -1,6 +1,6 @@
 ﻿@page "/section/brands/new"
 @page "/section/brands/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlBrandEntity>
 

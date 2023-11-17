@@ -1,6 +1,6 @@
 @page "/section/access/new"
 @page "/section/access/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlAccessEntity>

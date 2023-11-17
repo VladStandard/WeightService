@@ -1,6 +1,6 @@
 @using DeviceControl.Components.Rz
 @using DeviceControl.Components.Item
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 
 <div Style="display: flex; margin-bottom: 10px">
   <RadzenDropDown TValue="List<SqlPluEntity>" @bind-Value="@SelectedPlus" Data="@Plus" TextProperty="DisplayName"

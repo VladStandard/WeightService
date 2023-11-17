@@ -1,19 +1,19 @@
 namespace DeviceControl.Utils;
 
-public class WsCssStyleTableHeadModel
+public class CssStyleTableHeadModel
 {
     #region Public and private fields, properties, constructor
 
     public List<int> ColumnsWidths { get; set; }
     public List<string> ColumnsTitles { get; set; }
     
-    public WsCssStyleTableHeadModel()
+    public CssStyleTableHeadModel()
     {
         ColumnsWidths = new() {30, 70};
         ColumnsTitles = GetColumnsTitles();
     }
     
-    public WsCssStyleTableHeadModel(List<int> columnsWidths)
+    public CssStyleTableHeadModel(List<int> columnsWidths)
     {
         ColumnsWidths = columnsWidths;
         ColumnsTitles = GetColumnsTitles();

@@ -45,7 +45,7 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
 
     protected override async Task SqlItemOpenNewTabAsync()
     {
-        await JsRuntime.InvokeAsync<string>("open", WsRouteService.GetItemRoute(SqlItemCast.Plu), "_blank");
+        await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast.Plu), "_blank");
     }
 
     #endregion

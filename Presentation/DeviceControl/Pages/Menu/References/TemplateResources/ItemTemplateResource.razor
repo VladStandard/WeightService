@@ -1,6 +1,6 @@
 @page "/section/templates_resources/new"
 @page "/section/templates_resources/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlTemplateResourceEntity>
 

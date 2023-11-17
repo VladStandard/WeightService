@@ -1,6 +1,6 @@
 namespace DeviceControl.Services;
 
-public class WsUserRightsService : IWsUserRightsService
+public class UserRightsService : IUserRightsService
 {
     private SqlAccessRepository AccessRepository { get; } = new();
 

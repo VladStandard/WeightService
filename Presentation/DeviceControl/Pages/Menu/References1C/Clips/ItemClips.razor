@@ -1,6 +1,6 @@
 @page "/section/clips/new"
 @page "/section/clips/{Uid:guid}"
-@attribute [Authorize(Roles = WsUserAccessStr.Read)]
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlClipEntity>
 

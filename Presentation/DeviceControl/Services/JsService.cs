@@ -1,10 +1,10 @@
 namespace DeviceControl.Services;
 
-public class WsJsService
+public class JsService
 {
     private readonly IJSRuntime _jsRuntime;
 
-    public WsJsService(IJSRuntime jsRuntime)
+    public JsService(IJSRuntime jsRuntime)
     {
         _jsRuntime = jsRuntime;
     }

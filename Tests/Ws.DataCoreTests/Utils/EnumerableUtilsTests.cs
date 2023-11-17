@@ -4,7 +4,7 @@ using Ws.DataCore.Common;
 namespace Ws.DataCoreTests.Utils;
 
 [TestFixture]
-public sealed class WsEnumerableUtilsTests
+public sealed class EnumerableUtilsTests
 {
     [Test]
     public void Change_new_copy_collection_int()
