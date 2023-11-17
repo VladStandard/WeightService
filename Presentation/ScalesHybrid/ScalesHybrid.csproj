@@ -47,12 +47,47 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\ApplicationResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\ApplicationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Logging;
 using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.StorageCore.Helpers;
@@ -29,6 +32,16 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
+        CultureInfo[] supportedCultures = { new("en-US"), new("ru-RU") };
+        
+        builder.Services.AddLocalization();
+        builder.Services.Configure<RequestLocalizationOptions>(options =>
+        {
+            options.DefaultRequestCulture = new RequestCulture("ru-RU", "ru-RU");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+        });
+        
         return builder;
     }
 }
