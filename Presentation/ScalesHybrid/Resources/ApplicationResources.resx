@@ -48,4 +48,10 @@
     <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
         <value />
     </data>
+    <data name="PageTitleIndex" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PageTitlePluSelect" xml:space="preserve">
+        <value />
+    </data>
 </root>

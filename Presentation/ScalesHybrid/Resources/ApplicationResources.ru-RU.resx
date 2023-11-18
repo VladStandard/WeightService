@@ -48,4 +48,10 @@
     <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
         <value>Замес</value>
     </data>
+    <data name="PageTitleIndex" xml:space="preserve">
+        <value>Печать этикеток</value>
+    </data>
+    <data name="PageTitlePluSelect" xml:space="preserve">
+        <value>Выбор ПЛУ</value>
+    </data>
 </root>

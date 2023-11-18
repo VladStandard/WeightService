@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
+using ScalesHybrid.Services;
 using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
@@ -12,6 +13,7 @@ public partial class Index : ComponentBase
 {
     [Inject] private IHostService HostService { get; set; }
     [Inject] private ILineService LineService { get; set; }
+    [Inject] private PageTitleService PageTitleService { get; set; }
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
@@ -24,5 +26,6 @@ public partial class Index : ComponentBase
         ProductDate = DateTime.Now;
         Host = HostService.GetCurrentHostOrCreate();
         Line = LineService.GetLineByHost(Host);
+        PageTitleService.SetTitle(Localizer["PageTitleIndex"]);
     }
 }

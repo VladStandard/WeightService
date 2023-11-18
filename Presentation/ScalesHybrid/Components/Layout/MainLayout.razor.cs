@@ -2,4 +2,4 @@
 
 namespace ScalesHybrid.Components.Layout;
 
-public partial class MainLayout: LayoutComponentBase {}
+public partial class MainLayout : LayoutComponentBase {}

@@ -148,5 +148,23 @@ namespace ScalesHybrid.Resources {
                 return ResourceManager.GetString("KneadingDisplayWeightLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Печать этикеток.
+        /// </summary>
+        internal static string PageTitleIndex {
+            get {
+                return ResourceManager.GetString("PageTitleIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбор ПЛУ.
+        /// </summary>
+        internal static string PageTitlePluSelect {
+            get {
+                return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
+            }
+        }
     }
 }

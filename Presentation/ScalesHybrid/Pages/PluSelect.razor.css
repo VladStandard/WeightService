@@ -1,0 +1,21 @@
+.plu-select-page__container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.plu-select-page__content {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.plu-select-page__control-bar {
+  display: flex;
+  flex-shrink: 0;
+  height: 25%;
+  width: 100%;
+}

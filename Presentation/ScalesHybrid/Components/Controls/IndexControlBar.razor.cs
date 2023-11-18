@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 
-namespace ScalesHybrid.Components;
+namespace ScalesHybrid.Components.Controls;
 
 public sealed partial class IndexControlBar : ComponentBase
 {
