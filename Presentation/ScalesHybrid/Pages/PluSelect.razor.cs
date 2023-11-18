@@ -7,9 +7,7 @@ using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
-using Ws.StorageCore.Models;
 
 namespace ScalesHybrid.Pages;
 
@@ -32,8 +30,7 @@ public sealed partial class PluSelect: ComponentBase
     {
         PageTitleService.SetTitle(Localizer["PageTitleIndex"]);
         Host = HostService.GetCurrentHostOrCreate();
-        Line = LineService.GetLineByHost(Host);
-        SqlPluEntities = new SqlPluLineRepository()
-            .GetListByLine(Line, new SqlCrudConfigModel()).Select(i => i.Plu);
+        Line = HostService.GetLineByHost(Host);
+        SqlPluEntities = LineService.GetLinePlus(Line);
     }
 }

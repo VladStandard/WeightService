@@ -1,5 +1,6 @@
 ﻿using MDSoft.NetUtils;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaScale.Scales;
 
 namespace Ws.Services.Services.Host;
 
@@ -16,5 +17,10 @@ public class HostService : IHostService
         host.LoginDt = DateTime.Now;
         
         return new SqlHostRepository().SaveOrUpdate(host);
+    }
+    
+    public SqlScaleEntity GetLineByHost(SqlHostEntity host)
+    {
+        return new SqlLineRepository().GetItemByHost(host);
     }
 }

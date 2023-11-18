@@ -12,9 +12,7 @@ namespace ScalesHybrid.Pages;
 public partial class Index : ComponentBase
 {
     [Inject] private IHostService HostService { get; set; }
-    [Inject] private ILineService LineService { get; set; }
     [Inject] private PageTitleService PageTitleService { get; set; }
-
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     private SqlHostEntity Host { get; set; }
@@ -25,7 +23,7 @@ public partial class Index : ComponentBase
     {
         ProductDate = DateTime.Now;
         Host = HostService.GetCurrentHostOrCreate();
-        Line = LineService.GetLineByHost(Host);
+        Line = HostService.GetLineByHost(Host);
         PageTitleService.SetTitle(Localizer["PageTitleIndex"]);
     }
 }
