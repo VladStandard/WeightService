@@ -2,22 +2,23 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
+using ScalesHybrid.Utils;
 
 namespace ScalesHybrid.Components.Controls;
 
 public sealed partial class IndexControlBar : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
     private List<ControlBarButton> PluConfigButtonList { get; set; }
     private List<ControlBarButton> PluPrintButtonList { get; set; }
-    
 
     protected override void OnInitialized()
     {
         PluConfigButtonList = new List<ControlBarButton>
         {
             new() { Title = Localizer["ButtonLineChange"] },
-            new() { Title = Localizer["ButtonPLUChange"] },
+            new() { Title = Localizer["ButtonPLUChange"], OnClickAction = () => RedirectTo(RouterUtils.PluSelect)},
             new() { Title = Localizer["ButtonPLUNestingChange"] },
         };
         PluPrintButtonList = new List<ControlBarButton>
@@ -27,6 +28,8 @@ public sealed partial class IndexControlBar : ComponentBase
             new() { Title = Localizer["ButtonScaleTerminal"], OnClickAction = OpenScalesTerminal},
         };
     }
+
+    private void RedirectTo(string url) => NavigationManager.NavigateTo(url);
 
     private static void OpenScalesTerminal()
     {
