@@ -55,6 +55,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" />
     </ItemGroup>
 
     <ItemGroup>

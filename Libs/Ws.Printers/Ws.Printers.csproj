@@ -9,9 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Common\" />
-      <Folder Include="Tsc\" />
-      <Folder Include="Zebra\" />
+      <PackageReference Include="SuperSimpleTcp" Version="3.0.13" />
     </ItemGroup>
 
 </Project>
