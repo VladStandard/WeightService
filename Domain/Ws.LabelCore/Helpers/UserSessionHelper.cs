@@ -25,7 +25,6 @@ public sealed class UserSessionHelper //: BaseViewModel
     private LabelSessionHelper LabelSession => LabelSessionHelper.Instance;
     public PluginLabelsHelper PluginLabels => PluginLabelsHelper.Instance;
     public PluginMassaHelper PluginMassa => PluginMassaHelper.Instance;
-    public PluginMemoryHelper PluginMemory => PluginMemoryHelper.Instance;
     public Stopwatch StopwatchMain { get; set; } = new();
     
     #endregion
@@ -34,7 +33,6 @@ public sealed class UserSessionHelper //: BaseViewModel
 
     public void PluginsClose()
     {
-        PluginMemory.Dispose();
         PluginMassa.Dispose();
         LabelSession.PluginPrintTscMain?.Dispose();
         LabelSession.PluginPrintZebraMain?.Dispose();

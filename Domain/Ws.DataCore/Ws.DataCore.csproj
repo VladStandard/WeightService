@@ -39,9 +39,6 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="ZplTemplates\" />
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <PropertyGroup>
