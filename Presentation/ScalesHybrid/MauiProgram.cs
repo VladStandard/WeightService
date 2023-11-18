@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
+using ScalesHybrid.Services;
 using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.StorageCore.Helpers;
@@ -41,6 +42,7 @@ public static class MauiProgram
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });
+        builder.Services.AddSingleton<PageTitleService>();
         
         return builder;
     }

@@ -1,0 +1,27 @@
+.main-header {
+  height: 4rem;
+  position: relative;
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--layout-border-color);
+}
+
+.main-header__title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.main-header__btn-exit {
+  position: absolute;
+  right: 0;
+  top: 30%;
+  padding-right: 1rem;
+}
+
+.main-header__btn-exit:hover {
+  cursor: pointer;
+}

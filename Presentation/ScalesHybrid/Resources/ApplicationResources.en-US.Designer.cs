@@ -60,11 +60,110 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string ButtonExit {
+            get {
+                return ResourceManager.GetString("ButtonExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set kneading.
+        /// </summary>
+        internal static string ButtonKneadingChange {
+            get {
+                return ResourceManager.GetString("ButtonKneadingChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Print label.
         /// </summary>
         internal static string ButtonLabelPrint {
             get {
                 return ResourceManager.GetString("ButtonLabelPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change line.
+        /// </summary>
+        internal static string ButtonLineChange {
+            get {
+                return ResourceManager.GetString("ButtonLineChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change PLU.
+        /// </summary>
+        internal static string ButtonPLUChange {
+            get {
+                return ResourceManager.GetString("ButtonPLUChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change PLU nesting.
+        /// </summary>
+        internal static string ButtonPLUNestingChange {
+            get {
+                return ResourceManager.GetString("ButtonPLUNestingChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open scale terminal.
+        /// </summary>
+        internal static string ButtonScaleTerminal {
+            get {
+                return ResourceManager.GetString("ButtonScaleTerminal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string KneadingDisplayDateLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kneading.
+        /// </summary>
+        internal static string KneadingDisplayKneadingLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayKneadingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        internal static string KneadingDisplayWeightLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayWeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label print.
+        /// </summary>
+        internal static string PageTitleIndex {
+            get {
+                return ResourceManager.GetString("PageTitleIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLU Select.
+        /// </summary>
+        internal static string PageTitlePluSelect {
+            get {
+                return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
             }
         }
     }

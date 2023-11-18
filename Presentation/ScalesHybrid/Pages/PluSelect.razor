@@ -1,0 +1,23 @@
+@page "/pluSelect"
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+
+<div class="plu-select-page__container">
+  <div class="plu-select-page__content">
+    <div class="plu-grid">
+      @foreach (SqlPluEntity pluEntity in SqlPluEntities.Take(MaxPluCount))
+      {
+        <div class="plu-grid__item">
+          <div class="plu-grid__item-content">
+            <p>@pluEntity.ToString()</p>
+          </div>
+          <div class="plu-grid__item-state">
+            <p>Ready to use</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="plu-select-page__control-bar">
+    <PrimaryButton Title="Back" OnClickAction="RedirectToIndex" />
+  </div>
+</div>
