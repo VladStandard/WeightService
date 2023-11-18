@@ -86,7 +86,6 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Text = LocaleCore.System.Users, Path = RouteUtils.SectionAccess },
                 new() { Text = LocaleCore.System.DatabaseInfo, Path = RouteUtils.SystemDatabaseInfo },
                 new() { Text = LocaleCore.Menu.MenuDbVersionHistory, Path = RouteUtils.SectionVersions },
-                new() { Text = LocaleCore.System.SystemInfo, Path = RouteUtils.SystemAppInfo }
             }
         }
     };

@@ -15,14 +15,10 @@
             <p>@User?.Identity?.Name</p>
           </div>
         </a>
-        <AuthorizeView Roles="@UserAccessStr.Admin">
-          <a href="@RouteUtils.SystemAppInfo">
-            <div class="viewer-header__item">
-              <RadzenIcon Icon="history"/>
-              <p>@VerBlazor</p>
-            </div>
-          </a>
-        </AuthorizeView>
+        <div class="viewer-header__item">
+          <RadzenIcon Icon="history"/>
+          <p>@VerBlazor</p>
+        </div>
       </div>
       <div class="viewer-content">
         @Body

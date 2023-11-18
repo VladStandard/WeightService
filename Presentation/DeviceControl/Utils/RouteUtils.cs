@@ -3,8 +3,7 @@ namespace DeviceControl.Utils;
 public static class RouteUtils
 {
     #region Администрирование
-
-    public static string SystemAppInfo => "/system";
+    
     public static string SystemDatabaseInfo => "/system_sql";
     public static string SectionVersions => "/system_sql_versions";
     

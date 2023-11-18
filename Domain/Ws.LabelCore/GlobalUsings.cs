@@ -28,7 +28,6 @@ global using SuperSimpleTcp;
 global using Ws.DataCore.Common;
 global using Ws.DataCore.Enums;
 global using Ws.DataCore.Helpers;
-global using Ws.DataCore.Memory;
 global using Ws.DataCore.Models;
 global using Ws.LabelCore.Common;
 global using Ws.LabelCore.Controls;

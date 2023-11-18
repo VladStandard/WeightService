@@ -1,10 +1,8 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
-using Ws.Services.Services.Host;
-using Ws.Services.Services.Line;
+using Ws.Services;
 using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid;
@@ -24,10 +22,9 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
-
+        
         builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddScoped<IHostService, HostService>();
-        builder.Services.AddScoped<ILineService, LineService>();
+        builder.Services.AddVsServices();
         
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
@@ -38,7 +35,7 @@ public static class MauiProgram
         builder.Services.AddLocalization();
         builder.Services.Configure<RequestLocalizationOptions>(options =>
         {
-            options.DefaultRequestCulture = new RequestCulture("ru-RU", "ru-RU");
+            options.DefaultRequestCulture = new("ru-RU", "ru-RU");
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });

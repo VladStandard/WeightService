@@ -1,4 +1,3 @@
-using Ws.DataCore.Memory;
 using Ws.DataCore.Models;
 
 namespace DeviceControl.Settings;
@@ -17,21 +16,8 @@ public class BlazorAppSettingsHelper
     #region Public and private fields, properties, constructor
     
     public DataSourceDicsHelper DataSourceDics => DataSourceDicsHelper.Instance;
-    public MemoryModel Memory { get; private set; } = new();
     public static int DelayInfo => 2500;
     public static int DelayError => 5000;
     
-    #endregion
-
-    #region Public and private methods
-
-    public void SetupMemory()
-    {
-        Memory.Close();
-        Memory = new();
-        Memory.MemorySize.Execute();
-        // ContextManager.ContextItem.SaveLogMemory(Memory.MemorySize.GetMemorySizeAppMb(), Memory.MemorySize.GetMemorySizeFreeMb());
-    }
-
     #endregion
 }

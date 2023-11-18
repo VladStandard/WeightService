@@ -15,13 +15,13 @@ public sealed partial class IndexControlBar : ComponentBase
 
     protected override void OnInitialized()
     {
-        PluConfigButtonList = new List<ControlBarButton>
+        PluConfigButtonList = new()
         {
             new() { Title = Localizer["ButtonLineChange"] },
             new() { Title = Localizer["ButtonPLUChange"], OnClickAction = () => RedirectTo(RouterUtils.PluSelect)},
             new() { Title = Localizer["ButtonPLUNestingChange"] },
         };
-        PluPrintButtonList = new List<ControlBarButton>
+        PluPrintButtonList = new()
         {
             new() { Title = Localizer["ButtonKneadingChange"] },
             new() { Title = Localizer["ButtonLabelPrint"] },
@@ -37,8 +37,7 @@ public sealed partial class IndexControlBar : ComponentBase
         {
             Process process = new()
             {
-                StartInfo = new ProcessStartInfo(
-                    @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe")
+                StartInfo = new(@"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe")
             };
             process.Start();
             process.WaitForExit();

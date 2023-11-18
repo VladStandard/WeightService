@@ -13,8 +13,6 @@ public partial class MainLayout : LayoutComponentBase
     protected override async Task OnInitializedAsync()
     {
         User = await UserService.GetUser();
-        BlazorAppSettings.SetupMemory();
-        BlazorAppSettings.Memory.OpenAsync().ConfigureAwait(false);
         await base.OnInitializedAsync();
     }
     

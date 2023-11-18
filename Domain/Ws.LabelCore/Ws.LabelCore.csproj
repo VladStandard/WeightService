@@ -118,7 +118,6 @@
         <Compile Include="Helpers\FontsSettingsHelper.cs" />
         <Compile Include="Helpers\PluginLabelsHelper.cs" />
         <Compile Include="Helpers\PluginMassaHelper.cs" />
-        <Compile Include="Helpers\PluginMemoryHelper.cs" />
         <Compile Include="Models\PluginPrintModel.cs" />
         <Compile Include="Models\PluginConfigModel.cs" />
         <Compile Include="Common\PluginBaseHelper.cs" />
