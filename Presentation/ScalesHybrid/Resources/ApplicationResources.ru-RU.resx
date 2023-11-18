@@ -21,4 +21,31 @@
     <data name="ButtonLabelPrint" xml:space="preserve">
         <value>Напечатать этикетку</value>
     </data>
+    <data name="ButtonExit" xml:space="preserve">
+        <value>Выход</value>
+    </data>
+    <data name="ButtonScaleTerminal" xml:space="preserve">
+        <value>Открыть весовой терминал</value>
+    </data>
+    <data name="ButtonKneadingChange" xml:space="preserve">
+        <value>Установить замес</value>
+    </data>
+    <data name="ButtonLineChange" xml:space="preserve">
+        <value>Изменить линию</value>
+    </data>
+    <data name="ButtonPLUChange" xml:space="preserve">
+        <value>Изменить ПЛУ</value>
+    </data>
+    <data name="ButtonPLUNestingChange" xml:space="preserve">
+        <value>Изменить ПЛУ</value>
+    </data>
+    <data name="KneadingDisplayWeightLabel" xml:space="preserve">
+        <value>Вес</value>
+    </data>
+    <data name="KneadingDisplayDateLabel" xml:space="preserve">
+        <value>Дата</value>
+    </data>
+    <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
+        <value>Замес</value>
+    </data>
 </root>

@@ -21,4 +21,31 @@
     <data name="ButtonLabelPrint" xml:space="preserve">
         <value>Print label</value>
     </data>
+    <data name="ButtonExit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
+    <data name="ButtonScaleTerminal" xml:space="preserve">
+        <value>Open scale terminal</value>
+    </data>
+    <data name="ButtonKneadingChange" xml:space="preserve">
+        <value>Set kneading</value>
+    </data>
+    <data name="ButtonLineChange" xml:space="preserve">
+        <value>Change line</value>
+    </data>
+    <data name="ButtonPLUChange" xml:space="preserve">
+        <value>Change PLU</value>
+    </data>
+    <data name="ButtonPLUNestingChange" xml:space="preserve">
+        <value>Change PLU nesting</value>
+    </data>
+    <data name="KneadingDisplayWeightLabel" xml:space="preserve">
+        <value>Weight</value>
+    </data>
+    <data name="KneadingDisplayDateLabel" xml:space="preserve">
+        <value>Date</value>
+    </data>
+    <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
+        <value>Kneading</value>
+    </data>
 </root>

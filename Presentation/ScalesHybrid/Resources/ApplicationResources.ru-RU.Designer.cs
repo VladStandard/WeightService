@@ -60,11 +60,92 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выход.
+        /// </summary>
+        internal static string ButtonExit {
+            get {
+                return ResourceManager.GetString("ButtonExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Установить замес.
+        /// </summary>
+        internal static string ButtonKneadingChange {
+            get {
+                return ResourceManager.GetString("ButtonKneadingChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Напечатать этикетку.
         /// </summary>
         internal static string ButtonLabelPrint {
             get {
                 return ResourceManager.GetString("ButtonLabelPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить линию.
+        /// </summary>
+        internal static string ButtonLineChange {
+            get {
+                return ResourceManager.GetString("ButtonLineChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить ПЛУ.
+        /// </summary>
+        internal static string ButtonPLUChange {
+            get {
+                return ResourceManager.GetString("ButtonPLUChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить ПЛУ.
+        /// </summary>
+        internal static string ButtonPLUNestingChange {
+            get {
+                return ResourceManager.GetString("ButtonPLUNestingChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Открыть весовой терминал.
+        /// </summary>
+        internal static string ButtonScaleTerminal {
+            get {
+                return ResourceManager.GetString("ButtonScaleTerminal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата.
+        /// </summary>
+        internal static string KneadingDisplayDateLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Замес.
+        /// </summary>
+        internal static string KneadingDisplayKneadingLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayKneadingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вес.
+        /// </summary>
+        internal static string KneadingDisplayWeightLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayWeightLabel", resourceCulture);
             }
         }
     }
