@@ -48,7 +48,6 @@ public static class RouteUtils
     public static string SectionBoxes => "/section/boxes";
     public static string SectionBrands => "/section/brands";
     public static string SectionBundles => "/section/bundles";
-    public static string SectionOrganizations => "/section/organizations";
     public static string SectionProductionFacilities => "/section/production_facilities";
     public static string SectionLines => "/section/lines";
     public static string SectionTemplateResources => "/section/templates_resources";

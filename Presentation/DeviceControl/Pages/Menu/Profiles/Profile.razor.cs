@@ -30,7 +30,6 @@ public partial class Profile : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         User = await UserService.GetUser();
-        await base.OnInitializedAsync();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

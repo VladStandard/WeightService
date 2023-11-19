@@ -20,7 +20,6 @@ global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.JSInterop;
 global using Radzen.Blazor;
 global using Ws.DataCore.Enums;
-global using Ws.DataCore.Helpers;
 global using Ws.DataCore.Protocols;
 global using Ws.DataCore.Utils;
 global using Ws.StorageCore.Helpers;

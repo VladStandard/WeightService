@@ -6,7 +6,6 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] protected JsService JsService { get; private set; } = default!;
     [Inject] protected RouteService RouteService { get; set; } = default!;
     [Inject] private LocalStorageService LocalStorage { get; set; } = default!;
     [Inject] protected ContextMenuService ContextMenuService { get; set; } = default!;

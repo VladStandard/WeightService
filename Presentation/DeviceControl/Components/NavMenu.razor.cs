@@ -1,3 +1,4 @@
+using Ws.DataCore.Helpers;
 using WsLocalizationCore.DeviceControlModels;
 
 namespace DeviceControl.Components;
@@ -18,9 +19,9 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "extension",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionScales, Path = RouteUtils.SectionLines },
-                new() { Text = LocaleBlazor.SectionHosts, Path = RouteUtils.SectionHosts },
-                new() { Text = LocaleCore.Print.Names, Path = RouteUtils.SectionPrinters }
+                new(LocaleBlazor.SectionScales, RouteUtils.SectionLines),
+                new(LocaleBlazor.SectionHosts, RouteUtils.SectionHosts),
+                new(LocaleCore.Print.Names, RouteUtils.SectionPrinters),
             }
         },
         new()
@@ -30,10 +31,10 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "assignment",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionLabels, Path = RouteUtils.SectionPlusLabels },
-                new() { Text = LocaleBlazor.SectionBarCodes, Path = RouteUtils.SectionBarCodes },
-                new() { Text = LocaleBlazor.SectionWeighings, Path = RouteUtils.SectionPlusWeightings },
-                new() { Text = LocaleBlazor.SectionWeithingFactsAggregationShort, Path = RouteUtils.SectionPlusLabelsAggr }
+                new(LocaleBlazor.SectionLabels, RouteUtils.SectionPlusLabels),
+                new(LocaleBlazor.SectionBarCodes, RouteUtils.SectionBarCodes),
+                new(LocaleBlazor.SectionWeighings, RouteUtils.SectionPlusWeightings),
+                new(LocaleBlazor.SectionWeithingFactsAggregationShort, RouteUtils.SectionPlusLabelsAggr)
             }
         },
         new()
@@ -43,11 +44,11 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "copyright",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionPlus, Path = RouteUtils.SectionPlus },
-                new() { Text = LocaleBlazor.SectionBoxes, Path = RouteUtils.SectionBoxes },
-                new() { Text = LocaleBlazor.SectionClips, Path = RouteUtils.SectionClips },
-                new() { Text = LocaleBlazor.SectionBundles, Path = RouteUtils.SectionBundles },
-                new() { Text = LocaleBlazor.SectionBrands, Path = RouteUtils.SectionBrands }
+                new(LocaleBlazor.SectionPlus, RouteUtils.SectionPlus),
+                new(LocaleBlazor.SectionBoxes, RouteUtils.SectionBoxes),
+                new(LocaleBlazor.SectionClips, RouteUtils.SectionClips),
+                new(LocaleBlazor.SectionBundles, RouteUtils.SectionBundles),
+                new(LocaleBlazor.SectionBrands, RouteUtils.SectionBrands)
             }
         },
         new()
@@ -57,12 +58,11 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "description",
             SubItems = new()
             {
-                new() { Text = LocaleBlazor.SectionOrganizations, Path = RouteUtils.SectionOrganizations },
-                new() { Text = LocaleBlazor.SectionWorkShops, Path = RouteUtils.SectionWorkShops },
-                new() { Text = LocaleBlazor.SectionProductionFacilitiesShort, Path = RouteUtils.SectionProductionFacilities },
-                new() { Text = LocaleBlazor.SectionTemplates, Path = RouteUtils.SectionTemplates },
-                new() { Text = LocaleBlazor.SectionTemplateResources, Path = RouteUtils.SectionTemplateResources },
-                new() { Text = LocaleBlazor.SectionPlusStorage, Path = RouteUtils.SectionPlusStorage }
+                new(LocaleBlazor.SectionWorkShops, RouteUtils.SectionWorkShops),
+                new(LocaleBlazor.SectionProductionFacilitiesShort, RouteUtils.SectionProductionFacilities),
+                new(LocaleBlazor.SectionTemplates, RouteUtils.SectionTemplates),
+                new(LocaleBlazor.SectionTemplateResources, RouteUtils.SectionTemplateResources),
+                new(LocaleBlazor.SectionPlusStorage, RouteUtils.SectionPlusStorage)
             }
         },
         new()
@@ -72,8 +72,8 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "build",
             SubItems = new()
             {
-                new() { Text = LocaleCore.System.SystemLogsAll, Path = RouteUtils.SectionLogs },
-                new() { Text = LocaleCore.WebService.Name, Path = RouteUtils.SectionLogsWebService }
+                new(LocaleCore.System.SystemLogsAll, RouteUtils.SectionLogs),
+                new(LocaleCore.WebService.Name, RouteUtils.SectionLogsWebService)
             }
         },
         new()
@@ -83,9 +83,9 @@ public sealed partial class NavMenu : ComponentBase
             Icon = "people",
             SubItems = new()
             {
-                new() { Text = LocaleCore.System.Users, Path = RouteUtils.SectionAccess },
-                new() { Text = LocaleCore.System.DatabaseInfo, Path = RouteUtils.SystemDatabaseInfo },
-                new() { Text = LocaleCore.Menu.MenuDbVersionHistory, Path = RouteUtils.SectionVersions },
+                new(LocaleCore.System.Users, RouteUtils.SectionAccess),
+                new(LocaleCore.System.DatabaseInfo, RouteUtils.SystemDatabaseInfo),
+                new(LocaleCore.Menu.MenuDbVersionHistory, RouteUtils.SectionVersions),
             }
         }
     };
@@ -94,8 +94,14 @@ public sealed partial class NavMenu : ComponentBase
 
 internal class MenuItem
 {
-    public string Text { get; init; } = string.Empty;
-    public string Path { get; init; } = string.Empty;
+    public string Text { get; }
+    public string Path { get; }
+
+    public MenuItem(string text, string path)
+    {
+        Text = text;
+        Path = path;
+    }
 }
 
 internal class MenuSection

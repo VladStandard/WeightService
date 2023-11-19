@@ -6,7 +6,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 #region Add
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
-builder.Services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
+builder.Services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -53,19 +53,11 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 SqlCoreHelper.Instance.SetSessionFactory(false);
 
-try
-{
-    app.Run();
-}
-catch (Exception ex)
-{
-    FileLoggerHelper.Instance.StoreException(ex);
-}
+app.Run();
 
 #endregion

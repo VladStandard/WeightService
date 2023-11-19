@@ -19,7 +19,6 @@ public partial class ItemActions : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         User = await UserService.GetUser();
-        await base.OnInitializedAsync();
     }
 
     #endregion

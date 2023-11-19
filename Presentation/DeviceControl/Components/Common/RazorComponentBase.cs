@@ -13,9 +13,7 @@ public class RazorComponentBase : LayoutComponentBase
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
     #endregion
-
-    protected static SqlContextManagerHelper ContextManager => SqlContextManagerHelper.Instance;
-
+    
     protected ClaimsPrincipal? User { get; set; }
 
     #endregion
@@ -145,6 +143,5 @@ public class RazorComponentBase : LayoutComponentBase
     protected override async Task OnInitializedAsync()
     {
         User = await UserService.GetUser();
-        await base.OnInitializedAsync();
     }
 }
