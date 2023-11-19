@@ -45,7 +45,6 @@ public class SqlBarCodeEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(TypeTop)}: {TypeTop}. " +
         $"{nameof(ValueTop)}: {ValueTop}. " +
         $"{nameof(TypeRight)}: {TypeRight}. " +

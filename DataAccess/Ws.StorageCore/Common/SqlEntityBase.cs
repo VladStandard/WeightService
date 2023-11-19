@@ -42,7 +42,6 @@ public class SqlEntityBase
     public override string ToString() =>
         (CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty) +
         (ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty) +
-        GetIsMarked() +
         (string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ") +
         (string.IsNullOrEmpty(Description) ? string.Empty : $"{Description}");
 
@@ -76,20 +75,11 @@ public class SqlEntityBase
                                                                 Equals(IsMarked, false) &&
                                                                 Equals(Name, string.Empty) &&
                                                                 Equals(Description, string.Empty);
-
-    public virtual void SetDtNow()
+    
+    public virtual void FillProperties()
     {
         ChangeDt = CreateDt = DateTime.Now;
     }
-
-    public virtual void FillProperties()
-    {
-        SetDtNow();
-    }
-
-    protected virtual string GetIsMarked() => IsMarked ? "Is marked" : "No marked";
-
-    protected virtual string GetIsBool(bool isBool, string positive, string negative) => isBool ? positive : negative;
-
+    
     #endregion
 }

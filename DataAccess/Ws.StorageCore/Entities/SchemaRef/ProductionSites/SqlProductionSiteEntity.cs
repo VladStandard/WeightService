@@ -24,7 +24,7 @@ public class SqlProductionSiteEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Address}";
+    public override string ToString() => $"{Address}";
 
     public override bool Equals(object obj)
     {

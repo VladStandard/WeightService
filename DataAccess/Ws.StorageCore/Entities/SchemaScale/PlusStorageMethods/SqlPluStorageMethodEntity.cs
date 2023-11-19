@@ -28,7 +28,6 @@ public class SqlPluStorageMethodEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(MinTemp)}: {MinTemp}. " +
         $"{nameof(MaxTemp)}: {MaxTemp}.";

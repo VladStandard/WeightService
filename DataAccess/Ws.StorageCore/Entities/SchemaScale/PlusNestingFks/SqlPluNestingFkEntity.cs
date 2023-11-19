@@ -47,7 +47,7 @@ public class SqlPluNestingFkEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | {GetIsDefault()} | {Plu.Number} | {Plu.Name} | " +
+        $"{GetIsDefault()} | {Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
         //$" | {PluBundle.Bundle.Name} * {BundleCount} + {Box.Name}";
 

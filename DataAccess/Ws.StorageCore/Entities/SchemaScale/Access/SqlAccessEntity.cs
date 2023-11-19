@@ -25,7 +25,7 @@ public class SqlAccessEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Name} | {RightsEnum}";
+    public override string ToString() => $"{Name} | {RightsEnum}";
 
     public override bool Equals(object obj)
     {

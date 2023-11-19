@@ -31,7 +31,6 @@ public class SqlTemplateResourceEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Type)}: {Type}. ";
 

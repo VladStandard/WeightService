@@ -30,7 +30,7 @@ public class SqlTemplateEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {CategoryId} | {Title}";
+    public override string ToString() => $"{CategoryId} | {Title}";
 
     public override bool Equals(object obj)
     {

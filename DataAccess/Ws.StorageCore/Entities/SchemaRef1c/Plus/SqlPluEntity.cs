@@ -60,7 +60,7 @@ public class SqlPluEntity : SqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {GetIsMarked()} | {GetIsGroup()} | {Code}";
+    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {GetIsGroup()} | {Code}";
 
     public virtual string GetIsGroup() => IsGroup? "Is group" : "Is not group";
 
@@ -105,11 +105,6 @@ public class SqlPluEntity : SqlTable1CBase
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight);
-    
-    public virtual void UpdateGtin()
-    {
-        Gtin = IsCheckWeight ? "0" + Ean13 : Itf14;
-    }
 
     #endregion
 }

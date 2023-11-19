@@ -46,7 +46,7 @@ public class SqlLogEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | {Device?.Name ?? "null"} | {App?.Name ?? "null"} | {Type.ToString()} | {Version} | {File} " +
+        $"{Device?.Name ?? "null"} | {App?.Name ?? "null"} | {Type.ToString()} | {Version} | {File} " +
         $"{Line} | {Member} | {Message}";
 
     public override bool Equals(object obj)

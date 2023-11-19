@@ -33,7 +33,6 @@ public class SqlPluWeighingEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Kneading)}: {Kneading}. " +
         $"{nameof(PluScale)}: {PluScale}. ";
 

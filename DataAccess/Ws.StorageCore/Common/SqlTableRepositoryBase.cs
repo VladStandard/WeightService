@@ -1,6 +1,6 @@
 namespace Ws.StorageCore.Common;
 
-public class SqlTableRepositoryBase<T> : ISqlTableBaseRepository<T> where T : SqlEntityBase, new()
+public class SqlTableRepositoryBase<T> where T : SqlEntityBase, new()
 {
     #region Public and private fields, properties, constructor
 

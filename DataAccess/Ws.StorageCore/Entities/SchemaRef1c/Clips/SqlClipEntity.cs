@@ -21,7 +21,7 @@ public class SqlClipEntity : SqlTable1CBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Name} | {Weight}";
+    public override string ToString() => $"{Name} | {Weight}";
 
     public override bool Equals(object obj)
     {

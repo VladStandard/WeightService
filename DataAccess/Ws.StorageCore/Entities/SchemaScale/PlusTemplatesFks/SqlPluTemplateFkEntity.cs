@@ -25,7 +25,6 @@ public class SqlPluTemplateFkEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Template)}: {Template}. ";
 

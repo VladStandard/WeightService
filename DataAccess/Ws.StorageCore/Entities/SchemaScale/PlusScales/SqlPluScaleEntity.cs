@@ -1,5 +1,3 @@
-// ReSharper disable VirtualMemberCallInConstructor
-
 namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
 [DebuggerDisplay("{ToString()}")]
@@ -29,7 +27,7 @@ public class SqlPluScaleEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {IsActive} | {Plu} | {Line}";
+    public override string ToString() => $"{IsActive} | {Plu} | {Line}";
 
     public override bool Equals(object obj)
     {

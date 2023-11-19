@@ -22,7 +22,6 @@ public class SqlBrandEntity : SqlTable1CBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Code)}: {Code}. ";
 

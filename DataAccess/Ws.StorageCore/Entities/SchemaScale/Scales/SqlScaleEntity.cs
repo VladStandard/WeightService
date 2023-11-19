@@ -51,7 +51,7 @@ public class SqlScaleEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {IdentityValueId} | {Description}";
+    public override string ToString() => $"{IdentityValueId} | {Description}";
 
     public override bool Equals(object obj)
     {

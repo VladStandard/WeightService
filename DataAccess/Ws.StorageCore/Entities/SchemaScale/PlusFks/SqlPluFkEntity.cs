@@ -26,7 +26,6 @@ public class SqlPluFkEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Parent)}: {Parent}. ";
 

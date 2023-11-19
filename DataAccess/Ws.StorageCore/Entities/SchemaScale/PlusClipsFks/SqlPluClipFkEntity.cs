@@ -26,7 +26,6 @@ public class SqlPluClipFkEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Plu)}: {Plu.Name}. " +
         $"{nameof(Clip)}: {Clip.Name}. ";
 

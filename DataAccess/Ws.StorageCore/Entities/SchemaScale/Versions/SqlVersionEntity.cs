@@ -27,7 +27,7 @@ public class SqlVersionEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {ReleaseDt} | {Version}";
+    public override string ToString() => $"{ReleaseDt} | {Version}";
 
     public override bool Equals(object obj)
     {

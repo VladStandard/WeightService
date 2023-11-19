@@ -19,7 +19,7 @@ public class SqlAppEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {DisplayName}";
+    public override string ToString() => $"{DisplayName}";
 
     public override bool Equals(object obj)
     {

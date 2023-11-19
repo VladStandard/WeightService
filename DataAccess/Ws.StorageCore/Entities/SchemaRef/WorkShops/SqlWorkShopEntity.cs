@@ -25,7 +25,6 @@ public class SqlWorkShopEntity : SqlEntityBase
     #region Public and private methods - override
 
     public override string ToString() =>
-        $"{GetIsMarked()} | " +
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(ProductionSite)}: {ProductionSite}. ";
 

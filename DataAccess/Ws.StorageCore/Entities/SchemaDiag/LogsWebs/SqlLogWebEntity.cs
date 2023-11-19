@@ -42,7 +42,7 @@ public class SqlLogWebEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Version} | {Url}";
+    public override string ToString() => $"{Version} | {Url}";
 
     public override bool Equals(object obj)
     {

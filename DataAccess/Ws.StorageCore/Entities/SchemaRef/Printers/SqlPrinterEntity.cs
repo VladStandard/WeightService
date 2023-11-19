@@ -30,9 +30,7 @@ public class SqlPrinterEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() =>
-        $"{GetIsMarked()} | " +
-        $"{nameof(Type)}: {Type}.";
+    public override string ToString() => $"{nameof(Type)}: {Type}.";
 
     public override bool Equals(object obj)
     {

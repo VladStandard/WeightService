@@ -25,7 +25,7 @@ public class SqlHostEntity : SqlEntityBase
 
     #region Public and private methods - override
 
-    public override string ToString() => $"{GetIsMarked()} | {Name}";
+    public override string ToString() => $"{Name}";
 
     public override bool Equals(object obj)
     {
