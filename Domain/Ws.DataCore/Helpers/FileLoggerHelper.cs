@@ -15,14 +15,7 @@ public class FileLoggerHelper
     #endregion
 
     #region Public and private methods
-
-    public void Setup(string dir, string file)
-    {
-        if (!Directory.Exists(dir) || string.IsNullOrEmpty(file)) return;
-        LogFileName = Path.Combine(dir, $"{file}.txt");
-        StoreMessage($"Debug mode: {DebugHelper.Instance.IsDevelop}");
-    }
-
+    
     private void StoreCore(Action<StreamWriter> action)
     {
         if (string.IsNullOrEmpty(LogFileName)) return;
@@ -32,12 +25,7 @@ public class FileLoggerHelper
         streamWriter.Close();
         streamWriter.Dispose();
     }
-
-    private void StoreMessage(string message) => 
-        StoreCore(streamWriter => {
-            streamWriter.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {message}");
-        });
-
+    
     public void StoreException(Exception ex, [CallerFilePath] string filePath = "", 
         [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {

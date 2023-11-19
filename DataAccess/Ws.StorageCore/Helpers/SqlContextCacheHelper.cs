@@ -113,12 +113,7 @@ public sealed class SqlContextCacheHelper
         if (Lines.Count.Equals(0) || table is not null && !table.RowsCount.Equals((uint)Lines.Count))
             Lines = LineRepository.GetEnumerable(SqlCrudConfig).ToList();
     }
-
-    /// <summary>
-    /// Загрузить кэш.
-    /// </summary>
-    public void Load() => Load(TableName);
-
+    
     /// <summary>
     /// Загрузить кэш.
     /// </summary>
@@ -168,16 +163,7 @@ public sealed class SqlContextCacheHelper
         if (TableName.Equals(SqlEnumTableName.All))
             TableName = SqlEnumTableName.None;
     }
-
-    /// <summary>
-    /// Загрузить кэш.
-    /// </summary>
-    public async Task LoadAsync(SqlEnumTableName tableName)
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        Load(tableName);
-    }
-
+    
     /// <summary>
     /// Обновить глобальный кэш.
     /// </summary>
@@ -204,27 +190,6 @@ public sealed class SqlContextCacheHelper
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToList();
-
-    /// <summary>
-    /// Очистить кеш.
-    /// </summary>
-    public void Clear()
-    {
-        // Таблицы.
-        Areas.Clear();
-        Boxes.Clear();
-        Bundles.Clear();
-        Clips.Clear();
-        Lines.Clear();
-        Plus.Clear();
-        PlusClipsFks.Clear();
-        PlusFks.Clear();
-        PlusNestingFks.Clear();
-        WorkShops.Clear();
-        ViewPlusLines.Clear();
-        ViewPlusNesting.Clear();
-        ViewPlusStorageMethods.Clear();
-    }
 
     #endregion
 }

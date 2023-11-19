@@ -213,21 +213,6 @@
         <None Include="Resources\exit_1.png" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="Resources\exit_2.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Resources\scales_1.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Resources\scales_2.gif" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Resources\settings_1.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Resources\settings_2.png" />
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj">
           <Project>{6f69d674-da0e-4e6c-a5d8-7d1d33f14cd8}</Project>
           <Name>Ws.StorageCore</Name>
@@ -248,9 +233,6 @@
             <Project>{b16ecc51-2ef8-49e6-b77e-b8cc065550a4}</Project>
             <Name>Ws.MassaCore</Name>
         </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Resources\left_1.png" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

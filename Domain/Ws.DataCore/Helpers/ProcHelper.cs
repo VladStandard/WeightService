@@ -13,11 +13,6 @@ public sealed class ProcHelper
 
 	#region Public methods
 
-	public void RunSilent(string procName, string args, bool runAs)
-	{
-		Run(procName, args, runAs, ProcessWindowStyle.Hidden, true);
-	}
-
 	public void Run(string procName, string args, bool runAs, ProcessWindowStyle windowStyle, bool useShellExecute)
 	{
 		Process process = new()

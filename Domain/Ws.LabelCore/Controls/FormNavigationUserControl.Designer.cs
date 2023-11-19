@@ -31,11 +31,9 @@ partial class FormNavigationUserControl
     {
             this.layoutPanelUser = new System.Windows.Forms.TableLayoutPanel();
             this.layoutPanelTop = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBoxReturn = new System.Windows.Forms.PictureBox();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.layoutPanelUser.SuspendLayout();
             this.layoutPanelTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutPanelUser
@@ -63,7 +61,6 @@ partial class FormNavigationUserControl
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.layoutPanelTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.layoutPanelTop.Controls.Add(this.pictureBoxReturn, 0, 0);
             this.layoutPanelTop.Controls.Add(this.fieldTitle, 1, 0);
             this.layoutPanelTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutPanelTop.Location = new System.Drawing.Point(4, 4);
@@ -72,19 +69,6 @@ partial class FormNavigationUserControl
             this.layoutPanelTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutPanelTop.Size = new System.Drawing.Size(1016, 33);
             this.layoutPanelTop.TabIndex = 70;
-            // 
-            // pictureBoxReturn
-            // 
-            this.pictureBoxReturn.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxReturn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxReturn.Image = global::Ws.LabelCore.Properties.Resources.left_1;
-            this.pictureBoxReturn.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxReturn.Name = "pictureBoxReturn";
-            this.pictureBoxReturn.Size = new System.Drawing.Size(44, 27);
-            this.pictureBoxReturn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxReturn.TabIndex = 59;
-            this.pictureBoxReturn.TabStop = false;
-            this.pictureBoxReturn.Visible = false;
             // 
             // fieldTitle
             // 
@@ -112,7 +96,6 @@ partial class FormNavigationUserControl
             this.layoutPanelUser.ResumeLayout(false);
             this.layoutPanelTop.ResumeLayout(false);
             this.layoutPanelTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReturn)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -121,6 +104,5 @@ partial class FormNavigationUserControl
 
     private TableLayoutPanel layoutPanelUser;
     private TableLayoutPanel layoutPanelTop;
-    private PictureBox pictureBoxReturn;
     private Label fieldTitle;
 }

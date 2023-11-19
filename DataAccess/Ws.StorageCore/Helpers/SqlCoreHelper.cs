@@ -80,8 +80,6 @@ public sealed class SqlCoreHelper
 
     #region Public and private methods - Base
 
-    public string GetConnectionServer() => $"Server = {SqlSettings.DataSource} | DB = {SqlSettings.InitialCatalog}";
-
     private void AddConfigurationMappings()
     {
         ModelMapper mapper = new();
