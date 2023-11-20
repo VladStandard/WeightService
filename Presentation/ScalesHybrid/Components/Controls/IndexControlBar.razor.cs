@@ -1,12 +1,14 @@
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesHybrid.Messages;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Utils;
 
 namespace ScalesHybrid.Components.Controls;
 
-public sealed partial class IndexControlBar : ComponentBase
+public sealed partial class IndexControlBar : ComponentBase, IDisposable
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
@@ -15,6 +17,7 @@ public sealed partial class IndexControlBar : ComponentBase
 
     protected override void OnInitialized()
     {
+        MouseSubscribe();
         PluConfigButtonList = new()
         {
             new() { Title = Localizer["ButtonLineChange"] },
@@ -31,8 +34,9 @@ public sealed partial class IndexControlBar : ComponentBase
 
     private void RedirectTo(string url) => NavigationManager.NavigateTo(url);
 
-    private static void OpenScalesTerminal()
+    private void OpenScalesTerminal()
     {
+        MouseUnsubscribe();
         try
         {
             Process process = new()
@@ -46,6 +50,23 @@ public sealed partial class IndexControlBar : ComponentBase
         {
             // TODO: Handle error
         }
+        MouseSubscribe();
+    }
+    
+    
+    private void MouseSubscribe()
+    {
+        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedMessage>(this, (_, _) => OpenScalesTerminal());
+    }
+    
+    private void MouseUnsubscribe()
+    {
+        WeakReferenceMessenger.Default.Unregister<MiddleBtnIsClickedMessage>(this);
+    }
+    
+    public void Dispose()
+    {
+        MouseUnsubscribe();
     }
 }
 
