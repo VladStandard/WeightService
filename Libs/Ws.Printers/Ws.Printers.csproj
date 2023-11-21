@@ -9,7 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
       <PackageReference Include="SuperSimpleTcp" Version="3.0.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Main\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
     </ItemGroup>
 
 </Project>

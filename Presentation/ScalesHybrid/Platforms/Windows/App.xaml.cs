@@ -2,10 +2,10 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
 using Microsoft.Maui.LifecycleEvents;
-using ScalesHybrid.Messages;
 using Microsoft.UI.Windowing;
 using WinRT.Interop;
 using Microsoft.UI;
+using ScalesHybrid.Events;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -14,7 +14,7 @@ namespace ScalesHybrid.WinUI;
 
 public partial class App : MauiWinUIApplication
 {
-    private IKeyboardMouseEvents _mGlobalHook;
+    private readonly IKeyboardMouseEvents _mGlobalHook;
     
     public App()
     {
@@ -62,7 +62,7 @@ public partial class App : MauiWinUIApplication
     {
         if (e.Button == MouseButtons.Middle)
         {
-            WeakReferenceMessenger.Default.Send(new MiddleBtnIsClickedMessage());
+            WeakReferenceMessenger.Default.Send(new MiddleBtnIsClickedEvent());
         }
     }
     
