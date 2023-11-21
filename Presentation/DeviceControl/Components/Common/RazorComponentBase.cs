@@ -33,7 +33,7 @@ public class RazorComponentBase : LayoutComponentBase
                     Severity = NotificationSeverity.Warning,
                     Summary = LocaleCore.Action.ActionDataControl,
                     Detail = detailAddition,
-                    Duration = BlazorAppSettingsHelper.DelayError
+                    Duration = 5000
                 };
                 NotificationService.Notify(msg);
                 return false;
@@ -94,8 +94,7 @@ public class RazorComponentBase : LayoutComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                LocaleCore.Dialog.DialogResultSuccess, BlazorAppSettingsHelper.DelayInfo
-                );
+                LocaleCore.Dialog.DialogResultSuccess,  2500);
         }
         catch (Exception ex)
         {
@@ -133,7 +132,7 @@ public class RazorComponentBase : LayoutComponentBase
             NotificationSeverity.Error,
             title, 
             msg,
-            BlazorAppSettingsHelper.DelayError
+            5000
             );
         ContextItem.SaveLogError(ex);
     }

@@ -10,22 +10,12 @@ public partial class Profile : ComponentBase
     
     private HttpContext? HttpContext => HttpContextAccess?.HttpContext;
     private ClaimsPrincipal? User { get; set; }
-    private List<EnumTypeModel<EnumLanguage>>? TemplateLanguages { get; set; }
-    private List<EnumLanguage> Langs { get; set; }
     private int DefaultRowCount { get; set; }
 
     private string IpAddress =>
         HttpContext?.Connection.RemoteIpAddress is null
             ? string.Empty
             : HttpContext.Connection.RemoteIpAddress.ToString();
-
-    public Profile()
-    {
-        Langs = new();
-        foreach (EnumLanguage lang in Enum.GetValues(typeof(EnumLanguage)))
-            Langs.Add(lang);
-        TemplateLanguages = BlazorAppSettingsHelper.Instance.DataSourceDics.GetTemplateLanguages();
-    }
 
     protected override async Task OnInitializedAsync()
     {
