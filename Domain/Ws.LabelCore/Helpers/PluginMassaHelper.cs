@@ -153,28 +153,11 @@ public sealed class PluginMassaHelper : PluginBaseHelper
     {
         switch (MassaExchange.CmdType)
         {
-            case MassaCmdType.GetEthernet:
-                MassaExchange.Request = MassaRequest.CMD_GET_ETHERNET;
-                break;
-            case MassaCmdType.GetInit2:
-                MassaExchange.Request = MassaRequest.CMD_GET_INIT_2;
-                break;
-            case MassaCmdType.GetInit3:
-                MassaExchange.Request = MassaRequest.CMD_GET_INIT_3;
-                break;
             case MassaCmdType.GetMassa:
                 MassaExchange.Request = MassaRequest.CMD_GET_MASSA;
                 break;
-            case MassaCmdType.GetName:
-                break;
             case MassaCmdType.GetScalePar:
                 MassaExchange.Request = MassaRequest.CMD_GET_SCALE_PAR;
-                break;
-            case MassaCmdType.GetScaleParAfter:
-                MassaExchange.Request = MassaRequest.CMD_GET_SCALE_PAR_AFTER;
-                break;
-            case MassaCmdType.GetWiFiIp:
-                MassaExchange.Request = MassaRequest.CMD_GET_WIFI_IP;
                 break;
             case MassaCmdType.SetTare:
                 MassaExchange.Request = MassaExchange.CmdSetTare();
@@ -182,10 +165,6 @@ public sealed class PluginMassaHelper : PluginBaseHelper
             case MassaCmdType.SetZero:
                 MassaExchange.Request = MassaRequest.CMD_SET_ZERO;
                 break;
-            case MassaCmdType.UdpPoll:
-                MassaExchange.Request = MassaRequest.CMD_UDP_POLL;
-                break;
-            
         }
 
         MassaDevice.SendData();
@@ -228,13 +207,7 @@ public sealed class PluginMassaHelper : PluginBaseHelper
                 case MassaCmdType.SetName:
                     ResponseParseSet = MassaExchange.ResponseParse;
                     break;
-                case MassaCmdType.SetRegnum:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
                 case MassaCmdType.SetTare:
-                    ResponseParseSet = MassaExchange.ResponseParse;
-                    break;
-                case MassaCmdType.SetWiFiSsid:
                     ResponseParseSet = MassaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetZero:
@@ -244,31 +217,8 @@ public sealed class PluginMassaHelper : PluginBaseHelper
             }
         }
     }
-
-    public void GetInit()
-    {
-        GetInit1();
-        GetInit2();
-        GetInit3();
-
-        GetScalePar();
-        GetScaleParAfter();
-        GetScalePar();
-        GetMassa();
-
-        SetZero();
-        SetWeightTare(0);
-        SetZero();
-    }
-
-    private void GetInit1() => MassaExchange.Init(MassaCmdType.UdpPoll);
-    private void GetInit2() => MassaExchange.Init(MassaCmdType.GetInit2);
-    private void GetInit3() => MassaExchange.Init(MassaCmdType.GetInit3);
+    
     private void GetMassa() => MassaExchange.Init(MassaCmdType.GetMassa);
-    private void GetScalePar() => MassaExchange.Init(MassaCmdType.GetScalePar);
-    private void GetScaleParAfter() => MassaExchange.Init(MassaCmdType.GetScaleParAfter);
-    private void SetWeightTare(int weightTare) => MassaExchange.Init(MassaCmdType.SetTare, weightTare);
-    private void SetZero() => MassaExchange.Init(MassaCmdType.SetZero);
 
     #endregion
 }

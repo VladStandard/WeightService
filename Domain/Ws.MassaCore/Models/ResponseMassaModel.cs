@@ -8,9 +8,7 @@ public readonly struct ResponseMassaModel
     public int ScaleFactor { get; }
     public bool IsStable { get; }
 
-    /// <summary>
-    /// Default constructor.
-    /// </summary>
+
     public ResponseMassaModel()
     {
         Weight = default;
@@ -22,7 +20,7 @@ public readonly struct ResponseMassaModel
     {
         if (response.Count < 10) return;
         Weight = BitConverter.ToInt32(response.Skip(6).Take(4).ToArray(), 0);
-        //Division = response[10];
+        
         ScaleFactor = response[10] switch
         {
             0x00 => 10_000,

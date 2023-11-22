@@ -40,15 +40,7 @@ public class MassaCrcHelper
 	}
 
 	private byte[] CrcComputeChecksumAsBytes(byte[] data) => BitConverter.GetBytes(CrcComputeChecksumAsUshort(data));
-
-	public byte[] CrcRecalc(byte[] body)
-	{
-		byte[] crcBytes = CrcComputeChecksumAsBytes(body);
-		body[body.Length - 2] = crcBytes[0];
-		body[body.Length - 1] = crcBytes[1];
-		return body;
-	}
-
+    
 	public byte[] CrcGet(byte[] body) => CrcComputeChecksumAsBytes(body);
 
 	public byte[] CrcGetWithBody(byte[] body) => Bytes.MergeBytes(new() { body, CrcComputeChecksumAsBytes(body) });

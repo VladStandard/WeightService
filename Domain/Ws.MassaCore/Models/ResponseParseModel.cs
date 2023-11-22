@@ -17,7 +17,6 @@ public readonly struct ResponseParseModel
     private bool IsValidLength { get; }
     private bool IsValidCommand { get; }
     private bool IsValidCrc { get; }
-    public bool IsValidAll => IsValidHeaders && IsValidLength && IsValidCommand && IsValidCrc;
     private byte ErrorCode
     {
         get
@@ -41,35 +40,7 @@ public readonly struct ResponseParseModel
                     if (Command == 0x28)
                         return Body[6];
                     break;
-                case MassaCmdType.GetName:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
                 case MassaCmdType.SetName:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.GetEthernet:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.SetEthernet:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.GetWiFiIp:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.SetWiFiIp:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.GetWiFiSsid:
-                    if (Command == 0x28)
-                        return Body[6];
-                    break;
-                case MassaCmdType.SetWiFiSsid:
                     if (Command == 0x28)
                         return Body[6];
                     break;
@@ -122,9 +93,6 @@ public readonly struct ResponseParseModel
                         return @"Ошибка выполнения команды";
                     }
                     break;
-                case MassaCmdType.GetName:
-                    if (Command == 0x21) return @"Запрос имени и ID весового устройства";
-                    break;
                 case MassaCmdType.SetName:
                     if (Command == 0x27) return @"Команда установки имени выполнена успешно";
                     if (Command == 0x28)
@@ -132,63 +100,6 @@ public readonly struct ResponseParseModel
                         if (ErrorCode == 0x0A) return @"Ошибка входных данных";
                         if (ErrorCode == 0x0B) return @"Ошибка сохранения данных";
                         return @"Ошибка выполнения команды";
-                    }
-                    break;
-                case MassaCmdType.GetEthernet:
-                    if (Command == 0x2E) return @"Запрос параметров Ethernet";
-                    if (Command == 0x28)
-                    {
-                        if (ErrorCode == 0x11) return @"Интерфейс Ethernet не поддерживается";
-                    }
-                    break;
-                case MassaCmdType.SetEthernet:
-                    if (Command == 0x27) return @"Установка Ethernet выполнена успешно";
-                    if (Command == 0x28)
-                    {
-                        if (ErrorCode == 0x0A) return @"Ошибка входных данных";
-                        if (ErrorCode == 0x0B) return @"Ошибка сохранения данных";
-                        if (ErrorCode == 0x11) return @"Интерфейс Ethernet не поддерживается";
-                        return @"Ошибка выполнения команды";
-                    }
-                    break;
-                case MassaCmdType.GetWiFiIp:
-                    if (Command == 0x34) return @"Запрос IP-параметров подключения к сети Wi-Fi";
-                    if (Command == 0x28)
-                    {
-                        if (ErrorCode == 0x10) return @"Интерфейс WiFi не поддерживается";
-                        return @"Ошибка выполнения команды";
-                    }
-                    break;
-                case MassaCmdType.SetWiFiIp:
-                    if (Command == 0x27) return @"Передача IP-параметров подключения к сети Wi-Fi выполнена успешно";
-                    if (Command == 0x28)
-                    {
-                        if (ErrorCode == 0x0A) return @"Ошибка входных данных";
-                        if (ErrorCode == 0x0B) return @"Ошибка сохранения данных";
-                        if (ErrorCode == 0x10) return @"Интерфейс WiFi не поддерживается";
-
-                        return @"Ошибка выполнения команды";
-                    }
-                    break;
-                case MassaCmdType.GetWiFiSsid:
-                    if (Command == 0x3B) return @"Запрос параметров доступа к сети Wi-Fi";
-                    if (Command == 0x28)
-                    {
-                        if (ErrorCode == 0x10) return @"Интерфейс WiFi не поддерживается";
-                        return @"Ошибка выполнения команды";
-                    }
-                    break;
-                case MassaCmdType.SetWiFiSsid:
-                    if (Command == 0x27) return @"Передача параметров доступа к сети Wi-Fi выполнена успешно";
-                    if (Command == 0x28)
-                    {
-                        return ErrorCode switch
-                        {
-                            0x0A => "Ошибка входных данных",
-                            0x0B => "Ошибка сохранения данных",
-                            0x10 => "Интерфейс WiFi не поддерживается",
-                            _ => "Ошибка выполнения команды"
-                        };
                     }
                     break;
                 case MassaCmdType.Nack:

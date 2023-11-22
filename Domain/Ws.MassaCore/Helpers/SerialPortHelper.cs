@@ -37,13 +37,6 @@ public class SerialPortHelper
 
 	#region Public and private methods
 
-	public void Open(string portName, string baudRate, string parity, string dataBits, string stopBits, string handshake)
-	{
-		if (string.IsNullOrEmpty(portName))
-			return;
-		Open(portName, baudRate, parity, dataBits, stopBits, handshake, 0_100, 0_100);
-	}
-
 	public void Open(string portName, int readTimeout, int writeTimeout)
 	{
 		if (string.IsNullOrEmpty(portName))
@@ -147,8 +140,6 @@ public class SerialPortHelper
     {
         lock (_locker) DataReceivedCore();
     }
-
-	public bool Send(string str) => !string.IsNullOrEmpty(str) && Send(Encoding.Default.GetBytes(str));
 
     public bool Send(byte[] bytes,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

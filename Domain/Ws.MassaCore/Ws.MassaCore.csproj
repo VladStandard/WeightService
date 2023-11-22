@@ -27,8 +27,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Helpers\SerialPortHelper.cs" />
-        <Compile Include="Enums\DataBits.cs"/>
-        <Compile Include="Enums\BaudRate.cs"/>
         <Compile Include="Enums\MassaCmdType.cs"/>
         <Compile Include="Enums\UsbAdapterStatus.cs"/>
         <Compile Include="GlobalUsings.cs"/>
