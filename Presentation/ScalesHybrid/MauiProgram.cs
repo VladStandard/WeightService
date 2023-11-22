@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.Services;
@@ -15,13 +16,13 @@ public static class MauiProgram
         SqlCoreHelper.Instance.SetSessionFactory(false);
         if (SqlCoreHelper.Instance.SessionFactory is null)
             throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
-        
+
         builder
-            .UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            });
+            .UseMauiApp<App>();
+            // .ConfigureFonts(fonts =>
+            // {
+            //     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            // });
         
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddVsServices();
@@ -35,7 +36,7 @@ public static class MauiProgram
         builder.Services.AddLocalization();
         builder.Services.Configure<RequestLocalizationOptions>(options =>
         {
-            options.DefaultRequestCulture = new("ru-RU", "ru-RU");
+            options.DefaultRequestCulture = new RequestCulture("ru-RU", "ru-RU");
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });

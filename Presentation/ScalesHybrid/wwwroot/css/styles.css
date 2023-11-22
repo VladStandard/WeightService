@@ -20,14 +20,16 @@
 }
 
 :root {
-  --button-color: rgb(220, 220, 220);
-  --button-hover-color: rgb(220, 220, 255);
-  --button-border-color: rgb(150, 150, 150);
-  --layout-border-color: rgb(200, 200, 200);
+  --button-color: #dcdcdc;
+  --button-hover-color: #dcdcff;
+  --button-border-color: #969696;
+  --layout-border-color: #c8c8c8;
+  --layout-background-color: #f1f5f9;
 }
 
 body {
-    font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: var(--layout-background-color);
 }
 
 #blazor-error-ui {

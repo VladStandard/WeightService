@@ -1,0 +1,71 @@
+<div class="kneading-display__wrapper">
+  <div class="kneading-display">
+    <div class="kneading-display__title-plu">
+      <p>@KneadingModel.PluName</p>
+    </div>
+    <ul class="kneading-display__list">
+      <li class="kneading-display__list-item">
+        <label class="kneading-display__item-label">@Localizer["KneadingDisplayNetWeightLabel"]</label>
+        <div class="kneading-display__item-container">
+          <div class="net-weight__container">
+            <span class="net-weight__char">@Sign</span>
+            @foreach (Char intChar in IntegerPart)
+            {
+              <span class="net-weight__char">@intChar</span>
+            }
+            <span>,</span>
+            @foreach (Char decChar in DecimalPart)
+            {
+              <span class="net-weight__char">@decChar</span>
+            }
+            <span>кг</span>
+          </div>
+        </div>
+      </li>
+      <li class="kneading-display__list-item">
+        <label class="kneading-display__item-label">@Localizer["KneadingDisplayTareWeightLabel"]</label>
+        <div class="kneading-display__item-container">
+          <p class="kneading-display__item-value-default">@KneadingModel.TareWeight</p>
+        </div>
+      </li>
+      <li class="kneading-display__list-item">
+        <label class="kneading-display__item-label">@Localizer["KneadingDisplayPluNestingLabel"]</label>
+        <div class="kneading-display__item-container">
+          <p class="kneading-display__item-value-default">@KneadingModel.PluNesting</p>
+        </div>
+      </li>
+      <li class="kneading-display__list-item">
+        <label class="kneading-display__item-label">@Localizer["KneadingDisplayDateLabel"]</label>
+        <div class="kneading-display__item-container">
+          <div class="date-value__container">
+            <button
+              type="button"
+              class="date-value__btn"
+              @onclick="DecreaseDate"
+            >
+              &lt;
+            </button>
+            <p class="date-value">@KneadingModel.ProductDate</p>
+            <button
+              type="button"
+              class="date-value__btn"
+              @onclick="IncreaseDate"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="kneading-display__list-item">
+        <label class="kneading-display__item-label">@Localizer["KneadingDisplayKneadingLabel"]</label>
+        <div class="kneading-display__item-container">
+          <div class="kneading-value__container">
+            <div class="kneading-value__stub"></div>
+            <p class="kneading-value">@KneadingModel.KneadingCount</p>
+            <button type="button" class="kneading-value__btn">Enter</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

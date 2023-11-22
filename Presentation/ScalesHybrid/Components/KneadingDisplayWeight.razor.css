@@ -1,0 +1,158 @@
+.kneading-display__wrapper {
+  width: 70%;
+  height: 100%;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.kneading-display {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  border: 1px solid var(--button-border-color);
+}
+
+.kneading-display__title-plu {
+  display: flex;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--button-border-color);
+}
+
+.kneading-display__list {
+  padding: 1rem 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.kneading-display__list-item {
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  overflow: hidden;
+}
+
+.kneading-display__item-label {
+  display: flex;
+  width: 30%;
+  height: 100%;
+  align-items: center;
+  justify-content: start;
+  overflow: hidden;
+  padding: 0 2rem;
+  font-size: 1.4rem;
+}
+
+.kneading-display__item-value-default {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.kneading-display__item-container {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.net-weight__container {
+  display: flex;
+  align-items: end;
+  margin: 0 auto;
+  padding: 0.2rem 1rem;
+  border: 1px solid var(--button-border-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.net-weight__char {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+}
+
+.date-value__btn {
+  width: 30%;
+  height: 100%;
+  background-color: var(--button-color);
+  border: 1px solid var(--button-border-color);
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.date-value__btn:hover {
+  cursor: pointer;
+  background-color: var(--button-hover-color);
+}
+
+.date-value__container {
+  padding: 0.2rem 1rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.date-value {
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0 1rem;
+  width: 40%;
+}
+
+.kneading-value__container {
+  padding: 0.2rem 1rem;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.kneading-value__stub {
+  width: 30%;
+  height: 100%;
+}
+
+.kneading-value {
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0 1rem;
+  width: 40%;
+}
+
+.kneading-value__btn {
+  width: 30%;
+  height: 100%;
+  background-color: var(--button-color);
+  border: 1px solid var(--button-border-color);
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.kneading-value__btn:hover {
+  cursor: pointer;
+  background-color: var(--button-hover-color);
+}

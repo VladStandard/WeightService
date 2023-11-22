@@ -39,9 +39,6 @@
     <data name="ButtonPLUNestingChange" xml:space="preserve">
         <value>Изменить ПЛУ</value>
     </data>
-    <data name="KneadingDisplayWeightLabel" xml:space="preserve">
-        <value>Вес</value>
-    </data>
     <data name="KneadingDisplayDateLabel" xml:space="preserve">
         <value>Дата</value>
     </data>
@@ -53,5 +50,14 @@
     </data>
     <data name="PageTitlePluSelect" xml:space="preserve">
         <value>Выбор ПЛУ</value>
+    </data>
+    <data name="KneadingDisplayNetWeightLabel" xml:space="preserve">
+        <value>Вес нетто</value>
+    </data>
+    <data name="KneadingDisplayPluNestingLabel" xml:space="preserve">
+        <value>Вложенность</value>
+    </data>
+    <data name="KneadingDisplayTareWeightLabel" xml:space="preserve">
+        <value>Вес тары</value>
     </data>
 </root>

@@ -141,11 +141,29 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weight.
+        ///   Looks up a localized string similar to Net weight.
         /// </summary>
-        internal static string KneadingDisplayWeightLabel {
+        internal static string KneadingDisplayNetWeightLabel {
             get {
-                return ResourceManager.GetString("KneadingDisplayWeightLabel", resourceCulture);
+                return ResourceManager.GetString("KneadingDisplayNetWeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nesting.
+        /// </summary>
+        internal static string KneadingDisplayPluNestingLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayPluNestingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tare weight.
+        /// </summary>
+        internal static string KneadingDisplayTareWeightLabel {
+            get {
+                return ResourceManager.GetString("KneadingDisplayTareWeightLabel", resourceCulture);
             }
         }
         

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesHybrid.Models;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Services.Services.Host;
@@ -18,6 +19,7 @@ public partial class Index : ComponentBase
     private SqlHostEntity Host { get; set; }
     private SqlScaleEntity Line { get; set; }
     private DateTime ProductDate { get; set; }
+    private WeightKneadingModel KneadingModel { get; set; }
     
     protected override void OnInitialized()
     {
@@ -25,5 +27,14 @@ public partial class Index : ComponentBase
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
         PageTitleService.SetTitle(Localizer["PageTitleIndex"]);
+        KneadingModel = new WeightKneadingModel
+        {
+            PluName = "ПЛУ (вес) | 349 | Классическая (Светофор)",
+            PluNesting = "15x45",
+            ProductDate = DateOnly.FromDateTime(DateTime.Today),
+            KneadingCount = 30,
+            NetWeight = -1.504m,
+            TareWeight = 1.504m
+        };
     }
 }
