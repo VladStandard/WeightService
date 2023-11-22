@@ -10,6 +10,10 @@ public class ZebraPrinter : PrinterBase
 {
     protected override String GetStatusCommand => "! U1 getvar \"device.host_status\"\r\n";
 
+    public ZebraPrinter(String ip, Int32 port) : base(ip, port)
+    {
+    }
+    
     protected override void TcpClientDataReceived(Object? sender, DataReceivedEventArgs e)
     {
         if (e.Data.Array == null)

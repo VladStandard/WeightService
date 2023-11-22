@@ -8,6 +8,10 @@ public class TscPrinter : PrinterBase
 {
     protected override String GetStatusCommand => "\x1B!?";
     
+    public TscPrinter(String ip, Int32 port) : base(ip, port)
+    {
+    }
+    
     protected override void TcpClientDataReceived(Object? sender, DataReceivedEventArgs e)
     {
         ArraySegment<byte> receivedBytes = e.Data;

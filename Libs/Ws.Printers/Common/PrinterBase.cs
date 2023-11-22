@@ -11,18 +11,19 @@ public abstract class PrinterBase : IPrinter
     protected SimpleTcpClient TcpClient { get; set; }
     protected virtual string GetStatusCommand => throw new NotImplementedException();
     
-    public PrinterBase()
+    public PrinterBase(string ip, int port)
     {
-        TcpClient = new("192.169.0.0:9100");
+        TcpClient = new(ip, port);
         State = PrinterStatusEnum.Unknown;
     }
     
-    public void Connect(string ip, int port)
+    public IPrinter Connect()
     {
-        Dispose();
-        TcpClient = new(ip, port);
+        if (TcpClient.IsConnected)
+            Dispose();
         TcpClient.Connect();
         TcpSubscribe();
+        return this;
     }
     
     public void GetStatus()

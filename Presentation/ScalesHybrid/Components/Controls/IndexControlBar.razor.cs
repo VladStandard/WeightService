@@ -2,8 +2,10 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using NHibernate.Impl;
 using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
+using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
 using Ws.Printers.Common;
 using Ws.Printers.Main.Tsc;
@@ -21,10 +23,10 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     [Inject] private IHostService HostService { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
-    private IPrinter Printer { get; set; }
+    
+    [Inject] private ExternalDevicesService ExternalDevices { get; set; }
     private List<ControlBarButton> PluConfigButtonList { get; set; }
     private List<ControlBarButton> PluPrintButtonList { get; set; }
-    
     private SqlHostEntity Host { get; set; }
     private SqlScaleEntity Line { get; set; }
     
@@ -33,8 +35,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
-        Printer = PrinterFactory.Create(Line.Printer.Type);
-        Printer.Connect(Line.Printer.Ip, Line.Printer.Port);
+        ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
         
         MouseSubscribe();
         PluConfigButtonList = new()
@@ -73,7 +74,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     
     private void PrintLabel()
     {
-        Printer.GetStatus();
+        ExternalDevices.Printer.GetStatus();
     }
     
     private void RedirectTo(string url) => NavigationManager.NavigateTo(url);
@@ -91,7 +92,6 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     public void Dispose()
     {
         MouseUnsubscribe();
-        Printer.Dispose();
     }
 }
 
