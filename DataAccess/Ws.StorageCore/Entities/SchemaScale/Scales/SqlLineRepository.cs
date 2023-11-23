@@ -20,6 +20,14 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlScaleEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlScaleEntity.Host), host));
         return SqlCore.GetItemByCrud<SqlScaleEntity>(sqlCrudConfig);
     }
+    
+    public IEnumerable<SqlScaleEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlScaleEntity.WorkShop), workShop));
+        return GetEnumerable(sqlCrudConfig);
+    }
+
 
     public IEnumerable<SqlScaleEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
