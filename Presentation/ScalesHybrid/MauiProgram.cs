@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
+using Radzen;
 using ScalesHybrid.Services;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
@@ -42,6 +43,8 @@ public static class MauiProgram
         });
         builder.Services.AddSingleton<PageTitleService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
+        
+        builder.Services.AddRadzenComponents();
         
         return builder;
     }
