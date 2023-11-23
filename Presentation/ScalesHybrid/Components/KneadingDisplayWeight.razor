@@ -62,7 +62,13 @@
           <div class="kneading-value__container">
             <div class="kneading-value__stub"></div>
             <p class="kneading-value">@KneadingModel.KneadingCount</p>
-            <button type="button" class="kneading-value__btn">Enter</button>
+            <button
+              type="button"
+              class="kneading-value__btn"
+              @onclick="ShowInlineDialog"
+            >
+              Enter
+            </button>
           </div>
         </div>
       </li>

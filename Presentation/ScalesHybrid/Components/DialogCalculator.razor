@@ -1,0 +1,20 @@
+<div class="calculator__container">
+  <div class="calculator__display">
+    @foreach (Char digit in Number)
+    {
+      <span class="calculator__display-digit">@digit</span>
+    }
+  </div>
+  <div class="calculator__controls">
+    @foreach (CalculatorControl control in CalculatorControls)
+    {
+      <button
+        type="button"
+        class="calculator__controls-button"
+        @onclick=@control.CalculatorAction
+      >
+        @control.Title
+      </button>
+    }
+  </div>
+</div>
