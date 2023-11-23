@@ -1,6 +1,8 @@
-﻿using SuperSimpleTcp;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using SuperSimpleTcp;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
+using Ws.Printers.Events;
 
 namespace Ws.Printers.Main.Tsc;
 
@@ -21,6 +23,7 @@ public class TscPrinter : PrinterBase
             return;
         }
         State = GetStatusAsEnum(receivedBytes.Array[receivedBytes.Offset]);
+        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(State));
     }
     
     private static PrinterStatusEnum GetStatusAsEnum(byte value)

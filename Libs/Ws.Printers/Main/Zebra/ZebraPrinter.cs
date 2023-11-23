@@ -1,8 +1,9 @@
 ﻿using System.Text;
+using CommunityToolkit.Mvvm.Messaging;
 using SuperSimpleTcp;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
-using Ws.Printers.Utils;
+using Ws.Printers.Events;
 
 namespace Ws.Printers.Main.Zebra;
 
@@ -22,6 +23,7 @@ public class ZebraPrinter : PrinterBase
             return;
         }
         string strStatus = Encoding.UTF8.GetString(e.Data.Array, e.Data.Offset, e.Data.Count);
-        PrinterStatusEnum status = ZebraStatusParserUtils.ParseStatusString(strStatus);
+        State = ZebraStatusParserUtils.ParseStatusString(strStatus);
+        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(State));
     }
 }
