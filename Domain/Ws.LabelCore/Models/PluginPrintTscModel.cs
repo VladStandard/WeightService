@@ -64,7 +64,7 @@ public sealed class PluginPrintTscModel : PluginPrintModel
         Printer = printer;
         FieldPrint = fieldPrint;
         PrintName = printer.Name;
-        TscDriver.Setup(EnumPrintChannel.Ethernet, printer.Ip, printer.Port, EnumPrintLabelSize.Size80x100, EnumPrintLabelDpi.Dpi300);
+        TscDriver.Setup(EnumPrintChannel.Ethernet, printer.Ip, printer.Port);
     }
 
     public override void Execute()

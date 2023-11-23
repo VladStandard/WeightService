@@ -28,23 +28,12 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Common\IPrinter.cs"/>
         <Compile Include="Common\IPrinterConnector.cs"/>
         <Compile Include="Connectors\ZebraConnector.cs"/>
         <Compile Include="Enums\PrinterStates.cs"/>
         <Compile Include="Enums\EnumDataBlockPosition.cs" />
         <Compile Include="Enums\EnumPrintChannel.cs" />
-        <Compile Include="Enums\EnumPrintDensity.cs" />
-        <Compile Include="Enums\EnumPrintLabelDpi.cs" />
-        <Compile Include="Enums\EnumPrintLabelSize.cs" />
-        <Compile Include="Enums\EnumPrintSendType.cs" />
-        <Compile Include="Enums\EnumPrintSensor.cs" />
-        <Compile Include="Enums\EnumPrintSpeed.cs" />
-        <Compile Include="Enums\EnumPrintStatus.cs" />
-        <Compile Include="Enums\EnumPrintTscDll.cs" />
         <Compile Include="GlobalUsings.cs"/>
-        <Compile Include="Handlers\ZebraReconnectHandler.cs"/>
-        <Compile Include="Printers\ZebraPrinter.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Tsc\TscDriverHelper.cs"/>
         <Compile Include="Tsc\TscPrintProperties.cs"/>

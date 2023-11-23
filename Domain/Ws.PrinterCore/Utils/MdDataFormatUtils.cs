@@ -21,10 +21,7 @@ public static class MdDataFormatUtils
         );
         _templateResources = new SqlTemplateResourceRepository().GetList(sqlCrudConfig);
     }
-
-    /// <summary>
-    /// Заменить zpl-ресурсы из таблицы ресурсов шаблонов.
-    /// </summary>
+    
     public static string PrintCmdReplaceZplResources(string zpl, Action<string> actionReplaceStorageMethod)
     {
         if (string.IsNullOrEmpty(zpl))

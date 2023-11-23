@@ -4,5 +4,4 @@ public enum EnumPrintChannel
 {
     Name,
     Ethernet,
-    Usb,
 }
