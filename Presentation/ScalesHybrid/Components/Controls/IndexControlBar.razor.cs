@@ -3,11 +3,13 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Impl;
+using Radzen;
 using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
 using Ws.Printers.Common;
+using Ws.Printers.Events;
 using Ws.Printers.Main.Tsc;
 using Ws.Printers.Main.Zebra;
 using Ws.Printers.Utils;
@@ -22,6 +24,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
 {
     [Inject] private IHostService HostService { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
+    [Inject] private NotificationService NotificationService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
     
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
@@ -36,19 +39,13 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
-        
         MouseSubscribe();
-        PluConfigButtonList = new()
-        {
-            new() { Title = Localizer["ButtonLineChange"] },
-            new() { Title = Localizer["ButtonPLUChange"], OnClickAction = () => RedirectTo(RouterUtils.PluSelect)},
-            new() { Title = Localizer["ButtonPLUNestingChange"] },
-        };
+        PrinterStatusSubscribe();
         PluPrintButtonList = new()
         {
-            new() { Title = Localizer["ButtonKneadingChange"] },
-            new() { Title = Localizer["ButtonLabelPrint"], OnClickAction = PrintLabel},
             new() { Title = Localizer["ButtonScaleTerminal"], OnClickAction = OpenScalesTerminal},
+            new() { Title = Localizer["ButtonLabelPrint"], OnClickAction = PrintLabel},
+            new() { Title = Localizer["ButtonKneadingChange"] },
         };
     }
 
@@ -83,6 +80,22 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     {
         WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => PrintLabel());
     }
+
+    private void PrintNotification(object sender, GetPrinterStatusEvent payload)
+    {
+        NotificationMessage msg = new() { Severity = NotificationSeverity.Info, Summary = payload.Status.ToString()};
+        NotificationService.Notify(msg);
+    }
+
+    private void PrinterStatusSubscribe()
+    {
+        WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, PrintNotification);
+    }
+    
+    private void PrinterStatusUnsubscribe()
+    {
+        WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
+    }
     
     private void MouseUnsubscribe()
     {
@@ -91,6 +104,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     
     public void Dispose()
     {
+        PrinterStatusUnsubscribe();
         MouseUnsubscribe();
     }
 }
