@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesHybrid", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{1819D2D3-A738-42BD-8473-928C0BCDB977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.MassaK", "Libs\Ws.MassaK\Ws.MassaK.csproj", "{FF8BE008-4038-46C4-8E18-DDEF7811D96F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Scales", "Libs\Ws.Scales\Ws.Scales.csproj", "{FF8BE008-4038-46C4-8E18-DDEF7811D96F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Labels", "Libs\Ws.Labels\Ws.Labels.csproj", "{4DA95566-2782-4A00-9D86-E2AAAAA24F19}"
 EndProject

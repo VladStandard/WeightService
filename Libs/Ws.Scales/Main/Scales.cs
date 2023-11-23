@@ -1,11 +1,11 @@
 ﻿using System.IO.Ports;
-using Ws.MassaK.Common;
-using Ws.MassaK.Enums;
-using Ws.MassaK.Utils;
+using Ws.Scales.Utils;
+using Ws.Scales.Common;
+using Ws.Scales.Enums;
 
-namespace Ws.MassaK.Main;
+namespace Ws.Scales.Main;
 
-public class MassaK : IMassaK
+public class Scales : IScales
 { 
     private MassaCommandsEnum ActiveCommand { get; set; }
     
@@ -19,7 +19,7 @@ public class MassaK : IMassaK
     private string ComPort { get; set; } = "COM6";
     private SerialPort Port { get; set; }
 
-    public MassaK(string comPort)
+    public Scales(string comPort)
     {
         ActiveCommand = MassaCommandsEnum.None;
         
@@ -59,7 +59,7 @@ public class MassaK : IMassaK
     public bool SendGetWeight()
     {
         ActiveCommand = MassaCommandsEnum.GetWeight;
-        return Send(MassaCommands.CmdGetWeight);
+        return Send(ScalesCommands.CmdGetWeight);
     }
     
     public void Dispose()

@@ -1,6 +1,6 @@
-namespace Ws.MassaK.Enums;
+namespace Ws.Scales.Enums;
 
-public enum MassaStatus
+public enum ScalesStatus
 {
     Default,
     IsConnect,

@@ -182,7 +182,6 @@ public sealed class PluginMassaHelper : PluginBaseHelper
                     ResponseParseGet = MassaExchange.ResponseParse;
                     // 1 байт. Цена деления в значении массы нетто и массы тары:
                     // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                    ScaleFactor = MassaExchange.ResponseParse.Massa.ScaleFactor;
                     // 4 байта. Текущая масса нетто со знаком
                     // #HotFix для ошибки "Попытка деления на нуль"
                     WeightNet = ScaleFactor.Equals(0) ? 0 : MassaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;

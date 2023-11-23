@@ -1,4 +1,4 @@
-﻿namespace Ws.MassaK.Enums;
+﻿namespace Ws.Scales.Enums;
 
 public enum MassaCommandsEnum
 {

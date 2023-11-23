@@ -1,6 +1,6 @@
-﻿namespace Ws.MassaK.Utils;
+﻿namespace Ws.Scales.Utils;
 
-public static class MassaCommandsUtil
+public static class ScalesCommandsUtil
 {
     private static readonly byte[] Header = { 0xF8, 0x55, 0xCE };
     private static ushort Crc16Generate(byte[] data)
