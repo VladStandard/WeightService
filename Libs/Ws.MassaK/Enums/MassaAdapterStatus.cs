@@ -1,11 +1,10 @@
 namespace Ws.MassaK.Enums;
 
-public enum MassaAdapterStatus
+public enum MassaStatus
 {
     Default,
-    IsConnectWithMassa,
-    IsNotConnectWithMassa,
+    IsConnect,
+    IsDisconnected,
     IsDataExists,
     IsDataNotExists,
-    IsException,
 }
