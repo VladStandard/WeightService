@@ -29,7 +29,7 @@ public sealed partial class ItemLines : ItemBase<SqlScaleEntity>
         PrinterModels = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         HostModels = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         WorkShopModels = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        ComPorts = MdSerialPortsUtils.ComPorts;
+        ComPorts = Enumerable.Range(1, 10).Select(i => $"COM{i}").ToList();;
     }
 
     #endregion

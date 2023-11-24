@@ -1,4 +1,3 @@
-using Ws.DataCore.Protocols;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 
@@ -15,7 +14,7 @@ public class SqlScaleEntity : SqlEntityBase
     public virtual SqlHostEntity Host { get; set; }
     public virtual SqlWorkShopEntity WorkShop { get; set; }
     public virtual SqlPrinterEntity Printer { get; set; }
-    public virtual string DeviceComPort { get; set; } = "";
+    public virtual string DeviceComPort { get; set; }
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Description}";
     
@@ -34,6 +33,7 @@ public class SqlScaleEntity : SqlEntityBase
         Printer = new();
         Number = 0;
         LabelCounter = 0;
+        DeviceComPort = "COM6";
     }
 
     public SqlScaleEntity(SqlScaleEntity item) : base(item)
@@ -80,7 +80,6 @@ public class SqlScaleEntity : SqlEntityBase
         WorkShop.FillProperties();
         Printer.FillProperties();
         Host.FillProperties();
-        DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
 
     #endregion
