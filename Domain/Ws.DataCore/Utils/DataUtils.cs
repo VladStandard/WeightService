@@ -45,9 +45,6 @@ public static class DataUtils
             ? $"{LocaleCore.Strings.DataSizeVolume}: {Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}"
             : $"{Encoding.Default.GetString(value).Length:### ###} {LocaleCore.Strings.DataSizeBytes}";
     }
-
-    public static ArgumentException GetArgumentException(string argument) => new($"Argument {argument} must be setup!");
-    
     
     #endregion
 }

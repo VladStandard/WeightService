@@ -1,3 +1,5 @@
+using Ws.DataCore.Settings;
+
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>

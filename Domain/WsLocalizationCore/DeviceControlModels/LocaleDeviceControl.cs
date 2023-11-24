@@ -32,7 +32,6 @@ public sealed class LocaleDeviceControl : LocalizationDeviceControl
     public string SectionHosts => Lang == EnumLanguage.English ? "Hosts" : "Хосты";
     public string SectionLabels => Lang == EnumLanguage.English ? "Labels" : "Этикетки";
     public string SectionOperations => Lang == EnumLanguage.English ? "Operations" : "Операции";
-    public string SectionOrganizations => Lang == EnumLanguage.English ? "Organizations" : "Организации";
     public string SectionPlus => Lang == EnumLanguage.English ? "PLUs" : "ПЛУ";
     public string SectionPlusNestingFk => Lang == EnumLanguage.English ? "PLU's nesting" : "Вложенности ПЛУ";
     public string SectionPlusScales => Lang == EnumLanguage.English ? "PLU & Lines" : "ПЛУ и Линия";

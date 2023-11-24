@@ -5,7 +5,6 @@ namespace Ws.Services.Services.Plu;
 
 public class PluService : IPluService
 {
-
     public IEnumerable<SqlPluNestingFkEntity> GetPluNesting(SqlPluEntity plu)
     {
         return new SqlPluNestingFkRepository().GetEnumerableByPluUidActual(plu);

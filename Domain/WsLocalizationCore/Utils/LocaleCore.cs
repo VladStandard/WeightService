@@ -12,16 +12,12 @@ public static class LocaleCore
         set
         {
             _lang = value;
-            Action.Lang = _lang;
             Buttons.Lang = _lang;
             ContextMenu.Lang = _lang;
-            Convert.Lang = _lang;
             DeviceControl.Lang = _lang;
             Dialog.Lang = _lang;
-            LabelPrint.Lang = _lang;
-            Memory.Lang = _lang;
+            LabelPrint.Lang = _lang; 
             Print.Lang = _lang;
-            Settings.Lang = _lang;
             Sql.Lang = _lang;
             System.Lang = _lang;
             Table.Lang = _lang;
@@ -30,15 +26,11 @@ public static class LocaleCore
             WebService.Lang = _lang;
         }
     }
-
-    private static LocaleConvert Convert { get; } = new();
-    private static LocaleSettings Settings { get; } = new();
-    public static LocaleAction Action { get; } = new();
+    
     public static LocaleButtons Buttons { get; } = new();
     public static LocaleContextMenu ContextMenu { get; } = new();
     public static LocaleDeviceControl DeviceControl { get; } = new();
     public static LocaleDialog Dialog { get; } = new();
-    public static LocaleMemory Memory { get; } = new();
     public static LocaleMenu Menu { get; } = new();
     public static LocalePrint Print { get; } = new();
     public static LocaleSql Sql { get; } = new();
@@ -74,7 +66,6 @@ public static class LocaleCore
         public static string DataSizeVolume => Lang == EnumLanguage.English ? "Data volume" : "Объём данных";
         public static string From => Lang == EnumLanguage.English ? "from" : "из";
         public static string ItemsCount => Lang == EnumLanguage.English ? "Records" : "Записей";
-        public static string Language => Lang == EnumLanguage.English ? "Language" : "Язык";
         public static string PageError => Lang == EnumLanguage.English ? "Sorry, there's nothing at this address." : "Извините, по этому адресу ничего нет.";
         public static string SettingName => Lang == EnumLanguage.English ? "Setting" : "Настройка";
         public static string SettingValue => Lang == EnumLanguage.English ? "Value" : "Значение";

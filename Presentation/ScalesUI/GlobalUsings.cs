@@ -12,7 +12,7 @@ global using ScalesUI.Forms;
 global using Ws.DataCore.Common;
 global using Ws.DataCore.Helpers;
 global using Ws.DataCore.Models;
-global using Ws.DataCore.Settings.Helpers;
+global using Ws.DataCore.Settings;
 global using Ws.LabelCore.Common;
 global using Ws.LabelCore.Helpers;
 global using Ws.LabelCore.Pages;

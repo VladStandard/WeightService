@@ -31,7 +31,7 @@ public class RazorComponentBase : LayoutComponentBase
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Warning,
-                    Summary = LocaleCore.Action.ActionDataControl,
+                    Summary = "Контроль данных",
                     Detail = detailAddition,
                     Duration = 5000
                 };
