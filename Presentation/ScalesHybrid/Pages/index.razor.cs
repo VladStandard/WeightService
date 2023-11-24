@@ -4,7 +4,6 @@ using ScalesHybrid.Models;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Services.Services.Host;
-using Ws.Services.Services.Line;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 
@@ -27,7 +26,7 @@ public partial class Index : ComponentBase
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
         PageTitleService.SetTitle(Localizer["PageTitleIndex"]);
-        KneadingModel = new WeightKneadingModel
+        KneadingModel = new()
         {
             PluName = "ПЛУ (вес) | 349 | Классическая (Светофор)",
             PluNesting = "15x45",

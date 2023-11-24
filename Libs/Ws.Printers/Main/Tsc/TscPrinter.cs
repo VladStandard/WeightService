@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using SuperSimpleTcp;
+using Ws.Printers.Commands;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
@@ -8,10 +9,9 @@ namespace Ws.Printers.Main.Tsc;
 
 public class TscPrinter : PrinterBase
 {
-    protected override String GetStatusCommand => "\x1B!?";
-    
-    public TscPrinter(String ip, Int32 port) : base(ip, port)
+    public TscPrinter(string ip, int port) : base(ip, port)
     {
+        Commands = new TscCommands();
     }
     
     protected override void TcpClientDataReceived(Object? sender, DataReceivedEventArgs e)
@@ -40,5 +40,4 @@ public class TscPrinter : PrinterBase
             _ => PrinterStatusEnum.Unknown,
         };
     }
-
 }

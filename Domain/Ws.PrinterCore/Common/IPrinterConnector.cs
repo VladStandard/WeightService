@@ -4,7 +4,6 @@ namespace Ws.PrinterCore.Common;
 
 public interface IPrinterConnector : IDisposable
 {
-
     public bool IsConnected { get; } 
     public void Connect(string ip);
     public bool SendCommand(string cmd);

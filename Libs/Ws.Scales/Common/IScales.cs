@@ -2,5 +2,5 @@
 
 public interface IScales : IDisposable
 {
-    
+    bool SendGetWeight();
 }
