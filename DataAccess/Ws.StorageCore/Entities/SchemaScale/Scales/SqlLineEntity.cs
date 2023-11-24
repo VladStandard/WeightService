@@ -7,7 +7,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 /// Модель таблицы SCALES.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class SqlScaleEntity : SqlEntityBase
+public class SqlLineEntity : SqlEntityBase
 {
     #region Public and private fields, properties, constructor
     
@@ -25,7 +25,7 @@ public class SqlScaleEntity : SqlEntityBase
     public virtual string ClickOnce { get; set; } = "";
     public virtual string Version { get; set; } = "";
     
-    public SqlScaleEntity() : base(SqlEnumFieldIdentity.Id)
+    public SqlLineEntity() : base(SqlEnumFieldIdentity.Id)
     {
         Version = string.Empty;
         WorkShop = new();
@@ -36,7 +36,7 @@ public class SqlScaleEntity : SqlEntityBase
         DeviceComPort = "COM6";
     }
 
-    public SqlScaleEntity(SqlScaleEntity item) : base(item)
+    public SqlLineEntity(SqlLineEntity item) : base(item)
     {
         Host = new(item.Host);
         WorkShop = new(item.WorkShop);
@@ -58,7 +58,7 @@ public class SqlScaleEntity : SqlEntityBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlScaleEntity)obj);
+        return Equals((SqlLineEntity)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -86,7 +86,7 @@ public class SqlScaleEntity : SqlEntityBase
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(SqlScaleEntity item) =>
+    public virtual bool Equals(SqlLineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(DeviceComPort, item.DeviceComPort) &&
         Equals(Number, item.Number) &&

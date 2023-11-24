@@ -20,11 +20,11 @@ public sealed class SqlContextCacheHelperTests
     public void Get_cache_view_plus_lines_current() =>
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlScaleEntity> lines = LineRepository.GetEnumerable(new()).ToList();
+            List<SqlLineEntity> lines = LineRepository.GetEnumerable(new()).ToList();
             Assert.That(lines.Any(), Is.True);
 
             bool isPrintFirst = false;
-            foreach (SqlScaleEntity line in lines)
+            foreach (SqlLineEntity line in lines)
             {
                 if (isPrintFirst) break;
                 isPrintFirst = true;

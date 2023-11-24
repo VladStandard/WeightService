@@ -6,7 +6,7 @@ namespace Ws.StorageCoreTests.Tables.TableScaleModels.Lines;
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private SqlLineRepository LineRepository { get; } = new();
-    private SqlScaleEntity GetFirstLineModel()
+    private SqlLineEntity GetFirstLineModel()
     {
         return LineRepository.GetEnumerable(SqlCrudConfig).First();
     }
@@ -18,7 +18,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlScaleEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlLineEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
@@ -28,8 +28,8 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            SqlScaleEntity oldLine = GetFirstLineModel();
-            SqlScaleEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
+            SqlLineEntity oldLine = GetFirstLineModel();
+            SqlLineEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
 
             Assert.That(lineById.IsExists, Is.True);
             Assert.That(lineById.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
@@ -44,12 +44,12 @@ public sealed class LineRepositoryTests : TableRepositoryTests
         TestsUtils.DataTests.AssertAction(() =>
         {
             SqlCrudConfig.SelectTopRowsCount = 1;
-            SqlScaleEntity oldScale = LineRepository.GetEnumerable(SqlCrudConfig).First();
+            SqlLineEntity oldLine = LineRepository.GetEnumerable(SqlCrudConfig).First();
 
-            SqlScaleEntity lineByDevice = LineRepository.GetItemByHost(oldScale.Host);
+            SqlLineEntity lineByDevice = LineRepository.GetItemByHost(oldLine.Host);
 
             Assert.That(lineByDevice.IsExists, Is.True);
-            Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldScale.IdentityValueId));
+            Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
             
             TestContext.WriteLine(lineByDevice);
         }, false);

@@ -43,7 +43,7 @@ public sealed class SqlContextCacheHelper
     public List<SqlPluNestingFkEntity> PlusNestingFks { get; private set; } = new();
     public List<SqlPluEntity> Plus { get; private set; } = new();
     public List<SqlProductionSiteEntity> Areas { get; private set; } = new();
-    public List<SqlScaleEntity> Lines { get; private set; } = new();
+    public List<SqlLineEntity> Lines { get; private set; } = new();
     public List<SqlWorkShopEntity> WorkShops { get; private set; } = new();
 
     #endregion

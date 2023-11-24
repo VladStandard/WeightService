@@ -4,9 +4,9 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusLines
 @using DeviceControl.Components.Rz
-@inherits ItemBase<SqlScaleEntity>
+@inherits ItemBase<SqlLineEntity>
 
-<ItemTopBar TItem="@SqlScaleEntity" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlLineEntity" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>

@@ -56,7 +56,7 @@ public class RouteService
             SqlPluWeighingEntity => RouteUtils.SectionPlusWeightings,
             SqlPrinterEntity => RouteUtils.SectionPrinters,
             SqlProductionSiteEntity => RouteUtils.SectionProductionFacilities,
-            SqlScaleEntity => RouteUtils.SectionLines,
+            SqlLineEntity => RouteUtils.SectionLines,
             SqlTemplateEntity => RouteUtils.SectionTemplates,
             SqlTemplateResourceEntity => RouteUtils.SectionTemplateResources,
             SqlVersionEntity => RouteUtils.SectionVersions,

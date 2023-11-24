@@ -7,7 +7,7 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
     #region Public and private fields, properties, constructor
 
     private SqlPluLineRepository PluLineRepository { get; } = new();
-    [Parameter] public SqlScaleEntity Scale { get; set; }
+    [Parameter] public SqlLineEntity Line { get; set; }
 
     public PlusLines() : base()
     {
@@ -22,13 +22,13 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
 
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = PluLineRepository.GetListByLine(Scale, SqlCrudConfigSection);
+        SqlSectionCast = PluLineRepository.GetListByLine(Line, SqlCrudConfigSection);
     }
 
     protected override async Task SqlItemNewAsync()
     {
-        await DialogService.OpenAsync<AddPlusLines>($"{Scale.Description} | ПЛУ", 
-        new(){ {"Line", Scale} }, 
+        await DialogService.OpenAsync<AddPlusLines>($"{Line.Description} | ПЛУ", 
+        new(){ {"Line", Line} }, 
         new() { Width = "1000px", Height = "700px"});
     }
     protected override async Task SqlItemDeleteAsync()

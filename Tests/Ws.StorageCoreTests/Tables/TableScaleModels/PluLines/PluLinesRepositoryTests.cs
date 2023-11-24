@@ -35,7 +35,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
         TestsUtils.DataTests.AssertAction(() =>
         {
             SqlPluScaleEntity pluScale = GetFirstPluScaleModel();
-            SqlScaleEntity line = pluScale.Line;
+            SqlLineEntity line = pluScale.Line;
             List<SqlPluScaleEntity> pluLines = PluLineRepository.GetListByLine(line, SqlCrudConfig);
             foreach (SqlPluScaleEntity pluLine in pluLines)
             {

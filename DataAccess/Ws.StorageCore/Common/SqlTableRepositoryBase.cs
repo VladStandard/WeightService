@@ -6,7 +6,5 @@ public class SqlTableRepositoryBase<T> where T : SqlEntityBase, new()
 
     protected SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
-    protected SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
-
     #endregion
 }

@@ -31,7 +31,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     private List<ControlBarButton> PluConfigButtonList { get; set; }
     private List<ControlBarButton> PluPrintButtonList { get; set; }
     private SqlHostEntity Host { get; set; }
-    private SqlScaleEntity Line { get; set; }
+    private SqlLineEntity Line { get; set; }
     
     protected override void OnInitialized()
     {

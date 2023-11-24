@@ -2,7 +2,7 @@ using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class ItemLines : ItemBase<SqlScaleEntity>
+public sealed partial class ItemLines : ItemBase<SqlLineEntity>
 {
     #region Public and private fields, properties, constructor
     

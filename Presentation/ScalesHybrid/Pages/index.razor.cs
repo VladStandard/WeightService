@@ -16,7 +16,7 @@ public partial class Index : ComponentBase
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     private SqlHostEntity Host { get; set; }
-    private SqlScaleEntity Line { get; set; }
+    private SqlLineEntity Line { get; set; }
     private DateTime ProductDate { get; set; }
     private WeightKneadingModel KneadingModel { get; set; }
     

@@ -1,6 +1,6 @@
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
-public sealed partial class Lines : SectionBase<SqlScaleEntity>
+public sealed partial class Lines : SectionBase<SqlLineEntity>
 {
     #region Public and private
 

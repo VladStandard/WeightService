@@ -43,7 +43,7 @@ public sealed class LabelSessionHelper : BaseViewModel
     public SqlPluScaleEntity PluLine { get; private set; }
     public int PlusPageNumber { get; set; }
     public SqlProductionSiteEntity Area { get; private set; }
-    public SqlScaleEntity Line { get; private set; }
+    public SqlLineEntity Line { get; private set; }
     public string PublishDescription { get; private set; } = "";
     public DateTime ProductDate { get; set; }
     public SqlViewPluNestingModel ViewPluNesting { get; private set; }
@@ -107,7 +107,7 @@ public sealed class LabelSessionHelper : BaseViewModel
         WeighingSettings = new();
     }
     
-    public void SetSessionForLabelPrintCustom(SqlScaleEntity line, SqlProductionSiteEntity area)
+    public void SetSessionForLabelPrintCustom(SqlLineEntity line, SqlProductionSiteEntity area)
     {
         ContextCache.LoadGlobal();
         Line = line;

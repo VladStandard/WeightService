@@ -1,8 +1,8 @@
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
-public sealed class SqlScaleMap : ClassMapping<SqlScaleEntity>
+public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
 {
-    public SqlScaleMap()
+    public SqlLineMap()
     {
         Schema(SqlSchemasUtils.DbScales);
         Table(SqlTablesUtils.Scales);

@@ -6,5 +6,5 @@ namespace Ws.Services.Services.Host;
 public interface IHostService
 {
     SqlHostEntity GetCurrentHostOrCreate();
-    SqlScaleEntity GetLineByHost(SqlHostEntity host);
+    SqlLineEntity GetLineByHost(SqlHostEntity host);
 }

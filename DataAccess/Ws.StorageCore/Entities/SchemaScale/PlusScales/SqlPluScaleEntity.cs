@@ -7,7 +7,7 @@ public class SqlPluScaleEntity : SqlEntityBase
 
     public virtual bool IsActive { get; set; }
     public virtual SqlPluEntity Plu { get; set; }
-    public virtual SqlScaleEntity Line { get; set; }
+    public virtual SqlLineEntity Line { get; set; }
     
     public SqlPluScaleEntity() : base(SqlEnumFieldIdentity.Uid)
     {

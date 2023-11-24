@@ -43,7 +43,7 @@ public static class SqlValidationUtils
             SqlPluTemplateFkEntity pluTemplate => new SqlPluTemplateFkValidator(isCheckIdentity).Validate(pluTemplate),
             SqlPluWeighingEntity pluWeighing => new SqlPluWeighingValidator(isCheckIdentity).Validate(pluWeighing),
             SqlProductionSiteEntity productionFacility => new SqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
-            SqlScaleEntity scale => new SqlScaleValidator(isCheckIdentity).Validate(scale),
+            SqlLineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
             SqlTemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
             SqlTemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
             SqlVersionEntity version => new SqlVersionValidator(isCheckIdentity).Validate(version),

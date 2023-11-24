@@ -11,6 +11,6 @@ public sealed class SqlPluScaleValidator : SqlTableValidator<SqlPluScaleEntity>
         RuleFor(item => item.Line)
             .NotEmpty()
             .NotNull()
-            .SetValidator(new SqlScaleValidator(isCheckIdentity));
+            .SetValidator(new SqlLineValidator(isCheckIdentity));
     }
 }
