@@ -3,6 +3,7 @@ using Microsoft.Extensions.Localization;
 using NHibernate.Criterion;
 using Radzen;
 using Radzen.Blazor;
+using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Models;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
@@ -11,7 +12,7 @@ namespace ScalesHybrid.Components;
 
 public sealed partial class KneadingDisplayWeight: ComponentBase
 {
-    [Inject] private PluService PluService { get; set; }
+    [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private DialogService DialogService { get; set; }
     
@@ -19,7 +20,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase
 
     protected override void OnInitialized()
     {
-        KneadingModel = PluService.KneadingModel;
+        KneadingModel = LineContext.KneadingModel;
     }
 
     private string Sign => KneadingModel.NetWeight >= 0 ? string.Empty : "-";
@@ -38,5 +39,4 @@ public sealed partial class KneadingDisplayWeight: ComponentBase
         await DialogService.OpenAsync<DialogCalculator>(string.Empty,
             new() { { "CallbackFunction", new Action<int>(SetNewKneading) } },
             new() { ShowTitle = false, Style = "min-height:auto;min-width:auto;width:auto" });
-    
 }

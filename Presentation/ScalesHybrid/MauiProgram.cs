@@ -37,7 +37,7 @@ public static class MauiProgram
         });
         builder.Services.AddSingleton<PageTitleService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
-        builder.Services.AddSingleton<PluService>();
+        builder.Services.AddSingleton<LineContext>();
         
         builder.Services.AddRadzenComponents();
         

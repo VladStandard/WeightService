@@ -5,21 +5,21 @@ using Ws.StorageCore.Entities.SchemaScale.Scales;
 
 namespace ScalesHybrid.Services;
 
-public class PluService
+public class LineContext
 {
     public SqlHostEntity Host { get; set; }
-    public SqlScaleEntity Line { get; set; }
+    public SqlLineEntity Line { get; set; }
     public WeightKneadingModel KneadingModel { get; set; }
     public PluTypeEnum PluType { get; set; }
     private IHostService HostService { get; }
 
-    public PluService(IHostService hostService)
+    public LineContext(IHostService hostService)
     {
         HostService = hostService;
+        InitData();
     }
-    
 
-    public void InitData()
+    private void InitData()
     {
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
