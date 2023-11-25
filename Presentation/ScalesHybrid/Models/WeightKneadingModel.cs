@@ -4,8 +4,8 @@ public class WeightKneadingModel
 {
     public string PluName { get; set; } = string.Empty;
     public string PluNesting { get; set; } = string.Empty;
-    public decimal NetWeight { get; set; } = decimal.MinValue;
-    public decimal TareWeight { get; set; } = decimal.MinValue;
-    public DateOnly ProductDate { get; set; }
-    public int KneadingCount { get; set; } = int.MinValue;
+    public decimal NetWeight { get; set; }
+    public decimal TareWeight { get; set; }
+    public DateOnly ProductDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    public int KneadingCount { get; set; }
 }

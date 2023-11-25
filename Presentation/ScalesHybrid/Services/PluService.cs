@@ -1,0 +1,37 @@
+using ScalesHybrid.Models;
+using Ws.Services.Services.Host;
+using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaScale.Scales;
+
+namespace ScalesHybrid.Services;
+
+public class PluService
+{
+    public SqlHostEntity Host { get; set; }
+    public SqlScaleEntity Line { get; set; }
+    public WeightKneadingModel KneadingModel { get; set; }
+    public PluTypeEnum PluType { get; set; }
+    private IHostService HostService { get; }
+
+    public PluService(IHostService hostService)
+    {
+        HostService = hostService;
+    }
+    
+
+    public void InitData()
+    {
+        Host = HostService.GetCurrentHostOrCreate();
+        Line = HostService.GetLineByHost(Host);
+        PluType = PluTypeEnum.Weight;
+        KneadingModel = new()
+        {
+            PluName = "ПЛУ (вес) | 349 | Классическая (Светофор)",
+            PluNesting = "15x45",
+            ProductDate = DateOnly.FromDateTime(DateTime.Today),
+            KneadingCount = 30,
+            NetWeight = -1.504m,
+            TareWeight = 1.504m
+        };
+    }
+}

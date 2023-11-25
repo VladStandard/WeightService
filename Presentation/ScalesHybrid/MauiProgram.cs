@@ -18,13 +18,7 @@ public static class MauiProgram
         if (SqlCoreHelper.Instance.SessionFactory is null)
             throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
 
-        builder
-            .UseMauiApp<App>();
-            // .ConfigureFonts(fonts =>
-            // {
-            //     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            // });
-        
+        builder.UseMauiApp<App>();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddVsServices();
         
@@ -37,12 +31,13 @@ public static class MauiProgram
         builder.Services.AddLocalization();
         builder.Services.Configure<RequestLocalizationOptions>(options =>
         {
-            options.DefaultRequestCulture = new RequestCulture("ru-RU", "ru-RU");
+            options.DefaultRequestCulture = new("ru-RU", "ru-RU");
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });
         builder.Services.AddSingleton<PageTitleService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
+        builder.Services.AddSingleton<PluService>();
         
         builder.Services.AddRadzenComponents();
         

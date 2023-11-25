@@ -44,6 +44,8 @@
   padding: 0 0.5rem;
   font-size: 1.2rem;
   background-color: var(--button-color);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .plu-config__item-button:hover {
@@ -63,4 +65,7 @@
 
 .plu-config__header-title {
   font-size: 1.4rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
