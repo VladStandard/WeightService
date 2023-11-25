@@ -98,7 +98,7 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlVersionMap>();
         mapper.AddMapping<SqlPrinterMap>();
         mapper.AddMapping<SqlHostMap>();
-        mapper.AddMapping<SqlScaleMap>();
+        mapper.AddMapping<SqlLineMap>();
         mapper.AddMapping<SqlPluMap>();
         mapper.AddMapping<SqlPluScaleMap>();
         mapper.AddMapping<SqlPluWeighingMap>();

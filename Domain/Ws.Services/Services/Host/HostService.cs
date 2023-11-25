@@ -19,7 +19,7 @@ public class HostService : IHostService
         return new SqlHostRepository().SaveOrUpdate(host);
     }
     
-    public SqlScaleEntity GetLineByHost(SqlHostEntity host)
+    public SqlLineEntity GetLineByHost(SqlHostEntity host)
     {
         return new SqlLineRepository().GetItemByHost(host);
     }

@@ -4,9 +4,9 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusLines
 @using DeviceControl.Components.Rz
-@inherits ItemBase<SqlScaleEntity>
+@inherits ItemBase<SqlLineEntity>
 
-<ItemTopBar TItem="@SqlScaleEntity" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlLineEntity" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Host)" Text="@LocaleCore.Table.Host"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Host)" Text="@LocaleCore.Table.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Host" Data="@HostModels" TextProperty="DisplayName"/>
@@ -38,7 +38,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName" />
@@ -67,6 +67,6 @@
 
 @if (SqlItemCast.IsExists)
 {
-  <PlusLines Scale="@SqlItemCast"/>
+  <PlusLines Line="@SqlItemCast"/>
 }
 

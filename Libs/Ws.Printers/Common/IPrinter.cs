@@ -2,6 +2,6 @@
 
 public interface IPrinter : IDisposable
 {
-    public void GetStatus();
+    public void RequestStatus();
     public IPrinter Connect();
 }

@@ -1,5 +1,4 @@
 ﻿using System.IO.Ports;
-using Ws.Scales.Utils;
 using Ws.Scales.Common;
 using Ws.Scales.Enums;
 
@@ -8,43 +7,48 @@ namespace Ws.Scales.Main;
 public class Scales : IScales
 { 
     private MassaCommandsEnum ActiveCommand { get; set; }
-    
-    private const int ReadTimeoutDefault = 0_100;
-    private const int WriteTimeoutDefault = 0_100;
-    private const int BaudRateDefault = 4_800;
-    private const Parity ParityDefault = Parity.Even;
-    private const StopBits StopBitsDefault = StopBits.One;
-    private const int DataBitsDefault = 8;
-    private const Handshake HandshakeDefault = Handshake.RequestToSend;
-    private string ComPort { get; set; } = "COM6";
     private SerialPort Port { get; set; }
-
+    private IScalesCommands Commands { get; set; }
+    
     public Scales(string comPort)
     {
+        Commands = new MassaKCommands();
+        
         ActiveCommand = MassaCommandsEnum.None;
         
-        Port = new();
-                
-        Port.ReadTimeout = ReadTimeoutDefault;
-        Port.WriteTimeout = WriteTimeoutDefault;
-        Port.BaudRate = BaudRateDefault;
-        Port.Parity = ParityDefault;
-        Port.StopBits = StopBitsDefault;
-        Port.DataBits = DataBitsDefault;
-        Port.Handshake = HandshakeDefault;
-        Port.DataReceived += DataReceived; 
-        ComPort = comPort;
-    }
-
-
-    public void DataReceived(Object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
-    {
+        Port = new(comPort);
+        Port.Open();
         
+        Port.ReadTimeout = 0_100;
+        Port.WriteTimeout = 0_100;
+        Port.BaudRate = 4_800;
+        Port.Parity = Parity.Even;
+        Port.StopBits = StopBits.One;
+        Port.DataBits = 8;
+        Port.Handshake = Handshake.RequestToSend;
+
+        Port.DataReceived += DataReceived;
+
+        SubscribeToData();
     }
     
-    public bool Send(byte[] bytes)
+    private void SubscribeToData()
     {
-        if (!Port.IsOpen) return false;
+        Port.DataReceived += DataReceived; 
+    }
+    
+    private void UnSubscribeFromData()
+    {
+        Port.DataReceived -= DataReceived; 
+    }
+    
+    public void DataReceived(Object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
+    {
+
+    }
+
+    private bool Send(byte[] bytes)
+    {
         try
         {
             Port.Write(bytes, 0, bytes.Length);
@@ -59,11 +63,12 @@ public class Scales : IScales
     public bool SendGetWeight()
     {
         ActiveCommand = MassaCommandsEnum.GetWeight;
-        return Send(ScalesCommands.CmdGetWeight);
+        return Send(Commands.CmdGetWeight);
     }
     
     public void Dispose()
     {
+        UnSubscribeFromData();
         if (Port.IsOpen) Port.Close();
         Port.Dispose();
     }

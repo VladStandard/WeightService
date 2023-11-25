@@ -24,13 +24,9 @@ public sealed class LocaleTable : LocalizationBase
     public string DayOfWeek => Lang == EnumLanguage.English ? "Weekday" : "День недели";
     public string Description => Lang == EnumLanguage.English ? "Description" : "Описание";
     public string Device => Lang == EnumLanguage.English ? "Device" : "Устройство";
-    public string Devices => Lang == EnumLanguage.English ? "Devices" : "Устройства";
-    public string Setting => Lang == EnumLanguage.English ? "Setting" : "Настройка";
     public string DeviceComPort => Lang == EnumLanguage.English ? "COM-port" : "COM-порт";
     public string DeviceIp => Lang == EnumLanguage.English ? "IP-address" : "IP-адрес";
-    public string DeviceMac => Lang == EnumLanguage.English ? "MAC-address" : "MAC-адрес";
     public string DeviceNumber => Lang == EnumLanguage.English ? "Device number" : "Номер устройства";
-    public string DeviceType => Lang == EnumLanguage.English ? "Device type" : "Тип устройства";
     public string Ean13 => Lang == EnumLanguage.English ? "EAN13" : "ШК ЕАН13";
     public string Error => Lang == EnumLanguage.English ? "Failed" : "Неудачно";
     public string ExpirationDt => Lang == EnumLanguage.English ? "Expiration date" : "Срок годности";
@@ -44,7 +40,6 @@ public sealed class LocaleTable : LocalizationBase
     public string Id => Lang == EnumLanguage.English ? "ID" : "ИД";
     public string ImageData => Lang == EnumLanguage.English ? "Image data" : "Данные";
     public string IsDefault => Lang == EnumLanguage.English ? "Default" : "По-умолчанию";
-    public string IsEnabled => Lang == EnumLanguage.English ? "Is enabled" : "Включено";
     public string IsKneading => Lang == EnumLanguage.English ? "Kneading" : "Замес";
     public string IsMarked => Lang == EnumLanguage.English ? "In the archive" : "В архиве";
     public string IsMarkedShort => Lang == EnumLanguage.English ? "x" : "х";
@@ -53,7 +48,6 @@ public sealed class LocaleTable : LocalizationBase
     public string LabelCounter => Lang == EnumLanguage.English ? "Label counter" : "Счётчик этикеток";
     public string Line => Lang == EnumLanguage.English ? "Line" : "Линия";
     public string LoginDt => Lang == EnumLanguage.English ? "Login" : "Залогирован";
-    public string LogoutDt => Lang == EnumLanguage.English ? "Logout" : "Разлогирован";
     public string LogType => Lang == EnumLanguage.English ? "Log type" : "Тип лога";
     public string Member => Lang == EnumLanguage.English ? "Method" : "Метод";
     public string Message => Lang == EnumLanguage.English ? "Message" : "Сообщение";
@@ -69,7 +63,6 @@ public sealed class LocaleTable : LocalizationBase
     public string PluNesting => Lang == EnumLanguage.English ? "PLU's nesting" : "Вложенность ПЛУ";
     public string PluNumber => Lang == EnumLanguage.English ? "# PLU" : "№ ПЛУ";
     public string PluStorage => Lang == EnumLanguage.English ? "Storage PLU" : "Способ хранения ПЛУ";
-    public string PrettyName => Lang == EnumLanguage.English ? "Pretty name" : "Красивое наименование";
     public string Printer => Lang == EnumLanguage.English ? "Printer" : "Принтер";
     public string ProductDt => Lang == EnumLanguage.English ? "Product date" : "Дата продукции";
     public string ProductionFacility => Lang == EnumLanguage.English ? "Production facility" : "Производственная площадка";

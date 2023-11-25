@@ -1,4 +1,4 @@
-namespace Ws.DataCore.Settings.Helpers;
+namespace Ws.DataCore.Settings;
 
 public sealed class AppVersionHelper
 {

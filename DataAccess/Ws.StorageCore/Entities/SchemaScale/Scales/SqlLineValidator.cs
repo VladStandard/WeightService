@@ -3,9 +3,9 @@ using Ws.StorageCore.Entities.SchemaRef.Printers;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
-public sealed class SqlScaleValidator : SqlTableValidator<SqlScaleEntity>
+public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
 {
-    public SqlScaleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlLineValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.Description)
             .NotEmpty()

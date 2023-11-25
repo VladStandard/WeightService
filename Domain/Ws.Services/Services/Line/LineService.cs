@@ -7,12 +7,12 @@ namespace Ws.Services.Services.Line;
 
 public class LineService : ILineService
 {
-    public IEnumerable<SqlPluEntity> GetLinePlus(SqlScaleEntity line)
+    public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line)
     {
        return new SqlPluLineRepository().GetListByLine(line, new()).Select(i => i.Plu);
     }
     
-    public IEnumerable<SqlScaleEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
+    public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
     {
         return new SqlLineRepository().GetLinesByWorkshop(workShop);
     }

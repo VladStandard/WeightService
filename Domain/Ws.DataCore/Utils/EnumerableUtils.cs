@@ -2,8 +2,6 @@ namespace Ws.DataCore.Utils;
 
 public static class EnumerableUtils
 {
-    #region Public and private methods
-
     public static Collection<T> CopyCollection<T>(IEnumerable<T> list)
     {
         Collection<T> copy = new();
@@ -51,6 +49,4 @@ public static class EnumerableUtils
         }
         return copy;
     }
-
-    #endregion
 }

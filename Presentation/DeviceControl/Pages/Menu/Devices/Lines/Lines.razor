@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<SqlScaleEntity>
+@inherits SectionBase<SqlLineEntity>
 
 <SectionTopBar
   Title="@LocaleCore.DeviceControl.SectionScales"
@@ -14,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@SqlScaleEntity"
+  TItem="@SqlLineEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,7 +22,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@SqlScaleEntity">
+    <TItemContent TItem="@SqlLineEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="5%"/>
       <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="15%"/>

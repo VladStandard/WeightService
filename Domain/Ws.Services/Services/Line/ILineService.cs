@@ -6,6 +6,6 @@ namespace Ws.Services.Services.Line;
 
 public interface ILineService
 {
-    public IEnumerable<SqlPluEntity> GetLinePlus(SqlScaleEntity line);
-    public IEnumerable<SqlScaleEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop);
+    public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line);
+    public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop);
 }

@@ -30,7 +30,6 @@ public sealed class PrintSessionHelper
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     private LabelSessionHelper LabelSession => LabelSessionHelper.Instance;
     private SqlBarCodeController BarCode => SqlBarCodeController.Instance;
-    private SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
     
     #endregion
 
@@ -176,7 +175,7 @@ public sealed class PrintSessionHelper
     private Action<string> ActionReplaceStorageMethod(SqlPluLabelEntity pluLabel) =>
         zpl =>
         {
-            if (ContextCache.ViewPlusStorageMethods.Any() && zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+            if (zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
             {
                 SqlTemplateResourceEntity resource = new SqlPluStorageMethodFkRepository().GetItemByPlu(pluLabel.PluScale.Plu).Resource;
                 string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);

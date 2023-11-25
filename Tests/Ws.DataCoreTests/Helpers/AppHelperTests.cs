@@ -1,5 +1,5 @@
 using System.Reflection.Emit;
-using Ws.DataCore.Settings.Helpers;
+using Ws.DataCore.Settings;
 
 namespace Ws.DataCoreTests.Helpers;
 

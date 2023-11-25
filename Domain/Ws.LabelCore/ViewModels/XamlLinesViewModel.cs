@@ -13,9 +13,9 @@ public sealed class XamlLinesViewModel : XamlBaseViewModel
     #region Public and private fields, properties, constructor
 
     public SqlProductionSiteEntity ProductionSite { get; set; } = new();
-    public SqlScaleEntity Line { get; set; } = new();
+    public SqlLineEntity Line { get; set; } = new();
     public List<SqlProductionSiteEntity> ProductionSites { get; set; } = new();
-    public List<SqlScaleEntity> Lines { get; set; } = new();
+    public List<SqlLineEntity> Lines { get; set; } = new();
 
     public XamlLinesViewModel()
     {

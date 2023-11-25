@@ -31,14 +31,7 @@ public class DataSourceDicsHelper
             "608 dpi tsc",
             "zpl"
         };
-
-    public List<EnumTypeModel<EnumLanguage>> GetTemplateLanguages() => LocaleCore.Lang switch
-    {
-        EnumLanguage.English => GetTemplateLanguagesEng(),
-        EnumLanguage.Russian => GetTemplateLanguagesRus(),
-        _ => new()
-    };
-
+    
     private List<EnumTypeModel<EnumLanguage>> GetTemplateLanguagesEng() => new()
     {
         new($"{EnumLanguage.English}", EnumLanguage.English),

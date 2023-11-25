@@ -23,7 +23,7 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetList<SqlLogEntity>(sqlCrudConfig);
     }
-    public IEnumerable<SqlLogEntity> GetListByLogTypeAndLineName(SqlCrudConfigModel sqlCrudConfig, LogTypeEnum? logType, SqlScaleEntity? line)
+    public IEnumerable<SqlLogEntity> GetListByLogTypeAndLineName(SqlCrudConfigModel sqlCrudConfig, LogTypeEnum? logType, SqlLineEntity? line)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)

@@ -20,7 +20,6 @@ public static class AssemblyUtils
 
         return result;
     }
-
     
     public static string GetClickOnceNetworkInstallDirectory()
     {

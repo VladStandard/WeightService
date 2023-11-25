@@ -8,7 +8,7 @@ public sealed partial class AddPlusLines
     
     [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
     
-    [Parameter] public SqlScaleEntity Line { get; set; }
+    [Parameter] public SqlLineEntity Line { get; set; }
     
     private List<SqlPluEntity> Plus { get; set; }
     

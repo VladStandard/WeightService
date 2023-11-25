@@ -5,38 +5,38 @@ namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 /// <summary>
 /// Контроллер таблицы SCALES.
 /// </summary>
-public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlScaleEntity>
+public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 {
 
     #region Public and private methods
 
-    public SqlScaleEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlScaleEntity>();
+    public SqlLineEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlLineEntity>();
 
-    public SqlScaleEntity GetItemById(long id) => SqlCore.GetItemById<SqlScaleEntity>(id);
+    public SqlLineEntity GetItemById(long id) => SqlCore.GetItemById<SqlLineEntity>(id);
 
-    public SqlScaleEntity GetItemByHost(SqlHostEntity host)
+    public SqlLineEntity GetItemByHost(SqlHostEntity host)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlScaleEntity.Host), host));
-        return SqlCore.GetItemByCrud<SqlScaleEntity>(sqlCrudConfig);
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.Host), host));
+        return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
-    public IEnumerable<SqlScaleEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
+    public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlScaleEntity.WorkShop), workShop));
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.WorkShop), workShop));
         return GetEnumerable(sqlCrudConfig);
     }
 
 
-    public IEnumerable<SqlScaleEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlLineEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Description)));
-        return SqlCore.GetEnumerable<SqlScaleEntity>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
     }
 
-    public void Update(SqlScaleEntity line) => SqlCore.Update(line);
+    public void Update(SqlLineEntity line) => SqlCore.Update(line);
 
     #endregion
 }

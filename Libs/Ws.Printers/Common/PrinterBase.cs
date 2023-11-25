@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using SuperSimpleTcp;
+using Ws.Printers.Commands;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
@@ -9,11 +10,12 @@ public abstract class PrinterBase : IPrinter
 {
     protected PrinterStatusEnum State { get; set; }
     protected SimpleTcpClient TcpClient { get; set; }
-    protected virtual string GetStatusCommand => throw new NotImplementedException();
-    
+    protected IPrinterCommands Commands { get; set; }
+
     public PrinterBase(string ip, int port)
     {
         TcpClient = new(ip, port);
+        Commands = new TscCommands();
         State = PrinterStatusEnum.Unknown;
     }
     
@@ -26,17 +28,17 @@ public abstract class PrinterBase : IPrinter
         return this;
     }
     
-    public void GetStatus()
+    public void RequestStatus()
     {
-       TcpClient.Send(GetStatusCommand);
+       TcpClient.Send(Commands.GetStatus);
     }
 
-    protected virtual void TcpClientConnected(Object? sender, ConnectionEventArgs e)
+    private static void TcpClientConnected(Object? sender, ConnectionEventArgs e)
     {
-        WeakReferenceMessenger.Default.Send(new PrinterDisconnectedEvent());
+        WeakReferenceMessenger.Default.Send(new PrinterConnectedEvent());
     }
 
-    protected virtual void TcpClientDisconnected(Object? sender, ConnectionEventArgs e)
+    private static void TcpClientDisconnected(Object? sender, ConnectionEventArgs e)
     {
         WeakReferenceMessenger.Default.Send(new PrinterDisconnectedEvent());
     }

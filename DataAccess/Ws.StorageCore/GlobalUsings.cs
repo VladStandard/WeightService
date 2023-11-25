@@ -26,7 +26,6 @@ global using Ws.DataCore.Common;
 global using Ws.DataCore.Enums;
 global using Ws.DataCore.Helpers;
 global using Ws.DataCore.Serialization;
-global using Ws.DataCore.Settings.Helpers;
 global using Ws.DataCore.Utils;
 global using WsLocalizationCore.Utils;
 global using Ws.StorageCore.Common;

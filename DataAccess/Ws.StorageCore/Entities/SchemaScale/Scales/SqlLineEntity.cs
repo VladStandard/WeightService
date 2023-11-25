@@ -1,4 +1,3 @@
-using Ws.DataCore.Protocols;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 
@@ -8,14 +7,14 @@ namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 /// Модель таблицы SCALES.
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
-public class SqlScaleEntity : SqlEntityBase
+public class SqlLineEntity : SqlEntityBase
 {
     #region Public and private fields, properties, constructor
     
     public virtual SqlHostEntity Host { get; set; }
     public virtual SqlWorkShopEntity WorkShop { get; set; }
     public virtual SqlPrinterEntity Printer { get; set; }
-    public virtual string DeviceComPort { get; set; } = "";
+    public virtual string DeviceComPort { get; set; }
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Description}";
     
@@ -26,7 +25,7 @@ public class SqlScaleEntity : SqlEntityBase
     public virtual string ClickOnce { get; set; } = "";
     public virtual string Version { get; set; } = "";
     
-    public SqlScaleEntity() : base(SqlEnumFieldIdentity.Id)
+    public SqlLineEntity() : base(SqlEnumFieldIdentity.Id)
     {
         Version = string.Empty;
         WorkShop = new();
@@ -34,9 +33,10 @@ public class SqlScaleEntity : SqlEntityBase
         Printer = new();
         Number = 0;
         LabelCounter = 0;
+        DeviceComPort = "COM6";
     }
 
-    public SqlScaleEntity(SqlScaleEntity item) : base(item)
+    public SqlLineEntity(SqlLineEntity item) : base(item)
     {
         Host = new(item.Host);
         WorkShop = new(item.WorkShop);
@@ -58,7 +58,7 @@ public class SqlScaleEntity : SqlEntityBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((SqlScaleEntity)obj);
+        return Equals((SqlLineEntity)obj);
     }
 
     public override int GetHashCode() => base.GetHashCode();
@@ -80,14 +80,13 @@ public class SqlScaleEntity : SqlEntityBase
         WorkShop.FillProperties();
         Printer.FillProperties();
         Host.FillProperties();
-        DeviceComPort = MdSerialPortsUtils.GenerateComPort(6);
     }
 
     #endregion
 
     #region Public and private methods - virtual
 
-    public virtual bool Equals(SqlScaleEntity item) =>
+    public virtual bool Equals(SqlLineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(DeviceComPort, item.DeviceComPort) &&
         Equals(Number, item.Number) &&

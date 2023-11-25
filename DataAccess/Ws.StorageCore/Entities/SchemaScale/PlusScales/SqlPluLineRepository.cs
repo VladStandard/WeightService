@@ -12,12 +12,12 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEnt
 
     public SqlPluScaleEntity GetItem(long scaleId, ushort pluNumber)
     {
-        SqlViewPluLineModel viewPluScale = ContextCache.LocalViewPlusLines.Find(
+        SqlViewPluLineModel viewPluScale = SqlContextCacheHelper.Instance.LocalViewPlusLines.Find(
             item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
         return SqlCore.GetItemByUid<SqlPluScaleEntity>(viewPluScale.Identity.Uid);
     }
     
-    public SqlPluScaleEntity GetItemByLinePlu(SqlScaleEntity line, SqlPluEntity plu)
+    public SqlPluScaleEntity GetItemByLinePlu(SqlLineEntity line, SqlPluEntity plu)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilters(new()
@@ -36,7 +36,7 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEnt
         return items.ToList();
     }
 
-    public List<SqlPluScaleEntity> GetListByLine(SqlScaleEntity line, SqlCrudConfigModel sqlCrudConfig)
+    public List<SqlPluScaleEntity> GetListByLine(SqlLineEntity line, SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluScaleEntity.Line), line));
         return GetList(sqlCrudConfig);

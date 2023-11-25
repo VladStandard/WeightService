@@ -1,3 +1,4 @@
+using Ws.DataCore.Settings;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Enums;
 

@@ -4,14 +4,10 @@
 	xmlns:localization="clr-namespace:WsLocalizationCore.Models;assembly=WsLocalizationCore">
 
 	<SolidColorBrush x:Key="Brush" Color="Red" />
-	<localization:LocaleAction x:Key="LocaleAction" />
 	<localization:LocaleButtons x:Key="LocaleButtons" />
-	<localization:LocaleConvert x:Key="LocaleConvert" />
     <localization:LocaleDialog x:Key="LocaleDialog" />
-	<localization:LocaleMemory x:Key="LocaleMemory" />
 	<localization:LocaleMenu x:Key="LocaleMenu" />
 	<localization:LocalePrint x:Key="LocalePrint" />
-	<localization:LocaleSettings x:Key="LocaleSettings" />
 	<localization:LocaleSql x:Key="LocaleSql" />
 	<localization:LocaleSystem x:Key="LocaleSystem" />
 	<localization:LocaleTable x:Key="LocaleTable" />

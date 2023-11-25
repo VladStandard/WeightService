@@ -26,19 +26,22 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private NotificationService NotificationService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
-    
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
+    
     private List<ControlBarButton> PluConfigButtonList { get; set; }
     private List<ControlBarButton> PluPrintButtonList { get; set; }
     private SqlHostEntity Host { get; set; }
-    private SqlScaleEntity Line { get; set; }
+    private SqlLineEntity Line { get; set; }
     
     protected override void OnInitialized()
     {
         
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
+        
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
+        ExternalDevices.SetupScales(Line.DeviceComPort);
+        
         MouseSubscribe();
         PrinterStatusSubscribe();
         PluPrintButtonList = new()
@@ -71,7 +74,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     
     private void PrintLabel()
     {
-        ExternalDevices.Printer.GetStatus();
+        ExternalDevices.Printer.RequestStatus();
     }
     
     private void RedirectTo(string url) => NavigationManager.NavigateTo(url);
