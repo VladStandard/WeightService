@@ -9,7 +9,8 @@ public class LineService : ILineService
 {
     public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line)
     {
-       return new SqlPluLineRepository().GetListByLine(line, new()).Select(i => i.Plu);
+       return new SqlPluLineRepository().GetListByLine(line, new())
+           .Select(i => i.Plu).OrderBy(item => item.Number);
     }
     
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
