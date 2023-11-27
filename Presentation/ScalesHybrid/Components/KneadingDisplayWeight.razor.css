@@ -1,112 +1,112 @@
 .kneading-display__wrapper {
   display: flex;
-  width: 100%;
-  height: 100%;
   overflow: hidden;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .kneading-display {
   display: flex;
-  width: 100%;
   overflow: hidden;
-  background-color: white;
   flex-direction: column;
-  border-radius: 0.5rem;
+  width: 100%;
   border: 1px solid var(--button-border-color);
+  border-radius: 0.5rem;
+  background-color: white;
 }
 
 .kneading-display__header {
   display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 3rem;
   padding: 0 1rem;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
   border-bottom: 1px solid var(--button-border-color);
 }
 
 .kneading-display__header-title {
   font-size: 1.5rem;
   overflow: hidden;
-  white-space: nowrap;
   text-align: center;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .kneading-display__list {
-  padding: 1rem 0;
   display: flex;
-  width: 100%;
-  flex-direction: column;
   overflow: hidden;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem 0;
 }
 
 .kneading-display__list-item {
   display: flex;
+  overflow: hidden;
   width: 100%;
   height: 4rem;
-  overflow: hidden;
 }
 
 .kneading-display__item-label {
-  display: flex;
-  width: 30%;
-  height: 100%;
-  align-items: center;
-  justify-content: start;
-  overflow: hidden;
-  padding: 0 2rem;
   font-size: 1.4rem;
   font-weight: 300;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: start;
+  width: 30%;
+  height: 100%;
+  padding: 0 2rem;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .kneading-display__item-value-default {
-  font-weight: 700;
   font-size: 1.8rem;
+  font-weight: 700;
   overflow: hidden;
 }
 
 .kneading-display__item-container {
   display: flex;
-  width: 70%;
-  height: 100%;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  width: 70%;
+  height: 100%;
 }
 
 .net-weight__container {
+  font-size: 2.5rem;
   display: flex;
   align-items: end;
   margin: 0 auto;
   padding: 0.2rem 1rem;
+  text-align: center;
   border: 1px solid var(--button-border-color);
   border-radius: 0.5rem;
-  text-align: center;
-  font-size: 2.5rem;
 }
 
 .net-weight__char {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 1.5rem;
 }
 
 .date-value__btn {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30%;
   height: 100%;
-  background-color: var(--button-color);
   border: 1px solid var(--button-border-color);
   border-radius: 0.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
+  background-color: var(--button-color);
 }
 
 .date-value__btn:hover {
@@ -115,27 +115,27 @@
 }
 
 .date-value__container {
-  padding: 0.2rem 1rem;
+  display: flex;
   align-items: center;
   width: 100%;
   height: 100%;
-  display: flex;
+  padding: 0.2rem 1rem;
 }
 
 .date-value {
-  font-weight: 700;
   font-size: 1.8rem;
-  text-align: center;
-  padding: 0 1rem;
+  font-weight: 700;
   width: 40%;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 .kneading-value__container {
-  padding: 0.2rem 1rem;
+  display: flex;
   align-items: center;
   width: 100%;
   height: 100%;
-  display: flex;
+  padding: 0.2rem 1rem;
 }
 
 .kneading-value__stub {
@@ -144,23 +144,23 @@
 }
 
 .kneading-value {
-  font-weight: 700;
   font-size: 1.8rem;
-  text-align: center;
-  padding: 0 1rem;
+  font-weight: 700;
   width: 40%;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 .kneading-value__btn {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30%;
   height: 100%;
-  background-color: var(--button-color);
   border: 1px solid var(--button-border-color);
   border-radius: 0.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
+  background-color: var(--button-color);
 }
 
 .kneading-value__btn:hover {

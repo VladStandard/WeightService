@@ -1,0 +1,30 @@
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+
+<div class="line-select__container">
+  <RadzenDataGrid RowSelect="OnRowSelect" Data="PluEntities" TItem="SqlPluEntity" AllowPaging="true" PageSize="7">
+    <Columns>
+      <RadzenDataGridColumn
+        Title="ID"
+        TItem="SqlPluEntity"
+        Property="Number"
+        Width="15%"
+      />
+      <RadzenDataGridColumn
+        Title="Тип"
+        TItem="SqlPluEntity"
+        Property="Number"
+        Width="15%"
+      >
+        <Template Context="plu">
+          @(plu.IsCheckWeight ? "Вес" : "Шт")
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn
+        Title="Название"
+        TItem="SqlPluEntity"
+        Property="Name"
+        Width="70%"
+      />
+    </Columns>
+  </RadzenDataGrid>
+</div>

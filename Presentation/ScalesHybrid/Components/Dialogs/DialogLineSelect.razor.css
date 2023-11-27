@@ -1,5 +1,5 @@
 .line-select__container {
-  width: 50vw;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  /*width: 50vw;*/
   border-radius: 0.3rem;
 }

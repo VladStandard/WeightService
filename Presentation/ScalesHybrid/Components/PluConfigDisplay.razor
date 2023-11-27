@@ -9,20 +9,41 @@
       </p>
     </div>
     <ul class="plu-config__list">
-      @foreach (PluConfigItem item in ConfigItems)
-      {
-        <li class="plu-config__item">
-          <label class="plu-config__item-label">
-            @item.Title
-          </label>
-          <button
-            type="button"
-            class="plu-config__item-button"
-            @onclick="item.SelectItemAction">
-            @item.SelectedItemName
-          </button>
-        </li>
-      }
+      <li class="plu-config__item">
+        <label class="plu-config__item-label">
+          Линия
+        </label>
+        <button
+          type="button"
+          class="plu-config__item-button"
+          @onclick="ShowLineSelectDialog"
+        >
+          @(LineContext.Line.IsNew ? "Линия не выбрана" : LineContext.Line.DisplayName )
+        </button>
+      </li>
+      <li class="plu-config__item">
+        <label class="plu-config__item-label">
+          ПЛУ
+        </label>
+        <button
+          type="button"
+          class="plu-config__item-button"
+          @onclick="ShowPluSelectDialog">
+          @(LineContext.Plu.IsNew ? "ПЛУ не выбрана" : LineContext.Plu.DisplayName)
+        </button>
+      </li>
+      <li class="plu-config__item">
+        <label class="plu-config__item-label">
+          Вложеность
+        </label>
+        <button
+          type="button"
+          class="plu-config__item-button"
+          @onclick="() => { }"
+        >
+          Вложенность не выбрана
+        </button>
+      </li>
     </ul>
   </div>
 </div>

@@ -1,14 +1,14 @@
 .btn-primary {
-  width: 100%;
-  height: 100%;
   display: flex;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  border-radius: 0.2rem;
-  border: 1px solid var(--button-border-color);
-  background-color: var(--button-color);
+  width: 100%;
+  height: 100%;
   transition: background-color 100ms;
+  border: 1px solid var(--button-border-color);
+  border-radius: 0.2rem;
+  background-color: var(--button-color);
 }
 
 .btn-primary:hover {

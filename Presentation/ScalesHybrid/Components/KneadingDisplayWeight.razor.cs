@@ -15,25 +15,18 @@ public sealed partial class KneadingDisplayWeight: ComponentBase
     [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private DialogService DialogService { get; set; }
-    
-    [Parameter] public WeightKneadingModel KneadingModel { get; set; } = new();
 
-    protected override void OnInitialized()
-    {
-        KneadingModel = LineContext.KneadingModel;
-    }
-
-    private string Sign => KneadingModel.NetWeight >= 0 ? string.Empty : "-";
+    private string Sign => LineContext.KneadingModel.NetWeight >= 0 ? string.Empty : "-";
     
-    private string IntegerPart => ((int)Math.Truncate(Math.Abs(KneadingModel.NetWeight))).ToString("D4");
+    private string IntegerPart => ((int)Math.Truncate(Math.Abs(LineContext.KneadingModel.NetWeight))).ToString("D4");
     
-    private string DecimalPart => Math.Abs(KneadingModel.NetWeight % 1).ToString(".000")[1..];
+    private string DecimalPart => Math.Abs(LineContext.KneadingModel.NetWeight % 1).ToString(".000")[1..];
     
-    private void IncreaseDate() => KneadingModel.ProductDate = KneadingModel.ProductDate.AddDays(1);
+    private void IncreaseDate() => LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(1);
     
-    private void DecreaseDate() => KneadingModel.ProductDate = KneadingModel.ProductDate.AddDays(-1);
+    private void DecreaseDate() => LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(-1);
     
-    private void SetNewKneading(int newKneading) => KneadingModel.KneadingCount = newKneading;
+    private void SetNewKneading(int newKneading) => LineContext.KneadingModel.KneadingCount = newKneading;
 
     private async Task ShowInlineDialog() => 
         await DialogService.OpenAsync<DialogCalculator>(string.Empty,
