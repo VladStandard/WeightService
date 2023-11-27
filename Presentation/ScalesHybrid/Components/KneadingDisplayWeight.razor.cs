@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Criterion;
@@ -18,8 +19,6 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private DialogService DialogService { get; set; }
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
-
-    protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
 
     private decimal GetNetWeight => (decimal)LineContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
     private decimal GetTareWeight => LineContext.PluNesting.WeightTare;
@@ -45,6 +44,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     
     protected override void OnInitialized()
     {
+        LineContext.OnStateChanged += StateHasChanged;
         _timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
 
@@ -52,7 +52,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     {
         if (payload.IsStable)
         {
-            LineContext.KneadingModel.NetWeight = payload.Weight;
+            LineContext.KneadingModel.NetWeightG = payload.Weight;
             InvokeAsync(StateHasChanged);
         }
     }
