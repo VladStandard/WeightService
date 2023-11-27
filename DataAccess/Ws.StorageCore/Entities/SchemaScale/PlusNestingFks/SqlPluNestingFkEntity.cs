@@ -11,9 +11,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
     public virtual SqlPluEntity Plu { get; set; }
     public virtual bool IsDefault { get; set; }
     public virtual short BundleCount { get; set; }
-    public virtual decimal WeightMax { get; set; }
-    public virtual decimal WeightMin { get; set; }
-    public virtual decimal WeightNom { get; set; }
     public virtual Guid Uid1C { get; set; }
     public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
     public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
@@ -26,9 +23,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         Plu = new();
         IsDefault = false;
         BundleCount = 0;
-        WeightMax = 0;
-        WeightMin = 0;
-        WeightNom = 0;
     }
     
     public SqlPluNestingFkEntity(SqlPluNestingFkEntity item) : base(item)
@@ -37,9 +31,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         Plu = new(item.Plu);
         IsDefault = item.IsDefault;
         BundleCount = item.BundleCount;
-        WeightMax = item.WeightMax;
-        WeightMin = item.WeightMin;
-        WeightNom = item.WeightNom;
     }
 
     #endregion
@@ -72,9 +63,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         //Plu.EqualsDefault() &&
         Plu.EqualsDefault() &&
         Equals(IsDefault, false) &&
-        Equals(WeightMax, default(decimal)) &&
-        Equals(WeightMin, default(decimal)) &&
-        Equals(WeightNom, default(decimal)) &&
         Equals(BundleCount, default(short));
 
     public override void FillProperties()
@@ -95,9 +83,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         //Plu.Equals(item.Plu) && 
         Plu.Equals(item.Plu) && 
         Equals(IsDefault, item.IsDefault) &&
-        Equals(WeightMax, item.WeightMax) &&
-        Equals(WeightMin, item.WeightMin) &&
-        Equals(WeightNom, item.WeightNom) &&
         Equals(BundleCount, item.BundleCount);
     
     #endregion

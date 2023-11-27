@@ -50,30 +50,6 @@ public sealed class SqlPluNestingFkMap : ClassMapping<SqlPluNestingFkEntity>
                 m.Unique(true);
             });
 
-            Property(x => x.WeightMax, m =>
-            {
-                m.Column("WEIGHT_MAX");
-                m.Type(NHibernateUtil.Decimal);
-                m.NotNullable(true);
-                m.Unique(true);
-            });
-
-            Property(x => x.WeightMin, m =>
-            {
-                m.Column("WEIGHT_MIN");
-                m.Type(NHibernateUtil.Decimal);
-                m.NotNullable(true);
-                m.Unique(true);
-            });
-
-            Property(x => x.WeightNom, m =>
-            {
-                m.Column("WEIGHT_NOM");
-                m.Type(NHibernateUtil.Decimal);
-                m.NotNullable(true);
-                m.Unique(true);
-            });
-
             Property(x => x.Uid1C, m =>
             {
                 m.Column("UID_1C");
