@@ -28,7 +28,6 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
     
-    private List<ControlBarButton> PluConfigButtonList { get; set; }
     private List<ControlBarButton> PluPrintButtonList { get; set; }
     private SqlHostEntity Host { get; set; }
     private SqlLineEntity Line { get; set; }
@@ -40,7 +39,8 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         Line = HostService.GetLineByHost(Host);
         
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
-        ExternalDevices.SetupScales(Line.DeviceComPort);
+        // ExternalDevices.SetupScales(Line.DeviceComPort);
+        
         
         MouseSubscribe();
         PrinterStatusSubscribe();

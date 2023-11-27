@@ -2,14 +2,7 @@
 
 public class KneadingModel
 {
-    public DateOnly ProductDate { get; set; }
-    public int Kneading { get; set; }
-    public int PaletteSize { get; set; }
-
-    public KneadingModel()
-    {
-        ProductDate =  DateOnly.FromDateTime(DateTime.Now);
-        PaletteSize = 1;
-        Kneading = 1;
-    }
+    public DateOnly ProductDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public int Kneading { get; set; } = 1;
+    public int PaletteSize { get; set; } = 1;
 }

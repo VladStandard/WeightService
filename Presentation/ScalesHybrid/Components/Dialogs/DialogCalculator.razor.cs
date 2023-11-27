@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
-namespace ScalesHybrid.Components;
+namespace ScalesHybrid.Components.Dialogs;
 
 public sealed partial class DialogCalculator: ComponentBase
 {
@@ -14,7 +14,7 @@ public sealed partial class DialogCalculator: ComponentBase
 
     protected override void OnInitialized()
     {
-        CalculatorControls = new List<CalculatorControl>
+        CalculatorControls = new()
         {
             new() { Title = "1", CalculatorAction = () => SetNumber(1) },
             new() { Title = "2", CalculatorAction = () => SetNumber(2) },

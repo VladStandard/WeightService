@@ -15,7 +15,15 @@ public class ExternalDevicesService : IDisposable
     public ExternalDevicesService()
     {
         Printer = new TscPrinter("127.0.0.1", 9100);
-        Scales = new Scales("COM6");
+        try
+        {
+            Scales = new Scales("COM6");
+        }
+        catch
+        {
+            //
+        }
+        
     }
     
     public void SetupPrinter(string ip, int port, PrinterTypeEnum type)
