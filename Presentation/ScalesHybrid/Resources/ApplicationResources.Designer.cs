@@ -62,18 +62,18 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonExit {
+        internal static string ButtonCalculatorEnter {
             get {
-                return ResourceManager.GetString("ButtonExit", resourceCulture);
+                return ResourceManager.GetString("ButtonCalculatorEnter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonKneadingChange {
+        internal static string ButtonExit {
             get {
-                return ResourceManager.GetString("ButtonKneadingChange", resourceCulture);
+                return ResourceManager.GetString("ButtonExit", resourceCulture);
             }
         }
         
@@ -98,6 +98,15 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ButtonPalletPage {
+            get {
+                return ResourceManager.GetString("ButtonPalletPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ButtonPLUChange {
             get {
                 return ResourceManager.GetString("ButtonPLUChange", resourceCulture);
@@ -116,9 +125,9 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonScaleTerminal {
+        internal static string ButtonScaleCalibration {
             get {
-                return ResourceManager.GetString("ButtonScaleTerminal", resourceCulture);
+                return ResourceManager.GetString("ButtonScaleCalibration", resourceCulture);
             }
         }
         
@@ -182,6 +191,24 @@ namespace ScalesHybrid.Resources {
         internal static string PageTitlePluSelect {
             get {
                 return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ScaleStabilization {
+            get {
+                return ResourceManager.GetString("ScaleStabilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string WeightMeasureKilogram {
+            get {
+                return ResourceManager.GetString("WeightMeasureKilogram", resourceCulture);
             }
         }
     }

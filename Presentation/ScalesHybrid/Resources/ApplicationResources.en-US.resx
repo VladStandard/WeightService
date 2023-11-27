@@ -24,10 +24,10 @@
     <data name="ButtonExit" xml:space="preserve">
         <value>Exit</value>
     </data>
-    <data name="ButtonScaleTerminal" xml:space="preserve">
-        <value>Open scale terminal</value>
+    <data name="ButtonScaleCalibration" xml:space="preserve">
+        <value>Calibrate scale</value>
     </data>
-    <data name="ButtonKneadingChange" xml:space="preserve">
+    <data name="ButtonPalletPage" xml:space="preserve">
         <value>Set kneading</value>
     </data>
     <data name="ButtonLineChange" xml:space="preserve">
@@ -59,5 +59,14 @@
     </data>
     <data name="KneadingDisplayTareWeightLabel" xml:space="preserve">
         <value>Tare weight</value>
+    </data>
+    <data name="WeightMeasureKilogram" xml:space="preserve">
+        <value>kg</value>
+    </data>
+    <data name="ScaleStabilization" xml:space="preserve">
+        <value>Weight is stabilizing</value>
+    </data>
+    <data name="ButtonCalculatorEnter" xml:space="preserve">
+        <value>Enter</value>
     </data>
 </root>

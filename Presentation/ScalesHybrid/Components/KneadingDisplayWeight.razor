@@ -1,40 +1,57 @@
 <div class="kneading-display__wrapper">
   <div class="kneading-display">
-    <div class="kneading-display__header">
+    @if (LineContext.Plu.IsNew)
+    {
+      <div>
+        <p>Выберите ПЛУ</p>
+      </div>
+    }
+    else
+    {
+      <div class="kneading-display__header">
       <p class="kneading-display__header-title">
-        @(LineContext.Plu.IsNew ? "ПЛУ не выбран" : LineContext.Plu.DisplayName)
+        @LineContext.Plu.DisplayName
       </p>
     </div>
     <ul class="kneading-display__list">
       <li class="kneading-display__list-item">
         <label class="kneading-display__item-label">@Localizer["KneadingDisplayNetWeightLabel"]</label>
         <div class="kneading-display__item-container">
-          <div class="net-weight__container">
-            <span class="net-weight__char">@Sign</span>
-            @foreach (char intChar in IntegerPart)
-            {
-              <span class="net-weight__char">@intChar</span>
-            }
-            <span>,</span>
-            @foreach (char decChar in DecimalPart)
-            {
-              <span class="net-weight__char">@decChar</span>
-            }
-            <span>кг</span>
-          </div>
+          @if (IsStable)
+          {
+            <div class="net-weight__container">
+              <span class="net-weight__char">@Sign</span>
+              @foreach (char intChar in IntegerPart)
+              {
+                <span class="net-weight__char">@intChar</span>
+              }
+              <span>,</span>
+              @foreach (char decChar in DecimalPart)
+              {
+                <span class="net-weight__char">@decChar</span>
+              }
+              <span>@Localizer["WeightMeasureKilogram"]</span>
+            </div>
+          }
+          else
+          {
+            <p class="net-weight__stable-msg">@Localizer["ScaleStabilization"]</p>
+          }
         </div>
       </li>
       <li class="kneading-display__list-item">
         <label class="kneading-display__item-label">@Localizer["KneadingDisplayTareWeightLabel"]</label>
         <div class="kneading-display__item-container">
-          <p class="kneading-display__item-value-default">@GetTareWeight</p>
+          <p class="kneading-display__item-value-default">
+            @GetTareWeight @Localizer["WeightMeasureKilogram"]
+          </p>
         </div>
       </li>
       <li class="kneading-display__list-item">
         <label class="kneading-display__item-label">@Localizer["KneadingDisplayPluNestingLabel"]</label>
         <div class="kneading-display__item-container">
           <p class="kneading-display__item-value-default">
-            @(LineContext.PluNesting.IsNew ? "Нет" : LineContext.PluNesting.Name)
+            @GetFormattedPluNestingName()
           </p>
         </div>
       </li>
@@ -45,16 +62,14 @@
             <button
               type="button"
               class="date-value__btn"
-              @onclick="DecreaseDate"
-            >
+              @onclick="DecreaseDate">
               &lt;
             </button>
             <p class="date-value">@LineContext.KneadingModel.ProductDate</p>
             <button
               type="button"
               class="date-value__btn"
-              @onclick="IncreaseDate"
-            >
+              @onclick="IncreaseDate">
               &gt;
             </button>
           </div>
@@ -69,13 +84,13 @@
             <button
               type="button"
               class="kneading-value__btn"
-              @onclick="ShowInlineDialog"
-            >
-              Enter
+              @onclick="ShowInlineDialog">
+              @Localizer["ButtonCalculatorEnter"]
             </button>
           </div>
         </div>
       </li>
     </ul>
+    }
   </div>
 </div>

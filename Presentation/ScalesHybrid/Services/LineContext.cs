@@ -1,4 +1,5 @@
 using ScalesHybrid.Models;
+using ScalesHybrid.Utils;
 using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.Services.Services.Plu;
@@ -56,6 +57,7 @@ public class LineContext
     {
         if (PluNesting.Equals(sqlPluNestingEntity)) return;
         PluNesting = sqlPluNestingEntity;
+        NameFormatting.GetPluNestingFormattedName(sqlPluNestingEntity);
         NotifyStateChanged();
     }
 

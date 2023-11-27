@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Radzen;
+using ScalesHybrid.Resources;
 
 namespace ScalesHybrid.Components.Dialogs;
 
 public sealed partial class DialogCalculator: ComponentBase
 {
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private DialogService DialogService { get; set; }
     [Parameter] public Action<int> CallbackFunction { get; set; }
     [Parameter] public string Number { get; set; } = string.Empty;
@@ -27,7 +30,7 @@ public sealed partial class DialogCalculator: ComponentBase
             new() { Title = "9", CalculatorAction = () => SetNumber(9) },
             new() { Title = "C", CalculatorAction = ClearNumber },
             new() { Title = "0", CalculatorAction = () => SetNumber(0) },
-            new() { Title = "=", CalculatorAction = SubmitInput },
+            new() { Title = Localizer["ButtonCalculatorEnter"], CalculatorAction = SubmitInput },
         };
     }
 

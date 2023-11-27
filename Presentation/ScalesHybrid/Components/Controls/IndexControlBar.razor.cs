@@ -47,9 +47,9 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         PrinterStatusSubscribe();
         PluPrintButtonList = new()
         {
-            new() { Title = Localizer["ButtonScaleTerminal"], OnClickAction = OpenScalesTerminal},
+            new() { Title = Localizer["ButtonScaleCalibration"], OnClickAction = OpenScalesTerminal},
             new() { Title = Localizer["ButtonLabelPrint"], OnClickAction = PrintLabel},
-            new() { Title = Localizer["ButtonKneadingChange"] },
+            new() { Title = Localizer["ButtonPalletPage"] },
         };
     }
 
