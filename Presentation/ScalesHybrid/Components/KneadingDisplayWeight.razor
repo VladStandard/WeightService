@@ -27,13 +27,15 @@
       <li class="kneading-display__list-item">
         <label class="kneading-display__item-label">@Localizer["KneadingDisplayTareWeightLabel"]</label>
         <div class="kneading-display__item-container">
-          <p class="kneading-display__item-value-default">@LineContext.KneadingModel.TareWeight</p>
+          <p class="kneading-display__item-value-default">@GetTareWeight</p>
         </div>
       </li>
       <li class="kneading-display__list-item">
         <label class="kneading-display__item-label">@Localizer["KneadingDisplayPluNestingLabel"]</label>
         <div class="kneading-display__item-container">
-          <p class="kneading-display__item-value-default">@LineContext.KneadingModel.PluNesting</p>
+          <p class="kneading-display__item-value-default">
+            @(LineContext.PluNesting.IsNew ? "Нет" : LineContext.PluNesting.Name)
+          </p>
         </div>
       </li>
       <li class="kneading-display__list-item">

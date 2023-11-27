@@ -1,4 +1,3 @@
-using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Criterion;
@@ -20,11 +19,16 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     [Inject] private DialogService DialogService { get; set; }
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
 
-    private string Sign => LineContext.KneadingModel.NetWeight >= 0 ? string.Empty : "-";
+    protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
+
+    private decimal GetNetWeight => (decimal)LineContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
+    private decimal GetTareWeight => LineContext.PluNesting.WeightTare;
+
+    private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
     
-    private string IntegerPart => ((int)Math.Truncate(Math.Abs(LineContext.KneadingModel.NetWeight))).ToString("D4");
+    private string IntegerPart => ((int)Math.Truncate(Math.Abs(GetNetWeight))).ToString("D4");
     
-    private string DecimalPart => Math.Abs(LineContext.KneadingModel.NetWeight % 1).ToString(".000")[1..];
+    private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
     
     private void IncreaseDate() => LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(1);
     
@@ -67,11 +71,11 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
         await DialogService.OpenAsync<DialogCalculator>(string.Empty,
             new() { { "CallbackFunction", new Action<int>(SetNewKneading) } },
             new() { ShowTitle = false, Style = "min-height:auto;min-width:auto;width:auto" });
-    
+
     public void Dispose()
     {
+        LineContext.OnStateChanged -= StateHasChanged;
         _timer.Dispose();
         MassaUnsubscribe();
-        DialogService?.Dispose();
     }
 }

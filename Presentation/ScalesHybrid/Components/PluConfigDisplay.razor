@@ -39,9 +39,10 @@
         <button
           type="button"
           class="plu-config__item-button"
-          @onclick="() => { }"
+          disabled="@(LineContext.Plu.IsNew || LineContext.Plu.IsCheckWeight)"
+          @onclick="ShowPluNestingSelectDialog"
         >
-          Вложенность не выбрана
+          @(LineContext.PluNesting.IsNew ? "Вложенность не выбрана" : LineContext.PluNesting.DisplayName)
         </button>
       </li>
     </ul>
