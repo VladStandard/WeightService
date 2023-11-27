@@ -28,23 +28,23 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
     </td>
     <td>@SqlItemCast.Bundle.Name</td>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Brand)" Text="@LocaleCore.Table.Brand"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Brand)" Text="@LocaleCore.Table.Brand"/>
     </td>
     <td>@SqlItemCast.Brand.Name</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(PluTemplateFk.Template)" Text="@LocaleCore.Table.Template"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(PluTemplateFk.Template)" Text="@LocaleCore.Table.Template"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@PluTemplateFk.Template" Data="@Templates" TextProperty="Title" />
     </td>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
     </td>
     <td>@StorageMethod?.Name</td>
   </tr>

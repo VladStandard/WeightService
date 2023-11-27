@@ -30,7 +30,7 @@
       <RzDropDown @bind-Value="@SqlItemCast.Host" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.Printer)" Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Printer)" Text="@LocaleCore.Print.NameMain"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="DisplayName" />

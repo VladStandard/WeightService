@@ -12,17 +12,17 @@
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Line)" Text="@LocaleCore.Table.Line"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Line.Description</td>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@LocaleCore.Table.Label"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel)" Text="@LocaleCore.Table.Label"/>
     </td>
     <td>@SqlItemCast.PluLabel.IdentityValueUid</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluScale.Plu)" Text="@LocaleCore.Table.Plu"/>
     </td>
     <td>@SqlItemCast.PluLabel.PluScale.Plu.DisplayName</td>
     <td/>
@@ -32,7 +32,7 @@
   {
     <tr>
       <td>
-        <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
+        <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.PluLabel.PluWeighing)" Text="@LocaleCore.Table.Weighing"/>
       </td>
       <td>@SqlItemCast.PluLabel.PluWeighing.IdentityValueUid</td>
       <td></td>

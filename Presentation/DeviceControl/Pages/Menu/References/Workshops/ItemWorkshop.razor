@@ -21,7 +21,7 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@Services.RouteService.GetItemRoute(SqlItemCast.ProductionSite)" Text="@LocaleCore.Table.ProductionFacility"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.ProductionSite)" Text="@LocaleCore.Table.ProductionFacility"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.ProductionSite" Data="@ProductionSiteModels" TextProperty="DisplayName"/>
