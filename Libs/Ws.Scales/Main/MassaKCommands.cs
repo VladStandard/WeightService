@@ -1,10 +1,9 @@
-﻿using Ws.Scales.Common;
-using Ws.Scales.Utils;
+﻿using Ws.Scales.Utils;
 
 namespace Ws.Scales.Main;
 
-public class MassaKCommands : IScalesCommands
+public static class MassaKCommands
 {
-    public byte[] CmdGetWeight => ScalesCommandsUtil.Generate(0xA0);
-    public byte[] CmdSetZero => ScalesCommandsUtil.Generate(0x72);
+    public static byte[] CmdGetWeight => ScalesCommandsUtil.Generate(0xA0);
+    public static byte[] CmdSetZero => ScalesCommandsUtil.Generate(0x72);
 }

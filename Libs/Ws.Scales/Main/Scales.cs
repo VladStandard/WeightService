@@ -1,21 +1,16 @@
 ﻿using System.IO.Ports;
+using Ws.Scales.Commands;
 using Ws.Scales.Common;
-using Ws.Scales.Enums;
 
 namespace Ws.Scales.Main;
 
 public class Scales : IScales
 { 
-    private MassaCommandsEnum ActiveCommand { get; set; }
+    private IScaleCommand? ActiveCommand { get; set; }
     private SerialPort Port { get; set; }
-    private IScalesCommands Commands { get; set; }
     
     public Scales(string comPort)
     {
-        Commands = new MassaKCommands();
-        
-        ActiveCommand = MassaCommandsEnum.None;
-        
         Port = new(comPort);
         Port.Open();
         
@@ -41,31 +36,28 @@ public class Scales : IScales
     {
         Port.DataReceived -= DataReceived; 
     }
-    
-    public void DataReceived(Object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
-    {
 
-    }
-
-    private bool Send(byte[] bytes)
-    {
-        try
-        {
-            Port.Write(bytes, 0, bytes.Length);
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
+    private void DataReceived(Object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
+    {   
+        int bytesToRead = Port.BytesToRead;
+        byte[] buffer = new byte[bytesToRead];
+        Port.Read(buffer, 0, bytesToRead);
+        
+        ActiveCommand?.Response(buffer);
     }
     
-    public bool SendGetWeight()
+    public void SendGetWeight()
     {
-        ActiveCommand = MassaCommandsEnum.GetWeight;
-        return Send(Commands.CmdGetWeight);
+        ActiveCommand = new GetMassaCommand(Port);
+        ActiveCommand.Request();
     }
     
+    public void Calibrate()
+    {
+        ActiveCommand = new CalibrateMassaCommand(Port);
+        ActiveCommand.Request();
+        ActiveCommand = null;
+    }
     public void Dispose()
     {
         UnSubscribeFromData();

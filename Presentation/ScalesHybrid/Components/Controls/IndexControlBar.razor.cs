@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Impl;
+using NHibernate.Linq;
 using Radzen;
 using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
@@ -39,7 +40,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         Line = HostService.GetLineByHost(Host);
         
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
-        // ExternalDevices.SetupScales(Line.DeviceComPort);
+        ExternalDevices.SetupScales(Line.DeviceComPort);
         
         
         MouseSubscribe();
@@ -55,21 +56,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
     
     private void OpenScalesTerminal()
     {
-        MouseUnsubscribe();
-        try
-        {
-            Process process = new()
-            {
-                StartInfo = new(@"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe")
-            };
-            process.Start();
-            process.WaitForExit();
-        }
-        catch
-        {
-            // TODO: Handle error
-        }
-        MouseSubscribe();
+        ExternalDevices.Scales.Calibrate();
     }
     
     private void PrintLabel()

@@ -2,5 +2,6 @@
 
 public interface IScales : IDisposable
 {
-    bool SendGetWeight();
+    void SendGetWeight();
+    void Calibrate();
 }

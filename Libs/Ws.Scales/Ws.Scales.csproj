@@ -10,7 +10,13 @@
 
     <ItemGroup>
       <PackageReference Include="CheckSum.CRC" Version="2.0.2" />
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
       <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Common\IScalesCommands.cs" />
+      <Compile Remove="Enums\ScalesCommandsEnum.cs" />
     </ItemGroup>
 
 </Project>

@@ -15,15 +15,7 @@ public class ExternalDevicesService : IDisposable
     public ExternalDevicesService()
     {
         Printer = new TscPrinter("127.0.0.1", 9100);
-        try
-        {
-            Scales = new Scales("COM6");
-        }
-        catch
-        {
-            //
-        }
-        
+        Scales = new Scales("COM6");
     }
     
     public void SetupPrinter(string ip, int port, PrinterTypeEnum type)
@@ -36,6 +28,7 @@ public class ExternalDevicesService : IDisposable
     {
         Scales.Dispose();
         Scales = new Scales(comPort);
+        Scales.Calibrate();
     }
 
     public void Dispose()
