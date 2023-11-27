@@ -36,14 +36,6 @@ public sealed class SqlBarCodeMap : ClassMapping<SqlBarCodeEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.TypeTop, m =>
-        {
-            m.Column("TYPE_TOP");
-            m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.NotNullable(true);
-        });
-
         Property(x => x.ValueTop, m =>
         {
             m.Column("VALUE_TOP");
@@ -51,26 +43,10 @@ public sealed class SqlBarCodeMap : ClassMapping<SqlBarCodeEntity>
             m.Length(128);
             m.NotNullable(true);
         });
-
-        Property(x => x.TypeRight, m =>
-        {
-            m.Column("TYPE_RIGHT");
-            m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.NotNullable(true);
-        });
-
+        
         Property(x => x.ValueRight, m =>
         {
             m.Column("VALUE_RIGHT");
-            m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.TypeBottom, m =>
-        {
-            m.Column("TYPE_BOTTOM");
             m.Type(NHibernateUtil.String);
             m.Length(128);
             m.NotNullable(true);

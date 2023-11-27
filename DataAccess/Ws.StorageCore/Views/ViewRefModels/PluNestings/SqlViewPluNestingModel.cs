@@ -8,9 +8,6 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
     public bool IsMarked { get; init; }
     public bool IsDefault { get; init; }
     public short BundleCount { get; init; }
-    public decimal WeightMax { get; init; }
-    public decimal WeightMin { get; init; }
-    public decimal WeightNom { get; init; }
     public Guid PluUid { get; init; }
     public Guid PluUid1C { get; init; }
     public bool PluIsMarked { get; init; }
@@ -46,7 +43,7 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
     public string WebServiceXml { get; init; }
 
     public SqlViewPluNestingModel() : this(Guid.Empty, default, default, default,
-        default, default, default, Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
+        Guid.Empty, Guid.Empty, default, default, default, default, string.Empty,
         default, string.Empty, string.Empty, string.Empty,
         Guid.Empty, Guid.Empty, default, string.Empty, default,
         Guid.Empty, Guid.Empty, default, string.Empty, default, default, 
@@ -54,7 +51,6 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
     { }
 
     public SqlViewPluNestingModel(Guid uid, bool isMarked, bool isDefault, short bundleCount,
-        decimal weightMax, decimal weightMin, decimal weightNom,
         Guid pluUid, Guid pluUid1C, bool pluIsMarked, bool pluIsWeight, bool pluIsGroup, ushort pluNumber, string pluName,
         short pluShelfLifeDays, string pluGtin, string pluEan13, string pluItf14,
         Guid bundleUid, Guid bundleUid1C, bool bundleIsMarked, string bundleName, decimal bundleWeight,
@@ -64,9 +60,6 @@ public sealed class SqlViewPluNestingModel : SqlViewBase
         IsMarked = isMarked;
         IsDefault = isDefault;
         BundleCount = bundleCount;
-        WeightMax = weightMax;
-        WeightMin = weightMin;
-        WeightNom = weightNom;
         PluUid = pluUid;
         PluUid1C = pluUid1C;
         PluIsMarked = pluIsMarked;

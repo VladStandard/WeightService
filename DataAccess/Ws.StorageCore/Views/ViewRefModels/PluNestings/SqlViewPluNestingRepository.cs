@@ -12,12 +12,11 @@ public class SqlViewPluNestingRepository : IViewPluNestingRepository
         object[] objects = SqlCore.GetArrayObjects(query);
         foreach (object obj in objects)
         {
-            if (obj is not object[] item || item.Length < 31) break;
+            if (obj is not object[] item || item.Length < 28) break;
             int i = 0;
             result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
                 Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
-                Convert.ToInt16(item[i++]), Convert.ToDecimal(item[i++]), Convert.ToDecimal(item[i++]), 
-                Convert.ToDecimal(item[i++]), Guid.Parse(Convert.ToString(item[i++])), 
+                Convert.ToInt16(item[i++]), Guid.Parse(Convert.ToString(item[i++])), 
                 Guid.Parse(Convert.ToString(item[i++])), Convert.ToBoolean(item[i++]), 
                 Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]), 
                 Convert.ToUInt16(item[i++]), Convert.ToString(item[i++]), Convert.ToInt16(item[i++]), 
@@ -36,12 +35,11 @@ public class SqlViewPluNestingRepository : IViewPluNestingRepository
             objects = SqlCore.GetArrayObjects(query);
             foreach (object obj in objects)
             {
-                if (obj is not object[] item || item.Length < 28) break;
+                if (obj is not object[] item || item.Length < 25) break;
                 int i = 0;
                 result.Add(new(Guid.Parse(Convert.ToString(item[i++])),
                     Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
-                    Convert.ToInt16(item[i++]), Convert.ToDecimal(item[i++]), Convert.ToDecimal(item[i++]),
-                    Convert.ToDecimal(item[i++]), Guid.Parse(Convert.ToString(item[i++])),
+                    Convert.ToInt16(item[i++]), Guid.Parse(Convert.ToString(item[i++])),
                     Guid.Parse(Convert.ToString(item[i++])), Convert.ToBoolean(item[i++]),
                     Convert.ToBoolean(item[i++]), Convert.ToBoolean(item[i++]),
                     Convert.ToUInt16(item[i++]), Convert.ToString(item[i++]), Convert.ToInt16(item[i++]),

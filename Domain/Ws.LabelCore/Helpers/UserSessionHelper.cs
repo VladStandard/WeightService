@@ -96,22 +96,7 @@ public sealed class UserSessionHelper //: BaseViewModel
             ContextItem.SaveLogWarning(LocaleCore.LabelPrint.CheckWeightThreshold(weight));
             return false;
         }
-        
-        if (LabelSession.ViewPluNesting is not { WeightNom: > 0, WeightMin: not 0, WeightMax: not 0 })
-            return true;
-
-        decimal weightMax = LabelSession.ViewPluNesting.WeightMax;
-        decimal weightMin = LabelSession.ViewPluNesting.WeightMin;
-        decimal weightNom = LabelSession.ViewPluNesting.WeightNom;
-        
-        if (PluginMassa.WeightNet >= weightMin && PluginMassa.WeightNet <= weightMax)
-            return true;
-        
         MdInvokeControl.SetVisible(fieldWarning, true);
-        string message = LocaleCore.LabelPrint.CheckWeightThresholds(PluginMassa.WeightNet, 
-            weightMax, weightNom, weightMin);
-        MdInvokeControl.SetText(fieldWarning, message);
-        ContextItem.SaveLogError(message);
         return false;
     }
 
@@ -124,8 +109,8 @@ public sealed class UserSessionHelper //: BaseViewModel
         {
             PluScale = LabelSession.PluLine,
             Kneading = (short)LabelSession.WeighingSettings.Kneading,
-            NettoWeight = LabelSession.PluLine.Plu.IsCheckWeight ? PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight 
-                : LabelSession.ViewPluNesting.WeightNom,
+            NettoWeight = LabelSession.PluLine.Plu.IsCheckWeight ? 
+                PluginMassa.WeightNet - LabelSession.ViewPluNesting.TareWeight : 0,
             WeightTare = LabelSession.ViewPluNesting.TareWeight,
         };
 

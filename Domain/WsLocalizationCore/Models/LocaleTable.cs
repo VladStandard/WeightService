@@ -89,9 +89,6 @@ public sealed class LocaleTable : LocalizationBase
     public string TempMinimal => Lang == EnumLanguage.English ? "Minimal temperature" : "Минимальная температура";
     public string Title => Lang == EnumLanguage.English ? "Title" : "Заголовок";
     public string Type => Lang == EnumLanguage.English ? "Type" : "Тип";
-    public string TypeBottom => Lang == EnumLanguage.English ? "Bottom's type" : "Нижний тип";
-    public string TypeRight => Lang == EnumLanguage.English ? "Right's type" : "Правый тип";
-    public string TypeTop => Lang == EnumLanguage.English ? "Top's type" : "Верхний тип";
     public string Uid => Lang == EnumLanguage.English ? "UID" : "УИД";
     public string Uid1c => Lang == EnumLanguage.English ? "UID 1C" : "УИД 1C";
     public string User => Lang == EnumLanguage.English ? "User" : "Пользователь";
@@ -102,10 +99,7 @@ public sealed class LocaleTable : LocalizationBase
     public string Weighing => Lang == EnumLanguage.English ? "Weighing" : "Взвешивание";
     public string Weight => Lang == EnumLanguage.English ? "Weight" : "Вес";
     public string Weighted => Lang == EnumLanguage.English ? "Weighted" : "Весовая";
-    public string WeightMaximal => Lang == EnumLanguage.English ? "Maximal weight" : "Максимальный вес";
-    public string WeightMinimal => Lang == EnumLanguage.English ? "Minimal weight" : "Минимальный вес";
     public string WeightNetto => Lang == EnumLanguage.English ? "Net weight" : "Вес нетто";
-    public string WeightNominal => Lang == EnumLanguage.English ? "Nominal weight" : "Номинальный вес";
     public string WeightShort => Lang == EnumLanguage.English ? "Weight" : "Вес";
     public string WeightTare => Lang == EnumLanguage.English ? "Tare weight" : "Вес тары";
     public string WorkShop => Lang == EnumLanguage.English ? "Workshop" : "Цех";
