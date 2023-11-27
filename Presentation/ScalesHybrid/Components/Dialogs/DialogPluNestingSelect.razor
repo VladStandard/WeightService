@@ -1,0 +1,44 @@
+@using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
+
+<div class="line-select__container">
+  <RadzenDataGrid RowSelect="OnRowSelect" Data="GetPluNestingsEntities()" TItem="SqlPluNestingFkEntity" AllowPaging="true" PageSize="7">
+    <Columns>
+      <RadzenDataGridColumn
+        Title="По умолчанию"
+        TItem="SqlPluNestingFkEntity"
+        Property="IsDefault"
+        Width="15%"
+      />
+      <RadzenDataGridColumn
+        Title="Название"
+        TItem="SqlPluNestingFkEntity"
+        Property="Box.Name"
+        Width="40%"
+      />
+      <RadzenDataGridColumn
+        Title="Кол-во вложений"
+        TItem="SqlPluNestingFkEntity"
+        Property="BundleCount"
+        Width="15%"
+      />
+      <RadzenDataGridColumn
+        Title="Вес коробки"
+        TItem="SqlPluNestingFkEntity"
+        Property="Box.Weight"
+        Width="10%"
+      />
+      <RadzenDataGridColumn
+        Title="Вес пакета"
+        TItem="SqlPluNestingFkEntity"
+        Property="Plu.Bundle.Weight"
+        Width="10%"
+      />
+      <RadzenDataGridColumn
+        Title="Вес тары"
+        TItem="SqlPluNestingFkEntity"
+        Property="WeightTare"
+        Width="10%"
+      />
+    </Columns>
+  </RadzenDataGrid>
+</div>

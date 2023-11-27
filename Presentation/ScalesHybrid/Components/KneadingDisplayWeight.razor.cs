@@ -10,17 +10,22 @@ using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Components;
 
-public sealed partial class KneadingDisplayWeight: ComponentBase
+public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private DialogService DialogService { get; set; }
 
-    private string Sign => LineContext.KneadingModel.NetWeight >= 0 ? string.Empty : "-";
+    protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
+
+    private decimal GetNetWeight => (decimal)LineContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
+    private decimal GetTareWeight => LineContext.PluNesting.WeightTare;
+
+    private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
     
-    private string IntegerPart => ((int)Math.Truncate(Math.Abs(LineContext.KneadingModel.NetWeight))).ToString("D4");
+    private string IntegerPart => ((int)Math.Truncate(Math.Abs(GetNetWeight))).ToString("D4");
     
-    private string DecimalPart => Math.Abs(LineContext.KneadingModel.NetWeight % 1).ToString(".000")[1..];
+    private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
     
     private void IncreaseDate() => LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(1);
     
@@ -32,4 +37,6 @@ public sealed partial class KneadingDisplayWeight: ComponentBase
         await DialogService.OpenAsync<DialogCalculator>(string.Empty,
             new() { { "CallbackFunction", new Action<int>(SetNewKneading) } },
             new() { ShowTitle = false, Style = "min-height:auto;min-width:auto;width:auto" });
+    
+    public void Dispose() => LineContext.OnStateChanged -= StateHasChanged;
 }

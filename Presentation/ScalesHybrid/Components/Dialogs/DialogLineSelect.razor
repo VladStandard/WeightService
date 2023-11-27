@@ -1,7 +1,7 @@
 @using Ws.StorageCore.Entities.SchemaScale.Scales
 
 <div class="line-select__container">
-  <RadzenDataGrid RowSelect="OnRowSelect" Data="LineEntities" TItem="SqlLineEntity" AllowPaging="true" PageSize="7">
+  <RadzenDataGrid RowSelect="OnRowSelect" Data="GetLineEntities()" TItem="SqlLineEntity" AllowPaging="true" PageSize="7">
     <Columns>
       <RadzenDataGridColumn
         Title="Номер"
