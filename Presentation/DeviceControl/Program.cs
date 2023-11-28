@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using MudBlazor.Services;
 using Ws.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -18,12 +17,13 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
+builder.Services.AddSassCompiler();
+// builder.Services.AddMudServices();
 
 #endregion
 
 #region AddScoped
 
-builder.Services.AddMudServices();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RouteService>();
 builder.Services.AddScoped<LocalStorageService>();

@@ -8,7 +8,7 @@ public sealed partial class NavMenu : ComponentBase
     private static LocaleDeviceControl LocaleBlazor => new();
     
     private static string SidebarThemeCss =>
-        !DebugHelper.Instance.IsDevelop ? "side-nav_dev" : "side-nav_prod";
+        DebugHelper.Instance.IsDevelop ? "side-nav-dev" : "side-nav-prod";
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {

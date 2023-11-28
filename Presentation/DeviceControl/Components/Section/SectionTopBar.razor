@@ -1,50 +1,57 @@
 @using DeviceControl.Components.Rz
 @inherits ComponentBase
 
-<MudPaper Outlined="true" Class="mb-2">
-  <MudToolBar Dense="true">
-    <RadzenLabel Style="font-size: 15px;" Text="@Title"/>
-    @if (SectionCount != 0)
+<div class="section-top-bar__wrapper">
+  <div class="section-top-bar__container">
+    <p class="section-top-bar__label">
+      @Title
+    </p>
+    @* @if (SectionCount != 0) *@
+    @* { *@
+    @*   <RzDropDown *@
+    @*     Style="margin-left: 20px; width: 15%; display: inline-block;" *@
+    @*     @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount" *@
+    @*     Change="@OnItemsCountSelectUpdate" *@
+    @*     Data="@_rowCountList"> *@
+    @*     <Template> *@
+    @*       <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span> *@
+    @*     </Template> *@
+    @*   </RzDropDown> *@
+    @* } *@
+    @if (IsGuiShowFilterMarked)
     {
-      <RzDropDown Style="margin-left: 20px; width: 15%; display: inline-block;"
-                  @bind-Value="@SqlCrudConfigSection.SelectTopRowsCount"
-                  Change="@OnItemsCountSelectUpdate"
-                  Data="@_rowCountList">
-        <Template>
-          <span>Первые: <b>@(context == 0 ? "Все" : context.ToString())</b> </span>
-        </Template>
-      </RzDropDown>
+      <AuthorizeView Roles="@UserAccessStr.Write">
+        <RzDropDown
+          class="section-top-bar__select"
+          @bind-Value="@SqlCrudConfigSection.IsMarked"
+          Data="@MarkedDict"
+          ValueProperty="Value"
+          TextProperty="Key"
+          Change="@OnReload"
+        />
+      </AuthorizeView>
     }
-    <AuthorizeView Roles="@UserAccessStr.Write">
-      @if (IsGuiShowFilterMarked)
-      {
-        <RzDropDown Style="margin-left: 20px; width: 10%; display: inline-block;"
-                    @bind-Value="@SqlCrudConfigSection.IsMarked"
-                    Data="@MarkedDict"
-                    ValueProperty="Value"
-                    TextProperty="Key" Change="@OnReload">
-        </RzDropDown>
-      }
-    </AuthorizeView>
-    <RadzenButton
-      Icon="refresh"
-      ButtonStyle="@ButtonStyle.Secondary"
-      Shade="Shade.Dark"
-      Style="margin-left: 20px; width: 60px;"
-      Size="@ButtonSize.Small"
-      Click="@OnReload"/>
+    <button
+      type="button"
+      @onclick="OnReload"
+      class="section-top-bar__btn"
+    >
+      <RadzenIcon Icon="refresh" class="section-top-bar__btn-icon" />
+    </button>
     @if (ButtonSettings.IsShowNew)
     {
       <AuthorizeView Roles="@UserAccessStr.Write">
-        <RadzenButton
-          Icon="add"
-          ButtonStyle="@ButtonStyle.Secondary"
-          Shade="Shade.Dark"
-          Style="margin-left: 15px; width: 60px;"
-          Size=@ButtonSize.Small
-          Click="@OnSectionAdd"/>
+        <button
+          type="button"
+          @onclick="OnSectionAdd"
+          class="section-top-bar__btn"
+        >
+          <RadzenIcon Icon="add" class="section-top-bar__btn-icon" />
+        </button>
       </AuthorizeView>
     }
-    <RadzenLabel Style="margin-left: 20px; font-size: 13px;" Text="@SqlListCountResult"/>
-  </MudToolBar>
-</MudPaper>
+    <p class="section-top-bar__records-count">
+      @SqlListCountResult
+    </p>
+  </div>
+</div>

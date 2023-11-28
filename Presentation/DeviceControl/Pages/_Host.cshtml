@@ -8,20 +8,18 @@
 <head>
   <title>DeviceControl</title>
   <meta charset="utf-8"/>
-  <base href="~/"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <base href="~/"/>
+  <link href="favicon.svg" rel="icon">
   <link href="css/reset.css" rel="stylesheet" />
-  <link href="css/styles.css" rel="stylesheet"/>
-  <link href="DeviceControl.styles.css" rel="stylesheet"/>
+  <link href="css/styles.css" rel="stylesheet" />
+  <link href="DeviceControl.styles.css" rel="stylesheet" />
   <link href="_content/Radzen.Blazor/css/default-base.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-
-  <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
-
+  @* <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" /> *@
   <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
 <body>
-<component type="typeof(App)" render-mode="ServerPrerendered"/>
+  <component type="typeof(App)" render-mode="ServerPrerendered"/>
 
   <div id="blazor-error-ui">
     An unhandled error has occurred.
@@ -32,7 +30,6 @@
   <script src="_framework/blazor.server.js"></script>
   <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
   <script src="/js/main.js"></script>
-
-  <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+  @* <script src="_content/MudBlazor/MudBlazor.min.js"></script> *@
 </body>
 </html>
