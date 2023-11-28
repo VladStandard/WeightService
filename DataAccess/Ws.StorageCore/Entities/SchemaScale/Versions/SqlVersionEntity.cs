@@ -39,13 +39,6 @@ public class SqlVersionEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(ReleaseDt, DateTime.MinValue) &&
-        Equals(Version, (short)0);
-
     public override void FillProperties()
     {
         base.FillProperties();

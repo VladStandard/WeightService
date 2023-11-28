@@ -34,11 +34,6 @@ public class SqlBundleEntity : SqlTable1CBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public new virtual bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(Weight, (decimal)0);
-
     #endregion
 
     #region Public and private methods - virtual

@@ -39,14 +39,6 @@ public class SqlPluScaleEntity : SqlEntityBase
 
     public override int GetHashCode() => (IsActive, Plu, Scale: Line).GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(IsActive, false) &&
-        Plu.EqualsDefault() &&
-        Line.EqualsDefault();
-
     public override void FillProperties()
     {
         base.FillProperties();

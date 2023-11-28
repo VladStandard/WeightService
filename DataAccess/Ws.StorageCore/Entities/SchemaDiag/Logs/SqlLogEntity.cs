@@ -59,19 +59,6 @@ public class SqlLogEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Version, string.Empty) &&
-        Equals(File, string.Empty) &&
-        Equals(Line, 0) &&
-        Equals(Member, string.Empty) &&
-        Equals(Message, string.Empty) &&
-        (Device is null || Device.EqualsDefault()) &&
-        (App is null || App.EqualsDefault()) &&
-        (Type is LogTypeEnum.Info);
-
     public override void FillProperties()
     {
         base.FillProperties();

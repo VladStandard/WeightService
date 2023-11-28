@@ -54,19 +54,6 @@ public class SqlLogWebEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(StampDt, DateTime.MinValue) &&
-        Equals(Version, string.Empty) &&
-        Equals(DataResponse, string.Empty) &&
-        Equals(Url, string.Empty) &&
-        Equals(DataRequest, string.Empty) &&
-        Equals(CountAll, default(int)) &&
-        Equals(CountSuccess, default(int)) &&
-        Equals(CountErrors, default(int));
-
     public override void FillProperties()
     {
         base.FillProperties();

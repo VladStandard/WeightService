@@ -57,15 +57,6 @@ public class SqlPluLabelEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Zpl, string.Empty) &&
-        Equals(ProductDt, DateTime.MinValue) &&
-        (PluWeighing is null || PluWeighing.EqualsDefault()) &&
-        PluScale.EqualsDefault();
-
     public override void FillProperties()
     {
         base.FillProperties();

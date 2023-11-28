@@ -35,11 +35,6 @@ public class SqlBrandEntity : SqlTable1CBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(Code, string.Empty);
-
     #endregion
 
     #region Public and private methods - virtual

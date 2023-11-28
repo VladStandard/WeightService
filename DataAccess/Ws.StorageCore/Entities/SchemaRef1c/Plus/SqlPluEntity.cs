@@ -73,21 +73,6 @@ public class SqlPluEntity : SqlTable1CBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(IsGroup, default(bool)) &&
-        Equals(ParentGuid, Guid.Empty) &&
-        Equals(Code, string.Empty) &&
-        Equals(Number, default(short)) &&
-        Equals(FullName, string.Empty) &&
-        Equals(ShelfLifeDays, default(byte)) &&
-        Equals(Gtin, string.Empty) &&
-        Equals(Ean13, string.Empty) &&
-        Equals(Itf14, string.Empty) &&
-        Equals(IsCheckWeight, false);
     
     #endregion
 

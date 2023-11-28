@@ -42,15 +42,6 @@ public class SqlPrinterEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Ip, string.Empty) &&
-        Equals(Port, (short)0) &&
-        Equals(Type, PrinterTypeEnum.Tsc);
-         
-
     public override void FillProperties()
     {
         base.FillProperties();

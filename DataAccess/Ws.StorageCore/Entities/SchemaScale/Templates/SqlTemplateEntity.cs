@@ -41,15 +41,7 @@ public class SqlTemplateEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(CategoryId, string.Empty) &&
-        Equals(Title, string.Empty) &&
-        Equals(Data, string.Empty);
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

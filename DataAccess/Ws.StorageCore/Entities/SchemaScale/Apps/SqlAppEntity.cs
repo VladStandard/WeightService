@@ -31,8 +31,6 @@ public class SqlAppEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
     #endregion
 
     #region Public and private methods - virtual

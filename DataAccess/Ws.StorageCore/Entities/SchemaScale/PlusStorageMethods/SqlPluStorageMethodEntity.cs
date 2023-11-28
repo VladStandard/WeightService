@@ -41,13 +41,6 @@ public class SqlPluStorageMethodEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => IdentityValueUid.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(MinTemp, default(short)) &&
-        Equals(MaxTemp, default(short));
     
     #endregion
 

@@ -41,15 +41,7 @@ public class SqlPluStorageMethodFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() && 
-        Plu.EqualsDefault() &&
-        Method.EqualsDefault() &&
-        Resource.EqualsDefault();
-
+    
     public override void FillProperties()
     {
         base.FillProperties();
