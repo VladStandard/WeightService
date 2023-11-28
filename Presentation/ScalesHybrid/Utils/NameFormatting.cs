@@ -25,6 +25,6 @@ public static class NameFormatting
     {
         if (bundle.Uid1C == Guid.Empty) return string.Empty;
         string firstBundleWord = bundle.Name.Split(" ").FirstOrDefault() ?? string.Empty;
-        return $"{firstBundleWord} {bundle.Weight}x{bundleCount}";
+        return $"{firstBundleWord} {(int)(bundle.Weight * 1000)}x{bundleCount}";
     }
 }

@@ -26,19 +26,27 @@
   font-style: normal;
 }
 
-
-
 :root {
   --button-color: #dcdcdc;
   --button-hover-color: #dcdcff;
   --button-border-color: #969696;
   --layout-border-color: #c8c8c8;
   --layout-background-color: #f1f5f9;
+
+  --primary-bg-color: #f1f3f5;
+  --primary-border-size: 0.0625rem;
+  --primary-border-color: #dee2e6;
+  --primary-border-radius: 1rem;
+  --primary-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --primary-block-bg-color: #fff;
+  --primary-button-border-radius: 0.5rem;
+  --primary-block-height: 28rem;
+  --max-screen-width: 90rem;
 }
 
 body {
   font-family: 'Roboto', Arial, serif;
-  background-color: var(--layout-background-color);
+  background-color: var(--primary-bg-color);
 }
 
 #blazor-error-ui {

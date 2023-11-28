@@ -34,21 +34,21 @@ public class LineContext
         InitData();
     }
 
-    public void ChangeLine(SqlLineEntity sqlLineEntity)
+    public async Task ChangeLine(SqlLineEntity sqlLineEntity)
     {
         if (Line.Equals(sqlLineEntity)) return;
         Line = sqlLineEntity;
-        PluEntities = GetPlus();
+        PluEntities = await Task.Run(GetPlus);
         Plu = new();
         PluNesting = new();
         NotifyStateChanged();
     }
 
-    public void ChangePlu(SqlPluEntity sqlPluEntity)
+    public async Task ChangePlu(SqlPluEntity sqlPluEntity)
     {
         if (Plu.Equals(sqlPluEntity)) return;
         Plu = sqlPluEntity;
-        PluNestingEntities = GetPluNestings();
+        PluNestingEntities = await Task.Run(GetPluNestings);
         PluNesting = PluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
         NotifyStateChanged();
     }

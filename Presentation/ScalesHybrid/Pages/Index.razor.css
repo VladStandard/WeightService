@@ -25,7 +25,7 @@
   padding: 0.5rem 1rem;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr;
-  grid-column-gap: 1rem;
+  max-width: var(--max-screen-width);
 }
 
 .main-page__control-bar {
