@@ -25,12 +25,15 @@ public class LineContext
     private IHostService HostService { get; }
     private ILineService LineService { get; }
     private IPluService PluService { get; }
+    
+    private ExternalDevicesService ExternalDevices { get; }
 
-    public LineContext(IHostService hostService, ILineService lineService, IPluService pluService)
+    public LineContext(IHostService hostService, ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
     {
         HostService = hostService;
         LineService = lineService;
         PluService = pluService;
+        ExternalDevices = externalDevices;
         InitData();
     }
 
@@ -41,6 +44,7 @@ public class LineContext
         PluEntities = await Task.Run(GetPlus);
         Plu = new();
         PluNesting = new();
+        ExternalDevices.Scales.Disconnect();
         NotifyStateChanged();
     }
 
@@ -50,6 +54,12 @@ public class LineContext
         Plu = sqlPluEntity;
         PluNestingEntities = await Task.Run(GetPluNestings);
         PluNesting = PluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
+        if (Plu.IsCheckWeight)
+            ExternalDevices.Scales.Connect();
+        else
+        {
+            ExternalDevices.Scales.Disconnect();
+        }
         NotifyStateChanged();
     }
 

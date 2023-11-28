@@ -28,11 +28,11 @@ public class ExternalDevicesService : IDisposable
     {
         Scales.Dispose();
         Scales = new Scales(comPort);
-        Scales.Calibrate();
     }
 
     public void Dispose()
     {
+        Scales.Dispose();
         Printer.Dispose();
     }
 }

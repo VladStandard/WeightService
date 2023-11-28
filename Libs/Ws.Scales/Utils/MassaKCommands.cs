@@ -1,6 +1,4 @@
-﻿using Ws.Scales.Utils;
-
-namespace Ws.Scales.Main;
+﻿namespace Ws.Scales.Utils;
 
 public static class MassaKCommands
 {

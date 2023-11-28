@@ -1,20 +1,19 @@
 ﻿using System.IO.Ports;
 using Ws.Scales.Common;
-using Ws.Scales.Main;
+using Ws.Scales.Utils;
 
 namespace Ws.Scales.Commands;
 
-public class CalibrateMassaCommand : ScaleCommandBase, IScaleCommand
+public class CalibrateMassaCommand : ScaleCommandBase
 {
     private static readonly byte[] Command = MassaKCommands.CmdSetZero;
     
     public CalibrateMassaCommand(SerialPort port) : base(port)
     {
-        
     }
     
-    public void Request()
+    public override void Activate()
     {
-        Send(Command);
+       Request(Command);
     }
 }
