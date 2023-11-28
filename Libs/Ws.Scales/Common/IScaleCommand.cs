@@ -3,5 +3,4 @@
 public interface IScaleCommand
 {
     void Request();
-    void Response(byte[] bytes);
 }

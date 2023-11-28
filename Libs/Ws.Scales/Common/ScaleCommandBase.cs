@@ -4,22 +4,22 @@ namespace Ws.Scales.Common;
 
 public abstract class ScaleCommandBase
 {
-    private readonly SerialPort _port;
+    protected readonly SerialPort Port;
     
     protected ScaleCommandBase(SerialPort port)
     {
-        _port = port;
+        Port = port;
     }
 
     protected void Send(byte[] bytes)
     {
         try
         {
-            _port.Write(bytes, 0, bytes.Length);
+            Port.Write(bytes, 0, bytes.Length);
         }
-        catch (Exception)
+        catch (TimeoutException ex)
         {
-            // ignored
+            
         }
     }
 }

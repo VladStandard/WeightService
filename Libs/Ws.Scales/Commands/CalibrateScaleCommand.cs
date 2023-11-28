@@ -6,17 +6,15 @@ namespace Ws.Scales.Commands;
 
 public class CalibrateMassaCommand : ScaleCommandBase, IScaleCommand
 {
-
+    private static readonly byte[] Command = MassaKCommands.CmdSetZero;
+    
     public CalibrateMassaCommand(SerialPort port) : base(port)
     {
-    }
-    public void Request()
-    {
-        Send(MassaKCommands.CmdSetZero);
+        
     }
     
-    public void Response(Byte[] bytes)
+    public void Request()
     {
-        
+        Send(Command);
     }
 }
