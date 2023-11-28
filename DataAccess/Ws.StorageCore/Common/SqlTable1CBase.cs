@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Common;
 [DebuggerDisplay("{ToString()}")]
 public class SqlTable1CBase : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual Guid Uid1C { get; set; }
 
     public SqlTable1CBase() : base()
@@ -21,11 +19,7 @@ public class SqlTable1CBase : SqlEntityBase
     {
         Uid1C = item.Uid1C;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public virtual bool Equals(SqlTable1CBase item) =>
         ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1C, item.Uid1C);
 
@@ -38,6 +32,4 @@ public class SqlTable1CBase : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    #endregion
 }
