@@ -10,6 +10,7 @@ using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
 using Ws.Printers.Events;
+using Ws.Scales.Enums;
 using Ws.Scales.Events;
 
 namespace ScalesHybrid.Components;
@@ -22,6 +23,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
 
     private bool IsStable { get; set; } = false;
+    private bool IsDisconnected { get; set; } = false;
 
     private Timer _timer;
     
@@ -63,11 +65,19 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
 
     private void MassaSubscribe()
     {
+        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, UpdateScalesStatus);
         WeakReferenceMessenger.Default.Register<GetScaleMassaEvent>(this, UpdateScalesInfo);
     }
-    
+
+    private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
+    {
+        IsDisconnected = message.Status == ScalesStatus.IsDisconnected;
+        InvokeAsync(StateHasChanged);
+    }
+
     private void MassaUnsubscribe()
     {
+        WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
     
