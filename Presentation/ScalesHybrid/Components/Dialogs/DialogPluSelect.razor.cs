@@ -12,9 +12,9 @@ public sealed partial class DialogPluSelect: ComponentBase
 
     private IEnumerable<SqlPluEntity> GetPluEntities() => LineContext.PluEntities;
 
-    private void OnRowSelect(SqlPluEntity sqlPluEntity)
+    private async Task OnRowSelect(SqlPluEntity sqlPluEntity)
     {
-        LineContext.ChangePlu(sqlPluEntity);
+        await LineContext.ChangePlu(sqlPluEntity);
         DialogService.Close();
     }
 }

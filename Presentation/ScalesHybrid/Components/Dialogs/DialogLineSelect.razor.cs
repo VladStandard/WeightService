@@ -12,9 +12,9 @@ public sealed partial class DialogLineSelect : ComponentBase
 
     private IEnumerable<SqlLineEntity> GetLineEntities() => LineContext.LineEntities;
 
-    private void OnRowSelect(SqlLineEntity sqlLineEntity)
+    private async Task OnRowSelect(SqlLineEntity sqlLineEntity)
     {
-        LineContext.ChangeLine(sqlLineEntity);
+        await LineContext.ChangeLine(sqlLineEntity);
         DialogService.Close();
     }
 }

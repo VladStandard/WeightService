@@ -7,7 +7,8 @@
   width: 100%;
   height: 4rem;
   padding: 0 2rem;
-  border-bottom: 1px solid var(--layout-border-color);
+  border-bottom: var(--primary-border-size) solid var(--primary-border-color);
+  background-color: var(--primary-block-bg-color);
 }
 
 .main-header__title {
