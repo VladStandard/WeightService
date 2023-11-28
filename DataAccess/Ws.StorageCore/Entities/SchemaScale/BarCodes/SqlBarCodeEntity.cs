@@ -49,16 +49,7 @@ public class SqlBarCodeEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(ValueTop, string.Empty) &&
-        Equals(ValueRight, string.Empty) &&
-        Equals(ValueBottom, string.Empty) &&
-        PluLabel.EqualsDefault();
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

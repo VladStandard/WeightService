@@ -40,13 +40,4 @@ public class SqlTable1CBase : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
 
     #endregion
-
-    #region Public and private methods - virtual
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() && Equals(Uid1C, Guid.Empty);
-
-    #endregion
 }

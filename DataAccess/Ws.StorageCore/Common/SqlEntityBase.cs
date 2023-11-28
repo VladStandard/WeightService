@@ -64,21 +64,9 @@ public class SqlEntityBase
     public override int GetHashCode() => Identity.GetHashCode();
 
     #region Public and private methods - virtual
-
-    public virtual bool EqualsNew() => Equals(new());
-
-    public virtual bool EqualsDefault() =>
-        Identity.EqualsDefault() &&
-        Identity.IsUid ? Equals(IdentityValueUid, Guid.Empty) : Equals(IdentityValueId, default(long)) &&
-                                                                Equals(CreateDt, DateTime.MinValue) &&
-                                                                Equals(ChangeDt, DateTime.MinValue) &&
-                                                                Equals(IsMarked, false) &&
-                                                                Equals(Name, string.Empty) &&
-                                                                Equals(Description, string.Empty);
     
     public virtual void FillProperties()
     {
-        ChangeDt = CreateDt = DateTime.Now;
     }
     
     #endregion

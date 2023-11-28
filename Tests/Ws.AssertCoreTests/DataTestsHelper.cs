@@ -28,41 +28,6 @@ public class DataTestsHelper
             TestContext.WriteLine();
         });
     }
-    
-    public void TableBaseModelAssertEqualsNew<T>() where T : SqlEntityBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            T item = new();
-            Assert.That(item.EqualsNew(), Is.True);
-        });
-    }
-    
-    public void TableBaseModelAssertEqualsDefault<T>() where T : SqlEntityBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            T item = new();
-            Assert.That(item.EqualsDefault(), Is.True);
-        });
-    }
-    
-    public void TableBaseModelAssertToString<T>() where T : SqlEntityBase, new()
-    {
-        Assert.DoesNotThrow(() =>
-        {
-            // Arrange.
-            T item = new();
-            SqlEntityBase baseItem = new();
-            // Act.
-            string itemString = item.ToString();
-            string baseString = baseItem.ToString();
-            TestContext.WriteLine($"{nameof(itemString)}: {itemString}");
-            TestContext.WriteLine($"{nameof(baseString)}: {baseString}");
-            // Assert.
-            Assert.AreNotEqual(baseString, itemString);
-        });
-    }
 
     #endregion
 }

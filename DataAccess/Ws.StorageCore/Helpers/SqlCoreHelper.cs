@@ -3,9 +3,11 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using NHibernate.Event;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Enums;
+using Ws.StorageCore.Listeners;
 
 namespace Ws.StorageCore.Helpers;
 
@@ -63,6 +65,10 @@ public sealed class SqlCoreHelper
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
         });
+        SqlConfiguration.EventListeners.PreInsertEventListeners = 
+            new IPreInsertEventListener[] { new SqlCreateDtListener() };
+        SqlConfiguration.EventListeners.PreUpdateEventListeners = 
+            new IPreUpdateEventListener[] { new SqlChangeDtListener() };
     }
 
     private void Close()
@@ -219,8 +225,6 @@ public sealed class SqlCoreHelper
     public void Save<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
 {
     if (item is null) throw new ArgumentException();
-    item.CreateDt = DateTime.Now;
-    item.ChangeDt = DateTime.Now;
     
     switch (sessionType)
     {
@@ -238,7 +242,6 @@ public sealed class SqlCoreHelper
 public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
 {
     if (item is null) throw new ArgumentException();
-    item.ChangeDt = DateTime.Now;
 
     switch (sessionType)
     {

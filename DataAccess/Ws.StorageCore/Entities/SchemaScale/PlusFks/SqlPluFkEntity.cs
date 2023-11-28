@@ -38,14 +38,6 @@ public class SqlPluFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Plu.EqualsDefault() &&
-        Parent.EqualsDefault() &&
-        Category is null;
     
     public override void FillProperties()
     {

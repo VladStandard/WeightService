@@ -44,13 +44,6 @@ public class SqlTemplateResourceEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Type, string.Empty) &&
-        Data.Equals(new());
-
     #endregion
 
     #region Public and private methods - virtual

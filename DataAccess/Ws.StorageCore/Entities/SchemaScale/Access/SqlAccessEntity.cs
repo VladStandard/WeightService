@@ -36,14 +36,7 @@ public class SqlAccessEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(LoginDt, DateTime.MinValue) &&
-        Equals(Rights, (byte)0x00);
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

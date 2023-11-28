@@ -54,17 +54,7 @@ public class SqlPluNestingFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Box.EqualsDefault() &&
-        //Plu.EqualsDefault() &&
-        Plu.EqualsDefault() &&
-        Equals(IsDefault, false) &&
-        Equals(BundleCount, default(short));
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

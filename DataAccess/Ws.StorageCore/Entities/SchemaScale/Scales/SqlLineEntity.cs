@@ -62,18 +62,7 @@ public class SqlLineEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(DeviceComPort, string.Empty) &&
-        Equals(Number, 0) &&
-        Equals(LabelCounter, 0) &&
-        WorkShop.EqualsDefault() &&
-        Host.EqualsDefault() &&
-        Printer.EqualsDefault();
-
+    
     public override void FillProperties()
     {
         base.FillProperties();

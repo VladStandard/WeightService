@@ -61,12 +61,6 @@ public class SqlFieldIdentityModel
         _ => default
     };
 
-    public bool EqualsNew() => Equals(new());
-
-    public bool EqualsDefault() =>
-        Equals(Id, (long)0) &&
-        Equals(Uid, Guid.Empty);
-
     #endregion
 
     #region Public and private methods - virtual

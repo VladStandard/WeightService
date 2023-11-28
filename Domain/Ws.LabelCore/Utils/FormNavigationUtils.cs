@@ -248,8 +248,6 @@ public static class FormNavigationUtils
                 {
                     Name = host.Name,
                     Ip = ip,
-                    CreateDt = DateTime.Now,
-                    ChangeDt = DateTime.Now,
                     LoginDt = DateTime.Now,
                     IsMarked = false,
                 };
@@ -259,7 +257,6 @@ public static class FormNavigationUtils
         else
         {
             host.Ip = ip;
-            host.ChangeDt = DateTime.Now;
             host.LoginDt = DateTime.Now;
             host.IsMarked = false;
             SqlCore.Update(host);

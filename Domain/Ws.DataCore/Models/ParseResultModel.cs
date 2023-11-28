@@ -63,14 +63,6 @@ public sealed class ParseResultModel : SerializeBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public bool EqualsNew() => Equals(new());
-
-    public bool EqualsDefault() =>
-        Equals(Status, EnumParseStatus.Unknown) &&
-        Equals(Message, string.Empty) &&
-        Equals(Exception, string.Empty) &&
-        Equals(InnerException, string.Empty);
-
     /// <summary>
     /// Get object data for serialization info.
     /// </summary>

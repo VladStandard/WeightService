@@ -46,15 +46,6 @@ public class SqlPluWeighingEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override bool EqualsNew() => Equals(new());
-
-    public override bool EqualsDefault() =>
-        base.EqualsDefault() &&
-        Equals(Kneading, default(short)) &&
-        Equals(NettoWeight, default(decimal)) &&
-        Equals(WeightTare, default(decimal)) &&
-        PluScale.EqualsDefault();
-
     public override void FillProperties()
     {
         base.FillProperties();
