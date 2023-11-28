@@ -1,25 +1,39 @@
 ﻿using System.IO.Ports;
+using CommunityToolkit.Mvvm.Messaging;
+using Ws.Scales.Events;
 
 namespace Ws.Scales.Common;
 
 public abstract class ScaleCommandBase
 {
-    private readonly SerialPort _port;
-    
+    protected readonly SerialPort Port;
+
     protected ScaleCommandBase(SerialPort port)
     {
-        _port = port;
+        Port = port;
+    }
+    
+    public virtual void Activate()
+    {
+        throw new NotImplementedException();
     }
 
-    protected void Send(byte[] bytes)
+    protected virtual void Response() {}
+
+    protected void Request(byte[] command)
     {
         try
         {
-            _port.Write(bytes, 0, bytes.Length);
+            Port.Write(command, 0, command.Length);
+            Response();
         }
-        catch (Exception)
+        catch (TimeoutException ex)
         {
-            // ignored
+
+        }
+        catch (Exception e)
+        {
+            WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
         }
     }
 }

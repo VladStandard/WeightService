@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Common;
 [DebuggerDisplay("{ToString()}")]
 public class SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual SqlFieldIdentityModel Identity { get; set; }
     public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
     public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
@@ -36,8 +34,7 @@ public class SqlEntityBase
         Name = item.Name;
         Description = item.Description;
     }
-
-    #endregion
+    
 
     public override string ToString() =>
         (CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty) +
@@ -62,12 +59,9 @@ public class SqlEntityBase
     }
 
     public override int GetHashCode() => Identity.GetHashCode();
-
-    #region Public and private methods - virtual
     
     public virtual void FillProperties()
     {
     }
     
-    #endregion
 }
