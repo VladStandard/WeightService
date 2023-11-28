@@ -61,8 +61,6 @@ public sealed class SqlContextItemHelper
 
         SqlLogEntity log = new()
         {
-            CreateDt = DateTime.Now,
-            ChangeDt = DateTime.Now,
             IsMarked = false,
             Device = Host,
             App = App,

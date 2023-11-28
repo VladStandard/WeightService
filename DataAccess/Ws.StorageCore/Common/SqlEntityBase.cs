@@ -78,7 +78,6 @@ public class SqlEntityBase
     
     public virtual void FillProperties()
     {
-        ChangeDt = CreateDt = DateTime.Now;
     }
     
     #endregion
