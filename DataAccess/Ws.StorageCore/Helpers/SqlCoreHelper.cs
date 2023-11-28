@@ -93,7 +93,6 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlAccessMap>();
         mapper.AddMapping<SqlBoxMap>();
         mapper.AddMapping<SqlClipMap>();
-        mapper.AddMapping<SqlPluClipFkMap>();
         mapper.AddMapping<SqlBundleMap>();
         mapper.AddMapping<SqlBrandMap>();
         mapper.AddMapping<SqlProductionSiteMap>();

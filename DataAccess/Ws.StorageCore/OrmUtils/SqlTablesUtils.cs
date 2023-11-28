@@ -16,7 +16,6 @@ public static class SqlTablesUtils
     public const string Logs = "LOGS";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
     public const string Plus = "PLUS";
-    public const string PlusClipsFks = "PLUS_CLIPS_FK";
     public const string PlusFks = "PLUS_FK";
     public const string PlusLabels = "PLUS_LABELS";
     public const string PlusNestingFks = "PLUS_NESTING_FK";
