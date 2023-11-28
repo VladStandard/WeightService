@@ -7,9 +7,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 /// </summary>
 public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 {
-
-    #region Public and private methods
-
     public SqlLineEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlLineEntity>();
 
     public SqlLineEntity GetItemById(long id) => SqlCore.GetItemById<SqlLineEntity>(id);
@@ -27,8 +24,7 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.WorkShop), workShop));
         return GetEnumerable(sqlCrudConfig);
     }
-
-
+    
     public IEnumerable<SqlLineEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
@@ -37,6 +33,4 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
     }
 
     public void Update(SqlLineEntity line) => SqlCore.Update(line);
-
-    #endregion
 }

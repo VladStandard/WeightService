@@ -22,8 +22,8 @@ public class SqlLineEntity : SqlEntityBase
     
     public virtual int LabelCounter { get => _labelCounter; set { _labelCounter = value > 1_000_000 ? 1 : value; } }
     public virtual string NumberWithDescription => $"{LocaleCore.Table.Number}: {Number} | {Description}";
-    public virtual string ClickOnce { get; set; } = "";
-    public virtual string Version { get; set; } = "";
+    public virtual string ClickOnce { get; set; } = string.Empty;
+    public virtual string Version { get; set; } = string.Empty;
     
     public SqlLineEntity() : base(SqlEnumFieldIdentity.Id)
     {

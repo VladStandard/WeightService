@@ -13,7 +13,7 @@ public sealed class PluWeighingRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlPluWeighingEntity> items = PluWeighingRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlPluWeighingEntity> items = PluWeighingRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

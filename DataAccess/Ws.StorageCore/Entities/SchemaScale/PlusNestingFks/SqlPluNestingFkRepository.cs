@@ -13,6 +13,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNes
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudActual();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluNestingFkEntity.Plu), plu));
+        sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(SqlPluNestingFkEntity.IsDefault)));
         return SqlCore.GetEnumerable<SqlPluNestingFkEntity>(sqlCrudConfig);
     }
 
