@@ -59,7 +59,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload)
     {
         IsStable = payload.IsStable;
-        if (payload.IsStable) LineContext.KneadingModel.NetWeightG = payload.Weight;
+        LineContext.KneadingModel.NetWeightG = payload.Weight;
         InvokeAsync(StateHasChanged);
     }
 

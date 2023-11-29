@@ -93,7 +93,7 @@
   border: #c8c8c8 solid var(--primary-border-size);
   border-radius: 0.5rem;
   background-color: #fafafa;
-  color: #32c732;
+
 }
 
 .net-weight__char {
@@ -101,6 +101,14 @@
   align-items: center;
   justify-content: center;
   width: 1.5rem;
+}
+
+.net-weight-stable {
+  color: #32c732;
+}
+
+.net-weight-unstable {
+  color: #b10505;
 }
 
 .date-value__btn {
@@ -172,11 +180,6 @@
 .kneading-value__btn:hover {
   cursor: pointer;
   background-color: var(--button-hover-color);
-}
-
-.net-weight__stable-msg {
-  font-size: 2.1rem;
-  color: #b10505;
 }
 
 .kneading-display__warning-wrapper {

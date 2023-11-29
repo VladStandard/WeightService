@@ -23,13 +23,13 @@
           {
             <p class="net-weight__stable-msg">Весы отключены</p>
           }
-          else if (!IsStable)
-          {
-            <p class="net-weight__stable-msg">@Localizer["ScaleStabilization"]</p>
-          }
+          @* else if (!IsStable) *@
+          @* { *@
+          @*   <p class="net-weight__stable-msg">@Localizer["ScaleStabilization"]</p> *@
+          @* } *@
           else
           {
-            <div class="net-weight__container">
+            <div class="net-weight__container @(!IsStable || GetNetWeight <= 0 ? "net-weight-unstable" : "net-weight-stable" )">
               <span class="net-weight__char">@Sign</span>
               @foreach (char intChar in IntegerPart)
               {
