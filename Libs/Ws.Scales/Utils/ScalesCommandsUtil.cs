@@ -3,7 +3,7 @@
 public static class ScalesCommandsUtil
 {
     private static readonly byte[] Header = { 0xF8, 0x55, 0xCE };
-    private static ushort Crc16Generate(byte[] data)
+    public static ushort Crc16Generate(byte[] data)
     {
         int bits, k, a, temp;
         int crc = 0;

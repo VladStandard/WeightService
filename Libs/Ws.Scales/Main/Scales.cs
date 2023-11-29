@@ -27,6 +27,14 @@ public class Scales : IScales
         WeakReferenceMessenger.Default.Register<ScalesForceDisconnected>(this, ForceReconnect);
     }
     
+    #region Connect
+
+    public void Connect()
+    {
+        Disconnect();
+        WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
+    }
+    
     private void ForceReconnect(Object recipient, ScalesForceDisconnected message)
     {
         try
@@ -40,12 +48,6 @@ public class Scales : IScales
             WeakReferenceMessenger.Default.Send(new GetScaleStatusEvent(ScalesStatus.IsDisconnected));
         }
     }
-
-    public void Connect()
-    {
-        Disconnect();
-        WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
-    }
     
     public void Disconnect()
     {
@@ -53,19 +55,19 @@ public class Scales : IScales
         Port.Dispose();
     }
     
-    public void SendGetWeight()
-    { 
-        new GetMassaCommand(Port).Activate();
-    }
-    
-    public void Calibrate()
-    {
-        new CalibrateMassaCommand(Port).Activate();
-    }
+    #endregion
+
+    #region Commands
+
+    public void Calibrate() { new CalibrateMassaCommand(Port).Activate(); }
+    public void SendGetWeight() { new GetMassaCommand(Port).Activate(); }
+
+    #endregion
     
     public void Dispose()
     {
         Disconnect();
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
+        WeakReferenceMessenger.Default.Unregister<ScalesForceDisconnected>(this);
     }
 }

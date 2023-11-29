@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
+using Ws.Scales.Enums;
 using Ws.Scales.Events;
 
 namespace Ws.Scales.Common;
