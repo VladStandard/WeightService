@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.IdentityModel.Tokens;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
@@ -23,26 +22,21 @@ public abstract class PrinterBase : IPrinter
         TcpClient.ReceiveTimeout = 0_200;
         
         SetStatus(PrinterStatusEnum.IsDisabled);
-        WeakReferenceMessenger.Default.Register<PrinterForceDisconnected>(this, ForceReconnect);
+        WeakReferenceMessenger.Default.Register<PrinterForceDisconnected>(this, ForceReconnectAsync);
     }
-    
-    private void ForceReconnect(Object recipient, PrinterForceDisconnected message)
+
+    private async void ForceReconnectAsync(Object recipient, PrinterForceDisconnected message)
     {
         if (Status == PrinterStatusEnum.IsDisabled)
             return;
         try
         {
-            if (TcpClient.Connected) 
-                TcpClient.Close();
+            TcpClient.Dispose();
             TcpClient = new();
             TcpClient.ReceiveTimeout = 200;
-            bool isConnected = TcpClient.ConnectAsync(_ip, _port).Wait(100);
-            if (isConnected)
-            {
-                SetStatus(PrinterStatusEnum.Ready);
-                return;
-            }
-            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+            
+            await TcpClient.ConnectAsync(_ip, _port).WaitAsync(TimeSpan.FromMilliseconds(200));
+            SetStatus(PrinterStatusEnum.Ready);
         }
         catch (Exception _)
         {
