@@ -71,7 +71,7 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
 
     private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
     {
-        IsDisconnected = message.Status == ScalesStatus.IsDisconnected;
+        IsDisconnected = message.Status == ScalesStatus.IsDisabled;
         InvokeAsync(StateHasChanged);
     }
 
