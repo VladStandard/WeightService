@@ -6,23 +6,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 /// </summary>
 public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
 {
-    #region Public and private fields, properties, constructor
-
-    private SqlPluRepository ContextPlu { get; } = new();
-
-    #endregion
-
-    #region Public and private methods
-
-    public SqlPluFkEntity GetNewItem()
-    {
-        SqlPluFkEntity item = SqlCore.GetItemNewEmpty<SqlPluFkEntity>();
-        item.Plu = ContextPlu.GetNewItem();
-        item.Parent = ContextPlu.GetNewItem();
-        item.Category = null;
-        return item;
-    }
-
     public IEnumerable<SqlPluFkEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<SqlPluFkEntity> items = SqlCore.GetEnumerable<SqlPluFkEntity>(sqlCrudConfig);
@@ -37,6 +20,4 @@ public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluFkEntity>(sqlCrudConfig);
     }
-    
-    #endregion
 }

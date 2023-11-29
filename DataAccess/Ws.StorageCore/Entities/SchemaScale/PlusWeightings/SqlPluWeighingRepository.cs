@@ -10,7 +10,7 @@ public sealed class SqlPluWeighingRepository : SqlTableRepositoryBase<SqlPluWeig
 
     public SqlPluWeighingEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlPluWeighingEntity>();
 
-    public List<SqlPluWeighingEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlPluWeighingEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());

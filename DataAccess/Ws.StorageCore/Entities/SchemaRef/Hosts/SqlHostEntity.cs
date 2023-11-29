@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 [DebuggerDisplay("{ToString()}")]
 public class SqlHostEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual DateTime LoginDt { get; set; }
     public virtual string Ip { get; set; }
     public override string DisplayName => IsNew ?  LocaleCore.Table.FieldEmpty : $"{Name} | {Ip}";
@@ -20,11 +18,7 @@ public class SqlHostEntity : SqlEntityBase
         LoginDt = item.LoginDt;
         Ip = item.Ip;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{Name}";
 
     public override bool Equals(object obj)
@@ -42,15 +36,10 @@ public class SqlHostEntity : SqlEntityBase
         base.FillProperties();
         LoginDt = DateTime.Now;
     }
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlHostEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(LoginDt, item.LoginDt) &&
         Equals(Ip, item.Ip);
     
-    #endregion
 }

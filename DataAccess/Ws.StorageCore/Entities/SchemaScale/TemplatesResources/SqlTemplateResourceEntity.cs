@@ -10,7 +10,6 @@ public class SqlTemplateResourceEntity : SqlEntityBase
 
     public virtual string Type { get; set; }
     public virtual FieldBinaryModel Data { get; set; }
-
     public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
     
     public SqlTemplateResourceEntity() : base(SqlEnumFieldIdentity.Uid)
