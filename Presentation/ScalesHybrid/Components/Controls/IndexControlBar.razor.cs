@@ -11,8 +11,6 @@ using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
 using Ws.Printers.Common;
 using Ws.Printers.Events;
-using Ws.Printers.Main.Tsc;
-using Ws.Printers.Main.Zebra;
 using Ws.Printers.Utils;
 using Ws.Services.Services.Host;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;

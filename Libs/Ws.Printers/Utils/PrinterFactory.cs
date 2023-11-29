@@ -1,6 +1,5 @@
 ﻿using Ws.Printers.Common;
-using Ws.Printers.Main.Tsc;
-using Ws.Printers.Main.Zebra;
+using Ws.Printers.Main;
 using Ws.StorageCore.Enums;
 
 namespace Ws.Printers.Utils;

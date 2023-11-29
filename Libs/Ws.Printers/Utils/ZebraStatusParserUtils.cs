@@ -1,6 +1,6 @@
 ﻿using Ws.Printers.Enums;
 
-namespace Ws.Printers.Main.Zebra
+namespace Ws.Printers.Utils
 {
     public static class ZebraStatusParserUtils
     {

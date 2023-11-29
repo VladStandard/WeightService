@@ -1,5 +1,5 @@
 ﻿using Ws.Printers.Common;
-using Ws.Printers.Main.Tsc;
+using Ws.Printers.Main;
 using Ws.Printers.Utils;
 using Ws.Scales.Common;
 using Ws.Scales.Main;

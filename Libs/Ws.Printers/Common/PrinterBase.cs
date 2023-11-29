@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using SuperSimpleTcp;
-using Ws.Printers.Commands;
+﻿using System.Net.Sockets;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.IdentityModel.Tokens;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
@@ -8,67 +8,87 @@ namespace Ws.Printers.Common;
 
 public abstract class PrinterBase : IPrinter
 {
-    protected PrinterStatusEnum State { get; set; }
-    protected SimpleTcpClient TcpClient { get; set; }
-    protected IPrinterCommands Commands { get; set; }
+    protected PrinterStatusEnum Status { get; set; }
+    protected TcpClient TcpClient { get; set; }
 
+    private readonly string _ip;
+    private readonly int _port;
+    
     public PrinterBase(string ip, int port)
     {
-        TcpClient = new(ip, port);
-        Commands = new TscCommands();
-        State = PrinterStatusEnum.Unknown;
+        _ip = ip;
+        _port = port;
+        
+        TcpClient = new();
+        TcpClient.ReceiveTimeout = 0_200;
+        
+        SetStatus(PrinterStatusEnum.IsDisabled);
+        WeakReferenceMessenger.Default.Register<PrinterForceDisconnected>(this, ForceReconnect);
     }
     
+    private void ForceReconnect(Object recipient, PrinterForceDisconnected message)
+    {
+        if (Status == PrinterStatusEnum.IsDisabled)
+            return;
+        try
+        {
+            if (TcpClient.Connected) 
+                TcpClient.Close();
+            TcpClient = new();
+            TcpClient.ReceiveTimeout = 200;
+            bool isConnected = TcpClient.ConnectAsync(_ip, _port).Wait(100);
+            if (isConnected)
+            {
+                SetStatus(PrinterStatusEnum.Ready);
+                return;
+            }
+            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+        }
+        catch (Exception _)
+        {
+            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+        }
+    }
+
     public IPrinter Connect()
     {
-        if (TcpClient.IsConnected)
-            Dispose();
-        TcpClient.Connect();
-        TcpSubscribe();
+        Disconnect();
+        SetStatus(PrinterStatusEnum.IsForceDisconnected);
+        WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
         return this;
     }
     
-    public void RequestStatus()
+    public void Disconnect()
     {
-       TcpClient.Send(Commands.GetStatus);
-    }
-
-    private static void TcpClientConnected(Object? sender, ConnectionEventArgs e)
-    {
-        WeakReferenceMessenger.Default.Send(new PrinterConnectedEvent());
-    }
-
-    private static void TcpClientDisconnected(Object? sender, ConnectionEventArgs e)
-    {
-        WeakReferenceMessenger.Default.Send(new PrinterDisconnectedEvent());
-    }
-
-    protected virtual void TcpClientDataReceived(Object? sender, DataReceivedEventArgs dataReceivedEventArgs)
-    {
-        
+        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(PrinterStatusEnum.IsDisabled));
+        if (TcpClient.Connected) TcpClient.Close();
+        TcpClient.Dispose();
     }
     
-    private void TcpSubscribe()
+    public virtual void RequestStatus()
     {
-        TcpClient.Events.Connected += TcpClientConnected;
-        TcpClient.Events.DataReceived += TcpClientDataReceived;
-        TcpClient.Events.Disconnected += TcpClientDisconnected;
-
     }
-
-    private void TcpUnSubscribe()
+    
+    private void SetStatus(PrinterStatusEnum state)
     {
-        TcpClient.Events.Connected -= TcpClientConnected;
-        TcpClient.Events.DataReceived -= TcpClientDataReceived;
-        TcpClient.Events.Disconnected -= TcpClientDisconnected;
-
+        Status = state;
+        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
+    }
+    
+    protected void ExecuteCommand(PrinterCommandBase command)
+    {
+        if (Status == PrinterStatusEnum.IsDisabled) return;
+        if (Status == PrinterStatusEnum.IsForceDisconnected)
+        {
+            WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
+            return;
+        }
+        command.Activate();
     }
     
     public void Dispose()
     {
-        if (TcpClient.IsConnected) TcpClient.Disconnect();
-
-        TcpClient.Dispose();
-        TcpUnSubscribe();
+        Disconnect();
+        WeakReferenceMessenger.Default.Unregister<PrinterForceDisconnected>(this);
     }
 }

@@ -2,6 +2,8 @@
 
 public enum PrinterStatusEnum
 {
+    IsDisabled,
+    IsForceDisconnected,
     Unknown,
     Paused,
     Ready,

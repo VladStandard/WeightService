@@ -1,6 +1,6 @@
 ﻿namespace Ws.Printers.Events;
 
-public class PrinterDisconnectedEvent
+public class PrinterForceDisconnected
 {
     
 }
