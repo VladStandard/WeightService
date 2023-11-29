@@ -1,7 +1,7 @@
 ﻿using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
-using Ws.Scales.Enums;
 using Ws.Scales.Events;
+using Ws.Scales.Utils;
 
 namespace Ws.Scales.Common;
 
@@ -36,5 +36,11 @@ public abstract class ScaleCommandBase
         {
             WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
         }
+    }
+
+    protected bool ParseCrc(byte[] crc1, byte[] bodyForCrc2)
+    {
+        byte[] crc2 = BitConverter.GetBytes(ScalesCommandsUtil.Crc16Generate(bodyForCrc2));
+        return crc1.SequenceEqual(crc2);
     }
 }

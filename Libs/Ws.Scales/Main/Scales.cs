@@ -28,9 +28,54 @@ public class Scales : IScales
         SetStatus(ScalesStatus.IsDisabled);
         WeakReferenceMessenger.Default.Register<ScalesForceDisconnected>(this, ForceReconnect);
     }
-    
-    #region Connect
 
+    #region Public
+
+    public void Calibrate()
+    {
+        ExecuteCommand(new CalibrateMassaCommand(Port));
+    }
+    
+    public void SendGetWeight()
+    {
+        ExecuteCommand(new GetMassaCommand(Port));
+    }
+    
+    public void Connect()
+    {
+        Disconnect();
+        SetStatus(ScalesStatus.IsForceDisconnected);
+        WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
+    }
+    
+    public void Disconnect()
+    {
+        SetStatus(ScalesStatus.IsDisabled);
+        if (Port.IsOpen) Port.Close();
+        Port.Dispose();
+    }
+    
+    #endregion
+
+    #region Private
+
+    private void SetStatus(ScalesStatus status)
+    {
+        Status = status;
+        WeakReferenceMessenger.Default.Send(new GetScaleStatusEvent(Status));
+    }
+    
+    private void ExecuteCommand(ScaleCommandBase command)
+    {
+        if (Status == ScalesStatus.IsDisabled) return;
+        if (Status != ScalesStatus.IsConnect)
+        {
+            WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
+            return;
+        }
+        command.Activate();
+    }
+    
     private void ForceReconnect(Object recipient, ScalesForceDisconnected message)
     {
         if (Status == ScalesStatus.IsDisabled)
@@ -46,44 +91,8 @@ public class Scales : IScales
             SetStatus(ScalesStatus.IsForceDisconnected);
         }
     }
-    
-    public void Connect()
-    {
-        Disconnect();
-        SetStatus(ScalesStatus.IsConnect);
-        WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
-    }
-    
-    public void Disconnect()
-    {
-        SetStatus(ScalesStatus.IsDisabled);
-        if (Port.IsOpen) Port.Close();
-        Port.Dispose();
-    }
-    
+
     #endregion
-
-    #region Commands
-
-    public void Calibrate()
-    {
-        if (Status == ScalesStatus.IsDisabled) return;
-        new CalibrateMassaCommand(Port).Activate();
-    }
-    
-    public void SendGetWeight()
-    {
-        if (Status == ScalesStatus.IsDisabled) return;
-        new GetMassaCommand(Port).Activate();
-    }
-    
-    #endregion
-
-    private void SetStatus(ScalesStatus status)
-    {
-        Status = status;
-        WeakReferenceMessenger.Default.Send(new GetScaleStatusEvent(Status));
-    }
     
     public void Dispose()
     {
