@@ -1,6 +1,6 @@
 ﻿using Ws.Labels.Dto;
 
-namespace Ws.Labels.Services;
+namespace Ws.Labels;
 
 public class LabelGenerator
 {
