@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Printers", "Libs\Ws.Prin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Services", "Domain\Ws.Services\Ws.Services.csproj", "{E758C335-85DD-4B0D-A34A-5568426FB777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Labels.Tests", "Tests\Ws.Labels.Tests\Ws.Labels.Tests.csproj", "{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -140,6 +142,10 @@ Global
 		{E758C335-85DD-4B0D-A34A-5568426FB777}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{E758C335-85DD-4B0D-A34A-5568426FB777}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{E758C335-85DD-4B0D-A34A-5568426FB777}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}.DevelopVS|x64.ActiveCfg = Debug|Any CPU
+		{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}.DevelopVS|x64.Build.0 = Debug|Any CPU
+		{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}.ReleaseVS|x64.ActiveCfg = Debug|Any CPU
+		{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}.ReleaseVS|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{4DA95566-2782-4A00-9D86-E2AAAAA24F19} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 		{0064D207-693E-42D3-B14B-EB576AD98E1C} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 		{E758C335-85DD-4B0D-A34A-5568426FB777} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
+		{7608BF1D-E9CB-42A3-8B90-E7FCCB043268} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
