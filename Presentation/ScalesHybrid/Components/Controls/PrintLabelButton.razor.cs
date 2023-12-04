@@ -86,7 +86,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         };
     
     private bool GetPrintLabelDisabledStatus() =>
-        IsScalesDisconnected || LineContext.Plu.IsNew || LineContext.PluNesting.IsNew;
+        LineContext.Plu.IsNew || LineContext.PluNesting.IsNew || LineContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
         (decimal)LineContext.KneadingModel.NetWeightG / 1000 - LineContext.PluNesting.WeightTare;

@@ -1,0 +1,26 @@
+<li>
+  <PluDisplayItem Label="@Localizer["KneadingDisplayNetWeightLabel"]">
+    <div class="text-[2.5rem] flex items-end mx-auto px-4 border border-black/[.1] bg-gray-50 text-center
+                   rounded-md overflow-hidden @(!IsStable || GetNetWeight <= 0 ? "text-red-400" : "text-green-400")"
+    >
+      <span class="w-6 flex justify-center">@Sign</span>
+      @foreach (char intChar in IntegerPart)
+      {
+        <span class="w-6 flex justify-center">@intChar</span>
+      }
+      <span>,</span>
+      @foreach (char decChar in DecimalPart)
+      {
+        <span class="w-6 flex justify-center">@decChar</span>
+      }
+      <span>@Localizer["WeightMeasureKilogram"]</span>
+    </div>
+  </PluDisplayItem>
+</li>
+<li>
+  <PluDisplayItem Label="@Localizer["KneadingDisplayTareWeightLabel"]">
+    <p class="text-3xl font-bold truncate">
+      @GetTareWeight @Localizer["WeightMeasureKilogram"]
+    </p>
+  </PluDisplayItem>
+</li>

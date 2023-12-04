@@ -5,15 +5,15 @@ using ScalesHybrid.Resources;
 
 namespace ScalesHybrid.Components.Dialogs;
 
-public sealed partial class DialogCalculator: ComponentBase, IModal
+public sealed partial class DialogCalculator: ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
+    [Inject] public IModalService ModalService { get; set; }
     
     [Parameter] public Action<int> CallbackFunction { get; set; }
     [Parameter] public string Number { get; set; } = string.Empty;
     [Parameter] public int MaxDigitCount { get; set; } = 3;
     
-    public Modal ModalRef { get; set; }
     private List<CalculatorControl> CalculatorControls { get; set; } = new();
 
     protected override void OnInitialized()
@@ -39,7 +39,7 @@ public sealed partial class DialogCalculator: ComponentBase, IModal
     {
         int.TryParse(Number, out int resultInt);
         CallbackFunction.Invoke(resultInt);
-        ModalRef.Hide();
+        ModalService.Hide();
     }
 
     private void SetNumber(int newDigit)

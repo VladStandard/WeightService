@@ -25,8 +25,9 @@ public class LineContext
     private IHostService HostService { get; }
     private ILineService LineService { get; }
     private IPluService PluService { get; }
-    
     private ExternalDevicesService ExternalDevices { get; }
+    
+    private Timer Timer { get; set; }
 
     public LineContext(IHostService hostService, ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
     {
@@ -88,6 +89,7 @@ public class LineContext
         
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
         ExternalDevices.SetupScales(Line.DeviceComPort);
+        Timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
     
     private void NotifyStateChanged() => OnStateChanged?.Invoke();

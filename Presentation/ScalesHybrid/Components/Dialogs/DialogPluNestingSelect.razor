@@ -1,4 +1,4 @@
-@using Blazor.Heroicons.Outline
+@using Blazor.Heroicons.Solid
 @using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
 
 <ModalHeader>
@@ -12,13 +12,32 @@
   </button>
 </ModalHeader>
 <ModalBody Class="p-0">
-  <DataGrid SelectedRowChanged="OnRowSelected" Data="GetPluNestingsEntities()" TItem="SqlPluNestingFkEntity" PageSize="7">
+  <DataGrid
+    SelectedRowChanged="OnRowSelected"
+    Data="GetPluNestingsEntities()"
+    TItem="SqlPluNestingFkEntity"
+    ShowPager
+    PageSize="7"
+    PagerPosition="DataGridPagerPosition.Bottom"
+    PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
+    Class="text-xl font-semibold !text-black"
+  >
     <DataGridColumns>
-      <DataGridCheckColumn
+      <DataGridColumn
         Caption="По умолчанию"
         Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
         Width="10%"
-      />
+      >
+        <DisplayTemplate>
+          @if (context.IsDefault)
+          {
+            <div class="flex h-full w-full items-center justify-center">
+              <StarIcon class="h-8 w-8 text-yellow-500" />
+            </div>
+
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
       <DataGridColumn
         Caption="Название"
         Field="@nameof(SqlPluNestingFkEntity.Box.Name)"

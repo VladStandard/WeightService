@@ -12,7 +12,16 @@
   </button>
 </ModalHeader>
 <ModalBody Class="p-0">
-  <DataGrid SelectedRowChanged="OnRowSelected" Data="GetLineEntities()" TItem="SqlLineEntity" PageSize="7">
+  <DataGrid
+    SelectedRowChanged="OnRowSelected"
+    Data="GetLineEntities()"
+    TItem="SqlLineEntity"
+    ShowPager
+    PageSize="7"
+    PagerPosition="DataGridPagerPosition.Bottom"
+    PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
+    Class="text-xl font-semibold !text-black"
+  >
     <DataGridColumns>
       <DataGridColumn
         Caption="Номер"

@@ -19,19 +19,21 @@
   ShowPager
   PagerPosition="DataGridPagerPosition.Bottom"
   PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
+  Class="text-xl font-semibold !text-black"
 >
   <DataGridColumns>
     <DataGridColumn
-      Caption="ID"
+      Caption="Номер"
       Field="@nameof(SqlPluEntity.Number)"
       Width="15%"
     />
     <DataGridColumn
       Caption="Тип"
       Field="@nameof(SqlPluEntity.IsCheckWeight)"
-      Width="15%">
+      Width="15%"
+    >
       <DisplayTemplate>
-        <p>@(context.IsCheckWeight ? "Вес" : "Шт")</p>
+        <p class="text-xl font-semibold text-black">@(context.IsCheckWeight ? "Вес" : "Шт")</p>
       </DisplayTemplate>
     </DataGridColumn>
     <DataGridColumn

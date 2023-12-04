@@ -43,7 +43,7 @@ public sealed partial class ScalesTerminalButton: ComponentBase, IDisposable
     private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
     {
         IsScalesAvailable = message.Status is ScalesStatus.IsConnect;
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
     
     private void ScalesSubscribe() =>
