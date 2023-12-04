@@ -1,10 +1,10 @@
 using System.Diagnostics;
+using Blazorise;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Impl;
 using NHibernate.Linq;
-using Radzen;
 using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
@@ -23,7 +23,7 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
 {
     [Inject] private IHostService HostService { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
-    [Inject] private NotificationService NotificationService { get; set; }
+    [Inject] INotificationService NotificationService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
     
@@ -69,11 +69,9 @@ public sealed partial class IndexControlBar : ComponentBase, IDisposable
         WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => PrintLabel());
     }
 
-    private void PrintNotification(object sender, GetPrinterStatusEvent payload)
-    {
-        NotificationMessage msg = new() { Severity = NotificationSeverity.Info, Summary = payload.Status.ToString()};
-        NotificationService.Notify(msg);
-    }
+    private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
+        Task.Run(() => NotificationService.Info(payload.Status.ToString(), "Статус принтера"));
+    
 
     private void PrinterStatusSubscribe()
     {

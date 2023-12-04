@@ -1,5 +1,5 @@
+using Blazorise;
 using Microsoft.AspNetCore.Components;
-using Radzen;
 using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Services;
 using Ws.Services.Services.Line;
@@ -11,22 +11,16 @@ namespace ScalesHybrid.Components;
 public sealed partial class PluConfigDisplay : ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; }
-    [Inject] private DialogService DialogService { get; set; }
+    [Inject] private IModalService ModalService { get; set; }
     
     protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
+
+
+    private void ShowLineSelectDialog() => InvokeAsync(() => ModalService.Show<DialogLineSelect>("Выбор Линий"));
     
+    private void ShowPluSelectDialog() => InvokeAsync(() => ModalService.Show<DialogPluSelect>("Выбор ПЛУ"));
     
-    private async Task ShowLineSelectDialog() => 
-        await DialogService.OpenAsync<DialogLineSelect>("Выбор Линий", new(),
-            new() { Style = "min-height:auto;min-width:auto;width:auto;max-width:70%;" });
-    
-    private async Task ShowPluSelectDialog() => 
-        await DialogService.OpenAsync<DialogPluSelect>("Выбор ПЛУ", new(),
-            new() { Style = "min-height:auto;min-width:auto;width:auto;max-width:70%;" });
-    
-    private async Task ShowPluNestingSelectDialog() => 
-        await DialogService.OpenAsync<DialogPluNestingSelect>("Выбор вложенности", new(),
-            new() { Style = "min-height:auto;min-width:auto;width:auto;max-width:70%;" });
+    private void ShowPluNestingSelectDialog() => InvokeAsync(() => ModalService.Show<DialogPluNestingSelect>("Выбор вложенности"));
     
     public void Dispose() => LineContext.OnStateChanged -= StateHasChanged;
 }

@@ -1,10 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<RadzenComponents />
-
-<div class="page__wrapper">
+<div class="flex flex-col shrink-0 overflow-hidden w-screen h-screen text-black bg-gray-100">
   <MainHeader />
-  <main class="page__container">
+  <main class="flex flex-col grow w-full h-full">
     @Body
   </main>
 </div>
+
+<ModalProvider UseModalStructure="false" Size="ModalSize.Large"  />
+<NotificationProvider Location="NotificationLocation.End"  />
+

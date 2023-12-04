@@ -1,11 +1,13 @@
 ﻿using System.Globalization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Logging;
-using Radzen;
 using ScalesHybrid.Services;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
+
+using Blazorise;
+using Blazorise.Tailwind;
+using Blazorise.Icons.FontAwesome;
 
 namespace ScalesHybrid;
 public static class MauiProgram
@@ -39,7 +41,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();
         
-        builder.Services.AddRadzenComponents();
+        builder.Services
+            .AddBlazorise()
+            .AddTailwindProviders()
+            .AddFontAwesomeIcons();
         
         return builder;
     }

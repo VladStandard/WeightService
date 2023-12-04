@@ -1,44 +1,72 @@
+@using Blazor.Heroicons.Outline
 @using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
 
-<div class="line-select__container">
-  <RadzenDataGrid RowSelect="OnRowSelect" Data="GetPluNestingsEntities()" TItem="SqlPluNestingFkEntity" AllowPaging="true" PageSize="7">
-    <Columns>
-      <RadzenDataGridColumn
-        Title="По умолчанию"
-        TItem="SqlPluNestingFkEntity"
-        Property="IsDefault"
+<ModalHeader>
+  <p class="text-2xl">Выбор Вложенности</p>
+  <button
+    type="button"
+    @onclick="CloseModal"
+    class="w-10 h-10 bg-gray-100 flex overflow-hidden border border-black/[.1] rounded-md justify-center items-center"
+  >
+    <XMarkIcon class="h-8 w-8" />
+  </button>
+</ModalHeader>
+<ModalBody Class="p-0">
+  <DataGrid SelectedRowChanged="OnRowSelected" Data="GetPluNestingsEntities()" TItem="SqlPluNestingFkEntity" PageSize="7">
+    <DataGridColumns>
+      <DataGridCheckColumn
+        Caption="По умолчанию"
+        Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
+        Width="10%"
+      />
+      <DataGridColumn
+        Caption="Название"
+        Field="@nameof(SqlPluNestingFkEntity.Box.Name)"
+        Width="45%"
+      />
+      <DataGridColumn
+        Caption="Кол-во вложений"
+        Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
         Width="15%"
       />
-      <RadzenDataGridColumn
-        Title="Название"
-        TItem="SqlPluNestingFkEntity"
-        Property="Box.Name"
-        Width="40%"
-      />
-      <RadzenDataGridColumn
-        Title="Кол-во вложений"
-        TItem="SqlPluNestingFkEntity"
-        Property="BundleCount"
-        Width="15%"
-      />
-      <RadzenDataGridColumn
-        Title="Вес коробки"
-        TItem="SqlPluNestingFkEntity"
-        Property="Box.Weight"
+      <DataGridColumn
+        Caption="Вес коробки"
+        Field="Box.Weight"
         Width="10%"
       />
-      <RadzenDataGridColumn
-        Title="Вес пакета"
-        TItem="SqlPluNestingFkEntity"
-        Property="Plu.Bundle.Weight"
+      <DataGridColumn
+        Caption="Вес пакета"
+        Field="Plu.Bundle.Weight"
         Width="10%"
       />
-      <RadzenDataGridColumn
-        Title="Вес тары"
-        TItem="SqlPluNestingFkEntity"
-        Property="WeightTare"
+      <DataGridColumn
+        Caption="Вес тары"
+        Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
         Width="10%"
       />
-    </Columns>
-  </RadzenDataGrid>
-</div>
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <button type="button" class="h-10 w-10 text-xl">
+          @context.PageNumber
+      </button>
+    </PageButtonTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <span class="hidden"/>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <span class="hidden"/>
+    </TotalItemsShortTemplate>
+  </DataGrid>
+</ModalBody>
