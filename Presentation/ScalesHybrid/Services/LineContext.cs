@@ -85,6 +85,9 @@ public class LineContext
         Plu = new();
         PluNesting = new();
         KneadingModel = new();
+        
+        ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
+        ExternalDevices.SetupScales(Line.DeviceComPort);
     }
     
     private void NotifyStateChanged() => OnStateChanged?.Invoke();
