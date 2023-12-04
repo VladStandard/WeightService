@@ -8,7 +8,7 @@ public class LabelInfoValidator : AbstractValidator<LabelInfoDto>
     public LabelInfoValidator()
     {
         RuleFor(i => i.Gtin).Length(14).WithMessage("Длина ГТИН должна быть 14 символов");
-        RuleFor(i => i.Itf).Length(14).WithMessage("Длина ИТФ должна быть 14 символов");
+        RuleFor(i => i.Itf).Length(14).WithMessage("Длина ИТФ должна быть 14 символов").When(i => i.IsCheckWeight);
         RuleFor(i => i.Weight).GreaterThanOrEqualTo(100)
             .WithMessage("Вес должен быть > 0 у весовой ПЛУ").When(i => i.IsCheckWeight);
         RuleFor(i => i.Kneading).GreaterThanOrEqualTo((short)0).WithMessage("Замес должен быть >= 0");
