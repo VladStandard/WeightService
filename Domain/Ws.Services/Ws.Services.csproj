@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Labels\Ws.Labels.csproj" />
     </ItemGroup>
 
 </Project>
