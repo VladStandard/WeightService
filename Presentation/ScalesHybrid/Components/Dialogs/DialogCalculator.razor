@@ -1,20 +1,26 @@
-<div class="calculator__container">
-  <div class="calculator__display">
-    @foreach (char digit in Number)
-    {
-      <span class="calculator__display-digit">@digit</span>
-    }
-  </div>
-  <div class="calculator__controls">
-    @foreach (CalculatorControl control in CalculatorControls)
-    {
-      <button
-        type="button"
-        class="calculator__controls-button"
-        @onclick=@control.CalculatorAction
-      >
-        @control.Title
-      </button>
-    }
-  </div>
-</div>
+<Modal @ref="ModalRef" Animated="false">
+  <ModalContent Centered>
+    <ModalBody Class="bg-white rounded-lg overflow-hidden">
+      <div class="flex w-full flex-col overflow-hidden">
+        <div class="flex overflow-hidden items-center justify-end w-full h-16 px-4 border border-black/[.1] rounded-md">
+          @foreach (char digit in Number)
+          {
+            <span class="text-4xl flex justify-center w-6">@digit</span>
+          }
+        </div>
+        <div class="grid grid-cols-3 grid-rows-4 mt-8 w-full gap-2">
+          @foreach (CalculatorControl control in CalculatorControls)
+          {
+            <button
+              type="button"
+              class="flex justify-center items-center bg-gray-100 border border-black/[.1] rounded-md text-2xl hover:bg-sky-400 w-full h-16"
+              @onclick=@control.CalculatorAction
+            >
+              @control.Title
+            </button>
+          }
+        </div>
+      </div>
+    </ModalBody>
+  </ModalContent>
+</Modal>

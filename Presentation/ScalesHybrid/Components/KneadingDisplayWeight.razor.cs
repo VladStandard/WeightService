@@ -1,9 +1,8 @@
+using Blazorise;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using NHibernate.Criterion;
-using Radzen;
-using Radzen.Blazor;
 using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Models;
 using ScalesHybrid.Resources;
@@ -19,11 +18,11 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
-    [Inject] private DialogService DialogService { get; set; }
     [Inject] private ExternalDevicesService ExternalDevices { get; set; }
 
     private bool IsStable { get; set; } = false;
     private bool IsDisconnected { get; set; } = false;
+    private IModal CalculatorRef { get; set; }
 
     private Timer _timer;
     
@@ -54,7 +53,11 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
     
     private void DecreaseDate() => LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(-1);
     
-    private void SetNewKneading(int newKneading) => LineContext.KneadingModel.KneadingCount = newKneading;
+    private void SetNewKneading(int newKneading)
+    {
+        LineContext.KneadingModel.KneadingCount = newKneading;
+        StateHasChanged();
+    }
 
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload)
     {
@@ -80,11 +83,8 @@ public sealed partial class KneadingDisplayWeight: ComponentBase, IDisposable
         WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
-    
-    private async Task ShowInlineDialog() => 
-        await DialogService.OpenAsync<DialogCalculator>(string.Empty,
-            new() { { "CallbackFunction", new Action<int>(SetNewKneading) } },
-            new() { ShowTitle = false, Style = "min-height:auto;min-width:auto;width:auto" });
+
+    private Task ShowCalculatorDialog() => CalculatorRef.ModalRef.Show();
 
     public void Dispose()
     {

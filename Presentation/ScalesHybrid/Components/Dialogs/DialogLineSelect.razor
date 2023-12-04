@@ -1,26 +1,57 @@
 @using Ws.StorageCore.Entities.SchemaScale.Scales
+@using Blazor.Heroicons.Outline
 
-<div class="line-select__container">
-  <RadzenDataGrid RowSelect="OnRowSelect" Data="GetLineEntities()" TItem="SqlLineEntity" AllowPaging="true" PageSize="7">
-    <Columns>
-      <RadzenDataGridColumn
-        Title="Номер"
-        TItem="SqlLineEntity"
-        Property="Number"
+<ModalHeader>
+  <p class="text-2xl">Выбор линии</p>
+  <button
+    type="button"
+    @onclick="CloseModal"
+    class="w-10 h-10 bg-gray-100 flex overflow-hidden border border-black/[.1] rounded-md justify-center items-center"
+  >
+    <XMarkIcon class="h-8 w-8" />
+  </button>
+</ModalHeader>
+<ModalBody Class="p-0">
+  <DataGrid SelectedRowChanged="OnRowSelected" Data="GetLineEntities()" TItem="SqlLineEntity" PageSize="7">
+    <DataGridColumns>
+      <DataGridColumn
+        Caption="Номер"
+        Field="@nameof(SqlLineEntity.Number)"
         Width="15%"
       />
-      <RadzenDataGridColumn
-        Title="Имя"
-        TItem="SqlLineEntity"
-        Property="Description"
+      <DataGridColumn
+        Caption="Имя"
+        Field="@nameof(SqlLineEntity.Description)"
         Width="45%"
       />
-      <RadzenDataGridColumn
-        Title="Площадка"
-        TItem="SqlLineEntity"
-        Property="WorkShop.Name"
+      <DataGridColumn
+        Caption="Площадка"
+        Field="@nameof(SqlLineEntity.WorkShop.Name)"
         Width="40%"
       />
-    </Columns>
-  </RadzenDataGrid>
-</div>
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <button type="button" class="h-10 w-10 text-xl">
+          @context.PageNumber
+      </button>
+    </PageButtonTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <span class="hidden"/>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <span class="hidden"/>
+    </TotalItemsShortTemplate>
+  </DataGrid>
+</ModalBody>

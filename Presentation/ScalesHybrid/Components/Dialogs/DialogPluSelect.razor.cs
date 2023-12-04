@@ -1,5 +1,5 @@
+using Blazorise;
 using Microsoft.AspNetCore.Components;
-using Radzen;
 using ScalesHybrid.Services;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
@@ -7,15 +7,17 @@ namespace ScalesHybrid.Components.Dialogs;
 
 public sealed partial class DialogPluSelect: ComponentBase
 {
-    [Inject] private DialogService DialogService { get; set; }
+    [Inject] public IModalService ModalService { get; set; }
     [Inject] private LineContext LineContext { get; set; }
 
     private IEnumerable<SqlPluEntity> GetPluEntities() => LineContext.PluEntities;
+    
+    private async Task CloseModal() => await ModalService.Hide();
 
-    private async Task OnRowSelect(SqlPluEntity sqlPluEntity)
+    private async void OnRowSelected(SqlPluEntity obj)
     {
-        await LineContext.ChangePlu(sqlPluEntity);
-        DialogService.Close();
+        await LineContext.ChangePlu(obj);
+        await ModalService.Hide();
     }
 }
 

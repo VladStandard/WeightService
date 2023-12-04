@@ -1,18 +1,19 @@
+using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Radzen;
 using ScalesHybrid.Resources;
 
 namespace ScalesHybrid.Components.Dialogs;
 
-public sealed partial class DialogCalculator: ComponentBase
+public sealed partial class DialogCalculator: ComponentBase, IModal
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
-    [Inject] private DialogService DialogService { get; set; }
+    
     [Parameter] public Action<int> CallbackFunction { get; set; }
     [Parameter] public string Number { get; set; } = string.Empty;
     [Parameter] public int MaxDigitCount { get; set; } = 3;
-
+    
+    public Modal ModalRef { get; set; }
     private List<CalculatorControl> CalculatorControls { get; set; } = new();
 
     protected override void OnInitialized()
@@ -30,7 +31,7 @@ public sealed partial class DialogCalculator: ComponentBase
             new() { Title = "9", CalculatorAction = () => SetNumber(9) },
             new() { Title = "C", CalculatorAction = ClearNumber },
             new() { Title = "0", CalculatorAction = () => SetNumber(0) },
-            new() { Title = Localizer["ButtonCalculatorEnter"], CalculatorAction = SubmitInput },
+            new() { Title = Localizer["ButtonCalculatorEnter"], CalculatorAction = SubmitInput }
         };
     }
 
@@ -38,7 +39,7 @@ public sealed partial class DialogCalculator: ComponentBase
     {
         int.TryParse(Number, out int resultInt);
         CallbackFunction.Invoke(resultInt);
-        DialogService.Close();
+        ModalRef.Hide();
     }
 
     private void SetNumber(int newDigit)
