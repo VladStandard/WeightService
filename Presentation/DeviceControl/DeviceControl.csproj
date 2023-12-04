@@ -19,7 +19,10 @@
         <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5" />
+        <PackageReference Include="Blazor.Heroicons" Version="2.0.1" />
+        <PackageReference Include="Blazorise.DataGrid" Version="1.3.3" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.3.3" />
+        <PackageReference Include="Blazorise.Tailwind" Version="1.3.3" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.14" />
 <!--        <PackageReference Include="MudBlazor" Version="6.11.1" />-->
         <PackageReference Include="Radzen.Blazor" Version="4.21.3" />
@@ -36,7 +39,22 @@
       <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="wwwroot\fonts\" />
+      <MauiAsset Include="wwwroot\fonts\Inter-Bold.ttf" />
+      <MauiAsset Include="wwwroot\fonts\Inter-ExtraBold.ttf" />
+      <MauiAsset Include="wwwroot\fonts\Inter-Light.ttf" />
+      <MauiAsset Include="wwwroot\fonts\Inter-Medium.ttf" />
+      <MauiAsset Include="wwwroot\fonts\Inter-Regular.ttf" />
+      <MauiAsset Include="wwwroot\fonts\Inter-SemiBold.ttf" />
+      <MauiAsset Include="wwwroot\packages\flowbite-v1.5.4.js" />
+      <MauiAsset Include="wwwroot\packages\flowbite-v1.5.4.min.css" />
+      <MauiAsset Include="wwwroot\packages\font.css" />
+      <MauiAsset Include="wwwroot\packages\fontawasome-v5.15.4.all.css" />
+      <MauiAsset Include="wwwroot\packages\tailwind-v3.3.5.js" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\favicon.ico" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\reset.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\styles.css" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

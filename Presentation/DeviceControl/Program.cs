@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.Icons.FontAwesome;
+using Blazorise.Tailwind;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.Services;
@@ -17,7 +20,10 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
-builder.Services.AddSassCompiler();
+builder.Services
+    .AddBlazorise()
+    .AddTailwindProviders()
+    .AddFontAwesomeIcons();
 // builder.Services.AddMudServices();
 
 #endregion

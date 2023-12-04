@@ -2,25 +2,27 @@ namespace DeviceControl.Services;
 
 public class JsService
 {
-    private readonly IJSRuntime _jsRuntime;
+    [Inject] private IJSRuntime JsRuntime { get; init; }
+    private IJSObjectReference Module { get; set; } = null!;
 
     public JsService(IJSRuntime jsRuntime)
     {
-        _jsRuntime = jsRuntime;
+        JsRuntime = jsRuntime;
+        InitializeModuleAsync();
     }
-
-    public async Task ShowAlert(string message)
+    
+    private async void InitializeModuleAsync()
     {
-        await _jsRuntime.InvokeVoidAsync("alert", message);
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/appUtils.js");
     }
 
     public async Task CopyTextToClipboard(string text)
     {
-        await _jsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+        await Module.InvokeVoidAsync("copyToClipboard", text);
     }
 
     public async Task RedirectBack()
     {
-       await _jsRuntime.InvokeVoidAsync("goBack");
+       await Module.InvokeVoidAsync("navigateBackOrHome");
     }
 }
