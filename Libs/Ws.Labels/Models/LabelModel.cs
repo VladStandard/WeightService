@@ -4,7 +4,6 @@ namespace Ws.Labels.Models;
 
 public class LabelModel : BaseLabelModel, ILabelModel
 {
-    private readonly string NestingСaption = "Вложенность:";
     public int BundleCount { get; set; }
     
     public string BarCodeTop => $"233{IntToStr(LineNumber, 5)}" +

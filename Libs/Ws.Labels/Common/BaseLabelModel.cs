@@ -3,11 +3,8 @@
 public class BaseLabelModel
 {
     #region DateTime
-
-    public readonly string ExpirationDtCaption = "Годен до";
+    
     public DateTime ExpirationDtValue { get; set; } = DateTime.MinValue;
-
-    public readonly string ProductDtCaption = "Дата изготовления";
     public DateTime ProductDtValue { get; set; } = DateTime.MinValue;
     
     public string ProductDate => $"{ProductDtValue:yyMMdd}";
@@ -41,6 +38,4 @@ public class BaseLabelModel
     #endregion
 
     protected string IntToStr(int value, int charLen) =>  value.ToString().PadLeft(charLen, '0');
-    protected string GetKneading3 => 
-        Kneading.ToString().PadLeft(3, '0');
 }

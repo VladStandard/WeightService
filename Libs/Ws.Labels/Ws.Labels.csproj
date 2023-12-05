@@ -13,7 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Weight.xml" />
+      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
     </ItemGroup>
-
 </Project>

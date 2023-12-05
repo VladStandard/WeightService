@@ -17,27 +17,22 @@ public class SqlPluLabelContextModel : SerializeBase
     #region Public and private properties - XSLT trasform for print labels
 
     [XmlElement] public virtual string ProductDt { get => $"{PluLabel.ProductDt:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public virtual string ProductDtCaption { get =>  $"{LocaleCore.LabelPrint.LabelContextProductDt}: "; set => _ = value; }
     [XmlElement] public virtual string LotNumberFormat { get => $"{PluLabel.ProductDt:yyMM}"; set => _ = value; }
     [XmlElement] public virtual string ProductDateBarCodeFormat { get => $"{PluLabel.ProductDt:yyMMdd}"; set => _ = value; }
     [XmlElement] public virtual string ProductTimeBarCodeFormat { get => $"{PluLabel.ProductDt:HHmmss}"; set => _ = value; }
-    [XmlElement] public virtual string Nesting { get => $"{LocaleCore.LabelPrint.LabelContextNesting}: {ViewPluNesting.BundleCount}{LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
-    [XmlElement] public virtual string NestingCaption { get => $"{LocaleCore.LabelPrint.LabelContextNesting}: "; set => _ = value; }
-    [XmlElement] public virtual string NestingValue { get => $"{ViewPluNesting.BundleCount} {LocaleCore.Table.NestingMeasurement}"; set => _ = value; }
+    [XmlElement] public virtual string Nesting { get => $"{ViewPluNesting.BundleCount}"; set => _ = value; }
     [XmlElement] public virtual string Address { get => ProductionSite.Address; set => _ = value; }
     [XmlElement] public virtual string PluDescription { get => PluScale.Plu.Description; set => _ = value; }
     [XmlElement] public virtual string PluName { get => PluScale.Plu.Name; set => _ = value; }
     [XmlElement] public virtual string PluFullName { get => PluScale.Plu.FullName; set => _ = value; }
     [XmlElement] public virtual string PluNumber { get => $"{PluScale.Plu.Number:000}"; set => _ = value; }
-    [XmlElement] public virtual string PluScaleNumber { get => $"{LocaleCore.LabelPrint.LabelContextPlu}: {PluNumber} / {ScaleNumber}"; set => _ = value; }
+    [XmlElement] public virtual string PluScaleNumber { get => $"{PluNumber} / {ScaleNumber}"; set => _ = value; }
     [XmlElement] public virtual string ExpirationDt { get => $"{PluLabel.ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public virtual string ExpirationDtCaption { get => $"{LocaleCore.LabelPrint.LabelContextExpirationDt}: "; set => _ = value; }
     [XmlElement] public virtual string ScaleNumber { get => $"{PluScale.Line.Number:00000}"; set => _ = value; }
-    [XmlElement] public virtual string ScaleDescription { get => $"{LocaleCore.LabelPrint.LabelContextWorkShop}: {PluScale.Line.Description}"; set => _ = value; }
+    [XmlElement] public virtual string ScaleDescription { get => $"{PluScale.Line.Description}"; set => _ = value; }
     [XmlElement] public virtual string ScaleCounter8 { get => $"{PluScale.Line.LabelCounter:00000000}"; set => _ = value; }
     [XmlElement] public virtual string ScaleCounter6 { get => $"{PluScale.Line.LabelCounter:000000}"; set => _ = value; }
     [XmlElement] public virtual string PluNesting2 { get => $"{ViewPluNesting.BundleCount:00}"; set => _ = value; }
-    [XmlElement] public virtual string PluWeighingСaption { get => $"{LocaleCore.LabelPrint.LabelContextWeight}: "; set => _ = value; }
     [XmlElement] public virtual string PluWeighingValueDot3Rus { get => $"{PluWeighing.NettoWeight:#0.000} {LocaleCore.LabelPrint.WeightUnitKg}".Replace('.', ','); set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg2 { get => $"{PluWeighing.NettoWeight:00.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKg3 { get => $"{PluWeighing.NettoWeight:000.000}".Replace(',', '.').Split('.')[0]; set => _ = value; }
@@ -48,7 +43,6 @@ public class SqlPluLabelContextModel : SerializeBase
     [XmlElement] public virtual string PluWeighingGr2 { get => $"{PluWeighing.NettoWeight:#.00}".Replace(',', '.').Split('.')[1]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingGr3 { get => $"{PluWeighing.NettoWeight:#.000}".Replace(',', '.').Split('.')[1]; set => _ = value; }
     [XmlElement] public virtual string PluWeighingKneading { get => $"{PluWeighing.Kneading:000}"; set => _ = value; }
-    [XmlElement] public virtual string PluWeighingKneadingWithCaption { get => $"{LocaleCore.LabelPrint.LabelContextKneading}: {PluWeighingKneading}"; set => _ = value; }
     [XmlElement] public virtual string BarCodeItf14 { get => PluScale.Plu.Itf14; set => _ = value; }
     [XmlElement] public virtual string BarCodeGtin14 { get => PluScale.Plu.Gtin; set => _ = value; }
     

@@ -11,4 +11,12 @@ public class SqlTemplateResourceRepository : SqlTableRepositoryBase<SqlTemplateR
                 .ThenBy(item => item.Type);
         return items.ToList();
     }
+    
+    public SqlTemplateResourceEntity GetByName(string name)
+    {
+        SqlCrudConfigModel model = new();
+        model.AddFilter(SqlRestrictions.Equal(nameof(SqlTemplateResourceEntity.Name), name));
+        return SqlCore.GetItemByCrud<SqlTemplateResourceEntity>(model);
+   
+    }
 }

@@ -16,9 +16,6 @@ public static class MdDataFormatUtils
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         
         sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        sqlCrudConfig.AddFilter(
-            SqlRestrictions.Equal(nameof(SqlTemplateResourceEntity.Type), "ZPL")
-        );
         _templateResources = new SqlTemplateResourceRepository().GetList(sqlCrudConfig);
     }
     
