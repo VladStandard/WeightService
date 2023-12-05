@@ -48,9 +48,15 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             return;
         }
 
-        if (!IsScalesStable || GetWeight() <= 0)
+        if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
         {
             Task.Run(() => NotificationService.Info("Весы не стабильны", "Печать этикеток"));
+            return;
+        }
+
+        if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
+        {
+            Task.Run(() => NotificationService.Info("На весах слишком маленький вес", "Печать этикеток"));
             return;
         }
 

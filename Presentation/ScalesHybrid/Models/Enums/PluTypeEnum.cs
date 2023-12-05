@@ -1,4 +1,4 @@
-namespace ScalesHybrid.Models;
+namespace ScalesHybrid.Models.Enums;
 
 public enum PluTypeEnum
 {
