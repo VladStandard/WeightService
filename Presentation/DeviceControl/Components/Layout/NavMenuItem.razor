@@ -1,0 +1,43 @@
+@using Blazor.Heroicons
+
+<div class="flex flex-col w-full overflow-x-hidden px-3">
+  <button
+    type="button"
+    @onclick="SwitchVisibility"
+    class="w-full gap-2 py-1.5 flex items-center transition-colors justify-between px-3 rounded-md
+            @(GetIsAnyActive() ? "bg-sky-200 hover:bg-slate-200" : "hover:bg-sky-100")"
+  >
+    <div class="flex gap-3 items-center overflow-hidden">
+      <Heroicon
+        Name="@Icon"
+        Type=HeroiconType.Outline
+        class="h-5 w-5 shrink-0"
+      />
+      <p class="font-medium truncate">
+        @Label
+      </p>
+    </div>
+    <Heroicon
+      Name="@(IsOpened ? HeroiconName.ChevronUp : HeroiconName.ChevronDown)"
+      Type=HeroiconType.Outline
+      class="h-4 w-4 shrink-0"/>
+  </button>
+  <ul class="flex flex-col gap-1 transition-opacity w-full @(IsOpened ? "opacity-100 mt-2 mb-1" : "opacity-0 h-0 overflow-hidden")">
+    @foreach (NavMenuItemModel item in Items)
+    {
+      <li>
+        <a href="@item.Link">
+          <button
+            type="button"
+            class="w-full pr-3 py-1 pl-11"
+          >
+            <p class="text-left transition-colors truncate
+                      @(GetIsActivePath(item.Link) ? "text-sky-500 font-normal hover:text-sky-700" : "font-light hover:text-sky-500")">
+              @item.Name
+            </p>
+          </button>
+        </a>
+      </li>
+    }
+  </ul>
+</div>
