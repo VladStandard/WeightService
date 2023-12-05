@@ -1,4 +1,4 @@
-namespace DeviceControl.Components.Layout;
+namespace DeviceControl.Features.Layout;
 
 public class NavMenuItemModel
 {

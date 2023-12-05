@@ -1,49 +1,49 @@
-﻿@page "/system_sql"
-@attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using DeviceControl.Components.Rz
-@inherits ComponentBase
-
-<h3><b>Статистика базы данных</b></h3>
-
-<MudSimpleTable Style="overflow-x: auto; margin-bottom: 10px" Dense="true" Bordered="true" FixedHeader="false">
-  <tbody>
-  <tr>
-    <td>Кол-во таблиц</td>
-    <td>@DbTables.Count</td>
-  </tr>
-  </tbody>
-</MudSimpleTable>
-
-<RzDataGrid
-  TItem="@WsSqlViewDbFileSizeInfoModel"
-  Data="@DbFiles"
-  RowRender="@RowRender">
-  <Template Context="table">
-    <RzDataGrid
-      TItem="@SqlViewTableSizeModel"
-      Data="@table.Tables"
-      PageSize="10"
-      PagerPosition="PagerPosition.Bottom">
-        <Columns>
-          <TItemContent TItem="@SqlViewTableSizeModel">
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Schema" Property="Schema" Width="25%" />
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Table" Property="Table" Width="25%"/>
-            <RadzenDataGridColumn Title="@LocaleCore.Table.RowCount" Property="RowsCount" />
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="UsedSpaceMb" />
-          </TItemContent>
-        </Columns>
-      </RzDataGrid>
-  </Template>
-  <Columns>
-    <TItemContent TItem="@WsSqlViewDbFileSizeInfoModel">
-      <RadzenDataGridColumn Title="@LocaleCore.Table.File" Property="FileName" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.TableCount" Property="Tables.Count" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="SizeMb" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Percents" SortProperty="DbFillSize" Width="65%">
-        <Template Context="itemCast">
-          <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.DbFillSize" ShowValue="true"/>
-        </Template>
-      </RadzenDataGridColumn>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+﻿@* @page "/system_sql" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Admin)] *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits ComponentBase *@
+@* *@
+@* <h3><b>Статистика базы данных</b></h3> *@
+@* *@
+@* <MudSimpleTable Style="overflow-x: auto; margin-bottom: 10px" Dense="true" Bordered="true" FixedHeader="false"> *@
+@*   <tbody> *@
+@*   <tr> *@
+@*     <td>Кол-во таблиц</td> *@
+@*     <td>@DbTables.Count</td> *@
+@*   </tr> *@
+@*   </tbody> *@
+@* </MudSimpleTable> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@WsSqlViewDbFileSizeInfoModel" *@
+@*   Data="@DbFiles" *@
+@*   RowRender="@RowRender"> *@
+@*   <Template Context="table"> *@
+@*     <RzDataGrid *@
+@*       TItem="@SqlViewTableSizeModel" *@
+@*       Data="@table.Tables" *@
+@*       PageSize="10" *@
+@*       PagerPosition="PagerPosition.Bottom"> *@
+@*         <Columns> *@
+@*           <TItemContent TItem="@SqlViewTableSizeModel"> *@
+@*             <RadzenDataGridColumn Title="@LocaleCore.Table.Schema" Property="Schema" Width="25%" /> *@
+@*             <RadzenDataGridColumn Title="@LocaleCore.Table.Table" Property="Table" Width="25%"/> *@
+@*             <RadzenDataGridColumn Title="@LocaleCore.Table.RowCount" Property="RowsCount" /> *@
+@*             <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="UsedSpaceMb" /> *@
+@*           </TItemContent> *@
+@*         </Columns> *@
+@*       </RzDataGrid> *@
+@*   </Template> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@WsSqlViewDbFileSizeInfoModel"> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.File" Property="FileName" Width="15%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.TableCount" Property="Tables.Count" Width="10%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="SizeMb" Width="10%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Percents" SortProperty="DbFillSize" Width="65%"> *@
+@*         <Template Context="itemCast"> *@
+@*           <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.DbFillSize" ShowValue="true"/> *@
+@*         </Template> *@
+@*       </RadzenDataGridColumn> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@

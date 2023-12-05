@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Version>1.1.9.0</Version>
         <Authors>Владимирский стандарт</Authors>
@@ -25,14 +25,13 @@
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.3.3" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.3.3" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.14" />
-<!--        <PackageReference Include="MudBlazor" Version="6.11.1" />-->
         <PackageReference Include="Radzen.Blazor" Version="4.21.3" />
     </ItemGroup>
     <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
     <ItemGroup>
-        <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
+        <Watch Include="..\**\*.razor;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
@@ -40,12 +39,6 @@
       <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <MauiAsset Include="wwwroot\fonts\Inter-Bold.ttf" />
-      <MauiAsset Include="wwwroot\fonts\Inter-ExtraBold.ttf" />
-      <MauiAsset Include="wwwroot\fonts\Inter-Light.ttf" />
-      <MauiAsset Include="wwwroot\fonts\Inter-Medium.ttf" />
-      <MauiAsset Include="wwwroot\fonts\Inter-Regular.ttf" />
-      <MauiAsset Include="wwwroot\fonts\Inter-SemiBold.ttf" />
       <MauiAsset Include="wwwroot\packages\flowbite-v1.5.4.js" />
       <MauiAsset Include="wwwroot\packages\flowbite-v1.5.4.min.css" />
       <MauiAsset Include="wwwroot\packages\font.css" />
@@ -54,11 +47,15 @@
     </ItemGroup>
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\css\favicon.ico" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\reset.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\css\styles.css" />
+      <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
+      <_ContentIncludedByDefault Remove="Components\Layout\NavMenu.razor" />
+      <_ContentIncludedByDefault Remove="Components\Layout\NavMenuItem.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Default\Error.cshtml" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Features\" />
+      <AdditionalFiles Include="Features\Layout\MainLayout.razor" />
+      <AdditionalFiles Include="Features\Layout\NavMenu.razor" />
+      <AdditionalFiles Include="Features\Layout\NavMenuItem.razor" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

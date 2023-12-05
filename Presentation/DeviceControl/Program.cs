@@ -13,7 +13,10 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 builder.Services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/Features";
+});
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddOptions();

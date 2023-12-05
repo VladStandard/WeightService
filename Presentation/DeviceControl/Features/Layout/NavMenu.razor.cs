@@ -2,7 +2,7 @@ using Ws.DataCore.Helpers;
 using WsLocalizationCore.DeviceControlModels;
 using Blazor.Heroicons;
 
-namespace DeviceControl.Components.Layout;
+namespace DeviceControl.Features.Layout;
 
 public sealed partial class NavMenu : ComponentBase
 {

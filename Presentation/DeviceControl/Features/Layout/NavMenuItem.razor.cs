@@ -2,7 +2,7 @@ using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components.Routing;
 using Ws.DataCore.Helpers;
 
-namespace DeviceControl.Components.Layout;
+namespace DeviceControl.Features.Layout;
 
 public sealed partial class NavMenuItem
 {
