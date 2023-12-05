@@ -24,6 +24,14 @@ public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<Sql
             items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();
     }
+    
+    public SqlPluStorageMethodFkEntity GetItemByPluNumber(int pluNumber)
+    {
+        SqlPluEntity plu = new SqlPluRepository().GetEnumerableByNumber((short)pluNumber).FirstOrDefault() ?? new();
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
+        return SqlCore.GetItemByCrud<SqlPluStorageMethodFkEntity>(sqlCrudConfig);
+    }
 
     #endregion
 }

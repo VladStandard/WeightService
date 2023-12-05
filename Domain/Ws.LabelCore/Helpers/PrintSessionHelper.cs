@@ -152,6 +152,7 @@ public sealed class PrintSessionHelper
         
         SqlPluLabelContextModel pluLabelContext = new(pluLabel, LabelSession.ViewPluNesting, pluLabel.PluScale, 
             LabelSession.Area, LabelSession.PluWeighing);
+       
         XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<SqlPluLabelContextModel>
             (pluLabelContext, true, true);
         

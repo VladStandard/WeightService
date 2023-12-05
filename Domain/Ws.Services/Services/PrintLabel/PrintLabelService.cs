@@ -14,7 +14,6 @@ public class PrintLabelService : IPrintLabelService
         LabelInfoValidator validator = new();
         ValidationResult result = validator.Validate(labelInfo);
         if (!result.IsValid) throw new LabelException(result);
-        
         LabelDto label = new LabelGenerator().GenerateLabel(labelInfo);
         return label.Context;
     }

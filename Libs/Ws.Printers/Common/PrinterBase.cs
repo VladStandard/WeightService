@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
+using Ws.Printers.Commands;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
@@ -44,6 +45,11 @@ public abstract class PrinterBase : IPrinter
         }
     }
 
+    public void PrintLabel(string zpl)
+    {
+        ExecuteCommand(new SendLabelCommand(TcpClient, zpl));
+    }
+    
     public IPrinter Connect()
     {
         Disconnect();
@@ -62,6 +68,7 @@ public abstract class PrinterBase : IPrinter
     public virtual void RequestStatus()
     {
     }
+    
     
     private void SetStatus(PrinterStatusEnum state)
     {

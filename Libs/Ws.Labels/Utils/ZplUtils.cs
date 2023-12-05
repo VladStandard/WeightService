@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using Ws.Labels.Enums;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace Ws.Labels.Utils;
@@ -14,7 +15,7 @@ public static partial class ZplUtils
     private static partial Regex MyRegex();
 
     
-    public static string PrintCmdReplaceZplResources(string zpl)
+    public static string PrintCmdReplaceZplResources(string zpl, int pluNumber)
     {
         if (string.IsNullOrEmpty(zpl))
             throw new ArgumentException("Value must be fill!", nameof(zpl)); 
@@ -27,21 +28,16 @@ public static partial class ZplUtils
             zpl = zpl.Replace(word, ConvertStringToHex(replacement));
         }
 
-        // ActionReplaceStorageMethod(zpl);
+        if (zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
+        {
+            SqlTemplateResourceEntity resource = new SqlPluStorageMethodFkRepository().GetItemByPluNumber(pluNumber)
+                .Resource;
+            string resourceHex = ConvertStringToHex(resource.Data.ValueUnicode);
+            zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
+        }
         
         return zpl;
     }
-
-    // private static string ActionReplaceStorageMethod(SqlPluLabelEntity pluLabel, string zpl)
-    // {
-    //     if (zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
-    //     {
-    //         SqlTemplateResourceEntity resource = new SqlPluStorageMethodFkRepository().GetItemByPlu(pluLabel.PluScale.Plu).Resource;
-    //         string resourceHex = ZplUtils.ConvertStringToHex(resource.Data.ValueUnicode);
-    //         zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
-    //     }
-    //     pluLabel.Zpl = zpl;
-    // }
     
     public static string ConvertStringToHex(string zpl)
     {

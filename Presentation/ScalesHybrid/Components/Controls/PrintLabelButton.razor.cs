@@ -64,7 +64,8 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
 
         try
         {
-            PrintLabelService.GenerateLabel(labelDto);
+            string zpl = PrintLabelService.GenerateLabel(labelDto);
+            ExternalDevices.Printer.PrintLabel(zpl);
             Task.Run(() => NotificationService.Success("Успешно сформирован", "Печать этикеток"));
         }
         catch (LabelException ex)
@@ -84,11 +85,14 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             Itf = LineContext.Plu.Itf14,
             Gtin = LineContext.Plu.Gtin,
             Address = LineContext.Line.WorkShop.ProductionSite.Address,
-            PluName = LineContext.Plu.Name,
             PluFullName = LineContext.Plu.FullName,
             PluDescription = LineContext.Plu.Description,
             ProductDt = LineContext.KneadingModel.ProductDate,
-            ExpirationDt = LineContext.KneadingModel.ProductDate.AddDays(LineContext.Plu.ShelfLifeDays)
+            ExpirationDt = LineContext.KneadingModel.ProductDate.AddDays(LineContext.Plu.ShelfLifeDays),
+            LineNumber = LineContext.Line.Number,
+            PluNumber = LineContext.Plu.Number,
+            LineName = LineContext.Line.Description,
+            Template = LineContext.PluTemplate.Data
         };
     
     private bool GetPrintLabelDisabledStatus() =>
