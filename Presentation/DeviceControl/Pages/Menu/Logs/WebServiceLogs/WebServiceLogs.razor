@@ -1,37 +1,37 @@
-@page "/section/logs_web_service"
-@attribute [Authorize(Roles = UserAccessStr.Admin)]
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-@inherits SectionBase<SqlLogWebEntity>
-
-<SectionTopBar
-  Title="@LocaleCore.WebService.Name"
-  OnSectionUpdate="@GetSectionData"
-  OnSectionAdd="@SqlItemNewAsync"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
-
-<RzDataGrid
-  TItem="@SqlLogWebEntity"
-  @ref="@DataGrid"
-  @bind-Value="@SelectedRow"
-  Data="@SqlSectionCast"
-  IsLoading="@IsLoading"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync">
-  <Columns>
-    <TItemContent TItem="@SqlLogWebEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="Version" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="Url" Width="40%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="CountAll" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Success" Property="CountSuccess" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="CountErrors" Width="15%"/>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+@* @page "/section/logs_web_service" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Admin)] *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits SectionBase<SqlLogWebEntity> *@
+@* *@
+@* <SectionTopBar *@
+@*   Title="@LocaleCore.WebService.Name" *@
+@*   OnSectionUpdate="@GetSectionData" *@
+@*   OnSectionAdd="@SqlItemNewAsync" *@
+@*   SectionCount="@SqlSectionCast.Count" *@
+@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*   ButtonSettings="@ButtonSettings"/> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@SqlLogWebEntity" *@
+@*   @ref="@DataGrid" *@
+@*   @bind-Value="@SelectedRow" *@
+@*   Data="@SqlSectionCast" *@
+@*   IsLoading="@IsLoading" *@
+@*   CellContextMenu="@OnCellContextMenu" *@
+@*   RowSelect="@SqlItemSet" *@
+@*   RowDoubleClick="@SqlItemOpenAsync"> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@SqlLogWebEntity"> *@
+@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="Version" Width="15%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="Url" Width="40%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="CountAll" Width="15%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Success" Property="CountSuccess" Width="15%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="CountErrors" Width="15%"/> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@

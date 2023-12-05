@@ -1,50 +1,50 @@
-@page "/section/printers/new"
-@page "/section/printers/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using Ws.StorageCore.Enums
-@using DeviceControl.Components.Item
-@using DeviceControl.Components.Rz
-@inherits ItemBase<SqlPrinterEntity>
-
-<ItemTopBar TItem="@SqlPrinterEntity" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/>
-
-<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/>
-  <tbody>
-  <ItemTableBody SqlItem="@SqlItemCast"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td>
-      <RzTextBox @bind-Value="@SqlItemCast.Name"/>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Print.Type</td>
-    <td>
-      <RzDropDown TItem="PrinterTypeEnum"  @bind-Value="@SqlItemCast.Type" Data="@Enum.GetValues(typeof(PrinterTypeEnum))" />
-    </td>
-    <td>@LocaleCore.Print.Port</td>
-    <td>
-      <RzNumeric Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/>
-    </td>
-    <td>
-      <RzTextBox Placeholder="Ip address" @bind-Value="@SqlItemCast.Ip"/>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-  <ItemDates SqlItem="@SqlItemCast"/>
-  </tbody>
-</MudSimpleTable>
-
-<ItemActions
-  ButtonSettings="@ButtonSettings"
-  OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@RedirectBackAsync"/>
+@* @page "/section/printers/new" *@
+@* @page "/section/printers/{Uid:guid}" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using Ws.StorageCore.Enums *@
+@* @using DeviceControl.Components.Item *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits ItemBase<SqlPrinterEntity> *@
+@* *@
+@* <ItemTopBar TItem="@SqlPrinterEntity" Title="@LocaleCore.Print.Name" OnItemUpdate="@GetItemData"/> *@
+@* *@
+@* <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false"> *@
+@*   <ItemTableHead HeadWidth="@(new List<int> { 25, 25, 25, 25 })"/> *@
+@*   <tbody> *@
+@*   <ItemTableBody SqlItem="@SqlItemCast"/> *@
+@*   <tr> *@
+@*     <td>@LocaleCore.Table.Name</td> *@
+@*     <td> *@
+@*       <RzTextBox @bind-Value="@SqlItemCast.Name"/> *@
+@*     </td> *@
+@*     <td></td> *@
+@*     <td></td> *@
+@*   </tr> *@
+@*   <tr> *@
+@*     <td>@LocaleCore.Print.Type</td> *@
+@*     <td> *@
+@*       <RzDropDown TItem="PrinterTypeEnum"  @bind-Value="@SqlItemCast.Type" Data="@Enum.GetValues(typeof(PrinterTypeEnum))" /> *@
+@*     </td> *@
+@*     <td>@LocaleCore.Print.Port</td> *@
+@*     <td> *@
+@*       <RzNumeric Min="0" Max="32767" @bind-Value="@SqlItemCast.Port"/> *@
+@*     </td> *@
+@*   </tr> *@
+@*   <tr> *@
+@*     <td> *@
+@*       <RadzenLink Target="_blank" Path="@SqlItemCast.Link" Text="@LocaleCore.Print.ControlPanel"/> *@
+@*     </td> *@
+@*     <td> *@
+@*       <RzTextBox Placeholder="Ip address" @bind-Value="@SqlItemCast.Ip"/> *@
+@*     </td> *@
+@*     <td></td> *@
+@*     <td></td> *@
+@*   </tr> *@
+@*   <ItemDates SqlItem="@SqlItemCast"/> *@
+@*   </tbody> *@
+@* </MudSimpleTable> *@
+@* *@
+@* <ItemActions *@
+@*   ButtonSettings="@ButtonSettings" *@
+@*   OnItemSave="@SqlItemSaveAsync" *@
+@*   OnItemCancel="@RedirectBackAsync"/> *@

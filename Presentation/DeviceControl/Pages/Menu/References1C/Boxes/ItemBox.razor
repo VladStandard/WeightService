@@ -1,26 +1,26 @@
-﻿@page "/section/boxes/new"
-@page "/section/boxes/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Item
-@inherits ItemBase<SqlBoxEntity>
-
-<ItemTopBar TItem="SqlBoxEntity" Title="@LocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/>
-
-<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
-  <tbody>
-  <ItemTableBody SqlItem="@SqlItemCast"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.Weight</td>
-    <td>@SqlItemCast.Weight</td>
-  </tr>
-  <ItemDates SqlItem="@SqlItemCast"/>
-  </tbody>
-</MudSimpleTable>
-
-<ItemActions
-  ButtonSettings="@ButtonSettings"
-  OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@RedirectBackAsync"/>
+﻿@* @page "/section/boxes/new" *@
+@* @page "/section/boxes/{Uid:guid}" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Item *@
+@* @inherits ItemBase<SqlBoxEntity> *@
+@* *@
+@* <ItemTopBar TItem="SqlBoxEntity" Title="@LocaleCore.DeviceControl.ItemBox" OnItemUpdate="@GetItemData"/> *@
+@* *@
+@* <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false"> *@
+@*   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/> *@
+@*   <tbody> *@
+@*   <ItemTableBody SqlItem="@SqlItemCast"/> *@
+@*   <tr> *@
+@*     <td>@LocaleCore.Table.Name</td> *@
+@*     <td>@SqlItemCast.Name</td> *@
+@*     <td>@LocaleCore.Table.Weight</td> *@
+@*     <td>@SqlItemCast.Weight</td> *@
+@*   </tr> *@
+@*   <ItemDates SqlItem="@SqlItemCast"/> *@
+@*   </tbody> *@
+@* </MudSimpleTable> *@
+@* *@
+@* <ItemActions *@
+@*   ButtonSettings="@ButtonSettings" *@
+@*   OnItemSave="@SqlItemSaveAsync" *@
+@*   OnItemCancel="@RedirectBackAsync"/> *@

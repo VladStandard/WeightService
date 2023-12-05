@@ -1,39 +1,39 @@
-﻿@page "/section/barcodes"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-@inherits SectionBase<SqlViewBarcodeModel>
-
-<SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionBarCodes"
-  OnSectionUpdate="@GetSectionData"
-  OnSectionAdd="@SqlItemNewAsync"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
-
-<RzDataGrid
-  TItem="@SqlViewBarcodeModel"
-  @ref="@DataGrid"
-  @bind-Value="@SelectedRow"
-  Data="@SqlSectionCast"
-  IsLoading="@IsLoading"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync"
-  AllowFiltering="true"
-  FilterMode="FilterMode.Simple"
-  LogicalFilterOperator="@LogicalFilterOperator.And">
-  <Columns>
-    <TItemContent TItem="@SqlViewBarcodeModel">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" Filterable="false"
-                            FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%"/>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+﻿@* @page "/section/barcodes" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits SectionBase<SqlViewBarcodeModel> *@
+@* *@
+@* <SectionTopBar *@
+@*   Title="@LocaleCore.DeviceControl.SectionBarCodes" *@
+@*   OnSectionUpdate="@GetSectionData" *@
+@*   OnSectionAdd="@SqlItemNewAsync" *@
+@*   SectionCount="@SqlSectionCast.Count" *@
+@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*   ButtonSettings="@ButtonSettings"/> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@SqlViewBarcodeModel" *@
+@*   @ref="@DataGrid" *@
+@*   @bind-Value="@SelectedRow" *@
+@*   Data="@SqlSectionCast" *@
+@*   IsLoading="@IsLoading" *@
+@*   CellContextMenu="@OnCellContextMenu" *@
+@*   RowSelect="@SqlItemSet" *@
+@*   RowDoubleClick="@SqlItemOpenAsync" *@
+@*   AllowFiltering="true" *@
+@*   FilterMode="FilterMode.Simple" *@
+@*   LogicalFilterOperator="@LogicalFilterOperator.And"> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@SqlViewBarcodeModel"> *@
+@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" Filterable="false" *@
+@*                             FormatString="@StrUtils.FormatDtDefault"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%"/> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@

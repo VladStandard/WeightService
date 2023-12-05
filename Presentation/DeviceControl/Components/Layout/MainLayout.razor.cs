@@ -11,5 +11,4 @@ public partial class MainLayout : LayoutComponentBase
     }
     
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
-
 }

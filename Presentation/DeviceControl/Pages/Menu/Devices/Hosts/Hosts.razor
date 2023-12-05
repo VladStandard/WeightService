@@ -1,53 +1,53 @@
-﻿@page "/section/hosts"
-
-@inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-
-
-<div class="section-container">
-  <SectionTopBar
-    Title="@LocaleCore.DeviceControl.SectionHosts"
-    OnSectionUpdate="@GetSectionData"
-    OnSectionAdd="@SqlItemNewAsync"
-    SectionCount="@SqlSectionCast.Count"
-    SqlCrudConfigSection="@SqlCrudConfigSection"
-    IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-    ButtonSettings="@ButtonSettings"
-  />
-
-  <RzDataGrid
-    TItem="@SqlHostEntity"
-    @ref="@DataGrid"
-    @bind-Value="@SelectedRow"
-    Data="@SqlSectionCast"
-    CellContextMenu="@OnCellContextMenu"
-    RowSelect="@SqlItemSet"
-    RowDoubleClick="@SqlItemOpenAsync"
-  >
-    <Columns>
-      <TItemContent TItem="@SqlHostEntity">
-        <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-        <RadzenDataGridColumn
-          Title="@LocaleCore.Table.LoginDt"
-          Property="LoginDt"
-          Width="10%"
-          FormatString="@StrUtils.FormatDtDefault"
-        />
-        <RadzenDataGridColumn
-          Title="@LocaleCore.Table.Name"
-          Property="Name"
-          Width="30%"
-        />
-        <RadzenDataGridColumn
-          Title="@LocaleCore.Table.DeviceIp"
-          Property="Ip"
-          Width="30%"
-        />
-      </TItemContent>
-    </Columns>
-  </RzDataGrid>
-</div>
-
+﻿@* @page "/section/hosts" *@
+@* *@
+@* @inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity> *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using Ws.StorageCore.Entities.SchemaRef.Hosts *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* *@
+@* *@
+@* <div class="section-container"> *@
+@*   <SectionTopBar *@
+@*     Title="@LocaleCore.DeviceControl.SectionHosts" *@
+@*     OnSectionUpdate="@GetSectionData" *@
+@*     OnSectionAdd="@SqlItemNewAsync" *@
+@*     SectionCount="@SqlSectionCast.Count" *@
+@*     SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*     IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*     ButtonSettings="@ButtonSettings" *@
+@*   /> *@
+@* *@
+@*   <RzDataGrid *@
+@*     TItem="@SqlHostEntity" *@
+@*     @ref="@DataGrid" *@
+@*     @bind-Value="@SelectedRow" *@
+@*     Data="@SqlSectionCast" *@
+@*     CellContextMenu="@OnCellContextMenu" *@
+@*     RowSelect="@SqlItemSet" *@
+@*     RowDoubleClick="@SqlItemOpenAsync" *@
+@*   > *@
+@*     <Columns> *@
+@*       <TItemContent TItem="@SqlHostEntity"> *@
+@*         <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*         <RadzenDataGridColumn *@
+@*           Title="@LocaleCore.Table.LoginDt" *@
+@*           Property="LoginDt" *@
+@*           Width="10%" *@
+@*           FormatString="@StrUtils.FormatDtDefault" *@
+@*         /> *@
+@*         <RadzenDataGridColumn *@
+@*           Title="@LocaleCore.Table.Name" *@
+@*           Property="Name" *@
+@*           Width="30%" *@
+@*         /> *@
+@*         <RadzenDataGridColumn *@
+@*           Title="@LocaleCore.Table.DeviceIp" *@
+@*           Property="Ip" *@
+@*           Width="30%" *@
+@*         /> *@
+@*       </TItemContent> *@
+@*     </Columns> *@
+@*   </RzDataGrid> *@
+@* </div> *@
+@* *@

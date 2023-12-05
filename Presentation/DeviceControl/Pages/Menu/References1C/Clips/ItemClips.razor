@@ -1,25 +1,25 @@
-@page "/section/clips/new"
-@page "/section/clips/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Item
-@inherits ItemBase<SqlClipEntity>
-
-<ItemTopBar TItem="@SqlClipEntity" Title="@LocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/>
-<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-    <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
-    <tbody>
-    <ItemTableBody SqlItem="@SqlItemCast"/>
-    <tr>
-      <td>@LocaleCore.Table.Name</td>
-      <td>@SqlItemCast.Name</td>
-      <td>@LocaleCore.Table.Weight</td>
-      <td>@SqlItemCast.Weight</td>
-    </tr>
-    <ItemDates SqlItem="@SqlItemCast"/>
-    </tbody>
-</MudSimpleTable>
-
-<ItemActions
-  ButtonSettings="@ButtonSettings"
-  OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@RedirectBackAsync"/>
+@* @page "/section/clips/new" *@
+@* @page "/section/clips/{Uid:guid}" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Item *@
+@* @inherits ItemBase<SqlClipEntity> *@
+@* *@
+@* <ItemTopBar TItem="@SqlClipEntity" Title="@LocaleCore.Strings.Clips" OnItemUpdate="@GetItemData"/> *@
+@* <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false"> *@
+@*     <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/> *@
+@*     <tbody> *@
+@*     <ItemTableBody SqlItem="@SqlItemCast"/> *@
+@*     <tr> *@
+@*       <td>@LocaleCore.Table.Name</td> *@
+@*       <td>@SqlItemCast.Name</td> *@
+@*       <td>@LocaleCore.Table.Weight</td> *@
+@*       <td>@SqlItemCast.Weight</td> *@
+@*     </tr> *@
+@*     <ItemDates SqlItem="@SqlItemCast"/> *@
+@*     </tbody> *@
+@* </MudSimpleTable> *@
+@* *@
+@* <ItemActions *@
+@*   ButtonSettings="@ButtonSettings" *@
+@*   OnItemSave="@SqlItemSaveAsync" *@
+@*   OnItemCancel="@RedirectBackAsync"/> *@

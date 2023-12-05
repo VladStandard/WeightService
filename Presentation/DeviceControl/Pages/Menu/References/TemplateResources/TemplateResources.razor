@@ -1,36 +1,36 @@
-@page "/section/templates_resources"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-@inherits SectionBase<SqlTemplateResourceEntity>
-
-<SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionTemplateResources"
-  OnSectionUpdate="@GetSectionData"
-  OnSectionAdd="@SqlItemNewAsync"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
-
-<RzDataGrid
-  TItem="@SqlTemplateResourceEntity"
-  @ref="@DataGrid"
-  @bind-Value="@SelectedRow"
-  Data="@SqlSectionCast"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync">
-  <Columns>
-    <TItemContent TItem="@SqlTemplateResourceEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="DataValue.Length" Width="20%">
-        <Template Context="itemCast">
-          @ConvertBytes(itemCast)
-        </Template>
-      </RadzenDataGridColumn>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+@* @page "/section/templates_resources" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits SectionBase<SqlTemplateResourceEntity> *@
+@* *@
+@* <SectionTopBar *@
+@*   Title="@LocaleCore.DeviceControl.SectionTemplateResources" *@
+@*   OnSectionUpdate="@GetSectionData" *@
+@*   OnSectionAdd="@SqlItemNewAsync" *@
+@*   SectionCount="@SqlSectionCast.Count" *@
+@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*   ButtonSettings="@ButtonSettings"/> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@SqlTemplateResourceEntity" *@
+@*   @ref="@DataGrid" *@
+@*   @bind-Value="@SelectedRow" *@
+@*   Data="@SqlSectionCast" *@
+@*   CellContextMenu="@OnCellContextMenu" *@
+@*   RowSelect="@SqlItemSet" *@
+@*   RowDoubleClick="@SqlItemOpenAsync"> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@SqlTemplateResourceEntity"> *@
+@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Type" Property="Type" Width="20%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="55%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Size" SortProperty="DataValue.Length" Width="20%"> *@
+@*         <Template Context="itemCast"> *@
+@*           @ConvertBytes(itemCast) *@
+@*         </Template> *@
+@*       </RadzenDataGridColumn> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@

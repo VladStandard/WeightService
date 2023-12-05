@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
@@ -24,7 +25,13 @@ builder.Services
     .AddBlazorise()
     .AddTailwindProviders()
     .AddFontAwesomeIcons();
-// builder.Services.AddMudServices();
+builder.Services.AddBlazoredLocalStorage();
+
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.SetMinimumLevel(LogLevel.Warning);
+    logging.AddConsole();
+});
 
 #endregion
 
@@ -46,11 +53,9 @@ builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 
 WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else

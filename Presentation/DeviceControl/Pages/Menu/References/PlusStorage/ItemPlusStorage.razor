@@ -1,38 +1,38 @@
-﻿@page "/section/plus_storage/new"
-@page "/section/plus_storage/{Uid:guid}"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Item
-@using DeviceControl.Components.Rz
-@inherits ItemBase<SqlPluStorageMethodEntity>
-
-
-<ItemTopBar TItem="SqlPluStorageMethodEntity" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/>
-
-<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
-  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })" />
-  <tbody>
-  <ItemTableBody SqlItem="@SqlItemCast"/>
-  <tr>
-    <td>@LocaleCore.Table.Name</td>
-    <td colspan="3">
-      <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/>
-    </td>
-  </tr>
-  <tr>
-    <td>@LocaleCore.Table.TempMinimal</td>
-    <td>
-      <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MinTemp"/>
-    </td>
-    <td>@LocaleCore.Table.TempMaximal</td>
-    <td>
-      <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/>
-    </td>
-  </tr>
-  <ItemDates SqlItem="@SqlItemCast"/>
-  </tbody>
-</MudSimpleTable>
-
-<ItemActions
-  ButtonSettings="@ButtonSettings"
-  OnItemSave="@SqlItemSaveAsync"
-  OnItemCancel="@RedirectBackAsync"/>
+﻿@* @page "/section/plus_storage/new" *@
+@* @page "/section/plus_storage/{Uid:guid}" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Item *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits ItemBase<SqlPluStorageMethodEntity> *@
+@* *@
+@* *@
+@* <ItemTopBar TItem="SqlPluStorageMethodEntity" Title="@LocaleCore.DeviceControl.ItemPlusStorage" OnItemUpdate="@GetItemData"/> *@
+@* *@
+@* <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false"> *@
+@*   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })" /> *@
+@*   <tbody> *@
+@*   <ItemTableBody SqlItem="@SqlItemCast"/> *@
+@*   <tr> *@
+@*     <td>@LocaleCore.Table.Name</td> *@
+@*     <td colspan="3"> *@
+@*       <RadzenTextBox Style="width: 100%; " @bind-Value="@SqlItemCast.Name"/> *@
+@*     </td> *@
+@*   </tr> *@
+@*   <tr> *@
+@*     <td>@LocaleCore.Table.TempMinimal</td> *@
+@*     <td> *@
+@*       <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MinTemp"/> *@
+@*     </td> *@
+@*     <td>@LocaleCore.Table.TempMaximal</td> *@
+@*     <td> *@
+@*       <RzNumeric Min="-100" @bind-Value="@SqlItemCast.MaxTemp"/> *@
+@*     </td> *@
+@*   </tr> *@
+@*   <ItemDates SqlItem="@SqlItemCast"/> *@
+@*   </tbody> *@
+@* </MudSimpleTable> *@
+@* *@
+@* <ItemActions *@
+@*   ButtonSettings="@ButtonSettings" *@
+@*   OnItemSave="@SqlItemSaveAsync" *@
+@*   OnItemCancel="@RedirectBackAsync"/> *@

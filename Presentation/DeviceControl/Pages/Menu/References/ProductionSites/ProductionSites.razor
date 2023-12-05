@@ -1,31 +1,31 @@
-@page "/section/production_facilities"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-@inherits SectionBase<SqlProductionSiteEntity>
-
-<SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
-  OnSectionUpdate="@GetSectionData"
-  OnSectionAdd="@SqlItemNewAsync"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
-
-<RzDataGrid
-  TItem="@SqlProductionSiteEntity"
-  @ref="@DataGrid"
-  @bind-Value="@SelectedRow"
-  Data="@SqlSectionCast"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowDoubleClick="SqlItemOpenAsync">
-  <Columns>
-    <TItemContent TItem="@SqlProductionSiteEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%"/>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+@* @page "/section/production_facilities" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits SectionBase<SqlProductionSiteEntity> *@
+@* *@
+@* <SectionTopBar *@
+@*   Title="@LocaleCore.DeviceControl.SectionProductionFacilities" *@
+@*   OnSectionUpdate="@GetSectionData" *@
+@*   OnSectionAdd="@SqlItemNewAsync" *@
+@*   SectionCount="@SqlSectionCast.Count" *@
+@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*   ButtonSettings="@ButtonSettings"/> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@SqlProductionSiteEntity" *@
+@*   @ref="@DataGrid" *@
+@*   @bind-Value="@SelectedRow" *@
+@*   Data="@SqlSectionCast" *@
+@*   CellContextMenu="@OnCellContextMenu" *@
+@*   RowSelect="@SqlItemSet" *@
+@*   RowDoubleClick="SqlItemOpenAsync"> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@SqlProductionSiteEntity"> *@
+@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%"/> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@

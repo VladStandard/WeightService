@@ -1,32 +1,32 @@
-﻿@page "/section/boxes"
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-@inherits SectionBase<SqlBoxEntity>
-
-
-<SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionBoxes"
-  OnSectionUpdate="@GetSectionData"
-  OnSectionAdd="@SqlItemNewAsync"
-  SectionCount="@SqlSectionCast.Count"
-  SqlCrudConfigSection="@SqlCrudConfigSection"
-  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
-  ButtonSettings="@ButtonSettings"/>
-
-<RzDataGrid
-  TItem="@SqlBoxEntity"
-  @ref="@DataGrid"
-  @bind-Value="@SelectedRow"
-  Data="@SqlSectionCast"
-  CellContextMenu="@OnCellContextMenu"
-  RowSelect="@SqlItemSet"
-  RowDoubleClick="@SqlItemOpenAsync">
-  <Columns>
-    <TItemContent TItem="@SqlBoxEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.BoxWeight" Property="Weight"/>
-    </TItemContent>
-  </Columns>
-</RzDataGrid>
+﻿@* @page "/section/boxes" *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* @inherits SectionBase<SqlBoxEntity> *@
+@* *@
+@* *@
+@* <SectionTopBar *@
+@*   Title="@LocaleCore.DeviceControl.SectionBoxes" *@
+@*   OnSectionUpdate="@GetSectionData" *@
+@*   OnSectionAdd="@SqlItemNewAsync" *@
+@*   SectionCount="@SqlSectionCast.Count" *@
+@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
+@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
+@*   ButtonSettings="@ButtonSettings"/> *@
+@* *@
+@* <RzDataGrid *@
+@*   TItem="@SqlBoxEntity" *@
+@*   @ref="@DataGrid" *@
+@*   @bind-Value="@SelectedRow" *@
+@*   Data="@SqlSectionCast" *@
+@*   CellContextMenu="@OnCellContextMenu" *@
+@*   RowSelect="@SqlItemSet" *@
+@*   RowDoubleClick="@SqlItemOpenAsync"> *@
+@*   <Columns> *@
+@*     <TItemContent TItem="@SqlBoxEntity"> *@
+@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/> *@
+@*       <RadzenDataGridColumn Title="@LocaleCore.Table.BoxWeight" Property="Weight"/> *@
+@*     </TItemContent> *@
+@*   </Columns> *@
+@* </RzDataGrid> *@
