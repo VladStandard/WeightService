@@ -159,6 +159,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bundle count.
+        /// </summary>
+        internal static string KneadingDisplayPluNestingCount {
+            get {
+                return ResourceManager.GetString("KneadingDisplayPluNestingCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nesting.
         /// </summary>
         internal static string KneadingDisplayPluNestingLabel {

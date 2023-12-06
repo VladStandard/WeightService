@@ -159,6 +159,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество вложений.
+        /// </summary>
+        internal static string KneadingDisplayPluNestingCount {
+            get {
+                return ResourceManager.GetString("KneadingDisplayPluNestingCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вложенность.
         /// </summary>
         internal static string KneadingDisplayPluNestingLabel {

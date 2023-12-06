@@ -161,6 +161,15 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string KneadingDisplayPluNestingCount {
+            get {
+                return ResourceManager.GetString("KneadingDisplayPluNestingCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string KneadingDisplayPluNestingLabel {
             get {
                 return ResourceManager.GetString("KneadingDisplayPluNestingLabel", resourceCulture);
