@@ -3,11 +3,9 @@ namespace Ws.StorageCoreTests.Tables.Common;
 public class TableRepositoryTests
 {
     protected SqlCrudConfigModel SqlCrudConfig { get; private set; }
-    protected List<EnumConfiguration> DefaultConfigurations { get; }
 
     public TableRepositoryTests()
     {
-        DefaultConfigurations = new() { EnumConfiguration.DevelopVs, EnumConfiguration.ReleaseVs };
         SqlCrudConfig = new();
     }
 

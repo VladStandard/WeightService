@@ -2,7 +2,6 @@ global using FluentValidation.Results;
 global using NUnit.Framework;
 global using NUnit.Framework.Constraints;
 global using Ws.AssertCoreTests;
-global using Ws.DataCore.Enums;
 global using WsLocalizationCore.Utils;
 global using Ws.StorageCore.Common;
 global using Ws.StorageCore.Models;

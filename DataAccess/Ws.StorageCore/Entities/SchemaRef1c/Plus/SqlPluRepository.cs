@@ -48,23 +48,5 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
         return SqlCore.GetItemByCrud<SqlPluEntity>(sqlCrudConfig);
     }
 
-    /// <summary>
-    /// Получить список валидаторов ПЛУ линии.
-    /// </summary>
-    public IEnumerable<string> GetEnumerableValidatesViewPluLine(SqlViewPluLineModel viewPluLine)
-    {
-        List<string> validates = new();
-        if (string.IsNullOrEmpty(viewPluLine.TemplateName)) validates.Add(LocaleCore.LabelPrint.PluTemplateIsNotSet);
-        if (string.IsNullOrEmpty(viewPluLine.PluGtin)) validates.Add(LocaleCore.LabelPrint.PluGtinIsNotSet);
-        if (string.IsNullOrEmpty(viewPluLine.PluEan13)) validates.Add(LocaleCore.LabelPrint.PluEan13IsNotSet);
-        //if (string.IsNullOrEmpty(viewPluLine.PluItf14)) validates.Add(LocaleCore.Scales.PluItf14IsNotSet);
-
-        IEnumerable<SqlViewPluLineModel> viewPlusLines = PluLineRepository.GetEnumerable(viewPluLine.ScaleId, viewPluLine.PluNumber, 0);
-        List<string> plusTemplates = viewPlusLines.Where(item => !string.IsNullOrEmpty(item.TemplateName)).
-            Select(item => item.TemplateName).ToList();
-        if (!plusTemplates.Any()) validates.Add(LocaleCore.LabelPrint.PluTemplateIsNotSet);
-        return validates;
-    }
-
     #endregion
 }

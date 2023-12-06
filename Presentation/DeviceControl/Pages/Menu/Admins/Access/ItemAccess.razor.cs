@@ -1,3 +1,5 @@
+using Ws.Shared.Enums;
+
 namespace DeviceControl.Pages.Menu.Admins.Access;
 
 public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>

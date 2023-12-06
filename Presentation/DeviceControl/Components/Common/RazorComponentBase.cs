@@ -134,7 +134,6 @@ public class RazorComponentBase : LayoutComponentBase
             msg,
             5000
             );
-        ContextItem.SaveLogError(ex);
     }
     
     #endregion

@@ -27,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
         <ProjectReference Include="..\Ws.AssertCoreTests\Ws.AssertCoreTests.csproj" />
     </ItemGroup>
 

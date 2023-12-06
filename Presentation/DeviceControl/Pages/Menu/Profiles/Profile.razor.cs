@@ -1,3 +1,5 @@
+using Ws.Shared.Enums;
+
 namespace DeviceControl.Pages.Menu.Profiles;
 
 public partial class Profile : ComponentBase

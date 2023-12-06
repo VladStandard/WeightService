@@ -1,4 +1,4 @@
-using Ws.DataCore.Helpers;
+using Ws.Shared.Utils;
 using WsLocalizationCore.DeviceControlModels;
 
 namespace DeviceControl.Components;
@@ -7,8 +7,7 @@ public sealed partial class NavMenu : ComponentBase
 {
     private static LocaleDeviceControl LocaleBlazor => new();
     
-    private static string SidebarThemeCss =>
-        DebugHelper.Instance.IsDevelop ? "side-nav-dev" : "side-nav-prod";
+    private static string SidebarThemeCss => ConfigurationUtil.IsDevelop ? "side-nav-dev" : "side-nav-prod";
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {

@@ -13,7 +13,7 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }

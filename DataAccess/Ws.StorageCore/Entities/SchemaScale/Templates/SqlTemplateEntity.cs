@@ -41,12 +41,6 @@ public class SqlTemplateEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Data = LocaleCore.Sql.SqlItemFieldTemplateData;
-    }
 
     #endregion
 

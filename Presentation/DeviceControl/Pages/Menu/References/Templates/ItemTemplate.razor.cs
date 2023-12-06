@@ -1,5 +1,3 @@
-using Ws.DataCore.Models;
-
 namespace DeviceControl.Pages.Menu.References.Templates;
 
 public sealed partial class ItemTemplate : ItemBase<SqlTemplateEntity>
@@ -10,7 +8,7 @@ public sealed partial class ItemTemplate : ItemBase<SqlTemplateEntity>
 
     public ItemTemplate() : base()
     {
-        TemplateCategories =  DataSourceDicsHelper.Instance.GetTemplateCategories();
+        TemplateCategories =  new() {"Temp", "Temp"};
     }
 
     #endregion

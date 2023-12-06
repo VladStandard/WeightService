@@ -1,4 +1,4 @@
-namespace Ws.DataCore.Enums;
+namespace Ws.Shared.Enums;
 
 public class EnumTypeModel<T>
 {

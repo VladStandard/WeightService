@@ -62,10 +62,7 @@ public class SqlLogEntity : SqlEntityBase
     public override void FillProperties()
     {
         base.FillProperties();
-        File = LocaleCore.Sql.SqlItemFieldFile;
         Line = 1;
-        Member = LocaleCore.Sql.SqlItemFieldMember;
-        Message = LocaleCore.Sql.SqlItemFieldMessage;
         Type = LogTypeEnum.Info;
         
         Device?.FillProperties();
