@@ -1,7 +1,7 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using Ws.DataCore.Helpers;
+using Ws.Shared.Utils;
 
 namespace DeviceControl.Features.Layout;
 
@@ -20,7 +20,7 @@ public sealed partial class NavMenuItem: ComponentBase
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += HandleLocationChanged;
-        IsProduction = !DebugHelper.Instance.IsDevelop;
+        IsProduction = !ConfigurationUtil.IsDevelop;
         IsOpened = GetIsAnyActive();
     }
     

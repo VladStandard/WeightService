@@ -1,8 +1,8 @@
-using Ws.DataCore.Helpers;
 using WsLocalizationCore.DeviceControlModels;
 using Blazor.Heroicons;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
+using Ws.Shared.Utils;
 using WsLocalizationCore.Utils;
 
 namespace DeviceControl.Features.Layout;
@@ -95,7 +95,7 @@ public sealed partial class NavMenu : ComponentBase
 
     protected override void OnInitialized()
     {
-        IsProduction = DebugHelper.Instance.IsDevelop;
+        IsProduction = !ConfigurationUtil.IsDevelop;
     }
 }
 
