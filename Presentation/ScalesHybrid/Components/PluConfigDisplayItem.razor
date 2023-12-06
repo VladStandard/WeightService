@@ -1,15 +1,17 @@
 <div class="flex flex-col gap-1 w-full">
-  <label class="text-2xl font-light truncate">
+  <label class="text-2xl truncate">
     @Label
   </label>
-  <button
-    type="button"
-    disabled="@IsDisabled"
-    class="flex h-14 px-2 w-full items-center border border-black/[.1] rounded-md overflow-hidden bg-gray-100"
-    @onclick="OnClickAction"
-  >
-    <p class="truncate font-light text-2xl">
-      @Value
-    </p>
-  </button>
+  <div class="flex h-14 w-full gap-2">
+    <button
+      type="button"
+      disabled="@IsDisabled"
+      class="flex h-14 px-2 w-full items-center border border-black/[.1] rounded-md overflow-hidden bg-gray-100"
+      @onclick="OnClickAction">
+      <p class="truncate font-light text-2xl">
+        @Value
+      </p>
+    </button>
+    @ChildContent
+  </div>
 </div>

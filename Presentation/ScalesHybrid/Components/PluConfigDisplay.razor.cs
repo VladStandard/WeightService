@@ -15,11 +15,11 @@ public sealed partial class PluConfigDisplay : ComponentBase, IDisposable
     
     protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
 
-    private void ShowLineSelectDialog() => InvokeAsync(() => ModalService.Show<DialogLineSelect>());
+    private async Task ShowLineSelectDialog() => await ModalService.Show<DialogLineSelect>();
     
-    private void ShowPluSelectDialog() => InvokeAsync(() => ModalService.Show<DialogPluSelect>());
+    private async Task ShowPluSelectDialog() => await ModalService.Show<DialogPluSelect>();
     
-    private void ShowPluNestingSelectDialog() => InvokeAsync(() => ModalService.Show<DialogPluNestingSelect>());
+    private async Task ShowPluNestingSelectDialog() => await ModalService.Show<DialogPluNestingSelect>();
     
     public void Dispose() => LineContext.OnStateChanged -= StateHasChanged;
 }

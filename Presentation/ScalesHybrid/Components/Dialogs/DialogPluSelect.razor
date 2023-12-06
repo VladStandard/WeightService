@@ -11,58 +11,61 @@
     <XMarkIcon class="h-8 w-8" />
   </button>
 </ModalHeader>
-<DataGrid
-  SelectedRowChanged="OnRowSelected"
-  Data="GetPluEntities()"
-  TItem="SqlPluEntity"
-  PageSize="7"
-  ShowPager
-  PagerPosition="DataGridPagerPosition.Bottom"
-  PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
-  Class="text-xl font-semibold !text-black"
->
-  <DataGridColumns>
-    <DataGridColumn
-      Caption="Номер"
-      Field="@nameof(SqlPluEntity.Number)"
-      Width="15%"
-    />
-    <DataGridColumn
-      Caption="Тип"
-      Field="@nameof(SqlPluEntity.IsCheckWeight)"
-      Width="15%"
-    >
-      <DisplayTemplate>
-        <p class="text-xl font-semibold text-black">@(context.IsCheckWeight ? "Вес" : "Шт")</p>
-      </DisplayTemplate>
-    </DataGridColumn>
-    <DataGridColumn
-      Caption="Название"
-      Field="@nameof(SqlPluEntity.Name)"
-      Width="70%"
-    />
-  </DataGridColumns>
-  <PageButtonTemplate>
-      <button type="button" class="h-10 w-10 text-xl">
-          @context.PageNumber
-      </button>
-  </PageButtonTemplate>
-  <NextPageButtonTemplate>
-    <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
-  </NextPageButtonTemplate>
-  <PreviousPageButtonTemplate>
-    <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
-  </PreviousPageButtonTemplate>
-  <LastPageButtonTemplate>
-    <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
-  </LastPageButtonTemplate>
-  <FirstPageButtonTemplate>
-    <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
-  </FirstPageButtonTemplate>
-  <TotalItemsTemplate>
-    <span class="hidden"/>
-  </TotalItemsTemplate>
-  <TotalItemsShortTemplate>
-    <span class="hidden"/>
-  </TotalItemsShortTemplate>
-</DataGrid>
+<ModalBody Class="!p-0">
+  <BlazorDataGrid
+    TItem="SqlPluEntity"
+    SelectedRowChanged="OnRowSelected"
+    Data="GetPluEntities()"
+  >
+    <DataGridColumns>
+      <DataGridColumn
+        Caption="Номер"
+        TItem="SqlPluEntity"
+        Field="@nameof(SqlPluEntity.Number)"
+        Width="15%"
+      />
+      <DataGridColumn
+        Caption="Тип"
+        TItem="SqlPluEntity"
+        Field="@nameof(SqlPluEntity.IsCheckWeight)"
+        Width="15%"
+      >
+        <DisplayTemplate>
+          <p class="text-xl text-black">
+            @(context.IsCheckWeight ? "Вес" : "Шт")
+          </p>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="Название"
+        TItem="SqlPluEntity"
+        Field="@nameof(SqlPluEntity.Name)"
+        CellClass="@(_ => "truncate !w-[98%]")"
+        Width="70%"
+      />
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <div class="flex items-center justify-center h-10 w-10 text-xl">
+        @context.PageNumber
+      </div>
+    </PageButtonTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <span class="hidden"/>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <span class="hidden"/>
+    </TotalItemsShortTemplate>
+  </BlazorDataGrid>
+</ModalBody>

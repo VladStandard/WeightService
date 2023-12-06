@@ -38,27 +38,31 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         ScalesSubscribe();
     }
     
-    private void PrintLabel()
+    private async Task PrintLabel()
     {
         ExternalDevices.Printer.RequestStatus();
 
+        await Task.Delay(100);
+
         if (IsPrinterDisconnected)
         {
-            Task.Run(() => NotificationService.Info("Принтер не активен", "Печать этикеток"));
+            await NotificationService.Info("Принтер не активен", "Печать этикеток");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
         {
-            Task.Run(() => NotificationService.Info("Весы не стабильны", "Печать этикеток"));
+            await NotificationService.Info("Весы не стабильны", "Печать этикеток");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
         {
-            Task.Run(() => NotificationService.Info("На весах слишком маленький вес", "Печать этикеток"));
+            await NotificationService.Info("На весах слишком маленький вес", "Печать этикеток");
             return;
         }
+        
+        
 
         LabelInfoDto labelDto = CreateLabelInfoDto();
 
@@ -66,11 +70,11 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         {
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
-            Task.Run(() => NotificationService.Success("Успешно сформирован", "Печать этикеток"));
+            await NotificationService.Success("Успешно сформирован", "Печать этикеток");
         }
         catch (LabelException ex)
         {
-            Task.Run(() => NotificationService.Error(ex.ToString(), "Печать этикеток"));    
+            await NotificationService.Error(ex.ToString(), "Печать этикеток");
         }
     }
     
@@ -135,7 +139,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
     
     private void MouseSubscribe() =>
-        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => PrintLabel());
+        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => Task.Run(PrintLabel));
     
     private void MouseUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<MiddleBtnIsClickedEvent>(this);

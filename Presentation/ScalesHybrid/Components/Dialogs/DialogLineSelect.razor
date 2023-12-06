@@ -11,30 +11,28 @@
     <XMarkIcon class="h-8 w-8" />
   </button>
 </ModalHeader>
-<ModalBody Class="p-0">
-  <DataGrid
+<ModalBody Class="!p-0">
+  <BlazorDataGrid
     SelectedRowChanged="OnRowSelected"
     Data="GetLineEntities()"
     TItem="SqlLineEntity"
-    ShowPager
-    PageSize="7"
-    PagerPosition="DataGridPagerPosition.Bottom"
-    PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
-    Class="text-xl font-semibold !text-black"
   >
     <DataGridColumns>
       <DataGridColumn
         Caption="Номер"
+        TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Number)"
         Width="15%"
       />
       <DataGridColumn
         Caption="Имя"
+        TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Description)"
         Width="45%"
       />
       <DataGridColumn
         Caption="Площадка"
+        TItem="SqlLineEntity"
         Field="WorkShop.Name"
         Width="40%"
       />
@@ -62,5 +60,5 @@
     <TotalItemsShortTemplate>
       <span class="hidden"/>
     </TotalItemsShortTemplate>
-  </DataGrid>
+  </BlazorDataGrid>
 </ModalBody>

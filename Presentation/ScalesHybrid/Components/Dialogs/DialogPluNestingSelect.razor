@@ -12,19 +12,15 @@
   </button>
 </ModalHeader>
 <ModalBody Class="p-0">
-  <DataGrid
+  <BlazorDataGrid
     SelectedRowChanged="OnRowSelected"
     Data="GetPluNestingsEntities()"
     TItem="SqlPluNestingFkEntity"
-    ShowPager
-    PageSize="7"
-    PagerPosition="DataGridPagerPosition.Bottom"
-    PagerOptions="new() { PaginationPosition=PagerElementPosition.Center }"
-    Class="text-xl font-semibold !text-black"
   >
     <DataGridColumns>
       <DataGridColumn
         Caption="По умолчанию"
+        TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
         Width="10%"
       >
@@ -40,26 +36,31 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="Название"
+        TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.Box.Name)"
         Width="45%"
       />
       <DataGridColumn
         Caption="Кол-во вложений"
+        TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
         Width="15%"
       />
       <DataGridColumn
         Caption="Вес коробки"
+        TItem="SqlPluNestingFkEntity"
         Field="Box.Weight"
         Width="10%"
       />
       <DataGridColumn
         Caption="Вес пакета"
+        TItem="SqlPluNestingFkEntity"
         Field="Plu.Bundle.Weight"
         Width="10%"
       />
       <DataGridColumn
         Caption="Вес тары"
+        TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
         Width="10%"
       />
@@ -87,5 +88,5 @@
     <TotalItemsShortTemplate>
       <span class="hidden"/>
     </TotalItemsShortTemplate>
-  </DataGrid>
+  </BlazorDataGrid>
 </ModalBody>

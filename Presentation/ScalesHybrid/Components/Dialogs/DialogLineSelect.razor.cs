@@ -16,7 +16,7 @@ public sealed partial class DialogLineSelect : ComponentBase
 
     private async void OnRowSelected(SqlLineEntity obj)
     {
-        await LineContext.ChangeLine(obj);
+        LineContext.ChangeLine(obj);
         await CloseModal();
     }
 }

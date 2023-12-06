@@ -2,7 +2,7 @@
 
 <li>
   <PluDisplayItem Label="@Localizer["KneadingDisplayPluNestingLabel"]">
-    <p class="text-3xl font-bold truncate">
+    <p class="text-2xl font-medium text-center line-clamp-2">
       @GetFormattedPluNestingName()
     </p>
   </PluDisplayItem>
@@ -18,7 +18,7 @@
       >
         <ChevronLeftIcon class="h-10 w-10" />
       </button>
-      <p class="text-3xl w-1/2 flex items-center justify-center font-bold truncate">
+      <p class="text-3xl w-1/2 flex items-center justify-center font-medium truncate">
         @LineContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
       </p>
       <button
@@ -36,7 +36,7 @@
   <PluDisplayItem Label="@Localizer["KneadingDisplayKneadingLabel"]">
     <div class="flex items-center w-full h-full">
       <div class="w-1/4 h-full"></div>
-      <p class="text-3xl flex items-center justify-center w-2/4 font-bold truncate">
+      <p class="text-3xl flex items-center justify-center w-2/4 font-medium truncate">
         @LineContext.KneadingModel.KneadingCount
       </p>
       <button
