@@ -1,4 +1,8 @@
-namespace DeviceControl.Components.Common;
+using System.Security.Claims;
+using DeviceControl.Services;
+using Microsoft.AspNetCore.Components;
+
+namespace DeviceControl.Features.Shared;
 
 public class RazorComponentBase : ComponentBase
 {

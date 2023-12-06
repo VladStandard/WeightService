@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+
 namespace DeviceControl.Services;
 
 public class JsService

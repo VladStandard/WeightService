@@ -1,6 +1,13 @@
 using Blazored.LocalStorage;
+using DeviceControl.Services;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using Radzen;
+using Ws.StorageCore.Common;
+using Ws.StorageCore.Models;
+using Ws.StorageCore.Utils;
 
-namespace DeviceControl.Components.Common;
+namespace DeviceControl.Features.Shared;
 
 public class SectionBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {

@@ -1,107 +1,107 @@
-@inherits SectionBase<SqlLineEntity>
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-
-@using DeviceControl.Components.Section
-@using DeviceControl.Components.Rz
-
-<div class="rounded-md w-full overflow-hidden border border-black/[.1]">
-  <DataGrid
-    Data="SqlSectionCast"
-    TItem="SqlLineEntity"
-    Class="!mb-0"
-  >
-    <DataGridColumns>
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Version"
-        Field="@nameof(SqlLineEntity.Version)"
-        Width="5%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Line"
-        Field="@nameof(SqlLineEntity.Description)"
-        Width="15%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Number"
-        Field="@nameof(SqlLineEntity.Number)"
-        Width="10%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Device"
-        Field="Host.Name"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Printer"
-        Field="Printer.Name"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.WorkShop"
-        Field="WorkShop.Name"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@LocaleCore.Table.Counter"
-        Field="@nameof(SqlLineEntity.LabelCounter)"
-        Width="10%"
-      />
-    </DataGridColumns>
-      @* <PageButtonTemplate> *@
-      @*   <button type="button" class="h-10 w-10 text-xl"> *@
-      @*       @context.PageNumber *@
-      @*   </button> *@
-      @* </PageButtonTemplate> *@
-      @* <NextPageButtonTemplate> *@
-      @*   <ChevronRightIcon class="h-6 w-6 mx-2 my-2" /> *@
-      @* </NextPageButtonTemplate> *@
-      @* <PreviousPageButtonTemplate> *@
-      @*   <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" /> *@
-      @* </PreviousPageButtonTemplate> *@
-      @* <LastPageButtonTemplate> *@
-      @*   <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" /> *@
-      @* </LastPageButtonTemplate> *@
-      @* <FirstPageButtonTemplate> *@
-      @*   <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" /> *@
-      @* </FirstPageButtonTemplate> *@
-    <TotalItemsTemplate>
-      <span class="hidden"/>
-    </TotalItemsTemplate>
-    <TotalItemsShortTemplate>
-      <span class="hidden"/>
-    </TotalItemsShortTemplate>
-  </DataGrid>
-</div>
-
-
-
-@* <SectionTopBar *@
-@*   Title="@LocaleCore.DeviceControl.SectionScales" *@
-@*   OnSectionUpdate="@GetSectionData" *@
-@*   OnSectionAdd="@SqlItemNewAsync" *@
-@*   SectionCount="@SqlSectionCast.Count" *@
-@*   SqlCrudConfigSection="@SqlCrudConfigSection" *@
-@*   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" *@
-@*   ButtonSettings="@ButtonSettings"/> *@
+@* @inherits DeviceControl.Features.Shared.SectionBase<SqlLineEntity> *@
+@* @attribute [Authorize(Roles = UserAccessStr.Read)] *@
 @* *@
-@* <RzDataGrid *@
-@*   TItem="@SqlLineEntity" *@
-@*   @ref="@DataGrid" *@
-@*   @bind-Value="@SelectedRow" *@
-@*   Data="@SqlSectionCast" *@
-@*   CellContextMenu="@OnCellContextMenu" *@
-@*   RowSelect="@SqlItemSet" *@
-@*   RowDoubleClick="@SqlItemOpenAsync"> *@
-@*   <Columns> *@
-@*     <TItemContent TItem="@SqlLineEntity"> *@
-@*       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="5%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="15%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="10%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host.Name" Width="20%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="Printer.Name" Width="20%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="20%"/> *@
-       @* <RadzenDataGridColumn Title="@LocaleCore.Table.Counter" Property="LabelCounter" Width="10%"/> *@
-@*     </TItemContent> *@
-@*   </Columns> *@
-@* </RzDataGrid> *@
+@* @using DeviceControl.Components.Section *@
+@* @using DeviceControl.Components.Rz *@
+@* *@
+@* <div class="rounded-md w-full overflow-hidden border border-black/[.1]"> *@
+@*   <DataGrid *@
+@*     Data="SqlSectionCast" *@
+@*     TItem="SqlLineEntity" *@
+@*     Class="!mb-0" *@
+@*   > *@
+@*     <DataGridColumns> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Version" *@
+@*         Field="@nameof(SqlLineEntity.Version)" *@
+@*         Width="5%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Line" *@
+@*         Field="@nameof(SqlLineEntity.Description)" *@
+@*         Width="15%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Number" *@
+@*         Field="@nameof(SqlLineEntity.Number)" *@
+@*         Width="10%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Device" *@
+@*         Field="Host.Name" *@
+@*         Width="20%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Printer" *@
+@*         Field="Printer.Name" *@
+@*         Width="20%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.WorkShop" *@
+@*         Field="WorkShop.Name" *@
+@*         Width="20%" *@
+@*       /> *@
+@*       <DataGridColumn *@
+@*         Caption="@LocaleCore.Table.Counter" *@
+@*         Field="@nameof(SqlLineEntity.LabelCounter)" *@
+@*         Width="10%" *@
+@*       /> *@
+@*     </DataGridColumns> *@
+@*       $1$ <PageButtonTemplate> #1# *@
+@*       $1$   <button type="button" class="h-10 w-10 text-xl"> #1# *@
+@*       $1$       @context.PageNumber #1# *@
+@*       $1$   </button> #1# *@
+@*       $1$ </PageButtonTemplate> #1# *@
+@*       $1$ <NextPageButtonTemplate> #1# *@
+@*       $1$   <ChevronRightIcon class="h-6 w-6 mx-2 my-2" /> #1# *@
+@*       $1$ </NextPageButtonTemplate> #1# *@
+@*       $1$ <PreviousPageButtonTemplate> #1# *@
+@*       $1$   <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" /> #1# *@
+@*       $1$ </PreviousPageButtonTemplate> #1# *@
+@*       $1$ <LastPageButtonTemplate> #1# *@
+@*       $1$   <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" /> #1# *@
+@*       $1$ </LastPageButtonTemplate> #1# *@
+@*       $1$ <FirstPageButtonTemplate> #1# *@
+@*       $1$   <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" /> #1# *@
+@*       $1$ </FirstPageButtonTemplate> #1# *@
+@*     <TotalItemsTemplate> *@
+@*       <span class="hidden"/> *@
+@*     </TotalItemsTemplate> *@
+@*     <TotalItemsShortTemplate> *@
+@*       <span class="hidden"/> *@
+@*     </TotalItemsShortTemplate> *@
+@*   </DataGrid> *@
+@* </div> *@
+@* *@
+@* *@
+@* *@
+@* $1$ <SectionTopBar #1# *@
+@* $1$   Title="@LocaleCore.DeviceControl.SectionScales" #1# *@
+@* $1$   OnSectionUpdate="@GetSectionData" #1# *@
+@* $1$   OnSectionAdd="@SqlItemNewAsync" #1# *@
+@* $1$   SectionCount="@SqlSectionCast.Count" #1# *@
+@* $1$   SqlCrudConfigSection="@SqlCrudConfigSection" #1# *@
+@* $1$   IsGuiShowFilterMarked="@IsGuiShowFilterMarked" #1# *@
+@* $1$   ButtonSettings="@ButtonSettings"/> #1# *@
+@* $1$ #1# *@
+@* $1$ <RzDataGrid #1# *@
+@* $1$   TItem="@SqlLineEntity" #1# *@
+@* $1$   @ref="@DataGrid" #1# *@
+@* $1$   @bind-Value="@SelectedRow" #1# *@
+@* $1$   Data="@SqlSectionCast" #1# *@
+@* $1$   CellContextMenu="@OnCellContextMenu" #1# *@
+@* $1$   RowSelect="@SqlItemSet" #1# *@
+@* $1$   RowDoubleClick="@SqlItemOpenAsync"> #1# *@
+@* $1$   <Columns> #1# *@
+@* $1$     <TItemContent TItem="@SqlLineEntity"> #1# *@
+@* $1$       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Version" Property="Version" Width="5%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Description" Width="15%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="10%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Device" Property="Host.Name" Width="20%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Printer" Property="Printer.Name" Width="20%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.WorkShop" Property="WorkShop.Name" Width="20%"/> #1# *@
+@*        $1$ <RadzenDataGridColumn Title="@LocaleCore.Table.Counter" Property="LabelCounter" Width="10%"/> #1# *@
+@* $1$     </TItemContent> #1# *@
+@* $1$   </Columns> #1# *@
+@* $1$ </RzDataGrid> #1# *@

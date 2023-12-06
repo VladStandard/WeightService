@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Version>1.1.9.0</Version>
         <Authors>Владимирский стандарт</Authors>
@@ -10,7 +10,6 @@
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
-        <NeutralLanguage>ru-RU</NeutralLanguage>
         <FileVersion>1.1.9.0</FileVersion>
         <AssemblyVersion>1.1.9.0</AssemblyVersion>
         <Nullable>enable</Nullable>
@@ -25,6 +24,7 @@
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.3.3" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.3.3" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.14" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Radzen.Blazor" Version="4.21.3" />
     </ItemGroup>
     <ItemGroup>
@@ -56,6 +56,37 @@
       <AdditionalFiles Include="Features\Layout\MainLayout.razor" />
       <AdditionalFiles Include="Features\Layout\NavMenu.razor" />
       <AdditionalFiles Include="Features\Layout\NavMenuItem.razor" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\ApplicationResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Resources\ApplicationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

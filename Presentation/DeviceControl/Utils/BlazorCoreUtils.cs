@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Reflection;
+
 namespace DeviceControl.Utils;
 
 public static class BlazorCoreUtils
