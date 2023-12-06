@@ -55,9 +55,9 @@ public class LineContext
     }
 
     public void ResetLine() {
-        Line = HostService.GetLineByHost(Host);
-        PrinterEntity = Line.Printer;
-        ChangeLine(Line);
+        SqlLineEntity newLine = HostService.GetLineByHost(Host);
+        PrinterEntity = newLine.Printer;
+        ChangeLine(newLine);
     }
     
 

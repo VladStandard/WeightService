@@ -1,16 +1,7 @@
 @using Blazor.Heroicons.Solid
 @using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
 
-<ModalHeader>
-  <p class="text-2xl">Выбор Вложенности</p>
-  <button
-    type="button"
-    @onclick="CloseModal"
-    class="w-10 h-10 bg-gray-100 flex overflow-hidden border border-black/[.1] rounded-md justify-center items-center"
-  >
-    <XMarkIcon class="h-8 w-8" />
-  </button>
-</ModalHeader>
+<DialogHeader Label="@Localizer["DialogNestingSelectHeaderLabel"]" />
 <ModalBody Class="p-0">
   <BlazorDataGrid
     SelectedRowChanged="OnRowSelected"
@@ -18,8 +9,8 @@
     TItem="SqlPluNestingFkEntity"
   >
     <DataGridColumns>
-      <DataGridColumn
-        Caption="По умолчанию"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectDefaultColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
         Width="10%"
@@ -30,36 +21,35 @@
             <div class="flex h-full w-full items-center justify-center">
               <StarIcon class="h-8 w-8 text-yellow-500" />
             </div>
-
           }
         </DisplayTemplate>
-      </DataGridColumn>
-      <DataGridColumn
-        Caption="Название"
+      </BlazorDataGridColumn>
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectNameColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.Box.Name)"
         Width="45%"
       />
-      <DataGridColumn
-        Caption="Кол-во вложений"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectBundleCountColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
         Width="15%"
       />
-      <DataGridColumn
-        Caption="Вес коробки"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectBoxWeightColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="Box.Weight"
         Width="10%"
       />
-      <DataGridColumn
-        Caption="Вес пакета"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectBundleWeightColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="Plu.Bundle.Weight"
         Width="10%"
       />
-      <DataGridColumn
-        Caption="Вес тары"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogNestingSelectTareWeightColumn"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
         Width="10%"

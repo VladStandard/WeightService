@@ -39,10 +39,10 @@
     <data name="ButtonPLUNestingChange" xml:space="preserve">
         <value>Изменить ПЛУ</value>
     </data>
-    <data name="KneadingDisplayDateLabel" xml:space="preserve">
+    <data name="ProductDisplayDateLabel" xml:space="preserve">
         <value>Дата</value>
     </data>
-    <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
+    <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value>Замес</value>
     </data>
     <data name="PageTitleIndex" xml:space="preserve">
@@ -51,13 +51,13 @@
     <data name="PageTitlePluSelect" xml:space="preserve">
         <value>Выбор ПЛУ</value>
     </data>
-    <data name="KneadingDisplayNetWeightLabel" xml:space="preserve">
+    <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value>Вес нетто</value>
     </data>
-    <data name="KneadingDisplayPluNestingLabel" xml:space="preserve">
+    <data name="ProductDisplayNestingLabel" xml:space="preserve">
         <value>Вложенность</value>
     </data>
-    <data name="KneadingDisplayTareWeightLabel" xml:space="preserve">
+    <data name="ProductDisplayTareWeightLabel" xml:space="preserve">
         <value>Вес тары</value>
     </data>
     <data name="WeightMeasureKilogram" xml:space="preserve">
@@ -69,7 +69,58 @@
     <data name="ButtonCalculatorEnter" xml:space="preserve">
         <value>Ввод</value>
     </data>
-    <data name="KneadingDisplayPluNestingCount" xml:space="preserve">
+    <data name="ProductDisplayNestingCount" xml:space="preserve">
         <value>Количество вложений</value>
+    </data>
+    <data name="DialogLineSelectHeaderLabel" xml:space="preserve">
+        <value>Выбор линии</value>
+    </data>
+    <data name="DialogLineSelectNumberColumn" xml:space="preserve">
+        <value>Номер</value>
+    </data>
+    <data name="DialogLineSelectNameColumn" xml:space="preserve">
+        <value>Название</value>
+    </data>
+    <data name="DialogLineSelectWorkshopColumn" xml:space="preserve">
+        <value>Площадка</value>
+    </data>
+    <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
+        <value>Выбор ПЛУ</value>
+    </data>
+    <data name="DialogPluSelectNameColumn" xml:space="preserve">
+        <value>Название</value>
+    </data>
+    <data name="DialogPluSelectNumberColumn" xml:space="preserve">
+        <value>Номер</value>
+    </data>
+    <data name="DialogPluSelectTypeColumn" xml:space="preserve">
+        <value>Тип</value>
+    </data>
+    <data name="DialogNestingSelectHeaderLabel" xml:space="preserve">
+        <value>Выбор вложенности</value>
+    </data>
+    <data name="DialogNestingSelectBoxWeightColumn" xml:space="preserve">
+        <value>Вес коробки</value>
+    </data>
+    <data name="DialogNestingSelectBundleWeightColumn" xml:space="preserve">
+        <value>Вес пакета</value>
+    </data>
+    <data name="DialogNestingSelectNameColumn" xml:space="preserve">
+        <value>Название</value>
+    </data>
+    <data name="DialogNestingSelectTareWeightColumn" xml:space="preserve">
+        <value>Вес тары</value>
+    </data>
+    <data name="DialogNestingSelectBundleCountColumn" xml:space="preserve">
+        <value>Кол-во вложений</value>
+    </data>
+    <data name="DialogNestingSelectDefaultColumn" xml:space="preserve">
+        <value>По умолчанию</value>
+    </data>
+    <data name="ProductDisplayWarningPluSelect" xml:space="preserve">
+        <value>Выберите ПЛУ</value>
+    </data>
+    <data name="ProductDisplayWarningScalesDisconnected" xml:space="preserve">
+        <value>Весы отключены</value>
     </data>
 </root>

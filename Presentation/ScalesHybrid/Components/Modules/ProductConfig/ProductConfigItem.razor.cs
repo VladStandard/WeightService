@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 
-namespace ScalesHybrid.Components;
+namespace ScalesHybrid.Components.Modules.ProductConfig;
 
-public sealed partial class PluConfigDisplayItem: ComponentBase
+public sealed partial class ProductConfigItem: ComponentBase
 {
     [Parameter] public string Label { get; set; } = string.Empty;
     [Parameter] public string Value { get; set; } = string.Empty;

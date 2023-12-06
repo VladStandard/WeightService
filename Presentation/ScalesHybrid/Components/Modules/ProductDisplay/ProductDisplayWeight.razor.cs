@@ -5,9 +5,9 @@ using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Scales.Events;
 
-namespace ScalesHybrid.Components.PluDisplay;
+namespace ScalesHybrid.Components.Modules.ProductDisplay;
 
-public sealed partial class PluDisplayWeight: ComponentBase, IDisposable
+public sealed partial class ProductDisplayWeight: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }

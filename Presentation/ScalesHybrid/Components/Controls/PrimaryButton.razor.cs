@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
-using ScalesHybrid.Resources;
 
-namespace ScalesHybrid.Components;
+namespace ScalesHybrid.Components.Controls;
 
 public sealed partial class PrimaryButton : ComponentBase
 {

@@ -1,14 +1,17 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
 
-namespace ScalesHybrid.Components.PluDisplay;
+namespace ScalesHybrid.Components.Modules.ProductDisplay;
 
-public sealed partial class PluDisplay: ComponentBase, IDisposable
+public sealed partial class ProductDisplay: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; }
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     
     private bool IsScalesDisconnected { get; set; }
     

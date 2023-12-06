@@ -3,24 +3,26 @@ using Microsoft.AspNetCore.Components;
 using ScalesHybrid.Models.Enums;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
+using Ws.Scales.Enums;
+using Ws.Scales.Events;
 
-namespace ScalesHybrid.Components;
+namespace ScalesHybrid.Components.Layout;
 
-public sealed partial class StatusPrinter: ComponentBase, IDisposable
+public sealed partial class StatusScales: ComponentBase, IDisposable
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
     
     protected override void OnInitialized()
     {
-        WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, GetStatus);
+        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
     }
 
-    private void GetStatus(object recipient, GetPrinterStatusEvent message)
+    private void GetStatus(object recipient, GetScaleStatusEvent message)
     {
         DeviceStatus = message.Status switch
         {
-            PrinterStatusEnum.IsDisabled => DeviceStatusEnum.IsDisabled,
-            PrinterStatusEnum.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
+            ScalesStatus.IsDisabled => DeviceStatusEnum.IsDisabled,
+            ScalesStatus.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
             _ => DeviceStatusEnum.Connected
         };
         InvokeAsync(StateHasChanged);
@@ -35,6 +37,6 @@ public sealed partial class StatusPrinter: ComponentBase, IDisposable
 
     public void Dispose()
     {
-        WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
+        WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
     }
 }

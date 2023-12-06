@@ -3,13 +3,17 @@
     @if (LineContext.Plu.IsNew)
     {
       <div class="flex w-full h-full items-center justify-center">
-        <p class="text-center text-2xl">Выберите ПЛУ</p>
+        <p class="text-center text-2xl">
+          @Localizer["ProductDisplayWarningPluSelect"]
+        </p>
       </div>
     }
     else if (LineContext.Plu.IsCheckWeight && IsScalesDisconnected)
     {
       <div class="flex w-full h-full items-center justify-center">
-        <p class="text-center text-red-500 text-2xl">Весы отключены</p>
+        <p class="text-center text-red-500 text-2xl">
+          @Localizer["ProductDisplayWarningScalesDisconnected"]
+        </p>
       </div>
     }
     else
@@ -22,13 +26,13 @@
       <ul class="flex overflow-hidden justify-around flex-col h-full w-full px-8 py-4">
         @if (LineContext.Plu.IsCheckWeight)
         {
-          <PluDisplayWeight />
+          <ProductDisplayWeight />
         }
         else
         {
-          <PluDisplayPiece />
+          <ProductDisplayPiece />
         }
-        <PluDisplayKneading />
+        <ProductDisplayKneading />
       </ul>
     }
   </div>

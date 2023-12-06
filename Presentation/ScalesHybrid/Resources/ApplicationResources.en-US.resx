@@ -39,10 +39,10 @@
     <data name="ButtonPLUNestingChange" xml:space="preserve">
         <value>Change PLU nesting</value>
     </data>
-    <data name="KneadingDisplayDateLabel" xml:space="preserve">
+    <data name="ProductDisplayDateLabel" xml:space="preserve">
         <value>Date</value>
     </data>
-    <data name="KneadingDisplayKneadingLabel" xml:space="preserve">
+    <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value>Kneading</value>
     </data>
     <data name="PageTitleIndex" xml:space="preserve">
@@ -51,13 +51,13 @@
     <data name="PageTitlePluSelect" xml:space="preserve">
         <value>PLU Select</value>
     </data>
-    <data name="KneadingDisplayNetWeightLabel" xml:space="preserve">
+    <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value>Net weight</value>
     </data>
-    <data name="KneadingDisplayPluNestingLabel" xml:space="preserve">
+    <data name="ProductDisplayNestingLabel" xml:space="preserve">
         <value>Nesting</value>
     </data>
-    <data name="KneadingDisplayTareWeightLabel" xml:space="preserve">
+    <data name="ProductDisplayTareWeightLabel" xml:space="preserve">
         <value>Tare weight</value>
     </data>
     <data name="WeightMeasureKilogram" xml:space="preserve">
@@ -69,7 +69,58 @@
     <data name="ButtonCalculatorEnter" xml:space="preserve">
         <value>Enter</value>
     </data>
-    <data name="KneadingDisplayPluNestingCount" xml:space="preserve">
+    <data name="ProductDisplayNestingCount" xml:space="preserve">
         <value>Bundle count</value>
+    </data>
+    <data name="DialogLineSelectHeaderLabel" xml:space="preserve">
+        <value>Line Select</value>
+    </data>
+    <data name="DialogLineSelectNumberColumn" xml:space="preserve">
+        <value>Number</value>
+    </data>
+    <data name="DialogLineSelectNameColumn" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="DialogLineSelectWorkshopColumn" xml:space="preserve">
+        <value>Workshop</value>
+    </data>
+    <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
+        <value>PLU Select</value>
+    </data>
+    <data name="DialogPluSelectNameColumn" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="DialogPluSelectNumberColumn" xml:space="preserve">
+        <value>Number</value>
+    </data>
+    <data name="DialogPluSelectTypeColumn" xml:space="preserve">
+        <value>Type</value>
+    </data>
+    <data name="DialogNestingSelectHeaderLabel" xml:space="preserve">
+        <value>Nesting Select</value>
+    </data>
+    <data name="DialogNestingSelectBoxWeightColumn" xml:space="preserve">
+        <value>Box weight</value>
+    </data>
+    <data name="DialogNestingSelectBundleWeightColumn" xml:space="preserve">
+        <value>Bundle weight</value>
+    </data>
+    <data name="DialogNestingSelectNameColumn" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="DialogNestingSelectTareWeightColumn" xml:space="preserve">
+        <value>Tare weight</value>
+    </data>
+    <data name="DialogNestingSelectBundleCountColumn" xml:space="preserve">
+        <value>Bundle count</value>
+    </data>
+    <data name="DialogNestingSelectDefaultColumn" xml:space="preserve">
+        <value>By default</value>
+    </data>
+    <data name="ProductDisplayWarningPluSelect" xml:space="preserve">
+        <value>Select PLU</value>
+    </data>
+    <data name="ProductDisplayWarningScalesDisconnected" xml:space="preserve">
+        <value>Scales are disconnected</value>
     </data>
 </root>

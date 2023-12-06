@@ -7,9 +7,9 @@ using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
 using VerticalAlignment = Blazorise.VerticalAlignment;
 
-namespace ScalesHybrid.Components.PluDisplay;
+namespace ScalesHybrid.Components.Modules.ProductDisplay;
 
-public sealed partial class PluDisplayKneading: ComponentBase, IDisposable
+public sealed partial class ProductDisplayKneading: ComponentBase, IDisposable
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
     [Inject] private LineContext LineContext { get; set; }
