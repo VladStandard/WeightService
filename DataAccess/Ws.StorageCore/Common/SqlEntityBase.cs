@@ -13,7 +13,7 @@ public class SqlEntityBase
     public virtual string Description { get; set; } = string.Empty;
     public virtual bool IsExists => Identity.IsExists;
     public virtual bool IsNew => Identity.IsNew;
-    public virtual string DisplayName => IsNew ? LocaleCore.Table.FieldEmpty : Name;
+    public virtual string DisplayName => IsNew ? string.Empty : Name;
 
     public SqlEntityBase()
     {

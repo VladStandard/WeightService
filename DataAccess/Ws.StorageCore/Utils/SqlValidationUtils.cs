@@ -14,7 +14,7 @@ public static class SqlValidationUtils
             case false:
                 foreach (ValidationFailure failure in result.Errors)
                 {
-                    detailAddition += $"<u>{LocaleCore.Validator.Property}:</u> {failure.PropertyName} {LocaleCore.Validator.FailedValidation}.<br><u>{LocaleCore.Validator.Error}:</u> {failure.ErrorMessage}";
+                    detailAddition += $"><u>Ошибка:</u> {failure.ErrorMessage}";
                     break;
                 }
                 break;

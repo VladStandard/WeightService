@@ -1,7 +1,7 @@
 namespace Ws.StorageCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
-public class SqlViewBase : ViewModelBase
+public class SqlViewBase
 {
     public SqlViewIdentityModel Identity { get; init; }
 
@@ -9,4 +9,7 @@ public class SqlViewBase : ViewModelBase
     {
         Identity = new(uid);
     }
+    
+    public override string ToString() => Identity.Uid.ToString();
+    
 }

@@ -12,7 +12,6 @@ public static class LocaleCore
         set
         {
             _lang = value;
-            Buttons.Lang = _lang;
             ContextMenu.Lang = _lang;
             DeviceControl.Lang = _lang;
             Dialog.Lang = _lang;
@@ -27,7 +26,6 @@ public static class LocaleCore
         }
     }
     
-    public static LocaleButtons Buttons { get; } = new();
     public static LocaleContextMenu ContextMenu { get; } = new();
     public static LocaleDeviceControl DeviceControl { get; } = new();
     public static LocaleDialog Dialog { get; } = new();

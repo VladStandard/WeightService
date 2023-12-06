@@ -1,10 +1,8 @@
-using Ws.DataCore.Settings;
-
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>
 {
-    public List<SqlLogWebEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlLogWebEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
@@ -19,7 +17,7 @@ public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>
         {
             CreateDt = requestStampDt,
             StampDt = DateTime.Now,
-            Version = AppVersionHelper.Instance.Version,
+            Version = "beta",
             Url = url,
             DataRequest = requestDataString,
             DataResponse = responseDataString,

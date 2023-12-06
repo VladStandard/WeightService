@@ -14,7 +14,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
-        <ProjectReference Include="..\..\Domain\Ws.DataCore\Ws.DataCore.csproj" />
         <ProjectReference Include="..\..\Domain\WsLocalizationCore\WsLocalizationCore.csproj" />
     </ItemGroup>
 </Project>

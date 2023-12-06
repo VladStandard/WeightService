@@ -4,15 +4,20 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6"
+  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
+  IgnorableNamespaces="uap rescap uap3 uap6 iot uap4 uap2">
 
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=User Name" Version="0.0.0.0" />
+  <Identity Name="maui-package-name-placeholder" Publisher="CN=Aleksandrov_DD" Version="0.0.6.0" />
 
   <mp:PhoneIdentity PhoneProductId="EC66F7DD-78BD-4919-99F7-6D5AD5A05E41" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>$placeholder$</DisplayName>
-    <PublisherDisplayName>User Name</PublisherDisplayName>
+    <PublisherDisplayName>BaggerFast</PublisherDisplayName>
     <Logo>$placeholder$.png</Logo>
   </Properties>
 
@@ -35,12 +40,51 @@
         BackgroundColor="transparent">
         <uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
         <uap:SplashScreen Image="$placeholder$.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <Capability Name="internetClient"/>
+    <Capability Name="internetClientServer"/>
+    <Capability Name="allJoyn"/>
+    <uap3:Capability Name="backgroundMediaPlayback"/>
+    <uap:Capability Name="chat"/>
+    <uap:Capability Name="blockedChatMessages"/>
+    <uap:Capability Name="appointments"/>
+    <uap:Capability Name="contacts"/>
+    <uap:Capability Name="enterpriseAuthentication"/>
+    <Capability Name="codeGeneration"/>
+    <uap6:Capability Name="graphicsCapture"/>
+    <iot:Capability Name="lowLevelDevices"/>
+    <uap:Capability Name="musicLibrary"/>
+    <uap:Capability Name="phoneCall"/>
+    <uap:Capability Name="objects3D"/>
+    <uap4:Capability Name="offlineMapsManagement"/>
+    <uap:Capability Name="picturesLibrary"/>
+    <uap2:Capability Name="phoneCallHistoryPublic"/>
+    <Capability Name="privateNetworkClientServer"/>
+    <uap:Capability Name="removableStorage"/>
+    <uap3:Capability Name="remoteSystem"/>
+    <uap2:Capability Name="spatialPerception"/>
+    <iot:Capability Name="systemManagement"/>
+    <uap:Capability Name="sharedUserCertificates"/>
+    <uap:Capability Name="userAccountInformation"/>
+    <uap4:Capability Name="userDataTasks"/>
+    <uap:Capability Name="videosLibrary"/>
+    <uap3:Capability Name="userNotificationListener"/>
+    <uap:Capability Name="voipCall"/>
+    <DeviceCapability Name="bluetooth"/>
+    <DeviceCapability Name="gazeInput"/>
+    <DeviceCapability Name="location"/>
+    <DeviceCapability Name="lowLevel"/>
+    <DeviceCapability Name="microphone"/>
+    <DeviceCapability Name="pointOfService"/>
+    <DeviceCapability Name="proximity"/>
+    <DeviceCapability Name="webcam"/>
   </Capabilities>
 
 </Package>

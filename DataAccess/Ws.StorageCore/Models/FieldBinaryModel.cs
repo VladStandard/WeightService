@@ -1,3 +1,5 @@
+using Ws.Shared.Utils;
+
 namespace Ws.StorageCore.Models;
 
 public class FieldBinaryModel
@@ -13,8 +15,6 @@ public class FieldBinaryModel
         set => Value = Encoding.Unicode.GetBytes(value);
     }
 
-    public virtual string Info { get => DataUtils.GetBytesLength(Value, true); set => _ = value; }
-
     public FieldBinaryModel()
     {
         Value = Array.Empty<byte>();
@@ -29,10 +29,7 @@ public class FieldBinaryModel
     #endregion
 
     #region Public and private methods - override
-
-    public override string ToString() =>
-        $"{nameof(Info)}: {Info}. ";
-
+    
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

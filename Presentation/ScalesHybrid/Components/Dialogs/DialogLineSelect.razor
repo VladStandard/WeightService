@@ -1,32 +1,31 @@
 @using Ws.StorageCore.Entities.SchemaScale.Scales
 @using Blazor.Heroicons.Outline
 
-<ModalHeader>
-  <p class="text-2xl">Выбор линии</p>
-  <button
-    type="button"
-    @onclick="CloseModal"
-    class="w-10 h-10 bg-gray-100 flex overflow-hidden border border-black/[.1] rounded-md justify-center items-center"
+<DialogHeader Label="@Localizer["DialogLineSelectHeaderLabel"]" />
+
+<ModalBody Class="!p-0">
+  <BlazorDataGrid
+    SelectedRowChanged="OnRowSelected"
+    Data="GetLineEntities()"
+    TItem="SqlLineEntity"
   >
-    <XMarkIcon class="h-8 w-8" />
-  </button>
-</ModalHeader>
-<ModalBody Class="p-0">
-  <DataGrid SelectedRowChanged="OnRowSelected" Data="GetLineEntities()" TItem="SqlLineEntity" PageSize="7">
     <DataGridColumns>
-      <DataGridColumn
-        Caption="Номер"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogLineSelectNumberColumn"]"
+        TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Number)"
         Width="15%"
       />
-      <DataGridColumn
-        Caption="Имя"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogLineSelectNameColumn"]"
+        TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Description)"
         Width="45%"
       />
-      <DataGridColumn
-        Caption="Площадка"
-        Field="@nameof(SqlLineEntity.WorkShop.Name)"
+      <BlazorDataGridColumn
+        Caption="@Localizer["DialogLineSelectWorkshopColumn"]"
+        TItem="SqlLineEntity"
+        Field="WorkShop.Name"
         Width="40%"
       />
     </DataGridColumns>
@@ -53,5 +52,5 @@
     <TotalItemsShortTemplate>
       <span class="hidden"/>
     </TotalItemsShortTemplate>
-  </DataGrid>
+  </BlazorDataGrid>
 </ModalBody>

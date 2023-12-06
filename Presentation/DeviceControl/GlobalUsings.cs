@@ -23,6 +23,5 @@ global using DeviceControl.Settings;
 global using DeviceControl.Services;
 global using DeviceControl.Components.Common;
 
-global using Ws.DataCore.Enums;
 global using Ws.DataCore.Utils;
 global using Ws.StorageCore.Helpers;

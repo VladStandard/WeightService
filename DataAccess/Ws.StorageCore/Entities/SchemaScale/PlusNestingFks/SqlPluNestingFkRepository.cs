@@ -2,8 +2,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
 public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNestingFkEntity>
 {
-    public SqlViewPluNestingModel GetNewView() => new();
-
     public IEnumerable<SqlPluNestingFkEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         return SqlCore.GetEnumerable<SqlPluNestingFkEntity>(sqlCrudConfig).OrderBy(x => x.Plu.Number);

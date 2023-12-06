@@ -1,3 +1,5 @@
+using Ws.Shared.Enums;
+
 namespace Ws.StorageCore.Entities.SchemaScale.Access;
 
 /// <summary>

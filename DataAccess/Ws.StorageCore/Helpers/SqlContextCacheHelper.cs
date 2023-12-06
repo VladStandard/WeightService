@@ -14,7 +14,6 @@ public sealed class SqlContextCacheHelper
 
     #region Public and private fields, properties, constructor - Инициализация репозиториев
     
-    private SqlViewPluNestingRepository ViewPluNestingFkRepository { get; } = new();
     private SqlViewPluLineRepository PluLineRepository { get; } = new();
     private SqlViewTableSizeRepository ViewTableSizeRepository { get; } = new();
     private SqlWorkShopRepository WorkShopRepository { get; } = new();
@@ -31,8 +30,6 @@ public sealed class SqlContextCacheHelper
     public List<SqlWorkShopEntity> WorkShops { get; private set; } = new();
 
     #endregion
-    
-    public List<SqlViewPluNestingModel> ViewPlusNesting { get; set; } = new();
     
     #region Public and private fields, properties, constructor - Локальный кэш представлений
 
@@ -80,8 +77,6 @@ public sealed class SqlContextCacheHelper
             WorkShops = WorkShopRepository.GetEnumerable(SqlCrudConfig).ToList();
         if (!Lines.Any() || Equals(tableName, SqlEnumTableName.All) || Equals(tableName, SqlEnumTableName.Lines))
             Lines = LineRepository.GetEnumerable(SqlCrudConfig).ToList();
-        if (!ViewPlusNesting.Any() || Equals(tableName, SqlEnumTableName.All) || Equals(tableName, SqlEnumTableName.ViewPlusNesting))
-            ViewPlusNesting = ViewPluNestingFkRepository.GetEnumerable().ToList();
     }
     
     /// <summary>

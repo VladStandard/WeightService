@@ -11,7 +11,7 @@ public static class NameFormatting
         SqlBoxEntity box = sqlPluNestingEntity.Box;
         SqlBundleEntity bundle = sqlPluNestingEntity.Plu.Bundle;
         short bundleCount = sqlPluNestingEntity.BundleCount;
-        return $"{FormatBoxName(box)} {FormatBundleName(bundle, bundleCount)}".Trim();
+        return string.Join(" | ", new List<string> { FormatBoxName(box), FormatBundleName(bundle, bundleCount) });
     }
     
     private static string FormatBoxName(SqlBoxEntity box)

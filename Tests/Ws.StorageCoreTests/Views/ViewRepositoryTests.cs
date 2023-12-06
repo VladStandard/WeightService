@@ -1,3 +1,5 @@
+using Ws.Shared.Enums;
+
 namespace Ws.StorageCoreTests.Views;
 
 public class ViewRepositoryTests

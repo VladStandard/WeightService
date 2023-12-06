@@ -132,47 +132,137 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата.
+        ///   Looks up a localized string similar to Выбор линии.
         /// </summary>
-        internal static string KneadingDisplayDateLabel {
+        internal static string DialogLineSelectHeaderLabel {
             get {
-                return ResourceManager.GetString("KneadingDisplayDateLabel", resourceCulture);
+                return ResourceManager.GetString("DialogLineSelectHeaderLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Замес.
+        ///   Looks up a localized string similar to Название.
         /// </summary>
-        internal static string KneadingDisplayKneadingLabel {
+        internal static string DialogLineSelectNameColumn {
             get {
-                return ResourceManager.GetString("KneadingDisplayKneadingLabel", resourceCulture);
+                return ResourceManager.GetString("DialogLineSelectNameColumn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес нетто.
+        ///   Looks up a localized string similar to Номер.
         /// </summary>
-        internal static string KneadingDisplayNetWeightLabel {
+        internal static string DialogLineSelectNumberColumn {
             get {
-                return ResourceManager.GetString("KneadingDisplayNetWeightLabel", resourceCulture);
+                return ResourceManager.GetString("DialogLineSelectNumberColumn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вложенность.
+        ///   Looks up a localized string similar to Площадка.
         /// </summary>
-        internal static string KneadingDisplayPluNestingLabel {
+        internal static string DialogLineSelectWorkshopColumn {
             get {
-                return ResourceManager.GetString("KneadingDisplayPluNestingLabel", resourceCulture);
+                return ResourceManager.GetString("DialogLineSelectWorkshopColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вес коробки.
+        /// </summary>
+        internal static string DialogNestingSelectBoxWeightColumn {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectBoxWeightColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Кол-во вложений.
+        /// </summary>
+        internal static string DialogNestingSelectBundleCountColumn {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectBundleCountColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вес пакета.
+        /// </summary>
+        internal static string DialogNestingSelectBundleWeightColumn {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectBundleWeightColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to По умолчанию.
+        /// </summary>
+        internal static string DialogNestingSelectDefaultColumn {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectDefaultColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбор вложенности.
+        /// </summary>
+        internal static string DialogNestingSelectHeaderLabel {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectHeaderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название.
+        /// </summary>
+        internal static string DialogNestingSelectNameColumn {
+            get {
+                return ResourceManager.GetString("DialogNestingSelectNameColumn", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Вес тары.
         /// </summary>
-        internal static string KneadingDisplayTareWeightLabel {
+        internal static string DialogNestingSelectTareWeightColumn {
             get {
-                return ResourceManager.GetString("KneadingDisplayTareWeightLabel", resourceCulture);
+                return ResourceManager.GetString("DialogNestingSelectTareWeightColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбор ПЛУ.
+        /// </summary>
+        internal static string DialogPluSelectHeaderLabel {
+            get {
+                return ResourceManager.GetString("DialogPluSelectHeaderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название.
+        /// </summary>
+        internal static string DialogPluSelectNameColumn {
+            get {
+                return ResourceManager.GetString("DialogPluSelectNameColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер.
+        /// </summary>
+        internal static string DialogPluSelectNumberColumn {
+            get {
+                return ResourceManager.GetString("DialogPluSelectNumberColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Тип.
+        /// </summary>
+        internal static string DialogPluSelectTypeColumn {
+            get {
+                return ResourceManager.GetString("DialogPluSelectTypeColumn", resourceCulture);
             }
         }
         
@@ -191,6 +281,78 @@ namespace ScalesHybrid.Resources {
         internal static string PageTitlePluSelect {
             get {
                 return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата.
+        /// </summary>
+        internal static string ProductDisplayDateLabel {
+            get {
+                return ResourceManager.GetString("ProductDisplayDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Замес.
+        /// </summary>
+        internal static string ProductDisplayKneadingLabel {
+            get {
+                return ResourceManager.GetString("ProductDisplayKneadingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество вложений.
+        /// </summary>
+        internal static string ProductDisplayNestingCount {
+            get {
+                return ResourceManager.GetString("ProductDisplayNestingCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вложенность.
+        /// </summary>
+        internal static string ProductDisplayNestingLabel {
+            get {
+                return ResourceManager.GetString("ProductDisplayNestingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вес нетто.
+        /// </summary>
+        internal static string ProductDisplayNetWeightLabel {
+            get {
+                return ResourceManager.GetString("ProductDisplayNetWeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вес тары.
+        /// </summary>
+        internal static string ProductDisplayTareWeightLabel {
+            get {
+                return ResourceManager.GetString("ProductDisplayTareWeightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите ПЛУ.
+        /// </summary>
+        internal static string ProductDisplayWarningPluSelect {
+            get {
+                return ResourceManager.GetString("ProductDisplayWarningPluSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Весы отключены.
+        /// </summary>
+        internal static string ProductDisplayWarningScalesDisconnected {
+            get {
+                return ResourceManager.GetString("ProductDisplayWarningScalesDisconnected", resourceCulture);
             }
         }
         
