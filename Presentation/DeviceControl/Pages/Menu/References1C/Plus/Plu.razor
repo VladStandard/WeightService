@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlPluEntity>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionPlus"
+  Title="@Locale.SectionPlus"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -27,15 +27,15 @@
   <Columns>
     <TItemContent TItem="@SqlPluEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Weighted" SortProperty="IsCheckWeight" Width="5%">
+      <RadzenDataGridColumn Title="@Locale.Name" Property="Name" Width="25%"/>
+      <RadzenDataGridColumn Title="@Locale.Weighted" SortProperty="IsCheckWeight" Width="5%">
         <Template Context="itemCast">
           <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsCheckWeight"/>
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Number" Property="Number" Width="25%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Code" Property="Code" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ShelfLifeDaysShort" Property="ShelfLifeDays" Width="10%"/>
+      <RadzenDataGridColumn Title="@Locale.Number" Property="Number" Width="25%"/>
+      <RadzenDataGridColumn Title="@Locale.Code" Property="Code" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.ShelfLifeDaysShort" Property="ShelfLifeDays" Width="10%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

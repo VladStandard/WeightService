@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlLogWebEntity>
 
 <SectionTopBar
-  Title="@LocaleCore.WebService.Name"
+  Title="@Locale.Name"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -25,13 +25,13 @@
   <Columns>
     <TItemContent TItem="@SqlLogWebEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ChangeDt" Property="StampDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.App" Property="Version" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.RequestUrl" Property="Url" Width="40%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Count" Property="CountAll" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Success" Property="CountSuccess" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Error" Property="CountErrors" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@Locale.ChangeDt" Property="StampDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
+      <RadzenDataGridColumn Title="@Locale.App" Property="Version" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.RequestUrl" Property="Url" Width="40%"/>
+      <RadzenDataGridColumn Title="@Locale.Count" Property="CountAll" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.Success" Property="CountSuccess" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.Error" Property="CountErrors" Width="15%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

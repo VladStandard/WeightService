@@ -6,66 +6,66 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlPluEntity>
 
-<ItemTopBar TItem="@SqlPluEntity" Title="@LocaleCore.DeviceControl.ItemNomenclature" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluEntity" Title="@Locale.ItemNomenclature" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.PluNumber</td>
+    <td>@Locale.PluNumber</td>
     <td>@SqlItemCast.Number</td>
-    <td>@LocaleCore.Table.CheckWeight</td>
+    <td>@Locale.CheckWeight</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@SqlItemCast.IsCheckWeight"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@Locale.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@Locale.NomenclatureCode</td>
     <td>@SqlItemCast.Code</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@LocaleCore.Table.Bundle"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Bundle)" Text="@Locale.Bundle"/>
     </td>
     <td>@SqlItemCast.Bundle.Name</td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Brand)" Text="@LocaleCore.Table.Brand"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Brand)" Text="@Locale.Brand"/>
     </td>
     <td>@SqlItemCast.Brand.Name</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(PluTemplateFk.Template)" Text="@LocaleCore.Table.Template"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(PluTemplateFk.Template)" Text="@Locale.Template"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@PluTemplateFk.Template" Data="@Templates" TextProperty="Title" />
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@LocaleCore.Table.PluStorage"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(StorageMethod)" Text="@Locale.PluStorage"/>
     </td>
     <td>@StorageMethod?.Name</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Ean13</td>
+    <td>@Locale.Ean13</td>
     <td>@SqlItemCast.Ean13</td>
-    <td>@LocaleCore.Table.Gtin</td>
+    <td>@Locale.Gtin</td>
     <td>@SqlItemCast.Gtin</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Itf14</td>
+    <td>@Locale.Itf14</td>
     <td>@SqlItemCast.Itf14</td>
-    <td>@LocaleCore.Table.ShelfLifeDays</td>
+    <td>@Locale.ShelfLifeDays</td>
     <td>@SqlItemCast.ShelfLifeDays</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.FullName</td>
+    <td>@Locale.FullName</td>
     <td>
       <RadzenTextArea Style="width: 100%; height: 100px;" Disabled="true" Value="@SqlItemCast.FullName"/>
     </td>
-    <td>@LocaleCore.Table.Description</td>
+    <td>@Locale.Description</td>
     <td>
       <RadzenTextArea Style="width: 100%; height: 100px;" Disabled="true" Value="@SqlItemCast.Description" Rows="3"/>
     </td>

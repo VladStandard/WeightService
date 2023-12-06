@@ -3,24 +3,24 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlLogWebEntity>
 
-<ItemTopBar TItem="SqlLogWebEntity" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlLogWebEntity" Title="@Locale.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 10, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Version</td>
+    <td>@Locale.Version</td>
     <td>@SqlItemCast.Version</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.RequestUrl</td>
+    <td>@Locale.RequestUrl</td>
     <td>@SqlItemCast.Url</td>
-    <td>@LocaleCore.Table.Request</td>
+    <td>@Locale.Request</td>
     <td>@SqlItemCast.ToString()</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Request</td>
+    <td>@Locale.Request</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
@@ -29,11 +29,11 @@
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataRequest))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
+                    Text="@Locale.TableActionCopy"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Response</td>
+    <td>@Locale.Response</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
@@ -42,7 +42,7 @@
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataResponse))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
-                    Text="@LocaleCore.DeviceControl.TableActionCopy"/>
+                    Text="@Locale.TableActionCopy"/>
     </td>
   </tr>
   @* <ItemDates SqlItem="@SqlItemCast.LogWebRequest"/> *@

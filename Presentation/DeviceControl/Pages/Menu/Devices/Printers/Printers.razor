@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlPrinterEntity>
 
 <SectionTopBar
-  Title="@LocaleCore.Print.Names"
+  Title="@Locale.Names"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,9 +24,9 @@
   <Columns>
     <TItemContent TItem="@SqlPrinterEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Print.Type" Property="Type" Width="20%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Print.Ip" Property="Ip" Width="20%"/>
+      <RadzenDataGridColumn Title="@Locale.Name" Property="Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@Locale.Type" Property="Type" Width="20%"/>
+      <RadzenDataGridColumn Title="@Locale.Ip" Property="Ip" Width="20%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

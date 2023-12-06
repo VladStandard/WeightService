@@ -6,7 +6,7 @@
 
 <MudPaper Outlined="true" Class="mb-2">
   <MudToolBar Dense="true">
-    <RadzenLabel Style="font-size: 15px;" Text="@LocaleCore.DeviceControl.SectionWeithingFactsAggregation"/>
+    <RadzenLabel Style="font-size: 15px;" Text="@Locale.SectionWeithingFactsAggregation"/>
     <RadzenButton
       Icon="refresh"
       ButtonStyle="@ButtonStyle.Primary"
@@ -23,14 +23,14 @@
   Data="@PluWeightAggrs">
   <Columns>
     <TItemContent TItem="@SqlViewPluLabelAggrModel">
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
-      <RadzenDataGridColumn TItem="@SqlViewPluLabelAggrModel" Title="@LocaleCore.Table.DayOfWeek" SortProperty="CreateDt.DayOfWeek" Width="15%">
+      <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtShort"/>
+      <RadzenDataGridColumn TItem="@SqlViewPluLabelAggrModel" Title="@Locale.DayOfWeek" SortProperty="CreateDt.DayOfWeek" Width="15%">
         <Template Context="itemCast">
           @GetDayOfWeekRu(itemCast.CreateDt.DayOfWeek)
         </Template>
       </RadzenDataGridColumn>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WithoutWeightCount" Property="WithoutWeightCount" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WeightCount" Property="WeightCount" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.WithoutWeightCount" Property="WithoutWeightCount" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.WeightCount" Property="WeightCount" Width="15%"/>
       <RadzenDataGridColumn Title="Всего" Property="TotalCount" Width="15%" />
     </TItemContent>
   </Columns>

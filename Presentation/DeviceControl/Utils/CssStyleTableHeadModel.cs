@@ -31,11 +31,11 @@ public class CssStyleTableHeadModel
         
         List<string> columnsTitles = new()
         {
-            LocaleCore.Strings.SettingName
+            Locale.SettingName
         };
 
         for (int i = 1; i < ColumnsWidths.Count; i++)
-            columnsTitles.Add(i % 2 == 0 ? LocaleCore.Strings.SettingName : LocaleCore.Strings.SettingValue);
+            columnsTitles.Add(i % 2 == 0 ? Locale.SettingName : Locale.SettingValue);
         return columnsTitles;
     }
 

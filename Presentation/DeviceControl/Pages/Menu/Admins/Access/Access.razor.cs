@@ -12,10 +12,10 @@ public sealed partial class Access : SectionBase<SqlAccessEntity>
     private static string GetAccessRightsDescription(byte accessRights) =>
         (EnumAccessRights)accessRights switch
         {
-            EnumAccessRights.Read => LocaleCore.Strings.AccessRightsRead,
-            EnumAccessRights.Write => LocaleCore.Strings.AccessRightsWrite,
-            EnumAccessRights.Admin => LocaleCore.Strings.AccessRightsAdmin,
-            _ => LocaleCore.Strings.AccessRightsNone
+            EnumAccessRights.Read => Locale.AccessRightsRead,
+            EnumAccessRights.Write => Locale.AccessRightsWrite,
+            EnumAccessRights.Admin => Locale.AccessRightsAdmin,
+            _ => Locale.AccessRightsNone
         };
 
 }

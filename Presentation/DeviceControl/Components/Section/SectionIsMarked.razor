@@ -2,7 +2,7 @@
 @inherits ComponentBase
 
 <RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center"
-                      SortProperty="IsMarked" Title="@LocaleCore.Table.IsMarkedShort"
+                      SortProperty="IsMarked" Title="@Locale.IsMarkedShort"
                       Visible="@(SqlCrudConfigSection.IsMarked != SqlEnumIsMarked.ShowOnlyActual)">
   <Template Context="item">
     @if (item.IsMarked)

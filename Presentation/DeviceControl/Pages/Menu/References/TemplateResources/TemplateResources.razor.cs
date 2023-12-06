@@ -12,8 +12,8 @@ public sealed partial class TemplateResources : SectionBase<SqlTemplateResourceE
     private static string ConvertBytes(SqlTemplateResourceEntity templateResource)
     {
         return templateResource.DataValue.Length > 1024
-            ? $"{templateResource.DataValue.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
-            : $"{templateResource.DataValue.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
+            ? $"{templateResource.DataValue.Length / 1024:### ##0} {Locale.DataSizeKBytes}"
+            : $"{templateResource.DataValue.Length:##0} {Locale.DataSizeBytes}";
     }
 
     #endregion

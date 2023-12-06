@@ -26,20 +26,20 @@
       PagerPosition="PagerPosition.Bottom">
         <Columns>
           <TItemContent TItem="@SqlViewTableSizeModel">
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Schema" Property="Schema" Width="25%" />
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Table" Property="Table" Width="25%"/>
-            <RadzenDataGridColumn Title="@LocaleCore.Table.RowCount" Property="RowsCount" />
-            <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="UsedSpaceMb" />
+            <RadzenDataGridColumn Title="@Locale.Schema" Property="Schema" Width="25%" />
+            <RadzenDataGridColumn Title="@Locale.Table" Property="Table" Width="25%"/>
+            <RadzenDataGridColumn Title="@Locale.RowCount" Property="RowsCount" />
+            <RadzenDataGridColumn Title="@Locale.Size" Property="UsedSpaceMb" />
           </TItemContent>
         </Columns>
       </RzDataGrid>
   </Template>
   <Columns>
     <TItemContent TItem="@WsSqlViewDbFileSizeInfoModel">
-      <RadzenDataGridColumn Title="@LocaleCore.Table.File" Property="FileName" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.TableCount" Property="Tables.Count" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Size" Property="SizeMb" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Percents" SortProperty="DbFillSize" Width="65%">
+      <RadzenDataGridColumn Title="@Locale.File" Property="FileName" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.TableCount" Property="Tables.Count" Width="10%"/>
+      <RadzenDataGridColumn Title="@Locale.Size" Property="SizeMb" Width="10%"/>
+      <RadzenDataGridColumn Title="@Locale.Percents" SortProperty="DbFillSize" Width="65%">
         <Template Context="itemCast">
           <RadzenProgressBar Style="color: black; font-weight: bold" Value="@itemCast.DbFillSize" ShowValue="true"/>
         </Template>

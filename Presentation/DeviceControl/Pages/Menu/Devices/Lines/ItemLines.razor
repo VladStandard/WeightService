@@ -6,31 +6,31 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<SqlLineEntity>
 
-<ItemTopBar TItem="@SqlLineEntity" Title="@LocaleCore.DeviceControl.ItemScale" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlLineEntity" Title="@Locale.ItemScale" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@Locale.Name</td>
     <td>
       <RzTextBox @bind-Value="@SqlItemCast.Description"/>
     </td>
-    <td>@LocaleCore.Table.DeviceComPort</td>
+    <td>@Locale.DeviceComPort</td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Host)" Text="@LocaleCore.Table.Host"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Host)" Text="@Locale.Host"/>
     </td>
     <td>
       <RzDropDown @bind-Value="@SqlItemCast.Host" Data="@HostModels" TextProperty="DisplayName"/>
     </td>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Printer)" Text="@LocaleCore.Print.NameMain"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Printer)" Text="@Locale.NameMain"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.Printer" Data="@PrinterModels" TextProperty="DisplayName" />
@@ -38,22 +38,22 @@
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@LocaleCore.Table.WorkShopName"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.WorkShop)" Text="@Locale.WorkShopName"/>
     </td>
     <td>
       <RzDropDownNullable @bind-Value="@SqlItemCast.WorkShop" Data="@WorkShopModels" TextProperty="DisplayName" />
     </td>
-    <td>@LocaleCore.Table.Counter</td>
+    <td>@Locale.Counter</td>
     <td>
       <RzNumeric Min="0" Max="999999" @bind-Value="@SqlItemCast.LabelCounter"/>
     </td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.DeviceNumber</td>
+    <td>@Locale.DeviceNumber</td>
     <td>
       <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
-    <td>@LocaleCore.Table.DownloadUrl</td>
+    <td>@Locale.DownloadUrl</td>
     <td>@SqlItemCast.ClickOnce</td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>

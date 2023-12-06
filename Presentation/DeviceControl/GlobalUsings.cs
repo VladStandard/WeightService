@@ -11,9 +11,6 @@ global using Microsoft.AspNetCore.Components.Authorization;
 global using Radzen;
 global using Radzen.Blazor;
 
-global using WsLocalizationCore.Models;
-global using WsLocalizationCore.Utils;
-
 global using Ws.StorageCore.Models;
 global using Ws.StorageCore.Utils;
 global using Ws.StorageCore.Common;

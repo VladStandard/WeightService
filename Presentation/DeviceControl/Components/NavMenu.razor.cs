@@ -1,90 +1,87 @@
 using Ws.Shared.Utils;
-using WsLocalizationCore.DeviceControlModels;
 
 namespace DeviceControl.Components;
 
 public sealed partial class NavMenu : ComponentBase
 {
-    private static LocaleDeviceControl LocaleBlazor => new();
-    
     private static string SidebarThemeCss => ConfigurationUtil.IsDevelop ? "side-nav-dev" : "side-nav-prod";
     
     private List<MenuSection> MenuSections { get; set; } = new()
     {
         new()
         {
-            Text = LocaleBlazor.SectionDevices,
+            Text = Locale.SectionDevices,
             RequiredRole = UserAccessStr.Read,
             Icon = "extension",
             SubItems = new()
             {
-                new(LocaleBlazor.SectionScales, RouteUtils.SectionLines),
-                new(LocaleBlazor.SectionHosts, RouteUtils.SectionHosts),
-                new(LocaleCore.Print.Names, RouteUtils.SectionPrinters),
+                new(Locale.SectionScales, RouteUtils.SectionLines),
+                new(Locale.SectionHosts, RouteUtils.SectionHosts),
+                new(Locale.Names, RouteUtils.SectionPrinters),
             }
         },
         new()
         {
-            Text = LocaleBlazor.SectionOperations,
+            Text = Locale.SectionOperations,
             RequiredRole = UserAccessStr.Read,
             Icon = "assignment",
             SubItems = new()
             {
-                new(LocaleBlazor.SectionLabels, RouteUtils.SectionPlusLabels),
-                new(LocaleBlazor.SectionBarCodes, RouteUtils.SectionBarCodes),
-                new(LocaleBlazor.SectionWeighings, RouteUtils.SectionPlusWeightings),
-                new(LocaleBlazor.SectionWeithingFactsAggregationShort, RouteUtils.SectionPlusLabelsAggr)
+                new(Locale.SectionLabels, RouteUtils.SectionPlusLabels),
+                new(Locale.SectionBarCodes, RouteUtils.SectionBarCodes),
+                new(Locale.SectionWeighings, RouteUtils.SectionPlusWeightings),
+                new(Locale.SectionWeithingFactsAggregationShort, RouteUtils.SectionPlusLabelsAggr)
             }
         },
         new()
         {
-            Text = LocaleBlazor.SectionReferences1C,
+            Text = Locale.SectionReferences1C,
             RequiredRole = UserAccessStr.Read,
             Icon = "copyright",
             SubItems = new()
             {
-                new(LocaleBlazor.SectionPlus, RouteUtils.SectionPlus),
-                new(LocaleBlazor.SectionBoxes, RouteUtils.SectionBoxes),
-                new(LocaleBlazor.SectionClips, RouteUtils.SectionClips),
-                new(LocaleBlazor.SectionBundles, RouteUtils.SectionBundles),
-                new(LocaleBlazor.SectionBrands, RouteUtils.SectionBrands)
+                new(Locale.SectionPlus, RouteUtils.SectionPlus),
+                new(Locale.SectionBoxes, RouteUtils.SectionBoxes),
+                new(Locale.SectionClips, RouteUtils.SectionClips),
+                new(Locale.SectionBundles, RouteUtils.SectionBundles),
+                new(Locale.SectionBrands, RouteUtils.SectionBrands)
             }
         },
         new()
         {
-            Text = LocaleBlazor.SectionReferences,
+            Text = Locale.SectionReferences,
             RequiredRole = UserAccessStr.Read,
             Icon = "description",
             SubItems = new()
             {
-                new(LocaleBlazor.SectionWorkShops, RouteUtils.SectionWorkShops),
-                new(LocaleBlazor.SectionProductionFacilitiesShort, RouteUtils.SectionProductionFacilities),
-                new(LocaleBlazor.SectionTemplates, RouteUtils.SectionTemplates),
-                new(LocaleBlazor.SectionTemplateResources, RouteUtils.SectionTemplateResources),
-                new(LocaleBlazor.SectionPlusStorage, RouteUtils.SectionPlusStorage)
+                new(Locale.SectionWorkShops, RouteUtils.SectionWorkShops),
+                new(Locale.SectionProductionFacilitiesShort, RouteUtils.SectionProductionFacilities),
+                new(Locale.SectionTemplates, RouteUtils.SectionTemplates),
+                new(Locale.SectionTemplateResources, RouteUtils.SectionTemplateResources),
+                new(Locale.SectionPlusStorage, RouteUtils.SectionPlusStorage)
             }
         },
         new()
         {
-            Text = LocaleCore.Menu.MenuReports,
+            Text = Locale.MenuReports,
             RequiredRole = UserAccessStr.Read,
             Icon = "build",
             SubItems = new()
             {
-                new(LocaleCore.System.SystemLogsAll, RouteUtils.SectionLogs),
-                new(LocaleCore.WebService.Name, RouteUtils.SectionLogsWebService)
+                new(Locale.SystemLogsAll, RouteUtils.SectionLogs),
+                new(Locale.Name, RouteUtils.SectionLogsWebService)
             }
         },
         new()
         {
-            Text = LocaleBlazor.SectionAdministering,
+            Text = Locale.SectionAdministering,
             RequiredRole = UserAccessStr.Admin,
             Icon = "people",
             SubItems = new()
             {
-                new(LocaleCore.System.Users, RouteUtils.SectionAccess),
-                new(LocaleCore.System.DatabaseInfo, RouteUtils.SystemDatabaseInfo),
-                new(LocaleCore.Menu.MenuDbVersionHistory, RouteUtils.SectionVersions),
+                new(Locale.Users, RouteUtils.SectionAccess),
+                new(Locale.DatabaseInfo, RouteUtils.SystemDatabaseInfo),
+                new(Locale.MenuDbVersionHistory, RouteUtils.SectionVersions),
             }
         }
     };

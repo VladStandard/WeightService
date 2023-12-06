@@ -23,8 +23,8 @@ public class ViewRepositoryTests
     protected void PrintViewRecords<T>(IEnumerable<T> items) where T : class
     {
         List<T> list = items.ToList();
-        Assert.That(list.Any(), Is.True, $"{LocaleCore.Tests.NoDataInDb}!");
-        Assert.That(list, SortOrderValue, $"{LocaleCore.Tests.SortingError}!");
+        Assert.That(list.Any(), Is.True, "Нет данных в бд!");
+        Assert.That(list, SortOrderValue, "Ошибка сортировки!");
         TestContext.WriteLine($"Print {list.Count} records.");
         foreach (T item in list)
             TestContext.WriteLine(SqlQueries.TrimQuery(item.ToString() ?? string.Empty));

@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlViewPluWeightingModel>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionPlusWeightings"
+  Title="@Locale.SectionPlusWeightings"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -28,13 +28,13 @@
   <Columns>
     <TItemContent TItem="@SqlViewPluWeightingModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%"
+      <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="12%"
                             FormatString="@StrUtils.FormatDtDefault" Filterable="false"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Line" Property="Line" Width="22%" Filterable="false"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="10%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Plu" Property="PluName" Width="18%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleFkWeightTare" Property="TareWeight" Width="10%" Filterable="false" />
-      <RadzenDataGridColumn Title="@LocaleCore.Table.WeightNetto" Property="NettoWeight" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@Locale.Line" Property="Line" Width="22%" Filterable="false"/>
+      <RadzenDataGridColumn Title="@Locale.PluNumber" Property="PluNumber" Width="10%"/>
+      <RadzenDataGridColumn Title="@Locale.Plu" Property="PluName" Width="18%"/>
+      <RadzenDataGridColumn Title="@Locale.BundleFkWeightTare" Property="TareWeight" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@Locale.WeightNetto" Property="NettoWeight" Width="10%" Filterable="false" />
     </TItemContent>
   </Columns>
 </RzDataGrid>

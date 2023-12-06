@@ -2,26 +2,26 @@
 @using DeviceControl.Components.Item
 @inherits ComponentBase
 
-<p class="page-title">@LocaleCore.System.UserInfo</p>
+<p class="page-title">@Locale.UserInfo</p>
 
 <div class="info-table-wrapper">
   <table class="info-table">
     <ItemTableHead/>
     <tbody>
     <tr>
-      <td>@LocaleCore.Strings.AuthorizingUserName</td>
+      <td>@Locale.AuthorizingUserName</td>
       <td>@User?.Identity?.Name</td>
     </tr>
     <tr>
-      <td>@LocaleCore.Strings.AuthorizingApAddress</td>
+      <td>@Locale.AuthorizingApAddress</td>
       <td>@IpAddress</td>
     </tr>
     <tr>
-      <td>@LocaleCore.Strings.AccessRights</td>
+      <td>@Locale.AccessRights</td>
       <td>@GetAccessRightsDescription(User)</td>
     </tr>
     <tr>
-      <td>@LocaleCore.Strings.DefaultRowCount</td>
+      <td>@Locale.DefaultRowCount</td>
       <td>
         <RadzenNumeric Style="width: 100%" TValue="int" Min="0" Max="1000" @bind-Value="@DefaultRowCount" Change="@OnDefaultRowCountChanged"/>
       </td>

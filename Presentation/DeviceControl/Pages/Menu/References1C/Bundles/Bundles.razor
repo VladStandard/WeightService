@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlBundleEntity>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionBundles"
+  Title="@Locale.SectionBundles"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,8 +24,8 @@
   <Columns>
     <TItemContent TItem="@SqlBundleEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="75%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.BundleWeight" Property="Weight"/>
+      <RadzenDataGridColumn Title="@Locale.Name" Property="Name" Width="75%"/>
+      <RadzenDataGridColumn Title="@Locale.BundleWeight" Property="Weight"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

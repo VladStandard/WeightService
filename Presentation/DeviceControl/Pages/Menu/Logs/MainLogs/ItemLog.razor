@@ -3,7 +3,7 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlLogEntity>
 
-<ItemTopBar TItem="SqlLogEntity" Title="@LocaleCore.DeviceControl.ItemLog" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="SqlLogEntity" Title="@Locale.ItemLog" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
@@ -12,35 +12,35 @@
   @if (SqlItemCast.Device is not null)
   {
     <tr>
-      <td>@LocaleCore.Table.Line</td>
+      <td>@Locale.Line</td>
       <td>@LineRepository.GetItemByHost(SqlItemCast.Device).Description</td>
-      <td>@LocaleCore.Table.Host</td>
+      <td>@Locale.Host</td>
       <td>@SqlItemCast.Device.Name</td>
     </tr>
   }
   @if (SqlItemCast.App is not null)
   {
     <tr>
-      <td>@LocaleCore.Table.App</td>
+      <td>@Locale.App</td>
       <td>@SqlItemCast.App.Name</td>
-      <td>@LocaleCore.Table.Version</td>
+      <td>@Locale.Version</td>
       <td>@SqlItemCast.Version</td>
     </tr>
   }
   <tr>
-    <td>@LocaleCore.Table.File</td>
+    <td>@Locale.File</td>
     <td>@SqlItemCast.File</td>
-    <td>@LocaleCore.Table.Row</td>
+    <td>@Locale.Row</td>
     <td>@SqlItemCast.Line</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Member</td>
+    <td>@Locale.Member</td>
     <td>@SqlItemCast.Member</td>
-    <td>@LocaleCore.Table.LogType</td>
+    <td>@Locale.LogType</td>
     <td>@SqlItemCast.Type</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.Message</td>
+    <td>@Locale.Message</td>
     <td colspan="3">
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 12px; line-height: 18px; background-color: lightgray; "

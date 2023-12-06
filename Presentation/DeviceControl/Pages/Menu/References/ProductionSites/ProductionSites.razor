@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlProductionSiteEntity>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionProductionFacilities"
+  Title="@Locale.SectionProductionFacilities"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -24,8 +24,8 @@
   <Columns>
     <TItemContent TItem="@SqlProductionSiteEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Name" Property="Name" Width="25%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.Address" Property="Address" Width="70%"/>
+      <RadzenDataGridColumn Title="@Locale.Name" Property="Name" Width="25%"/>
+      <RadzenDataGridColumn Title="@Locale.Address" Property="Address" Width="70%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

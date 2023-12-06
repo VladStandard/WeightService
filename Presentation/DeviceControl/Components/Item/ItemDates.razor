@@ -3,10 +3,10 @@
 @if (!SqlItem.IsNew)
 {
   <tr>
-    <td><b>@LocaleCore.Table.CreateDt.ToUpper()</b></td>
+    <td><b>@Locale.CreateDt.ToUpper()</b></td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItem.CreateDt)</td>
 
-    <td><b>@LocaleCore.Table.ChangeDt.ToUpper()</b></td>
+    <td><b>@Locale.ChangeDt.ToUpper()</b></td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItem.ChangeDt)</td>
   </tr>
 }

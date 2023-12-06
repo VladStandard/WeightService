@@ -20,10 +20,10 @@ public class TableRepositoryTests
     protected void ParseRecords<T>(IEnumerable<T> items) where T : SqlEntityBase, new()
     {
         List<T> list = items.ToList();
-        Assert.That(list.Any(), Is.True, $"{LocaleCore.Tests.NoDataInDb}!");
-        Assert.That(list, SortOrderValue, $"{LocaleCore.Tests.SortingError}!");
+        Assert.That(list.Any(), Is.True, "Нет данных в бд");
+        Assert.That(list, SortOrderValue, "Ошибка сортировки");
 
-        TestContext.WriteLine($"{LocaleCore.Tests.Print} {list.Count} {LocaleCore.Tests.Records}.");
+        TestContext.WriteLine($"Выведено {list.Count} записей.");
 
         foreach (T item in list)
         {

@@ -4,46 +4,46 @@
 @using DeviceControl.Components.Item
 @inherits ItemBase<SqlPluNestingFkEntity>
 
-<ItemTopBar TItem="@SqlPluNestingFkEntity" Title="@LocaleCore.DeviceControl.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlPluNestingFkEntity" Title="@Locale.ItemPluNestingFk" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
   <tr>
-    <td>@LocaleCore.Table.Name</td>
+    <td>@Locale.Name</td>
     <td>@SqlItemCast.Name</td>
-    <td>@LocaleCore.Table.IsDefault</td>
+    <td>@Locale.IsDefault</td>
     <td>
       <RadzenCheckBox TValue="bool" ReadOnly="true" @bind-Value="@SqlItemCast.IsDefault"/>
     </td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.Plu"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@Locale.Plu"/>
     </td>
     <td>@SqlItemCast.Plu.DisplayName</td>
-    <td>@LocaleCore.Table.NomenclatureCode</td>
+    <td>@Locale.NomenclatureCode</td>
     <td>@SqlItemCast.Plu.Code</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@LocaleCore.Table.PluBundleFk" />
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Plu.Bundle)" Text="@Locale.PluBundleFk" />
     </td>
     <td>@SqlItemCast.Plu.Bundle.Name</td>
-    <td>@LocaleCore.Table.BundleWeight</td>
+    <td>@Locale.BundleWeight</td>
     <td>@SqlItemCast.Plu.Bundle.Weight</td>
   </tr>
   <tr>
     <td>
-      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Box)" Text="@LocaleCore.Table.Box"/>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Box)" Text="@Locale.Box"/>
     </td>
     <td>@SqlItemCast.Box.Name</td>
-    <td>@LocaleCore.Table.BoxWeight</td>
+    <td>@Locale.BoxWeight</td>
     <td>@SqlItemCast.Box.Weight</td>
   </tr>
   <tr>
-    <td>@LocaleCore.Table.NestingCount</td>
+    <td>@Locale.NestingCount</td>
     <td>@SqlItemCast.BundleCount</td>
     <td></td>
     <td></td>

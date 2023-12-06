@@ -9,7 +9,7 @@
 
 <div class="section-container">
   <SectionTopBar
-    Title="@LocaleCore.DeviceControl.SectionHosts"
+    Title="@Locale.SectionHosts"
     OnSectionUpdate="@GetSectionData"
     OnSectionAdd="@SqlItemNewAsync"
     SectionCount="@SqlSectionCast.Count"
@@ -31,18 +31,18 @@
       <TItemContent TItem="@SqlHostEntity">
         <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
         <RadzenDataGridColumn
-          Title="@LocaleCore.Table.LoginDt"
+          Title="@Locale.LoginDt"
           Property="LoginDt"
           Width="10%"
           FormatString="@StrUtils.FormatDtDefault"
         />
         <RadzenDataGridColumn
-          Title="@LocaleCore.Table.Name"
+          Title="@Locale.Name"
           Property="Name"
           Width="30%"
         />
         <RadzenDataGridColumn
-          Title="@LocaleCore.Table.DeviceIp"
+          Title="@Locale.DeviceIp"
           Property="Ip"
           Width="30%"
         />

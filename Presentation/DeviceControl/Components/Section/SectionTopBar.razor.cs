@@ -11,7 +11,7 @@ public partial class SectionTopBar : ComponentBase
     [Parameter] public EventCallback OnSectionAdd { get; set; }
     [Parameter] public int SectionCount { get; set; }
     [Parameter] public bool IsGuiShowFilterMarked { get; set; }
-    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {SectionCount:### ### ###}";
+    private string SqlListCountResult => $"{Locale.ItemsCount}: {SectionCount:### ### ###}";
 
     private static Dictionary<string, SqlEnumIsMarked> MarkedDict => new()
     {

@@ -6,24 +6,24 @@
 @using DeviceControl.Components.Rz
 @inherits ItemBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
-<ItemTopBar TItem="@SqlHostEntity" Title="@LocaleCore.DeviceControl.ItemHost" OnItemUpdate="@GetItemData"/>
+<ItemTopBar TItem="@SqlHostEntity" Title="@Locale.ItemHost" OnItemUpdate="@GetItemData"/>
 
 <MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
   <ItemTableHead HeadWidth="@(new List<int> { 15, 35, 15, 35 })"/>
   <tbody>
   <ItemTableBody SqlItem="@SqlItemCast"/>
     <tr>
-      <td>@LocaleCore.Table.Name</td>
+      <td>@Locale.Name</td>
       <td>
         <RzTextBox @bind-Value="@SqlItemCast.Name"/>
       </td>
-      <td>@LocaleCore.Table.DeviceIp</td>
+      <td>@Locale.DeviceIp</td>
       <td>
         <RzTextBox @bind-Value="@SqlItemCast.Ip"/>
       </td>
     </tr>
   <tr>
-    <td>@LocaleCore.Table.LoginDt</td>
+    <td>@Locale.LoginDt</td>
     <td>@string.Format(StrUtils.FormatDtLong, SqlItemCast.LoginDt)</td>
     <td></td>
     <td></td>

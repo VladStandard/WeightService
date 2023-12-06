@@ -5,7 +5,7 @@
 @inherits SectionBase<SqlViewBarcodeModel>
 
 <SectionTopBar
-  Title="@LocaleCore.DeviceControl.SectionBarCodes"
+  Title="@Locale.SectionBarCodes"
   OnSectionUpdate="@GetSectionData"
   OnSectionAdd="@SqlItemNewAsync"
   SectionCount="@SqlSectionCast.Count"
@@ -28,12 +28,12 @@
   <Columns>
     <TItemContent TItem="@SqlViewBarcodeModel">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.CreateDt" Property="CreateDt" Width="12%" Filterable="false"
+      <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="12%" Filterable="false"
                             FormatString="@StrUtils.FormatDtDefault"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.PluNumber" Property="PluNumber" Width="12%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueTop" Property="ValueTop" Width="28%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueRight" Property="ValueRight" Width="15%"/>
-      <RadzenDataGridColumn Title="@LocaleCore.Table.ValueBottom" Property="ValueBottom" Width="28%"/>
+      <RadzenDataGridColumn Title="@Locale.PluNumber" Property="PluNumber" Width="12%"/>
+      <RadzenDataGridColumn Title="@Locale.ValueTop" Property="ValueTop" Width="28%"/>
+      <RadzenDataGridColumn Title="@Locale.ValueRight" Property="ValueRight" Width="15%"/>
+      <RadzenDataGridColumn Title="@Locale.ValueBottom" Property="ValueBottom" Width="28%"/>
     </TItemContent>
   </Columns>
 </RzDataGrid>

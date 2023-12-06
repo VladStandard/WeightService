@@ -76,8 +76,8 @@ public class RazorComponentBase : LayoutComponentBase
     {
         return new()
         {
-            OkButtonText = LocaleCore.Dialog.DialogButtonYes,
-            CancelButtonText = LocaleCore.Dialog.DialogButtonCancel,
+            OkButtonText = Locale.DialogButtonYes,
+            CancelButtonText = Locale.DialogButtonCancel,
             CloseDialogOnEsc = true,
         };
     }
@@ -94,7 +94,7 @@ public class RazorComponentBase : LayoutComponentBase
             NotificationService.Notify(
                 NotificationSeverity.Success,
                 title,
-                LocaleCore.Dialog.DialogResultSuccess,  2500);
+                Locale.DialogResultSuccess,  2500);
         }
         catch (Exception ex)
         {
@@ -108,7 +108,7 @@ public class RazorComponentBase : LayoutComponentBase
     {
         try
         {
-            string question = string.IsNullOrEmpty(message) ? LocaleCore.Dialog.DialogQuestion : message;
+            string question = string.IsNullOrEmpty(message) ? Locale.DialogQuestion : message;
             Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
             if (dialog.Result == true)
                 RunAction(title, action);
@@ -122,7 +122,7 @@ public class RazorComponentBase : LayoutComponentBase
     private void NotificationException(string title, Exception ex)
     {
         if (string.IsNullOrEmpty(title))
-            title = LocaleCore.Dialog.DialogResultFail;
+            title = Locale.DialogResultFail;
         
         string msg = ex.Message;
         if (!string.IsNullOrEmpty(ex.InnerException?.Message))

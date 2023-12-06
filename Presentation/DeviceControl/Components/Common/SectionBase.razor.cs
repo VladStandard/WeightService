@@ -83,20 +83,19 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
     private List<ContextMenuItem> GetContextMenuItems()
     {
-        LocaleContextMenu locale = LocaleCore.ContextMenu;
         List<ContextMenuItem> contextMenuItems = new()
         {
-            new() { Text = locale.Open, Value = ContextMenuActionEnum.Open },
-            new() { Text = locale.OpenNewTab, Value = ContextMenuActionEnum.OpenNewTab },
+            new() { Text = Locale.Open, Value = ContextMenuActionEnum.Open },
+            new() { Text = Locale.OpenNewTab, Value = ContextMenuActionEnum.OpenNewTab },
         };
 
         if (User?.IsInRole(UserAccessStr.Write) != true)
             return contextMenuItems;
 
         if (ButtonSettings.IsShowMark)
-            contextMenuItems.Add(new() { Text = locale.Mark, Value = ContextMenuActionEnum.Mark });
+            contextMenuItems.Add(new() { Text = Locale.Mark, Value = ContextMenuActionEnum.Mark });
         if (ButtonSettings.IsShowDelete)
-            contextMenuItems.Add(new() { Text = locale.Delete, Value = ContextMenuActionEnum.Delete });
+            contextMenuItems.Add(new() { Text = Locale.Delete, Value = ContextMenuActionEnum.Delete });
 
         return contextMenuItems;
     }
@@ -167,7 +166,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     protected async Task OnSqlSectionSaveAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(LocaleCore.Table.TableSave, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(Locale.TableSave, Locale.DialogQuestion, () =>
         {
             foreach (TItem item in SqlSectionSave)
                 SqlCore.Update(item);
@@ -182,7 +181,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(LocaleCore.Table.TableDelete, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(Locale.TableDelete, Locale.DialogQuestion, () =>
         {
             SqlCore.Delete(SqlItem);
             DeleteMarkedOrDeleted();
@@ -195,7 +194,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         if (SqlItem is null) return;
 
-        RunActionsWithQuestion(LocaleCore.Table.TableMark, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(Locale.TableMark, Locale.DialogQuestion, () =>
         {
             SqlCore.Mark(SqlItem);
             DeleteMarkedOrDeleted();
@@ -206,7 +205,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
     protected async virtual Task SqlItemNewAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        RunActionsWithQuestion(LocaleCore.Table.TableNew, LocaleCore.Dialog.DialogQuestion, () =>
+        RunActionsWithQuestion(Locale.TableNew, Locale.DialogQuestion, () =>
         {
             SqlItem = SqlItemNewEmpty<TItem>();
             RouteService.NavigateItemRoute(SqlItemCast);

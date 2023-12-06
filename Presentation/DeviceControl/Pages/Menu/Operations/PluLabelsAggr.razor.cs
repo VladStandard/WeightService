@@ -7,7 +7,7 @@ public sealed partial class PluLabelsAggr : ComponentBase
     #region Public and private fields, properties, constructor
 
     private SqlViewPluLabelAggrRepository PluLabelAggrRepository { get; } = new();
-    private string SqlListCountResult => $"{LocaleCore.Strings.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
+    private string SqlListCountResult => $"{Locale.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
     private string GetAverageCountResult => $"Средняя производительность: {GetAverageCount():### ### ###}";
     private List<SqlViewPluLabelAggrModel> PluWeightAggrs { get; set; }
     
