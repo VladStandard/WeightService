@@ -1,42 +1,37 @@
-﻿using System.Xml;
+﻿using System.Runtime.Serialization;
+using System.Xml;
+using Ws.Labels.Common;
 using Ws.Labels.Dto;
 using Ws.Labels.Models;
 using Ws.Labels.Utils;
-using Ws.StorageCore.Models;
 using Ws.StorageCore.Utils;
 
 namespace Ws.Labels;
 
-public class LabelGenerator
+public abstract class LabelGenerator
 {
-    public LabelDto GenerateLabel(LabelDataDto dto)
+    public static LabelDto GenerateLabel(LabelDataDto dto)
     {
-        string zpl = string.Empty;
-        string template = dto.Template;
-        
         if (dto.IsCheckWeight)
         {
-            WeightLabelModel labelModel = dto.AdaptToWeightLabelModel();
-            XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<WeightLabelModel>
-                (labelModel, true, true);
-            template = template.Replace("PluLabelContextModel", nameof(WeightLabelModel));
-            zpl = DataFormatUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
-            zpl = DataFormatUtils.XmlReplaceNextLine(zpl);
-            zpl = ZplUtils.ConvertStringToHex(zpl);
-            zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.PluNumber);
-            return new(zpl, labelModel);
+            WeightLabelModel wLabelModel = dto.AdaptToWeightLabelModel();
+            return GetZpl(dto, wLabelModel);
         }
-        else
-        {
-            LabelModel labelModel = dto.AdaptToLabelModel();
-            template = template.Replace("PluLabelContextModel", nameof(LabelModel));
-            XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<LabelModel>
-                (labelModel, true, true);
-            zpl = DataFormatUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
-            zpl = DataFormatUtils.XmlReplaceNextLine(zpl);
-            zpl = ZplUtils.ConvertStringToHex(zpl);
-            zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.PluNumber);
-            return new(zpl, labelModel);
-        }
+        LabelModel labelModel = dto.AdaptToLabelModel(); 
+        return GetZpl(dto, labelModel);
+    }
+    
+    private static LabelDto GetZpl<TItem>(LabelDataDto dto, TItem labelModel) where TItem : ISerializable, ILabelModel
+    {
+        string template = dto.Template;
+        XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<TItem>
+            (labelModel, true, true);
+        template = template.Replace("Context", labelModel.GetType().Name);
+        
+        string zpl = DataFormatUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
+        zpl = DataFormatUtils.XmlReplaceNextLine(zpl);
+        zpl = ZplUtils.ConvertStringToHex(zpl);
+        zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.PluNumber);
+        return new(zpl, labelModel);
     }
 }

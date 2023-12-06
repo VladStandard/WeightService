@@ -7,6 +7,7 @@ namespace Ws.Labels.Dto
             return p1 == null ? null : new Ws.Labels.Models.WeightLabelModel()
             {
                 Weight = p1.Weight,
+                Kneading = p1.Kneading,
                 ExpirationDtValue = p1.ExpirationDt,
                 ProductDtValue = p1.ProductDt,
                 LineNumber = p1.LineNumber,
@@ -16,8 +17,7 @@ namespace Ws.Labels.Dto
                 PluNumber = p1.PluNumber,
                 PluGtin = p1.Gtin,
                 PluFullName = p1.PluFullName,
-                PluDescription = p1.PluDescription,
-                Kneading = p1.Kneading
+                PluDescription = p1.PluDescription
             };
         }
         public static Ws.Labels.Models.LabelModel AdaptToLabelModel(this Ws.Labels.Dto.LabelDataDto p2)
@@ -25,6 +25,7 @@ namespace Ws.Labels.Dto
             return p2 == null ? null : new Ws.Labels.Models.LabelModel()
             {
                 BundleCount = p2.BundleCount,
+                Kneading = p2.Kneading,
                 ExpirationDtValue = p2.ExpirationDt,
                 ProductDtValue = p2.ProductDt,
                 LineNumber = p2.LineNumber,
@@ -34,14 +35,14 @@ namespace Ws.Labels.Dto
                 PluNumber = p2.PluNumber,
                 PluGtin = p2.Gtin,
                 PluFullName = p2.PluFullName,
-                PluDescription = p2.PluDescription,
-                Kneading = p2.Kneading
+                PluDescription = p2.PluDescription
             };
         }
         public static Ws.Labels.Common.BaseLabelModel AdaptToBaseLabelModel(this Ws.Labels.Dto.LabelDataDto p3)
         {
             return p3 == null ? null : new Ws.Labels.Common.BaseLabelModel()
             {
+                Kneading = p3.Kneading,
                 ExpirationDtValue = p3.ExpirationDt,
                 ProductDtValue = p3.ProductDt,
                 LineNumber = p3.LineNumber,
@@ -51,8 +52,7 @@ namespace Ws.Labels.Dto
                 PluNumber = p3.PluNumber,
                 PluGtin = p3.Gtin,
                 PluFullName = p3.PluFullName,
-                PluDescription = p3.PluDescription,
-                Kneading = p3.Kneading
+                PluDescription = p3.PluDescription
             };
         }
     }
