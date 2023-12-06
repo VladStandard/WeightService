@@ -7,7 +7,6 @@ using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 
@@ -19,7 +18,6 @@ public class LineContext
     public SqlLineEntity Line { get; private set; }
     public SqlPluEntity Plu { get; private set; }
     public SqlPrinterEntity PrinterEntity { get; private set; }
-    public SqlLineEntity DefaultLine { get; private set; }
     public SqlTemplateEntity PluTemplate { get; private set; }
     public SqlPluNestingFkEntity PluNesting { get; set; }
     public WeightKneadingModel KneadingModel { get; set; }
@@ -56,7 +54,11 @@ public class LineContext
         NotifyStateChanged();
     }
 
-    public void ResetLine() => ChangeLine(DefaultLine);
+    public void ResetLine() {
+        Line = HostService.GetLineByHost(Host);
+        PrinterEntity = Line.Printer;
+        ChangeLine(Line);
+    }
     
 
     public async Task ChangePlu(SqlPluEntity sqlPluEntity)
@@ -90,7 +92,7 @@ public class LineContext
     private void InitData()
     {
         Host = HostService.GetCurrentHostOrCreate();
-        Line = DefaultLine = HostService.GetLineByHost(Host);
+        Line = HostService.GetLineByHost(Host);
         PrinterEntity = Line.Printer;
         LineEntities = LineService.GetLinesByWorkshop(Line.WorkShop);
         PluEntities = GetPlus();

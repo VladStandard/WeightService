@@ -69,4 +69,7 @@
     <data name="ButtonCalculatorEnter" xml:space="preserve">
         <value>Ввод</value>
     </data>
+    <data name="KneadingDisplayPluNestingCount" xml:space="preserve">
+        <value>Количество вложений</value>
+    </data>
 </root>

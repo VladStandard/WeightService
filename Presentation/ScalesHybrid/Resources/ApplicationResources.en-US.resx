@@ -69,4 +69,7 @@
     <data name="ButtonCalculatorEnter" xml:space="preserve">
         <value>Enter</value>
     </data>
+    <data name="KneadingDisplayPluNestingCount" xml:space="preserve">
+        <value>Bundle count</value>
+    </data>
 </root>

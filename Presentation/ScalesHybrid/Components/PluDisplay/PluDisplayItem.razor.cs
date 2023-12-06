@@ -6,4 +6,5 @@ public sealed partial class PluDisplayItem: ComponentBase
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public bool IsLongLabel { get; set; } = false;
 }
