@@ -62,8 +62,6 @@ public class SqlLogEntity : SqlEntityBase
     public override void FillProperties()
     {
         base.FillProperties();
-
-        Version = LocaleCore.Sql.SqlItemFieldVersion;
         File = LocaleCore.Sql.SqlItemFieldFile;
         Line = 1;
         Member = LocaleCore.Sql.SqlItemFieldMember;

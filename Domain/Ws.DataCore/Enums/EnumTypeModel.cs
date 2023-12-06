@@ -1,7 +1,6 @@
 namespace Ws.DataCore.Enums;
 
-public class 
-    EnumTypeModel<T>
+public class EnumTypeModel<T>
 {
     private string Name { get; }
     private T Value { get; }

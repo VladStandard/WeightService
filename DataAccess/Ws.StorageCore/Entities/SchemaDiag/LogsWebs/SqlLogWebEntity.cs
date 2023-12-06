@@ -54,12 +54,6 @@ public class SqlLogWebEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Version = LocaleCore.Sql.SqlItemFieldVersion;
-    }
-
     #endregion
 
     #region Public and private methods - virtual
