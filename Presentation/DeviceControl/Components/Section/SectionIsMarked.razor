@@ -1,13 +1,13 @@
-@typeparam TItem
-@inherits ComponentBase
-
-<RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center"
-                      SortProperty="IsMarked" Title="@LocaleCore.Table.IsMarkedShort"
-                      Visible="@(SqlCrudConfigSection.IsMarked != SqlEnumIsMarked.ShowOnlyActual)">
-  <Template Context="item">
-    @if (item.IsMarked)
-    {
-      <RadzenIcon Icon="delete"/>
-    }
-  </Template>
-</RadzenDataGridColumn>
+@* @typeparam TItem *@
+@* @inherits ComponentBase *@
+@* *@
+@* <RadzenDataGridColumn TItem="@TItem" Width="5%" TextAlign="TextAlign.Center" *@
+@*                       SortProperty="IsMarked" Title="@LocaleCore.Table.IsMarkedShort" *@
+@*                       Visible="@(SqlCrudConfigSection.IsMarked != SqlEnumIsMarked.ShowOnlyActual)"> *@
+@*   <Template Context="item"> *@
+@*     @if (item.IsMarked) *@
+@*     { *@
+@*       <RadzenIcon Icon="delete"/> *@
+@*     } *@
+@*   </Template> *@
+@* </RadzenDataGridColumn> *@

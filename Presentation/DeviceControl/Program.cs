@@ -2,9 +2,12 @@ using Blazored.LocalStorage;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
+using DeviceControl.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Radzen;
 using Ws.Services;
+using Ws.StorageCore.Helpers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -12,23 +15,20 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 builder.Services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
-
-builder.Services.AddRazorPages(options =>
-{
-    options.RootDirectory = "/Features";
-});
+builder.Services.AddRazorPages(options => { options.RootDirectory = "/Features"; });
 builder.Services.AddServerSideBlazor();
-
 builder.Services.AddOptions();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
 builder.Services
     .AddBlazorise()
     .AddTailwindProviders()
     .AddFontAwesomeIcons();
-builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddLocalization();
 
 builder.Host.ConfigureLogging(logging =>
 {
@@ -71,6 +71,14 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+string[] supportedCultures = { "ru-RU", "en-US" };
+RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
 
 SqlCoreHelper.Instance.SetSessionFactory(false);
 

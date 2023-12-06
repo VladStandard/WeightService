@@ -1,3 +1,5 @@
+using Microsoft.JSInterop;
+
 namespace DeviceControl.Services;
 
 public class LocalStorageService

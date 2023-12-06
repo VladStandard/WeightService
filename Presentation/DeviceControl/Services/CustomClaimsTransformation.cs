@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DeviceControl.Services;
 
@@ -32,9 +34,9 @@ public class CustomClaimsTransformation : IClaimsTransformation
 
         return Task.FromResult(newPrincipal);
     }
-    
-    
-    public List<Claim> GetUserRightsAsync(string username)
+
+
+    private List<Claim> GetUserRightsAsync(string username)
     {
         List<Claim> rights = new();
         SqlAccessEntity access = AccessRepository.GetItemByNameOrCreate(username);

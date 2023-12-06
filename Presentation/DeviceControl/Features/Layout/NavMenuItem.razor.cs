@@ -1,10 +1,11 @@
 using Blazor.Heroicons;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Ws.DataCore.Helpers;
 
 namespace DeviceControl.Features.Layout;
 
-public sealed partial class NavMenuItem
+public sealed partial class NavMenuItem: ComponentBase
 {
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     

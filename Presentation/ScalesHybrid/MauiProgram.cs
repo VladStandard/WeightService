@@ -29,7 +29,6 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
         CultureInfo[] supportedCultures = { new("en-US"), new("ru-RU") };
-        
         builder.Services.AddLocalization();
         builder.Services.Configure<RequestLocalizationOptions>(options =>
         {
@@ -37,6 +36,7 @@ public static class MauiProgram
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });
+        
         builder.Services.AddSingleton<PageTitleService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();
