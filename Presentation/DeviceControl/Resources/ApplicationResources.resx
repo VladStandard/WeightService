@@ -39,4 +39,94 @@
     <data name="DataGridColumnCounter" xml:space="preserve">
         <value />
     </data>
+    <data name="HomeMsgDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuDevices" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuOperations" xml:space="preserve">
+        <value />
+    </data>
+    <data name="Menu1CReferences" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuReferences" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuDiagnostics" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuAdministration" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionLines" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionHosts" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPrinters" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBarcodes" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionWeightings" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionAggregatedLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPLU" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBoxes" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionClips" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBundles" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBrands" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionWorkshops" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPlatforms" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionTemplates" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionTemplatesResources" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPluStorages" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionAppsLogs" xml:space="preserve">
+        <value />
+    </data>
+    <data name="Section1CLogs" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionUsers" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionDatabase" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionVersions" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ApplicationName" xml:space="preserve">
+        <value />
+    </data>
 </root>

@@ -39,4 +39,94 @@
     <data name="DataGridColumnCounter" xml:space="preserve">
         <value>Счетчик</value>
     </data>
+    <data name="HomeMsgDescription" xml:space="preserve">
+        <value>Нажмите на раздел меню, чтобы продолжить</value>
+    </data>
+    <data name="Menu1CReferences" xml:space="preserve">
+        <value>Данные из 1С</value>
+    </data>
+    <data name="MenuAdministration" xml:space="preserve">
+        <value>Администрирование</value>
+    </data>
+    <data name="MenuDevices" xml:space="preserve">
+        <value>Устройства</value>
+    </data>
+    <data name="MenuDiagnostics" xml:space="preserve">
+        <value>Диагностика</value>
+    </data>
+    <data name="MenuOperations" xml:space="preserve">
+        <value>Операции</value>
+    </data>
+    <data name="MenuReferences" xml:space="preserve">
+        <value>Справочник</value>
+    </data>
+    <data name="Section1CLogs" xml:space="preserve">
+        <value>Логи 1С</value>
+    </data>
+    <data name="SectionAggregatedLabels" xml:space="preserve">
+        <value>Агр. этикетки</value>
+    </data>
+    <data name="SectionAppsLogs" xml:space="preserve">
+        <value>Логи приложения</value>
+    </data>
+    <data name="SectionBarcodes" xml:space="preserve">
+        <value>Штрихкоды</value>
+    </data>
+    <data name="SectionBoxes" xml:space="preserve">
+        <value>Коробки</value>
+    </data>
+    <data name="SectionBrands" xml:space="preserve">
+        <value>Бренды</value>
+    </data>
+    <data name="SectionBundles" xml:space="preserve">
+        <value>Пакеты</value>
+    </data>
+    <data name="SectionClips" xml:space="preserve">
+        <value>Клипсы</value>
+    </data>
+    <data name="SectionDatabase" xml:space="preserve">
+        <value>База данных</value>
+    </data>
+    <data name="SectionHosts" xml:space="preserve">
+        <value>Хосты</value>
+    </data>
+    <data name="SectionLabels" xml:space="preserve">
+        <value>Этикетки</value>
+    </data>
+    <data name="SectionLines" xml:space="preserve">
+        <value>Линии</value>
+    </data>
+    <data name="SectionPlatforms" xml:space="preserve">
+        <value>Платформы</value>
+    </data>
+    <data name="SectionPLU" xml:space="preserve">
+        <value>ПЛУ</value>
+    </data>
+    <data name="SectionPluStorages" xml:space="preserve">
+        <value>Хранилища ПЛУ</value>
+    </data>
+    <data name="SectionPrinters" xml:space="preserve">
+        <value>Принтеры</value>
+    </data>
+    <data name="SectionTemplates" xml:space="preserve">
+        <value>Шаблоны</value>
+    </data>
+    <data name="SectionTemplatesResources" xml:space="preserve">
+        <value>Ресурсы шаблонов</value>
+    </data>
+    <data name="SectionUsers" xml:space="preserve">
+        <value>Пользователи</value>
+    </data>
+    <data name="SectionVersions" xml:space="preserve">
+        <value>Версии</value>
+    </data>
+    <data name="SectionWeightings" xml:space="preserve">
+        <value>Взвешивания</value>
+    </data>
+    <data name="SectionWorkshops" xml:space="preserve">
+        <value>Цеха</value>
+    </data>
+    <data name="ApplicationName" xml:space="preserve">
+        <value>Управление Устройствами</value>
+    </data>
 </root>

@@ -60,6 +60,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Управление Устройствами.
+        /// </summary>
+        internal static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Счетчик.
         /// </summary>
         internal static string DataGridColumnCounter {
@@ -119,6 +128,267 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnWorkshop {
             get {
                 return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нажмите на раздел меню, чтобы продолжить.
+        /// </summary>
+        internal static string HomeMsgDescription {
+            get {
+                return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Данные из 1С.
+        /// </summary>
+        internal static string Menu1CReferences {
+            get {
+                return ResourceManager.GetString("Menu1CReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Администрирование.
+        /// </summary>
+        internal static string MenuAdministration {
+            get {
+                return ResourceManager.GetString("MenuAdministration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Устройства.
+        /// </summary>
+        internal static string MenuDevices {
+            get {
+                return ResourceManager.GetString("MenuDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Диагностика.
+        /// </summary>
+        internal static string MenuDiagnostics {
+            get {
+                return ResourceManager.GetString("MenuDiagnostics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операции.
+        /// </summary>
+        internal static string MenuOperations {
+            get {
+                return ResourceManager.GetString("MenuOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Справочник.
+        /// </summary>
+        internal static string MenuReferences {
+            get {
+                return ResourceManager.GetString("MenuReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логи 1С.
+        /// </summary>
+        internal static string Section1CLogs {
+            get {
+                return ResourceManager.GetString("Section1CLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Агр. этикетки.
+        /// </summary>
+        internal static string SectionAggregatedLabels {
+            get {
+                return ResourceManager.GetString("SectionAggregatedLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логи приложения.
+        /// </summary>
+        internal static string SectionAppsLogs {
+            get {
+                return ResourceManager.GetString("SectionAppsLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Штрихкоды.
+        /// </summary>
+        internal static string SectionBarcodes {
+            get {
+                return ResourceManager.GetString("SectionBarcodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Коробки.
+        /// </summary>
+        internal static string SectionBoxes {
+            get {
+                return ResourceManager.GetString("SectionBoxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Бренды.
+        /// </summary>
+        internal static string SectionBrands {
+            get {
+                return ResourceManager.GetString("SectionBrands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пакеты.
+        /// </summary>
+        internal static string SectionBundles {
+            get {
+                return ResourceManager.GetString("SectionBundles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Клипсы.
+        /// </summary>
+        internal static string SectionClips {
+            get {
+                return ResourceManager.GetString("SectionClips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to База данных.
+        /// </summary>
+        internal static string SectionDatabase {
+            get {
+                return ResourceManager.GetString("SectionDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хосты.
+        /// </summary>
+        internal static string SectionHosts {
+            get {
+                return ResourceManager.GetString("SectionHosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Этикетки.
+        /// </summary>
+        internal static string SectionLabels {
+            get {
+                return ResourceManager.GetString("SectionLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Линии.
+        /// </summary>
+        internal static string SectionLines {
+            get {
+                return ResourceManager.GetString("SectionLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Платформы.
+        /// </summary>
+        internal static string SectionPlatforms {
+            get {
+                return ResourceManager.GetString("SectionPlatforms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ПЛУ.
+        /// </summary>
+        internal static string SectionPLU {
+            get {
+                return ResourceManager.GetString("SectionPLU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хранилища ПЛУ.
+        /// </summary>
+        internal static string SectionPluStorages {
+            get {
+                return ResourceManager.GetString("SectionPluStorages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Принтеры.
+        /// </summary>
+        internal static string SectionPrinters {
+            get {
+                return ResourceManager.GetString("SectionPrinters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Шаблоны.
+        /// </summary>
+        internal static string SectionTemplates {
+            get {
+                return ResourceManager.GetString("SectionTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ресурсы шаблонов.
+        /// </summary>
+        internal static string SectionTemplatesResources {
+            get {
+                return ResourceManager.GetString("SectionTemplatesResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        internal static string SectionUsers {
+            get {
+                return ResourceManager.GetString("SectionUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Версии.
+        /// </summary>
+        internal static string SectionVersions {
+            get {
+                return ResourceManager.GetString("SectionVersions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Взвешивания.
+        /// </summary>
+        internal static string SectionWeightings {
+            get {
+                return ResourceManager.GetString("SectionWeightings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цеха.
+        /// </summary>
+        internal static string SectionWorkshops {
+            get {
+                return ResourceManager.GetString("SectionWorkshops", resourceCulture);
             }
         }
     }

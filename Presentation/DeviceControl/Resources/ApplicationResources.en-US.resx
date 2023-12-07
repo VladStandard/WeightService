@@ -39,4 +39,94 @@
     <data name="DataGridColumnCounter" xml:space="preserve">
         <value>Counter</value>
     </data>
+    <data name="HomeMsgDescription" xml:space="preserve">
+        <value>Click on the menu section to continue</value>
+    </data>
+    <data name="Menu1CReferences" xml:space="preserve">
+        <value>1C References</value>
+    </data>
+    <data name="MenuAdministration" xml:space="preserve">
+        <value>Administration</value>
+    </data>
+    <data name="MenuDevices" xml:space="preserve">
+        <value>Devices</value>
+    </data>
+    <data name="MenuDiagnostics" xml:space="preserve">
+        <value>Diagnostics</value>
+    </data>
+    <data name="MenuOperations" xml:space="preserve">
+        <value>Operations</value>
+    </data>
+    <data name="MenuReferences" xml:space="preserve">
+        <value>References</value>
+    </data>
+    <data name="Section1CLogs" xml:space="preserve">
+        <value>1C Logs</value>
+    </data>
+    <data name="SectionAggregatedLabels" xml:space="preserve">
+        <value>Agg. labels</value>
+    </data>
+    <data name="SectionAppsLogs" xml:space="preserve">
+        <value>Apps logs</value>
+    </data>
+    <data name="SectionBarcodes" xml:space="preserve">
+        <value>Barcodes</value>
+    </data>
+    <data name="SectionBoxes" xml:space="preserve">
+        <value>Boxes</value>
+    </data>
+    <data name="SectionBrands" xml:space="preserve">
+        <value>Brands</value>
+    </data>
+    <data name="SectionBundles" xml:space="preserve">
+        <value>Bundles</value>
+    </data>
+    <data name="SectionClips" xml:space="preserve">
+        <value>Clips</value>
+    </data>
+    <data name="SectionDatabase" xml:space="preserve">
+        <value>Database</value>
+    </data>
+    <data name="SectionHosts" xml:space="preserve">
+        <value>Hosts</value>
+    </data>
+    <data name="SectionLabels" xml:space="preserve">
+        <value>Labels</value>
+    </data>
+    <data name="SectionLines" xml:space="preserve">
+        <value>Lines</value>
+    </data>
+    <data name="SectionPlatforms" xml:space="preserve">
+        <value>Platforms</value>
+    </data>
+    <data name="SectionPLU" xml:space="preserve">
+        <value>PLU</value>
+    </data>
+    <data name="SectionPluStorages" xml:space="preserve">
+        <value>PLU Storages</value>
+    </data>
+    <data name="SectionPrinters" xml:space="preserve">
+        <value>Printers</value>
+    </data>
+    <data name="SectionTemplates" xml:space="preserve">
+        <value>Templates</value>
+    </data>
+    <data name="SectionTemplatesResources" xml:space="preserve">
+        <value>Templates Resources</value>
+    </data>
+    <data name="SectionUsers" xml:space="preserve">
+        <value>Users</value>
+    </data>
+    <data name="SectionVersions" xml:space="preserve">
+        <value>Versions</value>
+    </data>
+    <data name="SectionWeightings" xml:space="preserve">
+        <value>Weightings</value>
+    </data>
+    <data name="SectionWorkshops" xml:space="preserve">
+        <value>Workshops</value>
+    </data>
+    <data name="ApplicationName" xml:space="preserve">
+        <value>Device Control</value>
+    </data>
 </root>

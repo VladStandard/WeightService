@@ -1,11 +1,14 @@
+@using DeviceControl.Utils
 @inherits ComponentBase
 
 
 <div class="flex flex-col w-full grow h-full overflow-x-hidden overflow-y-auto border-r border-r-black/[.1] @(!IsProduction ? "invert bg-slate-200" : "" )">
   <div class="flex flex-col items-center justify-center h-20">
-    <p class="text-xl font-medium text-center">
-      Управление устройствами
-    </p>
+    <a href="@RouteUtils.Home">
+      <p class="text-xl font-medium text-center">
+        @Localizer["ApplicationName"]
+      </p>
+    </a>
   </div>
   <ul class="flex w-full gap-1 mt-4 flex-col">
     @foreach (MenuSection menu in MenuSections)

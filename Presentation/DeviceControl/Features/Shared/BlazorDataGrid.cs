@@ -6,7 +6,7 @@ public class BlazorDataGrid<TItem> : DataGrid<TItem>
 {
     public BlazorDataGrid()
     {
-        PageSize = 20;
+        PageSize = 15;
         ShowPager = true;
         PagerPosition = DataGridPagerPosition.Bottom;
         PagerOptions = new() { PaginationPosition = PagerElementPosition.Center };
