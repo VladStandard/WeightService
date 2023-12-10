@@ -33,12 +33,6 @@ public static class RouteUtils
     public static string SectionPrinters => "/section/printers";
     
     #endregion
-    
-    #region Устройства
-    
-    public static string SectionHosts => "/section/hosts";
-    
-    #endregion
 
     #region Прочее
 
@@ -49,12 +43,14 @@ public static class RouteUtils
     public static string SectionBrands => "/section/brands";
     public static string SectionBundles => "/section/bundles";
     public static string SectionProductionFacilities => "/section/production_facilities";
-    public static string SectionLines => "/section/lines";
     public static string SectionTemplateResources => "/section/templates_resources";
     public static string SectionTemplates => "/section/templates";
     public static string SectionWorkShops => "/section/workshops";
-    public static string Profile => "/profile";
-    public static string Home => "/";
 
     #endregion
+    
+    public const string SectionLines = "/section/lines";
+    public const string SectionHosts = "/section/hosts";
+    public const string Profile = "/profile";
+    public const string Home = "/";
 }

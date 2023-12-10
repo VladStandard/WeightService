@@ -28,21 +28,15 @@ builder.Services
     .AddTailwindProviders()
     .AddFontAwesomeIcons();
 
-builder.Services.AddLocalization();
+builder.Logging.SetMinimumLevel(LogLevel.Warning);
 
-builder.Host.ConfigureLogging(logging =>
-{
-    logging.SetMinimumLevel(LogLevel.Warning);
-    logging.AddConsole();
-});
+builder.Services.AddLocalization();
 
 #endregion
 
 #region AddScoped
 
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<RouteService>();
-builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<JsService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();

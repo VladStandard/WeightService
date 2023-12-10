@@ -1,0 +1,52 @@
+@attribute [Route(RouteUtils.SectionLines)]
+@inherits SectionBase<SqlLineEntity>
+
+
+<DataGridWrapper
+  TItem="SqlLineEntity"
+  GridData="SqlSectionCast"
+  Title="@Localizer["SectionLines"]"
+  >
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnVersion"]"
+    Field="@nameof(SqlLineEntity.Version)"
+    Width="5%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnLine"]"
+    Field="@nameof(SqlLineEntity.Description)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnNumber"]"
+    Field="@nameof(SqlLineEntity.Number)"
+    Width="10%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnDevice"]"
+    Field="Host.Name"
+    Width="20%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnPrinter"]"
+    Field="Printer.Name"
+    Width="20%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnWorkshop"]"
+    Field="WorkShop.Name"
+    Width="20%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLineEntity"
+    Caption="@Localizer["DataGridColumnCounter"]"
+    Field="@nameof(SqlLineEntity.LabelCounter)"
+    Width="10%"
+  />
+</DataGridWrapper>

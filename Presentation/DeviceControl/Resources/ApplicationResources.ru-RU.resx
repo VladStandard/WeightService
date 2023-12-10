@@ -129,4 +129,16 @@
     <data name="ApplicationName" xml:space="preserve">
         <value>Управление Устройствами</value>
     </data>
+    <data name="DataGridTotalItems" xml:space="preserve">
+        <value>всего строк</value>
+    </data>
+    <data name="DataGridColumnLoginDt" xml:space="preserve">
+        <value>Дата Входа</value>
+    </data>
+    <data name="DataGridColumnName" xml:space="preserve">
+        <value>Название</value>
+    </data>
+    <data name="DataGridColumnDeviceIp" xml:space="preserve">
+        <value>Адрес устройства</value>
+    </data>
 </root>

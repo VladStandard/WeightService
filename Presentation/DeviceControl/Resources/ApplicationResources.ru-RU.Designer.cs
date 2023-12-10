@@ -87,11 +87,38 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес устройства.
+        /// </summary>
+        internal static string DataGridColumnDeviceIp {
+            get {
+                return ResourceManager.GetString("DataGridColumnDeviceIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Линия.
         /// </summary>
         internal static string DataGridColumnLine {
             get {
                 return ResourceManager.GetString("DataGridColumnLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата Входа.
+        /// </summary>
+        internal static string DataGridColumnLoginDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnLoginDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название.
+        /// </summary>
+        internal static string DataGridColumnName {
+            get {
+                return ResourceManager.GetString("DataGridColumnName", resourceCulture);
             }
         }
         
@@ -128,6 +155,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnWorkshop {
             get {
                 return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to всего строк.
+        /// </summary>
+        internal static string DataGridTotalItems {
+            get {
+                return ResourceManager.GetString("DataGridTotalItems", resourceCulture);
             }
         }
         

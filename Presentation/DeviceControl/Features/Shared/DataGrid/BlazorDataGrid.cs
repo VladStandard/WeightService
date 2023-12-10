@@ -1,6 +1,6 @@
 using Blazorise.DataGrid;
 
-namespace DeviceControl.Features.Shared;
+namespace DeviceControl.Features.Shared.DataGrid;
 
 public class BlazorDataGrid<TItem> : DataGrid<TItem>
 {
@@ -10,7 +10,5 @@ public class BlazorDataGrid<TItem> : DataGrid<TItem>
         ShowPager = true;
         PagerPosition = DataGridPagerPosition.Bottom;
         PagerOptions = new() { PaginationPosition = PagerElementPosition.Center };
-        Class = "bg-white table-fixed";
     }
 }
-

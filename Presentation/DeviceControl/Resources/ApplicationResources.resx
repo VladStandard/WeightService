@@ -129,4 +129,16 @@
     <data name="ApplicationName" xml:space="preserve">
         <value />
     </data>
+    <data name="DataGridTotalItems" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnLoginDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDeviceIp" xml:space="preserve">
+        <value />
+    </data>
 </root>

@@ -16,7 +16,7 @@ public sealed partial class NavMenu : ComponentBase
 
     protected override void OnInitialized()
     {
-        IsProduction = !ConfigurationUtil.IsDevelop;
+        IsProduction = ConfigurationUtil.IsDevelop;
         MenuSections = CreateNavMenus();
     }
     

@@ -1,27 +1,18 @@
-using Blazored.LocalStorage;
-using DeviceControl.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using Radzen;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Models;
 using Ws.StorageCore.Utils;
 
-namespace DeviceControl.Features.Shared;
+namespace DeviceControl.Features.Shared.DataGrid;
 
 public class SectionBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {
-    [Inject] protected IJSRuntime JsRuntime { get; set; } = null!;
-    [Inject] protected RouteService RouteService { get; set; } = null!;
-    [Inject] protected ContextMenuService ContextMenuService { get; set; } = null!;
-    [Inject] protected ILocalStorageService LocalStorageService { get; set; } = null!;
     protected List<TItem> SqlSectionCast { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
 
     protected override void OnAfterRender(bool firstRender)
     {
         if(!firstRender) return;
-        SqlCrudConfigSection.SelectTopRowsCount = 200;
         GetData();
     }
 

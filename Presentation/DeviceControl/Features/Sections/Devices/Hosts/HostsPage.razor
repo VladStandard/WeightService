@@ -1,0 +1,30 @@
+@attribute [Route(RouteUtils.SectionHosts)]
+@inherits SectionBase<SqlHostEntity>
+
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+
+
+<DataGridWrapper
+  TItem="SqlHostEntity"
+  GridData="SqlSectionCast"
+  Title="@Localizer["SectionHosts"]"
+>
+  <BlazorDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnLoginDt"]"
+    Field="@nameof(SqlHostEntity.LoginDt)"
+    Width="20%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlHostEntity.Name)"
+    Width="40%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnDeviceIp"]"
+    Field="@nameof(SqlHostEntity.Ip)"
+    Width="40%"
+  />
+</DataGridWrapper>
