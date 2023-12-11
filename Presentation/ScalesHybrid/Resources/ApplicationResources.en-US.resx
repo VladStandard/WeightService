@@ -69,46 +69,37 @@
     <data name="DialogLineSelectHeaderLabel" xml:space="preserve">
         <value>Line Select</value>
     </data>
-    <data name="DialogLineSelectNumberColumn" xml:space="preserve">
+    <data name="DataGridColumnNumber" xml:space="preserve">
         <value>Number</value>
     </data>
-    <data name="DialogLineSelectNameColumn" xml:space="preserve">
+    <data name="DataGridColumnName" xml:space="preserve">
         <value>Name</value>
     </data>
-    <data name="DialogLineSelectWorkshopColumn" xml:space="preserve">
+    <data name="DataGridColumnWorkshop" xml:space="preserve">
         <value>Workshop</value>
     </data>
     <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
         <value>PLU Select</value>
     </data>
-    <data name="DialogPluSelectNameColumn" xml:space="preserve">
-        <value>Name</value>
-    </data>
-    <data name="DialogPluSelectNumberColumn" xml:space="preserve">
-        <value>Number</value>
-    </data>
-    <data name="DialogPluSelectTypeColumn" xml:space="preserve">
+    <data name="DataGridColumnType" xml:space="preserve">
         <value>Type</value>
     </data>
     <data name="DialogNestingSelectHeaderLabel" xml:space="preserve">
         <value>Nesting Select</value>
     </data>
-    <data name="DialogNestingSelectBoxWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnBoxWeight" xml:space="preserve">
         <value>Box weight</value>
     </data>
-    <data name="DialogNestingSelectBundleWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnBundleWeight" xml:space="preserve">
         <value>Bundle weight</value>
     </data>
-    <data name="DialogNestingSelectNameColumn" xml:space="preserve">
-        <value>Name</value>
-    </data>
-    <data name="DialogNestingSelectTareWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnTareWeight" xml:space="preserve">
         <value>Tare weight</value>
     </data>
-    <data name="DialogNestingSelectBundleCountColumn" xml:space="preserve">
+    <data name="DataGridColumnBundleCount" xml:space="preserve">
         <value>Bundle count</value>
     </data>
-    <data name="DialogNestingSelectDefaultColumn" xml:space="preserve">
+    <data name="DataGridColumnDefault" xml:space="preserve">
         <value>By default</value>
     </data>
     <data name="ProductDisplayWarningPluSelect" xml:space="preserve">
@@ -119,5 +110,17 @@
     </data>
     <data name="AppName" xml:space="preserve">
         <value>Weight post</value>
+    </data>
+    <data name="ButtonCancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="DialogCloseAppDescription" xml:space="preserve">
+        <value>Close the application?</value>
+    </data>
+    <data name="ButtonCooldown" xml:space="preserve">
+        <value>Available in</value>
+    </data>
+    <data name="TimeMeasureSecond" xml:space="preserve">
+        <value>sec</value>
     </data>
 </root>

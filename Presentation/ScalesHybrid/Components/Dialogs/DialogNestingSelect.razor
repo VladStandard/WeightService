@@ -10,7 +10,7 @@
   >
     <DataGridColumns>
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectDefaultColumn"]"
+        Caption="@Localizer["DataGridColumnDefault"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
         Width="10%"
@@ -25,31 +25,31 @@
         </DisplayTemplate>
       </BlazorDataGridColumn>
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectNameColumn"]"
+        Caption="@Localizer["DataGridColumnName"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.Box.Name)"
         Width="45%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectBundleCountColumn"]"
+        Caption="@Localizer["DataGridColumnBundleCount"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
         Width="15%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectBoxWeightColumn"]"
+        Caption="@Localizer["DataGridColumnBoxWeight"]"
         TItem="SqlPluNestingFkEntity"
         Field="Box.Weight"
         Width="10%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectBundleWeightColumn"]"
+        Caption="@Localizer["DataGridColumnBundleWeight"]"
         TItem="SqlPluNestingFkEntity"
         Field="Plu.Bundle.Weight"
         Width="10%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogNestingSelectTareWeightColumn"]"
+        Caption="@Localizer["DataGridColumnTareWeight"]"
         TItem="SqlPluNestingFkEntity"
         Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
         Width="10%"
@@ -57,7 +57,7 @@
     </DataGridColumns>
     <PageButtonTemplate>
       <button type="button" class="h-10 w-10 text-xl">
-          @context.PageNumber
+        @context.PageNumber
       </button>
     </PageButtonTemplate>
     <NextPageButtonTemplate>

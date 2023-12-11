@@ -11,19 +11,19 @@
   >
     <DataGridColumns>
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogLineSelectNumberColumn"]"
+        Caption="@Localizer["DataGridColumnNumber"]"
         TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Number)"
         Width="15%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogLineSelectNameColumn"]"
+        Caption="@Localizer["DataGridColumnName"]"
         TItem="SqlLineEntity"
         Field="@nameof(SqlLineEntity.Description)"
         Width="45%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogLineSelectWorkshopColumn"]"
+        Caption="@Localizer["DataGridColumnWorkshop"]"
         TItem="SqlLineEntity"
         Field="WorkShop.Name"
         Width="40%"
@@ -31,7 +31,7 @@
     </DataGridColumns>
     <PageButtonTemplate>
       <button type="button" class="h-10 w-10 text-xl">
-          @context.PageNumber
+        @context.PageNumber
       </button>
     </PageButtonTemplate>
     <NextPageButtonTemplate>
@@ -47,10 +47,10 @@
       <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
     </FirstPageButtonTemplate>
     <TotalItemsTemplate>
-      <span class="hidden"/>
+      <span class="hidden"></span>
     </TotalItemsTemplate>
     <TotalItemsShortTemplate>
-      <span class="hidden"/>
+      <span class="hidden"></span>
     </TotalItemsShortTemplate>
   </BlazorDataGrid>
 </ModalBody>

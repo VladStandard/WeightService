@@ -46,19 +46,19 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
 
         if (IsPrinterDisconnected)
         {
-            await NotificationService.Warning("Принтер не активен", "Печать этикеток");
+            await NotificationService.Warning("Принтер не активен");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
         {
-            await NotificationService.Warning("Весы не стабильны", "Печать этикеток");
+            await NotificationService.Warning("Весы не стабильны");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
         {
-            await NotificationService.Warning("На весах слишком маленький вес", "Печать этикеток");
+            await NotificationService.Warning("На весах слишком маленький вес");
             return;
         }
 
@@ -71,7 +71,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         }
         catch (LabelException ex)
         {
-            await NotificationService.Error(ex.ToString(), "Печать этикеток");
+            await NotificationService.Error(ex.ToString());
         }
     }
     

@@ -10,13 +10,13 @@
   >
     <DataGridColumns>
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectNumberColumn"]"
+        Caption="@Localizer["DataGridColumnNumber"]"
         TItem="SqlPluEntity"
         Field="@nameof(SqlPluEntity.Number)"
         Width="15%"
       />
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectTypeColumn"]"
+        Caption="@Localizer["DataGridColumnType"]"
         TItem="SqlPluEntity"
         Field="@nameof(SqlPluEntity.IsCheckWeight)"
         Width="15%"
@@ -28,7 +28,7 @@
         </DisplayTemplate>
       </BlazorDataGridColumn>
       <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectNameColumn"]"
+        Caption="@Localizer["DataGridColumnName"]"
         TItem="SqlPluEntity"
         Field="@nameof(SqlPluEntity.Name)"
         Width="70%"
