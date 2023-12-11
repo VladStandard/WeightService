@@ -123,4 +123,31 @@
     <data name="TimeMeasureSecond" xml:space="preserve">
         <value>сек</value>
     </data>
+    <data name="PrinterStatusHeadOpen" xml:space="preserve">
+        <value>Открыта головка принтера</value>
+    </data>
+    <data name="PrinterStatusIsDisconnected" xml:space="preserve">
+        <value>Принтер не активен</value>
+    </data>
+    <data name="PrinterStatusIsForceDisconnected" xml:space="preserve">
+        <value>Принтер не в сети</value>
+    </data>
+    <data name="PrinterStatusPaperJam" xml:space="preserve">
+        <value>В принтере замялась этикетка</value>
+    </data>
+    <data name="PrinterStatusPaperOut" xml:space="preserve">
+        <value>Кончилась лента в принтере</value>
+    </data>
+    <data name="PrinterStatusPaused" xml:space="preserve">
+        <value>Принтер стоит на паузе</value>
+    </data>
+    <data name="PrinterStatusUnknown" xml:space="preserve">
+        <value>Неизвестная ошибка принтера</value>
+    </data>
+    <data name="ScalesStatusTooLight" xml:space="preserve">
+        <value>На весах недостаточный вес</value>
+    </data>
+    <data name="ScalesStatusUnstable" xml:space="preserve">
+        <value>Весы нестабильны</value>
+    </data>
 </root>

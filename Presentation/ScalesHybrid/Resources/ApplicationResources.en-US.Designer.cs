@@ -276,6 +276,69 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The printer head is opened.
+        /// </summary>
+        internal static string PrinterStatusHeadOpen {
+            get {
+                return ResourceManager.GetString("PrinterStatusHeadOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The printer is deactivated.
+        /// </summary>
+        internal static string PrinterStatusIsDisconnected {
+            get {
+                return ResourceManager.GetString("PrinterStatusIsDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The printer is offline.
+        /// </summary>
+        internal static string PrinterStatusIsForceDisconnected {
+            get {
+                return ResourceManager.GetString("PrinterStatusIsForceDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The label is stuck in the printer.
+        /// </summary>
+        internal static string PrinterStatusPaperJam {
+            get {
+                return ResourceManager.GetString("PrinterStatusPaperJam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The printer has run out of tape.
+        /// </summary>
+        internal static string PrinterStatusPaperOut {
+            get {
+                return ResourceManager.GetString("PrinterStatusPaperOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The printer is on pause.
+        /// </summary>
+        internal static string PrinterStatusPaused {
+            get {
+                return ResourceManager.GetString("PrinterStatusPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown printer error.
+        /// </summary>
+        internal static string PrinterStatusUnknown {
+            get {
+                return ResourceManager.GetString("PrinterStatusUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string ProductDisplayDateLabel {
@@ -344,6 +407,24 @@ namespace ScalesHybrid.Resources {
         internal static string ProductDisplayWarningScalesDisconnected {
             get {
                 return ResourceManager.GetString("ProductDisplayWarningScalesDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scales lack the necessary weight..
+        /// </summary>
+        internal static string ScalesStatusTooLight {
+            get {
+                return ResourceManager.GetString("ScalesStatusTooLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The scales are not stable.
+        /// </summary>
+        internal static string ScalesStatusUnstable {
+            get {
+                return ResourceManager.GetString("ScalesStatusUnstable", resourceCulture);
             }
         }
         

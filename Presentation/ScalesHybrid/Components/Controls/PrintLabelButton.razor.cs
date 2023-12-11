@@ -26,10 +26,10 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
     [Inject] private LineContext LineContext { get; set; }
     
     #endregion
-    
+
+    private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
-    private bool IsPrinterDisconnected { get; set; }
     
     protected override void OnInitialized()
     {
@@ -44,21 +44,21 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
 
         await Task.Delay(100);
 
-        if (IsPrinterDisconnected)
+        if (PrinterStatus is not (PrinterStatusEnum.Ready or PrinterStatusEnum.Busy))
         {
-            await NotificationService.Warning("Принтер не активен");
+            await PrintPrinterStatusMessage();
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
         {
-            await NotificationService.Warning("Весы не стабильны");
+            await NotificationService.Warning(Localizer["ScalesStatusUnstable"]);
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
         {
-            await NotificationService.Warning("На весах слишком маленький вес");
+            await NotificationService.Warning(Localizer["ScalesStatusTooLight"]);
             return;
         }
 
@@ -95,6 +95,21 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             LineName = LineContext.Line.Description,
             Template = LineContext.PluTemplate.Data
         };
+
+    private async Task PrintPrinterStatusMessage()
+    {
+        string msg = PrinterStatus switch
+        {
+            PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatusEnum.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatusEnum.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
+            _ => Localizer["PrinterStatusUnknown"]
+        };
+        await NotificationService.Warning(msg);
+    }
     
     private bool GetPrintLabelDisabledStatus() =>
         LineContext.Plu.IsNew || LineContext.PluNesting.IsNew || LineContext.Plu.IsCheckWeight & IsScalesDisconnected;
@@ -103,11 +118,10 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         (decimal)LineContext.KneadingModel.NetWeightG / 1000 - LineContext.PluNesting.WeightTare;
 
     private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
-        IsPrinterDisconnected = payload.Status is not (PrinterStatusEnum.Ready or PrinterStatusEnum.Busy);
+        PrinterStatus = payload.Status;
 
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload) =>
         IsScalesStable = payload.IsStable;
-    
     
     private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
     {

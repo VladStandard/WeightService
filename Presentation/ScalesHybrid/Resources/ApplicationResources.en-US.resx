@@ -123,4 +123,31 @@
     <data name="TimeMeasureSecond" xml:space="preserve">
         <value>sec</value>
     </data>
+    <data name="PrinterStatusHeadOpen" xml:space="preserve">
+        <value>The printer head is opened</value>
+    </data>
+    <data name="PrinterStatusIsDisconnected" xml:space="preserve">
+        <value>The printer is deactivated</value>
+    </data>
+    <data name="PrinterStatusIsForceDisconnected" xml:space="preserve">
+        <value>The printer is offline</value>
+    </data>
+    <data name="PrinterStatusPaperJam" xml:space="preserve">
+        <value>The label is stuck in the printer</value>
+    </data>
+    <data name="PrinterStatusPaperOut" xml:space="preserve">
+        <value>The printer has run out of tape</value>
+    </data>
+    <data name="PrinterStatusPaused" xml:space="preserve">
+        <value>The printer is on pause</value>
+    </data>
+    <data name="PrinterStatusUnknown" xml:space="preserve">
+        <value>Unknown printer error</value>
+    </data>
+    <data name="ScalesStatusTooLight" xml:space="preserve">
+        <value>The scales lack the necessary weight.</value>
+    </data>
+    <data name="ScalesStatusUnstable" xml:space="preserve">
+        <value>The scales are not stable</value>
+    </data>
 </root>
