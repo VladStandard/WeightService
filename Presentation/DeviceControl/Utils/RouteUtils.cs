@@ -24,7 +24,6 @@ public static class RouteUtils
     #region Диагностика
 
     public static string SectionLogs => "/section/logs";
-    public static string SectionLogsWebService => "/section/logs_web_service";
     
     #endregion
     
@@ -51,6 +50,7 @@ public static class RouteUtils
     
     public const string SectionLines = "/section/lines";
     public const string SectionHosts = "/section/hosts";
+    public const string Section1CLogs = "/section/1c_logs";
     public const string Profile = "/profile";
     public const string Home = "/";
 }

@@ -71,9 +71,36 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnChangeDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnCreateDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnCreateDt", resourceCulture);
             }
         }
         
@@ -92,6 +119,15 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnDeviceIp {
             get {
                 return ResourceManager.GetString("DataGridColumnDeviceIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnErrorCounter {
+            get {
+                return ResourceManager.GetString("DataGridColumnErrorCounter", resourceCulture);
             }
         }
         
@@ -137,6 +173,24 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnRequestUrl {
+            get {
+                return ResourceManager.GetString("DataGridColumnRequestUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnSuccessCounter {
+            get {
+                return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
             }
         }
         

@@ -141,4 +141,22 @@
     <data name="DataGridColumnDeviceIp" xml:space="preserve">
         <value>Device IP</value>
     </data>
+    <data name="DataGridColumnCreateDt" xml:space="preserve">
+        <value>Create date</value>
+    </data>
+    <data name="DataGridColumnChangeDt" xml:space="preserve">
+        <value>Change date</value>
+    </data>
+    <data name="DataGridColumnCount" xml:space="preserve">
+        <value>Count</value>
+    </data>
+    <data name="DataGridColumnErrorCounter" xml:space="preserve">
+        <value>Errors</value>
+    </data>
+    <data name="DataGridColumnSuccessCounter" xml:space="preserve">
+        <value>Successes</value>
+    </data>
+    <data name="DataGridColumnRequestUrl" xml:space="preserve">
+        <value>Request url</value>
+    </data>
 </root>

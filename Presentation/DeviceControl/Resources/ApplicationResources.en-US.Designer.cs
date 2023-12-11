@@ -69,11 +69,38 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change date.
+        /// </summary>
+        internal static string DataGridColumnChangeDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Count.
+        /// </summary>
+        internal static string DataGridColumnCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Counter.
         /// </summary>
         internal static string DataGridColumnCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create date.
+        /// </summary>
+        internal static string DataGridColumnCreateDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnCreateDt", resourceCulture);
             }
         }
         
@@ -92,6 +119,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnDeviceIp {
             get {
                 return ResourceManager.GetString("DataGridColumnDeviceIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Errors.
+        /// </summary>
+        internal static string DataGridColumnErrorCounter {
+            get {
+                return ResourceManager.GetString("DataGridColumnErrorCounter", resourceCulture);
             }
         }
         
@@ -137,6 +173,24 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request url.
+        /// </summary>
+        internal static string DataGridColumnRequestUrl {
+            get {
+                return ResourceManager.GetString("DataGridColumnRequestUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successes.
+        /// </summary>
+        internal static string DataGridColumnSuccessCounter {
+            get {
+                return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
             }
         }
         

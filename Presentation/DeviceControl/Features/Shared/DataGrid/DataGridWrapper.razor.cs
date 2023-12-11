@@ -11,4 +11,5 @@ public sealed partial class DataGridWrapper<TItem>: ComponentBase
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
     [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public bool IsFilterable { get; set; }
 }

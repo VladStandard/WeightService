@@ -141,4 +141,22 @@
     <data name="DataGridColumnDeviceIp" xml:space="preserve">
         <value>Адрес устройства</value>
     </data>
+    <data name="DataGridColumnCreateDt" xml:space="preserve">
+        <value>Дата создания</value>
+    </data>
+    <data name="DataGridColumnChangeDt" xml:space="preserve">
+        <value>Дата изменения</value>
+    </data>
+    <data name="DataGridColumnErrorCounter" xml:space="preserve">
+        <value>Ошибок</value>
+    </data>
+    <data name="DataGridColumnCount" xml:space="preserve">
+        <value>Кол-во</value>
+    </data>
+    <data name="DataGridColumnSuccessCounter" xml:space="preserve">
+        <value>Успехи</value>
+    </data>
+    <data name="DataGridColumnRequestUrl" xml:space="preserve">
+        <value>Url запроса</value>
+    </data>
 </root>

@@ -1,0 +1,52 @@
+@attribute [Route(RouteUtils.Section1CLogs)]
+@inherits SectionBase<SqlLogWebEntity>
+
+
+<DataGridWrapper
+  TItem="SqlLogWebEntity"
+  GridData="SqlSectionCast"
+  Title="@Localizer["Section1CLogs"]"
+>
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnCreateDt"]"
+    Field="@nameof(SqlLogWebEntity.CreateDt)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnChangeDt"]"
+    Field="@nameof(SqlLogWebEntity.StampDt)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnVersion"]"
+    Field="@nameof(SqlLogWebEntity.Version)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnRequestUrl"]"
+    Field="@nameof(SqlLogWebEntity.Url)"
+    Width="40%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnCount"]"
+    Field="@nameof(SqlLogWebEntity.CountAll)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnSuccessCounter"]"
+    Field="@nameof(SqlLogWebEntity.CountSuccess)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    TItem="SqlLogWebEntity"
+    Caption="@Localizer["DataGridColumnErrorCounter"]"
+    Field="@nameof(SqlLogWebEntity.CountErrors)"
+    Width="15%"
+  />
+</DataGridWrapper>
