@@ -1,0 +1,39 @@
+@typeparam TItem
+@using Blazor.Heroicons.Outline
+
+<DialogHeader Label="@Title" />
+
+<ModalBody Class="!p-0">
+  <BlazorDataGrid
+    TItem="TItem"
+    SelectedRowChanged="OnItemSelect"
+    Data="@GridData"
+  >
+    <DataGridColumns>
+      @ChildContent
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <button type="button" class="h-10 w-10 text-xl">
+        @context.PageNumber
+      </button>
+    </PageButtonTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <span class="hidden"></span>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <span class="hidden"></span>
+    </TotalItemsShortTemplate>
+  </BlazorDataGrid>
+</ModalBody>
