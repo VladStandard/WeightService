@@ -14,8 +14,9 @@
         </ul>
         <button
           type="button"
-          @onclick="ExitApp"
-          class="h-12 w-12 rounded-md border border-black/[.1] overflow-hidden flex items-center justify-center bg-gray-100">
+          @onclick="ShowExitDialog"
+          class="h-12 w-12 rounded-md border border-black/[.1] overflow-hidden flex items-center justify-center
+                  bg-gray-100 transition-colors hover:bg-sky-200">
           <PowerIcon class="h-8 w-8"/>
         </button>
       </div>

@@ -1,0 +1,21 @@
+<div class="w-full flex flex-col px-6 py-3">
+  <p class="text-2xl py-6 text-center">
+    Вы уверены что хотите закрыть приложение?
+  </p>
+  <div class="h-14 mt-6 w-full flex justify-between gap-6">
+    <button
+      type="button"
+      class="bg-red-200 rounded-md h-full w-full overflow-hidden transition-colors border border-black/[.1] hover:bg-red-300"
+      @onclick="CloseDialog"
+    >
+      <p class="text-lg">Отмена</p>
+    </button>
+    <button
+      type="button"
+      class="bg-green-200 rounded-md h-full w-full overflow-hidden transition-colors border border-black/[.1] hover:bg-green-300"
+      @onclick="ExitApp"
+    >
+      <p class="text-lg">Закрыть</p>
+    </button>
+  </div>
+</div>

@@ -33,9 +33,8 @@ public sealed partial class ProductDisplayKneading: ComponentBase, IDisposable
         StateHasChanged();
     }
 
-    private void ShowCalculatorDialog() =>
-        InvokeAsync(() => ModalService.Show<DialogCalculator>(p =>
-            p.Add(x => x.CallbackFunction, SetNewKneading)));
+    private async Task ShowCalculatorDialog() => await ModalService.Show<DialogCalculator>(p =>
+            p.Add(x => x.CallbackFunction, SetNewKneading), new(){ Size = ModalSize.Default });
 
     public void Dispose()
     {
