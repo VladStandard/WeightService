@@ -30,6 +30,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.min.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.min.css" />
         <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.js" />
         <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.min.css" />
         <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />

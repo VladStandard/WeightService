@@ -45,12 +45,6 @@
     <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value>Kneading</value>
     </data>
-    <data name="PageTitleIndex" xml:space="preserve">
-        <value>Label print</value>
-    </data>
-    <data name="PageTitlePluSelect" xml:space="preserve">
-        <value>PLU Select</value>
-    </data>
     <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value>Net weight</value>
     </data>
@@ -122,5 +116,8 @@
     </data>
     <data name="ProductDisplayWarningScalesDisconnected" xml:space="preserve">
         <value>Scales are disconnected</value>
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Weight post</value>
     </data>
 </root>

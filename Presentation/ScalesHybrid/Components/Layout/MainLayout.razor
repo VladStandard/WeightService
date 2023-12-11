@@ -7,6 +7,11 @@
   </main>
 </div>
 
-<ModalProvider UseModalStructure="false" Size="ModalSize.Large"  />
-<NotificationProvider Location="NotificationLocation.End"  />
+<Modal>
+  <ModalContent Size="ModalSize.Small">
+    ...
+  </ModalContent>
+</Modal>
 
+<ModalProvider UseModalStructure="false" Size="ModalSize.Large"  />
+<NotificationProvider Class="bg-black" Location="NotificationLocation.Center"  />

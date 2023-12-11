@@ -45,12 +45,6 @@
     <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value>Замес</value>
     </data>
-    <data name="PageTitleIndex" xml:space="preserve">
-        <value>Печать этикеток</value>
-    </data>
-    <data name="PageTitlePluSelect" xml:space="preserve">
-        <value>Выбор ПЛУ</value>
-    </data>
     <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value>Вес нетто</value>
     </data>
@@ -122,5 +116,8 @@
     </data>
     <data name="ProductDisplayWarningScalesDisconnected" xml:space="preserve">
         <value>Весы отключены</value>
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Весовой пост</value>
     </data>
 </root>

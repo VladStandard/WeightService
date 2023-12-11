@@ -46,23 +46,21 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
 
         if (IsPrinterDisconnected)
         {
-            await NotificationService.Info("Принтер не активен", "Печать этикеток");
+            await NotificationService.Warning("Принтер не активен", "Печать этикеток");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
         {
-            await NotificationService.Info("Весы не стабильны", "Печать этикеток");
+            await NotificationService.Warning("Весы не стабильны", "Печать этикеток");
             return;
         }
 
         if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
         {
-            await NotificationService.Info("На весах слишком маленький вес", "Печать этикеток");
+            await NotificationService.Warning("На весах слишком маленький вес", "Печать этикеток");
             return;
         }
-        
-        
 
         LabelInfoDto labelDto = CreateLabelInfoDto();
 
@@ -70,7 +68,6 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         {
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
-            await NotificationService.Success("Успешно сформирован", "Печать этикеток");
         }
         catch (LabelException ex)
         {
@@ -106,7 +103,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         (decimal)LineContext.KneadingModel.NetWeightG / 1000 - LineContext.PluNesting.WeightTare;
 
     private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
-        IsPrinterDisconnected = payload.Status != PrinterStatusEnum.Ready;
+        IsPrinterDisconnected = payload.Status is not (PrinterStatusEnum.Ready or PrinterStatusEnum.Busy);
 
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload) =>
         IsScalesStable = payload.IsStable;

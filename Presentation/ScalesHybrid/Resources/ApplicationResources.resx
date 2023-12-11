@@ -45,12 +45,6 @@
     <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value />
     </data>
-    <data name="PageTitleIndex" xml:space="preserve">
-        <value />
-    </data>
-    <data name="PageTitlePluSelect" xml:space="preserve">
-        <value />
-    </data>
     <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value />
     </data>
@@ -121,6 +115,9 @@
         <value />
     </data>
     <data name="ProductDisplayWarningPluSelect" xml:space="preserve">
+        <value />
+    </data>
+    <data name="AppName" xml:space="preserve">
         <value />
     </data>
 </root>

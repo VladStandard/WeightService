@@ -2,14 +2,14 @@
 
 public enum PrinterStatusEnum
 {
-    IsDisabled,
-    IsForceDisconnected,
+    IsDisabled, // отключен
+    IsForceDisconnected, // принтер не в сети
     Unknown,
     Paused,
     Ready,
-    HeadOpen,
-    PaperOut,
-    PaperJam,
-    Busy,
-    RibbonOut,
+    HeadOpen, // открыта крышка
+    PaperOut, // кончилась лента
+    PaperJam, // замяло этикетку
+    Busy, // занят
+    RibbonOut, // замяло что то
 }

@@ -60,6 +60,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Весовой пост.
+        /// </summary>
+        internal static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ввод.
         /// </summary>
         internal static string ButtonCalculatorEnter {
@@ -263,24 +272,6 @@ namespace ScalesHybrid.Resources {
         internal static string DialogPluSelectTypeColumn {
             get {
                 return ResourceManager.GetString("DialogPluSelectTypeColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Печать этикеток.
-        /// </summary>
-        internal static string PageTitleIndex {
-            get {
-                return ResourceManager.GetString("PageTitleIndex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выбор ПЛУ.
-        /// </summary>
-        internal static string PageTitlePluSelect {
-            get {
-                return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
             }
         }
         
