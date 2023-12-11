@@ -5,10 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
-        <Version>1.1.9.0</Version>
         <LangVersion>latest</LangVersion>
-        <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
