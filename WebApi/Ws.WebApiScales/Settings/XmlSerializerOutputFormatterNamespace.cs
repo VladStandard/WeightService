@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using System.Xml;
+using System.Xml.Serialization;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
-namespace Ws.WebApiCore.Settings;
+namespace Ws.WebApiScales.Settings;
 
 public class XmlSerializerOutputFormatterNamespace : XmlSerializerOutputFormatter
 {

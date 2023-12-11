@@ -1,4 +1,7 @@
-﻿namespace Ws.WebApiCore.Utils;
+﻿using System.Xml;
+using System.Xml.Serialization;
+
+namespace Ws.WebApiScales.Utils;
 
 public static class XmlUtil
 {

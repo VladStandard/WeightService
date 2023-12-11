@@ -1,9 +1,9 @@
 ﻿using FluentValidation.Results;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
-using Ws.WebApiCore.Utils;
 using Ws.WebApiScales.Dto.Brand;
 using Ws.WebApiScales.Dto.Response;
+using Ws.WebApiScales.Utils;
 using Ws.WebApiScales.Validators;
 
 namespace Ws.WebApiScales.Services;

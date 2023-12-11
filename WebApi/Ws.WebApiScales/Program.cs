@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Ws.WebApiCore.Settings;
 using Ws.WebApiScales.Dto.Response;
 using Ws.WebApiScales.Services;
+using Ws.WebApiScales.Settings;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
