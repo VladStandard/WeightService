@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFrameworks>net7.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
         <OutputType>Exe</OutputType>
@@ -12,6 +12,18 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
+
+        <IncludeSymbols>False</IncludeSymbols>
+        <GenerateTestArtifacts>False</GenerateTestArtifacts>
+        <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+        <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+
+        <AppxBundle>Never</AppxBundle>
+        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
+        <UapAppxPackageBuildMode>SideLoadOnly</UapAppxPackageBuildMode>
+        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
+        
         <!-- Display name -->
         <ApplicationTitle>ScalesHybrid</ApplicationTitle>
 
@@ -26,6 +38,11 @@
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <Configurations>ReleaseVS;DevelopVS</Configurations>
         <Platforms>x64</Platforms>
+
+        <DefaultLanguage>ru-ru</DefaultLanguage>
+        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
+        
     </PropertyGroup>
 
     <ItemGroup>
@@ -110,6 +127,11 @@
     <ItemGroup>
       <Folder Include="wwwroot\fonts\" />
       <Folder Include="wwwroot\libs\fontawasome\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".Publish\dev.cmd" />
+      <Content Include=".Publish\prod.cmd" />
     </ItemGroup>
 
 </Project>

@@ -24,6 +24,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
-    
-    <Import Project="$(SolutionDir)\Targets\SqlSettings.targets" />
+
+    <Import Project="..\..\Targets\SqlSettings.targets" />
 </Project>
