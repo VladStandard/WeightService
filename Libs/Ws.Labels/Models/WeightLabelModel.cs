@@ -39,7 +39,11 @@ public class WeightLabelModel : BaseLabelModel, ILabelModel
         set => _ = value;
     }
 
-    private string GetWeightStr(int charCount) => 
-        Weight.ToString("0.#####", CultureInfo.InvariantCulture)
-            .Replace(".", "").PadLeft(charCount, '0');
+    public string GetWeightStr(int targetLength)
+    {
+        string formattedString = Weight.ToString(CultureInfo.InvariantCulture);
+        string withoutSeparator = formattedString.Replace(".", "").Replace(",", "");
+        string result = withoutSeparator.PadLeft(targetLength, '0');
+        return result;
+    }
 }
