@@ -150,7 +150,11 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
     
     private void MouseSubscribe() =>
-        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => Task.Run(PrintLabel));
+        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) =>
+            {
+                if (!GetPrintLabelDisabledStatus()) Task.Run(PrintLabel);
+            }
+        );
     
     private void MouseUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<MiddleBtnIsClickedEvent>(this);
