@@ -7,14 +7,19 @@ namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 /// </summary>
 public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 {
-    public SqlLineEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlLineEntity>();
-
     public SqlLineEntity GetItemById(long id) => SqlCore.GetItemById<SqlLineEntity>(id);
 
     public SqlLineEntity GetItemByHost(SqlHostEntity host)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.Host), host));
+        return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
+    }
+    
+    public SqlLineEntity GetItemByName(string name)
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLineEntity.Description), name));
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
@@ -31,6 +36,4 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
             sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Description)));
         return SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
     }
-
-    public void Update(SqlLineEntity line) => SqlCore.Update(line);
 }

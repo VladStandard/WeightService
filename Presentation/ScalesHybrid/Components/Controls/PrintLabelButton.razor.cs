@@ -12,6 +12,7 @@ using Ws.Scales.Events;
 using Ws.Services.Dto;
 using Ws.Services.Exceptions;
 using Ws.Services.Services.PrintLabel;
+using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Components.Controls;
 
@@ -68,6 +69,8 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         catch (LabelException ex)
         {
             await NotificationService.Error(ex.ToString());
+            LineContext.Line.LabelCounter += 1;
+            SqlCoreHelper.Instance.Update(LineContext.Line);
         }
     }
 
@@ -98,6 +101,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
         {
             Kneading = (short)LineContext.KneadingModel.KneadingCount,
             Weight = GetWeight(),
+            WeightTare = LineContext.PluNesting.WeightTare,
             LineCounter = LineContext.Line.LabelCounter,
             BundleCount = LineContext.PluNesting.BundleCount,
             IsCheckWeight = LineContext.Plu.IsCheckWeight,

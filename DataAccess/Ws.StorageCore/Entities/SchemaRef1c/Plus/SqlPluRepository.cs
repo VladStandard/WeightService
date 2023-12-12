@@ -19,11 +19,7 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
         return SqlCore.GetItemByCrud<SqlPluEntity>(sqlCrudConfig);
     }
-
-    public SqlPluEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlPluEntity>();
-
-    public IEnumerable<SqlPluEntity> GetEnumerable() => GetEnumerable(SqlCrudConfigFactory.GetCrudAll());
-
+    
     public IEnumerable<SqlPluEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
@@ -49,4 +45,11 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
     }
 
     #endregion
+    
+    public SqlPluEntity GetItemByName(string pluName)
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.FullName), pluName));
+        return SqlCore.GetItemByCrud<SqlPluEntity>(sqlCrudConfig);
+    }
 }

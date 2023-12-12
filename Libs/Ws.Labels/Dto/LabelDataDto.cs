@@ -3,6 +3,7 @@
 public class LabelDataDto
 {
     public decimal Weight { get; set; }
+    public required decimal WeightTare { get; set; }
     public short BundleCount { get; set; }
     public string Itf { get; set; } = string.Empty;
     public string Gtin { get; set; } = string.Empty;
