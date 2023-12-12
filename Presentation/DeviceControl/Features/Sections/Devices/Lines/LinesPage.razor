@@ -4,9 +4,11 @@
 
 <DataGridWrapper
   TItem="SqlLineEntity"
-  GridData="SqlSectionCast"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  GetGridData="GetSectionData"
   Title="@Localizer["SectionLines"]"
-  >
+>
   <BlazorDataGridColumn
     TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnVersion"]"

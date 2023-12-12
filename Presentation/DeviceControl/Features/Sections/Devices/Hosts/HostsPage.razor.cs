@@ -13,5 +13,5 @@ public sealed partial class HostsPage: SectionBase<SqlHostEntity>
     private SqlHostRepository HostRepository { get; } = new();
 
     protected override void SetSqlSectionCast() =>
-        SqlSectionCast = HostRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = HostRepository.GetEnumerable(SqlCrudConfigSection).ToList();
 }

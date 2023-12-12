@@ -11,5 +11,5 @@ public sealed partial class LinesPage: SectionBase<SqlLineEntity>
     private SqlLineRepository LineRepository { get; } = new();
 
     protected override void SetSqlSectionCast() =>
-        SqlSectionCast = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();
 }

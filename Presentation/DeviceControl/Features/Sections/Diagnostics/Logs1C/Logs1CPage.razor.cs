@@ -13,5 +13,5 @@ public sealed partial class Logs1CPage: SectionBase<SqlLogWebEntity>
     private SqlLogWebRepository SqlLogWebRepository { get; } = new();
     
     protected override void SetSqlSectionCast() =>
-        SqlSectionCast = SqlLogWebRepository.GetList(SqlCrudConfigFactory.GetCrudAll()).ToList();
+        SectionItems = SqlLogWebRepository.GetList(SqlCrudConfigFactory.GetCrudAll()).ToList();
 }

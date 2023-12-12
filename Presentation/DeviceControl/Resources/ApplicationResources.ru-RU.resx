@@ -130,7 +130,7 @@
         <value>Управление Устройствами</value>
     </data>
     <data name="DataGridTotalItems" xml:space="preserve">
-        <value>всего строк</value>
+        <value>элементов</value>
     </data>
     <data name="DataGridColumnLoginDt" xml:space="preserve">
         <value>Дата Входа</value>

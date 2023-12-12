@@ -6,7 +6,9 @@
 
 <DataGridWrapper
   TItem="SqlHostEntity"
-  GridData="SqlSectionCast"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  GetGridData="SetSqlSectionCast"
   Title="@Localizer["SectionHosts"]"
 >
   <BlazorDataGridColumn

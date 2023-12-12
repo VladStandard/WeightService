@@ -4,7 +4,9 @@
 
 <DataGridWrapper
   TItem="SqlLogWebEntity"
-  GridData="SqlSectionCast"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  GetGridData="GetSectionData"
   Title="@Localizer["Section1CLogs"]"
 >
   <BlazorDataGridColumn

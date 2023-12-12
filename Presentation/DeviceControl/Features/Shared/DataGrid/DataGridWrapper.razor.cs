@@ -1,3 +1,4 @@
+using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -12,4 +13,14 @@ public sealed partial class DataGridWrapper<TItem>: ComponentBase
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public bool IsFilterable { get; set; }
+    [Parameter] public EventCallback GetGridData { get; set; }
+    [Parameter] public bool IsLoading { get; set; } = true; 
+
+    private DataGrid<TItem> DataGrid { get; set; } = null!;
+
+    private void ReloadData()
+    {
+        GetGridData.InvokeAsync();
+        DataGrid.Reload();
+    }
 }

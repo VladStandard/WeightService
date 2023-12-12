@@ -213,7 +213,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to всего строк.
+        ///   Looks up a localized string similar to элементов.
         /// </summary>
         internal static string DataGridTotalItems {
             get {

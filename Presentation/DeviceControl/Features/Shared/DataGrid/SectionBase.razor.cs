@@ -7,23 +7,32 @@ namespace DeviceControl.Features.Shared.DataGrid;
 
 public class SectionBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {
-    protected List<TItem> SqlSectionCast { get; set; } = new();
+    protected List<TItem> SectionItems { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
+    protected bool IsLoading { get; set; } = true;
+    protected int LoadingDelay { get; set; } = 500;
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if(!firstRender) return;
-        GetData();
+        await GetSectionData();
     }
-
+    
     protected virtual void SetSqlSectionCast()
     {
         throw new NotImplementedException();
     }
     
-    private void GetData()
+    public async Task GetSectionData()
     {
-        SetSqlSectionCast();
+        IsLoading = true;
+        await Task.Run(SetSqlSectionCast);
+        // Task setSqlSectionCastTask = Task.Run(SetSqlSectionCast);
+        // Task delayTask = Task.Delay(LoadingDelay);
+        // Task completedTask = await Task.WhenAny(setSqlSectionCastTask, delayTask);
+        // if (completedTask != setSqlSectionCastTask) IsLoading = true;
+        // await setSqlSectionCastTask;
+        
+        IsLoading = false;
         StateHasChanged();
     }
 }
