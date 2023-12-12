@@ -30,6 +30,9 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
+    private bool IsButtonClicked { get; set; }
+    private const int PrinterRequestDelay = 100;
+    private const int ButtonCooldownDelay = 500;
     
     protected override void OnInitialized()
     {
@@ -40,38 +43,53 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
     
     private async Task PrintLabel()
     {
+        if (IsButtonClicked) return;
+        IsButtonClicked = true;
+
+        await PrintLabelAsync();
+        
+        await Task.Delay(ButtonCooldownDelay);
+        IsButtonClicked = false;
+    }
+
+    private async Task PrintLabelAsync()
+    {
         ExternalDevices.Printer.RequestStatus();
+        await Task.Delay(PrinterRequestDelay);
 
-        await Task.Delay(100);
-
-        if (PrinterStatus is not (PrinterStatusEnum.Ready or PrinterStatusEnum.Busy))
-        {
-            await PrintPrinterStatusMessage();
-            return;
-        }
-
-        if (LineContext.Plu.IsCheckWeight && !IsScalesStable)
-        {
-            await NotificationService.Warning(Localizer["ScalesStatusUnstable"]);
-            return;
-        }
-
-        if (LineContext.Plu.IsCheckWeight && GetWeight() <= 0)
-        {
-            await NotificationService.Warning(Localizer["ScalesStatusTooLight"]);
-            return;
-        }
-
-        LabelInfoDto labelDto = CreateLabelInfoDto();
+        if (!await ValidateScalesStatus() || !await ValidatePrinterStatus()) return;
 
         try
         {
+            LabelInfoDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
         }
         catch (LabelException ex)
         {
             await NotificationService.Error(ex.ToString());
+        }
+    }
+
+    private async Task<bool> ValidatePrinterStatus()
+    {
+        if (PrinterStatus is PrinterStatusEnum.Ready or PrinterStatusEnum.Busy) return true;
+        await PrintPrinterStatusMessage();
+        return false;
+    }
+    
+    private async Task<bool> ValidateScalesStatus()
+    {
+        switch (LineContext.Plu.IsCheckWeight)
+        {
+            case true when !IsScalesStable:
+                await NotificationService.Warning(Localizer["ScalesStatusUnstable"]);
+                return false;
+            case true when GetWeight() <= 0:
+                await NotificationService.Warning(Localizer["ScalesStatusTooLight"]);
+                return false;
+            default:
+                return true;
         }
     }
     
