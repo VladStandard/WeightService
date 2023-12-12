@@ -26,6 +26,9 @@ public sealed partial class ProductDisplayKneading: ComponentBase, IDisposable
     
     private void DecreaseDate() => 
         LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(-1);
+
+    private void ResetDate() =>
+        LineContext.KneadingModel.ProductDate = DateTime.Now;
     
     private void SetNewKneading(int newKneading)
     {
