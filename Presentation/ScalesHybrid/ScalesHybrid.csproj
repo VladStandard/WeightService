@@ -11,8 +11,7 @@
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
-
-
+        
         <IncludeSymbols>False</IncludeSymbols>
         <GenerateTestArtifacts>False</GenerateTestArtifacts>
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -36,13 +35,10 @@
         <ApplicationVersion>1</ApplicationVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-        <Configurations>ReleaseVS;DevelopVS</Configurations>
-        <Platforms>x64</Platforms>
 
         <DefaultLanguage>ru-ru</DefaultLanguage>
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
-        
     </PropertyGroup>
 
     <ItemGroup>
@@ -132,6 +128,7 @@
     <ItemGroup>
       <Content Include=".Publish\dev.cmd" />
       <Content Include=".Publish\prod.cmd" />
+      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
     </ItemGroup>
 
 </Project>
