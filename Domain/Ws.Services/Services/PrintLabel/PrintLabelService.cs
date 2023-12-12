@@ -18,8 +18,8 @@ public class PrintLabelService : IPrintLabelService
     public string GenerateLabel(LabelInfoDto labelInfo)
     {
         LabelInfoValidator validator = new();
-        SqlPluScaleEntity pluLine =
-            new PluService().GetPluLineByPluNameAndLineName(labelInfo.PluFullName, labelInfo.LineName);
+        SqlPluScaleEntity pluLine = new PluService().GetPluLineByPlu1сAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);
+        
         if (pluLine.IsNew) throw new();
         
         ValidationResult result = validator.Validate(labelInfo);

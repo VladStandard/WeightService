@@ -65,12 +65,12 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             LabelInfoDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
-        }
-        catch (LabelException ex)
-        {
-            await NotificationService.Error(ex.ToString());
             LineContext.Line.LabelCounter += 1;
             SqlCoreHelper.Instance.Update(LineContext.Line);
+        }
+        catch (Exception ex)
+        {
+            await NotificationService.Error(ex.ToString());
         }
     }
 
@@ -99,6 +99,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
     private LabelInfoDto CreateLabelInfoDto() =>
         new()
         {
+            Plu1СGuid = LineContext.Plu.Uid1C,
             Kneading = (short)LineContext.KneadingModel.KneadingCount,
             Weight = GetWeight(),
             WeightTare = LineContext.PluNesting.WeightTare,
@@ -110,13 +111,22 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             Address = LineContext.Line.WorkShop.ProductionSite.Address,
             PluFullName = LineContext.Plu.FullName,
             PluDescription = LineContext.Plu.Description,
-            ProductDt = LineContext.KneadingModel.ProductDate,
-            ExpirationDt = LineContext.KneadingModel.ProductDate.AddDays(LineContext.Plu.ShelfLifeDays),
+            ProductDt = GetProductDt(),
+            ExpirationDt = GetProductDt().AddDays(LineContext.Plu.ShelfLifeDays),
             LineNumber = LineContext.Line.Number,
             PluNumber = LineContext.Plu.Number,
             LineName = LineContext.Line.Description,
             Template = LineContext.PluTemplate.Data
         };
+
+    private DateTime GetProductDt() =>
+        new(LineContext.KneadingModel.ProductDate.Year,
+        LineContext.KneadingModel.ProductDate.Month,
+        LineContext.KneadingModel.ProductDate.Day,
+        DateTime.Now.Hour,
+        DateTime.Now.Minute,
+        DateTime.Now.Second);
+    
 
     private async Task PrintPrinterStatusMessage()
     {

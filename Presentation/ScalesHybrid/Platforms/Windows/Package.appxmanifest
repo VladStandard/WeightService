@@ -11,7 +11,7 @@
   xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
   IgnorableNamespaces="uap rescap uap3 uap6 iot uap4 uap2">
 
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=Владимирский Стандарт" Version="2.0.0.0" />
+  <Identity Name="maui-package-name-placeholder" Publisher="CN=Владимирский Стандарт" Version="2.0.0.2" />
 
   <mp:PhoneIdentity PhoneProductId="EC66F7DD-78BD-4919-99F7-6D5AD5A05E41" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -34,7 +34,7 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
       <uap:VisualElements
         DisplayName="Весовой Пост"
-        Description="$placeholder$"
+        Description="Приложение предназначено для автоматизации бизнес-процессов в производстве весовой штучной продукции, созданная специально для организации ООО Владимирский Стандарт."
         Square150x150Logo="$placeholder$.png"
         Square44x44Logo="$placeholder$.png"
         BackgroundColor="transparent">

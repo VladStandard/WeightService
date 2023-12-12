@@ -9,5 +9,5 @@ public interface IPluService
 {
     public IEnumerable<SqlPluNestingFkEntity> GetPluNesting(SqlPluEntity plu);
     public SqlTemplateEntity GetPluTemplate(SqlPluEntity plu);
-    public SqlPluScaleEntity GetPluLineByPluNameAndLineName(string pluName, string lineName);
+    public SqlPluScaleEntity GetPluLineByPlu1сAndLineName(Guid pluUid, string lineName);
 }

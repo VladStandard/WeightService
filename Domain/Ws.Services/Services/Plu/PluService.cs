@@ -19,10 +19,10 @@ public class PluService : IPluService
         return new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
     }
 
-    public SqlPluScaleEntity GetPluLineByPluNameAndLineName(string pluName, string lineName)
+    public SqlPluScaleEntity GetPluLineByPlu1сAndLineName(Guid pluGuid, string lineName)
     {
         SqlLineEntity line = new SqlLineRepository().GetItemByName(lineName);
-        SqlPluEntity plu = new SqlPluRepository().GetItemByName(pluName);
+        SqlPluEntity plu = new SqlPluRepository().GetItemByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
     }
 }

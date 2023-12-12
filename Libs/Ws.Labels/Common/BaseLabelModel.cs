@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Ws.Labels.Common;
@@ -37,8 +36,8 @@ public class BaseLabelModel : ISerializable
     
     #region Other
     
-    [XmlElement] public string ProductDateStr { get => $"{ProductDtValue:dd.MM.yy}"; set => _ = value; }
-    [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDtValue:dd.MM.yy}"; set => _ = value; }
+    [XmlElement] public string ProductDateStr { get => $"{ProductDtValue:dd.MM.yyyy}"; set => _ = value; }
+    [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDtValue:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public string KneadingStr { get => IntToStr(Kneading, 3); set => _ = value; }
     
     #endregion
