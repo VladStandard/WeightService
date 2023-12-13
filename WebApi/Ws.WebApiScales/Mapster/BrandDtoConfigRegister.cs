@@ -4,7 +4,7 @@ using Ws.WebApiScales.Dto.Brand;
 
 namespace Ws.WebApiScales.Mapster;
 
-public class ConfigRegister : IRegister
+public class BrandDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
@@ -13,6 +13,7 @@ public class ConfigRegister : IRegister
             .Map(d => d.Code, s => s.Code)
             .Map(d => d.IsMarked, s => s.IsMarked)
             .Map(d => d.Name, s => s.Name)
+            .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }
 }
