@@ -16,4 +16,10 @@ public static class DecimalUtils
         NumberFormatInfo formatInfo = new() { NumberDecimalSeparator = separator};
         return number.ToString(formatInfo);
     }
+    
+    public static decimal ConvertStrToDecimal(string? str)
+    {
+        string? attributeValue = str?.Replace(',', '.') ?? null;
+        return decimal.TryParse(attributeValue, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsed) ? parsed : default;
+    }
 }

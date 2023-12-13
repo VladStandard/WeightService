@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.WebApiScales.Dto.Plu;
 
@@ -28,12 +29,12 @@ public class PluDto : IXmlSerializable
     #endregion
     
     #region Name
-    
-    public string Name { get; set; }
-    public string FullName { get; set; } 
-    public string BoxTypeName { get; set; }
-    public string ClipTypeName { get; set; }
-    public string PackageTypeName { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+    public string FullName { get; set; }  = string.Empty;
+    public string BoxTypeName { get; set; } = string.Empty;
+    public string ClipTypeName { get; set; } = string.Empty;
+    public string PackageTypeName { get; set; } = string.Empty;
     
     #endregion
 
@@ -47,9 +48,9 @@ public class PluDto : IXmlSerializable
 
     #region Codes
     
-    public string Code { get; set; }
-    public string Ean13 { get; set; }
-    public string Itf14 { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public string Ean13 { get; set; } = string.Empty;
+    public string Itf14 { get; set; } = string.Empty;
     
     #endregion
     
@@ -59,14 +60,11 @@ public class PluDto : IXmlSerializable
     public bool IsGroup { get; set; }
     public int PluNumber { get; set; }
     public short AttachmentsCount { get; set; }
-    public string Description { get; set; }
-    public string MeasurementType { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string MeasurementType { get; set; } = string.Empty;
     public int ShelfLife { get; set; }
 
     #endregion
-    
-    
-    public PluDto() {}
 
     public XmlSchema GetSchema() { return null; }
     
@@ -208,17 +206,13 @@ public class PluDto : IXmlSerializable
     private static bool ParseBoolOrDefault(XmlReader reader, string attributeName) =>
         (bool.TryParse(reader.GetAttribute(attributeName), out bool parsed) ? parsed : default)
         ||  ParseStringOrDefault(reader, attributeName) == "1";
-
-    private static decimal ParseDecimalOrDefault(XmlReader reader, string attributeName)
-    {
-        string? attributeValue = reader.GetAttribute(attributeName)?.Replace(',', '.');
-        return decimal.TryParse(attributeValue, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsed) ? parsed : default;
-    }
     
     private static string ParseStringOrDefault(XmlReader reader, string attributeName) =>
         reader.GetAttribute(attributeName) ?? string.Empty;
+
+    private static decimal ParseDecimalOrDefault(XmlReader reader, string attributeName) =>
+        DecimalUtils.ConvertStrToDecimal(reader.GetAttribute(attributeName));
     
     private static int ParseIntOrDefault(XmlReader reader, string attributeName) =>
-        int.TryParse(reader.GetAttribute(attributeName), out int parsed) ? parsed : default;
-
+        IntUtils.ConvertStrToIntOrMin(reader.GetAttribute(attributeName));
 }

@@ -13,5 +13,4 @@ public class PluController(PluService pluService) : ControllerBase
     [HttpPost("load")]
     [Produces("application/xml")]
     public ActionResult<ResponseDto> LoadPlu([FromBody] PlusDto plusDto) => pluService.LoadPlu(plusDto);
-    
 }

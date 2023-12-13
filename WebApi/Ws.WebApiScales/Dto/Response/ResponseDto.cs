@@ -21,8 +21,8 @@ public class ResponseDto
 
     public ResponseDto()
     {
-        Successes = new();
-        Errors = new();
+        Successes = [];
+        Errors = [];
     }
     
     public void AddSuccess(Guid uid, string msg = "")

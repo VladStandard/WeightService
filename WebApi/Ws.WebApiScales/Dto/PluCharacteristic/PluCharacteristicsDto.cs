@@ -6,7 +6,7 @@ namespace Ws.WebApiScales.Dto.PluCharacteristic;
 public class PluCharacteristicsDto
 {
     [XmlElement("Characteristic")]
-    public List<PluCharacteristicDto> Characteristics { get; set; }
+    public List<PluCharacteristicDto> Characteristics { get; set; } = [];
     
     [XmlAttribute("Count")]
     public int Count { get; set; }

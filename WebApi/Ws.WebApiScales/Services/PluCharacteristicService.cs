@@ -9,17 +9,22 @@ using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Services;
 
-public class PluCharacteristicService(ResponseDto responseDto, IHttpContextAccessor? httpContextAccessor)
+public class PluCharacteristicService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
 {
+    private readonly SqlPluNestingFkRepository _pluNestingFkRepository = new();
 
     public ActionResult<ResponseDto> LoadCharacteristics(PluCharacteristicsDto pluCharacteristics)
     {
         
         DateTime requestTime = DateTime.Now;
-        string currentUrl = httpContextAccessor?.HttpContext?.Request.Path ?? string.Empty; 
+        string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty; 
         
         SqlPluRepository pluRepository = new();
-        foreach (PluCharacteristicDto pluCharacteristicDto in pluCharacteristics.Characteristics.OrderBy(item=>item.AttachmentsCountAsInt))
+
+        IOrderedEnumerable<PluCharacteristicDto> pluCharacteristicDtos = 
+            pluCharacteristics.Characteristics.OrderBy(item => item.PluGuid);
+
+        foreach (PluCharacteristicDto pluCharacteristicDto in pluCharacteristicDtos)
         {
             SqlPluEntity pluDb = pluRepository.GetByUid1C(pluCharacteristicDto.PluGuid);
 
@@ -38,11 +43,12 @@ public class PluCharacteristicService(ResponseDto responseDto, IHttpContextAcces
                 continue;
             }
             
-            if (IsPluValid(pluDb, pluCharacteristicDto) == false) continue;
+            if (IsPluValid(pluDb, pluCharacteristicDto) == false) 
+                continue;
             
             PluCharacteristicSaveOrUpdate(pluDb, pluCharacteristicDto);
-
         }
+        
         new SqlLogWebRepository().Save(requestTime,   
         XmlUtil.SerializeToXml(pluCharacteristics),   
         XmlUtil.SerializeToXml(responseDto), currentUrl, responseDto.SuccessesCount, responseDto.ErrorsCount);
@@ -50,64 +56,54 @@ public class PluCharacteristicService(ResponseDto responseDto, IHttpContextAcces
         return responseDto;
     }
     
-    //TODO: REFACTOR
-    #region REFACTORED
-    
     private void SetCharacteristicIsMarked(SqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
-        SqlPluNestingFkRepository pluNestingFkRepository = new();
+        SqlPluNestingFkEntity pluNestingFkDefault = _pluNestingFkRepository.GetDefaultByPlu(plu);
         
-        SqlPluNestingFkEntity pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
-        
-        if (pluNestingFkDefault.IsExists && 
-            pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
+        if (pluNestingFkDefault.IsExists && pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
         {
-            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - характеристика совпадает со вложенностью по-молчанию!");
+            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} | {plu.Name} - характеристика совпадает со вложенностью по-молчанию!");
             return;
         }
-        SqlPluNestingFkEntity nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
+        
+        SqlPluNestingFkEntity nesting = _pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         if (nesting.IsNew)
         {
-            responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} не найдена для удаления!");
+            responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} | {plu.Name} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} не найдена для удаления!");
             return;
         }
    
         nesting.IsMarked = true;
         SqlCoreHelper.Instance.Update(nesting);
-        
-        responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} удалена!");
+        responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} | {plu.Name} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} удалена!");
     }
     
     private bool IsPluValid(SqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
         if (plu.IsNew)
         {
-            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатуры {pluCharacteristicDto.PluGuid} не найдено!");
+            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатуры {pluCharacteristicDto.Name} не найдено!");
             return false;
         }
-        if (plu.IsCheckWeight)
-        {
-            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - весовая");
-            return false;
-        }
-        return true;
+
+        if (!plu.IsCheckWeight)
+            return true;
+        
+        responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} | {plu.Name} - весовая");
+        return false;
     }
 
     private void PluCharacteristicSaveOrUpdate(SqlPluEntity plu, PluCharacteristicDto pluCharacteristicDto)
     {
-        SqlPluNestingFkRepository pluNestingFkRepository = new();
+        SqlPluNestingFkEntity pluNestingFkDefault = _pluNestingFkRepository.GetDefaultByPlu(plu);
         
-        SqlPluNestingFkEntity pluNestingFkDefault = pluNestingFkRepository.GetDefaultByPlu(plu);
-        
-        if (pluNestingFkDefault.IsExists && 
-            pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
+        if (pluNestingFkDefault.IsExists && pluNestingFkDefault.BundleCount.Equals((short)pluCharacteristicDto.AttachmentsCountAsInt))
         {
-            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} - характеристика совпадает со вложенностью по-молчанию!");
+            responseDto.AddError(pluCharacteristicDto.Guid, $"Номенклатура {plu.Number} | {plu.Name} - характеристика совпадает со вложенностью по-молчанию!");
             return;
         }
-            
-        SqlPluNestingFkEntity nesting = pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         
+        SqlPluNestingFkEntity nesting = _pluNestingFkRepository.GetByPluAndUid1C(plu, pluCharacteristicDto.Guid);
         SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(new("71bc8e8a-99cf-11ea-a220-a4bf0139eb1b"));
         if (boxDb.IsNew)
         {
@@ -118,18 +114,9 @@ public class PluCharacteristicService(ResponseDto responseDto, IHttpContextAcces
         nesting.Plu = plu;
         nesting.Box = boxDb;
         nesting.IsDefault = false;
-        nesting.Name = pluCharacteristicDto.Name;
-        nesting.IsMarked = pluCharacteristicDto.IsMarked;
-        nesting.BundleCount = (short)pluCharacteristicDto.AttachmentsCountAsInt;
-        nesting.Uid1C = pluCharacteristicDto.Guid;
-            
-        if (nesting.IsNew)
-            SqlCoreHelper.Instance.Save(nesting);
-        else 
-            SqlCoreHelper.Instance.Update(nesting);
-        responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура: {plu.Number} / Удалить {pluCharacteristicDto.IsMarked} / AttachmentsCount {nesting.BundleCount}");
-
+        nesting = pluCharacteristicDto.AdaptTo(nesting);
+        
+        SqlCoreHelper.Instance.SaveOrUpdate(nesting);
+        responseDto.AddSuccess(pluCharacteristicDto.Guid, $"Номенклатура: {plu.Number} | {plu.Name}  / Удалить {pluCharacteristicDto.IsMarked} / AttachmentsCount {nesting.BundleCount}");
     }
-    
-    #endregion
 }
