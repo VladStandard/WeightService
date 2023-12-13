@@ -1,4 +1,6 @@
-﻿namespace Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
+﻿using System;
+
+namespace Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 public class SqlViewDbFileSizeRepository : IViewDbFileSizeRepository
 {

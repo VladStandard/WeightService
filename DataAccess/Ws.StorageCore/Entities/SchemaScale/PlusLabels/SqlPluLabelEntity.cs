@@ -1,5 +1,7 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
+using System;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusLabels;
 
 /// <summary>

@@ -9,7 +9,6 @@ public class RazorComponentBase : LayoutComponentBase
     [Inject] protected DialogService DialogService { get; set; } = default!;
     [Inject] protected NotificationService NotificationService { get; set; } = default!;
     [Inject] protected UserService UserService { get; set; } = default!;
-    private SqlContextItemHelper ContextItem => SqlContextItemHelper.Instance;
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
     #endregion

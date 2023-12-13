@@ -4,6 +4,8 @@
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Rz
+@using Ws.Shared.TypeUtils
+@using Ws.Shared.Utils
 @inherits ItemBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
 
 <ItemTopBar TItem="@SqlHostEntity" Title="@Locale.ItemHost" OnItemUpdate="@GetItemData"/>

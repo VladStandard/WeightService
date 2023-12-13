@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Views.ViewScaleModels.PluLabels;
 
 public class SqlViewPluLabelRepository : IViewPluLabelRepository

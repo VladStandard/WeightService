@@ -1,3 +1,4 @@
+using System;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 

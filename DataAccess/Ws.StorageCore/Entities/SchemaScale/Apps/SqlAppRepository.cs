@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Entities.SchemaScale.Apps;
 
 /// <summary>

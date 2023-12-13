@@ -1,3 +1,4 @@
+using System;
 using Ws.StorageCore.Enums;
 
 namespace Ws.StorageCore.Entities.SchemaDiag.Logs;

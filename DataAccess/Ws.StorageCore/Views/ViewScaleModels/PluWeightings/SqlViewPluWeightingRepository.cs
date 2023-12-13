@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Views.ViewScaleModels.PluWeightings;
 
 public class SqlViewPluWeightingRepository : IViewPluWeightingRepository

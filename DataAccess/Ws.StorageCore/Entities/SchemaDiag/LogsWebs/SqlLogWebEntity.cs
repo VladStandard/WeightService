@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 [DebuggerDisplay("{ToString()}")]

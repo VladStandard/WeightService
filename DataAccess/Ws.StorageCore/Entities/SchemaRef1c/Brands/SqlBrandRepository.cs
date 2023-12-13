@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 /// <summary>

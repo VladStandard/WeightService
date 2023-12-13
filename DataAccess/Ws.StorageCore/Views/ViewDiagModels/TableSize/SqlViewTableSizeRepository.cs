@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Views.ViewDiagModels.TableSize;
 
 public sealed class SqlViewTableSizeRepository : IViewTableSizeRepository

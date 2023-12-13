@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.Labels.Common;
 
@@ -38,11 +39,9 @@ public class BaseLabelModel : ISerializable
     
     [XmlElement] public string ProductDateStr { get => $"{ProductDtValue:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDtValue:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public string KneadingStr { get => IntToStr(Kneading, 3); set => _ = value; }
+    [XmlElement] public string KneadingStr { get => IntUtils.ToStringToLen(Kneading, 3); set => _ = value; }
     
     #endregion
-
-    protected string IntToStr(int value, int charLen) =>  value.ToString().PadLeft(charLen, '0');
     
     public void GetObjectData(SerializationInfo info, StreamingContext context)
     {

@@ -1,4 +1,5 @@
-﻿using NHibernate.Persister.Entity;
+﻿using System;
+using NHibernate.Persister.Entity;
 
 namespace Ws.StorageCore.Common;
 
