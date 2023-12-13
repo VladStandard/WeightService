@@ -5,7 +5,6 @@ using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
-using VerticalAlignment = Blazorise.VerticalAlignment;
 
 namespace ScalesHybrid.Components.Modules.ProductDisplay;
 

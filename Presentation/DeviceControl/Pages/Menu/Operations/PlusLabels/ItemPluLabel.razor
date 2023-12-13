@@ -3,7 +3,6 @@
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
 @using Ws.Shared.TypeUtils
-@using Ws.Shared.Utils
 @inherits ItemBase<SqlPluLabelEntity>
 
 <ItemTopBar TItem="@SqlPluLabelEntity" Title="@Locale.ItemLabel" OnItemUpdate="@GetItemData"/>

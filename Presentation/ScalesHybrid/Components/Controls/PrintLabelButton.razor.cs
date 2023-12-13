@@ -10,7 +10,6 @@ using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
 using Ws.Services.Dto;
-using Ws.Services.Exceptions;
 using Ws.Services.Services.PrintLabel;
 using Ws.StorageCore.Helpers;
 

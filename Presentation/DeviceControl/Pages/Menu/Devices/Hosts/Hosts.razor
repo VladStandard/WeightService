@@ -1,12 +1,10 @@
 ﻿@page "/section/hosts"
-
-@inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
-@attribute [Authorize(Roles = UserAccessStr.Read)]
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using Ws.Shared.TypeUtils
-@using Ws.Shared.Utils
+@inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.Hosts.SqlHostEntity>
+@attribute [Authorize(Roles = UserAccessStr.Read)]
 
 
 <div class="section-container">

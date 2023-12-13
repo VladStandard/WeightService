@@ -1,8 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using ScalesHybrid.Models.Enums;
-using Ws.Printers.Enums;
-using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
 
