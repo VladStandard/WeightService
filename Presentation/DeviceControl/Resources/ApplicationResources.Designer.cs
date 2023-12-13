@@ -71,6 +71,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnApp {
+            get {
+                return ResourceManager.GetString("DataGridColumnApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnChangeDt {
             get {
                 return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);
@@ -146,6 +155,24 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnLoginDt {
             get {
                 return ResourceManager.GetString("DataGridColumnLoginDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnLogType {
+            get {
+                return ResourceManager.GetString("DataGridColumnLogType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnMessage {
+            get {
+                return ResourceManager.GetString("DataGridColumnMessage", resourceCulture);
             }
         }
         

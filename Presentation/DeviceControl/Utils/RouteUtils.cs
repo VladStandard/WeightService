@@ -21,18 +21,6 @@ public static class RouteUtils
 
     #endregion
 
-    #region Диагностика
-
-    public static string SectionLogs => "/section/logs";
-    
-    #endregion
-    
-    #region Принтеры
-    
-    public static string SectionPrinters => "/section/printers";
-    
-    #endregion
-
     #region Прочее
 
     public static string SectionClips => "/section/clips";
@@ -50,7 +38,11 @@ public static class RouteUtils
     
     public const string SectionLines = "/section/lines";
     public const string SectionHosts = "/section/hosts";
+    public static string SectionPrinters => "/section/printers";
+    
     public const string Section1CLogs = "/section/1c_logs";
+    public const string SectionLogs = "/section/logs";
+    
     public const string Profile = "/profile";
     public const string Home = "/";
 }

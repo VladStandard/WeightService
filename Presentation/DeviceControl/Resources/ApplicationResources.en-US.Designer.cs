@@ -69,6 +69,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App.
+        /// </summary>
+        internal static string DataGridColumnApp {
+            get {
+                return ResourceManager.GetString("DataGridColumnApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change date.
         /// </summary>
         internal static string DataGridColumnChangeDt {
@@ -146,6 +155,24 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnLoginDt {
             get {
                 return ResourceManager.GetString("DataGridColumnLoginDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Type.
+        /// </summary>
+        internal static string DataGridColumnLogType {
+            get {
+                return ResourceManager.GetString("DataGridColumnLogType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        internal static string DataGridColumnMessage {
+            get {
+                return ResourceManager.GetString("DataGridColumnMessage", resourceCulture);
             }
         }
         

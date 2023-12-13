@@ -14,6 +14,7 @@ public sealed partial class DataGridWrapper<TItem>: ComponentBase
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public bool IsFilterable { get; set; }
     [Parameter] public EventCallback GetGridData { get; set; }
+    [Parameter] public EventCallback OnDoubleClick { get; set; }
     [Parameter] public bool IsLoading { get; set; } = true; 
 
     private DataGrid<TItem> DataGrid { get; set; } = null!;

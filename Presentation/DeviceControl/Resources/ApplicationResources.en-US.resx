@@ -159,4 +159,13 @@
     <data name="DataGridColumnRequestUrl" xml:space="preserve">
         <value>Request url</value>
     </data>
+    <data name="DataGridColumnLogType" xml:space="preserve">
+        <value>Log Type</value>
+    </data>
+    <data name="DataGridColumnMessage" xml:space="preserve">
+        <value>Message</value>
+    </data>
+    <data name="DataGridColumnApp" xml:space="preserve">
+        <value>App</value>
+    </data>
 </root>
