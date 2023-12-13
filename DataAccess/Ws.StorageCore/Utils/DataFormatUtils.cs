@@ -1,4 +1,4 @@
-using Formatting=Newtonsoft.Json.Formatting;
+using System;
 
 namespace Ws.StorageCore.Utils;
 
@@ -16,9 +16,6 @@ public static class DataFormatUtils
             return ex.Message;
         }
     }
-    
-    private static string GetPrettyJson(string json) =>
-        string.IsNullOrEmpty(json) ? string.Empty : JToken.Parse(json).ToString(Formatting.Indented);
     
     public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 
@@ -52,8 +49,6 @@ public static class DataFormatUtils
         Indent = true,
         IndentChars = "\t"
     };
-
-    public static string SerializeAsJson<T>(T item) => GetPrettyJson(JsonConvert.SerializeObject(item));
 
     private static string SerializeAsXmlString<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
     {
@@ -98,5 +93,4 @@ public static class DataFormatUtils
     }
 
     #endregion
-    
 }

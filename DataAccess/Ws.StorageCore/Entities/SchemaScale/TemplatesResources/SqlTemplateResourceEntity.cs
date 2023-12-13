@@ -1,3 +1,4 @@
+using System;
 using Ws.Shared.Utils;
 
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;

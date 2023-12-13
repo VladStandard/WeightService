@@ -1,61 +1,33 @@
 @using Ws.StorageCore.Entities.SchemaRef1c.Plus
-@using Blazor.Heroicons.Outline
 
-<DialogHeader Label="@Localizer["DialogPluSelectHeaderLabel"]" />
-<ModalBody Class="!p-0">
-  <BlazorDataGrid
+<DialogDataGridWrapper
+  TItem="SqlPluEntity"
+  OnItemSelect="OnRowSelected"
+  GridData="GetPluEntities()"
+  Title="@Localizer["DialogPluSelectHeaderLabel"]"
+>
+  <BlazorDataGridColumn
+    Caption="@Localizer["DataGridColumnNumber"]"
     TItem="SqlPluEntity"
-    SelectedRowChanged="OnRowSelected"
-    Data="GetPluEntities()"
+    Field="@nameof(SqlPluEntity.Number)"
+    Width="15%"
+  />
+  <BlazorDataGridColumn
+    Caption="@Localizer["DataGridColumnType"]"
+    TItem="SqlPluEntity"
+    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    Width="15%"
   >
-    <DataGridColumns>
-      <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectNumberColumn"]"
-        TItem="SqlPluEntity"
-        Field="@nameof(SqlPluEntity.Number)"
-        Width="15%"
-      />
-      <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectTypeColumn"]"
-        TItem="SqlPluEntity"
-        Field="@nameof(SqlPluEntity.IsCheckWeight)"
-        Width="15%"
-      >
-        <DisplayTemplate>
-          <p class="text-xl text-black">
-            @(context.IsCheckWeight ? "Вес" : "Шт")
-          </p>
-        </DisplayTemplate>
-      </BlazorDataGridColumn>
-      <BlazorDataGridColumn
-        Caption="@Localizer["DialogPluSelectNameColumn"]"
-        TItem="SqlPluEntity"
-        Field="@nameof(SqlPluEntity.Name)"
-        Width="70%"
-      />
-    </DataGridColumns>
-    <PageButtonTemplate>
-      <div class="flex items-center justify-center h-10 w-10 text-xl">
-        @context.PageNumber
-      </div>
-    </PageButtonTemplate>
-    <NextPageButtonTemplate>
-      <ChevronRightIcon class="h-6 w-6 mx-2 my-2" />
-    </NextPageButtonTemplate>
-    <PreviousPageButtonTemplate>
-      <ChevronLeftIcon class="h-6 w-6 mx-2 my-2" />
-    </PreviousPageButtonTemplate>
-    <LastPageButtonTemplate>
-      <ChevronDoubleRightIcon class="h-6 w-6 mx-2 my-2" />
-    </LastPageButtonTemplate>
-    <FirstPageButtonTemplate>
-      <ChevronDoubleLeftIcon class="h-6 w-6 mx-2 my-2" />
-    </FirstPageButtonTemplate>
-    <TotalItemsTemplate>
-      <span class="hidden"/>
-    </TotalItemsTemplate>
-    <TotalItemsShortTemplate>
-      <span class="hidden"/>
-    </TotalItemsShortTemplate>
-  </BlazorDataGrid>
-</ModalBody>
+    <DisplayTemplate>
+      <p class="text-xl text-black">
+        @(context.IsCheckWeight ? "Вес" : "Шт")
+      </p>
+    </DisplayTemplate>
+  </BlazorDataGridColumn>
+  <BlazorDataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    TItem="SqlPluEntity"
+    Field="@nameof(SqlPluEntity.Name)"
+    Width="70%"
+  />
+</DialogDataGridWrapper>

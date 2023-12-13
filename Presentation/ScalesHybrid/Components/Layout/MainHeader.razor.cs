@@ -1,27 +1,19 @@
+using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Resources;
-using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Components.Layout;
 
 public sealed partial class MainHeader: ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private PageTitleService PageTitleService { get; set; }
-    [Parameter] public string Title { get; set; } = string.Empty;
+    [Inject] private IModalService ModalService { get; set; }
 
-    protected override void OnInitialized()
-    {
-        PageTitleService.OnTitleChanged += UpdateTitle;
-    }
-
-    private void UpdateTitle(string newTitle)
-    {
-        Title = newTitle;
-        StateHasChanged();
-    }
-
-    private static void ExitApp() => MauiWinUIApplication.Current.Exit();
+    private string GetAppTitle() => $"{Localizer["AppName"]} {VersionTracking.CurrentVersion}";
+    
+    private async Task ShowExitDialog() => await ModalService.Show<DialogCloseApp>("",
+        new ModalInstanceOptions{Size = ModalSize.Default});
 }
 

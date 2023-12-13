@@ -9,6 +9,7 @@ using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
+using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Services;
 
@@ -57,6 +58,7 @@ public class LineContext
     public void ResetLine() {
         SqlLineEntity newLine = HostService.GetLineByHost(Host);
         PrinterEntity = newLine.Printer;
+        ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
         ChangeLine(newLine);
     }
     
@@ -93,6 +95,13 @@ public class LineContext
     {
         Host = HostService.GetCurrentHostOrCreate();
         Line = HostService.GetLineByHost(Host);
+
+        if (Line.IsExists)
+        {
+            Line.Version = VersionTracking.CurrentVersion;
+            SqlCoreHelper.Instance.Update(Line);
+        }
+        
         PrinterEntity = Line.Printer;
         LineEntities = LineService.GetLinesByWorkshop(Line.WorkShop);
         PluEntities = GetPlus();

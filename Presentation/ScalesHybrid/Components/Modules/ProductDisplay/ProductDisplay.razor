@@ -18,8 +18,11 @@
     }
     else
     {
-      <div class="flex overflow-hidden items-center justify-center w-full h-14 px-4 border-b border-b-black/[.1]">
-        <p class="text-2xl font-medium truncate text-center">
+      <div class="flex flex-col overflow-hidden items-center justify-center w-full px-4 border-b border-b-black/[.1]">
+        <p class="truncate text-center text-lg">
+          @(LineContext.Plu.IsCheckWeight ? "Весовая продукция" : "Штучная продукция")
+        </p>
+        <p class="text-2xl pb-2 font-medium line-clamp-1 text-center">
           @LineContext.Plu.DisplayName
         </p>
       </div>

@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Models;
 
 public class SqlStringWriterUtf8Model : StringWriter

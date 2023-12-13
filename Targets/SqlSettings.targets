@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
-        <Content Include="$(SolutionDir).configs\sql\sqlconfig.$(ConfigurationName).json">
+        <Content Include="$(MSBuildThisFileDirectory)..\.configs\sql\sqlconfig.$(ConfigurationName).json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Link>sqlconfig.json</Link>
             <IsIncludeInPublishFolder>True</IsIncludeInPublishFolder>

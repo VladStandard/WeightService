@@ -22,6 +22,9 @@ public sealed partial class ScalesTerminalButton: ComponentBase, IDisposable
         ScalesSubscribe();
     }
 
+    private string GetCooldownString() => 
+        $"{Localizer["ButtonCooldown"]} {SecToOpen} {Localizer["TimeMeasureSecond"]}";
+
     private async Task HandleButtonOpenScalesTerminal()
     {
         if (IsScalesTerminalWasOpened) return;

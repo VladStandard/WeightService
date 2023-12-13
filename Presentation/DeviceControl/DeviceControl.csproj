@@ -10,12 +10,9 @@
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
-        <FileVersion>1.1.9.0</FileVersion>
-        <AssemblyVersion>1.1.9.0</AssemblyVersion>
+        <NeutralLanguage>ru-RU</NeutralLanguage>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Blazor.Heroicons" Version="2.0.1" />

@@ -6,14 +6,10 @@
         <Product>WeightService</Product>
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <Authors />
-        <Version>1.1.9.0</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
-      <ProjectReference Include="..\..\Domain\Ws.WebApiCore\Ws.WebApiCore.csproj" />
     </ItemGroup>
 </Project>

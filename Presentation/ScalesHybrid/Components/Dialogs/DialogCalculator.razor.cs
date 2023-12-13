@@ -38,7 +38,7 @@ public sealed partial class DialogCalculator: ComponentBase
     private void SubmitInput()
     {
         int.TryParse(Number, out int resultInt);
-        CallbackFunction.Invoke(resultInt);
+        CallbackFunction.Invoke(int.Max(resultInt, 1));
         ModalService.Hide();
     }
 

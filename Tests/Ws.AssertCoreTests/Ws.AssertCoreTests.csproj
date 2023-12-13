@@ -2,11 +2,8 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>1.1.9.0</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Platforms>x64</Platforms>
-        <Configurations>DevelopVS;ReleaseVS</Configurations>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="MDSoft.NetUtils" Version="0.2.50" />

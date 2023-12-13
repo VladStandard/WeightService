@@ -6,7 +6,8 @@
     <button
       type="button"
       disabled="@IsDisabled"
-      class="flex h-14 px-2 w-full items-center border border-black/[.1] rounded-md overflow-hidden bg-gray-100"
+      class="flex h-14 px-2 w-full items-center border border-black/[.1] rounded-md overflow-hidden transition-colors
+              bg-gray-100 hover:bg-sky-200 disabled:bg-gray-200"
       @onclick="OnClickAction">
       <p class="truncate font-light text-2xl">
         @Value

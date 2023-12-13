@@ -11,5 +11,5 @@ public enum PrinterStatusEnum
     PaperOut,
     PaperJam,
     Busy,
-    RibbonOut,
+    RibbonOut
 }

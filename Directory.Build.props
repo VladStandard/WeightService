@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
+        <Configurations>DevelopVS;ReleaseVS</Configurations>
+        <Platforms>x64</Platforms>
         <Deterministic>true</Deterministic>
         <LangVersion>latest</LangVersion>
         <WarningLevel>9999</WarningLevel>
+        <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DevelopVS|x64' ">
+    <PropertyGroup Condition="'$(Configuration)' == 'DevelopVS'">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <DefineConstants>DEBUG;TRACE;DEVELOP_VS</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <Optimize>false</Optimize>
-        <OutputPath>bin\Develop_x64</OutputPath>
+        <OutputPath>bin\Develop_$(Platform)\</OutputPath>
         <PlatformTarget>x64</PlatformTarget>
-        <Prefer32Bit>false</Prefer32Bit>
-        <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseVS|x64' ">
+    <PropertyGroup Condition="'$(Configuration)' == 'ReleaseVS'">
         <DebugSymbols>false</DebugSymbols>
         <Optimize>true</Optimize>
         <DebugType>none</DebugType>
         <DefineConstants>TRACE;RELEASE_VS</DefineConstants>
-        <OutputPath>bin\Release_x64</OutputPath>
+        <OutputPath>bin\Release_$(Platform)\</OutputPath>
         <PlatformTarget>x64</PlatformTarget>
-        <Prefer32Bit>false</Prefer32Bit>
-        <WarningLevel>9999</WarningLevel>
     </PropertyGroup>
 </Project>

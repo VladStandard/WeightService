@@ -45,12 +45,6 @@
     <data name="ProductDisplayKneadingLabel" xml:space="preserve">
         <value>Замес</value>
     </data>
-    <data name="PageTitleIndex" xml:space="preserve">
-        <value>Печать этикеток</value>
-    </data>
-    <data name="PageTitlePluSelect" xml:space="preserve">
-        <value>Выбор ПЛУ</value>
-    </data>
     <data name="ProductDisplayNetWeightLabel" xml:space="preserve">
         <value>Вес нетто</value>
     </data>
@@ -75,46 +69,37 @@
     <data name="DialogLineSelectHeaderLabel" xml:space="preserve">
         <value>Выбор линии</value>
     </data>
-    <data name="DialogLineSelectNumberColumn" xml:space="preserve">
+    <data name="DataGridColumnNumber" xml:space="preserve">
         <value>Номер</value>
     </data>
-    <data name="DialogLineSelectNameColumn" xml:space="preserve">
+    <data name="DataGridColumnName" xml:space="preserve">
         <value>Название</value>
     </data>
-    <data name="DialogLineSelectWorkshopColumn" xml:space="preserve">
+    <data name="DataGridColumnWorkshop" xml:space="preserve">
         <value>Площадка</value>
     </data>
     <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
         <value>Выбор ПЛУ</value>
     </data>
-    <data name="DialogPluSelectNameColumn" xml:space="preserve">
-        <value>Название</value>
-    </data>
-    <data name="DialogPluSelectNumberColumn" xml:space="preserve">
-        <value>Номер</value>
-    </data>
-    <data name="DialogPluSelectTypeColumn" xml:space="preserve">
+    <data name="DataGridColumnType" xml:space="preserve">
         <value>Тип</value>
     </data>
     <data name="DialogNestingSelectHeaderLabel" xml:space="preserve">
         <value>Выбор вложенности</value>
     </data>
-    <data name="DialogNestingSelectBoxWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnBoxWeight" xml:space="preserve">
         <value>Вес коробки</value>
     </data>
-    <data name="DialogNestingSelectBundleWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnBundleWeight" xml:space="preserve">
         <value>Вес пакета</value>
     </data>
-    <data name="DialogNestingSelectNameColumn" xml:space="preserve">
-        <value>Название</value>
-    </data>
-    <data name="DialogNestingSelectTareWeightColumn" xml:space="preserve">
+    <data name="DataGridColumnTareWeight" xml:space="preserve">
         <value>Вес тары</value>
     </data>
-    <data name="DialogNestingSelectBundleCountColumn" xml:space="preserve">
+    <data name="DataGridColumnBundleCount" xml:space="preserve">
         <value>Кол-во вложений</value>
     </data>
-    <data name="DialogNestingSelectDefaultColumn" xml:space="preserve">
+    <data name="DataGridColumnDefault" xml:space="preserve">
         <value>По умолчанию</value>
     </data>
     <data name="ProductDisplayWarningPluSelect" xml:space="preserve">
@@ -122,5 +107,47 @@
     </data>
     <data name="ProductDisplayWarningScalesDisconnected" xml:space="preserve">
         <value>Весы отключены</value>
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Весовой пост</value>
+    </data>
+    <data name="ButtonCancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="DialogCloseAppDescription" xml:space="preserve">
+        <value>Закрыть приложение?</value>
+    </data>
+    <data name="ButtonCooldown" xml:space="preserve">
+        <value>Доступно через</value>
+    </data>
+    <data name="TimeMeasureSecond" xml:space="preserve">
+        <value>сек</value>
+    </data>
+    <data name="PrinterStatusHeadOpen" xml:space="preserve">
+        <value>Открыта головка принтера</value>
+    </data>
+    <data name="PrinterStatusIsDisconnected" xml:space="preserve">
+        <value>Принтер не активен</value>
+    </data>
+    <data name="PrinterStatusIsForceDisconnected" xml:space="preserve">
+        <value>Принтер не в сети</value>
+    </data>
+    <data name="PrinterStatusPaperJam" xml:space="preserve">
+        <value>В принтере замялась этикетка</value>
+    </data>
+    <data name="PrinterStatusPaperOut" xml:space="preserve">
+        <value>Кончилась лента в принтере</value>
+    </data>
+    <data name="PrinterStatusPaused" xml:space="preserve">
+        <value>Принтер стоит на паузе</value>
+    </data>
+    <data name="PrinterStatusUnknown" xml:space="preserve">
+        <value>Неизвестная ошибка принтера</value>
+    </data>
+    <data name="ScalesStatusTooLight" xml:space="preserve">
+        <value>На весах недостаточный вес</value>
+    </data>
+    <data name="ScalesStatusUnstable" xml:space="preserve">
+        <value>Весы нестабильны</value>
     </data>
 </root>

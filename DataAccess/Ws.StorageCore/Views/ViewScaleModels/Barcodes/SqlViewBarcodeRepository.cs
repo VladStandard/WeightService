@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Views.ViewScaleModels.Barcodes;
 
 public sealed class SqlViewBarcodeRepository : IViewBarcodeRepository

@@ -7,15 +7,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEntity>
 {
     #region Public and private methods
-
-    public SqlPluScaleEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlPluScaleEntity>();
-
-    public SqlPluScaleEntity GetItem(long scaleId, ushort pluNumber)
-    {
-        SqlViewPluLineModel viewPluScale = SqlContextCacheHelper.Instance.LocalViewPlusLines.Find(
-            item => Equals(item.ScaleId, (ushort)scaleId) && Equals(item.PluNumber, pluNumber));
-        return SqlCore.GetItemByUid<SqlPluScaleEntity>(viewPluScale.Identity.Uid);
-    }
     
     public SqlPluScaleEntity GetItemByLinePlu(SqlLineEntity line, SqlPluEntity plu)
     {

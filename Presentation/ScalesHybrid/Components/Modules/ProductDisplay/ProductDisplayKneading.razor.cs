@@ -5,7 +5,6 @@ using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using ScalesHybrid.Utils;
-using VerticalAlignment = Blazorise.VerticalAlignment;
 
 namespace ScalesHybrid.Components.Modules.ProductDisplay;
 
@@ -26,6 +25,9 @@ public sealed partial class ProductDisplayKneading: ComponentBase, IDisposable
     
     private void DecreaseDate() => 
         LineContext.KneadingModel.ProductDate = LineContext.KneadingModel.ProductDate.AddDays(-1);
+
+    private void ResetDate() =>
+        LineContext.KneadingModel.ProductDate = DateTime.Now;
     
     private void SetNewKneading(int newKneading)
     {
@@ -33,9 +35,8 @@ public sealed partial class ProductDisplayKneading: ComponentBase, IDisposable
         StateHasChanged();
     }
 
-    private void ShowCalculatorDialog() =>
-        InvokeAsync(() => ModalService.Show<DialogCalculator>(p =>
-            p.Add(x => x.CallbackFunction, SetNewKneading)));
+    private async Task ShowCalculatorDialog() => await ModalService.Show<DialogCalculator>(p =>
+            p.Add(x => x.CallbackFunction, SetNewKneading), new(){ Size = ModalSize.Default });
 
     public void Dispose()
     {

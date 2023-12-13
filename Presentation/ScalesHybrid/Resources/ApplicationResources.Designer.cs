@@ -62,9 +62,36 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ButtonCalculatorEnter {
             get {
                 return ResourceManager.GetString("ButtonCalculatorEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ButtonCooldown {
+            get {
+                return ResourceManager.GetString("ButtonCooldown", resourceCulture);
             }
         }
         
@@ -134,72 +161,99 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnBoxWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnBoxWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnBundleCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnBundleCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnBundleWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnBundleWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnDefault {
+            get {
+                return ResourceManager.GetString("DataGridColumnDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnName {
+            get {
+                return ResourceManager.GetString("DataGridColumnName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnNumber {
+            get {
+                return ResourceManager.GetString("DataGridColumnNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnTareWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnTareWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnType {
+            get {
+                return ResourceManager.GetString("DataGridColumnType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnWorkshop {
+            get {
+                return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DialogCloseAppDescription {
+            get {
+                return ResourceManager.GetString("DialogCloseAppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DialogLineSelectHeaderLabel {
             get {
                 return ResourceManager.GetString("DialogLineSelectHeaderLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogLineSelectNameColumn {
-            get {
-                return ResourceManager.GetString("DialogLineSelectNameColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogLineSelectNumberColumn {
-            get {
-                return ResourceManager.GetString("DialogLineSelectNumberColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogLineSelectWorkshopColumn {
-            get {
-                return ResourceManager.GetString("DialogLineSelectWorkshopColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogNestingSelectBoxWeightColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectBoxWeightColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogNestingSelectBundleCountColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectBundleCountColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogNestingSelectBundleWeightColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectBundleWeightColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogNestingSelectDefaultColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectDefaultColumn", resourceCulture);
             }
         }
         
@@ -215,24 +269,6 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DialogNestingSelectNameColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectNameColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DialogNestingSelectTareWeightColumn {
-            get {
-                return ResourceManager.GetString("DialogNestingSelectTareWeightColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string DialogPluSelectHeaderLabel {
             get {
                 return ResourceManager.GetString("DialogPluSelectHeaderLabel", resourceCulture);
@@ -242,45 +278,63 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DialogPluSelectNameColumn {
+        internal static string PrinterStatusHeadOpen {
             get {
-                return ResourceManager.GetString("DialogPluSelectNameColumn", resourceCulture);
+                return ResourceManager.GetString("PrinterStatusHeadOpen", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DialogPluSelectNumberColumn {
+        internal static string PrinterStatusIsDisconnected {
             get {
-                return ResourceManager.GetString("DialogPluSelectNumberColumn", resourceCulture);
+                return ResourceManager.GetString("PrinterStatusIsDisconnected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DialogPluSelectTypeColumn {
+        internal static string PrinterStatusIsForceDisconnected {
             get {
-                return ResourceManager.GetString("DialogPluSelectTypeColumn", resourceCulture);
+                return ResourceManager.GetString("PrinterStatusIsForceDisconnected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PageTitleIndex {
+        internal static string PrinterStatusPaperJam {
             get {
-                return ResourceManager.GetString("PageTitleIndex", resourceCulture);
+                return ResourceManager.GetString("PrinterStatusPaperJam", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PageTitlePluSelect {
+        internal static string PrinterStatusPaperOut {
             get {
-                return ResourceManager.GetString("PageTitlePluSelect", resourceCulture);
+                return ResourceManager.GetString("PrinterStatusPaperOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PrinterStatusPaused {
+            get {
+                return ResourceManager.GetString("PrinterStatusPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PrinterStatusUnknown {
+            get {
+                return ResourceManager.GetString("PrinterStatusUnknown", resourceCulture);
             }
         }
         
@@ -359,9 +413,36 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ScalesStatusTooLight {
+            get {
+                return ResourceManager.GetString("ScalesStatusTooLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ScalesStatusUnstable {
+            get {
+                return ResourceManager.GetString("ScalesStatusUnstable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ScaleStabilization {
             get {
                 return ResourceManager.GetString("ScaleStabilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TimeMeasureSecond {
+            get {
+                return ResourceManager.GetString("TimeMeasureSecond", resourceCulture);
             }
         }
         

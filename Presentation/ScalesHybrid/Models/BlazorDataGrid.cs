@@ -1,5 +1,4 @@
 using Blazorise.DataGrid;
-using Microsoft.AspNetCore.Components;
 
 namespace ScalesHybrid.Models;
 

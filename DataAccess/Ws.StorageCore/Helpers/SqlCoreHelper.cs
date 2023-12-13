@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -319,16 +320,7 @@ public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
-
-    public T GetItemByIdentity<T>(SqlFieldIdentityModel? identity) where T : SqlEntityBase, new() {
-        return identity?.Name switch
-        {
-            SqlEnumFieldIdentity.Uid => GetItemByUid<T>(identity.Uid),
-            SqlEnumFieldIdentity.Id => GetItemById<T>(identity.Id),
-            _ => GetItemNewEmpty<T>()
-        };
-    }
-
+    
     public T GetItemFirst<T>() where T : SqlEntityBase, new()
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();

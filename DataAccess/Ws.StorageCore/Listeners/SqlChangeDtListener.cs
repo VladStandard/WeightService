@@ -1,4 +1,5 @@
-﻿using NHibernate.Event;
+﻿using System;
+using NHibernate.Event;
 
 namespace Ws.StorageCore.Listeners;
 

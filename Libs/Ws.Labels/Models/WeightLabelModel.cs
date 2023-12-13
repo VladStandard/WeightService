@@ -1,6 +1,6 @@
-﻿using System.Globalization;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using Ws.Labels.Common;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.Labels.Models;
 
@@ -12,24 +12,21 @@ public class WeightLabelModel : BaseLabelModel, ILabelModel
 
     [XmlElement] public string WeightStr
     {
-        get  {
-            NumberFormatInfo formatInfo = new() { NumberDecimalSeparator = "," };
-            return Weight.ToString(formatInfo);
-        }
+        get => DecimalUtils.ToStrWithSep(Weight, ",");
         set => _ = value;
     } 
     
     [XmlElement] public virtual string BarCodeTop { 
-        get => $"298{IntToStr(LineNumber, 5)}" +
-               $"{IntToStr(LineCounter,8)}{ProductDate}" +
-               $"{ProductTime}{IntToStr(PluNumber, 3)}" +
-               $"{GetWeightStr(5)}{IntToStr(Kneading, 3)}";
+        get => $"298{IntUtils.ToStringToLen(LineNumber, 5)}" +
+               $"{IntUtils.ToStringToLen(LineCounter,8)}{ProductDate}" +
+               $"{ProductTime}{IntUtils.ToStringToLen(PluNumber, 3)}" +
+               $"{GetWeightStr(5)}{IntUtils.ToStringToLen(Kneading, 3)}";
         set => _ = value;
     }
 
     [XmlElement] public virtual string BarCodeRight
     {
-        get => $"299{IntToStr(LineNumber, 5)}{IntToStr(LineCounter, 8)}";
+        get => $"299{IntUtils.ToStringToLen(LineNumber, 5)}{IntUtils.ToStringToLen(LineCounter, 8)}";
         set => _ = value;
     }
 
@@ -39,7 +36,5 @@ public class WeightLabelModel : BaseLabelModel, ILabelModel
         set => _ = value;
     }
 
-    private string GetWeightStr(int charCount) => 
-        Weight.ToString("0.#####", CultureInfo.InvariantCulture)
-            .Replace(".", "").PadLeft(charCount, '0');
+    public string GetWeightStr(int len) => DecimalUtils.ToStrToLen(Weight, len);
 }
