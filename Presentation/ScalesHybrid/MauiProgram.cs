@@ -36,7 +36,6 @@ public static class MauiProgram
             options.SupportedUICultures = supportedCultures;
         });
         
-        builder.Services.AddSingleton<PageTitleService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();
         
