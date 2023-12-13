@@ -12,5 +12,6 @@ public class StrUtilsTests
         Assert.Equal("015", StrUtils.ToLen("15", 3));
         Assert.Equal("0100", StrUtils.ToLen("100", 4));
         Assert.Equal("01323", StrUtils.ToLen("1323", 5));
+        Assert.Equal("2132", StrUtils.ToLen("21323", 4));
     }
 }

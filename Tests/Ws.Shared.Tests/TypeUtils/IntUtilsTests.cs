@@ -12,5 +12,6 @@ public class IntUtilsTests
         Assert.Equal("015", IntUtils.ToStringToLen(15, 3));
         Assert.Equal("0100", IntUtils.ToStringToLen(100, 4));
         Assert.Equal("01323", IntUtils.ToStringToLen(1323, 5));
+        Assert.Equal("2132", IntUtils.ToStringToLen(21323, 4));
     }
 }

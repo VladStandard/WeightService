@@ -3,6 +3,7 @@ using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.Services;
 using Ws.StorageCore.Helpers;

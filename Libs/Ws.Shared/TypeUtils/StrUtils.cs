@@ -7,6 +7,10 @@ public static class StrUtils
     public static string FormatDtDefault => "{0:dd.MM.yy HH:mm}";
     
     public static string FormatDtShort => "{0:dd.MM.yy}";
-    
-    public static string ToLen(string str, int len) => str.PadLeft(len, '0');
+
+    public static string ToLen(string str, int len)
+    {
+        if (str.Length > len) str = str[..len];
+        return str.PadLeft(len, '0');
+    }
 }
