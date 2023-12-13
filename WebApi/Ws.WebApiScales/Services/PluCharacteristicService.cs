@@ -6,7 +6,6 @@ using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 using Ws.WebApiScales.Dto.PluCharacteristic;
 using Ws.WebApiScales.Dto.Response;
 using Ws.WebApiScales.Utils;
-using Ws.WebApiScales.Validators;
 
 namespace Ws.WebApiScales.Services;
 

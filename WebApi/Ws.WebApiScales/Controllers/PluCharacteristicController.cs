@@ -7,18 +7,12 @@ namespace Ws.WebApiScales.Controllers;
 [AllowAnonymous]
 [ApiController]
 [Route("api/plu_characteristics/")]
-public class PluCharacteristicController
+public class PluCharacteristicController(PluCharacteristicService pluCharacteristicService)
 {
-    private readonly PluCharacteristicService _pluCharacteristicService;
-
-    public PluCharacteristicController(PluCharacteristicService pluCharacteristicService)
-    {
-        _pluCharacteristicService = pluCharacteristicService;
-    }
 
     [HttpPost("load")]
     [Produces("application/xml")]
     public ActionResult<ResponseDto> LoadCharacteristics([FromBody] PluCharacteristicsDto pluCharacteristics)
-        => _pluCharacteristicService.LoadCharacteristics(pluCharacteristics);
+        => pluCharacteristicService.LoadCharacteristics(pluCharacteristics);
 
 }

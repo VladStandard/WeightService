@@ -17,7 +17,6 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
-builder.Services.AddSassCompiler();
 // builder.Services.AddMudServices();
 
 #endregion

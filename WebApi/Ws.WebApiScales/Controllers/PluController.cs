@@ -7,17 +7,11 @@ namespace Ws.WebApiScales.Controllers;
 [AllowAnonymous]
 [ApiController]
 [Route("api/plu/")]
-public class PluController : ControllerBase
-{ 
-    private readonly PluService _pluService;
-
-    public PluController(PluService pluService)
-    {
-        _pluService = pluService;
-    }
+public class PluController(PluService pluService) : ControllerBase
+{
 
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ActionResult<ResponseDto> LoadPlu([FromBody] PlusDto plusDto) => _pluService.LoadPlu(plusDto);
+    public ActionResult<ResponseDto> LoadPlu([FromBody] PlusDto plusDto) => pluService.LoadPlu(plusDto);
     
 }

@@ -13,10 +13,10 @@ builder.Services.AddSingleton(SqlCoreHelper.Instance.SessionFactory);
 builder.Services.AddScoped(_ => SqlCoreHelper.Instance.SessionFactory.OpenSession());
 
 builder.Services.AddTransient<ResponseDto>();
-
 builder.Services.AddTransient<PluService>();
 builder.Services.AddTransient<BrandService>();
 builder.Services.AddTransient<PluCharacteristicService>();
+
 builder.Services.AddHttpContextAccessor();
 
 // POST XML from body.
@@ -38,7 +38,6 @@ builder.Services.AddControllers(options => {
 WebApplication app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

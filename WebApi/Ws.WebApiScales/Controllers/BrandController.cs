@@ -7,18 +7,12 @@ namespace Ws.WebApiScales.Controllers;
 [AllowAnonymous]
 [ApiController]
 [Route("api/brands/")]
-public class BrandController : ControllerBase
-{ 
-    private readonly BrandService _brandService;
-    
-    public BrandController(BrandService brandService)
-    {
-        _brandService = brandService;
-    }
+public class BrandController(BrandService brandService) : ControllerBase
+{
 
     [HttpPost("load")]
     [Produces("application/xml")]
     public ActionResult<ResponseDto> LoadBrands([FromBody] BrandsDto brandsDto) 
-        => _brandService.LoadBrands(brandsDto);
+        => brandService.LoadBrands(brandsDto);
     
 }

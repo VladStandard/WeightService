@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using Ws.WebApiScales.Dto.Plu;
 
-namespace Ws.WebApiScales.Validators;
+namespace Ws.WebApiScales.Dto.Plu;
 
 public class PluDtoValidator : AbstractValidator<PluDto>
 {

@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using Ws.WebApiScales.Dto.Brand;
 
-namespace Ws.WebApiScales.Validators;
+namespace Ws.WebApiScales.Dto.Brand;
 
 public class BrandDtoValidator : AbstractValidator<BrandDto>
 {
