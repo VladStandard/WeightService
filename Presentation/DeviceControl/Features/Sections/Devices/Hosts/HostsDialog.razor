@@ -1,82 +1,32 @@
-@using Blazor.Heroicons.Outline
-
-<div class="overflow-hidden">
-  <ModalHeader Class="!p-0">
-    <div class="w-full px-4 items-center flex justify-between h-12">
-      <div class="w-32 overflow-hidden">
-        <button
-          type="button"
-          @onclick="CloseModal"
-          class="px-3 py-1 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
-                  overflow-hidden hover:bg-gray-100"
-        >
-          <ArrowLeftIcon class="h-4 w-4"/>
-          <p class="text-sm pt-[2px] text-black font-medium">Back</p>
-        </button>
-      </div>
-      <div class="px-4 py-1 bg-gray-100 rounded-md overflow-hidden">
-        <p class="text-black pt-[1px] font-normal">Hosts</p>
-      </div>
-      <div class="w-32"></div>
-    </div>
-  </ModalHeader>
-  <ModalBody Class="!p-0 bg-gray-100">
-    <div class="w-full flex flex-col">
-      <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
-        <ModalFormInputText
-          Value="@SectionEntity.IdentityValueUid.ToString()"
-          Title="UID"
-          IsDisabled
-        />
-        <ModalFormInputText
-          Value="@SectionEntity.Name"
-          Title="Name"
-        />
-        <ModalFormInputText
-          Value="@SectionEntity.Ip"
-          Title="IP"
-        />
-        <ModalFormInputCheckbox
-          Value="@SectionEntity.IsMarked"
-          Description="Is archival"
-        />
-        <ModalFormInputText
-          Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
-          Title="Logged date"
-          IsDisabled
-        />
-      </div>
-    </div>
-  </ModalBody>
-  <ModalFooter Class="!p-0">
-    <div class="w-full gap-3 py-4 flex flex-col">
-      <div class="flex px-4 items-center w-full">
-        <div class="w-1/2 px-10 items-center flex gap-2">
-          <p class="font-normal">Создан:</p>
-          <p>@SectionEntity.CreateDt</p>
-        </div>
-        <div class="w-1/2 px-10 flex-items flex gap-2">
-          <p class="font-normal">Изменен:</p>
-          <p>@SectionEntity.ChangeDt</p>
-        </div>
-      </div>
-      <div class="flex px-6 w-full gap-2 justify-end">
-        <button
-          type="button"
-          @onclick="CloseModal"
-          class="h-9 bg-red-300 transition-colors flex items-center px-4 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-red-400"
-        >
-          <p class="font-normal pt-[1px]">Отмена</p>
-        </button>
-        <button
-          type="button"
-          class="h-9 bg-green-300 transition-colors flex items-center px-4 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-green-400"
-        >
-          <p class="font-normal pt-[1px]">Сохранить</p>
-        </button>
-      </div>
-    </div>
-  </ModalFooter>
-</div>
+<SectionModalWrapper
+  TabsButtonList="@TabsList"
+>
+  <TabPanel Class="!p-0" Name="main">
+    <SectionFormWrapper
+      ChangeDate="SectionEntity.ChangeDt"
+      CreateDate="SectionEntity.CreateDt"
+    >
+      <SectionFormInputText
+        Value="@SectionEntity.IdentityValueUid.ToString()"
+        Title="UID"
+        IsDisabled/>
+      <SectionFormInputText
+        Value="@SectionEntity.Name"
+        Title="Name"/>
+      <SectionFormInputText
+        Value="@SectionEntity.Ip"
+        Title="IP"/>
+      <SectionFormInputCheckbox
+        Value="@SectionEntity.IsMarked"
+        Description="Is archival"/>
+      <SectionFormInputText
+        Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
+        Title="Logged date"
+        IsDisabled
+      />
+    </SectionFormWrapper>
+  </TabPanel>
+  <TabPanel Class="!p-0" Name="test">
+    <p>Hello World!</p>
+  </TabPanel>
+</SectionModalWrapper>

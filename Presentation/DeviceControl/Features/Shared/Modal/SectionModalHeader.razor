@@ -1,0 +1,21 @@
+@using Blazor.Heroicons.Outline
+
+<ModalHeader Class="!p-0">
+  <div class="w-full px-4 items-center flex justify-between h-12">
+    <div class="w-32 overflow-hidden">
+      <button
+        type="button"
+        @onclick="CloseModal"
+        class="px-3 py-1 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
+                  overflow-hidden hover:bg-gray-100"
+      >
+        <ArrowLeftIcon class="h-4 w-4"/>
+        <p class="text-sm pt-[2px] text-black font-medium">Back</p>
+      </button>
+    </div>
+    <div class="h-full w-full grow overflow-hidden">
+      @ChildContent
+    </div>
+    <div class="w-32"></div>
+  </div>
+</ModalHeader>

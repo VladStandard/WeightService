@@ -2,8 +2,8 @@ namespace Ws.Shared.Enums;
 
 public class EnumTypeModel<T>
 {
-    private string Name { get; }
-    private T Value { get; }
+    public string Name { get; set; }
+    public T Value { get; set; }
 
     public EnumTypeModel(string name, T value)
     {

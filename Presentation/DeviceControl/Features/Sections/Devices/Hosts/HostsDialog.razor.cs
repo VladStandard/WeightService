@@ -1,5 +1,5 @@
-using Blazorise;
 using Microsoft.AspNetCore.Components;
+using Ws.Shared.Enums;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Features.Sections.Devices.Hosts;
@@ -7,7 +7,14 @@ namespace DeviceControl.Features.Sections.Devices.Hosts;
 public sealed partial class HostsDialog: ComponentBase
 {
     [Parameter] public SqlHostEntity SectionEntity { get; set; } = new();
-    [Inject] private IModalService ModalService { get; set; } = null!;
+    private List<EnumTypeModel<string>> TabsList { get; set; } = new();
 
-    private async Task CloseModal() => await ModalService.Hide();
+    protected override void OnInitialized()
+    {
+        TabsList = new()
+        {
+            new("Hosts", "main"),
+            new("Tests", "test")
+        };
+    }
 }

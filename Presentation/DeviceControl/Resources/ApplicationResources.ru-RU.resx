@@ -168,4 +168,10 @@
     <data name="DataGridColumnApp" xml:space="preserve">
         <value>Приложение</value>
     </data>
+    <data name="ButtonCancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="ButtonSave" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
 </root>

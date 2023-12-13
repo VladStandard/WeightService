@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Shared.Modal;
 
-public sealed partial class ModalFormInputCheckbox: ComponentBase
+public sealed partial class SectionFormInputCheckbox: ComponentBase
 {
     [Parameter] public bool Value { get; set; }
     [Parameter] public string Description { get; set; } = string.Empty;
