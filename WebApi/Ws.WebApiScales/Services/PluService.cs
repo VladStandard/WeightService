@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Ws.Shared.TypeUtils;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
@@ -19,9 +20,11 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
     public ActionResult<ResponseDto> LoadPlu(PlusDto plusDto)
     {
         DateTime requestTime = DateTime.Now;
-        string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty; 
+        string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty;
+
+        List<PluDto> orderedEnumerable = plusDto.plus.OrderBy(item => item.PluNumber).ToList();
         
-        foreach (PluDto pluDto in plusDto.plus.OrderBy(item=>item.PluNumber))
+        foreach (PluDto pluDto in orderedEnumerable)
         {
             SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
             if (pluDto.IsMarked) SetPluIsMarked(pluDb);
@@ -31,7 +34,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
             if (!validationResult.IsValid)
             {
                 List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-                responseDto.AddError(pluDto.Uid, string.Join(" | ", errors));
+                responseDto.AddError(pluDto.Uid, $"{pluDto.PluNumber} | {pluDto.Name} | {string.Join("|", errors)}");
                 continue;
             }
             
@@ -43,7 +46,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
             SaveOrUpdatePluFk(pluDb, pluDto);
             SaveOrUpdatePluNesting(pluDb, pluDto, box);
             
-            responseDto.AddSuccess(pluDto.Uid, $"Номенклатура {pluDb.Number} обновлена");
+            responseDto.AddSuccess(pluDto.Uid, $"{IntUtils.ToStringToLen(pluDb.Number, 3)} | {pluDb.Name}");
         }
         
         new SqlLogWebRepository().Save(requestTime,   

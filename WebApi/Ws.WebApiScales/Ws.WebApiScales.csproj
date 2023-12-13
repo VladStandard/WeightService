@@ -30,6 +30,9 @@
     <ItemGroup>
         <Generated Include="**\*.g.cs" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Properties\PublishProfiles\" />
+    </ItemGroup>
     <Target Name="CleanGenerated">
         <Delete Files="@(Generated)" />
     </Target>

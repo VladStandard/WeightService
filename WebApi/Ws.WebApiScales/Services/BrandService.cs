@@ -14,7 +14,7 @@ public class BrandService(ResponseDto responseDto, IHttpContextAccessor httpCont
         SqlBrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(brandDto.Guid);
         brandDb = brandDto.AdaptTo(brandDb);
         SqlCoreHelper.Instance.SaveOrUpdate(brandDb);
-        responseDto.AddSuccess(brandDto.Guid, $"Бренд - {brandDb.Name} - изменен");
+        responseDto.AddSuccess(brandDto.Guid, brandDb.Name);
     }
     
     private void IsMarkedBrand(Guid uid)

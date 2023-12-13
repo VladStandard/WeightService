@@ -49,7 +49,7 @@ public static class SqlRestrictions
 
     #region In
 
-    public static ICriterion In(string propertyName, List<object> value) => Restrictions.In(propertyName, value);
+    public static ICriterion In<T>(string propertyName, List<T> value) => Restrictions.In(propertyName, value);
     
     public static ICriterion NotIn(string propertyName, List<object> value) => 
         Restrictions.Not(Restrictions.In(propertyName, value));
