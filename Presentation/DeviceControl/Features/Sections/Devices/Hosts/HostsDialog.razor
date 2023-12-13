@@ -23,31 +23,47 @@
   <ModalBody Class="!p-0 bg-gray-100">
     <div class="w-full flex flex-col">
       <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
-        @for(int i = 0; i < 8; i++)
-        {
-          <div class="h-14 w-1/2 flex flex-col px-10">
-            <label>Name</label>
-            <input type="text" class="w-full px-2 h-8 rounded-md overflow-hidden border border-black/[.1] disabled:bg-gray-100"/>
-          </div>
-        }
+        <ModalFormInputText
+          Value="@SectionEntity.IdentityValueUid.ToString()"
+          Title="UID"
+          IsDisabled
+        />
+        <ModalFormInputText
+          Value="@SectionEntity.Name"
+          Title="Name"
+        />
+        <ModalFormInputText
+          Value="@SectionEntity.Ip"
+          Title="IP"
+        />
+        <ModalFormInputCheckbox
+          Value="@SectionEntity.IsMarked"
+          Description="Is archival"
+        />
+        <ModalFormInputText
+          Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
+          Title="Logged date"
+          IsDisabled
+        />
       </div>
     </div>
   </ModalBody>
   <ModalFooter Class="!p-0">
-    <div class="w-full gap-2 py-4 flex flex-col">
+    <div class="w-full gap-3 py-4 flex flex-col">
       <div class="flex px-4 items-center w-full">
         <div class="w-1/2 px-10 items-center flex gap-2">
           <p class="font-normal">Создан:</p>
-          <p>13.12.2023 12:44</p>
+          <p>@SectionEntity.CreateDt</p>
         </div>
         <div class="w-1/2 px-10 flex-items flex gap-2">
           <p class="font-normal">Изменен:</p>
-          <p>13.12.2023 12:44</p>
+          <p>@SectionEntity.ChangeDt</p>
         </div>
       </div>
       <div class="flex px-6 w-full gap-2 justify-end">
         <button
           type="button"
+          @onclick="CloseModal"
           class="h-9 bg-red-300 transition-colors flex items-center px-4 justify-center overflow-hidden
                   rounded-md border border-black/[.1] hover:bg-red-400"
         >

@@ -10,7 +10,6 @@
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
-        <NeutralLanguage>ru-RU</NeutralLanguage>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>

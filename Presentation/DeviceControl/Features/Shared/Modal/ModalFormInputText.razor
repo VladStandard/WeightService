@@ -1,0 +1,15 @@
+@inherits ModalFormInputBase
+
+<ModalFormInputWrapper
+  Title="@Title"
+  IsTall="@IsTall"
+  IsFullWidth="@IsFullWidth"
+>
+  <input
+    type="text"
+    disabled="@IsDisabled"
+    @bind="Value"
+    class="w-full h-full px-2 rounded-md overflow-hidden border border-black/[.1] focus:border-blue/[.1] focus:ring-0
+            disabled:bg-gray-200"
+  />
+</ModalFormInputWrapper>

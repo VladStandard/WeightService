@@ -68,7 +68,7 @@ app.MapFallbackToPage("/_Host");
 
 string[] supportedCultures = { "ru-RU", "en-US" };
 RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
+    .SetDefaultCulture("ru-RU")
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 
