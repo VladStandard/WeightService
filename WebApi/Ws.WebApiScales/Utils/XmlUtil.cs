@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using System.Xml.Serialization;
+using System.Xml.Linq;
 
 namespace Ws.WebApiScales.Utils;
 
@@ -17,5 +17,11 @@ public static class XmlUtil
     
         return stringWriter.ToString();
     }
-
+    
+    public static T DeserializeFromXml<T>(XElement xml)
+    {
+        XmlSerializer serializer = new(typeof(T));
+        using XmlReader stringReader = xml.CreateReader();
+        return (T)serializer.Deserialize(stringReader)!;
+    }
 }

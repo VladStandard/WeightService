@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace Ws.WebApiScales.Dto.Response;
+﻿namespace Ws.WebApiScales.Dto.Response;
 
 [XmlRoot("Response")]
 public class ResponseDto
@@ -10,20 +8,12 @@ public class ResponseDto
     
     [XmlAttribute("ErrorsCount")]
     public int ErrorsCount { get; set; }
+    
+    [XmlArray("Successes"), XmlArrayItem("Record")]
+    public List<ResponseSuccesses> Successes { get; set; } = [];
 
-    [XmlArray("Successes")]
-    [XmlArrayItem("Record")]
-    public List<ResponseSuccesses> Successes { get; set; }
-
-    [XmlArray("Errors")]
-    [XmlArrayItem("Record")]
-    public List<ResponseError> Errors { get; set; }
-
-    public ResponseDto()
-    {
-        Successes = [];
-        Errors = [];
-    }
+    [XmlArray("Errors"), XmlArrayItem("Record")]
+    public List<ResponseError> Errors { get; set; } = [];
     
     public void AddSuccess(Guid uid, string msg = "")
     {

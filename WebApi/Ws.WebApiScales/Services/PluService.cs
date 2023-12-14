@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using Ws.Shared.TypeUtils;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
@@ -8,60 +7,24 @@ using Ws.StorageCore.Entities.SchemaRef1c.Clips;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Plu;
 using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Services;
 
 
-public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
+public class PluService(ResponseDto responseDto) : IPluService
 {
-    public ActionResult<ResponseDto> LoadPlu(PlusDto plusDto)
-    {
-        DateTime requestTime = DateTime.Now;
-        string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty;
+    #region Private
 
-        List<PluDto> orderedEnumerable = plusDto.plus.OrderBy(item => item.PluNumber).ToList();
-        
-        foreach (PluDto pluDto in orderedEnumerable)
-        {
-            SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
-            if (pluDto.IsMarked) SetPluIsMarked(pluDb);
-            
-            ValidationResult validationResult = new PluDtoValidator().Validate(pluDto);
-            
-            if (!validationResult.IsValid)
-            {
-                List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-                responseDto.AddError(pluDto.Uid, $"{pluDto.PluNumber} | {pluDto.Name} | {string.Join("|", errors)}");
-                continue;
-            }
-            
-            SqlClipEntity clip = SaveOrUpdateClip(pluDto);
-            SqlBoxEntity box = SaveOrUpdateBox(pluDto);
-            SqlBundleEntity bundle = SaveOrUpdateBundle(pluDto);
-            
-            SaveOrUpdatePlu(pluDb, pluDto, bundle);
-            SaveOrUpdatePluFk(pluDb, pluDto);
-            SaveOrUpdatePluNesting(pluDb, pluDto, box);
-            
-            responseDto.AddSuccess(pluDto.Uid, $"{IntUtils.ToStringToLen(pluDb.Number, 3)} | {pluDb.Name}");
-        }
-        
-        new SqlLogWebRepository().Save(requestTime,   
-        XmlUtil.SerializeToXml(plusDto),   
-        XmlUtil.SerializeToXml(responseDto), currentUrl, responseDto.SuccessesCount, responseDto.ErrorsCount);
-        
-        return responseDto;
-    }
-    
     private static void SetPluIsMarked(SqlPluEntity plu)
     {
         if (plu.IsNew) return;
         plu.IsMarked = true;
         SqlCoreHelper.Instance.Update(plu);
     }
+    
     private static SqlClipEntity SaveOrUpdateClip(PluDto pluDto)
     {
         SqlClipEntity clipDb = new SqlClipRepository().GetItemByUid1C(pluDto.ClipTypeGuid);
@@ -77,6 +40,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         SqlCoreHelper.Instance.SaveOrUpdate(clipDb);
         return clipDb;
     }
+    
     private static SqlBoxEntity SaveOrUpdateBox(PluDto pluDto)
     {
         SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
@@ -92,6 +56,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
         return boxDb;
     }
+    
     private static SqlBundleEntity SaveOrUpdateBundle(PluDto pluDto)
     {
         SqlBundleEntity bundleDb = new SqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
@@ -107,6 +72,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
         return bundleDb;
     }
+    
     private static void SaveOrUpdatePluFk(SqlPluEntity plu, PluDto pluDto)
     {
         if (Equals(pluDto.ParentGroupGuid, Guid.Empty)) return;
@@ -124,6 +90,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         
         SqlCoreHelper.Instance.SaveOrUpdate(pluFkDb);
     }
+    
     private static void SaveOrUpdatePlu(SqlPluEntity plu, PluDto pluDto, SqlBundleEntity bundle)
     {
         plu = pluDto.AdaptTo(plu);
@@ -131,6 +98,7 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         plu.Brand = new SqlBrandRepository().GetItemByUid1C(pluDto.BrandGuid);
         SqlCoreHelper.Instance.SaveOrUpdate(plu);
     }
+    
     private static void SaveOrUpdatePluNesting(SqlPluEntity plu, PluDto pluDto, SqlBoxEntity box)
     {
         SqlPluNestingFkEntity pluNestingDb = new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
@@ -140,5 +108,42 @@ public class PluService(ResponseDto responseDto, IHttpContextAccessor httpContex
         pluNestingDb.IsDefault = true;
         pluNestingDb.BundleCount = pluDto.AttachmentsCount;
         SqlCoreHelper.Instance.SaveOrUpdate(pluNestingDb);
+    }
+
+    #endregion
+    
+    public void Load(PlusWrapper plusWrapper)
+    {
+        List<PluDto> orderedEnumerable = plusWrapper.Plus.OrderBy(item => item.PluNumber).ToList();
+        
+        foreach (PluDto pluDto in orderedEnumerable)
+        {
+            SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
+            
+            if (pluDto.IsMarked)
+            {
+                SetPluIsMarked(pluDb);
+                continue;
+            }
+            
+            ValidationResult validationResult = new ValidatorPluDto().Validate(pluDto);
+            
+            if (!validationResult.IsValid)
+            {
+                List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                responseDto.AddError(pluDto.Uid, $"{pluDto.PluNumber} | {pluDto.Name} | {string.Join(" | ", errors)}");
+                continue;
+            }
+            
+            SqlClipEntity clip = SaveOrUpdateClip(pluDto);
+            SqlBoxEntity box = SaveOrUpdateBox(pluDto);
+            SqlBundleEntity bundle = SaveOrUpdateBundle(pluDto);
+            
+            SaveOrUpdatePlu(pluDb, pluDto, bundle);
+            SaveOrUpdatePluFk(pluDb, pluDto);
+            SaveOrUpdatePluNesting(pluDb, pluDto, box);
+            
+            responseDto.AddSuccess(pluDto.Uid, $"{IntUtils.ToStringToLen(pluDb.Number, 3)} | {pluDb.Name}");
+        }
     }
 }

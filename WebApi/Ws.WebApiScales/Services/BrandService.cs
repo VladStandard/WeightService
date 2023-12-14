@@ -1,14 +1,15 @@
 ﻿using FluentValidation.Results;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
+using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Brand;
 using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Services;
 
-public class BrandService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
+public class BrandService(ResponseDto responseDto) : IBrandService
 {
+    #region Private
+
     private void UpdateOrCreate(BrandDto brandDto)
     {
         SqlBrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(brandDto.Guid);
@@ -28,15 +29,14 @@ public class BrandService(ResponseDto responseDto, IHttpContextAccessor httpCont
         }
         brandDb.IsMarked = true;
         SqlCoreHelper.Instance.Update(brandDb);
-        responseDto.AddSuccess(uid, $"Бренд - {brandDb.Name} - удален");
+        responseDto.AddSuccess(uid, $"{brandDb.Name} - удален");
     }
+
+    #endregion
     
-    public ResponseDto LoadBrands(BrandsDto brandsDto)
+    public void Load(BrandsWrapper brandsWrapper)
     {
-        DateTime requestTime = DateTime.Now;
-        string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty; 
-        
-        foreach (BrandDto brandDto in brandsDto.Brands)
+        foreach (BrandDto brandDto in brandsWrapper.Brands)
         {
             if (brandDto.IsMarked)
             {
@@ -44,7 +44,7 @@ public class BrandService(ResponseDto responseDto, IHttpContextAccessor httpCont
                 continue;
             }
             
-            ValidationResult validationResult = new BrandDtoValidator().Validate(brandDto);
+            ValidationResult validationResult = new ValidatorBrandDto().Validate(brandDto);
     
             if (validationResult.IsValid)
             {
@@ -54,12 +54,5 @@ public class BrandService(ResponseDto responseDto, IHttpContextAccessor httpCont
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
             responseDto.AddError(brandDto.Guid, string.Join(" | ", errors));
         }
-
-      
-        new SqlLogWebRepository().Save(requestTime,   
-        XmlUtil.SerializeToXml(brandsDto),   
-        XmlUtil.SerializeToXml(responseDto), currentUrl, responseDto.SuccessesCount, responseDto.ErrorsCount);
-
-        return responseDto;
     }
 }

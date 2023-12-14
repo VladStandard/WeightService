@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Response;
 using Ws.WebApiScales.Services;
-using Ws.WebApiScales.Settings;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -12,31 +12,20 @@ if (SqlCoreHelper.Instance.SessionFactory is null)
 builder.Services.AddSingleton(SqlCoreHelper.Instance.SessionFactory);
 builder.Services.AddScoped(_ => SqlCoreHelper.Instance.SessionFactory.OpenSession());
 
-builder.Services.AddTransient<ResponseDto>();
-builder.Services.AddTransient<PluService>();
-builder.Services.AddTransient<BrandService>();
-builder.Services.AddTransient<PluCharacteristicService>();
+builder.Services.AddScoped<ResponseDto>();
+
+builder.Services.AddScoped<IPluService, PluService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IPluCharacteristicService, PluCharacteristicService>();
 
 builder.Services.AddHttpContextAccessor();
 
-// POST XML from body.
-builder.Services.AddMvc(options =>
+builder.Services.AddControllers(options =>
 {
-    options.RespectBrowserAcceptHeader = true;
-    options.ReturnHttpNotAcceptable = true;
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatterNamespace());
-    options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml"));
-}).AddXmlSerializerFormatters();
-
-
-builder.Services.AddControllers(options => {
     options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
-});
-
-
+}).AddXmlDataContractSerializerFormatters();
 
 WebApplication app = builder.Build();
-
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace Ws.WebApiScales.Dto.Brand;
+﻿namespace Ws.WebApiScales.Dto.Brand;
 
 [Serializable]
 public class BrandDto

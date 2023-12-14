@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using Ws.Shared.TypeUtils;
+﻿using Ws.Shared.TypeUtils;
 
 namespace Ws.WebApiScales.Dto.PluCharacteristic;
 

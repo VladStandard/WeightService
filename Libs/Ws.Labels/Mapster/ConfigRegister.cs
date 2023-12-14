@@ -27,14 +27,17 @@ public class ConfigRegister : IRegister
             .Map(d => d.PluDescription, s => s.PluDescription)
 
             .Map(d => d.Kneading, s => s.Kneading)
+            .IgnoreNonMapped(true)
             .GenerateMapper(MapType.Map);
             
         config.NewConfig<LabelDataDto, LabelModel>()
             .Map(d => d.BundleCount, s => s.BundleCount)
+            .IgnoreNonMapped(true)
             .GenerateMapper(MapType.Map);
 
         config.NewConfig<LabelDataDto, WeightLabelModel>()
             .Map(d => d.Weight, s => s.Weight)
+            .IgnoreNonMapped(true)
             .GenerateMapper(MapType.Map);
            
     }

@@ -14,6 +14,7 @@ namespace Ws.WebApiScales.Dto.PluCharacteristic
             result.Uid1C = p1.Guid;
             result.IsMarked = p1.IsMarked;
             return result;
+            
         }
     }
 }
