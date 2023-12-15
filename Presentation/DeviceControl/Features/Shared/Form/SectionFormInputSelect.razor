@@ -1,0 +1,18 @@
+@typeparam TItem
+
+<SectionFormInputWrapper
+  Title="@Title"
+>
+  <DropdownList
+    TItem="TItem"
+    TValue="string"
+    Data="Items"
+    TextField="ItemDisplayName"
+    ValueField="ItemValue"
+    @bind-SelectedValue="SelectedItemValue"
+    Class="w-full rounded-md bg-white overflow-hidden border border-black/[.1] blazorise-select-override"
+    MaxMenuHeight="15rem"
+  >
+    <p class="font-normal text-black truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
+  </DropdownList>
+</SectionFormInputWrapper>

@@ -1,20 +1,17 @@
+using DeviceControl.Features.Shared.Modal;
+using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
-using Ws.Shared.Enums;
+using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Features.Sections.Devices.Hosts;
 
-public sealed partial class HostsDialog: ComponentBase
+public sealed partial class HostsDialog: SectionDialogBase<SqlHostEntity>
 {
-    [Parameter] public SqlHostEntity SectionEntity { get; set; } = new();
-    private List<EnumTypeModel<string>> TabsList { get; set; } = new();
-
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    
     protected override void OnInitialized()
     {
-        TabsList = new()
-        {
-            new("Hosts", "main"),
-            new("Tests", "test")
-        };
+        TabsList = new() { new(Localizer["SectionHosts"], "main") };
     }
 }

@@ -1,47 +1,47 @@
 @attribute [Route(RouteUtils.SectionLogs)]
-@inherits SectionBase<SqlLogEntity>
+@inherits SectionDataGridBase<SqlLogEntity>
 
-<DataGridWrapper
+<SectionDataGridWrapper
   TItem="SqlLogEntity"
   GridData="SectionItems"
   IsLoading="IsLoading"
   GetGridData="GetSectionData"
   Title="@Localizer["SectionAppsLogs"]"
 >
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnCreateDt"]"
     Field="@nameof(SqlLogEntity.CreateDt)"
     Width="15%"
   />
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnDevice"]"
     Field="Device.Name"
     Width="15%"
   />
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnApp"]"
     Field="App.Name"
     Width="15%"
   />
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnVersion"]"
     Field="@nameof(SqlLogEntity.Version)"
     Width="10%"
   />
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnLogType"]"
     Field="@nameof(SqlLogEntity.Type)"
     Width="10%"
   />
-  <BlazorDataGridColumn
+  <SectionDataGridColumn
     TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnMessage"]"
     Field="@nameof(SqlLogEntity.Message)"
     Width="35%"
   />
-</DataGridWrapper>
+</SectionDataGridWrapper>

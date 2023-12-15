@@ -1,0 +1,9 @@
+using Microsoft.AspNetCore.Components;
+
+namespace DeviceControl.Features.Shared.Form;
+
+public sealed partial class SectionFormInputText: SectionFormInputBase
+{
+    [Parameter] public bool IsDisabled { get; set; }
+    [Parameter] public string Value { get; set; } = string.Empty;
+}

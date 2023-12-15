@@ -1,0 +1,13 @@
+@inherits SectionDialogBase<SqlLineEntity>
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <LinesForm
+      OnSaveAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+  <SectionTabPanel Name="plu">
+    <LinePluDataGrid LineEntity="SectionEntity" />
+  </SectionTabPanel>
+</SectionModalWrapper>

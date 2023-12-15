@@ -1,32 +1,11 @@
-<SectionModalWrapper
-  TabsButtonList="@TabsList"
->
-  <TabPanel Class="!p-0" Name="main">
-    <SectionFormWrapper
-      ChangeDate="SectionEntity.ChangeDt"
-      CreateDate="SectionEntity.CreateDt"
-    >
-      <SectionFormInputText
-        Value="@SectionEntity.IdentityValueUid.ToString()"
-        Title="UID"
-        IsDisabled/>
-      <SectionFormInputText
-        Value="@SectionEntity.Name"
-        Title="Name"/>
-      <SectionFormInputText
-        Value="@SectionEntity.Ip"
-        Title="IP"/>
-      <SectionFormInputCheckbox
-        Value="@SectionEntity.IsMarked"
-        Description="Is archival"/>
-      <SectionFormInputText
-        Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
-        Title="Logged date"
-        IsDisabled
-      />
-    </SectionFormWrapper>
-  </TabPanel>
-  <TabPanel Class="!p-0" Name="test">
-    <p>Hello World!</p>
-  </TabPanel>
+@inherits SectionDialogBase<SqlHostEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <HostsForm
+      OnSaveAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
 </SectionModalWrapper>

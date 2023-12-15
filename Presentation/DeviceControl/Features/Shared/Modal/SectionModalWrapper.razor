@@ -10,7 +10,8 @@
           type="button"
           disabled="@IsSelectedTab(item.Value)"
           @onclick="() => ChangeSelectedTab(item.Value)"
-          class="px-4 py-1 rounded-md overflow-hidden @(IsSelectedTab(item.Value) ? "bg-gray-100" : "")"
+          class="px-4 py-1 rounded-md overflow-hidden transition-colors
+                  @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")"
         >
           <p class="text-black pt-[1px] font-normal">@item.Name</p>
         </button>

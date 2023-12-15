@@ -174,4 +174,31 @@
     <data name="ButtonSave" xml:space="preserve">
         <value>Сохранить</value>
     </data>
+    <data name="DataGridColumnIP" xml:space="preserve">
+        <value>IP</value>
+    </data>
+    <data name="DataGridColumnUID" xml:space="preserve">
+        <value>UID</value>
+    </data>
+    <data name="DataGridColumnIsArchival" xml:space="preserve">
+        <value>В архиве</value>
+    </data>
+    <data name="DataGridColumnCOM" xml:space="preserve">
+        <value>COM порт</value>
+    </data>
+    <data name="DataGridColumnIsPiece" xml:space="preserve">
+        <value>Штучная</value>
+    </data>
+    <data name="DataGridColumnIsWeight" xml:space="preserve">
+        <value>Весовая</value>
+    </data>
+    <data name="SectionLinePLU" xml:space="preserve">
+        <value>ПЛУ Линии</value>
+    </data>
+    <data name="DataGridColumnType" xml:space="preserve">
+        <value>Тип</value>
+    </data>
+    <data name="DataGridColumnHost" xml:space="preserve">
+        <value>Хост</value>
+    </data>
 </root>

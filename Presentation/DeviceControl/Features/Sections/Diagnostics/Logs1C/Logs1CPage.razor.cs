@@ -7,7 +7,7 @@ using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 
-public sealed partial class Logs1CPage: SectionBase<SqlLogWebEntity>
+public sealed partial class Logs1CPage: SectionDataGridBase<SqlLogWebEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     private SqlLogWebRepository SqlLogWebRepository { get; } = new();

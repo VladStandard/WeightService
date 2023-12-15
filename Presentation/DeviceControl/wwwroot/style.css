@@ -1,0 +1,10 @@
+.blazorise-select-override button {
+  padding-left: 0.625rem !important;
+  padding-right: 0.625rem !important;
+  width: 100%;
+}
+
+.blazorise-select-override span {
+  width: 100%;
+  text-align: left;
+}

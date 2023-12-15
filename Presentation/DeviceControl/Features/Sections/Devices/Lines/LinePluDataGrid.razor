@@ -1,0 +1,39 @@
+@inherits SectionDataGridBase<SqlPluScaleEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlPluScaleEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  GetGridData="GetSectionData"
+  Title="@Localizer["SectionLinePLU"]"
+  ItemsPerPage="5"
+  IsBorderless
+>
+  <SectionDataGridColumn
+    TItem="SqlPluScaleEntity"
+    Caption="@Localizer["DataGridColumnNumber"]"
+    Field="Plu.Number"
+    Width="10%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlPluScaleEntity"
+    Caption="@Localizer["DataGridColumnType"]"
+    Field="Plu.IsCheckWeight"
+    Width="20%"
+  >
+    <DisplayTemplate>
+      <p>
+        @(context.Plu.IsCheckWeight ?
+          Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
+      </p>
+    </DisplayTemplate>
+  </SectionDataGridColumn>
+  <SectionDataGridColumn
+    TItem="SqlPluScaleEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="Plu.Name"
+    Width="70%"
+  />
+</SectionDataGridWrapper>

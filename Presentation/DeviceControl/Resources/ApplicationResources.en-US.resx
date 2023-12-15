@@ -174,4 +174,31 @@
     <data name="ButtonSave" xml:space="preserve">
         <value>Save</value>
     </data>
+    <data name="DataGridColumnIP" xml:space="preserve">
+        <value>IP</value>
+    </data>
+    <data name="DataGridColumnUID" xml:space="preserve">
+        <value>UID</value>
+    </data>
+    <data name="DataGridColumnIsArchival" xml:space="preserve">
+        <value>Is archival</value>
+    </data>
+    <data name="DataGridColumnCOM" xml:space="preserve">
+        <value>COM port</value>
+    </data>
+    <data name="DataGridColumnIsPiece" xml:space="preserve">
+        <value>Piece</value>
+    </data>
+    <data name="DataGridColumnIsWeight" xml:space="preserve">
+        <value>Weight</value>
+    </data>
+    <data name="SectionLinePLU" xml:space="preserve">
+        <value>Line PLU</value>
+    </data>
+    <data name="DataGridColumnType" xml:space="preserve">
+        <value>Type</value>
+    </data>
+    <data name="DataGridColumnHost" xml:space="preserve">
+        <value>Host</value>
+    </data>
 </root>

@@ -105,6 +105,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to COM порт.
+        /// </summary>
+        internal static string DataGridColumnCOM {
+            get {
+                return ResourceManager.GetString("DataGridColumnCOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Кол-во.
         /// </summary>
         internal static string DataGridColumnCount {
@@ -155,6 +164,51 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnErrorCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnErrorCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хост.
+        /// </summary>
+        internal static string DataGridColumnHost {
+            get {
+                return ResourceManager.GetString("DataGridColumnHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP.
+        /// </summary>
+        internal static string DataGridColumnIP {
+            get {
+                return ResourceManager.GetString("DataGridColumnIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В архиве.
+        /// </summary>
+        internal static string DataGridColumnIsArchival {
+            get {
+                return ResourceManager.GetString("DataGridColumnIsArchival", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Штучная.
+        /// </summary>
+        internal static string DataGridColumnIsPiece {
+            get {
+                return ResourceManager.GetString("DataGridColumnIsPiece", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Весовая.
+        /// </summary>
+        internal static string DataGridColumnIsWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnIsWeight", resourceCulture);
             }
         }
         
@@ -236,6 +290,24 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Тип.
+        /// </summary>
+        internal static string DataGridColumnType {
+            get {
+                return ResourceManager.GetString("DataGridColumnType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UID.
+        /// </summary>
+        internal static string DataGridColumnUID {
+            get {
+                return ResourceManager.GetString("DataGridColumnUID", resourceCulture);
             }
         }
         
@@ -425,6 +497,15 @@ namespace ScalesHybrid.Resources {
         internal static string SectionLabels {
             get {
                 return ResourceManager.GetString("SectionLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ПЛУ Линии.
+        /// </summary>
+        internal static string SectionLinePLU {
+            get {
+                return ResourceManager.GetString("SectionLinePLU", resourceCulture);
             }
         }
         

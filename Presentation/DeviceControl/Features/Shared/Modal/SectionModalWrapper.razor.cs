@@ -8,8 +8,8 @@ public sealed partial class SectionModalWrapper: ComponentBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public List<EnumTypeModel<string>> TabsButtonList { get; set; } = new();
+    [Parameter] public string SelectedTab { get; set; } = "main";
     
-    private string SelectedTab { get; set; } = "main";
     private Tabs TabsRef { get; set; } = null!;
 
     private bool IsSelectedTab(string tabName) => SelectedTab == tabName;

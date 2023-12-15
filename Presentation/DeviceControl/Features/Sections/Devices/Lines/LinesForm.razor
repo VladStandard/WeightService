@@ -1,0 +1,65 @@
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+@inherits SectionFormBase<SqlLineEntity>
+
+<SectionFormWrapper
+  OnSaveAction="OnSaveAction"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueId.ToString()"
+    Title="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Description"
+    Title="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.DeviceComPort"
+    Title="@Localizer["DataGridColumnCOM"]"
+    IsDisabled
+  />
+  <SectionFormInputNumeric
+    Value="@SectionEntity.LabelCounter"
+    Title="@Localizer["DataGridColumnCounter"]"
+    MinValue="0"
+  />
+  <SectionFormInputNumeric
+    Value="@SectionEntity.Number"
+    Title="@Localizer["DataGridColumnNumber"]"
+    MinValue="10000"
+    MaxValue="99999"
+  />
+  <SectionFormInputCheckbox
+    Value="@SectionEntity.IsMarked"
+    Description="@Localizer["DataGridColumnIsArchival"]"
+  />
+  <SectionFormInputSelect
+    TItem="SqlPrinterEntity"
+    Items="PrinterEntities"
+    Title="@Localizer["DataGridColumnPrinter"]"
+    SelectedItem="@SectionEntity.Printer"
+    ItemValue="item => item.IdentityValueUid.ToString()"
+    ItemDisplayName="item => item.DisplayName"
+    IdentifyItemOnValueChange="item => GetPrinterByUid(item)"
+  />
+  <SectionFormInputSelect
+    TItem="SqlWorkShopEntity"
+    Items="WorkShopEntities"
+    Title="@Localizer["DataGridColumnWorkshop"]"
+    SelectedItem="@SectionEntity.WorkShop"
+    ItemValue="item => item.IdentityValueUid.ToString()"
+    ItemDisplayName="item => item.DisplayName"
+    IdentifyItemOnValueChange="item => GetWorkShopByUid(item)"
+  />
+  <SectionFormInputSelect
+    TItem="SqlHostEntity"
+    Items="HostEntities"
+    Title="@Localizer["DataGridColumnHost"]"
+    SelectedItem="@SectionEntity.Host"
+    ItemValue="item => item.IdentityValueUid.ToString()"
+    ItemDisplayName="item => item.DisplayName"
+    IdentifyItemOnValueChange="item => GetHostByUid(item)"
+  />
+</SectionFormWrapper>

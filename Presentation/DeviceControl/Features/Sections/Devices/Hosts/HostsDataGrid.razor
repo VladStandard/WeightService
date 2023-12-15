@@ -1,0 +1,31 @@
+@inherits SectionDataGridBase<SqlHostEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+
+<SectionDataGridWrapper
+  TItem="SqlHostEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenModal"
+  GetGridData="SetSqlSectionCast"
+  Title="@Localizer["SectionHosts"]"
+>
+  <SectionDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnLoginDt"]"
+    Field="@nameof(SqlHostEntity.LoginDt)"
+    Width="35%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlHostEntity.Name)"
+    Width="35%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlHostEntity"
+    Caption="@Localizer["DataGridColumnDeviceIp"]"
+    Field="@nameof(SqlHostEntity.Ip)"
+    Width="30%"
+  />
+</SectionDataGridWrapper>
