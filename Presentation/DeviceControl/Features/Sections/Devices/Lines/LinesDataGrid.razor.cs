@@ -15,6 +15,15 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
     
     private SqlLineRepository LineRepository { get; } = new();
     
+    protected override async Task OpenSearchingEntityModal()
+    {
+        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
+        long.TryParse(SearchingSectionItemId, out long newLong);
+        SqlLineEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
+            x?.IdentityValueId == newLong, null);
+        if (selectedEntity != null) await OpenSectionModal<LinesUpdateDialog>(selectedEntity);
+    }
+    
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<LinesCreateDialog>(new());
     

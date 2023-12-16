@@ -18,11 +18,11 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
     protected override void OnInitialized()
     {
         PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        PrinterEntities = PrinterEntities.Append(SectionEntity.Printer).ToList();
         HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        HostEntities = HostEntities.Append(SectionEntity.Host).ToList();
         WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        SectionEntity.Printer = PrinterEntities.First();
-        SectionEntity.Host = HostEntities.First();
-        SectionEntity.WorkShop = WorkShopEntities.First();
+        WorkShopEntities = WorkShopEntities.Append(SectionEntity.WorkShop).ToList();
     }
 
     private SqlPrinterEntity GetPrinterByUid(string printUid) =>

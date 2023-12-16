@@ -8,3 +8,8 @@
   width: 100%;
   text-align: left;
 }
+
+.blazorise-select-override .b-dropdown-menu {
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.15);
+}
