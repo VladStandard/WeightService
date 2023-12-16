@@ -6,7 +6,7 @@ using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Features.Sections.Devices.Hosts;
 
-public sealed partial class HostsForm: SectionFormBase<SqlHostEntity>
+public sealed partial class HostsUpdateForm: SectionFormBase<SqlHostEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

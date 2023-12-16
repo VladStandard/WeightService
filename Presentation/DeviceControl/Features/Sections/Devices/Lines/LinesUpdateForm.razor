@@ -2,44 +2,41 @@
 @inherits SectionFormBase<SqlLineEntity>
 
 <SectionFormWrapper
-  OnSaveAction="OnSaveAction"
+  OnSaveAction="UpdateItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueId.ToString()"
-    Title="@Localizer["DataGridColumnUID"]"
+    Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Description"
-    Title="@Localizer["DataGridColumnName"]"
+    @bind-Value="@SectionEntity.Description"
+    Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputText
     Value="@SectionEntity.DeviceComPort"
-    Title="@Localizer["DataGridColumnCOM"]"
+    Label="@Localizer["DataGridColumnCOM"]"
     IsDisabled
   />
   <SectionFormInputNumeric
-    Value="@SectionEntity.LabelCounter"
-    Title="@Localizer["DataGridColumnCounter"]"
+    @bind-Value="@SectionEntity.LabelCounter"
+    Label="@Localizer["DataGridColumnCounter"]"
     MinValue="0"
   />
   <SectionFormInputNumeric
-    Value="@SectionEntity.Number"
-    Title="@Localizer["DataGridColumnNumber"]"
+    @bind-Value="@SectionEntity.Number"
+    Label="@Localizer["DataGridColumnNumber"]"
     MinValue="10000"
     MaxValue="99999"
-  />
-  <SectionFormInputCheckbox
-    Value="@SectionEntity.IsMarked"
-    Description="@Localizer["DataGridColumnIsArchival"]"
   />
   <SectionFormInputSelect
     TItem="SqlPrinterEntity"
     Items="PrinterEntities"
-    Title="@Localizer["DataGridColumnPrinter"]"
-    SelectedItem="@SectionEntity.Printer"
+    Label="@Localizer["DataGridColumnPrinter"]"
+    Link="@RouteUtils.SectionPrinters"
+    @bind-SelectedItem="@SectionEntity.Printer"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
     IdentifyItemOnValueChange="item => GetPrinterByUid(item)"
@@ -47,8 +44,9 @@
   <SectionFormInputSelect
     TItem="SqlWorkShopEntity"
     Items="WorkShopEntities"
-    Title="@Localizer["DataGridColumnWorkshop"]"
-    SelectedItem="@SectionEntity.WorkShop"
+    Label="@Localizer["DataGridColumnWorkshop"]"
+    Link="@RouteUtils.SectionWorkShops"
+    @bind-SelectedItem="@SectionEntity.WorkShop"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
     IdentifyItemOnValueChange="item => GetWorkShopByUid(item)"
@@ -56,10 +54,15 @@
   <SectionFormInputSelect
     TItem="SqlHostEntity"
     Items="HostEntities"
-    Title="@Localizer["DataGridColumnHost"]"
-    SelectedItem="@SectionEntity.Host"
+    Label="@Localizer["DataGridColumnHost"]"
+    Link="@RouteUtils.SectionHosts"
+    @bind-SelectedItem="@SectionEntity.Host"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
     IdentifyItemOnValueChange="item => GetHostByUid(item)"
+  />
+  <SectionFormInputCheckbox
+    @bind-Value="@SectionEntity.IsMarked"
+    Label="@Localizer["DataGridColumnIsArchival"]"
   />
 </SectionFormWrapper>

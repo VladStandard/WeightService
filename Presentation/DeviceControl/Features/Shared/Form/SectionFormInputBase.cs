@@ -4,7 +4,6 @@ namespace DeviceControl.Features.Shared.Form;
 
 public class SectionFormInputBase: ComponentBase
 {
-    [Parameter] public string Title { get; set; } = string.Empty;
-    [Parameter] public bool IsFullWidth { get; set; }
-    [Parameter] public bool IsTall { get; set; }
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public string Link { get; set; } = string.Empty;
 }

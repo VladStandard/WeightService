@@ -8,24 +8,24 @@
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"
-    Title="@Localizer["DataGridColumnUID"]"
+    Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Name"
-    Title="@Localizer["DataGridColumnName"]"
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputText
-    Value="@SectionEntity.Ip"
-    Title="@Localizer["DataGridColumnIP"]"
+    @bind-Value="@SectionEntity.Ip"
+    Label="@Localizer["DataGridColumnIP"]"
   />
   <SectionFormInputCheckbox
-    Value="@SectionEntity.IsMarked"
-    Description="@Localizer["DataGridColumnIsArchival"]"
+    @bind-Value="@SectionEntity.IsMarked"
+    Label="@Localizer["DataGridColumnIsArchival"]"
   />
   <SectionFormInputText
     Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
-    Title="@Localizer["DataGridColumnLoginDt"]"
+    Label="@Localizer["DataGridColumnLoginDt"]"
     IsDisabled
   />
 </SectionFormWrapper>

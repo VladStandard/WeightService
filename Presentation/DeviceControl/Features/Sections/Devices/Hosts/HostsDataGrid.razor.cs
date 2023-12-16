@@ -17,7 +17,7 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
     private async Task OpenModal(DataGridRowMouseEventArgs<SqlHostEntity> e) => 
         await ModalService.Show<HostsDialog>(p =>
         {
-            p.Add(x => x.SectionEntity, e.Item);
+            p.Add(x => x.DialogSectionEntity, e.Item);
             p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
         });
 

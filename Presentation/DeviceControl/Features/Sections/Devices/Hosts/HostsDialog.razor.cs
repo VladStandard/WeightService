@@ -12,6 +12,7 @@ public sealed partial class HostsDialog: SectionDialogBase<SqlHostEntity>
     
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         TabsList = new() { new(Localizer["SectionHosts"], "main") };
     }
 }

@@ -1,18 +1,27 @@
 @typeparam TItem
+@inherits SectionFormInputBase
 
-<SectionFormInputWrapper
-  Title="@Title"
->
-  <DropdownList
-    TItem="TItem"
-    TValue="string"
-    Data="Items"
-    TextField="ItemDisplayName"
-    ValueField="ItemValue"
-    @bind-SelectedValue="SelectedItemValue"
-    Class="w-full rounded-md bg-white overflow-hidden border border-black/[.1] blazorise-select-override"
-    MaxMenuHeight="15rem"
-  >
-    <p class="font-normal text-black truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
-  </DropdownList>
+<SectionFormInputWrapper Label="@Label" Link="@Link">
+  @if (IsDisabled)
+  {
+    <div class="w-full rounded-md h-full px-2 overflow-hidden border border-black/[.1] bg-gray-200">
+      <p class="truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
+    </div>
+  }
+  else
+  {
+    <DropdownList
+      TItem="TItem"
+      TValue="string"
+      Data="Items"
+      TextField="ItemDisplayName"
+      ValueField="ItemValue"
+      SelectedValue="SelectedItemValue"
+      SelectedValueChanged="HandleValueChange"
+      Class="w-full rounded-md bg-white overflow-hidden border border-black/[.1] blazorise-select-override"
+      MaxMenuHeight="15rem"
+    >
+      <p class="font-normal text-black truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
+    </DropdownList>
+  }
 </SectionFormInputWrapper>

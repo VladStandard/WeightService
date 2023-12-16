@@ -2,36 +2,18 @@
 
 @using Blazor.Heroicons.Outline
 
-<SectionFormInputWrapper
-  Title="@Title"
->
+<SectionFormInputWrapper Label="@Label" Link="@Link">
   <div class="w-full px-1 gap-1 h-full flex items-center rounded-md overflow-hidden border border-black/[.1]
-              focus-within:border-blue-500 @(IsDisabled ? "bg-gray-100": "bg-white")">
+    focus-within:border-blue-500 @(IsDisabled ? "bg-gray-100": "bg-white")"
+  >
     <input
-      type="text"
+      type="number"
+      min="@MinValue"
+      max="@MaxValue"
       disabled="@IsDisabled"
-      @bind-value="Value"
-      @bind-value:event="oninput"
-      @onchange="OnInputLimitCheck"
+      @bind:get="BindingValue"
+      @bind:set="HandleInputChange"
       class="w-full h-full bg-transparent border-none px-1 focus:ring-0"
     />
-    <button
-      type="button"
-      disabled="@(Value == MaxValue || IsDisabled)"
-      @onclick="IncreaseValue"
-      class="h-5 px-1.5 border bg-sky-300 border-black/[.1] flex items-center justify-center rounded-md overflow-hidden
-              transition-colors hover:bg-sky-400 disabled:bg-gray-200 disabled:hover:bg-gray-300"
-    >
-      <ChevronUpIcon class="h-4 w-4" />
-    </button>
-    <button
-      type="button"
-      disabled="@(Value == MinValue || IsDisabled)"
-      @onclick="DecreaseValue"
-      class="h-5 px-1.5 border bg-sky-300 border-black/[.1] flex items-center justify-center rounded-md overflow-hidden
-              transition-colors hover:bg-sky-400 disabled:bg-gray-200 disabled:hover:bg-gray-300"
-    >
-      <ChevronDownIcon class="h-4 pt-[1px] w-4" />
-    </button>
   </div>
 </SectionFormInputWrapper>

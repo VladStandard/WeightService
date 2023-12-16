@@ -20,7 +20,7 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
         await ModalService.Show<LinesDialog>(p =>
         {
             p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
-            p.Add(x => x.SectionEntity, e.Item);
+            p.Add(x => x.DialogSectionEntity, e.Item);
         });
 
     protected override void SetSqlSectionCast() =>

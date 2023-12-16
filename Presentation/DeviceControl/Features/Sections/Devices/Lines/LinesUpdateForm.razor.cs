@@ -8,7 +8,7 @@ using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinesForm: SectionFormBase<SqlLineEntity>
+public sealed partial class LinesUpdateForm: SectionFormBase<SqlLineEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

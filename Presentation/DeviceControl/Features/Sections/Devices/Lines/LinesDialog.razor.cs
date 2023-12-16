@@ -11,6 +11,7 @@ public sealed partial class LinesDialog: SectionDialogBase<SqlLineEntity>
     
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         TabsList = new()
         {
             new(Localizer["SectionLines"], "main"),

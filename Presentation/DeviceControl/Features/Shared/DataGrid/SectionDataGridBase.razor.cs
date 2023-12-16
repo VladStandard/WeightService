@@ -9,8 +9,8 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
 {
     protected List<TItem> SectionItems { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
-    protected bool IsLoading { get; set; } = true;
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
+    protected bool IsLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,14 +1,16 @@
 @inherits SectionFormInputBase
 
 <SectionFormInputWrapper
-  Title="@Title"
+  Label="@Label"
   IsTall="@IsTall"
   IsFullWidth="@IsFullWidth"
+  Link="@Link"
 >
   <input
     type="text"
     disabled="@IsDisabled"
-    @bind="Value"
+    @bind:get="Value"
+    @bind:set="HandleValueChange"
     class="w-full h-full px-2 rounded-md overflow-hidden border border-black/[.1] focus:border-blue/[.1] focus:ring-0
             disabled:bg-gray-200"
   />
