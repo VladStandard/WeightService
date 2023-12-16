@@ -32,6 +32,17 @@
   >
     <ArrowPathIcon class="h-5 w-5 text-white group-hover:animate-spin" />
   </button>
+  @if (IsCreatable)
+  {
+    <button
+      type="button"
+      @onclick="AddDataAction"
+      class="px-6 py-1 bg-sky-300 flex group transition-colors items-center justify-center rounded-md overflow-hidden
+            border border-black/[.1] hover:bg-sky-400"
+    >
+      <PlusIcon class="h-5 w-5 text-white transition-transform group-hover:scale-125" />
+    </button>
+  }
 </div>
 <div class="w-full bg-white overflow-hidden @(!IsBorderless ? "rounded-md border border-black/[.1]" : "")">
   @if (IsLoading)

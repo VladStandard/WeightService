@@ -1,0 +1,13 @@
+@inherits SectionFormBase<SqlHostEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Ip"
+    Label="@Localizer["DataGridColumnIP"]"
+  />
+</SectionFormWrapper>

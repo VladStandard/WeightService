@@ -483,6 +483,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter value....
+        /// </summary>
+        internal static string SectionFormInputTextPlaceholder {
+            get {
+                return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hosts.
         /// </summary>
         internal static string SectionHosts {

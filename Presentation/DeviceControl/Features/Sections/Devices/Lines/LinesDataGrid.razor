@@ -6,9 +6,11 @@
   @ref="DataGridWrapperRef"
   GridData="SectionItems"
   IsLoading="IsLoading"
-  OnDoubleClick="OpenModal"
+  OnDoubleClick="OpenDataGridEntityModal"
   GetGridData="GetSectionData"
+  AddDataAction="OpenSectionCreateForm"
   Title="@Localizer["SectionLines"]"
+  IsCreatable
 >
   <SectionDataGridColumn
     TItem="SqlLineEntity"

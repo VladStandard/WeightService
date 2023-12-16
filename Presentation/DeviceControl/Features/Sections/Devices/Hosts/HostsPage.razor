@@ -1,3 +1,4 @@
-@attribute [Route(RouteUtils.SectionHosts)]
+@inherits SectionPageBase
+@attribute [Route($"{RouteUtils.SectionHosts}/{{SearchingSectionItemId?}}")]
 
-<HostsDataGrid />
+<HostsDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

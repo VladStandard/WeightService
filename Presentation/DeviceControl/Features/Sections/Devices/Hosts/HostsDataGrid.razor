@@ -6,9 +6,11 @@
   @ref="DataGridWrapperRef"
   GridData="SectionItems"
   IsLoading="IsLoading"
-  OnDoubleClick="OpenModal"
+  OnDoubleClick="OpenDataGridEntityModal"
   GetGridData="SetSqlSectionCast"
+  AddDataAction="OpenSectionCreateForm"
   Title="@Localizer["SectionHosts"]"
+  IsCreatable
 >
   <SectionDataGridColumn
     TItem="SqlHostEntity"

@@ -12,16 +12,14 @@ namespace DeviceControl.Features.Sections.Devices.Lines;
 public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IModalService ModalService { get; set; } = null!;
     
     private SqlLineRepository LineRepository { get; } = new();
     
-    private async Task OpenModal(DataGridRowMouseEventArgs<SqlLineEntity> e) => 
-        await ModalService.Show<LinesDialog>(p =>
-        {
-            p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
-            p.Add(x => x.DialogSectionEntity, e.Item);
-        });
+    protected override async Task OpenSectionCreateForm()
+        => await OpenSectionModal<LinesCreateDialog>(new());
+    
+    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlLineEntity> e)
+        => await OpenSectionModal<LinesUpdateDialog>(e.Item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();

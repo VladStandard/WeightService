@@ -2,7 +2,7 @@
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
 
 <SectionFormWrapper
-  OnSaveAction="OnSaveAction"
+  OnSaveAction="() => UpdateItem(SectionEntity)"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

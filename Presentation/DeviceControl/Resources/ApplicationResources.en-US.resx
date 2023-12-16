@@ -201,4 +201,7 @@
     <data name="DataGridColumnHost" xml:space="preserve">
         <value>Host</value>
     </data>
+    <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
+        <value>Enter value...</value>
+    </data>
 </root>

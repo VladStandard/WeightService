@@ -11,16 +11,16 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
     
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
-    protected async Task SaveItem()
+    protected async Task SaveItem(TItem item)
     {
-        SqlCore.Save(SectionEntity);
+        SqlCore.Save(item);
         await OnSaveAction.InvokeAsync();
     }
 
-    protected async Task UpdateItem()
+    protected async Task UpdateItem(TItem item)
     {
-        if (SectionEntity.IsNew) return;
-        SqlCore.Update(SectionEntity);
+        if (item.IsNew) return;
+        SqlCore.Update(item);
         await OnSaveAction.InvokeAsync();
     }
 }

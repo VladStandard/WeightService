@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.DataGrid;
+using DeviceControl.Features.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Models;
@@ -7,6 +10,10 @@ namespace DeviceControl.Features.Shared.DataGrid;
 
 public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {
+    [Inject] private IModalService ModalService { get; set; } = null!;
+    
+    [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
+    
     protected List<TItem> SectionItems { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
@@ -15,11 +22,36 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     protected override async Task OnInitializedAsync()
     {
         await GetSectionData();
+        await OpenSearchingEntityModal();
     }
     
     protected virtual void SetSqlSectionCast()
     {
         throw new NotImplementedException();
+    }
+
+    protected virtual Task OpenSearchingEntityModal()
+    {
+        return Task.CompletedTask;
+    }
+    
+    protected virtual Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<TItem> e)
+    {
+        return Task.CompletedTask;
+    }
+
+    protected virtual Task OpenSectionCreateForm()
+    {
+        return Task.CompletedTask;
+    }
+
+    protected async Task OpenSectionModal<T>(TItem sectionEntity) where T: SectionDialogBase<TItem>
+    {
+        await ModalService.Show<T>(p =>
+        {
+            p.Add(x => x.DialogSectionEntity, sectionEntity);
+            p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
+        });
     }
 
     protected async Task ReloadGrid() => await DataGridWrapperRef.ReloadData();

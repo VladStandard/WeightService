@@ -1,16 +1,7 @@
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
 @inherits SectionFormBase<SqlLineEntity>
 
-<SectionFormWrapper
-  OnSaveAction="() => UpdateItem(SectionEntity)"
-  ChangeDate="SectionEntity.ChangeDt"
-  CreateDate="SectionEntity.CreateDt"
->
-  <SectionFormInputText
-    Value="@SectionEntity.IdentityValueId.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-  />
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Description"
     Label="@Localizer["DataGridColumnName"]"
@@ -18,12 +9,6 @@
   <SectionFormInputText
     Value="@SectionEntity.DeviceComPort"
     Label="@Localizer["DataGridColumnCOM"]"
-    IsDisabled
-  />
-  <SectionFormInputNumeric
-    @bind-Value="@SectionEntity.LabelCounter"
-    Label="@Localizer["DataGridColumnCounter"]"
-    MinValue="0"
   />
   <SectionFormInputNumeric
     @bind-Value="@SectionEntity.Number"
@@ -35,7 +20,6 @@
     TItem="SqlPrinterEntity"
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
-    Link="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
@@ -45,7 +29,6 @@
     TItem="SqlWorkShopEntity"
     Items="WorkShopEntities"
     Label="@Localizer["DataGridColumnWorkshop"]"
-    Link="@($"{RouteUtils.SectionWorkShops}/{SectionEntity.WorkShop.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.WorkShop"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
@@ -55,14 +38,9 @@
     TItem="SqlHostEntity"
     Items="HostEntities"
     Label="@Localizer["DataGridColumnHost"]"
-    Link="@($"{RouteUtils.SectionHosts}/{SectionEntity.Host.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.Host"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
     IdentifyItemOnValueChange="item => GetHostByUid(item)"
-  />
-  <SectionFormInputCheckbox
-    @bind-Value="@SectionEntity.IsMarked"
-    Label="@Localizer["DataGridColumnIsArchival"]"
   />
 </SectionFormWrapper>

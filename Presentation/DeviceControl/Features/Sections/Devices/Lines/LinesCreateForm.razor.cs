@@ -1,4 +1,3 @@
-using System.Collections;
 using DeviceControl.Features.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
@@ -8,7 +7,7 @@ using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinesUpdateForm: SectionFormBase<SqlLineEntity>
+public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
@@ -21,6 +20,9 @@ public sealed partial class LinesUpdateForm: SectionFormBase<SqlLineEntity>
         PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        SectionEntity.Printer = PrinterEntities.First();
+        SectionEntity.Host = HostEntities.First();
+        SectionEntity.WorkShop = WorkShopEntities.First();
     }
 
     private SqlPrinterEntity GetPrinterByUid(string printUid) =>

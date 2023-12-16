@@ -18,6 +18,8 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase
     [Parameter] public bool IsLoading { get; set; } = true;
     [Parameter] public int ItemsPerPage { get; set; } = 15;
     [Parameter] public bool IsBorderless { get; set; }
+    [Parameter] public bool IsCreatable { get; set; }
+    [Parameter] public EventCallback AddDataAction { get; set; }
 
     private DataGrid<TItem> DataGrid { get; set; } = null!;
 
