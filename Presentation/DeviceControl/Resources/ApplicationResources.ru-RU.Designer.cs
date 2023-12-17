@@ -267,6 +267,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Порт.
+        /// </summary>
+        internal static string DataGridColumnPort {
+            get {
+                return ResourceManager.GetString("DataGridColumnPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Принтер.
         /// </summary>
         internal static string DataGridColumnPrinter {
@@ -483,11 +492,47 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите хост.
+        /// </summary>
+        internal static string SectionFormHostDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormHostDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите значение....
         /// </summary>
         internal static string SectionFormInputTextPlaceholder {
             get {
                 return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Управление принтером.
+        /// </summary>
+        internal static string SectionFormPrinterControl {
+            get {
+                return ResourceManager.GetString("SectionFormPrinterControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите принтер.
+        /// </summary>
+        internal static string SectionFormPrinterDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormPrinterDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите цех.
+        /// </summary>
+        internal static string SectionFormWorkShopDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
             }
         }
         

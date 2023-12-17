@@ -1,0 +1,23 @@
+@using Ws.StorageCore.Enums
+@inherits SectionFormBase<SqlPrinterEntity>
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Ip"
+    Link="@SectionEntity.Ip"
+    Label="@Localizer["DataGridColumnIP"]"
+  />
+  <SectionFormInputSelect
+    TItem="PrinterTypeEnum"
+    Items="PrinterTypesEntities"
+    Label="@Localizer["DataGridColumnType"]"
+    @bind-SelectedItem="@SectionEntity.Type"
+    ItemValue="item => item.ToString()"
+    ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+    IdentifyItemOnValueChange="item => GetPrinterTypeByValue(item)"
+  />
+</SectionFormWrapper>

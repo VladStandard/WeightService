@@ -27,7 +27,7 @@
     Label="@Localizer["DataGridColumnWorkshop"]"
     @bind-SelectedItem="@SectionEntity.WorkShop"
     ItemValue="item => item.IdentityValueUid.ToString()"
-    ItemDisplayName="item => item.DisplayName"
+    ItemDisplayName="item => item.Name"
     IdentifyItemOnValueChange="item => GetWorkShopByUid(item)"
   />
   <SectionFormInputSelect
@@ -36,7 +36,7 @@
     Label="@Localizer["DataGridColumnHost"]"
     @bind-SelectedItem="@SectionEntity.Host"
     ItemValue="item => item.IdentityValueUid.ToString()"
-    ItemDisplayName="item => item.DisplayName"
+    ItemDisplayName="item => item.Name"
     IdentifyItemOnValueChange="item => GetHostByUid(item)"
   />
 </SectionFormWrapper>

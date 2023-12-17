@@ -204,4 +204,19 @@
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value>Введите значение...</value>
     </data>
+    <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
+        <value>Выберите цех</value>
+    </data>
+    <data name="SectionFormHostDefaultName" xml:space="preserve">
+        <value>Выберите хост</value>
+    </data>
+    <data name="SectionFormPrinterDefaultName" xml:space="preserve">
+        <value>Выберите принтер</value>
+    </data>
+    <data name="DataGridColumnPort" xml:space="preserve">
+        <value>Порт</value>
+    </data>
+    <data name="SectionFormPrinterControl" xml:space="preserve">
+        <value>Управление принтером</value>
+    </data>
 </root>

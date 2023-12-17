@@ -17,12 +17,17 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
 
     protected override void OnInitialized()
     {
-        PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        PrinterEntities = PrinterEntities.Append(SectionEntity.Printer).ToList();
-        HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        HostEntities = HostEntities.Append(SectionEntity.Host).ToList();
-        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        WorkShopEntities = WorkShopEntities.Append(SectionEntity.WorkShop).ToList();
+        SectionEntity.WorkShop.Name = Localizer["SectionFormWorkShopDefaultName"];
+        SectionEntity.Printer.Name = Localizer["SectionFormPrinterDefaultName"];
+        SectionEntity.Host.Name = Localizer["SectionFormHostDefaultName"];
+
+        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
+        PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
+        HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
+
+        PrinterEntities = PrinterEntities.Append(SectionEntity.Printer);
+        WorkShopEntities = WorkShopEntities.Append(SectionEntity.WorkShop);
+        HostEntities = HostEntities.Append(SectionEntity.Host);
     }
 
     private SqlPrinterEntity GetPrinterByUid(string printUid) =>

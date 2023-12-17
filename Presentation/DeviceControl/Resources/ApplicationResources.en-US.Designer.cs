@@ -267,6 +267,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        internal static string DataGridColumnPort {
+            get {
+                return ResourceManager.GetString("DataGridColumnPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Printer.
         /// </summary>
         internal static string DataGridColumnPrinter {
@@ -483,11 +492,47 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the host.
+        /// </summary>
+        internal static string SectionFormHostDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormHostDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter value....
         /// </summary>
         internal static string SectionFormInputTextPlaceholder {
             get {
                 return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Printer control.
+        /// </summary>
+        internal static string SectionFormPrinterControl {
+            get {
+                return ResourceManager.GetString("SectionFormPrinterControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the printer.
+        /// </summary>
+        internal static string SectionFormPrinterDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormPrinterDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the workshop.
+        /// </summary>
+        internal static string SectionFormWorkShopDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
             }
         }
         

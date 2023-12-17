@@ -1,0 +1,10 @@
+@inherits SectionDialogBase<SqlPrinterEntity>
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <PrintersUpdateForm
+      OnSaveAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

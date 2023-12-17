@@ -1,0 +1,41 @@
+@using Ws.StorageCore.Enums
+@inherits SectionFormBase<SqlPrinterEntity>
+
+<SectionFormWrapper
+  OnSaveAction="() => UpdateItem(SectionEntity)"
+  CreateDate="@SectionEntity.CreateDt"
+  ChangeDate="@SectionEntity.ChangeDt"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Port.ToString()"
+    Label="@Localizer["DataGridColumnPort"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Ip"
+    Link="@($"http://{SectionEntity.Ip}")"
+    Label="@($"{Localizer["DataGridColumnIP"]} ({Localizer["SectionFormPrinterControl"]})")"
+  />
+  <SectionFormInputSelect
+    TItem="PrinterTypeEnum"
+    Items="PrinterTypesEntities"
+    Label="@Localizer["DataGridColumnType"]"
+    @bind-SelectedItem="@SectionEntity.Type"
+    ItemValue="item => item.ToString()"
+    ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+    IdentifyItemOnValueChange="item => GetPrinterTypeByValue(item)"
+  />
+  <SectionFormInputCheckbox
+    @bind-Value="@SectionEntity.IsMarked"
+    Label="@Localizer["DataGridColumnIsArchival"]"
+  />
+</SectionFormWrapper>

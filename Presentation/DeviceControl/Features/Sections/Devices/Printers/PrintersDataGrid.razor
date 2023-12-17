@@ -1,0 +1,32 @@
+@inherits SectionDataGridBase<SqlPrinterEntity>
+
+<SectionDataGridWrapper
+  TItem="SqlPrinterEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenDataGridEntityModal"
+  GetGridData="GetSectionData"
+  AddDataAction="OpenSectionCreateForm"
+  Title="@Localizer["SectionLines"]"
+  IsCreatable
+>
+  <SectionDataGridColumn
+    TItem="SqlPrinterEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlPrinterEntity.Name)"
+    Width="40%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlPrinterEntity"
+    Caption="@Localizer["DataGridColumnType"]"
+    Field="@nameof(SqlPrinterEntity.Type)"
+    Width="30%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlPrinterEntity"
+    Caption="@Localizer["DataGridColumnIp"]"
+    Field="@nameof(SqlPrinterEntity.Ip)"
+    Width="30%"
+  />
+</SectionDataGridWrapper>
