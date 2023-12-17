@@ -1,0 +1,31 @@
+@inherits SectionFormBase<SqlWorkShopEntity>
+
+<SectionFormWrapper
+  OnSaveAction="() => UpdateItem(SectionEntity)"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputSelect
+    TItem="SqlProductionSiteEntity"
+    Items="PlatformEntities"
+    Label="@Localizer["DataGridColumnPlatform"]"
+    Link="@($"{RouteUtils.SectionPlatforms}/{SectionEntity.ProductionSite.IdentityValueUid}")"
+    @bind-SelectedItem="@SectionEntity.ProductionSite"
+    ItemValue="item => item.IdentityValueUid.ToString()"
+    ItemDisplayName="item => item.Name"
+    IdentifyItemOnValueChange="item => GetPlatformByUid(item)"
+  />
+  <SectionFormInputCheckbox
+    @bind-Value="@SectionEntity.IsMarked"
+    Label="@Localizer["DataGridColumnIsArchival"]"
+  />
+</SectionFormWrapper>

@@ -219,4 +219,10 @@
     <data name="SectionFormPrinterControl" xml:space="preserve">
         <value>Управление принтером</value>
     </data>
+    <data name="DataGridColumnPlatform" xml:space="preserve">
+        <value>Платформа</value>
+    </data>
+    <data name="SectionFormPlatformDefaultName" xml:space="preserve">
+        <value>Выберите платформу</value>
+    </data>
 </root>

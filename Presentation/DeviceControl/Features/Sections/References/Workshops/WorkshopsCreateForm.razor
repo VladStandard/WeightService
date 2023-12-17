@@ -1,0 +1,17 @@
+@inherits SectionFormBase<SqlWorkShopEntity>
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputSelect
+    TItem="SqlProductionSiteEntity"
+    Items="PlatformEntities"
+    Label="@Localizer["DataGridColumnPlatform"]"
+    @bind-SelectedItem="@SectionEntity.ProductionSite"
+    ItemValue="item => item.IdentityValueUid.ToString()"
+    ItemDisplayName="item => item.Name"
+    IdentifyItemOnValueChange="item => GetPlatformByUid(item)"
+  />
+</SectionFormWrapper>

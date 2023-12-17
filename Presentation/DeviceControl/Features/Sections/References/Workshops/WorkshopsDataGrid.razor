@@ -1,0 +1,27 @@
+@inherits SectionDataGridBase<SqlWorkShopEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlWorkShopEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenDataGridEntityModal"
+  GetGridData="GetSectionData"
+  AddDataAction="OpenSectionCreateForm"
+  Title="@Localizer["SectionWorkshops"]"
+  IsCreatable
+>
+  <SectionDataGridColumn
+    TItem="SqlWorkShopEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlLineEntity.Name)"
+    Width="50%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlWorkShopEntity"
+    Caption="@Localizer["DataGridColumnPlatform"]"
+    Field="ProductionSite.Name"
+    Width="50%"
+  />
+</SectionDataGridWrapper>

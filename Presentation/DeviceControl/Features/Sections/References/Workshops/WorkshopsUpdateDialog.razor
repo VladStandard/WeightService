@@ -1,0 +1,10 @@
+@inherits SectionDialogBase<SqlWorkShopEntity>
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <WorkshopsUpdateForm
+      OnSaveAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

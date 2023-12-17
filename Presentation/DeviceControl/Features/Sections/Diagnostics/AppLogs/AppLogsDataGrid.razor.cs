@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 
 namespace DeviceControl.Features.Sections.Diagnostics.AppLogs;
 
-public sealed partial class AppLogsPage: SectionDataGridBase<SqlLogEntity>
+public sealed partial class AppLogsDataGrid: SectionDataGridBase<SqlLogEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     

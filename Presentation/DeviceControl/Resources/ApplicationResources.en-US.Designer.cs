@@ -267,6 +267,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Platform.
+        /// </summary>
+        internal static string DataGridColumnPlatform {
+            get {
+                return ResourceManager.GetString("DataGridColumnPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string DataGridColumnPort {
@@ -506,6 +515,15 @@ namespace ScalesHybrid.Resources {
         internal static string SectionFormInputTextPlaceholder {
             get {
                 return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the platform.
+        /// </summary>
+        internal static string SectionFormPlatformDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormPlatformDefaultName", resourceCulture);
             }
         }
         
