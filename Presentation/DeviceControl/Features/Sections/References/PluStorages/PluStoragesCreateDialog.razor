@@ -1,9 +1,9 @@
-@inherits SectionDialogBase<SqlWorkShopEntity>
+@inherits SectionDialogBase<SqlPluStorageMethodEntity>
 
 
 <SectionModalWrapper TabsButtonList="@TabsList">
   <SectionTabPanel Name="main">
-    <WorkshopsUpdateForm
+    <PluStoragesCreateForm
       OnSaveAction="OnDataChangedAction"
       SectionEntity="SectionEntity"
     />

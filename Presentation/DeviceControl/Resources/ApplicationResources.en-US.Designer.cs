@@ -267,11 +267,29 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max Temp.
+        /// </summary>
+        internal static string DataGridColumnMaxTemp {
+            get {
+                return ResourceManager.GetString("DataGridColumnMaxTemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         internal static string DataGridColumnMessage {
             get {
                 return ResourceManager.GetString("DataGridColumnMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min Temp.
+        /// </summary>
+        internal static string DataGridColumnMinTemp {
+            get {
+                return ResourceManager.GetString("DataGridColumnMinTemp", resourceCulture);
             }
         }
         

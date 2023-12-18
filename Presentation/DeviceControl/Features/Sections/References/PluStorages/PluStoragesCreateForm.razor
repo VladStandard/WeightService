@@ -1,0 +1,24 @@
+@inherits SectionFormBase<SqlPluStorageMethodEntity>
+
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+    Size="SectionFormInputSizeEnum.Medium"
+  />
+  <SectionFormInputNumeric
+    TValue="short"
+    @bind-Value="@SectionEntity.MinTemp"
+    Label="@Localizer["DataGridColumnMinTemp"]"
+    MinValue="-100"
+    MaxValue="100"
+  />
+  <SectionFormInputNumeric
+    TValue="short"
+    @bind-Value="@SectionEntity.MaxTemp"
+    Label="@Localizer["DataGridColumnMaxTemp"]"
+    MinValue="-100"
+    MaxValue="100"
+  />
+</SectionFormWrapper>

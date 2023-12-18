@@ -8,4 +8,9 @@ namespace DeviceControl.Features.Sections.References.TemplateResources;
 public sealed partial class TemplateResourcesCreateForm : SectionFormBase<SqlTemplateResourceEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        SectionEntity.Type = "ZPL";
+    }
 }

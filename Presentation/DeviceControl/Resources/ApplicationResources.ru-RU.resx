@@ -240,4 +240,10 @@
     <data name="DataGridColumnSize" xml:space="preserve">
         <value>Размер</value>
     </data>
+    <data name="DataGridColumnMaxTemp" xml:space="preserve">
+        <value>Макс. Температура</value>
+    </data>
+    <data name="DataGridColumnMinTemp" xml:space="preserve">
+        <value>Мин. Температура</value>
+    </data>
 </root>

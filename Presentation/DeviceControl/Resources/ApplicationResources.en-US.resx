@@ -240,4 +240,10 @@
     <data name="DataGridColumnSize" xml:space="preserve">
         <value>Size</value>
     </data>
+    <data name="DataGridColumnMaxTemp" xml:space="preserve">
+        <value>Max Temp</value>
+    </data>
+    <data name="DataGridColumnMinTemp" xml:space="preserve">
+        <value>Min Temp</value>
+    </data>
 </root>

@@ -1,4 +1,5 @@
-@inherits SectionFormBase<SqlTemplateResourceEntity>
+@inherits SectionFormBase<SqlPluStorageMethodEntity>
+
 
 <SectionFormWrapper
   OnSaveAction="() => UpdateItem(SectionEntity)"
@@ -11,20 +12,22 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Type"
-    Label="@Localizer["DataGridColumnType"]"
-    IsDisabled
-  />
-  <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
-    Size="SectionFormInputSizeEnum.Medium"
   />
-  <SectionFormInputText
-    @bind-Value="@SectionEntity.Data.ValueUnicode"
-    Label="@Localizer["DataGridColumnData"]"
-    Size="SectionFormInputSizeEnum.ExtraLarge"
-    IsCopyable
+  <SectionFormInputNumeric
+    TValue="short"
+    @bind-Value="@SectionEntity.MinTemp"
+    Label="@Localizer["DataGridColumnMinTemp"]"
+    MinValue="-100"
+    MaxValue="100"
+  />
+  <SectionFormInputNumeric
+    TValue="short"
+    @bind-Value="@SectionEntity.MaxTemp"
+    Label="@Localizer["DataGridColumnMaxTemp"]"
+    MinValue="-100"
+    MaxValue="100"
   />
   <SectionFormInputCheckbox
     @bind-Value="@SectionEntity.IsMarked"

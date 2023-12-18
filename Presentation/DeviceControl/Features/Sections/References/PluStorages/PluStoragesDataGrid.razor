@@ -1,0 +1,33 @@
+@inherits SectionDataGridBase<SqlPluStorageMethodEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlPluStorageMethodEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenDataGridEntityModal"
+  GetGridData="GetSectionData"
+  AddDataAction="OpenSectionCreateForm"
+  Title="@Localizer["SectionPluStorages"]"
+  IsCreatable
+>
+  <SectionDataGridColumn
+    TItem="SqlPluStorageMethodEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlPluStorageMethodEntity.Name)"
+    Width="70%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlPluStorageMethodEntity"
+    Caption="@Localizer["DataGridColumnMinTemp"]"
+    Field="@nameof(SqlPluStorageMethodEntity.MinTemp)"
+    Width="15%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlPluStorageMethodEntity"
+    Caption="@Localizer["DataGridColumnMaxTemp"]"
+    Field="@nameof(SqlPluStorageMethodEntity.MaxTemp)"
+    Width="15%"
+  />
+</SectionDataGridWrapper>
