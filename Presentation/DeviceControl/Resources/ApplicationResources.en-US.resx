@@ -237,4 +237,7 @@
     <data name="DataGridColumnData" xml:space="preserve">
         <value>Data</value>
     </data>
+    <data name="DataGridColumnSize" xml:space="preserve">
+        <value>Size</value>
+    </data>
 </root>

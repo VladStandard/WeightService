@@ -1,0 +1,14 @@
+@inherits SectionFormBase<SqlTemplateResourceEntity>
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+    Size="SectionFormInputSizeEnum.Medium"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Data.ValueUnicode"
+    Label="@Localizer["DataGridColumnData"]"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+  />
+</SectionFormWrapper>

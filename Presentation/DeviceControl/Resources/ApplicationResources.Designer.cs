@@ -332,6 +332,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnSize {
+            get {
+                return ResourceManager.GetString("DataGridColumnSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);

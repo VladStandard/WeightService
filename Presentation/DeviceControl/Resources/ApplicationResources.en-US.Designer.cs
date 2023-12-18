@@ -330,6 +330,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        internal static string DataGridColumnSize {
+            get {
+                return ResourceManager.GetString("DataGridColumnSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successes.
         /// </summary>
         internal static string DataGridColumnSuccessCounter {

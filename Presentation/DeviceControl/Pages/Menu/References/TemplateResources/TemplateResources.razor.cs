@@ -9,12 +9,12 @@
 //         SqlSectionCast = new SqlTemplateResourceRepository().GetList(SqlCrudConfigSection);
 //     }
 //     
-//     private static string ConvertBytes(SqlTemplateResourceEntity templateResource)
-//     {
-//         return templateResource.DataValue.Length > 1024
-//             ? $"{templateResource.DataValue.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
-//             : $"{templateResource.DataValue.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
-//     }
+     // private static string ConvertBytes(SqlTemplateResourceEntity templateResource)
+     // {
+     //     return templateResource.DataValue.Length > 1024
+     //         ? $"{templateResource.DataValue.Length / 1024:### ##0} {LocaleCore.Strings.DataSizeKBytes}"
+     //         : $"{templateResource.DataValue.Length:##0} {LocaleCore.Strings.DataSizeBytes}";
+     // }
 //
 //     #endregion
 // }
