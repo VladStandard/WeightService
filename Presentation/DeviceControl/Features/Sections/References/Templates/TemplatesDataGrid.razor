@@ -1,0 +1,26 @@
+@inherits SectionDataGridBase<SqlTemplateEntity>
+
+<SectionDataGridWrapper
+  TItem="SqlTemplateEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenDataGridEntityModal"
+  GetGridData="SetSqlSectionCast"
+  AddDataAction="OpenSectionCreateForm"
+  Title="@Localizer["SectionHosts"]"
+  IsCreatable
+>
+  <SectionDataGridColumn
+    TItem="SqlTemplateEntity"
+    Caption="@Localizer["DataGridColumnCategory"]"
+    Field="@nameof(SqlTemplateEntity.CategoryId)"
+    Width="20%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlTemplateEntity"
+    Caption="@Localizer["DataGridColumnTitle"]"
+    Field="@nameof(SqlTemplateEntity.Title)"
+    Width="80%"
+  />
+</SectionDataGridWrapper>

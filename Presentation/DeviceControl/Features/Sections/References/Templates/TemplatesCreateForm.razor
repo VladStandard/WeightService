@@ -1,0 +1,23 @@
+@inherits SectionFormBase<SqlTemplateEntity>
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputSelect
+    TItem="TemplateCategoriesEnum"
+    Items="PrinterTypesEntities"
+    Label="@Localizer["DataGridColumnCategory"]"
+    @bind-SelectedItem="@SelectedCategory"
+    ItemValue="item => item.ToString()"
+    ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+    IdentifyItemOnValueChange="item => GetTemplateCategoryByValue(item)"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Title"
+    Label="@Localizer["DataGridColumnTitle"]"
+    Size="SectionFormInputSizeEnum.Medium"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Data"
+    Label="@Localizer["DataGridColumnData"]"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+  />
+</SectionFormWrapper>

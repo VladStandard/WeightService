@@ -1,4 +1,5 @@
 @inherits SectionFormInputBase
+@using Blazor.Heroicons.Outline
 
 <SectionFormInputWrapper
   Label="@Label"
@@ -27,5 +28,16 @@
       class="w-full h-full px-2 rounded-md overflow-hidden border border-black/[.1] focus:border-blue/[.1] focus:ring-0
             disabled:bg-gray-200"
     />
+  }
+  @if (IsCopyable)
+  {
+    <button
+      type="button"
+      @onclick="() => SaveToClipboard(Value)"
+      class="absolute top-8 right-16 flex items-center justify-center"
+    >
+      <DocumentDuplicateIcon class="h-7 w-7 transition-colors text-black/[.3] group-hover:text-black/[.7]" />
+    </button>
+
   }
 </SectionFormInputWrapper>

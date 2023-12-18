@@ -87,7 +87,6 @@
     <ItemGroup>
       <Folder Include="Features\Sections\References\PlusStorages\" />
       <Folder Include="Features\Sections\References\TemplateResources\" />
-      <Folder Include="Features\Sections\References\Templates\" />
     </ItemGroup>
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

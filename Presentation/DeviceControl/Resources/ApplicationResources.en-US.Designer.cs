@@ -105,6 +105,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string DataGridColumnCategory {
+            get {
+                return ResourceManager.GetString("DataGridColumnCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change date.
         /// </summary>
         internal static string DataGridColumnChangeDt {
@@ -146,6 +155,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnCreateDt {
             get {
                 return ResourceManager.GetString("DataGridColumnCreateDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        internal static string DataGridColumnData {
+            get {
+                return ResourceManager.GetString("DataGridColumnData", resourceCulture);
             }
         }
         
@@ -317,6 +335,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string DataGridColumnTitle {
+            get {
+                return ResourceManager.GetString("DataGridColumnTitle", resourceCulture);
             }
         }
         

@@ -1,0 +1,10 @@
+@inherits SectionDialogBase<SqlTemplateEntity>
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <TemplatesCreateForm
+      OnSaveAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

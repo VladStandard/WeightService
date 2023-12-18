@@ -1,6 +1,6 @@
 @inherits SectionFormInputBase
 
-<div class="flex flex-col px-10 @GetClassBySize(Size)">
+<div class="flex group relative flex-col px-10 @GetClassBySize(Size)">
   @if (string.IsNullOrEmpty(Link))
   {
     <label>@Label</label>
