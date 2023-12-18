@@ -1,6 +1,6 @@
 @inherits SectionFormInputBase
 
-<div class="h-14 w-1/2 flex flex-col px-10 @(IsFullWidth ? "w-full" : "w-1/2") @(IsTall ? "h-32" : "h-14")">
+<div class="flex flex-col px-10 @GetClassBySize(Size)">
   @if (string.IsNullOrEmpty(Link))
   {
     <label>@Label</label>

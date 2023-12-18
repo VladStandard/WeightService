@@ -1,0 +1,13 @@
+@inherits SectionFormBase<SqlProductionSiteEntity>
+
+<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Address"
+    Label="@Localizer["DataGridColumnAddress"]"
+    Size="SectionFormInputSizeEnum.Large"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+</SectionFormWrapper>

@@ -96,8 +96,8 @@
     <data name="SectionLines" xml:space="preserve">
         <value>Линии</value>
     </data>
-    <data name="SectionPlatforms" xml:space="preserve">
-        <value>Платформы</value>
+    <data name="SectionProductionSites" xml:space="preserve">
+        <value>Площадки</value>
     </data>
     <data name="SectionPLU" xml:space="preserve">
         <value>ПЛУ</value>
@@ -174,7 +174,7 @@
     <data name="ButtonSave" xml:space="preserve">
         <value>Сохранить</value>
     </data>
-    <data name="DataGridColumnIP" xml:space="preserve">
+    <data name="DataGridColumnIp" xml:space="preserve">
         <value>IP</value>
     </data>
     <data name="DataGridColumnUID" xml:space="preserve">
@@ -219,10 +219,13 @@
     <data name="SectionFormPrinterControl" xml:space="preserve">
         <value>Управление принтером</value>
     </data>
-    <data name="DataGridColumnPlatform" xml:space="preserve">
-        <value>Платформа</value>
+    <data name="DataGridColumnProductionSite" xml:space="preserve">
+        <value>Площадка</value>
     </data>
     <data name="SectionFormPlatformDefaultName" xml:space="preserve">
         <value>Выберите платформу</value>
+    </data>
+    <data name="DataGridColumnAddress" xml:space="preserve">
+        <value>Адрес</value>
     </data>
 </root>

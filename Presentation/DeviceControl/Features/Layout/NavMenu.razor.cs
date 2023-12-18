@@ -16,7 +16,7 @@ public sealed partial class NavMenu : ComponentBase
 
     protected override void OnInitialized()
     {
-        IsProduction = ConfigurationUtil.IsDevelop;
+        IsProduction = !ConfigurationUtil.IsDevelop;
         MenuSections = CreateNavMenus();
     }
     
@@ -69,7 +69,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems = new()
             {
                 new() { Name = Localizer["SectionWorkshops"], Link = RouteUtils.SectionWorkShops },
-                new() { Name = Localizer["SectionPlatforms"], Link = RouteUtils.SectionPlatforms },
+                new() { Name = Localizer["SectionProductionSites"], Link = RouteUtils.SectionProductionSites },
                 new() { Name = Localizer["SectionTemplates"], Link = RouteUtils.SectionTemplates },
                 new() { Name = Localizer["SectionTemplatesResources"], Link = RouteUtils.SectionTemplateResources },
                 new() { Name = Localizer["SectionPluStorages"], Link = RouteUtils.SectionPlusStorage }

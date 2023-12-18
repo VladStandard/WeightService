@@ -42,7 +42,7 @@ public static class RouteUtils
     # region References
     
     public const string SectionWorkShops = "/workshops";
-    public const string SectionPlatforms = "/platforms";
+    public const string SectionProductionSites = "/production_sites";
     public const string SectionTemplates = "/templates";
     public const string SectionTemplateResources = "/templates_resources";
     public const string SectionPlusStorage = "/plus_storage";

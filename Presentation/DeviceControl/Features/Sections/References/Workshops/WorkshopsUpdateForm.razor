@@ -17,8 +17,8 @@
   <SectionFormInputSelect
     TItem="SqlProductionSiteEntity"
     Items="PlatformEntities"
-    Label="@Localizer["DataGridColumnPlatform"]"
-    Link="@($"{RouteUtils.SectionPlatforms}/{SectionEntity.ProductionSite.IdentityValueUid}")"
+    Label="@Localizer["DataGridColumnProductionSite"]"
+    Link="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.ProductionSite.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.Name"

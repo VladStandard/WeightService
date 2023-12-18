@@ -1,5 +1,4 @@
-@inherits SectionFormBase<SqlHostEntity>
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
+@inherits SectionFormBase<SqlProductionSiteEntity>
 
 <SectionFormWrapper
   OnSaveAction="() => UpdateItem(SectionEntity)"
@@ -16,16 +15,12 @@
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Ip"
-    Label="@Localizer["DataGridColumnIp"]"
+    @bind-Value="@SectionEntity.Address"
+    Label="@Localizer["DataGridColumnAddress"]"
+    Size="SectionFormInputSizeEnum.Large"
   />
   <SectionFormInputCheckbox
     @bind-Value="@SectionEntity.IsMarked"
     Label="@Localizer["DataGridColumnIsArchival"]"
-  />
-  <SectionFormInputText
-    Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
-    Label="@Localizer["DataGridColumnLoginDt"]"
-    IsDisabled
   />
 </SectionFormWrapper>

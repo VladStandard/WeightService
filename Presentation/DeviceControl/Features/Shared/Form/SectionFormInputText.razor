@@ -2,17 +2,30 @@
 
 <SectionFormInputWrapper
   Label="@Label"
-  IsTall="@IsTall"
-  IsFullWidth="@IsFullWidth"
+  Size="@Size"
   Link="@Link"
 >
-  <input
-    type="text"
-    disabled="@IsDisabled"
-    @bind:get="Value"
-    @bind:set="HandleValueChange"
-    placeholder="@Localizer["SectionFormInputTextPlaceholder"]"
-    class="w-full h-full px-2 rounded-md overflow-hidden border border-black/[.1] focus:border-blue/[.1] focus:ring-0
+  @if (GetIsLargeSize(Size))
+  {
+    <textarea
+      disabled="@IsDisabled"
+      @bind:get="Value"
+      @bind:set="HandleValueChange"
+      placeholder="@Localizer["SectionFormInputTextPlaceholder"]"
+      class="w-full h-full px-2 py-1 rounded-md overflow-hidden border border-black/[.1] resize-none overflow-y-auto
+              focus:border-blue/[.1] focus:ring-0 disabled:bg-gray-200">
+    </textarea>
+  }
+  else
+  {
+    <input
+      type="text"
+      disabled="@IsDisabled"
+      @bind:get="Value"
+      @bind:set="HandleValueChange"
+      placeholder="@Localizer["SectionFormInputTextPlaceholder"]"
+      class="w-full h-full px-2 rounded-md overflow-hidden border border-black/[.1] focus:border-blue/[.1] focus:ring-0
             disabled:bg-gray-200"
-  />
+    />
+  }
 </SectionFormInputWrapper>

@@ -89,6 +89,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnAddress {
+            get {
+                return ResourceManager.GetString("DataGridColumnAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnApp {
             get {
                 return ResourceManager.GetString("DataGridColumnApp", resourceCulture);
@@ -179,9 +188,9 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnIP {
+        internal static string DataGridColumnIp {
             get {
-                return ResourceManager.GetString("DataGridColumnIP", resourceCulture);
+                return ResourceManager.GetString("DataGridColumnIp", resourceCulture);
             }
         }
         
@@ -269,15 +278,6 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnPlatform {
-            get {
-                return ResourceManager.GetString("DataGridColumnPlatform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string DataGridColumnPort {
             get {
                 return ResourceManager.GetString("DataGridColumnPort", resourceCulture);
@@ -290,6 +290,15 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnProductionSite {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductionSite", resourceCulture);
             }
         }
         
@@ -593,15 +602,6 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SectionPlatforms {
-            get {
-                return ResourceManager.GetString("SectionPlatforms", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string SectionPLU {
             get {
                 return ResourceManager.GetString("SectionPLU", resourceCulture);
@@ -623,6 +623,15 @@ namespace DeviceControl.Resources {
         internal static string SectionPrinters {
             get {
                 return ResourceManager.GetString("SectionPrinters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SectionProductionSites {
+            get {
+                return ResourceManager.GetString("SectionProductionSites", resourceCulture);
             }
         }
         

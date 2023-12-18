@@ -87,6 +87,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string DataGridColumnAddress {
+            get {
+                return ResourceManager.GetString("DataGridColumnAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App.
         /// </summary>
         internal static string DataGridColumnApp {
@@ -179,9 +188,9 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
-        internal static string DataGridColumnIP {
+        internal static string DataGridColumnIp {
             get {
-                return ResourceManager.GetString("DataGridColumnIP", resourceCulture);
+                return ResourceManager.GetString("DataGridColumnIp", resourceCulture);
             }
         }
         
@@ -267,15 +276,6 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platform.
-        /// </summary>
-        internal static string DataGridColumnPlatform {
-            get {
-                return ResourceManager.GetString("DataGridColumnPlatform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string DataGridColumnPort {
@@ -290,6 +290,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Production Site.
+        /// </summary>
+        internal static string DataGridColumnProductionSite {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductionSite", resourceCulture);
             }
         }
         
@@ -591,15 +600,6 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Platforms.
-        /// </summary>
-        internal static string SectionPlatforms {
-            get {
-                return ResourceManager.GetString("SectionPlatforms", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PLU.
         /// </summary>
         internal static string SectionPLU {
@@ -623,6 +623,15 @@ namespace ScalesHybrid.Resources {
         internal static string SectionPrinters {
             get {
                 return ResourceManager.GetString("SectionPrinters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Production Sites.
+        /// </summary>
+        internal static string SectionProductionSites {
+            get {
+                return ResourceManager.GetString("SectionProductionSites", resourceCulture);
             }
         }
         
