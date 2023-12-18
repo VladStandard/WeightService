@@ -1,0 +1,32 @@
+@inherits SectionFormBase<SqlBrandEntity>
+
+<SectionFormWrapper
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+  IsSaveable="false"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Uid1C.ToString()"
+    Label="@Localizer["DataGridColumnUID1C"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Code"
+    Label="@Localizer["DataGridColumnCode"]"
+    IsDisabled
+  />
+  <SectionFormInputCheckbox
+    @bind-Value="@SectionEntity.IsMarked"
+    Label="@Localizer["DataGridColumnIsArchival"]"
+  />
+</SectionFormWrapper>

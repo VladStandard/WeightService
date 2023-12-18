@@ -12,6 +12,7 @@ public sealed partial class SectionFormFooter: ComponentBase
     [Parameter] public DateTime? CreateDate { get; set; }
     [Parameter] public DateTime? ChangeDate { get; set; }
     [Parameter] public EventCallback OnSaveAction { get; set; }
+    [Parameter] public bool IsSaveable { get; set; } = true;
     
     private async Task CloseModal() => await ModalService.Hide();
 

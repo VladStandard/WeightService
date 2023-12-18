@@ -5,7 +5,7 @@ namespace DeviceControl.Features.Shared.DataGrid;
 
 public class SectionDataGrid<TItem> : DataGrid<TItem>
 {
-    [Parameter] public int ItemsPerPage { get; set; } = 15;
+    [Parameter] public int ItemsPerPage { get; set; } = 13;
     
     public SectionDataGrid()
     {

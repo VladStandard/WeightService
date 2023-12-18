@@ -246,4 +246,16 @@
     <data name="DataGridColumnMinTemp" xml:space="preserve">
         <value>Min Temp</value>
     </data>
+    <data name="DataGridColumnBoxWeight" xml:space="preserve">
+        <value>Box Weight</value>
+    </data>
+    <data name="DataGridColumnUID1C" xml:space="preserve">
+        <value>1C UID</value>
+    </data>
+    <data name="DataGridColumnCode" xml:space="preserve">
+        <value>Code</value>
+    </data>
+    <data name="DataGridColumnWeight" xml:space="preserve">
+        <value>Weight</value>
+    </data>
 </root>

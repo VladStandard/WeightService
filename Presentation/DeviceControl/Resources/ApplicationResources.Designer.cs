@@ -107,6 +107,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnBoxWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnBoxWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnCategory {
             get {
                 return ResourceManager.GetString("DataGridColumnCategory", resourceCulture);
@@ -119,6 +128,15 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnChangeDt {
             get {
                 return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnCode {
+            get {
+                return ResourceManager.GetString("DataGridColumnCode", resourceCulture);
             }
         }
         
@@ -395,9 +413,27 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnUID1C {
+            get {
+                return ResourceManager.GetString("DataGridColumnUID1C", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnVersion {
             get {
                 return ResourceManager.GetString("DataGridColumnVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnWeight {
+            get {
+                return ResourceManager.GetString("DataGridColumnWeight", resourceCulture);
             }
         }
         

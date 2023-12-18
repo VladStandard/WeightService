@@ -1,0 +1,31 @@
+@inherits SectionDataGridBase<SqlClipEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlClipEntity"
+  @ref="DataGridWrapperRef"
+  GridData="SectionItems"
+  IsLoading="IsLoading"
+  OnDoubleClick="OpenDataGridEntityModal"
+  GetGridData="SetSqlSectionCast"
+  Title="@Localizer["SectionClips"]"
+>
+  <SectionDataGridColumn
+    TItem="SqlClipEntity"
+    Caption="@Localizer["DataGridColumnChangeDt"]"
+    Field="@nameof(SqlClipEntity.ChangeDt)"
+    Width="20%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlClipEntity"
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlClipEntity.Name)"
+    Width="60%"
+  />
+  <SectionDataGridColumn
+    TItem="SqlClipEntity"
+    Caption="@Localizer["DataGridColumnWeight"]"
+    Field="@nameof(SqlClipEntity.Weight)"
+    Width="20%"
+  />
+</SectionDataGridWrapper>

@@ -18,22 +18,25 @@
       }
     </div>
   }
-  <div class="flex px-6 w-full gap-2 justify-end">
-    <button
-      type="button"
-      @onclick="CloseModal"
-      class="h-9 bg-red-300 transition-colors flex items-center px-4 justify-center overflow-hidden
+  @if (IsSaveable)
+  {
+    <div class="flex px-6 w-full gap-2 justify-end">
+      <button
+        type="button"
+        @onclick="CloseModal"
+        class="h-9 bg-red-300 transition-colors flex items-center px-4 justify-center overflow-hidden
                     rounded-md border border-black/[.1] hover:bg-red-400"
-    >
-      <p class="font-normal pt-[1px]">@Localizer["ButtonCancel"]</p>
-    </button>
-    <button
-      type="button"
-      @onclick="SaveAction"
-      class="h-9 bg-green-300 transition-colors flex items-center px-4 justify-center overflow-hidden
+      >
+        <p class="font-normal pt-[1px]">@Localizer["ButtonCancel"]</p>
+      </button>
+      <button
+        type="button"
+        @onclick="SaveAction"
+        class="h-9 bg-green-300 transition-colors flex items-center px-4 justify-center overflow-hidden
                     rounded-md border border-black/[.1] hover:bg-green-400"
-    >
-      <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
-    </button>
-  </div>
+      >
+        <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
+      </button>
+    </div>
+  }
 </div>

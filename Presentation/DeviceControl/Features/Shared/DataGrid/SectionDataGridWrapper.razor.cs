@@ -16,7 +16,7 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase
     [Parameter] public EventCallback GetGridData { get; set; }
     [Parameter] public EventCallback<DataGridRowMouseEventArgs<TItem>> OnDoubleClick { get; set; }
     [Parameter] public bool IsLoading { get; set; } = true;
-    [Parameter] public int ItemsPerPage { get; set; } = 15;
+    [Parameter] public int ItemsPerPage { get; set; } = 13;
     [Parameter] public bool IsBorderless { get; set; }
     [Parameter] public bool IsCreatable { get; set; }
     [Parameter] public EventCallback AddDataAction { get; set; }

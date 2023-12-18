@@ -47,20 +47,20 @@ public sealed partial class NavMenu : ComponentBase
         //         new() { Name = Localizer["SectionAggregatedLabels"], Link = RouteUtils.SectionPlusLabelsAggr }
         //     }
         // },
-        // new()
-        // {
-        //     Label = Localizer["Menu1CReferences"],
-        //     RequiredRole = UserAccessStr.Read,
-        //     Icon = HeroiconName.CurrencyEuro,
-        //     SubItems = new()
-        //     {
-        //         new() { Name = Localizer["SectionPLU"], Link = RouteUtils.SectionPlus },
-        //         new() { Name = Localizer["SectionBoxes"], Link = RouteUtils.SectionBoxes },
-        //         new() { Name = Localizer["SectionClips"], Link = RouteUtils.SectionClips },
-        //         new() { Name = Localizer["SectionBundles"], Link = RouteUtils.SectionBundles },
-        //         new() { Name = Localizer["SectionBrands"], Link = RouteUtils.SectionBrands }
-        //     }
-        // },
+        new()
+        {
+            Label = Localizer["Menu1CReferences"],
+            RequiredRole = UserAccessStr.Read,
+            Icon = HeroiconName.CurrencyEuro,
+            SubItems = new()
+            {
+                new() { Name = Localizer["SectionPLU"], Link = RouteUtils.SectionPlus },
+                new() { Name = Localizer["SectionBoxes"], Link = RouteUtils.SectionBoxes },
+                new() { Name = Localizer["SectionClips"], Link = RouteUtils.SectionClips },
+                new() { Name = Localizer["SectionBundles"], Link = RouteUtils.SectionBundles },
+                new() { Name = Localizer["SectionBrands"], Link = RouteUtils.SectionBrands }
+            }
+        },
         new()
         {
             Label = Localizer["MenuReferences"],

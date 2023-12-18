@@ -2,34 +2,24 @@ namespace DeviceControl.Utils;
 
 public static class RouteUtils
 {
-    #region Администрирование
-    
     public static string SystemDatabaseInfo => "/system_sql";
     public static string SectionVersions => "/system_sql_versions";
-    
-    #endregion
-    
-    #region ПЛУ
 
-    public static string SectionPlus => "/section/plus";
+    // public static string SectionPlus => "/section/plus";
     public static string SectionPlusLines => "/section/plus_lines";
     public static string SectionPlusLabels => "/section/plus_labels";
     public static string SectionPlusNestingFks => "/section/plus_nesting";
     public static string SectionPlusWeightings => "/section/plus_weightings";
     public static string SectionPlusLabelsAggr => "/section/plus_labels_aggr";
 
-    #endregion
 
-    #region Прочее
+    // public static string SectionClips => "/section/clips";
+    // public static string SectionAccess => "/section/access";
+    // public static string SectionBarCodes => "/section/barcodes";
+    // public static string SectionBoxes => "/section/boxes";
+    // public static string SectionBrands => "/section/brands";
+    // public static string SectionBundles => "/section/bundles";
 
-    public static string SectionClips => "/section/clips";
-    public static string SectionAccess => "/section/access";
-    public static string SectionBarCodes => "/section/barcodes";
-    public static string SectionBoxes => "/section/boxes";
-    public static string SectionBrands => "/section/brands";
-    public static string SectionBundles => "/section/bundles";
-
-    #endregion
     
     # region Devices
     
@@ -46,6 +36,16 @@ public static class RouteUtils
     public const string SectionTemplates = "/templates";
     public const string SectionTemplateResources = "/templates_resources";
     public const string SectionPlusStorage = "/plus_storage";
+    
+    # endregion
+    
+    # region References1C
+    
+    public const string SectionClips = "/clips";
+    public const string SectionBoxes = "/boxes";
+    public const string SectionBrands = "/brands";
+    public const string SectionBundles = "/bundles";
+    public const string SectionPlus = "/plus";
     
     # endregion
     
