@@ -47,10 +47,8 @@ public static class SqlValidationUtils
             SqlLineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
             SqlTemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
             SqlTemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
-            SqlVersionEntity version => new SqlVersionValidator(isCheckIdentity).Validate(version),
             SqlWorkShopEntity workShop => new SqlWorkShopValidator(isCheckIdentity).Validate(workShop),
             SqlAccessEntity access => new SqlAccessValidator(isCheckIdentity).Validate(access),
-            SqlAppEntity app => new SqlAppValidator(isCheckIdentity).Validate(app),
             SqlPrinterEntity printer => new SqlPrinterValidator(isCheckIdentity).Validate(printer),
             _ => throw new ArgumentOutOfRangeException(nameof(item), item, null)
         };

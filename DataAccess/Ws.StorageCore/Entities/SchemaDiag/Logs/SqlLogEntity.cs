@@ -6,10 +6,7 @@ namespace Ws.StorageCore.Entities.SchemaDiag.Logs;
 [DebuggerDisplay("{ToString()}")]
 public class SqlLogEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual SqlHostEntity? Device { get; set; }
-    public virtual SqlAppEntity? App { get; set; }
     public virtual LogTypeEnum Type { get; set; }
     public virtual string Version { get; set; }
     public virtual string File { get; set; }
@@ -20,7 +17,6 @@ public class SqlLogEntity : SqlEntityBase
     public SqlLogEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Device = null;
-        App = null;
         Type = LogTypeEnum.Info;
         Line = 0;
         Version = string.Empty;
@@ -32,7 +28,6 @@ public class SqlLogEntity : SqlEntityBase
     public SqlLogEntity(SqlLogEntity item) : base(item)
     {
         Device = item.Device is null ? null : new(item.Device);
-        App = item.App is null ? null : new(item.App);
         Type = item.Type;
         Version = item.Version;
         File = item.File;
@@ -40,15 +35,7 @@ public class SqlLogEntity : SqlEntityBase
         Member = item.Member;
         Message = item.Message;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
-    public override string ToString() =>
-        $"{Device?.Name ?? "null"} | {App?.Name ?? "null"} | {Type.ToString()} | {Version} | {File} " +
-        $"{Line} | {Member} | {Message}";
-
+    
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -66,12 +53,7 @@ public class SqlLogEntity : SqlEntityBase
         Type = LogTypeEnum.Info;
         
         Device?.FillProperties();
-        App?.FillProperties();
     }
-
-    #endregion
-
-    #region Public and private methods - virtual
 
     public virtual bool Equals(SqlLogEntity item) =>
         ReferenceEquals(this, item) ||
@@ -83,8 +65,5 @@ public class SqlLogEntity : SqlEntityBase
         Equals(Message, item.Message) &&
         (Device is null && item.Device is null ||
          Device is not null && item.Device is not null && Device.Equals(item.Device)) &&
-        (App is null && item.App is null || App is not null && item.App is not null && App.Equals(item.App)) &&
         Type.Equals(item.Type);
-
-    #endregion
 }

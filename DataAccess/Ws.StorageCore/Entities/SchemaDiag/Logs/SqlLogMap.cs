@@ -73,11 +73,5 @@ public sealed class SqlLogMap : ClassMapping<SqlLogEntity>
             m.Type<EnumStringType<LogTypeEnum>>();
             m.Length(15);
         });
-        
-        ManyToOne(x => x.App, m => {
-            m.Column("APP_UID");
-            m.Lazy(LazyRelation.NoLazy);
-            m.NotNullable(false);
-        });
     }
 }

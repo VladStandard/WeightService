@@ -8,10 +8,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 /// </summary>
 public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity>
 {
-    #region Public and private methods
-
-    public SqlBundleEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlBundleEntity>();
-    
     public SqlBundleEntity GetItemByUid1C(Guid uid1C)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
@@ -25,6 +21,4 @@ public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlBundleEntity>(sqlCrudConfig);
     }
-
-    #endregion
 }

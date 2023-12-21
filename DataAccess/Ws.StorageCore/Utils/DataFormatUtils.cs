@@ -39,7 +39,6 @@ public static class DataFormatUtils
 
     #endregion
     
-
     #region Public and private methods - Serialize
 
     private static XmlWriterSettings GetXmlWriterSettings() => new()

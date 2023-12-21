@@ -58,12 +58,8 @@ public class RouteService
             SqlLineEntity => RouteUtils.SectionLines,
             SqlTemplateEntity => RouteUtils.SectionTemplates,
             SqlTemplateResourceEntity => RouteUtils.SectionTemplateResources,
-            SqlVersionEntity => RouteUtils.SectionVersions,
             SqlWorkShopEntity => RouteUtils.SectionWorkShops,
             SqlClipEntity => RouteUtils.SectionClips,
-            SqlViewBarcodeModel => RouteUtils.SectionBarCodes,
-            SqlViewPluLabelModel => RouteUtils.SectionPlusLabels,
-            SqlViewPluWeightingModel => RouteUtils.SectionPlusWeightings,
             SqlLogWebEntity => RouteUtils.SectionLogsWebService,
             _ => string.Empty
         };

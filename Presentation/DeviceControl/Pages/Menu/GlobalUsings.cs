@@ -1,8 +1,5 @@
 ﻿global using Ws.StorageCore.Views.ViewDiagModels.TableSize;
 global using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
-global using Ws.StorageCore.Views.ViewScaleModels.Barcodes;
-global using Ws.StorageCore.Views.ViewScaleModels.PluLabels;
-global using Ws.StorageCore.Views.ViewScaleModels.PluWeightings;
 global using Ws.StorageCore.Entities.SchemaDiag.Logs;
 global using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 global using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
@@ -20,4 +17,3 @@ global using Ws.StorageCore.Entities.SchemaRef.Printers;
 global using Ws.StorageCore.Entities.SchemaScale.Scales;
 global using Ws.StorageCore.Entities.SchemaScale.Templates;
 global using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
-global using Ws.StorageCore.Entities.SchemaScale.Versions;

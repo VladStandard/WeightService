@@ -99,10 +99,8 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlBrandMap>();
         mapper.AddMapping<SqlProductionSiteMap>();
         mapper.AddMapping<SqlWorkshopMap>();
-        mapper.AddMapping<SqlAppMap>();
         mapper.AddMapping<SqlTemplateMap>();
         mapper.AddMapping<SqlTemplateResourceMap>();
-        mapper.AddMapping<SqlVersionMap>();
         mapper.AddMapping<SqlPrinterMap>();
         mapper.AddMapping<SqlHostMap>();
         mapper.AddMapping<SqlLineMap>();
