@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Views.ViewPrintModels.PluLabelAggr;
 
 [DebuggerDisplay("{ToString()}")]

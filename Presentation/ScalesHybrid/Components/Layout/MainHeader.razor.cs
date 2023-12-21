@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Components.Dialogs;
 using ScalesHybrid.Resources;
-using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Components.Layout;
 

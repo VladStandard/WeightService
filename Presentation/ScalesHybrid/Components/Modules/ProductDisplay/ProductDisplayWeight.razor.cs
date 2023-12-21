@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Scales.Events;
+using Ws.Shared.TypeUtils;
 
 namespace ScalesHybrid.Components.Modules.ProductDisplay;
 
@@ -26,7 +27,7 @@ public sealed partial class ProductDisplayWeight: ComponentBase, IDisposable
 
     private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
     
-    private string IntegerPart => ((int)Math.Truncate(Math.Abs(GetNetWeight))).ToString("D4");
+    private string IntegerPart => DecimalUtils.ToStrToLen(Math.Truncate(Math.Abs(GetNetWeight)), 4);
     
     private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
     

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -28,7 +29,7 @@ public sealed class SqlCoreHelper
     private object LockerSelect { get; } = new();
     private object LockerExecute { get; } = new();
 
-    public static SqlSettings SqlSettings { get; set; } = new();
+    public static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     
     public ISessionFactory? SessionFactory { get; private set; }
 
@@ -44,23 +45,23 @@ public sealed class SqlCoreHelper
         }
     }
     
-    private static SqlSettings LoadJsonConfig()
+    private static SqlSettingsModels LoadJsonConfig()
     {
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
         
-        SqlSettings sqlSettings = new();
-        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettings);
-        return sqlSettings;
+        SqlSettingsModels sqlSettingsModels = new();
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
+        return sqlSettingsModels;
     }
     
     private void SetSqlConfiguration(bool isShowSql)
     {
-        SqlSettings = LoadJsonConfig();
+        SqlSettingsModels = LoadJsonConfig();
         SqlConfiguration = new();
         SqlConfiguration.DataBaseIntegration(db => {
-            db.ConnectionString = SqlSettings.GetConnectionString();
+            db.ConnectionString = SqlSettingsModels.GetConnectionString();
             db.Dialect<MsSql2012Dialect>();
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
@@ -221,6 +222,16 @@ public sealed class SqlCoreHelper
     
     #region CRUD
 
+    public void SaveOrUpdate<T>(T item) where T : SqlEntityBase
+    {
+        if (item.IsNew) 
+        {
+            ExecuteTransactionCore(session => session.Save(item));
+            return;
+        }
+        ExecuteTransactionCore(session => session.Update(item));
+    }
+    
     public void Save<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
 {
     if (item is null) throw new ArgumentException();
@@ -238,59 +249,59 @@ public sealed class SqlCoreHelper
     }
 }
 
-public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    switch (sessionType)
+    public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Update(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.UpdateAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
-}
 
-public void Delete<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    switch (sessionType)
+    public void Delete<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Delete(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.DeleteAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Delete(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.DeleteAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
+        
     }
-    
-}
 
-public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    item.IsMarked = !item.IsMarked;
-
-    switch (sessionType)
+    public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Update(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.UpdateAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        item.IsMarked = !item.IsMarked;
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
-}
 
 #endregion
     
@@ -319,16 +330,7 @@ public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
-
-    public T GetItemByIdentity<T>(SqlFieldIdentityModel? identity) where T : SqlEntityBase, new() {
-        return identity?.Name switch
-        {
-            SqlEnumFieldIdentity.Uid => GetItemByUid<T>(identity.Uid),
-            SqlEnumFieldIdentity.Id => GetItemById<T>(identity.Id),
-            _ => GetItemNewEmpty<T>()
-        };
-    }
-
+    
     public T GetItemFirst<T>() where T : SqlEntityBase, new()
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();

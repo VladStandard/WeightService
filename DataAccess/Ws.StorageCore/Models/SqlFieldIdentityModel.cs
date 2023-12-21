@@ -1,3 +1,5 @@
+using System;
+
 namespace Ws.StorageCore.Models;
 
 /// <summary>
@@ -11,8 +13,6 @@ public class SqlFieldIdentityModel
      public virtual SqlEnumFieldIdentity Name { get; }
      public virtual Guid Uid { get; private set; }
      public virtual long Id { get; private set; }
-     public virtual bool IsUid => Equals(Name, SqlEnumFieldIdentity.Uid);
-     public virtual bool IsId => Equals(Name, SqlEnumFieldIdentity.Id);
 
     public SqlFieldIdentityModel()
     {

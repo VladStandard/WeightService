@@ -23,7 +23,7 @@ $fileContent = $fileContent.Replace(
 
 Write-Host "New file contents: $fileContent";
 
-if($fileContent -like "*UpdateBlocksActivation*" -and $fileContent -like "*$newSchema*")
+if ($fileContent -like "*UpdateBlocksActivation*" -and $fileContent -like "*$newSchema*")
 {
     Write-Host "Replaced namespace (xmlns) with newest schema version. Modified UpdateSettings."
     $fileContent | Set-Content -Path $appInstallerFilePath -Encoding UTF8

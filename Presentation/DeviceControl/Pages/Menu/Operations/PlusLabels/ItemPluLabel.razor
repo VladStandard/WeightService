@@ -2,6 +2,7 @@
 @page "/section/plus_labels/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using Ws.Shared.TypeUtils
 @inherits ItemBase<SqlPluLabelEntity>
 
 <ItemTopBar TItem="@SqlPluLabelEntity" Title="@Locale.ItemLabel" OnItemUpdate="@GetItemData"/>

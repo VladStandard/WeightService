@@ -14,7 +14,6 @@
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.14" />
         <PackageReference Include="Radzen.Blazor" Version="4.21.3" />
     </ItemGroup>
@@ -31,7 +30,4 @@
     <ItemGroup>
       <Folder Include="wwwroot\fonts\" />
     </ItemGroup>
-    <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
-        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
-    </Target>
 </Project>

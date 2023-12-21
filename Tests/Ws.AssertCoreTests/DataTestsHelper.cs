@@ -12,9 +12,9 @@ public class DataTestsHelper
     #endregion
 
     #region Public and private fields, properties, constructor
-
-    public SqlContextCacheHelper ContextCache => SqlContextCacheHelper.Instance;
+    
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
+    
     #endregion
 
     #region Public and private methods

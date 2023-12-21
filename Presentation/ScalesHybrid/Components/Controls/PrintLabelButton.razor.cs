@@ -10,7 +10,6 @@ using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
 using Ws.Services.Dto;
-using Ws.Services.Exceptions;
 using Ws.Services.Services.PrintLabel;
 using Ws.StorageCore.Helpers;
 
@@ -95,38 +94,11 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
                 return true;
         }
     }
-    
-    private LabelInfoDto CreateLabelInfoDto() =>
-        new()
-        {
-            Plu1СGuid = LineContext.Plu.Uid1C,
-            Kneading = (short)LineContext.KneadingModel.KneadingCount,
-            Weight = GetWeight(),
-            WeightTare = LineContext.PluNesting.WeightTare,
-            LineCounter = LineContext.Line.LabelCounter,
-            BundleCount = LineContext.PluNesting.BundleCount,
-            IsCheckWeight = LineContext.Plu.IsCheckWeight,
-            Itf = LineContext.Plu.Itf14,
-            Gtin = LineContext.Plu.Gtin,
-            Address = LineContext.Line.WorkShop.ProductionSite.Address,
-            PluFullName = LineContext.Plu.FullName,
-            PluDescription = LineContext.Plu.Description,
-            ProductDt = GetProductDt(),
-            ExpirationDt = GetProductDt().AddDays(LineContext.Plu.ShelfLifeDays),
-            LineNumber = LineContext.Line.Number,
-            PluNumber = LineContext.Plu.Number,
-            LineName = LineContext.Line.Description,
-            Template = LineContext.PluTemplate.Data
-        };
 
-    private DateTime GetProductDt() =>
-        new(LineContext.KneadingModel.ProductDate.Year,
-        LineContext.KneadingModel.ProductDate.Month,
-        LineContext.KneadingModel.ProductDate.Day,
-        DateTime.Now.Hour,
-        DateTime.Now.Minute,
-        DateTime.Now.Second);
-    
+    private LabelInfoDto CreateLabelInfoDto()
+    {
+        return LineContext.AdaptTo(new() { Weight = GetWeight() });
+    }
 
     private async Task PrintPrinterStatusMessage()
     {

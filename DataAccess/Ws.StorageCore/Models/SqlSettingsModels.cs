@@ -1,6 +1,6 @@
-﻿namespace Ws.StorageCore.Enums;
+﻿namespace Ws.StorageCore.Models;
 
-public class SqlSettings
+public class SqlSettingsModels
 {
     public string DataSource { get; set; } = string.Empty;
     public string InitialCatalog { get; set; } = string.Empty;

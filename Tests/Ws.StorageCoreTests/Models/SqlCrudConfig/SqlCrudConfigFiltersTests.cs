@@ -1,7 +1,7 @@
 using NHibernate.Criterion;
 using Ws.StorageCore.OrmUtils;
 
-namespace Ws.StorageCoreTests.Models.WsSqlCrudConfig;
+namespace Ws.StorageCoreTests.Models.SqlCrudConfig;
 
 [TestFixture]
 public sealed class SqlCrudConfigFiltersTests

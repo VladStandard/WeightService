@@ -74,6 +74,8 @@
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Mapster.Core" Version="1.2.1" />
         <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
@@ -88,6 +90,22 @@
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" />
     </ItemGroup>
+
+
+    <!-- Добавление команд для генерации мапперов -->
+    <Target Name="Mapster" AfterTargets="AfterBuild">
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/MapServices/Generated -p 1" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster extension -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/Extensions/Generated -p 1" />
+    </Target>
+
+    <!-- Для очистки сгенерированных файлов командой dotnet msbuild -t:CleanGenerated -->
+    <ItemGroup>
+        <Generated Include="**\*.g.cs" />
+    </ItemGroup>
+    <Target Name="CleanGenerated">
+        <Delete Files="@(Generated)" />
+    </Target>
 
     <ItemGroup>
       <EmbeddedResource Update="Resources\ApplicationResources.resx">

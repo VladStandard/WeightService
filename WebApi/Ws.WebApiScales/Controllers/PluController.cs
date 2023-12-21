@@ -1,23 +1,22 @@
-﻿using Ws.WebApiScales.Dto.Plu;
+﻿using System.Xml.Linq;
+using Ws.WebApiScales.Common;
+using Ws.WebApiScales.Common.Services;
+using Ws.WebApiScales.Dto.Plu;
 using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Services;
 
 namespace Ws.WebApiScales.Controllers;
 
 [AllowAnonymous]
 [ApiController]
 [Route("api/plu/")]
-public class PluController : ControllerBase
-{ 
-    private readonly PluService _pluService;
-
-    public PluController(PluService pluService)
-    {
-        _pluService = pluService;
-    }
+public class PluController(
+    IPluService pluService,
+    IHttpContextAccessor httpContextAccessor,
+    ResponseDto responseDto) : BaseController(httpContextAccessor, responseDto)
+{
 
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ActionResult<ResponseDto> LoadPlu([FromBody] PlusDto plusDto) => _pluService.LoadPlu(plusDto);
-    
+    public ContentResult LoadPlu([FromBody] XElement xml) => 
+        HandleXmlRequest<PlusWrapper>(xml, pluService.Load);
 }
