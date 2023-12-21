@@ -9,16 +9,16 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
 {
     [Parameter] public TValue Value { get; set; } = default!;
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
-    [Parameter] public TValue MaxValue { get; set; } = TValue.MinValue;
-    [Parameter] public TValue MinValue { get; set; } = TValue.MaxValue;
+    [Parameter] public TValue MaxValue { get; set; } = TValue.MaxValue;
+    [Parameter] public TValue MinValue { get; set; } = TValue.MinValue;
     [Parameter] public bool IsDisabled { get; set; }
     
     private string BindingValue { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        if (MaxValue.CompareTo(TValue.MaxValue) > 0) MaxValue = TValue.MaxValue;
-        if (MinValue.CompareTo(TValue.MinValue) < 0) MinValue = TValue.MinValue;
+        if (Comparer<TValue>.Default.Compare(MaxValue, TValue.MaxValue) > 0) MaxValue = TValue.MaxValue;
+        if (Comparer<TValue>.Default.Compare(MinValue, TValue.MinValue) < 0) MinValue = TValue.MinValue;
         await HandleInputChange(Value.ToString()!);
     }
 
