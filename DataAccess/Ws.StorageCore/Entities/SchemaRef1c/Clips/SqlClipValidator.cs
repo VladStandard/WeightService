@@ -1,9 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef1c.Clips;
 
-
-/// <summary>
-/// Table validation "CLIPS".
-/// </summary>
 public sealed class SqlClipValidator : SqlTableValidator<SqlClipEntity>
 {
 

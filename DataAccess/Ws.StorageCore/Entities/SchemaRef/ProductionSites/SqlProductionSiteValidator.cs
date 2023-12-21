@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
-/// <summary>
-/// Table validation "ProductionSite".
-/// </summary>
 public sealed class SqlProductionSiteValidator : SqlTableValidator<SqlProductionSiteEntity>
 {
 

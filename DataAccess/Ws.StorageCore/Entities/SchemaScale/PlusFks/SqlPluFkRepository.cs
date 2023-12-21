@@ -1,9 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 
-/// <summary>
-/// SQL-контроллер таблицы PLUS_BUNDLES_FK.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
 {
     public IEnumerable<SqlPluFkEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)

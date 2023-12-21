@@ -2,10 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
-/// <summary>
-/// SQL-контроллер таблицы коробок.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>
 {
     public IEnumerable<SqlBoxEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)

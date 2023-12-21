@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
-/// <summary>
-/// Table "WorkShop".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlWorkShopEntity : SqlEntityBase
 {

@@ -1,12 +1,8 @@
 namespace Ws.StorageCore.OrmUtils;
 
-/// <summary>
-/// SQL table names.
-/// </summary>
 public static class SqlTablesUtils
 {
     public const string Access = "ACCESS";
-    public const string Apps = "APPS";
     public const string Boxes = "BOXES";
     public const string Brands = "BRANDS";
     public const string Bundles = "BUNDLES";
@@ -26,7 +22,6 @@ public static class SqlTablesUtils
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "Templates";
     public const string TemplatesResources = "TEMPLATES_RESOURCES";
-    public const string Versions = "VERSIONS";
     public const string WorkShops = "WORKSHOPS";
     public const string Printers = "PRINTERS";
     public const string Scales = "Scales";

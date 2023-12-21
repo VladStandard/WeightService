@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
-/// <summary>
-/// Table map "WorkShop".
-/// </summary>
 public class SqlWorkshopMap : ClassMapping<SqlWorkShopEntity>
 {
     public SqlWorkshopMap()

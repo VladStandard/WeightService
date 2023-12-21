@@ -2,9 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
-/// <summary>
-/// Доменная модель таблицы PLUS_NESTING_FK.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluNestingFkEntity : SqlEntityBase
 {

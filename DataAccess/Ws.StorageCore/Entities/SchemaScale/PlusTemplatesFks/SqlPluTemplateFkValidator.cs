@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
-/// <summary>
-/// Table validation "PLUS_TEMPLATES_FK".
-/// </summary>
 public sealed class SqlPluTemplateFkValidator : SqlTableValidator<SqlPluTemplateFkEntity>
 {
 

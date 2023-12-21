@@ -3,9 +3,6 @@ using Ws.StorageCore.Entities.SchemaRef.Printers;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
-/// <summary>
-/// Модель таблицы SCALES.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlLineEntity : SqlEntityBase
 {

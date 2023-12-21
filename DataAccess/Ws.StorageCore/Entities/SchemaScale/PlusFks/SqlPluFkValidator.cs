@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 
-/// <summary>
-/// Table validation "PLUS_FK".
-/// </summary>
 public sealed class SqlPluFkValidator : SqlTableValidator<SqlPluFkEntity>
 {
 

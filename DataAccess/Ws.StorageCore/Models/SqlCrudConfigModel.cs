@@ -86,7 +86,6 @@ public class SqlCrudConfigModel
 
     #endregion
     
-    #region Filters
 
     public void AddFilter(ICriterion filter)
     {
@@ -112,10 +111,6 @@ public class SqlCrudConfigModel
     }
     
     public void ClearFilters() => Filters.Clear();
-    
-    #endregion
-
-    #region Orders
     
     public void AddOrder(Order order)
     {
@@ -143,31 +138,4 @@ public class SqlCrudConfigModel
     }
     
     public void ClearOrders() => Orders.Clear();
-    
-    #endregion
-    
-    public override string ToString()
-    {
-        string filters = Filters.Any() ? $"{nameof(Filters)}: {string.Join(", ", Filters)}" : string.Empty;
-        string orders = Orders.Any() ? $"{nameof(Orders)}: {string.Join(", ", Orders)}" : string.Empty;
-        string result = string.Empty;
-        
-        if (!string.IsNullOrEmpty(filters)) result = filters;
-        
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(orders)) result += $" | {orders}";
-        else if (!string.IsNullOrEmpty(orders)) result = orders;
-        
-        string isMarked = IsMarked switch
-        {
-            SqlEnumIsMarked.ShowAll => "Show all records",
-            SqlEnumIsMarked.ShowOnlyActual => "Show only actual records",
-            SqlEnumIsMarked.ShowOnlyHide => "Show only hide records",
-            _ => string.Empty
-        };
-        if (!string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(isMarked)) result += $" | {isMarked}";
-        else if (!string.IsNullOrEmpty(isMarked)) result = isMarked;
-        
-        return result;
-    }
-    
 }

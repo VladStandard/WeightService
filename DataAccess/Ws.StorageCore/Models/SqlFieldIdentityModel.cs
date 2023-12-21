@@ -2,9 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Models;
 
-/// <summary>
-/// DB field Identity model.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlFieldIdentityModel
 {

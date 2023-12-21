@@ -1,11 +1,7 @@
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
-/// <summary>
-/// Table validation "DEVICES".
-/// </summary>
 public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
 {
-
     public SqlHostValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
         RuleFor(item => item.LoginDt)

@@ -2,10 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
-/// <summary>
-/// SQL-контроллер таблицы BUNDLES.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity>
 {
     public SqlBundleEntity GetItemByUid1C(Guid uid1C)

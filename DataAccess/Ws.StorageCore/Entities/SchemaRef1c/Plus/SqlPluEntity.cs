@@ -2,9 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
-/// <summary>
-/// Table "PLUS".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluEntity : SqlTable1CBase
 {

@@ -2,9 +2,6 @@ using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
-/// <summary>
-/// Контроллер таблицы SCALES.
-/// </summary>
 public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 {
     public SqlLineEntity GetItemById(long id) => SqlCore.GetItemById<SqlLineEntity>(id);

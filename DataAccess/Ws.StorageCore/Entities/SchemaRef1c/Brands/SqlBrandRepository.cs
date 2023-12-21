@@ -2,10 +2,6 @@ using System;
 
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
-/// <summary>
-/// SQL-контроллер таблицы брендов.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlBrandRepository : SqlTableRepositoryBase<SqlBrandEntity>
 {
     public IEnumerable<SqlBrandEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)

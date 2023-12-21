@@ -3,10 +3,6 @@ using Ws.Shared.Enums;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Access;
 
-/// <summary>
-/// SQL-контроллер таблицы ACCESS.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlAccessRepository : SqlTableRepositoryBase<SqlAccessEntity>
 {
     #region Item
