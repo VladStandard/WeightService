@@ -1,0 +1,63 @@
+@page "/section/plus_labels/new"
+@page "/section/plus_labels/{Uid:guid}"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using DeviceControl.Components.Item
+@using Ws.Shared.TypeUtils
+@using Ws.StorageCore.Entities.SchemaPrint.Labels
+@inherits ItemBase<Ws.StorageCore.Entities.SchemaPrint.Labels.SqlLabelEntity>
+
+<ItemTopBar TItem="@SqlLabelEntity" Title="@Locale.ItemLabel" OnItemUpdate="@GetItemData"/>
+
+<MudSimpleTable Class="MudItemTable" Dense="true" Bordered="true" FixedHeader="false">
+  <ItemTableHead HeadWidth="@(new List<int> { 20, 30, 20, 30 })"/>
+  <tbody>
+  <ItemTableBody SqlItem="@SqlItemCast"/>
+  <tr>
+    <td>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Pallet.Line)" Text="@Locale.Line" />
+    </td>
+    <td>@SqlItemCast.Pallet.Line.DisplayName</td>
+    <td>@Locale.CheckWeight</td>
+    <td>
+      <RadzenCheckBox TValue="bool" ReadOnly="true" Value="@IsWeighted"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@RouteService.GetItemRoute(SqlItemCast.Pallet.Plu)" Text="@Locale.Plu"/>
+    </td>
+    <td>@SqlItemCast.Pallet.Plu.DisplayName</td>
+    <td>
+      <RadzenLink Path="@RouteService.GetItemRoute(@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.Pallet.Plu).Template)"
+                  Text="@Locale.Template"/>
+    </td>
+    <td>@PluTemplateFkRepository.GetItemByPlu(SqlItemCast.Pallet.Plu).Template.Title</td>
+  </tr>
+  <tr>
+    <td>@Locale.ProductDt</td>
+    <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.Pallet.ProductDt)</td>
+    <td>@Locale.ExpirationDt</td>
+    <td>@string.Format(StrUtils.FormatDtShort, SqlItemCast.Pallet.ExpirationDt)</td>
+  </tr>
+  <tr>
+    <td>
+      <RadzenLink Path="@(Locale.LinkLabelary)" Text="@(Locale.TemplateLabelary)"/>
+    </td>
+    <td colspan="3">
+      <RadzenTextArea
+        Style="width: 100%; text-align: left; font-size: 10px; line-height: 16px; background-color: lightgray; "
+        Disabled="false" ReadOnly="true"
+        Value="@SqlItemCast.Zpl" Rows="20"/>
+      <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.Zpl))"
+                    class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
+                    Text="@Locale.TableActionCopy"/>
+    </td>
+  </tr>
+  <ItemDates SqlItem="@SqlItemCast"/>
+  </tbody>
+</MudSimpleTable>
+
+<ItemActions
+  ButtonSettings="@ButtonSettings"
+  OnItemSave="@SqlItemSaveAsync"
+  OnItemCancel="@RedirectBackAsync"/>

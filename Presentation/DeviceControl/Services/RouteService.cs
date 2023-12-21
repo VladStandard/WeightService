@@ -1,3 +1,4 @@
+using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Services;
@@ -42,18 +43,16 @@ public class RouteService
         item switch
         {
             SqlAccessEntity => RouteUtils.SectionAccess,
-            SqlBarCodeEntity => RouteUtils.SectionBarCodes,
             SqlBoxEntity => RouteUtils.SectionBoxes,
             SqlBrandEntity => RouteUtils.SectionBrands,
             SqlBundleEntity => RouteUtils.SectionBundles,
             SqlHostEntity => RouteUtils.SectionHosts,
             SqlLogEntity => RouteUtils.SectionLogs,
-            SqlPluLabelEntity => RouteUtils.SectionPlusLabels,
+            SqlLabelEntity => RouteUtils.SectionPlusLabels,
             SqlPluEntity => RouteUtils.SectionPlus,
             SqlPluScaleEntity => RouteUtils.SectionPlusLines,
             SqlPluNestingFkEntity => RouteUtils.SectionPlusNestingFks,
             SqlPluStorageMethodEntity => RouteUtils.SectionPlusStorage,
-            SqlPluWeighingEntity => RouteUtils.SectionPlusWeightings,
             SqlPrinterEntity => RouteUtils.SectionPrinters,
             SqlProductionSiteEntity => RouteUtils.SectionProductionFacilities,
             SqlLineEntity => RouteUtils.SectionLines,

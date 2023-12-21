@@ -22,8 +22,9 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
         sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCore.GetList<SqlLogEntity>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<SqlLogEntity>(sqlCrudConfig).ToList();
     }
+    
     public IEnumerable<SqlLogEntity> GetListByLogTypeAndLineName(SqlCrudConfigModel sqlCrudConfig, LogTypeEnum? logType, SqlLineEntity? line)
     {
         sqlCrudConfig.IsReadUncommitted = true;
@@ -41,6 +42,6 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
             sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLogEntity.Type), logType));
         }
        
-        return SqlCore.GetList<SqlLogEntity>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<SqlLogEntity>(sqlCrudConfig);
     }
 }

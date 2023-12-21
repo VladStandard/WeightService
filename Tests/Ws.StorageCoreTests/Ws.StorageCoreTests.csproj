@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Tables\TablePrintModels\" />
         <Folder Include="Tables\TableRefModels\" />
         <Folder Include="Views\ViewPrintModels\" />
     </ItemGroup>

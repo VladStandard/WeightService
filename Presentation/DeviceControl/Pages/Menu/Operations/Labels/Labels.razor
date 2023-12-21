@@ -1,0 +1,42 @@
+@page "/section/plus_labels"
+@attribute [Authorize(Roles = UserAccessStr.Read)]
+@using DeviceControl.Components.Section
+@using DeviceControl.Components.Rz
+@using Ws.Shared.TypeUtils
+@using Ws.StorageCore.Entities.SchemaPrint.Labels
+@inherits SectionBase<Ws.StorageCore.Entities.SchemaPrint.Labels.SqlLabelEntity>
+
+<SectionTopBar
+  Title="@Locale.SectionLabels"
+  OnSectionUpdate="@GetSectionData"
+  OnSectionAdd="@SqlItemNewAsync"
+  SectionCount="@SqlSectionCast.Count"
+  SqlCrudConfigSection="@SqlCrudConfigSection"
+  IsGuiShowFilterMarked="@IsGuiShowFilterMarked"
+  ButtonSettings="@ButtonSettings"/>
+
+<RzDataGrid
+  TItem="@SqlLabelEntity"
+  @ref="@DataGrid"
+  @bind-Value="@SelectedRow"
+  Data="@SqlSectionCast"
+  IsLoading="@IsLoading"
+  CellContextMenu="@OnCellContextMenu"
+  RowSelect="@SqlItemSet"
+  RowDoubleClick="@SqlItemOpenAsync"
+  AllowFiltering="true"
+  FilterMode="FilterMode.Simple"
+  LogicalFilterOperator="@LogicalFilterOperator.And">
+  <Columns>
+    <TItemContent TItem="@SqlLabelEntity">
+      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+      <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@Locale.ProductDt" Property="Pallet.ProductDt" Width="8%" FormatString="@StrUtils.FormatDtDefault" Filterable="false"/>
+      <RadzenDataGridColumn Title="@Locale.Line" Property="Pallet.Line.Description" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@Locale.WorkShop" Property="Pallet.Line.WorkShop" Width="10%" Filterable="false" />
+      <RadzenDataGridColumn Title="@Locale.PluNumber" Property="Pallet.Plu.Number" Width="5%" />
+      <RadzenDataGridColumn Title="@Locale.Plu" Property="Pallet.Plu.Name" Width="20%"/>
+      <RadzenDataGridColumn Title="@Locale.Type" Property="PluType" Width="8%" Filterable="false" />
+    </TItemContent>
+  </Columns>
+</RzDataGrid>
