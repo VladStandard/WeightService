@@ -6,8 +6,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 /// </summary>
 public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEntity>
 {
-    #region Public and private methods
-    
     public SqlPluScaleEntity GetItemByLinePlu(SqlLineEntity line, SqlPluEntity plu)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
@@ -32,5 +30,4 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEnt
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluScaleEntity.Line), line));
         return GetList(sqlCrudConfig);
     }
-    #endregion
 }

@@ -4,8 +4,6 @@ namespace DeviceControl.Pages.Menu.Profiles;
 
 public partial class Profile : ComponentBase
 {
-    #region Public and private fields, properties, constructor
-
     [Inject] private LocalStorageService LocalStorage { get; set; } = default!;
     [Inject] private UserService UserService { get; set; } = default!;
     [Inject] private IHttpContextAccessor HttpContextAccess { get; set; } = default!;
@@ -34,10 +32,6 @@ public partial class Profile : ComponentBase
         }
     }
 
-    #endregion
-
-    #region Public and private methods
-
     private async Task OnDefaultRowCountChanged()
     {
         if (DefaultRowCount == 0)
@@ -59,6 +53,4 @@ public partial class Profile : ComponentBase
             _ => Locale.AccessRightsNone
         };
     }
-    
-    #endregion
 }

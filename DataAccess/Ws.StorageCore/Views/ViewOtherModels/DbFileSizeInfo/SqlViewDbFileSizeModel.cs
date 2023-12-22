@@ -10,8 +10,6 @@ public enum DbFileType
 
 public sealed record WsSqlViewDbFileSizeInfoModel
 {
-    #region Public and private fields, properties, constructor
-
     public DbFileType Type { get; init; }
     public string FileName { get; init; }
     public ushort SizeMb { get; init; }
@@ -28,6 +26,4 @@ public sealed record WsSqlViewDbFileSizeInfoModel
         MaxSizeMb = maxSizeMb;
         Tables = new();
     }
-
-    #endregion
 }

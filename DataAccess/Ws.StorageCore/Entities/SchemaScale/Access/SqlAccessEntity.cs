@@ -6,8 +6,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.Access;
 [DebuggerDisplay("{ToString()}")]
 public class SqlAccessEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual DateTime LoginDt { get; set; }
     public virtual byte Rights { get; set; }
     public virtual EnumAccessRights RightsEnum => (EnumAccessRights)Rights;
@@ -23,11 +21,7 @@ public class SqlAccessEntity : SqlEntityBase
         LoginDt = item.LoginDt;
         Rights = item.Rights;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{Name} | {RightsEnum}";
 
     public override bool Equals(object obj)
@@ -48,14 +42,8 @@ public class SqlAccessEntity : SqlEntityBase
         Rights = (byte)EnumAccessRights.None;
     }
 
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlAccessEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(LoginDt, item.LoginDt) &&
         Equals(Rights, item.Rights);
-
-    #endregion
 }

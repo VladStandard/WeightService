@@ -10,8 +10,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : SqlEntityBase, n
     [Parameter] public long Id { get; set; }
     protected SqlEntityBase? SqlItem { get; private set; }
 
-    #region Public and private fields, properties, constructor
-
     protected ButtonSettingsModel ButtonSettings { get; set; }
 
     protected TItem SqlItemCast
@@ -24,10 +22,6 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : SqlEntityBase, n
     {
         ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
-
-    #endregion
-
-    #region Public and private methods
     
     protected async Task RedirectBackAsync()
     {
@@ -69,6 +63,4 @@ public class ItemBase<TItem> : RazorComponentBase where TItem : SqlEntityBase, n
             _ => new()
         };
     }
-
-    #endregion
 }

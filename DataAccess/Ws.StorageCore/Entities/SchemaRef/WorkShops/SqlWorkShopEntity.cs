@@ -6,8 +6,6 @@ namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 [DebuggerDisplay("{ToString()}")]
 public class SqlWorkShopEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual SqlProductionSiteEntity ProductionSite { get; set; }
 
     public SqlWorkShopEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -19,10 +17,6 @@ public class SqlWorkShopEntity : SqlEntityBase
     {
         ProductionSite = new(item.ProductionSite);
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
@@ -43,14 +37,8 @@ public class SqlWorkShopEntity : SqlEntityBase
         base.FillProperties();
         ProductionSite.FillProperties();
     }
-
-    #endregion
-
-    #region Public and private methods
-
+    
     public virtual bool Equals(SqlWorkShopEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         ProductionSite.Equals(item.ProductionSite);
-
-    #endregion
 }

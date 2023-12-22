@@ -10,15 +10,8 @@ public class DataTestsHelper
     public static DataTestsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
-
-    #region Public and private fields, properties, constructor
-    
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
-    #endregion
-
-    #region Public and private methods
-
     public void AssertAction(Action action, bool isShowSql)
     {
         Assert.DoesNotThrow(() =>
@@ -28,6 +21,4 @@ public class DataTestsHelper
             TestContext.WriteLine();
         });
     }
-
-    #endregion
 }

@@ -6,8 +6,6 @@ namespace Ws.StorageCore.Utils;
 
 public static class SqlValidationUtils
 {
-    #region Public and private methods
-
     private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
     {
         switch (result.IsValid)
@@ -70,6 +68,4 @@ public static class SqlValidationUtils
         return false;
 
     }
-
-    #endregion
 }

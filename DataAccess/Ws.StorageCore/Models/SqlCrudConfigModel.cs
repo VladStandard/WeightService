@@ -16,10 +16,7 @@ public class SqlCrudConfigModel
     
     #region Public and private fields, properties, constructor
     
-    public string NativeQuery { get; set; }
     public bool IsResultOrder { get; set; }
-    public bool IsReadUncommitted { get; set; }
-    public List<SqlParameter> NativeParameters { get; set; }
     public List<ICriterion> Filters { get; private init; }
     public List<Order> Orders { get; private init; }
     public int OldTopRowsCount { get; set; }
@@ -62,12 +59,7 @@ public class SqlCrudConfigModel
     {
         Orders = new();
         Filters = new();
-        NativeParameters = new();
-        
         IsResultOrder = false;
-        IsReadUncommitted = false;
-        
-        NativeQuery = string.Empty;
         IsMarked = SqlEnumIsMarked.ShowAll;
     }
     
@@ -75,12 +67,9 @@ public class SqlCrudConfigModel
     {
         Orders = new(sqlCrudConfig.Orders);
         Filters = new(sqlCrudConfig.Filters);
-        NativeParameters = new(sqlCrudConfig.NativeParameters);
         
         IsResultOrder = sqlCrudConfig.IsResultOrder;
-        IsReadUncommitted = sqlCrudConfig.IsReadUncommitted;
         
-        NativeQuery = sqlCrudConfig.NativeQuery;
         IsMarked = sqlCrudConfig.IsMarked;
     }
 

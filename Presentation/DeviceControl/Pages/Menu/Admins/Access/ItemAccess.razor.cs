@@ -4,8 +4,6 @@ namespace DeviceControl.Pages.Menu.Admins.Access;
 
 public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
 {
-    #region Public and private fields, properties, constructor
-    
     private List<EnumAccessRights> TemplateAccessRights { get; set; }
 
     private EnumAccessRights Rights
@@ -14,10 +12,6 @@ public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
         set => SqlItemCast.Rights = (byte)value;
     }
     
-    #endregion
-
-    #region Public and private methods
-
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
@@ -36,6 +30,4 @@ public sealed partial class ItemAccess : ItemBase<SqlAccessEntity>
             result.Add(EnumAccessRights.Admin);
         return result;
     }
-
-    #endregion
 }

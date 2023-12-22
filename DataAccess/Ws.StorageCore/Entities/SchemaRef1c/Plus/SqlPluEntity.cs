@@ -8,8 +8,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluEntity : SqlTable1CBase
 {
-    #region Public and private fields, properties, constructor
-    
     public virtual bool IsGroup { get; set; }
     public virtual short Number { get; set; }
     public virtual string Code { get; set; }
@@ -58,14 +56,8 @@ public class SqlPluEntity : SqlTable1CBase
         Bundle = new(item.Bundle);
     }
 
-    #endregion
-
-    #region Public and private methods - override
-
-    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {GetIsGroup()} | {Code}";
-
-    public virtual string GetIsGroup() => IsGroup? "Is group" : "Is not group";
-
+    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {Code}";
+    
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -76,12 +68,8 @@ public class SqlPluEntity : SqlTable1CBase
 
     public override int GetHashCode() => base.GetHashCode();
     
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlPluEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&//-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(IsGroup, item.IsGroup) &&
         Equals(ParentGuid, item.ParentGuid) &&
         Equals(Code, item.Code) &&
@@ -92,6 +80,4 @@ public class SqlPluEntity : SqlTable1CBase
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
         Equals(IsCheckWeight, item.IsCheckWeight);
-
-    #endregion
 }
