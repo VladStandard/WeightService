@@ -2,8 +2,6 @@ namespace DeviceControl.Pages.Menu.References1C.Boxes;
 
 public sealed partial class Boxes : SectionBase<SqlBoxEntity>
 {
-    #region Public and private fields, properties, constructor
-
     public Boxes() : base()
     {
         ButtonSettings = ButtonSettingsModel.CreateForStatic1CSection();
@@ -13,6 +11,4 @@ public sealed partial class Boxes : SectionBase<SqlBoxEntity>
     {
         SqlSectionCast = new SqlBoxRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
-
-    #endregion
 }

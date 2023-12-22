@@ -2,46 +2,12 @@ namespace DeviceControl.Components.Common;
 
 public class RazorComponentBase : LayoutComponentBase
 {
-    #region Public and private fields, properties, constructor
-
-    #region Inject
-
     [Inject] protected DialogService DialogService { get; set; } = default!;
     [Inject] protected NotificationService NotificationService { get; set; } = default!;
     [Inject] protected UserService UserService { get; set; } = default!;
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
-
-    #endregion
-    
     protected ClaimsPrincipal? User { get; set; }
-
-    #endregion
-
-    #region Public and private methods - Actions
-
-    protected bool SqlItemValidateWithMsg<T>(T? item, bool isCheckIdentity) where T : SqlEntityBase, new()
-    {
-        string detailAddition = string.Empty;
-        bool result = SqlValidationUtils.IsValidation(item, ref detailAddition, isCheckIdentity);
-        switch (result)
-        {
-            case false:
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Warning,
-                    Summary = "Контроль данных",
-                    Detail = detailAddition,
-                    Duration = 5000
-                };
-                NotificationService.Notify(msg);
-                return false;
-            }
-            default:
-                return true;
-        }
-    }
-
+    
     protected bool SqlItemValidate<T>(T item) where T : SqlEntityBase, new()
     {
         string detailAddition = string.Empty;
@@ -134,8 +100,6 @@ public class RazorComponentBase : LayoutComponentBase
             5000
             );
     }
-    
-    #endregion
     
     protected override async Task OnInitializedAsync()
     {

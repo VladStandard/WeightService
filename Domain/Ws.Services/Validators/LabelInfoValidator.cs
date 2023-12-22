@@ -17,7 +17,7 @@ public class LabelInfoValidator : AbstractValidator<LabelInfoDto>
         RuleFor(i => i.BundleCount).GreaterThanOrEqualTo((short)0).WithMessage("Кол-во пакетов должно быть >= 0");
         RuleFor(i => i.Address).NotEmpty().WithMessage("Адресс не должен быть пустым");
         RuleFor(i => i.PluFullName).NotEmpty().WithMessage("Полное имя плу не должно быть пустым");
-        RuleFor(i => i.PluNumber).GreaterThanOrEqualTo(0).WithMessage("Номер плу должен быть >= 0");
+        RuleFor(i => i.PluNumber).GreaterThanOrEqualTo((short)0).WithMessage("Номер плу должен быть >= 0");
         RuleFor(i => i.PluDescription).NotEmpty().WithMessage("Описание плу не должно быть пустым");
         RuleFor(i => i.ExpirationDt).NotEmpty().WithMessage("Срок годности должен быть установлен");
         RuleFor(i => i.Template).NotEmpty().WithMessage("Шаблон не установлен");

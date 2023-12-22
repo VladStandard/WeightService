@@ -2,8 +2,6 @@ namespace DeviceControl.Components.Section;
 
 public partial class SectionTopBar : ComponentBase
 {
-    #region Public and private fields, properties, constructor
-
     [Parameter] public string Title { get; set; }
     [Parameter] public SqlCrudConfigModel SqlCrudConfigSection { get; set; }
     [Parameter] public ButtonSettingsModel ButtonSettings { get; set; }
@@ -21,11 +19,7 @@ public partial class SectionTopBar : ComponentBase
     };
 
     private List<int> _rowCountList = new() { 0, 200, 400, 600, 800, 1000 };
-
-    #endregion
-
-    #region Public and private methods
-
+    
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
@@ -45,6 +39,4 @@ public partial class SectionTopBar : ComponentBase
     {
         OnSectionUpdate.InvokeAsync(true);
     }
-
-    #endregion
 }

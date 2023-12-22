@@ -6,8 +6,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 /// </summary>
 public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<SqlPluStorageMethodFkEntity>
 {
-    #region Public and private methods
-
     public SqlPluStorageMethodFkEntity GetItemByPlu(SqlPluEntity plu)
     {
         if (plu.IsNew)
@@ -32,6 +30,4 @@ public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<Sql
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluStorageMethodFkEntity>(sqlCrudConfig);
     }
-
-    #endregion
 }

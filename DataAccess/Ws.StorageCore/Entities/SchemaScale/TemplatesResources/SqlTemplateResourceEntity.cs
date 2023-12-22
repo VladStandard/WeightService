@@ -3,14 +3,9 @@ using Ws.Shared.Utils;
 
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
-/// <summary>
-/// Table "TEMPLATES_RESOURCES".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlTemplateResourceEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual string Type { get; set; }
     public virtual FieldBinaryModel Data { get; set; }
     public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
@@ -27,11 +22,7 @@ public class SqlTemplateResourceEntity : SqlEntityBase
         Data = new(item.Data);
         DataValue = DataUtils.ByteClone(item.DataValue);
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(Type)}: {Type}. ";
@@ -46,14 +37,8 @@ public class SqlTemplateResourceEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlTemplateResourceEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Type, item.Type) &&
         Data.Equals(item.Data);
-
-    #endregion
 }

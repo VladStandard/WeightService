@@ -4,8 +4,6 @@ namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
 {
-    #region Public and private methods
-
     public SqlHostEntity GetItemByName(string name)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
@@ -47,6 +45,4 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlHostEntity>(sqlCrudConfig);
     }
-
-    #endregion
 }

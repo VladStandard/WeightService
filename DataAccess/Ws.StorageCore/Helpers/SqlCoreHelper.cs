@@ -28,11 +28,8 @@ public sealed class SqlCoreHelper
     private object LockerSessionFactory { get; } = new();
     private object LockerSelect { get; } = new();
     private object LockerExecute { get; } = new();
-
     public static SqlSettingsModels SqlSettingsModels { get; set; } = new();
-    
     public ISessionFactory? SessionFactory { get; private set; }
-
     private Configuration SqlConfiguration { get; set; } = new();
 
     public void SetSessionFactory(bool isShowSql)

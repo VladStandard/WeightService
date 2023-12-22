@@ -5,8 +5,6 @@ namespace DeviceControl.Pages.Menu.References1C.Plus;
 
 public sealed partial class ItemPlu : ItemBase<SqlPluEntity>
 {
-    #region Public and private fields, properties, constructor
-    
     private SqlPluStorageMethodEntity StorageMethod { get; set; }
     private SqlPluStorageMethodFkEntity StorageMethodFk { get; set; }
     private SqlPluTemplateFkEntity PluTemplateFk { get; set; }
@@ -17,11 +15,7 @@ public sealed partial class ItemPlu : ItemBase<SqlPluEntity>
         PluTemplateFk = new();
         ButtonSettings.IsShowSave = true;
     }
-
-    #endregion
-
-    #region Public and private methods
-
+    
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
@@ -35,6 +29,4 @@ public sealed partial class ItemPlu : ItemBase<SqlPluEntity>
     {
         SqlItemSave(PluTemplateFk);
     }
-
-    #endregion
 }

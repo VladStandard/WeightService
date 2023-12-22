@@ -22,8 +22,6 @@ public sealed partial class AddPlusLines
         SelectedPlus = new();
         ButtonSettings = ButtonSettingsModel.CreateForItem();
     }
-    
-    #region Public and private methods
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -71,6 +69,4 @@ public sealed partial class AddPlusLines
         }
         ReloadPage();
     }
-    
-    #endregion
 }

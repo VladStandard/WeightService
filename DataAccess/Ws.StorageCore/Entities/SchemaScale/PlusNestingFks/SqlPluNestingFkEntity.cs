@@ -8,7 +8,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluNestingFkEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
     public virtual SqlBoxEntity Box { get; set; }
     public virtual SqlPluEntity Plu { get; set; }
     public virtual bool IsDefault { get; set; }
@@ -33,11 +32,7 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         IsDefault = item.IsDefault;
         BundleCount = item.BundleCount;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() =>
         $"{GetIsDefault()} | {Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
@@ -63,18 +58,13 @@ public class SqlPluNestingFkEntity : SqlEntityBase
         Plu.FillProperties();
         BundleCount = 0;
     }
-
-    #endregion
-
-    #region Public and private methods - virtual
+    
 
     public virtual bool Equals(SqlPluNestingFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Box.Equals(item.Box) &&
-        //Plu.Equals(item.Plu) && 
         Plu.Equals(item.Plu) && 
         Equals(IsDefault, item.IsDefault) &&
         Equals(BundleCount, item.BundleCount);
     
-    #endregion
 }

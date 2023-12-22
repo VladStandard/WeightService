@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluScaleEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual bool IsActive { get; set; }
     public virtual SqlPluEntity Plu { get; set; }
     public virtual SqlLineEntity Line { get; set; }
@@ -22,10 +20,6 @@ public class SqlPluScaleEntity : SqlEntityBase
         Plu = new(item.Plu);
         Line = new(item.Line);
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() => $"{IsActive} | {Plu} | {Line}";
 
@@ -46,11 +40,7 @@ public class SqlPluScaleEntity : SqlEntityBase
         Plu.FillProperties();
         Line.FillProperties();
     }
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlPluScaleEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(IsActive, item.IsActive) &&
@@ -58,6 +48,4 @@ public class SqlPluScaleEntity : SqlEntityBase
         Equals(Line, item.Line) &&
         Plu.Equals(item.Plu) &&
         Line.Equals(item.Line);
-
-    #endregion
 }

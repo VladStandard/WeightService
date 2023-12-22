@@ -2,8 +2,6 @@ namespace DeviceControl.Components.Item;
 
 public sealed partial class ItemTableBody : ComponentBase
 {
-    #region Public and private fields, properties, constructor
-
     [Parameter] public SqlEntityBase SqlItem { get; set; }
 
     private bool IsSqlItem1C => SqlItem is SqlTable1CBase;
@@ -27,6 +25,4 @@ public sealed partial class ItemTableBody : ComponentBase
             SqlEnumFieldIdentity.Uid => SqlItem.IdentityValueUid != Guid.Empty ? $"{SqlItem.IdentityValueUid}" : "Новая запись",
             _ => "Новая запись"
         };
-
-    #endregion
 }

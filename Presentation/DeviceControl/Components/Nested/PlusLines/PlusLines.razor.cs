@@ -4,8 +4,6 @@ namespace DeviceControl.Components.Nested.PlusLines;
 
 public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
 {
-    #region Public and private fields, properties, constructor
-
     private SqlPluLineRepository PluLineRepository { get; } = new();
     [Parameter] public SqlLineEntity Line { get; set; }
 
@@ -15,11 +13,7 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
         SqlCrudConfigSection.IsResultOrder = true;
         SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(SqlPluScaleEntity.IsActive), true));
     }
-
-    #endregion
-
-    #region Public and private methods
-
+    
     protected override void SetSqlSectionCast()
     {
         SqlSectionCast = PluLineRepository.GetListByLine(Line, SqlCrudConfigSection);
@@ -47,6 +41,4 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
     {
         await JsRuntime.InvokeAsync<string>("open", RouteService.GetItemRoute(SqlItemCast.Plu), "_blank");
     }
-
-    #endregion
 }

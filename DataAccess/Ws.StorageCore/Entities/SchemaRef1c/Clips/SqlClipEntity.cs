@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Clips;
 [DebuggerDisplay("{ToString()}")]
 public class SqlClipEntity : SqlTable1CBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual decimal Weight { get; set; }
 
     public SqlClipEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -16,11 +14,7 @@ public class SqlClipEntity : SqlTable1CBase
     {
         Weight = item.Weight;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{Name} | {Weight}";
 
     public override bool Equals(object obj)
@@ -32,14 +26,8 @@ public class SqlClipEntity : SqlTable1CBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlClipEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
-    
-    #endregion
 }

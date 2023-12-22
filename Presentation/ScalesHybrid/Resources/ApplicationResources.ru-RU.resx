@@ -150,4 +150,7 @@
     <data name="ScalesStatusUnstable" xml:space="preserve">
         <value>Весы нестабильны</value>
     </data>
+    <data name="ButtonLineCounter" xml:space="preserve">
+        <value>Счетчик</value>
+    </data>
 </root>

@@ -2,8 +2,6 @@ namespace DeviceControl.Pages.Menu.References.TemplateResources;
 
 public sealed partial class TemplateResources : SectionBase<SqlTemplateResourceEntity>
 {
-    #region Public and private methods
-
     protected override void SetSqlSectionCast()
     {
         SqlSectionCast = new SqlTemplateResourceRepository().GetList(SqlCrudConfigSection);
@@ -15,6 +13,4 @@ public sealed partial class TemplateResources : SectionBase<SqlTemplateResourceE
             ? $"{templateResource.DataValue.Length / 1024:### ##0} {Locale.DataSizeKBytes}"
             : $"{templateResource.DataValue.Length:##0} {Locale.DataSizeBytes}";
     }
-
-    #endregion
 }

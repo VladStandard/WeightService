@@ -123,6 +123,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counter.
+        /// </summary>
+        internal static string ButtonLineCounter {
+            get {
+                return ResourceManager.GetString("ButtonLineCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set kneading.
         /// </summary>
         internal static string ButtonPalletPage {

@@ -2,7 +2,6 @@ namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SqlInfo : ComponentBase
 {
-    #region Public and private fields, properties, constructor
     private SqlViewTableSizeRepository SqlViewTableSizeRepository { get; } = new();
     private List<WsSqlViewDbFileSizeInfoModel> DbFiles { get; set; }
     private List<SqlViewTableSizeModel> DbTables { get; set; }
@@ -38,6 +37,4 @@ public sealed partial class SqlInfo : ComponentBase
     {
         args.Expandable = args.Data.Tables.Count > 0;
     }
-    
-    #endregion
 }
