@@ -26,7 +26,7 @@ public class LineContextConfigRegister : IRegister
             .Map(d => d.Template, s => s.PluTemplate.Data)
             .Map(d => d.ProductDt, s => GetProductDt(s.KneadingModel.ProductDate))
             .Map(d => d.ExpirationDt, s => GetProductDt(s.KneadingModel.ProductDate)
-            .AddDays(s.Plu.ShelfLifeDays))
+                .AddDays(s.Plu.ShelfLifeDays))
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }
