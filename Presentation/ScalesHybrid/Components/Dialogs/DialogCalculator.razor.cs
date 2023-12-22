@@ -54,6 +54,13 @@ public sealed partial class DialogCalculator: ComponentBase
         Number = string.Empty;
         StateHasChanged();
     }
+
+    private void ClearLastNumber()
+    {
+        if (string.IsNullOrEmpty(Number)) return;
+        Number = Number[..^1];
+        StateHasChanged();
+    }
 }
 
 internal class CalculatorControl
