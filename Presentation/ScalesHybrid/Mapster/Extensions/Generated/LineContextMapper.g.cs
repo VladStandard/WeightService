@@ -18,10 +18,11 @@ namespace ScalesHybrid.Services
             result.LineCounter = funcMain4(p1.Line == null ? null : (int?)p1.Line.LabelCounter, result.LineCounter);
             result.LineName = p1.Line == null ? null : p1.Line.Description;
             result.Plu1СGuid = funcMain5(p1.Plu == null ? null : (System.Guid?)p1.Plu.Uid1C, result.Plu1СGuid);
+            result.PluNumber = funcMain6(p1.Plu == null ? null : (short?)p1.Plu.Number, result.PluNumber);
             result.PluFullName = p1.Plu == null ? null : p1.Plu.FullName;
             result.PluDescription = p1.Plu == null ? null : p1.Plu.Description;
-            result.BundleCount = funcMain6(p1.PluNesting == null ? null : (short?)p1.PluNesting.BundleCount, result.BundleCount);
-            result.Kneading = funcMain7(p1.KneadingModel == null ? null : (int?)p1.KneadingModel.KneadingCount, result.Kneading);
+            result.BundleCount = funcMain7(p1.PluNesting == null ? null : (short?)p1.PluNesting.BundleCount, result.BundleCount);
+            result.Kneading = funcMain8(p1.KneadingModel == null ? null : (int?)p1.KneadingModel.KneadingCount, result.Kneading);
             result.Address = p1.Line == null ? null : (p1.Line.WorkShop == null ? null : (p1.Line.WorkShop.ProductionSite == null ? null : p1.Line.WorkShop.ProductionSite.Address));
             result.Template = p1.PluTemplate == null ? null : p1.PluTemplate.Data;
             result.ProductDt = ScalesHybrid.Mapster.LineContextConfigRegister.GetProductDt(p1.KneadingModel.ProductDate);
@@ -60,9 +61,14 @@ namespace ScalesHybrid.Services
             return p13 == null ? ((short)0) : (short)p13;
         }
         
-        private static short funcMain7(int? p15, short p16)
+        private static short funcMain7(short? p15, short p16)
         {
-            return p15 == null ? ((short)0) : (short)(int)p15;
+            return p15 == null ? ((short)0) : (short)p15;
+        }
+        
+        private static short funcMain8(int? p17, short p18)
+        {
+            return p17 == null ? ((short)0) : (short)(int)p17;
         }
     }
 }

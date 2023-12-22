@@ -10,6 +10,7 @@ public class LineContextConfigRegister : IRegister
     {
         config.NewConfig<LineContext, LabelInfoDto>()
             .Map(d => d.Plu1СGuid, s => s.Plu.Uid1C)
+            .Map(d => d.PluNumber, s => s.Plu.Number)
             .Map(d => d.Kneading, s => s.KneadingModel.KneadingCount)
             .Map(d => d.WeightTare, s => s.PluNesting.WeightTare)
             .Map(d => d.LineCounter, s => s.Line.LabelCounter)
@@ -25,7 +26,7 @@ public class LineContextConfigRegister : IRegister
             .Map(d => d.Template, s => s.PluTemplate.Data)
             .Map(d => d.ProductDt, s => GetProductDt(s.KneadingModel.ProductDate))
             .Map(d => d.ExpirationDt, s => GetProductDt(s.KneadingModel.ProductDate)
-                .AddDays(s.Plu.ShelfLifeDays))
+            .AddDays(s.Plu.ShelfLifeDays))
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }

@@ -14,7 +14,7 @@ public class LabelDataDto
     public string LineName { get; set; } = string.Empty;
 
     public Guid Plu1СGuid { get; set; }
-    public int PluNumber { get; set; }
+    public short PluNumber { get; set; }
     public string PluFullName { get; set; } = string.Empty;
     public string PluDescription { get; set; } = string.Empty;
 
