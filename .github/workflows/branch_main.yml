@@ -31,13 +31,10 @@ jobs:
       - name: Install dependencies
         run: nuget restore WeightService2022.sln
 
-      - name: Build app for DevelopVS Any CPU
-        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-      
       - name: Build app for ReleaseVS Any CPU
-        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=ReleaseVS -property:Platform="Any CPU"
+        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=ReleaseVS -property:Platform="x64"
       
       - name: Tests for DevelopVS Any CPU
         run: |
-            dotnet test Tests/Ws.Labels.Tests/Ws.Labels.Tests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="x64"
-            dotnet test Tests/Ws.Shared.Tests/Ws.Shared.Tests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="x64"
+            dotnet test Tests/Ws.Labels.Tests/Ws.Labels.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"
+            dotnet test Tests/Ws.Shared.Tests/Ws.Shared.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"
