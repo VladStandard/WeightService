@@ -25,4 +25,6 @@ public static class SqlTablesUtils
     public const string WorkShops = "WORKSHOPS";
     public const string Printers = "PRINTERS";
     public const string Scales = "Scales";
+    
+    public const string ViewLabels = "VIEW_LABELS";
 }

@@ -4,9 +4,9 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using NHibernate.Event;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
+using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Listeners;
@@ -29,7 +29,7 @@ public sealed class SqlCoreHelper
     private object LockerSessionFactory { get; } = new();
     private object LockerSelect { get; } = new();
     private object LockerExecute { get; } = new();
-    public static SqlSettingsModels SqlSettingsModels { get; set; } = new();
+    private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     public ISessionFactory? SessionFactory { get; private set; }
     private Configuration SqlConfiguration { get; set; } = new();
 
@@ -64,10 +64,10 @@ public sealed class SqlCoreHelper
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
         });
-        SqlConfiguration.EventListeners.PreInsertEventListeners = 
-            new IPreInsertEventListener[] { new SqlCreateDtListener() };
-        SqlConfiguration.EventListeners.PreUpdateEventListeners = 
-            new IPreUpdateEventListener[] { new SqlChangeDtListener() };
+        SqlConfiguration.EventListeners.PreInsertEventListeners =
+            [new SqlCreateDtListener()];
+        SqlConfiguration.EventListeners.PreUpdateEventListeners =
+            [new SqlChangeDtListener()];
     }
 
     private void Close()
@@ -112,6 +112,8 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlPluStorageMethodFkMap>();
         mapper.AddMapping<SqlPluTemplateFkMap>();
         mapper.AddMapping<SqlLogMap>();
+
+        mapper.AddMapping<SqlViewLabelMap>();
         
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);

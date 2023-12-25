@@ -42,7 +42,8 @@ public class PrintLabelService : IPrintLabelService
             BarcodeRight = label.BarcodeRight,
             BarcodeTop = label.BarcodeTop,
             WeightNet = labelInfo.Weight,
-            WeightTare = labelInfo.WeightTare
+            WeightTare = labelInfo.WeightTare,
+            Pallet = pallet
         };
         SqlCoreHelper.Instance.Save(labelSql); 
         

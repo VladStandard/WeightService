@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
+using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 namespace DeviceControl.Services;
@@ -48,6 +49,7 @@ public class RouteService
             SqlBundleEntity => RouteUtils.SectionBundles,
             SqlHostEntity => RouteUtils.SectionHosts,
             SqlLogEntity => RouteUtils.SectionLogs,
+            SqlViewLabel => RouteUtils.SectionPlusLabels,
             SqlLabelEntity => RouteUtils.SectionPlusLabels,
             SqlPluEntity => RouteUtils.SectionPlus,
             SqlPluScaleEntity => RouteUtils.SectionPlusLines,

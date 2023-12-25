@@ -1,5 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
+using System;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 
 namespace Ws.StorageCore.Entities.SchemaPrint.Labels;
@@ -49,6 +50,11 @@ public class SqlLabelEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
+
+    public override String ToString()
+    {
+        return $"{CreateDt} : {Pallet.Plu}";
+    }
 
     #endregion
 

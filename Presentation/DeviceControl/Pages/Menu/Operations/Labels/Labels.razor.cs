@@ -1,8 +1,8 @@
-using Ws.StorageCore.Entities.SchemaPrint.Labels;
+using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 
 namespace DeviceControl.Pages.Menu.Operations.Labels;
 
-public sealed partial class Labels : SectionBase<SqlLabelEntity>
+public sealed partial class Labels : SectionBase<SqlViewLabel>
 {
     public Labels() : base()
     {
@@ -11,6 +11,6 @@ public sealed partial class Labels : SectionBase<SqlLabelEntity>
     
     protected override void SetSqlSectionCast()
     {
-        SqlSectionCast = new SqlLabelRepository().GetList(new());
+        SqlSectionCast = new SqlViewLabelRepository().GetList(new());
     }
 }
