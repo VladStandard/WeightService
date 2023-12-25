@@ -5,8 +5,6 @@ namespace Ws.StorageCore.Models;
 [DebuggerDisplay("{ToString()}")]
 public class SqlFieldIdentityModel
 {
-    #region Public and private fields, properties, constructor
-
      public virtual SqlEnumFieldIdentity Name { get; }
      public virtual Guid Uid { get; private set; }
      public virtual long Id { get; private set; }
@@ -36,10 +34,6 @@ public class SqlFieldIdentityModel
         Id = item.Id;
     }
 
-    #endregion
-
-    #region Public and private methods - override
-
     public override string ToString() =>
         Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
     
@@ -57,11 +51,7 @@ public class SqlFieldIdentityModel
         SqlEnumFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlFieldIdentityModel item) =>
         ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
         Id.Equals(item.Id) &&
@@ -84,6 +74,4 @@ public class SqlFieldIdentityModel
         SqlEnumFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
         _ => default
     };
-
-    #endregion
 }

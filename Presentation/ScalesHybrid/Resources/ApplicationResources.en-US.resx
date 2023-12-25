@@ -150,4 +150,7 @@
     <data name="ScalesStatusUnstable" xml:space="preserve">
         <value>The scales are not stable</value>
     </data>
+    <data name="ButtonLineCounter" xml:space="preserve">
+        <value>Counter</value>
+    </data>
 </root>

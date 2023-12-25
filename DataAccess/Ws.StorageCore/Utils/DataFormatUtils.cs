@@ -4,7 +4,6 @@ namespace Ws.StorageCore.Utils;
 
 public static class DataFormatUtils
 {
-    #region Public and private methods
     public static string GetPrettyXml(string xml)
     {
         try
@@ -36,11 +35,7 @@ public static class DataFormatUtils
         string result = stringWriter.ToString();
         return result;
     }
-
-    #endregion
     
-    #region Public and private methods - Serialize
-
     private static XmlWriterSettings GetXmlWriterSettings() => new()
     {
         ConformanceLevel = ConformanceLevel.Document,
@@ -90,6 +85,4 @@ public static class DataFormatUtils
         xmlDocument.Load(memoryStream);
         return xmlDocument;
     }
-
-    #endregion
 }

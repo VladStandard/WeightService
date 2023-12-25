@@ -3,10 +3,9 @@ using System.Reflection;
 
 namespace Ws.Shared.Utils;
 
+// TODO: delete
 public static class AssemblyUtils
 {
-    #region Public and private methods
-    
     public static String? GetApVersion(Assembly executingAssembly)
     {
         FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
@@ -34,6 +33,4 @@ public static class AssemblyUtils
             result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
         return result;
     }
-
-    #endregion
 }

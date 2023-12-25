@@ -2,8 +2,6 @@ namespace DeviceControl.Utils;
 
 public class CssStyleTableHeadModel
 {
-    #region Public and private fields, properties, constructor
-
     public List<int> ColumnsWidths { get; set; }
     public List<string> ColumnsTitles { get; set; }
     
@@ -18,10 +16,6 @@ public class CssStyleTableHeadModel
         ColumnsWidths = columnsWidths;
         ColumnsTitles = GetColumnsTitles();
     }
-
-    #endregion
-
-    #region Public and private methods
 
     private List<string> GetColumnsTitles()
     {
@@ -38,6 +32,4 @@ public class CssStyleTableHeadModel
             columnsTitles.Add(i % 2 == 0 ? Locale.SettingName : Locale.SettingValue);
         return columnsTitles;
     }
-
-    #endregion
 }

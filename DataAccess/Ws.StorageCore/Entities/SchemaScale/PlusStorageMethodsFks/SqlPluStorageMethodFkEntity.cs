@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluStorageMethodFkEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual SqlPluEntity Plu { get; set; }
     public virtual SqlPluStorageMethodEntity Method { get; set; }
     public virtual SqlTemplateResourceEntity Resource { get; set; }
@@ -22,11 +20,7 @@ public class SqlPluStorageMethodFkEntity : SqlEntityBase
         Method = new(item.Method);
         Resource = new(item.Resource);
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " + 
         $"{nameof(Method)}: {Method}. " +
@@ -50,15 +44,9 @@ public class SqlPluStorageMethodFkEntity : SqlEntityBase
         Resource.FillProperties();
     }
 
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlPluStorageMethodFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
         Method.Equals(item.Method) &&
         Resource.Equals(item.Resource);
-
-    #endregion
 }

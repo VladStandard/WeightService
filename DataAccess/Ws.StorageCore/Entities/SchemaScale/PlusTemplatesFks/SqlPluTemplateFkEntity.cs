@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluTemplateFkEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual SqlPluEntity Plu { get; set; }
     public virtual SqlTemplateEntity Template { get; set; }
     
@@ -19,11 +17,7 @@ public class SqlPluTemplateFkEntity : SqlEntityBase
         Plu = new(item.Plu);
         Template = new(item.Template);
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Template)}: {Template}. ";
@@ -45,14 +39,8 @@ public class SqlPluTemplateFkEntity : SqlEntityBase
         Template.FillProperties();
     }
 
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlPluTemplateFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&
         Template.Equals(item.Template);
-
-    #endregion
 }

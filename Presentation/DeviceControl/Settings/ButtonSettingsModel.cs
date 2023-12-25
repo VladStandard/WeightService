@@ -2,8 +2,6 @@ namespace DeviceControl.Settings;
 
 public class ButtonSettingsModel
 {
-    #region Public and private fields, properties, constructor
-
     public bool IsShowCancel { get; set; }
     public bool IsShowDelete { get; set; }
     public bool IsShowMark { get; set; }
@@ -18,10 +16,6 @@ public class ButtonSettingsModel
         IsShowSave = isShowSave;
         IsShowCancel = isShowCancel;
     }
-
-    #endregion
-
-    #region Public and private methods
     
     public static ButtonSettingsModel CreateForItem() =>
         new(false, false, false, true, true);
@@ -37,6 +31,4 @@ public class ButtonSettingsModel
     
     public static ButtonSettingsModel CreateForStatic1CSection() =>
         new(false, false, false, false, false);
-
-    #endregion
 }

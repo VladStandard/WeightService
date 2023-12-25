@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 [DebuggerDisplay("{ToString()}")]
 public class SqlProductionSiteEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual string Address { get; set; }
     
     public SqlProductionSiteEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -16,11 +14,7 @@ public class SqlProductionSiteEntity : SqlEntityBase
     {
         Address = item.Address;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{Address}";
 
     public override bool Equals(object obj)
@@ -33,13 +27,8 @@ public class SqlProductionSiteEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
     
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlProductionSiteEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(Address, item.Address);
-
-    #endregion
+    
 }

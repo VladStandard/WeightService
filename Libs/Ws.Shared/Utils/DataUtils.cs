@@ -2,8 +2,6 @@ namespace Ws.Shared.Utils;
 
 public static class DataUtils
 {
-    #region Public and private methods
-
     public static bool ByteEquals(byte[] a1, byte[] a2)
     {
         if (a1.Length != a2.Length)
@@ -26,6 +24,4 @@ public static class DataUtils
         }
         return Array.Empty<byte>();
     }
-    
-    #endregion
 }

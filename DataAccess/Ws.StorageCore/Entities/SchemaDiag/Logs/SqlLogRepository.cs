@@ -11,7 +11,6 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
 
     public IEnumerable<SqlLogEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerable<SqlLogEntity>(sqlCrudConfig);
@@ -19,7 +18,6 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
 
     public IList<SqlLogEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
-        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerable<SqlLogEntity>(sqlCrudConfig).ToList();
@@ -27,7 +25,6 @@ public class SqlLogRepository : SqlTableRepositoryBase<SqlLogEntity>
     
     public IEnumerable<SqlLogEntity> GetListByLogTypeAndLineName(SqlCrudConfigModel sqlCrudConfig, LogTypeEnum? logType, SqlLineEntity? line)
     {
-        sqlCrudConfig.IsReadUncommitted = true;
         if (sqlCrudConfig.IsResultOrder)
             sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         

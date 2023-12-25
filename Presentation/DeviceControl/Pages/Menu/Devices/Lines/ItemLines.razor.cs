@@ -4,8 +4,6 @@ namespace DeviceControl.Pages.Menu.Devices.Lines;
 
 public sealed partial class ItemLines : ItemBase<SqlLineEntity>
 {
-    #region Public and private fields, properties, constructor
-    
     private List<string> ComPorts { get; set; }
     private List<SqlPrinterEntity> PrinterModels { get; set; }
     private List<SqlHostEntity> HostModels { get; set; }
@@ -18,11 +16,7 @@ public sealed partial class ItemLines : ItemBase<SqlLineEntity>
         PrinterModels = new();
         WorkShopModels = new();
     }
-
-    #endregion
-
-    #region Public and private methods
-
+    
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
@@ -31,6 +25,4 @@ public sealed partial class ItemLines : ItemBase<SqlLineEntity>
         WorkShopModels = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
         ComPorts = Enumerable.Range(1, 10).Select(i => $"COM{i}").ToList();;
     }
-
-    #endregion
 }

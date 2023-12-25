@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 [DebuggerDisplay("{ToString()}")]
 public class SqlBundleEntity : SqlTable1CBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual decimal Weight { get; set; }
 
     public SqlBundleEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -16,10 +14,6 @@ public class SqlBundleEntity : SqlTable1CBase
     {
         Weight = item.Weight;
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() =>
         $"{Name} | {Weight} | {Uid1C}";
@@ -33,14 +27,9 @@ public class SqlBundleEntity : SqlTable1CBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlBundleEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
-    #endregion
 }
 

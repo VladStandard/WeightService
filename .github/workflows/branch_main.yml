@@ -31,20 +31,10 @@ jobs:
       - name: Install dependencies
         run: nuget restore WeightService2022.sln
 
-      - name: Build app for DevelopVS Any CPU
-        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-      
       - name: Build app for ReleaseVS Any CPU
-        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=ReleaseVS -property:Platform="Any CPU"
+        run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=ReleaseVS -property:Platform="x64"
       
       - name: Tests for DevelopVS Any CPU
-        run: | #dotnet test WeightService2022.sln --no-restore --verbosity quiet -property:Platform="Any CPU"
-            dotnet test Tests/WsAssertCoreTests/WsAssertCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsBlazorCoreTests/WsBlazorCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsDataCoreTests/WsDataCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsLabelCoreTests/WsLabelCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsDeviceControlTests/WsDeviceControlTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsScalesUITests/WsScalesUITests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsScheduleCoreTests/WsScheduleCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsStorageCoreTests/WsStorageCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
-            dotnet test Tests/WsWebApiCoreTests/WsWebApiCoreTests.csproj --no-restore --verbosity quiet -property:Configuration=DevelopVS -property:Platform="Any CPU"
+        run: |
+            dotnet test Tests/Ws.Labels.Tests/Ws.Labels.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"
+            dotnet test Tests/Ws.Shared.Tests/Ws.Shared.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"

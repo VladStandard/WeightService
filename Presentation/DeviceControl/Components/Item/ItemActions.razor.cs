@@ -2,8 +2,6 @@ namespace DeviceControl.Components.Item;
 
 public partial class ItemActions : ComponentBase
 {
-    #region Public and private fields, properties, constructor
-    
     [Inject] protected UserService UserService { get; set; } = default!;
     [Parameter] public EventCallback OnItemSave { get; set; }
     [Parameter] public EventCallback OnItemCancel { get; set; }
@@ -20,6 +18,4 @@ public partial class ItemActions : ComponentBase
     {
         User = await UserService.GetUser();
     }
-
-    #endregion
 }

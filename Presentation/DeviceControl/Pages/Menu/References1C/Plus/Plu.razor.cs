@@ -4,8 +4,6 @@ namespace DeviceControl.Pages.Menu.References1C.Plus;
 
 public sealed partial class Plu : SectionBase<SqlPluEntity>
 {
-    #region Public and private fields, properties, constructor
-    
     public Plu() : base()
     {
         SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false));
@@ -16,6 +14,4 @@ public sealed partial class Plu : SectionBase<SqlPluEntity>
     {
         SqlSectionCast = new SqlPluRepository().GetEnumerable(SqlCrudConfigSection).ToList();
     }
-
-    #endregion
 }

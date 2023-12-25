@@ -4,8 +4,6 @@ namespace DeviceControl.Pages.Menu.Operations;
 
 public sealed partial class PluLabelsAggr : ComponentBase
 {
-    #region Public and private fields, properties, constructor
-
     private SqlViewPluLabelAggrRepository PluLabelAggrRepository { get; } = new();
     private string SqlListCountResult => $"{Locale.ItemsCount}: {PluWeightAggrs.Count:### ### ###}";
     private string GetAverageCountResult => $"Средняя производительность: {GetAverageCount():### ### ###}";
@@ -21,11 +19,7 @@ public sealed partial class PluLabelsAggr : ComponentBase
     {
         PluWeightAggrs = new();
     }
-
-    #endregion
-
-    #region Public and private methods
-
+    
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender)
@@ -54,6 +48,4 @@ public sealed partial class PluLabelsAggr : ComponentBase
             DayOfWeek.Sunday => "Воскресенье",
             _ => string.Empty
         };
-
-    #endregion
 }
