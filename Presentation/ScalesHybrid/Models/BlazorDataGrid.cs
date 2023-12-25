@@ -10,6 +10,6 @@ public class BlazorDataGrid<TItem>: DataGrid<TItem>
         ShowPager = true;
         PagerPosition = DataGridPagerPosition.Bottom;
         PagerOptions = new() { PaginationPosition = PagerElementPosition.Center };
-        Class="text-xl !overflow-hidden !text-black table-fixed";
+        Class="text-lg !overflow-hidden !text-black table-fixed xl:text-xl";
     }
 }

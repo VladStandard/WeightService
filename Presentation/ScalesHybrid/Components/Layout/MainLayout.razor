@@ -2,16 +2,10 @@
 
 <div class="flex flex-col shrink-0 overflow-hidden w-screen h-screen text-black bg-gray-100 overscroll-none">
   <MainHeader />
-  <main class="flex flex-col grow w-full h-full">
+  <main class="flex overflow-hidden flex-col grow w-full h-full">
     @Body
   </main>
 </div>
 
-<Modal>
-  <ModalContent Size="ModalSize.Small">
-    ...
-  </ModalContent>
-</Modal>
-
-<ModalProvider UseModalStructure="false" Size="ModalSize.Large"  />
+<ModalProvider UseModalStructure="false" Class="!p-0" Size="ModalSize.Large"  />
 <NotificationProvider Class="bg-black" Location="NotificationLocation.Center"  />
