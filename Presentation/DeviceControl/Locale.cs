@@ -22,7 +22,6 @@ public static class Locale
     public static string ItemWorkshop => "Цех";
     public static string LinkLabelary => "http://labelary.com/viewer.html";
     public static string SectionAdministering =>  "Администрирование";
-    public static string SectionBarCodes => "Штрихкоды";
     public static string SectionBoxes => "Коробки";
     public static string SectionBrands => "Бренды";
     public static string SectionBundles => "Пакеты";
@@ -43,8 +42,6 @@ public static class Locale
     public static string SectionScales => "Линии";
     public static string SectionTemplateResources => "Ресурсы шаблонов";
     public static string SectionTemplates => "Шаблоны";
-    public static string SectionWeighings => "Взвешивания";
-    public static string SectionWeithingFactsAggregation => "Агрегированные этикетки";
     public static string SectionWeithingFactsAggregationShort => "Агр. этикетки";
     public static string SectionWorkShops => "Цеха";
     public static string TableActionCancel => "Отмена";
