@@ -2,7 +2,7 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
-using Microsoft.AspNetCore.Builder;
+using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.Services;
@@ -18,8 +18,8 @@ public static class MauiProgram
         SqlCoreHelper.Instance.SetSessionFactory(false);
         if (SqlCoreHelper.Instance.SessionFactory is null)
             throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
-
-        builder.UseMauiApp<App>();
+        
+        builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddVsServices();
         
