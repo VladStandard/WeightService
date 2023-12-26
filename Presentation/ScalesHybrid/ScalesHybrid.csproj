@@ -1,14 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+        
         <OutputType>Exe</OutputType>
         <RootNamespace>ScalesHybrid</RootNamespace>
         <UseMaui>true</UseMaui>
-        <SelfContained>true</SelfContained>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
+        <SelfContained>true</SelfContained>
+        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">True</UseInterpreter>
         
         <IncludeSymbols>False</IncludeSymbols>
         <GenerateTestArtifacts>False</GenerateTestArtifacts>
@@ -21,20 +23,15 @@
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
         
-        <!-- Display name -->
         <ApplicationTitle>ScalesHybrid</ApplicationTitle>
-
-        <!-- App Identifier -->
         <ApplicationId>com.companyname.scaleshybrid</ApplicationId>
         <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
-
-        <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
+        
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-
-        <DefaultLanguage>ru-ru</DefaultLanguage>
+        
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
     </PropertyGroup>
@@ -72,13 +69,15 @@
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-        <PackageReference Include="Mapster" Version="7.4.0" />
-        <PackageReference Include="Mapster.Core" Version="1.2.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Mapster" Version="7.4.1-pre01" />
+        <PackageReference Include="Mapster.Core" Version="1.2.2-pre01" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
-        <PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.WindowsAppSDK" Version="1.4.231115000" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
+
     </ItemGroup>
 
     <ItemGroup>
