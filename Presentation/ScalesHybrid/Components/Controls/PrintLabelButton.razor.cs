@@ -66,6 +66,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             ExternalDevices.Printer.PrintLabel(zpl);
             LineContext.Line.LabelCounter += 1;
             SqlCoreHelper.Instance.Update(LineContext.Line);
+            await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
         {
