@@ -26,37 +26,11 @@ public partial class App : MauiWinUIApplication
 
     protected override MauiApp CreateMauiApp()
     {
-        MauiAppBuilder builder = MauiProgram.CreateMauiApp();
-
-        builder.ConfigureLifecycleEvents(events => {
-            events.AddWindows(windowsLifecycleBuilder =>
-            {
-                windowsLifecycleBuilder.OnWindowCreated(window => {
-                    OpenFullScreen(window);
-                });
-                windowsLifecycleBuilder.OnClosed((_, _) => {
-                    MouseUnsubscribe();
-                });
-            });
-        });
-
-        return builder.Build();
-    }
-
-    private static void OpenFullScreen(Window window)
-    {
-    #if RELEASE_VS
-            window.ExtendsContentIntoTitleBar = false;
-            IntPtr handle = WindowNative.GetWindowHandle(window);
-            WindowId id = Win32Interop.GetWindowIdFromWindow(handle);
-            AppWindow appWindow = AppWindow.GetFromWindowId(id);
-
-            if (appWindow.Presenter is not OverlappedPresenter overlappedPresenter)
-                return;
-                        
-            overlappedPresenter.SetBorderAndTitleBar(false, false);
-            overlappedPresenter.Maximize();
-    #endif
+        return MauiProgram.CreateMauiApp()
+            .ConfigureLifecycleEvents(events =>
+                events.AddWindows(windowsLifecycleBuilder =>
+                    windowsLifecycleBuilder.OnClosed((_, _) => MouseUnsubscribe())))
+            .Build();
     }
     
     private static void MiddleButtonHandler(object sender, MouseEventExtArgs e)
