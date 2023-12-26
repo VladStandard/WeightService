@@ -449,6 +449,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridNoResult {
+            get {
+                return ResourceManager.GetString("DataGridNoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridTotalItems {
             get {
                 return ResourceManager.GetString("DataGridTotalItems", resourceCulture);

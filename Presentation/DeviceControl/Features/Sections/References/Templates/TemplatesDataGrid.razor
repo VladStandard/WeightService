@@ -5,11 +5,10 @@
   @ref="DataGridWrapperRef"
   GridData="SectionItems"
   IsLoading="IsLoading"
-  OnDoubleClick="OpenDataGridEntityModal"
+  ReadAction="OpenDataGridEntityModal"
   GetGridData="SetSqlSectionCast"
-  AddDataAction="OpenSectionCreateForm"
-  Title="@Localizer["SectionHosts"]"
-  IsCreatable
+  AddAction="OpenSectionCreateForm"
+Title="@Localizer["SectionHosts"]"
 >
   <SectionDataGridColumn
     TItem="SqlTemplateEntity"

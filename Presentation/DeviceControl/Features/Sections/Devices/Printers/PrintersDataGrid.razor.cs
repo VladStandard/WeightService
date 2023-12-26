@@ -12,20 +12,14 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<SqlPrinterEnti
 
     private SqlPrinterRepository SqlPrinterRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlPrinterEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<PrintersUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlPrinterEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PrintersCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlPrinterEntity> e)
-        => await OpenSectionModal<PrintersUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlPrinterEntity item)
+        => await OpenSectionModal<PrintersUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = SqlPrinterRepository.GetEnumerable(SqlCrudConfigSection).ToList();

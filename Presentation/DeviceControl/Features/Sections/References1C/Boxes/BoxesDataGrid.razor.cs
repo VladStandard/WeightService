@@ -13,17 +13,11 @@ public sealed partial class BoxesDataGrid: SectionDataGridBase<SqlBoxEntity>
     
     private SqlBoxRepository BoxRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlBoxEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<BoxesUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlBoxEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
 
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlBoxEntity> e)
-        => await OpenSectionModal<BoxesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlBoxEntity item)
+        => await OpenSectionModal<BoxesUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = BoxRepository.GetEnumerable(SqlCrudConfigSection).ToList();

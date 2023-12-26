@@ -12,20 +12,14 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
     
     private SqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlTemplateResourceEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<TemplateResourcesUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlTemplateResourceEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlTemplateResourceEntity> e)
-        => await OpenSectionModal<TemplateResourcesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlTemplateResourceEntity item)
+        => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = TemplateResourceRepository.GetList(SqlCrudConfigSection);

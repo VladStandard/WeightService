@@ -13,17 +13,11 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateE
     
     private SqlTemplateRepository TemplateRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        long.TryParse(SearchingSectionItemId, out long newLong);
-        SqlTemplateEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueId == newLong, null);
-        if (selectedEntity != null) await OpenSectionModal<TemplatesUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlTemplateEntity, bool> SearchCondition =>
+        item => item.IdentityValueId.ToString() == SearchingSectionItemId;
 
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlTemplateEntity> e)
-        => await OpenSectionModal<TemplatesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlTemplateEntity item)
+        => await OpenSectionModal<TemplatesUpdateDialog>(item);
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplatesCreateDialog>(new());

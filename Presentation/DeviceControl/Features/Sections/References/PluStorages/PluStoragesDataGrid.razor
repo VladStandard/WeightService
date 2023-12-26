@@ -6,11 +6,10 @@
   @ref="DataGridWrapperRef"
   GridData="SectionItems"
   IsLoading="IsLoading"
-  OnDoubleClick="OpenDataGridEntityModal"
+  ReadAction="OpenDataGridEntityModal"
   GetGridData="GetSectionData"
-  AddDataAction="OpenSectionCreateForm"
+  AddAction="OpenSectionCreateForm"
   Title="@Localizer["SectionPluStorages"]"
-  IsCreatable
 >
   <SectionDataGridColumn
     TItem="SqlPluStorageMethodEntity"

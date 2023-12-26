@@ -13,17 +13,11 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<SqlClipEntity>
     
     private SqlClipRepository ClipRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlClipEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<ClipsUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlClipEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
 
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlClipEntity> e)
-        => await OpenSectionModal<ClipsUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlClipEntity item)
+        => await OpenSectionModal<ClipsUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = ClipRepository.GetEnumerable(SqlCrudConfigSection).ToList();

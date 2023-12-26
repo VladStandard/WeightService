@@ -258,4 +258,7 @@
     <data name="DataGridColumnWeight" xml:space="preserve">
         <value>Weight</value>
     </data>
+    <data name="DataGridNoResult" xml:space="preserve">
+        <value>No results found</value>
+    </data>
 </root>

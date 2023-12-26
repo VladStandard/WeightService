@@ -13,20 +13,14 @@ public sealed partial class WorkshopsDataGrid: SectionDataGridBase<SqlWorkShopEn
     
     private SqlWorkShopRepository WorkshopRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlWorkShopEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<WorkshopsUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlWorkShopEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<WorkshopsCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlWorkShopEntity> e)
-        => await OpenSectionModal<WorkshopsUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlWorkShopEntity item)
+        => await OpenSectionModal<WorkshopsUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = WorkshopRepository.GetEnumerable(SqlCrudConfigSection).ToList();

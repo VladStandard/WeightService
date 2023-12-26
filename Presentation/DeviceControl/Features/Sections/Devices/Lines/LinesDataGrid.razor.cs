@@ -14,21 +14,15 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     private SqlLineRepository LineRepository { get; } = new();
-    
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        long.TryParse(SearchingSectionItemId, out long newLong);
-        SqlLineEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueId == newLong, null);
-        if (selectedEntity != null) await OpenSectionModal<LinesUpdateDialog>(selectedEntity);
-    }
+
+    protected override Func<SqlLineEntity, bool> SearchCondition =>
+        item => item.IdentityValueId.ToString() == SearchingSectionItemId;
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<LinesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlLineEntity> e)
-        => await OpenSectionModal<LinesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlLineEntity item)
+        => await OpenSectionModal<LinesUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();

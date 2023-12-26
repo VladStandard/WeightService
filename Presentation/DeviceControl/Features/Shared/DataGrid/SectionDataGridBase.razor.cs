@@ -17,6 +17,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     protected List<TItem> SectionItems { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
+    protected virtual Func<TItem, bool> SearchCondition { get; } = _ => false;
     protected bool IsLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
@@ -30,12 +31,14 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
         throw new NotImplementedException();
     }
 
-    protected virtual Task OpenSearchingEntityModal()
+    protected async Task OpenSearchingEntityModal()
     {
-        return Task.CompletedTask;
+        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
+        TItem? item = SectionItems.FirstOrDefault(item => item != null && SearchCondition(item), null);
+        if (item != null) await OpenDataGridEntityModal(item);
     }
     
-    protected virtual Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<TItem> e)
+    protected virtual Task OpenDataGridEntityModal(TItem item)
     {
         return Task.CompletedTask;
     }

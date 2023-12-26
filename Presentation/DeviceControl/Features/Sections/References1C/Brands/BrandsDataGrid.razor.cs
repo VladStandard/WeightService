@@ -13,17 +13,11 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<SqlBrandEntity>
     
     private SqlBrandRepository BrandsRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlBrandEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<BrandsUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlBrandEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
 
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlBrandEntity> e)
-        => await OpenSectionModal<BrandsUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlBrandEntity item)
+        => await OpenSectionModal<BrandsUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = BrandsRepository.GetEnumerable(SqlCrudConfigSection).ToList();

@@ -13,17 +13,11 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<SqlBundleEntity
     
     private SqlBundleRepository BundleRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlBundleEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<BundlesUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlBundleEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
 
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlBundleEntity> e)
-        => await OpenSectionModal<BundlesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlBundleEntity item)
+        => await OpenSectionModal<BundlesUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = BundleRepository.GetEnumerable(SqlCrudConfigSection).ToList();

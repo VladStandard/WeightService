@@ -447,6 +447,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Нет результатов поиска.
+        /// </summary>
+        internal static string DataGridNoResult {
+            get {
+                return ResourceManager.GetString("DataGridNoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to элементов.
         /// </summary>
         internal static string DataGridTotalItems {

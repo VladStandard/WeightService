@@ -12,20 +12,14 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
     
     private SqlPluStorageMethodRepository PluStorageRepository { get; } = new();
     
-    protected override async Task OpenSearchingEntityModal()
-    {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        Guid.TryParse(SearchingSectionItemId, out Guid newGuid);
-        SqlPluStorageMethodEntity? selectedEntity = SectionItems.FirstOrDefault(x => 
-            x?.IdentityValueUid == newGuid, null);
-        if (selectedEntity != null) await OpenSectionModal<PluStoragesUpdateDialog>(selectedEntity);
-    }
+    protected override Func<SqlPluStorageMethodEntity, bool> SearchCondition =>
+        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PluStoragesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(DataGridRowMouseEventArgs<SqlPluStorageMethodEntity> e)
-        => await OpenSectionModal<PluStoragesUpdateDialog>(e.Item);
+    protected override async Task OpenDataGridEntityModal(SqlPluStorageMethodEntity item)
+        => await OpenSectionModal<PluStoragesUpdateDialog>(item);
 
     protected override void SetSqlSectionCast() =>
         SectionItems = PluStorageRepository.GetList(SqlCrudConfigSection);

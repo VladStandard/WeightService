@@ -1,5 +1,6 @@
 @typeparam TItem
 @using Blazor.Heroicons.Outline
+@using Blazor.Heroicons
 
 
 <div class="w-full flex gap-4 items-center mb-2 @(IsBorderless ? "pt-2 px-4" : "px-2")">
@@ -32,11 +33,11 @@
   >
     <ArrowPathIcon class="h-5 w-5 text-white group-hover:animate-spin" />
   </button>
-  @if (IsCreatable)
+  @if (AddAction.HasDelegate)
   {
     <button
       type="button"
-      @onclick="AddDataAction"
+      @onclick="AddAction"
       class="px-6 py-1 bg-sky-300 flex group transition-colors items-center justify-center rounded-md overflow-hidden
             border border-black/[.1] hover:bg-sky-400"
     >
@@ -56,12 +57,14 @@
   else
   {
     <SectionDataGrid
+      TItem="TItem"
       @ref="DataGrid"
+      Data="GridData"
       Filterable="IsFilterable"
       RowDoubleClicked="OnDoubleClick"
       ItemsPerPage="ItemsPerPage"
-      Data="GridData"
-      TItem="TItem"
+      RowContextMenu="OnRowContextMenu"
+      RowContextMenuPreventDefault
     >
       <DataGridColumns>
         @ChildContent
@@ -73,7 +76,7 @@
       </PageButtonTemplate>
       <EmptyTemplate>
         <p class="text-xl text-center">
-          Не было найдено ни одного элемента
+          @Localizer["DataGridNoResult"]
         </p>
       </EmptyTemplate>
       <NextPageButtonTemplate>
@@ -97,3 +100,28 @@
     </SectionDataGrid>
   }
 </div>
+
+@if ( IsVisibleContextMenu )
+{
+  <div class="absolute flex bg-gray-50 flex-col rounded-md border border-black/[.1] overflow-hidden" style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")">
+    <ul>
+      @foreach (ContextMenuEntry entry in ContextMenuEntries)
+      {
+        <li>
+          <button
+            type="button"
+            class="w-full items-center h-9 px-4 flex gap-3"
+            @onclick="@entry.OnClickAction"
+          >
+            <Heroicon
+              Name="@entry.IconName"
+              Type="HeroiconType.Outline"
+              class="h-4 w-4 text-gray-500"
+            />
+            <p>@entry.Name</p>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+}
