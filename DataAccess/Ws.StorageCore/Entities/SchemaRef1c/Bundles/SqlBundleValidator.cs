@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
-/// <summary>
-/// Table validation "BUNDLES".
-/// </summary>
 public sealed class SqlBundleValidator : SqlTableValidator<SqlBundleEntity>
 {
 

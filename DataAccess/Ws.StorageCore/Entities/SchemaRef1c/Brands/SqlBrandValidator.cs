@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
-/// <summary>
-/// Table validation "BRANDS".
-/// </summary>
 public sealed class SqlBrandValidator : SqlTableValidator<SqlBrandEntity>
 {
     public SqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)

@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
-/// <summary>
-/// Table map "Production_sites".
-/// </summary>
 public class SqlProductionSiteMap : ClassMapping<SqlProductionSiteEntity>
 {
     public SqlProductionSiteMap()

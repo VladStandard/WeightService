@@ -1,9 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusScales;
 
-/// <summary>
-/// SQL-контроллер таблицы PLUS_SCALES.
-/// Клиентский слой доступа к БД.
-/// </summary>
 public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluScaleEntity>
 {
     public SqlPluScaleEntity GetItemByLinePlu(SqlLineEntity line, SqlPluEntity plu)

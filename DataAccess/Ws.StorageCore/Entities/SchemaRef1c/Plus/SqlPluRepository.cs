@@ -36,6 +36,6 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.AddFilter(SqlRestrictions.In(nameof(SqlPluEntity.Uid1C), uidList));
-        return SqlCore.GetList<SqlPluEntity>(sqlCrudConfig);
+        return SqlCore.GetEnumerable<SqlPluEntity>(sqlCrudConfig);
     }
 }

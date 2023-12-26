@@ -1,12 +1,10 @@
 ﻿using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
-using Microsoft.UI;
-using Microsoft.UI.Windowing;
 using ScalesHybrid.Events;
-using WinRT.Interop;
-using Window=Microsoft.UI.Xaml.Window;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,37 +24,11 @@ public partial class App : MauiWinUIApplication
 
     protected override MauiApp CreateMauiApp()
     {
-        MauiAppBuilder builder = MauiProgram.CreateMauiApp();
-
-        builder.ConfigureLifecycleEvents(events => {
-            events.AddWindows(windowsLifecycleBuilder =>
-            {
-                windowsLifecycleBuilder.OnWindowCreated(window => {
-                    OpenFullScreen(window);
-                });
-                windowsLifecycleBuilder.OnClosed((_, _) => {
-                    MouseUnsubscribe();
-                });
-            });
-        });
-
-        return builder.Build();
-    }
-
-    private static void OpenFullScreen(Window window)
-    {
-    #if RELEASE_VS
-            window.ExtendsContentIntoTitleBar = false;
-            IntPtr handle = WindowNative.GetWindowHandle(window);
-            WindowId id = Win32Interop.GetWindowIdFromWindow(handle);
-            AppWindow appWindow = AppWindow.GetFromWindowId(id);
-
-            if (appWindow.Presenter is not OverlappedPresenter overlappedPresenter)
-                return;
-                        
-            overlappedPresenter.SetBorderAndTitleBar(false, false);
-            overlappedPresenter.Maximize();
-    #endif
+        return MauiProgram.CreateMauiApp()
+            .ConfigureLifecycleEvents(events =>
+                events.AddWindows(windowsLifecycleBuilder =>
+                    windowsLifecycleBuilder.OnClosed((_, _) => MouseUnsubscribe())))
+            .Build();
     }
     
     private static void MiddleButtonHandler(object sender, MouseEventExtArgs e)

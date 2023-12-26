@@ -6,7 +6,7 @@ public class BlazorDataGridColumn<TItem>: DataGridColumn<TItem>
 {
     public BlazorDataGridColumn()
     {
-        CellClass = _ => "truncate !w-[98%]";
-        HeaderCellClass = "text-xl text-black overflow-hidden";
+        CellClass = _ => "!py-2.5 truncate !w-[98%] xl:!py-4";
+        HeaderCellClass = "text-lg text-black overflow-hidden xl:text-xl";
     }
 }

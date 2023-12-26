@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.Templates;
 
-/// <summary>
-/// Table "Templates".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlTemplateEntity : SqlEntityBase
 {

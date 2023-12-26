@@ -3,9 +3,6 @@ using Ws.Shared.Enums;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Access;
 
-/// <summary>
-/// Table validation "ACCESS".
-/// </summary>
 public sealed class SqlAccessValidator : SqlTableValidator<SqlAccessEntity>
 {
 

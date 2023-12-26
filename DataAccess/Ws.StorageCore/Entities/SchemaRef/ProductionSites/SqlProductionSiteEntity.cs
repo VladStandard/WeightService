@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
-/// <summary>
-/// Table "ProductionSite".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlProductionSiteEntity : SqlEntityBase
 {

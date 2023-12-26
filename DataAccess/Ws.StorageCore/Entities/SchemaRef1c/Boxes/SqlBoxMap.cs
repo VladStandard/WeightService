@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
-/// <summary>
-/// Table map "BOXES".
-/// </summary>
 public class SqlBoxMap : ClassMapping<SqlBoxEntity>
 {
     public SqlBoxMap()

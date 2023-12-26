@@ -13,7 +13,7 @@ public static class RouteUtils
 
     public static string SectionPlus => "/section/plus";
     public static string SectionPlusLines => "/section/plus_lines";
-    public static string SectionPlusLabels => "/section/plus_labels";
+    public static string SectionPlusLabels => "/section/labels";
     public static string SectionPlusStorage => "/section/plus_storage";
     public static string SectionPlusNestingFks => "/section/plus_nesting";
     public static string SectionPlusWeightings => "/section/plus_weightings";

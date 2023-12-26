@@ -11,7 +11,6 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
     {
         ButtonSettings.IsShowMark = false;
         SqlCrudConfigSection.IsResultOrder = true;
-        SqlCrudConfigSection.AddFilter(SqlRestrictions.Equal(nameof(SqlPluScaleEntity.IsActive), true));
     }
     
     protected override void SetSqlSectionCast()
@@ -24,11 +23,6 @@ public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
         await DialogService.OpenAsync<AddPlusLines>($"{Line.Description} | ПЛУ", 
         new(){ {"Line", Line} }, 
         new() { Width = "1000px", Height = "700px"});
-    }
-    protected override async Task SqlItemDeleteAsync()
-    {
-        SqlItemCast.IsActive = false;
-        await base.SqlItemDeleteAsync();
     }
 
     protected override async Task SqlItemOpenAsync()

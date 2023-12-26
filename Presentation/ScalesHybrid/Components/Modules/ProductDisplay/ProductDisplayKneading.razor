@@ -1,7 +1,7 @@
 @using Blazor.Heroicons.Outline
 <li>
   <ProductDisplayItem Label="@Localizer["ProductDisplayNestingLabel"]">
-    <p class="text-2xl font-medium text-center line-clamp-2">
+    <p class="text-xl font-medium text-center line-clamp-2 xl:text-2xl">
       @GetFormattedPluNestingName()
     </p>
   </ProductDisplayItem>
@@ -15,9 +15,9 @@
                 overflow-hidden transition-colors hover:bg-sky-200"
         @onclick="DecreaseDate"
       >
-        <ChevronLeftIcon class="h-10 w-10"/>
+        <ChevronLeftIcon class="h-full w-full px-3 py-3"/>
       </button>
-      <p class="text-3xl w-2/5 flex items-center justify-center font-medium truncate">
+      <p class="text-xl w-2/5 flex items-center justify-center font-medium truncate xl:text-3xl">
         @LineContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
       </p>
       <div class="w-[30%] flex gap-2 h-full">
@@ -26,14 +26,14 @@
           class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-md
                   overflow-hidden transition-colors hover:bg-sky-200"
           @onclick="ResetDate">
-          <ArrowPathIcon class="h-10 w-10"/>
+          <ArrowPathIcon class="h-full w-full px-3 py-3"/>
         </button>
         <button
           type="button"
           class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-md
                   overflow-hidden transition-colors hover:bg-sky-200"
           @onclick="IncreaseDate">
-          <ChevronRightIcon class="h-10 w-10"/>
+          <ChevronRightIcon class="h-full w-full px-3 py-3"/>
         </button>
       </div>
     </div>
@@ -43,7 +43,7 @@
   <ProductDisplayItem Label="@Localizer["ProductDisplayKneadingLabel"]">
     <div class="flex items-center w-full h-full">
       <div class="w-[30%] h-full"></div>
-      <p class="text-3xl flex items-center justify-center w-2/5 font-medium truncate">
+      <p class="text-xl flex items-center justify-center w-2/5 font-medium truncate xl:text-3xl">
         @LineContext.KneadingModel.KneadingCount
       </p>
       <button
