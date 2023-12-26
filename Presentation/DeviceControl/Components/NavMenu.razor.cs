@@ -28,9 +28,6 @@ public sealed partial class NavMenu : ComponentBase
             SubItems = new()
             {
                 new(Locale.SectionLabels, RouteUtils.SectionPlusLabels),
-                new(Locale.SectionBarCodes, RouteUtils.SectionBarCodes),
-                new(Locale.SectionWeighings, RouteUtils.SectionPlusWeightings),
-                new(Locale.SectionWeithingFactsAggregationShort, RouteUtils.SectionPlusLabelsAggr)
             }
         },
         new()
