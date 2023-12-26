@@ -17,15 +17,5 @@ SELECT {SqlQueries.GetTopRecords(records)}
     ,[FILENAME]
 FROM [diag].[VIEW_TABLES_SIZES]
 ORDER BY [USED_SPACE_MB] DESC");
-        
-        public static string GetLabelsAggr(int records) => SqlQueries.TrimQuery($@"
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
-SELECT {SqlQueries.GetTopRecords(records)}
-		 [CREATE_DT]
-		,[WITHOUT_WEIGHT_COUNT]
-		,[WEIGHT_COUNT]
-		,[COUNT_TOTAL]
-FROM [PRINT].[VIEW_PLUS_LABELS_AGGR]
-ORDER BY [CREATE_DT] DESC;");
     }
 }
