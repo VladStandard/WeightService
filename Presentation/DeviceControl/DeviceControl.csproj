@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+    
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Version>1.1.9.0</Version>
         <Authors>Владимирский стандарт</Authors>
@@ -13,17 +14,17 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
+    
     <ItemGroup>
-        <PackageReference Include="Blazor.Heroicons" Version="2.0.1" />
-        <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
+        <PackageReference Include="Blazor.Heroicons" Version="2.1.2" />
         <PackageReference Include="Blazorise.Components" Version="1.4.0" />
         <PackageReference Include="Blazorise.DataGrid" Version="1.4.0" />
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="7.0.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
-        <PackageReference Include="Radzen.Blazor" Version="4.21.3" />
     </ItemGroup>
+    
     <ItemGroup>
         <SupportedPlatform Include="browser" />
     </ItemGroup>
@@ -53,6 +54,7 @@
       <AdditionalFiles Include="Features\Layout\NavMenu.razor" />
       <AdditionalFiles Include="Features\Layout\NavMenuItem.razor" />
     </ItemGroup>
+    
     <ItemGroup>
       <EmbeddedResource Update="Resources\ApplicationResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
@@ -67,6 +69,7 @@
         <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
+    
     <ItemGroup>
       <Compile Update="Resources\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>
@@ -84,10 +87,13 @@
         <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+    
     <ItemGroup>
       <Folder Include="Features\Sections\References1C\Plus\" />
     </ItemGroup>
+    
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>
+
 </Project>

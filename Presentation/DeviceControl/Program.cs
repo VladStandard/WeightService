@@ -1,11 +1,9 @@
-using Blazored.LocalStorage;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
 using DeviceControl.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using Radzen;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
 
@@ -20,7 +18,6 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddOptions();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
 builder.Services
@@ -38,10 +35,6 @@ builder.Services.AddLocalization();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<JsService>();
-builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 
 #endregion
@@ -65,14 +58,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-string[] supportedCultures = { "ru-RU", "en-US" };
-RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("ru-RU")
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
-
-app.UseRequestLocalization(localizationOptions);
+app.UseRequestLocalization("ru-RU");
 
 SqlCoreHelper.Instance.SetSessionFactory(false);
 
