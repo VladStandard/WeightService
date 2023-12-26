@@ -31,10 +31,10 @@ jobs:
       - name: Install dependencies
         run: nuget restore WeightService2022.sln
 
-      - name: Build app for ReleaseVS Any CPU
+      - name: Build app for ReleaseVS X64
         run: msbuild WeightService2022.sln -t:rebuild -verbosity:quiet -property:Configuration=ReleaseVS -property:Platform="x64"
       
-      - name: Tests for DevelopVS Any CPU
+      - name: Tests for DevelopVS X64
         run: |
             dotnet test Tests/Ws.Labels.Tests/Ws.Labels.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"
             dotnet test Tests/Ws.Shared.Tests/Ws.Shared.Tests.csproj --no-restore --verbosity quiet -property:Configuration=ReleaseVS -property:Platform="x64"

@@ -1,12 +1,10 @@
 ﻿using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
-using Microsoft.UI;
-using Microsoft.UI.Windowing;
 using ScalesHybrid.Events;
-using WinRT.Interop;
-using Window=Microsoft.UI.Xaml.Window;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
