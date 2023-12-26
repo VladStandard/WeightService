@@ -111,7 +111,6 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlPluNestingFkMap>();
         mapper.AddMapping<SqlPluStorageMethodFkMap>();
         mapper.AddMapping<SqlPluTemplateFkMap>();
-        mapper.AddMapping<SqlLogMap>();
 
         mapper.AddMapping<SqlViewLabelMap>();
         

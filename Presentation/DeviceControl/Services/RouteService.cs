@@ -48,7 +48,6 @@ public class RouteService
             SqlBrandEntity => RouteUtils.SectionBrands,
             SqlBundleEntity => RouteUtils.SectionBundles,
             SqlHostEntity => RouteUtils.SectionHosts,
-            SqlLogEntity => RouteUtils.SectionLogs,
             SqlViewLabel => RouteUtils.SectionPlusLabels,
             SqlLabelEntity => RouteUtils.SectionPlusLabels,
             SqlPluEntity => RouteUtils.SectionPlus,

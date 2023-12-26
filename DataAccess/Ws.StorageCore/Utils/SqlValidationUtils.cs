@@ -31,7 +31,6 @@ public static class SqlValidationUtils
             SqlBundleEntity bundle => new SqlBundleValidator(isCheckIdentity).Validate(bundle),
             SqlClipEntity clip => new SqlClipValidator(isCheckIdentity).Validate(clip),
             SqlHostEntity device => new SqlHostValidator(isCheckIdentity).Validate(device),
-            SqlLogEntity log => new SqlLogValidator(isCheckIdentity).Validate(log),
             SqlLogWebEntity logWeb => new SqlLogWebValidator(isCheckIdentity).Validate(logWeb),
             SqlPluFkEntity pluFk => new SqlPluFkValidator(isCheckIdentity).Validate(pluFk),
             SqlPluEntity plu => new SqlPluValidator(isCheckIdentity).Validate(plu),

@@ -25,27 +25,6 @@ public sealed class SqlPluScaleMap : ClassMapping<SqlPluScaleEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.ChangeDt, m =>
-        {
-            m.Column("CHANGE_DT");
-            m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.IsActive, m =>
-        {
-            m.Column("IS_ACTIVE");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
         ManyToOne(x => x.Plu, m =>
         {
             m.Column("PLU_UID");

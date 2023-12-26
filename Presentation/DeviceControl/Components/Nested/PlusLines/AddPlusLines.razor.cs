@@ -30,7 +30,6 @@ public sealed partial class AddPlusLines
             SqlCrudConfigModel sqlCrud = SqlCrudConfigFactory.GetCrudActual();
             sqlCrud.AddFilters(new() {
                 SqlRestrictions.EqualFk(nameof(SqlPluScaleEntity.Line), Line),
-                SqlRestrictions.Equal(nameof(SqlPluScaleEntity.IsActive), true)
             });
             List<short> pluNumbersActive = new SqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
             
@@ -55,7 +54,6 @@ public sealed partial class AddPlusLines
         foreach (SqlPluEntity plu in SelectedPlus)
         {
             SqlPluScaleEntity pluScale = new SqlPluLineRepository().GetItemByLinePlu(Line, plu);
-            pluScale.IsActive = true;
             if (pluScale.IsNew)
             {
                 pluScale.Line = Line;
