@@ -4,51 +4,45 @@
 <SectionDataGridWrapper
   TItem="SqlLineEntity"
   @ref="DataGridWrapperRef"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  ReadAction="OpenDataGridEntityModal"
-  GetGridData="GetSectionData"
-  AddAction="OpenSectionCreateForm"
   Title="@Localizer["SectionLines"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  DeleteAction="DeleteSqlItem"
+  IsLoading="IsLoading"
 >
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnVersion"]"
     Field="@nameof(SqlLineEntity.Version)"
     Width="5%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnLine"]"
     Field="@nameof(SqlLineEntity.Description)"
     Width="15%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="@nameof(SqlLineEntity.Number)"
     Width="10%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnDevice"]"
     Field="Host.Name"
     Width="20%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnPrinter"]"
     Field="Printer.Name"
     Width="20%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnWorkshop"]"
     Field="WorkShop.Name"
     Width="20%"
   />
   <SectionDataGridColumn
-    TItem="SqlLineEntity"
     Caption="@Localizer["DataGridColumnCounter"]"
     Field="@nameof(SqlLineEntity.LabelCounter)"
     Width="10%"

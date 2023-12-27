@@ -1,23 +1,22 @@
 @inherits SectionDataGridBase<SqlTemplateResourceEntity>
 
+
 <SectionDataGridWrapper
   TItem="SqlTemplateResourceEntity"
   @ref="DataGridWrapperRef"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  ReadAction="OpenDataGridEntityModal"
-  GetGridData="GetSectionData"
-  AddAction="OpenSectionCreateForm"
   Title="@Localizer["SectionTemplatesResources"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  IsLoading="IsLoading"
 >
   <SectionDataGridColumn
-    TItem="SqlTemplateResourceEntity"
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(SqlTemplateResourceEntity.Name)"
     Width="80%"
   />
   <SectionDataGridColumn
-    TItem="SqlTemplateResourceEntity"
     Caption="@Localizer["DataGridColumnSize"]"
     Field="@nameof(SqlTemplateResourceEntity.DataValue)"
     Width="20%"

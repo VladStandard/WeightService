@@ -4,15 +4,17 @@ using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Shared.DataGrid;
 
-public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase where TItem: SqlEntityBase, new()
+[CascadingTypeParameter(nameof(TItem))]
+public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : SqlEntityBase, new()
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
 
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
@@ -31,11 +33,30 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase where T
     private Point ContextMenuPos { get; set; } = new();
     private TItem ContextMenuItem { get; set; } = new();
     private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
+    private IJSObjectReference Module { get; set; } = null!;
+    private TItem? SelectedItem { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         InitializeContextMenu();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
+            "import", "./Features/Shared/DataGrid/SectionDataGridWrapper.razor.js");
+        await Module.InvokeVoidAsync("addClickOutsideListener", 
+            "dataGridContextMenu", DotNetObjectReference.Create(this));
+    }
+    
+    [JSInvokable]
+    public void ContextMenuClickedOutsideAction()
+    {
+        SelectedItem = null;
+        IsVisibleContextMenu = false;
+        StateHasChanged();
     }
 
     private void InitializeContextMenu()
@@ -67,6 +88,7 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase where T
     {
         IsVisibleContextMenu = true;
         ContextMenuItem = eventArgs.Item;
+        SelectedItem = ContextMenuItem;
         ContextMenuPos = eventArgs.MouseEventArgs.Client;
         return Task.CompletedTask;
     }
@@ -92,6 +114,7 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase where T
 
     private Task OnDoubleClick(DataGridRowMouseEventArgs<TItem> eventArgs)
     {
+        SelectedItem = null;
         ReadAction.InvokeAsync(eventArgs.Item);
         return Task.CompletedTask;
     }
@@ -100,6 +123,12 @@ public sealed partial class SectionDataGridWrapper<TItem>: ComponentBase where T
     {
         await GetGridData.InvokeAsync();
         await DataGrid.Reload();
+    }
+    
+    public async void Dispose()
+    {
+        await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
+        await Module.DisposeAsync();
     }
 }
 

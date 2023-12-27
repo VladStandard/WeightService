@@ -4,21 +4,19 @@
 <SectionDataGridWrapper
   TItem="SqlWorkShopEntity"
   @ref="DataGridWrapperRef"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  ReadAction="OpenDataGridEntityModal"
-  GetGridData="GetSectionData"
-  AddAction="OpenSectionCreateForm"
   Title="@Localizer["SectionWorkshops"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  IsLoading="IsLoading"
 >
   <SectionDataGridColumn
-    TItem="SqlWorkShopEntity"
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(SqlLineEntity.Name)"
     Width="50%"
   />
   <SectionDataGridColumn
-    TItem="SqlWorkShopEntity"
     Caption="@Localizer["DataGridColumnProductionSite"]"
     Field="ProductionSite.Name"
     Width="50%"

@@ -3,6 +3,7 @@ using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Ws.StorageCore.Common;
+using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Models;
 using Ws.StorageCore.Utils;
 
@@ -55,6 +56,12 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
             p.Add(x => x.DialogSectionEntity, sectionEntity);
             p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
         });
+    }
+
+    protected virtual Task DeleteSqlItem(TItem item)
+    {
+        SqlCoreHelper.Instance.Delete(item);
+        return Task.CompletedTask;
     }
 
     protected async Task ReloadGrid() => await DataGridWrapperRef.ReloadData();

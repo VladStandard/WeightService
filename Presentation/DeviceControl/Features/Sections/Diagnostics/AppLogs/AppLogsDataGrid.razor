@@ -1,44 +1,40 @@
 @inherits SectionDataGridBase<SqlLogEntity>
 
+
 <SectionDataGridWrapper
   TItem="SqlLogEntity"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  GetGridData="GetSectionData"
+  @ref="DataGridWrapperRef"
   Title="@Localizer["SectionAppsLogs"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  IsLoading="IsLoading"
 >
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnCreateDt"]"
     Field="@nameof(SqlLogEntity.CreateDt)"
     Width="15%"
   />
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnDevice"]"
     Field="Device.Name"
     Width="15%"
   />
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnApp"]"
     Field="App.Name"
     Width="15%"
   />
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnVersion"]"
     Field="@nameof(SqlLogEntity.Version)"
     Width="10%"
   />
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnLogType"]"
     Field="@nameof(SqlLogEntity.Type)"
     Width="10%"
   />
   <SectionDataGridColumn
-    TItem="SqlLogEntity"
     Caption="@Localizer["DataGridColumnMessage"]"
     Field="@nameof(SqlLogEntity.Message)"
     Width="35%"

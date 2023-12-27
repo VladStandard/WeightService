@@ -1,28 +1,26 @@
 @inherits SectionDataGridBase<SqlBoxEntity>
 
+
 <SectionDataGridWrapper
   TItem="SqlBoxEntity"
   @ref="DataGridWrapperRef"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  ReadAction="OpenDataGridEntityModal"
-  GetGridData="SetSqlSectionCast"
   Title="@Localizer["SectionBoxes"]"
+  GridData="SectionItems"
+  GetGridData="SetSqlSectionCast"
+  ReadAction="OpenDataGridEntityModal"
+  IsLoading="IsLoading"
 >
   <SectionDataGridColumn
-    TItem="SqlBoxEntity"
     Caption="@Localizer["DataGridColumnChangeDt"]"
     Field="@nameof(SqlBoxEntity.ChangeDt)"
     Width="20%"
   />
   <SectionDataGridColumn
-    TItem="SqlBoxEntity"
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(SqlBoxEntity.Name)"
     Width="60%"
   />
   <SectionDataGridColumn
-    TItem="SqlBoxEntity"
     Caption="@Localizer["DataGridColumnBoxWeight"]"
     Field="@nameof(SqlBoxEntity.Weight)"
     Width="20%"

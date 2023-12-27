@@ -1,4 +1,6 @@
-@typeparam TItem
+@typeparam TItem where TItem: SqlEntityBase, new()
+@attribute [CascadingTypeParameter(nameof(TItem))]
+@using Ws.StorageCore.Common
 @using Blazor.Heroicons.Outline
 @using Blazor.Heroicons
 
@@ -60,6 +62,7 @@
       TItem="TItem"
       @ref="DataGrid"
       Data="GridData"
+      SelectedRow="SelectedItem"
       Filterable="IsFilterable"
       RowDoubleClicked="OnDoubleClick"
       ItemsPerPage="ItemsPerPage"
@@ -103,14 +106,14 @@
 
 @if ( IsVisibleContextMenu )
 {
-  <div class="absolute flex bg-gray-50 flex-col rounded-md border border-black/[.1] overflow-hidden" style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")">
+  <div id="dataGridContextMenu" class="absolute flex flex-col rounded-md border border-black/[.1] overflow-hidden" style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")">
     <ul>
       @foreach (ContextMenuEntry entry in ContextMenuEntries)
       {
         <li>
           <button
             type="button"
-            class="w-full items-center h-9 px-4 flex gap-3"
+            class="w-full bg-gray-50 items-center h-9 px-4 flex gap-3 transition-colors hover:bg-gray-200"
             @onclick="@entry.OnClickAction"
           >
             <Heroicon
@@ -118,7 +121,7 @@
               Type="HeroiconType.Outline"
               class="h-4 w-4 text-gray-500"
             />
-            <p>@entry.Name</p>
+            <p class="text-sm">@entry.Name</p>
           </button>
         </li>
       }
