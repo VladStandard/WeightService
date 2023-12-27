@@ -4,6 +4,7 @@ using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.Templates;
 
@@ -12,9 +13,6 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateE
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     private SqlTemplateRepository TemplateRepository { get; } = new();
-    
-    protected override Func<SqlTemplateEntity, bool> SearchCondition =>
-        item => item.IdentityValueId.ToString() == SearchingSectionItemId;
 
     protected override async Task OpenDataGridEntityModal(SqlTemplateEntity item)
         => await OpenSectionModal<TemplatesUpdateDialog>(item);
@@ -24,4 +22,10 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateE
 
     protected override void SetSqlSectionCast() =>
         SectionItems = TemplateRepository.GetList(SqlCrudConfigSection);
+    
+    protected override void SetSqlSearchingCast()
+    {
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlTemplateEntity>(itemUid) };
+    }
 }

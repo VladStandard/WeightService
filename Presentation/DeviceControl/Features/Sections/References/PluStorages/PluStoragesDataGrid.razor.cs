@@ -3,6 +3,7 @@ using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.PluStorages;
 
@@ -12,9 +13,6 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
     
     private SqlPluStorageMethodRepository PluStorageRepository { get; } = new();
     
-    protected override Func<SqlPluStorageMethodEntity, bool> SearchCondition =>
-        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
-    
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PluStoragesCreateDialog>(new());
     
@@ -23,4 +21,10 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
 
     protected override void SetSqlSectionCast() =>
         SectionItems = PluStorageRepository.GetList(SqlCrudConfigSection);
+    
+    protected override void SetSqlSearchingCast()
+    {
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlPluStorageMethodEntity>(itemUid) };
+    }
 }

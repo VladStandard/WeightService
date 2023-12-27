@@ -3,6 +3,7 @@ using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
@@ -12,9 +13,6 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
     
     private SqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
     
-    protected override Func<SqlTemplateResourceEntity, bool> SearchCondition =>
-        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
-    
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
     
@@ -23,6 +21,12 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
 
     protected override void SetSqlSectionCast() =>
         SectionItems = TemplateResourceRepository.GetList(SqlCrudConfigSection);
+    
+    protected override void SetSqlSearchingCast()
+    {
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlTemplateResourceEntity>(itemUid) };
+    }
     
     private static string ConvertBytes(int fileSize) =>
         fileSize > 1024 ? $"{fileSize / 1024:### ##0} Kb" : $"{fileSize:##0} bytes";

@@ -4,6 +4,7 @@ using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.Workshops;
 
@@ -13,9 +14,6 @@ public sealed partial class WorkshopsDataGrid: SectionDataGridBase<SqlWorkShopEn
     
     private SqlWorkShopRepository WorkshopRepository { get; } = new();
     
-    protected override Func<SqlWorkShopEntity, bool> SearchCondition =>
-        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
-    
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<WorkshopsCreateDialog>(new());
     
@@ -24,4 +22,10 @@ public sealed partial class WorkshopsDataGrid: SectionDataGridBase<SqlWorkShopEn
 
     protected override void SetSqlSectionCast() =>
         SectionItems = WorkshopRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+    
+    protected override void SetSqlSearchingCast()
+    {
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlWorkShopEntity>(itemUid) };
+    }
 }

@@ -1,5 +1,4 @@
 using Blazorise;
-using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Ws.StorageCore.Common;
@@ -18,25 +17,22 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     protected List<TItem> SectionItems { get; set; } = new();
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudActual();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
-    protected virtual Func<TItem, bool> SearchCondition { get; } = _ => false;
     protected bool IsLoading { get; set; } = true;
+    protected bool IsFirstLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
         await GetSectionData();
-        await OpenSearchingEntityModal();
     }
-    
+
     protected virtual void SetSqlSectionCast()
     {
         throw new NotImplementedException();
     }
 
-    protected async Task OpenSearchingEntityModal()
+    protected virtual void SetSqlSearchingCast()
     {
-        if (string.IsNullOrEmpty(SearchingSectionItemId)) return;
-        TItem? item = SectionItems.FirstOrDefault(item => item != null && SearchCondition(item), null);
-        if (item != null) await OpenDataGridEntityModal(item);
+        throw new NotImplementedException();
     }
     
     protected virtual Task OpenDataGridEntityModal(TItem item)
@@ -69,7 +65,19 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     public async Task GetSectionData()
     {
         IsLoading = true;
-        await Task.Run(SetSqlSectionCast);
+        
+        if (!string.IsNullOrEmpty(SearchingSectionItemId) && IsFirstLoading)
+        {
+            await Task.Run(SetSqlSearchingCast);
+            IsFirstLoading = false;
+            SectionItems = SectionItems.Where(i => !i.IsNew).ToList();
+            if (SectionItems.Any()) await OpenDataGridEntityModal(SectionItems.First());
+        }
+        else
+        {
+            await Task.Run(SetSqlSectionCast);
+        }
+            
         IsLoading = false;
         StateHasChanged();
     }

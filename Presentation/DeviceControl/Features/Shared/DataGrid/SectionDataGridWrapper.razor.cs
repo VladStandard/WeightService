@@ -127,8 +127,16 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     
     public async void Dispose()
     {
-        await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
-        await Module.DisposeAsync();
+        try
+        {
+            await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
+            await Module.DisposeAsync();
+        }
+        catch (JSDisconnectedException)
+        {
+            // pass error
+        }
+        
     }
 }
 

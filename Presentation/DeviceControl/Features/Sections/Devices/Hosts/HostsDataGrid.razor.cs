@@ -14,9 +14,6 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
     
     private SqlHostRepository HostRepository { get; } = new();
 
-    protected override Func<SqlHostEntity, bool> SearchCondition =>
-        item => item.IdentityValueUid.ToString() == SearchingSectionItemId;
-
     protected override async Task OpenDataGridEntityModal(SqlHostEntity item)
         => await OpenSectionModal<HostsUpdateDialog>(item);
     
@@ -25,4 +22,10 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
 
     protected override void SetSqlSectionCast() =>
         SectionItems = HostRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+    
+    protected override void SetSqlSearchingCast()
+    {
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { HostRepository.GetItemByUid(itemUid) };
+    }
 }
