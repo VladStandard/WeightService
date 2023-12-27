@@ -13,7 +13,7 @@ public class LineContextConfigRegister : IRegister
             .Map(d => d.PluNumber, s => s.Plu.Number)
             .Map(d => d.Kneading, s => s.KneadingModel.KneadingCount)
             .Map(d => d.WeightTare, s => s.PluNesting.WeightTare)
-            .Map(d => d.LineCounter, s => s.Line.LabelCounter)
+            .Map(d => d.LineCounter, s => s.Line.Counter)
             .Map(d => d.BundleCount, s => s.PluNesting.BundleCount)
             .Map(d => d.IsCheckWeight, s => s.Plu.IsCheckWeight)
             .Map(d => d.Itf, s => s.Plu.Itf14)

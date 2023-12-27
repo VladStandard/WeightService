@@ -1,6 +1,7 @@
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 namespace DeviceControl.Services;

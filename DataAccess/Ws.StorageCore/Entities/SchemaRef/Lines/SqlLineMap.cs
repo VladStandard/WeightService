@@ -1,50 +1,43 @@
-namespace Ws.StorageCore.Entities.SchemaScale.Scales;
+namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
 {
     public SqlLineMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
-        Table(SqlTablesUtils.Scales);
+        Schema(SqlSchemasUtils.Ref);
+        Table(SqlTablesUtils.Lines);
 
-        Id(x => x.IdentityValueId, m =>
+        Id(x => x.IdentityValueUid, m =>
         {
-            m.Column("Id");
-            m.Type(NHibernateUtil.Int64);
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Identity);
         });
 
         Property(x => x.CreateDt, m =>
         {
-            m.Column("CreateDate");
+            m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
         Property(x => x.ChangeDt, m =>
         {
-            m.Column("ModifiedDate");
+            m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("Marked");
-            m.Type(NHibernateUtil.Boolean);
             m.NotNullable(true);
         });
 
         Property(x => x.Description, m =>
         {
-            m.Column("Description");
+            m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(150);
         });
 
-        Property(x => x.DeviceComPort, m =>
+        Property(x => x.ComPort, m =>
         {
-            m.Column("DeviceComPort");
+            m.Column("COM_PORT");
             m.Type(NHibernateUtil.String);
             m.Length(5);
         });
@@ -56,23 +49,16 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.LabelCounter, m =>
+        Property(x => x.Counter, m =>
         {
             m.Column("COUNTER");
             m.Type(NHibernateUtil.Int32);
             m.NotNullable(true);
         });
-
-        Property(x => x.ClickOnce, m =>
-        {
-            m.Column("CLICK_ONCE");
-            m.Type(NHibernateUtil.String);
-            m.NotNullable(true);
-        });
         
         Property(x => x.Version, m =>
         {
-            m.Column("VerScalesUI");
+            m.Column("VERSION");
             m.Type(NHibernateUtil.String);
             m.NotNullable(false);
         });

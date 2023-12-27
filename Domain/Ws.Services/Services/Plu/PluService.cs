@@ -1,8 +1,8 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 
 namespace Ws.Services.Services.Plu;

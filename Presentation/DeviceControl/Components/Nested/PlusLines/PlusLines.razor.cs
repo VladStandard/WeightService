@@ -1,3 +1,4 @@
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.OrmUtils;
 

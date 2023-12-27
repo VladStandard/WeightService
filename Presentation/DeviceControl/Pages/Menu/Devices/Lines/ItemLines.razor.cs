@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 

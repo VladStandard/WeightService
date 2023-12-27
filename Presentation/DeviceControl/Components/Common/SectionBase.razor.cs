@@ -27,7 +27,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         SqlSectionCast = new();
         SqlSectionSave = new();
 
-        SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudActual();
+        SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudAll();
         IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
         ButtonSettings = ButtonSettingsModel.CreateForSection();

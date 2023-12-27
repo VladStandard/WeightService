@@ -15,7 +15,7 @@ namespace ScalesHybrid.Services
             result.Itf = p1.Plu == null ? null : p1.Plu.Itf14;
             result.Gtin = p1.Plu == null ? null : p1.Plu.Gtin;
             result.LineNumber = funcMain3(p1.Line == null ? null : (int?)p1.Line.Number, result.LineNumber);
-            result.LineCounter = funcMain4(p1.Line == null ? null : (int?)p1.Line.LabelCounter, result.LineCounter);
+            result.LineCounter = funcMain4(p1.Line == null ? null : (int?)p1.Line.Counter, result.LineCounter);
             result.LineName = p1.Line == null ? null : p1.Line.Description;
             result.Plu1СGuid = funcMain5(p1.Plu == null ? null : (System.Guid?)p1.Plu.Uid1C, result.Plu1СGuid);
             result.PluNumber = funcMain6(p1.Plu == null ? null : (short?)p1.Plu.Number, result.PluNumber);

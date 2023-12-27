@@ -1,5 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
+﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
 

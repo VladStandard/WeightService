@@ -1,15 +1,11 @@
-﻿using Ws.StorageCore.Entities.SchemaScale.Scales;
+﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
 
-namespace Ws.StorageCoreTests.Tables.TableScaleModels.Lines;
+namespace Ws.StorageCoreTests.Tables.TableRefModels.Lines;
 
 [TestFixture]
 public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private SqlLineRepository LineRepository { get; } = new();
-    private SqlLineEntity GetFirstLineModel()
-    {
-        return LineRepository.GetEnumerable(SqlCrudConfig).First();
-    }
 
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Description)).Ascending;
 
@@ -24,21 +20,6 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     }
 
     [Test, Order(3)]
-    public void GetById()
-    {
-        TestsUtils.DataTests.AssertAction(() =>
-        {
-            SqlLineEntity oldLine = GetFirstLineModel();
-            SqlLineEntity lineById = LineRepository.GetItemById(oldLine.IdentityValueId);
-
-            Assert.That(lineById.IsExists, Is.True);
-            Assert.That(lineById.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
-
-            TestContext.WriteLine($"Get item success: {lineById.Description}: {lineById.IdentityValueId}");
-        }, false);
-    }
-
-    [Test, Order(4)]
     public void GetItemByDevice()
     {
         TestsUtils.DataTests.AssertAction(() =>

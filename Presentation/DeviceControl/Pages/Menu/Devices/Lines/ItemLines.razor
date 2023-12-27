@@ -4,7 +4,8 @@
 @using DeviceControl.Components.Item
 @using DeviceControl.Components.Nested.PlusLines
 @using DeviceControl.Components.Rz
-@inherits ItemBase<SqlLineEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Lines
+@inherits ItemBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
 
 <ItemTopBar TItem="@SqlLineEntity" Title="@Locale.ItemScale" OnItemUpdate="@GetItemData"/>
 
@@ -19,7 +20,7 @@
     </td>
     <td>@Locale.DeviceComPort</td>
     <td>
-      <RzDropDown @bind-Value="@SqlItemCast.DeviceComPort" Data="@ComPorts"/>
+      <RzDropDown @bind-Value="@SqlItemCast.ComPort" Data="@ComPorts"/>
     </td>
   </tr>
   <tr>
@@ -45,7 +46,7 @@
     </td>
     <td>@Locale.Counter</td>
     <td>
-      <RzNumeric Min="0" Max="999999" @bind-Value="@SqlItemCast.LabelCounter"/>
+      <RzNumeric Min="0" Max="999999" @bind-Value="@SqlItemCast.Counter"/>
     </td>
   </tr>
   <tr>
@@ -53,8 +54,8 @@
     <td>
       <RzNumeric Min="1" Max="99999" @bind-Value="@SqlItemCast.Number"/>
     </td>
-    <td>@Locale.DownloadUrl</td>
-    <td>@SqlItemCast.ClickOnce</td>
+    <td></td>
+    <td></td>
   </tr>
   <ItemDates SqlItem="@SqlItemCast"/>
   </tbody>

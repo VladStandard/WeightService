@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef.Lines;
+
 namespace DeviceControl.Pages.Menu.Devices.Lines;
 
 public sealed partial class Lines : SectionBase<SqlLineEntity>
