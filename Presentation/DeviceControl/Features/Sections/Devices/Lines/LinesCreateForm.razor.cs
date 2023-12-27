@@ -3,6 +3,7 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;

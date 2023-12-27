@@ -7,6 +7,8 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
@@ -23,14 +25,14 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
         => await OpenSectionModal<LinesUpdateDialog>(item);
     
     protected override async Task OpenItemInNewTab(SqlLineEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueId.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();
 
     protected override void SetSqlSearchingCast()
     {
-        long.TryParse(SearchingSectionItemId, out long itemUid);
-        SectionItems = new() { LineRepository.GetItemById(itemUid) };
+        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlLineEntity>(itemUid) };
     }
 }

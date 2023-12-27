@@ -42,6 +42,17 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
         base.OnInitialized();
         InitializeContextMenu();
     }
+    
+    private void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
+        styling.Class = "transition-colors hover:bg-sky-100";
+    
+    
+    private DataGridRowStyling CustomHeaderRowStyling() =>
+        new() { Class = "bg-sky-200 text-black overflow-hidden" };
+    
+    
+    private void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
+        styling.Class = "truncate";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

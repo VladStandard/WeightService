@@ -2,6 +2,7 @@ using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;

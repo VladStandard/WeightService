@@ -1,4 +1,5 @@
 @inherits SectionDataGridBase<SqlWorkShopEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Lines
 
 
 <SectionDataGridWrapper
@@ -12,12 +13,12 @@
   OpenInTabAction="OpenItemInNewTab"
   IsLoading="IsLoading"
 >
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlLineEntity.Name)"
+    Field="@nameof(SqlWorkShopEntity.Name)"
     Width="50%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnProductionSite"]"
     Field="ProductionSite.Name"
     Width="50%"

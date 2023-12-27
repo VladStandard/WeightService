@@ -1,4 +1,5 @@
 @inherits SectionDataGridBase<SqlLineEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Lines
 
 
 <SectionDataGridWrapper
@@ -13,39 +14,39 @@
   OpenInTabAction="OpenItemInNewTab"
   IsLoading="IsLoading"
 >
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnVersion"]"
     Field="@nameof(SqlLineEntity.Version)"
     Width="5%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnLine"]"
     Field="@nameof(SqlLineEntity.Description)"
     Width="15%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="@nameof(SqlLineEntity.Number)"
     Width="10%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnDevice"]"
     Field="Host.Name"
     Width="20%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnPrinter"]"
     Field="Printer.Name"
     Width="20%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnWorkshop"]"
     Field="WorkShop.Name"
     Width="20%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnCounter"]"
-    Field="@nameof(SqlLineEntity.LabelCounter)"
+    Field="@nameof(SqlLineEntity.Counter)"
     Width="10%"
   />
 </SectionDataGridWrapper>

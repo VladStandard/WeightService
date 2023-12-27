@@ -1,5 +1,5 @@
+@inherits SectionDataGridBase<SqlPluLineEntity>
 @using Ws.StorageCore.Entities.SchemaRef.PlusLines
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
 
 
 <SectionDataGridWrapper
@@ -12,12 +12,12 @@
   ItemsPerPage="5"
   IsBorderless
 >
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="Plu.Number"
     Width="10%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
     Field="Plu.IsCheckWeight"
     Width="20%"
@@ -28,8 +28,8 @@
           Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
       </p>
     </DisplayTemplate>
-  </SectionDataGridColumn>
-  <SectionDataGridColumn
+  </DataGridColumn>
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     Field="Plu.Name"
     Width="70%"

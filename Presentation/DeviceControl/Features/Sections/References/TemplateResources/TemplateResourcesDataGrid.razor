@@ -12,12 +12,12 @@
   OpenInTabAction="OpenItemInNewTab"
   IsLoading="IsLoading"
 >
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(SqlTemplateResourceEntity.Name)"
     Width="80%"
   />
-  <SectionDataGridColumn
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnSize"]"
     Field="@nameof(SqlTemplateResourceEntity.DataValue)"
     Width="20%"
@@ -25,5 +25,5 @@
     <DisplayTemplate>
       <p>@ConvertBytes(context.DataValue.Length)</p>
     </DisplayTemplate>
-  </SectionDataGridColumn>
+  </DataGridColumn>
 </SectionDataGridWrapper>

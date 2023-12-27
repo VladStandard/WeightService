@@ -1,14 +1,16 @@
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @inherits SectionFormBase<SqlLineEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Lines
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+
 
 <SectionFormWrapper
   OnSaveAction="() => UpdateItem(SectionEntity)"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  ShareUrl="@($"{RouteUtils.SectionWorkShops}/{SectionEntity.IdentityValueId}")"
+  ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueId.ToString()"
+    Value="@SectionEntity.IdentityValueUid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
   />
@@ -17,13 +19,13 @@
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputText
-    Value="@SectionEntity.DeviceComPort"
+    Value="@SectionEntity.ComPort"
     Label="@Localizer["DataGridColumnCOM"]"
     IsDisabled
   />
   <SectionFormInputNumeric
     TValue="int"
-    @bind-Value="@SectionEntity.LabelCounter"
+    @bind-Value="@SectionEntity.Counter"
     Label="@Localizer["DataGridColumnCounter"]"
     MinValue="0"
   />
