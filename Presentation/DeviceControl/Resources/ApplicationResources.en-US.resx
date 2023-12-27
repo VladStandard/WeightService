@@ -261,4 +261,16 @@
     <data name="DataGridNoResult" xml:space="preserve">
         <value>No results found</value>
     </data>
+    <data name="ContextMenuOpen" xml:space="preserve">
+        <value>Open</value>
+    </data>
+    <data name="ContextMenuOpenInNewTab" xml:space="preserve">
+        <value>Open in new tab</value>
+    </data>
+    <data name="ContextMenuDelete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="ButtonShare" xml:space="preserve">
+        <value>Share</value>
+    </data>
 </root>

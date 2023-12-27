@@ -87,6 +87,42 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share.
+        /// </summary>
+        internal static string ButtonShare {
+            get {
+                return ResourceManager.GetString("ButtonShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ContextMenuDelete {
+            get {
+                return ResourceManager.GetString("ContextMenuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string ContextMenuOpen {
+            get {
+                return ResourceManager.GetString("ContextMenuOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in new tab.
+        /// </summary>
+        internal static string ContextMenuOpenInNewTab {
+            get {
+                return ResourceManager.GetString("ContextMenuOpenInNewTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         internal static string DataGridColumnAddress {

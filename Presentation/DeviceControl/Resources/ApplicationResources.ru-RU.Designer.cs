@@ -87,6 +87,42 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поделиться.
+        /// </summary>
+        internal static string ButtonShare {
+            get {
+                return ResourceManager.GetString("ButtonShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        internal static string ContextMenuDelete {
+            get {
+                return ResourceManager.GetString("ContextMenuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Открыть.
+        /// </summary>
+        internal static string ContextMenuOpen {
+            get {
+                return ResourceManager.GetString("ContextMenuOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Открыть во вкладке.
+        /// </summary>
+        internal static string ContextMenuOpenInNewTab {
+            get {
+                return ResourceManager.GetString("ContextMenuOpenInNewTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Адрес.
         /// </summary>
         internal static string DataGridColumnAddress {

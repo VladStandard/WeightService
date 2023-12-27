@@ -8,5 +8,5 @@ public sealed partial class SectionFormWrapper: ComponentBase
     [Parameter] public DateTime? ChangeDate { get; set; }
     [Parameter] public EventCallback OnSaveAction { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public bool IsSaveable { get; set; } = true;
+    [Parameter] public string ShareUrl { get; set; } = string.Empty;
 }

@@ -5,7 +5,7 @@
 <SectionFormWrapper
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  IsSaveable="false"
+  ShareUrl="@($"{RouteUtils.SectionClips}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"

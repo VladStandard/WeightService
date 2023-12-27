@@ -66,7 +66,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
             ContextMenuEntries = 
                 ContextMenuEntries.Append(new()
                 {
-                    Name = "Open",
+                    Name = Localizer["ContextMenuOpen"],
                     IconName = HeroiconName.ArrowTopRightOnSquare,
                     OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenClicked)
                 });
@@ -74,14 +74,14 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
             ContextMenuEntries = 
                 ContextMenuEntries.Append(new()
                 {
-                    Name = "Open in new tab",
+                    Name = Localizer["ContextMenuOpenInNewTab"],
                     IconName = HeroiconName.ArrowTopRightOnSquare,
                     OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenInNewTabClicked)
                 });
         if (DeleteAction.HasDelegate) 
             ContextMenuEntries = ContextMenuEntries.Append(new()
             {
-                Name = "Delete",
+                Name = Localizer["ContextMenuDelete"],
                 IconName = HeroiconName.Trash,
                 OnClickAction = EventCallback.Factory.Create(this, OnContextItemDeleteClicked)
             });

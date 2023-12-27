@@ -22,7 +22,7 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
         => await OpenSectionModal<HostsCreateDialog>(new());
     
     protected override async Task OpenItemInNewTab(SqlHostEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionHosts}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionHosts}/{item.IdentityValueUid}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = HostRepository.GetEnumerable(SqlCrudConfigSection).ToList();

@@ -5,6 +5,7 @@
   OnSaveAction="() => UpdateItem(SectionEntity)"
   CreateDate="@SectionEntity.CreateDt"
   ChangeDate="@SectionEntity.ChangeDt"
+  ShareUrl="@($"{RouteUtils.SectionPrinters}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"

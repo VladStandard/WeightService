@@ -89,6 +89,42 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ButtonShare {
+            get {
+                return ResourceManager.GetString("ButtonShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextMenuDelete {
+            get {
+                return ResourceManager.GetString("ContextMenuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextMenuOpen {
+            get {
+                return ResourceManager.GetString("ContextMenuOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ContextMenuOpenInNewTab {
+            get {
+                return ResourceManager.GetString("ContextMenuOpenInNewTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnAddress {
             get {
                 return ResourceManager.GetString("DataGridColumnAddress", resourceCulture);
