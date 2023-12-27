@@ -27,9 +27,9 @@ public class SqlPluLineEntity : SqlEntityBase
         if (obj.GetType() != GetType()) return false;
         return Equals((SqlPluLineEntity)obj);
     }
-
-    public override int GetHashCode() => (Plu, Scale: Line).GetHashCode();
-
+    
+    public override int GetHashCode() => base.GetHashCode();
+    
     public override void FillProperties()
     {
         base.FillProperties();

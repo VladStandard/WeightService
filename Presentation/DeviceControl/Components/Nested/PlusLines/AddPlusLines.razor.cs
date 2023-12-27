@@ -28,7 +28,7 @@ public sealed partial class AddPlusLines
     {
         if (firstRender)
         {
-            SqlCrudConfigModel sqlCrud = SqlCrudConfigFactory.GetCrudActual();
+            SqlCrudConfigModel sqlCrud = new();
             sqlCrud.AddFilters(new() {
                 SqlRestrictions.EqualFk(nameof(SqlPluLineEntity.Line), Line),
             });

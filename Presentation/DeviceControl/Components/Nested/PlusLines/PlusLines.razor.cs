@@ -16,6 +16,7 @@ public sealed partial class PlusLines : SectionBase<SqlPluLineEntity>
     
     protected override void SetSqlSectionCast()
     {
+        SqlCrudConfigSection = new() { IsResultOrder = true };
         SqlSectionCast = PluLineRepository.GetListByLine(Line, SqlCrudConfigSection);
     }
 
