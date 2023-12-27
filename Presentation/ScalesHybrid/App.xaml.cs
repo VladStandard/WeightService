@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 namespace ScalesHybrid;
