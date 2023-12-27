@@ -4,7 +4,7 @@ public sealed class SqlClipMap : ClassMapping<SqlClipEntity>
 {
     public SqlClipMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
+        Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Clips);
 
         Id(x => x.IdentityValueUid, m =>
@@ -25,13 +25,6 @@ public sealed class SqlClipMap : ClassMapping<SqlClipEntity>
         {
             m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
             m.NotNullable(true);
         });
 

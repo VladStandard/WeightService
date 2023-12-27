@@ -1,7 +1,8 @@
 ﻿@attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Section
 @using DeviceControl.Components.Rz
-@inherits SectionBase<SqlPluScaleEntity>
+@using Ws.StorageCore.Entities.SchemaRef.PlusLines
+@inherits SectionBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
 
 <SectionTopBar
   Title="@Locale.SectionPlusScales"
@@ -13,7 +14,7 @@
   ButtonSettings="@ButtonSettings"/>
 
 <RzDataGrid
-  TItem="@SqlPluScaleEntity"
+  TItem="@SqlPluLineEntity"
   @ref="@DataGrid"
   @bind-Value="@SelectedRow"
   Data="@SqlSectionCast"
@@ -22,7 +23,7 @@
   RowSelect="@SqlItemSet"
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
-    <TItemContent TItem="@SqlPluScaleEntity">
+    <TItemContent TItem="@SqlPluLineEntity">
       <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
       <RadzenDataGridColumn Title="@Locale.Plu" Property="Plu.Name" />
       <RadzenDataGridColumn Title="@Locale.NumberShort" Property="Plu.Number" />

@@ -1,8 +1,9 @@
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.OrmUtils;
 
 namespace DeviceControl.Components.Nested.PlusLines;
 
-public sealed partial class PlusLines : SectionBase<SqlPluScaleEntity>
+public sealed partial class PlusLines : SectionBase<SqlPluLineEntity>
 {
     private SqlPluLineRepository PluLineRepository { get; } = new();
     [Parameter] public SqlLineEntity Line { get; set; }

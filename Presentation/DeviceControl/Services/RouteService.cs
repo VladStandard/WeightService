@@ -1,6 +1,7 @@
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 namespace DeviceControl.Services;
 
@@ -51,7 +52,7 @@ public class RouteService
             SqlViewLabel => RouteUtils.SectionPlusLabels,
             SqlLabelEntity => RouteUtils.SectionPlusLabels,
             SqlPluEntity => RouteUtils.SectionPlus,
-            SqlPluScaleEntity => RouteUtils.SectionPlusLines,
+            SqlPluLineEntity => RouteUtils.SectionPlusLines,
             SqlPluNestingFkEntity => RouteUtils.SectionPlusNestingFks,
             SqlPluStorageMethodEntity => RouteUtils.SectionPlusStorage,
             SqlPrinterEntity => RouteUtils.SectionPrinters,

@@ -1,6 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Models;
 using Ws.StorageCore.OrmUtils;

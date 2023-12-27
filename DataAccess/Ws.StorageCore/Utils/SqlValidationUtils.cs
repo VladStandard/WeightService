@@ -2,6 +2,7 @@ using System;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 
 namespace Ws.StorageCore.Utils;
@@ -35,7 +36,7 @@ public static class SqlValidationUtils
             SqlPluFkEntity pluFk => new SqlPluFkValidator(isCheckIdentity).Validate(pluFk),
             SqlPluEntity plu => new SqlPluValidator(isCheckIdentity).Validate(plu),
             SqlPluNestingFkEntity nestingFk => new SqlPluNestingFkValidator(isCheckIdentity).Validate(nestingFk),
-            SqlPluScaleEntity pluScale => new SqlPluScaleValidator(isCheckIdentity).Validate(pluScale),
+            SqlPluLineEntity pluScale => new SqlPluLineValidator(isCheckIdentity).Validate(pluScale),
             SqlPluStorageMethodFkEntity plusStorageMethodFk => new SqlPluStorageMethodFkValidator(isCheckIdentity).Validate(plusStorageMethodFk),
             SqlPluStorageMethodEntity plusStorageMethod => new SqlPluStorageMethodValidator(isCheckIdentity).Validate(plusStorageMethod),
             SqlPluTemplateFkEntity pluTemplate => new SqlPluTemplateFkValidator(isCheckIdentity).Validate(pluTemplate),

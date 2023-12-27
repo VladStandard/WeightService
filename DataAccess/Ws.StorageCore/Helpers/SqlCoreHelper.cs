@@ -8,6 +8,7 @@ using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Listeners;
 
@@ -102,7 +103,7 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlHostMap>();
         mapper.AddMapping<SqlLineMap>();
         mapper.AddMapping<SqlPluMap>();
-        mapper.AddMapping<SqlPluScaleMap>();
+        mapper.AddMapping<SqlPluLineMap>();
         mapper.AddMapping<SqlLabelMap>();
         mapper.AddMapping<SqlPalletMap>();
         mapper.AddMapping<SqlPluStorageMethodMap>();
