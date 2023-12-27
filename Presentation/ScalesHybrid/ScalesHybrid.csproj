@@ -23,7 +23,7 @@
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
         
-        <ApplicationTitle>ScalesHybrid</ApplicationTitle>
+        <ApplicationTitle>Весовой пост</ApplicationTitle>
         <ApplicationId>com.companyname.scaleshybrid</ApplicationId>
         <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
