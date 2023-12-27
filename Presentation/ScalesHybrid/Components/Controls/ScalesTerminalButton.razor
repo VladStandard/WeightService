@@ -3,9 +3,9 @@
           h-full transition-colors hover:bg-sky-200 disabled:bg-gray-300"
   @onclick="HandleButtonOpenScalesTerminal"
   disabled="@(!(IsScalesAvailable && !IsScalesTerminalWasOpened))">
-  <p class="text-2xl">@Localizer["ButtonScaleCalibration"]</p>
+  <p class="text-xl xl:text-2xl">@Localizer["ButtonScaleCalibration"]</p>
   @if (IsScalesTerminalWasOpened)
   {
-    <p class="text-lg">@GetCooldownString()</p>
+    <p class="xl:text-lg">@GetCooldownString()</p>
   }
 </button>

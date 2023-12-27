@@ -5,10 +5,7 @@ namespace Ws.StorageCore.Models;
 
 public class FieldBinaryModel
 {
-    #region Public and private fields, properties, constructor
-    
     public virtual byte[]? Value { get; set; }
-
     
     public virtual string ValueUnicode
     {
@@ -20,16 +17,11 @@ public class FieldBinaryModel
     {
         Value = Array.Empty<byte>();
     }
-    
 
     public FieldBinaryModel(FieldBinaryModel item)
     {
         Value = DataUtils.ByteClone(item.Value);
     }
-
-    #endregion
-
-    #region Public and private methods - override
     
     public override bool Equals(object obj)
     {
@@ -40,13 +32,7 @@ public class FieldBinaryModel
     }
 
     public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
-    
-    #endregion
-
-    #region Public and private methods - virtual
 
     public virtual bool Equals(FieldBinaryModel item) =>
         item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
-
-    #endregion
 }

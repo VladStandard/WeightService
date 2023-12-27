@@ -1,13 +1,8 @@
 namespace Ws.StorageCore.Entities.SchemaScale.Templates;
 
-/// <summary>
-/// Table "Templates".
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlTemplateEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual string CategoryId { get; set; } 
     public virtual string Title { get; set; }
     public virtual string Data { get; set; }
@@ -25,11 +20,7 @@ public class SqlTemplateEntity : SqlEntityBase
         Title = item.Title;
         Data = item.Data;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{CategoryId} | {Title}";
 
     public override bool Equals(object obj)
@@ -41,16 +32,10 @@ public class SqlTemplateEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlTemplateEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(CategoryId, item.CategoryId) &&
         Equals(Title, item.Title) &&
         Equals(Data, item.Data);
-
-    #endregion
 }

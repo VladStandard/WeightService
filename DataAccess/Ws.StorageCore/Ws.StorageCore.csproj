@@ -19,9 +19,6 @@
         <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Views\ViewPrintModels\" />
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
 

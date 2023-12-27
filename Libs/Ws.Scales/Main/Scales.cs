@@ -56,7 +56,7 @@ public class Scales : IScales
     }
     
     #endregion
-
+    
     #region Private
 
     private void SetStatus(ScalesStatus status)

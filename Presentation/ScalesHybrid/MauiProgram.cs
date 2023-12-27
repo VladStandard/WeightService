@@ -2,8 +2,11 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
-using Microsoft.AspNetCore.Builder;
+using MauiPageFullScreen;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 using ScalesHybrid.Services;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
@@ -18,8 +21,8 @@ public static class MauiProgram
         SqlCoreHelper.Instance.SetSessionFactory(false);
         if (SqlCoreHelper.Instance.SessionFactory is null)
             throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
-
-        builder.UseMauiApp<App>();
+        
+        builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddVsServices();
         
@@ -27,14 +30,10 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-        CultureInfo[] supportedCultures = { new("en-US"), new("ru-RU") };
+        
         builder.Services.AddLocalization();
-        builder.Services.Configure<RequestLocalizationOptions>(options =>
-        {
-            options.DefaultRequestCulture = new("ru-RU", "ru-RU");
-            options.SupportedCultures = supportedCultures;
-            options.SupportedUICultures = supportedCultures;
-        });
+        CultureInfo.DefaultThreadCurrentCulture = new("ru-RU");
+        CultureInfo.DefaultThreadCurrentUICulture = new("ru-RU");
         
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();

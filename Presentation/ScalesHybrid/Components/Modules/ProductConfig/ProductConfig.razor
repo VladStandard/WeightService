@@ -1,11 +1,13 @@
 @using Blazor.Heroicons.Outline
+
+
 <div class="flex items-center w-full h-full overflow-hidden px-3 py-4">
-  <div class="flex flex-col overflow-hidden w-full h-[30rem] border border-black/[.1] rounded-xl bg-white shadow-lg">
-    <div class="flex overflow-hidden shrink-0 w-full justify-center h-20 flex-col px-6 border-b border-b-black/[.1]">
-      <p class="text-2xl truncate">
+  <div class="flex flex-col overflow-hidden w-full max-h-full h-[30rem] border border-black/[.1] rounded-xl bg-white shadow-lg">
+    <div class="flex overflow-hidden shrink-0 w-full justify-center py-2 flex-col px-6 border-b border-b-black/[.1]">
+      <p class="text-xl truncate xl:text-2xl">
         @LineContext.Line.WorkShop.Name
       </p>
-      <p class="truncate">
+      <p class="text-sm truncate xl:text-base">
         @LineContext.Host.DisplayName | @LineContext.PrinterEntity.DisplayName
       </p>
     </div>
@@ -20,7 +22,7 @@
             type="button"
             @onclick="LineContext.ResetLine"
             class="flex px-8 justify-center items-center overflow-hidden rounded-md border border-black/[.1] bg-gray-100
-                    h-14 group transition-colors hover:bg-sky-200"
+                    h-full group transition-colors hover:bg-sky-200"
           >
             <ArrowPathIcon class="h-8 w-8 group-hover:animate-spin"/>
           </button>

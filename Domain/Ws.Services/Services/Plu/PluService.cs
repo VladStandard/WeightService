@@ -1,6 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
@@ -19,7 +19,7 @@ public class PluService : IPluService
         return new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
     }
 
-    public SqlPluScaleEntity GetPluLineByPlu1сAndLineName(Guid pluGuid, string lineName)
+    public SqlPluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
         SqlLineEntity line = new SqlLineRepository().GetItemByName(lineName);
         SqlPluEntity plu = new SqlPluRepository().GetItemByUid1C(pluGuid);

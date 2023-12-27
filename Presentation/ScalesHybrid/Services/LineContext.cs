@@ -1,3 +1,4 @@
+using Microsoft.Maui.ApplicationModel;
 using ScalesHybrid.Models;
 using ScalesHybrid.Utils;
 using Ws.Services.Services.Host;
@@ -57,11 +58,11 @@ public class LineContext
 
     public void ResetLine() {
         SqlLineEntity newLine = HostService.GetLineByHost(Host);
+        LineEntities = LineService.GetLinesByWorkshop(newLine.WorkShop);
         PrinterEntity = newLine.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
         ChangeLine(newLine);
     }
-    
 
     public async Task ChangePlu(SqlPluEntity sqlPluEntity)
     {
@@ -70,6 +71,7 @@ public class LineContext
         PluTemplate = PluService.GetPluTemplate(Plu);
         PluNestingEntities = await Task.Run(GetPluNestings);
         PluNesting = PluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
+        KneadingModel.KneadingCount = 1;
         if (Plu.IsCheckWeight)
             ExternalDevices.Scales.Connect();
         else

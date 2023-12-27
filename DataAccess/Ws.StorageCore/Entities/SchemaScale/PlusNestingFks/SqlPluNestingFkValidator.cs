@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
-/// <summary>
-/// Валидатор таблицы "PLUS_NESTING_FK".
-/// </summary>
 public sealed class SqlPluNestingFkValidator : SqlTableValidator<SqlPluNestingFkEntity>
 {
     public SqlPluNestingFkValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)

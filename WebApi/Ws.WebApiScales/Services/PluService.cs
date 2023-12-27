@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+using Ws.Shared.TypeUtils;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
@@ -7,152 +7,72 @@ using Ws.StorageCore.Entities.SchemaRef1c.Clips;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Plu;
 using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Utils;
-using Ws.WebApiScales.Validators;
 
 namespace Ws.WebApiScales.Services;
 
 
-public class PluService
-{ 
-    private readonly ResponseDto _responseDto;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    public PluService(ResponseDto responseDto, IHttpContextAccessor httpContextAccessor)
-    {
-        _responseDto = responseDto;
-        _httpContextAccessor = httpContextAccessor;
-    }
-    
-    public ActionResult<ResponseDto> LoadPlu(PlusDto plusDto)
-    {
-        DateTime requestTime = DateTime.Now;
-        string currentUrl = _httpContextAccessor?.HttpContext?.Request.Path ?? string.Empty; 
+public class PluService(ResponseDto responseDto) : IPluService
+{
+    #region Private
 
-        
-        foreach (PluDto pluDto in plusDto.plus.OrderBy(item=>item.PluNumber))
-        {
-            SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
-            if (pluDto.IsMarked) SetPluIsMarked(pluDb);
-            
-            ValidationResult validationResult = new PluDtoValidator().Validate(pluDto);
-           
-            //SetPluIsMarked(pluDto);
-            if (!validationResult.IsValid)
-            {
-                List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-                _responseDto.AddError(pluDto.Uid, string.Join(" | ", errors));
-                continue;
-            }
-            
-            SaveOrUpdateClip(pluDto.ClipTypeGuid, pluDto.ClipTypeName, pluDto.ClipTypeWeight);
-            SaveOrUpdateBox(pluDto.BoxTypeGuid, pluDto.BoxTypeName, pluDto.BoxTypeWeight);
-            SaveOrUpdateBundle(pluDto.PackageTypeGuid, pluDto.PackageTypeName, pluDto.PackageTypeWeight);
-            SaveOrUpdatePlu(pluDb, pluDto);
-            SaveOrUpdatePluFk(pluDb, pluDto);
-            SaveOrUpdatePluNesting(pluDb, pluDto);
-            _responseDto.AddSuccess(pluDto.Uid, $"Номенклатура {pluDb.Number} обновлена");
-        }
-        
-        new SqlLogWebRepository().Save(requestTime,   
-        XmlUtil.SerializeToXml(plusDto),   
-        XmlUtil.SerializeToXml(_responseDto), currentUrl, _responseDto.SuccessesCount, _responseDto.ErrorsCount);
-        
-        return _responseDto;
-    }
-
-    //TODO: REFACTOR
-    #region REFACTORED
-
-     private static void SaveOrUpdateClip(Guid clip1CUid, string clipName, decimal clipWeight)
+    private static void SetPluIsMarked(SqlPluEntity plu)
     {
-        SqlClipEntity clipDb = new SqlClipRepository().GetItemByUid1C(clip1CUid);
-
-        if (clip1CUid == Guid.Empty)
-        {
-            clipName = "Без клипсы";
-            clipWeight = 0;
-        }
-        
-        clipDb.Name = clipName;
-        clipDb.Weight = clipWeight;
-        
-        if (clipDb.IsNew)
-        {
-            clipDb.Uid1C = clip1CUid;
-            SqlCoreHelper.Instance.Save(clipDb);
-            return;
-        }
-        SqlCoreHelper.Instance.Update(clipDb);
-    }
-    private static void SaveOrUpdateBox(Guid box1CUid, string boxName, decimal boxWeight)
-    {
-        SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(box1CUid);
-
-        if (box1CUid == Guid.Empty)
-        {
-            boxName = "Без коробки";
-            boxWeight = 0;
-        }
-        
-        boxDb.Name = boxName;
-        boxDb.Weight = boxWeight;
-        
-        if (boxDb.IsNew)
-        {
-            boxDb.Uid1C = box1CUid;
-            SqlCoreHelper.Instance.Save(boxDb);
-            return;
-        }
-        SqlCoreHelper.Instance.Update(boxDb);
-    }
-    private static void SaveOrUpdateBundle(Guid bundle1CGuid, string bundleName, decimal bundleWeight)
-    {
-        SqlBundleEntity bundleDb = new SqlBundleRepository().GetItemByUid1C(bundle1CGuid);
-
-        if (bundle1CGuid == Guid.Empty)
-        {
-            bundleName = "Без пакета";
-            bundleWeight = 0;
-        }
-        
-        bundleDb.Name = bundleName;
-        bundleDb.Weight = bundleWeight;
-        
-        if (bundleDb.IsNew)
-        {
-            bundleDb.Uid1C = bundle1CGuid;
-            SqlCoreHelper.Instance.Save(bundleDb);
-            return;
-        }
-        SqlCoreHelper.Instance.Update(bundleDb);
-    }
-    private static void SaveOrUpdatePlu(SqlPluEntity plu, PluDto pluDto)
-    {
-        plu.Name = pluDto.Name;
-        plu.FullName = pluDto.FullName;
-        plu.Description = pluDto.Description;
-        plu.IsMarked = pluDto.IsMarked;
-        plu.IsGroup = pluDto.IsGroup;
-        plu.Number = (short)pluDto.PluNumber;
-        plu.ShelfLifeDays = (byte)pluDto.ShelfLife;
-        plu.IsCheckWeight = pluDto.IsCheckWeight;
-        plu.Bundle = new SqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
-        plu.Brand = new SqlBrandRepository().GetItemByUid1C(pluDto.BrandGuid);
-        plu.Code = pluDto.Code;
-        plu.Ean13 = pluDto.Ean13;
-        plu.Itf14 = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "";
-        plu.Gtin = pluDto.IsCheckWeight == false ? pluDto.Itf14 : "0" + pluDto.Ean13;
-        
-        if (plu.IsNew)
-        {
-            plu.Uid1C = pluDto.Uid;
-            SqlCoreHelper.Instance.Save(plu);
-            return;
-        }
+        if (plu.IsNew) return;
+        plu.IsMarked = true;
         SqlCoreHelper.Instance.Update(plu);
     }
+    
+    private static SqlClipEntity SaveOrUpdateClip(PluDto pluDto)
+    {
+        SqlClipEntity clipDb = new SqlClipRepository().GetItemByUid1C(pluDto.ClipTypeGuid);
+
+        clipDb = pluDto.AdaptTo(clipDb);
+
+        if (clipDb.Uid1C == Guid.Empty)
+        {
+            clipDb.Weight = 0;
+            clipDb.Name = "Без клипсы";
+        }
+        
+        SqlCoreHelper.Instance.SaveOrUpdate(clipDb);
+        return clipDb;
+    }
+    
+    private static SqlBoxEntity SaveOrUpdateBox(PluDto pluDto)
+    {
+        SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
+
+        boxDb = pluDto.AdaptTo(boxDb);
+        
+        if (boxDb.Uid1C == Guid.Empty)
+        {
+            boxDb.Name = "Без коробки";
+            boxDb.Weight = 0;
+        }
+        
+        SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
+        return boxDb;
+    }
+    
+    private static SqlBundleEntity SaveOrUpdateBundle(PluDto pluDto)
+    {
+        SqlBundleEntity bundleDb = new SqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
+
+        bundleDb = pluDto.AdaptTo(bundleDb);
+        
+        if (bundleDb.Uid1C == Guid.Empty)
+        {
+            bundleDb.Name = "Без пакета";
+            bundleDb.Weight = 0;
+        }
+        
+        SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
+        return bundleDb;
+    }
+    
     private static void SaveOrUpdatePluFk(SqlPluEntity plu, PluDto pluDto)
     {
         if (Equals(pluDto.ParentGroupGuid, Guid.Empty)) return;
@@ -162,46 +82,68 @@ public class PluService
         if (parentPluDb.IsNew) return;
         
         SqlPluEntity categoryDb = new SqlPluRepository().GetItemByUid1C(pluDto.CategoryGuid);
-
         SqlPluFkEntity pluFkDb = new SqlPluFkRepository().GetByPlu(plu);
-
+        
+        pluFkDb.Plu = plu;
         pluFkDb.Parent = parentPluDb;
         pluFkDb.Category = categoryDb.IsExists ? categoryDb : null;
         
-        if (pluFkDb.IsNew)
-        {
-            pluFkDb.Plu = plu;
-            SqlCoreHelper.Instance.Save(pluFkDb);
-            return;
-        }
-        SqlCoreHelper.Instance.Update(pluFkDb);
+        SqlCoreHelper.Instance.SaveOrUpdate(pluFkDb);
     }
-    private static void SetPluIsMarked(SqlPluEntity plu)
+    
+    private static void SaveOrUpdatePlu(SqlPluEntity plu, PluDto pluDto, SqlBundleEntity bundle)
     {
-        if (plu.IsNew) return;
-        plu.IsMarked = true;
-        SqlCoreHelper.Instance.Update(plu);
+        plu = pluDto.AdaptTo(plu);
+        plu.Bundle = bundle;
+        plu.Brand = new SqlBrandRepository().GetItemByUid1C(pluDto.BrandGuid);
+        SqlCoreHelper.Instance.SaveOrUpdate(plu);
     }
-    private static void SaveOrUpdatePluNesting(SqlPluEntity plu, PluDto pluDto)
+    
+    private static void SaveOrUpdatePluNesting(SqlPluEntity plu, PluDto pluDto, SqlBoxEntity box)
     {
-        SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
-        if (boxDb.IsNew) return;
-
         SqlPluNestingFkEntity pluNestingDb = new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
-        
+
+        pluNestingDb.Plu = plu;
+        pluNestingDb.Box = box;
         pluNestingDb.IsDefault = true;
         pluNestingDb.BundleCount = pluDto.AttachmentsCount;
-        pluNestingDb.Box = boxDb;
-        
-        if (pluNestingDb.IsNew)
-        {
-            pluNestingDb.Plu = plu;
-            SqlCoreHelper.Instance.Save(pluNestingDb);
-            return;
-        }
-        SqlCoreHelper.Instance.Update(pluNestingDb);
+        SqlCoreHelper.Instance.SaveOrUpdate(pluNestingDb);
     }
 
-     #endregion
-   
+    #endregion
+    
+    public void Load(PlusWrapper plusWrapper)
+    {
+        List<PluDto> orderedEnumerable = plusWrapper.Plus.OrderBy(item => item.PluNumber).ToList();
+        
+        foreach (PluDto pluDto in orderedEnumerable)
+        {
+            SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
+            
+            if (pluDto.IsMarked)
+            {
+                SetPluIsMarked(pluDb);
+                continue;
+            }
+            
+            ValidationResult validationResult = new ValidatorPluDto().Validate(pluDto);
+            
+            if (!validationResult.IsValid)
+            {
+                List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
+                responseDto.AddError(pluDto.Uid, $"{pluDto.PluNumber} | {pluDto.Name} | {string.Join(" | ", errors)}");
+                continue;
+            }
+            
+            SqlClipEntity clip = SaveOrUpdateClip(pluDto);
+            SqlBoxEntity box = SaveOrUpdateBox(pluDto);
+            SqlBundleEntity bundle = SaveOrUpdateBundle(pluDto);
+            
+            SaveOrUpdatePlu(pluDb, pluDto, bundle);
+            SaveOrUpdatePluFk(pluDb, pluDto);
+            SaveOrUpdatePluNesting(pluDb, pluDto, box);
+            
+            responseDto.AddSuccess(pluDto.Uid, $"{IntUtils.ToStringToLen(pluDb.Number, 3)} | {pluDb.Name}");
+        }
+    }
 }

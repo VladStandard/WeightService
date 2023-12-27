@@ -28,7 +28,7 @@ public class BaseLabelModel : ISerializable
     
     #region Plu
 
-    [XmlElement] public int PluNumber { get; set; }
+    [XmlElement] public short PluNumber { get; set; }
     [XmlElement] public string PluGtin { get; set; } = string.Empty;
     [XmlElement] public string PluFullName { set; get; } = string.Empty;
     [XmlElement] public string PluDescription { get; set; } = string.Empty;

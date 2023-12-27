@@ -8,10 +8,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Clips;
 /// </summary>
 public sealed class SqlClipRepository : SqlTableRepositoryBase<SqlClipEntity>
 {
-    #region Public and private methods
-
-    public SqlClipEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlClipEntity>();
-
     public IEnumerable<SqlClipEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
@@ -25,6 +21,4 @@ public sealed class SqlClipRepository : SqlTableRepositoryBase<SqlClipEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
         return SqlCore.GetItemByCrud<SqlClipEntity>(sqlCrudConfig);
     }
-
-    #endregion
 }

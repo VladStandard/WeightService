@@ -2,19 +2,12 @@ using System;
 
 namespace Ws.StorageCore.Models;
 
-/// <summary>
-/// DB field Identity model.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlFieldIdentityModel
 {
-    #region Public and private fields, properties, constructor
-
      public virtual SqlEnumFieldIdentity Name { get; }
      public virtual Guid Uid { get; private set; }
      public virtual long Id { get; private set; }
-     public virtual bool IsUid => Equals(Name, SqlEnumFieldIdentity.Uid);
-     public virtual bool IsId => Equals(Name, SqlEnumFieldIdentity.Id);
 
     public SqlFieldIdentityModel()
     {
@@ -41,10 +34,6 @@ public class SqlFieldIdentityModel
         Id = item.Id;
     }
 
-    #endregion
-
-    #region Public and private methods - override
-
     public override string ToString() =>
         Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
     
@@ -62,11 +51,7 @@ public class SqlFieldIdentityModel
         SqlEnumFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlFieldIdentityModel item) =>
         ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
         Id.Equals(item.Id) &&
@@ -89,6 +74,4 @@ public class SqlFieldIdentityModel
         SqlEnumFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
         _ => default
     };
-
-    #endregion
 }

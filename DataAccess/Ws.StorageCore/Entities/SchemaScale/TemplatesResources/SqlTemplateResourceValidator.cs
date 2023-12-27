@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
-/// <summary>
-/// Table validation "TEMPLATES_RESOURCES".
-/// </summary>
 public sealed class SqlTemplateResourceValidator : SqlTableValidator<SqlTemplateResourceEntity>
 {
 

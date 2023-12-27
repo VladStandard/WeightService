@@ -5,8 +5,6 @@ namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 [DebuggerDisplay("{ToString()}")]
 public class SqlLogWebEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual DateTime StampDt { get; set; } = DateTime.MinValue;
     public virtual string Version { get; set; }
     public virtual string Url { get; set; }
@@ -37,12 +35,7 @@ public class SqlLogWebEntity : SqlEntityBase
         CountAll = item.CountAll;
         CountSuccess = item.CountSuccess;
         CountErrors = item.CountErrors;
-
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() => $"{Version} | {Url}";
 
@@ -56,10 +49,6 @@ public class SqlLogWebEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlLogWebEntity item) =>
         ReferenceEquals(this, item) ||
         base.Equals(item) &&
@@ -71,6 +60,4 @@ public class SqlLogWebEntity : SqlEntityBase
         Equals(CountAll, item.CountAll) &&
         Equals(CountSuccess, item.CountSuccess) &&
         Equals(CountErrors, item.CountErrors);
-
-    #endregion
 }

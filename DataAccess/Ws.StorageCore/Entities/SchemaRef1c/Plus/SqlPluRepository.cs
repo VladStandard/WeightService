@@ -31,4 +31,11 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.Uid1C), uid));
         return SqlCore.GetItemByCrud<SqlPluEntity>(sqlCrudConfig);
     }
+    
+    public IEnumerable<SqlPluEntity> GetPluUid1CInRange(List<Guid> uidList)
+    {
+        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        sqlCrudConfig.AddFilter(SqlRestrictions.In(nameof(SqlPluEntity.Uid1C), uidList));
+        return SqlCore.GetEnumerable<SqlPluEntity>(sqlCrudConfig);
+    }
 }

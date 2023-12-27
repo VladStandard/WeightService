@@ -10,7 +10,7 @@ public class SqlPluTemplateFkRepository : SqlTableRepositoryBase<SqlPluStorageMe
         return SqlCore.GetItemByCrud<SqlPluTemplateFkEntity>(sqlCrudConfig);
     }
     
-    public List<SqlPluTemplateFkEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlPluTemplateFkEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         //if (sqlCrudConfig.IsResultOrder)
         //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
@@ -19,7 +19,7 @@ public class SqlPluTemplateFkRepository : SqlTableRepositoryBase<SqlPluStorageMe
             items = items
                 .OrderBy(item => item.Template.Title)
                 .ThenBy(item => item.Plu.Name);
-        return items.ToList();
+        return items;
     }
 
 }

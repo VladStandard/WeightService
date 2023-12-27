@@ -29,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Tables\TableRef1cModels\" />
         <Folder Include="Tables\TableRefModels\" />
-        <Folder Include="Views\ViewPrintModels\" />
     </ItemGroup>
 
 </Project>

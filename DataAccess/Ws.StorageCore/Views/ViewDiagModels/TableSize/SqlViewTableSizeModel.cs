@@ -12,11 +12,6 @@ public sealed record SqlViewTableSizeModel
     public ushort TotalSpaceMb { get; init; }
     public string FileName { get; init; }
     
-    #region Public and private fields, properties, constructor
-    
-    public SqlViewTableSizeModel() : this(string.Empty, string.Empty, string.Empty, 
-        default, default, default, default, string.Empty) { }
-    
     public SqlViewTableSizeModel(string schemaTable, string schema, string table, uint rowsCount,
         ushort usedSpaceMb, ushort unusedSpaceMb, ushort totalSpaceMb, string fileName)
     {
@@ -30,11 +25,5 @@ public sealed record SqlViewTableSizeModel
         FileName = fileName;
     }
     
-    #endregion
-    
-    #region Public and private methods - override
-
     public override string ToString() => $"{Schema} | {Table} | {RowsCount} | {UsedSpaceMb} | {UnusedSpaceMb} | {TotalSpaceMb}";
-
-    #endregion
 }

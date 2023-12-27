@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluFkEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructornomenclatureCharacteristicsFk
-    
     public virtual SqlPluEntity Plu { get; set; }
     public virtual SqlPluEntity Parent { get; set; }
     public virtual SqlPluEntity? Category { get; set; }
@@ -15,10 +13,6 @@ public class SqlPluFkEntity : SqlEntityBase
         Parent = new();
         Category = null;
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " +
@@ -41,8 +35,6 @@ public class SqlPluFkEntity : SqlEntityBase
         Parent.FillProperties();
         Category?.FillProperties();
     }
-
-    #endregion
     
     public virtual bool Equals(SqlPluFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130

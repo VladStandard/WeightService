@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
-/// <summary>
-/// Table validation "PLUS".
-/// </summary>
 public sealed class SqlPluValidator : SqlTableValidator<SqlPluEntity>
 {
     public SqlPluValidator(bool isCheckIdentity, bool isCheckCreateDt, bool isCheckChangeDt) : base(isCheckIdentity, isCheckCreateDt, isCheckChangeDt)

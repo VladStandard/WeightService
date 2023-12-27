@@ -8,8 +8,6 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 [DebuggerDisplay("{ToString()}")]
 public class SqlPluStorageMethodEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual short MinTemp { get; set; }
     public virtual short MaxTemp { get; set; }
     
@@ -24,10 +22,6 @@ public class SqlPluStorageMethodEntity : SqlEntityBase
         MinTemp = item.MinTemp;
         MaxTemp = item.MaxTemp;
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
@@ -44,14 +38,8 @@ public class SqlPluStorageMethodEntity : SqlEntityBase
 
     public override int GetHashCode() => IdentityValueUid.GetHashCode();
     
-    #endregion
-
-    #region Public and private methods - virtual
-
     public virtual bool Equals(SqlPluStorageMethodEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(MinTemp, item.MinTemp) &&
         Equals(MaxTemp, item.MaxTemp);
-
-    #endregion
 }

@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
-/// <summary>
-/// Table validation "PLUS_STORAGE_METHODS_FK".
-/// </summary>
 public sealed class SqlPluStorageMethodFkValidator : SqlTableValidator<SqlPluStorageMethodFkEntity>
 {
 

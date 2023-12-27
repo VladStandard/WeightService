@@ -3,14 +3,9 @@ using Ws.StorageCore.Entities.SchemaRef.Printers;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Scales;
 
-/// <summary>
-/// Модель таблицы SCALES.
-/// </summary>
 [DebuggerDisplay("{ToString()}")]
 public class SqlLineEntity : SqlEntityBase
 {
-    #region Public and private fields, properties, constructor
-    
     public virtual SqlHostEntity Host { get; set; }
     public virtual SqlWorkShopEntity WorkShop { get; set; }
     public virtual SqlPrinterEntity Printer { get; set; }
@@ -45,11 +40,7 @@ public class SqlLineEntity : SqlEntityBase
         LabelCounter = item.LabelCounter;
         Version = item.Version;
     }
-
-    #endregion
-
-    #region Public and private methods - override
-
+    
     public override string ToString() => $"{IdentityValueId} | {Description}";
 
     public override bool Equals(object obj)
@@ -69,11 +60,7 @@ public class SqlLineEntity : SqlEntityBase
         Printer.FillProperties();
         Host.FillProperties();
     }
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlLineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(DeviceComPort, item.DeviceComPort) &&
@@ -83,6 +70,4 @@ public class SqlLineEntity : SqlEntityBase
         Host.Equals(item.Host) &&
         Printer.Equals(item.Printer) &&
         Version.Equals(item.Version);
-
-    #endregion
 }

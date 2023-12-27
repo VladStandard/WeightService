@@ -9,12 +9,13 @@ public class LabelModel : BaseLabelModel, ILabelModel
 {
     [XmlElement] public short BundleCount { get; set; }
 
-    [XmlElement] public string BarCodeTop { get => $"233{IntUtils.ToStringToLen(LineNumber, 5)}" +
-                                                   $"{IntUtils.ToStringToLen(BundleCount, 2)}" +
-                                                   $"{IntUtils.ToStringToLen(LineCounter,6)}" +
-                                                   $"{ProductDate}{ProductTime}" +
-                                                   $"{IntUtils.ToStringToLen(PluNumber, 3)}" +
-                                                   $"00000{IntUtils.ToStringToLen(Kneading, 3)}";
+    [XmlElement] public string BarCodeTop {
+        get => $"233{IntUtils.ToStringToLen(LineNumber, 5)}" +
+               $"{IntUtils.ToStringToLen(BundleCount, 2)}" +
+               $"{IntUtils.ToStringToLen(LineCounter,6)}" +
+               $"{ProductDate}{ProductTime}" +
+               $"{IntUtils.ToStringToLen(PluNumber, 3)}" +
+               $"00000{IntUtils.ToStringToLen(Kneading, 3)}";
         set => _ = value;
     }
 

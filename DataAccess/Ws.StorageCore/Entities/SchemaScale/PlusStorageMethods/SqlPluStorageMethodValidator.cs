@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 
-/// <summary>
-/// Table validation "PLUS_STORAGE_METHODS".
-/// </summary>
 public sealed class SqlPluStorageMethodValidator : SqlTableValidator<SqlPluStorageMethodEntity>
 {
 

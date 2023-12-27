@@ -4,8 +4,6 @@ namespace Ws.StorageCore.Models;
 
 public class SqlStringWriterUtf8Model : StringWriter
 {
-	#region Public and private fields, properties, constructor
-
 	public override Encoding Encoding => Encoding.UTF8;
 
 
@@ -31,6 +29,4 @@ public class SqlStringWriterUtf8Model : StringWriter
 	{
 		//
 	}
-
-	#endregion
 }

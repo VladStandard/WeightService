@@ -4,10 +4,12 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using NHibernate.Event;
+using Ws.StorageCore.Entities.SchemaPrint.Labels;
+using Ws.StorageCore.Entities.SchemaPrint.Pallets;
+using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Enums;
 using Ws.StorageCore.Listeners;
 
 namespace Ws.StorageCore.Helpers;
@@ -28,11 +30,8 @@ public sealed class SqlCoreHelper
     private object LockerSessionFactory { get; } = new();
     private object LockerSelect { get; } = new();
     private object LockerExecute { get; } = new();
-
-    public static SqlSettings SqlSettings { get; set; } = new();
-    
+    private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     public ISessionFactory? SessionFactory { get; private set; }
-
     private Configuration SqlConfiguration { get; set; } = new();
 
     public void SetSessionFactory(bool isShowSql)
@@ -45,31 +44,31 @@ public sealed class SqlCoreHelper
         }
     }
     
-    private static SqlSettings LoadJsonConfig()
+    private static SqlSettingsModels LoadJsonConfig()
     {
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
         
-        SqlSettings sqlSettings = new();
-        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettings);
-        return sqlSettings;
+        SqlSettingsModels sqlSettingsModels = new();
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
+        return sqlSettingsModels;
     }
     
     private void SetSqlConfiguration(bool isShowSql)
     {
-        SqlSettings = LoadJsonConfig();
+        SqlSettingsModels = LoadJsonConfig();
         SqlConfiguration = new();
         SqlConfiguration.DataBaseIntegration(db => {
-            db.ConnectionString = SqlSettings.GetConnectionString();
+            db.ConnectionString = SqlSettingsModels.GetConnectionString();
             db.Dialect<MsSql2012Dialect>();
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
         });
-        SqlConfiguration.EventListeners.PreInsertEventListeners = 
-            new IPreInsertEventListener[] { new SqlCreateDtListener() };
-        SqlConfiguration.EventListeners.PreUpdateEventListeners = 
-            new IPreUpdateEventListener[] { new SqlChangeDtListener() };
+        SqlConfiguration.EventListeners.PreInsertEventListeners =
+            [new SqlCreateDtListener()];
+        SqlConfiguration.EventListeners.PreUpdateEventListeners =
+            [new SqlChangeDtListener()];
     }
 
     private void Close()
@@ -98,25 +97,23 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlBrandMap>();
         mapper.AddMapping<SqlProductionSiteMap>();
         mapper.AddMapping<SqlWorkshopMap>();
-        mapper.AddMapping<SqlAppMap>();
         mapper.AddMapping<SqlTemplateMap>();
         mapper.AddMapping<SqlTemplateResourceMap>();
-        mapper.AddMapping<SqlVersionMap>();
         mapper.AddMapping<SqlPrinterMap>();
         mapper.AddMapping<SqlHostMap>();
         mapper.AddMapping<SqlLineMap>();
         mapper.AddMapping<SqlPluMap>();
-        mapper.AddMapping<SqlPluScaleMap>();
-        mapper.AddMapping<SqlPluWeighingMap>();
-        mapper.AddMapping<SqlPluLabelMap>();
-        mapper.AddMapping<SqlBarCodeMap>();
+        mapper.AddMapping<SqlPluLineMap>();
+        mapper.AddMapping<SqlLabelMap>();
+        mapper.AddMapping<SqlPalletMap>();
         mapper.AddMapping<SqlPluStorageMethodMap>();
         mapper.AddMapping<WsSqlLogWebMap>();
         mapper.AddMapping<SqlPluFkMap>();
         mapper.AddMapping<SqlPluNestingFkMap>();
         mapper.AddMapping<SqlPluStorageMethodFkMap>();
         mapper.AddMapping<SqlPluTemplateFkMap>();
-        mapper.AddMapping<SqlLogMap>();
+
+        mapper.AddMapping<SqlViewLabelMap>();
         
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
@@ -141,10 +138,7 @@ public sealed class SqlCoreHelper
         
         return criteria;
     }
-
-    /// <summary>
-    /// Select in isolated session.
-    /// </summary>
+    
     private void ExecuteSelectCore(Action<ISession> action)
     {
         if (SessionFactory is null)
@@ -171,9 +165,7 @@ public sealed class SqlCoreHelper
         }
     }
 
-    /// <summary>
-    /// New transaction with action.
-    /// </summary>
+
     private void ExecuteTransactionCore(Action<ISession> action)
     {
         if (SessionFactory is null)
@@ -222,6 +214,16 @@ public sealed class SqlCoreHelper
     
     #region CRUD
 
+    public void SaveOrUpdate<T>(T item) where T : SqlEntityBase
+    {
+        if (item.IsNew) 
+        {
+            ExecuteTransactionCore(session => session.Save(item));
+            return;
+        }
+        ExecuteTransactionCore(session => session.Update(item));
+    }
+    
     public void Save<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
 {
     if (item is null) throw new ArgumentException();
@@ -239,59 +241,59 @@ public sealed class SqlCoreHelper
     }
 }
 
-public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    switch (sessionType)
+    public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Update(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.UpdateAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
-}
 
-public void Delete<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    switch (sessionType)
+    public void Delete<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Delete(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.DeleteAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Delete(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.DeleteAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
+        
     }
-    
-}
 
-public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-
-    item.IsMarked = !item.IsMarked;
-
-    switch (sessionType)
+    public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Update(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.UpdateAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        if (item is null) throw new ArgumentException();
+
+        item.IsMarked = !item.IsMarked;
+
+        switch (sessionType)
+        {
+            case SqlEnumSessionType.Isolated:
+                ExecuteTransactionCore(session => session.Update(item));
+                break;
+            case SqlEnumSessionType.IsolatedAsync:
+                ExecuteTransactionCore(session => session.UpdateAsync(item));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
+        }
     }
-}
 
 #endregion
     
@@ -340,17 +342,6 @@ public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType
     #endregion
 
     #region Public and private methods - GetList
-
-    public List<T> GetList<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlEntityBase, new()
-    {
-        List<T> items = new();
-        ExecuteSelectCore(session =>
-        {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items.AddRange(criteria.List<T>());
-        });
-        return items;
-    }
 
     public IEnumerable<T> GetEnumerable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlEntityBase, new()
     {

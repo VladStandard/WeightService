@@ -3,25 +3,25 @@
 public class LabelDataDto
 {
     public decimal Weight { get; set; }
-    public required decimal WeightTare { get; set; }
-    public required bool IsCheckWeight { get; set; }
+    public decimal WeightTare { get; set; }
+    public bool IsCheckWeight { get; set; }
 
     public string Itf { get; set; } = string.Empty;
     public string Gtin { get; set; } = string.Empty;
 
-    public required int LineNumber { get; set; }
-    public required int LineCounter { get; set; }
-    public required string LineName { get; set; }
+    public int LineNumber { get; set; }
+    public int LineCounter { get; set; }
+    public string LineName { get; set; } = string.Empty;
 
-    public required Guid Plu1СGuid { get; set; }
-    public required int PluNumber { get; set; }
-    public required string PluFullName { get; set; }
-    public required string PluDescription { get; set; }
+    public Guid Plu1СGuid { get; set; }
+    public short PluNumber { get; set; }
+    public string PluFullName { get; set; } = string.Empty;
+    public string PluDescription { get; set; } = string.Empty;
 
     public short BundleCount { get; set; }
-    public required short Kneading { get; set; }
-    public required string Address { get; set; }
-    public required string Template { get; set; }
-    public required DateTime ProductDt { get; set; }
-    public required DateTime ExpirationDt { get; set; }
+    public short Kneading { get; set; }
+    public string Address { get; set; } = string.Empty;
+    public string Template { get; set; } = string.Empty;
+    public DateTime ProductDt { get; set; }
+    public DateTime ExpirationDt { get; set; }
 }

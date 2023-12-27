@@ -1,6 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
 using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Models;
 using Ws.StorageCore.OrmUtils;
@@ -11,9 +11,7 @@ public class LineService : ILineService
 {
     public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line)
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddFilter(SqlRestrictions.Equal(nameof(SqlPluScaleEntity.IsActive), true));
-       return new SqlPluLineRepository().GetListByLine(line, crud)
+       return new SqlPluLineRepository().GetListByLine(line, new())
            .Select(i => i.Plu).Where(plu => plu.IsGroup == false).OrderBy(item => item.Number);
     }
     

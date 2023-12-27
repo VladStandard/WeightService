@@ -150,4 +150,7 @@
     <data name="ScalesStatusTooLight" xml:space="preserve">
         <value />
     </data>
+    <data name="ButtonLineCounter" xml:space="preserve">
+        <value />
+    </data>
 </root>

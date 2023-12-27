@@ -3,8 +3,6 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 [DebuggerDisplay("{ToString()}")]
 public class SqlBrandEntity : SqlTable1CBase
 {
-    #region Public and private fields, properties, constructor
-
     public virtual string Code { get; set; }
 
     public SqlBrandEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -16,10 +14,6 @@ public class SqlBrandEntity : SqlTable1CBase
     {
         Code = item.Code;
     }
-
-    #endregion
-
-    #region Public and private methods - override
 
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
@@ -34,14 +28,8 @@ public class SqlBrandEntity : SqlTable1CBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-
-    #endregion
-
-    #region Public and private methods - virtual
-
+    
     public virtual bool Equals(SqlBrandEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&//-V3130
         Equals(Code, item.Code);
-
-    #endregion
 }
