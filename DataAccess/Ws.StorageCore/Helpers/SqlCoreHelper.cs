@@ -4,6 +4,7 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using NHibernate.Event;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
@@ -65,10 +66,8 @@ public sealed class SqlCoreHelper
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = isShowSql;
         });
-        SqlConfiguration.EventListeners.PreInsertEventListeners =
-            [new SqlCreateDtListener()];
-        SqlConfiguration.EventListeners.PreUpdateEventListeners =
-            [new SqlChangeDtListener()];
+        SqlConfiguration.EventListeners.PreInsertEventListeners = new IPreInsertEventListener[] { new SqlCreateDtListener() };
+        SqlConfiguration.EventListeners.PreUpdateEventListeners = new IPreUpdateEventListener[] { new SqlChangeDtListener() };
     }
 
     private void Close()

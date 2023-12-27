@@ -1,8 +1,9 @@
-@inherits SectionDataGridBase<SqlPluScaleEntity>
+@using Ws.StorageCore.Entities.SchemaRef.PlusLines
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlPluScaleEntity"
+  TItem="SqlPluLineEntity"
   @ref="DataGridWrapperRef"
   GridData="SectionItems"
   IsLoading="IsLoading"

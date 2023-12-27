@@ -1,42 +1,42 @@
-@inherits SectionDataGridBase<SqlLogEntity>
-
-
-<SectionDataGridWrapper
-  TItem="SqlLogEntity"
-  @ref="DataGridWrapperRef"
-  Title="@Localizer["SectionAppsLogs"]"
-  GridData="SectionItems"
-  GetGridData="GetSectionData"
-  IsLoading="IsLoading"
->
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnCreateDt"]"
-    Field="@nameof(SqlLogEntity.CreateDt)"
-    Width="15%"
-  />
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnDevice"]"
-    Field="Device.Name"
-    Width="15%"
-  />
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnApp"]"
-    Field="App.Name"
-    Width="15%"
-  />
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnVersion"]"
-    Field="@nameof(SqlLogEntity.Version)"
-    Width="10%"
-  />
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnLogType"]"
-    Field="@nameof(SqlLogEntity.Type)"
-    Width="10%"
-  />
-  <SectionDataGridColumn
-    Caption="@Localizer["DataGridColumnMessage"]"
-    Field="@nameof(SqlLogEntity.Message)"
-    Width="35%"
-  />
-</SectionDataGridWrapper>
+@* @inherits SectionDataGridBase<SqlLogEntity> *@
+@* *@
+@* *@
+@* <SectionDataGridWrapper *@
+@*   TItem="SqlLogEntity" *@
+@*   @ref="DataGridWrapperRef" *@
+@*   Title="@Localizer["SectionAppsLogs"]" *@
+@*   GridData="SectionItems" *@
+@*   GetGridData="GetSectionData" *@
+@*   IsLoading="IsLoading" *@
+@* > *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnCreateDt"]" *@
+@*     Field="@nameof(SqlLogEntity.CreateDt)" *@
+@*     Width="15%" *@
+@*   /> *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnDevice"]" *@
+@*     Field="Device.Name" *@
+@*     Width="15%" *@
+@*   /> *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnApp"]" *@
+@*     Field="App.Name" *@
+@*     Width="15%" *@
+@*   /> *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnVersion"]" *@
+@*     Field="@nameof(SqlLogEntity.Version)" *@
+@*     Width="10%" *@
+@*   /> *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnLogType"]" *@
+@*     Field="@nameof(SqlLogEntity.Type)" *@
+@*     Width="10%" *@
+@*   /> *@
+@*   <SectionDataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnMessage"]" *@
+@*     Field="@nameof(SqlLogEntity.Message)" *@
+@*     Width="35%" *@
+@*   /> *@
+@* </SectionDataGridWrapper> *@
