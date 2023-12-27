@@ -1,6 +1,7 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Helpers;
@@ -16,6 +17,9 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<SqlBundleEntity
 
     protected override async Task OpenDataGridEntityModal(SqlBundleEntity item)
         => await OpenSectionModal<BundlesUpdateDialog>(item);
+    
+    protected override async Task OpenItemInNewTab(SqlBundleEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = BundleRepository.GetEnumerable(SqlCrudConfigSection).ToList();

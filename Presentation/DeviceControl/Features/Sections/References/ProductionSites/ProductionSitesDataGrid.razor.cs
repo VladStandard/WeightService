@@ -1,6 +1,7 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Helpers;
@@ -18,6 +19,9 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProd
     
     protected override async Task OpenDataGridEntityModal(SqlProductionSiteEntity item)
         => await OpenSectionModal<ProductionSitesUpdateDialog>(item);
+    
+    protected override async Task OpenItemInNewTab(SqlProductionSiteEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = PlatformsRepository.GetEnumerable(SqlCrudConfigSection).ToList();

@@ -24,6 +24,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Parameter] public EventCallback AddAction { get; set; }
     [Parameter] public EventCallback<TItem> DeleteAction { get; set; }
     [Parameter] public EventCallback<TItem> ReadAction { get; set; }
+    [Parameter] public EventCallback<TItem> OpenInTabAction { get; set; }
     [Parameter] public bool IsFilterable { get; set; }
     [Parameter] public bool IsLoading { get; set; } = true;
     [Parameter] public bool IsBorderless { get; set; }
@@ -61,20 +62,22 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
 
     private void InitializeContextMenu()
     {
-        ContextMenuEntries = 
-            ContextMenuEntries.Append(new()
-            {
-                Name = "Open",
-                IconName = HeroiconName.ArrowTopRightOnSquare,
-                OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenClicked)
-            });
-        // ContextMenuEntries = 
-        //     ContextMenuEntries.Append(new()
-        //     {
-        //         Name = "Open in new tab",
-        //         IconName = HeroiconName.ArrowTopRightOnSquare,
-        //         OnClickAction = EventCallback.Factory.Create(this, OnContextItemCheckClicked)
-        //     });
+        if (ReadAction.HasDelegate)
+            ContextMenuEntries = 
+                ContextMenuEntries.Append(new()
+                {
+                    Name = "Open",
+                    IconName = HeroiconName.ArrowTopRightOnSquare,
+                    OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenClicked)
+                });
+        if (OpenInTabAction.HasDelegate)
+            ContextMenuEntries = 
+                ContextMenuEntries.Append(new()
+                {
+                    Name = "Open in new tab",
+                    IconName = HeroiconName.ArrowTopRightOnSquare,
+                    OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenInNewTabClicked)
+                });
         if (DeleteAction.HasDelegate) 
             ContextMenuEntries = ContextMenuEntries.Append(new()
             {
@@ -101,7 +104,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     
     private async Task OnContextItemOpenInNewTabClicked()
     {
-        await ReadAction.InvokeAsync(ContextMenuItem);
+        await OpenInTabAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
     }
     

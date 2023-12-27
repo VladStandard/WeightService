@@ -1,6 +1,7 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Helpers;
@@ -16,6 +17,9 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<SqlClipEntity>
 
     protected override async Task OpenDataGridEntityModal(SqlClipEntity item)
         => await OpenSectionModal<ClipsUpdateDialog>(item);
+    
+    protected override async Task OpenItemInNewTab(SqlClipEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = ClipRepository.GetEnumerable(SqlCrudConfigSection).ToList();

@@ -1,6 +1,7 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Helpers;
@@ -18,6 +19,9 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
     
     protected override async Task OpenDataGridEntityModal(SqlPluStorageMethodEntity item)
         => await OpenSectionModal<PluStoragesUpdateDialog>(item);
+    
+    protected override async Task OpenItemInNewTab(SqlPluStorageMethodEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPlusStorage}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = PluStorageRepository.GetList(SqlCrudConfigSection);

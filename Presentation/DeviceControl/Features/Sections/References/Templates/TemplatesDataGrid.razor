@@ -4,11 +4,12 @@
 <SectionDataGridWrapper
   TItem="SqlTemplateEntity"
   @ref="DataGridWrapperRef"
-  Title="@Localizer["SectionHosts"]"
+  Title="@Localizer["SectionTemplates"]"
   GridData="SectionItems"
   GetGridData="SetSqlSectionCast"
   ReadAction="OpenDataGridEntityModal"
   AddAction="OpenSectionCreateForm"
+  OpenInTabAction="OpenItemInNewTab"
   IsLoading="IsLoading"
 >
   <SectionDataGridColumn

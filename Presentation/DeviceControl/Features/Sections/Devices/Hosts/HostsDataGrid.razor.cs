@@ -2,6 +2,7 @@ using Blazorise;
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
@@ -19,6 +20,9 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<HostsCreateDialog>(new());
+    
+    protected override async Task OpenItemInNewTab(SqlHostEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionHosts}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = HostRepository.GetEnumerable(SqlCrudConfigSection).ToList();

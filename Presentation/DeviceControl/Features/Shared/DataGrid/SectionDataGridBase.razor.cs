@@ -1,6 +1,7 @@
 using Blazorise;
 using DeviceControl.Features.Shared.Modal;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Models;
@@ -11,6 +12,7 @@ namespace DeviceControl.Features.Shared.DataGrid;
 public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
     
@@ -18,7 +20,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudAll();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
     protected bool IsLoading { get; set; } = true;
-    protected bool IsFirstLoading { get; set; } = true;
+    private bool IsFirstLoading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -44,6 +46,15 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     {
         return Task.CompletedTask;
     }
+
+    protected virtual Task OpenItemInNewTab(TItem item)
+    {
+        return Task.CompletedTask;
+    }
+
+    protected async Task OpenLinkInNewTab(string url) =>
+        await JsRuntime.InvokeVoidAsync("open", url, "_blank");
+    
 
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T: SectionDialogBase<TItem>
     {

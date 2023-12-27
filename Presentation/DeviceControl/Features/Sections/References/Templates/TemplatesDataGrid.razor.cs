@@ -2,6 +2,7 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Helpers;
@@ -19,13 +20,16 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateE
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplatesCreateDialog>(new());
+    
+    protected override async Task OpenItemInNewTab(SqlTemplateEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionTemplates}/{item.IdentityValueId.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = TemplateRepository.GetList(SqlCrudConfigSection);
     
     protected override void SetSqlSearchingCast()
     {
-        Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlTemplateEntity>(itemUid) };
+        long.TryParse(SearchingSectionItemId, out long itemUid);
+        SectionItems = new() { SqlCoreHelper.Instance.GetItemById<SqlTemplateEntity>(itemUid) };
     }
 }

@@ -3,6 +3,7 @@ using Blazorise.DataGrid;
 using DeviceControl.Features.Sections.Devices.Hosts;
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
@@ -20,6 +21,9 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
     
     protected override async Task OpenDataGridEntityModal(SqlLineEntity item)
         => await OpenSectionModal<LinesUpdateDialog>(item);
+    
+    protected override async Task OpenItemInNewTab(SqlLineEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueId.ToString()}");
 
     protected override void SetSqlSectionCast() =>
         SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();
