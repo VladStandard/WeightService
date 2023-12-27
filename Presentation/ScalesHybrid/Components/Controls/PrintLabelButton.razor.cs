@@ -64,7 +64,7 @@ public sealed partial class PrintLabelButton: ComponentBase, IDisposable
             LabelInfoDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
-            LineContext.Line.LabelCounter += 1;
+            LineContext.Line.Counter += 1;
             SqlCoreHelper.Instance.Update(LineContext.Line);
             await InvokeAsync(StateHasChanged);
         }

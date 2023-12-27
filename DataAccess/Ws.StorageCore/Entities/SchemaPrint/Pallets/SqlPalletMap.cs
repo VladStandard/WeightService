@@ -49,7 +49,7 @@ public sealed class SqlPalletMap : ClassMapping<SqlPalletEntity>
         });
         
         ManyToOne(x => x.Line, m => {
-            m.Column("LINE_ID");
+            m.Column("LINE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

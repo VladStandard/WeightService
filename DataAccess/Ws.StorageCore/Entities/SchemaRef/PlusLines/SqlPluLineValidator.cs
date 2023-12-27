@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef.Lines;
+
 namespace Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 public sealed class SqlPluLineValidator : SqlTableValidator<SqlPluLineEntity>

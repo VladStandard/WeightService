@@ -1,11 +1,9 @@
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
-namespace Ws.StorageCore.Entities.SchemaScale.Scales;
+namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
-{
-    public SqlLineEntity GetItemById(long id) => SqlCore.GetItemById<SqlLineEntity>(id);
-
+{ 
     public SqlLineEntity GetItemByHost(SqlHostEntity host)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();

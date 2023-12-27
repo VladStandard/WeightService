@@ -12,6 +12,5 @@ global using Ws.StorageCore.Entities.SchemaScale.Access;
 global using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 global using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 global using Ws.StorageCore.Entities.SchemaRef.Printers;
-global using Ws.StorageCore.Entities.SchemaScale.Scales;
 global using Ws.StorageCore.Entities.SchemaScale.Templates;
 global using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;

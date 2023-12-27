@@ -1,7 +1,7 @@
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 
-namespace Ws.StorageCore.Entities.SchemaScale.Scales;
+namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
 {

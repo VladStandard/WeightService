@@ -1,6 +1,6 @@
 ﻿using MDSoft.NetUtils;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 
 namespace Ws.Services.Services.Host;
 

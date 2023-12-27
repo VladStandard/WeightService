@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 
 namespace ScalesHybrid.Components.Dialogs;
 

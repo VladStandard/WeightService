@@ -5,10 +5,10 @@ using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.Services.Services.Plu;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.Scales;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 using Ws.StorageCore.Helpers;
 
@@ -114,7 +114,7 @@ public class LineContext
         PluTemplate = new();
         
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
-        ExternalDevices.SetupScales(Line.DeviceComPort);
+        ExternalDevices.SetupScales(Line.ComPort);
         Timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
     
