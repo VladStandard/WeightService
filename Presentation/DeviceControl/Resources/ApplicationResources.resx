@@ -273,4 +273,13 @@
     <data name="ButtonShare" xml:space="preserve">
         <value />
     </data>
+    <data name="ActionMenuReset" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ActionMenuShare" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ActionMenuDelete" xml:space="preserve">
+        <value />
+    </data>
 </root>

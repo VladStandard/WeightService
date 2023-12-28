@@ -1,9 +1,9 @@
 @inherits SectionFormBase<SqlBrandEntity>
 
 <SectionFormWrapper
+  ShareUrl="@($"{RouteUtils.SectionBrands}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  ShareUrl="@($"{RouteUtils.SectionBrands}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"

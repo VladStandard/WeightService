@@ -13,7 +13,7 @@ public sealed partial class SectionFormInputWrapper: SectionFormInputBase
             SectionFormInputSizeEnum.Medium => "h-14 w-full",
             SectionFormInputSizeEnum.Large => "h-28 w-full",
             SectionFormInputSizeEnum.ExtraLarge => "h-56 w-full",
-            _ => "h-14 w-1/2"
+            _ => "h-14 w-full sm:w-1/2"
         };
     
 }

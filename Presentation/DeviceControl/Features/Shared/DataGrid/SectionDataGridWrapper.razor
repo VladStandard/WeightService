@@ -6,7 +6,7 @@
 
 
 <div class="w-full flex gap-4 items-center mb-2 @(IsBorderless ? "pt-2 px-4" : "px-2")">
-  <p class="text-2xl">
+  <p class="text-2xl truncate">
     @Title
   </p>
   <div class="px-2 items-center py-1 bg-sky-300 border flex gap-2 border-black/[.1] rounded-md overflow-hidden transition-colors hover:bg-sky-400">
@@ -109,20 +109,24 @@
 
 @if ( IsVisibleContextMenu )
 {
-  <div id="dataGridContextMenu" class="absolute flex flex-col rounded-md border border-black/[.1] overflow-hidden" style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")">
+  <div
+    id="dataGridContextMenu"
+    class="flex flex-col rounded-md border border-black/[.1] overflow-hidden @(IsBorderless ? "fixed" : "absolute")"
+    style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")"
+  >
     <ul>
       @foreach (ContextMenuEntry entry in ContextMenuEntries)
       {
         <li>
           <button
             type="button"
-            class="w-full bg-gray-50 items-center h-9 px-4 flex gap-3 transition-colors hover:bg-gray-200"
+            class="w-full bg-gray-50 text-gray-500 items-center h-9 px-4 flex gap-3 transition-colors hover:bg-gray-200 hover:text-gray-700 @entry.CustomClass"
             @onclick="@entry.OnClickAction"
           >
             <Heroicon
               Name="@entry.IconName"
               Type="HeroiconType.Outline"
-              class="h-4 w-4 text-gray-500"
+              class="h-4 w-4"
             />
             <p class="text-sm">@entry.Name</p>
           </button>

@@ -5,9 +5,11 @@
 
 <SectionFormWrapper
   OnSaveAction="() => UpdateItem(SectionEntity)"
+  ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
+  ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"
@@ -15,13 +17,13 @@
     IsDisabled
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Description"
-    Label="@Localizer["DataGridColumnName"]"
-  />
-  <SectionFormInputText
     Value="@SectionEntity.ComPort"
     Label="@Localizer["DataGridColumnCOM"]"
     IsDisabled
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Description"
+    Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputNumeric
     TValue="int"

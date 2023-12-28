@@ -4,14 +4,14 @@
     <div class="flex px-4 items-center w-full">
       @if (CreateDate != null)
       {
-        <div class="w-1/2 px-10 items-center flex gap-2">
+        <div class="w-1/2 px-10 truncate items-center flex gap-2">
           <p class="font-normal">@Localizer["DataGridColumnCreateDt"]:</p>
           <p>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</p>
         </div>
       }
       @if (ChangeDate != null)
       {
-        <div class="w-1/2 px-10 flex-items flex gap-2">
+        <div class="w-1/2 px-10 truncate flex-items flex gap-2">
           <p class="font-normal">@Localizer["DataGridColumnChangeDt"]:</p>
           <p>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</p>
         </div>
@@ -19,16 +19,6 @@
     </div>
   }
   <div class="flex px-6 w-full gap-2 justify-end">
-    @if (!string.IsNullOrEmpty(ShareUrl))
-    {
-      <button
-        type="button"
-        @onclick="CopyToClipboard"
-        class="h-9 bg-sky-300 transition-colors flex items-center px-4 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-sky-400">
-        <p class="font-normal pt-[1px]">@Localizer["ButtonShare"]</p>
-      </button>
-    }
     @if (OnSaveAction.HasDelegate)
     {
       <button

@@ -3,9 +3,11 @@
 
 <SectionFormWrapper
   OnSaveAction="() => UpdateItem(SectionEntity)"
+  ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
+  ShareUrl="@($"{RouteUtils.SectionHosts}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  ShareUrl="@($"{RouteUtils.SectionHosts}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"

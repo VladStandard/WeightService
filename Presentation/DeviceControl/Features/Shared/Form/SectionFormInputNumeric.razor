@@ -1,20 +1,12 @@
-@inherits SectionFormInputBase
-
-@using Blazor.Heroicons.Outline
 @typeparam TValue
+@inherits SectionFormInputBase
+@using Blazor.Heroicons.Outline
+
 
 <SectionFormInputWrapper Label="@Label" Link="@Link">
-  <div class="w-full px-1 gap-1 h-full flex items-center rounded-md overflow-hidden border border-black/[.1]
-    focus-within:border-blue-500 @(IsDisabled ? "bg-gray-100": "bg-white")"
-  >
-    <input
-      type="number"
-      min="@MinValue"
-      max="@MaxValue"
-      disabled="@IsDisabled"
-      @bind:get="BindingValue"
-      @bind:set="HandleInputChange"
-      class="w-full h-full bg-transparent border-none px-1 focus:ring-0"
-    />
-  </div>
+  <InputNumber
+    TValue="TValue"
+    @bind-Value="Value"
+    class="w-full bg-white h-full border border-black/[.1] rounded-md overflow-hidden px-2 focus:ring-0"
+  />
 </SectionFormInputWrapper>

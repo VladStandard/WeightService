@@ -60,6 +60,33 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ActionMenuDelete {
+            get {
+                return ResourceManager.GetString("ActionMenuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string ActionMenuReset {
+            get {
+                return ResourceManager.GetString("ActionMenuReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share.
+        /// </summary>
+        internal static string ActionMenuShare {
+            get {
+                return ResourceManager.GetString("ActionMenuShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Control.
         /// </summary>
         internal static string ApplicationName {

@@ -1,11 +1,39 @@
-<div class="w-full flex flex-col">
+@using Blazor.Heroicons
+
+<div class="w-full grid grid-cols-[3fr,1fr] grid-rows-1">
   <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
     @ChildContent
   </div>
+  @if (ActionMenuEntries.Count() != 0)
+  {
+    <div class="w-full border-l px-3 py-2 border-l-black/[.1] flex flex-col h-full">
+      <p class="">Действия</p>
+      <ul class="flex flex-col gap-2 pt-1">
+        @foreach (ActionMenuEntry entry in ActionMenuEntries)
+        {
+          <li>
+            <button
+              type="button"
+              @onclick="entry.OnClickAction"
+              class="rounded-md w-full px-3 h-8 border text-gray-500 flex items-center gap-3 border-black/[.05] transition-colors
+                      bg-gray-100 overflow-hidden hover:bg-gray-200 @entry.CustomClass">
+              <Heroicon
+                Name="@entry.IconName"
+                Type="HeroiconType.Outline"
+                class="h-4 w-4"/>
+              <p class="truncate text-sm font-normal">
+                @entry.Name
+              </p>
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  }
 </div>
+
 <SectionFormFooter
   ChangeDate="ChangeDate"
   CreateDate="CreateDate"
   OnSaveAction="OnSaveAction"
-  ShareUrl="@ShareUrl"
 />

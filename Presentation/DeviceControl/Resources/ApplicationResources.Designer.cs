@@ -62,6 +62,33 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ActionMenuDelete {
+            get {
+                return ResourceManager.GetString("ActionMenuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ActionMenuReset {
+            get {
+                return ResourceManager.GetString("ActionMenuReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ActionMenuShare {
+            get {
+                return ResourceManager.GetString("ActionMenuShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ApplicationName {
             get {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);

@@ -13,23 +13,23 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
     [Parameter] public TValue MinValue { get; set; } = TValue.MinValue;
     [Parameter] public bool IsDisabled { get; set; }
     
-    private string BindingValue { get; set; } = string.Empty;
+    protected override Task OnInitializedAsync()
+    {
+        InitializeMinMaxValue();
+        return Task.CompletedTask;
+    }
 
-    protected override async Task OnInitializedAsync()
+    private void InitializeMinMaxValue()
     {
         if (Comparer<TValue>.Default.Compare(MaxValue, TValue.MaxValue) > 0) MaxValue = TValue.MaxValue;
         if (Comparer<TValue>.Default.Compare(MinValue, TValue.MinValue) < 0) MinValue = TValue.MinValue;
-        await HandleInputChange(Value.ToString()!);
     }
 
-    private async Task HandleInputChange(string arg)
+    private void HandleInputChange(string arg)
     {
-        if (TryParse(arg, out TValue newValue))
-        {
-            Value = GetLimitedValue(newValue);
-            BindingValue = Value.ToString()!;
-            await ValueChanged.InvokeAsync(Value);
-        }
+        if (!TryParse(arg, out TValue newValue)) return;
+        if (EqualityComparer<TValue>.Default.Equals(Value, newValue)) return;
+        Value = newValue;
     }
     
     private bool TryParse(string value, out TValue result)

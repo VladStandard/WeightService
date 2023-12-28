@@ -3,9 +3,9 @@
 
 
 <SectionFormWrapper
+  ShareUrl="@($"{RouteUtils.SectionBundles}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
-  ShareUrl="@($"{RouteUtils.SectionBundles}/{SectionEntity.IdentityValueUid}")"
 >
   <SectionFormInputText
     Value="@SectionEntity.IdentityValueUid.ToString()"

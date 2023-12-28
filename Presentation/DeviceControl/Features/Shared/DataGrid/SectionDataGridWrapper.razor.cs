@@ -94,7 +94,8 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
             {
                 Name = Localizer["ContextMenuDelete"],
                 IconName = HeroiconName.Trash,
-                OnClickAction = EventCallback.Factory.Create(this, OnContextItemDeleteClicked)
+                OnClickAction = EventCallback.Factory.Create(this, OnContextItemDeleteClicked),
+                CustomClass = "hover:bg-red-200 hover:text-red-600"
             });
     }
     
@@ -158,5 +159,6 @@ public class ContextMenuEntry
 {
     public string Name { get; init; } = string.Empty;
     public EventCallback OnClickAction { get; init; } = EventCallback.Empty;
-    public string IconName { get; init; } = string.Empty; 
+    public string IconName { get; init; } = string.Empty;
+    public string CustomClass { get; init; } = string.Empty;
 }

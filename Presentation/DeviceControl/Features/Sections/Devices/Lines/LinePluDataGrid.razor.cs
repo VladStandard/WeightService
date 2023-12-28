@@ -1,5 +1,6 @@
 using DeviceControl.Features.Shared.DataGrid;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
@@ -15,9 +16,9 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
     
     private SqlPluLineRepository PluLineRepository { get; } = new();
 
-    protected override void SetSqlSectionCast()
-    {
+    protected override void SetSqlSectionCast() =>
         SectionItems = PluLineRepository.GetListByLine(LineEntity, SqlCrudConfigSection);
-    }
-        
+    
+    protected override async Task OpenItemInNewTab(SqlPluLineEntity item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");
 }

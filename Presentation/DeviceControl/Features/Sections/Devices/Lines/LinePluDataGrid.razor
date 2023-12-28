@@ -5,10 +5,12 @@
 <SectionDataGridWrapper
   TItem="SqlPluLineEntity"
   @ref="DataGridWrapperRef"
-  GridData="SectionItems"
-  IsLoading="IsLoading"
-  GetGridData="GetSectionData"
   Title="@Localizer["SectionLinePLU"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  OpenInTabAction="OpenItemInNewTab"
+  DeleteAction="DeleteSqlItem"
+  IsLoading="IsLoading"
   ItemsPerPage="5"
   IsBorderless
 >
