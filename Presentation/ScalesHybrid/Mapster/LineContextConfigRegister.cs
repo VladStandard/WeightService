@@ -22,7 +22,7 @@ public class LineContextConfigRegister : IRegister
             .Map(d => d.PluFullName, s => s.Plu.FullName)
             .Map(d => d.PluDescription, s => s.Plu.Description)
             .Map(d => d.LineNumber, s => s.Line.Number)
-            .Map(d => d.LineName, s => s.Line.Description)
+            .Map(d => d.LineName, s => s.Line.Name)
             .Map(d => d.Template, s => s.PluTemplate.Data)
             .Map(d => d.ProductDt, s => GetProductDt(s.KneadingModel.ProductDate))
             .Map(d => d.ExpirationDt, s => GetProductDt(s.KneadingModel.ProductDate)

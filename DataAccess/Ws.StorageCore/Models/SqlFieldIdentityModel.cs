@@ -11,7 +11,6 @@ public class SqlFieldIdentityModel
 
     public SqlFieldIdentityModel()
     {
-        Name = SqlEnumFieldIdentity.Empty;
         Uid = Guid.Empty;
         Id = 0;
     }
@@ -19,12 +18,6 @@ public class SqlFieldIdentityModel
     public SqlFieldIdentityModel(SqlEnumFieldIdentity identityName) : this()
     {
         Name = identityName;
-    }
-
-    private SqlFieldIdentityModel(SqlEnumFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
-    {
-        Uid = identityUid;
-        Id = identityId;
     }
 
     public SqlFieldIdentityModel(SqlFieldIdentityModel item)

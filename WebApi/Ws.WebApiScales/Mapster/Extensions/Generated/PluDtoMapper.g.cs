@@ -47,9 +47,9 @@ namespace Ws.WebApiScales.Dto.Plu
             result.Ean13 = p5.Ean13;
             result.Itf14 = p5.IsCheckWeight == true ? "" : p5.Itf14;
             result.IsCheckWeight = p5.IsCheckWeight;
+            result.Description = p5.Description;
             result.IsMarked = p5.IsMarked;
             result.Name = p5.Name;
-            result.Description = p5.Description;
             return result;
             
         }

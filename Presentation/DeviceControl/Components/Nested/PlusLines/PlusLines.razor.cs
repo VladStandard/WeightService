@@ -23,7 +23,7 @@ public sealed partial class PlusLines : SectionBase<SqlPluLineEntity>
 
     protected override async Task SqlItemNewAsync()
     {
-        await DialogService.OpenAsync<AddPlusLines>($"{Line.Description} | ПЛУ", 
+        await DialogService.OpenAsync<AddPlusLines>($"{Line.Name} | ПЛУ", 
         new(){ {"Line", Line} }, 
         new() { Width = "1000px", Height = "700px"});
     }

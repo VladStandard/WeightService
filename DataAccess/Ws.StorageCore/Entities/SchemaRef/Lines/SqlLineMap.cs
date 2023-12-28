@@ -28,7 +28,7 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.Description, m =>
+        Property(x => x.Name, m =>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);

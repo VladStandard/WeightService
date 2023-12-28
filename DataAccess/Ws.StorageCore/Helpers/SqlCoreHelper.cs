@@ -329,15 +329,12 @@ public sealed class SqlCoreHelper
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
         sqlCrudConfig.SelectTopRowsCount = 1;
         T result = GetItemByCrud<T>(sqlCrudConfig);
-        result.FillProperties();
         return result;
     }
 
     public T GetItemNewEmpty<T>() where T : SqlEntityBase, new()
     {
-        T result = new();
-        result.FillProperties();
-        return result;
+        return new();
     }
 
     #endregion

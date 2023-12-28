@@ -7,7 +7,7 @@ public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
 {
     public SqlLineValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
     {
-        RuleFor(item => item.Description)
+        RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Number)

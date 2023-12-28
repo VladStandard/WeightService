@@ -14,7 +14,7 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
     public SqlLineEntity GetItemByName(string name)
     {
         SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLineEntity.Description), name));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLineEntity.Name), name));
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
@@ -28,7 +28,7 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
     public IEnumerable<SqlLineEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Description)));
+            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Name)));
         return SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
     }
 }
