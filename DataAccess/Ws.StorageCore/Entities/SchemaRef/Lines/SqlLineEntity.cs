@@ -54,7 +54,7 @@ public class SqlLineEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlLineEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(ComPort, item.ComPort) &&
         Equals(Number, item.Number) &&
         Equals(Counter, item.Counter) &&

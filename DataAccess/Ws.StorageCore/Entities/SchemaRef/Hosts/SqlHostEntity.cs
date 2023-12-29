@@ -33,7 +33,7 @@ public class SqlHostEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlHostEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(LoginDt, item.LoginDt) &&
         Equals(Ip, item.Ip);
     

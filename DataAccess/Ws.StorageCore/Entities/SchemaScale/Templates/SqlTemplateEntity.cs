@@ -35,7 +35,7 @@ public class SqlTemplateEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlTemplateEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(CategoryId, item.CategoryId) &&
         Equals(Title, item.Title) &&
         Equals(Data, item.Data);

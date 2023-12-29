@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor
 namespace Ws.StorageCore.Common;
 
 [DebuggerDisplay("{ToString()}")]
@@ -37,7 +38,7 @@ public class SqlEntityBase
         (string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ");
 
     public virtual bool Equals(SqlEntityBase item) =>
-        ReferenceEquals(this, item) || Identity.Equals(item.Identity) &&//-V3130
+        ReferenceEquals(this, item) || Identity.Equals(item.Identity) &&
         Equals(CreateDt, item.CreateDt) &&
         Equals(ChangeDt, item.ChangeDt) &&
         Equals(Name, item.Name);

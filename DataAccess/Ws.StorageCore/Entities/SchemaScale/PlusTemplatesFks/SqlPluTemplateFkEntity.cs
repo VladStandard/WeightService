@@ -34,7 +34,7 @@ public class SqlPluTemplateFkEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
 
     public virtual bool Equals(SqlPluTemplateFkEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Plu.Equals(item.Plu) &&
         Template.Equals(item.Template);
 }

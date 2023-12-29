@@ -34,7 +34,7 @@ public class SqlPluLineEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlPluLineEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Plu, item.Plu) &&
         Equals(Line, item.Line) &&
         Plu.Equals(item.Plu) &&

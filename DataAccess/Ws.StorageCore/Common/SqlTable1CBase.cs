@@ -21,7 +21,7 @@ public class SqlTable1CBase : SqlEntityBase
     }
     
     public virtual bool Equals(SqlTable1CBase item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1C, item.Uid1C);
+        ReferenceEquals(this, item) || base.Equals(item) &&Equals(Uid1C, item.Uid1C);
 
     public override bool Equals(object obj)
     {

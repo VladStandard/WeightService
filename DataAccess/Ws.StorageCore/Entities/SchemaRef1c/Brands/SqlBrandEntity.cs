@@ -31,6 +31,6 @@ public class SqlBrandEntity : SqlTable1CBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlBrandEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&//-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Code, item.Code);
 }
