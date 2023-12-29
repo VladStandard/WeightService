@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
+﻿namespace Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 
 public class SqlViewLabel : SqlEntityBase
 {

@@ -1,4 +1,4 @@
-using System;
+// ReSharper disable VirtualMemberCallInConstructor
 using Ws.Shared.Utils;
 
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;

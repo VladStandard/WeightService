@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
 public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNestingFkEntity>

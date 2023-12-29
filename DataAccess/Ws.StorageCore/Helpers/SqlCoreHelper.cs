@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;

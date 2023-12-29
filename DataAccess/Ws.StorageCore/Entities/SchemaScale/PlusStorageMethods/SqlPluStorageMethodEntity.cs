@@ -1,7 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor
 
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 
 [Serializable]

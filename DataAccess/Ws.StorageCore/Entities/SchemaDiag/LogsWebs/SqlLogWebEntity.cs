@@ -1,4 +1,4 @@
-using System;
+// ReSharper disable VirtualMemberCallInConstructor
 
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 

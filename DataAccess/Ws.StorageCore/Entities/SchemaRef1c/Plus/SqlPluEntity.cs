@@ -1,5 +1,4 @@
-using System;
-
+// ReSharper disable VirtualMemberCallInConstructor
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 [DebuggerDisplay("{ToString()}")]

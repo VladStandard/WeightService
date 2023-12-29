@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
 public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>

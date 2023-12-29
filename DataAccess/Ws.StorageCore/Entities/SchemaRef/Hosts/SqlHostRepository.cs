@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>

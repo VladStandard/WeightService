@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>

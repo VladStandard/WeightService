@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 public sealed class SqlBrandRepository : SqlTableRepositoryBase<SqlBrandEntity>

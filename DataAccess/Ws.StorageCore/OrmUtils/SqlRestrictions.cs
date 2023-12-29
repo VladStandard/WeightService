@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ws.StorageCore.OrmUtils;
+﻿namespace Ws.StorageCore.OrmUtils;
 
 public static class SqlRestrictions
 {

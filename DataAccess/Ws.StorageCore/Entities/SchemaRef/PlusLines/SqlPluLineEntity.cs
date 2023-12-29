@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 
 namespace Ws.StorageCore.Entities.SchemaRef.PlusLines;
