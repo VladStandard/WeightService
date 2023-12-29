@@ -13,7 +13,7 @@
 //     protected override void SetSqlItemCast()
 //     {
 //         base.SetSqlItemCast();
-//         ProductionSiteModels = new SqlProductionSiteRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+//         ProductionSiteModels = new SqlProductionSiteRepository().GetEnumerable(new()).ToList();
 //     }
 //
 //     #endregion

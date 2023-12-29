@@ -35,14 +35,6 @@ public class SqlPluStorageMethodFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Plu.FillProperties();
-        Method.FillProperties();
-        Resource.FillProperties();
-    }
 
     public virtual bool Equals(SqlPluStorageMethodFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130

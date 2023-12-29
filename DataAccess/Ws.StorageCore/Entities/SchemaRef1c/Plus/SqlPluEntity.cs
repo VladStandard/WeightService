@@ -18,8 +18,10 @@ public class SqlPluEntity : SqlTable1CBase
     public virtual Guid CategoryGuid { get; set; }
     public virtual SqlBundleEntity Bundle { get; set; }
     public virtual SqlBrandEntity Brand { get; set; }
+    public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
-    
+
+
     public SqlPluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         CategoryGuid = Guid.Empty;
@@ -35,6 +37,7 @@ public class SqlPluEntity : SqlTable1CBase
         ShelfLifeDays = default;
         Brand = new();
         Bundle = new();
+        Description = string.Empty;
     }
 
     public SqlPluEntity(SqlPluEntity item) : base(item)
@@ -51,6 +54,7 @@ public class SqlPluEntity : SqlTable1CBase
         IsCheckWeight = item.IsCheckWeight;
         Brand = new(item.Brand);
         Bundle = new(item.Bundle);
+        Description = item.Description;
     }
 
     public override string ToString() => $"{Number} | {Name} | {Uid1C} | {Code}";
@@ -76,5 +80,6 @@ public class SqlPluEntity : SqlTable1CBase
         Equals(Gtin, item.Gtin) &&
         Equals(Ean13, item.Ean13) &&
         Equals(Itf14, item.Itf14) &&
+        Equals(Description, item.Description) &&
         Equals(IsCheckWeight, item.IsCheckWeight);
 }

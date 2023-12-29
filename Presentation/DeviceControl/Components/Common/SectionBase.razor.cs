@@ -27,7 +27,7 @@
 //         SqlSectionCast = new();
 //         SqlSectionSave = new();
 //
-//         SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudAll();
+//         SqlCrudConfigSection = new();
 //         IsGuiShowFilterMarked = true;
 //         SqlCrudConfigSection.SelectTopRowsCount = 200;
 //         ButtonSettings = ButtonSettingsModel.CreateForSection();

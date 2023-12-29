@@ -28,14 +28,6 @@ public class SqlPluFkEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
     
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Plu.FillProperties();
-        Parent.FillProperties();
-        Category?.FillProperties();
-    }
-    
     public virtual bool Equals(SqlPluFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Plu.Equals(item.Plu) &&

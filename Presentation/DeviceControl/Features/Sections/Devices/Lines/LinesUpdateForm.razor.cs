@@ -19,9 +19,9 @@ public sealed partial class LinesUpdateForm: SectionFormBase<SqlLineEntity>
 
     protected override void OnInitialized()
     {
-        PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        PrinterEntities = new SqlPrinterRepository().GetEnumerable(new()).ToList();
+        HostEntities = new SqlHostRepository().GetEnumerable(new()).ToList();
+        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(new()).ToList();
     }
 
     private SqlPrinterEntity GetPrinterByUid(string printUid) =>

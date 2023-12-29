@@ -22,7 +22,7 @@
     IsDisabled
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Description"
+    @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputNumeric
@@ -66,9 +66,5 @@
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
     IdentifyItemOnValueChange="item => GetHostByUid(item)"
-  />
-  <SectionFormInputCheckbox
-    @bind-Value="@SectionEntity.IsMarked"
-    Label="@Localizer["DataGridColumnIsArchival"]"
   />
 </SectionFormWrapper>

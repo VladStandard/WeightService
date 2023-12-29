@@ -13,7 +13,7 @@ public sealed class SqlAccessRepository : SqlTableRepositoryBase<SqlAccessEntity
 
     public SqlAccessEntity GetItemByUsername(string userName)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.Name), userName));
         return SqlCore.GetItemByCrud<SqlAccessEntity>(sqlCrudConfig);
     }

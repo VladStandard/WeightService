@@ -10,8 +10,6 @@ public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Description)
-            .NotNull();
         RuleFor(item => item.Ip)
            .NotNull();
     }

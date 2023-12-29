@@ -27,14 +27,7 @@ public sealed class SqlTemplateMap : ClassMapping<SqlTemplateEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("Marked");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
+        
         Property(x => x.CategoryId, m =>
         {
             m.Column("CategoryID");

@@ -11,7 +11,7 @@ public class SqlHostEntity : SqlEntityBase
     
     public SqlHostEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        LoginDt = DateTime.MinValue;
+        LoginDt = DateTime.Now;
         Ip = string.Empty;
     }
 
@@ -32,12 +32,6 @@ public class SqlHostEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        LoginDt = DateTime.Now;
-    }
     
     public virtual bool Equals(SqlHostEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130

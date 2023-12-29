@@ -1,8 +1,5 @@
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
-/// <summary>
-/// Table map "TEMPLATES_RESOURCES".
-/// </summary>
 public sealed class SqlTemplateResourceMap : ClassMapping<SqlTemplateResourceEntity>
 {
     public SqlTemplateResourceMap()

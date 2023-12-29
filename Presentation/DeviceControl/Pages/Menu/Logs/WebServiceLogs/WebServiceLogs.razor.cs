@@ -18,7 +18,7 @@
 //
 //     protected override void SetSqlSectionCast()
 //     {
-//         SqlCrudConfigModel crud = SqlCrudConfigFactory.GetCrudAll();
+//         SqlCrudConfigModel crud = new();
 //         SqlSectionCast = new SqlLogWebRepository().GetList(crud).ToList();
 //     }
 //

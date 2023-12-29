@@ -13,5 +13,5 @@ public sealed partial class Logs1CDataGrid: SectionDataGridBase<SqlLogWebEntity>
     private SqlLogWebRepository SqlLogWebRepository { get; } = new();
     
     protected override void SetSqlSectionCast() =>
-        SectionItems = SqlLogWebRepository.GetList(SqlCrudConfigFactory.GetCrudAll()).ToList();
+        SectionItems = SqlLogWebRepository.GetList(new()).ToList();
 }

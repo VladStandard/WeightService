@@ -22,10 +22,6 @@
     @bind-Value="@SectionEntity.Ip"
     Label="@Localizer["DataGridColumnIp"]"
   />
-  <SectionFormInputCheckbox
-    @bind-Value="@SectionEntity.IsMarked"
-    Label="@Localizer["DataGridColumnIsArchival"]"
-  />
   <SectionFormInputText
     Value="@SectionEntity.LoginDt.ToString("dd.MM.yyyy HH:mm")"
     Label="@Localizer["DataGridColumnLoginDt"]"
