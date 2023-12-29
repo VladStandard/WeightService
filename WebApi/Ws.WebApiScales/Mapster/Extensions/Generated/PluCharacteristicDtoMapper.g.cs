@@ -12,7 +12,6 @@ namespace Ws.WebApiScales.Dto.PluCharacteristic
             
             result.BundleCount = (short)p1.AttachmentsCountAsInt;
             result.Uid1C = p1.Guid;
-            result.IsMarked = p1.IsMarked;
             return result;
             
         }

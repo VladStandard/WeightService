@@ -35,13 +35,6 @@ public sealed class SqlAccessMap : ClassMapping<SqlAccessEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
         Property(x => x.Name, m =>
         {
             m.Column("NAME");

@@ -21,9 +21,9 @@ public sealed partial class ItemLines : ItemBase<SqlLineEntity>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        PrinterModels = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        HostModels = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
-        WorkShopModels = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        PrinterModels = new SqlPrinterRepository().GetEnumerable(new()).ToList();
+        HostModels = new SqlHostRepository().GetEnumerable(new()).ToList();
+        WorkShopModels = new SqlWorkShopRepository().GetEnumerable(new()).ToList();
         ComPorts = Enumerable.Range(1, 10).Select(i => $"COM{i}").ToList();;
     }
 }

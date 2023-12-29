@@ -6,7 +6,7 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
 {
     public SqlHostEntity GetItemByName(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.Name), name));
         return SqlCore.GetItemByCrud<SqlHostEntity>(sqlCrudConfig);
     }

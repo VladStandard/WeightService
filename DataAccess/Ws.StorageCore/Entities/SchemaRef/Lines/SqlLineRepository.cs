@@ -6,21 +6,21 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 { 
     public SqlLineEntity GetItemByHost(SqlHostEntity host)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.Host), host));
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
     public SqlLineEntity GetItemByName(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLineEntity.Name), name));
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.WorkShop), workShop));
         return GetEnumerable(sqlCrudConfig);
     }

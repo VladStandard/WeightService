@@ -11,7 +11,6 @@ public sealed partial class PlusLines : SectionBase<SqlPluLineEntity>
 
     public PlusLines() : base()
     {
-        ButtonSettings.IsShowMark = false;
         SqlCrudConfigSection.IsResultOrder = true;
     }
     

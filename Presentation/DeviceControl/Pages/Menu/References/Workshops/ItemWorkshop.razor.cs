@@ -7,6 +7,6 @@ public sealed partial class ItemWorkshop : ItemBase<SqlWorkShopEntity>
     protected override void SetSqlItemCast()
     {
         base.SetSqlItemCast();
-        ProductionSiteModels = new SqlProductionSiteRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual()).ToList();
+        ProductionSiteModels = new SqlProductionSiteRepository().GetEnumerable(new()).ToList();
     }
 }

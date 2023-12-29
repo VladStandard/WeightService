@@ -10,7 +10,6 @@ public class SqlEntityBase
     public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
     public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
-    public virtual bool IsMarked { get; set; }
     public virtual string Name { get; set; } = string.Empty;
     public virtual bool IsExists => Identity.IsExists;
     public virtual bool IsNew => Identity.IsNew;
@@ -31,7 +30,6 @@ public class SqlEntityBase
         Identity = new(item.Identity);
         CreateDt = item.CreateDt;
         ChangeDt = item.ChangeDt;
-        IsMarked = item.IsMarked;
         Name = item.Name;
     }
 
@@ -44,7 +42,6 @@ public class SqlEntityBase
         ReferenceEquals(this, item) || Identity.Equals(item.Identity) &&//-V3130
         Equals(CreateDt, item.CreateDt) &&
         Equals(ChangeDt, item.ChangeDt) &&
-        Equals(IsMarked, item.IsMarked) &&
         Equals(Name, item.Name);
 
     public override bool Equals(object obj)

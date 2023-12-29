@@ -27,7 +27,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         SqlSectionCast = new();
         SqlSectionSave = new();
 
-        SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigSection = new();
         IsGuiShowFilterMarked = true;
         SqlCrudConfigSection.SelectTopRowsCount = 200;
         ButtonSettings = ButtonSettingsModel.CreateForSection();
@@ -91,9 +91,7 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
 
         if (User?.IsInRole(UserAccessStr.Write) != true)
             return contextMenuItems;
-
-        if (ButtonSettings.IsShowMark)
-            contextMenuItems.Add(new() { Text = Locale.Mark, Value = ContextMenuActionEnum.Mark });
+        
         if (ButtonSettings.IsShowDelete)
             contextMenuItems.Add(new() { Text = Locale.Delete, Value = ContextMenuActionEnum.Delete });
 
@@ -107,7 +105,6 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         {
             ContextMenuActionEnum.OpenNewTab => SqlItemOpenNewTabAsync,
             ContextMenuActionEnum.Open => SqlItemOpenAsync,
-            ContextMenuActionEnum.Mark => SqlItemMarkAsync,
             ContextMenuActionEnum.Delete => SqlItemDeleteAsync,
             _ => throw new NotImplementedException()
         };
@@ -184,19 +181,6 @@ public class SectionBase<TItem> : RazorComponentBase where TItem : SqlEntityBase
         RunActionsWithQuestion(Locale.TableDelete, Locale.DialogQuestion, () =>
         {
             SqlCore.Delete(SqlItem);
-            DeleteMarkedOrDeleted();
-        });
-    }
-
-    [Authorize(Roles = UserAccessStr.Write)]
-    protected async Task SqlItemMarkAsync()
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        if (SqlItem is null) return;
-
-        RunActionsWithQuestion(Locale.TableMark, Locale.DialogQuestion, () =>
-        {
-            SqlCore.Mark(SqlItem);
             DeleteMarkedOrDeleted();
         });
     }

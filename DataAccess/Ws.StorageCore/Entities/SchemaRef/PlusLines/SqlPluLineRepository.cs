@@ -6,7 +6,7 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluLineEnti
 {
     public SqlPluLineEntity GetItemByLinePlu(SqlLineEntity line, SqlPluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilters(new()
         {
             SqlRestrictions.EqualFk(nameof(SqlPluLineEntity.Line), line),

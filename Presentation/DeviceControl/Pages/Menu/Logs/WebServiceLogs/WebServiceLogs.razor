@@ -25,7 +25,7 @@
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
     <TItemContent TItem="@SqlLogWebEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+
       <RadzenDataGridColumn Title="@Locale.CreateDt" Property="CreateDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@Locale.ChangeDt" Property="StampDt" Width="15%" FormatString="@StrUtils.FormatDtLong"/>
       <RadzenDataGridColumn Title="@Locale.App" Property="Version" Width="15%"/>
