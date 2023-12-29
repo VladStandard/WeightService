@@ -13,17 +13,18 @@ public sealed partial class SectionFormInputSelect<TItem>: SectionFormInputBase 
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
     
     private string SelectedItemValue { get; set; } = string.Empty;
-
-    protected override void OnInitialized()
+    
+    protected override void OnParametersSet()
     {
-        SelectedItemValue = ItemValue(SelectedItem);
+        string newValue = ItemValue(SelectedItem);
+        if (!SelectedItemValue.Equals(newValue))
+            SelectedItemValue = newValue;
     }
-
+    
     private async void HandleValueChange(string value)
     {
         SelectedItemValue = value;
         SelectedItem = IdentifyItemOnValueChange(value);
         await SelectedItemChanged.InvokeAsync(SelectedItem);
     }
-        
 }
