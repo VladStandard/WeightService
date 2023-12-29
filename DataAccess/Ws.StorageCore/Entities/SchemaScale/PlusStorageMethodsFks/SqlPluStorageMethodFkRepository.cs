@@ -6,7 +6,7 @@ public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<Sql
     {
         if (plu.IsNew)
             return new();
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluStorageMethodFkEntity>(sqlCrudConfig);
     }
@@ -22,7 +22,7 @@ public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<Sql
     public SqlPluStorageMethodFkEntity GetItemByPluNumber(int pluNumber)
     {
         SqlPluEntity plu = new SqlPluRepository().GetEnumerableByNumber((short)pluNumber).FirstOrDefault() ?? new();
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluStorageMethodFkEntity>(sqlCrudConfig);
     }

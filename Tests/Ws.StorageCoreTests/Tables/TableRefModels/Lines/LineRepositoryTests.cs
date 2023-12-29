@@ -7,7 +7,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private SqlLineRepository LineRepository { get; } = new();
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Description)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Name)).Ascending;
 
     [Test, Order(1)]
     public void GetList()

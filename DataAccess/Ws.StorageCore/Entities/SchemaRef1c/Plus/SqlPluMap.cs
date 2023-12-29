@@ -27,14 +27,7 @@ public sealed class SqlPluMap : ClassMapping<SqlPluEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
+        
         Property(x => x.IsGroup, m =>
         {
             m.Column("IS_GROUP");

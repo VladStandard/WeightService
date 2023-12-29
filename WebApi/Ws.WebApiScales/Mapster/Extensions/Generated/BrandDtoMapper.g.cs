@@ -12,7 +12,6 @@ namespace Ws.WebApiScales.Dto.Brand
             
             result.Code = p1.Code;
             result.Uid1C = p1.Guid;
-            result.IsMarked = p1.IsMarked;
             result.Name = p1.Name;
             return result;
             

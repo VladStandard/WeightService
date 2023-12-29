@@ -47,15 +47,6 @@ public class SqlPluNestingFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Box.FillProperties();
-        Plu.FillProperties();
-        BundleCount = 0;
-    }
-    
 
     public virtual bool Equals(SqlPluNestingFkEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&

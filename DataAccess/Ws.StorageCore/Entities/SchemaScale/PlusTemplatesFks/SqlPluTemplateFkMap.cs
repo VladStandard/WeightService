@@ -27,13 +27,6 @@ public sealed class SqlPluTemplateFkMap : ClassMapping<SqlPluTemplateFkEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
         ManyToOne(x => x.Plu, m =>
         {
             m.Column("PLU_UID");

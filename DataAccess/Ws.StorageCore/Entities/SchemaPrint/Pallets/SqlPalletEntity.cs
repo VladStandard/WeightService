@@ -41,13 +41,6 @@ public class SqlPalletEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Line.FillProperties();
-        Plu.FillProperties();
-    }
-
     public virtual bool Equals(SqlPalletEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
         Equals(ProductDt, item.ProductDt) &&

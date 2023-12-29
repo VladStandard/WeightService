@@ -5,7 +5,7 @@ public class SqlPluTemplateFkRepository : SqlTableRepositoryBase<SqlPluStorageMe
     public SqlPluTemplateFkEntity GetItemByPlu(SqlPluEntity plu)
     {
         if (plu.IsNew) return new();
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluTemplateFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluTemplateFkEntity>(sqlCrudConfig);
     }

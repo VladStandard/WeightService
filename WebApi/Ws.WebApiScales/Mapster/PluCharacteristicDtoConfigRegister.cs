@@ -10,7 +10,6 @@ public class PluCharacteristicDtoConfigRegister : IRegister
     {
         config.NewConfig<PluCharacteristicDto, SqlPluNestingFkEntity>()
             .Map(d => d.Name, s => s.Name)
-            .Map(d => d.IsMarked, s => s.IsMarked)
             .Map(d => d.BundleCount, s => s.AttachmentsCountAsInt)
             .Map(d => d.Uid1C, s => s.Guid)
             .IgnoreNonMapped(true)

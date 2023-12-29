@@ -6,7 +6,7 @@ public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity
 {
     public SqlBundleEntity GetItemByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
         return SqlCore.GetItemByCrud<SqlBundleEntity>(sqlCrudConfig);
     }

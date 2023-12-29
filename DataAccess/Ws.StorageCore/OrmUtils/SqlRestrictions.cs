@@ -25,10 +25,6 @@ public static class SqlRestrictions
     
     public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(SqlTable1CBase.Uid1C), uid1C);
     
-    public static ICriterion IsMarked() => Restrictions.Eq(nameof(SqlEntityBase.IsMarked), true);
-    
-    public static ICriterion IsActual() => Restrictions.Eq(nameof(SqlEntityBase.IsMarked), false);
-    
     #endregion
 
     #region Less

@@ -27,8 +27,7 @@ public class BrandService(ResponseDto responseDto) : IBrandService
             responseDto.AddSuccess(uid, "Бренд не найден для удаления");
             return;
         }
-        brandDb.IsMarked = true;
-        SqlCoreHelper.Instance.Update(brandDb);
+        SqlCoreHelper.Instance.Delete(brandDb);
         responseDto.AddSuccess(uid, $"{brandDb.Name} - удален");
     }
 

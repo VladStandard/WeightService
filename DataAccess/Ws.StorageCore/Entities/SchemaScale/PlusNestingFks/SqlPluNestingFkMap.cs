@@ -28,13 +28,6 @@ public sealed class SqlPluNestingFkMap : ClassMapping<SqlPluNestingFkEntity>
                 m.NotNullable(true);
             });
 
-            Property(x => x.IsMarked, m =>
-            {
-                m.Column("IS_MARKED");
-                m.Type(NHibernateUtil.Boolean);
-                m.NotNullable(true);
-            });
-
             Property(x => x.IsDefault, m =>
             {
                 m.Column("IS_DEFAULT");

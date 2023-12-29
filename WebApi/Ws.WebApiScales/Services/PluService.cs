@@ -21,8 +21,7 @@ public class PluService(ResponseDto responseDto) : IPluService
     private static void SetPluIsMarked(SqlPluEntity plu)
     {
         if (plu.IsNew) return;
-        plu.IsMarked = true;
-        SqlCoreHelper.Instance.Update(plu);
+        SqlCoreHelper.Instance.Delete(plu);
     }
     
     private static SqlClipEntity SaveOrUpdateClip(PluDto pluDto)

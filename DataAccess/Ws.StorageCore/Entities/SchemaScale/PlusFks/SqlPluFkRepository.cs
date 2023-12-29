@@ -12,7 +12,7 @@ public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
     
     public SqlPluFkEntity GetByPlu(SqlPluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluFkEntity>(sqlCrudConfig);
     }

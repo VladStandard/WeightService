@@ -11,7 +11,7 @@ public class SqlLineEntity : SqlEntityBase
     public virtual SqlPrinterEntity Printer { get; set; }
     public virtual string ComPort { get; set; }
     public virtual int Number { get; set; }
-    public override string DisplayName => IsNew ?  string.Empty : $"{Description}";
+    public override string DisplayName => IsNew ?  string.Empty : $"{Name}";
     
     private int _counter;
     
@@ -40,7 +40,7 @@ public class SqlLineEntity : SqlEntityBase
         Version = item.Version;
     }
     
-    public override string ToString() => $"{IdentityValueId} | {Description}";
+    public override string ToString() => $"{IdentityValueId} | {Name}";
 
     public override bool Equals(object obj)
     {
@@ -51,14 +51,6 @@ public class SqlLineEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        WorkShop.FillProperties();
-        Printer.FillProperties();
-        Host.FillProperties();
-    }
     
     public virtual bool Equals(SqlLineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) && //-V3130
