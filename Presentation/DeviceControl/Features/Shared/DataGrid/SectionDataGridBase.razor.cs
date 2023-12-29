@@ -61,8 +61,14 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
         await ModalService.Show<T>(p =>
         {
             p.Add(x => x.DialogSectionEntity, sectionEntity);
-            p.Add(x => x.OnDataChangedAction, new(this, ReloadGrid));
+            p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
         });
+    }
+
+    private async Task OnModalSubmit()
+    {
+        await ReloadGrid();
+        await ModalService.Hide();
     }
 
     protected virtual Task DeleteSqlItem(TItem item)

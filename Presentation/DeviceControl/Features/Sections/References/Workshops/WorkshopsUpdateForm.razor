@@ -1,7 +1,7 @@
 @inherits SectionFormBase<SqlWorkShopEntity>
 
 <SectionFormWrapper
-  OnSaveAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   ShareUrl="@($"{RouteUtils.SectionWorkShops}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"

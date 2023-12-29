@@ -57,5 +57,5 @@ public sealed class SqlPluValidator : SqlTableValidator<SqlPluEntity>
             .SetValidator(new SqlBrandValidator(isCheckIdentity));
     }
 
-    public SqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, true, true) { }
+    public SqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, false, false) { }
 }

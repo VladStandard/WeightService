@@ -1,7 +1,7 @@
 @inherits SectionFormBase<SqlTemplateEntity>
 
 <SectionFormWrapper
-  OnSaveAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   ShareUrl="@($"{RouteUtils.SectionTemplates}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"

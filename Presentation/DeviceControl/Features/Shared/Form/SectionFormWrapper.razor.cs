@@ -14,12 +14,12 @@ public sealed partial class SectionFormWrapper: ComponentBase
     
     [Parameter] public DateTime? CreateDate { get; set; }
     [Parameter] public DateTime? ChangeDate { get; set; }
-    [Parameter] public EventCallback OnSaveAction { get; set; }
+    [Parameter] public EventCallback OnSubmitAction { get; set; }
     [Parameter] public EventCallback ResetItemAction { get; set; }
     [Parameter] public EventCallback DeleteItemAction { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string ShareUrl { get; set; } = string.Empty;
-
+    
     private IEnumerable<ActionMenuEntry> ActionMenuEntries { get; set; } = new List<ActionMenuEntry>();
 
     protected override void OnInitialized()

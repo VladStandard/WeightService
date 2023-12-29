@@ -2,7 +2,7 @@
 @inherits SectionFormBase<SqlPrinterEntity>
 
 <SectionFormWrapper
-  OnSaveAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionPrinters}/{SectionEntity.IdentityValueUid}")"

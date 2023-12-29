@@ -1,6 +1,6 @@
 @inherits SectionFormBase<SqlTemplateEntity>
 
-<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
   <SectionFormInputSelect
     TItem="TemplateCategoriesEnum"
     Items="PrinterTypesEntities"

@@ -1,7 +1,7 @@
 @inherits SectionFormBase<SqlPluStorageMethodEntity>
 
 
-<SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

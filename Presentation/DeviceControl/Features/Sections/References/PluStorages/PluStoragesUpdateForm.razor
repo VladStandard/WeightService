@@ -2,7 +2,7 @@
 
 
 <SectionFormWrapper
-  OnSaveAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   ShareUrl="@($"{RouteUtils.SectionPlusStorage}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"

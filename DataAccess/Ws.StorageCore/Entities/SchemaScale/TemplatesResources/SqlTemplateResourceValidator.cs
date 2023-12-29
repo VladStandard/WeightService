@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 public sealed class SqlTemplateResourceValidator : SqlTableValidator<SqlTemplateResourceEntity>
 {
 
-    public SqlTemplateResourceValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlTemplateResourceValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

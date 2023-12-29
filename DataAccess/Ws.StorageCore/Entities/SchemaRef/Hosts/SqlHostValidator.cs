@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
 {
-    public SqlHostValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlHostValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()

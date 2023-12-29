@@ -4,7 +4,7 @@ namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public sealed class SqlLogWebValidator : SqlTableValidator<SqlLogWebEntity>
 {
-    public SqlLogWebValidator(bool isCheckIdentity) : base(isCheckIdentity, true, false)
+    public SqlLogWebValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.StampDt)
             .NotEmpty()

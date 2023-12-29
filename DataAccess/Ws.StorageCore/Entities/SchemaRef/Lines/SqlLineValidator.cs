@@ -5,7 +5,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
 {
-    public SqlLineValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlLineValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Description)
             .NotEmpty()

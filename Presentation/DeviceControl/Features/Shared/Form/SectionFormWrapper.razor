@@ -1,12 +1,13 @@
 @using Blazor.Heroicons
 
-<div class="w-full grid grid-cols-[3fr,1fr] grid-rows-1">
+
+<div class="w-full flex">
   <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
     @ChildContent
   </div>
   @if (ActionMenuEntries.Count() != 0)
   {
-    <div class="w-full border-l px-3 py-2 border-l-black/[.1] flex flex-col h-full">
+    <div class="w-1/4 shrink-0 border-l px-3 py-2 border-l-black/[.1] flex flex-col">
       <p class="">Действия</p>
       <ul class="flex flex-col gap-2 pt-1">
         @foreach (ActionMenuEntry entry in ActionMenuEntries)
@@ -35,5 +36,5 @@
 <SectionFormFooter
   ChangeDate="ChangeDate"
   CreateDate="CreateDate"
-  OnSaveAction="OnSaveAction"
+  OnSubmitAction="OnSubmitAction"
 />

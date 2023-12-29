@@ -4,7 +4,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 public sealed class SqlPluLineValidator : SqlTableValidator<SqlPluLineEntity>
 {
-    public SqlPluLineValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlPluLineValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

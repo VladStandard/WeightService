@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 public sealed class SqlPluStorageMethodValidator : SqlTableValidator<SqlPluStorageMethodEntity>
 {
 
-    public SqlPluStorageMethodValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlPluStorageMethodValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
     {
         RuleFor(item => item.MinTemp)
             .NotNull()
