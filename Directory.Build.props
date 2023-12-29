@@ -4,9 +4,12 @@
         <Configurations>DevelopVS;ReleaseVS</Configurations>
         <Platforms>x64</Platforms>
         <Deterministic>true</Deterministic>
-        <LangVersion>latest</LangVersion>
         <WarningLevel>9999</WarningLevel>
         <Prefer32Bit>false</Prefer32Bit>
+        
+        <LangVersion>12</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'DevelopVS'">
         <DebugSymbols>true</DebugSymbols>
