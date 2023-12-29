@@ -5,7 +5,7 @@
 
 <SectionFormWrapper OnSaveAction="() => SaveItem(SectionEntity)">
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Description"
+    @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputNumeric

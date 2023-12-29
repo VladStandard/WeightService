@@ -17,7 +17,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
     
     protected List<TItem> SectionItems { get; set; } = new();
-    protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = SqlCrudConfigFactory.GetCrudAll();
+    protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = new();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
     protected bool IsLoading { get; set; } = true;
     private bool IsFirstLoading { get; set; } = true;
@@ -123,7 +123,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
 //         SqlSectionCast = new();
 //         SqlSectionSave = new();
 //
-//         SqlCrudConfigSection = SqlCrudConfigFactory.GetCrudActual();
+//         SqlCrudConfigSection = new();
 //         IsGuiShowFilterMarked = true;
 //         SqlCrudConfigSection.SelectTopRowsCount = 200;
 //         ButtonSettings = ButtonSettingsModel.CreateForSection();

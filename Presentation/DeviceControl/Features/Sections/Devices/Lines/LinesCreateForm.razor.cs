@@ -22,9 +22,9 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
         SectionEntity.Printer.Name = Localizer["SectionFormPrinterDefaultName"];
         SectionEntity.Host.Name = Localizer["SectionFormHostDefaultName"];
 
-        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
-        PrinterEntities = new SqlPrinterRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
-        HostEntities = new SqlHostRepository().GetEnumerable(SqlCrudConfigFactory.GetCrudActual());
+        WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(new());
+        PrinterEntities = new SqlPrinterRepository().GetEnumerable(new());
+        HostEntities = new SqlHostRepository().GetEnumerable(new());
 
         PrinterEntities = PrinterEntities.Append(SectionEntity.Printer);
         WorkShopEntities = WorkShopEntities.Append(SectionEntity.WorkShop);

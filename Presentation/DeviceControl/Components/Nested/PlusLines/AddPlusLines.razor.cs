@@ -34,7 +34,7 @@
 //             });
 //             List<short> pluNumbersActive = new SqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
 //             
-//             sqlCrud = SqlCrudConfigFactory.GetCrudActual();
+//             sqlCrud = new();
 //             sqlCrud.AddFilters(new() {
 //                 SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false),
 //                 SqlRestrictions.NotIn(nameof(SqlPluEntity.Number),  pluNumbersActive.Cast<object>().ToList())
