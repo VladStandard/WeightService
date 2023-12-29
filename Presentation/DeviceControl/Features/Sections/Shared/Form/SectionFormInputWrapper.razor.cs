@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Components;
 
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public sealed partial class SectionFormInputWrapper: SectionFormInputBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public SectionFormInputSizeEnum Size { get; set; } = SectionFormInputSizeEnum.Small;
 
-    private string GetClassBySize(SectionFormInputSizeEnum size) =>
+    private static string GetClassBySize(SectionFormInputSizeEnum size) =>
         size switch
         {
             SectionFormInputSizeEnum.Medium => "h-14 w-full",
@@ -15,5 +15,4 @@ public sealed partial class SectionFormInputWrapper: SectionFormInputBase
             SectionFormInputSizeEnum.ExtraLarge => "h-56 w-full",
             _ => "h-14 w-full sm:w-1/2"
         };
-    
 }

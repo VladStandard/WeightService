@@ -1,7 +1,7 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 
-namespace DeviceControl.Features.Shared.Modal;
+namespace DeviceControl.Features.Sections.Shared.Modal;
 
 public sealed partial class SectionModalHeader: ComponentBase
 {

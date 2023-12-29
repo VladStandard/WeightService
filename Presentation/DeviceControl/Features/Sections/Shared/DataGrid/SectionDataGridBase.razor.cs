@@ -1,12 +1,12 @@
 using Blazorise;
-using DeviceControl.Features.Shared.Modal;
+using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Models;
 
-namespace DeviceControl.Features.Shared.DataGrid;
+namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
 public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
 {

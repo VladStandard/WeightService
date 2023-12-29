@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public sealed partial class SectionFormInputSelect<TItem>: SectionFormInputBase where TItem: new()
 {

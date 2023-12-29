@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public sealed partial class SectionFormWrapper: ComponentBase
 {

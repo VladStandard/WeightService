@@ -2,7 +2,7 @@ using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Ws.Shared.Enums;
 
-namespace DeviceControl.Features.Shared.Modal;
+namespace DeviceControl.Features.Sections.Shared.Modal;
 
 public class SectionDialogBase<TItem>: ComponentBase where TItem: new()
 {
@@ -10,11 +10,14 @@ public class SectionDialogBase<TItem>: ComponentBase where TItem: new()
     [Parameter] public EventCallback OnDataChangedAction { get; set; }
     
     public TItem SectionEntity { get; set; } = new();
+    protected List<EnumTypeModel<string>> TabsList { get; set; } = new();
 
     protected override void OnInitialized()
     {
         SectionEntity = DialogSectionEntity.DeepClone();
+        TabsList = InitializeTabList();
     }
 
-    protected List<EnumTypeModel<string>> TabsList { get; set; } = new() { new("Main", "main") };
+    protected virtual List<EnumTypeModel<string>> InitializeTabList() => 
+        new() { new("Main", "main") };
 }

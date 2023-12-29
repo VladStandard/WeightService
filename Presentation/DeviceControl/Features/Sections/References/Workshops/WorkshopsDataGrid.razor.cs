@@ -1,6 +1,6 @@
 using Blazorise.DataGrid;
 using DeviceControl.Features.Sections.Devices.Lines;
-using DeviceControl.Features.Shared.DataGrid;
+using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;

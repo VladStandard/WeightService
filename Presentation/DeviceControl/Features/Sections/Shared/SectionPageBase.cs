@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace DeviceControl.Features.Shared;
+namespace DeviceControl.Features.Sections.Shared;
 
 public class SectionPageBase : ComponentBase
 {

@@ -1,7 +1,8 @@
-using DeviceControl.Features.Shared.Modal;
+using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Shared.Enums;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
 namespace DeviceControl.Features.Sections.References1C.Bundles;
@@ -11,9 +12,6 @@ public sealed partial class BundlesUpdateDialog: SectionDialogBase<SqlBundleEnti
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        TabsList = new() { new(Localizer["SectionBundles"], "main") };
-    }
+    protected override List<EnumTypeModel<string>> InitializeTabList() =>
+        new() { new(Localizer["SectionBundles"], "main") };
 }

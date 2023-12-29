@@ -1,8 +1,7 @@
-
 using System.Numerics;
 using Microsoft.AspNetCore.Components;
 
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBase 
     where TValue: IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>

@@ -1,4 +1,4 @@
-using DeviceControl.Features.Shared.Form;
+using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

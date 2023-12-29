@@ -1,5 +1,4 @@
-using DeviceControl.Features.Shared.DataGrid;
-using DeviceControl.Features.Shared.Modal;
+using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

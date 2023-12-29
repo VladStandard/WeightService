@@ -2,7 +2,7 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Ws.Shared.Enums;
 
-namespace DeviceControl.Features.Shared.Modal;
+namespace DeviceControl.Features.Sections.Shared.Modal;
 
 public sealed partial class SectionModalWrapper: ComponentBase
 {

@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+    
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Version>1.1.9.0</Version>
@@ -99,6 +100,16 @@
       <AdditionalFiles Include="Features\Layout\MainLayout.razor" />
       <AdditionalFiles Include="Features\Layout\NavMenu.razor" />
       <AdditionalFiles Include="Features\Layout\NavMenuItem.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\DataGrid\SectionDataGridWrapper.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormFooter.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputCheckbox.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputNumeric.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputSelect.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputText.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputWrapper.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormWrapper.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Modal\SectionModalHeader.razor" />
+      <AdditionalFiles Include="Features\Sections\Shared\Modal\SectionModalWrapper.razor" />
     </ItemGroup>
     
     <ItemGroup>

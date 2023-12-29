@@ -1,7 +1,8 @@
-using DeviceControl.Features.Shared.Modal;
+using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Shared.Enums;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 
 namespace DeviceControl.Features.Sections.References.Templates;
@@ -10,9 +11,6 @@ public sealed partial class TemplatesCreateDialog: SectionDialogBase<SqlTemplate
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        TabsList = new() { new(Localizer["SectionTemplates"], "main") };
-    }
+    protected override List<EnumTypeModel<string>> InitializeTabList() =>
+        new() { new(Localizer["SectionTemplates"], "main") };
 }

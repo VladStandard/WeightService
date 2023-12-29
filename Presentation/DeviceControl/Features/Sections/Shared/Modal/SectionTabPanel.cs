@@ -1,6 +1,6 @@
 using Blazorise;
 
-namespace DeviceControl.Features.Shared.Modal;
+namespace DeviceControl.Features.Sections.Shared.Modal;
 
 public class SectionTabPanel: TabPanel
 {

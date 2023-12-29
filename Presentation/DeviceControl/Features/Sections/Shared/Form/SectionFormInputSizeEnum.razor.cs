@@ -1,4 +1,4 @@
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public enum SectionFormInputSizeEnum
 {

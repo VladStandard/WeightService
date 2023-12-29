@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Ws.StorageCore.Common;
-using Ws.StorageCore.Helpers;
 
-namespace DeviceControl.Features.Shared.DataGrid;
+namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
 [CascadingTypeParameter(nameof(TItem))]
 public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : SqlEntityBase, new()
@@ -30,8 +29,8 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Parameter] public bool IsBorderless { get; set; }
 
     private DataGrid<TItem> DataGrid { get; set; } = null!;
-    private bool IsVisibleContextMenu { get; set; } = false;
-    private Point ContextMenuPos { get; set; } = new();
+    private bool IsVisibleContextMenu { get; set; }
+    private Point ContextMenuPos { get; set; }
     private TItem ContextMenuItem { get; set; } = new();
     private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
     private IJSObjectReference Module { get; set; } = null!;
@@ -39,7 +38,6 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
 
     protected override void OnInitialized()
     {
-        base.OnInitialized();
         InitializeContextMenu();
     }
     

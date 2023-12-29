@@ -8,7 +8,7 @@ using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Utils;
 
-namespace DeviceControl.Features.Shared.Form;
+namespace DeviceControl.Features.Sections.Shared.Form;
 
 public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, new()
 {
