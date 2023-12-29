@@ -15,25 +15,10 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
 
     private string BindingValue { get; set; } = string.Empty;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        string newValue = Value.ToString()!;
-        if (!BindingValue.Equals(newValue))
-            BindingValue = newValue;
+        await HandleInputChange(Value.ToString()!);
     }
-
-    // public override async Task SetParametersAsync(ParameterView parameters)
-    // {
-    //     do
-    //     {
-    //         if (!parameters.TryGetValue<TValue>(nameof(Value), out TValue? value) || value == null) break;
-    //         TValue newValue = GetLimitedValue(value);
-    //         if (!string.IsNullOrEmpty(BindingValue) || BindingValue.Equals(newValue.ToString())) break;
-    //         await SetValue(newValue);
-    //     } while (false);
-    //     
-    //     await base.SetParametersAsync(parameters);
-    // }
 
     private async Task HandleInputChange(string arg)
     {

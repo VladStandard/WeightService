@@ -282,4 +282,19 @@
     <data name="ActionMenuDelete" xml:space="preserve">
         <value>Удалить</value>
     </data>
+    <data name="ToastResetItem" xml:space="preserve">
+        <value>Исходные значения восстановлены</value>
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
+        <value>Ссылка сохранена в буфер обмена</value>
+    </data>
+    <data name="ToastAddItem" xml:space="preserve">
+        <value>Объект успешно создан</value>
+    </data>
+    <data name="ToastDeleteItem" xml:space="preserve">
+        <value>Объект успешно удален</value>
+    </data>
+    <data name="ToastUpdateItem" xml:space="preserve">
+        <value>Объект успешно обновлен</value>
+    </data>
 </root>

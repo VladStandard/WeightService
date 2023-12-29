@@ -1,8 +1,10 @@
 @inherits SectionFormBase<SqlTemplateResourceEntity>
+@using Ws.StorageCore.Entities.SchemaScale.TemplatesResources
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionTemplateResources}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"

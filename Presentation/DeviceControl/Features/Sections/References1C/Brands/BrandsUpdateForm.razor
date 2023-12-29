@@ -1,7 +1,9 @@
 @inherits SectionFormBase<SqlBrandEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Brands
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.SectionBrands}/{SectionEntity.IdentityValueUid}")"
+  DeleteItemAction="DeleteItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

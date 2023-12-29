@@ -2,6 +2,7 @@ using DeviceControl.Features.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 

@@ -1,9 +1,11 @@
 @inherits SectionFormBase<SqlLineEntity>
 @using Ws.StorageCore.Entities.SchemaRef.Lines
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
+@using Ws.StorageCore.Entities.SchemaRef.Printers
+@using Ws.StorageCore.Entities.SchemaRef.WorkShops
 
 
-<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

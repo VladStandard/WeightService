@@ -58,19 +58,22 @@
   }
   else
   {
-    <SectionDataGrid
+    <DataGrid
       TItem="TItem"
       @ref="DataGrid"
       Data="GridData"
       SelectedRow="SelectedItem"
       Filterable="IsFilterable"
       RowDoubleClicked="OnDoubleClick"
-      ItemsPerPage="ItemsPerPage"
+      PageSize="ItemsPerPage"
       RowStyling="CustomRowStyling"
       CellStyling="CustomCellStyling"
       HeaderRowStyling="@CustomHeaderRowStyling()"
+      PagerPosition="DataGridPagerPosition.Bottom"
+      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
       RowContextMenu="OnRowContextMenu"
       RowContextMenuPreventDefault
+      ShowPager
     >
       <DataGridColumns>
         @ChildContent
@@ -103,7 +106,7 @@
       <TotalItemsShortTemplate>
         <div class="hidden"></div>
       </TotalItemsShortTemplate>
-    </SectionDataGrid>
+    </DataGrid>
   }
 </div>
 

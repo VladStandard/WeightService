@@ -1,6 +1,8 @@
 @inherits SectionFormBase<SqlTemplateEntity>
+@using Ws.StorageCore.Entities.SchemaScale.Templates
 
-<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
+
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
   <SectionFormInputSelect
     TItem="TemplateCategoriesEnum"
     Items="PrinterTypesEntities"

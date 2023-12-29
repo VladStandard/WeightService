@@ -1,8 +1,11 @@
 @inherits SectionFormBase<SqlProductionSiteEntity>
+@using Ws.StorageCore.Entities.SchemaRef.ProductionSites
+
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"

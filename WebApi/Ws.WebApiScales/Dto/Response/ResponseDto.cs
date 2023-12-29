@@ -10,10 +10,10 @@ public class ResponseDto
     public int ErrorsCount { get; set; }
     
     [XmlArray("Successes"), XmlArrayItem("Record")]
-    public List<ResponseSuccesses> Successes { get; set; } = [];
+    public List<ResponseSuccesses> Successes { get; set; } = new();
 
     [XmlArray("Errors"), XmlArrayItem("Record")]
-    public List<ResponseError> Errors { get; set; } = [];
+    public List<ResponseError> Errors { get; set; } = new();
     
     public void AddSuccess(Guid uid, string msg = "")
     {

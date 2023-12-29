@@ -6,5 +6,5 @@ namespace Ws.WebApiScales.Dto.Brand;
 public class BrandsWrapper : BaseWrapper
 {
     [XmlElement("Brand")]
-    public List<BrandDto> Brands { get; set; } = [];
+    public List<BrandDto> Brands { get; set; } = new();
 }

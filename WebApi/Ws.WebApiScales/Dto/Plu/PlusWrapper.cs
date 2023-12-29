@@ -6,5 +6,5 @@ namespace Ws.WebApiScales.Dto.Plu;
 public class PlusWrapper : BaseWrapper
 {
     [XmlElement("Nomenclature")]
-    public List<PluDto> Plus { get; set; } = [];
+    public List<PluDto> Plus { get; set; } = new();
 }

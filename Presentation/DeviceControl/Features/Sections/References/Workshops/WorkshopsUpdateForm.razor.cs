@@ -2,6 +2,8 @@ using DeviceControl.Features.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.References.Workshops;

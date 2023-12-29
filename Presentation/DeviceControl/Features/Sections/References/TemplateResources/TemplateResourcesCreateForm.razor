@@ -1,6 +1,7 @@
 @inherits SectionFormBase<SqlTemplateResourceEntity>
+@using Ws.StorageCore.Entities.SchemaScale.TemplatesResources
 
-<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

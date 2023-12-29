@@ -1,7 +1,9 @@
 using Blazorise;
+using DeviceControl.Resources;
 using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Utils;
@@ -11,6 +13,7 @@ namespace DeviceControl.Features.Shared.Form;
 public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, new()
 {
     [Inject] private INotificationService NotificationService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Parameter] public TItem SectionEntity { get; set; } = new();
     [Parameter] public EventCallback OnSubmitAction { get; set; }
 
@@ -24,16 +27,17 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
 
     protected async Task ResetItem()
     {
+        // todo Fix equals
         // if (SectionEntity.Equals(SectionEntityCopy)) return;
         SectionEntity = SectionEntityCopy.DeepClone();
-        await NotificationService.Info("Модель сброшена");
+        await NotificationService.Info(Localizer["ToastResetItem"]);
     }
 
-    protected async Task SaveItem(TItem item)
+    protected async Task AddItem(TItem item)
     {
         if (!await IsValidateItem(item, false)) return;
         SqlCoreHelper.Instance.Save(item);
-        await NotificationService.Success("Объект создан");
+        await NotificationService.Success(Localizer["ToastAddItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 
@@ -42,7 +46,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
         SqlCoreHelper.Instance.Update(item);
-        await NotificationService.Success("Объект обновлен");
+        await NotificationService.Success(Localizer["ToastUpdateItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 
@@ -58,6 +62,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
     protected async Task DeleteItem()
     {
         SqlCoreHelper.Instance.Delete(SectionEntity);
+        await NotificationService.Success(Localizer["ToastDeleteItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 }

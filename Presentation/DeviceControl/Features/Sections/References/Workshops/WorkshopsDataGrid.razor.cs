@@ -5,6 +5,7 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.Workshops;

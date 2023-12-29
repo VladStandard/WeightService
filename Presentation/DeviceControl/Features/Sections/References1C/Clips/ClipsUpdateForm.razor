@@ -1,9 +1,11 @@
-@using System.Globalization
 @inherits SectionFormBase<SqlClipEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Clips
+@using System.Globalization
 
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.SectionClips}/{SectionEntity.IdentityValueUid}")"
+  DeleteItemAction="DeleteItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

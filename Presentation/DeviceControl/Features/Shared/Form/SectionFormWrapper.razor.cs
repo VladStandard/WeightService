@@ -1,4 +1,5 @@
 using Blazor.Heroicons;
+using Blazorise;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -11,6 +12,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private INotificationService NotificationService { get; set; } = null!;
     
     [Parameter] public DateTime? CreateDate { get; set; }
     [Parameter] public DateTime? ChangeDate { get; set; }
@@ -57,7 +59,11 @@ public sealed partial class SectionFormWrapper: ComponentBase
         new Uri(new(NavigationManager.BaseUri), relativePath).AbsoluteUri;
 
     private async Task CopyToClipboard()
-        => await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", GetAbsoluteUrl(ShareUrl));
+    {
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", GetAbsoluteUrl(ShareUrl));
+        await NotificationService.Info(Localizer["ToastCopyToClipboard"]);
+    }
+    
 }
 
 public class ActionMenuEntry

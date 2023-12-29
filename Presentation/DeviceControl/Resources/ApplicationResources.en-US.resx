@@ -282,4 +282,19 @@
     <data name="ActionMenuDelete" xml:space="preserve">
         <value>Delete</value>
     </data>
+    <data name="ToastResetItem" xml:space="preserve">
+        <value>Original values restored</value>
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
+        <value>Url copied to clipboard</value>
+    </data>
+    <data name="ToastAddItem" xml:space="preserve">
+        <value>The item was created</value>
+    </data>
+    <data name="ToastDeleteItem" xml:space="preserve">
+        <value>The item was deleted</value>
+    </data>
+    <data name="ToastUpdateItem" xml:space="preserve">
+        <value>The item was updated</value>
+    </data>
 </root>

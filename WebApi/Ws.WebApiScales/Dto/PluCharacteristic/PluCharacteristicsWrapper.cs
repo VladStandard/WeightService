@@ -6,5 +6,5 @@ namespace Ws.WebApiScales.Dto.PluCharacteristic;
 public class PluCharacteristicsWrapper : BaseWrapper
 {
     [XmlElement("Characteristic")]
-    public List<PluCharacteristicDto> Characteristics { get; set; } = [];
+    public List<PluCharacteristicDto> Characteristics { get; set; } = new();
 }

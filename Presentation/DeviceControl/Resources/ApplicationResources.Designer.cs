@@ -850,5 +850,50 @@ namespace DeviceControl.Resources {
                 return ResourceManager.GetString("SectionWorkshops", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ToastAddItem {
+            get {
+                return ResourceManager.GetString("ToastAddItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ToastCopyToClipboard {
+            get {
+                return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ToastDeleteItem {
+            get {
+                return ResourceManager.GetString("ToastDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ToastResetItem {
+            get {
+                return ResourceManager.GetString("ToastResetItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ToastUpdateItem {
+            get {
+                return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
-@using Ws.StorageCore.Enums
 @inherits SectionFormBase<SqlPrinterEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Printers
+@using Ws.StorageCore.Enums
 
-<SectionFormWrapper OnSubmitAction="() => SaveItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

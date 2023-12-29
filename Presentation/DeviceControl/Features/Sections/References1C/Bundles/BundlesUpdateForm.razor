@@ -1,9 +1,11 @@
-@using System.Globalization
 @inherits SectionFormBase<SqlBundleEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Bundles
+@using System.Globalization
 
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.SectionBundles}/{SectionEntity.IdentityValueUid}")"
+  DeleteItemAction="DeleteItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

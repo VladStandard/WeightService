@@ -1,9 +1,11 @@
 @inherits SectionFormBase<SqlPluStorageMethodEntity>
+@using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods
 
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionPlusStorage}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"

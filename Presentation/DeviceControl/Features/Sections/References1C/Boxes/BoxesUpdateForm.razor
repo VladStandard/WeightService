@@ -1,8 +1,10 @@
-@using System.Globalization
 @inherits SectionFormBase<SqlBoxEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Boxes
+@using System.Globalization
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.SectionBoxes}/{SectionEntity.IdentityValueUid}")"
+  DeleteItemAction="DeleteItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

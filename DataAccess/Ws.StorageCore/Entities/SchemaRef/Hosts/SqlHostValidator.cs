@@ -11,6 +11,7 @@ public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Ip)
-           .NotNull();
+            .NotNull()
+            .Matches(@"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$");
     }
 }
