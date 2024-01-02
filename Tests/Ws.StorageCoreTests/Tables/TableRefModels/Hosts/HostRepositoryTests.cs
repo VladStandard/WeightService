@@ -1,10 +1,10 @@
 ﻿using MDSoft.NetUtils;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 
-namespace Ws.StorageCoreTests.Tables.TableRefModels.Devices;
+namespace Ws.StorageCoreTests.Tables.TableRefModels.Hosts;
 
 [TestFixture]
-public sealed class DeviceRepositoryTests : TableRepositoryTests
+public sealed class HostRepositoryTests : TableRepositoryTests
 {
     private SqlHostRepository HostRepository { get; } = new();
 

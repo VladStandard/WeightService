@@ -10,7 +10,7 @@ public class SqlHostEntity : SqlEntityBase
     
     public SqlHostEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        LoginDt = DateTime.Now;
+        LoginDt = DateTime.MinValue;
         Ip = string.Empty;
     }
 
