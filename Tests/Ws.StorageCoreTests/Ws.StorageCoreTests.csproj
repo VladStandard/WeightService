@@ -2,10 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
-        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Tables\TableRef1cModels\" />
         <Folder Include="Tables\TableRefModels\" />
     </ItemGroup>
 

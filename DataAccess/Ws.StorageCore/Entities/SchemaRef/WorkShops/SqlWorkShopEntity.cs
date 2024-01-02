@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 [DebuggerDisplay("{ToString()}")]
@@ -28,12 +29,6 @@ public class SqlWorkShopEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        ProductionSite.FillProperties();
-    }
     
     public virtual bool Equals(SqlWorkShopEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&

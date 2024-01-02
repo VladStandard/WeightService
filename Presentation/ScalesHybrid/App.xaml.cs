@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 namespace ScalesHybrid;
@@ -17,5 +18,12 @@ public partial class App : Application
         
         InitializeComponent();
         MainPage = new MainPage();
+    }
+    
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        Window window = base.CreateWindow(activationState);
+        window.Title = "Весовой пост";
+        return window;
     }
 }

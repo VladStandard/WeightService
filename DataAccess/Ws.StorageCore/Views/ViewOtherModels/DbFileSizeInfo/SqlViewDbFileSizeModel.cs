@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 public enum DbFileType

@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Models;
 
 [DebuggerDisplay("{ToString()}")]
@@ -11,7 +9,6 @@ public class SqlFieldIdentityModel
 
     public SqlFieldIdentityModel()
     {
-        Name = SqlEnumFieldIdentity.Empty;
         Uid = Guid.Empty;
         Id = 0;
     }
@@ -19,12 +16,6 @@ public class SqlFieldIdentityModel
     public SqlFieldIdentityModel(SqlEnumFieldIdentity identityName) : this()
     {
         Name = identityName;
-    }
-
-    private SqlFieldIdentityModel(SqlEnumFieldIdentity identityName, long identityId, Guid identityUid) : this(identityName)
-    {
-        Uid = identityUid;
-        Id = identityId;
     }
 
     public SqlFieldIdentityModel(SqlFieldIdentityModel item)
@@ -53,7 +44,7 @@ public class SqlFieldIdentityModel
     };
     
     public virtual bool Equals(SqlFieldIdentityModel item) =>
-        ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
+        ReferenceEquals(this, item) || Equals(Name, item.Name) && 
         Id.Equals(item.Id) &&
         Uid.Equals(item.Uid);
 

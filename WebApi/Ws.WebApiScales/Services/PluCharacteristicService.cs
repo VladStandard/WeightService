@@ -37,9 +37,7 @@ public class PluCharacteristicService(ResponseDto responseDto) : IPluCharacteris
             responseDto.AddSuccess(pluCharacteristicDto.Guid, $"{pluNameStr} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} не найдена для удаления!");
             return;
         }
-   
-        nesting.IsMarked = true;
-        SqlCoreHelper.Instance.Update(nesting);
+        SqlCoreHelper.Instance.Delete(nesting);
         responseDto.AddSuccess(pluCharacteristicDto.Guid, $"{pluNameStr} - вложенность {pluCharacteristicDto.AttachmentsCountAsInt} удалена!");
     }
     

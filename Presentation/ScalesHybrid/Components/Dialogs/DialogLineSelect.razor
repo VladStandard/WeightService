@@ -1,4 +1,4 @@
-@using Ws.StorageCore.Entities.SchemaScale.Scales
+@using Ws.StorageCore.Entities.SchemaRef.Lines
 
 <DialogDataGridWrapper
   Title="@Localizer["DialogLineSelectHeaderLabel"]"
@@ -15,7 +15,7 @@
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     TItem="SqlLineEntity"
-    Field="@nameof(SqlLineEntity.Description)"
+    Field="@nameof(SqlLineEntity.Name)"
     Width="45%"
   />
   <BlazorDataGridColumn

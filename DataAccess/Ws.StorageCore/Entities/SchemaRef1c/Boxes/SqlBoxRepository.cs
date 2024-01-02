@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
 public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>
@@ -13,7 +11,7 @@ public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>
     
     public SqlBoxEntity GetItemByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
         return SqlCore.GetItemByCrud<SqlBoxEntity>(sqlCrudConfig);
     }

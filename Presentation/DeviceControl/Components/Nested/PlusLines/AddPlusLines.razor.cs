@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.OrmUtils;
 
 namespace DeviceControl.Components.Nested.PlusLines;
@@ -27,13 +29,13 @@ public sealed partial class AddPlusLines
     {
         if (firstRender)
         {
-            SqlCrudConfigModel sqlCrud = SqlCrudConfigFactory.GetCrudActual();
+            SqlCrudConfigModel sqlCrud = new();
             sqlCrud.AddFilters(new() {
-                SqlRestrictions.EqualFk(nameof(SqlPluScaleEntity.Line), Line),
+                SqlRestrictions.EqualFk(nameof(SqlPluLineEntity.Line), Line),
             });
             List<short> pluNumbersActive = new SqlPluLineRepository().GetList(sqlCrud).Select(plusScale => plusScale.Plu.Number).ToList();
             
-            sqlCrud = SqlCrudConfigFactory.GetCrudActual();
+            sqlCrud = new();
             sqlCrud.AddFilters(new() {
                 SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false),
                 SqlRestrictions.NotIn(nameof(SqlPluEntity.Number),  pluNumbersActive.Cast<object>().ToList())
@@ -53,17 +55,17 @@ public sealed partial class AddPlusLines
     {
         foreach (SqlPluEntity plu in SelectedPlus)
         {
-            SqlPluScaleEntity pluScale = new SqlPluLineRepository().GetItemByLinePlu(Line, plu);
-            if (pluScale.IsNew)
+            SqlPluLineEntity pluLine = new SqlPluLineRepository().GetItemByLinePlu(Line, plu);
+            if (pluLine.IsNew)
             {
-                pluScale.Line = Line;
-                pluScale.Plu = plu;
+                pluLine.Line = Line;
+                pluLine.Plu = plu;
             }
             else
             {
-                SqlCore.Update(pluScale);
+                SqlCore.Update(pluLine);
             }
-            SqlCore.Save(pluScale);
+            SqlCore.Save(pluLine);
         }
         ReloadPage();
     }

@@ -1,4 +1,4 @@
-using System;
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.Shared.Utils;
 
 namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
@@ -8,6 +8,7 @@ public class SqlTemplateResourceEntity : SqlEntityBase
 {
     public virtual string Type { get; set; }
     public virtual FieldBinaryModel Data { get; set; }
+    public virtual bool IsMarked { get; set; }
     public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
     
     public SqlTemplateResourceEntity() : base(SqlEnumFieldIdentity.Uid)

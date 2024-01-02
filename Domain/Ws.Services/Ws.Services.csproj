@@ -2,10 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Configurations>ReleaseVS;DevelopVS</Configurations>
-        <Platforms>x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

@@ -4,19 +4,13 @@ public class SqlBoxMap : ClassMapping<SqlBoxEntity>
 {
     public SqlBoxMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
+        Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Boxes);
 
         Id(x => x.IdentityValueUid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
-        });
-
-        Property(x => x.IsMarked, m => {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
         });
 
         Property(x => x.Name, m => {

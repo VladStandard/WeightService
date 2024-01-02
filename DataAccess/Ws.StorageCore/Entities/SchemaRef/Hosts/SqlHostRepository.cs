@@ -1,24 +1,17 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
 {
     public SqlHostEntity GetItemByName(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.Name), name));
         return SqlCore.GetItemByCrud<SqlHostEntity>(sqlCrudConfig);
     }
     
     public SqlHostEntity SaveOrUpdate(SqlHostEntity hostEntity)
     {
-        if (!hostEntity.IsNew)
-            SqlCore.Update(hostEntity);
-        else
-        {
-            SqlCore.Save(hostEntity);
-        }
+        SqlCore.SaveOrUpdate(hostEntity);
         return hostEntity;
     }
     

@@ -2,7 +2,4 @@
 
 namespace Ws.Services.Dto;
 
-public class LabelInfoDto : LabelDataDto
-{
-    
-}
+public class LabelInfoDto : LabelDataDto;

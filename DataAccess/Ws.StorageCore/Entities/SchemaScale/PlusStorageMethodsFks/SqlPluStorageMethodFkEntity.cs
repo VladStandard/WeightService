@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
 [DebuggerDisplay("{ToString()}")]
@@ -35,17 +36,9 @@ public class SqlPluStorageMethodFkEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Plu.FillProperties();
-        Method.FillProperties();
-        Resource.FillProperties();
-    }
 
     public virtual bool Equals(SqlPluStorageMethodFkEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Plu.Equals(item.Plu) &&
         Method.Equals(item.Method) &&
         Resource.Equals(item.Resource);

@@ -1,6 +1,5 @@
-// ReSharper disable VirtualMemberCallInConstructor
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 
-using System;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 
 namespace Ws.StorageCore.Entities.SchemaPrint.Labels;

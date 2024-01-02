@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.StorageCore.Enums;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Printers;

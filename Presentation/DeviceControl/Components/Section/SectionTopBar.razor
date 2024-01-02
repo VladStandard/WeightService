@@ -18,19 +18,6 @@
     @*     </Template> *@
     @*   </RzDropDown> *@
     @* } *@
-    @if (IsGuiShowFilterMarked)
-    {
-      <AuthorizeView Roles="@UserAccessStr.Write">
-        <RzDropDown
-          class="section-top-bar__select"
-          @bind-Value="@SqlCrudConfigSection.IsMarked"
-          Data="@MarkedDict"
-          ValueProperty="Value"
-          TextProperty="Key"
-          Change="@OnReload"
-        />
-      </AuthorizeView>
-    }
     <button
       type="button"
       @onclick="OnReload"

@@ -1,4 +1,4 @@
-using System;
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.Shared.Enums;
 
 namespace Ws.StorageCore.Entities.SchemaScale.Access;
@@ -12,8 +12,9 @@ public class SqlAccessEntity : SqlEntityBase
     
     public SqlAccessEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        LoginDt = DateTime.MinValue;
-        Rights = 0x00;
+        LoginDt = DateTime.Now;
+        Name = "KOLBASA-VS\\";
+        Rights = (byte)EnumAccessRights.None;
     }
 
     public SqlAccessEntity(SqlAccessEntity item) : base(item)
@@ -33,14 +34,6 @@ public class SqlAccessEntity : SqlEntityBase
     }
 
     public override int GetHashCode() => base.GetHashCode();
-    
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        LoginDt = DateTime.Now;
-        Name = "KOLBASA-VS\\";
-        Rights = (byte)EnumAccessRights.None;
-    }
 
     public virtual bool Equals(SqlAccessEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&

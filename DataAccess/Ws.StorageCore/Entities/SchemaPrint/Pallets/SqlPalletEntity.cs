@@ -1,6 +1,5 @@
-// ReSharper disable VirtualMemberCallInConstructor
-
-using System;
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 
 namespace Ws.StorageCore.Entities.SchemaPrint.Pallets;
 
@@ -40,15 +39,8 @@ public class SqlPalletEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        Line.FillProperties();
-        Plu.FillProperties();
-    }
-
     public virtual bool Equals(SqlPalletEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(ProductDt, item.ProductDt) &&
         Equals(ExpirationDt, item.ExpirationDt) &&
         Equals(Plu, item.Plu) &&

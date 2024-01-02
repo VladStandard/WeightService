@@ -22,7 +22,7 @@
   RowDoubleClick="@SqlItemOpenAsync">
   <Columns>
     <TItemContent TItem="@SqlPluNestingFkEntity">
-      <SectionIsMarked SqlCrudConfigSection="@SqlCrudConfigSection"/>
+
       <RadzenDataGridColumn Title="@Locale.IsDefault" SortProperty="IsDefault" Width="10%">
         <Template Context="itemCast">
           <RadzenCheckBox ReadOnly="true" TValue="bool" @bind-Value="@itemCast.IsDefault"/>

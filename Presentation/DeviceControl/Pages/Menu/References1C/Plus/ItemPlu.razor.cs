@@ -22,7 +22,7 @@ public sealed partial class ItemPlu : ItemBase<SqlPluEntity>
         PluTemplateFk = new SqlPluTemplateFkRepository().GetItemByPlu(SqlItemCast);
         StorageMethodFk = new SqlPluStorageMethodFkRepository().GetItemByPlu(SqlItemCast);
         StorageMethod = StorageMethodFk.Method;
-        Templates = new SqlTemplateRepository().GetList(SqlCrudConfigFactory.GetCrudActual());
+        Templates = new SqlTemplateRepository().GetList(new());
     }
 
     protected override void ItemSave()

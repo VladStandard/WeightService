@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
 public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNestingFkEntity>
@@ -11,7 +9,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNes
     
     public IEnumerable<SqlPluNestingFkEntity> GetEnumerableByPluUidActual(SqlPluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudActual();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluNestingFkEntity.Plu), plu));
         sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(SqlPluNestingFkEntity.IsDefault)));
         return SqlCore.GetEnumerable<SqlPluNestingFkEntity>(sqlCrudConfig);
@@ -19,7 +17,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNes
 
     public SqlPluNestingFkEntity GetByPluAndUid1C(SqlPluEntity plu, Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         
         sqlCrudConfig.AddFilters(new() {
             SqlRestrictions.Equal(nameof(SqlPluNestingFkEntity.Uid1C), uid1C),
@@ -30,7 +28,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNes
     }
     public SqlPluNestingFkEntity GetDefaultByPlu(SqlPluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilters(new() {
             SqlRestrictions.Equal(nameof(SqlPluNestingFkEntity.IsDefault), true),
             SqlRestrictions.EqualFk(nameof(SqlPluTemplateFkEntity.Plu), plu)

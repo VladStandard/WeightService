@@ -36,7 +36,6 @@ public class PluDtoConfigRegister : IRegister
             .Map(d => d.Name, s => s.Name)
             .Map(d => d.FullName, s => s.FullName)
             .Map(d => d.Description, s => s.Description)
-            .Map(d => d.IsMarked, s => s.IsMarked)
             .Map(d => d.IsGroup, s => s.IsGroup)
             .Map(d => d.Number, s => s.PluNumber)
             .Map(d => d.ShelfLifeDays, s => s.ShelfLife)

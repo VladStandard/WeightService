@@ -7,7 +7,7 @@ using Ws.Services.Services.Plu;
 using Ws.Services.Validators;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
-using Ws.StorageCore.Entities.SchemaScale.PlusScales;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Helpers;
 
 namespace Ws.Services.Services.PrintLabel;
@@ -17,7 +17,7 @@ public class PrintLabelService : IPrintLabelService
     public string GenerateLabel(LabelInfoDto labelInfo)
     {
         LabelInfoValidator validator = new();
-        SqlPluScaleEntity pluLine = new PluService().GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);
+        SqlPluLineEntity pluLine = new PluService().GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);
         
         if (pluLine.IsNew) throw new();
         

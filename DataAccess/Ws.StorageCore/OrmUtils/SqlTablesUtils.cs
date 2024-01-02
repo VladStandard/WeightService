@@ -15,7 +15,7 @@ public static class SqlTablesUtils
     public const string Labels = "LABELS";
     public const string Pallets = "PALLETS";
     public const string PlusNestingFks = "PLUS_NESTING_FK";
-    public const string PlusScales = "PLUS_SCALES";
+    public const string PlusLines = "PLUS_LINES";
     public const string PlusStorageMethods = "PLUS_STORAGE_METHODS";
     public const string PlusStorageMethodsFks = "PLUS_STORAGE_METHODS_FK";
     public const string PlusTemplatesFks = "PLUS_TEMPLATES_FK";
@@ -24,7 +24,7 @@ public static class SqlTablesUtils
     public const string TemplatesResources = "TEMPLATES_RESOURCES";
     public const string WorkShops = "WORKSHOPS";
     public const string Printers = "PRINTERS";
-    public const string Scales = "Scales";
+    public const string Lines = "LINES";
     
     public const string ViewLabels = "VIEW_LABELS";
 }

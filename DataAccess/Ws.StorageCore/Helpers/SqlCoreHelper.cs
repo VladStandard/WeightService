@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -8,6 +7,8 @@ using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Listeners;
 
@@ -102,7 +103,7 @@ public sealed class SqlCoreHelper
         mapper.AddMapping<SqlHostMap>();
         mapper.AddMapping<SqlLineMap>();
         mapper.AddMapping<SqlPluMap>();
-        mapper.AddMapping<SqlPluScaleMap>();
+        mapper.AddMapping<SqlPluLineMap>();
         mapper.AddMapping<SqlLabelMap>();
         mapper.AddMapping<SqlPalletMap>();
         mapper.AddMapping<SqlPluStorageMethodMap>();
@@ -274,26 +275,7 @@ public sealed class SqlCoreHelper
         }
         
     }
-
-    public void Mark<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        item.IsMarked = !item.IsMarked;
-
-        switch (sessionType)
-        {
-            case SqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Update(item));
-                break;
-            case SqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.UpdateAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
+    
 #endregion
     
     #region Public and private methods - GetItem
@@ -311,31 +293,28 @@ public sealed class SqlCoreHelper
     
     public T GetItemByUid<T>(Guid uid) where T : SqlEntityBase, new()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueUid),  uid));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
 
     public T GetItemById<T>(long id) where T : SqlEntityBase, new() {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
     
     public T GetItemFirst<T>() where T : SqlEntityBase, new()
     {
-        SqlCrudConfigModel sqlCrudConfig = SqlCrudConfigFactory.GetCrudAll();
+        SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.SelectTopRowsCount = 1;
         T result = GetItemByCrud<T>(sqlCrudConfig);
-        result.FillProperties();
         return result;
     }
 
     public T GetItemNewEmpty<T>() where T : SqlEntityBase, new()
     {
-        T result = new();
-        result.FillProperties();
-        return result;
+        return new();
     }
 
     #endregion

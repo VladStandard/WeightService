@@ -1,5 +1,4 @@
-using System;
-
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 [DebuggerDisplay("{ToString()}")]
@@ -33,14 +32,8 @@ public class SqlHostEntity : SqlEntityBase
 
     public override int GetHashCode() => base.GetHashCode();
     
-    public override void FillProperties()
-    {
-        base.FillProperties();
-        LoginDt = DateTime.Now;
-    }
-    
     public virtual bool Equals(SqlHostEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(LoginDt, item.LoginDt) &&
         Equals(Ip, item.Ip);
     
