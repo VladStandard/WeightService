@@ -1,15 +1,9 @@
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using Ws.StorageCore.Entities.SchemaPrint.Labels;
-using Ws.StorageCore.Entities.SchemaPrint.Pallets;
-using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.PlusLines;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Listeners;
 
 namespace Ws.StorageCore.Helpers;
@@ -89,38 +83,13 @@ public sealed class SqlCoreHelper
     private void AddConfigurationMappings()
     {
         ModelMapper mapper = new();
-        
-        mapper.AddMapping<SqlAccessMap>();
-        mapper.AddMapping<SqlBoxMap>();
-        mapper.AddMapping<SqlClipMap>();
-        mapper.AddMapping<SqlBundleMap>();
-        mapper.AddMapping<SqlBrandMap>();
-        mapper.AddMapping<SqlProductionSiteMap>();
-        mapper.AddMapping<SqlWorkshopMap>();
-        mapper.AddMapping<SqlTemplateMap>();
-        mapper.AddMapping<SqlTemplateResourceMap>();
-        mapper.AddMapping<SqlPrinterMap>();
-        mapper.AddMapping<SqlHostMap>();
-        mapper.AddMapping<SqlLineMap>();
-        mapper.AddMapping<SqlPluMap>();
-        mapper.AddMapping<SqlPluLineMap>();
-        mapper.AddMapping<SqlLabelMap>();
-        mapper.AddMapping<SqlPalletMap>();
-        mapper.AddMapping<SqlPluStorageMethodMap>();
-        mapper.AddMapping<WsSqlLogWebMap>();
-        mapper.AddMapping<SqlPluFkMap>();
-        mapper.AddMapping<SqlPluNestingFkMap>();
-        mapper.AddMapping<SqlPluStorageMethodFkMap>();
-        mapper.AddMapping<SqlPluTemplateFkMap>();
-
-        mapper.AddMapping<SqlViewLabelMap>();
-        
+        mapper.AddMappings(Assembly.GetExecutingAssembly().GetExportedTypes());
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
     }
     
     #endregion
-
+    
     #region Public and private methods - Base
 
     private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
