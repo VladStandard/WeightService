@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 public sealed class SqlPluTemplateFkValidator : SqlTableValidator<SqlPluTemplateFkEntity>
 {
 
-    public SqlPluTemplateFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlPluTemplateFkValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

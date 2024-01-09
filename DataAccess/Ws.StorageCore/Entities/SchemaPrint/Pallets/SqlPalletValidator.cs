@@ -5,7 +5,7 @@ namespace Ws.StorageCore.Entities.SchemaPrint.Pallets;
 public sealed class SqlPalletValidator : SqlTableValidator<SqlPalletEntity>
 {
 
-    public SqlPalletValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlPalletValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Kneading)
             .NotEmpty();

@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 public sealed class SqlPluFkValidator : SqlTableValidator<SqlPluFkEntity>
 {
 
-    public SqlPluFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlPluFkValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

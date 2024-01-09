@@ -5,7 +5,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.Access;
 public sealed class SqlAccessValidator : SqlTableValidator<SqlAccessEntity>
 {
 
-    public SqlAccessValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlAccessValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()

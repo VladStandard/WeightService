@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 public sealed class SqlWorkShopValidator : SqlTableValidator<SqlWorkShopEntity>
 {
-    public SqlWorkShopValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlWorkShopValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

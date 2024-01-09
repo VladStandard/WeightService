@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
 public sealed class SqlPluNestingFkValidator : SqlTableValidator<SqlPluNestingFkEntity>
 {
-    public SqlPluNestingFkValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlPluNestingFkValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Plu)
             .NotEmpty()

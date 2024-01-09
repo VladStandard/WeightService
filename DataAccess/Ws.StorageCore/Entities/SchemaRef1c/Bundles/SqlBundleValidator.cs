@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 public sealed class SqlBundleValidator : SqlTableValidator<SqlBundleEntity>
 {
 
-    public SqlBundleValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlBundleValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotNull();

@@ -3,7 +3,7 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Clips;
 public sealed class SqlClipValidator : SqlTableValidator<SqlClipEntity>
 {
 
-    public SqlClipValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlClipValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotNull();

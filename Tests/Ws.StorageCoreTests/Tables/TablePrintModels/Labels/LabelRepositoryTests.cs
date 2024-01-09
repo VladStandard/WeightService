@@ -13,7 +13,7 @@ public sealed class LabelRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlLabelEntity> items = LabelRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlLabelEntity> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         }, false);
     }
