@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
@@ -13,12 +11,7 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
     
     public SqlHostEntity SaveOrUpdate(SqlHostEntity hostEntity)
     {
-        if (!hostEntity.IsNew)
-            SqlCore.Update(hostEntity);
-        else
-        {
-            SqlCore.Save(hostEntity);
-        }
+        SqlCore.SaveOrUpdate(hostEntity);
         return hostEntity;
     }
     

@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
 
 public sealed class SqlViewLabelRepository : SqlTableRepositoryBase<SqlViewLabel>

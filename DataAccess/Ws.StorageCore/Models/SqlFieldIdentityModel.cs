@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Models;
 
 [DebuggerDisplay("{ToString()}")]
@@ -46,7 +44,7 @@ public class SqlFieldIdentityModel
     };
     
     public virtual bool Equals(SqlFieldIdentityModel item) =>
-        ReferenceEquals(this, item) || Equals(Name, item.Name) && //-V3130
+        ReferenceEquals(this, item) || Equals(Name, item.Name) && 
         Id.Equals(item.Id) &&
         Uid.Equals(item.Uid);
 

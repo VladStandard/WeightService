@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
 [DebuggerDisplay("{ToString()}")]
@@ -28,7 +29,7 @@ public class SqlProductionSiteEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlProductionSiteEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Address, item.Address);
     
 }

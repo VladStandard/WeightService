@@ -1,4 +1,3 @@
-using System;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;

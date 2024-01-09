@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 [DebuggerDisplay("{ToString()}")]
@@ -30,6 +31,6 @@ public class SqlBrandEntity : SqlTable1CBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlBrandEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&//-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Code, item.Code);
 }

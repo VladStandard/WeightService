@@ -1,4 +1,4 @@
-using System;
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 

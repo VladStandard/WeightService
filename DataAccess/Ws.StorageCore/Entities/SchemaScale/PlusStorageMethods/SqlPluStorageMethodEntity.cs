@@ -1,6 +1,4 @@
-// ReSharper disable VirtualMemberCallInConstructor
-
-using System;
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
 
@@ -39,7 +37,7 @@ public class SqlPluStorageMethodEntity : SqlEntityBase
     public override int GetHashCode() => IdentityValueUid.GetHashCode();
     
     public virtual bool Equals(SqlPluStorageMethodEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(MinTemp, item.MinTemp) &&
         Equals(MaxTemp, item.MaxTemp);
 }

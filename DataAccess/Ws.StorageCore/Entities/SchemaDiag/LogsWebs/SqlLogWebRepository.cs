@@ -1,5 +1,3 @@
-using System;
-
 namespace Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 
 public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>

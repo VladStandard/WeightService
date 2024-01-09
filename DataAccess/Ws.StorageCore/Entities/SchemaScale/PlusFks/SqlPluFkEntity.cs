@@ -1,3 +1,4 @@
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 
 [DebuggerDisplay("{ToString()}")]
@@ -29,7 +30,7 @@ public class SqlPluFkEntity : SqlEntityBase
     public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(SqlPluFkEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) && //-V3130
+        ReferenceEquals(this, item) || base.Equals(item) &&
         Plu.Equals(item.Plu) &&
         Parent.Equals(item.Parent) &&
         (Category is null && item.Category is null || Category is not null && item.Category is not null && Category.Equals(item.Category));
