@@ -318,4 +318,34 @@
     <data name="DataGridColumnRowsCount" xml:space="preserve">
         <value>Кол-во строк</value>
     </data>
+    <data name="DataGridColumnShelfLifeDays" xml:space="preserve">
+        <value>Срок годности</value>
+    </data>
+    <data name="SectionPluNestings" xml:space="preserve">
+        <value>Вложенности</value>
+    </data>
+    <data name="DataGridColumnBundle" xml:space="preserve">
+        <value>Пакет</value>
+    </data>
+    <data name="DataGridColumnBrand" xml:space="preserve">
+        <value>Бренд</value>
+    </data>
+    <data name="DataGridColumnTemplate" xml:space="preserve">
+        <value>Шаблон</value>
+    </data>
+    <data name="DataGridColumnStorage" xml:space="preserve">
+        <value>Хранилище</value>
+    </data>
+    <data name="DataGridColumnDescription" xml:space="preserve">
+        <value>Описание</value>
+    </data>
+    <data name="DataGridColumnFullName" xml:space="preserve">
+        <value>Полное название</value>
+    </data>
+    <data name="DataGridColumnIsDefault" xml:space="preserve">
+        <value>По умолчанию</value>
+    </data>
+    <data name="DataGridColumnTareWeight" xml:space="preserve">
+        <value>Вес тары</value>
+    </data>
 </root>

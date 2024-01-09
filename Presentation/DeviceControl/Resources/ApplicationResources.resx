@@ -318,4 +318,34 @@
     <data name="DataGridColumnRowsCount" xml:space="preserve">
         <value />
     </data>
+    <data name="DataGridColumnShelfLifeDays" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPluNestings" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnBundle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnBrand" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTemplate" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnStorage" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnFullName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIsDefault" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTareWeight" xml:space="preserve">
+        <value />
+    </data>
 </root>

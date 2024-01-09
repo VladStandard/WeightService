@@ -1,0 +1,53 @@
+@inherits SectionDataGridBase<SqlPluEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+
+
+<SectionDataGridWrapper
+  TItem="SqlPluEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionPLU"]"
+  GridData="SectionItems"
+  GetGridData="SetSqlSectionCast"
+  ReadAction="OpenDataGridEntityModal"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading"
+  IsFilterable
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlPluEntity.Name)"
+    FilterMethod="DataGridColumnFilterMethod.Contains"
+    Width="30%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnIsWeight"]"
+    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    Filterable="false"
+    Width="15%"
+  >
+    <DisplayTemplate>
+      <p>
+        @((context as SqlPluEntity).IsCheckWeight ?
+          Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
+      </p>
+    </DisplayTemplate>
+  </DataGridColumn>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnNumber"]"
+    Field="@nameof(SqlPluEntity.Number)"
+    FilterMethod="DataGridColumnFilterMethod.StartsWith"
+    Width="15%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnCode"]"
+    Field="@nameof(SqlPluEntity.Code)"
+    FilterMethod="DataGridColumnFilterMethod.Contains"
+    Width="25%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnShelfLifeDays"]"
+    Field="@nameof(SqlPluEntity.ShelfLifeDays)"
+    FilterMethod="DataGridColumnFilterMethod.StartsWith"
+    Width="15%"
+  />
+</SectionDataGridWrapper>

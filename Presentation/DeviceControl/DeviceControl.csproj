@@ -145,10 +145,6 @@
       </Compile>
     </ItemGroup>
     
-    <ItemGroup>
-      <Folder Include="Features\Sections\References1C\Plus\" />
-    </ItemGroup>
-    
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>

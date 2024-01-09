@@ -42,11 +42,11 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     }
     
     private void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
-        styling.Class = "transition-colors hover:bg-sky-100";
+        styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-sky-100";
     
     
     private DataGridRowStyling CustomHeaderRowStyling() =>
-        new() { Class = "bg-sky-200 text-black overflow-hidden" };
+        new() { Class = "bg-sky-200 truncate text-black overflow-hidden" };
     
     
     private void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>

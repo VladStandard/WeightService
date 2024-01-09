@@ -1,0 +1,15 @@
+@inherits SectionDialogBase<SqlPluEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <PlusUpdateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+  <SectionTabPanel Name="nesting">
+    <PlusNestingDataGrid PluEntity="SectionEntity" />
+  </SectionTabPanel>
+</SectionModalWrapper>

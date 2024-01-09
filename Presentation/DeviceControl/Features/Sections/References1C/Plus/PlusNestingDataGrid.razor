@@ -1,0 +1,43 @@
+@inherits SectionDataGridBase<SqlPluNestingFkEntity>
+@using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
+@using Blazor.Heroicons.Solid
+
+
+<SectionDataGridWrapper
+  TItem="SqlPluNestingFkEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionPluNestings"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  IsLoading="IsLoading"
+  ItemsPerPage="5"
+  IsBorderless
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnIsDefault"]"
+    Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
+    Width="20%"
+  >
+    <DisplayTemplate>
+      @if ((context as SqlPluNestingFkEntity).IsDefault)
+      {
+        <StarIcon class="h-6 w-6 text-yellow-500" />
+      }
+    </DisplayTemplate>
+  </DataGridColumn>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="Box.Name"
+    Width="40%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnCount"]"
+    Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnTareWeight"]"
+    Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
+    Width="20%"
+  />
+</SectionDataGridWrapper>
