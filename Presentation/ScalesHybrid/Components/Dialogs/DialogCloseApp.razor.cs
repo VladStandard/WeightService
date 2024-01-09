@@ -1,7 +1,6 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.Maui;
 using ScalesHybrid.Resources;
 
 namespace ScalesHybrid.Components.Dialogs;

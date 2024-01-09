@@ -11,13 +11,6 @@ public partial class SectionTopBar : ComponentBase
     [Parameter] public bool IsGuiShowFilterMarked { get; set; }
     private string SqlListCountResult => $"{Locale.ItemsCount}: {SectionCount:### ### ###}";
 
-    private static Dictionary<string, SqlEnumIsMarked> MarkedDict => new()
-    {
-        { "Актуальные", SqlEnumIsMarked.ShowOnlyActual },
-        { "Cкрытые", SqlEnumIsMarked.ShowOnlyHide },
-        { "Все", SqlEnumIsMarked.ShowAll }
-    };
-
     private List<int> _rowCountList = new() { 0, 200, 400, 600, 800, 1000 };
     
     protected override void OnAfterRender(bool firstRender)

@@ -1,4 +1,3 @@
-using Microsoft.Maui.ApplicationModel;
 using ScalesHybrid.Models;
 using ScalesHybrid.Utils;
 using Ws.Services.Services.Host;
