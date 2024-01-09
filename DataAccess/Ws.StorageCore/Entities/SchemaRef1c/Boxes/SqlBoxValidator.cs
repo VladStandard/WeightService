@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
 public sealed class SqlBoxValidator : SqlTableValidator<SqlBoxEntity>
 {
-    public SqlBoxValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlBoxValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotNull();

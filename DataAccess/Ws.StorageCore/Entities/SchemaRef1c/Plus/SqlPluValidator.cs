@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 public sealed class SqlPluValidator : SqlTableValidator<SqlPluEntity>
 {
-    public SqlPluValidator(bool isCheckIdentity, bool isCheckCreateDt, bool isCheckChangeDt) : base(isCheckIdentity, isCheckCreateDt, isCheckChangeDt)
+    public SqlPluValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Description)
             .NotNull();
@@ -56,6 +56,4 @@ public sealed class SqlPluValidator : SqlTableValidator<SqlPluEntity>
             .NotNull()
             .SetValidator(new SqlBrandValidator(isCheckIdentity));
     }
-
-    public SqlPluValidator(bool isCheckIdentity) : this(isCheckIdentity, false, false) { }
 }

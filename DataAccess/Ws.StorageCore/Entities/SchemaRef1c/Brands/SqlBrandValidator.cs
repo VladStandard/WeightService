@@ -2,7 +2,7 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 public sealed class SqlBrandValidator : SqlTableValidator<SqlBrandEntity>
 {
-    public SqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity, true, true)
+    public SqlBrandValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotNull()

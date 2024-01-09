@@ -1,8 +1,10 @@
+using Ws.Shared.Validators;
+
 namespace Ws.StorageCore.Entities.SchemaRef.Hosts;
 
 public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
 {
-    public SqlHostValidator(bool isCheckIdentity) : base(isCheckIdentity, false, false)
+    public SqlHostValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.LoginDt)
             .NotEmpty()
@@ -10,8 +12,6 @@ public sealed class SqlHostValidator : SqlTableValidator<SqlHostEntity>
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Ip)
-            .NotNull()
-            .Matches(@"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$");
+        RuleFor(item => item.Ip).MustBeAValidIpAddress();
     }
 }
