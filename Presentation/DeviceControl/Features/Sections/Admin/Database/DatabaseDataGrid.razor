@@ -1,0 +1,87 @@
+@using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo
+@using Ws.StorageCore.Views.ViewDiagModels.TableSize
+
+
+<div class="rounded-md border overflow-hidden bg-white border-black/[.1]">
+  <DataGrid
+    TItem="WsSqlViewDbFileSizeInfoModel"
+    Data="SectionItems"
+    @bind-SelectedRow="@SelectedItem"
+    DetailRowTrigger="@(e =>
+                        e.Item.Tables.Count > 0 && e.Item.FileName == SelectedItem?.FileName)"
+    RowStyling="CustomRowStyling"
+    HeaderRowStyling="@CustomHeaderRowStyling()"
+  >
+    <DataGridColumns>
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnFile"]"
+        Field="@nameof(WsSqlViewDbFileSizeInfoModel.FileName)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnPercentages"]"
+        Field="@nameof(WsSqlViewDbFileSizeInfoModel.DbFillSize)"
+        Width="40%"
+      >
+        <DisplayTemplate>
+          @{
+            int progress = Convert.ToInt32((context as WsSqlViewDbFileSizeInfoModel).DbFillSize);
+
+            <div class="progress-wrapper">
+              <Progress>
+                <ProgressBar
+                  Color="@GetProgressColorByValue(progress)"
+                  Value="progress"
+                />
+              </Progress>
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnTableCount"]"
+        Field="Tables.Count"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
+        Field="@nameof(WsSqlViewDbFileSizeInfoModel.SizeMb)"
+        Width="20%"
+      />
+    </DataGridColumns>
+    <DetailRowTemplate>
+      @{
+        List<SqlViewTableSizeModel> tables = context.Tables;
+
+        <div class="rounded-md border border-black/[.1] overflow-hidden">
+          <DataGrid
+            TItem="SqlViewTableSizeModel"
+            Data="tables"
+            HeaderRowStyling="@CustomHeaderRowStyling()"
+          >
+            <DataGridColumn
+              Caption="@Localizer["DataGridColumnScheme"]"
+              Field="@nameof(SqlViewTableSizeModel.Schema)"
+              Width="25%"
+            />
+            <DataGridColumn
+              Caption="@Localizer["DataGridColumnTable"]"
+              Field="@nameof(SqlViewTableSizeModel.Table)"
+              Width="25%"
+            />
+            <DataGridColumn
+              Caption="@Localizer["DataGridColumnRowsCount"]"
+              Field="@nameof(SqlViewTableSizeModel.RowsCount)"
+              Width="25%"
+            />
+            <DataGridColumn
+              Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
+              Field="@nameof(SqlViewTableSizeModel.UsedSpaceMb)"
+              Width="25%"
+            />
+          </DataGrid>
+        </div>
+      }
+    </DetailRowTemplate>
+  </DataGrid>
+</div>

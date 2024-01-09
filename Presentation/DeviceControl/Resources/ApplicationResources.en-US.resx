@@ -297,4 +297,25 @@
     <data name="ToastUpdateItem" xml:space="preserve">
         <value>The item was updated</value>
     </data>
+    <data name="DataGridColumnPercentages" xml:space="preserve">
+        <value>Percentages</value>
+    </data>
+    <data name="DataGridColumnScheme" xml:space="preserve">
+        <value>Scheme</value>
+    </data>
+    <data name="DataGridColumnTable" xml:space="preserve">
+        <value>Table</value>
+    </data>
+    <data name="UtilsSizeMb" xml:space="preserve">
+        <value>Mb</value>
+    </data>
+    <data name="DataGridColumnFile" xml:space="preserve">
+        <value>File</value>
+    </data>
+    <data name="DataGridColumnTableCount" xml:space="preserve">
+        <value>Table count</value>
+    </data>
+    <data name="DataGridColumnRowsCount" xml:space="preserve">
+        <value>Row count</value>
+    </data>
 </root>

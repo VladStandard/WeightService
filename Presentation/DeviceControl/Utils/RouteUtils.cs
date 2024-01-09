@@ -55,6 +55,12 @@ public static class RouteUtils
     public const string SectionLogs = "/logs";
     
     # endregion
+    
+    # region Admin
+
+    public const string SectionDatabase = "/database";
+    
+    # endregion
 
     public const string SectionQrlQuery = "/{SearchingSectionItemId?}";
     public const string Profile = "/profile";

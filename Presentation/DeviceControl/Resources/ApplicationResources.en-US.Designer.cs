@@ -276,6 +276,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        internal static string DataGridColumnFile {
+            get {
+                return ResourceManager.GetString("DataGridColumnFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Host.
         /// </summary>
         internal static string DataGridColumnHost {
@@ -393,6 +402,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentages.
+        /// </summary>
+        internal static string DataGridColumnPercentages {
+            get {
+                return ResourceManager.GetString("DataGridColumnPercentages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string DataGridColumnPort {
@@ -429,6 +447,24 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Row count.
+        /// </summary>
+        internal static string DataGridColumnRowsCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnRowsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scheme.
+        /// </summary>
+        internal static string DataGridColumnScheme {
+            get {
+                return ResourceManager.GetString("DataGridColumnScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Size.
         /// </summary>
         internal static string DataGridColumnSize {
@@ -443,6 +479,24 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table.
+        /// </summary>
+        internal static string DataGridColumnTable {
+            get {
+                return ResourceManager.GetString("DataGridColumnTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table count.
+        /// </summary>
+        internal static string DataGridColumnTableCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnTableCount", resourceCulture);
             }
         }
         
@@ -893,6 +947,15 @@ namespace ScalesHybrid.Resources {
         internal static string ToastUpdateItem {
             get {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mb.
+        /// </summary>
+        internal static string UtilsSizeMb {
+            get {
+                return ResourceManager.GetString("UtilsSizeMb", resourceCulture);
             }
         }
     }

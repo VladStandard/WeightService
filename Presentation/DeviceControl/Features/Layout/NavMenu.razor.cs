@@ -86,18 +86,18 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Name = Localizer["Section1CLogs"], Link = RouteUtils.Section1CLogs }
             }
         },
-        // new()
-        // {
-        //     Label = Localizer["MenuAdministration"],
-        //     RequiredRole = UserAccessStr.Admin,
-        //     Icon = HeroiconName.UserGroup,
-        //     SubItems = new()
-        //     {
-        //         new() { Name = Localizer["SectionUsers"], Link = RouteUtils.SectionAccess },
-        //         new() { Name = Localizer["SectionDatabase"], Link = RouteUtils.SystemDatabaseInfo },
-        //         new() { Name = Localizer["SectionVersions"], Link = RouteUtils.SectionVersions }
-        //     }
-        // }
+        new()
+        {
+            Label = Localizer["MenuAdministration"],
+            RequiredRole = UserAccessStr.Admin,
+            Icon = HeroiconName.UserGroup,
+            SubItems = new()
+            {
+                // new() { Name = Localizer["SectionUsers"], Link = RouteUtils.SectionAccess },
+                new() { Name = Localizer["SectionDatabase"], Link = RouteUtils.SectionDatabase },
+                // new() { Name = Localizer["SectionVersions"], Link = RouteUtils.SectionVersions }
+            }
+        }
     };
         
 }

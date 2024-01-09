@@ -18,3 +18,7 @@
 .snackbar-stack {
   padding-bottom: 3rem !important;
 }
+
+.progress-wrapper div {
+  margin-bottom: 0 !important;
+}

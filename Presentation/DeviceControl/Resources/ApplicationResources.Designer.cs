@@ -278,6 +278,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnFile {
+            get {
+                return ResourceManager.GetString("DataGridColumnFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnHost {
             get {
                 return ResourceManager.GetString("DataGridColumnHost", resourceCulture);
@@ -395,6 +404,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnPercentages {
+            get {
+                return ResourceManager.GetString("DataGridColumnPercentages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnPort {
             get {
                 return ResourceManager.GetString("DataGridColumnPort", resourceCulture);
@@ -431,6 +449,24 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnRowsCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnRowsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnScheme {
+            get {
+                return ResourceManager.GetString("DataGridColumnScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnSize {
             get {
                 return ResourceManager.GetString("DataGridColumnSize", resourceCulture);
@@ -443,6 +479,24 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnTable {
+            get {
+                return ResourceManager.GetString("DataGridColumnTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnTableCount {
+            get {
+                return ResourceManager.GetString("DataGridColumnTableCount", resourceCulture);
             }
         }
         
@@ -893,6 +947,15 @@ namespace DeviceControl.Resources {
         internal static string ToastUpdateItem {
             get {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UtilsSizeMb {
+            get {
+                return ResourceManager.GetString("UtilsSizeMb", resourceCulture);
             }
         }
     }

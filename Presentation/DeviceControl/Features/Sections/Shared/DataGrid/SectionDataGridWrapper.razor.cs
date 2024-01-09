@@ -56,7 +56,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     {
         if (!firstRender) return;
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./Features/Shared/DataGrid/SectionDataGridWrapper.razor.js");
+            "import", "./Features/Sections/Shared/DataGrid/SectionDataGridWrapper.razor.js");
         await Module.InvokeVoidAsync("addClickOutsideListener", 
             "dataGridContextMenu", DotNetObjectReference.Create(this));
     }
@@ -149,7 +149,6 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
         {
             // pass error
         }
-        
     }
 }
 
