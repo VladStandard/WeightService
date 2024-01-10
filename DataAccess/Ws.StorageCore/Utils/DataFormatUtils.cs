@@ -46,7 +46,7 @@ public static class DataFormatUtils
     {
         try
         {
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+            XmlSerializer xmlSerializer = XmlSerializer.FromTypes([typeof(T)])[0];
             using StringWriter stringWriter = isUtf16 ? new StringWriter() : new SqlStringWriterUtf8Model();
             switch (isAddEmptyNamespace)
             {

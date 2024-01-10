@@ -1,3 +1,4 @@
+// ReSharper disable ClassNeverInstantiated.Global
 using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
@@ -13,5 +14,5 @@ public sealed partial class BundlesUpdateDialog: SectionDialogBase<SqlBundleEnti
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
-        new() { new(Localizer["SectionBundles"], "main") };
+        [new(Localizer["SectionBundles"], "main")];
 }

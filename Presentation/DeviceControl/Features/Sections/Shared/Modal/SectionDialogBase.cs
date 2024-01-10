@@ -10,7 +10,7 @@ public class SectionDialogBase<TItem>: ComponentBase where TItem: new()
     [Parameter] public EventCallback OnDataChangedAction { get; set; }
     
     public TItem SectionEntity { get; set; } = new();
-    protected List<EnumTypeModel<string>> TabsList { get; set; } = new();
+    protected List<EnumTypeModel<string>> TabsList { get; set; } = [];
 
     protected override void OnInitialized()
     {
@@ -18,6 +18,6 @@ public class SectionDialogBase<TItem>: ComponentBase where TItem: new()
         TabsList = InitializeTabList();
     }
 
-    protected virtual List<EnumTypeModel<string>> InitializeTabList() => 
-        new() { new("Main", "main") };
+    protected virtual List<EnumTypeModel<string>> InitializeTabList() =>
+        [new("Main", "main")];
 }

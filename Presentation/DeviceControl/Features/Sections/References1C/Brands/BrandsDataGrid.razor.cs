@@ -28,6 +28,6 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<SqlBrandEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlBrandEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlBrandEntity>(itemUid)];
     }
 }

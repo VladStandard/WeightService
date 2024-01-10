@@ -30,6 +30,6 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProd
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlProductionSiteEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlProductionSiteEntity>(itemUid)];
     }
 }

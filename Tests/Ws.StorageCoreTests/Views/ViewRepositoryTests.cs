@@ -11,7 +11,7 @@ public class ViewRepositoryTests
     public ViewRepositoryTests()
     {
         SqlCrudConfig = new();
-        AllConfigurations = new() { EnumConfiguration.DevelopVs, EnumConfiguration.ReleaseVs };
+        AllConfigurations = [EnumConfiguration.DevelopVs, EnumConfiguration.ReleaseVs];
     }
 
     [SetUp]

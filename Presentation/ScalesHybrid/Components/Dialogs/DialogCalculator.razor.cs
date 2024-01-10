@@ -14,12 +14,12 @@ public sealed partial class DialogCalculator: ComponentBase
     [Parameter] public string Number { get; set; } = string.Empty;
     [Parameter] public int MaxDigitCount { get; set; } = 3;
     
-    private List<CalculatorControl> CalculatorControls { get; set; } = new();
+    private List<CalculatorControl> CalculatorControls { get; set; } = [];
 
     protected override void OnInitialized()
     {
-        CalculatorControls = new()
-        {
+        CalculatorControls =
+        [
             new() { Title = "1", CalculatorAction = () => SetNumber(1) },
             new() { Title = "2", CalculatorAction = () => SetNumber(2) },
             new() { Title = "3", CalculatorAction = () => SetNumber(3) },
@@ -32,7 +32,7 @@ public sealed partial class DialogCalculator: ComponentBase
             new() { Title = "C", CalculatorAction = ClearNumber },
             new() { Title = "0", CalculatorAction = () => SetNumber(0) },
             new() { Title = Localizer["ButtonCalculatorEnter"], CalculatorAction = SubmitInput }
-        };
+        ];
     }
 
     private void SubmitInput()

@@ -28,6 +28,6 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<SqlClipEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlClipEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlClipEntity>(itemUid)];
     }
 }

@@ -25,11 +25,10 @@ public sealed class SqlCrudConfigFiltersTests
         {
             SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddFilter(SqlRestrictions.Equal("Test № 1", "data"));
-            sqlCrudConfig.AddFilters(new()
-            {
+            sqlCrudConfig.AddFilters([
                 SqlRestrictions.Equal("Test № 2", "data2"),
-                SqlRestrictions.Equal("Test № 3", "data3"),
-            });
+                SqlRestrictions.Equal("Test № 3", "data3")
+            ]);
 
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(3));
 
@@ -45,12 +44,11 @@ public sealed class SqlCrudConfigFiltersTests
             SqlCrudConfigModel sqlCrudConfig = new();
             ICriterion filter1 = SqlRestrictions.Equal("Test № 1", "data");
             sqlCrudConfig.AddFilter(filter1);
-            sqlCrudConfig.AddFilters(new()
-            {
+            sqlCrudConfig.AddFilters([
                 SqlRestrictions.Equal("Test № 1", "data4"),
                 SqlRestrictions.Less("Test № 1", "data56"),
                 SqlRestrictions.Equal("Test № 1", "data")
-            });
+            ]);
             
             Assert.That(sqlCrudConfig.Filters, Has.Count.EqualTo(3));
             

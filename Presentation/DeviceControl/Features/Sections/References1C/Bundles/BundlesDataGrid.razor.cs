@@ -28,6 +28,6 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<SqlBundleEntity
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlBundleEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlBundleEntity>(itemUid)];
     }
 }

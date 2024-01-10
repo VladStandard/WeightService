@@ -1,3 +1,4 @@
+// ReSharper disable ClassNeverInstantiated.Global
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

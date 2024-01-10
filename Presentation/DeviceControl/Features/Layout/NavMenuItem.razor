@@ -10,7 +10,7 @@
     <div class="flex gap-3 items-center overflow-hidden">
       <Heroicon
         Name="@Icon"
-        Type=HeroiconType.Outline
+        Type="HeroiconType.Outline"
         class="h-5 w-5 shrink-0"
       />
       <p class="font-medium truncate">
@@ -19,7 +19,7 @@
     </div>
     <Heroicon
       Name="@(IsOpened ? HeroiconName.ChevronUp : HeroiconName.ChevronDown)"
-      Type=HeroiconType.Outline
+      Type="HeroiconType.Outline"
       class="h-4 w-4 shrink-0"/>
   </button>
   <ul class="flex flex-col gap-1 transition-opacity w-full @(IsOpened ? "opacity-100 mt-2 mb-1" : "opacity-0 h-0 overflow-hidden")">

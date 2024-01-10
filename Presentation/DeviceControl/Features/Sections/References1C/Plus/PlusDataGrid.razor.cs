@@ -27,6 +27,6 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<SqlPluEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlPluEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlPluEntity>(itemUid)];
     }
 }

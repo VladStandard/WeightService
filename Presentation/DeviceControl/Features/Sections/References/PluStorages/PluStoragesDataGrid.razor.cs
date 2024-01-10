@@ -30,6 +30,6 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlPluStorageMethodEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlPluStorageMethodEntity>(itemUid)];
     }
 }

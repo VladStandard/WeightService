@@ -30,6 +30,6 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<SqlPrinterEnti
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlPrinterEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlPrinterEntity>(itemUid)];
     }
 }

@@ -31,6 +31,6 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateE
     protected override void SetSqlSearchingCast()
     {
         long.TryParse(SearchingSectionItemId, out long itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemById<SqlTemplateEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemById<SqlTemplateEntity>(itemUid)];
     }
 }

@@ -26,11 +26,10 @@ public sealed class SqlCrudConfigOrdersTests
         {
             SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
-            sqlCrudConfig.AddOrders(new()
-            {
+            sqlCrudConfig.AddOrders([
                 SqlOrder.Asc("Test № 2"),
-                SqlOrder.Asc("Test № 3"),
-            });
+                SqlOrder.Asc("Test № 3")
+            ]);
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(3));
 
@@ -45,11 +44,10 @@ public sealed class SqlCrudConfigOrdersTests
         {
             SqlCrudConfigModel sqlCrudConfig = new();
             sqlCrudConfig.AddOrder(SqlOrder.Desc("Test № 1"));
-            sqlCrudConfig.AddOrders(new()
-            {
+            sqlCrudConfig.AddOrders([
                 SqlOrder.Desc("Test № 1"),
-                SqlOrder.Asc("Test № 3"),
-            });
+                SqlOrder.Asc("Test № 3")
+            ]);
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(2));
 
@@ -78,18 +76,16 @@ public sealed class SqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrders(new()
-            {
+            sqlCrudConfig.AddOrders([
                 SqlOrder.Desc("Test № 1"),
                 SqlOrder.Desc("Test № 2"),
-                SqlOrder.Asc("Test № 3"),
-            });
+                SqlOrder.Asc("Test № 3")
+            ]);
 
-            sqlCrudConfig.RemoveOrders(new()
-            {
+            sqlCrudConfig.RemoveOrders([
                 SqlOrder.Desc("Test № 2"),
-                SqlOrder.Asc("Test № 3"),
-            });
+                SqlOrder.Asc("Test № 3")
+            ]);
 
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(1));
 
@@ -103,12 +99,11 @@ public sealed class SqlCrudConfigOrdersTests
         Assert.DoesNotThrow(() =>
         {
             SqlCrudConfigModel sqlCrudConfig = new();
-            sqlCrudConfig.AddOrders(new()
-            {
+            sqlCrudConfig.AddOrders([
                 SqlOrder.Desc("Test № 1"),
                 SqlOrder.Asc("Test № 2"),
-                SqlOrder.Asc("Test № 3"),
-            });
+                SqlOrder.Asc("Test № 3")
+            ]);
 
             sqlCrudConfig.ClearOrders();
             Assert.That(sqlCrudConfig.Orders, Has.Count.EqualTo(0));

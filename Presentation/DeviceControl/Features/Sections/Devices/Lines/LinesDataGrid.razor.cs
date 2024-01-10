@@ -33,6 +33,6 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlLineEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlLineEntity>(itemUid)];
     }
 }

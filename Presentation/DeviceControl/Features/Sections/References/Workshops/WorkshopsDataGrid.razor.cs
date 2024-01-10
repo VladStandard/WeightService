@@ -31,6 +31,6 @@ public sealed partial class WorkshopsDataGrid: SectionDataGridBase<SqlWorkShopEn
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlWorkShopEntity>(itemUid) };
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlWorkShopEntity>(itemUid)];
     }
 }

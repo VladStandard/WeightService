@@ -26,15 +26,15 @@ public class SqlCrudConfigModel
 
     public SqlCrudConfigModel()
     {
-        Orders = new();
-        Filters = new();
+        Orders = [];
+        Filters = [];
         IsResultOrder = false;
     }
     
     public SqlCrudConfigModel(SqlCrudConfigModel sqlCrudConfig)
     {
-        Orders = new(sqlCrudConfig.Orders);
-        Filters = new(sqlCrudConfig.Filters);
+        Orders = [..sqlCrudConfig.Orders];
+        Filters = [..sqlCrudConfig.Filters];
         
         IsResultOrder = sqlCrudConfig.IsResultOrder;
     }

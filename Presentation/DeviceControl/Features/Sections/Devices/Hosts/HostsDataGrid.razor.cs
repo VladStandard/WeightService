@@ -30,6 +30,6 @@ public sealed partial class HostsDataGrid: SectionDataGridBase<SqlHostEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { HostRepository.GetItemByUid(itemUid) };
+        SectionItems = [HostRepository.GetItemByUid(itemUid)];
     }
 }

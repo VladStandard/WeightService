@@ -2,7 +2,7 @@
 
 public static class ScalesCommandsUtil
 {
-    private static readonly byte[] Header = { 0xF8, 0x55, 0xCE };
+    private static readonly byte[] Header = [0xF8, 0x55, 0xCE];
     public static ushort Crc16Generate(byte[] data)
     {
         int bits, k, a, temp;
@@ -42,11 +42,11 @@ public static class ScalesCommandsUtil
     {
         byte[] len = BitConverter.GetBytes((ushort)body.Length);
         byte[] crc = BitConverter.GetBytes(Crc16Generate(body));
-        return MergeBytes(new() { Header, len, body, crc });
+        return MergeBytes([Header, len, body, crc]);
     }
     
     public static byte[] Generate(byte body)
     {
-        return Generate(new[] { body });
+        return Generate([body]);
     }
 }

@@ -44,7 +44,7 @@ public static partial class ZplUtils
         if (string.IsNullOrEmpty(zpl)) return string.Empty;
         StringBuilder stringBuilder = new();
         EnumDataBlockPosition dataBlockPosition = EnumDataBlockPosition.Outside;
-        List<string> hexReplace = new();
+        List<string> hexReplace = [];
         for (int i = 0; i < zpl.Length; i++)
         {
             // ^FH^FD -- Field Hexadecimal Indicator & Field Data
@@ -75,7 +75,7 @@ public static partial class ZplUtils
             if (dataBlockPosition == EnumDataBlockPosition.Between)
             {
                 hexReplace.AddRange(from byte b in Encoding.UTF8.GetBytes(zpl[i].ToString())
-                                    select $"_{BitConverter.ToString(new[] { b }).ToUpper()}");
+                                    select $"_{BitConverter.ToString([b]).ToUpper()}");
             }
             if (dataBlockPosition == EnumDataBlockPosition.End)
             {
@@ -83,7 +83,7 @@ public static partial class ZplUtils
                 string hex = string.Join("", hexReplace);
                 stringBuilder.Append(hex);
                 stringBuilder.Append(Environment.NewLine);
-                hexReplace = new();
+                hexReplace = [];
             }
             if (dataBlockPosition != EnumDataBlockPosition.Between)
                 stringBuilder.Append(zpl[i]);

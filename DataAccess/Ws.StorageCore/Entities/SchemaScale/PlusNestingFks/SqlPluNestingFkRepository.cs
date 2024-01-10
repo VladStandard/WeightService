@@ -19,20 +19,20 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<SqlPluNes
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         
-        sqlCrudConfig.AddFilters(new() {
+        sqlCrudConfig.AddFilters([
             SqlRestrictions.Equal(nameof(SqlPluNestingFkEntity.Uid1C), uid1C),
             SqlRestrictions.EqualFk(nameof(SqlPluNestingFkEntity.Plu), plu)
-        });
+        ]);
         
         return SqlCore.GetItemByCrud<SqlPluNestingFkEntity>(sqlCrudConfig);
     }
     public SqlPluNestingFkEntity GetDefaultByPlu(SqlPluEntity plu)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilters(new() {
+        sqlCrudConfig.AddFilters([
             SqlRestrictions.Equal(nameof(SqlPluNestingFkEntity.IsDefault), true),
             SqlRestrictions.EqualFk(nameof(SqlPluTemplateFkEntity.Plu), plu)
-        });
+        ]);
         return SqlCore.GetItemByCrud<SqlPluNestingFkEntity>(sqlCrudConfig);
     }
 }
