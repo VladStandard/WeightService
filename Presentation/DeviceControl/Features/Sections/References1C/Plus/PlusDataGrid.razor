@@ -17,13 +17,13 @@
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(SqlPluEntity.Name)"
     FilterMethod="DataGridColumnFilterMethod.Contains"
-    Width="30%"
+    Width="35%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnIsWeight"]"
     Field="@nameof(SqlPluEntity.IsCheckWeight)"
     Filterable="false"
-    Width="15%"
+    Width="20%"
   >
     <DisplayTemplate>
       <p>
@@ -36,18 +36,12 @@
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="@nameof(SqlPluEntity.Number)"
     FilterMethod="DataGridColumnFilterMethod.StartsWith"
-    Width="15%"
+    Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCode"]"
     Field="@nameof(SqlPluEntity.Code)"
     FilterMethod="DataGridColumnFilterMethod.Contains"
     Width="25%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnShelfLifeDays"]"
-    Field="@nameof(SqlPluEntity.ShelfLifeDays)"
-    FilterMethod="DataGridColumnFilterMethod.StartsWith"
-    Width="15%"
   />
 </SectionDataGridWrapper>

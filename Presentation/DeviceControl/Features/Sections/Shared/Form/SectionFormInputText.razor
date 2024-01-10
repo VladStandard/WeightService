@@ -1,5 +1,6 @@
 @inherits SectionFormInputBase
-@using Blazor.Heroicons.Outline
+@using Blazor.Heroicons.Mini
+
 
 <SectionFormInputWrapper
   Label="@Label"
@@ -34,10 +35,9 @@
     <button
       type="button"
       @onclick="() => SaveToClipboard(Value)"
-      class="absolute top-8 right-16 flex items-center justify-center"
+      class="absolute flex items-center justify-center @(GetIsLargeSize(Size) ? "top-8 right-16 h-7 w-7" : "top-[1.85rem] right-12 h-5 w-5")"
     >
-      <DocumentDuplicateIcon class="h-7 w-7 transition-colors text-black/[.3] group-hover:text-black/[.7]" />
+      <DocumentDuplicateIcon class="w-full h-auto transition-colors transition-transform text-black/[.3] group-hover:text-black hover:scale-[1.1]" />
     </button>
-
   }
 </SectionFormInputWrapper>

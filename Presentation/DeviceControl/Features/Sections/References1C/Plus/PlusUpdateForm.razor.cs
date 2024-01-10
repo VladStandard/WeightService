@@ -22,15 +22,18 @@ public sealed partial class PlusUpdateForm: SectionFormBase<SqlPluEntity>
         PluStorage = new SqlPluStorageMethodFkRepository().GetItemByPlu(SectionEntity);
     }
 
+    private string GetPluTypeTitle(bool isWeight) =>
+        isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
+
     private string GetBundleLink() => SectionEntity.Bundle.IsNew ? 
         string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.IdentityValueUid}";
     
     private string GetBrandLink() => SectionEntity.Brand.IsNew ? 
         string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.IdentityValueUid}";
     
-    private string GetTemplateLink() => PluTemplate.IsNew ? 
-        string.Empty : $"{RouteUtils.SectionTemplates}/{PluTemplate.IdentityValueUid}";
+    private string GetTemplateLink() => PluTemplate.Template.IsNew ? 
+        string.Empty : $"{RouteUtils.SectionTemplates}/{PluTemplate.Template.IdentityValueId}";
     
-    private string GetStorageLink() => PluStorage.IsNew ?
-        string.Empty : $"{RouteUtils.SectionPlusStorage}/{PluStorage.IdentityValueUid}";
+    private string GetStorageLink() => PluStorage.Method.IsNew ?
+        string.Empty : $"{RouteUtils.SectionPlusStorage}/{PluStorage.Method.IdentityValueUid}";
 }

@@ -12,11 +12,13 @@
     Value="@SectionEntity.IdentityValueUid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
+    IsCopyable
   />
   <SectionFormInputText
     Value="@SectionEntity.Uid1C.ToString()"
     Label="@Localizer["DataGridColumnUID1C"]"
     IsDisabled
+    IsCopyable
   />
   <SectionFormInputText
     Value="@SectionEntity.Name"
@@ -29,42 +31,8 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Bundle.Name"
-    Label="@Localizer["DataGridColumnBundle"]"
-    Link="@GetBundleLink()"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@SectionEntity.Brand.Name"
-    Label="@Localizer["DataGridColumnBrand"]"
-    Link="@GetBrandLink()"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@PluTemplate.Name"
-    Label="@Localizer["DataGridColumnTemplate"]"
-    Link="@GetTemplateLink()"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@PluStorage.Name"
-    Label="@Localizer["DataGridColumnStorage"]"
-    Link="@GetStorageLink()"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@SectionEntity.Ean13"
-    Label="Ean13"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@SectionEntity.Gtin"
-    Label="Gtin"
-    IsDisabled
-  />
-  <SectionFormInputText
-    Value="@SectionEntity.Itf14"
-    Label="Itf14"
+    Value="@GetPluTypeTitle(SectionEntity.IsCheckWeight)"
+    Label="@Localizer["DataGridColumnIsWeight"]"
     IsDisabled
   />
   <SectionFormInputText
@@ -73,20 +41,54 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.FullName"
+    Value="@GetMockIfEmptyInput(SectionEntity.Bundle.Name)"
+    Label="@Localizer["DataGridColumnBundle"]"
+    Link="@GetBundleLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.Brand.Name)"
+    Label="@Localizer["DataGridColumnBrand"]"
+    Link="@GetBrandLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(PluTemplate.Template.Title)"
+    Label="@Localizer["DataGridColumnTemplate"]"
+    Link="@GetTemplateLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(PluStorage.Method.Name)"
+    Label="@Localizer["DataGridColumnStorage"]"
+    Link="@GetStorageLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.Ean13)"
+    Label="Ean13"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.Gtin)"
+    Label="Gtin"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.Itf14)"
+    Label="Itf14"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.FullName)"
     Label="@Localizer["DataGridColumnFullName"]"
     Size="SectionFormInputSizeEnum.Medium"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Description"
+    Value="@GetMockIfEmptyInput(SectionEntity.Description)"
     Label="@Localizer["DataGridColumnDescription"]"
     Size="SectionFormInputSizeEnum.Medium"
-    IsDisabled
-  />
-  <SectionFormInputCheckbox
-    Value="@SectionEntity.IsCheckWeight"
-    Label="@Localizer["DataGridColumnIsWeight"]"
     IsDisabled
   />
 </SectionFormWrapper>

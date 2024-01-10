@@ -816,6 +816,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty.
+        /// </summary>
+        internal static string SectionFormInputEmpty {
+            get {
+                return ResourceManager.GetString("SectionFormInputEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter value....
         /// </summary>
         internal static string SectionFormInputTextPlaceholder {

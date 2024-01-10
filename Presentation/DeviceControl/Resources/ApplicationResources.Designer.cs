@@ -818,6 +818,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SectionFormInputEmpty {
+            get {
+                return ResourceManager.GetString("SectionFormInputEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SectionFormInputTextPlaceholder {
             get {
                 return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);

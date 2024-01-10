@@ -348,4 +348,7 @@
     <data name="DataGridColumnTareWeight" xml:space="preserve">
         <value>Tare weight</value>
     </data>
+    <data name="SectionFormInputEmpty" xml:space="preserve">
+        <value>Empty</value>
+    </data>
 </root>

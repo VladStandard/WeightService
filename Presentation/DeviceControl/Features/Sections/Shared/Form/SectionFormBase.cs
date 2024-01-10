@@ -24,6 +24,9 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
         SectionEntityCopy = SectionEntity.DeepClone();
         return Task.CompletedTask;
     }
+    
+    protected string GetMockIfEmptyInput(string value) =>
+        string.IsNullOrEmpty(value) ? Localizer["SectionFormInputEmpty"] : value;
 
     protected async Task ResetItem()
     {
