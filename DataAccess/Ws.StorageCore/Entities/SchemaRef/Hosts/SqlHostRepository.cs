@@ -27,8 +27,6 @@ public sealed class SqlHostRepository : SqlTableRepositoryBase<SqlHostEntity>
         
         return SaveOrUpdate(host);
     }
-    
-    public SqlHostEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlHostEntity>();
 
     public SqlHostEntity GetItemByUid(Guid uid) => SqlCore.GetItemByUid<SqlHostEntity>(uid);
     

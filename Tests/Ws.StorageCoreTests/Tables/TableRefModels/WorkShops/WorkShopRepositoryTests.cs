@@ -16,15 +16,4 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         }, false);
     }
-
-    [Test, Order(2)]
-    public void GetNewItem()
-    {
-        TestsUtils.DataTests.AssertAction(() =>
-        {
-            SqlWorkShopEntity app = WorkShopRepository.GetNewItem();
-            Assert.That(app.IsNew, Is.True);
-            TestContext.WriteLine($"New item: {app.IdentityValueUid}");
-        }, false);
-    }
 }

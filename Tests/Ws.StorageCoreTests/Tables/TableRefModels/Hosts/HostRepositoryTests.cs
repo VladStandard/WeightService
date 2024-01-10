@@ -50,15 +50,4 @@ public sealed class HostRepositoryTests : TableRepositoryTests
             TestContext.WriteLine($"Get item success: {hostByUid.IdentityValueUid}");
         }, false);
     }
-
-    [Test, Order(4)]
-    public void GetNewItem()
-    {
-        TestsUtils.DataTests.AssertAction(() =>
-        {
-            SqlHostEntity host = HostRepository.GetNewItem();
-            Assert.That(host.IsNew, Is.True);
-            TestContext.WriteLine($"New item: {host.IdentityValueUid}");
-        }, false);
-    }
 }
