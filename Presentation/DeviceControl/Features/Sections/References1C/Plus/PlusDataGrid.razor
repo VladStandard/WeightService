@@ -20,19 +20,6 @@
     Width="35%"
   />
   <DataGridColumn
-    Caption="@Localizer["DataGridColumnIsWeight"]"
-    Field="@nameof(SqlPluEntity.IsCheckWeight)"
-    Filterable="false"
-    Width="20%"
-  >
-    <DisplayTemplate>
-      <p>
-        @((context as SqlPluEntity).IsCheckWeight ?
-          Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
-      </p>
-    </DisplayTemplate>
-  </DataGridColumn>
-  <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="@nameof(SqlPluEntity.Number)"
     FilterMethod="DataGridColumnFilterMethod.StartsWith"
@@ -42,6 +29,24 @@
     Caption="@Localizer["DataGridColumnCode"]"
     Field="@nameof(SqlPluEntity.Code)"
     FilterMethod="DataGridColumnFilterMethod.Contains"
-    Width="25%"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnIsWeight"]"
+    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    Filterable="false"
+    Width="10%"
+  >
+    <DisplayTemplate>
+      <p>
+        @(context.IsCheckWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
+      </p>
+    </DisplayTemplate>
+  </DataGridColumn>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnChangeDt"]"
+    Field="@nameof(SqlPluEntity.ChangeDt)"
+    Filterable="false"
+    Width="15%"
   />
 </SectionDataGridWrapper>

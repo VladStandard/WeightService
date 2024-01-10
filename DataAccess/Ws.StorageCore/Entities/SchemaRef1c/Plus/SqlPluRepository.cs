@@ -11,9 +11,14 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
     
     public IEnumerable<SqlPluEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlPluEntity.Number)));
+        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlPluEntity.Number)));
         return SqlCore.GetEnumerable<SqlPluEntity>(sqlCrudConfig);
+    }
+    
+    public IEnumerable<SqlPluEntity> GetEnumerableNotGroup(SqlCrudConfigModel sqlCrudConfig)
+    {
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false));
+        return GetEnumerable(sqlCrudConfig);
     }
     
     public IEnumerable<SqlPluEntity> GetEnumerableByNumber(short number)
