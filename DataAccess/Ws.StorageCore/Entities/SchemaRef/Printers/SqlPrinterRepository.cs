@@ -8,5 +8,4 @@ public class SqlPrinterRepository : SqlTableRepositoryBase<SqlPrinterEntity>
             sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlPrinterEntity>(sqlCrudConfig);
     }
-
 }

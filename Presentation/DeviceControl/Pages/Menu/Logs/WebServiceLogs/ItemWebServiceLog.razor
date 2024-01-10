@@ -1,6 +1,7 @@
 @page "/section/logs_web_service/{Uid:guid}"
 @attribute [Authorize(Roles = UserAccessStr.Read)]
 @using DeviceControl.Components.Item
+@using Ws.Shared.Utils
 @inherits ItemBase<SqlLogWebEntity>
 
 <ItemTopBar TItem="SqlLogWebEntity" Title="@Locale.ItemLog" OnItemUpdate="@GetItemData"/>
@@ -25,7 +26,7 @@
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
-        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.DataRequest)"/>
+        Value="@XmlUtils.GetPrettyXml(SqlItemCast.DataRequest)"/>
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataRequest))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
@@ -38,7 +39,7 @@
       <RadzenTextArea
         Style="width: 100%; text-align: left; font-size: 11px; line-height: 18px; background-color: lightgray; "
         Rows="12" ReadOnly="true"
-        Value="@DataFormatUtils.GetPrettyXml(SqlItemCast.DataResponse)"/>
+        Value="@XmlUtils.GetPrettyXml(SqlItemCast.DataResponse)"/>
 
       <RadzenButton Click="@(_ => JsService.CopyTextToClipboard(SqlItemCast.DataResponse))"
                     class="RadzenButtonFullWidth" ButtonStyle="@ButtonStyle.Primary" Size="@ButtonSize.Small"
