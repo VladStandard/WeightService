@@ -1,5 +1,4 @@
-﻿global using Ws.StorageCore.Views.ViewDiagModels.TableSize;
-global using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
+﻿global using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 global using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 global using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 global using Ws.StorageCore.Entities.SchemaRef.WorkShops;

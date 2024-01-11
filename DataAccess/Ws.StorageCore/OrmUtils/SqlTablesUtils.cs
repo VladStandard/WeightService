@@ -26,4 +26,5 @@ public static class SqlTablesUtils
     public const string Printers = "PRINTERS";
     public const string Lines = "LINES";
     public const string ViewLabels = "VIEW_LABELS";
+    public const string ViewTablesSizes = "VIEW_TABLES_SIZES";
 }

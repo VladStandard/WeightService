@@ -3,7 +3,7 @@
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.ViewLabels;
 
 [TestFixture]
-public sealed class LabelRepositoryTests : TableRepositoryTests
+public sealed class ViewLabelRepositoryTests : TableRepositoryTests
 {
     private SqlViewLabelRepository LabelRepository { get; set; } = new();
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.CreateDt)).Descending;

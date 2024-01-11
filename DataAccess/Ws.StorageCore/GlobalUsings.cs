@@ -16,7 +16,6 @@ global using Ws.StorageCore.Common;
 global using Ws.StorageCore.Helpers;
 global using Ws.StorageCore.Models;
 global using Ws.StorageCore.Utils;
-global using Ws.StorageCore.Views.ViewDiagModels.TableSize;
 global using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 global using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 global using Ws.StorageCore.Entities.SchemaRef.WorkShops;

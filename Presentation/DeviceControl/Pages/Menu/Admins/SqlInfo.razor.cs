@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaDiag.TableSize;
+
 namespace DeviceControl.Pages.Menu.Admins;
 
 public sealed partial class SqlInfo : ComponentBase
@@ -25,7 +27,7 @@ public sealed partial class SqlInfo : ComponentBase
     private void GetSectionData()
     {
         DbFiles = new SqlViewDbFileSizeRepository().GetList();
-        DbTables = SqlViewTableSizeRepository.GetEnumerable(new()).ToList();
+        DbTables = SqlViewTableSizeRepository.GetEnumerable().ToList();
         foreach (WsSqlViewDbFileSizeInfoModel dbFile in DbFiles)
         {
             dbFile.Tables.AddRange(DbTables.Where(table => table.FileName == dbFile.FileName));
