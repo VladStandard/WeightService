@@ -15,7 +15,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
     
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
     
-    protected List<TItem> SectionItems { get; set; } = new();
+    protected IEnumerable<TItem> SectionItems { get; set; } = [];
     protected SqlCrudConfigModel SqlCrudConfigSection { get; set; } = new();
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
     protected bool IsLoading { get; set; } = true;

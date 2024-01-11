@@ -30,8 +30,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
 
     protected async Task ResetItem()
     {
-        // todo Fix equals
-        // if (SectionEntity.Equals(SectionEntityCopy)) return;
+        if (SectionEntity.Equals(SectionEntityCopy)) return;
         SectionEntity = SectionEntityCopy.DeepClone();
         await NotificationService.Info(Localizer["ToastResetItem"]);
     }

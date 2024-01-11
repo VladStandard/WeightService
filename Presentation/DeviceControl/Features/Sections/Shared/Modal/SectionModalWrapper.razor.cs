@@ -7,7 +7,7 @@ namespace DeviceControl.Features.Sections.Shared.Modal;
 public sealed partial class SectionModalWrapper: ComponentBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public List<EnumTypeModel<string>> TabsButtonList { get; set; } = new();
+    [Parameter] public List<EnumTypeModel<string>> TabsButtonList { get; set; } = [];
     [Parameter] public string SelectedTab { get; set; } = "main";
     
     private Tabs TabsRef { get; set; } = null!;

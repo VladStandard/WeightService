@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Image = System.Drawing.Image;
 
+
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
 public sealed partial class LabelsPreview
@@ -50,19 +51,19 @@ public sealed partial class LabelsPreview
         }
     }
 
-    private async Task<byte[]> GetImageBytesFromResponse(HttpResponseMessage response)
+    private static async Task<byte[]> GetImageBytesFromResponse(HttpResponseMessage response)
     {
         using MemoryStream ms = new();
         await response.Content.CopyToAsync(ms);
         return ms.ToArray();
     }
 
-    private string ConvertImageToBase64(byte[] imageBytes)
+    private static string ConvertImageToBase64(byte[] imageBytes)
     {
         using MemoryStream imageStream = new(imageBytes);
-        Image originalImage = Image.FromStream(imageStream);
+        using Image originalImage = Image.FromStream(imageStream);
         originalImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
-
+        
         using MemoryStream rotatedStream = new();
         originalImage.Save(rotatedStream, ImageFormat.Png);
         return Convert.ToBase64String(rotatedStream.ToArray());

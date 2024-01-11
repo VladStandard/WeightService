@@ -35,8 +35,11 @@ public sealed partial class NavMenuItem: ComponentBase
     }
 
     private void HandleLocationChanged(object? sender, LocationChangedEventArgs e) => StateHasChanged();
+    
     private string GetAbsolutePath(string relativePath) => 
         new Uri(new(NavigationManager.BaseUri), relativePath).ToString();
+    
     private bool GetIsAnyActive() => Items.Any(item => GetIsActivePath(item.Link));
+    
     private void SwitchVisibility() => IsOpened = !IsOpened;
 }

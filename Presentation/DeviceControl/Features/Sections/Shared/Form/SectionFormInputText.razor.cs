@@ -24,7 +24,7 @@ public sealed partial class SectionFormInputText: SectionFormInputBase
         await ValueChanged.InvokeAsync(Value);
     }
 
-    private bool GetIsLargeSize(SectionFormInputSizeEnum size) =>
+    private static bool GetIsLargeSize(SectionFormInputSizeEnum size) =>
         size is SectionFormInputSizeEnum.Large or SectionFormInputSizeEnum.ExtraLarge;
 
     private async Task SaveToClipboard(string value)

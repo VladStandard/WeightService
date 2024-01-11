@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <Version>1.1.9.0</Version>
         <Authors>Владимирский стандарт</Authors>
         <Company>Владимирский стандарт</Company>
@@ -10,6 +10,7 @@
         <Copyright>Copyright © 2020 - 2023</Copyright>
         <AssemblyName>DeviceControl</AssemblyName>
         <RootNamespace>DeviceControl</RootNamespace>
+        <NoWarn>CA1806</NoWarn>
     </PropertyGroup>
     
     <ItemGroup>

@@ -12,7 +12,7 @@ public sealed partial class NavMenu : ComponentBase
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     private bool IsProduction { get; set; }
 
-    private List<MenuSection> MenuSections { get; set; } = [];
+    private IEnumerable<MenuSection> MenuSections { get; set; } = [];
 
     protected override void OnInitialized()
     {
@@ -20,7 +20,7 @@ public sealed partial class NavMenu : ComponentBase
         MenuSections = CreateNavMenus();
     }
     
-    private List<MenuSection> CreateNavMenus() =>
+    private IEnumerable<MenuSection> CreateNavMenus() =>
     [
         new()
         {
@@ -39,13 +39,13 @@ public sealed partial class NavMenu : ComponentBase
             Label = Localizer["MenuOperations"],
             RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.Clipboard,
-            SubItems = new()
-            {
-                new() { Name = Localizer["SectionLabels"], Link = RouteUtils.SectionLabels },
+            SubItems =
+            [
+                new() { Name = Localizer["SectionLabels"], Link = RouteUtils.SectionLabels }
                 // new() { Name = Localizer["SectionBarcodes"], Link = RouteUtils.SectionBarCodes },
                 // new() { Name = Localizer["SectionWeightings"], Link = RouteUtils.SectionPlusWeightings },
                 // new() { Name = Localizer["SectionAggregatedLabels"], Link = RouteUtils.SectionPlusLabelsAggr }
-            }
+            ]
         },
 
         new()
@@ -110,5 +110,5 @@ internal class MenuSection
     public string Label { get; init; } = string.Empty;
     public string Icon { get; init; } = string.Empty;
     public string RequiredRole { get; init; } = string.Empty;
-    public List<NavMenuItemModel> SubItems { get; init; } = [];
+    public IEnumerable<NavMenuItemModel> SubItems { get; init; } = [];
 }

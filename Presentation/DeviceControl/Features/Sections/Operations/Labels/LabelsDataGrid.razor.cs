@@ -38,6 +38,6 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<SqlViewLabel>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new() { SqlCoreHelper.Instance.GetItemByUid<SqlViewLabel>(itemUid) };
+        SectionItems = new[] { SqlCoreHelper.Instance.GetItemByUid<SqlViewLabel>(itemUid) };
     }
 }

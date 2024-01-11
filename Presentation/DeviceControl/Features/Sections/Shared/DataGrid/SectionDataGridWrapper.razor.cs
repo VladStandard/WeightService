@@ -41,15 +41,15 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
         InitializeContextMenu();
     }
     
-    private void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
+    private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
         styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-sky-100";
     
     
-    private DataGridRowStyling CustomHeaderRowStyling() =>
+    private static DataGridRowStyling CustomHeaderRowStyling() =>
         new() { Class = "bg-sky-200 truncate text-black overflow-hidden" };
     
     
-    private void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
+    private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
         styling.Class = "truncate";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -145,7 +145,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
             await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
             await Module.DisposeAsync();
         }
-        catch (JSDisconnectedException)
+        catch (Exception ex) when (ex is JSDisconnectedException or ArgumentNullException)
         {
             // pass error
         }
