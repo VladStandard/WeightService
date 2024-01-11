@@ -13,7 +13,6 @@ public class SqlLineEntity : SqlEntityBase
     public virtual string ComPort { get; set; }
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ? string.Empty : $"{Name}";
-
     private int _counter;
 
     public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }

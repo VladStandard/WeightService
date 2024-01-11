@@ -27,10 +27,12 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
     
     protected string GetMockIfEmptyInput(string value) =>
         string.IsNullOrEmpty(value) ? Localizer["SectionFormInputEmpty"] : value;
-
+    
     protected async Task ResetItem()
     {
-        if (SectionEntity.Equals(SectionEntityCopy)) return;
+        dynamic dynamicVariable = SectionEntity;
+        dynamic dynamicVariable2 = SectionEntityCopy;
+        if (dynamicVariable.Equals(dynamicVariable2)) return;
         SectionEntity = SectionEntityCopy.DeepClone();
         await NotificationService.Info(Localizer["ToastResetItem"]);
     }
