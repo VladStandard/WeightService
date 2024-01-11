@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TableRefModels.WorkShops;
 
 [TestFixture]
-public sealed class WorkShopValidatorTests : TableValidatorTests<SqlWorkShopEntity>
-{
-}
+public sealed class WorkShopValidatorTests : TableValidatorTests<SqlWorkShopEntity>;

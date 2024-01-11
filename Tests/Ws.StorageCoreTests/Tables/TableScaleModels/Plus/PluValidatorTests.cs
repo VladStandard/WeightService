@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
-public sealed class PluValidatorTests : TableValidatorTests<SqlPluEntity>
-{
-}
+public sealed class PluValidatorTests : TableValidatorTests<SqlPluEntity>;

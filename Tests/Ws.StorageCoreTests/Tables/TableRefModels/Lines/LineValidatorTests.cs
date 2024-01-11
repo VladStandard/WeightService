@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Lines;
 
 [TestFixture]
-public sealed class LineValidatorTests : TableValidatorTests<SqlLineEntity>
-{
-}
+public sealed class LineValidatorTests : TableValidatorTests<SqlLineEntity>;

@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Labels;
 
 [TestFixture]
-public sealed class LabelLabelValidatorTests : TableValidatorTests<SqlLabelEntity>
-{
-}
+public sealed class LabelLabelValidatorTests : TableValidatorTests<SqlLabelEntity>;

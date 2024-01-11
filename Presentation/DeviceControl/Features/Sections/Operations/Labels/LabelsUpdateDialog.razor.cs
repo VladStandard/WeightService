@@ -13,9 +13,8 @@ public sealed partial class LabelsUpdateDialog: SectionDialogBase<SqlLabelEntity
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
-        new()
-        {
-            new(Localizer["SectionLabels"], "main"),
-            new(Localizer["LabelsPreviewTitle"], "preview")
-        };
+    [
+        new(Localizer["SectionLabels"], "main"),
+        new(Localizer["LabelsPreviewTitle"], "preview")
+    ];
 }

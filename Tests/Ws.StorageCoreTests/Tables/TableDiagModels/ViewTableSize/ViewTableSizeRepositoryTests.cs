@@ -6,8 +6,7 @@ namespace Ws.StorageCoreTests.Tables.TableDiagModels.ViewTableSize;
 public sealed class ViewTableSizeRepositoryTests : TableRepositoryTests
 {
     private SqlViewTableSizeRepository TableSizeRepository { get; set; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlViewTableSizeModel.UsedSpaceMb)).Descending;
-
+    
     [Test]
     public void GetList()
     {

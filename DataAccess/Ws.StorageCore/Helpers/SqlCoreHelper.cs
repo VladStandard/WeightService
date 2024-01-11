@@ -92,7 +92,7 @@ public sealed class SqlCoreHelper
     
     #region Public and private methods - Base
 
-    private ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
+    private static ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
     {
         ICriteria criteria = session.CreateCriteria(typeof(T));
         
@@ -129,7 +129,6 @@ public sealed class SqlCoreHelper
             {
                 session.Disconnect();
                 session.Close();
-                session.Dispose();
             }
         }
     }
@@ -156,10 +155,9 @@ public sealed class SqlCoreHelper
             }
             finally
             {
-                transaction.Dispose();
                 session.Disconnect();
                 session.Close();
-                session.Dispose();
+                
             }
         }
     }
@@ -257,7 +255,7 @@ public sealed class SqlCoreHelper
             ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
             item = criteria.UniqueResult<T>();
         });
-        return item ?? GetItemNewEmpty<T>();;
+        return item ?? new();
     }
     
     public T GetItemByUid<T>(Guid uid) where T : SqlEntityBase, new()
@@ -271,19 +269,6 @@ public sealed class SqlCoreHelper
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
-    }
-    
-    public T GetItemFirst<T>() where T : SqlEntityBase, new()
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.SelectTopRowsCount = 1;
-        T result = GetItemByCrud<T>(sqlCrudConfig);
-        return result;
-    }
-
-    public T GetItemNewEmpty<T>() where T : SqlEntityBase, new()
-    {
-        return new();
     }
 
     #endregion
@@ -303,7 +288,7 @@ public sealed class SqlCoreHelper
     
     public object[] GetArrayObjects(string query, List<SqlParameter>? parameters = null)
     {
-        parameters ??= new();
+        parameters ??= [];
         object[] result = Array.Empty<object>();
         ExecuteSelectCore(session =>
         {

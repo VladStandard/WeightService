@@ -33,13 +33,8 @@ public class SqlViewDbFileSizeRepository : IViewDbFileSizeRepository
     public List<WsSqlViewDbFileSizeInfoModel> GetList()
     {
         object[] objects = SqlCore.GetArrayObjects(GetDbFileSizes());
-        List<WsSqlViewDbFileSizeInfoModel> result = new();
-        foreach (object obj in objects)
-        {
-            WsSqlViewDbFileSizeInfoModel? model = ParseViewModel(obj);
-            if (model != null)
-                result.Add(model);
-        }
+        List<WsSqlViewDbFileSizeInfoModel> result = [];
+        result.AddRange(objects.Select(ParseViewModel).OfType<WsSqlViewDbFileSizeInfoModel>());
         return result;
     }
 }

@@ -1,5 +1,4 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
 
@@ -35,14 +34,13 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
         TestsUtils.DataTests.AssertAction(() =>
         {
             SqlPluLineEntity pluLine = GetFirstPluScaleModel();
-            SqlLineEntity line = pluLine.Line;
-            List<SqlPluLineEntity> pluLines = PluLineRepository.GetListByLine(line, SqlCrudConfig);
-            foreach (SqlPluLineEntity pluLine1 in pluLines)
+            List<SqlPluLineEntity> pluLines = PluLineRepository.GetListByLine(pluLine.Line, SqlCrudConfig);
+            
+            foreach (SqlPluLineEntity pluLineTest in pluLines)
             {
-                Assert.That(pluLine1.Line, Is.EqualTo(line));
+                Assert.That(pluLineTest.Line, Is.EqualTo(pluLine.Line));
                 TestContext.WriteLine($"{pluLine}");
             }
-
             Assert.That(pluLines.Any(), Is.True);
         }, false);
     }

@@ -12,8 +12,8 @@ public class SqlAccessEntity : SqlEntityBase
     
     public SqlAccessEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        LoginDt = DateTime.Now;
-        Name = "KOLBASA-VS\\";
+        LoginDt = DateTime.MinValue;
+        Name = string.Empty;
         Rights = (byte)EnumAccessRights.None;
     }
 

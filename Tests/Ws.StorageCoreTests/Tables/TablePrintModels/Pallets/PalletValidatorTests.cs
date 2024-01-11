@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Pallets;
 
 [TestFixture]
-public sealed class PalletValidatorTests : TableValidatorTests<SqlPalletEntity>
-{
-}
+public sealed class PalletValidatorTests : TableValidatorTests<SqlPalletEntity>;

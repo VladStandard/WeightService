@@ -42,5 +42,5 @@ public class SqlPrinterEntity : SqlEntityBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Ip, item.Ip) &&
         Equals(Port, item.Port) &&
-        Equals(Type, PrinterTypeEnum.Tsc);
+        Equals(Type, item.Type);
 }

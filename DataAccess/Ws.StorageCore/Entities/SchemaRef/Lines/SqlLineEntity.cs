@@ -12,13 +12,13 @@ public class SqlLineEntity : SqlEntityBase
     public virtual SqlPrinterEntity Printer { get; set; }
     public virtual string ComPort { get; set; }
     public virtual int Number { get; set; }
-    public override string DisplayName => IsNew ?  string.Empty : $"{Name}";
-    
+    public override string DisplayName => IsNew ? string.Empty : $"{Name}";
+
     private int _counter;
-    
+
     public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }
     public virtual string Version { get; set; } = string.Empty;
-    
+
     public SqlLineEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Version = string.Empty;
@@ -40,7 +40,7 @@ public class SqlLineEntity : SqlEntityBase
         Counter = item.Counter;
         Version = item.Version;
     }
-    
+
     public override string ToString() => $"{IdentityValueId} | {Name}";
 
     public override bool Equals(object obj)

@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Access;
 
 [TestFixture]
-public sealed class AccessValidatorTests : TableValidatorTests<SqlAccessEntity>
-{
-}
+public sealed class AccessValidatorTests : TableValidatorTests<SqlAccessEntity>;

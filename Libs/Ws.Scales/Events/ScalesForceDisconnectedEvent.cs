@@ -1,5 +1,3 @@
 ﻿namespace Ws.Scales.Events;
 
-public class ScalesForceDisconnected
-{
-}
+public class ScalesForceDisconnected;

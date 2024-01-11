@@ -3,6 +3,4 @@
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
 
 [TestFixture]
-public sealed class PluScaleValidatorTests : TableValidatorTests<SqlPluLineEntity>
-{
-}
+public sealed class PluScaleValidatorTests : TableValidatorTests<SqlPluLineEntity>;

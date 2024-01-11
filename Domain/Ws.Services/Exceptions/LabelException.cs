@@ -8,6 +8,6 @@ public class LabelException : Exception
     
     public LabelException(ValidationResult result)
     {
-        ValidationErrors =  result.Errors.Select(error => error.ErrorMessage).ToList();;
+        ValidationErrors =  result.Errors.Select(error => error.ErrorMessage).ToList();
     }
 }
