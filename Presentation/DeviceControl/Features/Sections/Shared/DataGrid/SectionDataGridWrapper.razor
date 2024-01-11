@@ -1,8 +1,7 @@
-@typeparam TItem where TItem: SqlEntityBase, new()
-@attribute [CascadingTypeParameter(nameof(TItem))]
-@using Ws.StorageCore.Common
-@using Blazor.Heroicons.Outline
 @using Blazor.Heroicons
+@using Blazor.Heroicons.Outline
+@typeparam TItem where TItem: Ws.StorageCore.Common.SqlEntityBase, new()
+@attribute [CascadingTypeParameter(nameof(TItem))]
 
 
 <div class="w-full flex gap-4 items-center mb-2 @(IsBorderless ? "pt-2 px-4" : "px-2")">

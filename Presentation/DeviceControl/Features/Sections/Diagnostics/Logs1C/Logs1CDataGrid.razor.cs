@@ -3,7 +3,6 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
-using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 

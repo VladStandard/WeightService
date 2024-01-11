@@ -3,7 +3,6 @@ using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Views.ViewDiagModels.TableSize;
 using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 namespace DeviceControl.Features.Sections.Admin.Database;
@@ -15,13 +14,13 @@ public sealed partial class DatabaseDataGrid: ComponentBase
         = new List<WsSqlViewDbFileSizeInfoModel>();
     private WsSqlViewDbFileSizeInfoModel? SelectedItem { get; set; }
     
-    private void CustomRowStyling(WsSqlViewDbFileSizeInfoModel item, DataGridRowStyling styling) =>
+    private static void CustomRowStyling(WsSqlViewDbFileSizeInfoModel item, DataGridRowStyling styling) =>
         styling.Class = "transition-colors hover:bg-sky-100";
     
-    private DataGridRowStyling CustomHeaderRowStyling() =>
+    private static DataGridRowStyling CustomHeaderRowStyling() =>
         new() { Class = "bg-sky-200 text-black overflow-hidden" };
 
-    private Color GetProgressColorByValue(int percentage)
+    private static Color GetProgressColorByValue(int percentage)
     {
         return percentage switch
         {

@@ -1,6 +1,5 @@
-@inherits SectionFormBase<SqlBoxEntity>
-@using Ws.StorageCore.Entities.SchemaRef1c.Boxes
 @using System.Globalization
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity>
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.SectionBoxes}/{SectionEntity.IdentityValueUid}")"

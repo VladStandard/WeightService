@@ -1,8 +1,7 @@
-@inherits SectionFormBase<SqlLineEntity>
-@using Ws.StorageCore.Entities.SchemaRef.Lines
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @using Ws.StorageCore.Entities.SchemaRef.Printers
 @using Ws.StorageCore.Entities.SchemaRef.WorkShops
+@using Ws.StorageCore.Entities.SchemaRef.Hosts
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
 
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">

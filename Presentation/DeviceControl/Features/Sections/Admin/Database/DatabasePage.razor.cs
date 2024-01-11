@@ -1,7 +1,7 @@
+// ReSharper disable ClassNeverInstantiated.Global
 using Microsoft.AspNetCore.Components;
 using Ws.StorageCore.Views.ViewDiagModels.TableSize;
 using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
-
 
 namespace DeviceControl.Features.Sections.Admin.Database;
 
@@ -9,7 +9,7 @@ public sealed partial class DatabasePage: ComponentBase
 {
     private SqlViewTableSizeRepository SqlViewTableSizeRepository { get; } = new();
     private SqlViewDbFileSizeRepository SqlViewDbFileSizeRepository { get; } = new();
-    private List<WsSqlViewDbFileSizeInfoModel> SectionItems { get; set; } = new();
+    private List<WsSqlViewDbFileSizeInfoModel> SectionItems { get; set; } = [];
     
     protected override void OnAfterRender(bool firstRender)
     {

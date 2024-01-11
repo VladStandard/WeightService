@@ -2,25 +2,6 @@ namespace DeviceControl.Utils;
 
 public static class RouteUtils
 {
-    public static string SystemDatabaseInfo => "/system_sql";
-    public static string SectionVersions => "/system_sql_versions";
-
-    // public static string SectionPlus => "/section/plus";
-    public static string SectionPlusLines => "/section/plus_lines";
-    public static string SectionPlusLabels => "/section/plus_labels";
-    public static string SectionPlusNestingFks => "/section/plus_nesting";
-    public static string SectionPlusWeightings => "/section/plus_weightings";
-    public static string SectionPlusLabelsAggr => "/section/plus_labels_aggr";
-
-
-    // public static string SectionClips => "/section/clips";
-    // public static string SectionAccess => "/section/access";
-    // public static string SectionBarCodes => "/section/barcodes";
-    // public static string SectionBoxes => "/section/boxes";
-    // public static string SectionBrands => "/section/brands";
-    // public static string SectionBundles => "/section/bundles";
-
-    
     # region Devices
     
     public const string SectionLines = "/lines";
