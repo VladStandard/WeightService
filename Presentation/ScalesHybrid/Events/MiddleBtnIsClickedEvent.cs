@@ -1,3 +1,3 @@
 ﻿namespace ScalesHybrid.Events;
 
-public class MiddleBtnIsClickedEvent { }
+public class MiddleBtnIsClickedEvent;

@@ -12,9 +12,7 @@ public static class ConfigurationUtil
     };
     
     public static EnumConfiguration Config =>
-#if  DEVELOPVS
-        EnumConfiguration.DevelopVs;
-#elif RELEASEVS
+#if RELEASEVS
         EnumConfiguration.ReleaseVs;
 #else
         EnumConfiguration.DevelopVs;

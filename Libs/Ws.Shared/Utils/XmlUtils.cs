@@ -1,6 +1,13 @@
-namespace Ws.StorageCore.Utils;
+﻿using System.Runtime.Serialization;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.Xml.Xsl;
 
-public static class DataFormatUtils
+namespace Ws.Shared.Utils;
+
+public static class XmlUtils
 {
     public static string GetPrettyXml(string xml)
     {
@@ -8,14 +15,12 @@ public static class DataFormatUtils
         {
             return string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
         }
-        catch (Exception ex)
+        catch (XmlException)
         {
-            return ex.Message;
+            return xml;
         }
     }
     
-    public static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
-
     public static string XsltTransformation(string xslInput, string? xmlInput)
     {
         if (xmlInput is null || string.IsNullOrEmpty(xmlInput)) return xslInput;
@@ -42,12 +47,12 @@ public static class DataFormatUtils
         IndentChars = "\t"
     };
 
-    private static string SerializeAsXmlString<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
+    private static string SerializeAsXmlString<T>(ISerializable item, bool isAddEmptyNamespace)
     {
         try
         {
-            XmlSerializer xmlSerializer = XmlSerializer.FromTypes([typeof(T)])[0];
-            using StringWriter stringWriter = isUtf16 ? new StringWriter() : new SqlStringWriterUtf8Model();
+            XmlSerializer? xmlSerializer = XmlSerializer.FromTypes([typeof(T)])[0];
+            using StringWriter stringWriter = new();
             switch (isAddEmptyNamespace)
             {
                 case true:
@@ -55,13 +60,13 @@ public static class DataFormatUtils
                     XmlSerializerNamespaces emptyNamespaces = new();
                     emptyNamespaces.Add(string.Empty, string.Empty);
                     using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, GetXmlWriterSettings());
-                    xmlSerializer.Serialize(xmlWriter, item, emptyNamespaces);
+                    xmlSerializer?.Serialize(xmlWriter, item, emptyNamespaces);
                     xmlWriter.Flush();
                     xmlWriter.Close();
                     break;
                 }
                 default:
-                    xmlSerializer.Serialize(stringWriter, item);
+                    xmlSerializer?.Serialize(stringWriter, item);
                     break;
             }
             return stringWriter.ToString();
@@ -72,11 +77,11 @@ public static class DataFormatUtils
         }
     }
 
-    public static XmlDocument SerializeAsXmlDocument<T>(ISerializable item, bool isAddEmptyNamespace, bool isUtf16)
+    public static XmlDocument SerializeAsXmlDocument<T>(ISerializable item, bool isAddEmptyNamespace)
     {
         XmlDocument xmlDocument = new();
-        string xmlString = SerializeAsXmlString<T>(item, isAddEmptyNamespace, isUtf16);
-        byte[] bytes = isUtf16 ? Encoding.Unicode.GetBytes(xmlString) : Encoding.UTF8.GetBytes(xmlString);
+        string xmlString = SerializeAsXmlString<T>(item, isAddEmptyNamespace);
+        byte[] bytes = Encoding.Unicode.GetBytes(xmlString);
         using MemoryStream memoryStream = new(bytes);
         memoryStream.Flush();
         memoryStream.Seek(0, SeekOrigin.Begin);

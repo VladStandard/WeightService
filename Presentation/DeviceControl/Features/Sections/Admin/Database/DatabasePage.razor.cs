@@ -1,6 +1,6 @@
 // ReSharper disable ClassNeverInstantiated.Global
 using Microsoft.AspNetCore.Components;
-using Ws.StorageCore.Views.ViewDiagModels.TableSize;
+using Ws.StorageCore.Entities.SchemaDiag.TableSize;
 using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 namespace DeviceControl.Features.Sections.Admin.Database;
@@ -21,7 +21,7 @@ public sealed partial class DatabasePage: ComponentBase
     private List<WsSqlViewDbFileSizeInfoModel> GetSqlSectionCast()
     {
         List<WsSqlViewDbFileSizeInfoModel> sqlFiles = SqlViewDbFileSizeRepository.GetList();
-        List<SqlViewTableSizeModel> sqlTables = SqlViewTableSizeRepository.GetEnumerable(new()).ToList();
+        List<SqlViewTableSizeModel> sqlTables = SqlViewTableSizeRepository.GetEnumerable().ToList();
         foreach (WsSqlViewDbFileSizeInfoModel sqlFile in sqlFiles)
             sqlFile.Tables.AddRange(sqlTables.Where(table => table.FileName == sqlFile.FileName));
         return sqlFiles;

@@ -57,15 +57,4 @@ public sealed class AccessRepositoryTests : TableRepositoryTests
             TestContext.WriteLine($"Get item success: {accessByUid.IdentityValueUid}");
         }, false);
     }
-
-    [Test, Order(4)]
-    public void GetNewItem()
-    {
-        TestsUtils.DataTests.AssertAction(() =>
-        {
-            SqlAccessEntity access = AccessRepository.GetNewItem();
-            Assert.That(access.IsNew, Is.True);
-            TestContext.WriteLine($"New item: {access.IdentityValueUid}");
-        }, false);
-    }
 }

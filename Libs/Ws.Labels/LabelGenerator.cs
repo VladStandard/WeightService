@@ -4,6 +4,7 @@ using Ws.Labels.Common;
 using Ws.Labels.Dto;
 using Ws.Labels.Models;
 using Ws.Labels.Utils;
+using Ws.Shared.Utils;
 using Ws.StorageCore.Utils;
 
 namespace Ws.Labels;
@@ -24,14 +25,15 @@ public abstract class LabelGenerator
     private static LabelDto GetZpl<TItem>(LabelDataDto dto, TItem labelModel) where TItem : ISerializable, ILabelModel
     {
         string template = dto.Template;
-        XmlDocument xmlLabelContext = DataFormatUtils.SerializeAsXmlDocument<TItem>
-            (labelModel, true, true);
+        XmlDocument xmlLabelContext = XmlUtils.SerializeAsXmlDocument<TItem>(labelModel, true);
         template = template.Replace("Context", labelModel.GetType().Name);
         
-        string zpl = DataFormatUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
-        zpl = DataFormatUtils.XmlReplaceNextLine(zpl);
+        string zpl = XmlUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
+        zpl = XmlReplaceNextLine(zpl);
         zpl = ZplUtils.ConvertStringToHex(zpl);
         zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.PluNumber);
         return new(zpl, labelModel);
     }
+    
+    private static string XmlReplaceNextLine(string xml) => xml.Replace("|", "\\&");
 }

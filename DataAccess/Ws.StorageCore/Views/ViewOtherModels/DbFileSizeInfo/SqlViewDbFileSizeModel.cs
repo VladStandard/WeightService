@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaDiag.TableSize;
+
 namespace Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
 
 public enum DbFileType

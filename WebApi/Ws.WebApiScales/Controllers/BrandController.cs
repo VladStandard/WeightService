@@ -1,8 +1,8 @@
 ﻿using System.Xml.Linq;
 using Ws.WebApiScales.Common;
+using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Brand;
 using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Common.Services;
 
 namespace Ws.WebApiScales.Controllers;
 

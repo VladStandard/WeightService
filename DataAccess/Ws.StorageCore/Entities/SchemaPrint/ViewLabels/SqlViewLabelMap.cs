@@ -6,6 +6,7 @@ public class SqlViewLabelMap : ClassMapping<SqlViewLabel>
     {
         Schema(SqlSchemasUtils.Print);
         Table(SqlTablesUtils.ViewLabels);
+        Mutable(false);
         
         Id(x => x.IdentityValueUid, m => { 
             m.Column("UID");

@@ -6,8 +6,6 @@ public sealed class SqlAccessRepository : SqlTableRepositoryBase<SqlAccessEntity
 {
     #region Item
     
-    public SqlAccessEntity GetNewItem() => SqlCore.GetItemNewEmpty<SqlAccessEntity>();
-
     public SqlAccessEntity GetItemByUid(Guid uid) => SqlCore.GetItemByUid<SqlAccessEntity>(uid);
 
     public SqlAccessEntity GetItemByUsername(string userName)
