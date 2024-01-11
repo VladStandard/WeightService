@@ -285,7 +285,7 @@
     <data name="ToastResetItem" xml:space="preserve">
         <value>Исходные значения восстановлены</value>
     </data>
-    <data name="ToastCopyToClipboard" xml:space="preserve">
+    <data name="ToastUrlCopyToClipboard" xml:space="preserve">
         <value>Ссылка сохранена в буфер обмена</value>
     </data>
     <data name="ToastAddItem" xml:space="preserve">
@@ -350,5 +350,32 @@
     </data>
     <data name="SectionFormInputEmpty" xml:space="preserve">
         <value>Пусто</value>
+    </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value>Дата производства</value>
+    </data>
+    <data name="DataGridColumnPluNumber" xml:space="preserve">
+        <value>Номер ПЛУ</value>
+    </data>
+    <data name="DataGridColumnPluName" xml:space="preserve">
+        <value>Имя ПЛУ</value>
+    </data>
+    <data name="DataGridColumnPlu" xml:space="preserve">
+        <value>ПЛУ</value>
+    </data>
+    <data name="DataGridColumnExpirationDt" xml:space="preserve">
+        <value>Срок годности</value>
+    </data>
+    <data name="LabelsPreviewErrorMsg" xml:space="preserve">
+        <value>Ошибка ковертации zpl кода в изображение</value>
+    </data>
+    <data name="LabelsPreviewNoData" xml:space="preserve">
+        <value>Изображение отсутствует</value>
+    </data>
+    <data name="LabelsPreviewTitle" xml:space="preserve">
+        <value>Предпросмотр</value>
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
+        <value>Значение сохранено в буфер обмена</value>
     </data>
 </root>

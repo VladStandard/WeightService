@@ -1,0 +1,15 @@
+@inherits SectionDialogBase<SqlLabelEntity>
+@using Ws.StorageCore.Entities.SchemaPrint.Labels
+
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <LabelsUpdateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+  <SectionTabPanel Name="preview">
+    <LabelsPreview ZplCode="@SectionEntity.Zpl" />
+  </SectionTabPanel>
+</SectionModalWrapper>

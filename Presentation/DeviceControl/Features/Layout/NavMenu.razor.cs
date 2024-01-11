@@ -34,19 +34,19 @@ public sealed partial class NavMenu : ComponentBase
                 new() { Name = Localizer["SectionPrinters"], Link = RouteUtils.SectionPrinters }
             ]
         },
-        // new()
-        // {
-        //     Label = Localizer["MenuOperations"],
-        //     RequiredRole = UserAccessStr.Read,
-        //     Icon = HeroiconName.Clipboard,
-        //     SubItems = new()
-        //     {
-        //         new() { Name = Localizer["SectionLabels"], Link = RouteUtils.SectionPlusLabels },
-        //         new() { Name = Localizer["SectionBarcodes"], Link = RouteUtils.SectionBarCodes },
-        //         new() { Name = Localizer["SectionWeightings"], Link = RouteUtils.SectionPlusWeightings },
-        //         new() { Name = Localizer["SectionAggregatedLabels"], Link = RouteUtils.SectionPlusLabelsAggr }
-        //     }
-        // },
+        new()
+        {
+            Label = Localizer["MenuOperations"],
+            RequiredRole = UserAccessStr.Read,
+            Icon = HeroiconName.Clipboard,
+            SubItems = new()
+            {
+                new() { Name = Localizer["SectionLabels"], Link = RouteUtils.SectionLabels },
+                // new() { Name = Localizer["SectionBarcodes"], Link = RouteUtils.SectionBarCodes },
+                // new() { Name = Localizer["SectionWeightings"], Link = RouteUtils.SectionPlusWeightings },
+                // new() { Name = Localizer["SectionAggregatedLabels"], Link = RouteUtils.SectionPlusLabelsAggr }
+            }
+        },
 
         new()
         {

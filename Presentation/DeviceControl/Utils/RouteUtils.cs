@@ -10,6 +10,12 @@ public static class RouteUtils
     
     # endregion
     
+    # region Operations
+
+    public const string SectionLabels = "/labels";
+    
+    # endregion
+    
     # region References
     
     public const string SectionWorkShops = "/workshops";

@@ -1,0 +1,58 @@
+@inherits SectionDataGridBase<SqlViewLabel>
+@using Ws.StorageCore.Entities.SchemaPrint.ViewLabels
+
+
+<SectionDataGridWrapper
+  TItem="SqlViewLabel"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionLabels"]"
+  GridData="SectionItems"
+  GetGridData="SetSqlSectionCast"
+  ReadAction="OpenDataGridEntityModal"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading"
+  IsFilterable
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnCreateDt"]"
+    Field="@nameof(SqlViewLabel.CreateDt)"
+    Width="10%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnProductDt"]"
+    Field="@nameof(SqlViewLabel.ProductDate)"
+    Width="10%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnLine"]"
+    Field="@nameof(SqlViewLabel.LineName)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnWorkshop"]"
+    Field="@nameof(SqlViewLabel.WorkShop)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPluNumber"]"
+    Field="@nameof(SqlViewLabel.PluNumber)"
+    Width="10%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPluName"]"
+    Field="@nameof(SqlViewLabel.PluName)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnType"]"
+    Field="@nameof(SqlViewLabel.IsCheckWeight)"
+    Width="10%"
+  >
+    <DisplayTemplate>
+      <p>
+        @(context.IsCheckWeight ?
+          Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
+      </p>
+    </DisplayTemplate>
+  </DataGridColumn>
+</SectionDataGridWrapper>

@@ -7,8 +7,8 @@ namespace ScalesHybrid.Components.Dialogs;
 
 public sealed partial class DialogCalculator: ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
-    [Inject] public IModalService ModalService { get; set; }
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] public IModalService ModalService { get; set; } = null!;
     
     [Parameter] public Action<int> CallbackFunction { get; set; }
     [Parameter] public string Number { get; set; } = string.Empty;

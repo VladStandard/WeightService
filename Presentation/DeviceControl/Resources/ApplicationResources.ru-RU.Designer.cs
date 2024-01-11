@@ -303,6 +303,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Срок годности.
+        /// </summary>
+        internal static string DataGridColumnExpirationDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnExpirationDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Файл.
         /// </summary>
         internal static string DataGridColumnFile {
@@ -456,6 +465,33 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ПЛУ.
+        /// </summary>
+        internal static string DataGridColumnPlu {
+            get {
+                return ResourceManager.GetString("DataGridColumnPlu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя ПЛУ.
+        /// </summary>
+        internal static string DataGridColumnPluName {
+            get {
+                return ResourceManager.GetString("DataGridColumnPluName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер ПЛУ.
+        /// </summary>
+        internal static string DataGridColumnPluNumber {
+            get {
+                return ResourceManager.GetString("DataGridColumnPluNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Порт.
         /// </summary>
         internal static string DataGridColumnPort {
@@ -470,6 +506,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата производства.
+        /// </summary>
+        internal static string DataGridColumnProductDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
             }
         }
         
@@ -668,6 +713,33 @@ namespace ScalesHybrid.Resources {
         internal static string HomeMsgDescription {
             get {
                 return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка ковертации zpl кода в изображение.
+        /// </summary>
+        internal static string LabelsPreviewErrorMsg {
+            get {
+                return ResourceManager.GetString("LabelsPreviewErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изображение отсутствует.
+        /// </summary>
+        internal static string LabelsPreviewNoData {
+            get {
+                return ResourceManager.GetString("LabelsPreviewNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Предпросмотр.
+        /// </summary>
+        internal static string LabelsPreviewTitle {
+            get {
+                return ResourceManager.GetString("LabelsPreviewTitle", resourceCulture);
             }
         }
         
@@ -1014,7 +1086,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ссылка сохранена в буфер обмена.
+        ///   Looks up a localized string similar to Значение сохранено в буфер обмена.
         /// </summary>
         internal static string ToastCopyToClipboard {
             get {
@@ -1046,6 +1118,15 @@ namespace ScalesHybrid.Resources {
         internal static string ToastUpdateItem {
             get {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ссылка сохранена в буфер обмена.
+        /// </summary>
+        internal static string ToastUrlCopyToClipboard {
+            get {
+                return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
             }
         }
         

@@ -285,7 +285,7 @@
     <data name="ToastResetItem" xml:space="preserve">
         <value>Original values restored</value>
     </data>
-    <data name="ToastCopyToClipboard" xml:space="preserve">
+    <data name="ToastUrlCopyToClipboard" xml:space="preserve">
         <value>Url copied to clipboard</value>
     </data>
     <data name="ToastAddItem" xml:space="preserve">
@@ -350,5 +350,32 @@
     </data>
     <data name="SectionFormInputEmpty" xml:space="preserve">
         <value>Empty</value>
+    </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value>Product date</value>
+    </data>
+    <data name="DataGridColumnPluNumber" xml:space="preserve">
+        <value>Plu number</value>
+    </data>
+    <data name="DataGridColumnPluName" xml:space="preserve">
+        <value>Plu name</value>
+    </data>
+    <data name="DataGridColumnPlu" xml:space="preserve">
+        <value>Plu</value>
+    </data>
+    <data name="DataGridColumnExpirationDt" xml:space="preserve">
+        <value>Expiration date</value>
+    </data>
+    <data name="LabelsPreviewErrorMsg" xml:space="preserve">
+        <value>Error while converting zpl code to image</value>
+    </data>
+    <data name="LabelsPreviewNoData" xml:space="preserve">
+        <value>No image</value>
+    </data>
+    <data name="LabelsPreviewTitle" xml:space="preserve">
+        <value>Preview</value>
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
+        <value>Value copied to clipboard</value>
     </data>
 </root>

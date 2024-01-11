@@ -285,7 +285,7 @@
     <data name="ToastResetItem" xml:space="preserve">
         <value />
     </data>
-    <data name="ToastCopyToClipboard" xml:space="preserve">
+    <data name="ToastUrlCopyToClipboard" xml:space="preserve">
         <value />
     </data>
     <data name="ToastAddItem" xml:space="preserve">
@@ -349,6 +349,33 @@
         <value />
     </data>
     <data name="SectionFormInputEmpty" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPluNumber" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPluName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPlu" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnExpirationDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewErrorMsg" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewNoData" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
         <value />
     </data>
 </root>

@@ -61,7 +61,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
     private async Task CopyToClipboard()
     {
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", GetAbsoluteUrl(ShareUrl));
-        await NotificationService.Info(Localizer["ToastCopyToClipboard"]);
+        await NotificationService.Info(Localizer["ToastUrlCopyToClipboard"]);
     }
     
 }

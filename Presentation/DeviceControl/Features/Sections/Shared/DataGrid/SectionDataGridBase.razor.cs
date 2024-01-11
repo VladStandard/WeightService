@@ -64,7 +64,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityB
         });
     }
 
-    private async Task OnModalSubmit()
+    protected async Task OnModalSubmit()
     {
         await ReloadGrid();
         await ModalService.Hide();

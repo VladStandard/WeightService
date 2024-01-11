@@ -1,0 +1,56 @@
+@inherits SectionFormBase<SqlLabelEntity>
+@using Ws.StorageCore.Entities.SchemaPrint.Labels
+@using System.Globalization
+
+
+<SectionFormWrapper
+  ShareUrl="@($"{RouteUtils.SectionLabels}/{SectionEntity.IdentityValueUid}")"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+    IsCopyable
+  />
+  <SectionFormInputText
+    Value="@GetPluTypeTitle(SectionEntity.Pallet.Plu.IsCheckWeight)"
+    Label="@Localizer["DataGridColumnIsWeight"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Pallet.Line.Name"
+    Label="@Localizer["DataGridColumnLine"]"
+    Link="@GetLineLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Pallet.Plu.DisplayName"
+    Label="@Localizer["DataGridColumnPlu"]"
+    Link="@GetPluLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@PluTemplate.Template.Title"
+    Label="@Localizer["DataGridColumnTemplate"]"
+    Link="@GetTemplateLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Pallet.ProductDt.ToString("dd.MM.yyyy HH:mm")"
+    Label="@Localizer["DataGridColumnProductDt"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Pallet.ExpirationDt.ToString("dd.MM.yyyy HH:mm")"
+    Label="@Localizer["DataGridColumnExpirationDt"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Zpl"
+    Label="Zpl"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsDisabled
+    IsCopyable
+  />
+</SectionFormWrapper>

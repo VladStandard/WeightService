@@ -303,6 +303,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expiration date.
+        /// </summary>
+        internal static string DataGridColumnExpirationDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnExpirationDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         internal static string DataGridColumnFile {
@@ -456,6 +465,33 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plu.
+        /// </summary>
+        internal static string DataGridColumnPlu {
+            get {
+                return ResourceManager.GetString("DataGridColumnPlu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plu name.
+        /// </summary>
+        internal static string DataGridColumnPluName {
+            get {
+                return ResourceManager.GetString("DataGridColumnPluName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plu number.
+        /// </summary>
+        internal static string DataGridColumnPluNumber {
+            get {
+                return ResourceManager.GetString("DataGridColumnPluNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string DataGridColumnPort {
@@ -470,6 +506,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnPrinter {
             get {
                 return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product date.
+        /// </summary>
+        internal static string DataGridColumnProductDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
             }
         }
         
@@ -668,6 +713,33 @@ namespace ScalesHybrid.Resources {
         internal static string HomeMsgDescription {
             get {
                 return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while converting zpl code to image.
+        /// </summary>
+        internal static string LabelsPreviewErrorMsg {
+            get {
+                return ResourceManager.GetString("LabelsPreviewErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No image.
+        /// </summary>
+        internal static string LabelsPreviewNoData {
+            get {
+                return ResourceManager.GetString("LabelsPreviewNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        internal static string LabelsPreviewTitle {
+            get {
+                return ResourceManager.GetString("LabelsPreviewTitle", resourceCulture);
             }
         }
         
@@ -1014,7 +1086,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Url copied to clipboard.
+        ///   Looks up a localized string similar to Value copied to clipboard.
         /// </summary>
         internal static string ToastCopyToClipboard {
             get {
@@ -1046,6 +1118,15 @@ namespace ScalesHybrid.Resources {
         internal static string ToastUpdateItem {
             get {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url copied to clipboard.
+        /// </summary>
+        internal static string ToastUrlCopyToClipboard {
+            get {
+                return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
             }
         }
         
