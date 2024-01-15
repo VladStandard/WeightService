@@ -1,27 +1,59 @@
 @typeparam TItem
 @inherits SectionFormInputBase
+@using Blazor.Heroicons.Outline
+
 
 <SectionFormInputWrapper Label="@Label" Link="@Link">
   @if (IsDisabled)
   {
     <div class="w-full rounded-md h-full px-2 overflow-hidden border border-black/[.1] bg-gray-200">
-      <p class="truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
+      <p class="truncate">@ItemDisplayName(SelectedItem)</p>
     </div>
   }
   else
   {
-    <DropdownList
-      TItem="TItem"
-      TValue="string"
-      Data="Items"
-      TextField="ItemDisplayName"
-      ValueField="ItemValue"
-      SelectedValue="SelectedItemValue"
-      SelectedValueChanged="HandleValueChange"
-      Class="w-full rounded-md bg-white overflow-hidden border border-black/[.1] blazorise-select-override"
-      MaxMenuHeight="15rem"
-    >
-      <p class="font-normal text-black truncate">@ItemDisplayName(IdentifyItemOnValueChange(SelectedItemValue))</p>
-    </DropdownList>
+    <div @ref="DropdownWrapper" class="h-full w-full overflow-hidden">
+      <Dropdown @ref="Dropdown" Class="h-full w-full" PositionStrategy="DropdownPositionStrategy.Fixed">
+        <DropdownToggle Class="select-button w-full border bg-white !rounded-md overflow-hidden h-full gap-1 !px-2 border-black/[.1]">
+            @ItemDisplayName(SelectedItem)
+        </DropdownToggle>
+        <DropdownMenu Class="select-dropdown overflow-hidden max-h-60 border border-black/[.1] shadow-none !max-w-[inherit]">
+          <div class="h-8 w-full flex items-center border-b border-black/[.1] gap-3 px-3">
+            <input
+              type="text"
+              @bind="SearchString"
+              @oninput="HandleSearchingChange"
+              class="border-none text-sm bg-transparent h-full w-full px-0 focus:border-none focus:ring-0 placeholder:font-light"
+              placeholder="Поиск..."
+            />
+            <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
+          </div>
+          <div class="w-full h-full overflow-x-hidden overflow-y-auto">
+            <ul class="flex flex-col w-full divide-y divide-y-black/[.1]">
+              @if (!GetFilteredList().Any())
+              {
+                <div class="h-10 w-full flex items-center justify-center text-sm">
+                  <p>Объекты не найдены</p>
+                </div>
+              }
+              @foreach (TItem item in GetFilteredList())
+              {
+                <li>
+                  <button
+                    type="button"
+                    @onclick="() => SetSelectedItem(item)"
+                    class="w-full h-8 px-3 flex items-center transition-colors @(IsSelectedItem(item) ? "bg-sky-200 hover:bg-sky-300" : "hover:bg-sky-100")"
+                  >
+                    <p class="truncate text-sm">
+                      @ItemDisplayName(item)
+                    </p>
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
   }
 </SectionFormInputWrapper>

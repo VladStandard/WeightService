@@ -22,3 +22,22 @@
 .progress-wrapper div {
   margin-bottom: 0 !important;
 }
+
+.select-dropdown ul {
+  height: fit-content;
+  max-height: 15rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.select-button span {
+  width: 100%;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

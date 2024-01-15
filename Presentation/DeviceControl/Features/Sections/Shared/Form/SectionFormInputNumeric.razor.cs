@@ -34,7 +34,7 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
         await ValueChanged.InvokeAsync(newValue);
     }
     
-    private bool TryParse(string value, out TValue result)
+    private static bool TryParse(string value, out TValue result)
     {
         try
         {
@@ -48,7 +48,7 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
         }
     }
     
-    private bool IsEqual(TValue oldValue, TValue newValue) =>
+    private static bool IsEqual(TValue oldValue, TValue newValue) =>
         EqualityComparer<TValue>.Default.Equals(oldValue, newValue);
     
     private TValue GetLimitedValue(TValue value) => 
