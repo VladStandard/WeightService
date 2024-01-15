@@ -16,5 +16,17 @@ public sealed partial class SectionFormFooter: ComponentBase
     [Parameter] public DateTime? ChangeDate { get; set; }
     [Parameter] public EventCallback OnSubmitAction { get; set; }
 
+    private bool IsSubmitDisabled { get; set; } = false;
+
     private async Task CloseModal() => await ModalService.Hide();
+
+    private async Task ExecuteSubmitWithTimeout()
+    {
+        IsSubmitDisabled = true;
+        StateHasChanged();
+        await Task.Delay(2000);
+        await OnSubmitAction.InvokeAsync(null);
+        IsSubmitDisabled = false;
+        StateHasChanged();
+    }
 }

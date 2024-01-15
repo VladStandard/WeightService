@@ -4,7 +4,14 @@
 @inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
 
 
-<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
+<SectionFormWrapper
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
+  ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.IdentityValueUid}")"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

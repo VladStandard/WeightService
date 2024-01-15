@@ -30,9 +30,10 @@
       </button>
       <button
         type="button"
-        @onclick="OnSubmitAction"
+        @onclick="ExecuteSubmitWithTimeout"
+        disabled="@IsSubmitDisabled"
         class="h-9 bg-green-300 transition-colors flex items-center px-4 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-green-400">
+                  rounded-md border border-black/[.1] hover:bg-green-400 disabled:bg-green-500 disabled:hover:bg-green-600">
         <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
       </button>
     }
