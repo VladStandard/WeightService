@@ -1,3 +1,6 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
 public sealed class SqlPluNestingFkValidator : SqlTableValidator<SqlPluNestingFkEntity>

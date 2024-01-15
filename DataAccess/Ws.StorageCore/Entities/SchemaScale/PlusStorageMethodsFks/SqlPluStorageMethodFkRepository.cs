@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
 public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<SqlPluStorageMethodFkEntity>

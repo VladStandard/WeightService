@@ -1,3 +1,7 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
+using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 
 public sealed class SqlPluStorageMethodFkValidator : SqlTableValidator<SqlPluStorageMethodFkEntity>

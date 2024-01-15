@@ -35,7 +35,7 @@ builder.Services.AddLocalization();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<JsService>();
-builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
+// builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 
 #endregion
 

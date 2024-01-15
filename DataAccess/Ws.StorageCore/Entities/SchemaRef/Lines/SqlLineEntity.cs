@@ -1,6 +1,7 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 

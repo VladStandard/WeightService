@@ -1,11 +1,11 @@
-namespace Ws.StorageCore.Entities.SchemaScale.Access;
+namespace Ws.StorageCore.Entities.SchemaRef.Users;
 
-public sealed class SqlAccessMap : ClassMapping<SqlAccessEntity>
+public sealed class SqlUserMap : ClassMapping<SqlUserEntity>
 {
-    public SqlAccessMap()
+    public SqlUserMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
-        Table(SqlTablesUtils.Access);
+        Schema(SqlSchemasUtils.Ref);
+        Table(SqlTablesUtils.Users);
 
         Id(x => x.IdentityValueUid, m =>
         {
@@ -20,14 +20,7 @@ public sealed class SqlAccessMap : ClassMapping<SqlAccessEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-
-        Property(x => x.ChangeDt, m =>
-        {
-            m.Column("CHANGE_DT");
-            m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-
+        
         Property(x => x.LoginDt, m =>
         {
             m.Column("LOGIN_DT");
@@ -39,14 +32,7 @@ public sealed class SqlAccessMap : ClassMapping<SqlAccessEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(32);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.Rights, m =>
-        {
-            m.Column("RIGHTS");
-            m.Type(NHibernateUtil.Byte);
+            m.Length(128);
             m.NotNullable(true);
         });
     }

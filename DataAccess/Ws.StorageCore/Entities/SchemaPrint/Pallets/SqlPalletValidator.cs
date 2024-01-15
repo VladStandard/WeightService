@@ -1,4 +1,5 @@
 using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 namespace Ws.StorageCore.Entities.SchemaPrint.Pallets;
 

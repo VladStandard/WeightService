@@ -1,4 +1,7 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+using Ws.StorageCore.Entities.SchemaRef1c.Brands;
+using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
+
 namespace Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 [DebuggerDisplay("{ToString()}")]

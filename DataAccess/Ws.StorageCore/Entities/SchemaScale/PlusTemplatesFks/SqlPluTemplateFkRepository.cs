@@ -1,3 +1,6 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 public class SqlPluTemplateFkRepository : SqlTableRepositoryBase<SqlPluStorageMethodFkEntity>

@@ -27,7 +27,6 @@
 
     <ItemGroup>
         <Folder Include="Tables\TableRef1cModels\" />
-        <Folder Include="Tables\TableRefModels\" />
     </ItemGroup>
 
 </Project>

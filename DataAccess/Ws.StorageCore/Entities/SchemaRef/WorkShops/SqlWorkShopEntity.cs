@@ -1,4 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 [DebuggerDisplay("{ToString()}")]

@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 
 public sealed class SqlPluFkValidator : SqlTableValidator<SqlPluFkEntity>

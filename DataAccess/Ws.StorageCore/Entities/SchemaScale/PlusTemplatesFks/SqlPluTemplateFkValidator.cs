@@ -1,3 +1,6 @@
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.StorageCore.Entities.SchemaScale.Templates;
+
 namespace Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 public sealed class SqlPluTemplateFkValidator : SqlTableValidator<SqlPluTemplateFkEntity>

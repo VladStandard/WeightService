@@ -9,6 +9,8 @@ public static class SqlTablesUtils
     public const string Clips = "CLIPS";
     public const string Hosts = "HOSTS";
     public const string Logs = "LOGS";
+    public const string Users = "USERS";
+    public const string Claims = "CLAIMS";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
     public const string Plus = "PLUS";
     public const string PlusFks = "PLUS_FK";

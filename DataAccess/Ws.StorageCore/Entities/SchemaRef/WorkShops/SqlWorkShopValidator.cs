@@ -1,3 +1,5 @@
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+
 namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 public sealed class SqlWorkShopValidator : SqlTableValidator<SqlWorkShopEntity>

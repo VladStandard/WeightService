@@ -1,28 +1,31 @@
+using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
+using Ws.StorageCore.Entities.SchemaRef.Claims;
 using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
+using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
+using Ws.StorageCore.Entities.SchemaRef1c.Brands;
+using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
+using Ws.StorageCore.Entities.SchemaRef1c.Clips;
+using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.StorageCore.Entities.SchemaScale.PlusFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
+using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
+using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using Ws.StorageCore.Entities.SchemaScale.Templates;
+using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace Ws.StorageCore.Utils;
 
 public static class SqlValidationUtils
 {
-    private static void SetValidationFailureLog(ValidationResult result, ref string detailAddition)
-    {
-        switch (result.IsValid)
-        {
-            case false:
-                foreach (ValidationFailure failure in result.Errors)
-                {
-                    detailAddition += $"><u>Ошибка:</u> {failure.ErrorMessage}";
-                    break;
-                }
-                break;
-        }
-    }
-    
     public static ValidationResult GetValidationResult<T>(T? item, bool isCheckIdentity) where T : class, new() =>
         item switch
         {
@@ -46,25 +49,9 @@ public static class SqlValidationUtils
             SqlTemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
             SqlTemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
             SqlWorkShopEntity workShop => new SqlWorkShopValidator(isCheckIdentity).Validate(workShop),
-            SqlAccessEntity access => new SqlAccessValidator(isCheckIdentity).Validate(access),
             SqlPrinterEntity printer => new SqlPrinterValidator(isCheckIdentity).Validate(printer),
+            SqlUserEntity user => new SqlUserValidator(isCheckIdentity).Validate(user),
+            SqlClaimEntity claim => new SqlClaimValidator(isCheckIdentity).Validate(claim),
             _ => throw new ArgumentOutOfRangeException(nameof(item), item, null)
         };
-
-    public static bool IsValidation<T>(T? item, ref string detailAddition, bool isCheckIdentity) where T : class, new()
-    {
-        if (item is null)
-        {
-            detailAddition = $"{nameof(item)} is null!";
-            return false;
-        }
-
-        ValidationResult validationResult = GetValidationResult(item, isCheckIdentity);
-        if (validationResult.IsValid)
-            return true;
-        
-        SetValidationFailureLog(validationResult, ref detailAddition);
-        return false;
-
-    }
 }
