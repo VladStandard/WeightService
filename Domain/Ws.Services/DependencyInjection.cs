@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Ws.Services.Services.Host;
+using Ws.Services.Services.Label;
 using Ws.Services.Services.Line;
 using Ws.Services.Services.Plu;
 using Ws.Services.Services.PrintLabel;
@@ -14,5 +15,6 @@ public static class DependencyInjection
         services.AddScoped<ILineService, LineService>();
         services.AddScoped<IPluService, PluService>();
         services.AddScoped<IPrintLabelService, PrintLabelService>();
+        services.AddScoped<ILabelService, LabelService>();
     }
 }
