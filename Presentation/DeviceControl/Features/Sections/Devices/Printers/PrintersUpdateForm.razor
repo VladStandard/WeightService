@@ -1,5 +1,6 @@
 @using Ws.StorageCore.Enums
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Printers.SqlPrinterEntity>
+@inherits SectionFormBase<SqlPrinterEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Printers
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
@@ -36,6 +37,5 @@
     @bind-SelectedItem="@SectionEntity.Type"
     ItemValue="item => item.ToString()"
     ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
-    IdentifyItemOnValueChange="item => GetPrinterTypeByValue(item)"
   />
 </SectionFormWrapper>

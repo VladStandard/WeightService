@@ -20,12 +20,4 @@ public sealed partial class TemplatesUpdateForm: SectionFormBase<SqlTemplateEnti
         SelectedCategory = EnumHelper.GetValueFromDescription<TemplateCategoriesEnum>(SectionEntity.CategoryId);
         PrinterTypesEntities = Enum.GetValues(typeof(TemplateCategoriesEnum)).Cast<TemplateCategoriesEnum>().ToList();
     }
-
-    private TemplateCategoriesEnum GetTemplateCategoryByValue(string categoryValue)
-    {
-        
-        TemplateCategoriesEnum category = categoryValue.ToEnum<TemplateCategoriesEnum>();
-        SectionEntity.CategoryId = EnumHelper.GetEnumDescription(category);
-        return category;
-    }
 }

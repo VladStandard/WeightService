@@ -19,7 +19,4 @@ public sealed partial class WorkshopsCreateForm: SectionFormBase<SqlWorkShopEnti
         PlatformEntities = new SqlProductionSiteRepository().GetEnumerable(new());
         PlatformEntities = PlatformEntities.Append(SectionEntity.ProductionSite);
     }
-    
-    private SqlProductionSiteEntity GetPlatformByUid(string platformUid) =>
-        PlatformEntities.First(x => x.IdentityValueUid == Guid.Parse(platformUid));
 }

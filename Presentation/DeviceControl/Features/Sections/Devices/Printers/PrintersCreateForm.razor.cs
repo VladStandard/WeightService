@@ -18,7 +18,4 @@ public sealed partial class PrintersCreateForm: SectionFormBase<SqlPrinterEntity
     {
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
     }
-
-    private PrinterTypeEnum GetPrinterTypeByValue(string typeValue) => 
-        typeValue.ToEnum<PrinterTypeEnum>();
 }

@@ -9,7 +9,6 @@
     @bind-SelectedItem="@SelectedCategory"
     ItemValue="item => item.ToString()"
     ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
-    IdentifyItemOnValueChange="item => GetTemplateCategoryByValue(item)"
   />
   <SectionFormInputText
     @bind-Value="@SectionEntity.Title"
