@@ -1,16 +1,13 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
 @using Ws.StorageCore.Entities.SchemaRef.WorkShops
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Claims.SqlClaimEntity>
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(ProcessItem(SectionEntity))"
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
-  DeleteItemAction="DeleteItem"
-  AdditionButtons="AdditionalButtons"
-  ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.IdentityValueUid}")"
-  ChangeDate="SectionEntity.ChangeDt"
+  ShareUrl="@($"{RouteUtils.SectionRoles}/{SectionEntity.IdentityValueUid}")"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText

@@ -1,0 +1,11 @@
+@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaRef.Claims.SqlClaimEntity>
+
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <RolesCreateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

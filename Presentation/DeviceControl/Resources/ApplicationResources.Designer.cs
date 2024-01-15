@@ -1052,6 +1052,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string SectionRoles {
+            get {
+                return ResourceManager.GetString("SectionRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string SectionTemplates {
             get {
                 return ResourceManager.GetString("SectionTemplates", resourceCulture);

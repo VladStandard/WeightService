@@ -1,0 +1,26 @@
+@using Ws.StorageCore.Entities.SchemaRef.Claims
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Claims.SqlClaimEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlClaimEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionRoles"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading"
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnCreateDt"]"
+    Field="@nameof(SqlClaimEntity.CreateDt)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlClaimEntity.Name)"
+    Width="80%"
+  />
+</SectionDataGridWrapper>

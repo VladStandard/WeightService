@@ -1050,6 +1050,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Роли.
+        /// </summary>
+        internal static string SectionRoles {
+            get {
+                return ResourceManager.GetString("SectionRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Шаблоны.
         /// </summary>
         internal static string SectionTemplates {

@@ -387,4 +387,7 @@
     <data name="SectionFormSelectEmpty" xml:space="preserve">
         <value>No results</value>
     </data>
+    <data name="SectionRoles" xml:space="preserve">
+        <value>Roles</value>
+    </data>
 </root>

@@ -98,6 +98,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 new() { Name = Localizer["SectionUsers"], Link= RouteUtils.SectionUsers },
+                new() { Name = Localizer["SectionRoles"], Link= RouteUtils.SectionRoles },
                 new() { Name = Localizer["SectionDatabase"], Link = RouteUtils.SectionDatabase }
             ]
         }
