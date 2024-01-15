@@ -35,5 +35,15 @@ public sealed class SqlUserMap : ClassMapping<SqlUserEntity>
             m.Length(128);
             m.NotNullable(true);
         });
+        
+        Set(x => x.Claims, m =>
+        {
+            m.Schema(SqlSchemasUtils.Ref);
+            m.Table("USERS_CLAIMS_FK");
+            m.Cascade(Cascade.All | Cascade.DeleteOrphans);
+            m.Lazy(CollectionLazy.NoLazy);
+            m.Inverse(true);
+            m.Key(k => k.Column("USER_UID"));
+        }, r => r.ManyToMany(a => a.Column("CLAIM_UID")));
     }
 }

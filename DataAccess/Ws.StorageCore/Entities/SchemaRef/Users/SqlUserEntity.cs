@@ -1,20 +1,25 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 
+using Ws.StorageCore.Entities.SchemaRef.Claims;
+
 namespace Ws.StorageCore.Entities.SchemaRef.Users;
 
 [DebuggerDisplay("{ToString()}")]
 public class SqlUserEntity : SqlEntityBase
 {
     public virtual DateTime LoginDt { get; set; }
-    
+    public virtual ISet<SqlClaimEntity> Claims { get; set; }
+
     public SqlUserEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         LoginDt = SqlTypeUtils.MinDateTime;
+        Claims = new HashSet<SqlClaimEntity>();
     }
 
     public SqlUserEntity(SqlUserEntity item) : base(item)
     {
         LoginDt = item.LoginDt;
+        Claims = new HashSet<SqlClaimEntity>();
     }
     
     public override string ToString() => $"{Name}";
