@@ -9,7 +9,7 @@ public class SqlUserEntity : SqlEntityBase
     
     public SqlUserEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        LoginDt = DateTime.MinValue;
+        LoginDt = SqlTypeUtils.MinDateTime;
     }
 
     public SqlUserEntity(SqlUserEntity item) : base(item)
