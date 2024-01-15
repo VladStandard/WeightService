@@ -24,7 +24,7 @@
               @bind="SearchString"
               @oninput="HandleSearchingChange"
               class="border-none text-sm bg-transparent h-full w-full px-0 focus:border-none focus:ring-0 placeholder:font-light"
-              placeholder="Поиск..."
+              placeholder="@Localizer["SectionFormSearch"]"
             />
             <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
           </div>
@@ -33,7 +33,7 @@
               @if (!GetFilteredList().Any())
               {
                 <div class="h-10 w-full flex items-center justify-center text-sm">
-                  <p>Объекты не найдены</p>
+                  <p>@Localizer["SectionFormSelectEmpty"]</p>
                 </div>
               }
               @foreach (TItem item in GetFilteredList())

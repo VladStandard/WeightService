@@ -933,6 +933,33 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Relogin.
+        /// </summary>
+        internal static string SectionFormRelogin {
+            get {
+                return ResourceManager.GetString("SectionFormRelogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        internal static string SectionFormSearch {
+            get {
+                return ResourceManager.GetString("SectionFormSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No results.
+        /// </summary>
+        internal static string SectionFormSelectEmpty {
+            get {
+                return ResourceManager.GetString("SectionFormSelectEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the workshop.
         /// </summary>
         internal static string SectionFormWorkShopDefaultName {

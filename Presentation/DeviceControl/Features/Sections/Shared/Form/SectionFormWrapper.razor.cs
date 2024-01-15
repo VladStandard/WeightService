@@ -21,6 +21,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
     [Parameter] public EventCallback DeleteItemAction { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string ShareUrl { get; set; } = string.Empty;
+    [Parameter] public IEnumerable<ActionMenuEntry> AdditionButtons { get; set; } = [];
     
     private IEnumerable<ActionMenuEntry> ActionMenuEntries { get; set; } = new List<ActionMenuEntry>();
 
@@ -53,6 +54,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
                 OnClickAction = EventCallback.Factory.Create(this, DeleteItemAction),
                 CustomClass = "hover:bg-red-200 hover:text-red-600"
             });
+        ActionMenuEntries = ActionMenuEntries.Concat(AdditionButtons);
     }
 
     private string GetAbsoluteUrl(string relativePath) =>

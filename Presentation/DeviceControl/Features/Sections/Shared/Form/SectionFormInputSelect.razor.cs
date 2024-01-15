@@ -1,5 +1,7 @@
 using Blazorise;
+using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
@@ -7,6 +9,7 @@ namespace DeviceControl.Features.Sections.Shared.Form;
 public sealed partial class SectionFormInputSelect<TItem>: SectionFormInputBase, IDisposable where TItem: new()
 {
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
     [Parameter, EditorRequired] public TItem SelectedItem { get; set; } = new();

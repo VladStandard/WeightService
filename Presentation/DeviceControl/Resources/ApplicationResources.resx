@@ -378,4 +378,13 @@
     <data name="ToastCopyToClipboard" xml:space="preserve">
         <value />
     </data>
+    <data name="SectionFormRelogin" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormSearch" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormSelectEmpty" xml:space="preserve">
+        <value />
+    </data>
 </root>
