@@ -1,7 +1,8 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
 @using Ws.StorageCore.Entities.SchemaRef.WorkShops
 @using Ws.StorageCore.Entities.SchemaRef.Hosts
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
+@inherits SectionFormBase<SqlLineEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Lines
 
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
@@ -23,7 +24,6 @@
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
-    IdentifyItemOnValueChange="item => GetPrinterByUid(item)"
   />
   <SectionFormInputSelect
     TItem="SqlWorkShopEntity"
@@ -32,7 +32,6 @@
     @bind-SelectedItem="@SectionEntity.WorkShop"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.Name"
-    IdentifyItemOnValueChange="item => GetWorkShopByUid(item)"
   />
   <SectionFormInputSelect
     TItem="SqlHostEntity"
@@ -41,6 +40,5 @@
     @bind-SelectedItem="@SectionEntity.Host"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.Name"
-    IdentifyItemOnValueChange="item => GetHostByUid(item)"
   />
 </SectionFormWrapper>

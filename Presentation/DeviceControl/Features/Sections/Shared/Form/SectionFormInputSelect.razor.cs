@@ -12,7 +12,6 @@ public sealed partial class SectionFormInputSelect<TItem>: SectionFormInputBase,
     [Parameter, EditorRequired] public TItem SelectedItem { get; set; } = new();
     [Parameter, EditorRequired] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
     [Parameter, EditorRequired] public Func<TItem, string> ItemValue { get; set; } = item => item!.ToString()!;
-    [Parameter, EditorRequired] public Func<string, TItem> IdentifyItemOnValueChange { get; set; } = null!;
     [Parameter] public bool IsDisabled { get; set; }
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
     
