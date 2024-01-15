@@ -2,6 +2,8 @@ using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
 using DeviceControl.Services;
+using DeviceControl.Services.Auth;
+using DeviceControl.Services.Auth.Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.Services;
@@ -35,7 +37,8 @@ builder.Services.AddLocalization();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<JsService>();
-// builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
+builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
+builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
 
 #endregion
 

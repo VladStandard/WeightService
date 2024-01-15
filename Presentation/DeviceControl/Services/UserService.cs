@@ -3,18 +3,11 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace DeviceControl.Services;
 
-public class UserService
+public class UserService(AuthenticationStateProvider authenticationStateProvider)
 {
-    private readonly AuthenticationStateProvider _authenticationStateProvider;
-
-    public UserService(AuthenticationStateProvider authenticationStateProvider)
-    {
-        _authenticationStateProvider = authenticationStateProvider;
-    }
-
     public async Task<ClaimsPrincipal?> GetUser()
     {
-        AuthenticationState authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        AuthenticationState authState = await authenticationStateProvider.GetAuthenticationStateAsync();
         return authState.User;
     }
 }
