@@ -48,9 +48,8 @@ public class UserCacheService(IMemoryCache cache) : IUserCacheService
     private Task<List<Claim>> GetUserRightsFromRepositoryAsync(string username)
     {
         List<Claim> rights = [];
-        // SqlAccessEntity access = await AccessRepository.GetItemByNameOrCreateAsync(username);
-        // for (int i = access.Rights; i >= 0; --i)
-        //     rights.Add(new Claim(ClaimTypes.Role, $"{i}"));
+        SqlUserEntity user = _userRepository.GetItemByUsername(username);
+        rights.AddRange(user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)));
         return Task.FromResult(rights);
     }
 }

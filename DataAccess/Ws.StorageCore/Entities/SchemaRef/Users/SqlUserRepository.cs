@@ -7,7 +7,7 @@ public sealed class SqlUserRepository : SqlTableRepositoryBase<SqlUserEntity>
     public SqlUserEntity GetItemByUsername(string userName)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.Name), userName));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.Name), userName.ToUpper()));
         return SqlCore.GetItemByCrud<SqlUserEntity>(sqlCrudConfig);
     }
     
