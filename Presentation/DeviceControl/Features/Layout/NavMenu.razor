@@ -10,13 +10,13 @@
     @foreach (MenuSection menu in MenuSections)
     {
       <li>
-        <AuthorizeView Roles="@menu.RequiredRole">
+        @* <AuthorizeView Roles="@menu.RequiredRole"> *@
           <NavMenuItem
             Icon="@menu.Icon"
             Label="@menu.Label"
             Items="@menu.SubItems"
           />
-        </AuthorizeView>
+        @* </AuthorizeView> *@
       </li>
     }
   </ul>

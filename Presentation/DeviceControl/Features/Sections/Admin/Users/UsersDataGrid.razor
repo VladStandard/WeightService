@@ -1,0 +1,33 @@
+@using Ws.StorageCore.Entities.SchemaRef.Lines
+@using Ws.StorageCore.Entities.SchemaRef.Users
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlUserEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionUsers"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  DeleteAction="DeleteSqlItem"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading"
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnLoginDt"]"
+    Field="@nameof(SqlUserEntity.LoginDt)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnLoginDt"]"
+    Field="@nameof(SqlUserEntity.LoginDt)"
+    Width="40%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlUserEntity.Name)"
+    Width="40%"
+  />
+</SectionDataGridWrapper>

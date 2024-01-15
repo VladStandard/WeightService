@@ -1,0 +1,11 @@
+@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
+
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <UsersCreateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

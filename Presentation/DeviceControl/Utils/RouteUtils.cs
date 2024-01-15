@@ -46,6 +46,7 @@ public static class RouteUtils
     # region Admin
 
     public const string SectionDatabase = "/database";
+    public const string SectionUsers = "/users";
     
     # endregion
 

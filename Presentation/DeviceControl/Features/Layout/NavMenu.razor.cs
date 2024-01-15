@@ -97,8 +97,8 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.UserGroup,
             SubItems =
             [
+                new() { Name = Localizer["SectionUsers"], Link= RouteUtils.SectionUsers },
                 new() { Name = Localizer["SectionDatabase"], Link = RouteUtils.SectionDatabase }
-                // new() { Name = Localizer["SectionVersions"], Link = RouteUtils.SectionVersions }
             ]
         }
     ];
