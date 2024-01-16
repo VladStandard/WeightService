@@ -42,7 +42,7 @@ public sealed class SqlUserMap : ClassMapping<SqlUserEntity>
             m.Table("USERS_CLAIMS_FK");
             m.Cascade(Cascade.All | Cascade.DeleteOrphans);
             m.Lazy(CollectionLazy.NoLazy);
-            m.Inverse(true);
+            m.Inverse(false);
             m.Key(k => k.Column("USER_UID"));
         }, r => r.ManyToMany(a => a.Column("CLAIM_UID")));
     }

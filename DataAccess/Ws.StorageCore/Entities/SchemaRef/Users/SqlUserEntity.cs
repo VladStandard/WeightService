@@ -36,6 +36,6 @@ public class SqlUserEntity : SqlEntityBase
 
     public virtual bool Equals(SqlUserEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(LoginDt, item.LoginDt);
-
+        Claims.SetEquals(item.Claims) &&
+        LoginDt.Equals(item.LoginDt);
 }

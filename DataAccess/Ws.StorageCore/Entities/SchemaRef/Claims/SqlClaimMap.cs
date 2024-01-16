@@ -25,7 +25,7 @@ public sealed class SqlClaimMap : ClassMapping<SqlClaimEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
+            m.Length(50);
             m.NotNullable(true);
         });
     }
