@@ -35,7 +35,6 @@
     Items="PrinterTypesEntities"
     Label="@Localizer["DataGridColumnType"]"
     @bind-SelectedItem="@SectionEntity.Type"
-    ItemValue="item => item.ToString()"
     ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
   />
 </SectionFormWrapper>

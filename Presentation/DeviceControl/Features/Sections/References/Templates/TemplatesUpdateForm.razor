@@ -20,7 +20,6 @@
     Items="PrinterTypesEntities"
     Label="@Localizer["DataGridColumnCategory"]"
     @bind-SelectedItem="@SelectedCategory"
-    ItemValue="item => item.ToString()"
     ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
   />
   <SectionFormInputText

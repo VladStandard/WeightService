@@ -1,4 +1,5 @@
 @using Ws.StorageCore.Entities.SchemaRef.PlusLines
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
 @inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
 
 
@@ -14,26 +15,43 @@
   ItemsPerPage="5"
   IsBorderless
 >
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnNumber"]"
-    Field="Plu.Number"
-    Width="10%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnType"]"
-    Field="Plu.IsCheckWeight"
-    Width="20%"
-  >
-    <DisplayTemplate>
-      <p>
-        @(context.Plu.IsCheckWeight ?
-          Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
-      </p>
-    </DisplayTemplate>
-  </DataGridColumn>
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnName"]"
-    Field="Plu.Name"
-    Width="70%"
-  />
+  <DataGridButtons>
+    <div class="w-64 h-8">
+      <SelectMultiple
+        TItem="SqlPluEntity"
+        Items="PluEntities"
+        @bind-SelectedItems="SelectedPluEntities"
+      />
+    </div>
+    <div class="w-12 h-full rounded-md bg-green-400 border border-black/[.1] overflow-hidden">
+      Add
+    </div>
+    <div class="w-12 h-full rounded-md bg-red-400 border border-black/[.1] overflow-hidden">
+      Reset
+    </div>
+  </DataGridButtons>
+  <ChildContent>
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnNumber"]"
+      Field="Plu.Number"
+      Width="10%"
+    />
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnType"]"
+      Field="Plu.IsCheckWeight"
+      Width="20%"
+    >
+      <DisplayTemplate>
+        <p>
+          @(context.Plu.IsCheckWeight ?
+            Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
+        </p>
+      </DisplayTemplate>
+    </DataGridColumn>
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnName"]"
+      Field="Plu.Name"
+      Width="70%"
+    />
+  </ChildContent>
 </SectionDataGridWrapper>

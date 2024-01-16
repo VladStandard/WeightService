@@ -16,6 +16,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
 
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
+    [Parameter] public RenderFragment? DataGridButtons { get; set; }
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
     [Parameter] public EventCallback GetGridData { get; set; }
     [Parameter] public string Title { get; set; } = string.Empty;

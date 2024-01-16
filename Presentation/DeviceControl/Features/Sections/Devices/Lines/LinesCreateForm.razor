@@ -25,7 +25,6 @@
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
     @bind-SelectedItem="@SectionEntity.Printer"
-    ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.DisplayName"
   />
   <SectionFormInputSelect
@@ -33,7 +32,6 @@
     Items="WorkShopEntities"
     Label="@Localizer["DataGridColumnWorkshop"]"
     @bind-SelectedItem="@SectionEntity.WorkShop"
-    ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.Name"
   />
 </SectionFormWrapper>
