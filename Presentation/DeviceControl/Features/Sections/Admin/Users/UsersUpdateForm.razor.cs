@@ -1,4 +1,6 @@
 using Blazor.Heroicons;
+using Blazorise;
+using DeviceControl.Auth.Common;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Force.DeepCloner;
@@ -12,6 +14,9 @@ namespace DeviceControl.Features.Sections.Admin.Users;
 public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
+    [Inject] private INotificationService NotificationService { get; set; } = null!;
+    
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private SqlClaimRepository RolesRepository { get; set; } = new();
     private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
@@ -28,17 +33,19 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
         SelectedRoles = SectionEntity.Claims.ToList();
         RolesEntities = RolesRepository.GetEnumerable().ToList();
         AdditionalButtons = AdditionalButtons.Append(
-            new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User });
+            new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User, 
+                OnClickAction = EventCallback.Factory.Create(this, ReloginCurrentUser)});
     }
     
-    private SqlUserEntity ProcessItem(SqlUserEntity item)
+    private async Task ReloginCurrentUser()
     {
-        SqlUserEntity userEntity = SectionEntity.DeepClone();
-        string userName = userEntity.Name;
-        userName = userName.ToUpper();
-        if (!userName.Contains(UserPrefix))
-            userName += UserPrefix;
-        userEntity.Name = userName;
-        return userEntity;
+        UserCacheService.ClearCacheForUser(SectionEntity.Name);
+        await NotificationService.Info("Релогин выполнен");
+    }
+    
+    private SqlUserEntity ReloginUser(SqlUserEntity user)
+    {
+        UserCacheService.ClearCacheForUser(user.Name);
+        return SectionEntity;
     }
 }

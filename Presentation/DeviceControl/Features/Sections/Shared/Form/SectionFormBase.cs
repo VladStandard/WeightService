@@ -17,7 +17,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, n
     [Parameter] public TItem SectionEntity { get; set; } = new();
     [Parameter] public EventCallback OnSubmitAction { get; set; }
 
-    private TItem SectionEntityCopy { get; set; } = new();
+    protected TItem SectionEntityCopy { get; set; } = new();
 
     protected override Task OnInitializedAsync()
     {

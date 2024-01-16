@@ -5,8 +5,7 @@
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(ProcessItem(SectionEntity))"
-  ResetItemAction="ResetItem"
+  OnSubmitAction="() => UpdateItem(ReloginUser(SectionEntity))"
   DeleteItemAction="DeleteItem"
   AdditionButtons="AdditionalButtons"
   ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.IdentityValueUid}")"
@@ -20,8 +19,9 @@
     IsCopyable
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Name"
+    Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
+    IsDisabled
   />
   <SectionFormInputMultiSelect
     TItem="SqlClaimEntity"

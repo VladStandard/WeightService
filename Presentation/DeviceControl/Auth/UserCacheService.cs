@@ -13,7 +13,7 @@ public class UserCacheService(IMemoryCache cache) : IUserCacheService
     public async Task<List<Claim>> GetUserRightsAsync(string username)
     {
         if (cache.TryGetValue(username, out List<Claim>? userRights))
-            return userRights ?? [];
+            if (userRights != null) return userRights;
 
         userRights = await GetUserRightsFromRepositoryAsync(username);
         MemoryCacheEntryOptions cacheLifetime = new()
