@@ -15,24 +15,18 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private SqlClaimRepository RolesRepository { get; set; } = new();
     private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<SqlClaimEntity> SelectedRolesInternal { get; set; } = [];
-    
     private IEnumerable<SqlClaimEntity> SelectedRoles
     {
-        get => SelectedRolesInternal;
-        set
-        {
-            SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
-            SelectedRolesInternal = value;
-        }
+        get => SectionEntity.Claims.ToList();
+        set => SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
     }
 
     private IEnumerable<ActionMenuEntry> AdditionalButtons { get; set; } = [];
 
     protected override void OnInitialized()
     {
+        SelectedRoles = SectionEntity.Claims.ToList();
         RolesEntities = RolesRepository.GetEnumerable().ToList();
-        SelectedRolesInternal = SectionEntity.Claims.ToList();
         AdditionalButtons = AdditionalButtons.Append(
             new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User });
     }
