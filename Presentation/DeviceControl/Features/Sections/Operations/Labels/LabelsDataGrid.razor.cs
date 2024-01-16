@@ -1,5 +1,4 @@
 using Blazorise;
-using DeviceControl.Features.Sections.References1C.Plus;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;

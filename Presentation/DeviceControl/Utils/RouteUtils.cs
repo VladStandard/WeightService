@@ -5,7 +5,6 @@ public static class RouteUtils
     # region Devices
     
     public const string SectionLines = "/lines";
-    public const string SectionHosts = "/hosts";
     public const string SectionPrinters = "/printers";
     
     # endregion

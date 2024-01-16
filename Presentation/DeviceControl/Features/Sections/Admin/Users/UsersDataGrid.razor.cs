@@ -1,11 +1,9 @@
 using DeviceControl.Auth.Common;
-using DeviceControl.Features.Sections.Devices.Lines;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Users;
 using Ws.StorageCore.Helpers;
 

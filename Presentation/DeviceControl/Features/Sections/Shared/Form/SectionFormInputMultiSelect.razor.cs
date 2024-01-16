@@ -1,9 +1,4 @@
-using Blazorise;
-using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using NHibernate.Util;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 

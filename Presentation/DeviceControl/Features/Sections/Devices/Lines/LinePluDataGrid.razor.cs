@@ -44,7 +44,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
         
         foreach (SqlPluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
-            SqlPluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity};
+            SqlPluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
             SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
         }
 

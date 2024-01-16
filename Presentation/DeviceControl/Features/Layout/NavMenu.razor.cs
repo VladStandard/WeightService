@@ -25,7 +25,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuDevices"],
-            RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.DeviceTablet,
             SubItems =
             [
@@ -36,7 +35,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuOperations"],
-            RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.Clipboard,
             SubItems =
             [
@@ -47,7 +45,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["Menu1CReferences"],
-            RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.CurrencyEuro,
             SubItems =
             [
@@ -62,7 +59,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuReferences"],
-            RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.BookOpen,
             SubItems =
             [
@@ -77,7 +73,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuDiagnostics"],
-            RequiredRole = UserAccessStr.Read,
             Icon = HeroiconName.Wrench,
             SubItems =
             [
@@ -89,7 +84,6 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuAdministration"],
-            RequiredRole = UserAccessStr.Admin,
             Icon = HeroiconName.UserGroup,
             SubItems =
             [

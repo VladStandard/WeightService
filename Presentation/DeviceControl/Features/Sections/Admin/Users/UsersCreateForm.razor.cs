@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Claims;
 using Ws.StorageCore.Entities.SchemaRef.Users;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
