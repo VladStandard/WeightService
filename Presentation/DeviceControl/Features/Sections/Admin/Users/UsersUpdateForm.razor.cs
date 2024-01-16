@@ -48,4 +48,10 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
         UserCacheService.ClearCacheForUser(user.Name);
         return SectionEntity;
     }
+
+    private async Task DeleteUserWithRelogin()
+    {
+        UserCacheService.ClearCacheForUser(SectionEntity.Name);
+        await DeleteItem();
+    }
 }

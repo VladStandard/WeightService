@@ -6,10 +6,10 @@
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(ReloginUser(SectionEntity))"
-  DeleteItemAction="DeleteItem"
+  DeleteItemAction="DeleteUserWithRelogin"
+  ResetItemAction="ResetItem"
   AdditionButtons="AdditionalButtons"
   ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.IdentityValueUid}")"
-  ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText

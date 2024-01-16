@@ -40,5 +40,12 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<SqlUserEntity>
         SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlUserEntity>(itemUid)];
     }
 
+    private Task DeleteUserWithRelogin(SqlUserEntity item)
+    {
+        UserCacheService.ClearCacheForUser(item.Name);
+        SqlCoreHelper.Instance.Delete(item);
+        return Task.CompletedTask;
+    }
+
     private bool IsUserActive(string userName) => UserNames.Any(i => i == userName);
 }
