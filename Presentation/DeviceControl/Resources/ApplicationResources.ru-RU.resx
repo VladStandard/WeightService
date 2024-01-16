@@ -387,4 +387,7 @@
     <data name="DataGridColumnRoles" xml:space="preserve">
         <value>Роли</value>
     </data>
+    <data name="DataGridColumnActive" xml:space="preserve">
+        <value>В сети</value>
+    </data>
 </root>

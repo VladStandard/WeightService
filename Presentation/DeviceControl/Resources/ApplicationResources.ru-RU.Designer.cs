@@ -150,6 +150,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to В сети.
+        /// </summary>
+        internal static string DataGridColumnActive {
+            get {
+                return ResourceManager.GetString("DataGridColumnActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Адрес.
         /// </summary>
         internal static string DataGridColumnAddress {

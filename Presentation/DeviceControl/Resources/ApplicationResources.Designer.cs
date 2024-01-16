@@ -152,6 +152,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnActive {
+            get {
+                return ResourceManager.GetString("DataGridColumnActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnAddress {
             get {
                 return ResourceManager.GetString("DataGridColumnAddress", resourceCulture);
