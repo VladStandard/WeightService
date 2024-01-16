@@ -1,9 +1,9 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
+using DeviceControl.Auth;
+using DeviceControl.Auth.Common;
 using DeviceControl.Services;
-using DeviceControl.Services.Auth;
-using DeviceControl.Services.Auth.Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.Services;
@@ -14,7 +14,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 #region Add
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
-builder.Services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
+
+builder.Services.AddAuthorization(PolicyAuthUtils.RegisterAuthorization);
+
 builder.Services.AddRazorPages(options => { options.RootDirectory = "/Features"; });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddOptions();

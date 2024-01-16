@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using DeviceControl.Services.Auth.Common;
+using DeviceControl.Auth.Common;
 using Microsoft.AspNetCore.Authentication;
 
-namespace DeviceControl.Services.Auth;
+namespace DeviceControl.Auth;
 
 public class CustomClaimsTransformation(IUserCacheService userCacheService) : IClaimsTransformation
 {

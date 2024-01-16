@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace DeviceControl.Services.Auth.Common;
+namespace DeviceControl.Auth.Common;
 
 public interface IUserCacheService
 {
