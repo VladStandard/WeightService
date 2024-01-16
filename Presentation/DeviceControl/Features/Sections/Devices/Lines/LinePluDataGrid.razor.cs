@@ -36,18 +36,20 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
     
     private async Task SaveSelectedPluEntities()
     {
-        foreach (SqlPluEntity pluEntity in SelectedPluEntities)
+        foreach (SqlPluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
-            SqlPluLineEntity pluLine = PluLineRepository.GetItemByLinePlu(LineEntity, pluEntity);
-            if (pluLine.IsNew)
-            {
-                pluLine.Line = LineEntity;
-                pluLine.Plu = pluEntity;
-            }
-            SqlCoreHelper.Instance.SaveOrUpdate(pluEntity);
+            SqlPluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
+            if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
+        }
+        
+        foreach (SqlPluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
+        {
+            SqlPluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity};
+            SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
         }
 
         await DataGridWrapperRef.ReloadData();
+        SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
