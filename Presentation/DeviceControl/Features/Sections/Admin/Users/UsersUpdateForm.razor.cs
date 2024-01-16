@@ -4,6 +4,7 @@ using DeviceControl.Resources;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.StorageCore.Entities.SchemaRef.Claims;
 using Ws.StorageCore.Entities.SchemaRef.Users;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
@@ -12,11 +13,26 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
+    private SqlClaimRepository RolesRepository { get; set; } = new();
+    private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
+    private IEnumerable<SqlClaimEntity> SelectedRolesInternal { get; set; } = [];
+    
+    private IEnumerable<SqlClaimEntity> SelectedRoles
+    {
+        get => SelectedRolesInternal;
+        set
+        {
+            SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
+            SelectedRolesInternal = value;
+        }
+    }
 
     private IEnumerable<ActionMenuEntry> AdditionalButtons { get; set; } = [];
 
     protected override void OnInitialized()
     {
+        RolesEntities = RolesRepository.GetEnumerable().ToList();
+        SelectedRolesInternal = SectionEntity.Claims.ToList();
         AdditionalButtons = AdditionalButtons.Append(
             new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User });
     }

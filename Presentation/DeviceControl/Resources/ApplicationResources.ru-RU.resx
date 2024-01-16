@@ -390,4 +390,7 @@
     <data name="SectionRoles" xml:space="preserve">
         <value>Роли</value>
     </data>
+    <data name="DataGridColumnRoles" xml:space="preserve">
+        <value>Роли</value>
+    </data>
 </root>

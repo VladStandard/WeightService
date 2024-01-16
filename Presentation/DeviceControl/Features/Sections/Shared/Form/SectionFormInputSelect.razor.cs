@@ -14,22 +14,15 @@ public sealed partial class SectionFormInputSelect<TItem>: SectionFormInputBase,
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
     [Parameter, EditorRequired] public TItem SelectedItem { get; set; } = new();
     [Parameter, EditorRequired] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
+    // Todo remove ItemValue
     [Parameter, EditorRequired] public Func<TItem, string> ItemValue { get; set; } = item => item!.ToString()!;
     [Parameter] public bool IsDisabled { get; set; }
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
     
-    private string SelectedItemValue { get; set; } = string.Empty;
     private Dropdown Dropdown { get; set; } = new();
     private ElementReference DropdownWrapper { get; set; }
     private IJSObjectReference Module { get; set; } = null!;
     private string SearchString { get; set; } = string.Empty;
-    
-    protected override void OnParametersSet()
-    {
-        string newValue = ItemValue(SelectedItem);
-        if (!SelectedItemValue.Equals(newValue))
-            SelectedItemValue = newValue;
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

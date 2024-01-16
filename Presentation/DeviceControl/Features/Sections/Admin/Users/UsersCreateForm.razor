@@ -1,6 +1,4 @@
-@using Ws.StorageCore.Entities.SchemaRef.Printers
-@using Ws.StorageCore.Entities.SchemaRef.WorkShops
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
+@using Ws.StorageCore.Entities.SchemaRef.Claims
 @inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
 
 
@@ -8,5 +6,12 @@
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputMultiSelect
+    TItem="SqlClaimEntity"
+    Items="RolesEntities"
+    Label="@Localizer["DataGridColumnRoles"]"
+    @bind-SelectedItems="@SelectedRoles"
+    ItemDisplayName="item => item.DisplayName"
   />
 </SectionFormWrapper>

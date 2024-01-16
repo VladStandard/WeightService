@@ -537,6 +537,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        internal static string DataGridColumnRoles {
+            get {
+                return ResourceManager.GetString("DataGridColumnRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Row count.
         /// </summary>
         internal static string DataGridColumnRowsCount {
