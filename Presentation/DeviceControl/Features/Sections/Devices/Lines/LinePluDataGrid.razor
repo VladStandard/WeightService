@@ -1,6 +1,7 @@
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
 @using Ws.StorageCore.Entities.SchemaRef.PlusLines
 @using Ws.StorageCore.Entities.SchemaRef1c.Plus
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
+@using Blazor.Heroicons.Outline
 
 
 <SectionDataGridWrapper
@@ -19,16 +20,25 @@
     <div class="w-64 h-8">
       <SelectMultiple
         TItem="SqlPluEntity"
-        Items="PluEntities"
+        Items="SelectPluEntities"
         @bind-SelectedItems="SelectedPluEntities"
+        ItemDisplayName="item => item.DisplayName"
       />
     </div>
-    <div class="w-12 h-full rounded-md bg-green-400 border border-black/[.1] overflow-hidden">
-      Add
-    </div>
-    <div class="w-12 h-full rounded-md bg-red-400 border border-black/[.1] overflow-hidden">
-      Reset
-    </div>
+    <button
+      type="button"
+      @onclick="SaveSelectedPluEntities"
+      class="w-16 h-8 flex items-center justify-center rounded-md bg-green-300 border border-black/[.1] transition-colors overflow-hidden hover:bg-green-400"
+    >
+      <PlusIcon class="h-5 w-5 text-white" />
+    </button>
+    <button
+      type="button"
+      @onclick="ResetSelectedPluEntities"
+      class="w-16 h-8 flex items-center justify-center rounded-md bg-red-300 border border-black/[.1] transition-colors overflow-hidden hover:bg-red-400"
+    >
+      <ArrowUturnLeftIcon class="h-5 w-5 text-white" />
+    </button>
   </DataGridButtons>
   <ChildContent>
     <DataGridColumn

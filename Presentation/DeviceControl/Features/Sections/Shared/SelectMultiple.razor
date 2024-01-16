@@ -8,7 +8,7 @@
         Выбрано @SelectedItems.Count() объектов
     </DropdownToggle>
     <DropdownMenu Class="select-dropdown overflow-hidden max-h-60 !bg-gray-50 border border-black/[.1] shadow-none !max-w-[inherit]">
-      <div class="h-8 w-full bg-white flex items-center border-b border-b-black/[.1] gap-3 px-3">
+      <div class="h-8 w-full bg-white shrink-0 flex items-center border-b border-b-black/[.1] gap-3 px-3">
         <input
           type="text"
           @bind="SearchString"
@@ -18,7 +18,7 @@
         />
         <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
       </div>
-      <div class="h-8 w-full bg-white flex items-center border-b border-b-black/[.1] px-3">
+      <div class="h-8 w-full shrink-0 bg-white flex items-center border-b border-b-black/[.1] px-3">
         <button
           type="button"
           @onclick="ToggleSelectedItems"
@@ -50,7 +50,7 @@
                 @onclick="() => SwitchSelectedItem(item)"
                 class="w-full h-8 px-3 flex items-center transition-colors @(IsSelectedItem(item) ? "bg-white hover:bg-sky-200" : "hover:bg-sky-100")"
               >
-                <div class="ml-1 mr-3 h-4 w-4 border rounded border-black/[.3] overflow-hidden @(IsSelectedItem(item) ? "bg-sky-300" : "")" ></div>
+                <div class="ml-1 mr-3 h-4 w-4 shrink-0 border rounded border-black/[.3] overflow-hidden @(IsSelectedItem(item) ? "bg-sky-300" : "")" ></div>
                 <p class="truncate text-sm">
                   @ItemDisplayName(item)
                 </p>
