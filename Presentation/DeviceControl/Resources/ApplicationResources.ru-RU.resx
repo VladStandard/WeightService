@@ -87,9 +87,6 @@
     <data name="SectionDatabase" xml:space="preserve">
         <value>База данных</value>
     </data>
-    <data name="SectionHosts" xml:space="preserve">
-        <value>Хосты</value>
-    </data>
     <data name="SectionLabels" xml:space="preserve">
         <value>Этикетки</value>
     </data>
@@ -198,17 +195,14 @@
     <data name="DataGridColumnType" xml:space="preserve">
         <value>Тип</value>
     </data>
-    <data name="DataGridColumnHost" xml:space="preserve">
-        <value>Хост</value>
+    <data name="DataGridColumnPcName" xml:space="preserve">
+        <value>Имя ПК</value>
     </data>
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value>Введите значение...</value>
     </data>
     <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
         <value>Выберите цех</value>
-    </data>
-    <data name="SectionFormHostDefaultName" xml:space="preserve">
-        <value>Выберите хост</value>
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">
         <value>Выберите принтер</value>

@@ -62,6 +62,13 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
             m.Type(NHibernateUtil.String);
             m.NotNullable(false);
         });
+        
+        Property(x => x.PcName, m =>
+        {
+            m.Column("PC_NAME");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(false);
+        });
 
         ManyToOne(x => x.Printer, m =>
         {
@@ -73,13 +80,6 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
         ManyToOne(x => x.WorkShop, m =>
         {
             m.Column("WORKSHOP_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
-        });
-
-        ManyToOne(x => x.Host, m =>
-        {
-            m.Column("HOST_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

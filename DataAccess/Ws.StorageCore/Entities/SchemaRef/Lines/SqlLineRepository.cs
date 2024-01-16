@@ -1,14 +1,13 @@
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
 { 
-    public SqlLineEntity GetItemByHost(SqlHostEntity host)
+    public SqlLineEntity GetItemByPcName(string pcName)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.Host), host));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlLineEntity.PcName), pcName));
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     

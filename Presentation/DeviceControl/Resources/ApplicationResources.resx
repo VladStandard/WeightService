@@ -63,9 +63,6 @@
     <data name="SectionLines" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionHosts" xml:space="preserve">
-        <value />
-    </data>
     <data name="SectionPrinters" xml:space="preserve">
         <value />
     </data>
@@ -198,16 +195,13 @@
     <data name="DataGridColumnType" xml:space="preserve">
         <value />
     </data>
-    <data name="DataGridColumnHost" xml:space="preserve">
+    <data name="DataGridColumnPcName" xml:space="preserve">
         <value />
     </data>
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value />
     </data>
     <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
-        <value />
-    </data>
-    <data name="SectionFormHostDefaultName" xml:space="preserve">
         <value />
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">

@@ -29,9 +29,8 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.DeviceTablet,
             SubItems =
             [
-                new() { Name = Localizer["SectionLines"], Link = RouteUtils.SectionLines },
-                new() { Name = Localizer["SectionHosts"], Link = RouteUtils.SectionHosts },
-                new() { Name = Localizer["SectionPrinters"], Link = RouteUtils.SectionPrinters }
+                new(Localizer["SectionLines"], RouteUtils.SectionLines),
+                new(Localizer["SectionPrinters"], RouteUtils.SectionPrinters)
             ]
         },
         new()
@@ -41,10 +40,7 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.Clipboard,
             SubItems =
             [
-                new() { Name = Localizer["SectionLabels"], Link = RouteUtils.SectionLabels }
-                // new() { Name = Localizer["SectionBarcodes"], Link = RouteUtils.SectionBarCodes },
-                // new() { Name = Localizer["SectionWeightings"], Link = RouteUtils.SectionPlusWeightings },
-                // new() { Name = Localizer["SectionAggregatedLabels"], Link = RouteUtils.SectionPlusLabelsAggr }
+                new(Localizer["SectionLabels"], RouteUtils.SectionLabels)
             ]
         },
 
@@ -55,11 +51,11 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.CurrencyEuro,
             SubItems =
             [
-                new() { Name = Localizer["SectionPLU"], Link = RouteUtils.SectionPlus },
-                new() { Name = Localizer["SectionBoxes"], Link = RouteUtils.SectionBoxes },
-                new() { Name = Localizer["SectionClips"], Link = RouteUtils.SectionClips },
-                new() { Name = Localizer["SectionBundles"], Link = RouteUtils.SectionBundles },
-                new() { Name = Localizer["SectionBrands"], Link = RouteUtils.SectionBrands }
+                new(Localizer["SectionPLU"], RouteUtils.SectionPlus),
+                new(Localizer["SectionBoxes"], RouteUtils.SectionBoxes),
+                new(Localizer["SectionClips"], RouteUtils.SectionClips),
+                new(Localizer["SectionBundles"], RouteUtils.SectionBundles),
+                new(Localizer["SectionBrands"], RouteUtils.SectionBrands)
             ]
         },
 
@@ -70,11 +66,11 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.BookOpen,
             SubItems =
             [
-                new() { Name = Localizer["SectionWorkshops"], Link = RouteUtils.SectionWorkShops },
-                new() { Name = Localizer["SectionProductionSites"], Link = RouteUtils.SectionProductionSites },
-                new() { Name = Localizer["SectionTemplates"], Link = RouteUtils.SectionTemplates },
-                new() { Name = Localizer["SectionTemplatesResources"], Link = RouteUtils.SectionTemplateResources },
-                new() { Name = Localizer["SectionPluStorages"], Link = RouteUtils.SectionPlusStorage }
+                new(Localizer["SectionWorkshops"], RouteUtils.SectionWorkShops),
+                new(Localizer["SectionProductionSites"],RouteUtils.SectionProductionSites),
+                new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
+                new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
+                new(Localizer["SectionPluStorages"], RouteUtils.SectionPlusStorage)
             ]
         },
 
@@ -85,8 +81,8 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.Wrench,
             SubItems =
             [
-                new() { Name = Localizer["SectionAppsLogs"], Link = RouteUtils.SectionLogs },
-                new() { Name = Localizer["Section1CLogs"], Link = RouteUtils.Section1CLogs }
+                new(Localizer["SectionAppsLogs"],RouteUtils.SectionLogs),
+                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs)
             ]
         },
 
@@ -97,9 +93,9 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.UserGroup,
             SubItems =
             [
-                new() { Name = Localizer["SectionUsers"], Link= RouteUtils.SectionUsers },
-                new() { Name = Localizer["SectionRoles"], Link= RouteUtils.SectionRoles },
-                new() { Name = Localizer["SectionDatabase"], Link = RouteUtils.SectionDatabase }
+                new(Localizer["SectionUsers"],RouteUtils.SectionUsers),
+                new(Localizer["SectionRoles"],RouteUtils.SectionRoles),
+                new(Localizer["SectionDatabase"],RouteUtils.SectionDatabase)
             ]
         }
     ];

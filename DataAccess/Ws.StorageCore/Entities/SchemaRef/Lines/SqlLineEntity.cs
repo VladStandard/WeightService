@@ -1,5 +1,4 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
@@ -8,7 +7,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 [DebuggerDisplay("{ToString()}")]
 public class SqlLineEntity : SqlEntityBase
 {
-    public virtual SqlHostEntity Host { get; set; }
+    public virtual string PcName { get; set; }
     public virtual SqlWorkShopEntity WorkShop { get; set; }
     public virtual SqlPrinterEntity Printer { get; set; }
     public virtual string ComPort { get; set; }
@@ -22,8 +21,8 @@ public class SqlLineEntity : SqlEntityBase
     public SqlLineEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Version = string.Empty;
+        PcName = string.Empty;
         WorkShop = new();
-        Host = new();
         Printer = new();
         Number = 0;
         Counter = 0;
@@ -32,13 +31,13 @@ public class SqlLineEntity : SqlEntityBase
 
     public SqlLineEntity(SqlLineEntity item) : base(item)
     {
-        Host = new(item.Host);
         WorkShop = new(item.WorkShop);
         Printer = new(item.Printer);
         ComPort = item.ComPort;
         Number = item.Number;
         Counter = item.Counter;
         Version = item.Version;
+        PcName = item.PcName;
     }
 
     public override string ToString() => $"{IdentityValueId} | {Name}";
@@ -58,8 +57,8 @@ public class SqlLineEntity : SqlEntityBase
         Equals(ComPort, item.ComPort) &&
         Equals(Number, item.Number) &&
         Equals(Counter, item.Counter) &&
+        Equals(PcName, item.PcName) &&
         WorkShop.Equals(item.WorkShop) &&
-        Host.Equals(item.Host) &&
         Printer.Equals(item.Printer) &&
         Version.Equals(item.Version);
 }

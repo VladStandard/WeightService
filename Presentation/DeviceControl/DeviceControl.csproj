@@ -97,6 +97,12 @@
       <_ContentIncludedByDefault Remove="Pages\Menu\Profiles\Profile.razor" />
       <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Plus\ItemPlu.razor" />
       <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Plus\Plu.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsCreateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsCreateForm.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsDataGrid.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsPage.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsUpdateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsUpdateForm.razor" />
     </ItemGroup>
     <ItemGroup>
       <AdditionalFiles Include="Features\Layout\MainLayout.razor" />

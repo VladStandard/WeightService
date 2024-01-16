@@ -2,7 +2,6 @@ using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaRef.Claims;
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
@@ -34,7 +33,6 @@ public static class SqlValidationUtils
             SqlBrandEntity brand => new SqlBrandValidator(isCheckIdentity).Validate(brand),
             SqlBundleEntity bundle => new SqlBundleValidator(isCheckIdentity).Validate(bundle),
             SqlClipEntity clip => new SqlClipValidator(isCheckIdentity).Validate(clip),
-            SqlHostEntity device => new SqlHostValidator(isCheckIdentity).Validate(device),
             SqlLogWebEntity logWeb => new SqlLogWebValidator(isCheckIdentity).Validate(logWeb),
             SqlPluFkEntity pluFk => new SqlPluFkValidator(isCheckIdentity).Validate(pluFk),
             SqlPluEntity plu => new SqlPluValidator(isCheckIdentity).Validate(plu),

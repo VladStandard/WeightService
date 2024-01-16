@@ -27,7 +27,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             SqlCrudConfig.SelectTopRowsCount = 1;
             SqlLineEntity oldLine = LineRepository.GetEnumerable(SqlCrudConfig).First();
 
-            SqlLineEntity lineByDevice = LineRepository.GetItemByHost(oldLine.Host);
+            SqlLineEntity lineByDevice = LineRepository.GetItemByPcName("PC473");
 
             Assert.That(lineByDevice.IsExists, Is.True);
             Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));

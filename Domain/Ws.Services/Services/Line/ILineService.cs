@@ -6,6 +6,7 @@ namespace Ws.Services.Services.Line;
 
 public interface ILineService
 {
+    public SqlLineEntity GetCurrentLine();
     public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line);
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop);
 }

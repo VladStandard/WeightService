@@ -330,15 +330,6 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Host.
-        /// </summary>
-        internal static string DataGridColumnHost {
-            get {
-                return ResourceManager.GetString("DataGridColumnHost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
         internal static string DataGridColumnIp {
@@ -452,6 +443,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnNumber {
             get {
                 return ResourceManager.GetString("DataGridColumnNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PcName.
+        /// </summary>
+        internal static string DataGridColumnPcName {
+            get {
+                return ResourceManager.GetString("DataGridColumnPcName", resourceCulture);
             }
         }
         
@@ -888,15 +888,6 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the host.
-        /// </summary>
-        internal static string SectionFormHostDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormHostDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Empty.
         /// </summary>
         internal static string SectionFormInputEmpty {
@@ -974,15 +965,6 @@ namespace ScalesHybrid.Resources {
         internal static string SectionFormWorkShopDefaultName {
             get {
                 return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hosts.
-        /// </summary>
-        internal static string SectionHosts {
-            get {
-                return ResourceManager.GetString("SectionHosts", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
+﻿using MDSoft.NetUtils;
+using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
@@ -16,6 +17,11 @@ public class LineService : ILineService
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
     {
         return new SqlLineRepository().GetLinesByWorkshop(workShop);
+    }
+
+    public SqlLineEntity GetCurrentLine()
+    {
+        return new SqlLineRepository().GetItemByPcName(MdNetUtils.GetLocalDeviceName(false));
     }
 }
     

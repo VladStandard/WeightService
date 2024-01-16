@@ -1,9 +1,7 @@
 using ScalesHybrid.Models;
 using ScalesHybrid.Utils;
-using Ws.Services.Services.Host;
 using Ws.Services.Services.Line;
 using Ws.Services.Services.Plu;
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
@@ -15,7 +13,6 @@ namespace ScalesHybrid.Services;
 
 public class LineContext
 {
-    public SqlHostEntity Host { get; private set; }
     public SqlLineEntity Line { get; private set; }
     public SqlPluEntity Plu { get; private set; }
     public SqlPrinterEntity PrinterEntity { get; private set; }
@@ -26,17 +23,14 @@ public class LineContext
     public IEnumerable<SqlPluEntity> PluEntities { get; set; }
     public IEnumerable<SqlPluNestingFkEntity> PluNestingEntities { get; set; }
     public event Action OnStateChanged;
-    
-    private IHostService HostService { get; }
     private ILineService LineService { get; }
     private IPluService PluService { get; }
     private ExternalDevicesService ExternalDevices { get; }
     
     private Timer Timer { get; set; }
 
-    public LineContext(IHostService hostService, ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
+    public LineContext(ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
     {
-        HostService = hostService;
         LineService = lineService;
         PluService = pluService;
         ExternalDevices = externalDevices;
@@ -56,7 +50,7 @@ public class LineContext
     }
 
     public void ResetLine() {
-        SqlLineEntity newLine = HostService.GetLineByHost(Host);
+        SqlLineEntity newLine = LineService.GetCurrentLine();
         LineEntities = LineService.GetLinesByWorkshop(newLine.WorkShop);
         PrinterEntity = newLine.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
@@ -94,8 +88,7 @@ public class LineContext
 
     private void InitData()
     {
-        Host = HostService.GetCurrentHostOrCreate();
-        Line = HostService.GetLineByHost(Host);
+        Line = LineService.GetCurrentLine();
 
         if (Line.IsExists)
         {

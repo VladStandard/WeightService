@@ -87,9 +87,6 @@
     <data name="SectionDatabase" xml:space="preserve">
         <value>Database</value>
     </data>
-    <data name="SectionHosts" xml:space="preserve">
-        <value>Hosts</value>
-    </data>
     <data name="SectionLabels" xml:space="preserve">
         <value>Labels</value>
     </data>
@@ -198,17 +195,14 @@
     <data name="DataGridColumnType" xml:space="preserve">
         <value>Type</value>
     </data>
-    <data name="DataGridColumnHost" xml:space="preserve">
-        <value>Host</value>
+    <data name="DataGridColumnPcName" xml:space="preserve">
+        <value>PcName</value>
     </data>
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value>Enter value...</value>
     </data>
     <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
         <value>Select the workshop</value>
-    </data>
-    <data name="SectionFormHostDefaultName" xml:space="preserve">
-        <value>Select the host</value>
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">
         <value>Select the printer</value>

@@ -1,4 +1,3 @@
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
@@ -11,6 +10,9 @@ public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
+        RuleFor(item => item.PcName)
+            .NotEmpty()
+            .NotNull();
         RuleFor(item => item.Number)
             .NotEmpty()
             .NotNull()
@@ -18,8 +20,6 @@ public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
             .LessThanOrEqualTo(99999);
         RuleFor(item => item.WorkShop)
             .SetValidator(new SqlWorkShopValidator(isCheckIdentity));
-        RuleFor(item => item.Host)
-            .SetValidator(new SqlHostValidator(isCheckIdentity));
         RuleFor(item => item.Printer)
             .SetValidator(new SqlPrinterValidator(isCheckIdentity)!);
     }

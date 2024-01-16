@@ -332,15 +332,6 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnHost {
-            get {
-                return ResourceManager.GetString("DataGridColumnHost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string DataGridColumnIp {
             get {
                 return ResourceManager.GetString("DataGridColumnIp", resourceCulture);
@@ -452,6 +443,15 @@ namespace DeviceControl.Resources {
         internal static string DataGridColumnNumber {
             get {
                 return ResourceManager.GetString("DataGridColumnNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnPcName {
+            get {
+                return ResourceManager.GetString("DataGridColumnPcName", resourceCulture);
             }
         }
         
@@ -890,15 +890,6 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SectionFormHostDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormHostDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string SectionFormInputEmpty {
             get {
                 return ResourceManager.GetString("SectionFormInputEmpty", resourceCulture);
@@ -974,15 +965,6 @@ namespace DeviceControl.Resources {
         internal static string SectionFormWorkShopDefaultName {
             get {
                 return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionHosts {
-            get {
-                return ResourceManager.GetString("SectionHosts", resourceCulture);
             }
         }
         

@@ -2,7 +2,6 @@ using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Hosts;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.WorkShops;
@@ -15,20 +14,16 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
 
     private IEnumerable<SqlPrinterEntity> PrinterEntities { get; set; } = new List<SqlPrinterEntity>();
     private IEnumerable<SqlWorkShopEntity> WorkShopEntities { get; set; } = new List<SqlWorkShopEntity>();
-    private IEnumerable<SqlHostEntity> HostEntities { get; set; } = new List<SqlHostEntity>();
 
     protected override void OnInitialized()
     {
         SectionEntity.WorkShop.Name = Localizer["SectionFormWorkShopDefaultName"];
         SectionEntity.Printer.Name = Localizer["SectionFormPrinterDefaultName"];
-        SectionEntity.Host.Name = Localizer["SectionFormHostDefaultName"];
 
         WorkShopEntities = new SqlWorkShopRepository().GetEnumerable(new());
         PrinterEntities = new SqlPrinterRepository().GetEnumerable(new());
-        HostEntities = new SqlHostRepository().GetEnumerable(new());
 
         PrinterEntities = PrinterEntities.Append(SectionEntity.Printer);
         WorkShopEntities = WorkShopEntities.Append(SectionEntity.WorkShop);
-        HostEntities = HostEntities.Append(SectionEntity.Host);
     }
 }

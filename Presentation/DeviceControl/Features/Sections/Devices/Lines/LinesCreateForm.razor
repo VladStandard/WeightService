@@ -1,6 +1,5 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
 @using Ws.StorageCore.Entities.SchemaRef.WorkShops
-@using Ws.StorageCore.Entities.SchemaRef.Hosts
 @inherits SectionFormBase<SqlLineEntity>
 @using Ws.StorageCore.Entities.SchemaRef.Lines
 
@@ -9,6 +8,10 @@
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.PcName"
+    Label="@Localizer["DataGridColumnPcName"]"
   />
   <SectionFormInputNumeric
     TValue="int"
@@ -30,14 +33,6 @@
     Items="WorkShopEntities"
     Label="@Localizer["DataGridColumnWorkshop"]"
     @bind-SelectedItem="@SectionEntity.WorkShop"
-    ItemValue="item => item.IdentityValueUid.ToString()"
-    ItemDisplayName="item => item.Name"
-  />
-  <SectionFormInputSelect
-    TItem="SqlHostEntity"
-    Items="HostEntities"
-    Label="@Localizer["DataGridColumnHost"]"
-    @bind-SelectedItem="@SectionEntity.Host"
     ItemValue="item => item.IdentityValueUid.ToString()"
     ItemDisplayName="item => item.Name"
   />

@@ -1,9 +1,7 @@
-using DeviceControl.Utils;
-
 namespace DeviceControl.Features.Layout;
 
-public class NavMenuItemModel
+public class NavMenuItemModel(string name, string link)
 {
-    public string Name { get; init; } = string.Empty;
-    public string Link { get; init; } = RouteUtils.Home;
+    public string Name { get; init; } = name;
+    public string Link { get; init; } = link;
 }
