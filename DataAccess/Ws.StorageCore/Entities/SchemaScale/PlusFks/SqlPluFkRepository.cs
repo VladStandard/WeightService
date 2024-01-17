@@ -8,8 +8,7 @@ public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
     public IEnumerable<SqlPluFkEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<SqlPluFkEntity> items = SqlCore.GetEnumerable<SqlPluFkEntity>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            items = items.OrderBy(item => item.Plu.Number);
+        items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();
     }
     

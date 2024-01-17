@@ -4,8 +4,8 @@ public class SqlPrinterRepository : SqlTableRepositoryBase<SqlPrinterEntity>
 {
     public IEnumerable<SqlPrinterEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlPrinterEntity>(sqlCrudConfig);
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        IEnumerable<SqlPrinterEntity> items = SqlCore.GetEnumerable<SqlPrinterEntity>(sqlCrudConfig);
+        return items.OrderBy(item => item.Type);
     }
 }

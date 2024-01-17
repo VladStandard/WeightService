@@ -8,8 +8,7 @@ public sealed class SqlClipRepository : SqlTableRepositoryBase<SqlClipEntity>
 {
     public IEnumerable<SqlClipEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlClipEntity>(sqlCrudConfig);
     }
 

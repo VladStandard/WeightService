@@ -15,14 +15,10 @@ public class SqlPluTemplateFkRepository : SqlTableRepositoryBase<SqlPluStorageMe
     
     public IEnumerable<SqlPluTemplateFkEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
-        //if (sqlCrudConfig.IsResultOrder)
-        //    sqlCrudConfig.AddOrders(new($"{nameof(PluScaleModel.Plu)}.{nameof(PluModel.Number)}", SqlOrderDirection.Asc));
         IEnumerable<SqlPluTemplateFkEntity> items = SqlCore.GetEnumerable<SqlPluTemplateFkEntity>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            items = items
-                .OrderBy(item => item.Template.Title)
-                .ThenBy(item => item.Plu.Name);
+        items = items
+            .OrderBy(item => item.Template.Title)
+            .ThenBy(item => item.Plu.Name);
         return items;
     }
-
 }

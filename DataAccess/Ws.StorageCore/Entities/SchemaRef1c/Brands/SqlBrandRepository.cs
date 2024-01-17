@@ -4,8 +4,7 @@ public sealed class SqlBrandRepository : SqlTableRepositoryBase<SqlBrandEntity>
 {
     public IEnumerable<SqlBrandEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlBrandEntity>(sqlCrudConfig);
     }
 

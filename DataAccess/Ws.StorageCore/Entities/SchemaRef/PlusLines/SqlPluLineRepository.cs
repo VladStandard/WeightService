@@ -18,8 +18,7 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluLineEnti
     public List<SqlPluLineEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<SqlPluLineEntity> items = SqlCore.GetEnumerable<SqlPluLineEntity>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            items = items.OrderBy(item => item.Plu.Number);
+        items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();
     }
 

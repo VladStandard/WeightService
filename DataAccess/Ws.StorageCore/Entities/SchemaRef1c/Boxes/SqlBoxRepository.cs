@@ -4,8 +4,8 @@ public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>
 {
     public IEnumerable<SqlBoxEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlBoxEntity.Weight)));
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlBoxEntity>(sqlCrudConfig);
     }
     
