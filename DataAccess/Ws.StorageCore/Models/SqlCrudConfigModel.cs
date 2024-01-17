@@ -10,8 +10,6 @@ public class SqlCrudConfigModel
     #endregion
     
     #region Public and private fields, properties, constructor
-    
-    public bool IsResultOrder { get; set; }
     public List<ICriterion> Filters { get; private init; }
     public List<Order> Orders { get; private init; }
     public int OldTopRowsCount { get; set; }
@@ -28,15 +26,12 @@ public class SqlCrudConfigModel
     {
         Orders = [];
         Filters = [];
-        IsResultOrder = false;
     }
     
     public SqlCrudConfigModel(SqlCrudConfigModel sqlCrudConfig)
     {
         Orders = [..sqlCrudConfig.Orders];
         Filters = [..sqlCrudConfig.Filters];
-        
-        IsResultOrder = sqlCrudConfig.IsResultOrder;
     }
 
     #endregion

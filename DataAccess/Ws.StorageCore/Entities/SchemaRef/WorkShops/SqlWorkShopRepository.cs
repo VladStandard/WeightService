@@ -4,8 +4,7 @@ public sealed class SqlWorkShopRepository : SqlTableRepositoryBase<SqlWorkShopEn
 {
     public IEnumerable<SqlWorkShopEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlWorkShopEntity>(sqlCrudConfig);
     }
 }

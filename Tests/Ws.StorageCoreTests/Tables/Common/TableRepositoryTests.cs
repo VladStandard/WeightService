@@ -12,7 +12,7 @@ public class TableRepositoryTests
     [SetUp]
     public void SetUp()
     {
-        SqlCrudConfig = new() { SelectTopRowsCount = 10, IsResultOrder = true };
+        SqlCrudConfig = new() { SelectTopRowsCount = 10 };
     }
 
     protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Name)).Ascending;

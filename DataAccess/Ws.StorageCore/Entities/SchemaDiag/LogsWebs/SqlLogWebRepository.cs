@@ -5,8 +5,7 @@ public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>
     public IEnumerable<SqlLogWebEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.SelectTopRowsCount = 500;
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
+        sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerable<SqlLogWebEntity>(sqlCrudConfig).ToList();
     }
 

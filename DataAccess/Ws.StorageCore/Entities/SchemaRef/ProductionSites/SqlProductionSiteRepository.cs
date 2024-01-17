@@ -4,8 +4,7 @@ public sealed class SqlProductionSiteRepository : SqlTableRepositoryBase<SqlProd
 {
     public IEnumerable<SqlProductionSiteEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlProductionSiteEntity>(sqlCrudConfig);
     }
 }

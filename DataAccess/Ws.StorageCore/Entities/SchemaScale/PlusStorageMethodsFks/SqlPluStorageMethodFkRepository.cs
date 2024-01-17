@@ -16,8 +16,7 @@ public sealed class SqlPluStorageMethodFkRepository : SqlTableRepositoryBase<Sql
     public List<SqlPluStorageMethodFkEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<SqlPluStorageMethodFkEntity> items = SqlCore.GetEnumerable<SqlPluStorageMethodFkEntity>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            items = items.OrderBy(item => item.Plu.Number);
+        items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();
     }
     

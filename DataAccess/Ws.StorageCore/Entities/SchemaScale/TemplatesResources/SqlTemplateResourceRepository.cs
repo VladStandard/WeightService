@@ -5,10 +5,9 @@ public class SqlTemplateResourceRepository : SqlTableRepositoryBase<SqlTemplateR
     public List<SqlTemplateResourceEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
         IEnumerable<SqlTemplateResourceEntity> items = SqlCore.GetEnumerable<SqlTemplateResourceEntity>(sqlCrudConfig);
-        if (sqlCrudConfig.IsResultOrder)
-            items = items
-                .OrderBy(item => item.Name)
-                .ThenBy(item => item.Type);
+        items = items
+            .OrderBy(item => item.Name)
+            .ThenBy(item => item.Type);
         return items.ToList();
     }
     

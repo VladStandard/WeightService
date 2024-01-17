@@ -11,8 +11,8 @@ public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity
     
     public IEnumerable<SqlBundleEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlBundleEntity.Weight)));
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlBundleEntity>(sqlCrudConfig);
     }
 }

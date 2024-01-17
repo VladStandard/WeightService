@@ -27,8 +27,8 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
     
     public IEnumerable<SqlLineEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Name)));
-        return SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
+        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Name)));
+        IEnumerable<SqlLineEntity> lines = SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
+        return lines.OrderBy(item => item.WorkShop.Name);
     }
 }

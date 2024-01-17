@@ -4,8 +4,7 @@ public class SqlPluStorageMethodRepository : SqlTableRepositoryBase<SqlPluStorag
 {
     public List<SqlPluStorageMethodEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
-        if (sqlCrudConfig.IsResultOrder)
-            sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
+        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
         return SqlCore.GetEnumerable<SqlPluStorageMethodEntity>(sqlCrudConfig).ToList();
     }
 }
