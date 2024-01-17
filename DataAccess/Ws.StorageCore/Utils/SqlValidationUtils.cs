@@ -7,7 +7,7 @@ using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 using Ws.StorageCore.Entities.SchemaRef.Users;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
@@ -46,7 +46,7 @@ public static class SqlValidationUtils
             SqlLineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
             SqlTemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
             SqlTemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
-            SqlWorkShopEntity workShop => new SqlWorkShopValidator(isCheckIdentity).Validate(workShop),
+            SqlWarehouseEntity workShop => new SqlWarehouseValidator(isCheckIdentity).Validate(workShop),
             SqlPrinterEntity printer => new SqlPrinterValidator(isCheckIdentity).Validate(printer),
             SqlUserEntity user => new SqlUserValidator(isCheckIdentity).Validate(user),
             SqlClaimEntity claim => new SqlClaimValidator(isCheckIdentity).Validate(claim),

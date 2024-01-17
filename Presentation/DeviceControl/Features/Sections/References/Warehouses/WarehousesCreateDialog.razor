@@ -1,9 +1,9 @@
-@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaRef.WorkShops.SqlWorkShopEntity>
+@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaRef.Warehouses.SqlWarehouseEntity>
 
 
 <SectionModalWrapper TabsButtonList="@TabsList">
   <SectionTabPanel Name="main">
-    <WorkshopsCreateForm
+    <WarehousesCreateForm
       OnSubmitAction="OnDataChangedAction"
       SectionEntity="SectionEntity"
     />

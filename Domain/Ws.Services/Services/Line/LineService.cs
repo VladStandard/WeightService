@@ -1,7 +1,7 @@
 ﻿using MDSoft.NetUtils;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
 namespace Ws.Services.Services.Line;
@@ -23,9 +23,9 @@ public class LineService : ILineService
         return new SqlPluLineRepository().GetPieceListByLine(line).Select(i => i.Plu);
     }
     
-    public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
+    public IEnumerable<SqlLineEntity> GetLinesByWarehouse(SqlWarehouseEntity warehouse)
     {
-        return new SqlLineRepository().GetLinesByWorkshop(workShop);
+        return new SqlLineRepository().GetLinesByWarehouse(warehouse);
     }
 
     public SqlLineEntity GetCurrentLine()

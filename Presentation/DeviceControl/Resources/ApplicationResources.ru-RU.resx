@@ -33,8 +33,8 @@
     <data name="DataGridColumnPrinter" xml:space="preserve">
         <value>Принтер</value>
     </data>
-    <data name="DataGridColumnWorkshop" xml:space="preserve">
-        <value>Цех</value>
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
+        <value>Склад</value>
     </data>
     <data name="DataGridColumnCounter" xml:space="preserve">
         <value>Счетчик</value>
@@ -120,8 +120,8 @@
     <data name="SectionWeightings" xml:space="preserve">
         <value>Взвешивания</value>
     </data>
-    <data name="SectionWorkshops" xml:space="preserve">
-        <value>Цеха</value>
+    <data name="SectionWarehouses" xml:space="preserve">
+        <value>Склады</value>
     </data>
     <data name="ApplicationName" xml:space="preserve">
         <value>Управление Устройствами</value>
@@ -201,8 +201,8 @@
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value>Введите значение...</value>
     </data>
-    <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
-        <value>Выберите цех</value>
+    <data name="SectionFormWarehouseDefaultName" xml:space="preserve">
+        <value>Выберите склад</value>
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">
         <value>Выберите принтер</value>

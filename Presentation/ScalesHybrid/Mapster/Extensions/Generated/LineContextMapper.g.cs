@@ -23,7 +23,7 @@ namespace ScalesHybrid.Services
             result.PluDescription = p1.Plu == null ? null : p1.Plu.Description;
             result.BundleCount = funcMain7(p1.PluNesting == null ? null : (short?)p1.PluNesting.BundleCount, result.BundleCount);
             result.Kneading = funcMain8(p1.KneadingModel == null ? null : (int?)p1.KneadingModel.KneadingCount, result.Kneading);
-            result.Address = p1.Line == null ? null : (p1.Line.WorkShop == null ? null : (p1.Line.WorkShop.ProductionSite == null ? null : p1.Line.WorkShop.ProductionSite.Address));
+            result.Address = p1.Line == null ? null : (p1.Line.Warehouse == null ? null : (p1.Line.Warehouse.ProductionSite == null ? null : p1.Line.Warehouse.ProductionSite.Address));
             result.Template = p1.PluTemplate == null ? null : p1.PluTemplate.Data;
             result.ProductDt = ScalesHybrid.Mapster.LineContextConfigRegister.GetProductDt(p1.KneadingModel.ProductDate);
             result.ExpirationDt = ScalesHybrid.Mapster.LineContextConfigRegister.GetProductDt(p1.KneadingModel.ProductDate).AddDays((double)p1.Plu.ShelfLifeDays);

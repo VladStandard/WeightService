@@ -1,5 +1,5 @@
 using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
@@ -18,8 +18,8 @@ public sealed class SqlLineValidator : SqlTableValidator<SqlLineEntity>
             .NotNull()
             .GreaterThanOrEqualTo(10000)
             .LessThanOrEqualTo(99999);
-        RuleFor(item => item.WorkShop)
-            .SetValidator(new SqlWorkShopValidator(isCheckIdentity));
+        RuleFor(item => item.Warehouse)
+            .SetValidator(new SqlWarehouseValidator(isCheckIdentity));
         RuleFor(item => item.Printer)
             .SetValidator(new SqlPrinterValidator(isCheckIdentity)!);
     }

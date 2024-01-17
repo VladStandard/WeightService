@@ -1,11 +1,11 @@
 @using Ws.StorageCore.Entities.SchemaRef.ProductionSites
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.WorkShops.SqlWorkShopEntity>
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Warehouses.SqlWarehouseEntity>
 
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
-  ShareUrl="@($"{RouteUtils.SectionWorkShops}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.IdentityValueUid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >

@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
@@ -8,7 +8,7 @@ namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 public class SqlLineEntity : SqlEntityBase
 {
     public virtual string PcName { get; set; }
-    public virtual SqlWorkShopEntity WorkShop { get; set; }
+    public virtual SqlWarehouseEntity Warehouse { get; set; }
     public virtual SqlPrinterEntity Printer { get; set; }
     public virtual string ComPort { get; set; }
     public virtual int Number { get; set; }
@@ -22,7 +22,7 @@ public class SqlLineEntity : SqlEntityBase
     {
         Version = string.Empty;
         PcName = string.Empty;
-        WorkShop = new();
+        Warehouse = new();
         Printer = new();
         Number = 0;
         Counter = 0;
@@ -31,7 +31,7 @@ public class SqlLineEntity : SqlEntityBase
 
     public SqlLineEntity(SqlLineEntity item) : base(item)
     {
-        WorkShop = new(item.WorkShop);
+        Warehouse = new(item.Warehouse);
         Printer = new(item.Printer);
         ComPort = item.ComPort;
         Number = item.Number;
@@ -58,7 +58,7 @@ public class SqlLineEntity : SqlEntityBase
         Equals(Number, item.Number) &&
         Equals(Counter, item.Counter) &&
         Equals(PcName, item.PcName) &&
-        WorkShop.Equals(item.WorkShop) &&
+        Warehouse.Equals(item.Warehouse) &&
         Printer.Equals(item.Printer) &&
         Version.Equals(item.Version);
 }

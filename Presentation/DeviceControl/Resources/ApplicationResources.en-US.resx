@@ -33,8 +33,8 @@
     <data name="DataGridColumnPrinter" xml:space="preserve">
         <value>Printer</value>
     </data>
-    <data name="DataGridColumnWorkshop" xml:space="preserve">
-        <value>Workshop</value>
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
+        <value>Warehouse</value>
     </data>
     <data name="DataGridColumnCounter" xml:space="preserve">
         <value>Counter</value>
@@ -120,8 +120,8 @@
     <data name="SectionWeightings" xml:space="preserve">
         <value>Weightings</value>
     </data>
-    <data name="SectionWorkshops" xml:space="preserve">
-        <value>Workshops</value>
+    <data name="SectionWarehouses" xml:space="preserve">
+        <value>Warehouses</value>
     </data>
     <data name="ApplicationName" xml:space="preserve">
         <value>Device Control</value>
@@ -201,8 +201,8 @@
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value>Enter value...</value>
     </data>
-    <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
-        <value>Select the workshop</value>
+    <data name="SectionFormWarehouseDefaultName" xml:space="preserve">
+        <value>Select the warehouse</value>
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">
         <value>Select the printer</value>

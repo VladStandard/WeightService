@@ -51,7 +51,7 @@ public class LineContext
 
     public void ResetLine() {
         SqlLineEntity newLine = LineService.GetCurrentLine();
-        LineEntities = LineService.GetLinesByWorkshop(newLine.WorkShop);
+        LineEntities = LineService.GetLinesByWarehouse(newLine.Warehouse);
         PrinterEntity = newLine.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
         ChangeLine(newLine);
@@ -97,7 +97,7 @@ public class LineContext
         }
         
         PrinterEntity = Line.Printer;
-        LineEntities = LineService.GetLinesByWorkshop(Line.WorkShop);
+        LineEntities = LineService.GetLinesByWarehouse(Line.Warehouse);
         PluEntities = GetPlus();
         
         Plu = new();

@@ -24,7 +24,7 @@ public static class SqlTablesUtils
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "Templates";
     public const string TemplatesResources = "TEMPLATES_RESOURCES";
-    public const string WorkShops = "WORKSHOPS";
+    public const string Warehouses = "WORKSHOPS";
     public const string Printers = "PRINTERS";
     public const string Lines = "LINES";
     public const string ViewLabels = "VIEW_LABELS";
