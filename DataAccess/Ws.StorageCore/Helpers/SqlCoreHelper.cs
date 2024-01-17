@@ -133,7 +133,6 @@ public sealed class SqlCoreHelper
         }
     }
 
-
     private void ExecuteTransactionCore(Action<ISession> action)
     {
         if (SessionFactory is null)
@@ -286,7 +285,7 @@ public sealed class SqlCoreHelper
         return items;
     }
     
-    public object[] GetArrayObjects(string query, List<SqlParameter>? parameters = null)
+    public IEnumerable<Object> GetArrayObjects(string query, List<SqlParameter>? parameters = null)
     {
         parameters ??= [];
         object[] result = Array.Empty<object>();

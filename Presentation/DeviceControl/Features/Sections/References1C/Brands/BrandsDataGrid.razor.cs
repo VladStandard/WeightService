@@ -22,7 +22,7 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<SqlBrandEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = BrandsRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = BrandsRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

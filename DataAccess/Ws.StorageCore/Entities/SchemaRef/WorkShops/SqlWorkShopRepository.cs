@@ -2,9 +2,10 @@ namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 public sealed class SqlWorkShopRepository : SqlTableRepositoryBase<SqlWorkShopEntity>
 {
-    public IEnumerable<SqlWorkShopEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlWorkShopEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlWorkShopEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlWorkShopEntity>(crud);
     }
 }

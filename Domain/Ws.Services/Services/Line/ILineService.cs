@@ -8,5 +8,7 @@ public interface ILineService
 {
     public SqlLineEntity GetCurrentLine();
     public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line);
+    public IEnumerable<SqlPluEntity> GetLineWeightPlus(SqlLineEntity line);
+    public IEnumerable<SqlPluEntity> GetLinePiecePlus(SqlLineEntity line);
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop);
 }

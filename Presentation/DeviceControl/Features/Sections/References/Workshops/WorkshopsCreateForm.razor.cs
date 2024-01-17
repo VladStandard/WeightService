@@ -16,7 +16,7 @@ public sealed partial class WorkshopsCreateForm: SectionFormBase<SqlWorkShopEnti
     protected override void OnInitialized()
     {
         SectionEntity.ProductionSite.Name = Localizer["SectionFormPlatformDefaultName"];
-        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable(new());
+        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable();
         PlatformEntities = PlatformEntities.Append(SectionEntity.ProductionSite);
     }
 }

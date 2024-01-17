@@ -15,10 +15,11 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<SqlPluEntity>
         return SqlCore.GetEnumerable<SqlPluEntity>(sqlCrudConfig);
     }
     
-    public IEnumerable<SqlPluEntity> GetEnumerableNotGroup(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlPluEntity> GetEnumerableNotGroup()
     {
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false));
-        return GetEnumerable(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddFilter(SqlRestrictions.Equal(nameof(SqlPluEntity.IsGroup), false));
+        return GetEnumerable(crud);
     }
     
     public IEnumerable<SqlPluEntity> GetEnumerableByNumber(short number)

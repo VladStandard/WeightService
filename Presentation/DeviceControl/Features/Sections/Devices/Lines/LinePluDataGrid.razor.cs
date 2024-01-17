@@ -29,7 +29,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        SelectPluEntities = PluRepository.GetEnumerableNotGroup(new());
+        SelectPluEntities = PluRepository.GetEnumerableNotGroup();
         SelectedPluEntities = LineService.GetLinePlus(LineEntity);
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
@@ -56,7 +56,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
     
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluLineRepository.GetListByLine(LineEntity, SqlCrudConfigSection);
+        SectionItems = PluLineRepository.GetListByLine(LineEntity);
     
     protected override async Task OpenItemInNewTab(SqlPluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");

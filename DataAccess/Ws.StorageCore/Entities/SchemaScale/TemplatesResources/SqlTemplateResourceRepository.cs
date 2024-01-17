@@ -2,13 +2,13 @@ namespace Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 public class SqlTemplateResourceRepository : SqlTableRepositoryBase<SqlTemplateResourceEntity>
 {
-    public List<SqlTemplateResourceEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlTemplateResourceEntity> GetList()
     {
-        IEnumerable<SqlTemplateResourceEntity> items = SqlCore.GetEnumerable<SqlTemplateResourceEntity>(sqlCrudConfig);
-        items = items
+        SqlCrudConfigModel crud = new();
+        IEnumerable<SqlTemplateResourceEntity> items = SqlCore.GetEnumerable<SqlTemplateResourceEntity>(crud);
+        return items
             .OrderBy(item => item.Name)
             .ThenBy(item => item.Type);
-        return items.ToList();
     }
     
     public SqlTemplateResourceEntity GetByName(string name)

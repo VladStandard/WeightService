@@ -22,7 +22,7 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<SqlClipEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = ClipRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = ClipRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

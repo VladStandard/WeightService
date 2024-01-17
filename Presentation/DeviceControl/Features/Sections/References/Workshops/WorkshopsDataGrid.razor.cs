@@ -24,7 +24,7 @@ public sealed partial class WorkshopsDataGrid: SectionDataGridBase<SqlWorkShopEn
         => await OpenLinkInNewTab($"{RouteUtils.SectionWorkShops}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = WorkshopRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = WorkshopRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

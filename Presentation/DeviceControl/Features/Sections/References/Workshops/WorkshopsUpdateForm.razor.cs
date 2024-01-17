@@ -15,6 +15,6 @@ public sealed partial class WorkshopsUpdateForm: SectionFormBase<SqlWorkShopEnti
 
     protected override void OnInitialized()
     {
-        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable(new()).ToList();
+        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable().ToList();
     }
 }

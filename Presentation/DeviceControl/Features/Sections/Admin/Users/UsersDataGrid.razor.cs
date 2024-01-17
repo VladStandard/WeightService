@@ -28,7 +28,7 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<SqlUserEntity>
 
     protected override void SetSqlSectionCast()
     {
-        SectionItems = UserRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = UserRepository.GetEnumerable().ToList();
         UserNames = UserCacheService.GetCachedUsernames();
     }
 

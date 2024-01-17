@@ -12,7 +12,7 @@ public sealed class WorkShopRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlWorkShopEntity> items = WorkShopRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlWorkShopEntity> items = WorkShopRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

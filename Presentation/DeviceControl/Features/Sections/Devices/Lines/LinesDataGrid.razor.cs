@@ -24,7 +24,7 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = LineRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = LineRepository.GetEnumerable(new()).ToList();
 
     protected override void SetSqlSearchingCast()
     {

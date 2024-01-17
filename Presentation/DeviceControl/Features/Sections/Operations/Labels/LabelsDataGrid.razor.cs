@@ -31,7 +31,7 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<SqlViewLabel>
         => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = LabelRepository.GetList(SqlCrudConfigSection);
+        SectionItems = LabelRepository.GetList(new());
     
     protected override void SetSqlSearchingCast()
     {

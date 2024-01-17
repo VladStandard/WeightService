@@ -24,7 +24,7 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateResourceRepository.GetList(SqlCrudConfigSection);
+        SectionItems = TemplateResourceRepository.GetList();
     
     protected override void SetSqlSearchingCast()
     {

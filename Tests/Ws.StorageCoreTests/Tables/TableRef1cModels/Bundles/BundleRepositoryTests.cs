@@ -10,7 +10,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     private SqlBundleEntity GetFirstBundleModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
-        return BundleRepository.GetEnumerable(SqlCrudConfig).First();
+        return BundleRepository.GetEnumerable().First();
     }
     
     [Test]
@@ -18,7 +18,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlBundleEntity> items = BundleRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlBundleEntity> items = BundleRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

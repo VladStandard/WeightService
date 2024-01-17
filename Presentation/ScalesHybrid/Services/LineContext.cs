@@ -82,7 +82,7 @@ public class LineContext
         NotifyStateChanged();
     }
 
-    private IEnumerable<SqlPluEntity> GetPlus() => LineService.GetLinePlus(Line);
+    private IEnumerable<SqlPluEntity> GetPlus() => LineService.GetLineWeightPlus(Line);
 
     private IEnumerable<SqlPluNestingFkEntity> GetPluNestings() => PluService.GetPluNesting(Plu);
 

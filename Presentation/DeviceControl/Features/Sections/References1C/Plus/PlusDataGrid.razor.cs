@@ -21,7 +21,7 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<SqlPluEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluRepository.GetEnumerableNotGroup(SqlCrudConfigSection).ToList();
+        SectionItems = PluRepository.GetEnumerableNotGroup().ToList();
     
     protected override void SetSqlSearchingCast()
     {

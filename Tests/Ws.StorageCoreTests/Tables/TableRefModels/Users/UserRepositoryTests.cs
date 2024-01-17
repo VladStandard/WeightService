@@ -22,7 +22,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlUserEntity> items = new SqlUserRepository().GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlUserEntity> items = new SqlUserRepository().GetEnumerable();
             ParseRecords(items);
         }, false);
     }

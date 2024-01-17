@@ -10,8 +10,17 @@ public class LineService : ILineService
 {
     public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line)
     {
-       return new SqlPluLineRepository().GetListByLine(line, new())
-           .Select(i => i.Plu).Where(plu => plu.IsGroup == false).OrderBy(item => item.Number);
+       return new SqlPluLineRepository().GetListByLine(line).Select(i => i.Plu);
+    }
+    
+    public IEnumerable<SqlPluEntity> GetLineWeightPlus(SqlLineEntity line)
+    {
+        return new SqlPluLineRepository().GetWeightListByLine(line).Select(i => i.Plu);
+    }
+    
+    public IEnumerable<SqlPluEntity> GetLinePiecePlus(SqlLineEntity line)
+    {
+        return new SqlPluLineRepository().GetPieceListByLine(line).Select(i => i.Plu);
     }
     
     public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)

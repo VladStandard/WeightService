@@ -12,7 +12,7 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlPluStorageMethodEntity> items = PluStorageMethodRepository.GetList();
             ParseRecords(items);
         }, false);
     }

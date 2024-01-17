@@ -23,8 +23,7 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<SqlPrinterEnti
     protected override async Task OpenItemInNewTab(SqlPrinterEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = SqlPrinterRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+    protected override void SetSqlSectionCast() => SectionItems = SqlPrinterRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {
