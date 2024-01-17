@@ -28,6 +28,8 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Parameter] public bool IsFilterable { get; set; }
     [Parameter] public bool IsLoading { get; set; } = true;
     [Parameter] public bool IsBorderless { get; set; }
+    [Parameter] public bool IsGroupable { get; set; }
+    [Parameter] public bool IsCollapsed { get; set; }
 
     private DataGrid<TItem> DataGrid { get; set; } = null!;
     private bool IsVisibleContextMenu { get; set; }
@@ -41,21 +43,15 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     {
         InitializeContextMenu();
     }
-    
-    private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
-        styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-sky-100";
-    
-    
-    private static DataGridRowStyling CustomHeaderRowStyling() =>
-        new() { Class = "bg-sky-200 truncate text-black overflow-hidden" };
-    
-    
-    private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
-        styling.Class = "truncate";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
+        await InitializeJsModule();
+    }
+
+    private async Task InitializeJsModule()
+    {
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./Features/Sections/Shared/DataGrid/SectionDataGridWrapper.razor.js");
         await Module.InvokeVoidAsync("addClickOutsideListener", 
@@ -98,6 +94,17 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
             });
     }
     
+    private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
+        styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-sky-100";
+    
+    
+    private static DataGridRowStyling CustomHeaderRowStyling() =>
+        new() { Class = "bg-sky-200 truncate text-black overflow-hidden" };
+    
+    
+    private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
+        styling.Class = "truncate";
+    
     private Task OnRowContextMenu(DataGridRowMouseEventArgs<TItem> eventArgs)
     {
         IsVisibleContextMenu = true;
@@ -137,6 +144,13 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     {
         await GetGridData.InvokeAsync();
         await DataGrid.Reload();
+        await OnGetGridDataAction();
+    }
+
+    private async Task OnGetGridDataAction()
+    {
+        if (IsGroupable && !IsCollapsed)
+            await DataGrid.ExpandAllGroups();
     }
     
     public async void Dispose()

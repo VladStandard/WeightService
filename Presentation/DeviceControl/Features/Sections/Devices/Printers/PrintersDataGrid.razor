@@ -13,6 +13,7 @@
   DeleteAction="DeleteSqlItem"
   OpenInTabAction="OpenItemInNewTab"
   IsLoading="IsLoading"
+  IsGroupable
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
@@ -23,6 +24,8 @@
     Caption="@Localizer["DataGridColumnType"]"
     Field="@nameof(SqlPrinterEntity.Type)"
     Width="30%"
+    Groupable
+    Grouping
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnIp"]"
