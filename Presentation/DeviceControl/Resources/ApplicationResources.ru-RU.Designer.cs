@@ -537,11 +537,29 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сообщение запроса.
+        /// </summary>
+        internal static string DataGridColumnRequest {
+            get {
+                return ResourceManager.GetString("DataGridColumnRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Url запроса.
         /// </summary>
         internal static string DataGridColumnRequestUrl {
             get {
                 return ResourceManager.GetString("DataGridColumnRequestUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщение ответа.
+        /// </summary>
+        internal static string DataGridColumnResponse {
+            get {
+                return ResourceManager.GetString("DataGridColumnResponse", resourceCulture);
             }
         }
         

@@ -41,7 +41,6 @@ public sealed partial class NavMenu : ComponentBase
                 new(Localizer["SectionLabels"], RouteUtils.SectionLabels)
             ]
         },
-
         new()
         {
             Label = Localizer["Menu1CReferences"],

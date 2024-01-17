@@ -390,4 +390,10 @@
     <data name="DataGridColumnActive" xml:space="preserve">
         <value />
     </data>
+    <data name="DataGridColumnRequest" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnResponse" xml:space="preserve">
+        <value />
+    </data>
 </root>

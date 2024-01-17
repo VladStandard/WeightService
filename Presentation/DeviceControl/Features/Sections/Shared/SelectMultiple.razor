@@ -30,7 +30,7 @@
           @onclick="SwitchSelectVisibility"
           class="text-sky-600 disabled:text-gray-400">
           <p class="truncate text-sm text-inherit">
-            @(SelectVisibility == SelectVisibility.All ? "Показать все" : "Показать выбранные")
+            @(SelectVisibility == SelectVisibility.Selected ? "Показать все" : "Показать выбранные")
           </p>
         </button>
       </div>

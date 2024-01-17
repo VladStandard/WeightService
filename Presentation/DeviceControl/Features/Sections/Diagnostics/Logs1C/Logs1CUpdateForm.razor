@@ -1,0 +1,39 @@
+@using Ws.StorageCore.Entities.SchemaRef.Printers
+@using Ws.StorageCore.Entities.SchemaRef.WorkShops
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaDiag.LogsWebs.SqlLogWebEntity>
+
+
+<SectionFormWrapper
+  ShareUrl="@($"{RouteUtils.Section1CLogs}/{SectionEntity.IdentityValueUid}")"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+    IsCopyable
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Version"
+    Label="@Localizer["DataGridColumnVersion"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@SectionEntity.Url"
+    Label="@Localizer["DataGridColumnRequestUrl"]"
+    IsDisabled
+  />
+  <SectionFormInputText
+    Value="@GetFormattedXml(SectionEntity.DataRequest)"
+    Label="@Localizer["DataGridColumnRequest"]"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsDisabled
+    IsCopyable
+  />
+  <SectionFormInputText
+    Value="@GetFormattedXml(SectionEntity.DataRequest)"
+    Label="@Localizer["DataGridColumnResponse"]"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsDisabled
+    IsCopyable
+  />
+</SectionFormWrapper>

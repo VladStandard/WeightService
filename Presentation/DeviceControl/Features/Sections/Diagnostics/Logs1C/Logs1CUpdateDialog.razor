@@ -1,0 +1,11 @@
+@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaDiag.LogsWebs.SqlLogWebEntity>
+
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <Logs1CUpdateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

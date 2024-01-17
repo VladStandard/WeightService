@@ -24,7 +24,7 @@
       <button
         type="button"
         @onclick="CloseModal"
-        class="h-9 bg-red-300 transition-colors flex items-center px-4 justify-center overflow-hidden
+        class="h-9 bg-red-300 transition-colors flex items-center w-32 justify-center overflow-hidden
                   rounded-md border border-black/[.1] hover:bg-red-400">
         <p class="font-normal pt-[1px]">@Localizer["ButtonCancel"]</p>
       </button>
@@ -32,7 +32,7 @@
         type="button"
         @onclick="ExecuteSubmitWithTimeout"
         disabled="@IsSubmitDisabled"
-        class="h-9 bg-green-300 transition-colors flex items-center px-4 justify-center overflow-hidden
+        class="h-9 bg-green-300 transition-colors flex items-center w-32 justify-center overflow-hidden
                   rounded-md border border-black/[.1] hover:bg-green-400 disabled:bg-green-500 disabled:hover:bg-green-600">
         <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
       </button>

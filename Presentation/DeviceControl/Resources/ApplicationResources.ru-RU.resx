@@ -390,4 +390,10 @@
     <data name="DataGridColumnActive" xml:space="preserve">
         <value>В сети</value>
     </data>
+    <data name="DataGridColumnRequest" xml:space="preserve">
+        <value>Сообщение запроса</value>
+    </data>
+    <data name="DataGridColumnResponse" xml:space="preserve">
+        <value>Сообщение ответа</value>
+    </data>
 </root>
