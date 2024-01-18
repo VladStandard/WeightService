@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using Ws.Shared.TypeUtils;
+using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
@@ -10,6 +11,7 @@ using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 using Ws.WebApiScales.Common.Services;
 using Ws.WebApiScales.Dto.Plu;
 using Ws.WebApiScales.Dto.Response;
+using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Services;
 
@@ -23,6 +25,24 @@ public class PluService(ResponseDto responseDto) : IPluService
         if (plu.IsNew) return;
         SqlCoreHelper.Instance.Delete(plu);
     }
+
+    private static SqlStorageMethodEntity GetStorageMethodEntity(PluDto pluDto)
+    {
+        SqlStorageMethodEntity storageDb = new SqlStorageMethodRepository().GetItemByName(pluDto.StorageMethod);
+
+        if (!storageDb.IsNew)
+            return storageDb;
+        
+        storageDb = new SqlStorageMethodRepository().GetItemByName(DefaultNamesUtils.DefaultStorage);
+        
+        if (!storageDb.IsNew)
+            return storageDb;
+        
+        storageDb.Name = DefaultNamesUtils.DefaultStorage;
+        SqlCoreHelper.Instance.SaveOrUpdate(storageDb);
+
+        return storageDb;
+    }
     
     private static SqlClipEntity SaveOrUpdateClip(PluDto pluDto)
     {
@@ -33,7 +53,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         if (clipDb.Uid1C == Guid.Empty)
         {
             clipDb.Weight = 0;
-            clipDb.Name = "Без клипсы";
+            clipDb.Name = DefaultNamesUtils.DefaultClip;
         }
         
         SqlCoreHelper.Instance.SaveOrUpdate(clipDb);
@@ -48,7 +68,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         
         if (boxDb.Uid1C == Guid.Empty)
         {
-            boxDb.Name = "Без коробки";
+            boxDb.Name = DefaultNamesUtils.DefaultBox;
             boxDb.Weight = 0;
         }
         
@@ -64,7 +84,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         
         if (bundleDb.Uid1C == Guid.Empty)
         {
-            bundleDb.Name = "Без пакета";
+            bundleDb.Name = DefaultNamesUtils.DefaultBundle;
             bundleDb.Weight = 0;
         }
         
@@ -95,6 +115,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         plu = pluDto.AdaptTo(plu);
         plu.Bundle = bundle;
         plu.Brand = new SqlBrandRepository().GetItemByUid1C(pluDto.BrandGuid);
+        plu.StorageMethod = GetStorageMethodEntity(pluDto);
         SqlCoreHelper.Instance.SaveOrUpdate(plu);
     }
     

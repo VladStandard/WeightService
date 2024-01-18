@@ -27,6 +27,9 @@ public class ValidatorPluDto : AbstractValidator<PluDto>
             .Empty().When(item => item.IsGroup).WithMessage("У группы ПЛУ 'Itf14' должен отсутствовать")
             .Empty().When(item => item.IsCheckWeight).WithMessage("У весовой ПЛУ 'Itf14' должен отсутствовать")
             .Length(14).When(item => !item.IsGroup && !item.IsCheckWeight).WithMessage("'Itf14' должен состоять из 14 символов");
+        RuleFor(dto => dto.StorageMethod)
+            .Empty().When(item => item.IsGroup).WithMessage("У группы ПЛУ 'Способ хранения' должен отсутствовать")
+            .Must(value => value is "Замороженное" or "Охлаждённое").When(item=>!item.IsGroup).WithMessage("'Способ хранения' должен быть ['Замороженное', 'Охлаждённое']");
         RuleFor(dto => dto.Ean13)
             .Empty().When(item => item.IsGroup).WithMessage("У группы ПЛУ 'Ean13' должен отсутствовать")
             .Length(13).When(item => !item.IsGroup).WithMessage("'Ean13' должен состоять из 13 символов");

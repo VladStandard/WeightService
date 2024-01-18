@@ -39,7 +39,7 @@ public class SqlViewLabelMap : ClassMapping<SqlViewLabel>
         });
         
         Property(x => x.Warehouse, m => {
-            m.Column("WORKSHOP");
+            m.Column("WAREHOUSE");
             m.Type(NHibernateUtil.String);
         });
         
