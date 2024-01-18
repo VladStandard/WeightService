@@ -12,7 +12,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlBoxEntity> items = BoxRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlBoxEntity> items = BoxRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

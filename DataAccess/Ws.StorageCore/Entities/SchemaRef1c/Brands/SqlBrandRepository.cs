@@ -2,10 +2,11 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Brands;
 
 public sealed class SqlBrandRepository : SqlTableRepositoryBase<SqlBrandEntity>
 {
-    public IEnumerable<SqlBrandEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlBrandEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlBrandEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlBrandEntity>(crud);
     }
 
     public SqlBrandEntity GetItemByUid1C(Guid uid1C)

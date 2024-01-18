@@ -9,10 +9,11 @@ public sealed class SqlBundleRepository : SqlTableRepositoryBase<SqlBundleEntity
         return SqlCore.GetItemByCrud<SqlBundleEntity>(sqlCrudConfig);
     }
     
-    public IEnumerable<SqlBundleEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlBundleEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlBundleEntity.Weight)));
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlBundleEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.Asc(nameof(SqlBundleEntity.Weight)));
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlBundleEntity>(crud);
     }
 }

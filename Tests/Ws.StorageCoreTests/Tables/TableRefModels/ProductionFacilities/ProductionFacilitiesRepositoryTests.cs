@@ -12,7 +12,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

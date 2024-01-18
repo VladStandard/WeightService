@@ -24,7 +24,7 @@ public sealed partial class PluStoragesDataGrid : SectionDataGridBase<SqlPluStor
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlusStorage}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluStorageRepository.GetList(SqlCrudConfigSection);
+        SectionItems = PluStorageRepository.GetList();
     
     protected override void SetSqlSearchingCast()
     {

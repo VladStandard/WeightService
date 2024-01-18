@@ -242,9 +242,9 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnWorkshop {
+        internal static string DataGridColumnWarehouse {
             get {
-                return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
+                return ResourceManager.GetString("DataGridColumnWarehouse", resourceCulture);
             }
         }
         

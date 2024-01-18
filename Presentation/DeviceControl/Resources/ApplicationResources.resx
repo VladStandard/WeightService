@@ -33,7 +33,7 @@
     <data name="DataGridColumnPrinter" xml:space="preserve">
         <value />
     </data>
-    <data name="DataGridColumnWorkshop" xml:space="preserve">
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
         <value />
     </data>
     <data name="DataGridColumnCounter" xml:space="preserve">
@@ -93,7 +93,7 @@
     <data name="SectionBrands" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionWorkshops" xml:space="preserve">
+    <data name="SectionWarehouses" xml:space="preserve">
         <value />
     </data>
     <data name="SectionProductionSites" xml:space="preserve">
@@ -201,7 +201,7 @@
     <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionFormWorkShopDefaultName" xml:space="preserve">
+    <data name="SectionFormWarehouseDefaultName" xml:space="preserve">
         <value />
     </data>
     <data name="SectionFormPrinterDefaultName" xml:space="preserve">

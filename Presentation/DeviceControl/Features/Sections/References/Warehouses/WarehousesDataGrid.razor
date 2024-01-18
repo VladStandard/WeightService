@@ -1,11 +1,11 @@
-@using Ws.StorageCore.Entities.SchemaRef.WorkShops
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.WorkShops.SqlWorkShopEntity>
+@using Ws.StorageCore.Entities.SchemaRef.Warehouses
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Warehouses.SqlWarehouseEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlWorkShopEntity"
+  TItem="SqlWarehouseEntity"
   @ref="DataGridWrapperRef"
-  Title="@Localizer["SectionWorkshops"]"
+  Title="@Localizer["SectionWarehouses"]"
   GridData="SectionItems"
   GetGridData="GetSectionData"
   ReadAction="OpenDataGridEntityModal"
@@ -15,7 +15,7 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlWorkShopEntity.Name)"
+    Field="@nameof(SqlWarehouseEntity.Name)"
     Width="50%"
   />
   <DataGridColumn

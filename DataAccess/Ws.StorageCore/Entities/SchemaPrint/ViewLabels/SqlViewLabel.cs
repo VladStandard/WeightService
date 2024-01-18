@@ -9,7 +9,7 @@ public class SqlViewLabel : SqlEntityBase
     public virtual string LineName { get; set; } = string.Empty;
     public virtual string PluName { get; set; } = string.Empty;
 
-    public virtual string WorkShop { get; set; } = string.Empty;
+    public virtual string Warehouse { get; set; } = string.Empty;
     public virtual string BarcodeTop { get; set; } = string.Empty;
     public virtual string BarcodeBottom { get; set; } = string.Empty;
     public virtual string BarcodeRight { get; set; } = string.Empty;

@@ -1,5 +1,5 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
-@using Ws.StorageCore.Entities.SchemaRef.WorkShops
+@using Ws.StorageCore.Entities.SchemaRef.Warehouses
 @inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
 
 
@@ -27,10 +27,10 @@
     ItemDisplayName="item => item.DisplayName"
   />
   <SectionFormInputSelect
-    TItem="SqlWorkShopEntity"
-    Items="WorkShopEntities"
-    Label="@Localizer["DataGridColumnWorkshop"]"
-    @bind-SelectedItem="@SectionEntity.WorkShop"
+    TItem="SqlWarehouseEntity"
+    Items="WarehousesEntities"
+    Label="@Localizer["DataGridColumnWarehouse"]"
+    @bind-SelectedItem="@SectionEntity.Warehouse"
     ItemDisplayName="item => item.Name"
   />
 </SectionFormWrapper>

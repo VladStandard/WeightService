@@ -75,8 +75,8 @@
     <data name="DataGridColumnName" xml:space="preserve">
         <value>Name</value>
     </data>
-    <data name="DataGridColumnWorkshop" xml:space="preserve">
-        <value>Workshop</value>
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
+        <value>Warehouse</value>
     </data>
     <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
         <value>PLU Select</value>

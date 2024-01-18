@@ -18,7 +18,7 @@ public class LineContextConfigRegister : IRegister
             .Map(d => d.IsCheckWeight, s => s.Plu.IsCheckWeight)
             .Map(d => d.Itf, s => s.Plu.Itf14)
             .Map(d => d.Gtin, s => s.Plu.Gtin)
-            .Map(d => d.Address, s => s.Line.WorkShop.ProductionSite.Address)
+            .Map(d => d.Address, s => s.Line.Warehouse.ProductionSite.Address)
             .Map(d => d.PluFullName, s => s.Plu.FullName)
             .Map(d => d.PluDescription, s => s.Plu.Description)
             .Map(d => d.LineNumber, s => s.Line.Number)

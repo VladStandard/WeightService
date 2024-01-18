@@ -1,4 +1,4 @@
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
@@ -18,10 +18,10 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
         return SqlCore.GetItemByCrud<SqlLineEntity>(sqlCrudConfig);
     }
     
-    public IEnumerable<SqlLineEntity> GetLinesByWorkshop(SqlWorkShopEntity workShop)
+    public IEnumerable<SqlLineEntity> GetLinesByWarehouse(SqlWarehouseEntity warehouse)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.WorkShop), workShop));
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlLineEntity.Warehouse), warehouse));
         return GetEnumerable(sqlCrudConfig);
     }
     
@@ -29,6 +29,6 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<SqlLineEntity>
     {
         sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlEntityBase.Name)));
         IEnumerable<SqlLineEntity> lines = SqlCore.GetEnumerable<SqlLineEntity>(sqlCrudConfig);
-        return lines.OrderBy(item => item.WorkShop.Name);
+        return lines.OrderBy(item => item.Warehouse.Name);
     }
 }

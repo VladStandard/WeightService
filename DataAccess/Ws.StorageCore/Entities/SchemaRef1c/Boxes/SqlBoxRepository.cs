@@ -2,11 +2,12 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Boxes;
 
 public sealed class SqlBoxRepository : SqlTableRepositoryBase<SqlBoxEntity>
 {
-    public IEnumerable<SqlBoxEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlBoxEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(SqlBoxEntity.Weight)));
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlBoxEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.Asc(nameof(SqlBoxEntity.Weight)));
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlBoxEntity>(crud);
     }
     
     public SqlBoxEntity GetItemByUid1C(Guid uid1C)

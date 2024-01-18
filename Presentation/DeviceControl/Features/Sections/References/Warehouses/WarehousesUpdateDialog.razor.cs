@@ -4,14 +4,14 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Shared.Enums;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
-namespace DeviceControl.Features.Sections.References.Workshops;
+namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WorkshopsCreateDialog: SectionDialogBase<SqlWorkShopEntity>
+public sealed partial class WarehousesUpdateDialog: SectionDialogBase<SqlWarehouseEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
-        [new(Localizer["SectionWorkshops"], "main")];
+        [new(Localizer["SectionWarehouses"], "main")];
 }

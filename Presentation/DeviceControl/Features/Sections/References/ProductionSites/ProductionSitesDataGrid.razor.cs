@@ -24,7 +24,7 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProd
         => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PlatformsRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = PlatformsRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

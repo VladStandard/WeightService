@@ -6,10 +6,11 @@ namespace Ws.StorageCore.Entities.SchemaRef1c.Clips;
 /// </summary>
 public sealed class SqlClipRepository : SqlTableRepositoryBase<SqlClipEntity>
 {
-    public IEnumerable<SqlClipEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlClipEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlClipEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlClipEntity>(crud);
     }
 
     public SqlClipEntity GetItemByUid1C(Guid uid1C)

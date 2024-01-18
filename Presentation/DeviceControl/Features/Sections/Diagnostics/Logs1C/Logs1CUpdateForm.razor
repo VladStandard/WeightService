@@ -1,5 +1,4 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
-@using Ws.StorageCore.Entities.SchemaRef.WorkShops
 @inherits SectionFormBase<Ws.StorageCore.Entities.SchemaDiag.LogsWebs.SqlLogWebEntity>
 
 
@@ -30,7 +29,7 @@
     IsCopyable
   />
   <SectionFormInputText
-    Value="@GetFormattedXml(SectionEntity.DataRequest)"
+    Value="@GetFormattedXml(SectionEntity.DataResponse)"
     Label="@Localizer["DataGridColumnResponse"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
     IsDisabled

@@ -22,9 +22,22 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<SqlPluLineEnti
         return items.ToList();
     }
 
-    public List<SqlPluLineEntity> GetListByLine(SqlLineEntity line, SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlPluLineEntity> GetListByLine(SqlLineEntity line)
     {
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluLineEntity.Line), line));
-        return GetList(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluLineEntity.Line), line));
+        return GetList(crud).OrderBy(i => i.Plu.Number);
+    }
+    
+    public IEnumerable<SqlPluLineEntity> GetWeightListByLine(SqlLineEntity line)
+    {
+        IEnumerable<SqlPluLineEntity> items = GetListByLine(line);
+        return items.Where(x => x.Plu.IsCheckWeight);
+    }
+    
+    public IEnumerable<SqlPluLineEntity> GetPieceListByLine(SqlLineEntity line)
+    {
+        IEnumerable<SqlPluLineEntity> items = GetListByLine(line);
+        return items.Where(x => !x.Plu.IsCheckWeight);
     }
 }

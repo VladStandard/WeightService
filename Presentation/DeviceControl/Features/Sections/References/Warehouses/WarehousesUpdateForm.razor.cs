@@ -3,11 +3,11 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
+using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
-namespace DeviceControl.Features.Sections.References.Workshops;
+namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WorkshopsCreateForm: SectionFormBase<SqlWorkShopEntity>
+public sealed partial class WarehousesUpdateForm: SectionFormBase<SqlWarehouseEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
@@ -15,8 +15,6 @@ public sealed partial class WorkshopsCreateForm: SectionFormBase<SqlWorkShopEnti
 
     protected override void OnInitialized()
     {
-        SectionEntity.ProductionSite.Name = Localizer["SectionFormPlatformDefaultName"];
-        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable(new());
-        PlatformEntities = PlatformEntities.Append(SectionEntity.ProductionSite);
+        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable().ToList();
     }
 }

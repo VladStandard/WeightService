@@ -12,7 +12,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlBrandEntity> items = BrandRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlBrandEntity> items = BrandRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

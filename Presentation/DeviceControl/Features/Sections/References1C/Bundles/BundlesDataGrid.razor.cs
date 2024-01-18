@@ -22,7 +22,7 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<SqlBundleEntity
         => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = BundleRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = BundleRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

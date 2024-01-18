@@ -22,7 +22,7 @@ public sealed partial class BoxesDataGrid: SectionDataGridBase<SqlBoxEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = BoxRepository.GetEnumerable(SqlCrudConfigSection).ToList();
+        SectionItems = BoxRepository.GetEnumerable().ToList();
     
     protected override void SetSqlSearchingCast()
     {

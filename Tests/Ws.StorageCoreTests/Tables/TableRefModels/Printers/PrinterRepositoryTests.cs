@@ -12,7 +12,7 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlPrinterEntity> items = PrinterRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlPrinterEntity> items = PrinterRepository.GetEnumerable();
             ParseRecords(items);
         }, false);
     }

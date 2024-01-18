@@ -15,7 +15,7 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlTemplateResourceEntity> items = TemplateResourceRepository.GetList(SqlCrudConfig);
+            IEnumerable<SqlTemplateResourceEntity> items = TemplateResourceRepository.GetList();
             ParseRecords(items);
         }, false);
     }

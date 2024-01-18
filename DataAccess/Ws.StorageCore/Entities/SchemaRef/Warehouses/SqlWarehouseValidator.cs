@@ -1,10 +1,10 @@
 using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
 
-namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
+namespace Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
-public sealed class SqlWorkShopValidator : SqlTableValidator<SqlWorkShopEntity>
+public sealed class SqlWarehouseValidator : SqlTableValidator<SqlWarehouseEntity>
 {
-    public SqlWorkShopValidator(bool isCheckIdentity) : base(isCheckIdentity)
+    public SqlWarehouseValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
             .NotEmpty()

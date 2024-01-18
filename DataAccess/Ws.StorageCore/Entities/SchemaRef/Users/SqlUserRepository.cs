@@ -27,10 +27,11 @@ public sealed class SqlUserRepository : SqlTableRepositoryBase<SqlUserEntity>
 
     #region List
 
-    public IEnumerable<SqlUserEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlUserEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<SqlUserEntity>(sqlCrudConfig).ToList();
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.NameAsc());
+        return SqlCore.GetEnumerable<SqlUserEntity>(crud).ToList();
     }
 
     #endregion

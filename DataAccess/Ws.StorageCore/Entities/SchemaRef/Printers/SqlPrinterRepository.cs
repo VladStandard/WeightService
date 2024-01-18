@@ -2,10 +2,11 @@
 
 public class SqlPrinterRepository : SqlTableRepositoryBase<SqlPrinterEntity>
 {
-    public IEnumerable<SqlPrinterEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<SqlPrinterEntity> GetEnumerable()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.NameAsc());
-        IEnumerable<SqlPrinterEntity> items = SqlCore.GetEnumerable<SqlPrinterEntity>(sqlCrudConfig);
+        SqlCrudConfigModel crud = new();
+        crud.AddOrder(SqlOrder.NameAsc());
+        IEnumerable<SqlPrinterEntity> items = SqlCore.GetEnumerable<SqlPrinterEntity>(crud);
         return items.OrderBy(item => item.Type);
     }
 }

@@ -708,20 +708,20 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Склад.
+        /// </summary>
+        internal static string DataGridColumnWarehouse {
+            get {
+                return ResourceManager.GetString("DataGridColumnWarehouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вес.
         /// </summary>
         internal static string DataGridColumnWeight {
             get {
                 return ResourceManager.GetString("DataGridColumnWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Цех.
-        /// </summary>
-        internal static string DataGridColumnWorkshop {
-            get {
-                return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
             }
         }
         
@@ -987,11 +987,11 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выберите цех.
+        ///   Looks up a localized string similar to Выберите склад.
         /// </summary>
-        internal static string SectionFormWorkShopDefaultName {
+        internal static string SectionFormWarehouseDefaultName {
             get {
-                return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
+                return ResourceManager.GetString("SectionFormWarehouseDefaultName", resourceCulture);
             }
         }
         
@@ -1113,20 +1113,20 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Склады.
+        /// </summary>
+        internal static string SectionWarehouses {
+            get {
+                return ResourceManager.GetString("SectionWarehouses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Взвешивания.
         /// </summary>
         internal static string SectionWeightings {
             get {
                 return ResourceManager.GetString("SectionWeightings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Цеха.
-        /// </summary>
-        internal static string SectionWorkshops {
-            get {
-                return ResourceManager.GetString("SectionWorkshops", resourceCulture);
             }
         }
         

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef.WorkShops;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 

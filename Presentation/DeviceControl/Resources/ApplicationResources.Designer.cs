@@ -710,18 +710,18 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnWeight {
+        internal static string DataGridColumnWarehouse {
             get {
-                return ResourceManager.GetString("DataGridColumnWeight", resourceCulture);
+                return ResourceManager.GetString("DataGridColumnWarehouse", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnWorkshop {
+        internal static string DataGridColumnWeight {
             get {
-                return ResourceManager.GetString("DataGridColumnWorkshop", resourceCulture);
+                return ResourceManager.GetString("DataGridColumnWeight", resourceCulture);
             }
         }
         
@@ -989,9 +989,9 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SectionFormWorkShopDefaultName {
+        internal static string SectionFormWarehouseDefaultName {
             get {
-                return ResourceManager.GetString("SectionFormWorkShopDefaultName", resourceCulture);
+                return ResourceManager.GetString("SectionFormWarehouseDefaultName", resourceCulture);
             }
         }
         
@@ -1115,18 +1115,18 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SectionWeightings {
+        internal static string SectionWarehouses {
             get {
-                return ResourceManager.GetString("SectionWeightings", resourceCulture);
+                return ResourceManager.GetString("SectionWarehouses", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SectionWorkshops {
+        internal static string SectionWeightings {
             get {
-                return ResourceManager.GetString("SectionWorkshops", resourceCulture);
+                return ResourceManager.GetString("SectionWeightings", resourceCulture);
             }
         }
         

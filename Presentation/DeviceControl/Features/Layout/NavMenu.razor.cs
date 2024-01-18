@@ -61,7 +61,7 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.BookOpen,
             SubItems =
             [
-                new(Localizer["SectionWorkshops"], RouteUtils.SectionWorkShops),
+                new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
                 new(Localizer["SectionProductionSites"],RouteUtils.SectionProductionSites),
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
                 new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),

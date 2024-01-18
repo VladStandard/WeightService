@@ -77,9 +77,9 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
             m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.WorkShop, m =>
+        ManyToOne(x => x.Warehouse, m =>
         {
-            m.Column("WORKSHOP_UID");
+            m.Column("WAREHOUSE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

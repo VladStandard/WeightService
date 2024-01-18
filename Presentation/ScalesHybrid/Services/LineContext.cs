@@ -56,7 +56,7 @@ public class LineContext: IDisposable
 
     public void ResetLine() {
         SqlLineEntity newLine = LineService.GetCurrentLine();
-        LineEntities = LineService.GetLinesByWorkshop(newLine.WorkShop);
+        LineEntities = LineService.GetLinesByWarehouse(newLine.Warehouse);
         PrinterEntity = newLine.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
         ChangeLine(newLine);
@@ -85,7 +85,7 @@ public class LineContext: IDisposable
         NotifyStateChanged();
     }
 
-    private IEnumerable<SqlPluEntity> GetPlus() => LineService.GetLinePlus(Line);
+    private IEnumerable<SqlPluEntity> GetPlus() => LineService.GetLineWeightPlus(Line);
 
     private IEnumerable<SqlPluNestingFkEntity> GetPluNestings() => PluService.GetPluNesting(Plu);
 
@@ -100,7 +100,7 @@ public class LineContext: IDisposable
         }
         
         PrinterEntity = Line.Printer;
-        LineEntities = LineService.GetLinesByWorkshop(Line.WorkShop);
+        LineEntities = LineService.GetLinesByWarehouse(Line.Warehouse);
         PluEntities = GetPlus();
         
         Plu = new();

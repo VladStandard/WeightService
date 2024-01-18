@@ -1,11 +1,11 @@
-namespace Ws.StorageCore.Entities.SchemaRef.WorkShops;
+namespace Ws.StorageCore.Entities.SchemaRef.Warehouses;
 
-public class SqlWorkshopMap : ClassMapping<SqlWorkShopEntity>
+public class SqlWarehouseMap : ClassMapping<SqlWarehouseEntity>
 {
-    public SqlWorkshopMap()
+    public SqlWarehouseMap()
     {
         Schema(SqlSchemasUtils.Ref);
-        Table(SqlTablesUtils.WorkShops);
+        Table(SqlTablesUtils.Warehouses);
 
         Id(x => x.IdentityValueUid, m =>
         {

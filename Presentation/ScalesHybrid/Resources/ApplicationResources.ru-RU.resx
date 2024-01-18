@@ -75,8 +75,8 @@
     <data name="DataGridColumnName" xml:space="preserve">
         <value>Название</value>
     </data>
-    <data name="DataGridColumnWorkshop" xml:space="preserve">
-        <value>Площадка</value>
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
+        <value>Склад</value>
     </data>
     <data name="DialogPluSelectHeaderLabel" xml:space="preserve">
         <value>Выбор ПЛУ</value>
