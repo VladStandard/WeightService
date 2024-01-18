@@ -2,13 +2,10 @@ namespace Ws.StorageCore.OrmUtils;
 
 public static class SqlTablesUtils
 {
-    public const string Access = "ACCESS";
     public const string Boxes = "BOXES";
     public const string Brands = "BRANDS";
     public const string Bundles = "BUNDLES";
     public const string Clips = "CLIPS";
-    public const string Hosts = "HOSTS";
-    public const string Logs = "LOGS";
     public const string Users = "USERS";
     public const string Claims = "CLAIMS";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
@@ -24,7 +21,7 @@ public static class SqlTablesUtils
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "Templates";
     public const string TemplatesResources = "TEMPLATES_RESOURCES";
-    public const string Warehouses = "WORKSHOPS";
+    public const string Warehouses = "WAREHOUSES";
     public const string Printers = "PRINTERS";
     public const string Lines = "LINES";
     public const string ViewLabels = "VIEW_LABELS";
