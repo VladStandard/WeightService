@@ -1,9 +1,9 @@
-@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods.SqlPluStorageMethodEntity>
+@inherits SectionDialogBase<Ws.StorageCore.Entities.SchemaRef.StorageMethods.SqlStorageMethodEntity>
 
 
 <SectionModalWrapper TabsButtonList="@TabsList">
   <SectionTabPanel Name="main">
-    <PluStoragesUpdateForm
+    <StorageMethodsUpdateForm
       OnSubmitAction="OnDataChangedAction"
       SectionEntity="SectionEntity"
     />

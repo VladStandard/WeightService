@@ -31,7 +31,7 @@ public abstract class LabelGenerator
         string zpl = XmlUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
         zpl = XmlReplaceNextLine(zpl);
         zpl = ZplUtils.ConvertStringToHex(zpl);
-        zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.PluNumber);
+        zpl = ZplUtils.PrintCmdReplaceZplResources(zpl, dto.Plu1СGuid);
         return new(zpl, labelModel);
     }
     

@@ -6,6 +6,7 @@ using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
 using Ws.StorageCore.Entities.SchemaRef.Users;
 using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
@@ -15,8 +16,6 @@ using Ws.StorageCore.Entities.SchemaRef1c.Clips;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
-using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
@@ -38,8 +37,7 @@ public static class SqlValidationUtils
             SqlPluEntity plu => new SqlPluValidator(isCheckIdentity).Validate(plu),
             SqlPluNestingFkEntity nestingFk => new SqlPluNestingFkValidator(isCheckIdentity).Validate(nestingFk),
             SqlPluLineEntity pluScale => new SqlPluLineValidator(isCheckIdentity).Validate(pluScale),
-            SqlPluStorageMethodFkEntity plusStorageMethodFk => new SqlPluStorageMethodFkValidator(isCheckIdentity).Validate(plusStorageMethodFk),
-            SqlPluStorageMethodEntity plusStorageMethod => new SqlPluStorageMethodValidator(isCheckIdentity).Validate(plusStorageMethod),
+            SqlStorageMethodEntity plusStorageMethod => new SqlStorageMethodValidator(isCheckIdentity).Validate(plusStorageMethod),
             SqlPluTemplateFkEntity pluTemplate => new SqlPluTemplateFkValidator(isCheckIdentity).Validate(pluTemplate),
             SqlPalletEntity pallet => new SqlPalletValidator(isCheckIdentity).Validate(pallet),
             SqlProductionSiteEntity productionFacility => new SqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),

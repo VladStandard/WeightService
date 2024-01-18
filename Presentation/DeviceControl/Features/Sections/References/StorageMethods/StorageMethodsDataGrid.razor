@@ -1,0 +1,26 @@
+@using Ws.StorageCore.Entities.SchemaRef.StorageMethods
+@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.StorageMethods.SqlStorageMethodEntity>
+
+
+<SectionDataGridWrapper
+  TItem="SqlStorageMethodEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionPluStorages"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading">
+
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnCreateDt"]"
+    Field="@nameof(SqlStorageMethodEntity.CreateDt)"
+    Width="15%"/>
+
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlStorageMethodEntity.Name)"
+    Width="85%"/>
+
+</SectionDataGridWrapper>

@@ -4,11 +4,11 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Shared.Enums;
-using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethods;
+using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
 
-namespace DeviceControl.Features.Sections.References.PluStorages;
+namespace DeviceControl.Features.Sections.References.StorageMethods;
 
-public sealed partial class PluStoragesUpdateDialog : SectionDialogBase<SqlPluStorageMethodEntity>
+public sealed partial class StorageMethodsUpdateDialog : SectionDialogBase<SqlStorageMethodEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     

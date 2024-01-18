@@ -15,8 +15,7 @@ public static class SqlTablesUtils
     public const string Pallets = "PALLETS";
     public const string PlusNestingFks = "PLUS_NESTING_FK";
     public const string PlusLines = "PLUS_LINES";
-    public const string PlusStorageMethods = "PLUS_STORAGE_METHODS";
-    public const string PlusStorageMethodsFks = "PLUS_STORAGE_METHODS_FK";
+    public const string StorageMethods = "STORAGE_METHODS";
     public const string PlusTemplatesFks = "PLUS_TEMPLATES_FK";
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "Templates";

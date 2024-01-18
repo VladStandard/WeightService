@@ -100,7 +100,7 @@
         <value>ПЛУ</value>
     </data>
     <data name="SectionPluStorages" xml:space="preserve">
-        <value>Хранилища ПЛУ</value>
+        <value>Способы хранения</value>
     </data>
     <data name="SectionPrinters" xml:space="preserve">
         <value>Принтеры</value>
@@ -328,7 +328,7 @@
         <value>Шаблон</value>
     </data>
     <data name="DataGridColumnStorage" xml:space="preserve">
-        <value>Хранилище</value>
+        <value>Способ хранения</value>
     </data>
     <data name="DataGridColumnDescription" xml:space="preserve">
         <value>Описание</value>

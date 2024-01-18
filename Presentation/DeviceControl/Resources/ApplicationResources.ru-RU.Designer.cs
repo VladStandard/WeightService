@@ -609,7 +609,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Хранилище.
+        ///   Looks up a localized string similar to Способ хранения.
         /// </summary>
         internal static string DataGridColumnStorage {
             get {
@@ -1041,7 +1041,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Хранилища ПЛУ.
+        ///   Looks up a localized string similar to Способы хранения.
         /// </summary>
         internal static string SectionPluStorages {
             get {
