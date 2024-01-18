@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef.Warehouses;
+using Ws.StorageCore.Enums;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
@@ -14,7 +15,8 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
 
     private IEnumerable<SqlPrinterEntity> PrinterEntities { get; set; } = new List<SqlPrinterEntity>();
     private IEnumerable<SqlWarehouseEntity> WarehousesEntities { get; set; } = new List<SqlWarehouseEntity>();
-
+    private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = new List<LineTypeEnum>();
+    
     protected override void OnInitialized()
     {
         SectionEntity.Warehouse.Name = Localizer["SectionFormWarehouseDefaultName"];
@@ -25,5 +27,7 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
 
         PrinterEntities = PrinterEntities.Append(SectionEntity.Printer);
         WarehousesEntities = WarehousesEntities.Append(SectionEntity.Warehouse);
+        
+        LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
     }
 }
