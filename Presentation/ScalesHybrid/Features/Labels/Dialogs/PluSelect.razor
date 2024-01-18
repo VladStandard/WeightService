@@ -1,0 +1,32 @@
+@inherits DataGridBase<SqlPluEntity>
+@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+
+
+<DataGridWrapper
+  TItem="SqlPluEntity"
+  GridData="GridData"
+  OnItemSelect="OnItemSelect"
+  Title="@Localizer["DialogPluSelectHeaderLabel"]"
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnNumber"]"
+    Field="@nameof(SqlPluEntity.Number)"
+    Width="15%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnType"]"
+    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    Width="15%"
+  >
+    <DisplayTemplate>
+      <p class="text-lg text-black xl:text-xl">
+        @(context.IsCheckWeight ? "Вес" : "Шт")
+      </p>
+    </DisplayTemplate>
+  </DataGridColumn>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(SqlPluEntity.Name)"
+    Width="70%"
+  />
+</DataGridWrapper>

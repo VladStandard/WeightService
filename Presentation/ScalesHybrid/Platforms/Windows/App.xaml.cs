@@ -31,12 +31,10 @@ public partial class App : MauiWinUIApplication
             .Build();
     }
     
-    private static void MiddleButtonHandler(object sender, MouseEventExtArgs e)
+    private static void MiddleButtonHandler(object? sender, MouseEventExtArgs e)
     {
         if (e.Button == MouseButtons.Middle)
-        {
             WeakReferenceMessenger.Default.Send(new MiddleBtnIsClickedEvent());
-        }
     }
     
     private void MouseSubscribe()

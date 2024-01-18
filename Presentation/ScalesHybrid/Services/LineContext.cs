@@ -11,22 +11,26 @@ using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Services;
 
-public class LineContext
+public class LineContext: IDisposable
 {
-    public SqlLineEntity Line { get; private set; }
-    public SqlPluEntity Plu { get; private set; }
-    public SqlPrinterEntity PrinterEntity { get; private set; }
-    public SqlTemplateEntity PluTemplate { get; private set; }
-    public SqlPluNestingFkEntity PluNesting { get; set; }
-    public WeightKneadingModel KneadingModel { get; set; }
-    public IEnumerable<SqlLineEntity> LineEntities { get; set; }
-    public IEnumerable<SqlPluEntity> PluEntities { get; set; }
-    public IEnumerable<SqlPluNestingFkEntity> PluNestingEntities { get; set; }
-    public event Action OnStateChanged;
+    # region Services
+    
     private ILineService LineService { get; }
     private IPluService PluService { get; }
     private ExternalDevicesService ExternalDevices { get; }
     
+    # endregion
+    
+    public SqlLineEntity Line { get; private set; } = new();
+    public SqlPluEntity Plu { get; private set; } = new();
+    public SqlPrinterEntity PrinterEntity { get; private set; } = new();
+    public SqlTemplateEntity PluTemplate { get; private set; } = new();
+    public SqlPluNestingFkEntity PluNesting { get; private set; } = new();
+    public WeightKneadingModel KneadingModel { get; private set; } = new();
+    public IEnumerable<SqlLineEntity> LineEntities { get; private set; } = [];
+    public IEnumerable<SqlPluEntity> PluEntities { get; private set; } = [];
+    public IEnumerable<SqlPluNestingFkEntity> PluNestingEntities { get; private set; } = [];
+    public event Action? OnStateChanged;
     private Timer Timer { get; set; }
 
     public LineContext(ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
@@ -35,6 +39,7 @@ public class LineContext
         PluService = pluService;
         ExternalDevices = externalDevices;
         InitData();
+        Timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
 
     public void ChangeLine(SqlLineEntity sqlLineEntity)
@@ -68,9 +73,7 @@ public class LineContext
         if (Plu.IsCheckWeight)
             ExternalDevices.Scales.Connect();
         else
-        {
             ExternalDevices.Scales.Disconnect();
-        }
         NotifyStateChanged();
     }
 
@@ -107,8 +110,14 @@ public class LineContext
         
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
         ExternalDevices.SetupScales(Line.ComPort);
-        Timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
     
     private void NotifyStateChanged() => OnStateChanged?.Invoke();
+
+    public void Dispose()
+    {
+        ExternalDevices.Dispose();
+        Timer.Dispose();
+        GC.SuppressFinalize(this);
+    }
 }

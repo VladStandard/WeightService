@@ -33,6 +33,7 @@
         
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
+        <NoWarn>CA1806</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -127,6 +128,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\Pallet\" />
       <Folder Include="wwwroot\fonts\" />
       <Folder Include="wwwroot\libs\fontawasome\" />
     </ItemGroup>

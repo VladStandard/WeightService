@@ -1,0 +1,65 @@
+@typeparam TItem
+@using Blazor.Heroicons.Outline
+
+<div class="rounded-md overflow-hidden">
+  <ModalHeader Class="!p-0">
+    <div class="w-full px-4 items-center flex justify-between h-12">
+      <div class="w-32 overflow-hidden">
+        <button
+          type="button"
+          @onclick="CloseCurrentDialog"
+          class="px-3 py-1.5 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
+                    overflow-hidden hover:bg-gray-100"
+        >
+          <ArrowLeftIcon class="h-4 w-4"/>
+          <p class="text-sm pt-[2px] text-black font-medium">Back</p>
+        </button>
+      </div>
+      <div class="h-full w-full flex items-center justify-center grow overflow-hidden">
+        <div class="px-4 py-1.5 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200">
+          <p class="pt-[1px]">@Title</p>
+        </div>
+      </div>
+      <div class="w-32"></div>
+    </div>
+  </ModalHeader>
+  <ModalBody Class="!p-0">
+    <DataGrid
+      TItem="TItem"
+      @ref="DataGrid"
+      SelectedRowChanged="OnItemSelect"
+      Data="@GridData"
+      PagerPosition="DataGridPagerPosition.Bottom"
+      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
+      PageSize="ItemsPerPage"
+      ShowPager
+    >
+      <DataGridColumns>
+        @ChildContent
+      </DataGridColumns>
+      <PageButtonTemplate>
+        <button type="button" class="h-8 w-8 text-lg xl:h-10 xl:w-10 xl:text-xl">
+          @context.PageNumber
+        </button>
+      </PageButtonTemplate>
+      <NextPageButtonTemplate>
+        <ChevronRightIcon class="h-4 w-4 mx-2 my-2 xl:h-6 xl:w-6" />
+      </NextPageButtonTemplate>
+      <PreviousPageButtonTemplate>
+        <ChevronLeftIcon class="h-4 w-4 mx-2 my-2 xl:h-6 xl:w-6" />
+      </PreviousPageButtonTemplate>
+      <LastPageButtonTemplate>
+        <ChevronDoubleRightIcon class="h-4 w-4 mx-2 my-2 xl:h-6 xl:w-6" />
+      </LastPageButtonTemplate>
+      <FirstPageButtonTemplate>
+        <ChevronDoubleLeftIcon class="h-4 w-4 mx-2 my-2 xl:h-6 xl:w-6" />
+      </FirstPageButtonTemplate>
+      <TotalItemsTemplate>
+        <span class="hidden"></span>
+      </TotalItemsTemplate>
+      <TotalItemsShortTemplate>
+        <span class="hidden"></span>
+      </TotalItemsShortTemplate>
+    </DataGrid>
+  </ModalBody>
+</div>

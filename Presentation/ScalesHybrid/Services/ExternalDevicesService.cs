@@ -9,15 +9,9 @@ namespace ScalesHybrid.Services;
 
 public class ExternalDevicesService : IDisposable
 {
-    public IPrinter Printer { get; private set; }
-    public IScales Scales { get; private set; }
-    
-    public ExternalDevicesService()
-    {
-        Printer = new TscPrinter("127.0.0.1", 9100);
-        Scales = new Scales("COM6");
-    }
-    
+    public IPrinter Printer { get; private set; } = new TscPrinter("127.0.0.1", 9100);
+    public IScales Scales { get; private set; } = new Scales("COM6");
+
     public void SetupPrinter(string ip, int port, PrinterTypeEnum type)
     {
         Printer.Dispose();
@@ -34,5 +28,6 @@ public class ExternalDevicesService : IDisposable
     {
         Scales.Dispose();
         Printer.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

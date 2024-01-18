@@ -1,0 +1,29 @@
+@attribute [Route(RouteUtils.Home)]
+
+
+<div class="w-full h-full flex items-center">
+  <div class="w-full flex flex-col gap-20">
+    <div class="w-full">
+      <p class="truncate text-center text-6xl font-semibold">Весовая Служба 2.0</p>
+    </div>
+    <div class="w-full flex items-center justify-center px-10 gap-4">
+      <a href="@RouteUtils.Labels">
+        <button
+          type="button"
+          class="h-64 w-64 rounded-md bg-white overflow-hidden border border-black/[.1]"
+        >
+          <p class="text-3xl">Этикетка</p>
+        </button>
+      </a>
+      <button
+        type="button"
+        @onclick="ShowCloseAppDialog"
+        class="h-64 w-64 rounded-md bg-white overflow-hidden border border-black/[.1]"
+      >
+        <p class="text-3xl">Выход</p>
+      </button>
+    </div>
+    <div>
+    </div>
+  </div>
+</div>
