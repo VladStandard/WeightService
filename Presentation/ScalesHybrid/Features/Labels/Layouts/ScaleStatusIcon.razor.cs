@@ -28,9 +28,9 @@ public sealed partial class ScaleStatusIcon: ComponentBase, IDisposable
 
     private string GetScaleStatusStyle() => DeviceStatus switch
     {
-        DeviceStatusEnum.IsDisabled => "bg-gray-200",
-        DeviceStatusEnum.IsForceDisconnected => "bg-red-200",
-        _ => "bg-green-200"
+        DeviceStatusEnum.IsDisabled => "bg-gray-300",
+        DeviceStatusEnum.IsForceDisconnected => "bg-red-300 shadow-red-200",
+        _ => "bg-green-300 shadow-green-200"
     };
 
     public void Dispose()

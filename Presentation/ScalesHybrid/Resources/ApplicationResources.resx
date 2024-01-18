@@ -153,4 +153,7 @@
     <data name="ButtonLineCounter" xml:space="preserve">
         <value />
     </data>
+    <data name="ButtonBack" xml:space="preserve">
+        <value />
+    </data>
 </root>

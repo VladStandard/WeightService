@@ -3,24 +3,26 @@
 
 <div class="rounded-md overflow-hidden">
   <ModalHeader Class="!p-0">
-    <div class="w-full px-4 items-center flex justify-between h-12">
-      <div class="w-32 overflow-hidden">
+    <div class="w-full px-4 items-center flex justify-between h-14">
+      <div class="w-40 overflow-hidden">
         <button
           type="button"
           @onclick="CloseCurrentDialog"
-          class="px-3 py-1.5 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
+          class="px-5 py-2.5 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
                     overflow-hidden hover:bg-gray-100"
         >
           <ArrowLeftIcon class="h-4 w-4"/>
-          <p class="text-sm pt-[2px] text-black font-medium">Back</p>
+          <p class="text-sm pt-[2px] text-black font-medium">
+            @Localizer["ButtonBack"]
+          </p>
         </button>
       </div>
       <div class="h-full w-full flex items-center justify-center grow overflow-hidden">
-        <div class="px-4 py-1.5 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200">
+        <div class="px-5 py-2.5 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200">
           <p class="pt-[1px]">@Title</p>
         </div>
       </div>
-      <div class="w-32"></div>
+      <div class="w-40"></div>
     </div>
   </ModalHeader>
   <ModalBody Class="!p-0">

@@ -1,40 +1,27 @@
 @using Blazor.Heroicons.Outline
 
 
-<div class="flex items-center w-full h-full overflow-hidden px-3 py-4">
-  <div class="flex flex-col overflow-hidden w-full max-h-full h-[34rem] border border-black/[.1] rounded-xl bg-white shadow-lg">
-    <div class="flex flex-col w-full h-full pt-1 pb-4 px-5 overflow-hidden justify-around">
-      <LabelConfigItem
-        Label="Линия"
-        Value=@(LineContext.Line.IsNew ? "Линия не выбрана" : LineContext.Line.DisplayName)
-        IsDisabled
-      >
-        <button
-          type="button"
-          @onclick="LineContext.ResetLine"
-          class="flex px-8 justify-center items-center overflow-hidden rounded-md border border-black/[.1] bg-gray-100
-                  h-full group transition-colors hover:bg-sky-200"
-        >
-          <ArrowPathIcon class="h-8 w-8 group-hover:animate-spin"/>
-        </button>
-      </LabelConfigItem>
-      <LabelConfigItem
-        Label="Склад"
-        Value="@LineContext.Line.Warehouse.Name"
-        IsDisabled
-      />
-      <LabelConfigItem
-        Label="ПЛУ"
-        Value=@(LineContext.Plu.IsNew ? "ПЛУ не выбрана" : LineContext.Plu.DisplayName)
-        OnClickAction="ShowPluSelectDialog"
-        IsDisabled="LineContext.Line.IsNew"
-      />
-      <LabelConfigItem
-        Label="Вложенность"
-        Value=@(LineContext.PluNesting.IsNew ? "Вложенность не выбрана" :
-                NameFormatting.GetPluNestingFormattedName(LineContext.PluNesting))
-        IsDisabled
-      />
-    </div>
+<div class="w-full h-full flex flex-col overflow-hidden">
+  <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b border-b-black/[.1] xl:px-8">
+    <p class="text-xl line-clamp-1 text-center xl:text-2xl">
+      Настройки
+    </p>
+  </div>
+  <div class="flex flex-col w-full h-full pt-2 pb-5 px-6 overflow-hidden justify-around xl:px-8 xl:pt-4 xl:pb-7">
+    <LineInputWithReset />
+    <InputWithLabel
+      Label="Склад"
+      Value="@LineContext.Line.Warehouse.Name"
+      IsDisabled
+    />
+    <InputWithLabel
+      Label="ПЛУ"
+      Value=@(LineContext.Plu.IsNew ? "ПЛУ не выбрана" : LineContext.Plu.DisplayName)
+      OnClickAction="ShowPluSelectDialog"
+      IsDisabled="LineContext.Line.IsNew"/>
+    <InputWithLabel
+      Label="Вложенность"
+      Value=@(LineContext.PluNesting.IsNew ? "Вложенность не выбрана" : NameFormatting.GetPluNestingFormattedName(LineContext.PluNesting))
+      IsDisabled/>
   </div>
 </div>

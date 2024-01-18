@@ -71,6 +71,15 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ButtonBack {
+            get {
+                return ResourceManager.GetString("ButtonBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ButtonCalculatorEnter {
             get {
                 return ResourceManager.GetString("ButtonCalculatorEnter", resourceCulture);

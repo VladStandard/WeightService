@@ -1,6 +1,8 @@
 using Blazorise;
 using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using ScalesHybrid.Resources;
 using Ws.StorageCore.Common;
 
 namespace ScalesHybrid.Features.Shared;
@@ -9,6 +11,7 @@ namespace ScalesHybrid.Features.Shared;
 public sealed partial class DataGridWrapper<TItem>: ComponentBase where TItem: SqlEntityBase, new()
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = [];

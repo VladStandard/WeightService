@@ -1,0 +1,14 @@
+@using Blazor.Heroicons.Outline
+
+<InputWithLabel
+  Label="Линия"
+  Value=@(LineContext.Line.IsNew ? "Линия не выбрана" : LineContext.Line.DisplayName)
+  IsDisabled>
+  <button
+    type="button"
+    @onclick="LineContext.ResetLine"
+    class="flex px-8 justify-center items-center overflow-hidden rounded-lg border border-black/[.1] bg-gray-100
+                h-full group transition-colors hover:bg-sky-200">
+    <ArrowPathIcon class="h-8 w-8 group-hover:animate-spin"/>
+  </button>
+</InputWithLabel>

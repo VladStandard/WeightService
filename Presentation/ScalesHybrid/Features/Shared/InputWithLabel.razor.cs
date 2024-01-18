@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 
-namespace ScalesHybrid.Features.Labels.Modules;
+namespace ScalesHybrid.Features.Shared;
 
-public sealed partial class LabelConfigItem: ComponentBase
+public sealed partial class InputWithLabel: ComponentBase
 {
     [Parameter] public string Label { get; set; } = string.Empty;
     [Parameter] public string Value { get; set; } = string.Empty;
