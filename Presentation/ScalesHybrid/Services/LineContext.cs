@@ -44,7 +44,6 @@ public class LineContext: IDisposable
 
     public void ChangeLine(SqlLineEntity sqlLineEntity)
     {
-        if (Line.Equals(sqlLineEntity)) return;
         Line = sqlLineEntity;
         PluEntities = GetPlus();
         Plu = new();

@@ -14,7 +14,7 @@ public sealed partial class ScaleCalibrationButton: ComponentBase, IDisposable
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     
     private bool IsScalesTerminalWasOpened { get; set; }
-    private bool IsScalesAvailable { get; set; }
+    private bool IsScalesAvailable { get; set; } = true;
     private int SecToOpen { get; set; } = 0;
 
     protected override void OnInitialized()

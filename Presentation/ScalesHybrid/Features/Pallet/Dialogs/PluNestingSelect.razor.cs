@@ -6,7 +6,7 @@ using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 
-namespace ScalesHybrid.Features.Labels.Dialogs;
+namespace ScalesHybrid.Features.Pallet.Dialogs;
 
 public sealed partial class PluNestingSelect : DataGridBase<SqlPluNestingFkEntity>
 {

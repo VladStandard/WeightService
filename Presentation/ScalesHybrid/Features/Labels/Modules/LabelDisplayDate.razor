@@ -1,0 +1,34 @@
+@using Blazor.Heroicons.Outline
+
+
+<LabelDisplayItem Label="@Localizer["ProductDisplayDateLabel"]">
+  <div class="flex overflow-hidden w-full h-full">
+    <button
+      type="button"
+      class="bg-gray-100 border border-black/[.1] w-[30%] flex items-center justify-center h-full rounded-md
+                overflow-hidden transition-colors hover:bg-sky-200"
+      @onclick="DecreaseDate"
+    >
+      <ChevronLeftIcon class="h-full w-full px-3 py-3"/>
+    </button>
+    <p class="text-xl w-2/5 flex items-center justify-center font-medium truncate xl:text-3xl">
+      @LineContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
+    </p>
+    <div class="w-[30%] flex gap-2 h-full">
+      <button
+        type="button"
+        class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-md
+                  overflow-hidden transition-colors hover:bg-sky-200"
+        @onclick="ResetDate">
+        <ArrowPathIcon class="h-full w-full px-3 py-3"/>
+      </button>
+      <button
+        type="button"
+        class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-md
+                  overflow-hidden transition-colors hover:bg-sky-200"
+        @onclick="IncreaseDate">
+        <ChevronRightIcon class="h-full w-full px-3 py-3"/>
+      </button>
+    </div>
+  </div>
+</LabelDisplayItem>

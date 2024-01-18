@@ -128,7 +128,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Pallet\" />
       <Folder Include="wwwroot\fonts\" />
       <Folder Include="wwwroot\libs\fontawasome\" />
     </ItemGroup>

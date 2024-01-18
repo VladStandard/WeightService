@@ -1,19 +1,18 @@
-using Blazorise;
 using Microsoft.AspNetCore.Components;
-using ScalesHybrid.Features.Labels.Dialogs;
-using ScalesHybrid.Features.Pallet.Dialogs;
+using Microsoft.Extensions.Localization;
+using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Features.Labels.Modules;
 
-public sealed partial class LabelConfig : ComponentBase, IDisposable
+public sealed partial class LabelDisplayTareWeight: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; } = null!;
-    [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
     protected override void OnInitialized() => LineContext.OnStateChanged += StateHasChanged;
     
-    private async Task ShowPluSelectDialog() => await ModalService.Show<PluSelect>();
+    private decimal GetTareWeight => LineContext.PluNesting.WeightTare;
     
     public void Dispose() => LineContext.OnStateChanged -= StateHasChanged;
 }

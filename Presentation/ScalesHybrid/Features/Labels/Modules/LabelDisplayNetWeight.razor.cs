@@ -8,7 +8,7 @@ using Ws.Shared.TypeUtils;
 
 namespace ScalesHybrid.Features.Labels.Modules;
 
-public sealed partial class LabelDisplayWeight: ComponentBase, IDisposable
+public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;

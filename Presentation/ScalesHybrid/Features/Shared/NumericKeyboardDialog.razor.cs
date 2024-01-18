@@ -5,7 +5,7 @@ using ScalesHybrid.Resources;
 
 namespace ScalesHybrid.Features.Shared;
 
-public sealed partial class NumericKeyboard: ComponentBase
+public sealed partial class NumericKeyboardDialog: ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
