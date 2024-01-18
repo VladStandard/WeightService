@@ -1,6 +1,4 @@
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
-
 namespace Ws.StorageCore.Entities.SchemaScale.PlusFks;
 
 public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
@@ -15,7 +13,7 @@ public sealed class SqlPluFkRepository : SqlTableRepositoryBase<SqlPluFkEntity>
     public SqlPluFkEntity GetByPlu(SqlPluEntity plu)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluStorageMethodFkEntity.Plu), plu));
+        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(SqlPluFkEntity.Plu), plu));
         return SqlCore.GetItemByCrud<SqlPluFkEntity>(sqlCrudConfig);
     }
 }

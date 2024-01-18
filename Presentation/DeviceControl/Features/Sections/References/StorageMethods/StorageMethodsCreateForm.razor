@@ -1,0 +1,15 @@
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.StorageMethods.SqlStorageMethodEntity>
+
+
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+    Size="SectionFormInputSizeEnum.Medium"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Zpl"
+    Label="ZPL"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+  />
+</SectionFormWrapper>

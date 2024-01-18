@@ -4,7 +4,6 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusStorageMethodsFks;
 using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
@@ -12,14 +11,12 @@ namespace DeviceControl.Features.Sections.References1C.Plus;
 public sealed partial class PlusUpdateForm: SectionFormBase<SqlPluEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private SqlPluStorageMethodFkEntity PluStorage { get; set; } = new();
     private SqlPluTemplateFkEntity PluTemplate { get; set; } = new();
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
         PluTemplate = new SqlPluTemplateFkRepository().GetItemByPlu(SectionEntity);
-        PluStorage = new SqlPluStorageMethodFkRepository().GetItemByPlu(SectionEntity);
     }
 
     private string GetPluTypeTitle(bool isWeight) =>
@@ -34,6 +31,6 @@ public sealed partial class PlusUpdateForm: SectionFormBase<SqlPluEntity>
     private string GetTemplateLink() => PluTemplate.Template.IsNew ? 
         string.Empty : $"{RouteUtils.SectionTemplates}/{PluTemplate.Template.IdentityValueId}";
     
-    private string GetStorageLink() => PluStorage.Method.IsNew ?
-        string.Empty : $"{RouteUtils.SectionPlusStorage}/{PluStorage.Method.IdentityValueUid}";
+    private string GetStorageLink() => SectionEntity.StorageMethod.IsNew ?
+        string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.IdentityValueUid}";
 }

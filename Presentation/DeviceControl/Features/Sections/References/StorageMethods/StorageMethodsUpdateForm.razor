@@ -1,0 +1,28 @@
+@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.StorageMethods.SqlStorageMethodEntity>
+
+
+<SectionFormWrapper
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  ResetItemAction="ResetItem"
+  DeleteItemAction="DeleteItem"
+  ShareUrl="@($"{RouteUtils.SectionStorageMethods}/{SectionEntity.IdentityValueUid}")"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+    IsCopyable
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Zpl"
+    Label="ZPL"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsCopyable
+  />
+</SectionFormWrapper>

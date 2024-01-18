@@ -65,7 +65,7 @@ public sealed partial class NavMenu : ComponentBase
                 new(Localizer["SectionProductionSites"],RouteUtils.SectionProductionSites),
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
                 new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
-                new(Localizer["SectionPluStorages"], RouteUtils.SectionPlusStorage)
+                new(Localizer["SectionPluStorages"], RouteUtils.SectionStorageMethods)
             ]
         },
 

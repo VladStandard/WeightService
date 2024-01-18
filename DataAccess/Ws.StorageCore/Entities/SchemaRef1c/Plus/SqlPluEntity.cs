@@ -1,4 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
 using Ws.StorageCore.Entities.SchemaRef1c.Brands;
 using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
 
@@ -20,6 +21,7 @@ public class SqlPluEntity : SqlTable1CBase
     public virtual Guid CategoryGuid { get; set; }
     public virtual SqlBundleEntity Bundle { get; set; }
     public virtual SqlBrandEntity Brand { get; set; }
+    public virtual SqlStorageMethodEntity StorageMethod { get; set; }
     public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
 
@@ -39,6 +41,7 @@ public class SqlPluEntity : SqlTable1CBase
         ShelfLifeDays = default;
         Brand = new();
         Bundle = new();
+        StorageMethod = new();
         Description = string.Empty;
     }
 
@@ -56,6 +59,7 @@ public class SqlPluEntity : SqlTable1CBase
         IsCheckWeight = item.IsCheckWeight;
         Brand = new(item.Brand);
         Bundle = new(item.Bundle);
+        StorageMethod = new(item.StorageMethod);
         Description = item.Description;
     }
 
@@ -76,6 +80,7 @@ public class SqlPluEntity : SqlTable1CBase
         Equals(IsGroup, item.IsGroup) &&
         Equals(ParentGuid, item.ParentGuid) &&
         Equals(Code, item.Code) &&
+        Equals(StorageMethod, item.StorageMethod) &&
         Equals(Number, item.Number) &&
         Equals(FullName, item.FullName) &&
         Equals(ShelfLifeDays, item.ShelfLifeDays) &&

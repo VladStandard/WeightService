@@ -123,7 +123,14 @@ public sealed class SqlPluMap : ClassMapping<SqlPluEntity>
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });
-
+        
+        ManyToOne(x => x.StorageMethod, m =>
+        {
+            m.Column("STORAGE_METHOD_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+        
         ManyToOne(x => x.Brand, m =>
         {
             m.Column("BRAND_UID");
