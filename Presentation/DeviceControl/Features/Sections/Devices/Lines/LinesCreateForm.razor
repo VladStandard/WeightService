@@ -1,5 +1,6 @@
 @using Ws.StorageCore.Entities.SchemaRef.Printers
 @using Ws.StorageCore.Entities.SchemaRef.Warehouses
+@using Ws.StorageCore.Enums
 @inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
 
 
@@ -11,6 +12,13 @@
   <SectionFormInputText
     @bind-Value="@SectionEntity.PcName"
     Label="@Localizer["DataGridColumnPcName"]"
+  />
+  <SectionFormInputSelect
+    TItem="LineTypeEnum"
+    Items="LineTypesEntities"
+    Label="@Localizer["DataGridColumnType"]"
+    @bind-SelectedItem="@SectionEntity.Type"
+    ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
   />
   <SectionFormInputNumeric
     TValue="int"

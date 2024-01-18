@@ -60,6 +60,7 @@ public class PluDto : IXmlSerializable
     public short AttachmentsCount { get; set; }
     public string Description { get; set; } = string.Empty;
     public string MeasurementType { get; set; } = string.Empty;
+    public string StorageMethod { get; set; } = string.Empty;
     public int ShelfLife { get; set; }
 
     #endregion
@@ -96,7 +97,8 @@ public class PluDto : IXmlSerializable
     BoxTypeName = ParseStringOrDefault(reader, nameof(BoxTypeName));
     ClipTypeName = ParseStringOrDefault(reader, nameof(ClipTypeName));
     PackageTypeName = ParseStringOrDefault(reader, nameof(PackageTypeName));
-
+    StorageMethod = ParseStringOrDefault(reader, nameof(StorageMethod));
+    
     #endregion
 
     #region Weight binding

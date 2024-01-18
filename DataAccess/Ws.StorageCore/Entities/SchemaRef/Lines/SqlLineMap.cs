@@ -1,3 +1,5 @@
+using Ws.StorageCore.Enums;
+
 namespace Ws.StorageCore.Entities.SchemaRef.Lines;
 
 public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
@@ -39,6 +41,7 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
         {
             m.Column("COM_PORT");
             m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
             m.Length(5);
         });
 
@@ -60,16 +63,24 @@ public sealed class SqlLineMap : ClassMapping<SqlLineEntity>
         {
             m.Column("VERSION");
             m.Type(NHibernateUtil.String);
-            m.NotNullable(false);
+            m.NotNullable(true);
         });
         
         Property(x => x.PcName, m =>
         {
             m.Column("PC_NAME");
             m.Type(NHibernateUtil.String);
-            m.NotNullable(false);
+            m.NotNullable(true);
         });
 
+        Property(x => x.Type, m =>
+        {
+            m.Column("TYPE");
+            m.Type<EnumStringType<LineTypeEnum>>();
+            m.Length(16);
+            m.NotNullable(true);
+        });
+        
         ManyToOne(x => x.Printer, m =>
         {
             m.Column("PRINTER_UID");
