@@ -20,22 +20,15 @@ public sealed class SqlCoreHelper
     #endregion
 
     #region Public and private fields, properties, constructor
-
-    private object LockerSessionFactory { get; } = new();
-    private object LockerSelect { get; } = new();
-    private object LockerExecute { get; } = new();
     private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
-    public ISessionFactory? SessionFactory { get; private set; }
+    private ISessionFactory SessionFactory { get; set; } = null!;
     private Configuration SqlConfiguration { get; set; } = new();
 
-    public void SetSessionFactory(bool isShowSql)
+    public void SetSessionFactory()
     {
-        lock (LockerSessionFactory)
-        {
-            SetSqlConfiguration(isShowSql);
-            AddConfigurationMappings();
-            SessionFactory = SqlConfiguration.BuildSessionFactory();
-        }
+        SetSqlConfiguration();
+        AddConfigurationMappings();
+        SessionFactory = SqlConfiguration.BuildSessionFactory();
     }
     
     private static SqlSettingsModels LoadJsonConfig()
@@ -49,7 +42,7 @@ public sealed class SqlCoreHelper
         return sqlSettingsModels;
     }
     
-    private void SetSqlConfiguration(bool isShowSql)
+    private void SetSqlConfiguration()
     {
         SqlSettingsModels = LoadJsonConfig();
         SqlConfiguration = new();
@@ -57,25 +50,14 @@ public sealed class SqlCoreHelper
             db.ConnectionString = SqlSettingsModels.GetConnectionString();
             db.Dialect<MsSql2012Dialect>();
             db.Driver<SqlClientDriver>();
-            db.LogSqlInConsole = isShowSql;
+            db.LogSqlInConsole = SqlSettingsModels.IsShowSql;
         });
         SqlConfiguration.EventListeners.PreInsertEventListeners =
             [new SqlCreateDtListener()];
         SqlConfiguration.EventListeners.PreUpdateEventListeners =
             [new SqlChangeDtListener()];
     }
-
-    private void Close()
-    {
-        lock (LockerSessionFactory)
-        {
-            SessionFactory?.Close();
-            SessionFactory?.Dispose();
-        }
-    }
-
-    ~SqlCoreHelper() => Close();
-
+    
     #endregion
 
     #region Public and private methods - Base
@@ -98,7 +80,7 @@ public sealed class SqlCoreHelper
         
         if (sqlCrudConfig.SelectTopRowsCount > 0)
             criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
-        
+
         foreach (ICriterion filter in sqlCrudConfig.Filters)
             criteria.Add(filter);
         
@@ -110,58 +92,47 @@ public sealed class SqlCoreHelper
     
     private void ExecuteSelectCore(Action<ISession> action)
     {
-        if (SessionFactory is null)
-            throw new ArgumentException(nameof(SessionFactory));
-        lock (LockerSelect)
+        using ISession session = SessionFactory.OpenSession();
+        session.FlushMode = FlushMode.Manual;
+        try
         {
-            using ISession session = SessionFactory.OpenSession();
-            session.FlushMode = FlushMode.Manual;
-            try
-            {
-                action(session);
-                session.Clear();
-            }
-            catch (Exception)
-            {
-                return;
-            }
-            finally
-            {
-                session.Disconnect();
-                session.Close();
-            }
+            action(session);
+            session.Clear();
+        }
+        catch (Exception)
+        {
+            return;
+        }
+        finally
+        {
+            session.Disconnect();
+            session.Close();
         }
     }
 
     private void ExecuteTransactionCore(Action<ISession> action)
     {
-        if (SessionFactory is null)
-            throw new ArgumentException(nameof(SessionFactory));
-        lock (LockerExecute)
+        using ISession session = SessionFactory.OpenSession();
+        session.FlushMode = FlushMode.Commit;
+        using ITransaction transaction = session.BeginTransaction();
+        try
         {
-            using ISession session = SessionFactory.OpenSession();
-            session.FlushMode = FlushMode.Commit;
-            using ITransaction transaction = session.BeginTransaction();
-            try
-            {
-                action(session);
-                transaction.Commit();
-                session.Clear();
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-            }
-            finally
-            {
-                session.Disconnect();
-                session.Close();
-                
-            }
+            action(session);
+            transaction.Commit();
+            session.Clear();
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
+        }
+        finally
+        {
+            session.Disconnect();
+            session.Close();
         }
     }
     
-    private ISQLQuery? GetSqlQuery(ISession session, string query, IList<SqlParameter> parameters)
+    private ISQLQuery? GetSqlQuery(ISession session, string query, IEnumerable<SqlParameter> parameters)
     {
         if (string.IsNullOrEmpty(query)) return null;
 
@@ -184,65 +155,28 @@ public sealed class SqlCoreHelper
     {
         if (item.IsNew) 
         {
-            ExecuteTransactionCore(session => session.Save(item));
+            Save(item);
             return;
         }
+        Update(item);
+    }
+    
+    public void Save<T>(T item) where T : SqlEntityBase
+    {
+        ExecuteTransactionCore(session => session.Save(item));
+    }
+
+    public void Update<T>(T item) where T : SqlEntityBase
+    {
         ExecuteTransactionCore(session => session.Update(item));
     }
-    
-    public void Save<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-{
-    if (item is null) throw new ArgumentException();
-    
-    switch (sessionType)
+
+    public void Delete<T>(T item) where T : SqlEntityBase
     {
-        case SqlEnumSessionType.Isolated:
-            ExecuteTransactionCore(session => session.Save(item));
-            break;
-        case SqlEnumSessionType.IsolatedAsync:
-            ExecuteTransactionCore(session => session.SaveAsync(item));
-            break;
-        default:
-            throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-    }
-}
-
-    public void Update<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        switch (sessionType)
-        {
-            case SqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Update(item));
-                break;
-            case SqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.UpdateAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-    }
-
-    public void Delete<T>(T? item, SqlEnumSessionType sessionType = SqlEnumSessionType.Isolated) where T : SqlEntityBase
-    {
-        if (item is null) throw new ArgumentException();
-
-        switch (sessionType)
-        {
-            case SqlEnumSessionType.Isolated:
-                ExecuteTransactionCore(session => session.Delete(item));
-                break;
-            case SqlEnumSessionType.IsolatedAsync:
-                ExecuteTransactionCore(session => session.DeleteAsync(item));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(sessionType), sessionType, null);
-        }
-        
+        ExecuteTransactionCore(session => session.Delete(item));
     }
     
-#endregion
+    #endregion
     
     #region Public and private methods - GetItem
 

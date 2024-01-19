@@ -15,9 +15,7 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         
-        SqlCoreHelper.Instance.SetSessionFactory(false);
-        if (SqlCoreHelper.Instance.SessionFactory is null)
-            throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
+        SqlCoreHelper.Instance.SetSessionFactory();
         
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();

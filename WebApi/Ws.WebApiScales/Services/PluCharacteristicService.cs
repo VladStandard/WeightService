@@ -89,7 +89,7 @@ public class PluCharacteristicService(ResponseDto responseDto) : IPluCharacteris
     {
         List<SqlPluEntity> plusCache = GetPluEntities(pluCharacteristics.Characteristics).ToList();
         
-        List<Guid> pluBlackList = new();
+        List<Guid> pluBlackList = [];
         
         List<PluCharacteristicDto> pluCharacteristicDtos = 
             pluCharacteristics.Characteristics.OrderBy(item => item.PluGuid).ToList();

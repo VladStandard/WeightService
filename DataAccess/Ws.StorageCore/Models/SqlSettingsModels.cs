@@ -7,6 +7,7 @@ public class SqlSettingsModels
     public string UserId { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public bool PersistSecurityInfo { get; set; }
+    public bool IsShowSql { get; set; }
     public bool TrustServerCertificate { get; set; }
     public bool IntegratedSecurity { get; set; }
 
