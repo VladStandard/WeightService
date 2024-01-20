@@ -1,8 +1,8 @@
-namespace Ws.WebApiScales.Dto.Brand
+namespace Ws.WebApiScales.Features.Brand.Dto
 {
     public static partial class BrandDtoMapper
     {
-        public static Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity AdaptTo(this Ws.WebApiScales.Dto.Brand.BrandDto p1, Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity p2)
+        public static Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity AdaptTo(this Ws.WebApiScales.Features.Brand.Dto.BrandDto p1, Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity p2)
         {
             if (p1 == null)
             {

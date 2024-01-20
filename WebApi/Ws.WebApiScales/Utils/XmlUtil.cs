@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Ws.WebApiScales.Utils;
 

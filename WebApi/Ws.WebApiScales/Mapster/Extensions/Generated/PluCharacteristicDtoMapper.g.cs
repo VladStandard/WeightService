@@ -1,8 +1,8 @@
-namespace Ws.WebApiScales.Dto.PluCharacteristic
+namespace Ws.WebApiScales.Features.Nesting.Dto
 {
     public static partial class PluCharacteristicDtoMapper
     {
-        public static Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity AdaptTo(this Ws.WebApiScales.Dto.PluCharacteristic.PluCharacteristicDto p1, Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity p2)
+        public static Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity AdaptTo(this Ws.WebApiScales.Features.Nesting.Dto.PluCharacteristicDto p1, Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity p2)
         {
             if (p1 == null)
             {
