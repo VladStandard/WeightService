@@ -1,11 +1,11 @@
 ﻿using System.Xml.Linq;
 using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
-using Ws.WebApiScales.Dto.Response;
+using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Common;
 
-public class BaseController(IHttpContextAccessor httpContextAccessor, ResponseDto responseDto) : ControllerBase
+public abstract class BaseController(IHttpContextAccessor httpContextAccessor, ResponseDto responseDto) : ControllerBase
 {
     protected ContentResult HandleXmlRequest<TDto>(XElement xml, Action<TDto> processMethod) where TDto : class
     {

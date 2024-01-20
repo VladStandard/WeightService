@@ -46,6 +46,5 @@ public class SqlBoxMap : ClassMapping<SqlBoxEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-
     }
 }

@@ -14,6 +14,6 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlStorageMethodEntity> items = StorageMethodRepository.GetList();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

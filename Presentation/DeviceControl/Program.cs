@@ -6,6 +6,7 @@ using DeviceControl.Auth.Common;
 using DeviceControl.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Ws.LabelsService;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
 
@@ -24,6 +25,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddVsServices();
+builder.Services.AddLabelsServices();
+
 builder.Services
     .AddBlazorise()
     .AddTailwindProviders()
@@ -65,7 +68,7 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.UseRequestLocalization("ru-RU");
 
-SqlCoreHelper.Instance.SetSessionFactory(false);
+SqlCoreHelper.Instance.SetSessionFactory();
 
 app.Run();
 

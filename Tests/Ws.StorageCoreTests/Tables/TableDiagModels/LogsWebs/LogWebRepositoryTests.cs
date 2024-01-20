@@ -15,6 +15,6 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 }

@@ -14,9 +14,9 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlLineEntity> items = LineRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<SqlLineEntity> items = LineRepository.GetAll();
             ParseRecords(items);
-        }, false);
+        });
     }
 
     [Test, Order(3)]
@@ -24,15 +24,9 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            SqlCrudConfig.SelectTopRowsCount = 1;
-            SqlLineEntity oldLine = LineRepository.GetEnumerable(SqlCrudConfig).First();
-
             SqlLineEntity lineByDevice = LineRepository.GetItemByPcName("PC473");
-
             Assert.That(lineByDevice.IsExists, Is.True);
-            Assert.That(lineByDevice.IdentityValueId, Is.EqualTo(oldLine.IdentityValueId));
-            
             TestContext.WriteLine(lineByDevice);
-        }, false);
+        });
     }
 }

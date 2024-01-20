@@ -15,6 +15,6 @@ public sealed class ViewLabelRepositoryTests : TableRepositoryTests
         {
             List<SqlViewLabel> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 }

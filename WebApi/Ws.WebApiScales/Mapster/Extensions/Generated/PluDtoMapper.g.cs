@@ -1,22 +1,22 @@
-namespace Ws.WebApiScales.Dto.Plu
+namespace Ws.WebApiScales.Features.Plu.Dto
 {
     public static partial class PluDtoMapper
     {
-        public static Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity AdaptTo(this Ws.WebApiScales.Dto.Plu.PluDto p1, Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity p2)
+        public static Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p1, Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity p2)
         {
             if (p1 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity result = p2 ?? new Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity();
+            Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity result = p2 ?? new Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity();
             
-            result.Weight = p1.PackageTypeWeight;
-            result.Uid1C = p1.PackageTypeGuid;
-            result.Name = p1.PackageTypeName;
+            result.Weight = p1.BoxTypeWeight;
+            result.Uid1C = p1.BoxTypeGuid;
+            result.Name = p1.BoxTypeName;
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity AdaptTo(this Ws.WebApiScales.Dto.Plu.PluDto p3, Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity p4)
+        public static Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p3, Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity p4)
         {
             if (p3 == null)
             {
@@ -38,21 +38,21 @@ namespace Ws.WebApiScales.Dto.Plu
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity AdaptTo(this Ws.WebApiScales.Dto.Plu.PluDto p5, Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity p6)
+        public static Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p5, Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity p6)
         {
             if (p5 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity result = p6 ?? new Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity();
+            Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity result = p6 ?? new Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity();
             
-            result.Weight = p5.BoxTypeWeight;
-            result.Uid1C = p5.BoxTypeGuid;
-            result.Name = p5.BoxTypeName;
+            result.Weight = p5.PackageTypeWeight;
+            result.Uid1C = p5.PackageTypeGuid;
+            result.Name = p5.PackageTypeName;
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity AdaptTo(this Ws.WebApiScales.Dto.Plu.PluDto p7, Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity p8)
+        public static Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p7, Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity p8)
         {
             if (p7 == null)
             {

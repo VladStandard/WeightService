@@ -15,6 +15,6 @@ public sealed class LabelRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlLabelEntity> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 }
