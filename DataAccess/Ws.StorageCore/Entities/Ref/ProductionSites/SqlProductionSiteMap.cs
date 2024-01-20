@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.ProductionSites;
 
-public class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
+internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
 {
     public SqlProductionSiteMap()
     {

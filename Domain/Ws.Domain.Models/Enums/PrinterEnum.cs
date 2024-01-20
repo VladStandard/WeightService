@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Ws.Infrastructure.Models.Enums;
+namespace Ws.Domain.Models.Enums;
 
 public enum PrinterTypeEnum
 {

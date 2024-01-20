@@ -1,9 +1,8 @@
 ﻿using Ws.Domain.Models.Entities.Print;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Print.ViewLabels;
 
-public class ViewLabelMap : ClassMapping<ViewLabel>
+internal class ViewLabelMap : ClassMapping<ViewLabel>
 {
     public ViewLabelMap()
     {

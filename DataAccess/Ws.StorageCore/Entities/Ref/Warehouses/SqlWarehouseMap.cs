@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.Warehouses;
 
-public class SqlWarehouseMap : ClassMapping<WarehouseEntity>
+internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
 {
     public SqlWarehouseMap()
     {

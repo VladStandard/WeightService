@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.PlusLines;
 
-public sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
+internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
 {
     public SqlPluLineMap()
     {

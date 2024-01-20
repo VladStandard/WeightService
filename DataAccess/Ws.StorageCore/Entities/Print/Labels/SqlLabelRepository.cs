@@ -1,5 +1,4 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.StorageCore.OrmUtils;
 
 namespace Ws.StorageCore.Entities.Print.Labels;
 

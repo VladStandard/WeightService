@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.WebApiScales.Features.Nesting.Dto;
 
 namespace Ws.WebApiScales.Features.Nesting.Mapster;

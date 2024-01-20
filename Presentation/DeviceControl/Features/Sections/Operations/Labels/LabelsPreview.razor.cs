@@ -1,14 +1,9 @@
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Text;
 using Blazorise;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.LabelsService.Features.RenderLabel;
 using Ws.LabelsService.Features.RenderLabel.Exceptions;
-using Image = System.Drawing.Image;
-
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 

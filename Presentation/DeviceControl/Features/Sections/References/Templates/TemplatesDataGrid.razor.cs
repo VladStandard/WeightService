@@ -4,7 +4,6 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.StorageCore.Entities.Scales.Templates;
 using Ws.StorageCore.Helpers;
 

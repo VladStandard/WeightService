@@ -1,6 +1,6 @@
-namespace Ws.Infrastructure.Models.Utils;
+namespace Ws.StorageCore.Utils;
 
-public static class SqlSchemasUtils
+internal static class SqlSchemasUtils
 {
     public const string Diag = "DIAG";
     public const string Ref = "REF";

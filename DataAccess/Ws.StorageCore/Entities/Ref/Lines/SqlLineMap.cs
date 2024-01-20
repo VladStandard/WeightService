@@ -1,11 +1,9 @@
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
-using Ws.Infrastructure.Models.Enums;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.Lines;
 
-public sealed class SqlLineMap : ClassMapping<LineEntity>
+internal sealed class SqlLineMap : ClassMapping<LineEntity>
 {
     public SqlLineMap()
     {

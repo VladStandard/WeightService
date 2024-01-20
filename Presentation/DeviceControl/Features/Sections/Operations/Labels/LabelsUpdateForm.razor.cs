@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;

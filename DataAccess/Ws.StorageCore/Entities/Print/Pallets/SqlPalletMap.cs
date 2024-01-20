@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Print.Pallets;
 
-public sealed class SqlPalletMap : ClassMapping<PalletEntity>
+internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
 {
     public SqlPalletMap()
     {

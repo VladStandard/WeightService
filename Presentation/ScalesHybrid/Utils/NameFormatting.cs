@@ -1,6 +1,5 @@
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace ScalesHybrid.Utils;
 

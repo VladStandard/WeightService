@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref1c.Boxes;
 
-public class SqlBoxMap : ClassMapping<BoxEntity>
+internal class SqlBoxMap : ClassMapping<BoxEntity>
 {
     public SqlBoxMap()
     {

@@ -3,7 +3,7 @@ using Ws.Domain.Models.Common;
 
 namespace Ws.StorageCore.Listeners;
 
-public class SqlChangeDtListener : BaseListener, IPreUpdateEventListener
+internal class SqlChangeDtListener : BaseListener, IPreUpdateEventListener
 {
     public bool OnPreUpdate(PreUpdateEvent @event)
     {

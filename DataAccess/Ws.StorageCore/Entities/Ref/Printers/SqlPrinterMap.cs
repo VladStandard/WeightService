@@ -1,10 +1,9 @@
 ﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Enums;
-using Ws.Infrastructure.Models.Utils;
+using Ws.Domain.Models.Enums;
 
 namespace Ws.StorageCore.Entities.Ref.Printers;
 
-public class SqlPrinterMap : ClassMapping<PrinterEntity>
+internal class SqlPrinterMap : ClassMapping<PrinterEntity>
 {
     public SqlPrinterMap()
     {

@@ -1,7 +1,6 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.StorageCore.Entities.Ref1c.Boxes;
 using Ws.StorageCore.Entities.Ref1c.Plus;
 using Ws.StorageCore.Entities.Scales.PlusNestingFks;

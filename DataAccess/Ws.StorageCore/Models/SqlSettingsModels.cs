@@ -1,6 +1,6 @@
 ﻿namespace Ws.StorageCore.Models;
 
-public class SqlSettingsModels
+internal class SqlSettingsModels
 {
     public string DataSource { get; set; } = string.Empty;
     public string InitialCatalog { get; set; } = string.Empty;

@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Print.Labels;
 
-public sealed class SqlLabelMap : ClassMapping<LabelEntity>
+internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
 {
     public SqlLabelMap()
     {

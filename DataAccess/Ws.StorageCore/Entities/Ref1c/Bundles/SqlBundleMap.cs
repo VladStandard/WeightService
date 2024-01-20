@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleMap : ClassMapping<BundleEntity>
+internal sealed class SqlBundleMap : ClassMapping<BundleEntity>
 {
     public SqlBundleMap()
     {

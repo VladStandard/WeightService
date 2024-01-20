@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.Users;
 
-public sealed class SqlUserMap : ClassMapping<UserEntity>
+internal sealed class SqlUserMap : ClassMapping<UserEntity>
 {
     public SqlUserMap()
     {

@@ -1,10 +1,8 @@
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Scales.PlusFks;
 
-public sealed class SqlPluFkMap : ClassMapping<PluFkEntity>
+internal sealed class SqlPluFkMap : ClassMapping<PluFkEntity>
 {
     public SqlPluFkMap()
     {

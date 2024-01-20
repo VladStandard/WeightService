@@ -3,7 +3,7 @@ using Ws.Domain.Models.Common;
 
 namespace Ws.StorageCore.Listeners;
 
-public class SqlCreateDtListener : BaseListener, IPreInsertEventListener
+internal class SqlCreateDtListener : BaseListener, IPreInsertEventListener
 {
     public bool OnPreInsert(PreInsertEvent @event)
     {

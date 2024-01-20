@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref1c.Clips;
 
-public sealed class SqlClipMap : ClassMapping<ClipEntity>
+internal sealed class SqlClipMap : ClassMapping<ClipEntity>
 {
     public SqlClipMap()
     {

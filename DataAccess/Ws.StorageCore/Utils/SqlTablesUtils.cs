@@ -1,6 +1,6 @@
-namespace Ws.Infrastructure.Models.Utils;
+namespace Ws.StorageCore.Utils;
 
-public static class SqlTablesUtils
+internal static class SqlTablesUtils
 {
     public const string Boxes = "BOXES";
     public const string Brands = "BRANDS";

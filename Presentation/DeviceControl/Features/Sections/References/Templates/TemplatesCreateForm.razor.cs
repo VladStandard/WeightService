@@ -5,7 +5,6 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace DeviceControl.Features.Sections.References.Templates;
 

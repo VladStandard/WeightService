@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
-using Ws.Infrastructure.Models.Enums;
 using Ws.StorageCore.Entities.Ref.Printers;
 using Ws.StorageCore.Entities.Ref.Warehouses;
 

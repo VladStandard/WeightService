@@ -3,9 +3,7 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
-using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
-using Ws.StorageCore.Models;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 

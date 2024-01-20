@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.Claims;
 
-public sealed class SqlClaimMap : ClassMapping<ClaimEntity>
+internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
 {
     public SqlClaimMap()
     {

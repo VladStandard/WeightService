@@ -1,5 +1,4 @@
 using Ws.Domain.Models.Entities.Diag;
-using Ws.StorageCore.OrmUtils;
 
 namespace Ws.StorageCore.Entities.Diag.LogWebs;
 

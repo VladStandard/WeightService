@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Scales.TemplatesResources;
 
-public sealed class SqlTemplateResourceMap : ClassMapping<TemplateResourceEntity>
+internal sealed class SqlTemplateResourceMap : ClassMapping<TemplateResourceEntity>
 {
     public SqlTemplateResourceMap()
     {

@@ -1,5 +1,4 @@
 using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.StorageCore.OrmUtils;
 
 namespace Ws.StorageCore.Entities.Scales.TemplatesResources;
 

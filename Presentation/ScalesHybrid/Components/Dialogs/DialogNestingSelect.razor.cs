@@ -4,7 +4,6 @@ using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace ScalesHybrid.Components.Dialogs;
 

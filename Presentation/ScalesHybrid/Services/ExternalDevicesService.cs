@@ -1,4 +1,4 @@
-﻿using Ws.Infrastructure.Models.Enums;
+﻿using Ws.Domain.Models.Enums;
 using Ws.Printers.Common;
 using Ws.Printers.Main;
 using Ws.Printers.Utils;

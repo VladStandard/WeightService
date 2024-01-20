@@ -1,10 +1,8 @@
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Scales.Templates;
 
-public sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
+internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
 {
     public SqlTemplateMap()
     {

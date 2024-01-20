@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Diag;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Diag.LogWebs;
 
-public sealed class WsSqlLogWebMap : ClassMapping<LogWebEntity>
+internal sealed class WsSqlLogWebMap : ClassMapping<LogWebEntity>
 {
     public WsSqlLogWebMap()
     {

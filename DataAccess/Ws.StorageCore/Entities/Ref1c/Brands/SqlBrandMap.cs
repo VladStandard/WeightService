@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandMap : ClassMapping<BrandEntity>
+internal sealed class SqlBrandMap : ClassMapping<BrandEntity>
 {
     public SqlBrandMap()
     {

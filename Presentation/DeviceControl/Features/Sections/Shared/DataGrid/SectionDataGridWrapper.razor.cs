@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
-using Ws.StorageCore.Common;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 

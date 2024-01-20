@@ -1,9 +1,8 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Ref.StorageMethods;
 
-public sealed class SqlStorageMethodMap : ClassMapping<StorageMethodEntity>
+internal sealed class SqlStorageMethodMap : ClassMapping<StorageMethodEntity>
 {
     public SqlStorageMethodMap()
     {

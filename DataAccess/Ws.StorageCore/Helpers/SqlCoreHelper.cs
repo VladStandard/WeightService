@@ -6,7 +6,6 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using Ws.Domain.Models.Common;
 using Ws.StorageCore.Listeners;
-using Ws.StorageCore.OrmUtils;
 
 namespace Ws.StorageCore.Helpers;
 
@@ -67,7 +66,7 @@ public sealed class SqlCoreHelper
     private void AddConfigurationMappings()
     {
         ModelMapper mapper = new();
-        mapper.AddMappings(Assembly.GetExecutingAssembly().GetExportedTypes());
+        mapper.AddMappings(Assembly.GetExecutingAssembly().GetTypes());
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
     }

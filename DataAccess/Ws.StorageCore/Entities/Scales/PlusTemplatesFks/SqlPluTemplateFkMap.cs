@@ -1,10 +1,8 @@
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 
-public sealed class SqlPluTemplateFkMap : ClassMapping<PluTemplateFkEntity>
+internal sealed class SqlPluTemplateFkMap : ClassMapping<PluTemplateFkEntity>
 {
     public SqlPluTemplateFkMap()
     {

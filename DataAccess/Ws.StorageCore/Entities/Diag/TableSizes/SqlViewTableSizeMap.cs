@@ -1,9 +1,8 @@
 ﻿using Ws.Domain.Models.Entities.Diag;
-using Ws.Infrastructure.Models.Utils;
 
 namespace Ws.StorageCore.Entities.Diag.TableSizes;
 
-public class SqlViewTableSizeMap : ClassMapping<TableSizeEntity>
+internal class SqlViewTableSizeMap : ClassMapping<TableSizeEntity>
 {
     public SqlViewTableSizeMap()
     {

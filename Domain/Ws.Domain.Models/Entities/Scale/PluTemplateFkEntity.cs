@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace Ws.Domain.Models.Entities.Scale;
 

@@ -3,7 +3,6 @@ using ScalesHybrid.Utils;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.Services.Features.Line;
 using Ws.Services.Features.Plu;
 using Ws.StorageCore.Helpers;
