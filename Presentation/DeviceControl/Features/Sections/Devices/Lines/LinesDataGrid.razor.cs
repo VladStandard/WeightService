@@ -3,6 +3,7 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Services.Features.Line;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Helpers;
 
@@ -11,6 +12,7 @@ namespace DeviceControl.Features.Sections.Devices.Lines;
 public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private ILineService LineService { get; set; } = null!;
     
     private SqlLineRepository LineRepository { get; } = new();
     
@@ -24,7 +26,7 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<SqlLineEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = LineRepository.GetEnumerable(new()).ToList();
+        SectionItems = LineService.GetLinesAll().ToList();
 
     protected override void SetSqlSearchingCast()
     {

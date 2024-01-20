@@ -15,7 +15,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlPluEntity> items = PluRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 
     [Test]
@@ -30,7 +30,7 @@ public sealed class PluRepositoryTests : TableRepositoryTests
                 Assert.That(plu.Number, Is.EqualTo(301));
 
             ParseRecords(plus);
-        }, false);
+        });
     }
     
 }

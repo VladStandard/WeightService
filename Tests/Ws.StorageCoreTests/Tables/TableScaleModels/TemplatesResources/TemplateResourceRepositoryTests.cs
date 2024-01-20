@@ -17,6 +17,6 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlTemplateResourceEntity> items = TemplateResourceRepository.GetList();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

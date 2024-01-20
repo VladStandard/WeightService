@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Ws.Services.Exceptions;
+namespace Ws.LabelsService.Features.PrintLabel.Exceptions;
 
 public class LabelException : Exception
 {

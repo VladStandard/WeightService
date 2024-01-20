@@ -14,6 +14,6 @@ public sealed class ViewTableSizeRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlViewTableSizeModel> items = TableSizeRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

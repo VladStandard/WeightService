@@ -14,6 +14,6 @@ public sealed class WarehouseRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlWarehouseEntity> items = WarehousesRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

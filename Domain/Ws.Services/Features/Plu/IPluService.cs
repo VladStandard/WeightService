@@ -3,7 +3,7 @@ using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
 using Ws.StorageCore.Entities.SchemaScale.Templates;
 
-namespace Ws.Services.Services.Plu;
+namespace Ws.Services.Features.Plu;
 
 public interface IPluService
 {

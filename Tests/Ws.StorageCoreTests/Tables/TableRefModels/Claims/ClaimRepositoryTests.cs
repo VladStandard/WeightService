@@ -14,6 +14,6 @@ public sealed class ClaimRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlClaimEntity> items = ClaimRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

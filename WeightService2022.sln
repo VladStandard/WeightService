@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Shared.Tests", "Tests\Ws
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Labels", "Libs\Ws.Labels\Ws.Labels.csproj", "{B0C7B8F0-945B-4EE5-BAEF-2F046ED9175C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.LabelsService", "Domain\Ws.LabelsService\Ws.LabelsService.csproj", "{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -100,6 +102,10 @@ Global
 		{B0C7B8F0-945B-4EE5-BAEF-2F046ED9175C}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{B0C7B8F0-945B-4EE5-BAEF-2F046ED9175C}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{B0C7B8F0-945B-4EE5-BAEF-2F046ED9175C}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{BAAFAE3C-91CD-4C4A-8108-1AE9D2F11EAD} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 		{A7ED7EB8-3636-419C-A388-B063A4F3CF18} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{B0C7B8F0-945B-4EE5-BAEF-2F046ED9175C} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
+		{EA1C3D1D-EBF6-46D1-8521-A14D960E88E8} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}

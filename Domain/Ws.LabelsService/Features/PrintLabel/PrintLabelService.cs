@@ -1,16 +1,16 @@
 ﻿using FluentValidation.Results;
 using Ws.Labels;
 using Ws.Labels.Dto;
-using Ws.Services.Dto;
-using Ws.Services.Exceptions;
-using Ws.Services.Services.Plu;
-using Ws.Services.Validators;
+using Ws.LabelsService.Features.PrintLabel.Dto;
+using Ws.LabelsService.Features.PrintLabel.Exceptions;
+using Ws.LabelsService.Features.PrintLabel.Validators;
+using Ws.Services.Features.Plu;
 using Ws.StorageCore.Entities.SchemaPrint.Labels;
 using Ws.StorageCore.Entities.SchemaPrint.Pallets;
 using Ws.StorageCore.Entities.SchemaRef.PlusLines;
 using Ws.StorageCore.Helpers;
 
-namespace Ws.Services.Services.PrintLabel;
+namespace Ws.LabelsService.Features.PrintLabel;
 
 public class PrintLabelService : IPrintLabelService
 {

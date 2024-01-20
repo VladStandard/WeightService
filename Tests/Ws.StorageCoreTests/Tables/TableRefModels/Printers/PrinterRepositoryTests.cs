@@ -14,6 +14,6 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlPrinterEntity> items = PrinterRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

@@ -24,7 +24,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlUserEntity> items = new SqlUserRepository().GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 
     [Test, Order(2)]
@@ -35,6 +35,6 @@ public sealed class UserRepositoryTests : TableRepositoryTests
             SqlUserEntity access = UserRepository.GetItemByNameOrCreate(CurrentUser);
             Assert.That(access.IsExists, Is.True);
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
-        }, false);
+        });
     }
 }

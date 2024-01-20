@@ -5,15 +5,9 @@ using Ws.WebApiScales.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-SqlCoreHelper.Instance.SetSessionFactory(false);
-if (SqlCoreHelper.Instance.SessionFactory is null)
-    throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
-
-builder.Services.AddSingleton(SqlCoreHelper.Instance.SessionFactory);
-builder.Services.AddScoped(_ => SqlCoreHelper.Instance.SessionFactory.OpenSession());
+SqlCoreHelper.Instance.SetSessionFactory();
 
 builder.Services.AddScoped<ResponseDto>();
-
 builder.Services.AddScoped<IPluService, PluService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IPluCharacteristicService, PluCharacteristicService>();

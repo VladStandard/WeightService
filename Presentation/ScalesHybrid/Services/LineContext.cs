@@ -1,7 +1,7 @@
 using ScalesHybrid.Models;
 using ScalesHybrid.Utils;
-using Ws.Services.Services.Line;
-using Ws.Services.Services.Plu;
+using Ws.Services.Features.Line;
+using Ws.Services.Features.Plu;
 using Ws.StorageCore.Entities.SchemaRef.Lines;
 using Ws.StorageCore.Entities.SchemaRef.Printers;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;

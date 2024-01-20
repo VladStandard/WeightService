@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Ws.Services.Dto;
+using Ws.LabelsService.Features.PrintLabel.Dto;
 
-namespace Ws.Services.Validators;
+namespace Ws.LabelsService.Features.PrintLabel.Validators;
 
 public class LabelInfoValidator : AbstractValidator<LabelInfoDto>
 {
@@ -15,7 +15,7 @@ public class LabelInfoValidator : AbstractValidator<LabelInfoDto>
         RuleFor(i => i.Kneading).GreaterThanOrEqualTo((short)1).WithMessage("Замес должен быть >= 1");
         RuleFor(i => i.LineCounter).GreaterThanOrEqualTo(0).WithMessage("Счетчик линии должен быть >= 0");
         RuleFor(i => i.BundleCount).GreaterThanOrEqualTo((short)0).WithMessage("Кол-во пакетов должно быть >= 0");
-        RuleFor(i => i.Address).NotEmpty().WithMessage("Адресс не должен быть пустым");
+        RuleFor(i => i.Address).NotEmpty().WithMessage("Адрес не должен быть пустым");
         RuleFor(i => i.PluFullName).NotEmpty().WithMessage("Полное имя плу не должно быть пустым");
         RuleFor(i => i.PluNumber).GreaterThanOrEqualTo((short)0).WithMessage("Номер плу должен быть >= 0");
         RuleFor(i => i.PluDescription).NotEmpty().WithMessage("Описание плу не должно быть пустым");

@@ -1,14 +1,16 @@
+using Ws.LabelsService.Features.PrintLabel.Dto;
+
 namespace ScalesHybrid.Services
 {
     public static partial class LineContextMapper
     {
-        public static Ws.Services.Dto.LabelInfoDto AdaptTo(this ScalesHybrid.Services.LineContext p1, Ws.Services.Dto.LabelInfoDto p2)
+        public static LabelInfoDto AdaptTo(this ScalesHybrid.Services.LineContext p1, LabelInfoDto p2)
         {
             if (p1 == null)
             {
                 return null;
             }
-            Ws.Services.Dto.LabelInfoDto result = p2 ?? new Ws.Services.Dto.LabelInfoDto();
+            LabelInfoDto result = p2 ?? new LabelInfoDto();
             
             result.WeightTare = funcMain1(p1.PluNesting == null ? null : (decimal?)p1.PluNesting.WeightTare, result.WeightTare);
             result.IsCheckWeight = funcMain2(p1.Plu == null ? null : (bool?)p1.Plu.IsCheckWeight, result.IsCheckWeight);

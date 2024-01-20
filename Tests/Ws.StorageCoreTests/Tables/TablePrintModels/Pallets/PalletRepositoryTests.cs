@@ -15,6 +15,6 @@ public sealed class PalletRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlPalletEntity> items = PalletRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 }

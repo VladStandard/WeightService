@@ -2,7 +2,7 @@
 using Ws.StorageCore.Entities.SchemaRef.Warehouses;
 using Ws.StorageCore.Entities.SchemaRef1c.Plus;
 
-namespace Ws.Services.Services.Line;
+namespace Ws.Services.Features.Line;
 
 public interface ILineService
 {
@@ -11,4 +11,5 @@ public interface ILineService
     public IEnumerable<SqlPluEntity> GetLineWeightPlus(SqlLineEntity line);
     public IEnumerable<SqlPluEntity> GetLinePiecePlus(SqlLineEntity line);
     public IEnumerable<SqlLineEntity> GetLinesByWarehouse(SqlWarehouseEntity warehouse);
+    public IEnumerable<SqlLineEntity> GetLinesAll();
 }

@@ -14,6 +14,6 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlBrandEntity> items = BrandRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

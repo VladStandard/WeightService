@@ -21,7 +21,7 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlPluTemplateFkEntity> items = PluTemplateFkRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 
     [Test]
@@ -37,6 +37,6 @@ public sealed class PluTemplateFkRepositoryTests : TableRepositoryTests
             Assert.That(pluTemplateByPlu, Is.EqualTo(oldPluTemplateFk));
 
             TestContext.WriteLine(pluTemplateByPlu);
-        }, false);
+        });
     }
 }
