@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Printers;
+﻿using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.Printers;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Printers;
 
@@ -12,7 +13,7 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlPrinterEntity> items = PrinterRepository.GetEnumerable();
+            IEnumerable<PrinterEntity> items = PrinterRepository.GetEnumerable();
             ParseRecords(items);
         });
     }

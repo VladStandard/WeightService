@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Boxes
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity>
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref1c.BoxEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlBoxEntity"
+  TItem="BoxEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionBoxes"]"
   GridData="SectionItems"
@@ -14,17 +14,17 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlBoxEntity.ChangeDt)"
+    Field="@nameof(BoxEntity.ChangeDt)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlBoxEntity.Name)"
+    Field="@nameof(BoxEntity.Name)"
     Width="60%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnBoxWeight"]"
-    Field="@nameof(SqlBoxEntity.Weight)"
+    Field="@nameof(BoxEntity.Weight)"
     Width="20%"
   />
 </SectionDataGridWrapper>

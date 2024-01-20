@@ -4,7 +4,9 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using Ws.Domain.Models.Common;
 using Ws.StorageCore.Listeners;
+using Ws.StorageCore.OrmUtils;
 
 namespace Ws.StorageCore.Helpers;
 
@@ -151,7 +153,7 @@ public sealed class SqlCoreHelper
     
     #region CRUD
 
-    public void SaveOrUpdate<T>(T item) where T : SqlEntityBase
+    public void SaveOrUpdate<T>(T item) where T : EntityBase
     {
         if (item.IsNew) 
         {
@@ -161,17 +163,17 @@ public sealed class SqlCoreHelper
         Update(item);
     }
     
-    public void Save<T>(T item) where T : SqlEntityBase
+    public void Save<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Save(item));
     }
 
-    public void Update<T>(T item) where T : SqlEntityBase
+    public void Update<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Update(item));
     }
 
-    public void Delete<T>(T item) where T : SqlEntityBase
+    public void Delete<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Delete(item));
     }
@@ -180,7 +182,7 @@ public sealed class SqlCoreHelper
     
     #region Public and private methods - GetItem
 
-    public T GetItemByCrud<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlEntityBase, new()
+    public T GetItemByCrud<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session =>
@@ -191,16 +193,16 @@ public sealed class SqlCoreHelper
         return item ?? new();
     }
     
-    public T GetItemByUid<T>(Guid uid) where T : SqlEntityBase, new()
+    public T GetItemByUid<T>(Guid uid) where T : EntityBase, new()
     {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueUid),  uid));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueUid),  uid));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
 
-    public T GetItemById<T>(long id) where T : SqlEntityBase, new() {
+    public T GetItemById<T>(long id) where T : EntityBase, new() {
         SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(SqlEntityBase.IdentityValueId),  id));
+        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueId),  id));
         return GetItemByCrud<T>(sqlCrudConfig);
     }
 
@@ -208,7 +210,7 @@ public sealed class SqlCoreHelper
 
     #region Public and private methods - GetList
 
-    public IEnumerable<T> GetEnumerable<T>(SqlCrudConfigModel sqlCrudConfig) where T : SqlEntityBase, new()
+    public IEnumerable<T> GetEnumerable<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         ExecuteSelectCore(session =>

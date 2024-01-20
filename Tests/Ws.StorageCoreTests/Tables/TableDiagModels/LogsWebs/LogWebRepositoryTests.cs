@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+﻿using Ws.Domain.Models.Entities.Diag;
+using Ws.StorageCore.Entities.Diag.LogWebs;
 
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.LogsWebs;
 
@@ -6,14 +7,14 @@ namespace Ws.StorageCoreTests.Tables.TableDiagModels.LogsWebs;
 public sealed class LogWebsRepositoryTests : TableRepositoryTests
 {
     private SqlLogWebRepository LogWebRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.CreateDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(LogWebEntity.CreateDt)).Descending;
 
     [Test]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlLogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
+            IEnumerable<LogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

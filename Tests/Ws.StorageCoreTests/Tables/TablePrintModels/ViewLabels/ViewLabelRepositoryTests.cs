@@ -1,19 +1,20 @@
-﻿using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
+﻿using Ws.Domain.Models.Entities.Print;
+using Ws.StorageCore.Entities.Print.ViewLabels;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.ViewLabels;
 
 [TestFixture]
 public sealed class ViewLabelRepositoryTests : TableRepositoryTests
 {
-    private SqlViewLabelRepository LabelRepository { get; set; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.CreateDt)).Descending;
+    private ViewLabelRepository LabelRepository { get; set; } = new();
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(ViewLabel.CreateDt)).Descending;
 
     [Test]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlViewLabel> items = LabelRepository.GetList(SqlCrudConfig);
+            List<ViewLabel> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

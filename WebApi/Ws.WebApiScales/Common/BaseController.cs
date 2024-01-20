@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+using Ws.StorageCore.Entities.Diag.LogWebs;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Utils;
 

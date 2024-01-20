@@ -1,14 +1,16 @@
+using Ws.Domain.Models.Entities.Ref1c;
+
 namespace Ws.WebApiScales.Features.Plu.Dto
 {
     public static partial class PluDtoMapper
     {
-        public static Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p1, Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity p2)
+        public static BoxEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p1, BoxEntity p2)
         {
             if (p1 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity result = p2 ?? new Ws.StorageCore.Entities.SchemaRef1c.Boxes.SqlBoxEntity();
+            BoxEntity result = p2 ?? new BoxEntity();
             
             result.Weight = p1.BoxTypeWeight;
             result.Uid1C = p1.BoxTypeGuid;
@@ -16,13 +18,13 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p3, Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity p4)
+        public static PluEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p3, PluEntity p4)
         {
             if (p3 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity result = p4 ?? new Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity();
+            PluEntity result = p4 ?? new PluEntity();
             
             result.IsGroup = p3.IsGroup;
             result.Number = (short)p3.PluNumber;
@@ -38,13 +40,13 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p5, Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity p6)
+        public static BundleEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p5, BundleEntity p6)
         {
             if (p5 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity result = p6 ?? new Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity();
+            BundleEntity result = p6 ?? new BundleEntity();
             
             result.Weight = p5.PackageTypeWeight;
             result.Uid1C = p5.PackageTypeGuid;
@@ -52,13 +54,13 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p7, Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity p8)
+        public static ClipEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p7, ClipEntity p8)
         {
             if (p7 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity result = p8 ?? new Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity();
+            ClipEntity result = p8 ?? new ClipEntity();
             
             result.Weight = p7.ClipTypeWeight;
             result.Uid1C = p7.ClipTypeGuid;

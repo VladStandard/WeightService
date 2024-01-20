@@ -1,6 +1,6 @@
-using Ws.StorageCore.Entities.SchemaRef.Claims;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Claims;
 
 [TestFixture]
-public sealed class ClaimModelTests : TableModelTests<SqlClaimEntity>;
+public sealed class ClaimModelTests : TableModelTests<ClaimEntity>;

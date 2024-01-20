@@ -3,25 +3,25 @@ using DeviceControl.Resources;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Claims;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.Claims;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersCreateForm: SectionFormBase<SqlUserEntity>
+public sealed partial class UsersCreateForm: SectionFormBase<UserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private SqlClaimRepository RolesRepository { get; set; } = new();
-    private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<SqlClaimEntity> SelectedRolesInternal { get; set; } = [];
+    private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
+    private IEnumerable<ClaimEntity> SelectedRolesInternal { get; set; } = [];
     
-    private IEnumerable<SqlClaimEntity> SelectedRoles
+    private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SelectedRolesInternal;
         set
         {
-            SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
+            SectionEntity.Claims = new HashSet<ClaimEntity>(value);
             SelectedRolesInternal = value;
         }
     }
@@ -33,9 +33,9 @@ public sealed partial class UsersCreateForm: SectionFormBase<SqlUserEntity>
         RolesEntities = RolesRepository.GetEnumerable().ToList();
     }
 
-    private SqlUserEntity ProcessItem(SqlUserEntity item)
+    private UserEntity ProcessItem(UserEntity item)
     {
-        SqlUserEntity userEntity = SectionEntity.DeepClone();
+        UserEntity userEntity = SectionEntity.DeepClone();
         string userName = userEntity.Name;
         userName = userName.ToUpper();
         if (!userName.Contains(UserPrefix))

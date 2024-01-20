@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
+﻿using Ws.Domain.Models.Entities.Ref1c;
+using Ws.StorageCore.Entities.Ref1c.Boxes;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Boxes;
 
@@ -12,7 +13,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlBoxEntity> items = BoxRepository.GetEnumerable();
+            IEnumerable<BoxEntity> items = BoxRepository.GetEnumerable();
             ParseRecords(items);
         });
     }

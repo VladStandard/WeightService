@@ -4,12 +4,13 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.Users;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersDataGrid: SectionDataGridBase<SqlUserEntity>
+public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
@@ -20,10 +21,10 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<SqlUserEntity>
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<UsersCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlUserEntity item)
+    protected override async Task OpenDataGridEntityModal(UserEntity item)
         => await OpenSectionModal<UsersUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlUserEntity item)
+    protected override async Task OpenItemInNewTab(UserEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast()
@@ -35,10 +36,10 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<SqlUserEntity>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlUserEntity>(itemUid)];
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<UserEntity>(itemUid)];
     }
 
-    private Task DeleteUserWithRelogin(SqlUserEntity item)
+    private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserCacheService.ClearCacheForUser(item.Name);
         SqlCoreHelper.Instance.Delete(item);

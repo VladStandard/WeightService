@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaDiag.LogsWebs
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaDiag.LogsWebs.SqlLogWebEntity>
+@using Ws.Domain.Models.Entities.Diag
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Diag.LogWebEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlLogWebEntity"
+  TItem="LogWebEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["Section1CLogs"]"
   GridData="SectionItems"
@@ -14,37 +14,37 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCreateDt"]"
-    Field="@nameof(SqlLogWebEntity.CreateDt)"
+    Field="@nameof(LogWebEntity.CreateDt)"
     Width="15%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlLogWebEntity.StampDt)"
+    Field="@nameof(LogWebEntity.StampDt)"
     Width="15%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnVersion"]"
-    Field="@nameof(SqlLogWebEntity.Version)"
+    Field="@nameof(LogWebEntity.Version)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnRequestUrl"]"
-    Field="@nameof(SqlLogWebEntity.Url)"
+    Field="@nameof(LogWebEntity.Url)"
     Width="30%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCount"]"
-    Field="@nameof(SqlLogWebEntity.CountAll)"
+    Field="@nameof(LogWebEntity.CountAll)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnSuccessCounter"]"
-    Field="@nameof(SqlLogWebEntity.CountSuccess)"
+    Field="@nameof(LogWebEntity.CountSuccess)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnErrorCounter"]"
-    Field="@nameof(SqlLogWebEntity.CountErrors)"
+    Field="@nameof(LogWebEntity.CountErrors)"
     Width="10%"
   />
 </SectionDataGridWrapper>

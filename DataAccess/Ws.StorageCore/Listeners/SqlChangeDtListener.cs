@@ -1,4 +1,5 @@
 ﻿using NHibernate.Event;
+using Ws.Domain.Models.Common;
 
 namespace Ws.StorageCore.Listeners;
 
@@ -6,7 +7,7 @@ public class SqlChangeDtListener : BaseListener, IPreUpdateEventListener
 {
     public bool OnPreUpdate(PreUpdateEvent @event)
     {
-        if (@event.Entity is not SqlEntityBase entity)
+        if (@event.Entity is not EntityBase entity)
             return false;
             
         DateTime now = DateTime.Now;

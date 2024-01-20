@@ -3,7 +3,7 @@ using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo;
+using Ws.Domain.Models.Entities;
 
 namespace DeviceControl.Features.Sections.Admin.Database;
 

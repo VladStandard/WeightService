@@ -1,4 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+﻿using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.StorageCore.Entities.Scales.PlusNestingFks;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusNestingFks;
 
@@ -8,7 +10,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
     private SqlPluNestingFkRepository PluNestingFkRepository { get; } = new();
 
     protected override IResolveConstraint SortOrderValue =>
-        Is.Ordered.Using((IComparer<SqlPluNestingFkEntity>)Comparer<SqlPluNestingFkEntity>.Create((x, y) =>
+        Is.Ordered.Using((IComparer<PluNestingEntity>)Comparer<PluNestingEntity>.Create((x, y) =>
             x.Plu.Number.CompareTo(y.Plu.Number))).Ascending;
 
     [Test]
@@ -16,7 +18,7 @@ public sealed class PluNestingFkRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlPluNestingFkEntity> items = PluNestingFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<PluNestingEntity> items = PluNestingFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         });
     }

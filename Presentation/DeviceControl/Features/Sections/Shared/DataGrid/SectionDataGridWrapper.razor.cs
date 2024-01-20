@@ -5,12 +5,13 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using Ws.Domain.Models.Common;
 using Ws.StorageCore.Common;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : SqlEntityBase, new()
+public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : EntityBase, new()
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;

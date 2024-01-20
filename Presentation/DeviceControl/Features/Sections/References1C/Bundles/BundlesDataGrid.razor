@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Bundles
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef1c.Bundles.SqlBundleEntity>
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref1c.BundleEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlBundleEntity"
+  TItem="BundleEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionBundles"]"
   GridData="SectionItems"
@@ -14,17 +14,17 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlBundleEntity.ChangeDt)"
+    Field="@nameof(BundleEntity.ChangeDt)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlBundleEntity.Name)"
+    Field="@nameof(BundleEntity.Name)"
     Width="60%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnWeight"]"
-    Field="@nameof(SqlBundleEntity.Weight)"
+    Field="@nameof(BundleEntity.Weight)"
     Width="20%"
   />
 </SectionDataGridWrapper>

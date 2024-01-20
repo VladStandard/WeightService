@@ -3,15 +3,17 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
 
-public sealed partial class PlusUpdateForm: SectionFormBase<SqlPluEntity>
+public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private SqlPluTemplateFkEntity PluTemplate { get; set; } = new();
+    private PluTemplateFkEntity PluTemplate { get; set; } = new();
 
     protected override void OnAfterRender(bool firstRender)
     {

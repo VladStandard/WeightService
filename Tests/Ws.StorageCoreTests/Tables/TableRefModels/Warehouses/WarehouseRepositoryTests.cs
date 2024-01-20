@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Warehouses;
+﻿using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.Warehouses;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Warehouses;
 
@@ -12,7 +13,7 @@ public sealed class WarehouseRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlWarehouseEntity> items = WarehousesRepository.GetEnumerable();
+            IEnumerable<WarehouseEntity> items = WarehousesRepository.GetEnumerable();
             ParseRecords(items);
         });
     }

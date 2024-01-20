@@ -1,6 +1,6 @@
-﻿using Ws.Printers.Common;
+﻿using Ws.Infrastructure.Models.Enums;
+using Ws.Printers.Common;
 using Ws.Printers.Main;
-using Ws.StorageCore.Enums;
 
 namespace Ws.Printers.Utils;
 

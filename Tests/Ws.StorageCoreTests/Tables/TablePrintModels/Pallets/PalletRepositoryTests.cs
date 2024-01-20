@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaPrint.Pallets;
+﻿using Ws.Domain.Models.Entities.Print;
+using Ws.StorageCore.Entities.Print.Pallets;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Pallets;
 
@@ -6,14 +7,14 @@ namespace Ws.StorageCoreTests.Tables.TablePrintModels.Pallets;
 public sealed class PalletRepositoryTests : TableRepositoryTests
 {
     private SqlPalletRepository PalletRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.CreateDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(PalletEntity.CreateDt)).Descending;
 
     [Test]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlPalletEntity> items = PalletRepository.GetList(SqlCrudConfig);
+            IEnumerable<PalletEntity> items = PalletRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

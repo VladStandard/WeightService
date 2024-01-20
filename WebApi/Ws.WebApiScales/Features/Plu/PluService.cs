@@ -1,13 +1,17 @@
 ﻿using FluentValidation.Results;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.Shared.TypeUtils;
-using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
-using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
-using Ws.StorageCore.Entities.SchemaRef1c.Brands;
-using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusFks;
-using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
+using Ws.StorageCore.Entities.Ref.StorageMethods;
+using Ws.StorageCore.Entities.Ref1c.Boxes;
+using Ws.StorageCore.Entities.Ref1c.Brands;
+using Ws.StorageCore.Entities.Ref1c.Bundles;
+using Ws.StorageCore.Entities.Ref1c.Clips;
+using Ws.StorageCore.Entities.Ref1c.Plus;
+using Ws.StorageCore.Entities.Scales.PlusFks;
+using Ws.StorageCore.Entities.Scales.PlusNestingFks;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;
 using Ws.WebApiScales.Features.Plu.Validators;
@@ -20,15 +24,15 @@ public class PluService(ResponseDto responseDto) : IPluService
 {
     #region Private
 
-    private static void SetPluIsMarked(SqlPluEntity plu)
+    private static void SetPluIsMarked(PluEntity plu)
     {
         if (plu.IsNew) return;
         SqlCoreHelper.Instance.Delete(plu);
     }
 
-    private static SqlStorageMethodEntity GetStorageMethodEntity(PluDto pluDto)
+    private static StorageMethodEntity GetStorageMethodEntity(PluDto pluDto)
     {
-        SqlStorageMethodEntity storageDb = new SqlStorageMethodRepository().GetItemByName(pluDto.StorageMethod);
+        StorageMethodEntity storageDb = new SqlStorageMethodRepository().GetItemByName(pluDto.StorageMethod);
 
         if (!storageDb.IsNew)
             return storageDb;
@@ -44,9 +48,9 @@ public class PluService(ResponseDto responseDto) : IPluService
         return storageDb;
     }
     
-    private static SqlClipEntity SaveOrUpdateClip(PluDto pluDto)
+    private static ClipEntity SaveOrUpdateClip(PluDto pluDto)
     {
-        SqlClipEntity clipDb = new SqlClipRepository().GetItemByUid1C(pluDto.ClipTypeGuid);
+        ClipEntity clipDb = new SqlClipRepository().GetItemByUid1C(pluDto.ClipTypeGuid);
         
         clipDb = pluDto.AdaptTo(clipDb);
 
@@ -60,9 +64,9 @@ public class PluService(ResponseDto responseDto) : IPluService
         return clipDb;
     }
     
-    private static SqlBoxEntity SaveOrUpdateBox(PluDto pluDto)
+    private static BoxEntity SaveOrUpdateBox(PluDto pluDto)
     {
-        SqlBoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
+        BoxEntity boxDb = new SqlBoxRepository().GetItemByUid1C(pluDto.BoxTypeGuid);
         
         boxDb = pluDto.AdaptTo(boxDb);
         
@@ -76,9 +80,9 @@ public class PluService(ResponseDto responseDto) : IPluService
         return boxDb;
     }
     
-    private static SqlBundleEntity SaveOrUpdateBundle(PluDto pluDto)
+    private static BundleEntity SaveOrUpdateBundle(PluDto pluDto)
     {
-        SqlBundleEntity bundleDb = new SqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
+        BundleEntity bundleDb = new SqlBundleRepository().GetItemByUid1C(pluDto.PackageTypeGuid);
         
         bundleDb = pluDto.AdaptTo(bundleDb);
         
@@ -92,16 +96,16 @@ public class PluService(ResponseDto responseDto) : IPluService
         return bundleDb;
     }
     
-    private static void SaveOrUpdatePluFk(SqlPluEntity plu, PluDto pluDto)
+    private static void SaveOrUpdatePluFk(PluEntity plu, PluDto pluDto)
     {
         if (Equals(pluDto.ParentGroupGuid, Guid.Empty)) return;
         if (plu.IsNew) return;
         
-        SqlPluEntity parentPluDb = new SqlPluRepository().GetItemByUid1C(pluDto.ParentGroupGuid);
+        PluEntity parentPluDb = new SqlPluRepository().GetItemByUid1C(pluDto.ParentGroupGuid);
         if (parentPluDb.IsNew) return;
         
-        SqlPluEntity categoryDb = new SqlPluRepository().GetItemByUid1C(pluDto.CategoryGuid);
-        SqlPluFkEntity pluFkDb = new SqlPluFkRepository().GetByPlu(plu);
+        PluEntity categoryDb = new SqlPluRepository().GetItemByUid1C(pluDto.CategoryGuid);
+        PluFkEntity pluFkDb = new SqlPluFkRepository().GetByPlu(plu);
         
         pluFkDb.Plu = plu;
         pluFkDb.Parent = parentPluDb;
@@ -110,7 +114,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         SqlCoreHelper.Instance.SaveOrUpdate(pluFkDb);
     }
     
-    private static void SaveOrUpdatePlu(SqlPluEntity plu, PluDto pluDto, SqlBundleEntity bundle)
+    private static void SaveOrUpdatePlu(PluEntity plu, PluDto pluDto, BundleEntity bundle)
     {
         plu = pluDto.AdaptTo(plu);
         plu.Bundle = bundle;
@@ -119,9 +123,9 @@ public class PluService(ResponseDto responseDto) : IPluService
         SqlCoreHelper.Instance.SaveOrUpdate(plu);
     }
     
-    private static void SaveOrUpdatePluNesting(SqlPluEntity plu, PluDto pluDto, SqlBoxEntity box)
+    private static void SaveOrUpdatePluNesting(PluEntity plu, PluDto pluDto, BoxEntity box)
     {
-        SqlPluNestingFkEntity pluNestingDb = new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
+        PluNestingEntity pluNestingDb = new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
 
         pluNestingDb.Plu = plu;
         pluNestingDb.Box = box;
@@ -138,7 +142,7 @@ public class PluService(ResponseDto responseDto) : IPluService
         
         foreach (PluDto pluDto in orderedEnumerable)
         {
-            SqlPluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
+            PluEntity pluDb = new SqlPluRepository().GetItemByUid1C(pluDto.Uid);
             
             if (pluDto.IsMarked)
             {
@@ -155,9 +159,9 @@ public class PluService(ResponseDto responseDto) : IPluService
                 continue;
             }
             
-            SqlClipEntity clip = SaveOrUpdateClip(pluDto);
-            SqlBoxEntity box = SaveOrUpdateBox(pluDto);
-            SqlBundleEntity bundle = SaveOrUpdateBundle(pluDto);
+            ClipEntity clip = SaveOrUpdateClip(pluDto);
+            BoxEntity box = SaveOrUpdateBox(pluDto);
+            BundleEntity bundle = SaveOrUpdateBundle(pluDto);
             
             SaveOrUpdatePlu(pluDb, pluDto, bundle);
             SaveOrUpdatePluFk(pluDb, pluDto);

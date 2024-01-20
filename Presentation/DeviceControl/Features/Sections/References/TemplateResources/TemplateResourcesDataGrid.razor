@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaScale.TemplatesResources
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaScale.TemplatesResources.SqlTemplateResourceEntity>
+@using Ws.Domain.Models.Entities.SchemaScale
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.SchemaScale.TemplateResourceEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlTemplateResourceEntity"
+  TItem="TemplateResourceEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionTemplatesResources"]"
   GridData="SectionItems"
@@ -15,12 +15,12 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlTemplateResourceEntity.Name)"
+    Field="@nameof(TemplateResourceEntity.Name)"
     Width="80%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnSize"]"
-    Field="@nameof(SqlTemplateResourceEntity.DataValue)"
+    Field="@nameof(TemplateResourceEntity.DataValue)"
     Width="20%"
   >
     <DisplayTemplate>

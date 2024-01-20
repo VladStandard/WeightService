@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.Domain.Models.Entities.Ref1c;
 
 namespace ScalesHybrid.Components.Dialogs;
 
@@ -13,9 +13,9 @@ public sealed partial class DialogPluSelect: ComponentBase
     [Inject] private LineContext LineContext { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
 
-    private IEnumerable<SqlPluEntity> GetPluEntities() => LineContext.PluEntities;
+    private IEnumerable<PluEntity> GetPluEntities() => LineContext.PluEntities;
 
-    private async void OnRowSelected(SqlPluEntity obj)
+    private async void OnRowSelected(PluEntity obj)
     {
         await LineContext.ChangePlu(obj);
         await ModalService.Hide();

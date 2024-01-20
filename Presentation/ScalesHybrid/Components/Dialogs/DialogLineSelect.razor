@@ -1,25 +1,25 @@
-@using Ws.StorageCore.Entities.SchemaRef.Lines
+@using Ws.Domain.Models.Entities.Ref
 <DialogDataGridWrapper
   Title="@Localizer["DialogLineSelectHeaderLabel"]"
   OnItemSelect="OnRowSelected"
   GridData="GetLineEntities()"
-  TItem="SqlLineEntity"
+  TItem="LineEntity"
 >
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
-    TItem="SqlLineEntity"
-    Field="@nameof(SqlLineEntity.Number)"
+    TItem="LineEntity"
+    Field="@nameof(LineEntity.Number)"
     Width="15%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    TItem="SqlLineEntity"
-    Field="@nameof(SqlLineEntity.Name)"
+    TItem="LineEntity"
+    Field="@nameof(LineEntity.Name)"
     Width="45%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnWarehouse"]"
-    TItem="SqlLineEntity"
+    TItem="LineEntity"
     Field="Warehouse.Name"
     Width="40%"
   />

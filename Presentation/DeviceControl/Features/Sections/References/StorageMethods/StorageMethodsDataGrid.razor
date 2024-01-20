@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.StorageMethods
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.StorageMethods.SqlStorageMethodEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.StorageMethodEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlStorageMethodEntity"
+  TItem="StorageMethodEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionPluStorages"]"
   GridData="SectionItems"
@@ -15,12 +15,12 @@
 
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCreateDt"]"
-    Field="@nameof(SqlStorageMethodEntity.CreateDt)"
+    Field="@nameof(StorageMethodEntity.CreateDt)"
     Width="15%"/>
 
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlStorageMethodEntity.Name)"
+    Field="@nameof(StorageMethodEntity.Name)"
     Width="85%"/>
 
 </SectionDataGridWrapper>

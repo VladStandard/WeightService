@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Clips
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef1c.Clips.SqlClipEntity>
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref1c.ClipEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlClipEntity"
+  TItem="ClipEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionClips"]"
   GridData="SectionItems"
@@ -14,17 +14,17 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlClipEntity.ChangeDt)"
+    Field="@nameof(ClipEntity.ChangeDt)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlClipEntity.Name)"
+    Field="@nameof(ClipEntity.Name)"
     Width="60%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnWeight"]"
-    Field="@nameof(SqlClipEntity.Weight)"
+    Field="@nameof(ClipEntity.Weight)"
     Width="20%"
   />
 </SectionDataGridWrapper>

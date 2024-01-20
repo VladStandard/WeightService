@@ -3,12 +3,13 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.Warehouses;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WarehousesDataGrid: SectionDataGridBase<SqlWarehouseEntity>
+public sealed partial class WarehousesDataGrid: SectionDataGridBase<WarehouseEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
@@ -17,10 +18,10 @@ public sealed partial class WarehousesDataGrid: SectionDataGridBase<SqlWarehouse
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<WarehousesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlWarehouseEntity item)
+    protected override async Task OpenDataGridEntityModal(WarehouseEntity item)
         => await OpenSectionModal<WarehousesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlWarehouseEntity item)
+    protected override async Task OpenItemInNewTab(WarehouseEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
@@ -29,6 +30,6 @@ public sealed partial class WarehousesDataGrid: SectionDataGridBase<SqlWarehouse
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlWarehouseEntity>(itemUid)];
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<WarehouseEntity>(itemUid)];
     }
 }

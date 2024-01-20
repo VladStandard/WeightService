@@ -1,3 +1,6 @@
+using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Models;
+
 namespace Ws.StorageCore.Models;
 
 public class SqlFieldIdentityValidator : AbstractValidator<SqlFieldIdentityModel>

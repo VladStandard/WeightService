@@ -1,6 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
+﻿using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Boxes;
 
 [TestFixture]
-public sealed class BoxModelTests : TableModelTests<SqlBoxEntity>;
+public sealed class BoxModelTests : TableModelTests<BoxEntity>;

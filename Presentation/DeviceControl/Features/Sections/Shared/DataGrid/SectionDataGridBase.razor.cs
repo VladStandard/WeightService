@@ -2,13 +2,14 @@ using Blazorise;
 using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Ws.Domain.Models.Common;
 using Ws.StorageCore.Common;
 using Ws.StorageCore.Helpers;
 using Ws.StorageCore.Models;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
-public class SectionDataGridBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
+public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;

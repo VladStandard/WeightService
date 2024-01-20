@@ -4,22 +4,22 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaPrint.Labels;
-using Ws.StorageCore.Entities.SchemaPrint.ViewLabels;
+using Ws.Domain.Models.Entities.Print;
+using Ws.StorageCore.Entities.Print.ViewLabels;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
-public sealed partial class LabelsDataGrid : SectionDataGridBase<SqlViewLabel>
+public sealed partial class LabelsDataGrid : SectionDataGridBase<ViewLabel>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
     
-    private SqlViewLabelRepository LabelRepository { get; } = new();
+    private ViewLabelRepository LabelRepository { get; } = new();
 
-    protected override async Task OpenDataGridEntityModal(SqlViewLabel item)
+    protected override async Task OpenDataGridEntityModal(ViewLabel item)
     {
-        SqlLabelEntity labelItem = SqlCoreHelper.Instance.GetItemByUid<SqlLabelEntity>(item.IdentityValueUid);
+        LabelEntity labelItem = SqlCoreHelper.Instance.GetItemByUid<LabelEntity>(item.IdentityValueUid);
         await ModalService.Show<LabelsUpdateDialog>(p =>
         {
             p.Add(x => x.DialogSectionEntity, labelItem);
@@ -27,7 +27,7 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<SqlViewLabel>
         });
     }
     
-    protected override async Task OpenItemInNewTab(SqlViewLabel item)
+    protected override async Task OpenItemInNewTab(ViewLabel item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
@@ -36,6 +36,6 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<SqlViewLabel>
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new[] { SqlCoreHelper.Instance.GetItemByUid<SqlViewLabel>(itemUid) };
+        SectionItems = new[] { SqlCoreHelper.Instance.GetItemByUid<ViewLabel>(itemUid) };
     }
 }

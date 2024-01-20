@@ -1,6 +1,7 @@
-using Ws.StorageCore.Entities.SchemaScale.PlusFks;
+using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.SchemaScale;
 
-namespace Ws.StorageCoreTests.Tables.TableScaleFkModels.PlusFks;
+namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusFks;
 
 [TestFixture]
-public sealed class PluGroupFkModelTests : TableModelTests<SqlPluFkEntity>;
+public sealed class PluGroupFkModelTests : TableModelTests<PluFkEntity>;

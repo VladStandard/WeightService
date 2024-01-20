@@ -3,12 +3,12 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Domain.Models.Entities.SchemaScale;
 using Ws.Shared.Enums;
-using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
-public sealed partial class TemplateResourcesUpdateDialog : SectionDialogBase<SqlTemplateResourceEntity>
+public sealed partial class TemplateResourcesUpdateDialog : SectionDialogBase<TemplateResourceEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     

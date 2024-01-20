@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace ScalesHybrid.Components.Dialogs;
 
@@ -13,9 +13,9 @@ public sealed partial class DialogLineSelect : ComponentBase
     [Inject] public IModalService ModalService { get; set; }
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; }
 
-    private IEnumerable<SqlLineEntity> GetLineEntities() => LineContext.LineEntities;
+    private IEnumerable<LineEntity> GetLineEntities() => LineContext.LineEntities;
 
-    private async void OnRowSelected(SqlLineEntity obj)
+    private async void OnRowSelected(LineEntity obj)
     {
         LineContext.ChangeLine(obj);
         await ModalService.Hide();

@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaPrint.Labels;
+﻿using Ws.Domain.Models.Entities.Print;
+using Ws.StorageCore.Entities.Print.Labels;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Labels;
 
@@ -6,14 +7,14 @@ namespace Ws.StorageCoreTests.Tables.TablePrintModels.Labels;
 public sealed class LabelRepositoryTests : TableRepositoryTests
 {
     private SqlLabelRepository LabelRepository { get; set; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.CreateDt)).Descending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(LabelEntity.CreateDt)).Descending;
 
     [Test]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlLabelEntity> items = LabelRepository.GetList(SqlCrudConfig);
+            IEnumerable<LabelEntity> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

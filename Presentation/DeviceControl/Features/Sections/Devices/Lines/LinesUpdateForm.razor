@@ -1,7 +1,8 @@
-@using Ws.StorageCore.Entities.SchemaRef.Printers
-@using Ws.StorageCore.Entities.SchemaRef.Warehouses
-@using Ws.StorageCore.Enums
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
+
+@using Ws.Infrastructure.Models.Enums
+@using Ws.Domain.Models.Enums
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
 <SectionFormWrapper
@@ -46,7 +47,7 @@
     MinValue="0"
   />
   <SectionFormInputSelect
-    TItem="SqlPrinterEntity"
+    TItem="PrinterEntity"
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
     Link="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.IdentityValueUid}")"
@@ -54,7 +55,7 @@
     ItemDisplayName="item => item.DisplayName"
   />
   <SectionFormInputSelect
-    TItem="SqlWarehouseEntity"
+    TItem="WarehouseEntity"
     Items="WarehousesEntities"
     Label="@Localizer["DataGridColumnWarehouse"]"
     Link="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.IdentityValueUid}")"

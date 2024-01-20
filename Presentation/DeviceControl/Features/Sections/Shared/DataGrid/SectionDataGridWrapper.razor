@@ -1,6 +1,6 @@
 @using Blazor.Heroicons
 @using Blazor.Heroicons.Outline
-@typeparam TItem where TItem: Ws.StorageCore.Common.SqlEntityBase, new()
+@typeparam TItem where TItem: Ws.Domain.Models.Common.EntityBase, new()
 @attribute [CascadingTypeParameter(nameof(TItem))]
 
 

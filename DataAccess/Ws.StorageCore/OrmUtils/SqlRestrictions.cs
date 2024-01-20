@@ -1,4 +1,6 @@
-﻿namespace Ws.StorageCore.OrmUtils;
+﻿using Ws.Domain.Models.Common;
+
+namespace Ws.StorageCore.OrmUtils;
 
 public static class SqlRestrictions
 {
@@ -6,13 +8,13 @@ public static class SqlRestrictions
 
     public static ICriterion Equal(string propertyName, object value) => Restrictions.Eq(propertyName, value);
     
-    public static ICriterion EqualFk(string propertyName, SqlEntityBase item)
+    public static ICriterion EqualFk(string propertyName, EntityBase item)
     {
         return item.Identity.Name switch
         {
-            SqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(SqlEntityBase.IdentityValueUid)}",
+            SqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(EntityBase.IdentityValueUid)}",
             item.Identity.Uid),
-            SqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(SqlEntityBase.IdentityValueId)}",
+            SqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(EntityBase.IdentityValueId)}",
             item.Identity.Id),
             _ => throw new ArgumentException("Unsupported field identity.")
         };
@@ -21,7 +23,7 @@ public static class SqlRestrictions
     public static ICriterion NotEqual(string propertyName, object value) => 
         Restrictions.Not(Restrictions.Eq(propertyName, value));
     
-    public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(SqlTable1CBase.Uid1C), uid1C);
+    public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(Table1CBase.Uid1C), uid1C);
     
     #endregion
 

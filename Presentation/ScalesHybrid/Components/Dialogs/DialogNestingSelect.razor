@@ -1,15 +1,16 @@
 @using Blazor.Heroicons.Solid
-@using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
+@using Ws.Domain.Models.Entities.Scale
+@using Ws.Domain.Models.Entities.SchemaScale
 <DialogDataGridWrapper
-  TItem="SqlPluNestingFkEntity"
+  TItem="PluNestingEntity"
   OnItemSelect="OnRowSelected"
   GridData="GetPluNestingsEntities()"
   Title="@Localizer["DialogNestingSelectHeaderLabel"]"
 >
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnDefault"]"
-    TItem="SqlPluNestingFkEntity"
-    Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
+    TItem="PluNestingEntity"
+    Field="@nameof(PluNestingEntity.IsDefault)"
     Width="10%"
   >
     <DisplayTemplate>
@@ -23,32 +24,32 @@
   </BlazorDataGridColumn>
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    TItem="SqlPluNestingFkEntity"
-    Field="@nameof(SqlPluNestingFkEntity.Box.Name)"
+    TItem="PluNestingEntity"
+    Field="@nameof(PluNestingEntity.Box.Name)"
     Width="45%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnBundleCount"]"
-    TItem="SqlPluNestingFkEntity"
-    Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
+    TItem="PluNestingEntity"
+    Field="@nameof(PluNestingEntity.BundleCount)"
     Width="15%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnBoxWeight"]"
-    TItem="SqlPluNestingFkEntity"
+    TItem="PluNestingEntity"
     Field="Box.Weight"
     Width="10%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnBundleWeight"]"
-    TItem="SqlPluNestingFkEntity"
+    TItem="PluNestingEntity"
     Field="Plu.Bundle.Weight"
     Width="10%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnTareWeight"]"
-    TItem="SqlPluNestingFkEntity"
-    Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
+    TItem="PluNestingEntity"
+    Field="@nameof(PluNestingEntity.WeightTare)"
     Width="10%"
   />
 </DialogDataGridWrapper>

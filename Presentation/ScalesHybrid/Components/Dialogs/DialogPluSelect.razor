@@ -1,20 +1,20 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Plus
+@using Ws.Domain.Models.Entities.Ref1c
 <DialogDataGridWrapper
-  TItem="SqlPluEntity"
+  TItem="PluEntity"
   OnItemSelect="OnRowSelected"
   GridData="GetPluEntities()"
   Title="@Localizer["DialogPluSelectHeaderLabel"]"
 >
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
-    TItem="SqlPluEntity"
-    Field="@nameof(SqlPluEntity.Number)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.Number)"
     Width="15%"
   />
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
-    TItem="SqlPluEntity"
-    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.IsCheckWeight)"
     Width="15%"
   >
     <DisplayTemplate>
@@ -25,8 +25,8 @@
   </BlazorDataGridColumn>
   <BlazorDataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    TItem="SqlPluEntity"
-    Field="@nameof(SqlPluEntity.Name)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.Name)"
     Width="70%"
   />
 </DialogDataGridWrapper>

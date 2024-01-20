@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
+﻿using Ws.Domain.Models.Entities.Ref1c;
+using Ws.StorageCore.Entities.Ref1c.Bundles;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Bundles;
 
@@ -7,7 +8,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
 {
     private SqlBundleRepository BundleRepository { get; } = new();
 
-    private SqlBundleEntity GetFirstBundleModel()
+    private BundleEntity GetFirstBundleModel()
     {
         SqlCrudConfig.SelectTopRowsCount = 1;
         return BundleRepository.GetEnumerable().First();
@@ -18,7 +19,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlBundleEntity> items = BundleRepository.GetEnumerable();
+            IEnumerable<BundleEntity> items = BundleRepository.GetEnumerable();
             ParseRecords(items);
         });
     }
@@ -28,8 +29,8 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            SqlBundleEntity oldBundle = GetFirstBundleModel();
-            SqlBundleEntity bundleBy1C = BundleRepository.GetItemByUid1C(oldBundle.Uid1C);
+            BundleEntity oldBundle = GetFirstBundleModel();
+            BundleEntity bundleBy1C = BundleRepository.GetItemByUid1C(oldBundle.Uid1C);
 
             Assert.That(bundleBy1C.IsExists, Is.True);
             Assert.That(bundleBy1C, Is.EqualTo(oldBundle));

@@ -3,12 +3,13 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.StorageCore.Entities.Ref.ProductionSites;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.ProductionSites;
 
-public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProductionSiteEntity>
+public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<ProductionSiteEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
@@ -17,10 +18,10 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProd
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<ProductionSitesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlProductionSiteEntity item)
+    protected override async Task OpenDataGridEntityModal(ProductionSiteEntity item)
         => await OpenSectionModal<ProductionSitesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlProductionSiteEntity item)
+    protected override async Task OpenItemInNewTab(ProductionSiteEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
@@ -29,6 +30,6 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<SqlProd
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlProductionSiteEntity>(itemUid)];
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<ProductionSiteEntity>(itemUid)];
     }
 }

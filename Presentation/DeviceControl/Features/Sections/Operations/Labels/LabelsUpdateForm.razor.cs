@@ -3,16 +3,18 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaPrint.Labels;
-using Ws.StorageCore.Entities.SchemaScale.PlusTemplatesFks;
+using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
 
-public sealed partial class LabelsUpdateForm: SectionFormBase<SqlLabelEntity>
+public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private SqlPluTemplateFkEntity PluTemplate { get; set; } = new();
+    private PluTemplateFkEntity PluTemplate { get; set; } = new();
 
     protected override void OnAfterRender(bool firstRender)
     {

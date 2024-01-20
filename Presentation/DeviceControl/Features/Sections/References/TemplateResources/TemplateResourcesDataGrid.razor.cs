@@ -3,12 +3,13 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
+using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.StorageCore.Entities.Scales.TemplatesResources;
 using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
-public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTemplateResourceEntity>
+public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<TemplateResourceEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     
@@ -17,10 +18,10 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlTemplateResourceEntity item)
+    protected override async Task OpenDataGridEntityModal(TemplateResourceEntity item)
         => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlTemplateResourceEntity item)
+    protected override async Task OpenItemInNewTab(TemplateResourceEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
@@ -29,7 +30,7 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTe
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlTemplateResourceEntity>(itemUid)];
+        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<TemplateResourceEntity>(itemUid)];
     }
     
     private static string ConvertBytes(int fileSize) =>
