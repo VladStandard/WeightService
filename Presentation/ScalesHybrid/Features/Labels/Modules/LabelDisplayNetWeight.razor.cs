@@ -10,20 +10,21 @@ namespace ScalesHybrid.Features.Labels.Modules;
 
 public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
 {
-    [Inject] private LineContext LineContext { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    
+    [Inject] private LabelContext LabelContext { get; set; } = null!;
     
     private bool IsStable { get; set; }
 
     protected override void OnInitialized()
     {
-        LineContext.OnStateChanged += StateHasChanged;
+        LabelContext.OnStateChanged += StateHasChanged;
         MassaSubscribe();
     }
 
-    private decimal GetNetWeight => (decimal)LineContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
+    private decimal GetNetWeight => (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
     
-    private decimal GetTareWeight => LineContext.PluNesting.WeightTare;
+    private decimal GetTareWeight => LabelContext.PluNesting.WeightTare;
 
     private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
     
@@ -34,7 +35,7 @@ public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload)
     {
         IsStable = payload.IsStable;
-        LineContext.KneadingModel.NetWeightG = payload.Weight;
+        LabelContext.KneadingModel.NetWeightG = payload.Weight;
         InvokeAsync(StateHasChanged);
     }
 
@@ -46,7 +47,7 @@ public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
     
     public void Dispose()
     {
-        LineContext.OnStateChanged -= StateHasChanged;
+        LabelContext.OnStateChanged -= StateHasChanged;
         MassaUnsubscribe();
     }
 }
