@@ -8,8 +8,6 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global using FluentValidation;
 global using FluentValidation.Results;
-global using MDSoft.NetUtils;
-global using Microsoft.Data.SqlClient;
 global using NHibernate;
 global using NHibernate.Criterion;
 global using Ws.StorageCore.Common;
