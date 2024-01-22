@@ -8,9 +8,9 @@ using Ws.WebApiScales.Features.Plu;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ResponseDto>();
-builder.Services.AddScoped<IPluService, PluService>();
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<IPluCharacteristicService, PluCharacteristicService>();
+builder.Services.AddScoped<IPluApiService, PluApiService>();
+builder.Services.AddScoped<IBrandApiService, BrandApiService>();
+builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
 builder.Services.AddVsServices();
 
 builder.Services.AddHttpContextAccessor();

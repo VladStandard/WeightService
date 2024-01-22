@@ -2,7 +2,7 @@
 
 namespace Ws.WebApiScales.Features.Plu;
 
-public interface IPluService
+public interface IPluApiService
 {
     public void Load(PlusWrapper brandsWrapper);
 }

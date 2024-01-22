@@ -82,7 +82,7 @@ public class LineContext
 
     private IEnumerable<PluEntity> GetPlus() => LineService.GetLineWeightPlus(Line);
 
-    private IEnumerable<PluNestingEntity> GetPluNestings() => PluService.GetPluNesting(Plu);
+    private IEnumerable<PluNestingEntity> GetPluNestings() => PluService.GetPluNestings(Plu);
 
     private void InitData()
     {

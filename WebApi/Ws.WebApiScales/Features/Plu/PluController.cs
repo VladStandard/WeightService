@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using Ws.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;
@@ -9,13 +10,14 @@ namespace Ws.WebApiScales.Features.Plu;
 [ApiController]
 [Route("api/plu/")]
 public class PluController(
-    IPluService pluService,
+    IPluApiService pluApiService,
+    ILogWebService logWebService,
     IHttpContextAccessor httpContextAccessor,
-    ResponseDto responseDto) : BaseController(httpContextAccessor, responseDto)
+    ResponseDto responseDto) : BaseController(responseDto, logWebService, httpContextAccessor)
 {
 
     [HttpPost("load")]
     [Produces("application/xml")]
     public ContentResult LoadPlu([FromBody] XElement xml) => 
-        HandleXmlRequest<PlusWrapper>(xml, pluService.Load);
+        HandleXmlRequest<PlusWrapper>(xml, pluApiService.Load);
 }

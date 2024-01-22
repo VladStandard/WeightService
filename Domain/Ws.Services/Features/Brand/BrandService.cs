@@ -7,6 +7,6 @@ namespace Ws.Services.Features.Brand;
 internal class BrandService : IBrandService
 {
     public IEnumerable<BrandEntity> GetAll() => new SqlBrandRepository().GetEnumerable();
-
+    public BrandEntity GetByUid1С(Guid uid) => new SqlBrandRepository().GetItemByUid1C(uid);
     public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BrandEntity>(uid);
 }

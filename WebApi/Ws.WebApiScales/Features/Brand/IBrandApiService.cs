@@ -2,7 +2,7 @@
 
 namespace Ws.WebApiScales.Features.Brand;
 
-public interface IBrandService
+public interface IBrandApiService
 {
     public void Load(BrandsWrapper brandsWrapper);
 }

@@ -10,22 +10,4 @@ public class SqlLogWebRepository : SqlTableRepositoryBase<LogWebEntity>
         sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
         return SqlCore.GetEnumerable<LogWebEntity>(sqlCrudConfig).ToList();
     }
-
-    public void Save(DateTime requestStampDt, string requestDataString, string responseDataString, string url,
-        int success, int errors)
-    {
-        LogWebEntity webLog = new()
-        {
-            CreateDt = requestStampDt,
-            StampDt = DateTime.Now,
-            Version = "beta",
-            Url = url,
-            DataRequest = requestDataString,
-            DataResponse = responseDataString,
-            CountSuccess = success,
-            CountErrors = errors,
-            CountAll = errors + success
-        };
-        SqlCore.Save(webLog);
-    }
 }

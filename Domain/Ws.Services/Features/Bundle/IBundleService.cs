@@ -3,4 +3,7 @@ using Ws.Services.Common;
 
 namespace Ws.Services.Features.Bundle;
 
-public interface IBundleService : IAll<BundleEntity>, IUid<BundleEntity>;
+public interface IBundleService : IAll<BundleEntity>, IUid<BundleEntity>, IUid1C<BundleEntity>
+{
+    BundleEntity GetDefault();
+}

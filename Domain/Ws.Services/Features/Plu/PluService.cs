@@ -4,6 +4,7 @@ using Ws.Domain.Models.Entities.Scale;
 using Ws.StorageCore.Entities.Ref.Lines;
 using Ws.StorageCore.Entities.Ref.PlusLines;
 using Ws.StorageCore.Entities.Ref1c.Plus;
+using Ws.StorageCore.Entities.Scales.PlusFks;
 using Ws.StorageCore.Entities.Scales.PlusNestingFks;
 using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 using Ws.StorageCore.Helpers;
@@ -14,22 +15,37 @@ public class PluService : IPluService
 {
     public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
     
+    public PluEntity GetByUid1С(Guid uid) => new SqlPluRepository().GetItemByUid1C(uid);
+    
     public IEnumerable<PluEntity> GetAllNotGroup() => new SqlPluRepository().GetEnumerableNotGroup();
     
-    public IEnumerable<PluNestingEntity> GetPluNesting(PluEntity plu)
+    public IEnumerable<PluNestingEntity> GetPluNestings(PluEntity plu) =>
+        new SqlPluNestingFkRepository().GetEnumerableByPluUidActual(plu);
+
+    public PluNestingEntity GetDefaultNesting(PluEntity plu) =>
+        new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
+    
+    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) =>
+        new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
+
+    public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C)
     {
-        return new SqlPluNestingFkRepository().GetEnumerableByPluUidActual(plu);
+        PluNestingEntity nesting = GetNestingByUid1C(plu, nestingUid1C);
+        if (nesting.IsExists) SqlCoreHelper.Instance.Delete(nesting);
     }
     
-    public TemplateEntity GetPluTemplate(PluEntity plu)
-    {
-        return new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
-    }
-
+    public TemplateEntity GetPluTemplate(PluEntity plu) => 
+        new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
+    
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
         LineEntity line = new SqlLineRepository().GetItemByName(lineName);
         PluEntity plu = new SqlPluRepository().GetItemByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
     }
+
+    public PluFkEntity GetParent(PluEntity plu) => new SqlPluFkRepository().GetByPlu(plu);
+
+    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids) =>
+        new SqlPluRepository().GetPluUid1CInRange(uniquePluGuids);
 }

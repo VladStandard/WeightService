@@ -1,7 +1,6 @@
 // ReSharper disable ClassNeverInstantiated.Global
 using Microsoft.AspNetCore.Components;
 using Ws.Domain.Models.Entities;
-using Ws.Domain.Models.Entities.Diag;
 using Ws.Services.Features.DatabaseFile;
 
 namespace DeviceControl.Features.Sections.Admin.Database;

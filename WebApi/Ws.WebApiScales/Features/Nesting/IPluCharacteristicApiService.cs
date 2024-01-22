@@ -2,7 +2,7 @@
 
 namespace Ws.WebApiScales.Features.Nesting;
 
-public interface IPluCharacteristicService
+public interface IPluCharacteristicApiService
 {
     public void Load(PluCharacteristicsWrapper pluCharacteristics);
 }

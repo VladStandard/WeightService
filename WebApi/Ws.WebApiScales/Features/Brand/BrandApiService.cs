@@ -1,19 +1,19 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.StorageCore.Entities.Ref1c.Brands;
+using Ws.Services.Features.Brand;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand.Dto;
 using Ws.WebApiScales.Features.Brand.Validators;
 
 namespace Ws.WebApiScales.Features.Brand;
 
-public class BrandService(ResponseDto responseDto) : IBrandService
+public class BrandApiService(ResponseDto responseDto, IBrandService brandService) : IBrandApiService
 {
     #region Private
 
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        BrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(brandDto.Guid);
+        BrandEntity brandDb = brandService.GetByUid1С(brandDto.Guid);
         
         brandDb = brandDto.AdaptTo(brandDb);
         
@@ -23,7 +23,7 @@ public class BrandService(ResponseDto responseDto) : IBrandService
     
     private void IsMarkedBrand(Guid uid)
     {
-        BrandEntity brandDb = new SqlBrandRepository().GetItemByUid1C(uid);
+        BrandEntity brandDb = brandService.GetByUid1С(uid);
         
         if (brandDb.IsNew)
         {
