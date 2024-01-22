@@ -11,17 +11,20 @@
     <LineInputWithReset />
     <InputWithLabel
       Label="Склад"
-      Value="@LineContext.Line.Warehouse.Name"
+      Value="@LabelContext.Line.Warehouse.Name"
       IsDisabled
     />
     <InputWithLabel
       Label="ПЛУ"
-      Value=@(LineContext.Plu.IsNew ? "ПЛУ не выбрана" : LineContext.Plu.DisplayName)
+      Value=@(LabelContext.Plu.IsNew ? "ПЛУ не выбрана" : LabelContext.Plu.DisplayName)
       OnClickAction="ShowPluSelectDialog"
-      IsDisabled="LineContext.Line.IsNew"/>
+      IsDisabled="LabelContext.Line.IsNew"
+    />
     <InputWithLabel
       Label="Вложенность"
-      Value=@(LineContext.PluNesting.IsNew ? "Вложенность не выбрана" : NameFormatting.GetPluNestingFormattedName(LineContext.PluNesting))
-      IsDisabled/>
+      Value=@(LabelContext.PluNesting.IsNew ? "Вложенность не выбрана" :
+                NameFormatting.GetPluNestingFormattedName(LabelContext.PluNesting))
+      IsDisabled
+    />
   </div>
 </div>

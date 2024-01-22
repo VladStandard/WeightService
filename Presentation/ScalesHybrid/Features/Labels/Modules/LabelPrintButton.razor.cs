@@ -23,14 +23,16 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
-    [Inject] private LineContext LineContext { get; set; } = null!;
     
     #endregion
+    
+    [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
+    
     private const int PrinterRequestDelay = 100;
     private const int ButtonCooldownDelay = 500;
     
@@ -64,8 +66,8 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
             LabelInfoDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
-            LineContext.Line.Counter += 1;
-            SqlCoreHelper.Instance.Update(LineContext.Line);
+            LabelContext.Line.Counter += 1;
+            SqlCoreHelper.Instance.Update(LabelContext.Line);
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
@@ -83,7 +85,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
     
     private async Task<bool> ValidateScalesStatus()
     {
-        switch (LineContext.Plu.IsCheckWeight)
+        switch (LabelContext.Plu.IsCheckWeight)
         {
             case true when !IsScalesStable:
                 await NotificationService.Warning(Localizer["ScalesStatusUnstable"]);
@@ -96,10 +98,32 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         }
     }
 
-    private LabelInfoDto CreateLabelInfoDto()
-    {
-        return LineContext.AdaptTo(new() { Weight = GetWeight() });
-    }
+    private LabelInfoDto CreateLabelInfoDto() =>
+        new()
+        {
+            Plu1СGuid = LabelContext.Plu.Uid1C,
+            PluNumber = LabelContext.Plu.Number,
+            Kneading = (short)LabelContext.KneadingModel.KneadingCount,
+            Weight = GetWeight(),
+            WeightTare = LabelContext.PluNesting.WeightTare,
+            LineCounter = LabelContext.Line.Counter,
+            BundleCount = LabelContext.PluNesting.BundleCount,
+            IsCheckWeight = LabelContext.Plu.IsCheckWeight,
+            Itf = LabelContext.Plu.Itf14,
+            Gtin = LabelContext.Plu.Gtin,
+            Address = LabelContext.Line.Warehouse.ProductionSite.Address,
+            PluFullName = LabelContext.Plu.FullName,
+            PluDescription = LabelContext.Plu.Description,
+            LineNumber = LabelContext.Line.Number,
+            LineName = LabelContext.Line.Name,
+            Template = LabelContext.PluTemplate.Data,
+            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
+            ExpirationDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
+                .AddDays(LabelContext.Plu.ShelfLifeDays)
+        };
+
+    private static DateTime GetProductDt(DateTime time) => 
+        new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
     private async Task PrintPrinterStatusMessage()
     {
@@ -117,10 +141,10 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
     }
     
     private bool GetPrintLabelDisabledStatus() =>
-        LineContext.Plu.IsNew || LineContext.PluNesting.IsNew || LineContext.Plu.IsCheckWeight & IsScalesDisconnected;
+        LabelContext.Plu.IsNew || LabelContext.PluNesting.IsNew || LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
-        (decimal)LineContext.KneadingModel.NetWeightG / 1000 - LineContext.PluNesting.WeightTare;
+        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.PluNesting.WeightTare;
 
     private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
         PrinterStatus = payload.Status;

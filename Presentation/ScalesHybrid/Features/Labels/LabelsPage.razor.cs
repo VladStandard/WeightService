@@ -5,7 +5,11 @@ using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Features.Labels;
 
-public sealed partial class LabelsPage : ComponentBase
+public sealed partial class LabelsPage : ComponentBase, IDisposable
 {
-    [Inject] private LineContext LineContext { get; set; } = null!;
+    [Inject] public LabelContext LabelContext { get; set; } = null!;
+
+    protected override void OnInitialized() => LabelContext.InitializeData();
+
+    public void Dispose() => LabelContext.InitializeData();
 }

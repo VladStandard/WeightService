@@ -10,14 +10,15 @@ namespace ScalesHybrid.Features.Labels.Modules;
 
 public sealed partial class LabelDisplay: ComponentBase, IDisposable
 {
-    [Inject] private LineContext LineContext { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    
+    [Inject] private LabelContext LabelContext { get; set; } = null!;
     
     private bool IsScalesDisconnected { get; set; }
     
     protected override void OnInitialized()
     {
-        LineContext.OnStateChanged += StateHasChanged;
+        LabelContext.OnStateChanged += StateHasChanged;
         MassaSubscribe();
     }
     
@@ -35,7 +36,7 @@ public sealed partial class LabelDisplay: ComponentBase, IDisposable
     
     public void Dispose()
     {
-        LineContext.OnStateChanged -= StateHasChanged;
+        LabelContext.OnStateChanged -= StateHasChanged;
         MassaUnsubscribe();
     }
 }

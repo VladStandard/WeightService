@@ -1,14 +1,15 @@
 ﻿using Mapster;
+using ScalesHybrid.Features.Labels;
 using ScalesHybrid.Services;
 using Ws.LabelsService.Features.PrintLabel.Dto;
 
 namespace ScalesHybrid.Mapster;
 
-public class LineContextConfigRegister : IRegister
+public class LabelContextConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<LineContext, LabelInfoDto>()
+        config.NewConfig<LabelContext, LabelInfoDto>()
             .Map(d => d.Plu1СGuid, s => s.Plu.Uid1C)
             .Map(d => d.PluNumber, s => s.Plu.Number)
             .Map(d => d.Kneading, s => s.KneadingModel.KneadingCount)
@@ -30,7 +31,7 @@ public class LineContextConfigRegister : IRegister
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }
-    
-    public static DateTime GetProductDt(DateTime time) => 
+
+    private static DateTime GetProductDt(DateTime time) => 
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 }

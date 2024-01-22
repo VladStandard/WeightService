@@ -1,50 +1,50 @@
-@using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks
-@inherits DataGridBase<Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity>
-
-
-<DataGridWrapper
-  TItem="SqlPluNestingFkEntity"
-  GridData="GridData"
-  OnItemSelect="OnItemSelect"
-  Title="@Localizer["DialogNestingSelectHeaderLabel"]"
->
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnDefault"]"
-    Field="@nameof(SqlPluNestingFkEntity.IsDefault)"
-    Width="10%"
-  >
-    <DisplayTemplate>
-      @if (context.IsDefault)
-      {
-        <div class="flex h-full w-full items-center justify-center">
-          <StarIcon class="h-8 w-8 text-yellow-500" />
-        </div>
-      }
-    </DisplayTemplate>
-  </DataGridColumn>
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnName"]"
-    Field="Box.Name"
-    Width="45%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnBundleCount"]"
-    Field="@nameof(SqlPluNestingFkEntity.BundleCount)"
-    Width="15%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnBoxWeight"]"
-    Field="Box.Weight"
-    Width="10%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnBundleWeight"]"
-    Field="Plu.Bundle.Weight"
-    Width="10%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnTareWeight"]"
-    Field="@nameof(SqlPluNestingFkEntity.WeightTare)"
-    Width="10%"
-  />
-</DataGridWrapper>
+@* @using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks *@
+@* @inherits DataGridBase<Ws.StorageCore.Entities.SchemaScale.PlusNestingFks.SqlPluNestingFkEntity> *@
+@* *@
+@* *@
+@* <DataGridWrapper *@
+@*   TItem="SqlPluNestingFkEntity" *@
+@*   GridData="GridData" *@
+@*   OnItemSelect="OnItemSelect" *@
+@*   Title="@Localizer["DialogNestingSelectHeaderLabel"]" *@
+@* > *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnDefault"]" *@
+@*     Field="@nameof(SqlPluNestingFkEntity.IsDefault)" *@
+@*     Width="10%" *@
+@*   > *@
+@*     <DisplayTemplate> *@
+@*       @if (context.IsDefault) *@
+@*       { *@
+@*         <div class="flex h-full w-full items-center justify-center"> *@
+@*           <StarIcon class="h-8 w-8 text-yellow-500" /> *@
+@*         </div> *@
+@*       } *@
+@*     </DisplayTemplate> *@
+@*   </DataGridColumn> *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnName"]" *@
+@*     Field="Box.Name" *@
+@*     Width="45%" *@
+@*   /> *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnBundleCount"]" *@
+@*     Field="@nameof(SqlPluNestingFkEntity.BundleCount)" *@
+@*     Width="15%" *@
+@*   /> *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnBoxWeight"]" *@
+@*     Field="Box.Weight" *@
+@*     Width="10%" *@
+@*   /> *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnBundleWeight"]" *@
+@*     Field="Plu.Bundle.Weight" *@
+@*     Width="10%" *@
+@*   /> *@
+@*   <DataGridColumn *@
+@*     Caption="@Localizer["DataGridColumnTareWeight"]" *@
+@*     Field="@nameof(SqlPluNestingFkEntity.WeightTare)" *@
+@*     Width="10%" *@
+@*   /> *@
+@* </DataGridWrapper> *@
