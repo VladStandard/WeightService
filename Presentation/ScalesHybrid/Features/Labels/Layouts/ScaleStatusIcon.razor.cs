@@ -10,10 +10,7 @@ public sealed partial class ScaleStatusIcon: ComponentBase, IDisposable
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
     
-    protected override void OnInitialized()
-    {
-        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
-    }
+    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
 
     private void GetStatus(object recipient, GetScaleStatusEvent message)
     {
@@ -28,13 +25,10 @@ public sealed partial class ScaleStatusIcon: ComponentBase, IDisposable
 
     private string GetScaleStatusStyle() => DeviceStatus switch
     {
-        DeviceStatusEnum.IsDisabled => "bg-gray-300",
-        DeviceStatusEnum.IsForceDisconnected => "bg-red-300 shadow-red-200",
-        _ => "bg-green-300 shadow-green-200"
+        DeviceStatusEnum.IsDisabled => "bg-gray-100 border-gray-300 text-gray-600",
+        DeviceStatusEnum.IsForceDisconnected => "bg-red-100 border-red-500 text-red-500",
+        _ => "bg-green-100 border-green-500 text-green-500"
     };
 
-    public void Dispose()
-    {
-        WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
-    }
+    public void Dispose() => WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
 }

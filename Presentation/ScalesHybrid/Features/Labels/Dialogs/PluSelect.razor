@@ -19,9 +19,7 @@
     Width="15%"
   >
     <DisplayTemplate>
-      <p class="text-lg text-black xl:text-xl">
-        @(context.IsCheckWeight ? "Вес" : "Шт")
-      </p>
+      <span>@(context.IsCheckWeight ? "Вес" : "Шт")</span>
     </DisplayTemplate>
   </DataGridColumn>
   <DataGridColumn

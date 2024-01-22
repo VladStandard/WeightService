@@ -28,9 +28,9 @@ public sealed partial class PrinterStatusIcon: ComponentBase, IDisposable
 
     private string GetPrinterStatusStyle() => DeviceStatus switch
     {
-        DeviceStatusEnum.IsDisabled => "bg-gray-300",
-        DeviceStatusEnum.IsForceDisconnected => "bg-red-300 shadow-red-200",
-        _ => "bg-green-300 shadow-green-200"
+        DeviceStatusEnum.IsDisabled => "bg-gray-100 border-gray-300 text-gray-600",
+        DeviceStatusEnum.IsForceDisconnected => "bg-red-100 border-red-500 text-red-500",
+        _ => "bg-green-100 border-green-500 text-green-500"
     };
 
     public void Dispose()

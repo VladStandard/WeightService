@@ -1,0 +1,25 @@
+@using Blazor.Heroicons.Outline
+
+
+<div class="w-full h-16 shrink-0">
+  <div class="w-full h-full max-w-screen-2xl mx-auto px-8 flex items-center justify-between">
+    <div class="shrink-0">
+      <p class="text-2xl">@GetAppTitle()</p>
+    </div>
+    <div class="flex grow w-full h-full">
+      @ChildContent
+    </div>
+    <div class="shrink-0">
+      <a href="@RouteUtils.Home">
+        <button
+          type="button"
+          class="h-12 px-5 rounded-lg text-gray-500 border border-gray-300 overflow-hidden flex gap-2 items-center justify-center
+                    transition-colors hover:bg-gray-50 hover:border-gray-500 hover:text-black"
+        >
+          <Bars3Icon class="h-6 w-6" />
+          <p class="text-lg">Меню</p>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

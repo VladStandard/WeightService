@@ -1,26 +1,20 @@
-using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using ScalesHybrid.Features.Home;
 using ScalesHybrid.Resources;
 using Ws.Shared.Utils;
 
-namespace ScalesHybrid.Features.Labels.Layouts;
+namespace ScalesHybrid.Features.Shared;
 
-public sealed partial class LabelsHeader: ComponentBase
+public sealed partial class PageHeader: ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IModalService ModalService { get; set; } = null!;
-
-    private bool IsDevelop { get; } = ConfigurationUtil.IsDevelop;
+    
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private string GetAppTitle()
     {
-        string devString = IsDevelop ? "[DEV] " : string.Empty;
+        string devString = ConfigurationUtil.IsDevelop ? "[DEV] " : string.Empty;
         string versionString = VersionTracking.CurrentVersion;
         return $"{devString}{Localizer["AppName"]} {versionString}";
     }
-    
-    
 }
-

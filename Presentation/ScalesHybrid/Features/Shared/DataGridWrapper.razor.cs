@@ -20,6 +20,17 @@ public sealed partial class DataGridWrapper<TItem>: ComponentBase where TItem: S
     [Parameter] public string Title { get; set; } = string.Empty;
 
     public DataGrid<TItem> DataGrid { get; set; } = null!;
+    
+    private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
+        styling.Class = "transition-colors hover:bg-sky-100";
+    
+    
+    private static DataGridRowStyling CustomHeaderRowStyling() =>
+        new() { Class = "truncate text-xl" };
+    
+    
+    private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
+        styling.Class = "truncate text-black font-light text-xl";
 
     private async Task CloseCurrentDialog() => await ModalService.Hide();
 }

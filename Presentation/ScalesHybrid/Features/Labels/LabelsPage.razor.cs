@@ -1,3 +1,5 @@
+// ReSharper disable ClassNeverInstantiated.Global
+
 using Microsoft.AspNetCore.Components;
 using ScalesHybrid.Services;
 
