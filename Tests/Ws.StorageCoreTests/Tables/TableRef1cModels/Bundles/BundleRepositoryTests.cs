@@ -20,7 +20,7 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlBundleEntity> items = BundleRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 
     [Test]
@@ -35,6 +35,6 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
 
             TestContext.WriteLine(bundleBy1C);
-        }, false);
+        });
     }
 }

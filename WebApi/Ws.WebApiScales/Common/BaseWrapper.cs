@@ -1,4 +1,6 @@
-﻿namespace Ws.WebApiScales.Common;
+﻿using System.Xml.Serialization;
+
+namespace Ws.WebApiScales.Common;
 
 [Serializable]
 public abstract class BaseWrapper

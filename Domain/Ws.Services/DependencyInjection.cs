@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Ws.Services.Services.Label;
-using Ws.Services.Services.Line;
-using Ws.Services.Services.Plu;
-using Ws.Services.Services.PrintLabel;
+using Ws.Services.Features.Line;
+using Ws.Services.Features.Plu;
 
 namespace Ws.Services;
 
@@ -12,7 +10,5 @@ public static class DependencyInjection
     {
         services.AddScoped<ILineService, LineService>();
         services.AddScoped<IPluService, PluService>();
-        services.AddScoped<IPrintLabelService, PrintLabelService>();
-        services.AddScoped<ILabelService, LabelService>();
     }
 }

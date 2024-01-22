@@ -19,6 +19,6 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
         {
             List<SqlPluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
-        }, false);
+        });
     }
 }

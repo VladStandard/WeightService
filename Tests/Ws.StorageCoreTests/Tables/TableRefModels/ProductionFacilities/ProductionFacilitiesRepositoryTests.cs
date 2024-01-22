@@ -14,6 +14,6 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

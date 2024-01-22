@@ -24,6 +24,6 @@ public class SqlLogWebRepository : SqlTableRepositoryBase<SqlLogWebEntity>
             CountErrors = errors,
             CountAll = errors + success
         };
-        SqlCore.Save(webLog, SqlEnumSessionType.IsolatedAsync);
+        SqlCore.Save(webLog);
     }
 }

@@ -14,6 +14,6 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlClipEntity> items = ClipRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }

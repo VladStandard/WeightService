@@ -1,19 +1,14 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Ws.WebApiScales.Common.Services;
-using Ws.WebApiScales.Dto.Response;
-using Ws.WebApiScales.Services;
+using Ws.WebApiScales.Dto;
+using Ws.WebApiScales.Features.Brand;
+using Ws.WebApiScales.Features.Nesting;
+using Ws.WebApiScales.Features.Plu;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-SqlCoreHelper.Instance.SetSessionFactory(false);
-if (SqlCoreHelper.Instance.SessionFactory is null)
-    throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
-
-builder.Services.AddSingleton(SqlCoreHelper.Instance.SessionFactory);
-builder.Services.AddScoped(_ => SqlCoreHelper.Instance.SessionFactory.OpenSession());
+SqlCoreHelper.Instance.SetSessionFactory();
 
 builder.Services.AddScoped<ResponseDto>();
-
 builder.Services.AddScoped<IPluService, PluService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IPluCharacteristicService, PluCharacteristicService>();

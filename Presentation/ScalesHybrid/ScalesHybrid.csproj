@@ -73,6 +73,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
+      <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" />

@@ -12,11 +12,11 @@ public class DataTestsHelper
     #endregion
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
     
-    public void AssertAction(Action action, bool isShowSql)
+    public void AssertAction(Action action)
     {
         Assert.DoesNotThrow(() =>
         {
-            SqlCore.SetSessionFactory(isShowSql);
+            SqlCore.SetSessionFactory();
             action();
             TestContext.WriteLine();
         });

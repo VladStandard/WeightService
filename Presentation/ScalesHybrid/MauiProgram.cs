@@ -5,6 +5,7 @@ using Blazorise.Tailwind;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
+using Ws.LabelsService;
 using Ws.Services;
 using Ws.StorageCore.Helpers;
 
@@ -15,13 +16,12 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         
-        SqlCoreHelper.Instance.SetSessionFactory(false);
-        if (SqlCoreHelper.Instance.SessionFactory is null)
-            throw new ArgumentException($"{nameof(SqlCoreHelper.Instance.SessionFactory)}");
+        SqlCoreHelper.Instance.SetSessionFactory();
         
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddVsServices();
+        builder.Services.AddLabelsServices();
         
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();

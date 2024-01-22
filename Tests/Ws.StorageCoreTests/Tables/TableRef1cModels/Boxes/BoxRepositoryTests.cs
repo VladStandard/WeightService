@@ -14,6 +14,6 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
         {
             IEnumerable<SqlBoxEntity> items = BoxRepository.GetEnumerable();
             ParseRecords(items);
-        }, false);
+        });
     }
 }
