@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using Ws.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand.Dto;
@@ -9,13 +10,14 @@ namespace Ws.WebApiScales.Features.Brand;
 [ApiController]
 [Route("api/brands/")]
 public class BrandController(
-    IBrandService brandService, 
+    IBrandApiService brandApiService, 
     IHttpContextAccessor httpContextAccessor,
-    ResponseDto responseDto) : BaseController(httpContextAccessor, responseDto)
+    ILogWebService logWebService,
+    ResponseDto responseDto) : BaseController(responseDto, logWebService, httpContextAccessor)
 {
     [AllowAnonymous]
     [HttpPost("load")]
     [Produces("application/xml")]
     public ContentResult LoadBrands([FromBody] XElement xml) => 
-        HandleXmlRequest<BrandsWrapper>(xml, brandService.Load);
+        HandleXmlRequest<BrandsWrapper>(xml, brandApiService.Load);
 }

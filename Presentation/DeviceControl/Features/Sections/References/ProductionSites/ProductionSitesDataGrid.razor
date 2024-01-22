@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.ProductionSites
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.ProductionSites.SqlProductionSiteEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.ProductionSiteEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlProductionSiteEntity"
+  TItem="ProductionSiteEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionProductionSites"]"
   GridData="SectionItems"
@@ -15,12 +15,12 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlProductionSiteEntity.Name)"
+    Field="@nameof(ProductionSiteEntity.Name)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnAddress"]"
-    Field="@nameof(SqlProductionSiteEntity.Address)"
+    Field="@nameof(ProductionSiteEntity.Address)"
     Width="80%"
   />
 </SectionDataGridWrapper>

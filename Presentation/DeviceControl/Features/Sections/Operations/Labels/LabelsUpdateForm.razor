@@ -1,4 +1,4 @@
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaPrint.Labels.SqlLabelEntity>
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.LabelEntity>
 
 
 <SectionFormWrapper
@@ -29,7 +29,7 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@PluTemplate.Template.Title"
+    Value="@Template.Title"
     Label="@Localizer["DataGridColumnTemplate"]"
     Link="@GetTemplateLink()"
     IsDisabled

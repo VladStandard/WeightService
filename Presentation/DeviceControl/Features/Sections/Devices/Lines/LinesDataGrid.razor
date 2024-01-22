@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.Lines
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlLineEntity"
+  TItem="LineEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionLines"]"
   GridData="SectionItems"
@@ -16,17 +16,17 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnVersion"]"
-    Field="@nameof(SqlLineEntity.Version)"
+    Field="@nameof(LineEntity.Version)"
     Width="5%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnLine"]"
-    Field="@nameof(SqlLineEntity.Name)"
+    Field="@nameof(LineEntity.Name)"
     Width="15%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
-    Field="@nameof(SqlLineEntity.Number)"
+    Field="@nameof(LineEntity.Number)"
     Width="10%"
   />
   <DataGridColumn
@@ -46,7 +46,7 @@
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCounter"]"
-    Field="@nameof(SqlLineEntity.Counter)"
+    Field="@nameof(LineEntity.Counter)"
     Width="10%"
   />
 </SectionDataGridWrapper>

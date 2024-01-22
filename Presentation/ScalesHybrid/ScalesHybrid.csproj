@@ -60,8 +60,8 @@
         <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
-        <PackageReference Include="Mapster" Version="7.4.1-pre01" />
-        <PackageReference Include="Mapster.Core" Version="1.2.2-pre01" />
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Mapster.Core" Version="1.2.1" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -72,7 +72,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" />

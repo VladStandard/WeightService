@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Claims;
+﻿using Ws.Database.Core.Entities.Ref.Claims;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Claims;
 
@@ -12,7 +13,7 @@ public sealed class ClaimRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlClaimEntity> items = ClaimRepository.GetEnumerable();
+            IEnumerable<ClaimEntity> items = ClaimRepository.GetEnumerable();
             ParseRecords(items);
         });
     }

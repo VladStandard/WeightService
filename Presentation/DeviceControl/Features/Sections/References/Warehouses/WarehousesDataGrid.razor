@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.Warehouses
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Warehouses.SqlWarehouseEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlWarehouseEntity"
+  TItem="WarehouseEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionWarehouses"]"
   GridData="SectionItems"
@@ -15,7 +15,7 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlWarehouseEntity.Name)"
+    Field="@nameof(WarehouseEntity.Name)"
     Width="50%"
   />
   <DataGridColumn

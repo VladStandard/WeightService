@@ -1,11 +1,14 @@
 ﻿using System.Xml.Linq;
-using Ws.StorageCore.Entities.SchemaDiag.LogsWebs;
+using Ws.Services.Features.LogWeb;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Common;
 
-public abstract class BaseController(IHttpContextAccessor httpContextAccessor, ResponseDto responseDto) : ControllerBase
+public abstract class BaseController(
+    ResponseDto responseDto,
+    ILogWebService logWebService,
+    IHttpContextAccessor httpContextAccessor) : ControllerBase
 {
     protected ContentResult HandleXmlRequest<TDto>(XElement xml, Action<TDto> processMethod) where TDto : class
     {
@@ -20,7 +23,7 @@ public abstract class BaseController(IHttpContextAccessor httpContextAccessor, R
 
             string response = XmlUtil.SerializeToXml(responseDto);
             
-            new SqlLogWebRepository().Save(requestTime, xml.ToString(),response, currentUrl, 
+            logWebService.Save(requestTime, xml.ToString(), response, currentUrl, 
             responseDto.SuccessesCount, responseDto.ErrorsCount);
             
             return new() { Content = response, ContentType = "application/xml", StatusCode = 200 };

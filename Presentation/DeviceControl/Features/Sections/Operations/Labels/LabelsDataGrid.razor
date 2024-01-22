@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaPrint.ViewLabels
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaPrint.ViewLabels.SqlViewLabel>
+@using Ws.Domain.Models.Entities.Print
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Print.ViewLabel>
 
 
 <SectionDataGridWrapper
-  TItem="SqlViewLabel"
+  TItem="ViewLabel"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionLabels"]"
   GridData="SectionItems"
@@ -15,37 +15,37 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCreateDt"]"
-    Field="@nameof(SqlViewLabel.CreateDt)"
+    Field="@nameof(ViewLabel.CreateDt)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnProductDt"]"
-    Field="@nameof(SqlViewLabel.ProductDate)"
+    Field="@nameof(ViewLabel.ProductDate)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnLine"]"
-    Field="@nameof(SqlViewLabel.LineName)"
+    Field="@nameof(ViewLabel.LineName)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnWarehouse"]"
-    Field="@nameof(SqlViewLabel.Warehouse)"
+    Field="@nameof(ViewLabel.Warehouse)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnPluNumber"]"
-    Field="@nameof(SqlViewLabel.PluNumber)"
+    Field="@nameof(ViewLabel.PluNumber)"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnPluName"]"
-    Field="@nameof(SqlViewLabel.PluName)"
+    Field="@nameof(ViewLabel.PluName)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
-    Field="@nameof(SqlViewLabel.IsCheckWeight)"
+    Field="@nameof(ViewLabel.IsCheckWeight)"
     Width="10%"
   >
     <DisplayTemplate>

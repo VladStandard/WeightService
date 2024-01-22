@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using Ws.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Nesting.Dto;
@@ -9,14 +10,15 @@ namespace Ws.WebApiScales.Features.Nesting;
 [ApiController]
 [Route("api/plu_characteristics/")]
 public class PluCharacteristicController(
-    IPluCharacteristicService pluCharacteristicService,
+    IPluCharacteristicApiService pluCharacteristicApiService,
+    ILogWebService logWebService,
     IHttpContextAccessor httpContextAccessor,
-    ResponseDto responseDto) : BaseController(httpContextAccessor, responseDto)
+    ResponseDto responseDto) : BaseController(responseDto, logWebService, httpContextAccessor)
 {
     
     [HttpPost("load")]
     [Produces("application/xml")]
     public ContentResult LoadCharacteristics([FromBody] XElement xml) => 
-        HandleXmlRequest<PluCharacteristicsWrapper>(xml, pluCharacteristicService.Load);
+        HandleXmlRequest<PluCharacteristicsWrapper>(xml, pluCharacteristicApiService.Load);
 
 }

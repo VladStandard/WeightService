@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.Users
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.UserEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlUserEntity"
+  TItem="UserEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionUsers"]"
   GridData="SectionItems"
@@ -16,7 +16,7 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnActive"]"
-    Field="@nameof(SqlUserEntity.LoginDt)"
+    Field="@nameof(UserEntity.LoginDt)"
     Width="4%"
   >
     <DisplayTemplate>
@@ -27,12 +27,12 @@
   </DataGridColumn>
   <DataGridColumn
     Caption="@Localizer["DataGridColumnLoginDt"]"
-    Field="@nameof(SqlUserEntity.LoginDt)"
+    Field="@nameof(UserEntity.LoginDt)"
     Width="40%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlUserEntity.Name)"
+    Field="@nameof(UserEntity.Name)"
     Width="40%"
   />
 </SectionDataGridWrapper>

@@ -3,33 +3,35 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
-using Ws.StorageCore.Helpers;
+using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Services.Features.TemplateResource;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
-public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<SqlTemplateResourceEntity>
+public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<TemplateResourceEntity>
 {
+    #region Inject
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
+    [Inject] private ITemplateResourceService TemplateResourceService { get; set; } = null!;
+
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlTemplateResourceEntity item)
+    protected override async Task OpenDataGridEntityModal(TemplateResourceEntity item)
         => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlTemplateResourceEntity item)
+    protected override async Task OpenItemInNewTab(TemplateResourceEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateResourceRepository.GetList();
+        SectionItems = TemplateResourceService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlTemplateResourceEntity>(itemUid)];
+        SectionItems = [TemplateResourceService.GetByUid(itemUid)];
     }
     
     private static string ConvertBytes(int fileSize) =>

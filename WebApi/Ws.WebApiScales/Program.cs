@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Ws.Services;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand;
 using Ws.WebApiScales.Features.Nesting;
@@ -6,12 +7,11 @@ using Ws.WebApiScales.Features.Plu;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-SqlCoreHelper.Instance.SetSessionFactory();
-
 builder.Services.AddScoped<ResponseDto>();
-builder.Services.AddScoped<IPluService, PluService>();
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<IPluCharacteristicService, PluCharacteristicService>();
+builder.Services.AddScoped<IPluApiService, PluApiService>();
+builder.Services.AddScoped<IBrandApiService, BrandApiService>();
+builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
+builder.Services.AddVsServices();
 
 builder.Services.AddHttpContextAccessor();
 

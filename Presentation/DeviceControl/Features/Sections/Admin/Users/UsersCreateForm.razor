@@ -1,5 +1,5 @@
-@using Ws.StorageCore.Entities.SchemaRef.Claims
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Users.SqlUserEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.UserEntity>
 
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(ProcessItem(SectionEntity))">
@@ -8,7 +8,7 @@
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputMultiSelect
-    TItem="SqlClaimEntity"
+    TItem="ClaimEntity"
     Items="RolesEntities"
     Label="@Localizer["DataGridColumnRoles"]"
     @bind-SelectedItems="@SelectedRoles"

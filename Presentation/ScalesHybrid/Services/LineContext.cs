@@ -1,13 +1,11 @@
 using ScalesHybrid.Models;
 using ScalesHybrid.Utils;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Scale;
 using Ws.Services.Features.Line;
 using Ws.Services.Features.Plu;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
-using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Services;
 
@@ -21,16 +19,17 @@ public class LineContext: IDisposable
     
     # endregion
     
-    public SqlLineEntity Line { get; private set; } = new();
-    public SqlPluEntity Plu { get; private set; } = new();
-    public SqlPrinterEntity PrinterEntity { get; private set; } = new();
-    public SqlTemplateEntity PluTemplate { get; private set; } = new();
-    public SqlPluNestingFkEntity PluNesting { get; private set; } = new();
-    public WeightKneadingModel KneadingModel { get; private set; } = new();
-    public IEnumerable<SqlLineEntity> LineEntities { get; private set; } = [];
-    public IEnumerable<SqlPluEntity> PluEntities { get; private set; } = [];
-    public IEnumerable<SqlPluNestingFkEntity> PluNestingEntities { get; private set; } = [];
+    public LineEntity Line { get; private set; }
+    public PluEntity Plu { get; private set; }
+    public PrinterEntity PrinterEntity { get; private set; }
+    public TemplateEntity PluTemplate { get; private set; }
+    public PluNestingEntity PluNesting { get; set; }
+    public WeightKneadingModel KneadingModel { get; set; }
+    public IEnumerable<LineEntity> LineEntities { get; set; }
+    public IEnumerable<PluEntity> PluEntities { get; set; }
+    public IEnumerable<PluNestingEntity> PluNestingEntities { get; set; }
     public event Action? OnStateChanged;
+    
     private Timer Timer { get; set; }
 
     public LineContext(ILineService lineService, IPluService pluService, ExternalDevicesService externalDevices)
@@ -42,7 +41,7 @@ public class LineContext: IDisposable
         Timer = new(_ => ExternalDevices.Scales.SendGetWeight(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
 
-    public void ChangeLine(SqlLineEntity sqlLineEntity)
+    public void ChangeLine(LineEntity sqlLineEntity)
     {
         Line = sqlLineEntity;
         PluEntities = GetPlus();
@@ -54,17 +53,17 @@ public class LineContext: IDisposable
     }
 
     public void ResetLine() {
-        SqlLineEntity newLine = LineService.GetCurrentLine();
+        LineEntity newLine = LineService.GetCurrentLine();
         LineEntities = LineService.GetLinesByWarehouse(newLine.Warehouse);
         PrinterEntity = newLine.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
         ChangeLine(newLine);
     }
 
-    public async Task ChangePlu(SqlPluEntity sqlPluEntity)
+    public async Task ChangePlu(PluEntity pluEntity)
     {
-        if (Plu.Equals(sqlPluEntity)) return;
-        Plu = sqlPluEntity;
+        if (Plu.Equals(pluEntity)) return;
+        Plu = pluEntity;
         PluTemplate = PluService.GetPluTemplate(Plu);
         PluNestingEntities = await Task.Run(GetPluNestings);
         PluNesting = PluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
@@ -76,17 +75,17 @@ public class LineContext: IDisposable
         NotifyStateChanged();
     }
 
-    public void ChangePluNesting(SqlPluNestingFkEntity sqlPluNestingEntity)
+    public void ChangePluNesting(PluNestingEntity pluNestingEntity)
     {
-        if (PluNesting.Equals(sqlPluNestingEntity)) return;
-        PluNesting = sqlPluNestingEntity;
-        NameFormatting.GetPluNestingFormattedName(sqlPluNestingEntity);
+        if (PluNesting.Equals(pluNestingEntity)) return;
+        PluNesting = pluNestingEntity;
+        NameFormatting.GetPluNestingFormattedName(pluNestingEntity);
         NotifyStateChanged();
     }
 
-    private IEnumerable<SqlPluEntity> GetPlus() => LineService.GetLineWeightPlus(Line);
+    private IEnumerable<PluEntity> GetPlus() => LineService.GetLineWeightPlus(Line);
 
-    private IEnumerable<SqlPluNestingFkEntity> GetPluNestings() => PluService.GetPluNesting(Plu);
+    private IEnumerable<PluNestingEntity> GetPluNestings() => PluService.GetPluNestings(Plu);
 
     private void InitData()
     {

@@ -4,12 +4,12 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Shared.Enums;
-using Ws.StorageCore.Entities.SchemaRef.Users;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersCreateDialog: SectionDialogBase<SqlUserEntity>
+public sealed partial class UsersCreateDialog: SectionDialogBase<UserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     

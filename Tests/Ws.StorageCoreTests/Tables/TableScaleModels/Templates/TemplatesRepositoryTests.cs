@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaScale.Templates;
+﻿using Ws.Database.Core.Entities.Scales.Templates;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Templates;
 
@@ -6,14 +7,14 @@ namespace Ws.StorageCoreTests.Tables.TableScaleModels.Templates;
 public sealed class TemplatesRepositoryTests : TableRepositoryTests
 {
     private SqlTemplateRepository TemplateRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlTemplateEntity.Title)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(TemplateEntity.Title)).Ascending;
 
     [Test]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlTemplateEntity> items = TemplateRepository.GetList(SqlCrudConfig);
+            IEnumerable<TemplateEntity> items = TemplateRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

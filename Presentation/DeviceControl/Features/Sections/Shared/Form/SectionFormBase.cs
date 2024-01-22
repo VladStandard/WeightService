@@ -4,13 +4,13 @@ using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Common;
-using Ws.StorageCore.Helpers;
-using Ws.StorageCore.Utils;
+using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
+using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public class SectionFormBase<TItem>: ComponentBase where TItem: SqlEntityBase, new()
+public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new()
 {
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;

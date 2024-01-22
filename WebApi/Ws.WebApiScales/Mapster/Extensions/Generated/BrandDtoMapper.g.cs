@@ -2,13 +2,13 @@ namespace Ws.WebApiScales.Features.Brand.Dto
 {
     public static partial class BrandDtoMapper
     {
-        public static Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity AdaptTo(this Ws.WebApiScales.Features.Brand.Dto.BrandDto p1, Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity p2)
+        public static Ws.Domain.Models.Entities.Ref1c.BrandEntity AdaptTo(this Ws.WebApiScales.Features.Brand.Dto.BrandDto p1, Ws.Domain.Models.Entities.Ref1c.BrandEntity p2)
         {
             if (p1 == null)
             {
                 return null;
             }
-            Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity result = p2 ?? new Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity();
+            Ws.Domain.Models.Entities.Ref1c.BrandEntity result = p2 ?? new Ws.Domain.Models.Entities.Ref1c.BrandEntity();
             
             result.Code = p1.Code;
             result.Uid1C = p1.Guid;

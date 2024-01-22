@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Plus
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef1c.Plus.SqlPluEntity>
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlPluEntity"
+  TItem="PluEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionPLU"]"
   GridData="SectionItems"
@@ -15,25 +15,25 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlPluEntity.Name)"
+    Field="@nameof(PluEntity.Name)"
     FilterMethod="DataGridColumnFilterMethod.Contains"
     Width="35%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
-    Field="@nameof(SqlPluEntity.Number)"
+    Field="@nameof(PluEntity.Number)"
     FilterMethod="DataGridColumnFilterMethod.StartsWith"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCode"]"
-    Field="@nameof(SqlPluEntity.Code)"
+    Field="@nameof(PluEntity.Code)"
     FilterMethod="DataGridColumnFilterMethod.Contains"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnIsWeight"]"
-    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    Field="@nameof(PluEntity.IsCheckWeight)"
     Filterable="false"
     Width="10%"
   >
@@ -45,7 +45,7 @@
   </DataGridColumn>
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlPluEntity.ChangeDt)"
+    Field="@nameof(PluEntity.ChangeDt)"
     Filterable="false"
     Width="15%"
   />

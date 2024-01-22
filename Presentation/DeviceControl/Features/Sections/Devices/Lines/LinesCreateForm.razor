@@ -1,7 +1,6 @@
-@using Ws.StorageCore.Entities.SchemaRef.Printers
-@using Ws.StorageCore.Entities.SchemaRef.Warehouses
-@using Ws.StorageCore.Enums
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Lines.SqlLineEntity>
+@using Ws.Domain.Models.Enums
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
@@ -28,14 +27,14 @@
     MaxValue="99999"
   />
   <SectionFormInputSelect
-    TItem="SqlPrinterEntity"
+    TItem="PrinterEntity"
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemDisplayName="item => item.DisplayName"
   />
   <SectionFormInputSelect
-    TItem="SqlWarehouseEntity"
+    TItem="WarehouseEntity"
     Items="WarehousesEntities"
     Label="@Localizer["DataGridColumnWarehouse"]"
     @bind-SelectedItem="@SectionEntity.Warehouse"

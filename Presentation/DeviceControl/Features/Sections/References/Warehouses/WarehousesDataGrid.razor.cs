@@ -3,32 +3,35 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
-using Ws.StorageCore.Helpers;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.Warehouse;
 
 namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WarehousesDataGrid: SectionDataGridBase<SqlWarehouseEntity>
+public sealed partial class WarehousesDataGrid: SectionDataGridBase<WarehouseEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlWarehouseRepository WarehouseRepository { get; } = new();
+    [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
+
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<WarehousesCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlWarehouseEntity item)
+    protected override async Task OpenDataGridEntityModal(WarehouseEntity item)
         => await OpenSectionModal<WarehousesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlWarehouseEntity item)
+    protected override async Task OpenItemInNewTab(WarehouseEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = WarehouseRepository.GetEnumerable().ToList();
+        SectionItems = WarehouseService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlWarehouseEntity>(itemUid)];
+        SectionItems = [WarehouseService.GetByUid(itemUid)];
     }
 }

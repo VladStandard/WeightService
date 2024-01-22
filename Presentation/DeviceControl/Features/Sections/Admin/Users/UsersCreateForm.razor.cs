@@ -3,25 +3,31 @@ using DeviceControl.Resources;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Claims;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersCreateForm: SectionFormBase<SqlUserEntity>
+public sealed partial class UsersCreateForm: SectionFormBase<UserEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private string UserPrefix { get; set; } = "KOLBASA-VS\\";
-    private SqlClaimRepository RolesRepository { get; set; } = new();
-    private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<SqlClaimEntity> SelectedRolesInternal { get; set; } = [];
+    #region Inject
     
-    private IEnumerable<SqlClaimEntity> SelectedRoles
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IClaimService ClaimService { get; set; } = null!;
+    
+    #endregion
+
+    private string UserPrefix { get; set; } = "KOLBASA-VS\\";
+
+    private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
+    private IEnumerable<ClaimEntity> SelectedRolesInternal { get; set; } = [];
+    
+    private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SelectedRolesInternal;
         set
         {
-            SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
+            SectionEntity.Claims = new HashSet<ClaimEntity>(value);
             SelectedRolesInternal = value;
         }
     }
@@ -30,12 +36,12 @@ public sealed partial class UsersCreateForm: SectionFormBase<SqlUserEntity>
     {
         SectionEntity.Name = UserPrefix;
         SelectedRolesInternal = SectionEntity.Claims.ToList();
-        RolesEntities = RolesRepository.GetEnumerable().ToList();
+        RolesEntities = ClaimService.GetAll();
     }
 
-    private SqlUserEntity ProcessItem(SqlUserEntity item)
+    private UserEntity ProcessItem(UserEntity item)
     {
-        SqlUserEntity userEntity = SectionEntity.DeepClone();
+        UserEntity userEntity = SectionEntity.DeepClone();
         string userName = userEntity.Name;
         userName = userName.ToUpper();
         if (!userName.Contains(UserPrefix))

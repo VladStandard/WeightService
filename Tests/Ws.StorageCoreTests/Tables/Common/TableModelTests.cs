@@ -1,6 +1,8 @@
-﻿namespace Ws.StorageCoreTests.Tables.Common;
+﻿using Ws.Domain.Models.Common;
 
-public class TableModelTests<TItem> where TItem : SqlEntityBase, new()
+namespace Ws.StorageCoreTests.Tables.Common;
+
+public class TableModelTests<TItem> where TItem : EntityBase, new()
 {
     [Test]
     public virtual void Model_EqualsNew()

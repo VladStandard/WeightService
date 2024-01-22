@@ -2,19 +2,24 @@ using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.ProductionSites;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.ProductionSite;
 
 namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WarehousesUpdateForm: SectionFormBase<SqlWarehouseEntity>
+public sealed partial class WarehousesUpdateForm: SectionFormBase<WarehouseEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    #region Inject
 
-    private IEnumerable<SqlProductionSiteEntity> PlatformEntities { get; set; } = new List<SqlProductionSiteEntity>();
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IProductionSiteService ProductionSiteService{ get; set; } = null!;
+
+    #endregion
+    
+    private IEnumerable<ProductionSiteEntity> PlatformEntities { get; set; } = new List<ProductionSiteEntity>();
 
     protected override void OnInitialized()
     {
-        PlatformEntities = new SqlProductionSiteRepository().GetEnumerable().ToList();
+        PlatformEntities = ProductionSiteService.GetAll();
     }
 }

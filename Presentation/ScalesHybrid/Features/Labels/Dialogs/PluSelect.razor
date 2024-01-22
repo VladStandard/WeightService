@@ -1,21 +1,23 @@
-@inherits DataGridBase<SqlPluEntity>
+@inherits DataGridBase<PluEntity>
 @using Ws.StorageCore.Entities.SchemaRef1c.Plus
 
 
 <DataGridWrapper
-  TItem="SqlPluEntity"
+  TItem="PluEntity"
   GridData="GridData"
   OnItemSelect="OnItemSelect"
   Title="@Localizer["DialogPluSelectHeaderLabel"]"
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
-    Field="@nameof(SqlPluEntity.Number)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.Number)"
     Width="15%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
-    Field="@nameof(SqlPluEntity.IsCheckWeight)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.IsCheckWeight)"
     Width="15%"
   >
     <DisplayTemplate>
@@ -24,7 +26,8 @@
   </DataGridColumn>
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlPluEntity.Name)"
+    TItem="PluEntity"
+    Field="@nameof(PluEntity.Name)"
     Width="70%"
   />
 </DataGridWrapper>

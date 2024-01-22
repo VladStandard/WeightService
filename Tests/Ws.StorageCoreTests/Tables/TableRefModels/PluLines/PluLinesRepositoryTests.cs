@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.PlusLines;
+﻿using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
 
@@ -9,7 +10,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
 
     protected override IResolveConstraint SortOrderValue =>
         Is.Ordered.Using(
-            (IComparer<SqlPluLineEntity>)Comparer<SqlPluLineEntity>.Create((x, y) =>
+            (IComparer<PluLineEntity>)Comparer<PluLineEntity>.Create((x, y) =>
                 x.Plu.Number.CompareTo(y.Plu.Number))).Ascending;
 
     [Test]
@@ -17,7 +18,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<SqlPluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
+            List<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

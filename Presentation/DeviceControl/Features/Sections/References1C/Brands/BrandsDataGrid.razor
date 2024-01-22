@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef1c.Brands
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef1c.Brands.SqlBrandEntity>
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref1c.BrandEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlBrandEntity"
+  TItem="BrandEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionBrands"]"
   GridData="SectionItems"
@@ -14,17 +14,17 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnChangeDt"]"
-    Field="@nameof(SqlBrandEntity.ChangeDt)"
+    Field="@nameof(BrandEntity.ChangeDt)"
     Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlBrandEntity.Name)"
+    Field="@nameof(BrandEntity.Name)"
     Width="60%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCode"]"
-    Field="@nameof(SqlBrandEntity.Code)"
+    Field="@nameof(BrandEntity.Code)"
     Width="20%"
   />
 </SectionDataGridWrapper>

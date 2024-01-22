@@ -1,5 +1,6 @@
 ﻿using System.Security.Principal;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Database.Core.Entities.Ref.Users;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Users;
 
@@ -22,7 +23,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlUserEntity> items = new SqlUserRepository().GetEnumerable();
+            IEnumerable<UserEntity> items = new SqlUserRepository().GetEnumerable();
             ParseRecords(items);
         });
     }
@@ -32,7 +33,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            SqlUserEntity access = UserRepository.GetItemByNameOrCreate(CurrentUser);
+            UserEntity access = UserRepository.GetItemByNameOrCreate(CurrentUser);
             Assert.That(access.IsExists, Is.True);
             TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
         });

@@ -31,94 +31,12 @@
         <Watch Include="..\**\*.razor;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
       <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
-    </ItemGroup>
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\css\favicon.ico" />
-      <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
-      <_ContentIncludedByDefault Remove="Components\Layout\NavMenu.razor" />
-      <_ContentIncludedByDefault Remove="Components\Layout\NavMenuItem.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Default\Error.cshtml" />
-      <_ContentIncludedByDefault Remove="wwwroot\packages\flowbite-v1.5.4.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\packages\flowbite-v1.5.4.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\packages\font.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\packages\fontawasome-v5.15.4.all.css" />
-      <_ContentIncludedByDefault Remove="Components\Item\ItemActions.razor" />
-      <_ContentIncludedByDefault Remove="Components\Item\ItemDates.razor" />
-      <_ContentIncludedByDefault Remove="Components\Item\ItemTableBody.razor" />
-      <_ContentIncludedByDefault Remove="Components\Item\ItemTableHead.razor" />
-      <_ContentIncludedByDefault Remove="Components\Item\ItemTopBar.razor" />
-      <_ContentIncludedByDefault Remove="Components\Section\SectionActions.razor" />
-      <_ContentIncludedByDefault Remove="Components\Section\SectionIsMarked.razor" />
-      <_ContentIncludedByDefault Remove="Components\Section\SectionTopBar.razor" />
-      <_ContentIncludedByDefault Remove="Components\Nested\PlusLines\AddPlusLines.razor" />
-      <_ContentIncludedByDefault Remove="Components\Nested\PlusLines\PlusLines.razor" />
-      <_ContentIncludedByDefault Remove="Components\Nested\PlusNestingFks\ItemPluNestingFk.razor" />
-      <_ContentIncludedByDefault Remove="Components\Nested\PlusNestingFks\PlusNestingFks.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Boxes\Boxes.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Boxes\ItemBox.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Brands\Brands.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Brands\ItemBrand.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Bundles\Bundles.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Bundles\ItemBundle.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Clips\Clips.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Clips\ItemClips.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\PlusStorage\ItemPlusStorage.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\PlusStorage\PlusStorage.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\ProductionSites\ItemProductionSite.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\ProductionSites\ProductionSites.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\TemplateResources\ItemTemplateResource.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\TemplateResources\TemplateResources.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\Templates\ItemTemplate.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\Templates\Templates.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\Workshops\ItemWorkshop.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References\Workshops\Workshops.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Logs\WebServiceLogs\ItemWebServiceLog.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Logs\WebServiceLogs\WebServiceLogs.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Hosts\Hosts.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Hosts\ItemHost.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Lines\ItemLines.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Lines\Lines.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Printers\ItemPrinter.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Devices\Printers\Printers.razor" />
-      <_ContentIncludedByDefault Remove="Pages\_Host.cshtml" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\Access\Access.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\Access\ItemAccess.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\SqlInfo.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Admins\Versions.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Operations\Barcodes\BarCodes.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Operations\Barcodes\ItemBarCode.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Operations\Labels\ItemLabel.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Operations\Labels\Labels.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\Profiles\Profile.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Plus\ItemPlu.razor" />
-      <_ContentIncludedByDefault Remove="Pages\Menu\References1C\Plus\Plu.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsCreateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsCreateForm.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsPage.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsUpdateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Devices\Hosts\HostsUpdateForm.razor" />
-    </ItemGroup>
-    <ItemGroup>
-      <AdditionalFiles Include="Features\Layout\MainLayout.razor" />
-      <AdditionalFiles Include="Features\Layout\NavMenu.razor" />
-      <AdditionalFiles Include="Features\Layout\NavMenuItem.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\DataGrid\SectionDataGridWrapper.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormFooter.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputCheckbox.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputNumeric.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputSelect.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputText.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormInputWrapper.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Form\SectionFormWrapper.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Modal\SectionModalHeader.razor" />
-      <AdditionalFiles Include="Features\Sections\Shared\Modal\SectionModalWrapper.razor" />
     </ItemGroup>
     
     <ItemGroup>

@@ -1,13 +1,13 @@
 ﻿using System.Security.Claims;
 using DeviceControl.Auth.Common;
 using Microsoft.Extensions.Caching.Memory;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.User;
 
 namespace DeviceControl.Auth;
 
-public class UserCacheService(IMemoryCache cache) : IUserCacheService
+public class UserCacheService(IMemoryCache cache, IUserService userService) : IUserCacheService
 {
-    private readonly SqlUserRepository _userRepository = new();
     private readonly List<string> _cachedUsernames = [];
 
     public async Task<List<Claim>> GetUserRightsAsync(string username)
@@ -48,7 +48,7 @@ public class UserCacheService(IMemoryCache cache) : IUserCacheService
     private Task<List<Claim>> GetUserRightsFromRepositoryAsync(string username)
     {
         List<Claim> rights = [];
-        SqlUserEntity user = _userRepository.GetItemByNameOrCreate(username);
+        UserEntity user = userService.GetItemByNameOrCreate(username);
         rights.AddRange(user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)));
         return Task.FromResult(rights);
     }

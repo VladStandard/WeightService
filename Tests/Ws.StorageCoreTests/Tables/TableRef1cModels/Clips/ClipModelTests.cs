@@ -1,6 +1,6 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Clips;
+﻿using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Clips;
 
 [TestFixture]
-public sealed class ClipModelTests : TableModelTests<SqlClipEntity>;
+public sealed class ClipModelTests : TableModelTests<ClipEntity>;

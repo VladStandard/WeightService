@@ -1,15 +1,18 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+﻿using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Services.Common;
 
 namespace Ws.Services.Features.Line;
 
-public interface ILineService
+public interface ILineService : IUid<LineEntity>, IAll<LineEntity>
 {
-    public SqlLineEntity GetCurrentLine();
-    public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line);
-    public IEnumerable<SqlPluEntity> GetLineWeightPlus(SqlLineEntity line);
-    public IEnumerable<SqlPluEntity> GetLinePiecePlus(SqlLineEntity line);
-    public IEnumerable<SqlLineEntity> GetLinesByWarehouse(SqlWarehouseEntity warehouse);
-    public IEnumerable<SqlLineEntity> GetLinesAll();
+    public LineEntity GetCurrentLine();
+
+    [Obsolete("Use GetLinePlus instead")]
+    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line);
+    
+    public IEnumerable<PluEntity> GetLinePlus(LineEntity line);
+    public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line);
+    public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line);
+    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse);
 }

@@ -5,24 +5,29 @@ using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Claims;
-using Ws.StorageCore.Entities.SchemaRef.Users;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
+public sealed partial class UsersUpdateForm: SectionFormBase<UserEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
+    [Inject] private IClaimService ClaimService { get; set; } = null!;
+
+    #endregion
+
     
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
-    private SqlClaimRepository RolesRepository { get; set; } = new();
-    private IEnumerable<SqlClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<SqlClaimEntity> SelectedRoles
+    private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
+    private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SectionEntity.Claims.ToList();
-        set => SectionEntity.Claims = new HashSet<SqlClaimEntity>(value);
+        set => SectionEntity.Claims = new HashSet<ClaimEntity>(value);
     }
 
     private IEnumerable<ActionMenuEntry> AdditionalButtons { get; set; } = [];
@@ -30,7 +35,7 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
     protected override void OnInitialized()
     {
         SelectedRoles = SectionEntity.Claims.ToList();
-        RolesEntities = RolesRepository.GetEnumerable().ToList();
+        RolesEntities = ClaimService.GetAll();
         AdditionalButtons = AdditionalButtons.Append(
             new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User, 
                 OnClickAction = EventCallback.Factory.Create(this, ReloginCurrentUser)});
@@ -42,7 +47,7 @@ public sealed partial class UsersUpdateForm: SectionFormBase<SqlUserEntity>
         await NotificationService.Info("Релогин выполнен");
     }
     
-    private SqlUserEntity ReloginUser(SqlUserEntity user)
+    private UserEntity ReloginUser(UserEntity user)
     {
         UserCacheService.ClearCacheForUser(user.Name);
         return SectionEntity;

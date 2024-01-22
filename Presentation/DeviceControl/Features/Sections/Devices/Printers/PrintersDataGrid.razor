@@ -1,9 +1,9 @@
-@using Ws.StorageCore.Entities.SchemaRef.Printers
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.Printers.SqlPrinterEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlPrinterEntity"
+  TItem="PrinterEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionPrinters"]"
   GridData="SectionItems"
@@ -17,19 +17,19 @@
 >
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(SqlPrinterEntity.Name)"
+    Field="@nameof(PrinterEntity.Name)"
     Width="40%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
-    Field="@nameof(SqlPrinterEntity.Type)"
+    Field="@nameof(PrinterEntity.Type)"
     Width="30%"
     Groupable
     Grouping
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnIp"]"
-    Field="@nameof(SqlPrinterEntity.Ip)"
+    Field="@nameof(PrinterEntity.Ip)"
     Width="30%"
   />
 </SectionDataGridWrapper>

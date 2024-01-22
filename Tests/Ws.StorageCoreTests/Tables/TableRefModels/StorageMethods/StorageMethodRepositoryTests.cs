@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.StorageMethods;
+﻿using Ws.Database.Core.Entities.Ref.StorageMethods;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.StorageMethods;
 
@@ -12,7 +13,7 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlStorageMethodEntity> items = StorageMethodRepository.GetList();
+            IEnumerable<StorageMethodEntity> items = StorageMethodRepository.GetList();
             ParseRecords(items);
         });
     }

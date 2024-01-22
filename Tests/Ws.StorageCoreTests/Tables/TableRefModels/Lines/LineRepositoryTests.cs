@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef.Lines;
+﻿using Ws.Database.Core.Entities.Ref.Lines;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Lines;
 
@@ -7,14 +8,14 @@ public sealed class LineRepositoryTests : TableRepositoryTests
 {
     private SqlLineRepository LineRepository { get; } = new();
 
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Name)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(LineEntity.Name)).Ascending;
 
     [Test, Order(1)]
     public void GetList()
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlLineEntity> items = LineRepository.GetAll();
+            IEnumerable<LineEntity> items = LineRepository.GetAll();
             ParseRecords(items);
         });
     }
@@ -24,7 +25,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            SqlLineEntity lineByDevice = LineRepository.GetItemByPcName("PC473");
+            LineEntity lineByDevice = LineRepository.GetItemByPcName("PC473");
             Assert.That(lineByDevice.IsExists, Is.True);
             TestContext.WriteLine(lineByDevice);
         });

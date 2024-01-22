@@ -1,9 +1,9 @@
-﻿using Ws.Printers.Common;
+﻿using Ws.Domain.Models.Enums;
+using Ws.Printers.Common;
 using Ws.Printers.Main;
 using Ws.Printers.Utils;
 using Ws.Scales.Common;
 using Ws.Scales.Main;
-using Ws.StorageCore.Enums;
 
 namespace ScalesHybrid.Services;
 

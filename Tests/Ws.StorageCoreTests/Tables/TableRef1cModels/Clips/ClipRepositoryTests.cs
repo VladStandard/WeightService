@@ -1,4 +1,5 @@
-﻿using Ws.StorageCore.Entities.SchemaRef1c.Clips;
+﻿using Ws.Database.Core.Entities.Ref1c.Clips;
+using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Clips;
 
@@ -12,7 +13,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlClipEntity> items = ClipRepository.GetEnumerable();
+            IEnumerable<ClipEntity> items = ClipRepository.GetEnumerable();
             ParseRecords(items);
         });
     }

@@ -1,6 +1,7 @@
-﻿using Ws.StorageCore.Entities.SchemaScale.PlusFks;
+﻿using Ws.Database.Core.Entities.Scales.PlusFks;
+using Ws.Domain.Models.Entities.Scale;
 
-namespace Ws.StorageCoreTests.Tables.TableScaleFkModels.PlusFks;
+namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusFks;
 
 [TestFixture]
 public sealed class PluFkRepositoryTests : TableRepositoryTests
@@ -12,7 +13,7 @@ public sealed class PluFkRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            IEnumerable<SqlPluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
+            IEnumerable<PluFkEntity> items = PluFkRepository.GetEnumerable(SqlCrudConfig);
             ParseRecords(items);
         });
     }

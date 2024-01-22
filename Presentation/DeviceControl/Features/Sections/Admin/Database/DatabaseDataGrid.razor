@@ -1,8 +1,8 @@
-@using Ws.StorageCore.Views.ViewOtherModels.DbFileSizeInfo
-@using Ws.StorageCore.Entities.SchemaDiag.TableSize
+@using Ws.Domain.Models.Entities
+@using Ws.Domain.Models.Entities.Diag
 <div class="rounded-md border overflow-hidden bg-white border-black/[.1]">
   <DataGrid
-    TItem="WsSqlViewDbFileSizeInfoModel"
+    TItem="DbFileSizeInfoEntity"
     Data="SectionItems"
     @bind-SelectedRow="@SelectedItem"
     DetailRowTrigger="@(e =>
@@ -13,17 +13,17 @@
     <DataGridColumns>
       <DataGridColumn
         Caption="@Localizer["DataGridColumnFile"]"
-        Field="@nameof(WsSqlViewDbFileSizeInfoModel.FileName)"
+        Field="@nameof(DbFileSizeInfoEntity.FileName)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@Localizer["DataGridColumnPercentages"]"
-        Field="@nameof(WsSqlViewDbFileSizeInfoModel.DbFillSize)"
+        Field="@nameof(DbFileSizeInfoEntity.DbFillSize)"
         Width="40%"
       >
         <DisplayTemplate>
           @{
-            int progress = Convert.ToInt32((context as WsSqlViewDbFileSizeInfoModel).DbFillSize);
+            int progress = Convert.ToInt32(context.DbFillSize);
 
             <div class="progress-wrapper">
               <Progress>
@@ -43,38 +43,38 @@
       />
       <DataGridColumn
         Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
-        Field="@nameof(WsSqlViewDbFileSizeInfoModel.SizeMb)"
+        Field="@nameof(DbFileSizeInfoEntity.SizeMb)"
         Width="20%"
       />
     </DataGridColumns>
     <DetailRowTemplate>
       @{
-        List<SqlViewTableSizeModel> tables = context.Tables;
+        List<TableSizeEntity> tables = context.Tables;
 
         <div class="rounded-md border border-black/[.1] overflow-hidden">
           <DataGrid
-            TItem="SqlViewTableSizeModel"
+            TItem="TableSizeEntity"
             Data="tables"
             HeaderRowStyling="@CustomHeaderRowStyling()"
           >
             <DataGridColumn
               Caption="@Localizer["DataGridColumnScheme"]"
-              Field="@nameof(SqlViewTableSizeModel.Schema)"
+              Field="@nameof(TableSizeEntity.Schema)"
               Width="25%"
             />
             <DataGridColumn
               Caption="@Localizer["DataGridColumnTable"]"
-              Field="@nameof(SqlViewTableSizeModel.Table)"
+              Field="@nameof(TableSizeEntity.Table)"
               Width="25%"
             />
             <DataGridColumn
               Caption="@Localizer["DataGridColumnRowsCount"]"
-              Field="@nameof(SqlViewTableSizeModel.RowsCount)"
+              Field="@nameof(TableSizeEntity.RowsCount)"
               Width="25%"
             />
             <DataGridColumn
               Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
-              Field="@nameof(SqlViewTableSizeModel.UsedSpaceMb)"
+              Field="@nameof(TableSizeEntity.UsedSpaceMb)"
               Width="25%"
             />
           </DataGrid>

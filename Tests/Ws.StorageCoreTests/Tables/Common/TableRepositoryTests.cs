@@ -1,3 +1,6 @@
+using Ws.Database.Core.Models;
+using Ws.Domain.Models.Common;
+
 namespace Ws.StorageCoreTests.Tables.Common;
 
 public class TableRepositoryTests
@@ -15,9 +18,9 @@ public class TableRepositoryTests
         SqlCrudConfig = new() { SelectTopRowsCount = 10 };
     }
 
-    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(SqlEntityBase.Name)).Ascending;
+    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(EntityBase.Name)).Ascending;
 
-    protected void ParseRecords<T>(IEnumerable<T> items) where T : SqlEntityBase, new()
+    protected void ParseRecords<T>(IEnumerable<T> items) where T : EntityBase, new()
     {
         List<T> list = items.ToList();
         

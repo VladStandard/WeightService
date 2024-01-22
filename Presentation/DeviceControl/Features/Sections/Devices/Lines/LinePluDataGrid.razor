@@ -1,11 +1,11 @@
 @using Blazor.Heroicons.Outline
-@using Ws.StorageCore.Entities.SchemaRef.PlusLines
-@using Ws.StorageCore.Entities.SchemaRef1c.Plus
-@inherits SectionDataGridBase<Ws.StorageCore.Entities.SchemaRef.PlusLines.SqlPluLineEntity>
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.PluLineEntity>
 
 
 <SectionDataGridWrapper
-  TItem="SqlPluLineEntity"
+  TItem="PluLineEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionLinePLU"]"
   GridData="SectionItems"
@@ -19,7 +19,7 @@
   <DataGridButtons>
     <div class="w-64 h-8">
       <SelectMultiple
-        TItem="SqlPluEntity"
+        TItem="PluEntity"
         Items="SelectPluEntities"
         @bind-SelectedItems="SelectedPluEntities"
         ItemDisplayName="item => item.DisplayName"

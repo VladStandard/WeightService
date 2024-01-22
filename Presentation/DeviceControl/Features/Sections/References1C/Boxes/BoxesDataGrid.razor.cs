@@ -3,30 +3,33 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
-using Ws.StorageCore.Helpers;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Services.Features.Box;
 
 namespace DeviceControl.Features.Sections.References1C.Boxes;
 
 
-public sealed partial class BoxesDataGrid: SectionDataGridBase<SqlBoxEntity>
+public sealed partial class BoxesDataGrid: SectionDataGridBase<BoxEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlBoxRepository BoxRepository { get; } = new();
+    #region Inject
 
-    protected override async Task OpenDataGridEntityModal(SqlBoxEntity item)
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IBoxService BoxService { get; set; } = null!;
+    
+    #endregion
+
+    protected override async Task OpenDataGridEntityModal(BoxEntity item)
         => await OpenSectionModal<BoxesUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlBoxEntity item)
+    protected override async Task OpenItemInNewTab(BoxEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = BoxRepository.GetEnumerable().ToList();
+        SectionItems = BoxService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlBoxEntity>(itemUid)];
+        SectionItems = [BoxService.GetByUid(itemUid)];
     }
 }

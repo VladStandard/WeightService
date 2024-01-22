@@ -3,31 +3,34 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Helpers;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Services.Features.Printer;
 
 namespace DeviceControl.Features.Sections.Devices.Printers;
 
-public sealed partial class PrintersDataGrid: SectionDataGridBase<SqlPrinterEntity>
+public sealed partial class PrintersDataGrid: SectionDataGridBase<PrinterEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    #region Inject
 
-    private SqlPrinterRepository SqlPrinterRepository { get; } = new();
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IPrinterService PrinterService { get; set; } = null!;
+
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PrintersCreateDialog>(new());
     
-    protected override async Task OpenDataGridEntityModal(SqlPrinterEntity item)
+    protected override async Task OpenDataGridEntityModal(PrinterEntity item)
         => await OpenSectionModal<PrintersUpdateDialog>(item);
     
-    protected override async Task OpenItemInNewTab(SqlPrinterEntity item)
+    protected override async Task OpenItemInNewTab(PrinterEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() => SectionItems = SqlPrinterRepository.GetEnumerable().ToList();
+    protected override void SetSqlSectionCast() => SectionItems = PrinterService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<SqlPrinterEntity>(itemUid)];
+        SectionItems = [PrinterService.GetByUid(itemUid)];
     }
 }

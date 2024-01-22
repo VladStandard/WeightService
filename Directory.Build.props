@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
+<!--        <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>-->
         <Configurations>DevelopVS;ReleaseVS</Configurations>
         <Platforms>x64</Platforms>
         <Deterministic>true</Deterministic>
         <WarningLevel>9999</WarningLevel>
         <Prefer32Bit>false</Prefer32Bit>
-        
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>

@@ -1,6 +1,6 @@
-using Ws.StorageCore.Entities.SchemaPrint.Labels;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Labels;
 
 [TestFixture]
-public sealed class LabelModelTests : TableModelTests<SqlLabelEntity>;
+public sealed class LabelModelTests : TableModelTests<ViewLabel>;

@@ -2,19 +2,25 @@ using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
-using Ws.StorageCore.Enums;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Enums;
+using Ws.Services.Features.Printer;
+using Ws.Services.Features.Warehouse;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
+public sealed partial class LinesCreateForm: SectionFormBase<LineEntity>
 {
+    #region Inject
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
+    [Inject] private IPrinterService PrinterService { get; set; } = null!;
 
-    private IEnumerable<SqlPrinterEntity> PrinterEntities { get; set; } = new List<SqlPrinterEntity>();
-    private IEnumerable<SqlWarehouseEntity> WarehousesEntities { get; set; } = new List<SqlWarehouseEntity>();
+    #endregion
+   
+
+    private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();
+    private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = new List<WarehouseEntity>();
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = new List<LineTypeEnum>();
     
     protected override void OnInitialized()
@@ -22,8 +28,8 @@ public sealed partial class LinesCreateForm: SectionFormBase<SqlLineEntity>
         SectionEntity.Warehouse.Name = Localizer["SectionFormWarehouseDefaultName"];
         SectionEntity.Printer.Name = Localizer["SectionFormPrinterDefaultName"];
 
-        WarehousesEntities = new SqlWarehouseRepository().GetEnumerable();
-        PrinterEntities = new SqlPrinterRepository().GetEnumerable();
+        WarehousesEntities = WarehouseService.GetAll();
+        PrinterEntities = PrinterService.GetAll();
 
         PrinterEntities = PrinterEntities.Append(SectionEntity.Printer);
         WarehousesEntities = WarehousesEntities.Append(SectionEntity.Warehouse);

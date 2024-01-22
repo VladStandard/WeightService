@@ -1,5 +1,6 @@
 using NHibernate.Criterion;
-using Ws.StorageCore.OrmUtils;
+using Ws.Database.Core.Models;
+using Ws.Database.Core.OrmUtils;
 
 namespace Ws.StorageCoreTests.Models.SqlCrudConfig;
 

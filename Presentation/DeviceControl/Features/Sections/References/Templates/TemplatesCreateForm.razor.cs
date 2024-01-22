@@ -4,11 +4,11 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace DeviceControl.Features.Sections.References.Templates;
 
-public sealed partial class TemplatesCreateForm : SectionFormBase<SqlTemplateEntity>
+public sealed partial class TemplatesCreateForm : SectionFormBase<TemplateEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     

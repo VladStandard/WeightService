@@ -1,5 +1,5 @@
-@using Ws.StorageCore.Entities.SchemaRef.ProductionSites
-@inherits SectionFormBase<Ws.StorageCore.Entities.SchemaRef.Warehouses.SqlWarehouseEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
 
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
@@ -8,7 +8,7 @@
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputSelect
-    TItem="SqlProductionSiteEntity"
+    TItem="ProductionSiteEntity"
     Items="PlatformEntities"
     Label="@Localizer["DataGridColumnProductionSite"]"
     @bind-SelectedItem="@SectionEntity.ProductionSite"

@@ -4,47 +4,49 @@ using DeviceControl.Utils;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Services.Features.Line;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.PlusLines;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntity>
+public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private IPluService PluService { get; set; } = null!;
 
-    [Parameter, EditorRequired] public SqlLineEntity LineEntity { get; set; } = null!;
-
-    private IEnumerable<SqlPluEntity> SelectPluEntities { get; set; } = [];
-    private IEnumerable<SqlPluEntity> SelectedPluEntities { get; set; } = [];
-    private IEnumerable<SqlPluEntity> SelectedPluEntitiesCopy { get; set; } = [];
+    #endregion
     
-    private SqlPluLineRepository PluLineRepository { get; } = new();
-    private SqlPluRepository PluRepository { get; } = new();
+    [Parameter, EditorRequired] public LineEntity LineEntity { get; set; } = null!;
+
+    private IEnumerable<PluEntity> SelectPluEntities { get; set; } = [];
+    private IEnumerable<PluEntity> SelectedPluEntities { get; set; } = [];
+    private IEnumerable<PluEntity> SelectedPluEntitiesCopy { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        SelectPluEntities = PluRepository.GetEnumerableNotGroup();
+        SelectPluEntities = PluService.GetAllNotGroup();
         SelectedPluEntities = LineService.GetLinePlus(LineEntity);
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
     
     private async Task SaveSelectedPluEntities()
     {
-        foreach (SqlPluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
+        foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
-            SqlPluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
+            PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
             if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
         }
         
-        foreach (SqlPluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
+        foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
-            SqlPluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
+            PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
             SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
         }
 
@@ -56,8 +58,8 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<SqlPluLineEntit
     
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluLineRepository.GetListByLine(LineEntity);
+        SectionItems = LineService.GetLinePlusFk(LineEntity);
     
-    protected override async Task OpenItemInNewTab(SqlPluLineEntity item)
+    protected override async Task OpenItemInNewTab(PluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");
 }

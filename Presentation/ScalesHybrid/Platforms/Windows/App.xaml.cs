@@ -1,8 +1,6 @@
 ﻿using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
-using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using ScalesHybrid.Events;
 

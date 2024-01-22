@@ -1,6 +1,6 @@
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Plus;
 
 [TestFixture]
-public sealed class PluModelTests : TableModelTests<SqlPluEntity>;
+public sealed class PluModelTests : TableModelTests<PluEntity>;

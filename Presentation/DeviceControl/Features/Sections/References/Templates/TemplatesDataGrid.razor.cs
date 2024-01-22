@@ -3,32 +3,34 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
-using Ws.StorageCore.Helpers;
+using Ws.Domain.Models.Entities.Scale;
+using Ws.Services.Features.Template;
 
 namespace DeviceControl.Features.Sections.References.Templates;
 
-public sealed partial class TemplatesDataGrid : SectionDataGridBase<SqlTemplateEntity>
+public sealed partial class TemplatesDataGrid : SectionDataGridBase<TemplateEntity>
 {
+    #region Region
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlTemplateRepository TemplateRepository { get; } = new();
+    [Inject] private ITemplateService TemplateService { get; set; } = null!;
 
-    protected override async Task OpenDataGridEntityModal(SqlTemplateEntity item)
+    #endregion
+    
+    protected override async Task OpenDataGridEntityModal(TemplateEntity item)
         => await OpenSectionModal<TemplatesUpdateDialog>(item);
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplatesCreateDialog>(new());
     
-    protected override async Task OpenItemInNewTab(SqlTemplateEntity item)
+    protected override async Task OpenItemInNewTab(TemplateEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplates}/{item.IdentityValueId.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateRepository.GetList(new());
+        SectionItems = TemplateService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
-        long.TryParse(SearchingSectionItemId, out long itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemById<SqlTemplateEntity>(itemUid)];
+        long.TryParse(SearchingSectionItemId, out long itemId);
+        SectionItems = [TemplateService.GetById(itemId)];
     }
 }

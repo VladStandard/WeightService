@@ -1,39 +1,45 @@
 ﻿using MDSoft.NetUtils;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.PlusLines;
-using Ws.StorageCore.Entities.SchemaRef.Warehouses;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.Database.Core.Entities.Ref.Lines;
+using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Services.Features.Line;
 
-public class LineService : ILineService
+internal class LineService : ILineService
 {
-    public IEnumerable<SqlPluEntity> GetLinePlus(SqlLineEntity line)
+    public IEnumerable<LineEntity> GetAll() => new SqlLineRepository().GetAll();
+    
+    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
+    
+    public IEnumerable<PluEntity> GetLinePlus(LineEntity line)
     {
        return new SqlPluLineRepository().GetListByLine(line).Select(i => i.Plu);
     }
     
-    public IEnumerable<SqlPluEntity> GetLineWeightPlus(SqlLineEntity line)
+    [Obsolete("Use GetLinePlus instead")]
+    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
+    {
+        return new SqlPluLineRepository().GetListByLine(line);
+    }
+    
+    public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line)
     {
         return new SqlPluLineRepository().GetWeightListByLine(line).Select(i => i.Plu);
     }
     
-    public IEnumerable<SqlPluEntity> GetLinePiecePlus(SqlLineEntity line)
+    public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line)
     {
         return new SqlPluLineRepository().GetPieceListByLine(line).Select(i => i.Plu);
     }
     
-    public IEnumerable<SqlLineEntity> GetLinesByWarehouse(SqlWarehouseEntity warehouse)
+    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse)
     {
         return new SqlLineRepository().GetLinesByWarehouse(warehouse);
     }
-    
-    public IEnumerable<SqlLineEntity> GetLinesAll()
-    {
-        return new SqlLineRepository().GetAll();
-    }
 
-    public SqlLineEntity GetCurrentLine()
+    public LineEntity GetCurrentLine()
     {
         return new SqlLineRepository().GetItemByPcName(MdNetUtils.GetLocalDeviceName(false));
     }

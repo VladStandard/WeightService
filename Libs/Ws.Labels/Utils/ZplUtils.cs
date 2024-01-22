@@ -1,8 +1,9 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using Ws.Database.Core.Entities.Ref1c.Plus;
+using Ws.Database.Core.Entities.Scales.TemplatesResources;
+using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Labels.Enums;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.TemplatesResources;
 
 namespace Ws.Labels.Utils;
 
@@ -30,7 +31,7 @@ public static partial class ZplUtils
 
         if (zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
         {
-            SqlPluEntity plu = new SqlPluRepository().GetByUid1C(uid1C);
+            PluEntity plu = new SqlPluRepository().GetByUid1C(uid1C);
             string resourceHex = ConvertStringToHex(plu.StorageMethod.Zpl);
             zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
         }

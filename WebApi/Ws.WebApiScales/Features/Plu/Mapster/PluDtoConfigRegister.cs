@@ -1,8 +1,5 @@
 ﻿using Mapster;
-using Ws.StorageCore.Entities.SchemaRef1c.Boxes;
-using Ws.StorageCore.Entities.SchemaRef1c.Bundles;
-using Ws.StorageCore.Entities.SchemaRef1c.Clips;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.Domain.Models.Entities.Ref1c;
 using Ws.WebApiScales.Features.Plu.Dto;
 
 namespace Ws.WebApiScales.Features.Plu.Mapster;
@@ -11,28 +8,28 @@ public class PluDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<PluDto, SqlClipEntity>()
+        config.NewConfig<PluDto, ClipEntity>()
             .Map(d => d.Uid1C, s => s.ClipTypeGuid)
             .Map(d => d.Name, s => s.ClipTypeName)
             .Map(d => d.Weight, s => s.ClipTypeWeight)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
         
-        config.NewConfig<PluDto, SqlBoxEntity>()
+        config.NewConfig<PluDto, BoxEntity>()
             .Map(d => d.Uid1C, s => s.BoxTypeGuid)
             .Map(d => d.Name, s => s.BoxTypeName)
             .Map(d => d.Weight, s => s.BoxTypeWeight)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
         
-        config.NewConfig<PluDto, SqlBundleEntity>()
+        config.NewConfig<PluDto, BundleEntity>()
             .Map(d => d.Uid1C, s => s.PackageTypeGuid)
             .Map(d => d.Name, s => s.PackageTypeName)
             .Map(d => d.Weight, s => s.PackageTypeWeight)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
         
-        config.NewConfig<PluDto, SqlPluEntity>()
+        config.NewConfig<PluDto, PluEntity>()
             .Map(d => d.Name, s => s.Name)
             .Map(d => d.FullName, s => s.FullName)
             .Map(d => d.Description, s => s.Description)
