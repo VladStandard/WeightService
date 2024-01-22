@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using Ws.StorageCore.Common;
+using Ws.Domain.Models.Common;
 
 namespace ScalesHybrid.Features.Shared;
 
-public class DataGridBase<TItem> : ComponentBase where TItem : SqlEntityBase, new()
+public class DataGridBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
     protected IEnumerable<TItem> GridData { get; set; } = [];
 

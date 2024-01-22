@@ -3,12 +3,12 @@ using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Resources;
-using Ws.StorageCore.Common;
+using Ws.Domain.Models.Common;
 
 namespace ScalesHybrid.Features.Shared;
 
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class DataGridWrapper<TItem>: ComponentBase where TItem: SqlEntityBase, new()
+public sealed partial class DataGridWrapper<TItem>: ComponentBase where TItem: EntityBase, new()
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;

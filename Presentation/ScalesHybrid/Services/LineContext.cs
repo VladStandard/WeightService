@@ -1,13 +1,6 @@
-using ScalesHybrid.Models;
-using ScalesHybrid.Utils;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Services.Features.Line;
-using Ws.Services.Features.Plu;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
-using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Services;
 
@@ -16,8 +9,8 @@ public class LineContext: IDisposable
     private ILineService LineService { get; }
     private ExternalDevicesService ExternalDevices { get; }
     
-    public SqlLineEntity Line { get; private set; } = new();
-    public SqlPrinterEntity PrinterEntity { get; private set; } = new();
+    public LineEntity Line { get; private set; } = new();
+    public PrinterEntity PrinterEntity { get; private set; } = new();
     public event Action? OnLabelChanged;
 
     public LineContext(ILineService lineService, ExternalDevicesService externalDevices)

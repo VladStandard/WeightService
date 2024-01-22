@@ -1,11 +1,9 @@
 using ScalesHybrid.Models;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Scale;
 using Ws.Services.Features.Line;
 using Ws.Services.Features.Plu;
-using Ws.StorageCore.Entities.SchemaRef.Lines;
-using Ws.StorageCore.Entities.SchemaRef.Printers;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
-using Ws.StorageCore.Entities.SchemaScale.PlusNestingFks;
-using Ws.StorageCore.Entities.SchemaScale.Templates;
 
 namespace ScalesHybrid.Services;
 
@@ -15,13 +13,13 @@ public class LabelContext: IDisposable
     private IPluService PluService { get; }
     private LineContext LineContext { get; }
     
-    public SqlLineEntity Line { get => LineContext.Line; }
-    public SqlPrinterEntity Printer { get => LineContext.PrinterEntity; }
-    public SqlPluEntity Plu { get; private set; } = new();
-    public SqlTemplateEntity PluTemplate { get; private set; } = new();
-    public SqlPluNestingFkEntity PluNesting { get; private set; } = new();
+    public LineEntity Line { get => LineContext.Line; }
+    public PrinterEntity Printer { get => LineContext.PrinterEntity; }
+    public PluEntity Plu { get; private set; } = new();
+    public TemplateEntity PluTemplate { get; private set; } = new();
+    public PluNestingEntity PluNesting { get; private set; } = new();
     public WeightKneadingModel KneadingModel { get; private set; } = new();
-    public IEnumerable<SqlPluEntity> PluEntities { get; private set; } = [];
+    public IEnumerable<PluEntity> PluEntities { get; private set; } = [];
     
     public event Action? OnStateChanged;
     private Timer Timer { get; set; }
@@ -48,12 +46,12 @@ public class LabelContext: IDisposable
         OnStateChanged?.Invoke();
     }
     
-    public void ChangePlu(SqlPluEntity sqlPluEntity)
+    public void ChangePlu(PluEntity sqlPluEntity)
     {
         if (Plu.Equals(sqlPluEntity)) return;
         Plu = sqlPluEntity;
         PluTemplate = PluService.GetPluTemplate(Plu);
-        IEnumerable<SqlPluNestingFkEntity> pluNestingEntities = PluService.GetPluNesting(Plu);
+        IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetPluNestings(Plu);
         PluNesting = pluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
         KneadingModel.KneadingCount = 1;
         if (Plu.IsCheckWeight)

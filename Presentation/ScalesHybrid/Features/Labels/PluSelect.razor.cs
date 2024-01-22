@@ -6,11 +6,11 @@ using Microsoft.Extensions.Localization;
 using ScalesHybrid.Features.Shared;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
-using Ws.StorageCore.Entities.SchemaRef1c.Plus;
+using Ws.Domain.Models.Entities.Ref1c;
 
 namespace ScalesHybrid.Features.Labels;
 
-public sealed partial class PluSelect : DataGridBase<SqlPluEntity>
+public sealed partial class PluSelect : DataGridBase<PluEntity>
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
@@ -18,7 +18,7 @@ public sealed partial class PluSelect : DataGridBase<SqlPluEntity>
 
     protected override void GetGridData() => GridData = LabelContext.PluEntities;
 
-    protected override async Task OnItemSelect(SqlPluEntity obj)
+    protected override async Task OnItemSelect(PluEntity obj)
     {
         LabelContext.ChangePlu(obj);
         await ModalService.Hide();
