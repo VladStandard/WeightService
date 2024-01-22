@@ -4,6 +4,7 @@ using DeviceControl.Utils;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Services.Features.Line;
@@ -17,7 +18,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
-    [Inject] private IPluService PluService { get; } = null!;
+    [Inject] private IPluService PluService { get; set; } = null!;
 
     #endregion
     
@@ -37,18 +38,16 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
     
     private async Task SaveSelectedPluEntities()
     {
-        // TODO: FIX DELETE
         foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
             PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
-            // if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
+            if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
         }
         
         foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
-            // TODO: FIX SAVE
-            // SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
+            SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
         }
 
         await DataGridWrapperRef.ReloadData();

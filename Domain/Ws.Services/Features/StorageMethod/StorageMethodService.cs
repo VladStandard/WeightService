@@ -6,9 +6,7 @@ namespace Ws.Services.Features.StorageMethod;
 
 internal class StorageMethodService : IStorageMethodService
 {
-    private const string DefaultName = "Без способа хранения";
-    
-    public StorageMethodEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<StorageMethodEntity>(uid);
+    public StorageMethodEntity GetByUid(Guid uid) => new SqlStorageMethodRepository().GetByUid(uid);
     
     public IEnumerable<StorageMethodEntity> GetAll() => new SqlStorageMethodRepository().GetList();
     
@@ -16,7 +14,7 @@ internal class StorageMethodService : IStorageMethodService
     
     public StorageMethodEntity GetDefault()
     {
-        StorageMethodEntity defaultMethod = new SqlStorageMethodRepository().GetItemByName(DefaultName);
+        StorageMethodEntity defaultMethod = new SqlStorageMethodRepository().GetItemByName("Без способа хранения");
         if (defaultMethod.IsNew) SqlCoreHelper.Instance.Save(defaultMethod);
         return defaultMethod;
     }

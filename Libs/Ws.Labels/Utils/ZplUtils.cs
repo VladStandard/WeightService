@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
-using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Labels.Enums;
 using Ws.Database.Core.Entities.Ref1c.Plus;
 using Ws.Database.Core.Entities.Scales.TemplatesResources;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Labels.Enums;
 
 namespace Ws.Labels.Utils;
 

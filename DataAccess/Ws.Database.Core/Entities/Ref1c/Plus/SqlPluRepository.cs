@@ -2,19 +2,21 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Plus;
 
-public sealed class SqlPluRepository : SqlTableRepositoryBase<PluEntity>
+public sealed class SqlPluRepository : IUid1CRepo<PluEntity>, IUidRepo<PluEntity>
 {
-    public PluEntity GetItemByUid1C(Guid uid1C)
+    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
+    
+    public PluEntity GetByUid1C(Guid uid1C)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCore.GetItemByCrud<PluEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<PluEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<PluEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(PluEntity.Number)));
-        return SqlCore.GetEnumerable<PluEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<PluEntity> GetEnumerableNotGroup()
@@ -31,17 +33,10 @@ public sealed class SqlPluRepository : SqlTableRepositoryBase<PluEntity>
         return GetEnumerable(sqlCrudConfig);
     }
     
-    public PluEntity GetByUid1C(Guid uid)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(PluEntity.Uid1C), uid));
-        return SqlCore.GetItemByCrud<PluEntity>(sqlCrudConfig);
-    }
-    
     public IEnumerable<PluEntity> GetPluUid1CInRange(List<Guid> uidList)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.In(nameof(PluEntity.Uid1C), uidList));
-        return SqlCore.GetEnumerable<PluEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(sqlCrudConfig);
     }
 }

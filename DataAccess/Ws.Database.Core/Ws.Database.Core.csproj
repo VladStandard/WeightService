@@ -9,6 +9,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
         <PackageReference Include="NHibernate" Version="5.4.6" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="..\..\IsExternalInit.cs" Visible="false" />

@@ -2,13 +2,15 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository : SqlTableRepositoryBase<BundleEntity>
+public sealed class SqlBundleRepository : IUid1CRepo<BundleEntity>, IUidRepo<BundleEntity>
 {
-    public BundleEntity GetItemByUid1C(Guid uid1C)
+    public BundleEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BundleEntity>(uid);
+    
+    public BundleEntity GetByUid1C(Guid uid1C)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCore.GetItemByCrud<BundleEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<BundleEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<BundleEntity> GetEnumerable()
@@ -16,6 +18,7 @@ public sealed class SqlBundleRepository : SqlTableRepositoryBase<BundleEntity>
         SqlCrudConfigModel crud = new();
         crud.AddOrder(SqlOrder.Asc(nameof(BundleEntity.Weight)));
         crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCore.GetEnumerable<BundleEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable<BundleEntity>(crud);
     }
+
 }

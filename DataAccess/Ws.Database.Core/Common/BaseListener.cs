@@ -2,7 +2,7 @@
 
 namespace Ws.Database.Core.Common;
 
-public abstract class BaseListener
+internal abstract class BaseListener
 {
     protected static void Set(IEntityPersister persister, IList<object> state, string propertyName, object value)
     {

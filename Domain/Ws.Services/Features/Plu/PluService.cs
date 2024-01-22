@@ -13,9 +13,9 @@ namespace Ws.Services.Features.Plu;
 
 public class PluService : IPluService
 {
-    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
+    public PluEntity GetByUid(Guid uid) => new SqlPluRepository().GetByUid(uid);
     
-    public PluEntity GetByUid1С(Guid uid) => new SqlPluRepository().GetItemByUid1C(uid);
+    public PluEntity GetByUid1С(Guid uid) => new SqlPluRepository().GetByUid1C(uid);
     
     public IEnumerable<PluEntity> GetAllNotGroup() => new SqlPluRepository().GetEnumerableNotGroup();
     
@@ -40,7 +40,7 @@ public class PluService : IPluService
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
         LineEntity line = new SqlLineRepository().GetItemByName(lineName);
-        PluEntity plu = new SqlPluRepository().GetItemByUid1C(pluGuid);
+        PluEntity plu = new SqlPluRepository().GetByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
     }
 

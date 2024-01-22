@@ -2,12 +2,14 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : SqlTableRepositoryBase<LineEntity>
+public sealed class SqlLineRepository : IUidRepo<LineEntity>
 {
+    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
+    
     private IEnumerable<LineEntity>GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(LineEntity.Name)));
-        IEnumerable<LineEntity> lines = SqlCore.GetEnumerable<LineEntity>(sqlCrudConfig);
+        IEnumerable<LineEntity> lines = SqlCoreHelper.Instance.GetEnumerable<LineEntity>(sqlCrudConfig);
         return lines.OrderBy(item => item.Warehouse.Name);
     }
     
@@ -17,14 +19,14 @@ public sealed class SqlLineRepository : SqlTableRepositoryBase<LineEntity>
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.PcName), pcName));
-        return SqlCore.GetItemByCrud<LineEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
     }
     
     public LineEntity GetItemByName(string name)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.Name), name));
-        return SqlCore.GetItemByCrud<LineEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse)

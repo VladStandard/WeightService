@@ -14,7 +14,7 @@ public sealed class ViewLabelRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<ViewLabel> items = LabelRepository.GetList(SqlCrudConfig);
+            IEnumerable<ViewLabel> items = LabelRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

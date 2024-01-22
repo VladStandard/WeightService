@@ -3,11 +3,11 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
-public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<PluNestingEntity>
+public sealed class SqlPluNestingFkRepository
 {
     public IEnumerable<PluNestingEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        return SqlCore.GetEnumerable<PluNestingEntity>(sqlCrudConfig).OrderBy(x => x.Plu.Number);
+        return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(sqlCrudConfig).OrderBy(x => x.Plu.Number);
     }
     
     public IEnumerable<PluNestingEntity> GetEnumerableByPluUidActual(PluEntity plu)
@@ -15,7 +15,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<PluNestin
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu));
         sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(PluNestingEntity.IsDefault)));
-        return SqlCore.GetEnumerable<PluNestingEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(sqlCrudConfig);
     }
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C)
@@ -27,7 +27,7 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<PluNestin
             SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu)
         ]);
         
-        return SqlCore.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
     }
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
@@ -36,6 +36,6 @@ public sealed class SqlPluNestingFkRepository : SqlTableRepositoryBase<PluNestin
             SqlRestrictions.Equal(nameof(PluNestingEntity.IsDefault), true),
             SqlRestrictions.EqualFk(nameof(PluTemplateFkEntity.Plu), plu)
         ]);
-        return SqlCore.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
     }
 }

@@ -4,6 +4,8 @@ using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
@@ -38,8 +40,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
     protected async Task AddItem(TItem item)
     {
         if (!await IsValidateItem(item, false)) return;
-        // TODO: fix save
-        // SqlCoreHelper.Instance.Save(item);
+        SqlCoreHelper.Instance.Save(item);
         await NotificationService.Success(Localizer["ToastAddItem"]);
         await OnSubmitAction.InvokeAsync();
     }
@@ -48,17 +49,14 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
     {
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
-        // TODO: fix update
-        // SqlCoreHelper.Instance.Update(item);
+        SqlCoreHelper.Instance.Update(item);
         await NotificationService.Success(Localizer["ToastUpdateItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 
     private async Task<bool> IsValidateItem(TItem item, bool isUpdateForm)
     {
-        //TODO: FIX VALIDATION
-        // ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
-        ValidationResult result = new();
+        ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
         if (result.Errors.Count == 0) return true;
         foreach (ValidationFailure error in result.Errors)
             await NotificationService.Error(error.ErrorMessage);
@@ -67,8 +65,7 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
 
     protected async Task DeleteItem()
     {
-        //TODO: FIX DELETE
-        // SqlCoreHelper.Instance.Delete(SectionEntity);
+        SqlCoreHelper.Instance.Delete(SectionEntity);
         await NotificationService.Success(Localizer["ToastDeleteItem"]);
         await OnSubmitAction.InvokeAsync();
     }

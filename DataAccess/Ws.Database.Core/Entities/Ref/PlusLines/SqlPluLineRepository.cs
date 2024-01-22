@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref.PlusLines;
 
-public sealed class SqlPluLineRepository : SqlTableRepositoryBase<PluLineEntity>
+public sealed class SqlPluLineRepository
 {
     public PluLineEntity GetItemByLinePlu(LineEntity line, PluEntity plu)
     {
@@ -12,12 +12,12 @@ public sealed class SqlPluLineRepository : SqlTableRepositoryBase<PluLineEntity>
             SqlRestrictions.EqualFk(nameof(PluLineEntity.Line), line),
             SqlRestrictions.EqualFk(nameof(PluLineEntity.Plu), plu)
         ]);
-        return SqlCore.GetItemByCrud<PluLineEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<PluLineEntity>(sqlCrudConfig);
     }
     
     public List<PluLineEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<PluLineEntity> items = SqlCore.GetEnumerable<PluLineEntity>(sqlCrudConfig);
+        IEnumerable<PluLineEntity> items = SqlCoreHelper.Instance.GetEnumerable<PluLineEntity>(sqlCrudConfig);
         items = items.OrderBy(item => item.Plu.Number);
         return items.ToList();
     }

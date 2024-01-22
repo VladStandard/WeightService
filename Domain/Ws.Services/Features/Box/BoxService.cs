@@ -8,13 +8,13 @@ internal class BoxService : IBoxService
 {
     public IEnumerable<BoxEntity> GetAll() => new SqlBoxRepository().GetEnumerable();
     
-    public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BoxEntity>(uid);
+    public BoxEntity GetByUid(Guid uid) => new SqlBoxRepository().GetByUid(uid);
     
-    public BoxEntity GetByUid1С(Guid uid) => new SqlBoxRepository().GetItemByUid1C(uid);
+    public BoxEntity GetByUid1С(Guid uid) => new SqlBoxRepository().GetByUid1C(uid);
     
     public BoxEntity GetDefaultForCharacteristic()
     {
-        BoxEntity entity = GetByUid1С(new("71BC8E8A-99CF-11EA-A220-A4BF0139EB1B"));
+        BoxEntity entity = GetByUid1С(Guid.Parse("71BC8E8A-99CF-11EA-A220-A4BF0139EB1B"));
         return entity.IsExists ? entity : GetDefault();
     }
     

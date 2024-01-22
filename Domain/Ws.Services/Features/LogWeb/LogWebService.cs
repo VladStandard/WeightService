@@ -6,7 +6,9 @@ namespace Ws.Services.Features.LogWeb;
 
 internal class LogWebService : ILogWebService
 {
+    public LogWebEntity GetByUid(Guid uid) => new SqlLogWebRepository().GetByUid(uid);
     public IEnumerable<LogWebEntity> GetAll() => new SqlLogWebRepository().GetList(new());
+    
     public void Save(DateTime requestStampDt, string request, string response, string url, int success, int errors)
     {
         LogWebEntity webLog = new()
@@ -23,6 +25,4 @@ internal class LogWebService : ILogWebService
         };
         SqlCoreHelper.Instance.Save(webLog);
     }
-
-    public LogWebEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LogWebEntity>(uid);
 }

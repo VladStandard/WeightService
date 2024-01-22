@@ -3,11 +3,11 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusFks;
 
-public sealed class SqlPluFkRepository : SqlTableRepositoryBase<PluFkEntity>
+public sealed class SqlPluFkRepository
 {
     public IEnumerable<PluFkEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
-        IEnumerable<PluFkEntity> items = SqlCore.GetEnumerable<PluFkEntity>(sqlCrudConfig);
+        IEnumerable<PluFkEntity> items = SqlCoreHelper.Instance.GetEnumerable<PluFkEntity>(sqlCrudConfig);
         return items.OrderBy(item => item.Plu.Number);
     }
     
@@ -15,6 +15,6 @@ public sealed class SqlPluFkRepository : SqlTableRepositoryBase<PluFkEntity>
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(PluFkEntity.Plu), plu));
-        return SqlCore.GetItemByCrud<PluFkEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItemByCrud<PluFkEntity>(sqlCrudConfig);
     }
 }
