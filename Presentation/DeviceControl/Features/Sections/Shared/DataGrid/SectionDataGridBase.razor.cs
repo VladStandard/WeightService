@@ -3,7 +3,6 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
-using Ws.StorageCore.Helpers;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
@@ -70,7 +69,8 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
 
     protected Task DeleteSqlItem(TItem item)
     {
-        SqlCoreHelper.Instance.Delete(item);
+        // TODO: fix delete
+        // SqlCoreHelper.Instance.Delete(item);
         return Task.CompletedTask;
     }
 

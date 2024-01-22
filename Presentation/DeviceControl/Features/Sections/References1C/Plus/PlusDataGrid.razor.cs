@@ -4,16 +4,18 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.StorageCore.Entities.Ref1c.Plus;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
 
 public sealed partial class PlusDataGrid : SectionDataGridBase<PluEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlPluRepository PluRepository { get; } = new();
+    [Inject] private IPluService PluService { get; set; } = null!;
+
+    #endregion
 
     protected override async Task OpenDataGridEntityModal(PluEntity item)
         => await OpenSectionModal<PlusUpdateDialog>(item);
@@ -22,11 +24,11 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<PluEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluRepository.GetEnumerableNotGroup().ToList();
+        SectionItems = PluService.GetAllNotGroup();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<PluEntity>(itemUid)];
+        SectionItems = [PluService.GetByUid(itemUid)];
     }
 }

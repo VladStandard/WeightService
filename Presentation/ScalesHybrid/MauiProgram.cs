@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.LabelsService;
 using Ws.Services;
-using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid;
 public static class MauiProgram
@@ -15,8 +14,6 @@ public static class MauiProgram
     public static MauiAppBuilder CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
-        
-        SqlCoreHelper.Instance.SetSessionFactory();
         
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();

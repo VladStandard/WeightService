@@ -4,16 +4,18 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.ProductionSites;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.ProductionSite;
 
 namespace DeviceControl.Features.Sections.References.ProductionSites;
 
 public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<ProductionSiteEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlProductionSiteRepository PlatformsRepository { get; } = new();
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
+
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<ProductionSitesCreateDialog>(new());
@@ -25,11 +27,11 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<Product
         => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PlatformsRepository.GetEnumerable().ToList();
+        SectionItems = ProductionSiteService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<ProductionSiteEntity>(itemUid)];
+        SectionItems = [ProductionSiteService.GetByUid(itemUid)];
     }
 }

@@ -19,7 +19,7 @@ public class SqlViewDbFileSizeRepository
 
     private SqlCoreHelper SqlCore => SqlCoreHelper.Instance;
 
-    private static WsSqlViewDbFileSizeInfoModel? ParseViewModel(object obj)
+    private static DbFileSizeInfoEntity? ParseViewModel(object obj)
     {
         int i = 0;
         if (obj is object[] { Length: 4 } item)
@@ -32,11 +32,11 @@ public class SqlViewDbFileSizeRepository
         return null;
     }
 
-    public List<WsSqlViewDbFileSizeInfoModel> GetList()
+    public List<DbFileSizeInfoEntity> GetList()
     {
         IEnumerable<Object> objects = SqlCore.GetArrayObjects(GetDbFileSizes());
-        List<WsSqlViewDbFileSizeInfoModel> result = [];
-        result.AddRange(objects.Select(ParseViewModel).OfType<WsSqlViewDbFileSizeInfoModel>());
+        List<DbFileSizeInfoEntity> result = [];
+        result.AddRange(objects.Select(ParseViewModel).OfType<DbFileSizeInfoEntity>());
         return result;
     }
 }

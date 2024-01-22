@@ -5,8 +5,6 @@ using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Common;
-using Ws.StorageCore.Helpers;
-using Ws.StorageCore.Utils;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
@@ -40,7 +38,8 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
     protected async Task AddItem(TItem item)
     {
         if (!await IsValidateItem(item, false)) return;
-        SqlCoreHelper.Instance.Save(item);
+        // TODO: fix save
+        // SqlCoreHelper.Instance.Save(item);
         await NotificationService.Success(Localizer["ToastAddItem"]);
         await OnSubmitAction.InvokeAsync();
     }
@@ -49,14 +48,17 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
     {
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
-        SqlCoreHelper.Instance.Update(item);
+        // TODO: fix update
+        // SqlCoreHelper.Instance.Update(item);
         await NotificationService.Success(Localizer["ToastUpdateItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 
     private async Task<bool> IsValidateItem(TItem item, bool isUpdateForm)
     {
-        ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
+        //TODO: FIX VALIDATION
+        // ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
+        ValidationResult result = new();
         if (result.Errors.Count == 0) return true;
         foreach (ValidationFailure error in result.Errors)
             await NotificationService.Error(error.ErrorMessage);
@@ -65,7 +67,8 @@ public class SectionFormBase<TItem>: ComponentBase where TItem: EntityBase, new(
 
     protected async Task DeleteItem()
     {
-        SqlCoreHelper.Instance.Delete(SectionEntity);
+        //TODO: FIX DELETE
+        // SqlCoreHelper.Instance.Delete(SectionEntity);
         await NotificationService.Success(Localizer["ToastDeleteItem"]);
         await OnSubmitAction.InvokeAsync();
     }

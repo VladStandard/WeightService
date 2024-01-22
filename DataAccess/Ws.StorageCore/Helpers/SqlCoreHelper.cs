@@ -21,6 +21,7 @@ public sealed class SqlCoreHelper
     #endregion
 
     #region Public and private fields, properties, constructor
+    
     private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     private ISessionFactory SessionFactory { get; set; } = null!;
     private Configuration SqlConfiguration { get; set; } = new();
@@ -31,7 +32,7 @@ public sealed class SqlCoreHelper
         AddConfigurationMappings();
         SessionFactory = SqlConfiguration.BuildSessionFactory();
     }
-    
+
     private static SqlSettingsModels LoadJsonConfig()
     {
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()

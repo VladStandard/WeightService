@@ -33,6 +33,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
       <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />

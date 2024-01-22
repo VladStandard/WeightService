@@ -4,17 +4,19 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.StorageCore.Entities.Ref1c.Clips;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Clip;
 
 namespace DeviceControl.Features.Sections.References1C.Clips;
 
 
 public sealed partial class ClipsDataGrid: SectionDataGridBase<ClipEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    #region Inject
     
-    private SqlClipRepository ClipRepository { get; } = new();
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IClipService ClipService { get; set; } = null!;
+    
+    #endregion
 
     protected override async Task OpenDataGridEntityModal(ClipEntity item)
         => await OpenSectionModal<ClipsUpdateDialog>(item);
@@ -23,11 +25,11 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<ClipEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = ClipRepository.GetEnumerable().ToList();
+        SectionItems = ClipService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<ClipEntity>(itemUid)];
+        SectionItems = [ClipService.GetByUid(itemUid)];
     }
 }

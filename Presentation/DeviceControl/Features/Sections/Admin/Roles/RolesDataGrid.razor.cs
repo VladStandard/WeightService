@@ -4,16 +4,18 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.Claims;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Roles;
 
 public sealed partial class RolesDataGrid: SectionDataGridBase<ClaimEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    #region Inject
 
-    private SqlClaimRepository ClaimRepository { get; set; } = new();
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IClaimService ClaimService { get; set; } = null!;
+    
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<RolesCreateDialog>(new());
@@ -25,11 +27,11 @@ public sealed partial class RolesDataGrid: SectionDataGridBase<ClaimEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionRoles}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = ClaimRepository.GetEnumerable().ToList();
+        SectionItems = ClaimService.GetAll();
 
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<ClaimEntity>(itemUid)];
+        SectionItems = [ClaimService.GetByUid(itemUid)];
     }
 }

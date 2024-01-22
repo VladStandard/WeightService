@@ -5,17 +5,20 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.Users;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
 public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
-
-    private SqlUserRepository UserRepository { get; set; } = new();
+    [Inject] private IUserService UserService { get; set; } = null!;
+    
+    #endregion
+    
     private IEnumerable<string> UserNames { get; set; } = [];
 
     protected override async Task OpenSectionCreateForm()
@@ -29,20 +32,21 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
 
     protected override void SetSqlSectionCast()
     {
-        SectionItems = UserRepository.GetEnumerable().ToList();
+        SectionItems = UserService.GetAll();
         UserNames = UserCacheService.GetCachedUsernames();
     }
 
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<UserEntity>(itemUid)];
+        SectionItems = [UserService.GetByUid(itemUid)];
     }
 
     private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserCacheService.ClearCacheForUser(item.Name);
-        SqlCoreHelper.Instance.Delete(item);
+        //TODO: fix delete
+        // SqlCoreHelper.Instance.Delete(item);
         return Task.CompletedTask;
     }
 

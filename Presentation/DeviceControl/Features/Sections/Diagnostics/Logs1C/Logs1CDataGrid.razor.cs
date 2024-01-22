@@ -4,15 +4,18 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Diag;
-using Ws.StorageCore.Entities.Diag.LogWebs;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.LogWeb;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 
 public sealed partial class Logs1CDataGrid: SectionDataGridBase<LogWebEntity>
 {
+    #region Inject
+    
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private SqlLogWebRepository SqlLogWebRepository { get; } = new();
+    [Inject] private ILogWebService LogWebService { get; set; } = null!;
+    
+    #endregion
     
     protected override async Task OpenDataGridEntityModal(LogWebEntity item)
         => await OpenSectionModal<Logs1CUpdateDialog>(item);
@@ -21,11 +24,11 @@ public sealed partial class Logs1CDataGrid: SectionDataGridBase<LogWebEntity>
         => await OpenLinkInNewTab($"{RouteUtils.Section1CLogs}/{item.IdentityValueUid.ToString()}");
     
     protected override void SetSqlSectionCast() =>
-        SectionItems = SqlLogWebRepository.GetList(new()).ToList();
+        SectionItems = LogWebService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<LogWebEntity>(itemUid)];
+        SectionItems = [LogWebService.GetByUid(itemUid)];
     }
 }

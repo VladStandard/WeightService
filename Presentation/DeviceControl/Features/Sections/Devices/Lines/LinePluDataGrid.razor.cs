@@ -7,46 +7,48 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Services.Features.Line;
-using Ws.StorageCore.Entities.Ref.PlusLines;
-using Ws.StorageCore.Entities.Ref1c.Plus;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
 public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private IPluService PluService { get; } = null!;
 
+    #endregion
+    
     [Parameter, EditorRequired] public LineEntity LineEntity { get; set; } = null!;
 
     private IEnumerable<PluEntity> SelectPluEntities { get; set; } = [];
     private IEnumerable<PluEntity> SelectedPluEntities { get; set; } = [];
     private IEnumerable<PluEntity> SelectedPluEntitiesCopy { get; set; } = [];
-    
-    private SqlPluLineRepository PluLineRepository { get; } = new();
-    private SqlPluRepository PluRepository { get; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        SelectPluEntities = PluRepository.GetEnumerableNotGroup();
+        SelectPluEntities = PluService.GetAllNotGroup();
         SelectedPluEntities = LineService.GetLinePlus(LineEntity);
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
     
     private async Task SaveSelectedPluEntities()
     {
+        // TODO: FIX DELETE
         foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
             PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
-            if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
+            // if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
         }
         
         foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
-            SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
+            // TODO: FIX SAVE
+            // SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
         }
 
         await DataGridWrapperRef.ReloadData();
@@ -57,7 +59,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
     
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluLineRepository.GetListByLine(LineEntity);
+        SectionItems = LineService.GetLinePlusFk(LineEntity);
     
     protected override async Task OpenItemInNewTab(PluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");

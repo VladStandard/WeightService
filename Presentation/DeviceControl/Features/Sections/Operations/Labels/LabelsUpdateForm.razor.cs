@@ -5,27 +5,34 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
+using Ws.Services.Features.Label;
+using Ws.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
 
 public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
 {
+    #region MyRegion
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    private PluTemplateFkEntity PluTemplate { get; set; } = new();
+    [Inject] private IPluService PluService { get; set; } = null!;
+    
+    #endregion
+
+    private TemplateEntity Template { get; set; } = new();
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-        PluTemplate = new SqlPluTemplateFkRepository().GetItemByPlu(SectionEntity.Pallet.Plu);
+        Template = PluService.GetPluTemplate(SectionEntity.Pallet.Plu);
     }
 
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
     
-    private string GetTemplateLink() => PluTemplate.Template.IsNew ? 
-        string.Empty : $"{RouteUtils.SectionTemplates}/{PluTemplate.Template.IdentityValueId}";
+    private string GetTemplateLink() => Template.IsNew ? 
+        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
     
     private string GetLineLink() => SectionEntity.Pallet.Line.IsNew ? 
         string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Pallet.Line.IdentityValueUid}";

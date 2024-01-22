@@ -6,11 +6,16 @@ using Ws.StorageCore.Entities.Ref.PlusLines;
 using Ws.StorageCore.Entities.Ref1c.Plus;
 using Ws.StorageCore.Entities.Scales.PlusNestingFks;
 using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
+using Ws.StorageCore.Helpers;
 
 namespace Ws.Services.Features.Plu;
 
 public class PluService : IPluService
 {
+    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
+    
+    public IEnumerable<PluEntity> GetAllNotGroup() => new SqlPluRepository().GetEnumerableNotGroup();
+    
     public IEnumerable<PluNestingEntity> GetPluNesting(PluEntity plu)
     {
         return new SqlPluNestingFkRepository().GetEnumerableByPluUidActual(plu);

@@ -8,22 +8,20 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.LabelsService;
 using Ws.Services;
-using Ws.StorageCore.Helpers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 #region Add
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
-
 builder.Services.AddAuthorization(PolicyAuthUtils.RegisterAuthorization);
-
 builder.Services.AddRazorPages(options => { options.RootDirectory = "/Features"; });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddOptions();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddVsServices();
 builder.Services.AddLabelsServices();
 
@@ -67,8 +65,6 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.UseRequestLocalization("ru-RU");
-
-SqlCoreHelper.Instance.SetSessionFactory();
 
 app.Run();
 

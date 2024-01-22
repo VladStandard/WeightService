@@ -4,17 +4,19 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.StorageCore.Entities.Ref1c.Brands;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.Brand;
 
 namespace DeviceControl.Features.Sections.References1C.Brands;
 
 
 public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
 {
+    #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlBrandRepository BrandsRepository { get; } = new();
+    [Inject] private IBrandService BrandService { get; set; } = null!;
+
+    #endregion
 
     protected override async Task OpenDataGridEntityModal(BrandEntity item)
         => await OpenSectionModal<BrandsUpdateDialog>(item);
@@ -23,11 +25,11 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
         => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = BrandsRepository.GetEnumerable().ToList();
+        SectionItems = BrandService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<BrandEntity>(itemUid)];
+        SectionItems = [BrandService.GetByUid(itemUid)];
     }
 }

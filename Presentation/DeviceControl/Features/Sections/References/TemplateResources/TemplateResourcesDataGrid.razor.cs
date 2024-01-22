@@ -4,16 +4,17 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.StorageCore.Entities.Scales.TemplatesResources;
-using Ws.StorageCore.Helpers;
+using Ws.Services.Features.TemplateResource;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
 public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<TemplateResourceEntity>
 {
+    #region Inject
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private SqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
+    [Inject] private ITemplateResourceService TemplateResourceService { get; set; } = null!;
+
+    #endregion
     
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
@@ -25,12 +26,12 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<Templ
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateResourceRepository.GetList();
+        SectionItems = TemplateResourceService.GetAll();
     
     protected override void SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [SqlCoreHelper.Instance.GetItemByUid<TemplateResourceEntity>(itemUid)];
+        SectionItems = [TemplateResourceService.GetByUid(itemUid)];
     }
     
     private static string ConvertBytes(int fileSize) =>
