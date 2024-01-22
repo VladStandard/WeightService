@@ -1,6 +1,6 @@
-﻿using Ws.Domain.Models.Entities.Ref1c;
+﻿using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
+using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusTemplatesFks;
 

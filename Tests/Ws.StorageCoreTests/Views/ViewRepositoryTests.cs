@@ -1,6 +1,6 @@
 using Ws.Shared.Enums;
-using Ws.StorageCore.Models;
-using Ws.StorageCore.Utils;
+using Ws.Database.Core.Models;
+using Ws.Database.Core.Utils;
 
 namespace Ws.StorageCoreTests.Views;
 

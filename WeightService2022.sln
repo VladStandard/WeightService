@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CC895F84
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructurre", "Infrastructurre", "{E799E47F-67BB-4B10-BE06-297B00FD2954}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.StorageCore", "DataAccess\Ws.StorageCore\Ws.StorageCore.csproj", "{6F69D674-DA0E-4E6C-A5D8-7D1D33F14CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Database.Core", "DataAccess\Ws.Database.Core\Ws.Database.Core.csproj", "{6F69D674-DA0E-4E6C-A5D8-7D1D33F14CD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.WebApiScales", "WebApi\Ws.WebApiScales\Ws.WebApiScales.csproj", "{676DD41C-946A-4966-968E-9BE2045620B1}"
 EndProject

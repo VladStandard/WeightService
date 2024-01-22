@@ -1,6 +1,6 @@
-﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.Printers;
-using Ws.StorageCore.Helpers;
+﻿using Ws.Database.Core.Entities.Ref.Printers;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Services.Features.Printer;
 

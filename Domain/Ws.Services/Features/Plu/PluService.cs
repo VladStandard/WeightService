@@ -1,13 +1,13 @@
-﻿using Ws.Domain.Models.Entities.Ref;
+﻿using Ws.Database.Core.Entities.Ref.Lines;
+using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Database.Core.Entities.Ref1c.Plus;
+using Ws.Database.Core.Entities.Scales.PlusFks;
+using Ws.Database.Core.Entities.Scales.PlusNestingFks;
+using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.StorageCore.Entities.Ref.Lines;
-using Ws.StorageCore.Entities.Ref.PlusLines;
-using Ws.StorageCore.Entities.Ref1c.Plus;
-using Ws.StorageCore.Entities.Scales.PlusFks;
-using Ws.StorageCore.Entities.Scales.PlusNestingFks;
-using Ws.StorageCore.Entities.Scales.PlusTemplatesFks;
-using Ws.StorageCore.Helpers;
 
 namespace Ws.Services.Features.Plu;
 

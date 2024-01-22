@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Diag;
-using Ws.StorageCore.Entities.Diag.LogWebs;
+﻿using Ws.Database.Core.Entities.Diag.LogWebs;
+using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.LogsWebs;
 

@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Common;
-using Ws.StorageCore.Models;
+using Ws.Database.Core.Models;
 
 namespace Ws.StorageCoreTests.Tables.Common;
 

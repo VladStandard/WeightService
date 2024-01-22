@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.StorageMethods;
+﻿using Ws.Database.Core.Entities.Ref.StorageMethods;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.StorageMethods;
 

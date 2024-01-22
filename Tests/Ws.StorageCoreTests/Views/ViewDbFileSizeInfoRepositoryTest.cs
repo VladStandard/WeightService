@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities;
-using Ws.StorageCore.Entities;
+﻿using Ws.Database.Core.Entities;
+using Ws.Domain.Models.Entities;
 
 namespace Ws.StorageCoreTests.Views;
 

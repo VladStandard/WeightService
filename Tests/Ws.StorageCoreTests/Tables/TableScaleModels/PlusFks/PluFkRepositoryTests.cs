@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Scale;
-using Ws.StorageCore.Entities.Scales.PlusFks;
+﻿using Ws.Database.Core.Entities.Scales.PlusFks;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusFks;
 

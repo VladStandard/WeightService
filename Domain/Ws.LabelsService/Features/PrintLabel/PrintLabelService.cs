@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Labels;
@@ -7,7 +8,6 @@ using Ws.LabelsService.Features.PrintLabel.Dto;
 using Ws.LabelsService.Features.PrintLabel.Exceptions;
 using Ws.LabelsService.Features.PrintLabel.Validators;
 using Ws.Services.Features.Plu;
-using Ws.StorageCore.Helpers;
 
 namespace Ws.LabelsService.Features.PrintLabel;
 

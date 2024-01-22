@@ -1,9 +1,9 @@
 ﻿using MDSoft.NetUtils;
+using Ws.Database.Core.Entities.Ref.Lines;
+using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.StorageCore.Entities.Ref.Lines;
-using Ws.StorageCore.Entities.Ref.PlusLines;
-using Ws.StorageCore.Helpers;
 
 namespace Ws.Services.Features.Line;
 

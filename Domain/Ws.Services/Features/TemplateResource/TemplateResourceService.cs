@@ -1,6 +1,6 @@
-﻿using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.StorageCore.Entities.Scales.TemplatesResources;
-using Ws.StorageCore.Helpers;
+﻿using Ws.Database.Core.Entities.Scales.TemplatesResources;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace Ws.Services.Features.TemplateResource;
 

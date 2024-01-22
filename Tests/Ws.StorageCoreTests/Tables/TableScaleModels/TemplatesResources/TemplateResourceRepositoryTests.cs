@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.StorageCore.Entities.Scales.TemplatesResources;
+﻿using Ws.Database.Core.Entities.Scales.TemplatesResources;
+using Ws.Domain.Models.Entities.SchemaScale;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.TemplatesResources;
 

@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.Claims;
+﻿using Ws.Database.Core.Entities.Ref.Claims;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Claims;
 

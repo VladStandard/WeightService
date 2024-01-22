@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
+using Ws.Database.Core.Entities.Ref.Users;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.Users;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Users;
 

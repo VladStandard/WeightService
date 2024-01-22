@@ -1,6 +1,6 @@
-﻿using Ws.Domain.Models.Entities.Print;
-using Ws.StorageCore.Entities.Print.ViewLabels;
-using Ws.StorageCore.Helpers;
+﻿using Ws.Database.Core.Entities.Print.ViewLabels;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Services.Features.Label;
 

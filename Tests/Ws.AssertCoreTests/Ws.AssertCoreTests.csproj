@@ -7,6 +7,6 @@
         <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
+        <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" />
     </ItemGroup>
 </Project>

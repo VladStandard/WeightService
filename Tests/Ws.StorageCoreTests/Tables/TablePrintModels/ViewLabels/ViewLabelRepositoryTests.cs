@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Print;
-using Ws.StorageCore.Entities.Print.ViewLabels;
+﻿using Ws.Database.Core.Entities.Print.ViewLabels;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.ViewLabels;
 

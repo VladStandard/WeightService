@@ -1,7 +1,7 @@
-﻿using Ws.Domain.Models.Entities;
+﻿using Ws.Database.Core.Entities;
+using Ws.Database.Core.Entities.Diag.TableSizes;
+using Ws.Domain.Models.Entities;
 using Ws.Domain.Models.Entities.Diag;
-using Ws.StorageCore.Entities;
-using Ws.StorageCore.Entities.Diag.TableSizes;
 
 namespace Ws.Services.Features.DatabaseFile;
 

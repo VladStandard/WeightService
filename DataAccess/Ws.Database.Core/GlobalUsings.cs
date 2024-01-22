@@ -1,0 +1,16 @@
+global using System.Collections;
+global using System.Collections.Generic;
+global using System.ComponentModel;
+global using System.Diagnostics;
+global using System.Linq;
+global using System.Text;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using FluentValidation;
+global using FluentValidation.Results;
+global using NHibernate;
+global using NHibernate.Criterion;
+global using Ws.Database.Core.Common;
+global using Ws.Database.Core.Helpers;
+global using Ws.Database.Core.Models;
+global using Ws.Database.Core.Utils;

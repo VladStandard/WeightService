@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Print;
-using Ws.StorageCore.Entities.Print.Pallets;
+﻿using Ws.Database.Core.Entities.Print.Pallets;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Pallets;
 

@@ -1,5 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.StorageCore.Entities.Ref.PlusLines;
+﻿using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
 

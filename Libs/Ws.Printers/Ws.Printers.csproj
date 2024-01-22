@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\Ws.StorageCore\Ws.StorageCore.csproj" />
+      <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" />
     </ItemGroup>
 
 </Project>

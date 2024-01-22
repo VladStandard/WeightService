@@ -5,13 +5,13 @@ using Microsoft.Extensions.Localization;
 using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
+using Ws.Database.Core.Helpers;
 using Ws.LabelsService.Features.PrintLabel;
 using Ws.LabelsService.Features.PrintLabel.Dto;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
-using Ws.StorageCore.Helpers;
 
 namespace ScalesHybrid.Components.Controls;
 
