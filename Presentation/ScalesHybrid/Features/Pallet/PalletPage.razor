@@ -1,10 +1,13 @@
 @attribute [Route(RouteUtils.Pallet)]
+@using ScalesHybrid.Features.Pallet.Modules
+
 
 <div class="flex flex-col grow w-full h-full">
   <PageHeader />
   <div class="w-full h-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4">
-    <div class="w-full grid grid-rows-1 grid-cols-[1fr,1.5fr] h-[34rem] rounded-xl bg-white border divide-x max-w-screen-2xl overflow-hidden">
-      <p>Hello World!</p>
+    <div class="w-full grid grid-rows-1 grid-cols-[1fr,1.5fr] h-[47rem] rounded-xl bg-white border divide-x max-w-screen-2xl overflow-hidden">
+      <PalletSelect />
+      <PalletViewer />
     </div>
   </div>
 </div>

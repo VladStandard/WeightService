@@ -125,9 +125,8 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
     private static DateTime GetProductDt(DateTime time) => 
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-    private async Task PrintPrinterStatusMessage()
-    {
-        string msg = PrinterStatus switch
+    private async Task PrintPrinterStatusMessage() =>
+        await NotificationService.Warning(PrinterStatus switch
         {
             PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
             PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
@@ -136,10 +135,8 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
             PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
             PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
-        };
-        await NotificationService.Warning(msg);
-    }
-    
+        });
+
     private bool GetPrintLabelDisabledStatus() =>
         LabelContext.Plu.IsNew || LabelContext.PluNesting.IsNew || LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 

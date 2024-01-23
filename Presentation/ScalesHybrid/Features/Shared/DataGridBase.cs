@@ -5,6 +5,7 @@ namespace ScalesHybrid.Features.Shared;
 
 public class DataGridBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
+    protected DataGridWrapper<TItem> DataGridWrapper { get; set; } = null!;
     protected IEnumerable<TItem> GridData { get; set; } = [];
 
     protected override void OnInitialized()
