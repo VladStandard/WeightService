@@ -75,7 +75,7 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.Wrench,
             SubItems =
             [
-                new(Localizer["SectionAppsLogs"],RouteUtils.SectionLogs),
+                // new(Localizer["SectionAppsLogs"],RouteUtils.SectionLogs),
                 new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs)
             ]
         },
@@ -87,6 +87,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 new(Localizer["SectionUsers"],RouteUtils.SectionUsers),
+                new(Localizer["SectionPalletMen"],RouteUtils.SectionPalletMen),
                 new(Localizer["SectionRoles"],RouteUtils.SectionRoles),
                 new(Localizer["SectionDatabase"],RouteUtils.SectionDatabase)
             ]

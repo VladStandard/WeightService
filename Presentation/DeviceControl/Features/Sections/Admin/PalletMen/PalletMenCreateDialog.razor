@@ -1,0 +1,10 @@
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
+
+<SectionModalWrapper TabsButtonList="@TabsList">
+  <SectionTabPanel Name="main">
+    <PalletMenCreateForm
+      OnSubmitAction="OnDataChangedAction"
+      SectionEntity="SectionEntity"
+    />
+  </SectionTabPanel>
+</SectionModalWrapper>

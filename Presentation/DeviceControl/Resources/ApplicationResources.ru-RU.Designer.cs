@@ -330,6 +330,24 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ФИО.
+        /// </summary>
+        internal static string DataGridColumnFIO {
+            get {
+                return ResourceManager.GetString("DataGridColumnFIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя.
+        /// </summary>
+        internal static string DataGridColumnFirstName {
+            get {
+                return ResourceManager.GetString("DataGridColumnFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Полное название.
         /// </summary>
         internal static string DataGridColumnFullName {
@@ -452,6 +470,24 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnNumber {
             get {
                 return ResourceManager.GetString("DataGridColumnNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        internal static string DataGridColumnPassword {
+            get {
+                return ResourceManager.GetString("DataGridColumnPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отчество.
+        /// </summary>
+        internal static string DataGridColumnPatronymic {
+            get {
+                return ResourceManager.GetString("DataGridColumnPatronymic", resourceCulture);
             }
         }
         
@@ -623,6 +659,15 @@ namespace ScalesHybrid.Resources {
         internal static string DataGridColumnSuccessCounter {
             get {
                 return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фамилия.
+        /// </summary>
+        internal static string DataGridColumnSurname {
+            get {
+                return ResourceManager.GetString("DataGridColumnSurname", resourceCulture);
             }
         }
         
@@ -1019,6 +1064,15 @@ namespace ScalesHybrid.Resources {
         internal static string SectionLines {
             get {
                 return ResourceManager.GetString("SectionLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сдатчик.
+        /// </summary>
+        internal static string SectionPalletMen {
+            get {
+                return ResourceManager.GetString("SectionPalletMen", resourceCulture);
             }
         }
         

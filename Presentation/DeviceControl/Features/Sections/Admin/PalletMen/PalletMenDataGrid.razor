@@ -1,0 +1,27 @@
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<PalletManEntity>
+
+
+<SectionDataGridWrapper
+  TItem="PalletManEntity"
+  @ref="DataGridWrapperRef"
+  Title="@Localizer["SectionPalletMen"]"
+  GridData="SectionItems"
+  GetGridData="GetSectionData"
+  ReadAction="OpenDataGridEntityModal"
+  AddAction="OpenSectionCreateForm"
+  DeleteAction="DeleteSqlItem"
+  OpenInTabAction="OpenItemInNewTab"
+  IsLoading="IsLoading"
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnChangeDt"]"
+    Field="@nameof(PalletManEntity.ChangeDt)"
+    Width="40%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnFIO"]"
+    Field="@nameof(PalletManEntity.Fio)"
+    Width="60%"
+  />
+</SectionDataGridWrapper>

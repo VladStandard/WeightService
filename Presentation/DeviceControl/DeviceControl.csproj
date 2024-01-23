@@ -67,6 +67,15 @@
       </Compile>
     </ItemGroup>
     
+    <ItemGroup>
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenCreateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenCreateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenDataGrid.razor" />
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenPage.razor" />
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenUpdateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenUpdateForm.razor" />
+    </ItemGroup>
+    
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
     </Target>

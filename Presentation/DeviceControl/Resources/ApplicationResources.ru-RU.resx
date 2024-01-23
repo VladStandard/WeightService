@@ -396,4 +396,22 @@
     <data name="DataGridColumnResponse" xml:space="preserve">
         <value>Сообщение ответа</value>
     </data>
+    <data name="SectionPalletMen" xml:space="preserve">
+        <value>Сдатчик</value>
+    </data>
+    <data name="DataGridColumnFIO" xml:space="preserve">
+        <value>ФИО</value>
+    </data>
+    <data name="DataGridColumnSurname" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="DataGridColumnFirstName" xml:space="preserve">
+        <value>Имя</value>
+    </data>
+    <data name="DataGridColumnPatronymic" xml:space="preserve">
+        <value>Отчество</value>
+    </data>
+    <data name="DataGridColumnPassword" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
 </root>

@@ -47,6 +47,7 @@ public static class RouteUtils
     public const string SectionDatabase = "/database";
     public const string SectionUsers = "/users";
     public const string SectionRoles = "/roles";
+    public const string SectionPalletMen = "/pallet_men";
     
     # endregion
 

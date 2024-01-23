@@ -1,0 +1,25 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
+
+
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
+  <SectionFormInputText
+    @bind-Value="@Uid1C"
+    Label="@Localizer["DataGridColumnUID1C"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnFirstName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Surname"
+    Label="@Localizer["DataGridColumnSurname"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Patronymic"
+    Label="@Localizer["DataGridColumnPatronymic"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Password"
+    Label="@Localizer["DataGridColumnPassword"]"
+  />
+</SectionFormWrapper>

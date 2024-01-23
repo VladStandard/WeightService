@@ -22,7 +22,7 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletManEntity>
         });
 
         Property(x => x.CreateDt, m => {
-            m.Column("CHANGE_DT");
+            m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });

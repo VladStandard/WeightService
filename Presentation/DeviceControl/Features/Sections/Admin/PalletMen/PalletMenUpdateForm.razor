@@ -1,0 +1,28 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
+
+
+<SectionFormWrapper
+  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  DeleteItemAction="DeleteItem"
+  ResetItemAction="ResetItem"
+  ShareUrl="@($"{RouteUtils.SectionPalletMen}/{SectionEntity.IdentityValueUid}")"
+  CreateDate="SectionEntity.CreateDt"
+  ChangeDate="SectionEntity.ChangeDt"
+>
+  <SectionFormInputText
+    @bind-Value="@Uid1C"
+    Label="@Localizer["DataGridColumnUID1C"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnFirstName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Surname"
+    Label="@Localizer["DataGridColumnSurname"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Patronymic"
+    Label="@Localizer["DataGridColumnPatronymic"]"
+  />
+</SectionFormWrapper>

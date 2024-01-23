@@ -396,4 +396,22 @@
     <data name="DataGridColumnResponse" xml:space="preserve">
         <value>Response message</value>
     </data>
+    <data name="SectionPalletMen" xml:space="preserve">
+        <value>Pallet Men</value>
+    </data>
+    <data name="DataGridColumnFIO" xml:space="preserve">
+        <value>FIO</value>
+    </data>
+    <data name="DataGridColumnSurname" xml:space="preserve">
+        <value>Surname</value>
+    </data>
+    <data name="DataGridColumnFirstName" xml:space="preserve">
+        <value>First name</value>
+    </data>
+    <data name="DataGridColumnPatronymic" xml:space="preserve">
+        <value>Patronymic</value>
+    </data>
+    <data name="DataGridColumnPassword" xml:space="preserve">
+        <value>Password</value>
+    </data>
 </root>
