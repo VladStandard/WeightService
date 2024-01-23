@@ -1,9 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-    </PropertyGroup>
-
     <ItemGroup>
       <PackageReference Include="CheckSum.CRC" Version="2.0.2" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
@@ -14,5 +9,4 @@
       <Compile Remove="Common\IScalesCommands.cs" />
       <Compile Remove="Enums\ScalesCommandsEnum.cs" />
     </ItemGroup>
-
 </Project>

@@ -3,14 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net8.0-windows</TargetFramework>
         <Version>1.1.9.0</Version>
-        <Authors>Владимирский стандарт</Authors>
-        <Company>Владимирский стандарт</Company>
         <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
-        <Product>WeightService</Product>
-        <Copyright>Copyright © 2020 - 2023</Copyright>
-        <AssemblyName>DeviceControl</AssemblyName>
-        <RootNamespace>DeviceControl</RootNamespace>
         <NoWarn>CA1806</NoWarn>
+        <SingleProject>true</SingleProject>
     </PropertyGroup>
     
     <ItemGroup>
@@ -33,7 +28,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
-      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
     <ItemGroup>
       <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />

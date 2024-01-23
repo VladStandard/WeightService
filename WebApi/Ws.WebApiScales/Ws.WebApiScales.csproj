@@ -1,12 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Company>Владимирский стандарт</Company>
-        <Product>WeightService</Product>
-        <Copyright>Copyright © 2020 - 2023</Copyright>
-        <Authors />
-    </PropertyGroup>
-    
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Ws.Services\Ws.Services.csproj" />
     </ItemGroup>
