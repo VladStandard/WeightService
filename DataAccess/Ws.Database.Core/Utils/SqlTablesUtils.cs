@@ -11,6 +11,7 @@ internal static class SqlTablesUtils
     public const string LogsWebs = "LOGS_WEB_SERVICES";
     public const string Plus = "PLUS";
     public const string PlusFks = "PLUS_FK";
+    public const string PalletMen = "PALLET_MEN";
     public const string Labels = "LABELS";
     public const string Pallets = "PALLETS";
     public const string PlusNestingFks = "PLUS_NESTING_FK";
@@ -23,7 +24,6 @@ internal static class SqlTablesUtils
     public const string Warehouses = "WAREHOUSES";
     public const string Printers = "PRINTERS";
     public const string Lines = "LINES";
-    public const string PalletMan = "PALLET_MEN";
     public const string ViewLabels = "VIEW_LABELS";
     public const string ViewTablesSizes = "VIEW_TABLES_SIZES";
 }

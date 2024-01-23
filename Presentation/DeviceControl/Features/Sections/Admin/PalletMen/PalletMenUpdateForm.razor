@@ -10,6 +10,12 @@
   ChangeDate="SectionEntity.ChangeDt"
 >
   <SectionFormInputText
+    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+    IsCopyable
+  />
+  <SectionFormInputText
     @bind-Value="@Uid1C"
     Label="@Localizer["DataGridColumnUID1C"]"
   />
@@ -24,5 +30,9 @@
   <SectionFormInputText
     @bind-Value="@SectionEntity.Patronymic"
     Label="@Localizer["DataGridColumnPatronymic"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Password"
+    Label="@Localizer["DataGridColumnPassword"]"
   />
 </SectionFormWrapper>

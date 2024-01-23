@@ -18,7 +18,7 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     {
         TestsUtils.DataTests.AssertAction(() =>
         {
-            List<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
+            IEnumerable<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             ParseRecords(items);
         });
     }

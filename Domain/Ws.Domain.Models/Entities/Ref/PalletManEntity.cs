@@ -36,7 +36,7 @@ public class PalletManEntity : Table1CBase
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((LineEntity)obj);
+        return Equals((PalletManEntity)obj);
     }
     
     public virtual bool Equals(PalletManEntity item) =>

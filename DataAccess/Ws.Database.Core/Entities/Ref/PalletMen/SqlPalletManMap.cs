@@ -7,12 +7,12 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletManEntity>
     public SqlPalletManMap()
     {
         Schema(SqlSchemasUtils.Ref);
-        Table(SqlTablesUtils.PalletMan);
+        Table(SqlTablesUtils.PalletMen);
 
         Id(x => x.IdentityValueUid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Identity);
+            m.Generator(Generators.Guid);
         });
 
         Property(x => x.Uid1C, m => {
