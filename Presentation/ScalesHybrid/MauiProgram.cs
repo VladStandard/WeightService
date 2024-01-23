@@ -32,6 +32,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();
         builder.Services.AddSingleton<LabelContext>();
+        builder.Services.AddSingleton<PalletContext>();
         
         builder.Services
             .AddBlazorise()

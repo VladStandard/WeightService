@@ -1,6 +1,6 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
-using ScalesHybrid.Features.Pallet.Dialogs;
+using ScalesHybrid.Features.Shared;
 using ScalesHybrid.Services;
 
 namespace ScalesHybrid.Features.Labels.Modules;

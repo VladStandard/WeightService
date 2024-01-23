@@ -1,0 +1,34 @@
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits DataGridBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+
+
+<DialogWrapper Title="@Localizer["DialogPluSelectHeaderLabel"]">
+  <DataGridWrapper
+    TItem="PluEntity"
+    GridData="GridData"
+    OnItemSelect="OnItemSelect"
+  >
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnNumber"]"
+      TItem="PluEntity"
+      Field="@nameof(PluEntity.Number)"
+      Width="15%"
+    />
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnType"]"
+      TItem="PluEntity"
+      Field="@nameof(PluEntity.IsCheckWeight)"
+      Width="15%"
+    >
+      <DisplayTemplate>
+        <span>@(context.IsCheckWeight ? "Вес" : "Шт")</span>
+      </DisplayTemplate>
+    </DataGridColumn>
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnName"]"
+      TItem="PluEntity"
+      Field="@nameof(PluEntity.Name)"
+      Width="70%"
+    />
+  </DataGridWrapper>
+</DialogWrapper>

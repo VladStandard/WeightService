@@ -1,0 +1,29 @@
+@using Ws.Domain.Models.Entities.Print
+@inherits DataGridBase<Ws.Domain.Models.Entities.Print.LabelEntity>
+
+<DataGridWrapper
+  TItem="LabelEntity"
+  @ref="DataGridWrapper"
+  GridData="GridData"
+  @bind-SelectedItems="SelectedItems"
+  @bind-SelectedItems:after="OnSelectedItemsChanged"
+  ItemsPerPage="MaxItemsPerPage"
+  IsMultiSelect
+  IsDesktop
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnProductDt"]"
+    Field="@nameof(LabelEntity.CreateDt)"
+    Width="50%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPLU"]"
+    Field="@nameof(LabelEntity.Pallet.Plu.DisplayName)"
+    Width="25%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPLU"]"
+    Field="@nameof(LabelEntity.WeightNet)"
+    Width="25%"
+  />
+</DataGridWrapper>

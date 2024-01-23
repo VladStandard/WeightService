@@ -1,0 +1,65 @@
+@using Blazor.Heroicons.Outline
+
+
+<div class="h-full w-full overflow-hidden flex flex-col">
+  <div class="h-14 border-b border-b-black/[.1] flex items-center px-4 shrink-0">
+    <p class="text-xl">Выбор паллеты</p>
+  </div>
+  <div class="h-full w-full grow flex flex-col overflow-x-hidden overflow-y-auto">
+    @if (!PalletContext.PalletEntities.Any())
+    {
+      <div class="h-full w-full flex items-center justify-center">
+        <p>Информация о паллетах отсутствует</p>
+      </div>
+    }
+    else
+    {
+      <ul class="w-full grow divide-y">
+        @{
+          int index = 0;
+          @foreach (PalletModel item in PalletContext.PalletEntities)
+          {
+            index += 1;
+            <li>
+              <button
+                type="button"
+                disabled="@PalletContext.Pallet.Equals(item)"
+                @onclick="@(() => PalletContext.ChangePallet(item))"
+                class="w-full h-20 flex transition-colors justify-center flex-col px-8 @(PalletContext.Pallet.Equals(item) ? "bg-blue-300" : "hover:bg-blue-100")"
+              >
+                <p class="truncate text-xl">@index Паллета № @item.Number</p>
+                <div class="flex w-full overflow-hidden">
+                  <p class="w-1/2 truncate text-lg text-left">Кол-во: @item.Labels.Count()</p>
+                  <p class="w-1/2 truncate text-lg text-left">Дата: @item.CreateDt.ToString("dd-MM-yyyy")</p>
+                </div>
+              </button>
+            </li>
+          }
+        }
+      </ul>
+      @* <div class="w-full border-t h-20 shrink-0 flex items-center justify-center"> *@
+      @*   <div class="border border-black/[.1] flex rounded-xl overflow-hidden divide-x divide-x-black/[.1]"> *@
+      @*     <button *@
+      @*       type="button" *@
+      @*       disabled="@(CurrentPage <= 1)" *@
+      @*       @onclick="SetPreviousPage" *@
+      @*       class="flex items-center h-14 w-14 justify-center text-gray-600 transition-colors hover:bg-blue-100 hover:text-black disabled:bg-gray-200" *@
+      @*     > *@
+      @*       <ChevronLeftIcon class="h-6 w-6" /> *@
+      @*     </button> *@
+      @*     <div class="flex text-xl items-center justify-center h-14 w-14"> *@
+      @*       @CurrentPage *@
+      @*     </div> *@
+      @*     <button *@
+      @*       type="button" *@
+      @*       disabled="@(CurrentPage >= MaxPageCount)" *@
+      @*       @onclick="SetNextPage" *@
+      @*       class="flex items-center h-14 w-14 justify-center text-gray-600 transition-colors hover:bg-blue-100 hover:text-black disabled:bg-gray-200" *@
+      @*     > *@
+      @*       <ChevronRightIcon class="h-6 w-6" /> *@
+      @*     </button> *@
+      @*   </div> *@
+      @* </div> *@
+    }
+  </div>
+</div>
