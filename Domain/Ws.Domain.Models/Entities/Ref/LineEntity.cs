@@ -44,8 +44,6 @@ public class LineEntity : EntityBase
         Type = item.Type;
     }
 
-    public override string ToString() => $"{IdentityValueId} | {Name}";
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -53,8 +51,6 @@ public class LineEntity : EntityBase
         if (obj.GetType() != GetType()) return false;
         return Equals((LineEntity)obj);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
     
     public virtual bool Equals(LineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
@@ -66,4 +62,7 @@ public class LineEntity : EntityBase
         Warehouse.Equals(item.Warehouse) &&
         Printer.Equals(item.Printer) &&
         Version.Equals(item.Version);
+    
+    public override int GetHashCode() => base.GetHashCode();
+    public override string ToString() => $"{IdentityValueId} | {Name}";
 }

@@ -3,6 +3,7 @@ using Ws.Database.Core.Entities.Print.Labels;
 using Ws.Database.Core.Entities.Print.Pallets;
 using Ws.Database.Core.Entities.Ref.Claims;
 using Ws.Database.Core.Entities.Ref.Lines;
+using Ws.Database.Core.Entities.Ref.PalletMen;
 using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Database.Core.Entities.Ref.Printers;
 using Ws.Database.Core.Entities.Ref.ProductionSites;
@@ -48,6 +49,7 @@ public static class SqlValidationUtils
             PalletEntity pallet => new SqlPalletValidator(isCheckIdentity).Validate(pallet),
             ProductionSiteEntity productionFacility => new SqlProductionSiteValidator(isCheckIdentity).Validate(productionFacility),
             LineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
+            PalletManEntity man => new SqlPalletManValidator(isCheckIdentity).Validate(man),
             TemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
             TemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
             WarehouseEntity workShop => new SqlWarehouseValidator(isCheckIdentity).Validate(workShop),

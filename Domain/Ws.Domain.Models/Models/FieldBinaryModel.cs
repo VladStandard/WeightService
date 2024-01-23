@@ -1,7 +1,7 @@
 using System.Text;
 using Ws.Shared.Utils;
 
-namespace Ws.Infrastructure.Models.Models;
+namespace Ws.Domain.Models.Models;
 
 public class FieldBinaryModel
 {
