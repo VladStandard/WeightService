@@ -1,5 +1,5 @@
 ﻿using System.Xml.Linq;
-using Ws.Services.Features.LogWeb;
+using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;

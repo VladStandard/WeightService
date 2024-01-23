@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Services.Features.Box;
-using Ws.Services.Features.Plu;
+using Ws.Domain.Services.Features.Box;
+using Ws.Domain.Services.Features.Plu;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Nesting.Dto;
 using Ws.WebApiScales.Features.Nesting.Validators;

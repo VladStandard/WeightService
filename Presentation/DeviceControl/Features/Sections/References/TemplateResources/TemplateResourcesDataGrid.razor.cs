@@ -4,7 +4,7 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.SchemaScale;
-using Ws.Services.Features.TemplateResource;
+using Ws.Domain.Services.Features.TemplateResource;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 

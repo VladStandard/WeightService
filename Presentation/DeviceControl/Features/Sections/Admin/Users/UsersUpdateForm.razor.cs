@@ -6,7 +6,7 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Services.Features.Claim;
+using Ws.Domain.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 

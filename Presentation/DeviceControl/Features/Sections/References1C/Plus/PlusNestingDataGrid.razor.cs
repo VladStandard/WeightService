@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Services.Features.Plu;
+using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
 

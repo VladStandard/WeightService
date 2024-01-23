@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Scales", "Libs\Ws.Scales
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Printers", "Libs\Ws.Printers\Ws.Printers.csproj", "{0064D207-693E-42D3-B14B-EB576AD98E1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Services", "Domain\Ws.Services\Ws.Services.csproj", "{E758C335-85DD-4B0D-A34A-5568426FB777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Domain.Services", "Domain\Ws.Domain.Services\Ws.Domain.Services.csproj", "{E758C335-85DD-4B0D-A34A-5568426FB777}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Labels.Tests", "Tests\Ws.Labels.Tests\Ws.Labels.Tests.csproj", "{7608BF1D-E9CB-42A3-8B90-E7FCCB043268}"
 EndProject

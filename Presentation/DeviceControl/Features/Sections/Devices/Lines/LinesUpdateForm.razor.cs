@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
-using Ws.Services.Features.Printer;
-using Ws.Services.Features.Warehouse;
+using Ws.Domain.Services.Features.Printer;
+using Ws.Domain.Services.Features.Warehouse;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 

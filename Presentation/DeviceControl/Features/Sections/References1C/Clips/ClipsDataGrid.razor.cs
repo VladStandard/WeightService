@@ -4,7 +4,7 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Services.Features.Clip;
+using Ws.Domain.Services.Features.Clip;
 
 namespace DeviceControl.Features.Sections.References1C.Clips;
 

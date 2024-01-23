@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Services.Features.Brand;
+using Ws.Domain.Services.Features.Brand;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand.Dto;
 using Ws.WebApiScales.Features.Brand.Validators;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Services.Features.Plu;
+using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 

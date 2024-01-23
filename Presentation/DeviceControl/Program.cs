@@ -7,7 +7,7 @@ using DeviceControl.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.LabelsService;
-using Ws.Services;
+using Ws.Domain.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +22,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddVsServices();
+builder.Services.AddDomainServices();
 builder.Services.AddLabelsServices();
 
 builder.Services
