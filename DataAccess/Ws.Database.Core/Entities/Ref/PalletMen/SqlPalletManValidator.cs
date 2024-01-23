@@ -6,6 +6,9 @@ public sealed class SqlPalletManValidator : SqlTableValidator<PalletManEntity>
 {
     public SqlPalletManValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
+        RuleFor(item => item.Uid1C)
+            .NotEmpty()
+            .NotNull();
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
@@ -16,6 +19,6 @@ public sealed class SqlPalletManValidator : SqlTableValidator<PalletManEntity>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Password)
-            .NotNull().NotEmpty().Length(4);
+            .NotNull().NotEmpty().Length(4).Matches("^[0-9]+$").WithMessage("Пароль должен содержать только цифры.");
     }
 }
