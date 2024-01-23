@@ -6,7 +6,7 @@ using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.LabelsService;
-using Ws.Services;
+using Ws.Domain.Services;
 
 namespace ScalesHybrid;
 public static class MauiProgram
@@ -17,7 +17,7 @@ public static class MauiProgram
         
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddVsServices();
+        builder.Services.AddDomainServices();
         builder.Services.AddLabelsServices();
         
 #if DEBUG

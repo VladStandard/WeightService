@@ -7,8 +7,8 @@ using Microsoft.Extensions.Localization;
 using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Services.Features.Line;
-using Ws.Services.Features.Plu;
+using Ws.Domain.Services.Features.Line;
+using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 

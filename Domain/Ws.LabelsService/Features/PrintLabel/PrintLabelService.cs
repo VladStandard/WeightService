@@ -7,7 +7,7 @@ using Ws.Labels.Dto;
 using Ws.LabelsService.Features.PrintLabel.Dto;
 using Ws.LabelsService.Features.PrintLabel.Exceptions;
 using Ws.LabelsService.Features.PrintLabel.Validators;
-using Ws.Services.Features.Plu;
+using Ws.Domain.Services.Features.Plu;
 
 namespace Ws.LabelsService.Features.PrintLabel;
 

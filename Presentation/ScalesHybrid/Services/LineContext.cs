@@ -1,6 +1,6 @@
 using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Services.Features.Line;
+using Ws.Domain.Services.Features.Line;
 
 namespace ScalesHybrid.Services;
 

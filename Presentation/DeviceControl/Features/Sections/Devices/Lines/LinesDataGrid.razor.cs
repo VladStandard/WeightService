@@ -4,7 +4,7 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Services.Features.Line;
+using Ws.Domain.Services.Features.Line;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 

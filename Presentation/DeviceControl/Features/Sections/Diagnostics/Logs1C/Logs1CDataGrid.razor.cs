@@ -4,7 +4,7 @@ using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Diag;
-using Ws.Services.Features.LogWeb;
+using Ws.Domain.Services.Features.LogWeb;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 

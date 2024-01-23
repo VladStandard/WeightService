@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Ws.Services;
+using Ws.Domain.Services;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand;
 using Ws.WebApiScales.Features.Nesting;
@@ -11,7 +11,7 @@ builder.Services.AddScoped<ResponseDto>();
 builder.Services.AddScoped<IPluApiService, PluApiService>();
 builder.Services.AddScoped<IBrandApiService, BrandApiService>();
 builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
-builder.Services.AddVsServices();
+builder.Services.AddDomainServices();
 
 builder.Services.AddHttpContextAccessor();
 

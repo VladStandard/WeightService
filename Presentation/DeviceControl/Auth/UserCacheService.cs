@@ -2,7 +2,7 @@
 using DeviceControl.Auth.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Services.Features.User;
+using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Auth;
 
