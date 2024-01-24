@@ -1,0 +1,49 @@
+<div class="w-full h-full flex overflow-x-hidden overflow-y-auto">
+  <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
+    <FormInputText
+      Label="Номер"
+      Value="@PalletContext.Pallet.Number.ToString()"
+      IsDisabled
+    />
+    <FormInputText
+      Label="Штрихкод"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="Линия"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="Сдатчик"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="Кол-во"
+      Value="@PalletContext.Pallet.Labels.Count().ToString()"
+      IsDisabled
+    />
+    <FormInputText
+      Label="Замес"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="Вес нетто"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="Вес брутто"
+      Value=""
+      IsDisabled
+    />
+    <FormInputText
+      Label="ПЛУ"
+      Value=""
+      IsDisabled
+    />
+  </div>
+</div>

@@ -28,11 +28,11 @@ public sealed partial class DataGridWrapper<TItem>: ComponentBase where TItem: E
     
     
     private static DataGridRowStyling CustomHeaderRowStyling() =>
-        new() { Class = "truncate text-xl" };
+        new() { Class = "truncate text-lg xl:text-xl" };
     
     
     private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
-        styling.Class = "truncate text-black font-light text-xl";
+        styling.Class = "truncate text-black !py-2 font-light text-lg xl:!py-3 xl:text-xl";
 
     private string CustomPaginationButtonStyle() => $"h-4 w-4 m-2 {(!IsDesktop ? "xl:h-6 xl:w-6" : "")}";
     

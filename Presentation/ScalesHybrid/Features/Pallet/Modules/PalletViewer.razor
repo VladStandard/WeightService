@@ -1,4 +1,5 @@
 @using Blazor.Heroicons.Outline
+@using Ws.Shared.Enums
 
 
 <div class="w-full h-full overflow-hidden">
@@ -11,43 +12,54 @@
   else
   {
     <div class="w-full h-full overflow-hidden flex flex-col">
-      <div class="w-full px-4 shrink-0 border-b items-center flex justify-between h-14">
-        <div class="w-48 overflow-hidden">
+      <div class="w-full px-4 shrink-0 border-b items-center flex justify-between h-12">
+        <div class="w-32 overflow-hidden">
           <button
             type="button"
             @onclick="CloseCurrentPallet"
-            class="px-5 py-2 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
+            class="px-3 py-1.5 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
                       overflow-hidden hover:bg-gray-100"
           >
             <ArrowLeftIcon class="h-4 w-4"/>
-            <p class="text-lg pt-[2px] text-black font-medium">
+            <p class="text-sm pt-[2px] text-black font-medium">
               @Localizer["ButtonBack"]
             </p>
           </button>
         </div>
-        <div class="h-full w-full flex items-center justify-center grow overflow-hidden">
-          <div class="px-5 py-2 rounded-md overflow-hidden bg-gray-100 hover:bg-gray-200">
-            <p class="text-xl pt-[1px] truncate">Палета №@PalletContext.Pallet.Number</p>
-          </div>
+        <div class="h-full w-full grow overflow-hidden">
+          <ul class="w-full h-full flex items-center gap-2 justify-center">
+            @foreach(EnumTypeModel<string> item in TabsButtonList)
+            {
+              <li>
+                <button
+                  type="button"
+                  disabled="@IsSelectedTab(item.Value)"
+                  @onclick="() => ChangeSelectedTab(item.Value)"
+                  class="px-4 py-1 rounded-md overflow-hidden transition-colors
+                            @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")">
+                  <p class="text-black pt-[1px] font-normal">@item.Name</p>
+                </button>
+              </li>
+            }
+          </ul>
         </div>
-        <div class="w-48"></div>
+        <div class="w-32"></div>
       </div>
-      <div class="w-full grow shrink-0">
-        <LabelsDataGrid
-          @bind-SelectedItems="@SelectedLabels"
-          @bind-SelectedItems:after="StateHasChanged"
-        />
-      </div>
-      <div class="h-20 w- border-t shrink-0 flex items-center justify-center px-8">
-        <button
-          type="button"
-          disabled="@(SelectedLabels.Count < 1)"
-          class="h-16 px-8 rounded-xl transition-colors flex flex-col items-center justify-center border
-                   border-black/[.1] bg-gray-100 hover:bg-blue-100 disabled:bg-gray-200"
+      <div class="w-full h-full grow overflow-hidden blazorise-tabs">
+        <Tabs
+          @ref="TabsRef"
+          @bind-SelectedTab="SelectedTab"
+          Class="!p-0 h-full w-full overflow-hidden"
         >
-          <p class="text-xl">Печать этикеток</p>
-          <p>Выбрано @SelectedLabels.Count из @PalletContext.PalletEntities.Count()</p>
-        </button>
+          <Content>
+            <TabPanel Class="!p-0 rounded-none h-fit w-full bg-inherit" Name="main">
+              <PalletForm />
+            </TabPanel>
+            <TabPanel Class="!p-0 rounded-none h-full w-full bg-inherit blazorise-datagrid" Name="labels">
+              <PalletLabels />
+            </TabPanel>
+          </Content>
+        </Tabs>
       </div>
     </div>
   }

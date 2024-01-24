@@ -139,4 +139,8 @@
       <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Components\Dialogs\DialogLineSelect.razor" />
+    </ItemGroup>
+
 </Project>

@@ -5,6 +5,21 @@
     user-select: none;
 }
 
+.blazorise-tabs > div:first-child {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.blazorise-datagrid form {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.b-table-fixed-header > .b-table {
+  border-collapse: collapse !important;
+}
 
 @media (min-width: 1280px) {
   .xl\:text-3xl {

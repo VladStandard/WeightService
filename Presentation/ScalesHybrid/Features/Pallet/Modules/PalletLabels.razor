@@ -1,0 +1,54 @@
+@using Ws.Domain.Models.Entities.Print
+@using Blazor.Heroicons.Outline
+
+
+<div class="h-12 py-1.5 border-b w-full flex items-center gap-2 px-4">
+  <div class="w-1/2 border rounded-lg bg-gray-50 border-black/[.1] px-2 h-full flex items-center gap-2 justify-between overflow-hidden">
+    <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-600" />
+    <input
+      @bind="SearchingNumber"
+      @bind:after="OnSearchingNumberChanged"
+      placeholder="Поиск по номеру..."
+      class="bg-inherit w-full h-full focus:outline-none focus:border-0 focus:ring-0"
+    />
+  </div>
+  <div class="w-1/2 flex gap-2 h-full overflow-hidden">
+    <button
+      type="button"
+      class="w-1/2 h-full border border-blue-300 bg-blue-50 text-blue-600 transition-colors rounded-lg overflow-hidden hover:text-blue-800 hover:bg-blue-200 hover:border-blue-400"
+    >
+      <p>Печать выбранных</p>
+    </button>
+    <button
+      type="button"
+      class="w-1/2 h-full border border-green-300 bg-green-50 text-green-600 transition-colors rounded-lg overflow-hidden hover:text-green-800 hover:bg-green-200 hover:border-green-400"
+    >
+      <p>Печать всех</p>
+    </button>
+  </div>
+</div>
+
+<DataGrid
+  TItem="LabelEntity"
+  @ref="DataGridRef"
+  Data="PalletContext.Pallet.Labels"
+  @bind-SelectedRows="SelectedItems"
+  VirtualizeOptions="@(new() { DataGridHeight = "100%", DataGridMaxHeight = "100%" })"
+  SelectionMode="DataGridSelectionMode.Multiple"
+  Virtualize
+>
+  <DataGridMultiSelectColumn Width="2rem" />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnProductDt"]"
+    Field="@nameof(LabelEntity.CreateDt)"
+    Width="50%"/>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnNumber"]"
+    Field="Pallet.Plu.Number"
+    Width="25%"/>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPLU"]"
+    Field="@nameof(LabelEntity.WeightNet)"
+    Width="25%"
+  />
+</DataGrid>
