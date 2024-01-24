@@ -15,12 +15,11 @@ public class PluNestingEntity : EntityBase
     public virtual short BundleCount { get; set; }
     public virtual Guid Uid1C { get; set; }
     public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
-    public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight; set => _ = value; }
+    public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight + Plu.Clip.Weight * BundleCount; set => _ = value; }
     
     public PluNestingEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Box = new();
-        //Plu = new();
         Plu = new();
         IsDefault = false;
         BundleCount = 0;
@@ -37,7 +36,6 @@ public class PluNestingEntity : EntityBase
     public override string ToString() =>
         $"{GetIsDefault()} | {Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
-        //$" | {PluBundle.Bundle.Name} * {BundleCount} + {Box.Name}";
 
     protected virtual string GetIsDefault() => IsDefault ? "Is default" : "No default";
 
