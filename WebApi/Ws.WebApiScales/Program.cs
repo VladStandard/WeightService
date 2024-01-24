@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Ws.Domain.Services;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand;
+using Ws.WebApiScales.Features.Brand.Services;
 using Ws.WebApiScales.Features.Nesting;
+using Ws.WebApiScales.Features.Nesting.Services;
 using Ws.WebApiScales.Features.Plu;
+using Ws.WebApiScales.Features.Plu.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

@@ -7,9 +7,9 @@ using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Nesting.Dto;
 using Ws.WebApiScales.Features.Nesting.Validators;
 
-namespace Ws.WebApiScales.Features.Nesting;
+namespace Ws.WebApiScales.Features.Nesting.Services;
 
-public class PluCharacteristicApiService(
+internal sealed class PluCharacteristicApiService(
     ResponseDto responseDto,
     IPluService pluService,
     IBoxService boxService) : IPluCharacteristicApiService

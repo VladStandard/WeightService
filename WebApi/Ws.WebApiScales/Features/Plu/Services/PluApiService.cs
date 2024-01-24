@@ -12,10 +12,10 @@ using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;
 using Ws.WebApiScales.Features.Plu.Validators;
 
-namespace Ws.WebApiScales.Features.Plu;
+namespace Ws.WebApiScales.Features.Plu.Services;
 
 
-public class PluApiService(
+internal sealed class PluApiService(
     ResponseDto responseDto, 
     IPluService pluService, 
     IBoxService boxService,

@@ -6,7 +6,7 @@ using Ws.Shared.TypeUtils;
 namespace Ws.WebApiScales.Features.Plu.Dto;
 
 [Serializable]
-public class PluDto : IXmlSerializable 
+public sealed class PluDto : IXmlSerializable 
 {
     #region Default
     

@@ -5,9 +5,9 @@ using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand.Dto;
 using Ws.WebApiScales.Features.Brand.Validators;
 
-namespace Ws.WebApiScales.Features.Brand;
+namespace Ws.WebApiScales.Features.Brand.Services;
 
-public class BrandApiService(ResponseDto responseDto, IBrandService brandService) : IBrandApiService
+internal sealed class BrandApiService(ResponseDto responseDto, IBrandService brandService) : IBrandApiService
 {
     #region Private
 

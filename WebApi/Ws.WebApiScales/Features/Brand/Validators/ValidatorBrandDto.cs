@@ -3,7 +3,7 @@ using Ws.WebApiScales.Features.Brand.Dto;
 
 namespace Ws.WebApiScales.Features.Brand.Validators;
 
-public class ValidatorBrandDto : AbstractValidator<BrandDto>
+internal sealed class ValidatorBrandDto : AbstractValidator<BrandDto>
 {
     public ValidatorBrandDto()
     {

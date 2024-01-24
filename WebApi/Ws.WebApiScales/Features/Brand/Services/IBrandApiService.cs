@@ -1,8 +1,8 @@
 ﻿using Ws.WebApiScales.Features.Brand.Dto;
 
-namespace Ws.WebApiScales.Features.Brand;
+namespace Ws.WebApiScales.Features.Brand.Services;
 
-public interface IBrandApiService
+internal interface IBrandApiService
 {
     public void Load(BrandsWrapper brandsWrapper);
 }

@@ -4,7 +4,7 @@ using Ws.WebApiScales.Common;
 namespace Ws.WebApiScales.Features.Nesting.Dto;
 
 [XmlRoot("Characteristics")]
-public class PluCharacteristicsWrapper : BaseWrapper
+internal sealed class PluCharacteristicsWrapper : BaseWrapper
 {
     [XmlElement("Characteristic")]
     public List<PluCharacteristicDto> Characteristics { get; set; } = [];

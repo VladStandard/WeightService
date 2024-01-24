@@ -3,7 +3,7 @@
 namespace Ws.WebApiScales.Features.Brand.Dto;
 
 [Serializable]
-public class BrandDto
+public sealed class BrandDto
 {
     [XmlAttribute("GUID")]
     public Guid Guid { get; set; }

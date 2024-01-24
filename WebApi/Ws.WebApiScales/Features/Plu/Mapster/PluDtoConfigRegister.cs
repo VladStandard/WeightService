@@ -4,7 +4,7 @@ using Ws.WebApiScales.Features.Plu.Dto;
 
 namespace Ws.WebApiScales.Features.Plu.Mapster;
 
-public class PluDtoConfigRegister : IRegister
+internal sealed class PluDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {

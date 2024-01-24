@@ -1,8 +1,8 @@
 ﻿using Ws.WebApiScales.Features.Nesting.Dto;
 
-namespace Ws.WebApiScales.Features.Nesting;
+namespace Ws.WebApiScales.Features.Nesting.Services;
 
-public interface IPluCharacteristicApiService
+internal interface IPluCharacteristicApiService
 {
     public void Load(PluCharacteristicsWrapper pluCharacteristics);
 }

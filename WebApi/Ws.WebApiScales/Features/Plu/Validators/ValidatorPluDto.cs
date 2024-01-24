@@ -3,7 +3,7 @@ using Ws.WebApiScales.Features.Plu.Dto;
 
 namespace Ws.WebApiScales.Features.Plu.Validators;
 
-public class ValidatorPluDto : AbstractValidator<PluDto>
+internal sealed class ValidatorPluDto : AbstractValidator<PluDto>
 {
     public ValidatorPluDto()
     {

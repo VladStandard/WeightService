@@ -3,13 +3,14 @@ using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;
+using Ws.WebApiScales.Features.Plu.Services;
 
 namespace Ws.WebApiScales.Features.Plu;
 
 [AllowAnonymous]
 [ApiController]
 [Route("api/plu/")]
-public class PluController(
+internal sealed class  PluController(
     IPluApiService pluApiService,
     ILogWebService logWebService,
     IHttpContextAccessor httpContextAccessor,

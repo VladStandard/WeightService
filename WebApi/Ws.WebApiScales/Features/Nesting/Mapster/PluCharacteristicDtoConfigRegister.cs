@@ -4,7 +4,7 @@ using Ws.WebApiScales.Features.Nesting.Dto;
 
 namespace Ws.WebApiScales.Features.Nesting.Mapster;
 
-public class PluCharacteristicDtoConfigRegister : IRegister
+internal sealed class PluCharacteristicDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {

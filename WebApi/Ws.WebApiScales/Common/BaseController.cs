@@ -5,7 +5,7 @@ using Ws.WebApiScales.Utils;
 
 namespace Ws.WebApiScales.Common;
 
-public abstract class BaseController(
+internal abstract class BaseController(
     ResponseDto responseDto,
     ILogWebService logWebService,
     IHttpContextAccessor httpContextAccessor) : ControllerBase

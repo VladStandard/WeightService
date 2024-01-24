@@ -4,7 +4,7 @@ using Ws.Shared.TypeUtils;
 namespace Ws.WebApiScales.Features.Nesting.Dto;
 
 [Serializable]
-public class PluCharacteristicDto
+public sealed class PluCharacteristicDto
 {
     [XmlAttribute("GUID")]
     public Guid Guid { get; set; }

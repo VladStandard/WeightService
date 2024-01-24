@@ -4,7 +4,7 @@ using Ws.WebApiScales.Features.Brand.Dto;
 
 namespace Ws.WebApiScales.Features.Brand.Mapster;
 
-public class BrandDtoConfigRegister : IRegister
+internal sealed class BrandDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
