@@ -5,15 +5,23 @@ using Ws.WebApiScales.Features.Brand;
 using Ws.WebApiScales.Features.Brand.Services;
 using Ws.WebApiScales.Features.Nesting;
 using Ws.WebApiScales.Features.Nesting.Services;
-using Ws.WebApiScales.Features.Plu;
 using Ws.WebApiScales.Features.Plu.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ResponseDto>();
+
+#region Ready
+
+builder.Services.AddScoped<IBoxApiService, BoxApiService>();
+
+#endregion
+
+
 builder.Services.AddScoped<IPluApiService, PluApiService>();
 builder.Services.AddScoped<IBrandApiService, BrandApiService>();
 builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
+
 builder.Services.AddDomainServices();
 
 builder.Services.AddHttpContextAccessor();
