@@ -11,13 +11,4 @@ namespace DeviceControl.Features.Sections.References.Templates;
 public sealed partial class TemplatesUpdateForm: SectionFormBase<TemplateEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
-    private IEnumerable<TemplateCategoriesEnum> PrinterTypesEntities { get; set; } = new List<TemplateCategoriesEnum>();
-    private TemplateCategoriesEnum SelectedCategory { get; set; } = TemplateCategoriesEnum.Weight;
-
-    protected override void OnInitialized()
-    {
-        SelectedCategory = EnumHelper.GetValueFromDescription<TemplateCategoriesEnum>(SectionEntity.CategoryId);
-        PrinterTypesEntities = Enum.GetValues(typeof(TemplateCategoriesEnum)).Cast<TemplateCategoriesEnum>().ToList();
-    }
 }

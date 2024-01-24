@@ -15,13 +15,6 @@
     IsDisabled
     IsCopyable
   />
-  <SectionFormInputSelect
-    TItem="TemplateCategoriesEnum"
-    Items="PrinterTypesEntities"
-    Label="@Localizer["DataGridColumnCategory"]"
-    @bind-SelectedItem="@SelectedCategory"
-    ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
-  />
   <SectionFormInputText
     @bind-Value="@SectionEntity.Title"
     Label="@Localizer["DataGridColumnTitle"]"

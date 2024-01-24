@@ -206,15 +206,6 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DataGridColumnCategory {
-            get {
-                return ResourceManager.GetString("DataGridColumnCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string DataGridColumnChangeDt {
             get {
                 return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);

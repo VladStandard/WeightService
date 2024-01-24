@@ -204,15 +204,6 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category.
-        /// </summary>
-        internal static string DataGridColumnCategory {
-            get {
-                return ResourceManager.GetString("DataGridColumnCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Change date.
         /// </summary>
         internal static string DataGridColumnChangeDt {

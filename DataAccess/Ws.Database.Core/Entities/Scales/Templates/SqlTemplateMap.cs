@@ -29,14 +29,6 @@ internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-        
-        Property(x => x.CategoryId, m =>
-        {
-            m.Column("CategoryID");
-            m.Type(NHibernateUtil.String);
-            m.Length(150);
-            m.NotNullable(true);
-        });
 
         Property(x => x.Title, m =>
         {

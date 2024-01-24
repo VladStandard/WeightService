@@ -225,9 +225,6 @@
     <data name="DataGridColumnTitle" xml:space="preserve">
         <value />
     </data>
-    <data name="DataGridColumnCategory" xml:space="preserve">
-        <value />
-    </data>
     <data name="DataGridColumnData" xml:space="preserve">
         <value />
     </data>
