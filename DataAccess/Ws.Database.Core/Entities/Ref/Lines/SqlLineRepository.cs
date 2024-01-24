@@ -9,8 +9,7 @@ public sealed class SqlLineRepository : IUidRepo<LineEntity>
     private IEnumerable<LineEntity>GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
     {
         sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(LineEntity.Name)));
-        IEnumerable<LineEntity> lines = SqlCoreHelper.Instance.GetEnumerable<LineEntity>(sqlCrudConfig);
-        return lines.OrderBy(item => item.Warehouse.Name);
+        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(sqlCrudConfig);
     }
     
     public IEnumerable<LineEntity> GetAll() => GetEnumerable(new());
