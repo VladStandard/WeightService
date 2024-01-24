@@ -20,7 +20,6 @@ public class PluDto : IXmlSerializable
     public Guid ParentGroupGuid { get; set; }
     public Guid CategoryGuid { get; set; }
     public Guid BrandGuid { get; set; }
-    public Guid GroupGuid { get; set; }
     public Guid BoxTypeGuid { get; set; }
     public Guid ClipTypeGuid { get; set; }
     public Guid PackageTypeGuid { get; set; }
@@ -84,7 +83,6 @@ public class PluDto : IXmlSerializable
     ParentGroupGuid = ParseGuidOrDefault(reader, nameof(ParentGroupGuid));
     CategoryGuid = ParseGuidOrDefault(reader, nameof(CategoryGuid));
     BrandGuid = ParseGuidOrDefault(reader, nameof(BrandGuid));
-    GroupGuid = ParseGuidOrDefault(reader, nameof(GroupGuid));
     BoxTypeGuid = ParseGuidOrDefault(reader, nameof(BoxTypeGuid));
     ClipTypeGuid = ParseGuidOrDefault(reader, nameof(ClipTypeGuid));
     PackageTypeGuid = ParseGuidOrDefault(reader, nameof(PackageTypeGuid));

@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
@@ -8,9 +8,6 @@ public sealed class SqlTemplateResourceValidator : SqlTableValidator<TemplateRes
     public SqlTemplateResourceValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)
-            .NotEmpty()
-            .NotNull();
-        RuleFor(item => item.Type)
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.DataValue)

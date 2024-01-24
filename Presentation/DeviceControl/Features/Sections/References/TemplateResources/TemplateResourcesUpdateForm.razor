@@ -1,4 +1,4 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.SchemaScale.TemplateResourceEntity>
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Scale.TemplateResourceEntity>
 
 
 <SectionFormWrapper
@@ -16,11 +16,6 @@
     IsCopyable
   />
   <SectionFormInputText
-    Value="@SectionEntity.Type"
-    Label="@Localizer["DataGridColumnType"]"
-    IsDisabled
-  />
-  <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"
     Size="SectionFormInputSizeEnum.Medium"
@@ -30,9 +25,5 @@
     Label="@Localizer["DataGridColumnData"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
     IsCopyable
-  />
-  <SectionFormInputCheckbox
-    @bind-Value="@SectionEntity.IsMarked"
-    Label="@Localizer["DataGridColumnIsArchival"]"
   />
 </SectionFormWrapper>

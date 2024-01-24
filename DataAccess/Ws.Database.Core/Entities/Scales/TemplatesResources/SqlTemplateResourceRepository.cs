@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
@@ -12,8 +12,7 @@ public class SqlTemplateResourceRepository : IUidRepo<TemplateResourceEntity>
         SqlCrudConfigModel crud = new();
         IEnumerable<TemplateResourceEntity> items = SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(crud);
         return items
-            .OrderBy(item => item.Name)
-            .ThenBy(item => item.Type);
+            .OrderBy(item => item.Name);
     }
     
     public TemplateResourceEntity GetByName(string name)

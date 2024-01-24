@@ -3,7 +3,7 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Domain.Models.Entities.Scale;
 using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;

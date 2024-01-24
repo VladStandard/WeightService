@@ -1,5 +1,5 @@
 ﻿using Ws.Database.Core.Entities.Scales.TemplatesResources;
-using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Services.Features.TemplateResource;
 

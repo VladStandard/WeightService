@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.SchemaScale;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
@@ -31,26 +31,11 @@ internal sealed class SqlTemplateResourceMap : ClassMapping<TemplateResourceEnti
             m.NotNullable(true);
         });
 
-        Property(x => x.IsMarked, m =>
-        {
-            m.Column("IS_MARKED");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
         Property(x => x.Name, m =>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(64);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.Type, m =>
-        {
-            m.Column("TYPE");
-            m.Type(NHibernateUtil.String);
-            m.Length(8);
             m.NotNullable(true);
         });
 

@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.SchemaScale;
+﻿using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Common;
 
 namespace Ws.Domain.Services.Features.TemplateResource;
