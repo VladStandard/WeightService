@@ -9,8 +9,6 @@ namespace Ws.WebApiScales.Features.Bundles.Services;
 
 internal sealed class BundleApiService(ResponseDto responseDto, IBundleService bundleService) : IBundleApiService
 {
-    #region Private
-
     private void UpdateOrCreate(BundleDto bundleDto)
     {
         BundleEntity bundleDb = bundleService.GetByUid1С(bundleDto.Uid);
@@ -18,8 +16,6 @@ internal sealed class BundleApiService(ResponseDto responseDto, IBundleService b
         SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
         responseDto.AddSuccess(bundleDb.Uid1C, bundleDb.Name);
     }
-
-    #endregion
     
     public void Load(BundlesWrapper bundleWrapper)
     {

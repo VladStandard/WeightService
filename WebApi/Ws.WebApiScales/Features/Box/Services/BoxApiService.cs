@@ -9,8 +9,6 @@ namespace Ws.WebApiScales.Features.Box.Services;
 
 internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxService) : IBoxApiService
 {
-    #region Private
-
     private void UpdateOrCreate(BoxDto boxDto)
     {
         BoxEntity boxDb = boxService.GetByUid1С(boxDto.Uid);
@@ -18,8 +16,6 @@ internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxServ
         SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
         responseDto.AddSuccess(boxDb.Uid1C, boxDb.Name);
     }
-
-    #endregion
     
     public void Load(BoxWrapper boxWrapper)
     {

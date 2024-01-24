@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Ws.Domain.Services;
+using Ws.Domain.Services.Features.Clip;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Box.Services;
 using Ws.WebApiScales.Features.Brand.Services;
 using Ws.WebApiScales.Features.Bundles.Services;
+using Ws.WebApiScales.Features.Clips.Services;
 using Ws.WebApiScales.Features.Nesting.Services;
 using Ws.WebApiScales.Features.Plu.Services;
 
@@ -14,6 +16,7 @@ builder.Services.AddScoped<ResponseDto>();
 #region Ready
 
 builder.Services.AddScoped<IBoxApiService, BoxApiService>();
+builder.Services.AddScoped<IClipApiService, ClipApiService>();
 builder.Services.AddScoped<IBundleApiService, BundleApiService>();
 
 #endregion
