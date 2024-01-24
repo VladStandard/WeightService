@@ -30,12 +30,12 @@ public sealed partial class PalletMenDataGrid: SectionDataGridBase<PalletManEnti
     protected override async Task OpenItemInNewTab(PalletManEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() => SectionItems = PalletManService.GetAll();
+    protected override IEnumerable<PalletManEntity> SetSqlSectionCast() => PalletManService.GetAll();
 
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<PalletManEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [PalletManService.GetByUid(itemUid)];
+        return [PalletManService.GetByUid(itemUid)];
     }
 
     private static string GetFullName(PalletManEntity item) => item.Fio;

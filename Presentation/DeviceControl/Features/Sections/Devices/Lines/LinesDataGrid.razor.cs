@@ -22,12 +22,11 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<LineEntity>
     protected override async Task OpenItemInNewTab(LineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = LineService.GetAll().ToList();
+    protected override IEnumerable<LineEntity> SetSqlSectionCast() => LineService.GetAll().ToList();
 
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<LineEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [LineService.GetByUid(itemUid)];
+        return [LineService.GetByUid(itemUid)];
     }
 }

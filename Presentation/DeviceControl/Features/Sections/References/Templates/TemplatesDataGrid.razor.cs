@@ -25,12 +25,11 @@ public sealed partial class TemplatesDataGrid : SectionDataGridBase<TemplateEnti
     protected override async Task OpenItemInNewTab(TemplateEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplates}/{item.IdentityValueId.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateService.GetAll();
+    protected override IEnumerable<TemplateEntity> SetSqlSectionCast() => TemplateService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<TemplateEntity> SetSqlSearchingCast()
     {
         long.TryParse(SearchingSectionItemId, out long itemId);
-        SectionItems = [TemplateService.GetById(itemId)];
+        return [TemplateService.GetById(itemId)];
     }
 }

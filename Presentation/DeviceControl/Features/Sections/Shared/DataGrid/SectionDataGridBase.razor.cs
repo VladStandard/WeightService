@@ -16,20 +16,14 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     
     protected IEnumerable<TItem> SectionItems { get; set; } = [];
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
-    protected bool IsLoading { get; set; } = true;
     private bool IsFirstLoading { get; set; } = true;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await GetSectionData();
-    }
-
-    protected virtual void SetSqlSectionCast()
+    protected virtual IEnumerable<TItem> SetSqlSectionCast()
     {
         throw new NotImplementedException();
     }
 
-    protected virtual void SetSqlSearchingCast()
+    protected virtual IEnumerable<TItem> SetSqlSearchingCast()
     {
         throw new NotImplementedException();
     }
@@ -78,21 +72,15 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     
     public async Task GetSectionData()
     {
-        IsLoading = true;
-        
         if (!string.IsNullOrEmpty(SearchingSectionItemId) && IsFirstLoading)
         {
-            await Task.Run(SetSqlSearchingCast);
+            SectionItems = await Task.Run(SetSqlSearchingCast);
             IsFirstLoading = false;
             SectionItems = SectionItems.Where(i => !i.IsNew).ToList();
             if (SectionItems.Any()) await OpenDataGridEntityModal(SectionItems.First());
+            return;
         }
-        else
-        {
-            await Task.Run(SetSqlSectionCast);
-        }
-            
-        IsLoading = false;
-        StateHasChanged();
+
+        SectionItems = await Task.Run(SetSqlSectionCast);
     }
 }

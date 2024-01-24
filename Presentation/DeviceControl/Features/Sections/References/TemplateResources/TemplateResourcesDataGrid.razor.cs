@@ -25,13 +25,12 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<Templ
     protected override async Task OpenItemInNewTab(TemplateResourceEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = TemplateResourceService.GetAll();
+    protected override IEnumerable<TemplateResourceEntity> SetSqlSectionCast() => TemplateResourceService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<TemplateResourceEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [TemplateResourceService.GetByUid(itemUid)];
+        return [TemplateResourceService.GetByUid(itemUid)];
     }
     
     private static string ConvertBytes(int fileSize) =>

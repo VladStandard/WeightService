@@ -26,12 +26,11 @@ public sealed partial class StorageMethodsDataGrid : SectionDataGridBase<Storage
     protected override async Task OpenItemInNewTab(StorageMethodEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionStorageMethods}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() => 
-        SectionItems = StorageMethodService.GetAll();
+    protected override IEnumerable<StorageMethodEntity> SetSqlSectionCast() => StorageMethodService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<StorageMethodEntity>  SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [StorageMethodService.GetByUid(itemUid)];
+        return [StorageMethodService.GetByUid(itemUid)];
     }
 }

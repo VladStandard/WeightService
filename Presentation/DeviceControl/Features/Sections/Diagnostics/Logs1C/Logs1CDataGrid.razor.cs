@@ -23,12 +23,11 @@ public sealed partial class Logs1CDataGrid: SectionDataGridBase<LogWebEntity>
     protected override async Task OpenItemInNewTab(LogWebEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.Section1CLogs}/{item.IdentityValueUid.ToString()}");
     
-    protected override void SetSqlSectionCast() =>
-        SectionItems = LogWebService.GetAll();
+    protected override IEnumerable<LogWebEntity> SetSqlSectionCast() => LogWebService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<LogWebEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [LogWebService.GetByUid(itemUid)];
+        return [LogWebService.GetByUid(itemUid)];
     }
 }

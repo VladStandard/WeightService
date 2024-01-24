@@ -24,12 +24,11 @@ public sealed partial class BoxesDataGrid: SectionDataGridBase<BoxEntity>
     protected override async Task OpenItemInNewTab(BoxEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = BoxService.GetAll();
+    protected override IEnumerable<BoxEntity> SetSqlSectionCast() => BoxService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<BoxEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [BoxService.GetByUid(itemUid)];
+        return [BoxService.GetByUid(itemUid)];
     }
 }

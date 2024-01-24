@@ -10,7 +10,7 @@ using Ws.Domain.Models.Common;
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : EntityBase, new()
+public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IAsyncDisposable where TItem : EntityBase, new()
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
@@ -26,28 +26,31 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Parameter] public EventCallback<TItem> ReadAction { get; set; }
     [Parameter] public EventCallback<TItem> OpenInTabAction { get; set; }
     [Parameter] public bool IsFilterable { get; set; }
-    [Parameter] public bool IsLoading { get; set; } = true;
     [Parameter] public bool IsBorderless { get; set; }
     [Parameter] public bool IsGroupable { get; set; }
     [Parameter] public bool IsCollapsed { get; set; }
 
-    private DataGrid<TItem> DataGrid { get; set; } = null!;
+    private DataGrid<TItem>? DataGrid { get; set; }
     private bool IsVisibleContextMenu { get; set; }
+    private bool IsLoading { get; set; } = true;
     private Point ContextMenuPos { get; set; }
     private TItem ContextMenuItem { get; set; } = new();
     private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
     private IJSObjectReference Module { get; set; } = null!;
     private TItem? SelectedItem { get; set; }
 
-    protected override void OnInitialized()
-    {
-        InitializeContextMenu();
-    }
+    protected override void OnInitialized() => InitializeContextMenu();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
+        
+        await GetGridData.InvokeAsync();
+        await OnGetGridDataAction();
         await InitializeJsModule();
+        
+        IsLoading = false;
+        await InvokeAsync(StateHasChanged);
     }
 
     private async Task InitializeJsModule()
@@ -128,7 +131,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     
     private async Task OnContextItemDeleteClicked()
     {
-        await DataGrid.Delete(ContextMenuItem);
+        if (DataGrid != null) await DataGrid.Delete(ContextMenuItem);
         await DeleteAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
     }
@@ -142,25 +145,33 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
 
     public async Task ReloadData()
     {
+        if (IsLoading) return;
+
+        IsLoading = true;
+        StateHasChanged();
+        
         await GetGridData.InvokeAsync();
-        await DataGrid.Reload();
+        if (DataGrid != null) await DataGrid.Reload();
         await OnGetGridDataAction();
+        
+        IsLoading = false;
+        StateHasChanged();
     }
 
     private async Task OnGetGridDataAction()
     {
-        if (IsGroupable && !IsCollapsed)
+        if (IsGroupable && !IsCollapsed && DataGrid != null)
             await DataGrid.ExpandAllGroups();
     }
     
-    public async void Dispose()
+    public async ValueTask DisposeAsync()
     {
         try
         {
             await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
             await Module.DisposeAsync();
         }
-        catch (Exception ex) when (ex is JSDisconnectedException or ArgumentNullException)
+        catch (Exception)
         {
             // pass error
         }

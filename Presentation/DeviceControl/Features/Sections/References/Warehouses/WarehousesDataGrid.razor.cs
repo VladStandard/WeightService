@@ -26,12 +26,11 @@ public sealed partial class WarehousesDataGrid: SectionDataGridBase<WarehouseEnt
     protected override async Task OpenItemInNewTab(WarehouseEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = WarehouseService.GetAll();
+    protected override IEnumerable<WarehouseEntity> SetSqlSectionCast() => WarehouseService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<WarehouseEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [WarehouseService.GetByUid(itemUid)];
+        return [WarehouseService.GetByUid(itemUid)];
     }
 }

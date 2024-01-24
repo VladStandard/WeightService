@@ -24,12 +24,11 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
     protected override async Task OpenItemInNewTab(BrandEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = BrandService.GetAll();
+    protected override IEnumerable<BrandEntity> SetSqlSectionCast() => BrandService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<BrandEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [BrandService.GetByUid(itemUid)];
+        return [BrandService.GetByUid(itemUid)];
     }
 }

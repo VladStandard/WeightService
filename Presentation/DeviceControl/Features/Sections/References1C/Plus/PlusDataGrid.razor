@@ -7,23 +7,22 @@
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionPLU"]"
   GridData="SectionItems"
-  GetGridData="SetSqlSectionCast"
+  GetGridData="GetSectionData"
   ReadAction="OpenDataGridEntityModal"
   OpenInTabAction="OpenItemInNewTab"
-  IsLoading="IsLoading"
   IsFilterable
 >
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(PluEntity.Name)"
-    FilterMethod="DataGridColumnFilterMethod.Contains"
-    Width="35%"
-  />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnNumber"]"
     Field="@nameof(PluEntity.Number)"
     FilterMethod="DataGridColumnFilterMethod.StartsWith"
     Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnName"]"
+    Field="@nameof(PluEntity.Name)"
+    FilterMethod="DataGridColumnFilterMethod.Contains"
+    Width="35%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCode"]"
@@ -35,8 +34,7 @@
     Caption="@Localizer["DataGridColumnIsWeight"]"
     Field="@nameof(PluEntity.IsCheckWeight)"
     Filterable="false"
-    Width="10%"
-  >
+    Width="10%">
     <DisplayTemplate>
       <p>
         @(context.IsCheckWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"])
@@ -47,6 +45,5 @@
     Caption="@Localizer["DataGridColumnChangeDt"]"
     Field="@nameof(PluEntity.ChangeDt)"
     Filterable="false"
-    Width="15%"
-  />
+    Width="15%"/>
 </SectionDataGridWrapper>

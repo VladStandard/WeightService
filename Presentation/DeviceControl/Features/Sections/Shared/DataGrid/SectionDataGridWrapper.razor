@@ -28,9 +28,10 @@
   </div>
   <button
     type="button"
+    disabled="@IsLoading"
     @onclick="ReloadData"
     class="px-6 py-1 bg-sky-300 flex group transition-colors items-center justify-center rounded-md overflow-hidden
-            border border-black/[.1] hover:bg-sky-400"
+            border border-black/[.1] disabled:bg-sky-500 hover:bg-sky-400"
   >
     <ArrowPathIcon class="h-5 w-5 text-white group-hover:animate-spin" />
   </button>
@@ -48,70 +49,59 @@
   @DataGridButtons
 </div>
 <div class="w-full bg-white overflow-hidden @(!IsBorderless ? "rounded-md border border-black/[.1]" : "")">
-  @if (IsLoading)
-  {
-    <div class="w-full">
-      <div class="w-full h-12 bg-sky-200 border-b border-gray-100"></div>
-      <div class="w-full h-20 flex items-center justify-center">
+  <DataGrid
+    TItem="TItem"
+    @ref="DataGrid"
+    Data="GridData"
+    SelectedRow="SelectedItem"
+    RowDoubleClicked="OnDoubleClick"
+    PageSize="@(IsGroupable ? 1000 : ItemsPerPage)"
+    RowStyling="CustomRowStyling"
+    CellStyling="CustomCellStyling"
+    HeaderRowStyling="@CustomHeaderRowStyling()"
+    PagerPosition="DataGridPagerPosition.Bottom"
+    PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
+    RowContextMenu="OnRowContextMenu"
+    RowContextMenuPreventDefault
+    Filterable="IsFilterable"
+    Groupable="IsGroupable"
+    ShowPager="!IsGroupable"
+  >
+    <DataGridColumns>
+      @ChildContent
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <div class="w-7 text-center">
+        @context.PageNumber
       </div>
-    </div>
-  }
-  else
-  {
-    <DataGrid
-      TItem="TItem"
-      @ref="DataGrid"
-      Data="GridData"
-      SelectedRow="SelectedItem"
-      Filterable="IsFilterable"
-      Groupable="IsGroupable"
-      RowDoubleClicked="OnDoubleClick"
-      PageSize="ItemsPerPage"
-      RowStyling="CustomRowStyling"
-      CellStyling="CustomCellStyling"
-      HeaderRowStyling="@CustomHeaderRowStyling()"
-      PagerPosition="DataGridPagerPosition.Bottom"
-      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
-      RowContextMenu="OnRowContextMenu"
-      RowContextMenuPreventDefault
-      ShowPager
-    >
-      <DataGridColumns>
-        @ChildContent
-      </DataGridColumns>
-      <PageButtonTemplate>
-        <div class="w-7 text-center">
-          @context.PageNumber
-        </div>
-      </PageButtonTemplate>
-      <EmptyTemplate>
-        <p class="text-xl text-center">
-          @Localizer["DataGridNoResult"]
-        </p>
-      </EmptyTemplate>
-      <NextPageButtonTemplate>
-        <ChevronRightIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </NextPageButtonTemplate>
-      <PreviousPageButtonTemplate>
-        <ChevronLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </PreviousPageButtonTemplate>
-      <LastPageButtonTemplate>
-        <ChevronDoubleRightIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </LastPageButtonTemplate>
-      <FirstPageButtonTemplate>
-        <ChevronDoubleLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </FirstPageButtonTemplate>
-      <TotalItemsTemplate>
-        <div class="hidden"></div>
-      </TotalItemsTemplate>
-      <TotalItemsShortTemplate>
-        <div class="hidden"></div>
-      </TotalItemsShortTemplate>
-    </DataGrid>
-  }
+    </PageButtonTemplate>
+    <EmptyTemplate>
+      <p class="text-xl text-center @(IsLoading ? "invisible h-14" : "")">
+        @Localizer["DataGridNoResult"]
+      </p>
+    </EmptyTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <div class="hidden"></div>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <div class="hidden"></div>
+    </TotalItemsShortTemplate>
+  </DataGrid>
 </div>
 
-@if ( IsVisibleContextMenu )
+@if (IsVisibleContextMenu)
 {
   <div
     id="dataGridContextMenu"
