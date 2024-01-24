@@ -30,13 +30,6 @@ internal sealed class SqlPluNestingFkMap : ClassMapping<PluNestingEntity>
                 m.NotNullable(true);
             });
 
-            Property(x => x.IsDefault, m =>
-            {
-                m.Column("IS_DEFAULT");
-                m.Type(NHibernateUtil.Boolean);
-                m.NotNullable(true);
-            });
-
             Property(x => x.BundleCount, m =>
             {
                 m.Column("BUNDLE_COUNT");
@@ -48,6 +41,7 @@ internal sealed class SqlPluNestingFkMap : ClassMapping<PluNestingEntity>
             Property(x => x.Uid1C, m =>
             {
                 m.Column("UID_1C");
+                m.Type(NHibernateUtil.Guid);
                 m.NotNullable(true);
             });
 

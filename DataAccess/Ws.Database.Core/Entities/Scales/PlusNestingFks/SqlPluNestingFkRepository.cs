@@ -14,7 +14,7 @@ public sealed class SqlPluNestingFkRepository
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu));
-        sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(PluNestingEntity.IsDefault)));
+        sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(PluNestingEntity.Uid1C)));
         return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(sqlCrudConfig);
     }
 
@@ -29,11 +29,12 @@ public sealed class SqlPluNestingFkRepository
         
         return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
     }
+    
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilters([
-            SqlRestrictions.Equal(nameof(PluNestingEntity.IsDefault), true),
+            SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), Guid.Empty),
             SqlRestrictions.EqualFk(nameof(PluTemplateFkEntity.Plu), plu)
         ]);
         return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);

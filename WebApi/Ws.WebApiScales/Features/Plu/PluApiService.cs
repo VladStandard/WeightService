@@ -95,7 +95,6 @@ public class PluApiService(
 
         pluNestingDb.Plu = plu;
         pluNestingDb.Box = box;
-        pluNestingDb.IsDefault = true;
         pluNestingDb.BundleCount = pluDto.AttachmentsCount;
         SqlCoreHelper.Instance.SaveOrUpdate(pluNestingDb);
     }

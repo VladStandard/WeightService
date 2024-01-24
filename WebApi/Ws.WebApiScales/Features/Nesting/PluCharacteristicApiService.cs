@@ -66,8 +66,6 @@ public class PluCharacteristicApiService(
         
         nesting.Plu = plu;
         nesting.Box = boxService.GetDefaultForCharacteristic();
-        nesting.IsDefault = false;
-        
         nesting = pluCharacteristicDto.AdaptTo(nesting);
         
         SqlCoreHelper.Instance.SaveOrUpdate(nesting);

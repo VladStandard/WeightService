@@ -7,21 +7,19 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluNestingEntity : EntityBase
+public class PluNestingEntity : Table1CBase
 {
     public virtual BoxEntity Box { get; set; }
     public virtual PluEntity Plu { get; set; }
-    public virtual bool IsDefault { get; set; }
     public virtual short BundleCount { get; set; }
-    public virtual Guid Uid1C { get; set; }
+    public virtual bool IsDefault => Uid1C.Equals(Guid.Empty);
     public override string Name => $"{Plu.Bundle.Name} | {Box.Name}";
-    public virtual decimal WeightTare { get => Plu.Bundle.Weight * BundleCount + Box.Weight + Plu.Clip.Weight * BundleCount; set => _ = value; }
+    public virtual decimal WeightTare => (Plu.Bundle.Weight + Plu.Clip.Weight) * BundleCount + Box.Weight;
     
     public PluNestingEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Box = new();
         Plu = new();
-        IsDefault = false;
         BundleCount = 0;
     }
     
@@ -29,17 +27,13 @@ public class PluNestingEntity : EntityBase
     {
         Box = new(item.Box);
         Plu = new(item.Plu);
-        IsDefault = item.IsDefault;
         BundleCount = item.BundleCount;
     }
     
     public override string ToString() =>
-        $"{GetIsDefault()} | {Plu.Number} | {Plu.Name} | " +
+        $"{Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
-
-    protected virtual string GetIsDefault() => IsDefault ? "Is default" : "No default";
-
-
+    
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
