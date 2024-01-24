@@ -118,6 +118,21 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.Type(NHibernateUtil.Guid);
             m.NotNullable(true);
         });
+        
+        ManyToOne(x => x.Brand, m =>
+        {
+            m.Column("BRAND_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+        
+        ManyToOne(x => x.Clip, m =>
+        {
+            m.Column("CLIP_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
 
         ManyToOne(x => x.Bundle, m =>
         {
@@ -129,13 +144,6 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
         ManyToOne(x => x.StorageMethod, m =>
         {
             m.Column("STORAGE_METHOD_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
-        });
-        
-        ManyToOne(x => x.Brand, m =>
-        {
-            m.Column("BRAND_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

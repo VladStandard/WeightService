@@ -17,10 +17,9 @@ public class PluEntity : Table1CBase
     public virtual string Ean13 { get; set; }
     public virtual string Itf14 { get; set; }
     public virtual bool IsCheckWeight { get; set; } 
-    public virtual Guid ParentGuid { get; set; }
-    public virtual Guid CategoryGuid { get; set; }
     public virtual BundleEntity Bundle { get; set; }
     public virtual BrandEntity Brand { get; set; }
+    public virtual ClipEntity Clip { get; set; }
     public virtual StorageMethodEntity StorageMethod { get; set; }
     public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
@@ -28,7 +27,6 @@ public class PluEntity : Table1CBase
 
     public PluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        CategoryGuid = Guid.Empty;
         Code = string.Empty;
         Ean13 = string.Empty;
         FullName = string.Empty;
@@ -37,10 +35,10 @@ public class PluEntity : Table1CBase
         IsGroup = default;
         Itf14 = string.Empty;
         Number = default;
-        ParentGuid = Guid.Empty;
         ShelfLifeDays = default;
         Brand = new();
         Bundle = new();
+        Clip = new();
         StorageMethod = new();
         Description = string.Empty;
     }
@@ -48,7 +46,6 @@ public class PluEntity : Table1CBase
     public PluEntity(PluEntity item) : base(item)
     {
         IsGroup = item.IsGroup;
-        ParentGuid = item.ParentGuid;
         Code = item.Code;
         Number = item.Number;
         FullName = item.FullName;
@@ -59,6 +56,7 @@ public class PluEntity : Table1CBase
         IsCheckWeight = item.IsCheckWeight;
         Brand = new(item.Brand);
         Bundle = new(item.Bundle);
+        Clip = new(item.Clip);
         StorageMethod = new(item.StorageMethod);
         Description = item.Description;
     }
@@ -78,10 +76,12 @@ public class PluEntity : Table1CBase
     public virtual bool Equals(PluEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(IsGroup, item.IsGroup) &&
-        Equals(ParentGuid, item.ParentGuid) &&
         Equals(Code, item.Code) &&
         Equals(StorageMethod, item.StorageMethod) &&
         Equals(Number, item.Number) &&
+        Equals(Clip, item.Clip) &&
+        Equals(Brand, item.Brand) &&
+        Equals(Bundle, item.Bundle) &&
         Equals(FullName, item.FullName) &&
         Equals(ShelfLifeDays, item.ShelfLifeDays) &&
         Equals(Gtin, item.Gtin) &&

@@ -45,6 +45,12 @@
     IsDisabled
   />
   <SectionFormInputText
+    Value="@GetMockIfEmptyInput(SectionEntity.Clip.Name)"
+    Label="@Localizer["DataGridColumnClip"]"
+    Link="@GetClipLink()"
+    IsDisabled
+  />
+  <SectionFormInputText
     Value="@GetMockIfEmptyInput(SectionEntity.Brand.Name)"
     Label="@Localizer["DataGridColumnBrand"]"
     Link="@GetBrandLink()"

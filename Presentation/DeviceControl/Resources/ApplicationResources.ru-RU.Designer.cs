@@ -213,6 +213,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Клипса.
+        /// </summary>
+        internal static string DataGridColumnClip {
+            get {
+                return ResourceManager.GetString("DataGridColumnClip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Код.
         /// </summary>
         internal static string DataGridColumnCode {

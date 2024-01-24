@@ -28,10 +28,13 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
-    private string GetBundleLink() => SectionEntity.Bundle.IsNew ? 
+    private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ? 
         string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.IdentityValueUid}";
     
-    private string GetBrandLink() => SectionEntity.Brand.IsNew ? 
+    private string GetClipLink() => SectionEntity.Clip.IsNew || SectionEntity.Clip.Uid1C == Guid.Empty ? 
+        string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.IdentityValueUid}";
+    
+    private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ? 
         string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.IdentityValueUid}";
     
     private string GetTemplateLink() => Template.IsNew ? 
