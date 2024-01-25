@@ -26,12 +26,11 @@ public sealed partial class RolesDataGrid: SectionDataGridBase<ClaimEntity>
     protected override async Task OpenItemInNewTab(ClaimEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionRoles}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = ClaimService.GetAll();
+    protected override IEnumerable<ClaimEntity> SetSqlSectionCast() => ClaimService.GetAll();
 
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<ClaimEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [ClaimService.GetByUid(itemUid)];
+        return [ClaimService.GetByUid(itemUid)];
     }
 }

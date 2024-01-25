@@ -24,12 +24,11 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<BundleEntity>
     protected override async Task OpenItemInNewTab(BundleEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = BundleService.GetAll();
+    protected override IEnumerable<BundleEntity> SetSqlSectionCast() => BundleService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<BundleEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [BundleService.GetByUid(itemUid)];
+        return [BundleService.GetByUid(itemUid)];
     }
 }

@@ -1,0 +1,47 @@
+@using Ws.Domain.Models.Entities
+
+
+<SectionDataGridWrapper
+  @ref="DataGridWrapperRef"
+  TItem="DbFileSizeInfoEntity"
+  Title="@Localizer["SectionDatabase"]"
+  GridData="DbFileSizesData"
+  GetGridData="GetDbFilesData"
+  ReadAction="OpenTablesDataGridModal"
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnFile"]"
+    Field="@nameof(DbFileSizeInfoEntity.FileName)"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnPercentages"]"
+    Field="@nameof(DbFileSizeInfoEntity.DbFillSize)"
+    Width="40%"
+  >
+    <DisplayTemplate>
+      @{
+        int progress = Convert.ToInt32(context.DbFillSize);
+
+        <div class="progress-wrapper">
+          <Progress>
+            <ProgressBar
+              Color="@GetProgressColorByValue(progress)"
+              Value="progress"
+            />
+          </Progress>
+        </div>
+      }
+    </DisplayTemplate>
+  </DataGridColumn>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnTableCount"]"
+    Field="Tables.Count"
+    Width="20%"
+  />
+  <DataGridColumn
+    Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
+    Field="@nameof(DbFileSizeInfoEntity.SizeMb)"
+    Width="20%"
+  />
+</SectionDataGridWrapper>

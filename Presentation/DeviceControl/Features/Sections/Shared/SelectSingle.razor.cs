@@ -15,6 +15,7 @@ public sealed partial class SelectSingle<TItem>: IDisposable where TItem: new()
     [Parameter, EditorRequired] public TItem SelectedItem { get; set; } = new();
     [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+    [Parameter] public bool IsFilterable { get; set; }
     
     private Dropdown Dropdown { get; set; } = new();
     private ElementReference DropdownWrapper { get; set; }

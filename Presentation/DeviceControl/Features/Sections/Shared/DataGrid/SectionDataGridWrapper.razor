@@ -1,6 +1,6 @@
 @using Blazor.Heroicons
 @using Blazor.Heroicons.Outline
-@typeparam TItem where TItem: Ws.Domain.Models.Common.EntityBase, new()
+@typeparam TItem
 @attribute [CascadingTypeParameter(nameof(TItem))]
 
 
@@ -8,7 +8,7 @@
   <p class="text-2xl truncate">
     @Title
   </p>
-  <div class="px-2 items-center py-1 bg-sky-300 border flex gap-2 border-black/[.1] rounded-md overflow-hidden transition-colors hover:bg-sky-400">
+  <div class="px-2 items-center truncate shrink-0 py-1 bg-sky-300 border flex gap-2 border-black/[.1] rounded-md overflow-hidden transition-colors hover:bg-sky-400">
     @if (IsLoading)
     {
       <svg aria-hidden="true" class="inline w-3.5 h-3.5 text-gray-200 animate-spin fill-white" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,14 +26,18 @@
       @Localizer["DataGridTotalItems"]
     </p>
   </div>
-  <button
-    type="button"
-    @onclick="ReloadData"
-    class="px-6 py-1 bg-sky-300 flex group transition-colors items-center justify-center rounded-md overflow-hidden
-            border border-black/[.1] hover:bg-sky-400"
-  >
-    <ArrowPathIcon class="h-5 w-5 text-white group-hover:animate-spin" />
-  </button>
+  @if (GetGridData.HasDelegate)
+  {
+    <button
+      type="button"
+      disabled="@IsLoading"
+      @onclick="ReloadData"
+      class="px-6 py-1 bg-sky-300 flex group transition-colors items-center justify-center rounded-md overflow-hidden
+            border border-black/[.1] disabled:bg-gray-300 hover:bg-sky-400"
+    >
+      <ArrowPathIcon class="@GetSpinnerStyle()" />
+    </button>
+  }
   @if (AddAction.HasDelegate)
   {
     <button
@@ -48,94 +52,85 @@
   @DataGridButtons
 </div>
 <div class="w-full bg-white overflow-hidden @(!IsBorderless ? "rounded-md border border-black/[.1]" : "")">
-  @if (IsLoading)
-  {
-    <div class="w-full">
-      <div class="w-full h-12 bg-sky-200 border-b border-gray-100"></div>
-      <div class="w-full h-20 flex items-center justify-center">
+  <DataGrid
+    TItem="TItem"
+    @ref="DataGrid"
+    Data="GridData"
+    SelectedRow="SelectedItem"
+    RowDoubleClicked="OnDoubleClick"
+    PageSize="@(IsGroupable ? 1000 : ItemsPerPage)"
+    RowStyling="CustomRowStyling"
+    CellStyling="CustomCellStyling"
+    HeaderRowStyling="@CustomHeaderRowStyling()"
+    PagerPosition="DataGridPagerPosition.Bottom"
+    PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
+    RowContextMenu="OnRowContextMenu"
+    RowContextMenuPreventDefault
+    Filterable="IsFilterable"
+    Groupable="IsGroupable"
+    ShowPager="@GetIsPagerNeeded()"
+    Class="@GetTableStyle()"
+  >
+    <DataGridColumns>
+      @ChildContent
+    </DataGridColumns>
+    <PageButtonTemplate>
+      <div class="w-7 text-center">
+        @context.PageNumber
       </div>
-    </div>
-  }
-  else
-  {
-    <DataGrid
-      TItem="TItem"
-      @ref="DataGrid"
-      Data="GridData"
-      SelectedRow="SelectedItem"
-      Filterable="IsFilterable"
-      Groupable="IsGroupable"
-      RowDoubleClicked="OnDoubleClick"
-      PageSize="ItemsPerPage"
-      RowStyling="CustomRowStyling"
-      CellStyling="CustomCellStyling"
-      HeaderRowStyling="@CustomHeaderRowStyling()"
-      PagerPosition="DataGridPagerPosition.Bottom"
-      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
-      RowContextMenu="OnRowContextMenu"
-      RowContextMenuPreventDefault
-      ShowPager
-    >
-      <DataGridColumns>
-        @ChildContent
-      </DataGridColumns>
-      <PageButtonTemplate>
-        <div class="w-7 text-center">
-          @context.PageNumber
-        </div>
-      </PageButtonTemplate>
-      <EmptyTemplate>
-        <p class="text-xl text-center">
-          @Localizer["DataGridNoResult"]
-        </p>
-      </EmptyTemplate>
-      <NextPageButtonTemplate>
-        <ChevronRightIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </NextPageButtonTemplate>
-      <PreviousPageButtonTemplate>
-        <ChevronLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </PreviousPageButtonTemplate>
-      <LastPageButtonTemplate>
-        <ChevronDoubleRightIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </LastPageButtonTemplate>
-      <FirstPageButtonTemplate>
-        <ChevronDoubleLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
-      </FirstPageButtonTemplate>
-      <TotalItemsTemplate>
-        <div class="hidden"></div>
-      </TotalItemsTemplate>
-      <TotalItemsShortTemplate>
-        <div class="hidden"></div>
-      </TotalItemsShortTemplate>
-    </DataGrid>
-  }
+    </PageButtonTemplate>
+    <EmptyTemplate>
+      <p class="text-xl text-center @(IsLoading ? "invisible h-14" : "")">
+        @Localizer["DataGridNoResult"]
+      </p>
+    </EmptyTemplate>
+    <NextPageButtonTemplate>
+      <ChevronRightIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </NextPageButtonTemplate>
+    <PreviousPageButtonTemplate>
+      <ChevronLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </PreviousPageButtonTemplate>
+    <LastPageButtonTemplate>
+      <ChevronDoubleRightIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </LastPageButtonTemplate>
+    <FirstPageButtonTemplate>
+      <ChevronDoubleLeftIcon class="h-4 w-4 mx-2 my-0.5"/>
+    </FirstPageButtonTemplate>
+    <TotalItemsTemplate>
+      <div class="hidden"></div>
+    </TotalItemsTemplate>
+    <TotalItemsShortTemplate>
+      <div class="hidden"></div>
+    </TotalItemsShortTemplate>
+  </DataGrid>
 </div>
 
-@if ( IsVisibleContextMenu )
-{
-  <div
-    id="dataGridContextMenu"
-    class="flex flex-col rounded-md border border-black/[.1] overflow-hidden @(IsBorderless ? "fixed" : "absolute")"
-    style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")"
-  >
-    <ul>
-      @foreach (ContextMenuEntry entry in ContextMenuEntries)
-      {
-        <li>
-          <button
-            type="button"
-            class="w-full bg-gray-50 text-gray-500 items-center h-9 px-4 flex gap-3 transition-colors hover:bg-gray-200 hover:text-gray-700 @entry.CustomClass"
-            @onclick="@entry.OnClickAction"
-          >
-            <Heroicon
-              Name="@entry.IconName"
-              Type="HeroiconType.Outline"
-              class="h-4 w-4"
-            />
-            <p class="text-sm">@entry.Name</p>
-          </button>
-        </li>
-      }
-    </ul>
-  </div>
-}
+
+<div
+  tabindex="0"
+  @ref="ContextMenuRef"
+  @onfocusout="@ContextMenuClickedOutsideAction"
+  class="flex flex-col rounded-md transition-opacity border border-black/[.1] duration-300 overflow-hidden
+          focus:outline-none @(!IsVisibleContextMenu ? "opacity-0" : "opacity-100") @(IsBorderless ? "fixed" : "absolute")"
+  style="@($"left:{ContextMenuPos.X}px;top:{ContextMenuPos.Y}px;")"
+>
+  <ul>
+    @foreach (ContextMenuEntry entry in ContextMenuEntries)
+    {
+      <li>
+        <button
+          type="button"
+          class="w-full bg-gray-50 text-gray-500 items-center h-9 px-4 flex gap-3 transition-colors hover:bg-gray-200 hover:text-gray-700 @entry.CustomClass"
+          @onclick="@entry.OnClickAction"
+        >
+          <Heroicon
+            Name="@entry.IconName"
+            Type="HeroiconType.Outline"
+            class="h-4 w-4"
+          />
+          <p class="text-sm">@entry.Name</p>
+        </button>
+      </li>
+    }
+  </ul>
+</div>

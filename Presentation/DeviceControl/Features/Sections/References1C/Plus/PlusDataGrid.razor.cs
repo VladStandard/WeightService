@@ -23,12 +23,11 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<PluEntity>
     protected override async Task OpenItemInNewTab(PluEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = PluService.GetAllNotGroup();
+    protected override IEnumerable<PluEntity> SetSqlSectionCast() => PluService.GetAllNotGroup();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<PluEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [PluService.GetByUid(itemUid)];
+        return [PluService.GetByUid(itemUid)];
     }
 }

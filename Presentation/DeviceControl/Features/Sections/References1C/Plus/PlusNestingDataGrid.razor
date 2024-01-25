@@ -9,7 +9,6 @@
   Title="@Localizer["SectionPluNestings"]"
   GridData="SectionItems"
   GetGridData="GetSectionData"
-  IsLoading="IsLoading"
   ItemsPerPage="5"
   IsBorderless
 >
@@ -19,7 +18,7 @@
     Width="20%"
   >
     <DisplayTemplate>
-      @if ((context as PluNestingEntity).IsDefault)
+      @if (context.IsDefault)
       {
         <StarIcon class="h-6 w-6 text-yellow-500" />
       }

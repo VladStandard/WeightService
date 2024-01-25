@@ -278,6 +278,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnDatabaseTables {
+            get {
+                return ResourceManager.GetString("DataGridColumnDatabaseTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnDescription {
             get {
                 return ResourceManager.GetString("DataGridColumnDescription", resourceCulture);

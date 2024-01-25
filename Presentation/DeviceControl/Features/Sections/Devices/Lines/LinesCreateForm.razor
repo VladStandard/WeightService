@@ -32,6 +32,7 @@
     Label="@Localizer["DataGridColumnPrinter"]"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemDisplayName="item => item.DisplayName"
+    IsFilterable
   />
   <SectionFormInputSelect
     TItem="WarehouseEntity"
@@ -39,5 +40,6 @@
     Label="@Localizer["DataGridColumnWarehouse"]"
     @bind-SelectedItem="@SectionEntity.Warehouse"
     ItemDisplayName="item => item.Name"
+    IsFilterable
   />
 </SectionFormWrapper>

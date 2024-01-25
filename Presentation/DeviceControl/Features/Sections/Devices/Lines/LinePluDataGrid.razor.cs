@@ -56,9 +56,8 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
     
-
-    protected override void SetSqlSectionCast() =>
-        SectionItems = LineService.GetLinePlusFk(LineEntity);
+    // todo Get Line Plus
+    protected override IEnumerable<PluLineEntity> SetSqlSectionCast() => LineService.GetLinePlusFk(LineEntity);
     
     protected override async Task OpenItemInNewTab(PluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");

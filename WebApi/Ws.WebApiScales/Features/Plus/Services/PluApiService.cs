@@ -103,7 +103,7 @@ internal sealed class PluApiService(
                 continue;
             }
             
-            if (SaveOrUpdatePlu(pluDto));
+            if (SaveOrUpdatePlu(pluDto))
                 responseDto.AddSuccess(pluDto.Uid, $"{pluDb.DisplayName} | {pluDb.Name}");
         }
     }

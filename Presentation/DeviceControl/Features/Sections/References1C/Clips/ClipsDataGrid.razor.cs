@@ -24,12 +24,11 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<ClipEntity>
     protected override async Task OpenItemInNewTab(ClipEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = ClipService.GetAll();
+    protected override IEnumerable<ClipEntity> SetSqlSectionCast() => ClipService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<ClipEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [ClipService.GetByUid(itemUid)];
+        return [ClipService.GetByUid(itemUid)];
     }
 }

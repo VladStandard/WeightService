@@ -26,11 +26,11 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<PrinterEntity>
     protected override async Task OpenItemInNewTab(PrinterEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() => SectionItems = PrinterService.GetAll();
+    protected override IEnumerable<PrinterEntity> SetSqlSectionCast() => PrinterService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<PrinterEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [PrinterService.GetByUid(itemUid)];
+        return [PrinterService.GetByUid(itemUid)];
     }
 }

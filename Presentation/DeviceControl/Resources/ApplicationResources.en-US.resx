@@ -414,4 +414,7 @@
     <data name="DataGridColumnClip" xml:space="preserve">
         <value>Clip</value>
     </data>
+    <data name="DataGridColumnDatabaseTables" xml:space="preserve">
+        <value>Tables</value>
+    </data>
 </root>

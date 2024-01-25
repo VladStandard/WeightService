@@ -32,12 +32,11 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<ViewLabel>
     protected override async Task OpenItemInNewTab(ViewLabel item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast() =>
-        SectionItems = LabelService.GetAll();
+    protected override IEnumerable<ViewLabel> SetSqlSectionCast() => LabelService.GetAll();
     
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<ViewLabel> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = new[] { LabelService.GetViewByUid(itemUid) };
+        return new[] { LabelService.GetViewByUid(itemUid) };
     }
 }

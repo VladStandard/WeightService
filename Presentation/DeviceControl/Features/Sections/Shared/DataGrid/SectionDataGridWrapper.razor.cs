@@ -10,10 +10,9 @@ using Ws.Domain.Models.Common;
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
 [CascadingTypeParameter(nameof(TItem))]
-public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisposable where TItem : EntityBase, new()
+public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
 
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public RenderFragment? DataGridButtons { get; set; }
@@ -26,72 +25,62 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     [Parameter] public EventCallback<TItem> ReadAction { get; set; }
     [Parameter] public EventCallback<TItem> OpenInTabAction { get; set; }
     [Parameter] public bool IsFilterable { get; set; }
-    [Parameter] public bool IsLoading { get; set; } = true;
     [Parameter] public bool IsBorderless { get; set; }
     [Parameter] public bool IsGroupable { get; set; }
     [Parameter] public bool IsCollapsed { get; set; }
 
-    private DataGrid<TItem> DataGrid { get; set; } = null!;
+    private DataGrid<TItem>? DataGrid { get; set; }
     private bool IsVisibleContextMenu { get; set; }
-    private Point ContextMenuPos { get; set; }
-    private TItem ContextMenuItem { get; set; } = new();
-    private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
-    private IJSObjectReference Module { get; set; } = null!;
+    private bool IsLoading { get; set; } = true;
     private TItem? SelectedItem { get; set; }
+    private Point ContextMenuPos { get; set; }
+    private TItem? ContextMenuItem { get; set; }
+    private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
+    
+    private ElementReference ContextMenuRef { get; set; }
 
-    protected override void OnInitialized()
-    {
-        InitializeContextMenu();
-    }
+    protected override void OnInitialized() => InitializeContextMenu();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        await InitializeJsModule();
+        
+        if (GetGridData.HasDelegate)
+            await UpdateDataGridData();
+        
+        IsLoading = false;
+        StateHasChanged();
     }
 
-    private async Task InitializeJsModule()
+    private void ContextMenuClickedOutsideAction()
     {
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./Features/Sections/Shared/DataGrid/SectionDataGridWrapper.razor.js");
-        await Module.InvokeVoidAsync("addClickOutsideListener", 
-            "dataGridContextMenu", DotNetObjectReference.Create(this));
-    }
-    
-    [JSInvokable]
-    public void ContextMenuClickedOutsideAction()
-    {
-        SelectedItem = null;
+        SelectedItem = default;
         IsVisibleContextMenu = false;
         StateHasChanged();
     }
 
     private void InitializeContextMenu()
     {
-        if (ReadAction.HasDelegate)
-            ContextMenuEntries = 
-                ContextMenuEntries.Append(new()
-                {
-                    Name = Localizer["ContextMenuOpen"],
-                    IconName = HeroiconName.ArrowTopRightOnSquare,
-                    OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenClicked)
-                });
-        if (OpenInTabAction.HasDelegate)
-            ContextMenuEntries = 
-                ContextMenuEntries.Append(new()
-                {
-                    Name = Localizer["ContextMenuOpenInNewTab"],
-                    IconName = HeroiconName.ArrowTopRightOnSquare,
-                    OnClickAction = EventCallback.Factory.Create(this, OnContextItemOpenInNewTabClicked)
-                });
-        if (DeleteAction.HasDelegate) 
-            ContextMenuEntries = ContextMenuEntries.Append(new()
-            {
-                Name = Localizer["ContextMenuDelete"],
-                IconName = HeroiconName.Trash,
-                OnClickAction = EventCallback.Factory.Create(this, OnContextItemDeleteClicked),
-                CustomClass = "hover:bg-red-200 hover:text-red-600"
-            });
+        AddContextMenuEntryIfDelegateExists(ReadAction, "ContextMenuOpen",
+            HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenClicked);
+        AddContextMenuEntryIfDelegateExists(OpenInTabAction, "ContextMenuOpenInNewTab",
+            HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenInNewTabClicked);
+        AddContextMenuEntryIfDelegateExists(DeleteAction, "ContextMenuDelete", 
+            HeroiconName.Trash, OnContextItemDeleteClicked, "hover:bg-red-200 hover:text-red-600");
+    }
+
+    private void AddContextMenuEntryIfDelegateExists(EventCallback<TItem> actionDelegate, string nameLocalizationKey,
+        string iconName, Func<Task> clickAction, string customClass = "")
+    {
+        if (!actionDelegate.HasDelegate) return;
+
+        ContextMenuEntries = ContextMenuEntries.Append(new()
+        {
+            Name = Localizer[nameLocalizationKey],
+            IconName = iconName,
+            OnClickAction = EventCallback.Factory.Create(this, clickAction),
+            CustomClass = customClass
+        });
     }
     
     private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
@@ -99,19 +88,26 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     
     
     private static DataGridRowStyling CustomHeaderRowStyling() =>
-        new() { Class = "bg-sky-200 truncate text-black overflow-hidden" };
+        new() { Class = "bg-sky-200 text-black [&_th]:truncate" };
     
     
     private static void CustomCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
         styling.Class = "truncate";
     
-    private Task OnRowContextMenu(DataGridRowMouseEventArgs<TItem> eventArgs)
+    private string GetSpinnerStyle() => $"h-5 w-5 text-white {(IsLoading ? "animate-spin" : "")}";
+
+    private string GetTableStyle() =>
+        $"table-fixed {(!GetIsPagerNeeded() ? "[&>tbody>tr:last-child]:!border-b-0 !mb-0" : "")}";
+
+    private bool GetIsPagerNeeded() => !IsGroupable && (GridData.Count() > ItemsPerPage || IsBorderless);
+    
+    private async Task OnRowContextMenu(DataGridRowMouseEventArgs<TItem> eventArgs)
     {
+        await ContextMenuRef.FocusAsync();
         IsVisibleContextMenu = true;
         ContextMenuItem = eventArgs.Item;
         SelectedItem = ContextMenuItem;
         ContextMenuPos = eventArgs.MouseEventArgs.Client;
-        return Task.CompletedTask;
     }
     
     private async Task OnContextItemOpenClicked()
@@ -128,42 +124,42 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase, IDisp
     
     private async Task OnContextItemDeleteClicked()
     {
-        await DataGrid.Delete(ContextMenuItem);
+        if (DataGrid != null && ContextMenuItem != null) 
+            await DataGrid.Delete(ContextMenuItem);
         await DeleteAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
     }
 
-    private Task OnDoubleClick(DataGridRowMouseEventArgs<TItem> eventArgs)
+    private async Task OnDoubleClick(DataGridRowMouseEventArgs<TItem> eventArgs)
     {
-        SelectedItem = null;
-        ReadAction.InvokeAsync(eventArgs.Item);
-        return Task.CompletedTask;
+        SelectedItem = default;
+        await ReadAction.InvokeAsync(eventArgs.Item);
+    }
+
+    private async Task UpdateDataGridData()
+    {
+        await GetGridData.InvokeAsync();
+        if (DataGrid != null) await DataGrid.Reload();
+        await OnGetGridDataAction();
     }
 
     public async Task ReloadData()
     {
-        await GetGridData.InvokeAsync();
-        await DataGrid.Reload();
-        await OnGetGridDataAction();
+        if (IsLoading) return;
+
+        IsLoading = true;
+        StateHasChanged();
+
+        await UpdateDataGridData();
+        
+        IsLoading = false;
+        StateHasChanged();
     }
 
     private async Task OnGetGridDataAction()
     {
-        if (IsGroupable && !IsCollapsed)
-            await DataGrid.ExpandAllGroups();
-    }
-    
-    public async void Dispose()
-    {
-        try
-        {
-            await Module.InvokeVoidAsync("removeClickOutsideListener", "dataGridContextMenu");
-            await Module.DisposeAsync();
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException or ArgumentNullException)
-        {
-            // pass error
-        }
+        if (!IsGroupable || IsCollapsed || DataGrid == null) return;
+        await DataGrid.ExpandAllGroups();
     }
 }
 

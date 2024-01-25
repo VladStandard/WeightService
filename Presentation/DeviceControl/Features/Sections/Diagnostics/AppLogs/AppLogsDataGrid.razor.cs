@@ -11,6 +11,5 @@
 //     
 //     private SqlLogRepository SqlLogRepository { get; } = new();
 //
-//     protected override void SetSqlSectionCast() =>
-//         SectionItems = SqlLogRepository.GetList(SqlCrudConfigSection).ToList();
+//     protected override IEnumerable<SqlLogEntity> SetSqlSectionCast() => SqlLogRepository.GetList(SqlCrudConfigSection).ToList();
 // }

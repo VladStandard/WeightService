@@ -31,16 +31,16 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
     protected override async Task OpenItemInNewTab(UserEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.IdentityValueUid.ToString()}");
 
-    protected override void SetSqlSectionCast()
+    protected override IEnumerable<UserEntity> SetSqlSectionCast()
     {
-        SectionItems = UserService.GetAll();
         UserNames = UserCacheService.GetCachedUsernames();
+        return UserService.GetAll();
     }
 
-    protected override void SetSqlSearchingCast()
+    protected override IEnumerable<UserEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        SectionItems = [UserService.GetByUid(itemUid)];
+        return [UserService.GetByUid(itemUid)];
     }
 
     private Task DeleteUserWithRelogin(UserEntity item)
