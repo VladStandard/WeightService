@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using ScalesHybrid.Features.Labels;
 using ScalesHybrid.Services;
 using Ws.LabelsService.Features.PrintLabel.Dto;
 

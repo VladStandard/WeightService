@@ -2,12 +2,12 @@
 using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Services.Features.Plu;
 using Ws.Labels;
 using Ws.Labels.Dto;
 using Ws.LabelsService.Features.PrintLabel.Dto;
 using Ws.LabelsService.Features.PrintLabel.Exceptions;
 using Ws.LabelsService.Features.PrintLabel.Validators;
-using Ws.Domain.Services.Features.Plu;
 
 namespace Ws.LabelsService.Features.PrintLabel;
 

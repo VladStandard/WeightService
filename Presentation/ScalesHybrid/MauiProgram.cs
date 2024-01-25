@@ -5,8 +5,8 @@ using Blazorise.Tailwind;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
-using Ws.LabelsService;
 using Ws.Domain.Services;
+using Ws.LabelsService;
 
 namespace ScalesHybrid;
 public static class MauiProgram

@@ -17,8 +17,7 @@ public sealed partial class LinesCreateForm: SectionFormBase<LineEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
 
     #endregion
-   
-
+    
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();
     private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = new List<WarehouseEntity>();
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = new List<LineTypeEnum>();

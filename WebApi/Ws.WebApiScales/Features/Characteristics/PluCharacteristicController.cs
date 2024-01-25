@@ -4,7 +4,6 @@ using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Characteristics.Dto;
 using Ws.WebApiScales.Features.Characteristics.Services;
-using Ws.WebApiScales.Features.Nesting.Dto;
 
 namespace Ws.WebApiScales.Features.Nesting;
 

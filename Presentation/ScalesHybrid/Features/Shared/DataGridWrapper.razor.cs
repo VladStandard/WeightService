@@ -1,8 +1,5 @@
-using Blazorise;
 using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using ScalesHybrid.Resources;
 using Ws.Domain.Models.Common;
 
 namespace ScalesHybrid.Features.Shared;

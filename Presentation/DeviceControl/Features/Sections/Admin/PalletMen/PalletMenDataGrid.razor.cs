@@ -1,14 +1,10 @@
-using DeviceControl.Auth.Common;
-using DeviceControl.Features.Sections.Admin.Users;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.PalletMan;
-using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.PalletMen;
 

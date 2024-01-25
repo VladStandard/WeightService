@@ -1,4 +1,3 @@
-using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesHybrid.Features.Shared;
