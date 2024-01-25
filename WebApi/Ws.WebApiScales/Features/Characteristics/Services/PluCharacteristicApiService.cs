@@ -6,7 +6,6 @@ using Ws.Domain.Services.Features.Plu;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Characteristics.Dto;
 using Ws.WebApiScales.Features.Characteristics.Validators;
-using Ws.WebApiScales.Features.Nesting.Dto;
 
 namespace Ws.WebApiScales.Features.Characteristics.Services;
 

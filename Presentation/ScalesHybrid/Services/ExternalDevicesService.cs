@@ -18,10 +18,10 @@ public class ExternalDevicesService : IDisposable
         Printer = PrinterFactory.Create(ip, port, type).Connect();
     }
     
-    public void SetupScales(string comPort)
+    public void SetupScales()
     {
         Scales.Dispose();
-        Scales = new Scales(comPort);
+        Scales = new Scales("COM6");
     }
 
     public void Dispose()

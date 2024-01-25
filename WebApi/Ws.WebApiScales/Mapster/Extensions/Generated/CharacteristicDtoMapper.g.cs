@@ -1,10 +1,8 @@
-using Ws.WebApiScales.Features.Characteristics.Dto;
-
-namespace Ws.WebApiScales.Features.Nesting.Dto
+namespace Ws.WebApiScales.Features.Characteristics.Dto
 {
-    public static partial class PluCharacteristicDtoMapper
+    public static partial class CharacteristicDtoMapper
     {
-        public static Ws.Domain.Models.Entities.Scale.PluNestingEntity AdaptTo(this CharacteristicDto p1, Ws.Domain.Models.Entities.Scale.PluNestingEntity p2)
+        public static Ws.Domain.Models.Entities.Scale.PluNestingEntity AdaptTo(this Ws.WebApiScales.Features.Characteristics.Dto.CharacteristicDto p1, Ws.Domain.Models.Entities.Scale.PluNestingEntity p2)
         {
             if (p1 == null)
             {

@@ -11,7 +11,6 @@ public class LineEntity : EntityBase
     public virtual string PcName { get; set; }
     public virtual WarehouseEntity Warehouse { get; set; }
     public virtual PrinterEntity Printer { get; set; }
-    public virtual string ComPort { get; set; }
     public virtual int Number { get; set; }
     public override string DisplayName => IsNew ? string.Empty : $"{Name}";
     private int _counter;
@@ -28,7 +27,6 @@ public class LineEntity : EntityBase
         Version = string.Empty;
         Number = 0;
         Counter = 0;
-        ComPort = "COM6";
         Type = LineTypeEnum.Tablet;
     }
 
@@ -36,7 +34,6 @@ public class LineEntity : EntityBase
     {
         Warehouse = new(item.Warehouse);
         Printer = new(item.Printer);
-        ComPort = item.ComPort;
         Number = item.Number;
         Counter = item.Counter;
         Version = item.Version;
@@ -54,7 +51,6 @@ public class LineEntity : EntityBase
     
     public virtual bool Equals(LineEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(ComPort, item.ComPort) &&
         Equals(Number, item.Number) &&
         Equals(Counter, item.Counter) &&
         Equals(PcName, item.PcName) &&

@@ -32,7 +32,7 @@ public class LineContext: IDisposable
         
         PrinterEntity = Line.Printer;
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
-        ExternalDevices.SetupScales(Line.ComPort);
+        ExternalDevices.SetupScales();
     }
 
     public void ResetLine() {

@@ -37,15 +37,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
             m.Type(NHibernateUtil.String);
             m.Length(150);
         });
-
-        Property(x => x.ComPort, m =>
-        {
-            m.Column("COM_PORT");
-            m.Type(NHibernateUtil.String);
-            m.NotNullable(true);
-            m.Length(5);
-        });
-
+        
         Property(x => x.Number, m =>
         {
             m.Column("NUMBER");
