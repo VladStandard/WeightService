@@ -3,7 +3,7 @@
 namespace Ws.WebApiScales.Dto;
 
 [XmlRoot("Response")]
-public class ResponseDto
+public sealed class ResponseDto
 {
     [XmlAttribute("SuccessesCount")]
     public int SuccessesCount { get; set; }

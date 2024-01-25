@@ -3,7 +3,7 @@
 namespace Ws.WebApiScales.Dto;
 
 [Serializable]
-public class ResponseSuccesses
+public sealed class ResponseSuccesses
 {
     [XmlAttribute("Guid")]
     public Guid Guid { get; set; }

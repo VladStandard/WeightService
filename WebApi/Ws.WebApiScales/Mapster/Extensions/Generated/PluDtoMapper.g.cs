@@ -1,8 +1,10 @@
+using Ws.WebApiScales.Features.PluOld.Dto;
+
 namespace Ws.WebApiScales.Features.Plu.Dto
 {
     public static partial class PluDtoMapper
     {
-        public static Ws.Domain.Models.Entities.Ref1c.BoxEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p1, Ws.Domain.Models.Entities.Ref1c.BoxEntity p2)
+        public static Ws.Domain.Models.Entities.Ref1c.BoxEntity AdaptTo(this PluDto p1, Ws.Domain.Models.Entities.Ref1c.BoxEntity p2)
         {
             if (p1 == null)
             {
@@ -16,7 +18,7 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.Domain.Models.Entities.Ref1c.PluEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p3, Ws.Domain.Models.Entities.Ref1c.PluEntity p4)
+        public static Ws.Domain.Models.Entities.Ref1c.PluEntity AdaptTo(this PluDto p3, Ws.Domain.Models.Entities.Ref1c.PluEntity p4)
         {
             if (p3 == null)
             {
@@ -26,7 +28,6 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             
             result.IsGroup = p3.IsGroup;
             result.Number = (short)p3.PluNumber;
-            result.Code = p3.Code;
             result.FullName = p3.FullName;
             result.ShelfLifeDays = (byte)p3.ShelfLife;
             result.Gtin = p3.IsCheckWeight == true ? "0" + p3.Ean13 : p3.Itf14;
@@ -38,7 +39,7 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.Domain.Models.Entities.Ref1c.BundleEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p5, Ws.Domain.Models.Entities.Ref1c.BundleEntity p6)
+        public static Ws.Domain.Models.Entities.Ref1c.BundleEntity AdaptTo(this PluDto p5, Ws.Domain.Models.Entities.Ref1c.BundleEntity p6)
         {
             if (p5 == null)
             {
@@ -52,7 +53,7 @@ namespace Ws.WebApiScales.Features.Plu.Dto
             return result;
             
         }
-        public static Ws.Domain.Models.Entities.Ref1c.ClipEntity AdaptTo(this Ws.WebApiScales.Features.Plu.Dto.PluDto p7, Ws.Domain.Models.Entities.Ref1c.ClipEntity p8)
+        public static Ws.Domain.Models.Entities.Ref1c.ClipEntity AdaptTo(this PluDto p7, Ws.Domain.Models.Entities.Ref1c.ClipEntity p8)
         {
             if (p7 == null)
             {

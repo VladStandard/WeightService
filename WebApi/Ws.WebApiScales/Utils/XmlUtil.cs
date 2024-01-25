@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Ws.WebApiScales.Utils;
 
-public static class XmlUtil
+internal static class XmlUtil
 {
     public static string SerializeToXml<T>(T obj)
     {

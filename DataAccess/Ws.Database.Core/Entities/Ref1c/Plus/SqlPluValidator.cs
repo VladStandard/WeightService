@@ -28,10 +28,6 @@ public sealed class SqlPluValidator : SqlTableValidator<PluEntity>
         //     .Length(14).When(item => item.IsGroup == false);
         RuleFor(item => item.IsCheckWeight)
             .NotNull();
-        RuleFor(item => item.Code)
-            .NotNull()
-           // .NotEmpty()
-            .Length(11);
         RuleFor(item => item.Name)
             .NotEmpty()
             .MaximumLength(150)

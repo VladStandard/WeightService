@@ -10,7 +10,6 @@ public class PluEntity : Table1CBase
 {
     public virtual bool IsGroup { get; set; }
     public virtual short Number { get; set; }
-    public virtual string Code { get; set; }
     public virtual string FullName { get; set; }
     public virtual byte ShelfLifeDays { get; set; }
     public virtual string Gtin { get; set; }
@@ -27,7 +26,6 @@ public class PluEntity : Table1CBase
 
     public PluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        Code = string.Empty;
         Ean13 = string.Empty;
         FullName = string.Empty;
         Gtin = string.Empty;
@@ -46,7 +44,6 @@ public class PluEntity : Table1CBase
     public PluEntity(PluEntity item) : base(item)
     {
         IsGroup = item.IsGroup;
-        Code = item.Code;
         Number = item.Number;
         FullName = item.FullName;
         ShelfLifeDays = item.ShelfLifeDays;
@@ -61,7 +58,7 @@ public class PluEntity : Table1CBase
         Description = item.Description;
     }
 
-    public override string ToString() => $"{Number} | {Name} | {Uid1C} | {Code}";
+    public override string ToString() => $"{Number} | {Name} | {Uid1C}";
     
     public override bool Equals(object obj)
     {
@@ -76,7 +73,6 @@ public class PluEntity : Table1CBase
     public virtual bool Equals(PluEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(IsGroup, item.IsGroup) &&
-        Equals(Code, item.Code) &&
         Equals(StorageMethod, item.StorageMethod) &&
         Equals(Number, item.Number) &&
         Equals(Clip, item.Clip) &&

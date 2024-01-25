@@ -3,7 +3,7 @@
 namespace Ws.WebApiScales.Dto;
 
 [Serializable]
-public class ResponseError
+public sealed class ResponseError
 {
     [XmlAttribute("Guid")]
     public Guid Guid { get; set; }
