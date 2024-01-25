@@ -2,10 +2,10 @@
 using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.Box.Dto;
-using Ws.WebApiScales.Features.Box.Services;
+using Ws.WebApiScales.Features.Boxes.Dto;
+using Ws.WebApiScales.Features.Boxes.Services;
 
-namespace Ws.WebApiScales.Features.Box;
+namespace Ws.WebApiScales.Features.Boxes;
 
 [AllowAnonymous]
 [ApiController]

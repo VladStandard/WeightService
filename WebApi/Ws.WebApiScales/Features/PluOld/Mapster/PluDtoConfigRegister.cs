@@ -1,8 +1,8 @@
 ﻿using Mapster;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.WebApiScales.Features.Plu.Dto;
+using Ws.WebApiScales.Features.PluOld.Dto;
 
-namespace Ws.WebApiScales.Features.Plu.Mapster;
+namespace Ws.WebApiScales.Features.PluOld.Mapster;
 
 internal sealed class PluDtoConfigRegister : IRegister
 {
@@ -37,7 +37,6 @@ internal sealed class PluDtoConfigRegister : IRegister
             .Map(d => d.Number, s => s.PluNumber)
             .Map(d => d.ShelfLifeDays, s => s.ShelfLife)
             .Map(d => d.IsCheckWeight, s => s.IsCheckWeight)
-            .Map(d => d.Code, s => s.Code)
             .Map(d => d.Ean13, s => s.Ean13)
             .Map(d => d.Itf14, s =>  s.IsCheckWeight == true ?  "" : s.Itf14)
             .Map(d => d.Gtin, s => s.IsCheckWeight == true ?  "0" + s.Ean13 : s.Itf14)

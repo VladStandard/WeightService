@@ -3,7 +3,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.WebApiScales.Features.Plu.Dto;
+namespace Ws.WebApiScales.Features.PluOld.Dto;
 
 [Serializable]
 public sealed class PluDto : IXmlSerializable 

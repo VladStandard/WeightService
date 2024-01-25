@@ -10,9 +10,10 @@ using Ws.Domain.Services.Features.StorageMethod;
 using Ws.Shared.TypeUtils;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Plu.Dto;
-using Ws.WebApiScales.Features.Plu.Validators;
+using Ws.WebApiScales.Features.PluOld.Dto;
+using Ws.WebApiScales.Features.PluOld.Validators;
 
-namespace Ws.WebApiScales.Features.Plu.Services;
+namespace Ws.WebApiScales.Features.PluOld.Services;
 
 
 internal sealed class PluApiService(

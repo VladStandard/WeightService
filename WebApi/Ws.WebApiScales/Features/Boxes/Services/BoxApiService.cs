@@ -3,9 +3,10 @@ using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Box;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Box.Dto;
-using Ws.WebApiScales.Features.Box.Validators;
+using Ws.WebApiScales.Features.Boxes.Dto;
+using Ws.WebApiScales.Features.Boxes.Validators;
 
-namespace Ws.WebApiScales.Features.Box.Services;
+namespace Ws.WebApiScales.Features.Boxes.Services;
 
 internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxService) : IBoxApiService
 {

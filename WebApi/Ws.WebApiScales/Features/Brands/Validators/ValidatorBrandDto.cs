@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Ws.WebApiScales.Features.Brand.Dto;
+using Ws.WebApiScales.Features.Brands.Dto;
 
-namespace Ws.WebApiScales.Features.Brand.Validators;
+namespace Ws.WebApiScales.Features.Brands.Validators;
 
 internal sealed class ValidatorBrandDto : AbstractValidator<BrandDto>
 {
@@ -10,10 +10,7 @@ internal sealed class ValidatorBrandDto : AbstractValidator<BrandDto>
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("'Наименование' обязательно")
             .MaximumLength(128).WithMessage("'Наименование' не должно превышать 128 символов.");
-        RuleFor(dto => dto.Code)
-            .NotEmpty().WithMessage("Код' обязателен")
-            .Length(9).WithMessage("'Код' должен состоять из 9 цифр.");
-        RuleFor(dto => dto.Guid)
+        RuleFor(dto => dto.Uid)
             .NotEmpty().WithMessage("'UID' обязателен");
     }
 }

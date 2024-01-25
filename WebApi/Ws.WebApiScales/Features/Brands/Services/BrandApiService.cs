@@ -3,7 +3,9 @@ using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Brand;
 using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Brand.Dto;
-using Ws.WebApiScales.Features.Brand.Validators;
+using Ws.WebApiScales.Features.Brands.Dto;
+using Ws.WebApiScales.Features.Brands.Services;
+using Ws.WebApiScales.Features.Brands.Validators;
 
 namespace Ws.WebApiScales.Features.Brand.Services;
 
@@ -13,15 +15,15 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
 
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        BrandEntity brandDb = brandService.GetByUid1С(brandDto.Guid);
+        BrandEntity brandDb = brandService.GetByUid1С(brandDto.Uid);
         
         brandDb = brandDto.AdaptTo(brandDb);
         
         SqlCoreHelper.Instance.SaveOrUpdate(brandDb);
-        responseDto.AddSuccess(brandDto.Guid, brandDb.Name);
+        responseDto.AddSuccess(brandDto.Uid, brandDb.Name);
     }
     
-    private void IsMarkedBrand(Guid uid)
+    private void DeleteBrand(Guid uid)
     {
         BrandEntity brandDb = brandService.GetByUid1С(uid);
         
@@ -40,9 +42,9 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
     {
         foreach (BrandDto brandDto in brandsWrapper.Brands)
         {
-            if (brandDto.IsMarked)
+            if (brandDto.IsDelete)
             {
-                IsMarkedBrand(brandDto.Guid);
+                DeleteBrand(brandDto.Uid);
                 continue;
             }
             
@@ -54,7 +56,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
                 continue;
             }
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            responseDto.AddError(brandDto.Guid, string.Join(" | ", errors));
+            responseDto.AddError(brandDto.Uid, string.Join(" | ", errors));
         }
     }
 }

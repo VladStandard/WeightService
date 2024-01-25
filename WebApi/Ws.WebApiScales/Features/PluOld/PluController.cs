@@ -2,10 +2,10 @@
 using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.Plu.Dto;
-using Ws.WebApiScales.Features.Plu.Services;
+using Ws.WebApiScales.Features.PluOld.Dto;
+using Ws.WebApiScales.Features.PluOld.Services;
 
-namespace Ws.WebApiScales.Features.Plu;
+namespace Ws.WebApiScales.Features.PluOld;
 
 [AllowAnonymous]
 [ApiController]

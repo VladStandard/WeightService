@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Ws.WebApiScales.Features.Box.Dto;
+namespace Ws.WebApiScales.Features.Boxes.Dto;
 
 [Serializable]
 public sealed class BoxDto

@@ -2,10 +2,10 @@
 using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.Brand.Dto;
-using Ws.WebApiScales.Features.Brand.Services;
+using Ws.WebApiScales.Features.Brands.Dto;
+using Ws.WebApiScales.Features.Brands.Services;
 
-namespace Ws.WebApiScales.Features.Brand;
+namespace Ws.WebApiScales.Features.Brands;
 
 [AllowAnonymous]
 [ApiController]

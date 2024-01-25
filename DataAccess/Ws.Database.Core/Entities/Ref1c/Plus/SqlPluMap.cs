@@ -103,15 +103,7 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.Type(NHibernateUtil.Boolean);
             m.NotNullable(true);
         });
-
-        Property(x => x.Code, m =>
-        {
-            m.Column("CODE");
-            m.Type(NHibernateUtil.String);
-            m.Length(11);
-            m.NotNullable(true);
-        });
-
+        
         Property(x => x.Uid1C, m =>
         {
             m.Column("UID_1C");

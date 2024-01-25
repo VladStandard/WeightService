@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Ws.WebApiScales.Features.Box.Dto;
+using Ws.WebApiScales.Features.Boxes.Dto;
 
-namespace Ws.WebApiScales.Features.Box.Validators;
+namespace Ws.WebApiScales.Features.Boxes.Validators;
 
 internal sealed class ValidatorBoxDto : AbstractValidator<BoxDto>
 {

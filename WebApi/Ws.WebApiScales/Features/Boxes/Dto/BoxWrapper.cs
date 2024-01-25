@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Ws.WebApiScales.Features.Box.Dto;
+namespace Ws.WebApiScales.Features.Boxes.Dto;
 
 [XmlRoot("Boxes")]
 internal sealed class BoxWrapper
