@@ -1,0 +1,31 @@
+@using Ws.Domain.Models.Entities.Diag
+
+
+<SectionDataGridWrapper
+  TItem="TableSizeEntity"
+  GridData="FileTablesData"
+  Title="@Localizer["DataGridColumnDatabaseTables"]"
+  ItemsPerPage="5"
+  IsBorderless
+>
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnScheme"]"
+    Field="@nameof(TableSizeEntity.Schema)"
+    Width="25%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnTable"]"
+    Field="@nameof(TableSizeEntity.Table)"
+    Width="25%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnRowsCount"]"
+    Field="@nameof(TableSizeEntity.RowsCount)"
+    Width="25%"
+  />
+  <DataGridColumn
+    Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
+    Field="@nameof(TableSizeEntity.UsedSpaceMb)"
+    Width="25%"
+  />
+</SectionDataGridWrapper>

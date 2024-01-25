@@ -52,6 +52,5 @@ public static class RouteUtils
     # endregion
 
     public const string SectionQrlQuery = "/{SearchingSectionItemId?}";
-    public const string Profile = "/profile";
     public const string Home = "/";
 }

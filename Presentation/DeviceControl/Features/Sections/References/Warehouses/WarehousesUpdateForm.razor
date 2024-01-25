@@ -26,5 +26,6 @@
     Link="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.ProductionSite.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemDisplayName="item => item.Name"
+    IsFilterable
   />
 </SectionFormWrapper>

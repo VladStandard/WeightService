@@ -15,11 +15,13 @@
   <DataGridColumn
     Caption="@Localizer["DataGridColumnCreateDt"]"
     Field="@nameof(ViewLabel.CreateDt)"
+    Filterable="false"
     Width="10%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnProductDt"]"
     Field="@nameof(ViewLabel.ProductDate)"
+    Filterable="false"
     Width="10%"
   />
   <DataGridColumn
@@ -45,6 +47,7 @@
   <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
     Field="@nameof(ViewLabel.IsCheckWeight)"
+    Filterable="false"
     Width="10%"
   >
     <DisplayTemplate>

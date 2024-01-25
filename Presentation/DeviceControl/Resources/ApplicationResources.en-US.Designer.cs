@@ -276,6 +276,15 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tables.
+        /// </summary>
+        internal static string DataGridColumnDatabaseTables {
+            get {
+                return ResourceManager.GetString("DataGridColumnDatabaseTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string DataGridColumnDescription {

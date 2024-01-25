@@ -51,6 +51,7 @@
     Link="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemDisplayName="item => item.DisplayName"
+    IsFilterable
   />
   <SectionFormInputSelect
     TItem="WarehouseEntity"
@@ -59,5 +60,6 @@
     Link="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.Warehouse"
     ItemDisplayName="item => item.DisplayName"
+    IsFilterable
   />
 </SectionFormWrapper>
