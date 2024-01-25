@@ -2,14 +2,14 @@
 using Ws.Domain.Services.Features.LogWeb;
 using Ws.WebApiScales.Common;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.PluOld.Dto;
-using Ws.WebApiScales.Features.PluOld.Services;
+using Ws.WebApiScales.Features.Plus.Dto;
+using Ws.WebApiScales.Features.Plus.Services;
 
-namespace Ws.WebApiScales.Features.PluOld;
+namespace Ws.WebApiScales.Features.Plus;
 
 [AllowAnonymous]
 [ApiController]
-[Route("api/plu/")]
+[Route("api/plus/")]
 internal sealed class  PluController(
     IPluApiService pluApiService,
     ILogWebService logWebService,

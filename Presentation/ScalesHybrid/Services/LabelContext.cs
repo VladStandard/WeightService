@@ -51,7 +51,7 @@ public class LabelContext: IDisposable
         if (Plu.Equals(sqlPluEntity)) return;
         Plu = sqlPluEntity;
         PluTemplate = PluService.GetPluTemplate(Plu);
-        IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetPluNestings(Plu);
+        IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetAllPluNestings(Plu);
         PluNesting = pluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
         KneadingModel.KneadingCount = 1;
         if (Plu.IsCheckWeight)

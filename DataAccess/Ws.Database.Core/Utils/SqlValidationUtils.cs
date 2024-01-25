@@ -15,7 +15,6 @@ using Ws.Database.Core.Entities.Ref1c.Brands;
 using Ws.Database.Core.Entities.Ref1c.Bundles;
 using Ws.Database.Core.Entities.Ref1c.Clips;
 using Ws.Database.Core.Entities.Ref1c.Plus;
-using Ws.Database.Core.Entities.Scales.PlusFks;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
 using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 using Ws.Database.Core.Entities.Scales.Templates;
@@ -39,7 +38,6 @@ public static class SqlValidationUtils
             BundleEntity bundle => new SqlBundleValidator(isCheckIdentity).Validate(bundle),
             ClipEntity clip => new SqlClipValidator(isCheckIdentity).Validate(clip),
             LogWebEntity logWeb => new SqlLogWebValidator(isCheckIdentity).Validate(logWeb),
-            PluFkEntity pluFk => new SqlPluFkValidator(isCheckIdentity).Validate(pluFk),
             PluEntity plu => new SqlPluValidator(isCheckIdentity).Validate(plu),
             PluNestingEntity nestingFk => new SqlPluNestingFkValidator(isCheckIdentity).Validate(nestingFk),
             PluLineEntity pluScale => new SqlPluLineValidator(isCheckIdentity).Validate(pluScale),

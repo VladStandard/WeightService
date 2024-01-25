@@ -9,9 +9,5 @@ public sealed class SqlBrandValidator : SqlTableValidator<BrandEntity>
         RuleFor(item => item.Name)
             .NotNull()
             .MaximumLength(128);
-        RuleFor(item => item.Code)
-            .NotEmpty()
-            .NotNull()
-            .Length(9);
     }
 }

@@ -20,5 +20,5 @@ public sealed partial class PlusNestingDataGrid : SectionDataGridBase<PluNesting
     [Parameter, EditorRequired] public PluEntity PluEntity { get; set; } = null!;
 
     protected override void SetSqlSectionCast() =>
-        SectionItems = PluService.GetPluNestings(PluEntity);
+        SectionItems = PluService.GetAllPluNestings(PluEntity);
 }

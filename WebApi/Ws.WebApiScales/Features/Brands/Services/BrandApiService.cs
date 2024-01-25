@@ -2,12 +2,10 @@
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Brand;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.Brand.Dto;
 using Ws.WebApiScales.Features.Brands.Dto;
-using Ws.WebApiScales.Features.Brands.Services;
 using Ws.WebApiScales.Features.Brands.Validators;
 
-namespace Ws.WebApiScales.Features.Brand.Services;
+namespace Ws.WebApiScales.Features.Brands.Services;
 
 internal sealed class BrandApiService(ResponseDto responseDto, IBrandService brandService) : IBrandApiService
 {

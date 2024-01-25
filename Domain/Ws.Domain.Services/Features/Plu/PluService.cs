@@ -1,7 +1,6 @@
 ﻿using Ws.Database.Core.Entities.Ref.Lines;
 using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Database.Core.Entities.Ref1c.Plus;
-using Ws.Database.Core.Entities.Scales.PlusFks;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
 using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 using Ws.Database.Core.Helpers;
@@ -19,14 +18,13 @@ public class PluService : IPluService
     
     public IEnumerable<PluEntity> GetAllNotGroup() => new SqlPluRepository().GetEnumerableNotGroup();
     
-    public IEnumerable<PluNestingEntity> GetPluNestings(PluEntity plu) =>
-        new SqlPluNestingFkRepository().GetEnumerableByPluUidActual(plu);
+    public void DeleteAllPluNestings(PluEntity plu) => new SqlPluNestingFkRepository().DeleteAllPluNestings(plu);
 
-    public PluNestingEntity GetDefaultNesting(PluEntity plu) =>
-        new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
+    public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu) => new SqlPluNestingFkRepository().GetEnumerableByPlu(plu);
+
+    public PluNestingEntity GetDefaultNesting(PluEntity plu) => new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
     
-    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) =>
-        new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
+    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
 
     public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C)
     {
@@ -34,8 +32,9 @@ public class PluService : IPluService
         if (nesting.IsExists) SqlCoreHelper.Instance.Delete(nesting);
     }
     
-    public TemplateEntity GetPluTemplate(PluEntity plu) => 
-        new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
+    public TemplateEntity GetPluTemplate(PluEntity plu) => new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
+    
+    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids) => new SqlPluRepository().GetPluUid1CInRange(uniquePluGuids);
     
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
@@ -43,9 +42,4 @@ public class PluService : IPluService
         PluEntity plu = new SqlPluRepository().GetByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
     }
-
-    public PluFkEntity GetParent(PluEntity plu) => new SqlPluFkRepository().GetByPlu(plu);
-
-    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids) =>
-        new SqlPluRepository().GetPluUid1CInRange(uniquePluGuids);
 }

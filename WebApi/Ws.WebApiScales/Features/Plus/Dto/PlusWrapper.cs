@@ -1,11 +1,11 @@
 ﻿using System.Xml.Serialization;
 using Ws.WebApiScales.Common;
 
-namespace Ws.WebApiScales.Features.PluOld.Dto;
+namespace Ws.WebApiScales.Features.Plus.Dto;
 
-[XmlRoot("Nomenclatures")]
+[XmlRoot("Plus")]
 internal sealed class PlusWrapper : BaseWrapper
 {
-    [XmlElement("Nomenclature")]
+    [XmlElement("Plu")]
     public List<PluDto> Plus { get; set; } = [];
 }
