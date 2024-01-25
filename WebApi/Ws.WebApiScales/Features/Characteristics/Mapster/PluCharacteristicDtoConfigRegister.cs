@@ -1,17 +1,16 @@
 ﻿using Mapster;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.WebApiScales.Features.Nesting.Dto;
+using Ws.WebApiScales.Features.Characteristics.Dto;
 
-namespace Ws.WebApiScales.Features.Nesting.Mapster;
+namespace Ws.WebApiScales.Features.Characteristics.Mapster;
 
 internal sealed class PluCharacteristicDtoConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<PluCharacteristicDto, PluNestingEntity>()
-            .Map(d => d.Name, s => s.Name)
-            .Map(d => d.BundleCount, s => s.AttachmentsCountAsInt)
-            .Map(d => d.Uid1C, s => s.Guid)
+        config.NewConfig<CharacteristicDto, PluNestingEntity>()
+            .Map(d => d.BundleCount, s => s.BundleCount)
+            .Map(d => d.Uid1C, s => s.Uid)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }

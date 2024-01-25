@@ -21,9 +21,10 @@ internal class BoxService : IBoxService
     public BoxEntity GetDefault()
     {
         BoxEntity entity = GetByUid1С(Guid.Empty);
-        entity.Name = "Без коробки";
-        entity.Weight = 0;
-        SqlCoreHelper.Instance.SaveOrUpdate(entity);
+        if (entity.IsExists) return entity;
+
+        entity = new() { Name = "Без коробки", Weight = 0, Uid1C = Guid.Empty };
+        SqlCoreHelper.Instance.Save(entity);
         return entity;
     }
 }

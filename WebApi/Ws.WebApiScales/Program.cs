@@ -4,8 +4,8 @@ using Ws.WebApiScales.Dto;
 using Ws.WebApiScales.Features.Boxes.Services;
 using Ws.WebApiScales.Features.Brands.Services;
 using Ws.WebApiScales.Features.Bundles.Services;
+using Ws.WebApiScales.Features.Characteristics.Services;
 using Ws.WebApiScales.Features.Clips.Services;
-using Ws.WebApiScales.Features.Nesting.Services;
 using Ws.WebApiScales.Features.Plus.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
