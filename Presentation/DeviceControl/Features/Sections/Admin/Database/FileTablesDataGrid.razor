@@ -3,29 +3,41 @@
 
 <SectionDataGridWrapper
   TItem="TableSizeEntity"
-  GridData="FileTablesData"
-  Title="@Localizer["DataGridColumnDatabaseTables"]"
+  GridData="DbFileData.Tables"
+  Title="@DbFileData.FileName"
   ItemsPerPage="5"
   IsBorderless
 >
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnScheme"]"
-    Field="@nameof(TableSizeEntity.Schema)"
-    Width="25%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnTable"]"
-    Field="@nameof(TableSizeEntity.Table)"
-    Width="25%"
-  />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnRowsCount"]"
-    Field="@nameof(TableSizeEntity.RowsCount)"
-    Width="25%"
-  />
-  <DataGridColumn
-    Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
-    Field="@nameof(TableSizeEntity.UsedSpaceMb)"
-    Width="25%"
-  />
+  <DataGridButtons>
+    <div class="px-2 items-center py-1 truncate shrink-0 bg-sky-300 border flex gap-2 border-black/[.1] rounded-md overflow-hidden">
+      <p class="text-sm font-medium text-white">
+        @DbFileData.SizeMb / @DbFileData.MaxSizeMb
+      </p>
+      <p class="text-sm font-medium text-white">
+        @Localizer["UtilsSizeMb"]
+      </p>
+    </div>
+  </DataGridButtons>
+  <ChildContent>
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnScheme"]"
+      Field="@nameof(TableSizeEntity.Schema)"
+      Width="25%"
+    />
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnTable"]"
+      Field="@nameof(TableSizeEntity.Table)"
+      Width="25%"
+    />
+    <DataGridColumn
+      Caption="@Localizer["DataGridColumnRowsCount"]"
+      Field="@nameof(TableSizeEntity.RowsCount)"
+      Width="25%"
+    />
+    <DataGridColumn
+      Caption="@($"{Localizer["DataGridColumnSize"]} ({Localizer["UtilsSizeMb"]})")"
+      Field="@nameof(TableSizeEntity.UsedSpaceMb)"
+      Width="25%"
+    />
+  </ChildContent>
 </SectionDataGridWrapper>

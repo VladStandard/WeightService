@@ -22,15 +22,15 @@ public sealed partial class DatabaseFilesDataGrid: ComponentBase
     private IEnumerable<DbFileSizeInfoEntity> DbFileSizesData { get; set; } = [];
     private SectionDataGridWrapper<DbFileSizeInfoEntity>? DataGridWrapperRef { get; set; }
     
-    private async Task GetDbFilesData() => 
-        await Task.Run(() => DbFileSizesData = DatabaseFileService.GetAll());
+    private async Task GetDbFilesData() => await Task.Run(() =>
+        DbFileSizesData = DatabaseFileService.GetAll().Where(item => item.Tables.Count != 0));
     
         
     private async Task OpenTablesDataGridModal(DbFileSizeInfoEntity sectionEntity)
     {
         await ModalService.Show<DatabaseFilesDialog>(p =>
         {
-            p.Add(x => x.FileTablesData, sectionEntity.Tables);
+            p.Add(x => x.DbFileData, sectionEntity);
             p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
         });
     }
