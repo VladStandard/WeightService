@@ -17,13 +17,13 @@ public static class NameFormatting
     {
         if (box.Uid1C == Guid.Empty) return string.Empty;
         string[] boxNameWords = box.Name.Split(" ");
-        return $"{string.Join(" ", boxNameWords.Take(2))} {box.Weight}г";
+        return $"{string.Join(" ", boxNameWords.Take(2))} {box.Weight}кг";
     }
 
     private static string FormatBundleName(BundleEntity bundle, short bundleCount)
     {
         if (bundle.Uid1C == Guid.Empty) return string.Empty;
         string firstBundleWord = bundle.Name.Split(" ").FirstOrDefault() ?? string.Empty;
-        return $"{firstBundleWord} {(int)(bundle.Weight * 1000)}x{bundleCount}";
+        return $"{firstBundleWord} {bundle.Weight}кг * {bundleCount}шт";
     }
 }
