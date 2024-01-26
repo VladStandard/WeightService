@@ -35,21 +35,15 @@ public sealed class SqlPluValidator : SqlTableValidator<PluEntity>
         RuleFor(item => item.Number)
             .NotNull()
             .GreaterThanOrEqualTo((short)0)
-            .LessThanOrEqualTo((short)10_999)
-            .When(item => !item.IsGroup);
+            .LessThanOrEqualTo((short)10_999);
         RuleFor(item => item.FullName)
-            .NotNull()
-            .When(item => !item.IsGroup);
+            .NotEmpty();
         RuleFor(item => item.Number)
-            .NotNull()
-            //.NotEmpty()
-            .When(item => item.IsGroup);
+            .NotEmpty();
         RuleFor(item => item.FullName)
-            .NotNull()
-            .When(item => item.IsGroup);
+            .NotEmpty();
         RuleFor(item => item.Bundle)
             .NotEmpty()
-            .NotNull()
             .SetValidator(new SqlBundleValidator(isCheckIdentity));
         RuleFor(item => item.Brand)
             .NotEmpty()

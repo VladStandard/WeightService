@@ -16,7 +16,7 @@ public class PluService : IPluService
     
     public PluEntity GetByUid1С(Guid uid) => new SqlPluRepository().GetByUid1C(uid);
     
-    public IEnumerable<PluEntity> GetAllNotGroup() => new SqlPluRepository().GetEnumerableNotGroup();
+    public IEnumerable<PluEntity> GetAll() => new SqlPluRepository().GetEnumerable();
     
     public void DeleteAllPluNestings(PluEntity plu) => new SqlPluNestingFkRepository().DeleteAllPluNestings(plu);
 
@@ -34,12 +34,14 @@ public class PluService : IPluService
     
     public TemplateEntity GetPluTemplate(PluEntity plu) => new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
     
-    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids) => new SqlPluRepository().GetPluUid1CInRange(uniquePluGuids);
-    
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
         LineEntity line = new SqlLineRepository().GetItemByName(lineName);
         PluEntity plu = new SqlPluRepository().GetByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
+    }
+    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids)
+    {
+        throw new NotImplementedException();
     }
 }

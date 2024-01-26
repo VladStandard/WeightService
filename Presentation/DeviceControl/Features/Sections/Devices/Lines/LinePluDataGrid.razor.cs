@@ -31,7 +31,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        SelectPluEntities = PluService.GetAllNotGroup();
+        SelectPluEntities = PluService.GetAll();
         SelectedPluEntities = LineService.GetLinePlus(LineEntity);
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }

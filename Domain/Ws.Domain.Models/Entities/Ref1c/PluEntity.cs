@@ -8,7 +8,6 @@ namespace Ws.Domain.Models.Entities.Ref1c;
 [DebuggerDisplay("{ToString()}")]
 public class PluEntity : Table1CBase
 {
-    public virtual bool IsGroup { get; set; }
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; }
     public virtual byte ShelfLifeDays { get; set; }
@@ -30,7 +29,6 @@ public class PluEntity : Table1CBase
         FullName = string.Empty;
         Gtin = string.Empty;
         IsCheckWeight = false;
-        IsGroup = default;
         Itf14 = string.Empty;
         Number = default;
         ShelfLifeDays = default;
@@ -43,7 +41,6 @@ public class PluEntity : Table1CBase
 
     public PluEntity(PluEntity item) : base(item)
     {
-        IsGroup = item.IsGroup;
         Number = item.Number;
         FullName = item.FullName;
         ShelfLifeDays = item.ShelfLifeDays;
@@ -72,7 +69,6 @@ public class PluEntity : Table1CBase
     
     public virtual bool Equals(PluEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(IsGroup, item.IsGroup) &&
         Equals(StorageMethod, item.StorageMethod) &&
         Equals(Number, item.Number) &&
         Equals(Clip, item.Clip) &&

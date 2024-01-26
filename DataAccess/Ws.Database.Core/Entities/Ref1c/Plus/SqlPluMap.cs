@@ -30,13 +30,6 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.NotNullable(true);
         });
         
-        Property(x => x.IsGroup, m =>
-        {
-            m.Column("IS_GROUP");
-            m.Type(NHibernateUtil.Boolean);
-            m.NotNullable(true);
-        });
-
         Property(x => x.Number, m =>
         {
             m.Column("NUMBER");

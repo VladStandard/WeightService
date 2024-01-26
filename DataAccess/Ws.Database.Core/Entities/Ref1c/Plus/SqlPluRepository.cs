@@ -19,24 +19,12 @@ public sealed class SqlPluRepository : IUid1CRepo<PluEntity>, IUidRepo<PluEntity
         return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(sqlCrudConfig);
     }
     
-    public IEnumerable<PluEntity> GetEnumerableNotGroup()
-    {
-        SqlCrudConfigModel crud = new();
-        crud.AddFilter(SqlRestrictions.Equal(nameof(PluEntity.IsGroup), false));
-        return GetEnumerable(crud);
-    }
+    public IEnumerable<PluEntity> GetEnumerable() => GetEnumerable(new());
     
     public IEnumerable<PluEntity> GetEnumerableByNumber(short number)
     {
         SqlCrudConfigModel sqlCrudConfig = new();
         sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(PluEntity.Number), number));
         return GetEnumerable(sqlCrudConfig);
-    }
-    
-    public IEnumerable<PluEntity> GetPluUid1CInRange(List<Guid> uidList)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.In(nameof(PluEntity.Uid1C), uidList));
-        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(sqlCrudConfig);
     }
 }

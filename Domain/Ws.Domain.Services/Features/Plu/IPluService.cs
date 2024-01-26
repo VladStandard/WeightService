@@ -5,9 +5,8 @@ using Ws.Domain.Services.Common;
 
 namespace Ws.Domain.Services.Features.Plu;
 
-public interface IPluService : IUid<PluEntity>, IUid1C<PluEntity>
+public interface IPluService : IUid<PluEntity>, IUid1C<PluEntity>, IAll<PluEntity>
 {
-    public IEnumerable<PluEntity> GetAllNotGroup();
     public void DeleteAllPluNestings(PluEntity plu);
     public PluNestingEntity GetDefaultNesting(PluEntity plu);
     public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu);
@@ -15,5 +14,4 @@ public interface IPluService : IUid<PluEntity>, IUid1C<PluEntity>
     public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C);
     public TemplateEntity GetPluTemplate(PluEntity plu);
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluUid, string lineName);
-    IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids);
 }
