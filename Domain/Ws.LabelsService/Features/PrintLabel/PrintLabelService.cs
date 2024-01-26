@@ -24,16 +24,6 @@ public class PrintLabelService(IPluService pluService) : IPrintLabelService
         if (!result.IsValid) throw new LabelException(result);
         LabelDto label = LabelGenerator.GenerateLabel(labelInfo);
 
-        PalletEntity pallet = new()
-        {
-            Kneading = labelInfo.Kneading,
-            ProductDt = labelInfo.ProductDt,
-            ExpirationDt = labelInfo.ExpirationDt,
-            Line = pluLine.Line,
-            Plu = pluLine.Plu,
-        };
-        SqlCoreHelper.Instance.Save(pallet);
-
         LabelEntity labelSql = new()
         {
             Zpl = label.Context,
@@ -42,7 +32,11 @@ public class PrintLabelService(IPluService pluService) : IPrintLabelService
             BarcodeTop = label.BarcodeTop,
             WeightNet = labelInfo.Weight,
             WeightTare = labelInfo.WeightTare,
-            Pallet = pallet
+            Kneading = labelInfo.Kneading,
+            ProductDt = labelInfo.ProductDt,
+            ExpirationDt = labelInfo.ExpirationDt,
+            Line = pluLine.Line,
+            Plu = pluLine.Plu,
         };
         SqlCoreHelper.Instance.Save(labelSql); 
         

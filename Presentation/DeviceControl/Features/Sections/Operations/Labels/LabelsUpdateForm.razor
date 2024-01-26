@@ -12,18 +12,18 @@
     IsCopyable
   />
   <SectionFormInputText
-    Value="@GetPluTypeTitle(SectionEntity.Pallet.Plu.IsCheckWeight)"
+    Value="@GetPluTypeTitle(SectionEntity.Plu.IsCheckWeight)"
     Label="@Localizer["DataGridColumnIsWeight"]"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Pallet.Line.Name"
+    Value="@SectionEntity.Line.Name"
     Label="@Localizer["DataGridColumnLine"]"
     Link="@GetLineLink()"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Pallet.Plu.DisplayName"
+    Value="@SectionEntity.Plu.DisplayName"
     Label="@Localizer["DataGridColumnPlu"]"
     Link="@GetPluLink()"
     IsDisabled
@@ -35,12 +35,12 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Pallet.ProductDt.ToString("dd.MM.yyyy HH:mm")"
+    Value="@SectionEntity.ProductDt.ToString("dd.MM.yyyy HH:mm")"
     Label="@Localizer["DataGridColumnProductDt"]"
     IsDisabled
   />
   <SectionFormInputText
-    Value="@SectionEntity.Pallet.ExpirationDt.ToString("dd.MM.yyyy HH:mm")"
+    Value="@SectionEntity.ExpirationDt.ToString("dd.MM.yyyy HH:mm")"
     Label="@Localizer["DataGridColumnExpirationDt"]"
     IsDisabled
   />

@@ -22,36 +22,16 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-
-        Property(x => x.ProductDt, m =>
+        
+        Property(x => x.Counter, m =>
         {
-            m.Column("PROD_DT");
+            m.Column("COUNTER");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        Property(x => x.ExpirationDt, m =>
-        {
-            m.Column("EXPIRATION_DT");
-            m.Type(NHibernateUtil.DateTime);
-            m.NotNullable(true);
-        });
-        
-        Property(x => x.Kneading, m =>
-        {
-            m.Column("KNEADING");
-            m.Type(NHibernateUtil.Int16);
-            m.NotNullable(true);
-        });
-        
-        ManyToOne(x => x.Plu, m => {
-            m.Column("PLU_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
-        });
-        
-        ManyToOne(x => x.Line, m => {
-            m.Column("LINE_UID");
+        ManyToOne(x => x.PalletMan, m => {
+            m.Column("PALLET_MAN_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

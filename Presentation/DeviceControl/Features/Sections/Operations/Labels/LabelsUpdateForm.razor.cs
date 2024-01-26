@@ -24,7 +24,7 @@ public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
-        Template = PluService.GetPluTemplate(SectionEntity.Pallet.Plu);
+        Template = PluService.GetPluTemplate(SectionEntity.Plu);
     }
 
     private string GetPluTypeTitle(bool isWeight) =>
@@ -33,9 +33,9 @@ public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
     private string GetTemplateLink() => Template.IsNew ? 
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
     
-    private string GetLineLink() => SectionEntity.Pallet.Line.IsNew ? 
-        string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Pallet.Line.IdentityValueUid}";
+    private string GetLineLink() => SectionEntity.Line.IsNew ? 
+        string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.IdentityValueUid}";
     
-    private string GetPluLink() => SectionEntity.Pallet.Plu.IsNew ? 
-        string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Pallet.Plu.IdentityValueUid}";
+    private string GetPluLink() => SectionEntity.Plu.IsNew ? 
+        string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Plu.IdentityValueUid}";
 }

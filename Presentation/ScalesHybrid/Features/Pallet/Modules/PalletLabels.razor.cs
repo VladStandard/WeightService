@@ -39,5 +39,5 @@ public sealed partial class PalletLabels: ComponentBase
     
     private bool OnCustomFilter(LabelEntity entity) =>
         string.IsNullOrEmpty(SearchingNumber) ||
-        entity.Pallet.Plu.Number.ToString().Contains(SearchingNumber, StringComparison.OrdinalIgnoreCase);
+        entity.Plu.Number.ToString().Contains(SearchingNumber, StringComparison.OrdinalIgnoreCase);
 }

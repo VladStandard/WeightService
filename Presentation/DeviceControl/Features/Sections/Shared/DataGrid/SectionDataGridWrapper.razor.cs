@@ -4,8 +4,6 @@ using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 

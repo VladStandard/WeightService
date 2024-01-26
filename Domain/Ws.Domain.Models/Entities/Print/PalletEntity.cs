@@ -2,34 +2,28 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
 public class PalletEntity : EntityBase
 {
-    public virtual LineEntity Line { get; set; }
-    public virtual PluEntity Plu { get; set; }
-    public virtual DateTime ProductDt { get; set; }
-    public virtual DateTime ExpirationDt { get => ProductDt.AddDays(Plu.ShelfLifeDays); set => _ = value; }
-    public virtual short Kneading { get; set; }
+    public virtual PalletManEntity PalletMan { get; set; }
+    public virtual string Barcode { get; set; }
+    public virtual int Counter { get; set; }
     
     public PalletEntity() : base(SqlEnumFieldIdentity.Uid)
     {
-        Plu = new();
-        Line = new();
-        ProductDt = DateTime.MinValue;
-        ExpirationDt = DateTime.MinValue;
+        PalletMan = new();
+        Barcode = string.Empty;
+        Counter = 0;
     }
 
     public PalletEntity(PalletEntity item) : base(item)
     {
-        Line = new(item.Line);
-        Plu = new(item.Plu);
-        ProductDt = item.ProductDt;
-        ExpirationDt = item.ExpirationDt;
-        Kneading = item.Kneading;
+        PalletMan = new(item.PalletMan);
+        Barcode = item.Barcode;
+        Counter = item.Counter;
     }
     
     public override bool Equals(object obj)
@@ -44,9 +38,7 @@ public class PalletEntity : EntityBase
 
     public virtual bool Equals(PalletEntity item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(ProductDt, item.ProductDt) &&
-        Equals(ExpirationDt, item.ExpirationDt) &&
-        Equals(Plu, item.Plu) &&
-        Equals(Line, item.Line) && 
-        Equals(Kneading, item.Kneading);
+        Equals(Counter, item.Counter) &&
+        Equals(PalletMan, item.PalletMan) &&
+        Equals(Barcode, item.Barcode);
 }

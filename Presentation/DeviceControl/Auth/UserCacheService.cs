@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Windows.System;
 using DeviceControl.Auth.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Ws.Database.Core.Helpers;

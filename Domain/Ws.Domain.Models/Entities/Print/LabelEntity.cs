@@ -1,6 +1,9 @@
 // ReSharper disable VirtualMemberCallInConstructor
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Utils;
 
 namespace Ws.Domain.Models.Entities.Print;
 
@@ -14,15 +17,28 @@ public class LabelEntity : EntityBase
     public virtual string BarcodeBottom { get; set; }
     public virtual decimal WeightNet { get; set; }
     public virtual decimal WeightTare { get; set; }
-    public virtual PalletEntity Pallet { get; set; }
+    public virtual short Kneading { get; set; }
+    public virtual PalletEntity? Pallet { get; set; }
+    public virtual PluEntity Plu { get; set; }
+    public virtual LineEntity Line { get; set; }
+    public virtual DateTime ProductDt { get; set; }
+    public virtual DateTime ExpirationDt { get; set; }
     
     public LabelEntity() : base(SqlEnumFieldIdentity.Uid)
     {
+        Pallet = null;
+
+        Plu = new();
+        Line = new();
         Zpl = string.Empty;
+        Kneading = 0;
+        
+        ProductDt = SqlTypeUtils.MinDateTime;
+        ExpirationDt = SqlTypeUtils.MinDateTime;
+        
         BarcodeRight = string.Empty;
         BarcodeBottom = string.Empty;
         BarcodeTop = string.Empty;
-        Pallet = new();
     }
 
     public LabelEntity(LabelEntity item) : base(item)
@@ -33,7 +49,12 @@ public class LabelEntity : EntityBase
         BarcodeRight = item.BarcodeRight;
         WeightNet = item.WeightNet;
         WeightTare = item.WeightTare;
-        Pallet = new(item.Pallet);
+        Kneading = item.Kneading;
+        ProductDt = item.ProductDt;
+        ExpirationDt = item.ExpirationDt;
+        Plu = new(item.Plu);
+        Line = new(item.Line);
+        if (item.Pallet != null) Pallet = new(item.Pallet);
     }
 
     #endregion
@@ -50,10 +71,7 @@ public class LabelEntity : EntityBase
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public override String ToString()
-    {
-        return $"{CreateDt} : {Pallet.Plu}";
-    }
+    public override string ToString() => $"{CreateDt} : {Plu.Name}";
 
     #endregion
 
@@ -67,6 +85,11 @@ public class LabelEntity : EntityBase
         Equals(BarcodeBottom, item.BarcodeBottom) &&
         Equals(WeightNet, item.WeightNet) &&
         Equals(WeightTare, item.WeightTare) &&
+        Equals(ProductDt, item.ProductDt) &&
+        Equals(ExpirationDt, item.ExpirationDt) &&
+        Equals(Kneading, item.Kneading) &&
+        Equals(Plu, item.Plu) &&
+        Equals(Line, item.Line) &&
         Equals(Pallet, item.Pallet);
 
     #endregion

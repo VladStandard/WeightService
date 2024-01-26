@@ -66,6 +66,39 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
         
         ManyToOne(x => x.Pallet, m => {
             m.Column("PALLET_UID");
+            m.NotNullable(false);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+        
+        Property(x => x.ProductDt, m =>
+        {
+            m.Column("PROD_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.ExpirationDt, m =>
+        {
+            m.Column("EXPIRATION_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+        
+        Property(x => x.Kneading, m =>
+        {
+            m.Column("KNEADING");
+            m.Type(NHibernateUtil.Int16);
+            m.NotNullable(true);
+        });
+        
+        ManyToOne(x => x.Plu, m => {
+            m.Column("PLU_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+        
+        ManyToOne(x => x.Line, m => {
+            m.Column("LINE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

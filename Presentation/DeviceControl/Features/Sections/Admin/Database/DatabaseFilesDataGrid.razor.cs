@@ -1,13 +1,9 @@
 using Blazorise;
-using Blazorise.DataGrid;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Entities;
-using Ws.Database.Core.Entities.Diag.TableSizes;
 using Ws.Domain.Models.Entities;
-using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Features.DatabaseFile;
 
 namespace DeviceControl.Features.Sections.Admin.Database;
