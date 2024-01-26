@@ -50,5 +50,6 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
         return Task.CompletedTask;
     }
 
-    private bool IsUserActive(string userName) => UserNames.Any(i => i == userName);
+    private bool IsUserActive(string userName) => UserNames.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase))
+    ;
 }

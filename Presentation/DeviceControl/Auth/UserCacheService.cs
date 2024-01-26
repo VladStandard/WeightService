@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
+using Windows.System;
 using DeviceControl.Auth.Common;
 using Microsoft.Extensions.Caching.Memory;
+using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.User;
 
@@ -40,7 +42,7 @@ public class UserCacheService(IMemoryCache cache, IUserService userService) : IU
         _cachedUsernames.Clear();
     }
 
-    public List<string> GetCachedUsernames()
+    public IEnumerable<String> GetCachedUsernames()
     {
         return _cachedUsernames;
     }
@@ -48,7 +50,11 @@ public class UserCacheService(IMemoryCache cache, IUserService userService) : IU
     private Task<List<Claim>> GetUserRightsFromRepositoryAsync(string username)
     {
         List<Claim> rights = [];
+        
         UserEntity user = userService.GetItemByNameOrCreate(username);
+        user.LoginDt = DateTime.Now;
+        SqlCoreHelper.Instance.Update(user);
+        
         rights.AddRange(user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)));
         return Task.FromResult(rights);
     }

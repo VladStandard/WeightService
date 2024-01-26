@@ -11,12 +11,12 @@ using Ws.LabelsService.Features.PrintLabel.Validators;
 
 namespace Ws.LabelsService.Features.PrintLabel;
 
-public class PrintLabelService : IPrintLabelService
+public class PrintLabelService(IPluService pluService) : IPrintLabelService
 {
     public string GenerateLabel(LabelInfoDto labelInfo)
     {
         LabelInfoValidator validator = new();
-        PluLineEntity pluLine = new PluService().GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);
+        PluLineEntity pluLine = pluService.GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);
         
         if (pluLine.IsNew) throw new();
         

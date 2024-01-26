@@ -40,8 +40,4 @@ public class PluService : IPluService
         PluEntity plu = new SqlPluRepository().GetByUid1C(pluGuid);
         return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
     }
-    public IEnumerable<PluEntity> GetInRange(List<Guid> uniquePluGuids)
-    {
-        throw new NotImplementedException();
-    }
 }
