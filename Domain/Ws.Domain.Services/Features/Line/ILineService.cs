@@ -1,10 +1,10 @@
 ﻿using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Line;
 
-public interface ILineService : IUid<LineEntity>, IAll<LineEntity>
+public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>
 {
     public LineEntity GetCurrentLine();
 
@@ -13,6 +13,5 @@ public interface ILineService : IUid<LineEntity>, IAll<LineEntity>
     
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line);
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line);
-    public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line);
-    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse);
+    // public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line);
 }

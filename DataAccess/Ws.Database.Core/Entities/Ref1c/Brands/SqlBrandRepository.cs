@@ -1,22 +1,21 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandRepository : IUid1CRepo<BrandEntity>, IUidRepo<BrandEntity>
+public sealed class SqlBrandRepository : IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>
 {
     public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BrandEntity>(uid);
     
     public BrandEntity GetByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCrud<BrandEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<BrandEntity>().Add(SqlRestrictions.EqualUid1C(uid1C));
+        return SqlCoreHelper.Instance.GetItemByCriteria<BrandEntity>(criteria);
     }
     
-    public IEnumerable<BrandEntity> GetEnumerable()
+    public IEnumerable<BrandEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<BrandEntity>(crud);
+        DetachedCriteria criteria = DetachedCriteria.For<BrandEntity>().AddOrder(SqlOrder.NameAsc());
+        return SqlCoreHelper.Instance.GetEnumerable<BrandEntity>(criteria);
     }
 }

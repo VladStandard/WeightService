@@ -6,9 +6,9 @@ namespace Ws.Domain.Services.Features.Label;
 
 internal class LabelService : ILabelService
 {
-    public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LabelEntity>(uid);
+    public LabelEntity GetItemByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LabelEntity>(uid);
 
-    public IEnumerable<ViewLabel> GetAll() => new ViewLabelRepository().GetList(new());
+    public IEnumerable<ViewLabel> GetAll() => new ViewLabelRepository().GetAll();
 
     public ViewLabel GetViewByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<ViewLabel>(uid);
 }

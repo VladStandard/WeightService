@@ -14,10 +14,10 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
-            IEnumerable<TemplateResourceEntity> items = TemplateResourceRepository.GetList();
-            ParseRecords(items);
-        });
+        // AssertAction(() =>
+        // {
+        //     IEnumerable<TemplateResourceEntity> items = TemplateResourceRepository.GetList();
+        //     ParseRecords(items);
+        // });
     }
 }

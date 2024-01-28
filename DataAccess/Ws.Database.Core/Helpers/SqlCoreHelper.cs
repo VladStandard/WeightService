@@ -76,22 +76,6 @@ public sealed class SqlCoreHelper
     #endregion
     
     #region Public and private methods - Base
-
-    private static ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
-    {
-        ICriteria criteria = session.CreateCriteria(typeof(T));
-        
-        if (sqlCrudConfig.SelectTopRowsCount > 0)
-            criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
-
-        foreach (ICriterion filter in sqlCrudConfig.Filters)
-            criteria.Add(filter);
-        
-        foreach (Order order in sqlCrudConfig.Orders)
-            criteria.AddOrder(order);
-        
-        return criteria;
-    }
     
     private void ExecuteSelectCore(Action<ISession> action)
     {
@@ -182,13 +166,13 @@ public sealed class SqlCoreHelper
     #endregion
     
     #region Public and private methods - GetItem
-
-    public T GetItemByCrud<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
+    
+    public T GetItemByCriteria<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            ICriteria criteria = detachedCriteria.GetExecutableCriteria(session);
             item = criteria.UniqueResult<T>();
         });
         return item ?? new();
@@ -196,27 +180,28 @@ public sealed class SqlCoreHelper
     
     public T GetItemByUid<T>(Guid uid) where T : EntityBase, new()
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueUid),  uid));
-        return GetItemByCrud<T>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<T>()
+            .Add(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueUid), uid));
+        return GetItemByCriteria<T>(criteria);
     }
 
     public T GetItemById<T>(long id) where T : EntityBase, new() {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueId),  id));
-        return GetItemByCrud<T>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<T>()
+            .Add(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueId),  id));
+        return GetItemByCriteria<T>(criteria);
     }
 
     #endregion
 
     #region Public and private methods - GetList
 
-    public IEnumerable<T> GetEnumerable<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
+    public IEnumerable<T> GetEnumerable<T>(DetachedCriteria? detachedCriteria = null) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         ExecuteSelectCore(session =>
         {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
+            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) : 
+                session.CreateCriteria<T>();
             items = criteria.List<T>();
         });
         return items;

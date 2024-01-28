@@ -1,12 +1,13 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Core.Entities.Print.ViewLabels;
 
-public sealed class ViewLabelRepository
+public sealed class ViewLabelRepository : IGetAll<ViewLabel>
 {
-    public IEnumerable<ViewLabel> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<ViewLabel> GetAll()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCoreHelper.Instance.GetEnumerable<ViewLabel>(sqlCrudConfig).ToList();
+        DetachedCriteria criteria = DetachedCriteria.For<ViewLabel>().AddOrder(SqlOrder.CreateDtDesc());
+        return SqlCoreHelper.Instance.GetEnumerable<ViewLabel>(criteria).ToList();
     }
 }

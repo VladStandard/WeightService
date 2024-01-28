@@ -1,11 +1,11 @@
 ﻿using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Plu;
 
-public interface IPluService : IUid<PluEntity>, IUid1C<PluEntity>, IAll<PluEntity>
+public interface IPluService : IGetItemByUid<PluEntity>, IGetItemByUid1C<PluEntity>, IGetAll<PluEntity>
 {
     public void DeleteAllPluNestings(PluEntity plu);
     public PluNestingEntity GetDefaultNesting(PluEntity plu);

@@ -28,6 +28,6 @@ public sealed partial class Logs1CDataGrid: SectionDataGridBase<LogWebEntity>
     protected override IEnumerable<LogWebEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [LogWebService.GetByUid(itemUid)];
+        return [LogWebService.GetItemByUid(itemUid)];
     }
 }

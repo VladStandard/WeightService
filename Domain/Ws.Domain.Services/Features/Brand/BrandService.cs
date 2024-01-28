@@ -8,7 +8,7 @@ internal class BrandService : IBrandService
 {
     public BrandEntity GetDefault()
     {
-        BrandEntity brand = GetByUid1С(Guid.Empty);
+        BrandEntity brand = GetItemByUid1С(Guid.Empty);
         if (brand.IsExists) return brand;
 
         brand = new() { Name = "Без бренда", Uid1C = Guid.Empty };
@@ -16,7 +16,7 @@ internal class BrandService : IBrandService
         return brand;
     }
     
-    public BrandEntity GetByUid(Guid uid) => new SqlBrandRepository().GetByUid(uid);
-    public BrandEntity GetByUid1С(Guid uid) => new SqlBrandRepository().GetByUid1C(uid);
-    public IEnumerable<BrandEntity> GetAll() => new SqlBrandRepository().GetEnumerable();
+    public BrandEntity GetItemByUid(Guid uid) => new SqlBrandRepository().GetByUid(uid);
+    public BrandEntity GetItemByUid1С(Guid uid) => new SqlBrandRepository().GetByUid1C(uid);
+    public IEnumerable<BrandEntity> GetAll() => new SqlBrandRepository().GetAll();
 }

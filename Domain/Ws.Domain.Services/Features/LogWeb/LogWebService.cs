@@ -6,8 +6,8 @@ namespace Ws.Domain.Services.Features.LogWeb;
 
 internal class LogWebService : ILogWebService
 {
-    public LogWebEntity GetByUid(Guid uid) => new SqlLogWebRepository().GetByUid(uid);
-    public IEnumerable<LogWebEntity> GetAll() => new SqlLogWebRepository().GetList(new());
+    public LogWebEntity GetItemByUid(Guid uid) => new SqlLogWebRepository().GetByUid(uid);
+    public IEnumerable<LogWebEntity> GetAll() => new SqlLogWebRepository().GetList();
     
     public void Save(DateTime requestStampDt, string request, string response, string url, int success, int errors)
     {

@@ -31,6 +31,6 @@ public sealed partial class ProductionSitesDataGrid: SectionDataGridBase<Product
     protected override IEnumerable<ProductionSiteEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [ProductionSiteService.GetByUid(itemUid)];
+        return [ProductionSiteService.GetItemByUid(itemUid)];
     }
 }

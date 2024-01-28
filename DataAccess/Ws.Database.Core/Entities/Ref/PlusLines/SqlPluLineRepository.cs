@@ -1,32 +1,31 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref.PlusLines;
 
-public sealed class SqlPluLineRepository
+public sealed class SqlPluLineRepository : IGetListByCriteria<PluLineEntity>
 {
     public PluLineEntity GetItemByLinePlu(LineEntity line, PluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilters([
-            SqlRestrictions.EqualFk(nameof(PluLineEntity.Line), line),
-            SqlRestrictions.EqualFk(nameof(PluLineEntity.Plu), plu)
-        ]);
-        return SqlCoreHelper.Instance.GetItemByCrud<PluLineEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<PluLineEntity>()
+            .Add(SqlRestrictions.EqualFk(nameof(PluLineEntity.Line), line))
+            .Add(SqlRestrictions.EqualFk(nameof(PluLineEntity.Plu), plu));
+        return SqlCoreHelper.Instance.GetItemByCriteria<PluLineEntity>(criteria);
     }
     
-    public IEnumerable<PluLineEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<PluLineEntity> GetListByCriteria(DetachedCriteria criteria)
     {
-        IEnumerable<PluLineEntity> items = SqlCoreHelper.Instance.GetEnumerable<PluLineEntity>(sqlCrudConfig);
-        items = items.OrderBy(item => item.Plu.Number);
-        return items.ToList();
+        criteria.CreateAlias(nameof(PluLineEntity.Plu), "plu")
+            .AddOrder(SqlOrder.Asc($"plu.{nameof(PluEntity.Number)}"));
+        return SqlCoreHelper.Instance.GetEnumerable<PluLineEntity>(criteria);
     }
-
+    
     public IEnumerable<PluLineEntity> GetListByLine(LineEntity line)
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddFilter(SqlRestrictions.EqualFk(nameof(PluLineEntity.Line), line));
-        return GetList(crud).OrderBy(i => i.Plu.Number);
+        DetachedCriteria criteria = DetachedCriteria.For<PluLineEntity>()
+            .Add(SqlRestrictions.EqualFk(nameof(PluLineEntity.Line), line));
+        return GetListByCriteria(criteria);
     }
     
     public IEnumerable<PluLineEntity> GetWeightListByLine(LineEntity line)

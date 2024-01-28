@@ -31,6 +31,6 @@ public sealed partial class StorageMethodsDataGrid : SectionDataGridBase<Storage
     protected override IEnumerable<StorageMethodEntity>  SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [StorageMethodService.GetByUid(itemUid)];
+        return [StorageMethodService.GetItemByUid(itemUid)];
     }
 }

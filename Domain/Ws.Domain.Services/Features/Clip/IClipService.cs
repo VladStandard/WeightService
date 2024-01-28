@@ -1,9 +1,9 @@
 ﻿using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Clip;
 
-public interface IClipService : IUid<ClipEntity>, IAll<ClipEntity>, IUid1C<ClipEntity>
+public interface IClipService : IGetItemByUid<ClipEntity>, IGetAll<ClipEntity>, IGetItemByUid1C<ClipEntity>
 {
     ClipEntity GetDefault();
 }

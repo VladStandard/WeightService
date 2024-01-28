@@ -1,25 +1,25 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
-public class SqlTemplateResourceRepository : IUidRepo<TemplateResourceEntity>
+public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
 {
     public TemplateResourceEntity GetByUid(Guid uid) =>
         SqlCoreHelper.Instance.GetItemByUid<TemplateResourceEntity>(uid);
     
-    public IEnumerable<TemplateResourceEntity> GetList()
+    public IEnumerable<TemplateResourceEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        IEnumerable<TemplateResourceEntity> items = SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(crud);
-        return items
-            .OrderBy(item => item.Name);
+        DetachedCriteria criteria = DetachedCriteria.For<TemplateResourceEntity>()
+            .AddOrder(SqlOrder.NameAsc());
+        return SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(criteria);
     }
     
     public TemplateResourceEntity GetByName(string name)
     {
-        SqlCrudConfigModel model = new();
-        model.AddFilter(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCrud<TemplateResourceEntity>(model);
+        DetachedCriteria criteria = DetachedCriteria.For<TemplateResourceEntity>()
+            .Add(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name));
+        return SqlCoreHelper.Instance.GetItemByCriteria<TemplateResourceEntity>(criteria);
    
     }
 }

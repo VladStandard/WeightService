@@ -1,37 +1,26 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : IUidRepo<LineEntity>
+public sealed class SqlLineRepository : IGetItemByUid<LineEntity>, IGetItemByCriteria<LineEntity>
 {
     public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
-    
-    private IEnumerable<LineEntity>GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+
+    public IEnumerable<LineEntity> GetAll()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(LineEntity.Name)));
-        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(sqlCrudConfig);
-    }
-    
-    public IEnumerable<LineEntity> GetAll() => GetEnumerable(new());
-    
-    public LineEntity GetItemByPcName(string pcName)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.PcName), pcName));
-        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
+            .AddOrder(SqlOrder.NameAsc());
+        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(criteria);
     }
     
     public LineEntity GetItemByName(string name)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
+            .Add(SqlRestrictions.Equal(nameof(LineEntity.Name), name));
+        return SqlCoreHelper.Instance.GetItemByCriteria<LineEntity>(criteria);
     }
-    
-    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(LineEntity.Warehouse), warehouse));
-        return GetEnumerable(sqlCrudConfig);
-    }
+
+    public LineEntity GetItemByCriteria(DetachedCriteria criteria) =>
+        SqlCoreHelper.Instance.GetItemByCriteria<LineEntity>(criteria);
 }

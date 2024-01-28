@@ -1,9 +1,9 @@
 ﻿using Ws.Domain.Models.Entities.Diag;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.LogWeb;
 
-public interface ILogWebService : IUid<LogWebEntity>
+public interface ILogWebService : IGetItemByUid<LogWebEntity>
 {
     IEnumerable<LogWebEntity> GetAll();
 

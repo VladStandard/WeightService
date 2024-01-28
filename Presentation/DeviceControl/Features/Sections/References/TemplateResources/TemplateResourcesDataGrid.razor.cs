@@ -30,7 +30,7 @@ public sealed partial class TemplateResourcesDataGrid: SectionDataGridBase<Templ
     protected override IEnumerable<TemplateResourceEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [TemplateResourceService.GetByUid(itemUid)];
+        return [TemplateResourceService.GetItemByUid(itemUid)];
     }
     
     private static string ConvertBytes(int fileSize) =>

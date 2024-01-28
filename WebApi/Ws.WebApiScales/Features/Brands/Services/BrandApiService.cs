@@ -13,7 +13,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
 
     private void UpdateOrCreate(BrandDto brandDto)
     {
-        BrandEntity brandDb = brandService.GetByUid1С(brandDto.Uid);
+        BrandEntity brandDb = brandService.GetItemByUid1С(brandDto.Uid);
         
         brandDb = brandDto.AdaptTo(brandDb);
         
@@ -23,7 +23,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
     
     private void DeleteBrand(Guid uid)
     {
-        BrandEntity brandDb = brandService.GetByUid1С(uid);
+        BrandEntity brandDb = brandService.GetItemByUid1С(uid);
         
         if (brandDb.IsNew)
         {

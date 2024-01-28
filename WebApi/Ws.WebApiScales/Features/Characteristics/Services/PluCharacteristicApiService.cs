@@ -18,7 +18,7 @@ internal sealed class PluCharacteristicApiService(
     {
         foreach (PluCharacteristicDto pluCharacteristicDto in characteristics.PluCharacteristics)
         {
-            PluEntity pluDb = pluService.GetByUid1С(pluCharacteristicDto.Uid);
+            PluEntity pluDb = pluService.GetItemByUid1С(pluCharacteristicDto.Uid);
             
             if (pluDb.IsNew)
             {
@@ -51,8 +51,12 @@ internal sealed class PluCharacteristicApiService(
                 }
                 
                 PluNestingEntity nesting = pluService.GetNestingByUid1C(pluDb, characteristic.Uid);
-                
-                if (nesting.IsNew) boxService.GetDefaultForCharacteristic();
+
+                if (nesting.IsNew)
+                {
+                    BoxEntity box = boxService.GetDefaultForCharacteristic();
+                    nesting.Box = box;
+                }
                     
                 nesting.Plu = pluDb;
                 nesting = characteristic.AdaptTo(nesting);

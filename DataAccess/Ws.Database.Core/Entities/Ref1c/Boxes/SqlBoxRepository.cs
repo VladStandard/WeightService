@@ -1,22 +1,24 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Boxes;
 
-public sealed class SqlBoxRepository : IUid1CRepo<BoxEntity>, IUidRepo<BoxEntity>
+public sealed class SqlBoxRepository : IGetItemByUid1C<BoxEntity>, IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>
 {
     public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BoxEntity>(uid);
     
     public BoxEntity GetByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCrud<BoxEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<BoxEntity>()
+            .Add(SqlRestrictions.EqualUid1C(uid1C));
+        return SqlCoreHelper.Instance.GetItemByCriteria<BoxEntity>(criteria);
     }
-    public IEnumerable<BoxEntity> GetEnumerable()
+    
+    public IEnumerable<BoxEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.Asc(nameof(BoxEntity.Weight)));
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<BoxEntity>(crud);
+        DetachedCriteria criteria = DetachedCriteria.For<BoxEntity>()
+            .AddOrder(SqlOrder.Asc(nameof(BoxEntity.Weight)))
+            .AddOrder(SqlOrder.NameAsc());
+        return SqlCoreHelper.Instance.GetEnumerable<BoxEntity>(criteria);
     }
 }

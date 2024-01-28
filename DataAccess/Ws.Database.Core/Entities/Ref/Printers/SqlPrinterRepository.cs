@@ -1,16 +1,16 @@
-﻿using Ws.Domain.Models.Entities.Ref;
+﻿using Ws.Database.Core.Common.Queries;
+using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
 
-public class SqlPrinterRepository : IUidRepo<PrinterEntity>
+public class SqlPrinterRepository : IGetItemByUid<PrinterEntity>, IGetAll<PrinterEntity>
 {
     public PrinterEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PrinterEntity>(uid);
     
-    public IEnumerable<PrinterEntity> GetEnumerable()
+    public IEnumerable<PrinterEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.NameAsc());
-        IEnumerable<PrinterEntity> items = SqlCoreHelper.Instance.GetEnumerable<PrinterEntity>(crud);
-        return items.OrderBy(item => item.Type);
+        DetachedCriteria criteria = DetachedCriteria.For<PrinterEntity>()
+            .AddOrder(SqlOrder.NameAsc()).AddOrder(Order.Asc(nameof(PrinterEntity.Type)));
+        return SqlCoreHelper.Instance.GetEnumerable<PrinterEntity>(criteria);
     }
 }

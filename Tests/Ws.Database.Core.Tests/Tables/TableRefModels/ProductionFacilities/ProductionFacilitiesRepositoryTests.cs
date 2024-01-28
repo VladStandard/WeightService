@@ -13,7 +13,7 @@ public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<ProductionSiteEntity> items = ProductionSiteRepository.GetEnumerable();
+            IEnumerable<ProductionSiteEntity> items = ProductionSiteRepository.GetAll();
             ParseRecords(items);
         });
     }

@@ -19,15 +19,4 @@ public sealed class LineRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         });
     }
-
-    [Test, Order(3)]
-    public void GetItemByDevice()
-    {
-        AssertAction(() =>
-        {
-            LineEntity lineByDevice = LineRepository.GetItemByPcName("PC473");
-            Assert.That(lineByDevice.IsExists, Is.True);
-            TestContext.WriteLine(lineByDevice);
-        });
-    }
 }

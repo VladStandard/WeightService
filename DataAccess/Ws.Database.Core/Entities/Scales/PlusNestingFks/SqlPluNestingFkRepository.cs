@@ -1,43 +1,39 @@
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
-public sealed class SqlPluNestingFkRepository
+public sealed class SqlPluNestingFkRepository : IGetListByCriteria<PluNestingEntity>
 {
-    public IEnumerable<PluNestingEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<PluNestingEntity> GetListByCriteria(DetachedCriteria criteria)
     {
-        return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(sqlCrudConfig).OrderBy(x => x.Plu.Number);
+        criteria.CreateAlias(nameof(PluNestingEntity.Plu), "plu")
+            .AddOrder(SqlOrder.Asc($"plu.{nameof(PluEntity.Number)}"));
+        return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(criteria);
     }
     
     public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu));
-        sqlCrudConfig.AddOrder(SqlOrder.Desc(nameof(PluNestingEntity.Uid1C)));
-        return SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<PluNestingEntity>()
+            .Add(SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu));
+        return GetListByCriteria(criteria);
     }
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        
-        sqlCrudConfig.AddFilters([
-            SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), uid1C),
-            SqlRestrictions.EqualFk(nameof(PluNestingEntity.Plu), plu)
-        ]);
-        
-        return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<PluNestingEntity>()
+            .Add(SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), uid1C))
+            .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu));
+        return SqlCoreHelper.Instance.GetItemByCriteria<PluNestingEntity>(criteria);
     }
     
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilters([
-            SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), Guid.Empty),
-            SqlRestrictions.EqualFk(nameof(PluTemplateFkEntity.Plu), plu)
-        ]);
-        return SqlCoreHelper.Instance.GetItemByCrud<PluNestingEntity>(sqlCrudConfig);
+        DetachedCriteria criteria = DetachedCriteria.For<PluNestingEntity>()
+            .Add(SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), Guid.Empty))
+            .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu));
+        return SqlCoreHelper.Instance.GetItemByCriteria<PluNestingEntity>(criteria);
     }
     
     public void DeleteAllPluNestings(PluEntity plu)

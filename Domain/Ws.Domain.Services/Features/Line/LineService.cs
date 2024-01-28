@@ -1,4 +1,5 @@
 ﻿using MDSoft.NetUtils;
+using NHibernate.Criterion;
 using Ws.Database.Core.Entities.Ref.Lines;
 using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Database.Core.Helpers;
@@ -11,7 +12,7 @@ internal class LineService : ILineService
 {
     public IEnumerable<LineEntity> GetAll() => new SqlLineRepository().GetAll();
     
-    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
+    public LineEntity GetItemByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
     
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line)
     {
@@ -33,15 +34,23 @@ internal class LineService : ILineService
     {
         return new SqlPluLineRepository().GetPieceListByLine(line).Select(i => i.Plu);
     }
-    
-    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse)
-    {
-        return new SqlLineRepository().GetLinesByWarehouse(warehouse);
-    }
 
     public LineEntity GetCurrentLine()
     {
-        return new SqlLineRepository().GetItemByPcName(MdNetUtils.GetLocalDeviceName(false));
+        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
+            .Add(Restrictions.Eq(nameof(LineEntity.PcName), MdNetUtils.GetLocalDeviceName(false)));
+        return new SqlLineRepository().GetItemByCriteria(criteria);
     }
 }
-    
+
+
+
+
+// public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line)
+// {
+//     DetachedCriteria criteria = DetachedCriteria.For<PluEntity>()
+//         .CreateAlias(nameof(PluLineEntity), "pluLine")
+//         .Add(SqlRestrictions.EqualFk($"pluLine.{nameof(PluLineEntity.Line)}", line))
+//         .Add(SqlRestrictions.Equal(nameof(PluEntity.IsCheckWeight), true));
+//     return new SqlPluRepository().GetListByCriteria(criteria);
+// }

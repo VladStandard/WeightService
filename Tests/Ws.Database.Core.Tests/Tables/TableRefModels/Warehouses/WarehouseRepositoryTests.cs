@@ -13,7 +13,7 @@ public sealed class WarehouseRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<WarehouseEntity> items = WarehousesRepository.GetEnumerable();
+            IEnumerable<WarehouseEntity> items = WarehousesRepository.GetAll();
             ParseRecords(items);
         });
     }

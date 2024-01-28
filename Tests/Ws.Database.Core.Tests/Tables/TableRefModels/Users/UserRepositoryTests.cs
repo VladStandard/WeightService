@@ -21,7 +21,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<UserEntity> items = new SqlUserRepository().GetEnumerable();
+            IEnumerable<UserEntity> items = new SqlUserRepository().GetAll();
             ParseRecords(items);
         });
     }

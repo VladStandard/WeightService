@@ -14,7 +14,7 @@ public sealed class BoxRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<BoxEntity> items = BoxRepository.GetEnumerable();
+            IEnumerable<BoxEntity> items = BoxRepository.GetAll();
             ParseRecords(items);
         });
     }

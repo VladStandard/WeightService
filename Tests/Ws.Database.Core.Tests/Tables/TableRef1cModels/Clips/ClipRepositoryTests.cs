@@ -13,7 +13,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<ClipEntity> items = ClipRepository.GetEnumerable();
+            IEnumerable<ClipEntity> items = ClipRepository.GetAll();
             ParseRecords(items);
         });
     }

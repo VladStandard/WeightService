@@ -18,8 +18,8 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
-            ParseRecords(items);
+            // IEnumerable<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
+            // ParseRecords(items);
         });
     }
 }

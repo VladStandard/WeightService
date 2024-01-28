@@ -12,11 +12,11 @@ namespace Ws.Domain.Services.Features.Plu;
 
 public class PluService : IPluService
 {
-    public PluEntity GetByUid(Guid uid) => new SqlPluRepository().GetByUid(uid);
+    public PluEntity GetItemByUid(Guid uid) => new SqlPluRepository().GetByUid(uid);
     
-    public PluEntity GetByUid1С(Guid uid) => new SqlPluRepository().GetByUid1C(uid);
+    public PluEntity GetItemByUid1С(Guid uid) => new SqlPluRepository().GetByUid1C(uid);
     
-    public IEnumerable<PluEntity> GetAll() => new SqlPluRepository().GetEnumerable();
+    public IEnumerable<PluEntity> GetAll() => new SqlPluRepository().GetAll();
     
     public void DeleteAllPluNestings(PluEntity plu) => new SqlPluNestingFkRepository().DeleteAllPluNestings(plu);
 

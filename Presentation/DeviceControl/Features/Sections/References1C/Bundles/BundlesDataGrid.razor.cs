@@ -29,6 +29,6 @@ public sealed partial class BundlesDataGrid: SectionDataGridBase<BundleEntity>
     protected override IEnumerable<BundleEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [BundleService.GetByUid(itemUid)];
+        return [BundleService.GetItemByUid(itemUid)];
     }
 }
