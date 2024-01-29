@@ -87,7 +87,7 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Управление Устройствами.
+        ///   Looks up a localized string similar to Управление устройствами.
         /// </summary>
         internal static string ApplicationName {
             get {

@@ -1,3 +1,4 @@
+@using Ws.Shared.Utils
 @attribute [Route(RouteUtils.Home)]
 
 
@@ -15,7 +16,10 @@
           <p class="text-3xl">Этикетка</p>
         </button>
       </a>
-      <a href="@RouteUtils.Pallet">
+      <a
+        class="@(!ConfigurationUtil.IsDevelop ? "hidden" : "" )"
+        href="@RouteUtils.Pallet"
+      >
         <button
           type="button"
           class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"

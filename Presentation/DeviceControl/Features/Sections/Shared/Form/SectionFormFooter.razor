@@ -5,15 +5,15 @@
       @if (CreateDate != null)
       {
         <div class="w-1/2 px-10 truncate items-center flex gap-2">
-          <p class="font-normal">@Localizer["DataGridColumnCreateDt"]:</p>
-          <p>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</p>
+          <span>@Localizer["DataGridColumnCreateDt"]:</span>
+          <span>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
       @if (ChangeDate != null)
       {
         <div class="w-1/2 px-10 truncate flex-items flex gap-2">
-          <p class="font-normal">@Localizer["DataGridColumnChangeDt"]:</p>
-          <p>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</p>
+          <span>@Localizer["DataGridColumnChangeDt"]:</span>
+          <span>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
     </div>
@@ -24,17 +24,17 @@
       <button
         type="button"
         @onclick="CloseModal"
-        class="h-9 bg-red-300 transition-colors flex items-center w-32 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-red-400">
-        <p class="font-normal pt-[1px]">@Localizer["ButtonCancel"]</p>
+        class="h-9 transition-colors flex items-center w-32 justify-center overflow-hidden rounded-md border hover:bg-neutral-100"
+      >
+        <span class="pt-[1px]">@Localizer["ButtonCancel"]</span>
       </button>
       <button
         type="button"
         @onclick="ExecuteSubmitWithTimeout"
         disabled="@IsSubmitDisabled"
-        class="h-9 bg-green-300 transition-colors flex items-center w-32 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-green-400 disabled:bg-green-500 disabled:hover:bg-green-600">
-        <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
+        class="h-9 bg-neutral-900 transition-colors flex items-center w-32 justify-center overflow-hidden text-white
+                  rounded-md border border-black/[.1] hover:bg-neutral-800 disabled:bg-neutral-700">
+        <span class="pt-[1px]">@Localizer["ButtonSave"]</span>
       </button>
     }
   </div>

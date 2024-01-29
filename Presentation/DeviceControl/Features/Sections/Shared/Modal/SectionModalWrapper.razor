@@ -1,4 +1,6 @@
 @using Ws.Shared.Enums
+
+
 <div class="rounded-md overflow-hidden">
   <SectionModalHeader>
     <ul class="w-full h-full flex items-center gap-2 justify-center">
@@ -12,7 +14,7 @@
             class="px-4 py-1 rounded-md overflow-hidden transition-colors
                     @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")"
           >
-            <p class="text-black pt-[1px] font-normal">@item.Name</p>
+            <p class="text-black pt-[1px]">@item.Name</p>
           </button>
         </li>
       }
