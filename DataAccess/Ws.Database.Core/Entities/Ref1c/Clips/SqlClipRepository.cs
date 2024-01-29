@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref1c.Clips;
 
 public sealed class SqlClipRepository : IGetItemByUid1C<ClipEntity>, IGetItemByUid<ClipEntity>, IGetAll<ClipEntity>
 {
-    public ClipEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<ClipEntity>(uid);
+    public ClipEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<ClipEntity>(uid);
     
     public IEnumerable<ClipEntity> GetAll()
     {

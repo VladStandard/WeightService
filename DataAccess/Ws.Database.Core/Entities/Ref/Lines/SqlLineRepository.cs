@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref.Lines;
 
 public sealed class SqlLineRepository : IGetItemByUid<LineEntity>, IGetItemByCriteria<LineEntity>
 {
-    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
+    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LineEntity>(uid);
 
     public IEnumerable<LineEntity> GetAll()
     {

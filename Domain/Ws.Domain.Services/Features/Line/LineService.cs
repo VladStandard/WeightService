@@ -12,7 +12,7 @@ internal class LineService : ILineService
 {
     public IEnumerable<LineEntity> GetAll() => new SqlLineRepository().GetAll();
     
-    public LineEntity GetItemByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
+    public LineEntity GetItemByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LineEntity>(uid);
     
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line)
     {

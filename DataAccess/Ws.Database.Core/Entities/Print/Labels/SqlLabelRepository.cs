@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Print.Labels;
 
 public sealed class SqlLabelRepository : IGetItemByUid<LabelEntity>, IGetListByCriteria<LabelEntity>
 {
-    public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LabelEntity>(uid);
+    public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LabelEntity>(uid);
     
     public IEnumerable<LabelEntity> GetListByCriteria(DetachedCriteria criteria)
     {

@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref.StorageMethods;
 
 public class SqlStorageMethodRepository : IGetItemByUid<StorageMethodEntity>
 {
-    public StorageMethodEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<StorageMethodEntity>(uid);
+    public StorageMethodEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<StorageMethodEntity>(uid);
     
     public IEnumerable<StorageMethodEntity> GetList()
     {

@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref.Warehouses;
 
 public sealed class SqlWarehouseRepository : IGetItemByUid<WarehouseEntity>, IGetAll<WarehouseEntity>
 {
-    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<WarehouseEntity>(uid);
+    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<WarehouseEntity>(uid);
     
     public IEnumerable<WarehouseEntity> GetAll()
     {

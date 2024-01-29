@@ -6,7 +6,7 @@ namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
 {
     public TemplateResourceEntity GetByUid(Guid uid) =>
-        SqlCoreHelper.Instance.GetItemByUid<TemplateResourceEntity>(uid);
+        SqlCoreHelper.Instance.GetItemById<TemplateResourceEntity>(uid);
     
     public IEnumerable<TemplateResourceEntity> GetAll()
     {

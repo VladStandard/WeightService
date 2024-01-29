@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref1c.Boxes;
 
 public sealed class SqlBoxRepository : IGetItemByUid1C<BoxEntity>, IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>
 {
-    public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BoxEntity>(uid);
+    public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BoxEntity>(uid);
     
     public BoxEntity GetByUid1C(Guid uid1C)
     {

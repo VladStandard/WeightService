@@ -6,7 +6,7 @@ namespace Ws.Database.Core.Entities.Ref1c.Plus;
 public sealed class SqlPluRepository : IGetItemByUid1C<PluEntity>, IGetItemByUid<PluEntity>, IGetAll<PluEntity>, 
     IGetListByCriteria<PluEntity>
 {
-    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
+    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PluEntity>(uid);
     
     public PluEntity GetByUid1C(Guid uid1C)
     {

@@ -1,10 +1,10 @@
 using System.Reflection;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using NHibernate.Transform;
 using Ws.Database.Core.Listeners;
 using Ws.Domain.Models.Common;
 
@@ -14,15 +14,15 @@ public sealed class SqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private static SqlCoreHelper _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static SqlCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
-    
+
     private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     private ISessionFactory SessionFactory { get; set; } = null!;
     private Configuration SqlConfiguration { get; set; } = new();
@@ -39,12 +39,12 @@ public sealed class SqlCoreHelper
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
-        
+
         SqlSettingsModels sqlSettingsModels = new();
         sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
         return sqlSettingsModels;
     }
-    
+
     private void SetSqlConfiguration()
     {
         SqlSettingsModels = LoadJsonConfig();
@@ -60,7 +60,7 @@ public sealed class SqlCoreHelper
         SqlConfiguration.EventListeners.PreUpdateEventListeners =
             [new SqlChangeDtListener()];
     }
-    
+
     #endregion
 
     #region Public and private methods - Base
@@ -72,11 +72,11 @@ public sealed class SqlCoreHelper
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
     }
-    
+
     #endregion
-    
+
     #region Public and private methods - Base
-    
+
     private void ExecuteSelectCore(Action<ISession> action)
     {
         using ISession session = SessionFactory.OpenSession();
@@ -118,36 +118,16 @@ public sealed class SqlCoreHelper
             session.Close();
         }
     }
-    
-    private ISQLQuery? GetSqlQuery(ISession session, string query, IEnumerable<SqlParameter> parameters)
-    {
-        if (string.IsNullOrEmpty(query)) return null;
 
-        ISQLQuery sqlQuery = session.CreateSQLQuery(query);
-        foreach (SqlParameter parameter in parameters)
-        {
-            if (parameter.Value is byte[] imagedata)
-                sqlQuery.SetParameter(parameter.ParameterName, imagedata);
-            else
-                sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
-        }
-        return sqlQuery;
-    }
-    
-    #endregion
-    
+     #endregion
+
     #region CRUD
 
     public void SaveOrUpdate<T>(T item) where T : EntityBase
     {
-        if (item.IsNew) 
-        {
-            Save(item);
-            return;
-        }
-        Update(item);
+        ExecuteTransactionCore(session => session.SaveOrUpdate(item));
     }
-    
+
     public void Save<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Save(item));
@@ -162,33 +142,28 @@ public sealed class SqlCoreHelper
     {
         ExecuteTransactionCore(session => session.Delete(item));
     }
-    
+
     #endregion
-    
+
     #region Public and private methods - GetItem
-    
+
     public T GetItemByCriteria<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
     {
         T? item = null;
-        ExecuteSelectCore(session =>
-        {
+        ExecuteSelectCore(session => {
             ICriteria criteria = detachedCriteria.GetExecutableCriteria(session);
             item = criteria.UniqueResult<T>();
         });
         return item ?? new();
     }
-    
-    public T GetItemByUid<T>(Guid uid) where T : EntityBase, new()
-    {
-        DetachedCriteria criteria = DetachedCriteria.For<T>()
-            .Add(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueUid), uid));
-        return GetItemByCriteria<T>(criteria);
-    }
 
-    public T GetItemById<T>(long id) where T : EntityBase, new() {
-        DetachedCriteria criteria = DetachedCriteria.For<T>()
-            .Add(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueId),  id));
-        return GetItemByCriteria<T>(criteria);
+    public T GetItemById<T>(object id) where T : EntityBase, new()
+    {
+        T? item = null;
+        ExecuteSelectCore(session => {
+            item = session.Get<T>(id);
+        });
+        return item ?? new();
     }
 
     #endregion
@@ -198,36 +173,23 @@ public sealed class SqlCoreHelper
     public IEnumerable<T> GetEnumerable<T>(DetachedCriteria? detachedCriteria = null) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
-        ExecuteSelectCore(session =>
-        {
-            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) : 
+        ExecuteSelectCore(session => {
+            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) :
                 session.CreateCriteria<T>();
             items = criteria.List<T>();
         });
         return items;
     }
-    
-    public IEnumerable<Object> GetArrayObjects(string query, List<SqlParameter>? parameters = null)
+
+    public IEnumerable<TObject> GetArrayObjects<TObject>(string sqlQuery)
     {
-        parameters ??= [];
-        object[] result = Array.Empty<object>();
-        ExecuteSelectCore(session =>
-        {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is null)
-                return;
-            
-            IList? listEntities = sqlQuery.List();
-            result = new object[listEntities.Count];
-            for (int i = 0; i < result.Length; i++)
-            {
-                if (listEntities[i] is object[] records)
-                    result[i] = records;
-                else
-                    result[i] = listEntities[i];
-            }
+        IEnumerable<TObject> items = Enumerable.Empty<TObject>();
+        ExecuteSelectCore(session => {
+            ISQLQuery? query = session.CreateSQLQuery(sqlQuery);
+            query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
+            items = query.List<TObject>();
         });
-        return result;
+        return items;
     }
     
     #endregion

@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Ref.Claims;
 
 public sealed class SqlClaimRepository : IGetItemByUid<ClaimEntity>, IGetAll<ClaimEntity>
 {
-    public ClaimEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<ClaimEntity>(uid);
+    public ClaimEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<ClaimEntity>(uid);
     
     public IEnumerable<ClaimEntity> GetAll()
     {
