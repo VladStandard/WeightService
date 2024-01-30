@@ -6,7 +6,9 @@
     @bind-value="Value"
     @bind-value:after="OnValueChanged"
     disabled="@IsDisabled"
-    class="mb-[4px] border border-black/[.3] rounded focus:ring-0 focus:ring-offset-0"
+    class="mb-[4px] border border-black/[.3] rounded focus:ring-0 focus:ring-offset-0 dark:border-neutral-800"
   />
-  <label class="truncate">@Label</label>
+  <label class="truncate font-light text-sm text-gray-700 dark:text-neutral-300">
+    @Label
+  </label>
 </div>

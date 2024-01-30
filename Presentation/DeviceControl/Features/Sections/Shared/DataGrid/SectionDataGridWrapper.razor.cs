@@ -83,7 +83,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     }
     
     private static void RowStyling(TItem item, DataGridRowStyling styling) =>
-        styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-neutral-100";
+        styling.Class = "transition-colors !border-y !border-black/[.1] dark:!text-neutral-200 hover:bg-neutral-100 dark:hover:!bg-neutral-950";
     
     
     private static DataGridRowStyling HeaderRowStyling() =>
@@ -92,7 +92,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     private static void SelectedRowStyling(TItem item, DataGridRowStyling styling)
     {
         styling.Color = new("e5e5e5");
-        styling.Class = "!bg-neutral-200 !text-black";
+        styling.Class = "!bg-neutral-200 !text-black dark:!text-neutral-200 dark:!bg-neutral-900";
     }
     
     private static void SelectedCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
@@ -101,10 +101,13 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     private static void CellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
         styling.Class = "font-light truncate";
     
-    private string GetSpinnerStyle() => $"h-5 w-5 text-white {(IsLoading ? "animate-spin" : "")}";
+    private string GetSpinnerStyle() => $"h-5 w-5 text-white dark:text-black {(IsLoading ? "animate-spin" : "")}";
 
     private string GetTableStyle() =>
-        $"table-fixed {(!GetIsPagerNeeded() ? "[&>tbody>tr:last-child]:!border-b-0 !mb-0" : "")}";
+        $"table-fixed [&_thead_tr]:!bg-inherit dark:[&_thead]:!text-neutral-200 [&_thead]:!bg-inherit [&_tbody_tr]:bg-inherit" +
+        $" dark:!bg-black dark:[&_tbody_tr]:!border-neutral-800 dark:[&_thead_tr]:!border-neutral-800" +
+        $" dark:[&_thead_tr_th_input]:bg-neutral-950 dark:[&_thead_tr_th_input]:border-neutral-800" +
+        $" {(!GetIsPagerNeeded() ? "[&>tbody>tr:last-child]:!border-b-0 !mb-0" : "")}";
 
     private bool GetIsPagerNeeded() => !IsGroupable && (GridData.Count() > ItemsPerPage || IsBorderless);
     

@@ -1,20 +1,3 @@
-.blazorise-select-override button {
-  padding-left: 0.625rem !important;
-  padding-right: 0.625rem !important;
-  width: 100%;
-}
-
-.blazorise-select-override span {
-  width: 100%;
-  text-align: left;
-}
-
-.blazorise-select-override .b-dropdown-menu {
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.15);
-  overflow-y: auto !important;
-}
-
 .snackbar-stack {
   padding-bottom: 3rem !important;
 }
@@ -34,10 +17,20 @@
 .select-button span {
   width: 100%;
   text-align: left;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-weight: 300;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: dark;
+  }
+  .b-modal-fade {
+    background-color: rgba(20, 20, 20, 0.7) !important;
+  }
 }

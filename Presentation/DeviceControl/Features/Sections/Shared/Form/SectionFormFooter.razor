@@ -1,7 +1,7 @@
-<div class="w-full !mt-0 bg-white border-t border-t-black/[.1] gap-3 py-4 flex flex-col">
+<div class="w-full !mt-0 bg-white border-t border-t-black/[.1] gap-3 py-4 flex flex-col dark:bg-black dark:border-t-neutral-800">
   @if (CreateDate != null || ChangeDate != null)
   {
-    <div class="flex px-4 items-center w-full">
+    <div class="flex px-4 items-center w-full text-neutral-700 text-sm font-light dark:text-neutral-400">
       @if (CreateDate != null)
       {
         <div class="w-1/2 px-10 truncate items-center flex gap-2">
@@ -24,7 +24,7 @@
       <button
         type="button"
         @onclick="CloseModal"
-        class="h-9 transition-colors flex items-center w-32 justify-center overflow-hidden rounded-md border hover:bg-neutral-100"
+        class="h-9 transition-colors flex items-center w-32 justify-center overflow-hidden rounded-md border hover:bg-neutral-100 dark:hover:bg-neutral-900"
       >
         <span class="pt-[1px]">@Localizer["ButtonCancel"]</span>
       </button>

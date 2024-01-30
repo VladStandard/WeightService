@@ -7,13 +7,13 @@
   IsBorderless
 >
   <DataGridButtons>
-    <div class="px-2 items-center py-1 truncate shrink-0 bg-sky-300 border flex gap-2 border-black/[.1] rounded-md overflow-hidden">
-      <p class="text-sm font-medium text-white">
+    <div class="px-2 items-center py-1 truncate text-sm font-light shrink-0 border border flex gap-2 rounded-md overflow-hidden dark:border-neutral-800">
+      <span>
         @DbFileData.SizeMb / @DbFileData.MaxSizeMb
-      </p>
-      <p class="text-sm font-medium text-white">
+      </span>
+      <span>
         @Localizer["UtilsSizeMb"]
-      </p>
+      </span>
     </div>
   </DataGridButtons>
   <ChildContent>

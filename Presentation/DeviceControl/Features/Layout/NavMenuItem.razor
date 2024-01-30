@@ -6,7 +6,8 @@
     type="button"
     @onclick="SwitchVisibility"
     class="w-full gap-2 py-1.5 flex items-center transition-colors justify-between px-3 rounded-md
-            @(GetIsAnyActive() ? "bg-neutral-900 text-white hover:bg-neutral-800" : "text-neutral-700 hover:bg-neutral-300")"
+            @(GetIsAnyActive() ? "bg-neutral-900 font-medium text-white hover:bg-neutral-800 dark:bg-neutral-200 dark:text-black dark:hover:bg-neutral-300" :
+              "text-neutral-700 hover:bg-neutral-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-900")"
   >
     <div class="flex gap-3 items-center overflow-hidden">
       <Heroicon
@@ -31,9 +32,10 @@
         <a href="@item.Link">
           <button
             type="button"
-            class="w-full pr-3 py-1 pl-11 text-left"
+            class="w-full pr-3 py-1 pl-11 text-left
+                  @(GetIsActivePath(item.Link) ? "text-black font-medium dark:text-white" : "font-light hover:underline dark:text-neutral-400")"
           >
-            <span class="truncate @(GetIsActivePath(item.Link) ? "text-black" : "font-light")">
+            <span class="truncate">
               @item.Name
             </span>
           </button>
