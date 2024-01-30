@@ -1,6 +1,6 @@
 ﻿namespace Ws.Domain.Services.Common.Commands;
 
-public interface ICreate<in TItem>
+public interface ISave<in TItem>
 {
     void Create(TItem item);
 }

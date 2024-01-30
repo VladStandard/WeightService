@@ -8,18 +8,6 @@ public static class SqlRestrictions
 
     public static ICriterion Equal(string propertyName, object value) => Restrictions.Eq(propertyName, value);
     
-    public static ICriterion EqualFk(string propertyName, EntityBase item)
-    {
-        return item.Identity.Name switch
-        {
-            SqlEnumFieldIdentity.Uid => Restrictions.Eq($"{propertyName}.{nameof(EntityBase.IdentityValueUid)}",
-            item.Identity.Uid),
-            SqlEnumFieldIdentity.Id => Restrictions.Eq($"{propertyName}.{nameof(EntityBase.IdentityValueId)}",
-            item.Identity.Id),
-            _ => throw new ArgumentException("Unsupported field identity.")
-        };
-    }
-
     public static ICriterion NotEqual(string propertyName, object value) => 
         Restrictions.Not(Restrictions.Eq(propertyName, value));
     

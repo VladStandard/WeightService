@@ -7,6 +7,5 @@ public interface ILogWebService : IGetItemByUid<LogWebEntity>
 {
     IEnumerable<LogWebEntity> GetAll();
 
-    void Save(DateTime requestStampDt, string request, string response, string url, int success,
-        int errors);
+    void Save(DateTime requestStampDt, string request, string response, string url, int success, int errors);
 }

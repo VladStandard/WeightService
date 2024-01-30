@@ -9,7 +9,7 @@ public class SqlPluTemplateFkRepository
     {
         if (plu.IsNew) return new();
         DetachedCriteria criteria = DetachedCriteria.For<PluTemplateFkEntity>()
-            .Add(SqlRestrictions.EqualFk(nameof(PluTemplateFkEntity.Plu), plu));
+            .Add(Restrictions.Eq(nameof(PluTemplateFkEntity.Plu), plu));
         return SqlCoreHelper.Instance.GetItemByCriteria<PluTemplateFkEntity>(criteria);
     }
 }

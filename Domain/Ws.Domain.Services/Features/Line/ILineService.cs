@@ -13,5 +13,5 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>
     
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line);
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line);
-    // public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line);
+    public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line);
 }

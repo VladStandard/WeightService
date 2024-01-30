@@ -61,10 +61,6 @@ public sealed class SqlCoreHelper
             [new SqlChangeDtListener()];
     }
 
-    #endregion
-
-    #region Public and private methods - Base
-
     private void AddConfigurationMappings()
     {
         ModelMapper mapper = new();
@@ -72,9 +68,9 @@ public sealed class SqlCoreHelper
         HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
         SqlConfiguration.AddMapping(mapping);
     }
-
+    
     #endregion
-
+    
     #region Public and private methods - Base
 
     private void ExecuteSelectCore(Action<ISession> action)
@@ -119,8 +115,57 @@ public sealed class SqlCoreHelper
         }
     }
 
-     #endregion
+    #endregion
 
+    #region GetItem
+
+    public T GetItemById<T>(object id) where T : EntityBase, new()
+    {
+        T? item = null;
+        ExecuteSelectCore(session => {
+            item = session.Get<T>(id);
+        });
+        return item ?? new();
+    }
+    
+    public T GetItemByCriteria<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
+    {
+        T? item = null;
+        ExecuteSelectCore(session => {
+            ICriteria criteria = detachedCriteria.GetExecutableCriteria(session);
+            item = criteria.UniqueResult<T>();
+        });
+        return item ?? new();
+    }
+
+    #endregion
+
+    #region GetList
+
+    public IEnumerable<T> GetEnumerable<T>(DetachedCriteria? detachedCriteria = null) where T : EntityBase, new()
+    {
+        IEnumerable<T> items = Enumerable.Empty<T>();
+        ExecuteSelectCore(session => {
+            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) :
+                session.CreateCriteria<T>();
+            items = criteria.List<T>();
+        });
+        return items;
+    }
+
+    public IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
+    {
+        IEnumerable<TObject> items = Enumerable.Empty<TObject>();
+        ExecuteSelectCore(session => {
+            ISQLQuery query = session.CreateSQLQuery(sqlQuery);
+            query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
+            items = query.List<TObject>();
+        });
+        return items;
+    }
+    
+    #endregion
+    
     #region CRUD
 
     public void SaveOrUpdate<T>(T item) where T : EntityBase
@@ -143,54 +188,5 @@ public sealed class SqlCoreHelper
         ExecuteTransactionCore(session => session.Delete(item));
     }
 
-    #endregion
-
-    #region Public and private methods - GetItem
-
-    public T GetItemByCriteria<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
-    {
-        T? item = null;
-        ExecuteSelectCore(session => {
-            ICriteria criteria = detachedCriteria.GetExecutableCriteria(session);
-            item = criteria.UniqueResult<T>();
-        });
-        return item ?? new();
-    }
-
-    public T GetItemById<T>(object id) where T : EntityBase, new()
-    {
-        T? item = null;
-        ExecuteSelectCore(session => {
-            item = session.Get<T>(id);
-        });
-        return item ?? new();
-    }
-
-    #endregion
-
-    #region Public and private methods - GetList
-
-    public IEnumerable<T> GetEnumerable<T>(DetachedCriteria? detachedCriteria = null) where T : EntityBase, new()
-    {
-        IEnumerable<T> items = Enumerable.Empty<T>();
-        ExecuteSelectCore(session => {
-            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) :
-                session.CreateCriteria<T>();
-            items = criteria.List<T>();
-        });
-        return items;
-    }
-
-    public IEnumerable<TObject> GetArrayObjects<TObject>(string sqlQuery)
-    {
-        IEnumerable<TObject> items = Enumerable.Empty<TObject>();
-        ExecuteSelectCore(session => {
-            ISQLQuery? query = session.CreateSQLQuery(sqlQuery);
-            query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
-            items = query.List<TObject>();
-        });
-        return items;
-    }
-    
     #endregion
 }
