@@ -9,8 +9,8 @@ public sealed class SqlClaimRepository : IGetItemByUid<ClaimEntity>, IGetAll<Cla
     
     public IEnumerable<ClaimEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<ClaimEntity>()
-            .AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<ClaimEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<ClaimEntity>(
+            DetachedCriteria.For<ClaimEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
 }

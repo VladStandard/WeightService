@@ -9,6 +9,14 @@ namespace Ws.Domain.Services.Features.Line;
 
 internal class LineService : ILineService
 {
+    public LineEntity GetCurrentLine()
+    {
+        string pcName = MdNetUtils.GetLocalDeviceName(false);
+        return new SqlLineRepository().GetItemByCriteria(
+            DetachedCriteria.For<LineEntity>().Add(Restrictions.Eq(nameof(LineEntity.PcName), pcName))
+        );
+    }
+    
     public IEnumerable<LineEntity> GetAll() => new SqlLineRepository().GetAll();
 
     public LineEntity GetItemByUid(Guid uid) => new SqlLineRepository().GetByUid(uid);
@@ -17,23 +25,17 @@ internal class LineService : ILineService
     
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PluLineEntity>()
-            .Add(Restrictions.Eq(nameof(PluLineEntity.Line), line));
-        return new SqlPluLineRepository().GetListByCriteria(criteria);
-    }
-    
-    public LineEntity GetCurrentLine()
-    {
-        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
-            .Add(Restrictions.Eq(nameof(LineEntity.PcName), MdNetUtils.GetLocalDeviceName(false)));
-        return new SqlLineRepository().GetItemByCriteria(criteria);
+        return new SqlPluLineRepository().GetListByCriteria(
+            DetachedCriteria.For<PluLineEntity>()
+                .Add(Restrictions.Eq(nameof(PluLineEntity.Line), line))
+        );
     }
     
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
 
     public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
 
-    private IEnumerable<PluEntity> GetPluEntitiesByWeightCheck(LineEntity line, bool isCheckWeight)
+    private static IEnumerable<PluEntity> GetPluEntitiesByWeightCheck(LineEntity line, bool isCheckWeight)
     {
         DetachedCriteria criteria = DetachedCriteria.For<PluLineEntity>()
             .CreateAlias(nameof(PluLineEntity.Plu), "plu")

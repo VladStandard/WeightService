@@ -29,7 +29,7 @@ public class LineEntity : EntityBase
         Type = LineTypeEnum.Tablet;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

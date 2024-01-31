@@ -21,17 +21,10 @@ public class SqlFieldIdentityModel
         Name = identityName;
     }
 
-    public SqlFieldIdentityModel(SqlFieldIdentityModel item)
-    {
-        Name = item.Name;
-        Uid = item.Uid;
-        Id = item.Id;
-    }
-
     public override string ToString() => 
         Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

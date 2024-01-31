@@ -9,8 +9,9 @@ public class SqlPrinterRepository : IGetItemByUid<PrinterEntity>, IGetAll<Printe
     
     public IEnumerable<PrinterEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PrinterEntity>()
-            .AddOrder(SqlOrder.NameAsc()).AddOrder(Order.Asc(nameof(PrinterEntity.Type)));
-        return SqlCoreHelper.Instance.GetEnumerable<PrinterEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<PrinterEntity>(
+            DetachedCriteria.For<PrinterEntity>()
+                .AddOrder(SqlOrder.NameAsc()).AddOrder(Order.Asc(nameof(PrinterEntity.Type)))
+        );
     }
 }

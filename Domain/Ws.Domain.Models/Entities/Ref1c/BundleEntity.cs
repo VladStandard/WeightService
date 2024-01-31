@@ -16,7 +16,7 @@ public class BundleEntity : Entity1CBase
 
     public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

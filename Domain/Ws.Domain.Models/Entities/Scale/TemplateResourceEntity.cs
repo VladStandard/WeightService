@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Models;
-using Ws.Shared.Utils;
 
 namespace Ws.Domain.Models.Entities.Scale;
 
@@ -17,7 +16,7 @@ public class TemplateResourceEntity : EntityBase
         Data = new();
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

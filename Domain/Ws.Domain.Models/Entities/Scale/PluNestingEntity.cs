@@ -27,7 +27,7 @@ public class PluNestingEntity : Entity1CBase
         $"{Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

@@ -16,7 +16,7 @@ public class ClipEntity : Entity1CBase
     
     public override string ToString() => $"{Name} | {Weight}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

@@ -20,7 +20,7 @@ public class Entity1CBase : EntityBase
     public virtual bool Equals(Entity1CBase item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&Equals(Uid1C, item.Uid1C);
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

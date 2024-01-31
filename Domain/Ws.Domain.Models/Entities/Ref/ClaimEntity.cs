@@ -5,11 +5,9 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class ClaimEntity : EntityBase
+public class ClaimEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public ClaimEntity() : base(SqlEnumFieldIdentity.Uid) {}
-    
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

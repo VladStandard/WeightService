@@ -9,8 +9,8 @@ public sealed class SqlTemplateRepository : IGetAll<TemplateEntity>
 
     public IEnumerable<TemplateEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<TemplateEntity>()
-            .AddOrder(Order.Asc(nameof(TemplateEntity.Title)));
-        return SqlCoreHelper.Instance.GetEnumerable<TemplateEntity>(criteria).ToList();
+        return SqlCoreHelper.Instance.GetEnumerable<TemplateEntity>(
+            DetachedCriteria.For<TemplateEntity>().AddOrder(Order.Asc(nameof(TemplateEntity.Title)))
+        ).ToList();
     }
 }
