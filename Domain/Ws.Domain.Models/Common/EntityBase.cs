@@ -15,7 +15,7 @@ public class EntityBase
     public virtual string Name { get; set; } = string.Empty;
     public virtual bool IsExists => Identity.IsExists;
     public virtual bool IsNew => Identity.IsNew;
-    public virtual string DisplayName => IsNew ? string.Empty : Name;
+    public virtual string DisplayName => Name;
 
     public EntityBase()
     {

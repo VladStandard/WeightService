@@ -36,7 +36,7 @@ public class PluService : IPluService
     public TemplateEntity GetPluTemplate(PluEntity plu)
     {
         return new SqlPluTemplateFkRepository().GetItemByCriteria(
-            DetachedCriteria.For<PluLineEntity>()
+            DetachedCriteria.For<PluTemplateFkEntity>()
                 .Add(Restrictions.Eq(nameof(PluTemplateFkEntity.Plu), plu))
         ).Template;
     }

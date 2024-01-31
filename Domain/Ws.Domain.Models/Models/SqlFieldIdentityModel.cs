@@ -62,10 +62,5 @@ public class SqlFieldIdentityModel
         _ => default
     };
 
-    public virtual bool IsExists => Name switch
-    {
-        SqlEnumFieldIdentity.Id => !Equals(Id, default(long)),
-        SqlEnumFieldIdentity.Uid => !Equals(Uid, Guid.Empty),
-        _ => default
-    };
+    public virtual bool IsExists => !IsNew;
 }
