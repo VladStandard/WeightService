@@ -28,7 +28,7 @@ public class SqlFieldIdentityModel
         Id = item.Id;
     }
 
-    public override string ToString() =>
+    public override string ToString() => 
         Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
     
     public override bool Equals(object obj)

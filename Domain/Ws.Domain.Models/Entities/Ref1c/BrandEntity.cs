@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BrandEntity : Table1CBase
+public class BrandEntity : Entity1CBase
 {
     public BrandEntity() : base(SqlEnumFieldIdentity.Uid)
     {

@@ -23,8 +23,6 @@ public class UserEntity : EntityBase
         LoginDt = item.LoginDt;
         Claims = new HashSet<ClaimEntity>();
     }
-    
-    public override string ToString() => $"{Name}";
 
     public override bool Equals(object obj)
     {

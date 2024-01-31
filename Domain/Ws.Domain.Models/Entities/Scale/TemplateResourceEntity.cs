@@ -23,8 +23,7 @@ public class TemplateResourceEntity : EntityBase
         DataValue = DataUtils.ByteClone(item.DataValue);
     }
     
-    public override string ToString() =>
-        $"{nameof(Name)}: {Name}";
+    public override string ToString() => $"{nameof(Name)}: {Name}";
 
     public override bool Equals(object obj)
     {

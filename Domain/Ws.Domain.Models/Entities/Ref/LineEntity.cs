@@ -8,13 +8,12 @@ namespace Ws.Domain.Models.Entities.Ref;
 [DebuggerDisplay("{ToString()}")]
 public class LineEntity : EntityBase
 {
+    private int _counter;
+    
     public virtual string PcName { get; set; }
     public virtual WarehouseEntity Warehouse { get; set; }
     public virtual PrinterEntity Printer { get; set; }
     public virtual int Number { get; set; }
-    public override string DisplayName => IsNew ? string.Empty : $"{Name}";
-    private int _counter;
-
     public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }
     public virtual string Version { get; set; } = string.Empty;
     public virtual LineTypeEnum Type { get; set; }

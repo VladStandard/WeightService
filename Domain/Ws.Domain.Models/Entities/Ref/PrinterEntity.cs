@@ -11,7 +11,6 @@ public class PrinterEntity : EntityBase
     public virtual string Ip { get; set; }
     public virtual short Port { get; set; }
     public virtual PrinterTypeEnum Type { get; set; }
-    public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
     public override string DisplayName => $"{Name} | {Ip}";
 
     public PrinterEntity() : base(SqlEnumFieldIdentity.Uid)

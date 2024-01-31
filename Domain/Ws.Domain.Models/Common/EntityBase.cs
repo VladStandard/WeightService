@@ -35,10 +35,7 @@ public class EntityBase
         Name = item.Name;
     }
 
-    public override string ToString() =>
-        (CreateDt != DateTime.MinValue ? $"{CreateDt:yyyy-MM-dd} | " : string.Empty) +
-        (ChangeDt != DateTime.MinValue ? $"{ChangeDt:yyyy-MM-dd} | " : string.Empty) +
-        (string.IsNullOrEmpty(Name) ? string.Empty : $"{Name} | ");
+    public override string ToString() => Name;
 
     public virtual bool Equals(EntityBase item) =>
         ReferenceEquals(this, item) || Identity.Equals(item.Identity) &&

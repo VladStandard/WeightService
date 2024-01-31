@@ -7,7 +7,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluNestingEntity : Table1CBase
+public class PluNestingEntity : Entity1CBase
 {
     public virtual BoxEntity Box { get; set; }
     public virtual PluEntity Plu { get; set; }
@@ -50,5 +50,4 @@ public class PluNestingEntity : Table1CBase
         Plu.Equals(item.Plu) && 
         Equals(IsDefault, item.IsDefault) &&
         Equals(BundleCount, item.BundleCount);
-    
 }

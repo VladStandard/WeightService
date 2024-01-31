@@ -30,15 +30,16 @@ public class LabelEntity : EntityBase
 
         Plu = new();
         Line = new();
-        Zpl = string.Empty;
+
         Kneading = 0;
-        
+        Zpl = string.Empty;
+
         ProductDt = SqlTypeUtils.MinDateTime;
         ExpirationDt = SqlTypeUtils.MinDateTime;
         
+        BarcodeTop = string.Empty;
         BarcodeRight = string.Empty;
         BarcodeBottom = string.Empty;
-        BarcodeTop = string.Empty;
     }
 
     public LabelEntity(LabelEntity item) : base(item)

@@ -11,7 +11,7 @@ public static class SqlRestrictions
     public static ICriterion NotEqual(string propertyName, object value) => 
         Restrictions.Not(Restrictions.Eq(propertyName, value));
     
-    public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(Table1CBase.Uid1C), uid1C);
+    public static ICriterion EqualUid1C(Guid uid1C) => Restrictions.Eq(nameof(Entity1CBase.Uid1C), uid1C);
     
     #endregion
 

@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BoxEntity : Table1CBase
+public class BoxEntity : Entity1CBase
 {
     public virtual decimal Weight { get; set; }
 

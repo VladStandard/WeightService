@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BundleEntity : Table1CBase
+public class BundleEntity : Entity1CBase
 {
     public virtual decimal Weight { get; set; }
 
@@ -19,8 +19,7 @@ public class BundleEntity : Table1CBase
         Weight = item.Weight;
     }
 
-    public override string ToString() =>
-        $"{Name} | {Weight} | {Uid1C}";
+    public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
 
     public override bool Equals(object obj)
     {

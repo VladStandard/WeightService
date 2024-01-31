@@ -10,8 +10,6 @@ public class ClaimEntity : EntityBase
     public ClaimEntity() : base(SqlEnumFieldIdentity.Uid) {}
 
     public ClaimEntity(ClaimEntity item) : base(item) {}
-    
-    public override string ToString() => $"{Name}";
 
     public override bool Equals(object obj)
     {
