@@ -18,12 +18,6 @@ public class UserEntity : EntityBase
         Claims = new HashSet<ClaimEntity>();
     }
 
-    public UserEntity(UserEntity item) : base(item)
-    {
-        LoginDt = item.LoginDt;
-        Claims = new HashSet<ClaimEntity>();
-    }
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

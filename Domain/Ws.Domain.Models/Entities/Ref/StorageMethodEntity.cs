@@ -16,11 +16,6 @@ public class StorageMethodEntity : EntityBase
         Zpl = string.Empty;
     }
 
-    public StorageMethodEntity(StorageMethodEntity item) : base(item)
-    {
-        Zpl = item.Zpl;
-    }
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

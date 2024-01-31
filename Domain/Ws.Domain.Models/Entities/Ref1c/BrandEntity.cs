@@ -11,10 +11,6 @@ public class BrandEntity : Entity1CBase
     {
     }
 
-    public BrandEntity(BrandEntity item) : base(item)
-    {
-    }
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

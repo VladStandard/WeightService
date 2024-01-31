@@ -23,13 +23,6 @@ public class PluNestingEntity : Entity1CBase
         BundleCount = 0;
     }
     
-    public PluNestingEntity(PluNestingEntity item) : base(item)
-    {
-        Box = new(item.Box);
-        Plu = new(item.Plu);
-        BundleCount = item.BundleCount;
-    }
-    
     public override string ToString() =>
         $"{Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";

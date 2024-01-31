@@ -27,18 +27,6 @@ public class LogWebEntity : EntityBase
         CountErrors = default;
     }
 
-    public LogWebEntity(LogWebEntity item) : base(item)
-    {
-        StampDt = item.StampDt;
-        Version = item.Version;
-        Url = item.Url;
-        DataResponse = item.DataResponse;
-        DataRequest = item.DataRequest;
-        CountAll = item.CountAll;
-        CountSuccess = item.CountSuccess;
-        CountErrors = item.CountErrors;
-    }
-
     public override string ToString() => $"{Version} | {Url}";
 
     public override bool Equals(object obj)

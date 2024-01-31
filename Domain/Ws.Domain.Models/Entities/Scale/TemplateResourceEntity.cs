@@ -16,14 +16,6 @@ public class TemplateResourceEntity : EntityBase
     {
         Data = new();
     }
-    
-    public TemplateResourceEntity(TemplateResourceEntity item) : base(item)
-    {
-        Data = new(item.Data);
-        DataValue = DataUtils.ByteClone(item.DataValue);
-    }
-    
-    public override string ToString() => $"{nameof(Name)}: {Name}";
 
     public override bool Equals(object obj)
     {

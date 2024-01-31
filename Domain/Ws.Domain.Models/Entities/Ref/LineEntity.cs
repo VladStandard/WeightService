@@ -29,17 +29,6 @@ public class LineEntity : EntityBase
         Type = LineTypeEnum.Tablet;
     }
 
-    public LineEntity(LineEntity item) : base(item)
-    {
-        Warehouse = new(item.Warehouse);
-        Printer = new(item.Printer);
-        Number = item.Number;
-        Counter = item.Counter;
-        Version = item.Version;
-        PcName = item.PcName;
-        Type = item.Type;
-    }
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

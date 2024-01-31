@@ -16,11 +16,6 @@ public class Entity1CBase : EntityBase
     {
         Uid1C = Guid.Empty;
     }
-
-    public Entity1CBase(Entity1CBase item) : base(item)
-    {
-        Uid1C = item.Uid1C;
-    }
     
     public virtual bool Equals(Entity1CBase item) =>
         ReferenceEquals(this, item) || base.Equals(item) &&Equals(Uid1C, item.Uid1C);

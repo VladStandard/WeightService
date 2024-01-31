@@ -27,14 +27,6 @@ public class EntityBase
         Identity = new(identityName);
     }
 
-    public EntityBase(EntityBase item)
-    {
-        Identity = new(item.Identity);
-        CreateDt = item.CreateDt;
-        ChangeDt = item.ChangeDt;
-        Name = item.Name;
-    }
-
     public override string ToString() => Name;
 
     public virtual bool Equals(EntityBase item) =>

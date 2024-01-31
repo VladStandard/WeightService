@@ -14,11 +14,6 @@ public class ClipEntity : Entity1CBase
         Weight = 0;
     }
     
-    public ClipEntity(ClipEntity item) : base(item)
-    {
-        Weight = item.Weight;
-    }
-    
     public override string ToString() => $"{Name} | {Weight}";
 
     public override bool Equals(object obj)

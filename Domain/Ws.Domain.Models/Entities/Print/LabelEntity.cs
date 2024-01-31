@@ -41,23 +41,7 @@ public class LabelEntity : EntityBase
         BarcodeRight = string.Empty;
         BarcodeBottom = string.Empty;
     }
-
-    public LabelEntity(LabelEntity item) : base(item)
-    {
-        Zpl = item.Zpl;
-        BarcodeTop = item.BarcodeTop;
-        BarcodeBottom = item.BarcodeBottom;
-        BarcodeRight = item.BarcodeRight;
-        WeightNet = item.WeightNet;
-        WeightTare = item.WeightTare;
-        Kneading = item.Kneading;
-        ProductDt = item.ProductDt;
-        ExpirationDt = item.ExpirationDt;
-        Plu = new(item.Plu);
-        Line = new(item.Line);
-        if (item.Pallet != null) Pallet = new(item.Pallet);
-    }
-
+    
     #endregion
 
     #region Public and private methods - override

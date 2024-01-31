@@ -14,11 +14,6 @@ public class BundleEntity : Entity1CBase
        Weight = 0;
     }
 
-    public BundleEntity(BundleEntity item) : base(item)
-    {
-        Weight = item.Weight;
-    }
-
     public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
 
     public override bool Equals(object obj)

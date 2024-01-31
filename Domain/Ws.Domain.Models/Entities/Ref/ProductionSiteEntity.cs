@@ -13,11 +13,6 @@ public class ProductionSiteEntity : EntityBase
     {
         Address = string.Empty;
     }
-
-    public ProductionSiteEntity(ProductionSiteEntity item) : base(item)
-    {
-        Address = item.Address;
-    }
     
     public override string ToString() => $"{Address}";
 

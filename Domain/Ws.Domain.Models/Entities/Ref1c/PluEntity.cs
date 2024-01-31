@@ -38,23 +38,7 @@ public class PluEntity : Entity1CBase
         StorageMethod = new();
         Description = string.Empty;
     }
-
-    public PluEntity(PluEntity item) : base(item)
-    {
-        Number = item.Number;
-        FullName = item.FullName;
-        ShelfLifeDays = item.ShelfLifeDays;
-        Gtin = item.Gtin;
-        Ean13 = item.Ean13;
-        Itf14 = item.Itf14;
-        IsCheckWeight = item.IsCheckWeight;
-        Brand = new(item.Brand);
-        Bundle = new(item.Bundle);
-        Clip = new(item.Clip);
-        StorageMethod = new(item.StorageMethod);
-        Description = item.Description;
-    }
-
+    
     public override string ToString() => $"{Number} | {Name} | {Uid1C}";
     
     public override bool Equals(object obj)

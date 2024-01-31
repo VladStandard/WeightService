@@ -16,12 +16,6 @@ public class PluLineEntity : EntityBase
         Plu = new();
         Line = new();
     }
-    
-    public PluLineEntity(PluLineEntity item) : base(item)
-    {
-        Plu = new(item.Plu);
-        Line = new(item.Line);
-    }
 
     public override string ToString() => $"{Plu} | {Line}";
 

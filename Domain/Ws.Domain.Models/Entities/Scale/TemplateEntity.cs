@@ -15,12 +15,6 @@ public class TemplateEntity : EntityBase
         Title = string.Empty;
         Data = string.Empty;
     }
-
-    public TemplateEntity(TemplateEntity item) : base(item)
-    {
-        Title = item.Title;
-        Data = item.Data;
-    }
     
     public override string ToString() => Title;
 

@@ -16,12 +16,6 @@ public class PluTemplateFkEntity : EntityBase
         Plu = new();
         Template = new();
     }
-
-    public PluTemplateFkEntity(PluTemplateFkEntity item) : base(item)
-    {
-        Plu = new(item.Plu);
-        Template = new(item.Template);
-    }
     
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " +

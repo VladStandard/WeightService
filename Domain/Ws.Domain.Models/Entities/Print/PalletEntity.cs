@@ -18,13 +18,6 @@ public class PalletEntity : EntityBase
         Barcode = string.Empty;
         Counter = 0;
     }
-
-    public PalletEntity(PalletEntity item) : base(item)
-    {
-        PalletMan = new(item.PalletMan);
-        Barcode = item.Barcode;
-        Counter = item.Counter;
-    }
     
     public override bool Equals(object obj)
     {

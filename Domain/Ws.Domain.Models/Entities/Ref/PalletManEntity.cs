@@ -24,13 +24,6 @@ public class PalletManEntity : Entity1CBase
         Password = string.Empty;
     }
     
-    public PalletManEntity(PalletManEntity item) : base(item)
-    {
-        Password = item.Password;
-        Surname = item.Surname;
-        Patronymic = item.Patronymic;
-    }
-
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;

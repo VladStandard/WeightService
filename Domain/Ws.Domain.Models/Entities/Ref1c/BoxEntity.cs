@@ -14,11 +14,6 @@ public class BoxEntity : Entity1CBase
         Weight = 0;
     }
 
-    public BoxEntity(BoxEntity item) : base(item)
-    {
-        Weight = item.Weight;
-    }
-
     public override string ToString() =>
         $"{Uid1C} | {Name} | {Weight}";
 

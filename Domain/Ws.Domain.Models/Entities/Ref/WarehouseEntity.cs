@@ -13,12 +13,7 @@ public class WarehouseEntity : EntityBase
     {
         ProductionSite = new();
     }
-
-    public WarehouseEntity(WarehouseEntity item) : base(item)
-    {
-        ProductionSite = new(item.ProductionSite);
-    }
-
+    
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(ProductionSite)}: {ProductionSite}. ";

@@ -20,13 +20,6 @@ public class PrinterEntity : EntityBase
         Type = PrinterTypeEnum.Tsc;
     }
 
-    public PrinterEntity(PrinterEntity item) : base(item)
-    {
-        Ip = item.Ip;
-        Port = item.Port;
-        Type = item.Type;
-    }
-
     public override string ToString() => $"{nameof(Type)}: {Type}.";
 
     public override bool Equals(object obj)
