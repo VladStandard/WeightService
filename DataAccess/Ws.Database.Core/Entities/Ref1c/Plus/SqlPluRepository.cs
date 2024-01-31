@@ -10,21 +10,21 @@ public sealed class SqlPluRepository : IGetItemByUid1C<PluEntity>, IGetItemByUid
     
     public PluEntity GetByUid1C(Guid uid1C)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PluEntity>()
-            .Add(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCriteria<PluEntity>(criteria);
+        return SqlCoreHelper.Instance.GetItem<PluEntity>(
+            DetachedCriteria.For<PluEntity>().Add(SqlRestrictions.EqualUid1C(uid1C))
+        );
     }
     
     public IEnumerable<PluEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PluEntity>()
-            .AddOrder(SqlOrder.Asc(nameof(PluEntity.Number)));
-        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(
+            DetachedCriteria.For<PluEntity>().AddOrder(Order.Asc(nameof(PluEntity.Number)))
+        );
     }
     
     public IEnumerable<PluEntity> GetListByCriteria(DetachedCriteria criteria)
     {
-        criteria.AddOrder(SqlOrder.Asc(nameof(PluEntity.Number)));
+        criteria.AddOrder(Order.Asc(nameof(PluEntity.Number)));
         return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(criteria);
     }
 }

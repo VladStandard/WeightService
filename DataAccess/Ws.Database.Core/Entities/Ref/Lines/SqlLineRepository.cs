@@ -9,18 +9,11 @@ public sealed class SqlLineRepository : IGetItemByUid<LineEntity>, IGetItemByCri
 
     public IEnumerable<LineEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
-            .AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(
+            DetachedCriteria.For<LineEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
     
-    public LineEntity GetItemByName(string name)
-    {
-        DetachedCriteria criteria = DetachedCriteria.For<LineEntity>()
-            .Add(SqlRestrictions.Equal(nameof(LineEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCriteria<LineEntity>(criteria);
-    }
-
     public LineEntity GetItemByCriteria(DetachedCriteria criteria) =>
-        SqlCoreHelper.Instance.GetItemByCriteria<LineEntity>(criteria);
+        SqlCoreHelper.Instance.GetItem<LineEntity>(criteria);
 }

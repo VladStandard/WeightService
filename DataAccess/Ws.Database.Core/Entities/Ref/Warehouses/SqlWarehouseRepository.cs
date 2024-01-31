@@ -9,7 +9,8 @@ public sealed class SqlWarehouseRepository : IGetItemByUid<WarehouseEntity>, IGe
     
     public IEnumerable<WarehouseEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<WarehouseEntity>().AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<WarehouseEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<WarehouseEntity>(
+            DetachedCriteria.For<WarehouseEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
 }

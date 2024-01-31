@@ -9,9 +9,10 @@ public sealed class SqlUserRepository : IGetItemByUid<UserEntity>, IGetAll<UserE
     
     public UserEntity GetItemByUsername(string userName)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<UserEntity>()
-            .Add(SqlRestrictions.Equal(nameof(UserEntity.Name), userName.ToUpper()));
-        return SqlCoreHelper.Instance.GetItemByCriteria<UserEntity>(criteria);
+        return SqlCoreHelper.Instance.GetItem<UserEntity>(
+            DetachedCriteria.For<UserEntity>()
+                .Add(SqlRestrictions.Equal(nameof(UserEntity.Name), userName.ToUpper()))
+        );
     }
     
     public UserEntity GetItemByNameOrCreate(string username)
@@ -28,7 +29,8 @@ public sealed class SqlUserRepository : IGetItemByUid<UserEntity>, IGetAll<UserE
     
     public IEnumerable<UserEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<UserEntity>().AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<UserEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<UserEntity>(
+            DetachedCriteria.For<UserEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
 }

@@ -19,7 +19,7 @@ public sealed class SqlPluNestingFkRepository : IGetListByCriteria<PluNestingEnt
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItemByCriteria<PluNestingEntity>(
+        return SqlCoreHelper.Instance.GetItem<PluNestingEntity>(
             DetachedCriteria.For<PluNestingEntity>()
                 .Add(SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), uid1C))
                 .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu))
@@ -28,7 +28,7 @@ public sealed class SqlPluNestingFkRepository : IGetListByCriteria<PluNestingEnt
     
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
-        return SqlCoreHelper.Instance.GetItemByCriteria<PluNestingEntity>(
+        return SqlCoreHelper.Instance.GetItem<PluNestingEntity>(
             DetachedCriteria.For<PluNestingEntity>()
                 .Add(SqlRestrictions.EqualUid1C(Guid.Empty))
                 .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu))

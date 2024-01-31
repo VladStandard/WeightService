@@ -9,14 +9,16 @@ public class SqlStorageMethodRepository : IGetItemByUid<StorageMethodEntity>
     
     public IEnumerable<StorageMethodEntity> GetList()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<StorageMethodEntity>().AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<StorageMethodEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<StorageMethodEntity>(
+            DetachedCriteria.For<StorageMethodEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
     
     public StorageMethodEntity GetItemByName(string name)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<StorageMethodEntity>()
-            .Add(SqlRestrictions.Equal(nameof(StorageMethodEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCriteria<StorageMethodEntity>(criteria);
+        return SqlCoreHelper.Instance.GetItem<StorageMethodEntity>(
+            DetachedCriteria.For<StorageMethodEntity>()
+                .Add(SqlRestrictions.Equal(nameof(StorageMethodEntity.Name), name))
+        );
     }
 }

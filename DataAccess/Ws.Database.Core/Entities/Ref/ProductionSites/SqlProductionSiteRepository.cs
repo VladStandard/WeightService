@@ -9,7 +9,8 @@ public sealed class SqlProductionSiteRepository : IGetItemByUid<ProductionSiteEn
     
     public IEnumerable<ProductionSiteEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<ProductionSiteEntity>().AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<ProductionSiteEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<ProductionSiteEntity>(
+            DetachedCriteria.For<ProductionSiteEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
 }

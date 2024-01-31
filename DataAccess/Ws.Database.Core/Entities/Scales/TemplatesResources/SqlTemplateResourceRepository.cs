@@ -10,16 +10,16 @@ public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntit
     
     public IEnumerable<TemplateResourceEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<TemplateResourceEntity>()
-            .AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(
+            DetachedCriteria.For<TemplateResourceEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
     
     public TemplateResourceEntity GetByName(string name)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<TemplateResourceEntity>()
-            .Add(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCriteria<TemplateResourceEntity>(criteria);
-   
+        return SqlCoreHelper.Instance.GetItem<TemplateResourceEntity>(
+            DetachedCriteria.For<TemplateResourceEntity>()
+                .Add(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name))
+        );
     }
 }

@@ -9,9 +9,9 @@ public class SqlLogWebRepository : IGetItemByUid<LogWebEntity>
     
     public IEnumerable<LogWebEntity> GetList()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<LogWebEntity>()
-            .AddOrder(SqlOrder.CreateDtDesc())
-            .SetMaxResults(500);
-        return SqlCoreHelper.Instance.GetEnumerable<LogWebEntity>(criteria).ToList();
+        return SqlCoreHelper.Instance.GetEnumerable<LogWebEntity>(
+            DetachedCriteria.For<LogWebEntity>()
+                .AddOrder(SqlOrder.CreateDtDesc()).SetMaxResults(500)
+        );
     }
 }

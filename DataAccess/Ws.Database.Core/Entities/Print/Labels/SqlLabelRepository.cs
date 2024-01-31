@@ -7,8 +7,6 @@ public sealed class SqlLabelRepository : IGetItemByUid<LabelEntity>, IGetListByC
 {
     public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LabelEntity>(uid);
     
-    public IEnumerable<LabelEntity> GetListByCriteria(DetachedCriteria criteria)
-    {
-        return SqlCoreHelper.Instance.GetEnumerable<LabelEntity>(criteria).ToList();
-    }
+    public IEnumerable<LabelEntity> GetListByCriteria(DetachedCriteria criteria) => 
+        SqlCoreHelper.Instance.GetEnumerable<LabelEntity>(criteria);
 }

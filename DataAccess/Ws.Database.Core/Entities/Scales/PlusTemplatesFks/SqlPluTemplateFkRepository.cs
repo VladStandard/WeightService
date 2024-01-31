@@ -1,15 +1,10 @@
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 
-public class SqlPluTemplateFkRepository
+public class SqlPluTemplateFkRepository : IGetItemByCriteria<PluTemplateFkEntity>
 {
-    public PluTemplateFkEntity GetItemByPlu(PluEntity plu)
-    {
-        if (plu.IsNew) return new();
-        DetachedCriteria criteria = DetachedCriteria.For<PluTemplateFkEntity>()
-            .Add(Restrictions.Eq(nameof(PluTemplateFkEntity.Plu), plu));
-        return SqlCoreHelper.Instance.GetItemByCriteria<PluTemplateFkEntity>(criteria);
-    }
+    public PluTemplateFkEntity GetItemByCriteria(DetachedCriteria criteria) =>
+        SqlCoreHelper.Instance.GetItem<PluTemplateFkEntity>(criteria);
 }

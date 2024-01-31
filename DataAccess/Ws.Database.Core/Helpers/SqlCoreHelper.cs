@@ -77,19 +77,14 @@ public sealed class SqlCoreHelper
     {
         using ISession session = SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Manual;
+        
         try
         {
             action(session);
-            session.Clear();
         }
         catch (Exception)
         {
             return;
-        }
-        finally
-        {
-            session.Disconnect();
-            session.Close();
         }
     }
 
@@ -97,21 +92,16 @@ public sealed class SqlCoreHelper
     {
         using ISession session = SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Commit;
+        
         using ITransaction transaction = session.BeginTransaction();
         try
         {
             action(session);
             transaction.Commit();
-            session.Clear();
         }
         catch (Exception)
         {
             transaction.Rollback();
-        }
-        finally
-        {
-            session.Disconnect();
-            session.Close();
         }
     }
 
@@ -128,7 +118,7 @@ public sealed class SqlCoreHelper
         return item ?? new();
     }
     
-    public T GetItemByCriteria<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
+    public T GetItem<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session => {

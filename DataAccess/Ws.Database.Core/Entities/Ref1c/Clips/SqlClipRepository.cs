@@ -9,13 +9,15 @@ public sealed class SqlClipRepository : IGetItemByUid1C<ClipEntity>, IGetItemByU
     
     public IEnumerable<ClipEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<ClipEntity>().AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<ClipEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<ClipEntity>(
+            DetachedCriteria.For<ClipEntity>().AddOrder(SqlOrder.NameAsc())
+        );
     }
 
     public ClipEntity GetByUid1C(Guid uid1C)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<ClipEntity>().Add(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCriteria<ClipEntity>(criteria);
+        return SqlCoreHelper.Instance.GetItem<ClipEntity>(
+            DetachedCriteria.For<ClipEntity>().Add(SqlRestrictions.EqualUid1C(uid1C))
+        );
     }
 }

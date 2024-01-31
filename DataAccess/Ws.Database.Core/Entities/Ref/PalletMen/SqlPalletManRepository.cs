@@ -9,8 +9,8 @@ public class SqlPalletManRepository : IGetItemByUid<PalletManEntity>, IGetAll<Pa
     
     public IEnumerable<PalletManEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PalletManEntity>()
-            .AddOrder(SqlOrder.Asc(nameof(PalletManEntity.Surname)));
-        return SqlCoreHelper.Instance.GetEnumerable<PalletManEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<PalletManEntity>(
+            DetachedCriteria.For<PalletManEntity>().AddOrder(Order.Asc(nameof(PalletManEntity.Surname)))
+        );
     }
 }

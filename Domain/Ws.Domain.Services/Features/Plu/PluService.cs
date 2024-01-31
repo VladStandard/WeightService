@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.Lines;
+﻿using NHibernate.Criterion;
 using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Database.Core.Entities.Ref1c.Plus;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
@@ -24,7 +24,8 @@ public class PluService : IPluService
 
     public PluNestingEntity GetDefaultNesting(PluEntity plu) => new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
     
-    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
+    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => 
+        new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
 
     public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C)
     {
@@ -32,12 +33,22 @@ public class PluService : IPluService
         if (nesting.IsExists) SqlCoreHelper.Instance.Delete(nesting);
     }
     
-    public TemplateEntity GetPluTemplate(PluEntity plu) => new SqlPluTemplateFkRepository().GetItemByPlu(plu).Template;
+    public TemplateEntity GetPluTemplate(PluEntity plu)
+    {
+        return new SqlPluTemplateFkRepository().GetItemByCriteria(
+            DetachedCriteria.For<PluLineEntity>()
+                .Add(Restrictions.Eq(nameof(PluTemplateFkEntity.Plu), plu))
+        ).Template;
+    }
     
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
-        LineEntity line = new SqlLineRepository().GetItemByName(lineName);
-        PluEntity plu = new SqlPluRepository().GetByUid1C(pluGuid);
-        return new SqlPluLineRepository().GetItemByLinePlu(line, plu);
+        return new SqlPluLineRepository().GetItemByCriteria(
+           DetachedCriteria.For<PluLineEntity>()
+                .CreateAlias(nameof(PluLineEntity.Plu), "plu")
+                .CreateAlias(nameof(PluLineEntity.Line), "line")
+                .Add(Restrictions.Eq($"plu.{nameof(PluEntity.Uid1C)}",pluGuid))
+                .Add(Restrictions.Eq($"line.{nameof(LineEntity.Name)}", lineName))
+        );
     }
 }

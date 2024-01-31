@@ -9,16 +9,18 @@ public sealed class SqlBundleRepository : IGetItemByUid1C<BundleEntity>, IGetIte
     
     public BundleEntity GetByUid1C(Guid uid1C)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<BundleEntity>().Add(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCriteria<BundleEntity>(criteria);
+        return SqlCoreHelper.Instance.GetItem<BundleEntity>(
+            DetachedCriteria.For<BundleEntity>().Add(SqlRestrictions.EqualUid1C(uid1C))
+        );
     }
     
     public IEnumerable<BundleEntity> GetAll()
     {
-        DetachedCriteria criteria = DetachedCriteria.For<BundleEntity>()
-            .AddOrder(SqlOrder.Asc(nameof(BundleEntity.Weight)))
-            .AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<BundleEntity>(criteria);
+        return SqlCoreHelper.Instance.GetEnumerable<BundleEntity>(
+            DetachedCriteria.For<BundleEntity>()
+                .AddOrder(Order.Asc(nameof(BundleEntity.Weight)))
+                .AddOrder(SqlOrder.NameAsc())
+        );
     }
 
 }
