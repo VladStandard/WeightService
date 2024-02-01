@@ -7,7 +7,6 @@ namespace Ws.Domain.Models.Entities.Ref1c;
 [DebuggerDisplay("{ToString()}")]
 public class BrandEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 {
-
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;

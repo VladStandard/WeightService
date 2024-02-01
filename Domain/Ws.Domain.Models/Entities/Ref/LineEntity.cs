@@ -48,5 +48,4 @@ public class LineEntity : EntityBase
         Version.Equals(item.Version);
     
     public override int GetHashCode() => base.GetHashCode();
-    public override string ToString() => $"{IdentityValueId} | {Name}";
 }

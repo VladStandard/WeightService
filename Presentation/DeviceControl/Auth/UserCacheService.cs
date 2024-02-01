@@ -51,8 +51,6 @@ public class UserCacheService(IMemoryCache cache, IUserService userService) : IU
         List<Claim> rights = [];
         
         UserEntity user = userService.GetItemByNameOrCreate(username);
-        user.LoginDt = DateTime.Now;
-        SqlCoreHelper.Instance.Update(user);
         
         rights.AddRange(user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)));
         return Task.FromResult(rights);

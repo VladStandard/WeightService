@@ -1,4 +1,4 @@
-﻿using MDSoft.NetUtils;
+﻿using System.Net;
 using NHibernate.Criterion;
 using Ws.Database.Core.Entities.Ref.Lines;
 using Ws.Database.Core.Entities.Ref.PlusLines;
@@ -11,9 +11,8 @@ internal class LineService : ILineService
 {
     public LineEntity GetCurrentLine()
     {
-        string pcName = MdNetUtils.GetLocalDeviceName(false);
         return new SqlLineRepository().GetItemByCriteria(
-            DetachedCriteria.For<LineEntity>().Add(Restrictions.Eq(nameof(LineEntity.PcName), pcName))
+            DetachedCriteria.For<LineEntity>().Add(Restrictions.Eq(nameof(LineEntity.PcName),  Dns.GetHostName()))
         );
     }
     

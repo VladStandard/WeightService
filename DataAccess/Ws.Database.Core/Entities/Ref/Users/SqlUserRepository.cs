@@ -7,30 +7,18 @@ public sealed class SqlUserRepository : IGetItemByUid<UserEntity>, IGetAll<UserE
 {
     public UserEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<UserEntity>(uid);
     
+    public IEnumerable<UserEntity> GetAll()
+    {
+        return SqlCoreHelper.Instance.GetEnumerable<UserEntity>(
+            QueryOver.Of<UserEntity>().OrderBy(i => i.Name).Asc().DetachedCriteria
+        );
+    }
+    
     public UserEntity GetItemByUsername(string userName)
     {
         return SqlCoreHelper.Instance.GetItem<UserEntity>(
             DetachedCriteria.For<UserEntity>()
-                .Add(SqlRestrictions.Equal(nameof(UserEntity.Name), userName.ToUpper()))
-        );
-    }
-    
-    public UserEntity GetItemByNameOrCreate(string username)
-    {
-        UserEntity user = GetItemByUsername(username);
-        if (user.IsNew)
-        {
-            user.Name = username;
-            user.LoginDt = DateTime.Now;
-        }
-        SqlCoreHelper.Instance.SaveOrUpdate(user);
-        return user;
-    }
-    
-    public IEnumerable<UserEntity> GetAll()
-    {
-        return SqlCoreHelper.Instance.GetEnumerable<UserEntity>(
-            DetachedCriteria.For<UserEntity>().AddOrder(SqlOrder.NameAsc())
+                .Add(Restrictions.InsensitiveLike(nameof(UserEntity.Name), userName, MatchMode.Exact))
         );
     }
 }

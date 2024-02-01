@@ -6,6 +6,10 @@ namespace Ws.Domain.Services.Features.Brand;
 
 internal class BrandService : IBrandService
 {
+    public IEnumerable<BrandEntity> GetAll() => new SqlBrandRepository().GetAll();
+    public BrandEntity GetItemByUid(Guid uid) => new SqlBrandRepository().GetByUid(uid);
+    public BrandEntity GetItemByUid1С(Guid uid) => new SqlBrandRepository().GetByUid1C(uid);
+    
     public BrandEntity GetDefault()
     {
         BrandEntity brand = GetItemByUid1С(Guid.Empty);
@@ -15,7 +19,4 @@ internal class BrandService : IBrandService
         SqlCoreHelper.Instance.Save(brand);
         return brand;
     }
-    public IEnumerable<BrandEntity> GetAll() => new SqlBrandRepository().GetAll();
-    public BrandEntity GetItemByUid(Guid uid) => new SqlBrandRepository().GetByUid(uid);
-    public BrandEntity GetItemByUid1С(Guid uid) => new SqlBrandRepository().GetByUid1C(uid);
 }
