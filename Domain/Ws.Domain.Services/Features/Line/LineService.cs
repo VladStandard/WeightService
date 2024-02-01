@@ -11,8 +11,8 @@ internal class LineService : ILineService
 {
     public LineEntity GetCurrentLine()
     {
-        return new SqlLineRepository().GetItemByCriteria(
-            DetachedCriteria.For<LineEntity>().Add(Restrictions.Eq(nameof(LineEntity.PcName),  Dns.GetHostName()))
+        return new SqlLineRepository().GetItemByQuery(
+            QueryOver.Of<LineEntity>().Where(i => i.PcName == Dns.GetHostName())
         );
     }
     
@@ -24,9 +24,8 @@ internal class LineService : ILineService
     
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
     {
-        return new SqlPluLineRepository().GetListByCriteria(
-            DetachedCriteria.For<PluLineEntity>()
-                .Add(Restrictions.Eq(nameof(PluLineEntity.Line), line))
+        return new SqlPluLineRepository().GetListByQuery(
+            QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)
         );
     }
     
@@ -36,11 +35,9 @@ internal class LineService : ILineService
 
     private static IEnumerable<PluEntity> GetPluEntitiesByWeightCheck(LineEntity line, bool isCheckWeight)
     {
-        DetachedCriteria criteria = DetachedCriteria.For<PluLineEntity>()
-            .CreateAlias(nameof(PluLineEntity.Plu), "plu")
-            .Add(Restrictions.Eq(nameof(PluLineEntity.Line), line))
-            .Add(Restrictions.Eq($"plu.{nameof(PluEntity.IsCheckWeight)}", isCheckWeight));
-        
-        return new SqlPluLineRepository().GetListByCriteria(criteria).Select(pluLine => pluLine.Plu);
+        QueryOver<PluLineEntity> queryOver = 
+            QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)
+                .JoinQueryOver<PluEntity>(i => i.Plu).Where(plu => plu.IsCheckWeight == isCheckWeight);
+        return new SqlPluLineRepository().GetListByQuery(queryOver).Select(pluLine => pluLine.Plu);
     }
 }

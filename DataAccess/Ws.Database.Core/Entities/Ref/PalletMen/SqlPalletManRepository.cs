@@ -1,5 +1,4 @@
-﻿using Ws.Database.Core.Common.Queries;
-using Ws.Domain.Models.Entities.Ref;
+﻿using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.PalletMen;
 
@@ -9,8 +8,8 @@ public class SqlPalletManRepository : IGetItemByUid<PalletManEntity>, IGetAll<Pa
     
     public IEnumerable<PalletManEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<PalletManEntity>(
-            DetachedCriteria.For<PalletManEntity>().AddOrder(Order.Asc(nameof(PalletManEntity.Surname)))
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<PalletManEntity>().OrderBy(i => i.Surname).Asc
         );
     }
 }

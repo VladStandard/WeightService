@@ -1,40 +1,34 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
-public sealed class SqlPluNestingFkRepository : IGetListByCriteria<PluNestingEntity>
+public sealed class SqlPluNestingFkRepository : IGetListByQuery<PluNestingEntity>
 {
-    public IEnumerable<PluNestingEntity> GetListByCriteria(DetachedCriteria criteria) => 
-        SqlCoreHelper.Instance.GetEnumerable<PluNestingEntity>(criteria).OrderBy(i => i.Plu.Number);
-    
-    public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu)
+    public IEnumerable<PluNestingEntity> GetListByQuery(QueryOver<PluNestingEntity> query)
     {
-        return GetListByCriteria(
-            DetachedCriteria.For<PluNestingEntity>()
-                .Add(Restrictions.Eq(nameof(PluNestingEntity.Plu), plu))
-        );
+        QueryOver<PluNestingEntity> queryOver = 
+            query.Clone().JoinQueryOver<PluEntity>(i => i.Plu).OrderBy(plu => plu.Number).Asc;
+        return SqlCoreHelper.Instance.GetEnumerable(queryOver);
     }
+    
+    public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu) =>
+        GetListByQuery(QueryOver.Of<PluNestingEntity>().Where(i => i.Plu == plu));
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem<PluNestingEntity>(
-            DetachedCriteria.For<PluNestingEntity>()
-                .Add(SqlRestrictions.Equal(nameof(PluNestingEntity.Uid1C), uid1C))
-                .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu))
-            );
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<PluNestingEntity>().Where(i => i.Plu == plu && i.Uid1C == uid1C)
+        );
     }
     
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
-        return SqlCoreHelper.Instance.GetItem<PluNestingEntity>(
-            DetachedCriteria.For<PluNestingEntity>()
-                .Add(SqlRestrictions.EqualUid1C(Guid.Empty))
-                .Add(SqlRestrictions.Equal(nameof(PluTemplateFkEntity.Plu), plu))
-            );
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<PluNestingEntity>().Where(i => i.Plu == plu && i.Uid1C == Guid.Empty)
+        );
     }
-    
+
     public void DeleteAllPluNestings(PluEntity plu)
     {
         if (plu.IsNew) return;

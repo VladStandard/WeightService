@@ -118,11 +118,11 @@ public sealed class SqlCoreHelper
         return item ?? new();
     }
     
-    public T GetItem<T>(DetachedCriteria detachedCriteria) where T : EntityBase, new()
+    public T GetItem<T>(QueryOver<T> query) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session => {
-            ICriteria criteria = detachedCriteria.GetExecutableCriteria(session);
+            ICriteria criteria = query.DetachedCriteria.GetExecutableCriteria(session);
             item = criteria.UniqueResult<T>();
         });
         return item ?? new();
@@ -131,12 +131,13 @@ public sealed class SqlCoreHelper
     #endregion
 
     #region GetList
-
-    public IEnumerable<T> GetEnumerable<T>(DetachedCriteria? detachedCriteria = null) where T : EntityBase, new()
+    
+    public IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         ExecuteSelectCore(session => {
-            ICriteria criteria = detachedCriteria != null ? detachedCriteria.GetExecutableCriteria(session) :
+            ICriteria criteria = query != null ? 
+                query.DetachedCriteria.GetExecutableCriteria(session) : 
                 session.CreateCriteria<T>();
             items = criteria.List<T>();
         });

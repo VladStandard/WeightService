@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Users;
@@ -9,16 +8,15 @@ public sealed class SqlUserRepository : IGetItemByUid<UserEntity>, IGetAll<UserE
     
     public IEnumerable<UserEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<UserEntity>(
-            QueryOver.Of<UserEntity>().OrderBy(i => i.Name).Asc().DetachedCriteria
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<UserEntity>().OrderBy(i => i.Name).Asc
         );
     }
     
     public UserEntity GetItemByUsername(string userName)
     {
-        return SqlCoreHelper.Instance.GetItem<UserEntity>(
-            DetachedCriteria.For<UserEntity>()
-                .Add(Restrictions.InsensitiveLike(nameof(UserEntity.Name), userName, MatchMode.Exact))
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<UserEntity>().WhereRestrictionOn(u => u.Name).IsInsensitiveLike(userName, MatchMode.Exact)
         );
     }
 }

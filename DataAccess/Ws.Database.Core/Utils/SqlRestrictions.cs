@@ -1,6 +1,6 @@
 ﻿using Ws.Domain.Models.Common;
 
-namespace Ws.Database.Core.OrmUtils;
+namespace Ws.Database.Core.Utils;
 
 public static class SqlRestrictions
 {

@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Boxes;
@@ -9,18 +8,15 @@ public sealed class SqlBoxRepository : IGetItemByUid1C<BoxEntity>, IGetItemByUid
     
     public BoxEntity GetByUid1C(Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem<BoxEntity>(
-            DetachedCriteria.For<BoxEntity>()
-                .Add(SqlRestrictions.EqualUid1C(uid1C))
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<BoxEntity>().Where(i => i.Uid1C == uid1C)
         );
     }
     
     public IEnumerable<BoxEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<BoxEntity>(
-            DetachedCriteria.For<BoxEntity>()
-                .AddOrder(Order.Asc(nameof(BoxEntity.Weight)))
-                .AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<BoxEntity>().OrderBy(i => i.Weight).Asc.ThenBy(i => i.Name).Asc
         );
     }
 }

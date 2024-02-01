@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.ProductionSites;
@@ -9,8 +8,8 @@ public sealed class SqlProductionSiteRepository : IGetItemByUid<ProductionSiteEn
     
     public IEnumerable<ProductionSiteEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<ProductionSiteEntity>(
-            DetachedCriteria.For<ProductionSiteEntity>().AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<ProductionSiteEntity>().OrderBy(i => i.Name).Asc
         );
     }
 }

@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Warehouses;
@@ -9,8 +8,8 @@ public sealed class SqlWarehouseRepository : IGetItemByUid<WarehouseEntity>, IGe
     
     public IEnumerable<WarehouseEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<WarehouseEntity>(
-            DetachedCriteria.For<WarehouseEntity>().AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<WarehouseEntity>().OrderBy(i => i.Name).Asc
         );
     }
 }

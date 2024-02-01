@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
@@ -9,17 +8,15 @@ public sealed class SqlBundleRepository : IGetItemByUid1C<BundleEntity>, IGetIte
     
     public BundleEntity GetByUid1C(Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem<BundleEntity>(
-            DetachedCriteria.For<BundleEntity>().Add(SqlRestrictions.EqualUid1C(uid1C))
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<BundleEntity>().Where(i => i.Uid1C == uid1C)
         );
     }
     
     public IEnumerable<BundleEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<BundleEntity>(
-            DetachedCriteria.For<BundleEntity>()
-                .AddOrder(Order.Asc(nameof(BundleEntity.Weight)))
-                .AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<BundleEntity>().OrderBy(i => i.Weight).Asc.ThenBy(i => i.Name).Asc
         );
     }
 

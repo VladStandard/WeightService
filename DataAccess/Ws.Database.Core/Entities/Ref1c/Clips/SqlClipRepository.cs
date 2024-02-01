@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Clips;
@@ -9,15 +8,15 @@ public sealed class SqlClipRepository : IGetItemByUid1C<ClipEntity>, IGetItemByU
     
     public IEnumerable<ClipEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<ClipEntity>(
-            DetachedCriteria.For<ClipEntity>().AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<ClipEntity>().OrderBy(i => i.Weight).Asc.ThenBy(i => i.Name).Asc
         );
     }
 
     public ClipEntity GetByUid1C(Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem<ClipEntity>(
-            DetachedCriteria.For<ClipEntity>().Add(SqlRestrictions.EqualUid1C(uid1C))
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<ClipEntity>().Where(i => i.Uid1C == uid1C)
         );
     }
 }

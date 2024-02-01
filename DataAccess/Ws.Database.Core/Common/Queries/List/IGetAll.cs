@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.Core.Common.Queries;
+﻿namespace Ws.Database.Core.Common.Queries.List;
 
 internal interface IGetAll<out TItem>
 {

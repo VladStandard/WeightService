@@ -35,20 +35,22 @@ public class PluService : IPluService
     
     public TemplateEntity GetPluTemplate(PluEntity plu)
     {
-        return new SqlPluTemplateFkRepository().GetItemByCriteria(
-            DetachedCriteria.For<PluTemplateFkEntity>()
-                .Add(Restrictions.Eq(nameof(PluTemplateFkEntity.Plu), plu))
+        return new SqlPluTemplateFkRepository().GetItemByQuery(
+            QueryOver.Of<PluTemplateFkEntity>().Where(i => i.Plu == plu)
         ).Template;
     }
     
     public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluGuid, string lineName)
     {
-        return new SqlPluLineRepository().GetItemByCriteria(
-           DetachedCriteria.For<PluLineEntity>()
-                .CreateAlias(nameof(PluLineEntity.Plu), "plu")
-                .CreateAlias(nameof(PluLineEntity.Line), "line")
-                .Add(Restrictions.Eq($"plu.{nameof(PluEntity.Uid1C)}",pluGuid))
-                .Add(Restrictions.Eq($"line.{nameof(LineEntity.Name)}", lineName))
-        );
+        PluEntity? pluAlias = null;
+        LineEntity? lineAlias = null;
+        PluLineEntity? pluLineAlias = null;
+        
+        QueryOver<PluLineEntity> queryOver = 
+            QueryOver.Of(() => pluLineAlias)
+                .JoinAlias(() => pluLineAlias!.Plu, () => pluAlias).Where(() => pluAlias!.Uid1C == pluGuid)
+                .JoinAlias(() => pluLineAlias!.Line, () => lineAlias).Where(() => lineAlias!.Name == lineName)!;
+
+        return new SqlPluLineRepository().GetItemByQuery(queryOver);
     }
 }

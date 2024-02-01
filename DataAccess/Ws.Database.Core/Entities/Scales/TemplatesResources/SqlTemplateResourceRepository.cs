@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
@@ -10,16 +9,15 @@ public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntit
     
     public IEnumerable<TemplateResourceEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(
-            DetachedCriteria.For<TemplateResourceEntity>().AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<TemplateResourceEntity>().OrderBy(i => i.Name).Asc
         );
     }
     
     public TemplateResourceEntity GetByName(string name)
     {
-        return SqlCoreHelper.Instance.GetItem<TemplateResourceEntity>(
-            DetachedCriteria.For<TemplateResourceEntity>()
-                .Add(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name))
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<TemplateResourceEntity>().Where(i => i.Name == name)
         );
     }
 }

@@ -1,4 +1,3 @@
-using Ws.Database.Core.Common.Queries;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Claims;
@@ -9,8 +8,8 @@ public sealed class SqlClaimRepository : IGetItemByUid<ClaimEntity>, IGetAll<Cla
     
     public IEnumerable<ClaimEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<ClaimEntity>(
-            DetachedCriteria.For<ClaimEntity>().AddOrder(SqlOrder.NameAsc())
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<ClaimEntity>().OrderBy(i => i.Name).Asc
         );
     }
 }

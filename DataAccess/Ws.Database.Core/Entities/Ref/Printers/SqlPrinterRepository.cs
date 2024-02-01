@@ -1,5 +1,4 @@
-﻿using Ws.Database.Core.Common.Queries;
-using Ws.Domain.Models.Entities.Ref;
+﻿using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
 
@@ -9,9 +8,8 @@ public class SqlPrinterRepository : IGetItemByUid<PrinterEntity>, IGetAll<Printe
     
     public IEnumerable<PrinterEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable<PrinterEntity>(
-            DetachedCriteria.For<PrinterEntity>()
-                .AddOrder(SqlOrder.NameAsc()).AddOrder(Order.Asc(nameof(PrinterEntity.Type)))
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<PrinterEntity>().OrderBy(i => i.Type).Asc
         );
     }
 }
