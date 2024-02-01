@@ -13,7 +13,7 @@ namespace Ws.LabelsService.Features.PrintLabel;
 
 public class PrintLabelService(IPluService pluService) : IPrintLabelService
 {
-    public string GenerateLabel(LabelInfoDto labelInfo)
+    public string GenerateWeightLabel(LabelWeightInfoDto labelInfo)
     {
         LabelInfoValidator validator = new();
         PluLineEntity pluLine = pluService.GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);

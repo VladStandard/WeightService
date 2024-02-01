@@ -3,12 +3,11 @@ using Ws.LabelsService.Features.PrintLabel.Dto;
 
 namespace Ws.LabelsService.Features.PrintLabel.Validators;
 
-public class LabelInfoValidator : AbstractValidator<LabelInfoDto>
+public class LabelInfoValidator : AbstractValidator<LabelWeightInfoDto>
 {
     public LabelInfoValidator()
     {
         RuleFor(i => i.Gtin).Length(14).WithMessage("Длина ГТИН должна быть 14 символов");
-        RuleFor(i => i.Itf).Length(14).WithMessage("Длина ИТФ должна быть 14 символов").When(i => !i.IsCheckWeight);
         RuleFor(i => i.Weight).GreaterThanOrEqualTo((decimal)0.100)
             .WithMessage("Вес должен быть > 0.100 у весовой ПЛУ").When(i => i.IsCheckWeight);
         RuleFor(i => i.LineNumber).GreaterThanOrEqualTo(0).WithMessage("Номер линии должен быть >= 1");

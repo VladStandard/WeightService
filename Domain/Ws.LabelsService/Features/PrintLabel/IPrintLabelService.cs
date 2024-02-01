@@ -4,5 +4,5 @@ namespace Ws.LabelsService.Features.PrintLabel;
 
 public interface IPrintLabelService
 {
-    string GenerateLabel(LabelInfoDto labelInfo);
+    string GenerateWeightLabel(LabelWeightInfoDto labelInfo);
 }

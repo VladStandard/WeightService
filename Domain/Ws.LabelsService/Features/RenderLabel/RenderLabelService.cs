@@ -7,6 +7,8 @@ namespace Ws.LabelsService.Features.RenderLabel;
 
 public class RenderLabelService : IRenderLabelService
 {
+    #region Private
+
     private static async Task<byte[]> GetImageBytesFromResponse(HttpResponseMessage response)
     {
         using MemoryStream ms = new();
@@ -23,6 +25,9 @@ public class RenderLabelService : IRenderLabelService
         originalImage.Save(rotatedStream, ImageFormat.Png);
         return Convert.ToBase64String(rotatedStream.ToArray());
     }
+
+    #endregion
+
     public async Task<string> GetZplPreviewBase64(string zpl)
     {
         const string requestUrl = "http://api.labelary.com/v1/printers/12dpmm/labels/2.36x5.9/0/";

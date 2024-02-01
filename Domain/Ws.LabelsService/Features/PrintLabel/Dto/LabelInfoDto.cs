@@ -2,4 +2,4 @@
 
 namespace Ws.LabelsService.Features.PrintLabel.Dto;
 
-public class LabelInfoDto : LabelDataDto;
+public class LabelWeightInfoDto : LabelDataDto;

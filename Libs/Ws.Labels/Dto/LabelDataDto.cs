@@ -5,10 +5,7 @@ public class LabelDataDto
     public decimal Weight { get; set; }
     public decimal WeightTare { get; set; }
     public bool IsCheckWeight { get; set; }
-
-    public string Itf { get; set; } = string.Empty;
     public string Gtin { get; set; } = string.Empty;
-
     public int LineNumber { get; set; }
     public int LineCounter { get; set; }
     public string LineName { get; set; } = string.Empty;
