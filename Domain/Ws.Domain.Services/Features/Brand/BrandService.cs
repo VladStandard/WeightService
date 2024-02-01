@@ -14,9 +14,8 @@ internal class BrandService : IBrandService
     {
         BrandEntity brand = GetItemByUid1С(Guid.Empty);
         if (brand.IsExists) return brand;
-
+        
         brand = new() { Name = "Без бренда", Uid1C = Guid.Empty };
-        SqlCoreHelper.Instance.Save(brand);
-        return brand;
+        return new SqlBrandRepository().Save(brand);
     }
 }

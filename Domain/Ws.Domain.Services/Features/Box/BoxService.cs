@@ -1,5 +1,4 @@
 ﻿using Ws.Database.Core.Entities.Ref1c.Boxes;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Services.Features.Box;
@@ -24,7 +23,7 @@ internal class BoxService : IBoxService
         if (entity.IsExists) return entity;
 
         entity = new() { Name = "Без коробки", Weight = 0, Uid1C = Guid.Empty };
-        SqlCoreHelper.Instance.Save(entity);
-        return entity;
+        
+        return new SqlBoxRepository().Save(entity);
     }
 }

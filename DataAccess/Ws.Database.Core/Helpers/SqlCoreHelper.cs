@@ -135,23 +135,27 @@ public sealed class SqlCoreHelper
     public IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
+        
         ExecuteSelectCore(session => {
             ICriteria criteria = query != null ? 
                 query.DetachedCriteria.GetExecutableCriteria(session) : 
                 session.CreateCriteria<T>();
             items = criteria.List<T>();
         });
+        
         return items;
     }
 
     public IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
     {
         IEnumerable<TObject> items = Enumerable.Empty<TObject>();
+        
         ExecuteSelectCore(session => {
             ISQLQuery query = session.CreateSQLQuery(sqlQuery);
             query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
-            items = query.List<TObject>();
+            items = query.Enumerable<TObject>();
         });
+        
         return items;
     }
     
@@ -159,19 +163,22 @@ public sealed class SqlCoreHelper
     
     #region CRUD
 
-    public void SaveOrUpdate<T>(T item) where T : EntityBase
+    public T SaveOrUpdate<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.SaveOrUpdate(item));
+        return item;
     }
 
-    public void Save<T>(T item) where T : EntityBase
+    public T Save<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Save(item));
+        return item;
     }
 
-    public void Update<T>(T item) where T : EntityBase
+    public T Update<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Update(item));
+        return item;
     }
 
     public void Delete<T>(T item) where T : EntityBase

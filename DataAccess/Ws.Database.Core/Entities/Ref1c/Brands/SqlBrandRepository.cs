@@ -1,8 +1,10 @@
+using Ws.Database.Core.Common.Commands;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandRepository : IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>
+public sealed class SqlBrandRepository : 
+    IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>, ISave<BrandEntity>
 {
     public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BrandEntity>(uid);
     
@@ -19,4 +21,6 @@ public sealed class SqlBrandRepository : IGetItemByUid1C<BrandEntity>, IGetItemB
             QueryOver.Of<BrandEntity>().OrderBy(i => i.Name).Asc
         );
     }
+    
+    public BrandEntity Save(BrandEntity item) => SqlCoreHelper.Instance.Save(item);
 }
