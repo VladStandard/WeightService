@@ -1,0 +1,30 @@
+<form class="max-w-md mx-auto w-full flex flex-col space-y-4">
+  <div class="space-y-2">
+    <label>Склад</label>
+    <input type="text" disabled class="h-9 px-3 py-1 w-full rounded-md overflow-hidden bg-transparent border border-neutral-200 text-sm shadow-sm transition-colors placeholder:text-neutral-600 focus:ring-0 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-neutral-100" />
+  </div>
+  <div class="space-y-2">
+    <label>Макулатура</label>
+    <input type="text" class="h-9 px-3 py-1 w-full rounded-md overflow-hidden bg-transparent border border-neutral-200 text-sm shadow-sm transition-colors placeholder:text-neutral-600 focus:ring-0 focus-visible:outline-none"/>
+  </div>
+  <div class="space-y-2">
+    <label>Вложенность</label>
+    <input type="text" class="h-9 px-3 py-1 w-full rounded-md overflow-hidden bg-transparent border border-neutral-200 text-sm shadow-sm transition-colors placeholder:text-neutral-600 focus:ring-0 focus-visible:outline-none"/>
+  </div>
+  <div class="space-y-2">
+    <label>Дата упаковки</label>
+    <input type="date" class="h-9 px-3 py-1 w-full rounded-md overflow-hidden bg-transparent border border-neutral-200 text-sm shadow-sm transition-colors placeholder:text-neutral-600 focus:ring-0 focus-visible:outline-none"/>
+  </div>
+  <div class="space-y-2">
+    <label>Количество</label>
+    <input type="number" class="h-9 px-3 py-1 w-full rounded-md overflow-hidden bg-transparent border border-neutral-200 text-sm shadow-sm transition-colors placeholder:text-neutral-600 focus:ring-0 focus-visible:outline-none"/>
+  </div>
+  <a
+    href="@RouteUtils.Pallet"
+    class="py-2"
+  >
+    <SharedButton>
+      Создать
+    </SharedButton>
+  </a>
+</form>
