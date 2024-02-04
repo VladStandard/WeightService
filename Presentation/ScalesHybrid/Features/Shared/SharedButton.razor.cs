@@ -3,15 +3,23 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace ScalesHybrid.Features.Shared;
 
-public sealed partial class SharedButton: ComponentBase
+public sealed partial class SharedButton : ComponentBase
 {
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
-    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-    private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 {VariantClasses} {SizeClasses}";
+    private string TryGetAdditionalClass() => AdditionalAttributes.TryGetValue("class", out object? classObj) ?
+        classObj.ToString() ?? string.Empty : string.Empty;
+
+    
+    private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
+                                    $" font-medium transition-colors focus-visible:outline-none focus-visible:ring-1" +
+                                    $" focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" +
+                                    $" {VariantClasses} {SizeClasses} {TryGetAdditionalClass()}";
 
     private string VariantClasses => Variant switch
     {
