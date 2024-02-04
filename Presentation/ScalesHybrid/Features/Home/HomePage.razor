@@ -1,4 +1,4 @@
-@using Ws.Shared.Utils
+@using Ws.Domain.Models.Enums
 @attribute [Route(RouteUtils.Home)]
 
 
@@ -8,30 +8,30 @@
       <p class="truncate text-center text-4xl font-medium">Весовая Служба 2.0</p>
     </div>
     <div class="w-full flex items-center justify-center px-10 gap-4">
-      <a href="@RouteUtils.Labels">
-        <button
-          type="button"
-          class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"
-        >
-          <p class="text-3xl">Этикетка</p>
-        </button>
-      </a>
-      <a
-        class="@(!ConfigurationUtil.IsDevelop ? "hidden" : "" )"
-        href="@RouteUtils.Pallet"
-      >
-        <button
-          type="button"
-          class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"
-        >
-          <p class="text-3xl">Паллеты</p>
-        </button>
-      </a>
+      @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal)
+      {
+        <a href="@RouteUtils.Labels">
+          <button
+            type="button"
+            class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105">
+            <p class="text-3xl">Этикетка</p>
+          </button>
+        </a>
+      }
+      @if (LineContext.Line.Type is LineTypeEnum.Pc or LineTypeEnum.Universal)
+      {
+        <a href="@RouteUtils.Pallet">
+          <button
+            type="button"
+            class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105">
+            <p class="text-3xl">Паллеты</p>
+          </button>
+        </a>
+      }
       <button
         type="button"
         @onclick="ShowCloseAppDialog"
-        class="h-48 w-64 rounded-2xl bg-white transition-all overflow-hidden shadow-md border hover:bg-red-300 hover:shadow-red-200 hover:scale-105"
-      >
+        class="h-48 w-64 rounded-2xl bg-white transition-all overflow-hidden shadow-md border hover:bg-red-300 hover:shadow-red-200 hover:scale-105">
         <p class="text-3xl">Выход</p>
       </button>
     </div>

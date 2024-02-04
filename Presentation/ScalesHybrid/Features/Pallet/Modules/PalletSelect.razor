@@ -1,7 +1,7 @@
 @using Blazor.Heroicons.Outline
 <div class="h-full w-full overflow-hidden flex flex-col">
   <div class="h-12 border-b border-b-black/[.1] flex items-center px-8 shrink-0">
-    <p class="text-lg">Выбор паллеты</p>
+    <span class="text-lg">Выбор паллеты</span>
   </div>
   <div class="h-full w-full grow flex flex-col overflow-hidden">
     @if (!PalletContext.PalletEntities.Any())
@@ -31,16 +31,17 @@
                 type="button"
                 disabled="@PalletContext.Pallet.Equals(item)"
                 @onclick="@(() => PalletContext.ChangePallet(item))"
-                class="w-full h-18 py-2 gap-2 px-4 items-center flex transition-colors @(PalletContext.Pallet.Equals(item) ? "bg-blue-300" : "hover:bg-blue-100")"
+                class="w-full h-18 py-2 gap-2 px-4 items-center flex transition-colors
+                        @(PalletContext.Pallet.Equals(item) ? "bg-neutral-200 hover:bg-neutral-300" : "hover:bg-neutral-100")"
               >
                 <div class="h-full shrink-0 w-10 items-center justify-center">
-                  <p class="text-lg">@index</p>
+                  <span class="text-lg">@index</span>
                 </div>
                 <div class="w-full h-full overflow-hidden grow flex flex-col">
-                  <p class="truncate text-lg text-left">Паллета №@item.Number</p>
+                  <span class="truncate text-lg text-left">Паллета №@item.Number</span>
                   <div class="flex w-full overflow-hidden">
-                    <p class="w-1/2 truncate text-sm text-left">Кол-во: @item.Labels.Count()</p>
-                    <p class="w-1/2 truncate text-sm text-right">Дата: @item.CreateDt.ToString("dd-MM-yyyy")</p>
+                    <span class="w-1/2 truncate text-sm text-left">Кол-во: @item.Labels.Count()</span>
+                    <span class="w-1/2 truncate text-sm text-right">Дата: @item.CreateDt.ToString("dd-MM-yyyy")</span>
                   </div>
                 </div>
               </button>

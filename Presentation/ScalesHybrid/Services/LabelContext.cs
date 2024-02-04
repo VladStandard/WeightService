@@ -30,7 +30,7 @@ public class LabelContext: IDisposable
         LineService = lineService;
         LineContext = lineContext;
         
-        LineContext.OnLabelChanged += InitializeData;
+        LineContext.OnLineChanged += InitializeData;
         Timer = new(_ => LineContext.RequestScale(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
 
@@ -63,7 +63,7 @@ public class LabelContext: IDisposable
 
     public void Dispose()
     {
-        LineContext.OnLabelChanged -= InitializeData;
+        LineContext.OnLineChanged -= InitializeData;
         GC.SuppressFinalize(this);
     }
 }

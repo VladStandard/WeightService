@@ -18,7 +18,7 @@ public class PalletContext: IDisposable
     public PalletContext(LineContext lineContext)
     {
         LineContext = lineContext;
-        LineContext.OnLabelChanged += InitializeData;
+        LineContext.OnLineChanged += InitializeData;
     }
 
     public void InitializeData()
@@ -72,7 +72,7 @@ public class PalletContext: IDisposable
 
     public void Dispose()
     {
-        LineContext.OnLabelChanged -= InitializeData;
+        LineContext.OnLineChanged -= InitializeData;
         GC.SuppressFinalize(this);
     }
 }
