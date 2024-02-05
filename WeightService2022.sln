@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Database.Core.Tests", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceControl", "Presentation\DeviceControl\DeviceControl.csproj", "{96751649-EBBA-45B6-A324-223F551DC9C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScalesHybrid", "Presentation\ScalesHybrid\ScalesHybrid.csproj", "{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScalesDesktop", "Presentation\ScalesDesktop\ScalesDesktop.csproj", "{E7D0A5F8-8752-42B3-8C4A-FFE57ED512E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{1819D2D3-A738-42BD-8473-928C0BCDB977}"
 EndProject

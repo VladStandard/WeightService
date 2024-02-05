@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScalesHybrid.Resources {
+namespace ScalesDesktop.Resources {
     using System;
     
     
