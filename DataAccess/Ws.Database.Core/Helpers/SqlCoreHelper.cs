@@ -6,7 +6,7 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Transform;
 using Ws.Database.Core.Listeners;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Helpers;
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Database.Core.Helpers;
 using Ws.Database.Core.Utils;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 

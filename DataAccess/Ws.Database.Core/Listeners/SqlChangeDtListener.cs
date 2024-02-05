@@ -1,5 +1,5 @@
 ﻿using NHibernate.Event;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Listeners;
 

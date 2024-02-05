@@ -1,3 +1,4 @@
+using Ws.Domain.Abstractions.Repositories.Queries.List;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.PlusLines;

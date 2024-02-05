@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using ScalesHybrid.Services;
-using Ws.LabelsService.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
 
 namespace ScalesHybrid.Mapster;
 

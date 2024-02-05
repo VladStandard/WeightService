@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Utils;

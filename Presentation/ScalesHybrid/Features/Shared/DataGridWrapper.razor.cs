@@ -1,6 +1,6 @@
 using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace ScalesHybrid.Features.Shared;
 

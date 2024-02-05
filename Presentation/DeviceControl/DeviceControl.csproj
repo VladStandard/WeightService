@@ -26,7 +26,7 @@
         <Watch Include="..\**\*.razor;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\Domain\Ws.LabelsService\Ws.LabelsService.csproj" />
+      <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>

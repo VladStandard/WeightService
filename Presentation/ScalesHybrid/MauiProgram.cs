@@ -6,7 +6,7 @@ using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using ScalesHybrid.Services;
 using Ws.Domain.Services;
-using Ws.LabelsService;
+using Ws.Labels.Service;
 
 namespace ScalesHybrid;
 public static class MauiProgram
