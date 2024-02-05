@@ -1,11 +1,4 @@
-﻿* {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.blazorise-tabs > div:first-child {
+﻿.blazorise-tabs > div:first-child {
   overflow: hidden;
   height: 100%;
   width: 100%;

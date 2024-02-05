@@ -1,25 +1,24 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using ScalesHybrid.Utils;
 
 namespace ScalesHybrid.Features.Shared;
 
 public sealed partial class SharedButton : ComponentBase
 {
     [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+    public Dictionary<string, object> Attributes { get; set; } = new();
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
-
-    private string TryGetAdditionalClass() => AdditionalAttributes.TryGetValue("class", out object? classObj) ?
-        classObj.ToString() ?? string.Empty : string.Empty;
-
     
     private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
                                     $" font-medium transition-colors focus-visible:outline-none focus-visible:ring-1" +
                                     $" focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" +
-                                    $" {VariantClasses} {SizeClasses} {TryGetAdditionalClass()}";
+                                    $" {VariantClasses} {SizeClasses} {AdditionalClass}";
+    
+    private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 
     private string VariantClasses => Variant switch
     {

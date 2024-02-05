@@ -1,49 +1,56 @@
-<div class="w-full h-full flex overflow-x-hidden overflow-y-auto">
-  <div class="w-full flex flex-wrap gap-y-3 items-start pt-6 pb-8 px-5">
-    <FormInputText
-      Label="Номер"
-      Value="@PalletContext.Pallet.Number.ToString()"
-      IsDisabled
-    />
-    <FormInputText
-      Label="Штрихкод"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="Линия"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="Сдатчик"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="Кол-во"
-      Value="@PalletContext.Pallet.Labels.Count().ToString()"
-      IsDisabled
-    />
-    <FormInputText
-      Label="Замес"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="Вес нетто"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="Вес брутто"
-      Value=""
-      IsDisabled
-    />
-    <FormInputText
-      Label="ПЛУ"
-      Value=""
-      IsDisabled
-    />
+<div class="w-full h-full flex bg-neutral-50 flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-5 space-y-5">
+  <div class="w-full border-b border-b-neutral-200 flex px-2 justify-between items-center pb-4">
+    <h1 class="font-medium text-xl">Паллета №@PalletContext.Pallet.Number</h1>
+    <SharedButton type="button">
+      Печать ПК
+    </SharedButton>
+  </div>
+  <div class="w-full grid grid-cols-1 gap-x-10 gap-y-4 px-2 lg:grid-cols-2 items-start">
+    <div class="space-y-2">
+      <SharedLabel for="number">Номер</SharedLabel>
+      <SharedInputText
+        id="number"
+        Value="@PalletContext.Pallet.Number.ToString()"
+        class="disabled:opacity-100"
+        disabled
+      />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="barcode">Штрихкод</SharedLabel>
+      <SharedInputText id="barcode" class="disabled:opacity-100" disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="line">Линия</SharedLabel>
+      <SharedInputText id="line" class="disabled:opacity-100"  disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="delivery">Сдатчик</SharedLabel>
+      <SharedInputText id="delivery" class="disabled:opacity-100"  disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="count">Количество</SharedLabel>
+      <SharedInputText
+        id="count"
+        Value="@PalletContext.Pallet.Labels.Count().ToString()"
+        class="disabled:opacity-100"
+        disabled
+      />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="kneading">Замес</SharedLabel>
+      <SharedInputText id="kneading" class="disabled:opacity-100"  disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="netto">Вес нетто</SharedLabel>
+      <SharedInputText id="netto" class="disabled:opacity-100"  disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="brutto">Вес брутто</SharedLabel>
+      <SharedInputText id="brutto" class="disabled:opacity-100"  disabled />
+    </div>
+    <div class="space-y-2">
+      <SharedLabel for="plu">ПЛУ</SharedLabel>
+      <SharedInputText id="plu" class="disabled:opacity-100"  disabled />
+    </div>
   </div>
 </div>
