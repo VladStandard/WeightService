@@ -13,6 +13,7 @@
         <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\Ws.Domain.Abstractions\Ws.Domain.Abstractions.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
