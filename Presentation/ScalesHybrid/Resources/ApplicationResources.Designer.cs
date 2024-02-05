@@ -233,6 +233,24 @@ namespace ScalesHybrid.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string DataGridColumnPLU {
+            get {
+                return ResourceManager.GetString("DataGridColumnPLU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DataGridColumnProductDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string DataGridColumnTareWeight {
             get {
                 return ResourceManager.GetString("DataGridColumnTareWeight", resourceCulture);
@@ -452,6 +470,15 @@ namespace ScalesHybrid.Resources {
         internal static string ScaleStabilization {
             get {
                 return ResourceManager.GetString("ScaleStabilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SectionFormInputTextPlaceholder {
+            get {
+                return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
             }
         }
         

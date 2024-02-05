@@ -156,4 +156,13 @@
     <data name="ButtonBack" xml:space="preserve">
         <value>Назад</value>
     </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value>Дата производства</value>
+    </data>
+    <data name="DataGridColumnPLU" xml:space="preserve">
+        <value>ПЛУ</value>
+    </data>
+    <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
+        <value>Информация отсутсвует...</value>
+    </data>
 </root>

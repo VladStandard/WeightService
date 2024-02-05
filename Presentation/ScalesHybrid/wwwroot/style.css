@@ -11,12 +11,6 @@
   width: 100%;
 }
 
-.blazorise-datagrid form {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-
 .b-table-fixed-header > .b-table {
   border-collapse: collapse !important;
 }

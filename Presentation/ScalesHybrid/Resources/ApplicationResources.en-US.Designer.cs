@@ -231,6 +231,24 @@ namespace ScalesHybrid.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLU.
+        /// </summary>
+        internal static string DataGridColumnPLU {
+            get {
+                return ResourceManager.GetString("DataGridColumnPLU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product date.
+        /// </summary>
+        internal static string DataGridColumnProductDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tare weight.
         /// </summary>
         internal static string DataGridColumnTareWeight {
@@ -452,6 +470,15 @@ namespace ScalesHybrid.Resources {
         internal static string ScaleStabilization {
             get {
                 return ResourceManager.GetString("ScaleStabilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No data....
+        /// </summary>
+        internal static string SectionFormInputTextPlaceholder {
+            get {
+                return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
             }
         }
         
