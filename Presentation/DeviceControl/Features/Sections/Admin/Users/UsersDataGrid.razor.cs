@@ -40,7 +40,7 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
     protected override IEnumerable<UserEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [UserService.GetByUid(itemUid)];
+        return [UserService.GetItemByUid(itemUid)];
     }
 
     private Task DeleteUserWithRelogin(UserEntity item)

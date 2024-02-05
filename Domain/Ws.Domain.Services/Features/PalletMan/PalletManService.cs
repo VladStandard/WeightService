@@ -5,6 +5,6 @@ namespace Ws.Domain.Services.Features.PalletMan;
 
 public class PalletManService : IPalletManService
 {
-    public PalletManEntity GetByUid(Guid uid) => new SqlPalletManRepository().GetByUid(uid);
+    public PalletManEntity GetItemByUid(Guid uid) => new SqlPalletManRepository().GetByUid(uid);
     public IEnumerable<PalletManEntity> GetAll() => new SqlPalletManRepository().GetAll();
 }

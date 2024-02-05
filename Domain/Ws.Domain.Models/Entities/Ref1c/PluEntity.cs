@@ -1,12 +1,12 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluEntity : Table1CBase
+public class PluEntity : Entity1CBase
 {
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; }
@@ -38,26 +38,10 @@ public class PluEntity : Table1CBase
         StorageMethod = new();
         Description = string.Empty;
     }
-
-    public PluEntity(PluEntity item) : base(item)
-    {
-        Number = item.Number;
-        FullName = item.FullName;
-        ShelfLifeDays = item.ShelfLifeDays;
-        Gtin = item.Gtin;
-        Ean13 = item.Ean13;
-        Itf14 = item.Itf14;
-        IsCheckWeight = item.IsCheckWeight;
-        Brand = new(item.Brand);
-        Bundle = new(item.Bundle);
-        Clip = new(item.Clip);
-        StorageMethod = new(item.StorageMethod);
-        Description = item.Description;
-    }
-
+    
     public override string ToString() => $"{Number} | {Name} | {Uid1C}";
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

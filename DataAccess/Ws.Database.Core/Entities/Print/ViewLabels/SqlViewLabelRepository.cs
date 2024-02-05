@@ -2,11 +2,12 @@ using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Core.Entities.Print.ViewLabels;
 
-public sealed class ViewLabelRepository
+public sealed class ViewLabelRepository : IGetAll<ViewLabel>
 {
-    public IEnumerable<ViewLabel> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<ViewLabel> GetAll()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCoreHelper.Instance.GetEnumerable<ViewLabel>(sqlCrudConfig).ToList();
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<ViewLabel>().OrderBy(log => log.CreateDt).Desc
+        ).ToList();
     }
 }

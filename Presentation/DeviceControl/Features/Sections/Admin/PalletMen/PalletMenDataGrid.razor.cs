@@ -31,7 +31,7 @@ public sealed partial class PalletMenDataGrid: SectionDataGridBase<PalletManEnti
     protected override IEnumerable<PalletManEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [PalletManService.GetByUid(itemUid)];
+        return [PalletManService.GetItemByUid(itemUid)];
     }
 
     private static string GetFullName(PalletManEntity item) => item.Fio;

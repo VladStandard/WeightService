@@ -29,6 +29,6 @@ public sealed partial class ClipsDataGrid: SectionDataGridBase<ClipEntity>
     protected override IEnumerable<ClipEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [ClipService.GetByUid(itemUid)];
+        return [ClipService.GetItemByUid(itemUid)];
     }
 }

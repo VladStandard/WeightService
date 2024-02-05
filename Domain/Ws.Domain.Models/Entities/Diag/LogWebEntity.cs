@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Diag;
 
@@ -27,21 +27,9 @@ public class LogWebEntity : EntityBase
         CountErrors = default;
     }
 
-    public LogWebEntity(LogWebEntity item) : base(item)
-    {
-        StampDt = item.StampDt;
-        Version = item.Version;
-        Url = item.Url;
-        DataResponse = item.DataResponse;
-        DataRequest = item.DataRequest;
-        CountAll = item.CountAll;
-        CountSuccess = item.CountSuccess;
-        CountErrors = item.CountErrors;
-    }
-
     public override string ToString() => $"{Version} | {Url}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

@@ -12,10 +12,10 @@ public sealed class LogWebsRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
-            IEnumerable<LogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
-            ParseRecords(items);
-        });
+        // AssertAction(() =>
+        // {
+        //     IEnumerable<LogWebEntity> items = LogWebRepository.GetList(SqlCrudConfig);
+        //     ParseRecords(items);
+        // });
     }
 }

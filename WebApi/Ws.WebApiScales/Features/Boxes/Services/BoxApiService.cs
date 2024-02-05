@@ -11,7 +11,7 @@ internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxServ
 {
     private void UpdateOrCreate(BoxDto boxDto)
     {
-        BoxEntity boxDb = boxService.GetByUid1С(boxDto.Uid);
+        BoxEntity boxDb = boxService.GetItemByUid1С(boxDto.Uid);
         boxDb = boxDto.AdaptTo(boxDb);
         SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
         responseDto.AddSuccess(boxDb.Uid1C, boxDb.Name);

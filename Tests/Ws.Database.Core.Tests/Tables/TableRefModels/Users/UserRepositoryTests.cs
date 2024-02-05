@@ -21,7 +21,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<UserEntity> items = new SqlUserRepository().GetEnumerable();
+            IEnumerable<UserEntity> items = new SqlUserRepository().GetAll();
             ParseRecords(items);
         });
     }
@@ -31,9 +31,9 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            UserEntity access = UserRepository.GetItemByNameOrCreate(CurrentUser);
+            UserEntity access = UserRepository.GetItemByUsername(CurrentUser);
             Assert.That(access.IsExists, Is.True);
-            TestContext.WriteLine($"Success created/updated: {access.Name} / {access.IdentityValueUid}");
+            TestContext.WriteLine($"Success: {access.Name} / {access.IdentityValueUid}");
         });
     }
 }

@@ -1,11 +1,11 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletManEntity : Table1CBase
+public class PalletManEntity : Entity1CBase
 {
     public virtual string Surname { get; set; }
     public virtual string Patronymic { get; set; }
@@ -24,14 +24,7 @@ public class PalletManEntity : Table1CBase
         Password = string.Empty;
     }
     
-    public PalletManEntity(PalletManEntity item) : base(item)
-    {
-        Password = item.Password;
-        Surname = item.Surname;
-        Patronymic = item.Patronymic;
-    }
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

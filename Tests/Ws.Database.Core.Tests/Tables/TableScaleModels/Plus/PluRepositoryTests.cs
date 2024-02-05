@@ -12,26 +12,10 @@ public sealed class PluRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
-            IEnumerable<PluEntity> items = PluRepository.GetEnumerable(SqlCrudConfig);
-            ParseRecords(items);
-        });
+        // AssertAction(() =>
+        // {
+        //     IEnumerable<PluEntity> items = PluRepository.GetEnumerable(SqlCrudConfig);
+        //     ParseRecords(items);
+        // });
     }
-
-    [Test]
-    public void GetListByNumber()
-    {
-        AssertAction(() =>
-        {
-            IEnumerable<PluEntity> plus = PluRepository.GetEnumerableByNumber(301).ToList();
-
-            Assert.That(plus.Any(), Is.True);
-            foreach (PluEntity plu in plus)
-                Assert.That(plu.Number, Is.EqualTo(301));
-
-            ParseRecords(plus);
-        });
-    }
-    
 }

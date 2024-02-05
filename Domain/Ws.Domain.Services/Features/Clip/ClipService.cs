@@ -6,13 +6,13 @@ namespace Ws.Domain.Services.Features.Clip;
 
 internal class ClipService : IClipService
 {
-    public ClipEntity GetByUid(Guid uid) => new SqlClipRepository().GetByUid(uid);
-    public ClipEntity GetByUid1С(Guid uid) => new SqlClipRepository().GetByUid1C(uid);
-    public IEnumerable<ClipEntity> GetAll() => new SqlClipRepository().GetEnumerable();
-    
+    public IEnumerable<ClipEntity> GetAll() => new SqlClipRepository().GetAll();
+    public ClipEntity GetItemByUid(Guid uid) => new SqlClipRepository().GetByUid(uid);
+    public ClipEntity GetItemByUid1С(Guid uid) => new SqlClipRepository().GetByUid1C(uid);
+
     public ClipEntity GetDefault()
     {
-        ClipEntity entity = GetByUid1С(Guid.Empty);
+        ClipEntity entity = GetItemByUid1С(Guid.Empty);
         entity.Name = "Без клипсы";
         entity.Weight = 0;
         SqlCoreHelper.Instance.SaveOrUpdate(entity);

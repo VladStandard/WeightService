@@ -2,14 +2,14 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Warehouses;
 
-public sealed class SqlWarehouseRepository : IUidRepo<WarehouseEntity>
+public sealed class SqlWarehouseRepository : IGetItemByUid<WarehouseEntity>, IGetAll<WarehouseEntity>
 {
-    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<WarehouseEntity>(uid);
+    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<WarehouseEntity>(uid);
     
-    public IEnumerable<WarehouseEntity> GetEnumerable()
+    public IEnumerable<WarehouseEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<WarehouseEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<WarehouseEntity>().OrderBy(i => i.Name).Asc
+        );
     }
 }

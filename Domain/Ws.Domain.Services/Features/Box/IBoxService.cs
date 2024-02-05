@@ -1,9 +1,9 @@
 ﻿using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Box;
 
-public interface IBoxService : IUid<BoxEntity>, IAll<BoxEntity>, IUid1C<BoxEntity>
+public interface IBoxService : IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>, IGetItemByUid1C<BoxEntity>
 {
     BoxEntity GetDefaultForCharacteristic();
 }

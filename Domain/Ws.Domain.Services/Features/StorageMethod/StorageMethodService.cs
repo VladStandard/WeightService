@@ -6,9 +6,9 @@ namespace Ws.Domain.Services.Features.StorageMethod;
 
 internal class StorageMethodService : IStorageMethodService
 {
-    public StorageMethodEntity GetByUid(Guid uid) => new SqlStorageMethodRepository().GetByUid(uid);
-    
     public IEnumerable<StorageMethodEntity> GetAll() => new SqlStorageMethodRepository().GetList();
+    
+    public StorageMethodEntity GetItemByUid(Guid uid) => new SqlStorageMethodRepository().GetByUid(uid);
     
     public StorageMethodEntity GetByName(string name) => new SqlStorageMethodRepository().GetItemByName(name);
     

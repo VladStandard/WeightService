@@ -6,7 +6,6 @@ namespace Ws.Database.Core.Entities.Print.Labels;
 
 public sealed class SqlLabelValidator : SqlTableValidator<LabelEntity>
 {
-
     public SqlLabelValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Zpl)

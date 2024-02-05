@@ -11,7 +11,7 @@ internal sealed class BundleApiService(ResponseDto responseDto, IBundleService b
 {
     private void UpdateOrCreate(BundleDto bundleDto)
     {
-        BundleEntity bundleDb = bundleService.GetByUid1С(bundleDto.Uid);
+        BundleEntity bundleDb = bundleService.GetItemByUid1С(bundleDto.Uid);
         bundleDb = bundleDto.AdaptTo(bundleDb);
         SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
         responseDto.AddSuccess(bundleDb.Uid1C, bundleDb.Name);

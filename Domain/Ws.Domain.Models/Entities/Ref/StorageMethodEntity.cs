@@ -1,7 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
-
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
@@ -16,12 +15,7 @@ public class StorageMethodEntity : EntityBase
         Zpl = string.Empty;
     }
 
-    public StorageMethodEntity(StorageMethodEntity item) : base(item)
-    {
-        Zpl = item.Zpl;
-    }
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

@@ -21,7 +21,7 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<ViewLabel>
 
     protected override async Task OpenDataGridEntityModal(ViewLabel item)
     {
-        LabelEntity labelItem = LabelService.GetByUid(item.IdentityValueUid);
+        LabelEntity labelItem = LabelService.GetItemByUid(item.IdentityValueUid);
         await ModalService.Show<LabelsUpdateDialog>(p =>
         {
             p.Add(x => x.DialogSectionEntity, labelItem);

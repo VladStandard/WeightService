@@ -6,7 +6,6 @@ namespace Ws.Domain.Services.Features.Claim;
 
 internal class ClaimService : IClaimService
 {
-    public ClaimEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<ClaimEntity>(uid);
-    
-    public IEnumerable<ClaimEntity> GetAll() => new SqlClaimRepository().GetEnumerable();
+    public IEnumerable<ClaimEntity> GetAll() => new SqlClaimRepository().GetAll();
+    public ClaimEntity GetItemByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<ClaimEntity>(uid);
 }

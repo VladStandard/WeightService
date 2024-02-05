@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Models.Entities.Print;
@@ -18,15 +18,8 @@ public class PalletEntity : EntityBase
         Barcode = string.Empty;
         Counter = 0;
     }
-
-    public PalletEntity(PalletEntity item) : base(item)
-    {
-        PalletMan = new(item.PalletMan);
-        Barcode = item.Barcode;
-        Counter = item.Counter;
-    }
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

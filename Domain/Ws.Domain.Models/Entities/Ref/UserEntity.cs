@@ -1,7 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
-
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Utils;
 
 namespace Ws.Domain.Models.Entities.Ref;
@@ -18,15 +17,7 @@ public class UserEntity : EntityBase
         Claims = new HashSet<ClaimEntity>();
     }
 
-    public UserEntity(UserEntity item) : base(item)
-    {
-        LoginDt = item.LoginDt;
-        Claims = new HashSet<ClaimEntity>();
-    }
-    
-    public override string ToString() => $"{Name}";
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

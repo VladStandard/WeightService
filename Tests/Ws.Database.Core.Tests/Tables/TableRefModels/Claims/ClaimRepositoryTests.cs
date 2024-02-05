@@ -13,7 +13,7 @@ public sealed class ClaimRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<ClaimEntity> items = ClaimRepository.GetEnumerable();
+            IEnumerable<ClaimEntity> items = ClaimRepository.GetAll();
             ParseRecords(items);
         });
     }

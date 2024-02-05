@@ -2,10 +2,7 @@ using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Database.Core.Entities.Diag.TableSizes;
 
-public sealed class SqlViewTableSizeRepository
+public sealed class SqlViewTableSizeRepository : IGetAll<TableSizeEntity>
 {
-    public IEnumerable<TableSizeEntity> GetEnumerable()
-    {
-       return SqlCoreHelper.Instance.GetEnumerable<TableSizeEntity>(new());
-    }
+    public IEnumerable<TableSizeEntity> GetAll() => SqlCoreHelper.Instance.GetEnumerable<TableSizeEntity>();
 }

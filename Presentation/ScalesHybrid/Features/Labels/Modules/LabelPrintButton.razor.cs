@@ -6,8 +6,9 @@ using ScalesHybrid.Events;
 using ScalesHybrid.Resources;
 using ScalesHybrid.Services;
 using Ws.Database.Core.Helpers;
-using Ws.LabelsService.Features.PrintLabel;
-using Ws.LabelsService.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
@@ -63,8 +64,8 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
 
         try
         {
-            LabelInfoDto labelDto = CreateLabelInfoDto();
-            string zpl = PrintLabelService.GenerateLabel(labelDto);
+            LabelWeightInfoDto labelDto = CreateLabelInfoDto();
+            string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
             SqlCoreHelper.Instance.Update(LabelContext.Line);
@@ -98,7 +99,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         }
     }
 
-    private LabelInfoDto CreateLabelInfoDto() =>
+    private LabelWeightInfoDto CreateLabelInfoDto() =>
         new()
         {
             Plu1СGuid = LabelContext.Plu.Uid1C,
@@ -109,7 +110,6 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
             LineCounter = LabelContext.Line.Counter,
             BundleCount = LabelContext.PluNesting.BundleCount,
             IsCheckWeight = LabelContext.Plu.IsCheckWeight,
-            Itf = LabelContext.Plu.Itf14,
             Gtin = LabelContext.Plu.Gtin,
             Address = LabelContext.Line.Warehouse.ProductionSite.Address,
             PluFullName = LabelContext.Plu.FullName,

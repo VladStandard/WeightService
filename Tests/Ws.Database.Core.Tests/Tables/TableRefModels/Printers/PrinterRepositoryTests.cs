@@ -14,7 +14,7 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<PrinterEntity> items = PrinterRepository.GetEnumerable();
+            IEnumerable<PrinterEntity> items = PrinterRepository.GetAll();
             ParseRecords(items);
         });
     }

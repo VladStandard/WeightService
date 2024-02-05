@@ -2,24 +2,22 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
-public class SqlTemplateResourceRepository : IUidRepo<TemplateResourceEntity>
+public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
 {
     public TemplateResourceEntity GetByUid(Guid uid) =>
-        SqlCoreHelper.Instance.GetItemByUid<TemplateResourceEntity>(uid);
+        SqlCoreHelper.Instance.GetItemById<TemplateResourceEntity>(uid);
     
-    public IEnumerable<TemplateResourceEntity> GetList()
+    public IEnumerable<TemplateResourceEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        IEnumerable<TemplateResourceEntity> items = SqlCoreHelper.Instance.GetEnumerable<TemplateResourceEntity>(crud);
-        return items
-            .OrderBy(item => item.Name);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<TemplateResourceEntity>().OrderBy(i => i.Name).Asc
+        );
     }
     
     public TemplateResourceEntity GetByName(string name)
     {
-        SqlCrudConfigModel model = new();
-        model.AddFilter(SqlRestrictions.Equal(nameof(TemplateResourceEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCrud<TemplateResourceEntity>(model);
-   
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<TemplateResourceEntity>().Where(i => i.Name == name)
+        );
     }
 }

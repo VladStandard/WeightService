@@ -3,11 +3,11 @@ using Ws.Shared.Utils;
 
 namespace Ws.Domain.Models.Models;
 
-public class FieldBinaryModel
+public sealed class FieldBinaryModel
 {
-    public virtual byte[]? Value { get; set; }
+    public byte[]? Value { get; set; }
     
-    public virtual string ValueUnicode
+    public string ValueUnicode
     {
         get => Value is null || Value.Length == 0 || Value.Equals(Array.Empty<byte>()) ? string.Empty : Encoding.Unicode.GetString(Value);
         set => Value = Encoding.Unicode.GetBytes(value);
@@ -23,7 +23,7 @@ public class FieldBinaryModel
         Value = DataUtils.ByteClone(item.Value);
     }
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -33,6 +33,6 @@ public class FieldBinaryModel
 
     public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
 
-    public virtual bool Equals(FieldBinaryModel item) =>
+    public bool Equals(FieldBinaryModel item) =>
         item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
 }

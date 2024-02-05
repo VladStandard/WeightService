@@ -13,7 +13,7 @@ public sealed class ViewTableSizeRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<TableSizeEntity> items = TableSizeRepository.GetEnumerable();
+            IEnumerable<TableSizeEntity> items = TableSizeRepository.GetAll();
             ParseRecords(items);
         });
     }

@@ -2,14 +2,14 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Claims;
 
-public sealed class SqlClaimRepository : IUidRepo<ClaimEntity>
+public sealed class SqlClaimRepository : IGetItemByUid<ClaimEntity>, IGetAll<ClaimEntity>
 {
-    public ClaimEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<ClaimEntity>(uid);
+    public ClaimEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<ClaimEntity>(uid);
     
-    public IEnumerable<ClaimEntity> GetEnumerable()
+    public IEnumerable<ClaimEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<ClaimEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<ClaimEntity>().OrderBy(i => i.Name).Asc
+        );
     }
 }

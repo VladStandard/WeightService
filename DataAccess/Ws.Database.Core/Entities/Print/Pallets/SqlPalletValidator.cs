@@ -5,7 +5,6 @@ namespace Ws.Database.Core.Entities.Print.Pallets;
 
 public sealed class SqlPalletValidator : SqlTableValidator<PalletEntity>
 {
-
     public SqlPalletValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Barcode)

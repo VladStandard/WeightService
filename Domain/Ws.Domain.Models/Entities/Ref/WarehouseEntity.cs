@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
@@ -13,17 +13,12 @@ public class WarehouseEntity : EntityBase
     {
         ProductionSite = new();
     }
-
-    public WarehouseEntity(WarehouseEntity item) : base(item)
-    {
-        ProductionSite = new(item.ProductionSite);
-    }
-
+    
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(ProductionSite)}: {ProductionSite}. ";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

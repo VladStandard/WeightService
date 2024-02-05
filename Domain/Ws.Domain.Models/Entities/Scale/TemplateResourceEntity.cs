@@ -1,8 +1,7 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Models;
-using Ws.Shared.Utils;
 
 namespace Ws.Domain.Models.Entities.Scale;
 
@@ -16,17 +15,8 @@ public class TemplateResourceEntity : EntityBase
     {
         Data = new();
     }
-    
-    public TemplateResourceEntity(TemplateResourceEntity item) : base(item)
-    {
-        Data = new(item.Data);
-        DataValue = DataUtils.ByteClone(item.DataValue);
-    }
-    
-    public override string ToString() =>
-        $"{nameof(Name)}: {Name}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

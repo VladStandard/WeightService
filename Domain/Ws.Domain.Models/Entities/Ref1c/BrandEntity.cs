@@ -1,21 +1,13 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BrandEntity : Table1CBase
+public class BrandEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 {
-    public BrandEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-    }
-
-    public BrandEntity(BrandEntity item) : base(item)
-    {
-    }
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

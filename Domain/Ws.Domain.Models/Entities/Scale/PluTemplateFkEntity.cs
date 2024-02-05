@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Models.Entities.Scale;
@@ -16,18 +16,12 @@ public class PluTemplateFkEntity : EntityBase
         Plu = new();
         Template = new();
     }
-
-    public PluTemplateFkEntity(PluTemplateFkEntity item) : base(item)
-    {
-        Plu = new(item.Plu);
-        Template = new(item.Template);
-    }
     
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Template)}: {Template}. ";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

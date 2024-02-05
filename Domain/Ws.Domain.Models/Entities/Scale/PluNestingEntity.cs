@@ -1,13 +1,13 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluNestingEntity : Table1CBase
+public class PluNestingEntity : Entity1CBase
 {
     public virtual BoxEntity Box { get; set; }
     public virtual PluEntity Plu { get; set; }
@@ -23,18 +23,11 @@ public class PluNestingEntity : Table1CBase
         BundleCount = 0;
     }
     
-    public PluNestingEntity(PluNestingEntity item) : base(item)
-    {
-        Box = new(item.Box);
-        Plu = new(item.Plu);
-        BundleCount = item.BundleCount;
-    }
-    
     public override string ToString() =>
         $"{Plu.Number} | {Plu.Name} | " +
         $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -50,5 +43,4 @@ public class PluNestingEntity : Table1CBase
         Plu.Equals(item.Plu) && 
         Equals(IsDefault, item.IsDefault) &&
         Equals(BundleCount, item.BundleCount);
-    
 }

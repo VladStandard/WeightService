@@ -29,6 +29,6 @@ public sealed partial class BoxesDataGrid: SectionDataGridBase<BoxEntity>
     protected override IEnumerable<BoxEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [BoxService.GetByUid(itemUid)];
+        return [BoxService.GetItemByUid(itemUid)];
     }
 }

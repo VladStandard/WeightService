@@ -1,12 +1,12 @@
 using System.Reflection;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using NHibernate.Transform;
 using Ws.Database.Core.Listeners;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Helpers;
 
@@ -14,15 +14,15 @@ public sealed class SqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private static SqlCoreHelper _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static SqlCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
 
     #region Public and private fields, properties, constructor
-    
+
     private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
     private ISessionFactory SessionFactory { get; set; } = null!;
     private Configuration SqlConfiguration { get; set; } = new();
@@ -39,12 +39,12 @@ public sealed class SqlCoreHelper
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
-        
+
         SqlSettingsModels sqlSettingsModels = new();
         sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
         return sqlSettingsModels;
     }
-    
+
     private void SetSqlConfiguration()
     {
         SqlSettingsModels = LoadJsonConfig();
@@ -60,10 +60,6 @@ public sealed class SqlCoreHelper
         SqlConfiguration.EventListeners.PreUpdateEventListeners =
             [new SqlChangeDtListener()];
     }
-    
-    #endregion
-
-    #region Public and private methods - Base
 
     private void AddConfigurationMappings()
     {
@@ -77,39 +73,18 @@ public sealed class SqlCoreHelper
     
     #region Public and private methods - Base
 
-    private static ICriteria GetCriteria<T>(ISession session, SqlCrudConfigModel sqlCrudConfig) where T : class, new()
-    {
-        ICriteria criteria = session.CreateCriteria(typeof(T));
-        
-        if (sqlCrudConfig.SelectTopRowsCount > 0)
-            criteria.SetMaxResults(sqlCrudConfig.SelectTopRowsCount);
-
-        foreach (ICriterion filter in sqlCrudConfig.Filters)
-            criteria.Add(filter);
-        
-        foreach (Order order in sqlCrudConfig.Orders)
-            criteria.AddOrder(order);
-        
-        return criteria;
-    }
-    
     private void ExecuteSelectCore(Action<ISession> action)
     {
         using ISession session = SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Manual;
+        
         try
         {
             action(session);
-            session.Clear();
         }
         catch (Exception)
         {
             return;
-        }
-        finally
-        {
-            session.Disconnect();
-            session.Close();
         }
     }
 
@@ -117,133 +92,99 @@ public sealed class SqlCoreHelper
     {
         using ISession session = SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Commit;
+        
         using ITransaction transaction = session.BeginTransaction();
         try
         {
             action(session);
             transaction.Commit();
-            session.Clear();
         }
         catch (Exception)
         {
             transaction.Rollback();
         }
-        finally
-        {
-            session.Disconnect();
-            session.Close();
-        }
+    }
+
+    #endregion
+
+    #region GetItem
+
+    public T GetItemById<T>(object id) where T : EntityBase, new()
+    {
+        T? item = null;
+        ExecuteSelectCore(session => {
+            item = session.Get<T>(id);
+        });
+        return item ?? new();
     }
     
-    private ISQLQuery? GetSqlQuery(ISession session, string query, IEnumerable<SqlParameter> parameters)
+    public T GetItem<T>(QueryOver<T> query) where T : EntityBase, new()
     {
-        if (string.IsNullOrEmpty(query)) return null;
+        T? item = null;
+        ExecuteSelectCore(session => {
+            ICriteria criteria = query.DetachedCriteria.GetExecutableCriteria(session);
+            item = criteria.UniqueResult<T>();
+        });
+        return item ?? new();
+    }
 
-        ISQLQuery sqlQuery = session.CreateSQLQuery(query);
-        foreach (SqlParameter parameter in parameters)
-        {
-            if (parameter.Value is byte[] imagedata)
-                sqlQuery.SetParameter(parameter.ParameterName, imagedata);
-            else
-                sqlQuery.SetParameter(parameter.ParameterName, parameter.Value);
-        }
-        return sqlQuery;
+    #endregion
+
+    #region GetList
+    
+    public IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
+    {
+        IEnumerable<T> items = Enumerable.Empty<T>();
+        
+        ExecuteSelectCore(session => {
+            ICriteria criteria = query != null ? 
+                query.DetachedCriteria.GetExecutableCriteria(session) : 
+                session.CreateCriteria<T>();
+            items = criteria.List<T>();
+        });
+        
+        return items;
+    }
+
+    public IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
+    {
+        IEnumerable<TObject> items = Enumerable.Empty<TObject>();
+        
+        ExecuteSelectCore(session => {
+            ISQLQuery query = session.CreateSQLQuery(sqlQuery);
+            query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
+            items = query.Enumerable<TObject>();
+        });
+        
+        return items;
     }
     
     #endregion
     
     #region CRUD
 
-    public void SaveOrUpdate<T>(T item) where T : EntityBase
+    public T SaveOrUpdate<T>(T item) where T : EntityBase
     {
-        if (item.IsNew) 
-        {
-            Save(item);
-            return;
-        }
-        Update(item);
-    }
-    
-    public void Save<T>(T item) where T : EntityBase
-    {
-        ExecuteTransactionCore(session => session.Save(item));
+        ExecuteTransactionCore(session => session.SaveOrUpdate(item));
+        return item;
     }
 
-    public void Update<T>(T item) where T : EntityBase
+    public T Save<T>(T item) where T : EntityBase
+    {
+        ExecuteTransactionCore(session => session.Save(item));
+        return item;
+    }
+
+    public T Update<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Update(item));
+        return item;
     }
 
     public void Delete<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Delete(item));
     }
-    
-    #endregion
-    
-    #region Public and private methods - GetItem
 
-    public T GetItemByCrud<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
-    {
-        T? item = null;
-        ExecuteSelectCore(session =>
-        {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            item = criteria.UniqueResult<T>();
-        });
-        return item ?? new();
-    }
-    
-    public T GetItemByUid<T>(Guid uid) where T : EntityBase, new()
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueUid),  uid));
-        return GetItemByCrud<T>(sqlCrudConfig);
-    }
-
-    public T GetItemById<T>(long id) where T : EntityBase, new() {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(EntityBase.IdentityValueId),  id));
-        return GetItemByCrud<T>(sqlCrudConfig);
-    }
-
-    #endregion
-
-    #region Public and private methods - GetList
-
-    public IEnumerable<T> GetEnumerable<T>(SqlCrudConfigModel sqlCrudConfig) where T : EntityBase, new()
-    {
-        IEnumerable<T> items = Enumerable.Empty<T>();
-        ExecuteSelectCore(session =>
-        {
-            ICriteria criteria = GetCriteria<T>(session, sqlCrudConfig);
-            items = criteria.List<T>();
-        });
-        return items;
-    }
-    
-    public IEnumerable<Object> GetArrayObjects(string query, List<SqlParameter>? parameters = null)
-    {
-        parameters ??= [];
-        object[] result = Array.Empty<object>();
-        ExecuteSelectCore(session =>
-        {
-            ISQLQuery? sqlQuery = GetSqlQuery(session, query, parameters);
-            if (sqlQuery is null)
-                return;
-            
-            IList? listEntities = sqlQuery.List();
-            result = new object[listEntities.Count];
-            for (int i = 0; i < result.Length; i++)
-            {
-                if (listEntities[i] is object[] records)
-                    result[i] = records;
-                else
-                    result[i] = listEntities[i];
-            }
-        });
-        return result;
-    }
-    
     #endregion
 }

@@ -10,7 +10,6 @@ internal static class SqlTablesUtils
     public const string Claims = "CLAIMS";
     public const string LogsWebs = "LOGS_WEB_SERVICES";
     public const string Plus = "PLUS";
-    public const string PlusFks = "PLUS_FK";
     public const string PalletMen = "PALLET_MEN";
     public const string Labels = "LABELS";
     public const string Pallets = "PALLETS";

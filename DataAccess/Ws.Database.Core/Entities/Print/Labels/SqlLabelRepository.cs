@@ -1,14 +1,11 @@
+using Ws.Domain.Abstractions.Repositories.Queries.List;
 using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Core.Entities.Print.Labels;
 
-public sealed class SqlLabelRepository : IUidRepo<LabelEntity>
+public sealed class SqlLabelRepository : IGetItemByUid<LabelEntity>, IGetListByQuery<LabelEntity>
 {
-    public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LabelEntity>(uid);
-    
-    public IEnumerable<LabelEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
-    {
-        sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCoreHelper.Instance.GetEnumerable<LabelEntity>(sqlCrudConfig).ToList();
-    }
+    public LabelEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LabelEntity>(uid);
+    public IEnumerable<LabelEntity> GetListByQuery(QueryOver<LabelEntity> query) 
+        => SqlCoreHelper.Instance.GetEnumerable(query);
 }

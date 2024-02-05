@@ -1,30 +1,31 @@
+using Ws.Domain.Abstractions.Repositories.Queries.List;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Plus;
 
-public sealed class SqlPluRepository : IUid1CRepo<PluEntity>, IUidRepo<PluEntity>
+public sealed class SqlPluRepository : IGetItemByUid1C<PluEntity>, IGetItemByUid<PluEntity>, IGetAll<PluEntity>, 
+    IGetListByQuery<PluEntity>
 {
-    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PluEntity>(uid);
+    public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PluEntity>(uid);
     
     public PluEntity GetByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCrud<PluEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<PluEntity>().Where(i => i.Uid1C == uid1C)
+        );
     }
     
-    public IEnumerable<PluEntity> GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<PluEntity> GetAll()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(PluEntity.Number)));
-        return SqlCoreHelper.Instance.GetEnumerable<PluEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<PluEntity>().OrderBy(i => i.Number).Asc
+        );
     }
     
-    public IEnumerable<PluEntity> GetEnumerable() => GetEnumerable(new());
-    
-    public IEnumerable<PluEntity> GetEnumerableByNumber(short number)
+    public IEnumerable<PluEntity> GetListByQuery(QueryOver<PluEntity> query)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(PluEntity.Number), number));
-        return GetEnumerable(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            query.Clone().OrderBy(i => i.Number).Asc
+        );
     }
 }

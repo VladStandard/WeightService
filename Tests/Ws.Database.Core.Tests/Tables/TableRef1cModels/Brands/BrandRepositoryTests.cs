@@ -13,7 +13,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     {
         AssertAction(() =>
         {
-            IEnumerable<BrandEntity> items = BrandRepository.GetEnumerable();
+            IEnumerable<BrandEntity> items = BrandRepository.GetAll();
             ParseRecords(items);
         });
     }

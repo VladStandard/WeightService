@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using ScalesHybrid.Services;
-using Ws.LabelsService.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
 
 namespace ScalesHybrid.Mapster;
 
@@ -8,15 +8,13 @@ public class LabelContextConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<LabelContext, LabelInfoDto>()
+        config.NewConfig<LabelContext, LabelWeightInfoDto>()
             .Map(d => d.Plu1СGuid, s => s.Plu.Uid1C)
             .Map(d => d.PluNumber, s => s.Plu.Number)
             .Map(d => d.Kneading, s => s.KneadingModel.KneadingCount)
             .Map(d => d.WeightTare, s => s.PluNesting.WeightTare)
             .Map(d => d.LineCounter, s => s.Line.Counter)
             .Map(d => d.BundleCount, s => s.PluNesting.BundleCount)
-            .Map(d => d.IsCheckWeight, s => s.Plu.IsCheckWeight)
-            .Map(d => d.Itf, s => s.Plu.Itf14)
             .Map(d => d.Gtin, s => s.Plu.Gtin)
             .Map(d => d.Address, s => s.Line.Warehouse.ProductionSite.Address)
             .Map(d => d.PluFullName, s => s.Plu.FullName)

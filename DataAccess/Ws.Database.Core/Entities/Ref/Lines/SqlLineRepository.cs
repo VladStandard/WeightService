@@ -2,36 +2,15 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : IUidRepo<LineEntity>
+public sealed class SqlLineRepository : IGetItemByUid<LineEntity>, IGetItemByQuery<LineEntity>
 {
-    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LineEntity>(uid);
-    
-    private IEnumerable<LineEntity>GetEnumerable(SqlCrudConfigModel sqlCrudConfig)
+    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LineEntity>(uid);
+
+    public IEnumerable<LineEntity> GetAll()
     {
-        sqlCrudConfig.AddOrder(SqlOrder.Asc(nameof(LineEntity.Name)));
-        return SqlCoreHelper.Instance.GetEnumerable<LineEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<LineEntity>().OrderBy(i => i.Name).Asc
+        );
     }
-    
-    public IEnumerable<LineEntity> GetAll() => GetEnumerable(new());
-    
-    public LineEntity GetItemByPcName(string pcName)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.PcName), pcName));
-        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
-    }
-    
-    public LineEntity GetItemByName(string name)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.Equal(nameof(LineEntity.Name), name));
-        return SqlCoreHelper.Instance.GetItemByCrud<LineEntity>(sqlCrudConfig);
-    }
-    
-    public IEnumerable<LineEntity> GetLinesByWarehouse(WarehouseEntity warehouse)
-    {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualFk(nameof(LineEntity.Warehouse), warehouse));
-        return GetEnumerable(sqlCrudConfig);
-    }
+    public LineEntity GetItemByQuery(QueryOver<LineEntity> query) => SqlCoreHelper.Instance.GetItem(query);
 }

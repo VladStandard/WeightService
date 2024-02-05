@@ -2,14 +2,14 @@ using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Database.Core.Entities.Diag.LogWebs;
 
-public class SqlLogWebRepository : IUidRepo<LogWebEntity>
+public class SqlLogWebRepository : IGetItemByUid<LogWebEntity>
 {
-    public LogWebEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<LogWebEntity>(uid);
+    public LogWebEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LogWebEntity>(uid);
     
-    public IEnumerable<LogWebEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
+    public IEnumerable<LogWebEntity> GetList()
     {
-        sqlCrudConfig.SelectTopRowsCount = 500;
-        sqlCrudConfig.AddOrder(SqlOrder.CreateDtDesc());
-        return SqlCoreHelper.Instance.GetEnumerable<LogWebEntity>(sqlCrudConfig).ToList();
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<LogWebEntity>().OrderBy(log => log.CreateDt).Desc.Take(500)
+        );
     }
 }

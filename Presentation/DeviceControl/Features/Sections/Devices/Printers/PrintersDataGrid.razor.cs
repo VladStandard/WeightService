@@ -31,6 +31,6 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<PrinterEntity>
     protected override IEnumerable<PrinterEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [PrinterService.GetByUid(itemUid)];
+        return [PrinterService.GetItemByUid(itemUid)];
     }
 }

@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Enums;
 
 namespace Ws.Domain.Models.Entities.Ref;
@@ -11,7 +11,6 @@ public class PrinterEntity : EntityBase
     public virtual string Ip { get; set; }
     public virtual short Port { get; set; }
     public virtual PrinterTypeEnum Type { get; set; }
-    public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
     public override string DisplayName => $"{Name} | {Ip}";
 
     public PrinterEntity() : base(SqlEnumFieldIdentity.Uid)
@@ -21,16 +20,9 @@ public class PrinterEntity : EntityBase
         Type = PrinterTypeEnum.Tsc;
     }
 
-    public PrinterEntity(PrinterEntity item) : base(item)
-    {
-        Ip = item.Ip;
-        Port = item.Port;
-        Type = item.Type;
-    }
-
     public override string ToString() => $"{nameof(Type)}: {Type}.";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

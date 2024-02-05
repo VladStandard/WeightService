@@ -1,9 +1,8 @@
-using Ws.Domain.Models.Common;
-using Ws.Domain.Models.Models;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Models;
 
-public class SqlFieldIdentityValidator : AbstractValidator<SqlFieldIdentityModel>
+public class SqlFieldIdentityValidator : AbstractValidator<IdentityModel>
 {
     public SqlFieldIdentityValidator()
     {

@@ -1,11 +1,11 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BundleEntity : Table1CBase
+public class BundleEntity : Entity1CBase
 {
     public virtual decimal Weight { get; set; }
 
@@ -14,15 +14,9 @@ public class BundleEntity : Table1CBase
        Weight = 0;
     }
 
-    public BundleEntity(BundleEntity item) : base(item)
-    {
-        Weight = item.Weight;
-    }
+    public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
 
-    public override string ToString() =>
-        $"{Name} | {Weight} | {Uid1C}";
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

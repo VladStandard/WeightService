@@ -1,6 +1,6 @@
 ﻿using Ws.Domain.Models.Entities;
-using Ws.Domain.Services.Common;
+using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.DatabaseFile;
 
-public interface IDatabaseFileService : IAll<DbFileSizeInfoEntity>;
+public interface IDatabaseFileService : IGetAll<DbFileSizeInfoEntity>;

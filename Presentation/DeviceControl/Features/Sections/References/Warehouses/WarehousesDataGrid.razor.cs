@@ -31,6 +31,6 @@ public sealed partial class WarehousesDataGrid: SectionDataGridBase<WarehouseEnt
     protected override IEnumerable<WarehouseEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [WarehouseService.GetByUid(itemUid)];
+        return [WarehouseService.GetItemByUid(itemUid)];
     }
 }

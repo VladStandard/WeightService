@@ -2,21 +2,24 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandRepository : IUid1CRepo<BrandEntity>, IUidRepo<BrandEntity>
+public sealed class SqlBrandRepository : 
+    IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>, ISave<BrandEntity>
 {
-    public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BrandEntity>(uid);
+    public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BrandEntity>(uid);
     
     public BrandEntity GetByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCrud<BrandEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<BrandEntity>().Where(i => i.Uid1C == uid1C)
+        );
     }
     
-    public IEnumerable<BrandEntity> GetEnumerable()
+    public IEnumerable<BrandEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<BrandEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<BrandEntity>().OrderBy(i => i.Name).Asc
+        );
     }
+    
+    public BrandEntity Save(BrandEntity item) => SqlCoreHelper.Instance.Save(item);
 }

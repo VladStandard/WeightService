@@ -11,7 +11,7 @@ internal sealed class ClipApiService(ResponseDto responseDto, IClipService clipS
 {
     private void UpdateOrCreate(ClipDto clipDto)
     {
-        ClipEntity clipDb = clipService.GetByUid1С(clipDto.Uid);
+        ClipEntity clipDb = clipService.GetItemByUid1С(clipDto.Uid);
         clipDb = clipDto.AdaptTo(clipDb);
         SqlCoreHelper.Instance.SaveOrUpdate(clipDb);
         responseDto.AddSuccess(clipDb.Uid1C, clipDb.Name);

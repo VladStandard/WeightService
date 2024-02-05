@@ -1,11 +1,11 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class ClipEntity : Table1CBase
+public class ClipEntity : Entity1CBase
 {
     public virtual decimal Weight { get; set; }
 
@@ -14,14 +14,9 @@ public class ClipEntity : Table1CBase
         Weight = 0;
     }
     
-    public ClipEntity(ClipEntity item) : base(item)
-    {
-        Weight = item.Weight;
-    }
-    
     public override string ToString() => $"{Name} | {Weight}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

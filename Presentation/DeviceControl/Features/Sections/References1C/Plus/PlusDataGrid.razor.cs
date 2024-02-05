@@ -28,6 +28,6 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<PluEntity>
     protected override IEnumerable<PluEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [PluService.GetByUid(itemUid)];
+        return [PluService.GetItemByUid(itemUid)];
     }
 }

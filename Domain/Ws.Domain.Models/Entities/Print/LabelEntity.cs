@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Utils;
@@ -30,38 +30,23 @@ public class LabelEntity : EntityBase
 
         Plu = new();
         Line = new();
-        Zpl = string.Empty;
+
         Kneading = 0;
-        
+        Zpl = string.Empty;
+
         ProductDt = SqlTypeUtils.MinDateTime;
         ExpirationDt = SqlTypeUtils.MinDateTime;
         
+        BarcodeTop = string.Empty;
         BarcodeRight = string.Empty;
         BarcodeBottom = string.Empty;
-        BarcodeTop = string.Empty;
     }
-
-    public LabelEntity(LabelEntity item) : base(item)
-    {
-        Zpl = item.Zpl;
-        BarcodeTop = item.BarcodeTop;
-        BarcodeBottom = item.BarcodeBottom;
-        BarcodeRight = item.BarcodeRight;
-        WeightNet = item.WeightNet;
-        WeightTare = item.WeightTare;
-        Kneading = item.Kneading;
-        ProductDt = item.ProductDt;
-        ExpirationDt = item.ExpirationDt;
-        Plu = new(item.Plu);
-        Line = new(item.Line);
-        if (item.Pallet != null) Pallet = new(item.Pallet);
-    }
-
+    
     #endregion
 
     #region Public and private methods - override
     
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

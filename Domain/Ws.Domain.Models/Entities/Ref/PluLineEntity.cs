@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Models.Common;
+using Ws.Domain.Abstractions.Entities.Common;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Models.Entities.Ref;
@@ -16,16 +16,10 @@ public class PluLineEntity : EntityBase
         Plu = new();
         Line = new();
     }
-    
-    public PluLineEntity(PluLineEntity item) : base(item)
-    {
-        Plu = new(item.Plu);
-        Line = new(item.Line);
-    }
 
     public override string ToString() => $"{Plu} | {Line}";
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;

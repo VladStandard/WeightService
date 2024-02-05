@@ -29,6 +29,6 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
     protected override IEnumerable<BrandEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [BrandService.GetByUid(itemUid)];
+        return [BrandService.GetItemByUid(itemUid)];
     }
 }

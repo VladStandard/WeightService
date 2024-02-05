@@ -31,6 +31,6 @@ public sealed partial class RolesDataGrid: SectionDataGridBase<ClaimEntity>
     protected override IEnumerable<ClaimEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [ClaimService.GetByUid(itemUid)];
+        return [ClaimService.GetItemByUid(itemUid)];
     }
 }

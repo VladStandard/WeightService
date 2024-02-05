@@ -28,7 +28,7 @@ internal sealed class PluApiService(
     private bool SaveOrUpdatePlu(PluDto pluDto)
     {
         ClipEntity clip = pluDto.ClipUid.Equals(Guid.Empty) ? 
-            clipService.GetDefault() : clipService.GetByUid1С(pluDto.ClipUid);
+            clipService.GetDefault() : clipService.GetItemByUid1С(pluDto.ClipUid);
             
         if (clip.IsNew)
         { 
@@ -36,24 +36,24 @@ internal sealed class PluApiService(
             return false;
         }
         
-        BoxEntity box = boxService.GetByUid1С(pluDto.BoxUid);
+        BoxEntity box = boxService.GetItemByUid1С(pluDto.BoxUid);
         if (box.IsNew)
         { 
             responseDto.AddError(pluDto.Uid, $"{pluDto.Number} | {pluDto.Name} | коробка не найдена");
             return false;
         }
             
-        BundleEntity bundle = bundleService.GetByUid1С(pluDto.BundleUid);
+        BundleEntity bundle = bundleService.GetItemByUid1С(pluDto.BundleUid);
         if (bundle.IsNew)
         { 
             responseDto.AddError(pluDto.Uid, $"{pluDto.Number} | {pluDto.Name} | пакет не найден");
             return false;
         }
         
-        BrandEntity brand = brandService.GetByUid1С(pluDto.BrandUid);
+        BrandEntity brand = brandService.GetItemByUid1С(pluDto.BrandUid);
         brand = brand.IsNew ? brandService.GetDefault() : brand;
         
-        PluEntity pluDb = pluService.GetByUid1С(pluDto.Uid);
+        PluEntity pluDb = pluService.GetItemByUid1С(pluDto.Uid);
         pluDb = pluDto.AdaptTo(pluDb);
         
         pluDb.Bundle = bundle;
@@ -85,7 +85,7 @@ internal sealed class PluApiService(
         
         foreach (PluDto pluDto in orderedEnumerable)
         {
-            PluEntity pluDb = pluService.GetByUid1С(pluDto.Uid);
+            PluEntity pluDb = pluService.GetItemByUid1С(pluDto.Uid);
             
             if (pluDto.IsDelete)
             {

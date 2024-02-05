@@ -27,6 +27,6 @@ public sealed partial class LinesDataGrid: SectionDataGridBase<LineEntity>
     protected override IEnumerable<LineEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [LineService.GetByUid(itemUid)];
+        return [LineService.GetItemByUid(itemUid)];
     }
 }

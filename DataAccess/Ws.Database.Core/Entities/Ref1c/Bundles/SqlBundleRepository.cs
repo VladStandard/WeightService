@@ -2,23 +2,22 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository : IUid1CRepo<BundleEntity>, IUidRepo<BundleEntity>
+public sealed class SqlBundleRepository : IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>
 {
-    public BundleEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<BundleEntity>(uid);
+    public BundleEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BundleEntity>(uid);
     
     public BundleEntity GetByUid1C(Guid uid1C)
     {
-        SqlCrudConfigModel sqlCrudConfig = new();
-        sqlCrudConfig.AddFilter(SqlRestrictions.EqualUid1C(uid1C));
-        return SqlCoreHelper.Instance.GetItemByCrud<BundleEntity>(sqlCrudConfig);
+        return SqlCoreHelper.Instance.GetItem(
+            QueryOver.Of<BundleEntity>().Where(i => i.Uid1C == uid1C)
+        );
     }
     
-    public IEnumerable<BundleEntity> GetEnumerable()
+    public IEnumerable<BundleEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.Asc(nameof(BundleEntity.Weight)));
-        crud.AddOrder(SqlOrder.NameAsc());
-        return SqlCoreHelper.Instance.GetEnumerable<BundleEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<BundleEntity>().OrderBy(i => i.Weight).Asc.ThenBy(i => i.Name).Asc
+        );
     }
 
 }

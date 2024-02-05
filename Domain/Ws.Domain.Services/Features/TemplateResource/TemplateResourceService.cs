@@ -5,6 +5,6 @@ namespace Ws.Domain.Services.Features.TemplateResource;
 
 internal class TemplateResourceService : ITemplateResourceService
 {
-    public TemplateResourceEntity GetByUid(Guid uid) => new SqlTemplateResourceRepository().GetByUid(uid);
-    public IEnumerable<TemplateResourceEntity> GetAll() => new SqlTemplateResourceRepository().GetList();
+    public TemplateResourceEntity GetItemByUid(Guid uid) => new SqlTemplateResourceRepository().GetByUid(uid);
+    public IEnumerable<TemplateResourceEntity> GetAll() => new SqlTemplateResourceRepository().GetAll();
 }

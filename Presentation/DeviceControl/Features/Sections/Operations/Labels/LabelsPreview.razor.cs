@@ -2,8 +2,9 @@ using Blazorise;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.LabelsService.Features.RenderLabel;
-using Ws.LabelsService.Features.RenderLabel.Exceptions;
+using Ws.Labels.Service.Features.RenderLabel;
+using Ws.Labels.Service.Features.RenderLabel.Exceptions;
+using Ws.Labels.Service.Features.RenderLabel;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
@@ -13,7 +14,7 @@ public sealed partial class LabelsPreview
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IRenderLabelService RenderLabelService { get; set; } = null!;
     
-    [Parameter, EditorRequired] public string ZplCode { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string ZplCode { set; get; } = string.Empty;
     private string ImageData { get; set; } = string.Empty;
     private bool IsLoading { get; set; } = true;
 

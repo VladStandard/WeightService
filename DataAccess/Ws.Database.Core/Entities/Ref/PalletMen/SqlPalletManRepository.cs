@@ -2,14 +2,14 @@
 
 namespace Ws.Database.Core.Entities.Ref.PalletMen;
 
-public class SqlPalletManRepository : IUidRepo<PalletManEntity>
+public class SqlPalletManRepository : IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>
 {
-    public PalletManEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemByUid<PalletManEntity>(uid);
+    public PalletManEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PalletManEntity>(uid);
     
     public IEnumerable<PalletManEntity> GetAll()
     {
-        SqlCrudConfigModel crud = new();
-        crud.AddOrder(SqlOrder.Asc(nameof(PalletManEntity.Surname)));
-        return SqlCoreHelper.Instance.GetEnumerable<PalletManEntity>(crud);
+        return SqlCoreHelper.Instance.GetEnumerable(
+            QueryOver.Of<PalletManEntity>().OrderBy(i => i.Surname).Asc
+        );
     }
 }
