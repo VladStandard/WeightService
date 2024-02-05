@@ -2,12 +2,40 @@
     
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.9.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+      <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Mapster.Core" Version="1.2.1" />
     </ItemGroup>
 
+    <!-- Добавление команд для генерации мапперов -->
+    <Target Name="Mapster" AfterTargets="AfterBuild">
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/MapServices/Generated -p 1" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster extension -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/Extensions/Generated -p 1" />
+    </Target>
+
+    <!-- Для очистки сгенерированных файлов командой dotnet msbuild -t:CleanGenerated -->
     <ItemGroup>
-      <ProjectReference Include="..\..\Libs\Ws.Labels\Ws.Labels.csproj" />
+        <Generated Include="**\*.g.cs" />
+        <Generated Remove="obj\**" />
+    </ItemGroup>
+    <Target Name="CleanGenerated">
+        <Delete Files="@(Generated)" />
+    </Target>
+    
+    <ItemGroup>
       <ProjectReference Include="..\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Remove="obj\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <EmbeddedResource Remove="obj\**" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Remove="obj\**" />
     </ItemGroup>
 
 </Project>

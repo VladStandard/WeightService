@@ -3,7 +3,7 @@ using Ws.Labels.Service.Features.PrintLabel.Dto;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Validators;
 
-public class LabelInfoValidator : AbstractValidator<LabelWeightInfoDto>
+public class LabelInfoValidator : AbstractValidator<LabelDataDto>
 {
     public LabelInfoValidator()
     {

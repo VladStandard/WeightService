@@ -64,7 +64,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
 
         try
         {
-            LabelWeightInfoDto labelDto = CreateLabelInfoDto();
+            LabelDataDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
@@ -99,7 +99,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         }
     }
 
-    private LabelWeightInfoDto CreateLabelInfoDto() =>
+    private LabelDataDto CreateLabelInfoDto() =>
         new()
         {
             Plu1СGuid = LabelContext.Plu.Uid1C,

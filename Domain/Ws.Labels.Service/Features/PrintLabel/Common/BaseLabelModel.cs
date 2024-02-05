@@ -2,12 +2,13 @@
 using System.Xml.Serialization;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Common;
+namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
 [Serializable]
 public class BaseLabelModel : ISerializable
 {
     #region XmlIgnore
+    
     [XmlIgnore] public short Kneading { get; set; }
     [XmlIgnore] public DateTime ExpirationDtValue { get; set; } = DateTime.MinValue;
     [XmlIgnore] public DateTime ProductDtValue { get; set; } = DateTime.MinValue;

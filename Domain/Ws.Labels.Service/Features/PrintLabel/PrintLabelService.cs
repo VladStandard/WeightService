@@ -3,17 +3,15 @@ using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Plu;
-using Ws.Labels.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
-using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Validators;
 
 namespace Ws.Labels.Service.Features.PrintLabel;
 
 public class PrintLabelService(IPluService pluService) : IPrintLabelService
 {
-    public string GenerateWeightLabel(LabelWeightInfoDto labelInfo)
+    public string GenerateWeightLabel(LabelDataDto labelInfo)
     {
         LabelInfoValidator validator = new();
         PluLineEntity pluLine = pluService.GetPluLineByPlu1СAndLineName(labelInfo.Plu1СGuid, labelInfo.LineName);

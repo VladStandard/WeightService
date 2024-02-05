@@ -1,4 +1,4 @@
-﻿namespace Ws.Labels.Common;
+﻿namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
 public interface ILabelModel
 {

@@ -1,10 +1,10 @@
-namespace Ws.Labels.Dto
+namespace Ws.Labels.Service.Features.PrintLabel.Dto
 {
     public static partial class LabelDataDtoMapper
     {
-        public static Ws.Labels.Models.WeightLabelModel AdaptToWeightLabelModel(this Ws.Labels.Dto.LabelDataDto p1)
+        public static Ws.Labels.Service.Features.PrintLabel.Models.WeightLabelModel AdaptToWeightLabelModel(this Ws.Labels.Service.Features.PrintLabel.Dto.LabelDataDto p1)
         {
-            return p1 == null ? null : new Ws.Labels.Models.WeightLabelModel()
+            return p1 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Models.WeightLabelModel()
             {
                 Weight = p1.Weight,
                 Kneading = p1.Kneading,
@@ -20,9 +20,9 @@ namespace Ws.Labels.Dto
                 PluDescription = p1.PluDescription
             };
         }
-        public static Ws.Labels.Models.LabelModel AdaptToLabelModel(this Ws.Labels.Dto.LabelDataDto p2)
+        public static Ws.Labels.Service.Features.PrintLabel.Models.LabelModel AdaptToLabelModel(this Ws.Labels.Service.Features.PrintLabel.Dto.LabelDataDto p2)
         {
-            return p2 == null ? null : new Ws.Labels.Models.LabelModel()
+            return p2 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Models.LabelModel()
             {
                 BundleCount = p2.BundleCount,
                 Kneading = p2.Kneading,
@@ -38,9 +38,9 @@ namespace Ws.Labels.Dto
                 PluDescription = p2.PluDescription
             };
         }
-        public static Ws.Labels.Common.BaseLabelModel AdaptToBaseLabelModel(this Ws.Labels.Dto.LabelDataDto p3)
+        public static Ws.Labels.Service.Features.PrintLabel.Common.BaseLabelModel AdaptToBaseLabelModel(this Ws.Labels.Service.Features.PrintLabel.Dto.LabelDataDto p3)
         {
-            return p3 == null ? null : new Ws.Labels.Common.BaseLabelModel()
+            return p3 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Common.BaseLabelModel()
             {
                 Kneading = p3.Kneading,
                 ExpirationDtValue = p3.ExpirationDt,

@@ -1,12 +1,12 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml;
-using Ws.Labels.Common;
-using Ws.Labels.Dto;
-using Ws.Labels.Models;
+using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Models;
 using Ws.Labels.Utils;
 using Ws.Shared.Utils;
 
-namespace Ws.Labels;
+namespace Ws.Labels.Service.Features.PrintLabel;
 
 public abstract class LabelGenerator
 {
@@ -15,9 +15,11 @@ public abstract class LabelGenerator
         if (dto.IsCheckWeight)
         {
             WeightLabelModel wLabelModel = dto.AdaptToWeightLabelModel();
+            wLabelModel.PluFullName = wLabelModel.PluFullName.Replace("|", "");
             return GetZpl(dto, wLabelModel);
         }
-        LabelModel labelModel = dto.AdaptToLabelModel(); 
+        LabelModel labelModel = dto.AdaptToLabelModel();
+        labelModel.PluFullName = labelModel.PluFullName.Replace("|", "").Replace("//n", "");
         return GetZpl(dto, labelModel);
     }
     

@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using Ws.Labels.Common;
-using Ws.Labels.Dto;
-using Ws.Labels.Models;
+using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Models;
 
-namespace Ws.Labels.Mapster;
+namespace Ws.Labels.Service.Features.PrintLabel.Mapster;
 
 public class ConfigRegister : IRegister
 {

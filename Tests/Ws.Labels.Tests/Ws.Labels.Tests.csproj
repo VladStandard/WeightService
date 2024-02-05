@@ -19,7 +19,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Libs\Ws.Labels\Ws.Labels.csproj" />
+      <Reference Include="Ws.Labels">
+        <HintPath>..\..\Domain\Ws.Labels.Service\bin\Develop_x64\net7.0-windows10.0.19041.0\Ws.Labels.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" />
     </ItemGroup>
 
 </Project>

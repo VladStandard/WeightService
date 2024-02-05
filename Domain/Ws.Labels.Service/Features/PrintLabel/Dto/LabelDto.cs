@@ -1,6 +1,6 @@
-﻿using Ws.Labels.Common;
+﻿using Ws.Labels.Service.Features.PrintLabel.Common;
 
-namespace Ws.Labels.Dto;
+namespace Ws.Labels.Service.Features.PrintLabel.Dto;
 
 public class LabelDto(string zpl, ILabelModel labelModel)
 {

@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
-using Ws.Labels.Common;
+using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Models;
+namespace Ws.Labels.Service.Features.PrintLabel.Models;
 
 
 [Serializable]

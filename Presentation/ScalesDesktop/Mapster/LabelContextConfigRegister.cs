@@ -8,7 +8,7 @@ public class LabelContextConfigRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<LabelContext, LabelWeightInfoDto>()
+        config.NewConfig<LabelContext, LabelDataDto>()
             .Map(d => d.Plu1СGuid, s => s.Plu.Uid1C)
             .Map(d => d.PluNumber, s => s.Plu.Number)
             .Map(d => d.Kneading, s => s.KneadingModel.KneadingCount)
