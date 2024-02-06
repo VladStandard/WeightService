@@ -1,13 +1,13 @@
-﻿using Ws.Labels.Service.Features.PrintLabel.Models;
+﻿using Ws.Labels.Service.Features.PrintLabel.Weight.Models;
 
 namespace Ws.Labels.Tests;
 
-public class WeightLabelModelTests
+public class XmlWeightLabelModelTests
 {
     [Fact]
     public void Check_WeightLabelModel_v1_Barcodes()
     {
-        WeightLabelModel model = new()
+        XmlWeightLabelModel labelModel = new()
         {
             Weight = 16.696m,
             Kneading = 16,
@@ -17,15 +17,15 @@ public class WeightLabelModelTests
             PluGtin = "02600770000002",
             PluNumber = 333 ,
         };
-        Assert.Equal("2991043000288095",model.BarCodeRight);
-        Assert.Equal("298104300028809523120515194933316696016",model.BarCodeTop);
-        Assert.Equal("(01)02600770000002(3103)016696(11)231205(10)2312",model.BarCodeBottom);
+        Assert.Equal("2991043000288095",labelModel.BarCodeRight);
+        Assert.Equal("298104300028809523120515194933316696016",labelModel.BarCodeTop);
+        Assert.Equal("(01)02600770000002(3103)016696(11)231205(10)2312",labelModel.BarCodeBottom);
     }
     
     [Fact]
     public void Check_WeightLabelModel_v2_Barcodes()
     {
-        WeightLabelModel model = new()
+        XmlWeightLabelModel labelModel = new()
         {
             Weight = 2.360m,
             Kneading = 1,
@@ -35,8 +35,8 @@ public class WeightLabelModelTests
             PluGtin = "02600914000004",
             PluNumber = 101 ,
         };
-        Assert.Equal("2991231200000200",model.BarCodeRight);
-        Assert.Equal("298123120000020023121216173810102360001",model.BarCodeTop);
-        Assert.Equal("(01)02600914000004(3103)002360(11)231212(10)2312",model.BarCodeBottom);
+        Assert.Equal("2991231200000200",labelModel.BarCodeRight);
+        Assert.Equal("298123120000020023121216173810102360001",labelModel.BarCodeTop);
+        Assert.Equal("(01)02600914000004(3103)002360(11)231212(10)2312",labelModel.BarCodeBottom);
     }
 }

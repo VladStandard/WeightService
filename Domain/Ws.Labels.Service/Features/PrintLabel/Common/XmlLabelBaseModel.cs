@@ -5,7 +5,7 @@ using Ws.Shared.TypeUtils;
 namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
 [Serializable]
-public class BaseLabelModel : ISerializable
+public class XmlLabelBaseModel : ISerializable
 {
     #region XmlIgnore
     
@@ -41,6 +41,14 @@ public class BaseLabelModel : ISerializable
     [XmlElement] public string ProductDateStr { get => $"{ProductDtValue:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDtValue:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public string KneadingStr { get => IntUtils.ToStringToLen(Kneading, 3); set => _ = value; }
+    
+    #endregion
+    
+    #region Barcodes
+
+    [XmlElement] public virtual string BarCodeTop { get; set; } = string.Empty;
+    [XmlElement] public virtual string BarCodeRight { get; set; } = string.Empty;
+    [XmlElement] public virtual string BarCodeBottom { get; set; } = string.Empty;
     
     #endregion
     

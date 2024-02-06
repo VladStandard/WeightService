@@ -2,12 +2,17 @@
 
 namespace Ws.Labels.Service.Features.PrintLabel.Exceptions;
 
-public class LabelException : Exception
+public class LabelGenerateException : Exception
 {
     public List<string> ValidationErrors { get; init; }
     
-    public LabelException(ValidationResult result)
+    public LabelGenerateException(ValidationResult result)
     {
         ValidationErrors =  result.Errors.Select(error => error.ErrorMessage).ToList();
+    }
+    
+    public LabelGenerateException(string result)
+    {
+        ValidationErrors = [result];
     }
 }

@@ -1,25 +1,49 @@
-﻿using System.Text;
+﻿using System.Runtime.Serialization;
+using System.Text;
 using System.Text.RegularExpressions;
-using Ws.Database.Core.Entities.Ref1c.Plus;
+using System.Xml;
 using Ws.Database.Core.Entities.Scales.TemplatesResources;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Labels.Enums;
+using Ws.Shared.Utils;
 
-namespace Ws.Labels.Utils;
+namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
-public static partial class ZplUtils
+
+file enum EnumDataBlockPosition
 {
-    private const string BlockFhFd = "^FH^FD";
-    private const string BlockFs = "^FS";
-    
+    Outside = 0,
+    Start = 1,
+    Between = 2,
+    End = 3
+}
+
+public static partial class LabelGenerator
+{
     [GeneratedRegex(@"\[(?!@)([^[\]]+)]")]
     private static partial Regex MyRegex();
 
+    private const string BlockFhFd = "^FH^FD";
+    private const string BlockFs = "^FS";
     
-    public static string PrintCmdReplaceZplResources(string zpl, Guid uid1C)
+    public static LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem : 
+        XmlLabelBaseModel, ISerializable
+    {
+        labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
+        
+        XmlDocument xmlLabelContext = XmlUtils.SerializeAsXmlDocument<TItem>(labelModel, true);
+        template = template.Replace("Context", labelModel.GetType().Name);
+        
+        string zpl = XmlUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
+        zpl = ConvertStringToHex(zpl);
+        zpl = PrintCmdReplaceZplResources(zpl, plu);
+        return new(zpl, labelModel);
+    }
+    
+    private static string PrintCmdReplaceZplResources(string zpl, PluEntity plu)
     {
         if (string.IsNullOrEmpty(zpl))
             throw new ArgumentException("Value must be fill!", nameof(zpl)); 
+        
         MatchCollection matches = MyRegex().Matches(zpl);
         foreach (Match match in matches)
         {
@@ -31,14 +55,13 @@ public static partial class ZplUtils
 
         if (zpl.Contains("[@PLUS_STORAGE_METHODS_FK]"))
         {
-            PluEntity plu = new SqlPluRepository().GetByUid1C(uid1C);
             string resourceHex = ConvertStringToHex(plu.StorageMethod.Zpl);
             zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", resourceHex);
         }
         return zpl;
     }
     
-    public static string ConvertStringToHex(string zpl)
+    private static string ConvertStringToHex(string zpl)
     {
         if (string.IsNullOrEmpty(zpl)) return string.Empty;
         StringBuilder stringBuilder = new();
@@ -87,6 +110,6 @@ public static partial class ZplUtils
             if (dataBlockPosition != EnumDataBlockPosition.Between)
                 stringBuilder.Append(zpl[i]);
         }
-        return stringBuilder.ToString().Replace("_0D_0A", string.Empty);
+        return stringBuilder.Replace("_0D_0A", string.Empty).Replace("|", "\\&").ToString();
     }
 }

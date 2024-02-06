@@ -7,8 +7,9 @@ using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.PrintLabel.Weight;
+using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
@@ -64,7 +65,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
 
         try
         {
-            LabelDataDto labelDto = CreateLabelInfoDto();
+            LabelWeightDto labelDto = CreateLabelInfoDto();
             string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
@@ -99,23 +100,14 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         }
     }
 
-    private LabelDataDto CreateLabelInfoDto() =>
+    private LabelWeightDto CreateLabelInfoDto() =>
         new()
         {
-            Plu1СGuid = LabelContext.Plu.Uid1C,
-            PluNumber = LabelContext.Plu.Number,
             Kneading = (short)LabelContext.KneadingModel.KneadingCount,
             Weight = GetWeight(),
             WeightTare = LabelContext.PluNesting.WeightTare,
-            LineCounter = LabelContext.Line.Counter,
-            BundleCount = LabelContext.PluNesting.BundleCount,
-            IsCheckWeight = LabelContext.Plu.IsCheckWeight,
-            Gtin = LabelContext.Plu.Gtin,
-            Address = LabelContext.Line.Warehouse.ProductionSite.Address,
-            PluFullName = LabelContext.Plu.FullName,
-            PluDescription = LabelContext.Plu.Description,
-            LineNumber = LabelContext.Line.Number,
-            LineName = LabelContext.Line.Name,
+            Nesting = LabelContext.PluNesting,
+            Line = LabelContext.Line,
             Template = LabelContext.PluTemplate.Data,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
             ExpirationDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
