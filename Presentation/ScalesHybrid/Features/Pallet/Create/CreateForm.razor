@@ -34,8 +34,10 @@
     />
     </PalletFormInputWrapper>
   <PalletFormInputWrapper Label="Дата создания" HtmlFor="create-dt">
-    <SharedInputText
+    <SharedInputDate
       id="create-dt"
+      TValue="DateOnly"
+      @bind-Value="FormModel.CreateDt"
     />
   </PalletFormInputWrapper>
   <PalletFormInputWrapper Label="Количество" HtmlFor="count">

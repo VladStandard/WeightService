@@ -141,6 +141,7 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Components\Dialogs\DialogLineSelect.razor" />
+      <UpToDateCheckInput Remove="Features\Pallet\Dialogs\PluNestingSelect.razor" />
     </ItemGroup>
 
 </Project>

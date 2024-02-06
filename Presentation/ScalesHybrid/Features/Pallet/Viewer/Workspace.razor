@@ -16,9 +16,32 @@
           Создать палетту
         </a>
       </div>
-      <div class="h-48 flex items-center justify-center w-full">
-        <div class="w-1/2">
-          <LineInputWithReset />
+      <div class="py-8 gap-6 px-6 flex items-center justify-center w-full">
+        <div class="w-1/2 space-y-2">
+          <SharedLabel>Линия</SharedLabel>
+          <div class="flex items-center gap-2">
+            <SharedInputText
+              Value="@LineContext.Line.Name"
+              class="!opacity-100"
+              disabled
+            />
+            <SharedButton
+              Variant="ButtonVariant.Outline"
+              Size="ButtonSize.Icon"
+              onClick="@(() => LineContext.ResetLine())"
+              class="shrink-0 !h-10 !w-10"
+            >
+              <ArrowPathIcon class="h-4 w-4" />
+            </SharedButton>
+          </div>
+        </div>
+        <div class="w-1/2 space-y-2">
+          <SharedLabel>Склад</SharedLabel>
+          <SharedInputText
+            Value="@LineContext.Line.Warehouse.Name"
+            class="!opacity-100"
+            disabled
+          />
         </div>
       </div>
     </div>
@@ -67,10 +90,10 @@
         >
           <Content>
             <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="main">
-              <PalletForm />
+              <Overview />
             </TabPanel>
             <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="labels">
-              <PalletLabels />
+              <LabelsGrid />
             </TabPanel>
           </Content>
         </Tabs>

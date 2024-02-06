@@ -2,9 +2,9 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using ScalesHybrid.Services;
 
-namespace ScalesHybrid.Features.Pallet;
+namespace ScalesHybrid.Features.Pallet.Create;
 
-public sealed partial class PalletCreateForm: ComponentBase
+public sealed partial class CreateForm: ComponentBase
 {
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private LineContext LineContext { get; set; } = null!;
@@ -20,7 +20,7 @@ public class PalletCreateModel
 {
     public string Plu { get; set; } = string.Empty;
     public string Nesting { get; set; } = string.Empty;
-    public string CreateDt { get; set; } = string.Empty;
-    public decimal PalletWeight { get; set; } = 0;
-    public int Count { get; set; } = 0;
+    public DateOnly CreateDt { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    public decimal PalletWeight { get; set; }
+    public int Count { get; set; }
 }
