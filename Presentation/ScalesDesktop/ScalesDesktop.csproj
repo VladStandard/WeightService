@@ -1,0 +1,146 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+        
+        <OutputType>Exe</OutputType>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <EnableDefaultCssItems>false</EnableDefaultCssItems>
+        <SelfContained>true</SelfContained>
+        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">True</UseInterpreter>
+        
+        <IncludeSymbols>False</IncludeSymbols>
+        <GenerateTestArtifacts>False</GenerateTestArtifacts>
+        <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+        <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+
+        <AppxBundle>Never</AppxBundle>
+        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
+        <UapAppxPackageBuildMode>SideLoadOnly</UapAppxPackageBuildMode>
+        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
+        
+        <ApplicationTitle>Весовой пост</ApplicationTitle>
+        <ApplicationId>com.companyname.ScalesDesktop</ApplicationId>
+        <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
+        
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+        
+        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
+        <NoWarn>CA1806</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- App Icon -->
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.min.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.css" />
+        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.min.css" />
+        <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.js" />
+        <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.min.css" />
+        <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
+        <MauiAsset Include="wwwroot\libs\tailwind\tailwind.config.js" />
+
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazor.Heroicons" Version="2.0.1" />
+        <PackageReference Include="Blazorise.Components" Version="1.4.0" />
+        <PackageReference Include="Blazorise.DataGrid" Version="1.4.0" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
+        <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Mapster.Core" Version="1.2.1" />
+        <PackageReference Include="MouseKeyHook" Version="5.7.1" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
+        <PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.WindowsAppSDK" Version="1.4.231219000" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" />
+      <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" />
+    </ItemGroup>
+
+
+    <!-- Добавление команд для генерации мапперов -->
+    <Target Name="Mapster" AfterTargets="AfterBuild">
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/MapServices/Generated -p 1" />
+        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster extension -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/Extensions/Generated -p 1" />
+    </Target>
+
+    <!-- Для очистки сгенерированных файлов командой dotnet msbuild -t:CleanGenerated -->
+    <ItemGroup>
+        <Generated Include="**\*.g.cs" />
+    </ItemGroup>
+    <Target Name="CleanGenerated">
+        <Delete Files="@(Generated)" />
+    </Target>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\ApplicationResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\ApplicationResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\ApplicationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\ApplicationResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mapster\Extensions\Generated\" />
+      <Folder Include="wwwroot\fonts\" />
+      <Folder Include="wwwroot\libs\fontawasome\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".Publish\dev.cmd" />
+      <Content Include=".Publish\prod.cmd" />
+      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Components\Dialogs\DialogLineSelect.razor" />
+      <UpToDateCheckInput Remove="Features\Pallet\Dialogs\PluNestingSelect.razor" />
+    </ItemGroup>
+
+</Project>

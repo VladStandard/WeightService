@@ -1,0 +1,10 @@
+@if (string.IsNullOrEmpty(Href))
+{
+  <label @attributes="Attributes" class="@LabelClass">@ChildContent</label>
+}
+else
+{
+  <a href="@Href">
+    <label @attributes="Attributes" class="@LabelClass">@ChildContent</label>
+  </a>
+}

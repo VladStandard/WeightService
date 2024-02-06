@@ -1,0 +1,29 @@
+@using Blazor.Heroicons.Outline
+
+<button
+  type="button"
+  disabled="@PalletContext.Pallet.Equals(Pallet)"
+  @onclick="@(() => PalletContext.ChangePallet(Pallet))"
+  class="w-full h-18 pb-2.5 pt-2 gap-2 px-4 items-center flex shadow-sm transition-colors rounded-md border hover:bg-neutral-100
+                      @(PalletContext.Pallet.Equals(Pallet) ? "bg-neutral-100" : "")"
+>
+  <div class="w-full h-full overflow-hidden grow flex flex-col">
+    <div class="flex w-full items-center gap-2 justify-between">
+      <span class="truncate font-medium">
+        Паллета №@Pallet.Number
+      </span>
+      <span class="text-sm text-neutral-700">
+        @Pallet.CreateDt.ToString("dd-MM-yyyy")
+      </span>
+    </div>
+    <div class="flex w-full items-center justify-between gap-2 overflow-hidden">
+      <span class="truncate text-sm text-neutral-700">
+        ПЛУ: 102 | Азу из говядины
+      </span>
+      <div class="flex bg-neutral-200 px-2 py-0.5 rounded-xl items-center">
+        <CalculatorIcon class="h-3 w-3 mr-1"/>
+        <span class="text-xs pt-[1px]">@Pallet.Labels.Count()</span>
+      </div>
+    </div>
+  </div>
+</button>

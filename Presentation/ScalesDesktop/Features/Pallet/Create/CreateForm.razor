@@ -1,0 +1,55 @@
+<EditForm
+  Model="FormModel"
+  OnValidSubmit="OnSubmit"
+  class="max-w-md mx-auto w-full flex flex-col space-y-4"
+>
+  <CreateFormInputWrapper Label="Склад" HtmlFor="warehouse">
+    <SharedInputText
+      id="warehouse"
+      Value="@LineContext.Line.Warehouse.Name"
+      disabled
+    />
+  </CreateFormInputWrapper>
+  <CreateFormInputWrapper Label="ПЛУ" HtmlFor="plu">
+    <SharedInputText
+      id="plu"
+      placeholder="Выберите плу..."
+      @bind-Value="FormModel.Plu"
+    />
+  </CreateFormInputWrapper>
+  <CreateFormInputWrapper Label="Вложенность" HtmlFor="nesting">
+    <SharedInputText
+      id="nesting"
+      placeholder="Выберите вложенность..."
+      @bind-Value="FormModel.Nesting"
+    />
+  </CreateFormInputWrapper>
+  <CreateFormInputWrapper Label="Вес паллеты" HtmlFor="pallet-weight">
+    <SharedInputNumber
+      TValue="decimal"
+      id="pallet-weight"
+      step="0.001"
+      placeholder="Введите вес палетты..."
+      @bind-Value="FormModel.PalletWeight"
+    />
+    </CreateFormInputWrapper>
+  <CreateFormInputWrapper Label="Дата создания" HtmlFor="create-dt">
+    <SharedInputDate
+      id="create-dt"
+      TValue="DateOnly"
+      @bind-Value="FormModel.CreateDt"
+    />
+  </CreateFormInputWrapper>
+  <CreateFormInputWrapper Label="Количество" HtmlFor="count">
+    <SharedInputNumber
+      TValue="int"
+      id="count"
+      step="1"
+      placeholder="Введите количество..."
+      @bind-Value="FormModel.Count"
+    />
+  </CreateFormInputWrapper>
+  <SharedButton type="submit" class="!mt-8 !mb-2" >
+    Создать
+  </SharedButton>
+</EditForm>
