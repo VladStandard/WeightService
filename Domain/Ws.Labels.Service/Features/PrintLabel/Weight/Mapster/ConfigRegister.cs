@@ -10,7 +10,7 @@ public class ConfigRegister : IRegister
     {
         config.NewConfig<LabelWeightDto, XmlWeightLabelModel>()
             .Map(d => d.LineName, s => s.Line.Name)
-            .Map(d => d.LineAddress, s => s.Line.Warehouse.ProductionSite.Name)
+            .Map(d => d.LineAddress, s => s.Line.Warehouse.ProductionSite.Address)
             .Map(d => d.LineNumber, s => s.Line.Number)
             .Map(d => d.LineCounter, s => s.Line.Counter)
             
