@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
-using Ws.Domain.Models.Entities.Print;
 using Ws.Shared.Enums;
 
 namespace ScalesDesktop.Features.Pallet.Viewer;

@@ -27,7 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Common\" />
         <Folder Include="Tables\TableRef1cModels\" />
     </ItemGroup>
 

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Labels.Service.Features.RenderLabel;
 using Ws.Labels.Service.Features.RenderLabel.Exceptions;
-using Ws.Labels.Service.Features.RenderLabel;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 

@@ -1,7 +1,6 @@
 // ReSharper disable ClassNeverInstantiated.Global
 using System.Security.Claims;
 using DeviceControl.Services;
-using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Layout;

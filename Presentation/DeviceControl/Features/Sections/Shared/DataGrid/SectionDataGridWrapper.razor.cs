@@ -4,7 +4,6 @@ using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Color = Blazorise.Color;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
