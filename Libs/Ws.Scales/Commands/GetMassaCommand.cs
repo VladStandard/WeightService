@@ -6,19 +6,8 @@ using Ws.Scales.Utils;
 
 namespace Ws.Scales.Commands;
 
-public class GetMassaCommand : ScaleCommandBase
+public class GetMassaCommand(SerialPort port) : ScaleCommandBase(port, MassaKCommands.CmdGetWeight)
 {
-    private static readonly byte[] Command = MassaKCommands.CmdGetWeight;
-    
-    public GetMassaCommand(SerialPort port) : base(port)
-    {
-    }
-
-    public override void Activate()
-    {
-        Request(Command);
-    }
-    
     protected override void Response()
     { 
         byte[] buffer = new byte[16];

@@ -1,6 +1,6 @@
 ﻿namespace Ws.Scales.Utils;
 
-public static class ScalesCommandsUtil
+public static class CrcUtil
 {
     private static readonly byte[] Header = [0xF8, 0x55, 0xCE];
     public static ushort Crc16Generate(byte[] data)
@@ -37,8 +37,8 @@ public static class ScalesCommandsUtil
 
         return dataList.ToArray();
     }
-    
-    public static byte[] Generate(byte[] body)
+
+    private static byte[] Generate(byte[] body)
     {
         byte[] len = BitConverter.GetBytes((ushort)body.Length);
         byte[] crc = BitConverter.GetBytes(Crc16Generate(body));

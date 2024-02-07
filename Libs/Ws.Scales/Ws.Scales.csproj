@@ -9,4 +9,8 @@
       <Compile Remove="Common\IScalesCommands.cs" />
       <Compile Remove="Enums\ScalesCommandsEnum.cs" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" />
+    </ItemGroup>
 </Project>

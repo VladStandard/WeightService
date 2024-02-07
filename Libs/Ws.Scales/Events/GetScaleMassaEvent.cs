@@ -1,13 +1,7 @@
 ﻿namespace Ws.Scales.Events;
 
-public class GetScaleMassaEvent
+public class GetScaleMassaEvent(int weight, bool isStable)
 {
-    public int Weight { get; init; }
-    public bool IsStable { get; init; }
-    
-    public GetScaleMassaEvent(int weight, bool isStable)
-    {
-        Weight = weight;
-        IsStable = isStable;
-    }
+    public int Weight { get; } = weight;
+    public bool IsStable { get; } = isStable;
 }
