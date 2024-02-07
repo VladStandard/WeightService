@@ -12,6 +12,4 @@ public partial class MainLayout : LayoutComponentBase
     private ClaimsPrincipal? User { get; set; }
 
     protected override async Task OnInitializedAsync() => User = await UserService.GetUser();
-
-    private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }

@@ -87,7 +87,7 @@ namespace ScalesDesktop.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Control.
+        ///   Looks up a localized string similar to Device control.
         /// </summary>
         internal static string ApplicationName {
             get {

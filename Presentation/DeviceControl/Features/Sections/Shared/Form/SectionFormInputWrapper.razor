@@ -3,12 +3,14 @@
 <div class="flex group relative flex-col px-5 sm:px-3 md:px-10 @GetClassBySize(Size)">
   @if (string.IsNullOrEmpty(Link))
   {
-    <label class="truncate shrink-0">@Label</label>
+    <label class="truncate font-light shrink-0 text-neutral-800 dark:text-neutral-200">
+      @Label
+    </label>
   }
   else
   {
     <a href="@Link" target="_blank" class="w-fit max-w-full shrink-0 overflow-hidden">
-      <label class="text-sky-500 truncate shrink-0 w-fit cursor-pointer transition-colors hover:text-sky-600">
+      <label class="text-sky-500 truncate shrink-0 w-fit font-light cursor-pointer transition-colors hover:text-sky-600">
         @Label
       </label>
     </a>

@@ -1,4 +1,6 @@
 @using Ws.Shared.Enums
+
+
 <div class="rounded-md overflow-hidden">
   <SectionModalHeader>
     <ul class="w-full h-full flex items-center gap-2 justify-center">
@@ -9,21 +11,21 @@
             type="button"
             disabled="@IsSelectedTab(item.Value)"
             @onclick="() => ChangeSelectedTab(item.Value)"
-            class="px-4 py-1 rounded-md overflow-hidden transition-colors
-                    @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")"
+            class="px-4 py-1 rounded-md overflow-hidden transition-colors text-black @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" :
+                    "hover:bg-gray-50 dark:bg-transparent dark:border dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900")"
           >
-            <p class="text-black pt-[1px] font-normal">@item.Name</p>
+            <span class="pt-[1px]">@item.Name</span>
           </button>
         </li>
       }
     </ul>
   </SectionModalHeader>
-  <ModalBody Class="!p-0 bg-gray-100">
+  <ModalBody Class="!p-0 bg-gray-100 dark:bg-neutral-950">
     <Tabs
       @ref="TabsRef"
       RenderMode="TabsRenderMode.LazyLoad"
       @bind-SelectedTab="SelectedTab"
-      Class="!p-0"
+      Class="!p-0 !bg-black"
     >
       <Content>
       @ChildContent

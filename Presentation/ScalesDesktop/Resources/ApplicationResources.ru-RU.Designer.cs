@@ -231,6 +231,24 @@ namespace ScalesDesktop.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ПЛУ.
+        /// </summary>
+        internal static string DataGridColumnPLU {
+            get {
+                return ResourceManager.GetString("DataGridColumnPLU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата производства.
+        /// </summary>
+        internal static string DataGridColumnProductDt {
+            get {
+                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вес тары.
         /// </summary>
         internal static string DataGridColumnTareWeight {
@@ -452,6 +470,15 @@ namespace ScalesDesktop.Resources {
         internal static string ScaleStabilization {
             get {
                 return ResourceManager.GetString("ScaleStabilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Информация отсутсвует....
+        /// </summary>
+        internal static string SectionFormInputTextPlaceholder {
+            get {
+                return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
             }
         }
         

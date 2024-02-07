@@ -1,0 +1,103 @@
+@using Blazor.Heroicons.Outline
+@using Ws.Shared.Enums
+
+
+<div class="w-full h-full overflow-hidden">
+  @if (PalletContext.Pallet.Uid == Guid.Empty)
+  {
+    <div class="h-full pt-24 flex flex-col w-full overflow-hidden">
+      <div class="flex flex-col w-full h-full items-center justify-center">
+        <span class="font-light text-3xl">Выберите паллету</span>
+        <span>или нажмите на</span>
+        <a
+          href="@RouteUtils.PalletForm"
+          class="flex items-center mt-2 justify-center rounded-md overflow-hidden px-8 h-10 py-2 shadow-sm text-white bg-neutral-900 hover:bg-neutral-800"
+        >
+          Создать палетту
+        </a>
+      </div>
+      <div class="py-8 gap-6 px-6 flex items-center justify-center w-full">
+        <div class="w-1/2 space-y-2">
+          <SharedLabel>Линия</SharedLabel>
+          <div class="flex items-center gap-2">
+            <SharedInputText
+              Value="@LineContext.Line.Name"
+              class="!opacity-100"
+              disabled
+            />
+            <SharedButton
+              Variant="ButtonVariant.Outline"
+              Size="ButtonSize.Icon"
+              onClick="@(() => LineContext.ResetLine())"
+              class="shrink-0 !h-10 !w-10"
+            >
+              <ArrowPathIcon class="h-4 w-4" />
+            </SharedButton>
+          </div>
+        </div>
+        <div class="w-1/2 space-y-2">
+          <SharedLabel>Склад</SharedLabel>
+          <SharedInputText
+            Value="@LineContext.Line.Warehouse.Name"
+            class="!opacity-100"
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+  }
+  else
+  {
+    <div class="w-full h-full overflow-hidden flex flex-col">
+      <div class="w-full px-4 shrink-0 border-b items-center flex justify-between h-12">
+        <div class="w-32 overflow-hidden">
+          <button
+            type="button"
+            @onclick="CloseCurrentPallet"
+            class="px-3 py-1.5 flex gap-2 items-center transition-colors justify-center border border-black/[.1] rounded-md
+                      overflow-hidden hover:bg-gray-100"
+          >
+            <ArrowLeftIcon class="h-4 w-4"/>
+            <span class="text-sm pt-[2px] text-black font-medium">
+              @Localizer["ButtonBack"]
+            </span>
+          </button>
+        </div>
+        <div class="h-full w-full grow overflow-hidden">
+          <ul class="w-full h-full flex items-center gap-2 justify-center">
+            @foreach(EnumTypeModel<string> item in TabsButtonList)
+            {
+              <li>
+                <button
+                  type="button"
+                  disabled="@IsSelectedTab(item.Value)"
+                  @onclick="() => ChangeSelectedTab(item.Value)"
+                  class="px-4 py-1 rounded-md overflow-hidden transition-colors
+                            @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")">
+                  <span class="text-black pt-[1px] font-normal">@item.Name</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="w-32"></div>
+      </div>
+      <div class="w-full h-full grow overflow-hidden blazorise-tabs">
+        <Tabs
+          @ref="TabsRef"
+          @bind-SelectedTab="SelectedTab"
+          Class="!p-0 h-full w-full overflow-hidden"
+        >
+          <Content>
+            <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="main">
+              <Overview />
+            </TabPanel>
+            <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="labels">
+              <LabelsGrid />
+            </TabPanel>
+          </Content>
+        </Tabs>
+      </div>
+    </div>
+  }
+</div>

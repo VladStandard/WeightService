@@ -1,6 +1,6 @@
 tailwind.config = {
   content: ["**/*.razor", "**/*.cshtml", "**/*.html"],
-  darkMode: "class",
+  darkMode: "media",
   theme: {
     container: {
       center: true,

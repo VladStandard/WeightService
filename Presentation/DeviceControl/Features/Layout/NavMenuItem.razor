@@ -1,10 +1,13 @@
 @using Blazor.Heroicons
+
+
 <div class="flex flex-col w-full overflow-x-hidden px-3">
   <button
     type="button"
     @onclick="SwitchVisibility"
     class="w-full gap-2 py-1.5 flex items-center transition-colors justify-between px-3 rounded-md
-            @(GetIsAnyActive() ? "bg-sky-200 hover:bg-slate-200" : "hover:bg-sky-100")"
+            @(GetIsAnyActive() ? "bg-neutral-900 font-medium text-white hover:bg-neutral-800 dark:bg-neutral-200 dark:text-black dark:hover:bg-neutral-300" :
+              "text-neutral-700 hover:bg-neutral-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:hover:bg-neutral-900")"
   >
     <div class="flex gap-3 items-center overflow-hidden">
       <Heroicon
@@ -12,14 +15,15 @@
         Type="HeroiconType.Outline"
         class="h-5 w-5 shrink-0"
       />
-      <p class="font-medium truncate">
+      <span class="truncate">
         @Label
-      </p>
+      </span>
     </div>
     <Heroicon
       Name="@(IsOpened ? HeroiconName.ChevronUp : HeroiconName.ChevronDown)"
       Type="HeroiconType.Outline"
-      class="h-4 w-4 shrink-0"/>
+      class="h-4 w-4 shrink-0"
+    />
   </button>
   <ul class="flex flex-col gap-1 transition-opacity w-full @(IsOpened ? "opacity-100 mt-2 mb-1" : "opacity-0 h-0 overflow-hidden")">
     @foreach (NavMenuItemModel item in Items)
@@ -28,12 +32,12 @@
         <a href="@item.Link">
           <button
             type="button"
-            class="w-full pr-3 py-1 pl-11"
+            class="w-full pr-3 py-1 pl-11 text-left
+                  @(GetIsActivePath(item.Link) ? "text-black font-medium dark:text-white" : "font-light hover:underline dark:text-neutral-400")"
           >
-            <p class="text-left transition-colors truncate
-                      @(GetIsActivePath(item.Link) ? "text-sky-500 font-normal hover:text-sky-700" : "font-light hover:text-sky-500")">
+            <span class="truncate">
               @item.Name
-            </p>
+            </span>
           </button>
         </a>
       </li>

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Blazor.Heroicons;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -10,6 +11,8 @@ namespace DeviceControl.Features.Layout;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Parameter] public ClaimsPrincipal? User { get; set; }
+    
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
@@ -93,7 +96,9 @@ public sealed partial class NavMenu : ComponentBase
             ]
         }
     ];
-        
+    
+    
+    private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }
 
 internal class MenuSection

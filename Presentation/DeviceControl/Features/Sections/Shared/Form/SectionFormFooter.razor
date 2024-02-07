@@ -1,19 +1,19 @@
-<div class="w-full !mt-0 bg-white border-t border-t-black/[.1] gap-3 py-4 flex flex-col">
+<div class="w-full !mt-0 bg-white border-t border-t-black/[.1] gap-3 py-4 flex flex-col dark:bg-black dark:border-t-neutral-800">
   @if (CreateDate != null || ChangeDate != null)
   {
-    <div class="flex px-4 items-center w-full">
+    <div class="flex px-4 items-center w-full text-neutral-700 text-sm font-light dark:text-neutral-400">
       @if (CreateDate != null)
       {
         <div class="w-1/2 px-10 truncate items-center flex gap-2">
-          <p class="font-normal">@Localizer["DataGridColumnCreateDt"]:</p>
-          <p>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</p>
+          <span>@Localizer["DataGridColumnCreateDt"]:</span>
+          <span>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
       @if (ChangeDate != null)
       {
         <div class="w-1/2 px-10 truncate flex-items flex gap-2">
-          <p class="font-normal">@Localizer["DataGridColumnChangeDt"]:</p>
-          <p>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</p>
+          <span>@Localizer["DataGridColumnChangeDt"]:</span>
+          <span>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
     </div>
@@ -24,17 +24,17 @@
       <button
         type="button"
         @onclick="CloseModal"
-        class="h-9 bg-red-300 transition-colors flex items-center w-32 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-red-400">
-        <p class="font-normal pt-[1px]">@Localizer["ButtonCancel"]</p>
+        class="h-9 transition-colors flex items-center w-32 justify-center overflow-hidden rounded-md border hover:bg-neutral-100 dark:hover:bg-neutral-900"
+      >
+        <span class="pt-[1px]">@Localizer["ButtonCancel"]</span>
       </button>
       <button
         type="button"
         @onclick="ExecuteSubmitWithTimeout"
         disabled="@IsSubmitDisabled"
-        class="h-9 bg-green-300 transition-colors flex items-center w-32 justify-center overflow-hidden
-                  rounded-md border border-black/[.1] hover:bg-green-400 disabled:bg-green-500 disabled:hover:bg-green-600">
-        <p class="font-normal pt-[1px]">@Localizer["ButtonSave"]</p>
+        class="h-9 bg-neutral-900 transition-colors flex items-center w-32 justify-center overflow-hidden text-white
+                  rounded-md border border-black/[.1] hover:bg-neutral-800 disabled:bg-neutral-700">
+        <span class="pt-[1px]">@Localizer["ButtonSave"]</span>
       </button>
     }
   </div>

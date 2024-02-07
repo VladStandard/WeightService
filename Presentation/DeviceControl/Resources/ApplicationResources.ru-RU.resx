@@ -124,7 +124,7 @@
         <value>Склады</value>
     </data>
     <data name="ApplicationName" xml:space="preserve">
-        <value>Управление Устройствами</value>
+        <value>Управление устройствами</value>
     </data>
     <data name="DataGridTotalItems" xml:space="preserve">
         <value>элементов</value>

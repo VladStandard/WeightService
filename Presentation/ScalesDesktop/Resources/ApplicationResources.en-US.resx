@@ -156,4 +156,13 @@
     <data name="ButtonBack" xml:space="preserve">
         <value>Back</value>
     </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value>Product date</value>
+    </data>
+    <data name="DataGridColumnPLU" xml:space="preserve">
+        <value>PLU</value>
+    </data>
+    <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
+        <value>No data...</value>
+    </data>
 </root>

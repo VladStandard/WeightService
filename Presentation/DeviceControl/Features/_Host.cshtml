@@ -22,15 +22,15 @@
   <script src="libs/tailwind/tailwind.config.js"></script>
 
   <link href="_content/Blazorise/blazorise.css" rel="stylesheet" />
-  <link href="_content/Blazorise.Tailwind/blazorise.tailwind.css" rel="stylesheet" />
+  <link href="libs/blazorise.tailwind.css" rel="stylesheet" />
   <link href="_content/Blazorise.Snackbar/blazorise.snackbar.css" rel="stylesheet" />
 
   <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
-<body class="bg-gray-100 font-['Roboto']">
+<body class="bg-white text-black font-['Roboto'] dark:bg-black dark:text-white">
   <component type="typeof(App)" render-mode="ServerPrerendered"/>
 
-  <div id="blazor-error-ui" class="fixed z-50 bottom-0 left-0 hidden w-full p-2 bg-yellow-300 shadow-md">
+  <div id="blazor-error-ui" class="fixed z-50 bottom-0 left-0 hidden w-full p-2 bg-yellow-300">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
     <a class="dismiss absolute top-2 right-4 cursor-pointer">🗙</a>

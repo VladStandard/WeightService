@@ -5,9 +5,9 @@ using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Domain.Models.Entities.Print;
 
-namespace ScalesDesktop.Features.Pallet.Modules;
+namespace ScalesDesktop.Features.Pallet.Viewer;
 
-public sealed partial class PalletLabels: ComponentBase
+public sealed partial class LabelsGrid: ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
@@ -35,6 +35,15 @@ public sealed partial class PalletLabels: ComponentBase
         SelectedItems = [];
         await DataGridRef.Reload();
         StateHasChanged();
+    }
+    
+    private static void RowStyling(LabelEntity item, DataGridRowStyling styling) =>
+        styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-neutral-100";
+
+    private static void SelectedRowStyling(LabelEntity item, DataGridRowStyling styling)
+    {
+        styling.Color = new("e5e5e5");
+        styling.Class = "!bg-neutral-100 !text-black";
     }
     
     private bool OnCustomFilter(LabelEntity entity) =>

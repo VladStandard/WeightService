@@ -11,7 +11,7 @@ public class LineContext: IDisposable
     
     public LineEntity Line { get; private set; } = new();
     public PrinterEntity PrinterEntity { get; private set; } = new();
-    public event Action? OnLabelChanged;
+    public event Action? OnLineChanged;
 
     public LineContext(ILineService lineService, ExternalDevicesService externalDevices)
     {
@@ -40,7 +40,7 @@ public class LineContext: IDisposable
         Line = LineService.GetCurrentLine();
         PrinterEntity = Line.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
-        OnLabelChanged?.Invoke();
+        OnLineChanged?.Invoke();
     }
 
     public void DisconnectScale() => ExternalDevices.Scales.Disconnect();

@@ -1,0 +1,9 @@
+@typeparam TValue
+
+<InputNumber
+  @attributes="Attributes"
+  TItem="TValue"
+  @bind-Value="Value"
+  @bind-Value:after="OnValueChanged"
+  class="@InputClass"
+/>

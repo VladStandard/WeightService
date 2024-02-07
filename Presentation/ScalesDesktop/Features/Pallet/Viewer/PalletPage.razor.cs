@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Services;
 
-namespace ScalesDesktop.Features.Pallet;
+namespace ScalesDesktop.Features.Pallet.Viewer;
 
 public sealed partial class PalletPage: ComponentBase, IDisposable
 {
