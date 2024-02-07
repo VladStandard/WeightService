@@ -18,14 +18,4 @@ public class JsService
     {
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/appUtils.js");
     }
-
-    public async Task CopyTextToClipboard(string text)
-    {
-        await Module.InvokeVoidAsync("copyToClipboard", text);
-    }
-
-    public async Task RedirectBack()
-    {
-       await Module.InvokeVoidAsync("navigateBackOrHome");
-    }
 }

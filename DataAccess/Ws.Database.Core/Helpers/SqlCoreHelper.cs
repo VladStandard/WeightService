@@ -1,3 +1,4 @@
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
@@ -13,10 +14,8 @@ namespace Ws.Database.Core.Helpers;
 public sealed class SqlCoreHelper
 {
     #region Design pattern "Lazy Singleton"
-
-#pragma warning disable CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    
     private static SqlCoreHelper _instance;
-#pragma warning restore CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public static SqlCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
     #endregion
@@ -153,7 +152,7 @@ public sealed class SqlCoreHelper
         ExecuteSelectCore(session => {
             ISQLQuery query = session.CreateSQLQuery(sqlQuery);
             query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
-            items = query.Enumerable<TObject>();
+            items = query.List<TObject>();
         });
         
         return items;
