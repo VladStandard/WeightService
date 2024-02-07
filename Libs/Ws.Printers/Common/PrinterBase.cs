@@ -1,20 +1,20 @@
 ﻿using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
-using Ws.Printers.Commands;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
+using Ws.Shared.Utils;
 
 namespace Ws.Printers.Common;
 
 public abstract class PrinterBase : IPrinter
 {
-    protected PrinterStatusEnum Status { get; set; }
-    protected TcpClient TcpClient { get; set; }
-
     private readonly string _ip;
     private readonly int _port;
     
-    public PrinterBase(string ip, int port)
+    protected PrinterStatusEnum Status { get; set; }
+    protected TcpClient TcpClient { get; set; }
+
+    protected PrinterBase(string ip, int port)
     {
         _ip = ip;
         _port = port;
@@ -23,13 +23,10 @@ public abstract class PrinterBase : IPrinter
         TcpClient.ReceiveTimeout = 0_200;
         
         SetStatus(PrinterStatusEnum.IsDisabled);
-        WeakReferenceMessenger.Default.Register<PrinterForceDisconnected>(this, ForceReconnectAsync);
     }
 
-    private async void ForceReconnectAsync(Object recipient, PrinterForceDisconnected message)
+    public async void Connect()
     {
-        if (Status == PrinterStatusEnum.IsDisabled)
-            return;
         try
         {
             TcpClient.Dispose();
@@ -47,15 +44,7 @@ public abstract class PrinterBase : IPrinter
 
     public void PrintLabel(string zpl)
     {
-        ExecuteCommand(new SendLabelCommand(TcpClient, zpl));
-    }
-    
-    public IPrinter Connect()
-    {
-        Disconnect();
-        SetStatus(PrinterStatusEnum.IsForceDisconnected);
-        WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
-        return this;
+        ExecuteCommand(new(TcpClient, zpl));
     }
     
     public void Disconnect()
@@ -64,9 +53,10 @@ public abstract class PrinterBase : IPrinter
         if (TcpClient.Connected) TcpClient.Close();
         TcpClient.Dispose();
     }
-    
+
     public virtual void RequestStatus()
     {
+        throw new NotImplementedException();
     }
     
     
@@ -78,18 +68,26 @@ public abstract class PrinterBase : IPrinter
     
     protected void ExecuteCommand(PrinterCommandBase command)
     {
-        if (Status == PrinterStatusEnum.IsDisabled) return;
-        if (Status == PrinterStatusEnum.IsForceDisconnected)
+        try
         {
-            WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
-            return;
+            ErrorUtil.Suppress(() => {
+                if (Status == PrinterStatusEnum.IsDisabled) return;
+                if (Status == PrinterStatusEnum.IsForceDisconnected)
+                {
+                    Connect();
+                    return;
+                }
+                command.Request();
+            }, typeof(TimeoutException));
         }
-        command.Activate();
+        catch (Exception)
+        {
+            Connect();
+        }
     }
     
     public void Dispose()
     {
         Disconnect();
-        WeakReferenceMessenger.Default.Unregister<PrinterForceDisconnected>(this);
     }
 }

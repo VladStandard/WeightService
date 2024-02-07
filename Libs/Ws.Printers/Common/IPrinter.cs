@@ -4,5 +4,5 @@ public interface IPrinter : IDisposable
 {
     public void RequestStatus();
     public void PrintLabel(string zpl);
-    public IPrinter Connect();
+    public void Connect();
 }

@@ -2,12 +2,7 @@
 
 namespace Ws.Printers.Events;
 
-public class GetPrinterStatusEvent
+public class GetPrinterStatusEvent(PrinterStatusEnum status)
 {
-    public PrinterStatusEnum Status { get; init; }
-    
-    public GetPrinterStatusEvent(PrinterStatusEnum status)
-    {
-        Status = status;
-    }
+    public PrinterStatusEnum Status { get; } = status;
 }

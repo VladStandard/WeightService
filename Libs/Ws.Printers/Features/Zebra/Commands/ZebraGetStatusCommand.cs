@@ -4,22 +4,12 @@ using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
-using Ws.Printers.Utils;
+using Ws.Printers.Features.Zebra.Utils;
 
-namespace Ws.Printers.Commands.Zebra;
+namespace Ws.Printers.Features.Zebra.Commands;
 
-public class ZebraGetStatusCommands : PrinterCommandBase
+public class ZebraGetStatusCommands(TcpClient tcp) : PrinterCommandBase(tcp, ZebraCommandUtil.GetStatus)
 {
-    private static string Command => "! U1 getvar \"device.host_status\"\r\n";
-    public ZebraGetStatusCommands(TcpClient tcp) : base(tcp)
-    {
-    }
-
-    public override void Activate()
-    {
-        Request(Command);
-    }
-
     protected override void Response(NetworkStream stream)
     {
         byte[] buffer = new byte[76];

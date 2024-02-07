@@ -1,8 +1,9 @@
 ﻿using Ws.Domain.Models.Enums;
 using Ws.Printers.Common;
-using Ws.Printers.Main;
+using Ws.Printers.Features.Tsc;
+using Ws.Printers.Features.Zebra;
 
-namespace Ws.Printers.Utils;
+namespace Ws.Printers;
 
 public static class PrinterFactory
 {
