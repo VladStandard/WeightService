@@ -10,18 +10,4 @@ namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 public sealed partial class Logs1CUpdateForm: SectionFormBase<LogWebEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-
-    private static string GetFormattedXml(string xmlCode)
-    {
-        string formattedXml;
-        try
-        {
-            formattedXml = XDocument.Parse(xmlCode).ToString();
-        }
-        catch
-        {
-            formattedXml = xmlCode;
-        }
-        return formattedXml;
-    }
 }

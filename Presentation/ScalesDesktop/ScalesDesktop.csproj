@@ -88,6 +88,7 @@
     <!-- Для очистки сгенерированных файлов командой dotnet msbuild -t:CleanGenerated -->
     <ItemGroup>
         <Generated Include="**\*.g.cs" />
+        <Generated Remove="obj\**" />
     </ItemGroup>
     <Target Name="CleanGenerated">
         <Delete Files="@(Generated)" />
@@ -106,6 +107,7 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Remove="obj\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -124,6 +126,7 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
       </Compile>
+      <Compile Remove="obj\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -136,11 +139,20 @@
       <Content Include=".Publish\dev.cmd" />
       <Content Include=".Publish\prod.cmd" />
       <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
+      <Content Remove="obj\**" />
     </ItemGroup>
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Components\Dialogs\DialogLineSelect.razor" />
       <UpToDateCheckInput Remove="Features\Pallet\Dialogs\PluNestingSelect.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="obj\**" />
     </ItemGroup>
 
 </Project>

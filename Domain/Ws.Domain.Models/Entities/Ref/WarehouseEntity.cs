@@ -9,9 +9,7 @@ public class WarehouseEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual ProductionSiteEntity ProductionSite { get; set; } = new();
 
-    public override string ToString() =>
-        $"{nameof(Name)}: {Name}. " +
-        $"{nameof(ProductionSite)}: {ProductionSite}. ";
+    public override string ToString() => $"{Name} {ProductionSite}";
 
     public override bool Equals(object? obj)
     {

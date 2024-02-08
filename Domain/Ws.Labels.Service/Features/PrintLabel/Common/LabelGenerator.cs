@@ -21,7 +21,7 @@ public static partial class LabelGenerator
     {
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
         
-        XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument<TItem>(labelModel, true);
+        XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument(labelModel);
         template = template.Replace("Context", labelModel.GetType().Name);
         
         string zpl = XmlUtil.XsltTransformation(template, xmlLabelContext.OuterXml);

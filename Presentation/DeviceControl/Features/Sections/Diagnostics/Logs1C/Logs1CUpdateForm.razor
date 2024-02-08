@@ -1,5 +1,5 @@
+@using Ws.Shared.Utils
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Diag.LogWebEntity>
-
 
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.Section1CLogs}/{SectionEntity.IdentityValueUid}")"
@@ -21,14 +21,14 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@GetFormattedXml(SectionEntity.DataRequest)"
+    Value="@XmlUtil.GetPrettyXml(SectionEntity.DataRequest)"
     Label="@Localizer["DataGridColumnRequest"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
     IsDisabled
     IsCopyable
   />
   <SectionFormInputText
-    Value="@GetFormattedXml(SectionEntity.DataResponse)"
+    Value="@XmlUtil.GetPrettyXml(SectionEntity.DataResponse)"
     Label="@Localizer["DataGridColumnResponse"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
     IsDisabled

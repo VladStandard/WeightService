@@ -5,22 +5,13 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Diag;
 
 [DebuggerDisplay("{ToString()}")]
-public class TableSizeEntity : EntityBase
+public class TableSizeEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Schema { get; init; }
-    public virtual string Table { get; init; }
+    public virtual string Schema { get; init; } = string.Empty;
+    public virtual string Table { get; init; } = string.Empty;
+    public virtual string FileName { get; init; } = string.Empty;
     public virtual long RowsCount { get; init; }
     public virtual int UsedSpaceMb { get; init; }
-    public virtual string FileName { get; init; }
-    
-    public TableSizeEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Schema = string.Empty;
-        Table = string.Empty;
-        RowsCount = 0;
-        UsedSpaceMb = 0;
-        FileName = string.Empty;
-    }
 
     public override string ToString() => $"{Schema} | {Table} | {RowsCount} | {UsedSpaceMb} | {FileName}";
 }
