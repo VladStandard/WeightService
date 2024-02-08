@@ -6,16 +6,10 @@ using Ws.Domain.Models.Utils;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class UserEntity : EntityBase
+public class UserEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual DateTime LoginDt { get; set; }
-    public virtual ISet<ClaimEntity> Claims { get; set; }
-
-    public UserEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        LoginDt = SqlTypeUtils.MinDateTime;
-        Claims = new HashSet<ClaimEntity>();
-    }
+    public virtual DateTime LoginDt { get; set; } = SqlTypeUtils.MinDateTime;
+    public virtual ISet<ClaimEntity> Claims { get; set; } = new HashSet<ClaimEntity>();
 
     public override bool Equals(object? obj)
     {

@@ -5,14 +5,9 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BundleEntity : Entity1CBase
+public class BundleEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual decimal Weight { get; set; }
-
-    public BundleEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-       Weight = 0;
-    }
 
     public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
 
@@ -30,4 +25,3 @@ public class BundleEntity : Entity1CBase
         ReferenceEquals(this, item) || base.Equals(item) &&
         Equals(Weight, item.Weight);
 }
-

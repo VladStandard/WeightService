@@ -6,19 +6,12 @@ using Ws.Domain.Models.Entities.Ref;
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletEntity : EntityBase
+public class PalletEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual PalletManEntity PalletMan { get; set; }
-    public virtual string Barcode { get; set; }
+    public virtual PalletManEntity PalletMan { get; set; } = new();
+    public virtual string Barcode { get; set; } = string.Empty;
     public virtual int Counter { get; set; }
-    
-    public PalletEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        PalletMan = new();
-        Barcode = string.Empty;
-        Counter = 0;
-    }
-    
+
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;

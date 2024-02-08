@@ -5,15 +5,10 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class ProductionSiteEntity : EntityBase
+public class ProductionSiteEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Address { get; set; }
-    
-    public ProductionSiteEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Address = string.Empty;
-    }
-    
+    public virtual string Address { get; set; } = string.Empty;
+
     public override string ToString() => $"{Address}";
 
     public override bool Equals(object? obj)

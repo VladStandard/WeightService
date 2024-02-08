@@ -17,6 +17,6 @@ public class BrandEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 
     public override int GetHashCode() => base.GetHashCode();
 
-    public virtual bool Equals(BrandEntity item) =>
+    public virtual bool Equals(BrandEntity item) => 
         ReferenceEquals(this, item) || base.Equals(item);
 }

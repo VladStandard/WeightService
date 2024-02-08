@@ -5,15 +5,10 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class WarehouseEntity : EntityBase
+public class WarehouseEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual ProductionSiteEntity ProductionSite { get; set; }
+    public virtual ProductionSiteEntity ProductionSite { get; set; } = new();
 
-    public WarehouseEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        ProductionSite = new();
-    }
-    
     public override string ToString() =>
         $"{nameof(Name)}: {Name}. " +
         $"{nameof(ProductionSite)}: {ProductionSite}. ";

@@ -5,17 +5,11 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class TemplateEntity : EntityBase
+public class TemplateEntity() : EntityBase(SqlEnumFieldIdentity.Id)
 {
-    public virtual string Title { get; set; }
-    public virtual string Data { get; set; }
-    
-    public TemplateEntity() : base(SqlEnumFieldIdentity.Id)
-    {
-        Title = string.Empty;
-        Data = string.Empty;
-    }
-    
+    public virtual string Title { get; set; } = string.Empty;
+    public virtual string Data { get; set; } = string.Empty;
+
     public override string ToString() => Title;
 
     public override bool Equals(object? obj)

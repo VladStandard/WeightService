@@ -5,15 +5,10 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class ClipEntity : Entity1CBase
+public class ClipEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual decimal Weight { get; set; }
 
-    public ClipEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Weight = 0;
-    }
-    
     public override string ToString() => $"{Name} | {Weight}";
 
     public override bool Equals(object? obj)

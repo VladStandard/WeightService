@@ -5,27 +5,16 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Diag;
 
 [DebuggerDisplay("{ToString()}")]
-public class LogWebEntity : EntityBase
+public class LogWebEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual DateTime StampDt { get; set; } = DateTime.MinValue;
-    public virtual string Version { get; set; }
-    public virtual string Url { get; set; }
-    public virtual string DataRequest { get; set; }
-    public virtual string DataResponse { get; set; }
+    public virtual string Version { get; set; } = string.Empty;
+    public virtual string Url { get; set; } = string.Empty;
+    public virtual string DataRequest { get; set; } = string.Empty;
+    public virtual string DataResponse { get; set; } = string.Empty;
     public virtual int CountAll { get; set; }
     public virtual int CountSuccess { get; set; }
     public virtual int CountErrors { get; set; }
-
-    public LogWebEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Version = string.Empty;
-        Url = string.Empty;
-        DataRequest = string.Empty;
-        DataResponse = string.Empty;
-        CountAll = default;
-        CountSuccess = default;
-        CountErrors = default;
-    }
 
     public override string ToString() => $"{Version} | {Url}";
 

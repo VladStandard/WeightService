@@ -6,15 +6,10 @@ using Ws.Domain.Models.Models;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class TemplateResourceEntity : EntityBase
+public class TemplateResourceEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual FieldBinaryModel Data { get; set; }
+    public virtual FieldBinaryModel Data { get; set; } = new();
     public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
-    
-    public TemplateResourceEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Data = new();
-    }
 
     public override bool Equals(object? obj)
     {

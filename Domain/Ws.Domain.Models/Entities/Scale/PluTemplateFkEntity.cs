@@ -6,17 +6,11 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluTemplateFkEntity : EntityBase
+public class PluTemplateFkEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual PluEntity Plu { get; set; }
-    public virtual TemplateEntity Template { get; set; }
-    
-    public PluTemplateFkEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Plu = new();
-        Template = new();
-    }
-    
+    public virtual PluEntity Plu { get; set; } = new();
+    public virtual TemplateEntity Template { get; set; } = new();
+
     public override string ToString() =>
         $"{nameof(Plu)}: {Plu}. " +
         $"{nameof(Template)}: {Template}. ";

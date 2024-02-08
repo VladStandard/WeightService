@@ -6,14 +6,9 @@ namespace Ws.Domain.Models.Entities.Ref;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class StorageMethodEntity : EntityBase
+public class StorageMethodEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Zpl { get; set; }
-    
-    public StorageMethodEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Zpl = string.Empty;
-    }
+    public virtual string Zpl { get; set; } = string.Empty;
 
     public override bool Equals(object? obj)
     {
