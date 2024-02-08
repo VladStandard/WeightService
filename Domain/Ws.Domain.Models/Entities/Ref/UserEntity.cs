@@ -11,18 +11,9 @@ public class UserEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
     public virtual DateTime LoginDt { get; set; } = SqlTypeUtils.MinDateTime;
     public virtual ISet<ClaimEntity> Claims { get; set; } = new HashSet<ClaimEntity>();
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((UserEntity)obj);
+        UserEntity item = (UserEntity)obj;
+        return Claims.SetEquals(item.Claims) && Equals(LoginDt, item.LoginDt);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-
-    public virtual bool Equals(UserEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Claims.SetEquals(item.Claims) &&
-        LoginDt.Equals(item.LoginDt);
 }

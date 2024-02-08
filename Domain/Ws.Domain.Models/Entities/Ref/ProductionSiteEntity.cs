@@ -11,18 +11,9 @@ public class ProductionSiteEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 
     public override string ToString() => $"{Address}";
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((ProductionSiteEntity)obj);
+        ProductionSiteEntity item = (ProductionSiteEntity)obj;
+        return Equals(Address, item.Address);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(ProductionSiteEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Address, item.Address);
-    
 }

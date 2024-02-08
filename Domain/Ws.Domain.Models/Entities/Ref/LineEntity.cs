@@ -29,23 +29,15 @@ public class LineEntity : EntityBase
         Type = LineTypeEnum.Tablet;
     }
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((LineEntity)obj);
+        LineEntity item = (LineEntity)obj;
+        return Equals(Number, item.Number) &&
+            Equals(Counter, item.Counter) &&
+            Equals(PcName, item.PcName) &&
+            Equals(Type, item.Type) &&
+            Equals(Warehouse, item.Warehouse) &&
+            Equals(Printer, item.Printer) &&
+            Equals(Version, item.Version);
     }
-    
-    public virtual bool Equals(LineEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Number, item.Number) &&
-        Equals(Counter, item.Counter) &&
-        Equals(PcName, item.PcName) &&
-        Equals(Type, item.Type) &&
-        Warehouse.Equals(item.Warehouse) &&
-        Printer.Equals(item.Printer) &&
-        Version.Equals(item.Version);
-    
-    public override int GetHashCode() => base.GetHashCode();
 }

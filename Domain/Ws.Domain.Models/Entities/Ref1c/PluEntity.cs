@@ -21,8 +21,7 @@ public class PluEntity : Entity1CBase
     public virtual StorageMethodEntity StorageMethod { get; set; }
     public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
-
-
+    
     public PluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Ean13 = string.Empty;
@@ -41,28 +40,20 @@ public class PluEntity : Entity1CBase
     
     public override string ToString() => $"{Number} | {Name} | {Uid1C}";
     
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PluEntity)obj);
+        PluEntity item = (PluEntity)obj;
+        return Equals(StorageMethod, item.StorageMethod) &&
+               Equals(Number, item.Number) &&
+               Equals(Clip, item.Clip) &&
+               Equals(Brand, item.Brand) &&
+               Equals(Bundle, item.Bundle) &&
+               Equals(FullName, item.FullName) &&
+               Equals(ShelfLifeDays, item.ShelfLifeDays) &&
+               Equals(Gtin, item.Gtin) &&
+               Equals(Ean13, item.Ean13) &&
+               Equals(Itf14, item.Itf14) &&
+               Equals(Description, item.Description) &&
+               Equals(IsCheckWeight, item.IsCheckWeight);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(PluEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(StorageMethod, item.StorageMethod) &&
-        Equals(Number, item.Number) &&
-        Equals(Clip, item.Clip) &&
-        Equals(Brand, item.Brand) &&
-        Equals(Bundle, item.Bundle) &&
-        Equals(FullName, item.FullName) &&
-        Equals(ShelfLifeDays, item.ShelfLifeDays) &&
-        Equals(Gtin, item.Gtin) &&
-        Equals(Ean13, item.Ean13) &&
-        Equals(Itf14, item.Itf14) &&
-        Equals(Description, item.Description) &&
-        Equals(IsCheckWeight, item.IsCheckWeight);
 }

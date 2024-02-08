@@ -43,39 +43,23 @@ public class LabelEntity : EntityBase
     }
     
     #endregion
-
-    #region Public and private methods - override
     
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((LabelEntity)obj);
-    }
-
-    public override int GetHashCode() => base.GetHashCode();
-
     public override string ToString() => $"{CreateDt} : {Plu.Name}";
 
-    #endregion
-
-    #region Public and private methods - virtual
-
-    public virtual bool Equals(LabelEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Zpl, item.Zpl) &&
-        Equals(BarcodeTop, item.BarcodeTop) &&
-        Equals(BarcodeRight, item.BarcodeRight) &&
-        Equals(BarcodeBottom, item.BarcodeBottom) &&
-        Equals(WeightNet, item.WeightNet) &&
-        Equals(WeightTare, item.WeightTare) &&
-        Equals(ProductDt, item.ProductDt) &&
-        Equals(ExpirationDt, item.ExpirationDt) &&
-        Equals(Kneading, item.Kneading) &&
-        Equals(Plu, item.Plu) &&
-        Equals(Line, item.Line) &&
-        Equals(Pallet, item.Pallet);
-
-    #endregion
+    protected override bool CastEquals(EntityBase obj)
+    {
+        LabelEntity item = (LabelEntity)obj;
+        return  Equals(Zpl, item.Zpl) &&
+                Equals(BarcodeTop, item.BarcodeTop) &&
+                Equals(BarcodeRight, item.BarcodeRight) &&
+                Equals(BarcodeBottom, item.BarcodeBottom) &&
+                Equals(WeightNet, item.WeightNet) &&
+                Equals(WeightTare, item.WeightTare) &&
+                Equals(ProductDt, item.ProductDt) &&
+                Equals(ExpirationDt, item.ExpirationDt) &&
+                Equals(Kneading, item.Kneading) &&
+                Equals(Plu, item.Plu) &&
+                Equals(Line, item.Line) &&
+                Equals(Pallet, item.Pallet);
+    }
 }

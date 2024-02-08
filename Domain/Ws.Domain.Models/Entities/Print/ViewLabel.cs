@@ -15,5 +15,4 @@ public class ViewLabel() : EntityBase(SqlEnumFieldIdentity.Uid)
     public virtual string BarcodeTop { get; set; } = string.Empty;
     public virtual string BarcodeBottom { get; set; } = string.Empty;
     public virtual string BarcodeRight { get; set; } = string.Empty;
-
 }

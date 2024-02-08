@@ -18,25 +18,16 @@ public class LogWebEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 
     public override string ToString() => $"{Version} | {Url}";
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((LogWebEntity)obj);
+        LogWebEntity item = (LogWebEntity)obj;
+        return Equals(StampDt, item.StampDt) &&
+               Equals(Version, item.Version) &&
+               Equals(Url, item.Url) &&
+               Equals(DataResponse, item.DataResponse) &&
+               Equals(DataRequest, item.DataRequest) &&
+               Equals(CountAll, item.CountAll) &&
+               Equals(CountSuccess, item.CountSuccess) &&
+               Equals(CountErrors, item.CountErrors);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-
-    public virtual bool Equals(LogWebEntity item) =>
-        ReferenceEquals(this, item) ||
-        base.Equals(item) &&
-        Equals(StampDt, item.StampDt) &&
-        Equals(Version, item.Version) &&
-        Equals(Url, item.Url) &&
-        Equals(DataResponse, item.DataResponse) &&
-        Equals(DataRequest, item.DataRequest) &&
-        Equals(CountAll, item.CountAll) &&
-        Equals(CountSuccess, item.CountSuccess) &&
-        Equals(CountErrors, item.CountErrors);
 }

@@ -13,20 +13,9 @@ public class PluLineEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 
     public override string ToString() => $"{Plu} | {Line}";
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PluLineEntity)obj);
+        PluLineEntity item = (PluLineEntity)obj;
+        return Equals(Plu, item.Plu) && Equals(Line, item.Line);
     }
-    
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(PluLineEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Plu, item.Plu) &&
-        Equals(Line, item.Line) &&
-        Plu.Equals(item.Plu) &&
-        Line.Equals(item.Line);
 }

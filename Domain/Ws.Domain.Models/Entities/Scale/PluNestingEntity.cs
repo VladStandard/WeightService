@@ -17,23 +17,14 @@ public class PluNestingEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
     public virtual decimal WeightTare => (Plu.Bundle.Weight + Plu.Clip.Weight) * BundleCount + Box.Weight;
 
     public override string ToString() =>
-        $"{Plu.Number} | {Plu.Name} | " +
-        $"{Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
+        $"{Plu.Number} | {Plu.Name} | {Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
     
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PluNestingEntity)obj);
+        PluNestingEntity item = (PluNestingEntity)obj;
+        return Equals(Box, item.Box) &&
+               Equals(Plu, item.Plu) &&
+               Equals(IsDefault, item.IsDefault) &&
+               Equals(BundleCount, item.BundleCount);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-
-    public virtual bool Equals(PluNestingEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Box.Equals(item.Box) &&
-        Plu.Equals(item.Plu) && 
-        Equals(IsDefault, item.IsDefault) &&
-        Equals(BundleCount, item.BundleCount);
 }
