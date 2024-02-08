@@ -21,10 +21,10 @@ public static partial class LabelGenerator
     {
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
         
-        XmlDocument xmlLabelContext = XmlUtils.SerializeAsXmlDocument<TItem>(labelModel, true);
+        XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument<TItem>(labelModel, true);
         template = template.Replace("Context", labelModel.GetType().Name);
         
-        string zpl = XmlUtils.XsltTransformation(template, xmlLabelContext.OuterXml);
+        string zpl = XmlUtil.XsltTransformation(template, xmlLabelContext.OuterXml);
         
         zpl = PrintCmdReplaceZplResources(zpl, plu);
         zpl = ReplaceValuesWithHex(zpl);

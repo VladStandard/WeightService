@@ -14,4 +14,9 @@ public static class ErrorUtil
             return true;
         }
     }
+    
+    public static bool Suppress<T>(Action operation) where T: Exception
+    {
+        return Suppress(operation, typeof(T));
+    }
 }

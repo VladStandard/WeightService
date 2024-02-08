@@ -20,7 +20,7 @@ public sealed class FieldBinaryModel
 
     public FieldBinaryModel(FieldBinaryModel item)
     {
-        Value = DataUtils.ByteClone(item.Value);
+        Value = DataUtil.ByteClone(item.Value);
     }
     
     public override bool Equals(object? obj)
@@ -34,5 +34,5 @@ public sealed class FieldBinaryModel
     public override int GetHashCode() => Value is not null ? Value.GetHashCode() : 0;
 
     public bool Equals(FieldBinaryModel item) =>
-        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtils.ByteEquals(Value, item.Value));
+        item.Value is not null && Value is not null && (ReferenceEquals(this, item) || DataUtil.ByteEquals(Value, item.Value));
 }

@@ -70,7 +70,7 @@ public abstract class PrinterBase : IPrinter
     {
         try
         {
-            ErrorUtil.Suppress(() => {
+            ErrorUtil.Suppress<TimeoutException>(() => {
                 if (Status == PrinterStatusEnum.IsDisabled) return;
                 if (Status == PrinterStatusEnum.IsForceDisconnected)
                 {
@@ -78,7 +78,7 @@ public abstract class PrinterBase : IPrinter
                     return;
                 }
                 command.Request();
-            }, typeof(TimeoutException));
+            });
         }
         catch (Exception)
         {

@@ -7,7 +7,7 @@ using System.Xml.Xsl;
 
 namespace Ws.Shared.Utils;
 
-public static class XmlUtils
+public static class XmlUtil
 {
     public static string GetPrettyXml(string xml)
     {

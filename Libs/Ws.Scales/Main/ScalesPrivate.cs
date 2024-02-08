@@ -34,7 +34,7 @@ public partial class Scales
     {
         try
         {
-            ErrorUtil.Suppress(() => {
+            ErrorUtil.Suppress<TimeoutException>(() => {
                 switch (Status)
                 {
                     case ScalesStatus.IsConnect:
@@ -49,7 +49,7 @@ public partial class Scales
                         Connect();
                         break;
                 }
-            }, typeof(TimeoutException));
+            });
         }
         catch (Exception)
         {

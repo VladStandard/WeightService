@@ -1,6 +1,6 @@
 namespace Ws.Shared.Utils;
 
-public static class DataUtils
+public static class DataUtil
 {
     public static bool ByteEquals(byte[] a1, byte[] a2)
     {
