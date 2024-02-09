@@ -15,7 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\Ws.Domain.Abstractions\Ws.Domain.Abstractions.csproj" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
-      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"  />
     </ItemGroup>
 
     <Import Project="..\..\Targets\SqlSettings.targets" />

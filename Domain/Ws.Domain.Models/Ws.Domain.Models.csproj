@@ -2,7 +2,6 @@
     
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\Ws.Domain.Abstractions\Ws.Domain.Abstractions.csproj" />
-      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
 
 </Project>
