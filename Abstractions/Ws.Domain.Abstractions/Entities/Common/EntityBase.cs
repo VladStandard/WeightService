@@ -16,12 +16,12 @@ public abstract class EntityBase
     public virtual bool IsNew => Identity.IsNew;
     public virtual string DisplayName => Name;
 
-    public EntityBase()
+    protected EntityBase()
     {
         Identity = new(SqlEnumFieldIdentity.Uid);
     }
 
-    public EntityBase(SqlEnumFieldIdentity identityName) : this()
+    protected EntityBase(SqlEnumFieldIdentity identityName) : this()
     {
         Identity = new(identityName);
     }
@@ -38,14 +38,14 @@ public abstract class EntityBase
         
         EntityBase entity = (EntityBase)obj;
         
-        return Identity.Equals(entity.Identity) &&
+        return Equals(Identity, entity.Identity) &&
                Equals(CreateDt, entity.CreateDt) &&
                Equals(ChangeDt, entity.ChangeDt) &&
                Equals(Name, entity.Name) && 
                CastEquals(entity);
     }
 
-    protected virtual bool CastEquals(EntityBase obj) => true;
+    protected virtual bool CastEquals(EntityBase obj) => false;
     
     public override int GetHashCode() => Identity.GetHashCode();
 }

@@ -8,42 +8,21 @@ using Ws.Domain.Models.Utils;
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
-public class LabelEntity : EntityBase
+public class LabelEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    #region Public and private fields, properties, constructor
-    public virtual string Zpl { get; set; }
-    public virtual string BarcodeTop { get; set; }
-    public virtual string BarcodeRight { get; set; }
-    public virtual string BarcodeBottom { get; set; }
+    public virtual string Zpl { get; set; } = string.Empty;
+    public virtual string BarcodeTop { get; set; } = string.Empty;
+    public virtual string BarcodeRight { get; set; } = string.Empty;
+    public virtual string BarcodeBottom { get; set; } = string.Empty;
     public virtual decimal WeightNet { get; set; }
     public virtual decimal WeightTare { get; set; }
     public virtual short Kneading { get; set; }
     public virtual PalletEntity? Pallet { get; set; }
-    public virtual PluEntity Plu { get; set; }
-    public virtual LineEntity Line { get; set; }
-    public virtual DateTime ProductDt { get; set; }
-    public virtual DateTime ExpirationDt { get; set; }
-    
-    public LabelEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Pallet = null;
+    public virtual PluEntity Plu { get; set; } = new();
+    public virtual LineEntity Line { get; set; } = new();
+    public virtual DateTime ProductDt { get; set; } = SqlTypeUtils.MinDateTime;
+    public virtual DateTime ExpirationDt { get; set; } = SqlTypeUtils.MinDateTime;
 
-        Plu = new();
-        Line = new();
-
-        Kneading = 0;
-        Zpl = string.Empty;
-
-        ProductDt = SqlTypeUtils.MinDateTime;
-        ExpirationDt = SqlTypeUtils.MinDateTime;
-        
-        BarcodeTop = string.Empty;
-        BarcodeRight = string.Empty;
-        BarcodeBottom = string.Empty;
-    }
-    
-    #endregion
-    
     public override string ToString() => $"{CreateDt} : {Plu.Name}";
 
     protected override bool CastEquals(EntityBase obj)
