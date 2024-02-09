@@ -14,14 +14,13 @@ public class PluEntity : Entity1CBase
     public virtual string Gtin { get; set; }
     public virtual string Ean13 { get; set; }
     public virtual string Itf14 { get; set; }
-    public virtual bool IsCheckWeight { get; set; } 
+    public virtual bool IsCheckWeight { get; set; }
     public virtual BundleEntity Bundle { get; set; }
     public virtual BrandEntity Brand { get; set; }
     public virtual ClipEntity Clip { get; set; }
     public virtual StorageMethodEntity StorageMethod { get; set; }
     public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
-
 
     public PluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
@@ -38,31 +37,23 @@ public class PluEntity : Entity1CBase
         StorageMethod = new();
         Description = string.Empty;
     }
-    
-    public override string ToString() => $"{Number} | {Name} | {Uid1C}";
-    
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PluEntity)obj);
-    }
 
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(PluEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(StorageMethod, item.StorageMethod) &&
-        Equals(Number, item.Number) &&
-        Equals(Clip, item.Clip) &&
-        Equals(Brand, item.Brand) &&
-        Equals(Bundle, item.Bundle) &&
-        Equals(FullName, item.FullName) &&
-        Equals(ShelfLifeDays, item.ShelfLifeDays) &&
-        Equals(Gtin, item.Gtin) &&
-        Equals(Ean13, item.Ean13) &&
-        Equals(Itf14, item.Itf14) &&
-        Equals(Description, item.Description) &&
-        Equals(IsCheckWeight, item.IsCheckWeight);
+    public override string ToString() => $"{Number} | {Name} | {Uid1C}";
+
+    protected override bool CastEquals(EntityBase obj)
+    {
+        PluEntity item = (PluEntity)obj;
+        return Equals(StorageMethod, item.StorageMethod) &&
+               Equals(Number, item.Number) &&
+               Equals(Clip, item.Clip) &&
+               Equals(Brand, item.Brand) &&
+               Equals(Bundle, item.Bundle) &&
+               Equals(FullName, item.FullName) &&
+               Equals(ShelfLifeDays, item.ShelfLifeDays) &&
+               Equals(Gtin, item.Gtin) &&
+               Equals(Ean13, item.Ean13) &&
+               Equals(Itf14, item.Itf14) &&
+               Equals(Description, item.Description) &&
+               Equals(IsCheckWeight, item.IsCheckWeight);
+    }
 }

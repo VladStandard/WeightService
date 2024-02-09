@@ -5,29 +5,15 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class ProductionSiteEntity : EntityBase
+public class ProductionSiteEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Address { get; set; }
-    
-    public ProductionSiteEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Address = string.Empty;
-    }
-    
+    public virtual string Address { get; set; } = string.Empty;
+
     public override string ToString() => $"{Address}";
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((ProductionSiteEntity)obj);
+        ProductionSiteEntity item = (ProductionSiteEntity)obj;
+        return Equals(Address, item.Address);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(ProductionSiteEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Address, item.Address);
-    
 }

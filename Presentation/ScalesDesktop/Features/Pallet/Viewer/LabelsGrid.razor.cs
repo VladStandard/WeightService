@@ -7,7 +7,7 @@ using Ws.Domain.Models.Entities.Print;
 
 namespace ScalesDesktop.Features.Pallet.Viewer;
 
-public sealed partial class LabelsGrid: ComponentBase
+public sealed partial class LabelsGrid : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
@@ -36,7 +36,7 @@ public sealed partial class LabelsGrid: ComponentBase
         await DataGridRef.Reload();
         StateHasChanged();
     }
-    
+
     private static void RowStyling(LabelEntity item, DataGridRowStyling styling) =>
         styling.Class = "transition-colors !border-y !border-black/[.1] hover:bg-neutral-100";
 
@@ -45,7 +45,7 @@ public sealed partial class LabelsGrid: ComponentBase
         styling.Color = new("e5e5e5");
         styling.Class = "!bg-neutral-100 !text-black";
     }
-    
+
     private bool OnCustomFilter(LabelEntity entity) =>
         string.IsNullOrEmpty(SearchingNumber) ||
         entity.Plu.Number.ToString().Contains(SearchingNumber, StringComparison.OrdinalIgnoreCase);

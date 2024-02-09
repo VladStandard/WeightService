@@ -9,9 +9,8 @@ internal class SqlChangeDtListener : BaseListener, IPreUpdateEventListener
     {
         if (@event.Entity is not EntityBase entity)
             return false;
-            
-        DateTime now = DateTime.Now;
-        entity.ChangeDt = now;
+
+        entity.ChangeDt = DateTime.Now;
             
         Set(@event.Persister, @event.State, nameof(entity.ChangeDt), entity.ChangeDt);
             

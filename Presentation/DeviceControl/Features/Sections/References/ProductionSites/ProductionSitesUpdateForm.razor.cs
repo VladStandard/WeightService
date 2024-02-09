@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace DeviceControl.Features.Sections.References.ProductionSites;
 
-public sealed partial class ProductionSitesUpdateForm: SectionFormBase<ProductionSiteEntity>
+public sealed partial class ProductionSitesUpdateForm : SectionFormBase<ProductionSiteEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <ItemGroup>
-      <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+      <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
     
     <ItemGroup>

@@ -4,5 +4,5 @@ public enum ScalesStatus
 {
     IsConnect,
     IsDisabled,
-    IsForceDisconnected,
+    IsForceDisconnected
 }

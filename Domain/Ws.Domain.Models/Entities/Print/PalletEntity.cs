@@ -6,32 +6,17 @@ using Ws.Domain.Models.Entities.Ref;
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletEntity : EntityBase
+public class PalletEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual PalletManEntity PalletMan { get; set; }
-    public virtual string Barcode { get; set; }
-    public virtual int Counter { get; set; }
-    
-    public PalletEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        PalletMan = new();
-        Barcode = string.Empty;
-        Counter = 0;
-    }
-    
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PalletEntity)obj);
-    }
+    public virtual PalletManEntity PalletMan { get; set; } = new();
+    public virtual string Barcode { get; set; } = string.Empty;
+    public virtual int Counter { get; set; } = 0;
 
-    public override int GetHashCode() => base.GetHashCode();
-
-    public virtual bool Equals(PalletEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Counter, item.Counter) &&
-        Equals(PalletMan, item.PalletMan) &&
-        Equals(Barcode, item.Barcode);
+    protected override bool CastEquals(EntityBase obj)
+    {
+        PalletEntity item = (PalletEntity)obj;
+        return Equals(Counter, item.Counter) &&
+               Equals(PalletMan, item.PalletMan) &&
+               Equals(Barcode, item.Barcode);
+    }
 }

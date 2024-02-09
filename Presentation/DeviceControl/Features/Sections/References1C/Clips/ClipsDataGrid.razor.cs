@@ -8,24 +8,23 @@ using Ws.Domain.Services.Features.Clip;
 
 namespace DeviceControl.Features.Sections.References1C.Clips;
 
-
-public sealed partial class ClipsDataGrid: SectionDataGridBase<ClipEntity>
+public sealed partial class ClipsDataGrid : SectionDataGridBase<ClipEntity>
 {
     #region Inject
-    
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IClipService ClipService { get; set; } = null!;
-    
+
     #endregion
 
     protected override async Task OpenDataGridEntityModal(ClipEntity item)
         => await OpenSectionModal<ClipsUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(ClipEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
 
     protected override IEnumerable<ClipEntity> SetSqlSectionCast() => ClipService.GetAll();
-    
+
     protected override IEnumerable<ClipEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);

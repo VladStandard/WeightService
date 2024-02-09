@@ -4,20 +4,10 @@ using Ws.Printers.Common;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
-namespace Ws.Printers.Commands.Tsc;
+namespace Ws.Printers.Features.Tsc.Commands;
 
-public class TscGetStatusCommand: PrinterCommandBase
+public class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1B!?")
 {
-    private static string Command => "\x1B!?";
-    public TscGetStatusCommand(TcpClient tcp) : base(tcp)
-    {
-    }
-    
-    public override void Activate()
-    {
-        Request(Command);
-    }
-
     protected override void Response(NetworkStream stream)
     {
         byte[] buffer = new byte[1];
@@ -36,7 +26,7 @@ public class TscGetStatusCommand: PrinterCommandBase
             0x08 => PrinterStatusEnum.RibbonOut,
             0x10 => PrinterStatusEnum.Paused,
             0x20 => PrinterStatusEnum.Busy,
-            _ => PrinterStatusEnum.Unknown,
+            _ => PrinterStatusEnum.Unknown
         };
     }
 }

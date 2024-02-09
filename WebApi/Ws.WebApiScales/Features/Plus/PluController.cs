@@ -10,7 +10,7 @@ namespace Ws.WebApiScales.Features.Plus;
 [AllowAnonymous]
 [ApiController]
 [Route("api/plus/")]
-internal sealed class  PluController(
+internal sealed class PluController(
     IPluApiService pluApiService,
     ILogWebService logWebService,
     IHttpContextAccessor httpContextAccessor,
@@ -19,6 +19,6 @@ internal sealed class  PluController(
 
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ContentResult LoadPlu([FromBody] XElement xml) => 
+    public ContentResult LoadPlu([FromBody] XElement xml) =>
         HandleXmlRequest<PlusWrapper>(xml, pluApiService.Load);
 }

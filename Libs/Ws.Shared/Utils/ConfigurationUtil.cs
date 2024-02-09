@@ -10,12 +10,12 @@ public static class ConfigurationUtil
         EnumConfiguration.ReleaseVs => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
-    
+
     public static EnumConfiguration Config =>
 #if RELEASEVS
         EnumConfiguration.ReleaseVs;
 #else
         EnumConfiguration.DevelopVs;
 #endif
-    
+
 }

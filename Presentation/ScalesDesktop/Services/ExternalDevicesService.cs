@@ -1,7 +1,7 @@
 ﻿using Ws.Domain.Models.Enums;
+using Ws.Printers;
 using Ws.Printers.Common;
-using Ws.Printers.Main;
-using Ws.Printers.Utils;
+using Ws.Printers.Features.Tsc;
 using Ws.Scales.Common;
 using Ws.Scales.Main;
 
@@ -15,9 +15,10 @@ public class ExternalDevicesService : IDisposable
     public void SetupPrinter(string ip, int port, PrinterTypeEnum type)
     {
         Printer.Dispose();
-        Printer = PrinterFactory.Create(ip, port, type).Connect();
+        Printer = PrinterFactory.Create(ip, port, type);
+        Printer.Connect();
     }
-    
+
     public void SetupScales()
     {
         Scales.Dispose();

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBase 
-    where TValue: IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>
+public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBase
+    where TValue : IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>
 {
     [Parameter] public TValue Value { get; set; } = default!;
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
@@ -33,7 +33,7 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
         Value = newValue;
         await ValueChanged.InvokeAsync(newValue);
     }
-    
+
     private static bool TryParse(string value, out TValue result)
     {
         try
@@ -47,11 +47,11 @@ public sealed partial class SectionFormInputNumeric<TValue> : SectionFormInputBa
             return false;
         }
     }
-    
+
     private static bool IsEqual(TValue oldValue, TValue newValue) =>
         EqualityComparer<TValue>.Default.Equals(oldValue, newValue);
-    
-    private TValue GetLimitedValue(TValue value) => 
+
+    private TValue GetLimitedValue(TValue value) =>
         Comparer<TValue>.Default.Compare(value, MinValue) < 0 ? MinValue :
         Comparer<TValue>.Default.Compare(value, MaxValue) > 0 ? MaxValue :
         value;

@@ -11,7 +11,7 @@ namespace DeviceControl.Features.Sections.References.StorageMethods;
 public sealed partial class StorageMethodsCreateDialog : SectionDialogBase<StorageMethodEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionPluStorages"], "main")];
 }

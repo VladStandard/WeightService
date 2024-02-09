@@ -6,8 +6,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace DeviceControl.Features.Sections.References1C.Brands;
 
-
-public sealed partial class BrandsUpdateForm: SectionFormBase<BrandEntity>
+public sealed partial class BrandsUpdateForm : SectionFormBase<BrandEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

@@ -13,8 +13,7 @@ public sealed class LineRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<LineEntity> items = LineRepository.GetAll();
             ParseRecords(items);
         });

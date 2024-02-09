@@ -11,8 +11,7 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<BrandEntity> items = BrandRepository.GetAll();
             ParseRecords(items);
         });

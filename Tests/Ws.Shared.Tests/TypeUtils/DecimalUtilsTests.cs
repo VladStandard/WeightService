@@ -13,7 +13,7 @@ public class DecimalUtilsTests
         Assert.Equal("20150", DecimalUtils.ToStrToLen(20.150m, 5));
         Assert.Equal("020150", DecimalUtils.ToStrToLen(20.150m, 6));
     }
-    
+
     [Fact]
     public void Convert_Decimal_To_Str_With_Separator()
     {

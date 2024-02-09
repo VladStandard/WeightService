@@ -9,7 +9,7 @@ internal partial class LineService
 {
     private static IEnumerable<PluEntity> GetPluEntitiesByWeightCheck(LineEntity line, bool isCheckWeight)
     {
-        QueryOver<PluLineEntity> queryOver = 
+        QueryOver<PluLineEntity> queryOver =
             QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)
                 .JoinQueryOver<PluEntity>(i => i.Plu).Where(plu => plu.IsCheckWeight == isCheckWeight);
         return new SqlPluLineRepository().GetListByQuery(queryOver).Select(pluLine => pluLine.Plu);

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Ws.Database.Core;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Services.Features.Box;
 using Ws.Domain.Services.Features.Brand;
 using Ws.Domain.Services.Features.Bundle;
@@ -27,7 +26,7 @@ public static class DependencyInjection
     public static void AddDomainServices(this IServiceCollection services)
     {
         services.AddNhibernate();
-        
+
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();

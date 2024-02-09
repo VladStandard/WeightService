@@ -11,7 +11,7 @@ public class CustomClaimsTransformation(IUserCacheService userCacheService) : IC
         List<Claim> userRights = await userCacheService.GetUserRightsAsync(principal.Identity!.Name!);
         if (userRights.Count == 0)
             return principal;
-        
+
         List<Claim> existingClaims = new(principal.Claims);
         ClaimsIdentity newIdentity = new(existingClaims, principal.Identity.AuthenticationType);
         newIdentity.AddClaims(userRights);

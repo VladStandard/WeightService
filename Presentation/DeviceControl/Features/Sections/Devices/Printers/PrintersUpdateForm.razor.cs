@@ -7,7 +7,7 @@ using Ws.Domain.Models.Enums;
 
 namespace DeviceControl.Features.Sections.Devices.Printers;
 
-public sealed partial class PrintersUpdateForm: SectionFormBase<PrinterEntity>
+public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

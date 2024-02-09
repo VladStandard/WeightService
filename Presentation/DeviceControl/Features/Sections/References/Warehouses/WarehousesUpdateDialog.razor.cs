@@ -8,10 +8,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.References.Warehouses;
 
-public sealed partial class WarehousesUpdateDialog: SectionDialogBase<WarehouseEntity>
+public sealed partial class WarehousesUpdateDialog : SectionDialogBase<WarehouseEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionWarehouses"], "main")];
 }

@@ -6,10 +6,10 @@ namespace Ws.Domain.Services.Features.Bundle;
 
 internal class BundleService : IBundleService
 {
-    public BundleEntity GetItemByUid(Guid uid) =>  new SqlBundleRepository().GetByUid(uid);
+    public BundleEntity GetItemByUid(Guid uid) => new SqlBundleRepository().GetByUid(uid);
     public BundleEntity GetItemByUid1С(Guid uid) => new SqlBundleRepository().GetByUid1C(uid);
     public IEnumerable<BundleEntity> GetAll() => new SqlBundleRepository().GetAll();
-    
+
     public BundleEntity GetDefault()
     {
         BundleEntity bundle = GetItemByUid1С(Guid.Empty);

@@ -9,14 +9,15 @@ using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
 
-public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
+public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 {
     #region Inject
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
-    
+
     #endregion
-    
+
     private TemplateEntity Template { get; set; } = new();
 
     protected override void OnAfterRender(bool firstRender)
@@ -28,18 +29,18 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
-    private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ? 
+    private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ?
         string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.IdentityValueUid}";
-    
-    private string GetClipLink() => SectionEntity.Clip.IsNew || SectionEntity.Clip.Uid1C == Guid.Empty ? 
+
+    private string GetClipLink() => SectionEntity.Clip.IsNew || SectionEntity.Clip.Uid1C == Guid.Empty ?
         string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.IdentityValueUid}";
-    
-    private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ? 
+
+    private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ?
         string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.IdentityValueUid}";
-    
-    private string GetTemplateLink() => Template.IsNew ? 
+
+    private string GetTemplateLink() => Template.IsNew ?
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
-    
+
     private string GetStorageLink() => SectionEntity.StorageMethod.IsNew ?
         string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.IdentityValueUid}";
 }

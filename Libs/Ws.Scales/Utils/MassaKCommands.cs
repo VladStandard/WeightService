@@ -2,6 +2,6 @@
 
 public static class MassaKCommands
 {
-    public static byte[] CmdGetWeight => ScalesCommandsUtil.Generate(0xA0);
-    public static byte[] CmdSetZero => ScalesCommandsUtil.Generate(0x72);
+    public static byte[] CmdGetWeight => CrcUtil.Generate(0xA0);
+    public static byte[] CmdSetZero => CrcUtil.Generate(0x72);
 }

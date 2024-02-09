@@ -6,10 +6,10 @@ namespace Ws.Shared.Validators;
 
 public static partial class IpAddressValidatorExtension
 {
-        
+
     [GeneratedRegex(@"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$")]
     private static partial Regex MyRegex();
-        
+
     public static void MustBeAValidIpAddress<T>(this IRuleBuilder<T, string> ruleBuilder)
     {
         ruleBuilder

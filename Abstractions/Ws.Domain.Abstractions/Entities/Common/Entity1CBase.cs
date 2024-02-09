@@ -8,7 +8,7 @@ public abstract class Entity1CBase : EntityBase
 {
     public virtual Guid Uid1C { get; set; }
 
-    public Entity1CBase() : base()
+    public Entity1CBase()
     {
         Uid1C = Guid.Empty;
     }
@@ -17,9 +17,9 @@ public abstract class Entity1CBase : EntityBase
     {
         Uid1C = Guid.Empty;
     }
-    
+
     public virtual bool Equals(Entity1CBase item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&Equals(Uid1C, item.Uid1C);
+        ReferenceEquals(this, item) || base.Equals(item) && Equals(Uid1C, item.Uid1C);
 
     public override bool Equals(object? obj)
     {

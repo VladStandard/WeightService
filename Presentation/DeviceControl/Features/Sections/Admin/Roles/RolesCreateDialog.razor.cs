@@ -9,10 +9,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Admin.Roles;
 
-public sealed partial class RolesCreateDialog: SectionDialogBase<ClaimEntity>
+public sealed partial class RolesCreateDialog : SectionDialogBase<ClaimEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionRoles"], "main")];
 }

@@ -1,46 +1,23 @@
 ﻿using System.IO.Ports;
-using CommunityToolkit.Mvvm.Messaging;
-using Ws.Scales.Events;
 using Ws.Scales.Utils;
 
 namespace Ws.Scales.Common;
 
-public abstract class ScaleCommandBase
+public class ScaleCommandBase(SerialPort port, byte[] command)
 {
-    protected readonly SerialPort Port;
+    protected readonly SerialPort Port = port;
 
-    protected ScaleCommandBase(SerialPort port)
-    {
-        Port = port;
-    }
-    
     public virtual void Activate()
     {
-        throw new NotImplementedException();
+        Port.Write(command, 0, command.Length);
+        Response();
     }
 
     protected virtual void Response() {}
 
-    protected void Request(byte[] command)
+    protected static bool ParseCrc(IEnumerable<Byte> crc1, byte[] bodyForCrc2)
     {
-        try
-        {
-            Port.Write(command, 0, command.Length);
-            Response();
-        }
-        catch (TimeoutException ex)
-        {
-
-        }
-        catch (Exception e)
-        {
-            WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
-        }
-    }
-
-    protected bool ParseCrc(byte[] crc1, byte[] bodyForCrc2)
-    {
-        byte[] crc2 = BitConverter.GetBytes(ScalesCommandsUtil.Crc16Generate(bodyForCrc2));
+        byte[] crc2 = BitConverter.GetBytes(CrcUtil.Crc16Generate(bodyForCrc2));
         return crc1.SequenceEqual(crc2);
     }
 }

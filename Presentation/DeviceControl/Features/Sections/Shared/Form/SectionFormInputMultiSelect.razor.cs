@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public sealed partial class SectionFormInputMultiSelect<TItem>: SectionFormInputBase where TItem: new()
+public sealed partial class SectionFormInputMultiSelect<TItem> : SectionFormInputBase where TItem : new()
 {
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
     [Parameter, EditorRequired] public IEnumerable<TItem> SelectedItems { get; set; } = [];

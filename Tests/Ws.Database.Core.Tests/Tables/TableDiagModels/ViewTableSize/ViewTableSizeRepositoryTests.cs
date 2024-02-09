@@ -6,13 +6,12 @@ namespace Ws.StorageCoreTests.Tables.TableDiagModels.ViewTableSize;
 [TestFixture]
 public sealed class ViewTableSizeRepositoryTests : TableRepositoryTests
 {
-    private SqlViewTableSizeRepository TableSizeRepository { get; set; } = new();
-    
+    private SqlViewTableSizeRepository TableSizeRepository { get; } = new();
+
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<TableSizeEntity> items = TableSizeRepository.GetAll();
             ParseRecords(items);
         });

@@ -4,13 +4,14 @@ using ScalesDesktop.Utils;
 
 namespace ScalesDesktop.Features.Shared;
 
-public sealed partial class SharedInputNumber<TValue> : ComponentBase where TValue: IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>
+public sealed partial class SharedInputNumber<TValue> : ComponentBase
+    where TValue : IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>
 {
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> Attributes { get; set; } = new();
     [Parameter] public TValue Value { get; set; } = default!;
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
-    
+
     private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 
     private async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);

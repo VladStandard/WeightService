@@ -17,6 +17,6 @@ public class LabelContextConfigRegister : IRegister
             .GenerateMapper(MapType.MapToTarget);
     }
 
-    private static DateTime GetProductDt(DateTime time) => 
+    private static DateTime GetProductDt(DateTime time) =>
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 }

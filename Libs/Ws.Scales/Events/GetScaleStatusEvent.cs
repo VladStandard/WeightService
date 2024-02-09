@@ -2,12 +2,7 @@
 
 namespace Ws.Scales.Events;
 
-public class GetScaleStatusEvent
+public class GetScaleStatusEvent(ScalesStatus status)
 {
-    public ScalesStatus Status { get; init; }
-
-    public GetScaleStatusEvent(ScalesStatus status)
-    {
-        Status = status;
-    }
+    public ScalesStatus Status { get; } = status;
 }

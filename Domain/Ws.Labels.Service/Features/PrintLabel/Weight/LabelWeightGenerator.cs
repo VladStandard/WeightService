@@ -12,13 +12,13 @@ namespace Ws.Labels.Service.Features.PrintLabel.Weight;
 public class LabelWeightGenerator
 {
     public string GenerateLabel(LabelWeightDto labelDto)
-    { 
+    {
         if (labelDto.Nesting.Plu.IsCheckWeight == false)
             throw new LabelGenerateException("Плу не весовая");
-        
+
         XmlWeightLabelModel labelXml = labelDto.AdaptToXmlWeightLabelModel();
         ValidationResult result = new XmlWeightLabelValidator().Validate(labelXml);
-        if (!result.IsValid) 
+        if (!result.IsValid)
             throw new LabelGenerateException(result);
 
 
@@ -36,10 +36,10 @@ public class LabelWeightGenerator
             ProductDt = labelDto.ProductDt,
             ExpirationDt = labelDto.ExpirationDt,
             Line = labelDto.Line,
-            Plu = labelDto.Nesting.Plu,
+            Plu = labelDto.Nesting.Plu
         };
-        SqlCoreHelper.Instance.Save(labelSql); 
-        
+        SqlCoreHelper.Instance.Save(labelSql);
+
         return labelReady.Zpl;
     }
 }

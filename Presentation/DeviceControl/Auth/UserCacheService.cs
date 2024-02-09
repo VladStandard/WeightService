@@ -13,12 +13,13 @@ public class UserCacheService(IMemoryCache cache, IUserService userService) : IU
     public async Task<List<Claim>> GetUserRightsAsync(string username)
     {
         if (cache.TryGetValue(username, out List<Claim>? userRights))
-            if (userRights != null) return userRights;
+            if (userRights != null)
+                return userRights;
 
         userRights = await GetUserRightsFromRepositoryAsync(username);
         MemoryCacheEntryOptions cacheLifetime = new()
         {
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2),
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2)
         };
 
         cache.Set(username, userRights, cacheLifetime);
@@ -44,13 +45,13 @@ public class UserCacheService(IMemoryCache cache, IUserService userService) : IU
     {
         return _cachedUsernames;
     }
-    
+
     private Task<List<Claim>> GetUserRightsFromRepositoryAsync(string username)
     {
         List<Claim> rights = [];
-        
+
         UserEntity user = userService.GetItemByNameOrCreate(username);
-        
+
         rights.AddRange(user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)));
         return Task.FromResult(rights);
     }

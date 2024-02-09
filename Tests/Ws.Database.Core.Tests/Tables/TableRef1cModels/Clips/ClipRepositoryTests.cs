@@ -11,8 +11,7 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<ClipEntity> items = ClipRepository.GetAll();
             ParseRecords(items);
         });

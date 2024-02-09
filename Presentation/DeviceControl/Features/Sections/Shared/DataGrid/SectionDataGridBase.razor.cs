@@ -11,9 +11,9 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
-    
+
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
-    
+
     protected IEnumerable<TItem> SectionItems { get; set; } = [];
     protected SectionDataGridWrapper<TItem> DataGridWrapperRef { get; set; } = null!;
     private bool IsFirstLoading { get; set; } = true;
@@ -27,7 +27,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     {
         throw new NotImplementedException();
     }
-    
+
     protected virtual Task OpenDataGridEntityModal(TItem item)
     {
         return Task.CompletedTask;
@@ -45,12 +45,11 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
 
     protected async Task OpenLinkInNewTab(string url) =>
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
-    
 
-    protected async Task OpenSectionModal<T>(TItem sectionEntity) where T: SectionDialogBase<TItem>
+
+    protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem>
     {
-        await ModalService.Show<T>(p =>
-        {
+        await ModalService.Show<T>(p => {
             p.Add(x => x.DialogSectionEntity, sectionEntity);
             p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
         });
@@ -69,7 +68,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     }
 
     private async Task ReloadGrid() => await DataGridWrapperRef.ReloadData();
-    
+
     public async Task GetSectionData()
     {
         if (!string.IsNullOrEmpty(SearchingSectionItemId) && IsFirstLoading)

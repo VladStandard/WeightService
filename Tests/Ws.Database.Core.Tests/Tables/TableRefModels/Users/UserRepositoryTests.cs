@@ -9,9 +9,9 @@ public sealed class UserRepositoryTests : TableRepositoryTests
 {
     private SqlUserRepository UserRepository { get; } = new();
 
-    private string CurrentUser { get; set; }
+    private string CurrentUser { get; }
 
-    public UserRepositoryTests() : base()
+    public UserRepositoryTests()
     {
         CurrentUser = WindowsIdentity.GetCurrent().Name;
     }
@@ -19,8 +19,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<UserEntity> items = new SqlUserRepository().GetAll();
             ParseRecords(items);
         });
@@ -29,8 +28,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetOrCreate()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             UserEntity access = UserRepository.GetItemByUsername(CurrentUser);
             Assert.That(access.IsExists, Is.True);
             TestContext.WriteLine($"Success: {access.Name} / {access.IdentityValueUid}");

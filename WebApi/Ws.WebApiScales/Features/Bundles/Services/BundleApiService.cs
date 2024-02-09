@@ -16,13 +16,13 @@ internal sealed class BundleApiService(ResponseDto responseDto, IBundleService b
         SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
         responseDto.AddSuccess(bundleDb.Uid1C, bundleDb.Name);
     }
-    
+
     public void Load(BundlesWrapper bundleWrapper)
     {
         foreach (BundleDto bundleDto in bundleWrapper.Bundles)
         {
             ValidationResult validationResult = new ValidatorBundleDto().Validate(bundleDto);
-    
+
             if (validationResult.IsValid)
             {
                 UpdateOrCreate(bundleDto);

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public sealed partial class SectionFormInputWrapper: SectionFormInputBase
+public sealed partial class SectionFormInputWrapper : SectionFormInputBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public SectionFormInputSizeEnum Size { get; set; } = SectionFormInputSizeEnum.Small;

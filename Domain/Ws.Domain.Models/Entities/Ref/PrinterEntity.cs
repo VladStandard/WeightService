@@ -22,19 +22,9 @@ public class PrinterEntity : EntityBase
 
     public override string ToString() => $"{nameof(Type)}: {Type}.";
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((PrinterEntity)obj);
+        PrinterEntity item = (PrinterEntity)obj;
+        return Equals(Ip, item.Ip) && Equals(Port, item.Port) && Equals(Type, item.Type);
     }
-
-    public override int GetHashCode() => base.GetHashCode();
-    
-    public virtual bool Equals(PrinterEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Ip, item.Ip) &&
-        Equals(Port, item.Port) &&
-        Equals(Type, item.Type);
 }

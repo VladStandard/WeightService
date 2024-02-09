@@ -17,8 +17,8 @@ internal sealed class PluDtoConfigRegister : IRegister
             .Map(d => d.ShelfLifeDays, s => s.ShelfLifeDays)
             .Map(d => d.IsCheckWeight, s => s.IsCheckWeight)
             .Map(d => d.Ean13, s => s.Ean13)
-            .Map(d => d.Itf14, s =>  s.IsCheckWeight == true ?  "" : s.Itf14)
-            .Map(d => d.Gtin, s => s.IsCheckWeight == true ?  "0" + s.Ean13 : s.Itf14)
+            .Map(d => d.Itf14, s => s.IsCheckWeight == true ? "" : s.Itf14)
+            .Map(d => d.Gtin, s => s.IsCheckWeight == true ? "0" + s.Ean13 : s.Itf14)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.MapToTarget);
     }

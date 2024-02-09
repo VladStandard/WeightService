@@ -7,12 +7,12 @@ using Ws.Domain.Services.Features.Plu;
 
 namespace ScalesDesktop.Services;
 
-public class LabelContext: IDisposable
+public class LabelContext : IDisposable
 {
     private ILineService LineService { get; }
     private IPluService PluService { get; }
     private LineContext LineContext { get; }
-    
+
     public LineEntity Line { get => LineContext.Line; }
     public PrinterEntity Printer { get => LineContext.PrinterEntity; }
     public PluEntity Plu { get; private set; } = new();
@@ -20,7 +20,7 @@ public class LabelContext: IDisposable
     public PluNestingEntity PluNesting { get; private set; } = new();
     public WeightKneadingModel KneadingModel { get; private set; } = new();
     public IEnumerable<PluEntity> PluEntities { get; private set; } = [];
-    
+
     public event Action? OnStateChanged;
     private Timer Timer { get; set; }
 
@@ -29,7 +29,7 @@ public class LabelContext: IDisposable
         PluService = pluService;
         LineService = lineService;
         LineContext = lineContext;
-        
+
         LineContext.OnLineChanged += InitializeData;
         Timer = new(_ => LineContext.RequestScale(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
     }
@@ -37,15 +37,15 @@ public class LabelContext: IDisposable
     public void InitializeData()
     {
         PluEntities = LineService.GetLineWeightPlus(Line);
-        
+
         Plu = new();
         PluNesting = new();
         PluTemplate = new();
         KneadingModel = new();
-        
+
         OnStateChanged?.Invoke();
     }
-    
+
     public void ChangePlu(PluEntity sqlPluEntity)
     {
         if (Plu.Equals(sqlPluEntity)) return;

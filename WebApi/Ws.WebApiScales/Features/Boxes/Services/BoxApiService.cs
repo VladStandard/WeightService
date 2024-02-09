@@ -16,13 +16,13 @@ internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxServ
         SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
         responseDto.AddSuccess(boxDb.Uid1C, boxDb.Name);
     }
-    
+
     public void Load(BoxWrapper boxWrapper)
     {
         foreach (BoxDto boxDto in boxWrapper.Boxes)
         {
             ValidationResult validationResult = new ValidatorBoxDto().Validate(boxDto);
-    
+
             if (validationResult.IsValid)
             {
                 UpdateOrCreate(boxDto);

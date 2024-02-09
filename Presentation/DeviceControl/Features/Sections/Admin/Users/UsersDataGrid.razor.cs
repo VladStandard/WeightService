@@ -10,24 +10,24 @@ using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
+public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
 {
     #region Inject
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private IUserService UserService { get; set; } = null!;
-    
+
     #endregion
-    
+
     private IEnumerable<string> UserNames { get; set; } = [];
 
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<UsersCreateDialog>(new());
-    
+
     protected override async Task OpenDataGridEntityModal(UserEntity item)
         => await OpenSectionModal<UsersUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(UserEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.IdentityValueUid.ToString()}");
 
@@ -50,6 +50,6 @@ public sealed partial class UsersDataGrid: SectionDataGridBase<UserEntity>
         return Task.CompletedTask;
     }
 
-    private bool IsUserActive(string userName) => UserNames.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase))
-    ;
+    private bool IsUserActive(string userName) =>
+        UserNames.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase));
 }

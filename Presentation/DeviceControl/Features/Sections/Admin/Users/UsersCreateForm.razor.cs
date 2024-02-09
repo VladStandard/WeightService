@@ -8,20 +8,20 @@ using Ws.Domain.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersCreateForm: SectionFormBase<UserEntity>
+public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
 {
     #region Inject
-    
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
-    
+
     #endregion
 
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
 
     private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
     private IEnumerable<ClaimEntity> SelectedRolesInternal { get; set; } = [];
-    
+
     private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SelectedRolesInternal;

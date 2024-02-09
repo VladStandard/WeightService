@@ -3,7 +3,6 @@ using ScalesDesktop.Utils;
 
 namespace ScalesDesktop.Features.Shared;
 
-
 public sealed partial class SharedLabel : ComponentBase
 {
     [Parameter(CaptureUnmatchedValues = true)]
@@ -11,7 +10,7 @@ public sealed partial class SharedLabel : ComponentBase
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string Href { get; set; } = string.Empty;
-    
+
     private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 
     private string LabelClass => $"text-sm font-medium leading-none peer-disabled:cursor-not-allowed " +

@@ -16,19 +16,19 @@ public sealed partial class StorageMethodsDataGrid : SectionDataGridBase<Storage
     [Inject] private IStorageMethodService StorageMethodService { get; set; } = null!;
 
     #endregion
-    
+
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<StorageMethodsCreateDialog>(new());
-    
+
     protected override async Task OpenDataGridEntityModal(StorageMethodEntity item)
         => await OpenSectionModal<StorageMethodsUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(StorageMethodEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionStorageMethods}/{item.IdentityValueUid.ToString()}");
 
     protected override IEnumerable<StorageMethodEntity> SetSqlSectionCast() => StorageMethodService.GetAll();
-    
-    protected override IEnumerable<StorageMethodEntity>  SetSqlSearchingCast()
+
+    protected override IEnumerable<StorageMethodEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [StorageMethodService.GetItemByUid(itemUid)];

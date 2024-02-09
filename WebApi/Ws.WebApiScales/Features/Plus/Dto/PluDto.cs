@@ -6,12 +6,12 @@ using Ws.Shared.TypeUtils;
 namespace Ws.WebApiScales.Features.Plus.Dto;
 
 [Serializable]
-public sealed class PluDto : IXmlSerializable 
-{ 
+public sealed class PluDto : IXmlSerializable
+{
     public Guid Uid { get; set; }
     public bool IsDelete { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string FullName { get; set; }  = string.Empty;
+    public string FullName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int Number { get; set; }
     public short BundleCount { get; set; }
@@ -28,13 +28,13 @@ public sealed class PluDto : IXmlSerializable
     #region IXmlSerializable
 
     public XmlSchema? GetSchema() => null;
-    
-    public void ReadXml(XmlReader reader) 
+
+    public void ReadXml(XmlReader reader)
     {
         Uid = ParseGuidOrDefault(reader, nameof(Uid));
         IsDelete = ParseBoolOrDefault(reader, nameof(IsDelete));
         IsCheckWeight = ParseBoolOrDefault(reader, nameof(IsCheckWeight));
-        
+
         BrandUid = ParseGuidOrDefault(reader, nameof(BrandUid));
         BoxUid = ParseGuidOrDefault(reader, nameof(BoxUid));
         ClipUid = ParseGuidOrDefault(reader, nameof(ClipUid));
@@ -44,17 +44,17 @@ public sealed class PluDto : IXmlSerializable
         FullName = ParseStringOrDefault(reader, nameof(FullName));
         Number = ParseIntOrDefault(reader, nameof(Number));
         Description = ParseStringOrDefault(reader, nameof(Description));
-        
+
         Ean13 = ParseStringOrDefault(reader, nameof(Ean13));
         Itf14 = ParseStringOrDefault(reader, nameof(Itf14));
         StorageMethod = ParseStringOrDefault(reader, nameof(StorageMethod));
-     
+
         BundleCount = (short)ParseIntOrDefault(reader, nameof(BundleCount));
         ShelfLifeDays = ParseIntOrDefault(reader, nameof(ShelfLifeDays));
 
-        reader.Read(); 
+        reader.Read();
     }
-    
+
     public void WriteXml(XmlWriter writer)
     {
         throw new NotImplementedException();
@@ -64,19 +64,19 @@ public sealed class PluDto : IXmlSerializable
 
     #region Utils
 
-    private static Guid ParseGuidOrDefault(XmlReader reader, string attributeName) => 
+    private static Guid ParseGuidOrDefault(XmlReader reader, string attributeName) =>
         Guid.TryParse(reader.GetAttribute(attributeName), out Guid parsed) ? parsed : Guid.Empty;
-    
+
     private static bool ParseBoolOrDefault(XmlReader reader, string attributeName) =>
         (bool.TryParse(reader.GetAttribute(attributeName), out bool parsed) ? parsed : default)
-        ||  ParseStringOrDefault(reader, attributeName) == "1";
-    
+        || ParseStringOrDefault(reader, attributeName) == "1";
+
     private static string ParseStringOrDefault(XmlReader reader, string attributeName) =>
         reader.GetAttribute(attributeName) ?? string.Empty;
 
     private static decimal ParseDecimalOrDefault(XmlReader reader, string attributeName) =>
         DecimalUtils.ConvertStrToDecimal(reader.GetAttribute(attributeName));
-    
+
     private static int ParseIntOrDefault(XmlReader reader, string attributeName) =>
         IntUtils.ConvertStrToIntOrMin(reader.GetAttribute(attributeName));
 

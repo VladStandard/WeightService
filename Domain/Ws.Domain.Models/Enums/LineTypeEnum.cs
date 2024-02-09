@@ -4,5 +4,5 @@ public enum LineTypeEnum
 {
     Pc,
     Tablet,
-    Universal,
+    Universal
 }

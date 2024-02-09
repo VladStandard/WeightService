@@ -21,7 +21,7 @@ internal partial class LineService : ILineService
     public LineEntity GetItemByUid(Guid uid) => new SqlLineRepository().GetByUid(uid);
 
     #endregion
-    
+
     #region Get Plus
 
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);

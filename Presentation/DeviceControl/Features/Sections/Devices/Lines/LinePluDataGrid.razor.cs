@@ -12,7 +12,7 @@ using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
+public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
 {
     #region Inject
 
@@ -21,7 +21,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
     [Inject] private IPluService PluService { get; set; } = null!;
 
     #endregion
-    
+
     [Parameter, EditorRequired] public LineEntity LineEntity { get; set; } = null!;
 
     private IEnumerable<PluEntity> SelectPluEntities { get; set; } = [];
@@ -35,7 +35,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
         SelectedPluEntities = LineService.GetLinePlus(LineEntity);
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
-    
+
     private async Task SaveSelectedPluEntities()
     {
         foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
@@ -43,7 +43,7 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
             PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
             if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
         }
-        
+
         foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
@@ -55,10 +55,10 @@ public sealed partial class LinePluDataGrid: SectionDataGridBase<PluLineEntity>
     }
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
-    
+
     // todo Get Line Plus
     protected override IEnumerable<PluLineEntity> SetSqlSectionCast() => LineService.GetLinePlusFk(LineEntity);
-    
+
     protected override async Task OpenItemInNewTab(PluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");
 }

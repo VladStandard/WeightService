@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public sealed partial class SectionFormInputCheckbox: SectionFormInputBase
+public sealed partial class SectionFormInputCheckbox : SectionFormInputBase
 {
     [Parameter] public bool Value { get; set; }
     [Parameter] public bool IsDisabled { get; set; }
@@ -11,5 +11,5 @@ public sealed partial class SectionFormInputCheckbox: SectionFormInputBase
     private async Task OnValueChanged()
     {
         await ValueChanged.InvokeAsync(Value);
-    } 
+    }
 }

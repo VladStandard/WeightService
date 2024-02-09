@@ -8,7 +8,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.References1C.Plus;
 
-public sealed partial class PlusUpdateDialog: SectionDialogBase<PluEntity>
+public sealed partial class PlusUpdateDialog : SectionDialogBase<PluEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

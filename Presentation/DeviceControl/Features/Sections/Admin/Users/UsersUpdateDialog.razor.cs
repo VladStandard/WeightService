@@ -9,7 +9,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersUpdateDialog: SectionDialogBase<UserEntity>
+public sealed partial class UsersUpdateDialog : SectionDialogBase<UserEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

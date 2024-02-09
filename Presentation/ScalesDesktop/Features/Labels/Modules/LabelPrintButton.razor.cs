@@ -7,7 +7,6 @@ using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Weight;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
@@ -16,41 +15,41 @@ using Ws.Scales.Events;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
-public sealed partial class LabelPrintButton: ComponentBase, IDisposable
+public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 {
     # region Injects
-    
+
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
-    
+
     #endregion
-    
+
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
-    
+
     private const int PrinterRequestDelay = 100;
     private const int ButtonCooldownDelay = 500;
-    
+
     protected override void OnInitialized()
     {
         MouseSubscribe();
         PrinterStatusSubscribe();
         ScalesSubscribe();
     }
-    
+
     private async Task PrintLabel()
     {
         if (IsButtonClicked) return;
         IsButtonClicked = true;
 
         await PrintLabelAsync();
-        
+
         await Task.Delay(ButtonCooldownDelay);
         IsButtonClicked = false;
     }
@@ -83,7 +82,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         await PrintPrinterStatusMessage();
         return false;
     }
-    
+
     private async Task<bool> ValidateScalesStatus()
     {
         switch (LabelContext.Plu.IsCheckWeight)
@@ -113,7 +112,7 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
                 .AddDays(LabelContext.Plu.ShelfLifeDays)
         };
 
-    private static DateTime GetProductDt(DateTime time) => 
+    private static DateTime GetProductDt(DateTime time) =>
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
     private async Task PrintPrinterStatusMessage() =>
@@ -129,7 +128,8 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
         });
 
     private bool GetPrintLabelDisabledStatus() =>
-        LabelContext.Plu.IsNew || LabelContext.PluNesting.IsNew || LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
+        LabelContext.Plu.IsNew || LabelContext.PluNesting.IsNew ||
+        LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
         (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.PluNesting.WeightTare;
@@ -139,49 +139,48 @@ public sealed partial class LabelPrintButton: ComponentBase, IDisposable
 
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload) =>
         IsScalesStable = payload.IsStable;
-    
+
     private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
     {
         IsScalesDisconnected = message.Status is not ScalesStatus.IsConnect;
         InvokeAsync(StateHasChanged);
     }
-    
+
     # region Event Subscribe and Unsubscribe
-    
+
     private void ScalesSubscribe()
     {
         WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, UpdateScalesStatus);
         WeakReferenceMessenger.Default.Register<GetScaleMassaEvent>(this, UpdateScalesInfo);
     }
-    
+
     private void ScalesUnsubscribe()
     {
         WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
-    
+
     private void PrinterStatusSubscribe() =>
         WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, PrintNotification);
-    
+
     private void PrinterStatusUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
-    
+
     private void MouseSubscribe() =>
-        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) =>
-            {
-                if (!GetPrintLabelDisabledStatus()) Task.Run(PrintLabel);
-            }
+        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => {
+            if (!GetPrintLabelDisabledStatus()) Task.Run(PrintLabel);
+        }
         );
-    
+
     private void MouseUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<MiddleBtnIsClickedEvent>(this);
-    
+
     public void Dispose()
     {
         PrinterStatusUnsubscribe();
         MouseUnsubscribe();
         ScalesUnsubscribe();
     }
-    
+
     # endregion
 }

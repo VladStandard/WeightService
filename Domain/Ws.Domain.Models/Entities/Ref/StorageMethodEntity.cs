@@ -6,26 +6,13 @@ namespace Ws.Domain.Models.Entities.Ref;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class StorageMethodEntity : EntityBase
+public class StorageMethodEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Zpl { get; set; }
-    
-    public StorageMethodEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Zpl = string.Empty;
-    }
+    public virtual string Zpl { get; set; } = string.Empty;
 
-    public override bool Equals(object? obj)
+    protected override bool CastEquals(EntityBase obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((StorageMethodEntity)obj);
+        StorageMethodEntity item = (StorageMethodEntity)obj;
+        return Equals(Zpl, item.Zpl);
     }
-
-    public override int GetHashCode() => IdentityValueUid.GetHashCode();
-    
-    public virtual bool Equals(StorageMethodEntity item) =>
-        ReferenceEquals(this, item) || base.Equals(item) &&
-        Equals(Zpl, item.Zpl);
 }

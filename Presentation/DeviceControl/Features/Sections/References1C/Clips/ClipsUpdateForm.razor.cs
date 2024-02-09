@@ -6,8 +6,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace DeviceControl.Features.Sections.References1C.Clips;
 
-
-public sealed partial class ClipsUpdateForm: SectionFormBase<ClipEntity>
+public sealed partial class ClipsUpdateForm : SectionFormBase<ClipEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

@@ -11,7 +11,7 @@ namespace DeviceControl.Features.Sections.References.TemplateResources;
 public sealed partial class TemplateResourcesUpdateDialog : SectionDialogBase<TemplateResourceEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionTemplatesResources"], "main")];
 }

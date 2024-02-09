@@ -13,7 +13,7 @@ namespace Ws.Labels.Service.Features.PrintLabel.Weight.Dto
                 LineNumber = funcMain1(p1.Line == null ? null : (int?)p1.Line.Number),
                 LineCounter = funcMain2(p1.Line == null ? null : (int?)p1.Line.Counter),
                 LineName = p1.Line == null ? null : p1.Line.Name,
-                LineAddress = p1.Line == null ? null : (p1.Line.Warehouse == null ? null : (p1.Line.Warehouse.ProductionSite == null ? null : p1.Line.Warehouse.ProductionSite.Name)),
+                LineAddress = p1.Line == null ? null : (p1.Line.Warehouse == null ? null : (p1.Line.Warehouse.ProductionSite == null ? null : p1.Line.Warehouse.ProductionSite.Address)),
                 PluNumber = funcMain3(p1.Nesting == null ? null : (p1.Nesting.Plu == null ? null : (short?)p1.Nesting.Plu.Number)),
                 PluGtin = p1.Nesting == null ? null : (p1.Nesting.Plu == null ? null : p1.Nesting.Plu.Gtin),
                 PluFullName = p1.Nesting == null ? null : (p1.Nesting.Plu == null ? null : p1.Nesting.Plu.FullName),

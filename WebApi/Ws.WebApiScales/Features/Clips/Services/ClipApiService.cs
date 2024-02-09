@@ -7,7 +7,7 @@ using Ws.WebApiScales.Features.Clips.Validators;
 
 namespace Ws.WebApiScales.Features.Clips.Services;
 
-internal sealed class ClipApiService(ResponseDto responseDto, IClipService clipService) : IClipApiService 
+internal sealed class ClipApiService(ResponseDto responseDto, IClipService clipService) : IClipApiService
 {
     private void UpdateOrCreate(ClipDto clipDto)
     {
@@ -16,13 +16,13 @@ internal sealed class ClipApiService(ResponseDto responseDto, IClipService clipS
         SqlCoreHelper.Instance.SaveOrUpdate(clipDb);
         responseDto.AddSuccess(clipDb.Uid1C, clipDb.Name);
     }
-    
+
     public void Load(ClipsWrapper clipsWrapper)
     {
         foreach (ClipDto clipDto in clipsWrapper.Clips)
         {
             ValidationResult validationResult = new ValidatorClipDto().Validate(clipDto);
-    
+
             if (validationResult.IsValid)
             {
                 UpdateOrCreate(clipDto);
