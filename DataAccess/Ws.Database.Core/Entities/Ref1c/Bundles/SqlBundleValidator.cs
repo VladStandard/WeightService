@@ -4,7 +4,6 @@ namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
 public sealed class SqlBundleValidator : SqlTableValidator<BundleEntity>
 {
-
     public SqlBundleValidator(bool isCheckIdentity) : base(isCheckIdentity)
     {
         RuleFor(item => item.Name)

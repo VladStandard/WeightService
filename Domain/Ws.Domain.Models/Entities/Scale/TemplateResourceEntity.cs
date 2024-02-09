@@ -9,7 +9,7 @@ namespace Ws.Domain.Models.Entities.Scale;
 public class TemplateResourceEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual FieldBinaryModel Data { get; set; } = new();
-    public virtual byte[] DataValue { get => Data.Value ?? Array.Empty<byte>(); set => Data.Value = value; }
+    public virtual byte[] DataValue { get => Data.Value; set => Data.Value = value; }
 
     protected override bool CastEquals(EntityBase obj)
     {
