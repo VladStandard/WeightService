@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Append.Blazor.Printing;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
@@ -29,6 +30,7 @@ public static class MauiProgram
         CultureInfo.DefaultThreadCurrentCulture = new("ru-RU");
         CultureInfo.DefaultThreadCurrentUICulture = new("ru-RU");
         
+        builder.Services.AddScoped<IPrintingService, PrintingService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
         builder.Services.AddSingleton<LineContext>();
         builder.Services.AddSingleton<LabelContext>();

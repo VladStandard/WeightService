@@ -11,6 +11,7 @@ public sealed partial class SharedButton : ComponentBase
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public EventCallback OnClick { get; set; }
     
     private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
                                     $" font-medium transition-colors focus-visible:outline-none focus-visible:ring-1" +

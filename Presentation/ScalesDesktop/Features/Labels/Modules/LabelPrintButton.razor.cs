@@ -7,7 +7,6 @@ using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Weight;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 using Ws.Printers.Enums;
