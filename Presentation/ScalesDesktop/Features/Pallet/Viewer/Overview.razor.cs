@@ -5,11 +5,13 @@ using iText.IO.Font;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.IO.Font.Constants;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Paragraph = iText.Layout.Element.Paragraph;
+using IText = iText.Layout.Element.Text;
 
 namespace ScalesDesktop.Features.Pallet.Viewer;
 
@@ -28,6 +30,15 @@ public sealed partial class Overview: ComponentBase, IDisposable
         PdfWriter writer = new(stream);
         PdfDocument pdf = new(writer);
         Document document = new(pdf);
+
+        try
+        {
+            document.SetFont(PdfFontFactory.CreateFont("C:\\Windows\\Fonts\\arial.ttf", "Identity-H"));
+        }
+        catch
+        {
+            // can not set font
+        }
         
         GeneratePalletCardHtml(document);
         document.Close();
@@ -38,7 +49,7 @@ public sealed partial class Overview: ComponentBase, IDisposable
 
     private void GeneratePalletCardHtml(Document doc)
     {
-        Paragraph paragraph = new("Паллетная карта №00165896");
+        Paragraph paragraph = new("Паллетная карта № 00165896");
         paragraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
         paragraph.SetBold();
         paragraph.SetFontSize(16);
