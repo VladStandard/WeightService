@@ -6,10 +6,10 @@ using Ws.Printers.Events;
 
 namespace ScalesDesktop.Features.Labels.Layouts;
 
-public sealed partial class PrinterStatusIcon: ComponentBase, IDisposable
+public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
-    
+
     protected override void OnInitialized()
     {
         WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, GetStatus);

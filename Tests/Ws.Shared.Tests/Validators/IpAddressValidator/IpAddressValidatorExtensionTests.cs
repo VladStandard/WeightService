@@ -5,7 +5,7 @@ namespace Ws.Shared.Tests.Validators.IpAddressValidator;
 public class IpAddressValidatorExtensionTests
 {
     public static TheoryData<string, bool> ValidIpAddresses => new()
-    { 
+    {
         { "192.168.1.1", true },
         { "10.0.0.1", true },
         { "172.16.0.1", true },

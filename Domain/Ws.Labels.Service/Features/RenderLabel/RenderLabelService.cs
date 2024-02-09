@@ -20,7 +20,7 @@ public class RenderLabelService : IRenderLabelService
         using MemoryStream imageStream = new(imageBytes);
         using Image originalImage = Image.FromStream(imageStream);
         originalImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
-        
+
         using MemoryStream rotatedStream = new();
         originalImage.Save(rotatedStream, ImageFormat.Png);
         return Convert.ToBase64String(rotatedStream.ToArray());
@@ -36,16 +36,17 @@ public class RenderLabelService : IRenderLabelService
         using HttpClient client = new();
         using HttpContent content = new ByteArrayContent(zplBytes);
         content.Headers.ContentType = new("application/x-www-form-urlencoded");
-        
+
         try
         {
             HttpResponseMessage response = await client.PostAsync(requestUrl, content);
             if (!response.IsSuccessStatusCode) throw new RenderLabelException();
-            
+
             byte[] imageBytes = await GetImageBytesFromResponse(response);
             return ConvertImageToBase64(imageBytes);
         }
-        catch (Exception ex) when (ex is HttpRequestException or ObjectDisposedException or ArgumentException or IOException)
+        catch (Exception ex) when (ex is HttpRequestException or ObjectDisposedException or ArgumentException
+                                       or IOException)
         {
             throw new RenderLabelException();
         }

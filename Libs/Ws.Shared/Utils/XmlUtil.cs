@@ -19,20 +19,20 @@ public static class XmlUtil
             return xml;
         }
     }
-    
+
     public static string XsltTransformation(string xslInput, string xmlInput)
     {
         using StringReader stringReaderXslt = new(xslInput.Trim());
         using StringReader stringReaderXml = new(xmlInput.Trim());
         using XmlReader xmlReaderXslt = XmlReader.Create(stringReaderXslt);
         using XmlReader xmlReaderXml = XmlReader.Create(stringReaderXml);
-        
+
         XslCompiledTransform xslt = new();
         xslt.Load(xmlReaderXslt);
-        
+
         using StringWriter stringWriter = new();
         using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings);
-        
+
         xslt.Transform(xmlReaderXml, xmlWriter);
         return stringWriter.ToString();
     }

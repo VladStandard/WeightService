@@ -8,11 +8,11 @@ using Ws.Scales.Events;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
-public sealed partial class ScaleCalibrationButton: ComponentBase, IDisposable
+public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
-    
+
     private bool IsScalesTerminalWasOpened { get; set; }
     private bool IsScalesAvailable { get; set; } = true;
     private int SecToOpen { get; set; } = 0;
@@ -22,13 +22,13 @@ public sealed partial class ScaleCalibrationButton: ComponentBase, IDisposable
         ScalesSubscribe();
     }
 
-    private string GetCooldownString() => 
+    private string GetCooldownString() =>
         $"{Localizer["ButtonCooldown"]} {SecToOpen} {Localizer["TimeMeasureSecond"]}";
 
     private async Task HandleButtonOpenScalesTerminal()
     {
         if (IsScalesTerminalWasOpened) return;
-        
+
         IsScalesTerminalWasOpened = true;
         SecToOpen = 10;
         StateHasChanged();
@@ -42,18 +42,18 @@ public sealed partial class ScaleCalibrationButton: ComponentBase, IDisposable
         IsScalesTerminalWasOpened = false;
         StateHasChanged();
     }
-    
+
     private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
     {
         IsScalesAvailable = message.Status is ScalesStatus.IsConnect;
         InvokeAsync(StateHasChanged);
     }
-    
+
     private void ScalesSubscribe() =>
         WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, UpdateScalesStatus);
 
     private void ScalesUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
-    
+
     public void Dispose() => ScalesUnsubscribe();
 }

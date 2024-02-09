@@ -4,11 +4,11 @@ using Ws.Domain.Services.Features.Line;
 
 namespace ScalesDesktop.Services;
 
-public class LineContext: IDisposable
+public class LineContext : IDisposable
 {
     private ILineService LineService { get; }
     private ExternalDevicesService ExternalDevices { get; }
-    
+
     public LineEntity Line { get; private set; } = new();
     public PrinterEntity PrinterEntity { get; private set; } = new();
     public event Action? OnLineChanged;
@@ -19,7 +19,7 @@ public class LineContext: IDisposable
         ExternalDevices = externalDevices;
         InitializeData();
     }
-    
+
     private void InitializeData()
     {
         Line = LineService.GetCurrentLine();
@@ -29,13 +29,14 @@ public class LineContext: IDisposable
             Line.Version = VersionTracking.CurrentVersion;
             SqlCoreHelper.Instance.Update(Line);
         }
-        
+
         PrinterEntity = Line.Printer;
         ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
         ExternalDevices.SetupScales();
     }
 
-    public void ResetLine() {
+    public void ResetLine()
+    {
         ExternalDevices.Scales.Disconnect();
         Line = LineService.GetCurrentLine();
         PrinterEntity = Line.Printer;

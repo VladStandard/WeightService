@@ -18,7 +18,7 @@ public class ExternalDevicesService : IDisposable
         Printer = PrinterFactory.Create(ip, port, type);
         Printer.Connect();
     }
-    
+
     public void SetupScales()
     {
         Scales.Dispose();

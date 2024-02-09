@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace ScalesDesktop.Features.Labels.Layouts;
 
-public sealed partial class StatusIconTemplate: ComponentBase
+public sealed partial class StatusIconTemplate : ComponentBase
 {
     [Parameter] public string IconName { get; set; } = string.Empty;
     [Parameter] public HeroiconType IconType { get; set; } = HeroiconType.Solid;

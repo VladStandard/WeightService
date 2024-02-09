@@ -15,17 +15,17 @@ internal abstract class BaseController(
         try
         {
             DateTime requestTime = DateTime.Now;
-            string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty; 
-            
+            string currentUrl = httpContextAccessor.HttpContext?.Request.Path ?? string.Empty;
+
             TDto requestDto = XmlUtil.DeserializeFromXml<TDto>(xml);
 
             processMethod(requestDto);
 
             string response = XmlUtil.SerializeToXml(responseDto);
-            
-            logWebService.Save(requestTime, xml.ToString(), response, currentUrl, 
+
+            logWebService.Save(requestTime, xml.ToString(), response, currentUrl,
             responseDto.SuccessesCount, responseDto.ErrorsCount);
-            
+
             return new() { Content = response, ContentType = "application/xml", StatusCode = 200 };
         }
         catch (Exception ex)

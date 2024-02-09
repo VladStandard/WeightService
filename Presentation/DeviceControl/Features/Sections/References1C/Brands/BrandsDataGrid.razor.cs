@@ -8,8 +8,7 @@ using Ws.Domain.Services.Features.Brand;
 
 namespace DeviceControl.Features.Sections.References1C.Brands;
 
-
-public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
+public sealed partial class BrandsDataGrid : SectionDataGridBase<BrandEntity>
 {
     #region Inject
 
@@ -20,12 +19,12 @@ public sealed partial class BrandsDataGrid: SectionDataGridBase<BrandEntity>
 
     protected override async Task OpenDataGridEntityModal(BrandEntity item)
         => await OpenSectionModal<BrandsUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(BrandEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.IdentityValueUid.ToString()}");
 
     protected override IEnumerable<BrandEntity> SetSqlSectionCast() => BrandService.GetAll();
-    
+
     protected override IEnumerable<BrandEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);

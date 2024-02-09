@@ -12,7 +12,7 @@ public sealed partial class DatabaseFilesDialog : ComponentBase
 
     [Parameter] public DbFileSizeInfoEntity DbFileData { get; set; } = null!;
     [Parameter] public EventCallback OnDataChangedAction { get; set; }
-    
+
     private List<EnumTypeModel<string>> TabsList { get; set; } = [];
 
     protected override void OnInitialized() => TabsList = InitializeTabList();

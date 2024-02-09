@@ -12,7 +12,7 @@ public static class NameFormatting
         short bundleCount = pluNestingEntity.BundleCount;
         return string.Join(" | ", new List<string> { FormatBoxName(box), FormatBundleName(bundle, bundleCount) });
     }
-    
+
     private static string FormatBoxName(BoxEntity box)
     {
         if (box.Uid1C == Guid.Empty) return string.Empty;

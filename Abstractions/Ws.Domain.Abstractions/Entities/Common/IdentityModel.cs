@@ -5,9 +5,9 @@ namespace Ws.Domain.Abstractions.Entities.Common;
 [DebuggerDisplay("{ToString()}")]
 public class IdentityModel
 {
-     public virtual SqlEnumFieldIdentity Name { get; }
-     public virtual Guid Uid { get; private set; }
-     public virtual long Id { get; private set; }
+    public virtual SqlEnumFieldIdentity Name { get; }
+    public virtual Guid Uid { get; private set; }
+    public virtual long Id { get; private set; }
 
     public IdentityModel()
     {
@@ -20,9 +20,10 @@ public class IdentityModel
         Name = identityName;
     }
 
-    public override string ToString() => 
-        Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}" : string.Empty;
-    
+    public override string ToString() =>
+        Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}"
+        : string.Empty;
+
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -37,9 +38,9 @@ public class IdentityModel
         SqlEnumFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
-    
+
     public virtual bool Equals(IdentityModel item) =>
-        ReferenceEquals(this, item) || Equals(Name, item.Name) && 
+        ReferenceEquals(this, item) || Equals(Name, item.Name) &&
         Id.Equals(item.Id) &&
         Uid.Equals(item.Uid);
 

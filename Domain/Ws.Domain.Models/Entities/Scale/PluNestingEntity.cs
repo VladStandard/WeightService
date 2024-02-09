@@ -18,7 +18,7 @@ public class PluNestingEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 
     public override string ToString() =>
         $"{Plu.Number} | {Plu.Name} | {Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
-    
+
     protected override bool CastEquals(EntityBase obj)
     {
         PluNestingEntity item = (PluNestingEntity)obj;

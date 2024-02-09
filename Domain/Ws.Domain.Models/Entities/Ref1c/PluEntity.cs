@@ -14,14 +14,14 @@ public class PluEntity : Entity1CBase
     public virtual string Gtin { get; set; }
     public virtual string Ean13 { get; set; }
     public virtual string Itf14 { get; set; }
-    public virtual bool IsCheckWeight { get; set; } 
+    public virtual bool IsCheckWeight { get; set; }
     public virtual BundleEntity Bundle { get; set; }
     public virtual BrandEntity Brand { get; set; }
     public virtual ClipEntity Clip { get; set; }
     public virtual StorageMethodEntity StorageMethod { get; set; }
     public virtual string Description { get; set; } = string.Empty;
     public override string DisplayName => $"{Number} | {Name}";
-    
+
     public PluEntity() : base(SqlEnumFieldIdentity.Uid)
     {
         Ean13 = string.Empty;
@@ -37,9 +37,9 @@ public class PluEntity : Entity1CBase
         StorageMethod = new();
         Description = string.Empty;
     }
-    
+
     public override string ToString() => $"{Number} | {Name} | {Uid1C}";
-    
+
     protected override bool CastEquals(EntityBase obj)
     {
         PluEntity item = (PluEntity)obj;

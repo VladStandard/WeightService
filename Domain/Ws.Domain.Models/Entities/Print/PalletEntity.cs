@@ -15,8 +15,8 @@ public class PalletEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
     protected override bool CastEquals(EntityBase obj)
     {
         PalletEntity item = (PalletEntity)obj;
-        return Equals(Counter, item.Counter) && 
-               Equals(PalletMan, item.PalletMan) && 
+        return Equals(Counter, item.Counter) &&
+               Equals(PalletMan, item.PalletMan) &&
                Equals(Barcode, item.Barcode);
     }
 }

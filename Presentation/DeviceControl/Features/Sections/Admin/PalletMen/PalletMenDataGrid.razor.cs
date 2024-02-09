@@ -8,21 +8,21 @@ using Ws.Domain.Services.Features.PalletMan;
 
 namespace DeviceControl.Features.Sections.Admin.PalletMen;
 
-public sealed partial class PalletMenDataGrid: SectionDataGridBase<PalletManEntity>
+public sealed partial class PalletMenDataGrid : SectionDataGridBase<PalletManEntity>
 {
     #region Inject
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPalletManService PalletManService { get; set; } = null!;
-    
+
     #endregion
 
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PalletMenCreateDialog>(new());
-    
+
     protected override async Task OpenDataGridEntityModal(PalletManEntity item)
         => await OpenSectionModal<PalletMenUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(PalletManEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.IdentityValueUid.ToString()}");
 

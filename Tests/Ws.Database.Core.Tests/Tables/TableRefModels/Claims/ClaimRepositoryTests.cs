@@ -11,8 +11,7 @@ public sealed class ClaimRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<ClaimEntity> items = ClaimRepository.GetAll();
             ParseRecords(items);
         });

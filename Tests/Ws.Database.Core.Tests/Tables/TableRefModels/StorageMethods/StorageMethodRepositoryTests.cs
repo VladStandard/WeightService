@@ -11,8 +11,7 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<StorageMethodEntity> items = StorageMethodRepository.GetList();
             ParseRecords(items);
         });

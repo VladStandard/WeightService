@@ -26,7 +26,7 @@ public class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1B!
             0x08 => PrinterStatusEnum.RibbonOut,
             0x10 => PrinterStatusEnum.Paused,
             0x20 => PrinterStatusEnum.Busy,
-            _ => PrinterStatusEnum.Unknown,
+            _ => PrinterStatusEnum.Unknown
         };
     }
 }

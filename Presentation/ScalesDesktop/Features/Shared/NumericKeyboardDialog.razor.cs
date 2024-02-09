@@ -5,15 +5,15 @@ using ScalesDesktop.Resources;
 
 namespace ScalesDesktop.Features.Shared;
 
-public sealed partial class NumericKeyboardDialog: ComponentBase
+public sealed partial class NumericKeyboardDialog : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
 
-    [Parameter] public Action<int> CallbackFunction { get; set; } = _ => { };
+    [Parameter] public Action<int> CallbackFunction { get; set; } = _ => {};
     [Parameter] public string Number { get; set; } = string.Empty;
     [Parameter] public int MaxDigitCount { get; set; } = 3;
-    
+
     private List<CalculatorControl> CalculatorControls { get; set; } = [];
 
     protected override void OnInitialized()
@@ -48,7 +48,7 @@ public sealed partial class NumericKeyboardDialog: ComponentBase
         Number += newDigit;
         StateHasChanged();
     }
-    
+
     private void ClearNumber()
     {
         Number = string.Empty;
@@ -66,5 +66,5 @@ public sealed partial class NumericKeyboardDialog: ComponentBase
 internal class CalculatorControl
 {
     public string Title { get; init; } = string.Empty;
-    public Action CalculatorAction { get; init; } = () => { };
+    public Action CalculatorAction { get; init; } = () => {};
 }

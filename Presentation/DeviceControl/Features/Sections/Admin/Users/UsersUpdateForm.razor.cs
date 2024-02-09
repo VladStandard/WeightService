@@ -10,7 +10,7 @@ using Ws.Domain.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
-public sealed partial class UsersUpdateForm: SectionFormBase<UserEntity>
+public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
 {
     #region Inject
 
@@ -21,7 +21,7 @@ public sealed partial class UsersUpdateForm: SectionFormBase<UserEntity>
 
     #endregion
 
-    
+
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
     private IEnumerable<ClaimEntity> SelectedRoles
@@ -37,16 +37,19 @@ public sealed partial class UsersUpdateForm: SectionFormBase<UserEntity>
         SelectedRoles = SectionEntity.Claims.ToList();
         RolesEntities = ClaimService.GetAll();
         AdditionalButtons = AdditionalButtons.Append(
-            new() { Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User, 
-                OnClickAction = EventCallback.Factory.Create(this, ReloginCurrentUser)});
+        new()
+        {
+            Name = Localizer["SectionFormRelogin"], IconName = HeroiconName.User,
+            OnClickAction = EventCallback.Factory.Create(this, ReloginCurrentUser)
+        });
     }
-    
+
     private async Task ReloginCurrentUser()
     {
         UserCacheService.ClearCacheForUser(SectionEntity.Name);
         await NotificationService.Info("Релогин выполнен");
     }
-    
+
     private UserEntity ReloginUser(UserEntity user)
     {
         UserCacheService.ClearCacheForUser(user.Name);

@@ -34,7 +34,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     private Point ContextMenuPos { get; set; }
     private TItem? ContextMenuItem { get; set; }
     private IEnumerable<ContextMenuEntry> ContextMenuEntries { get; set; } = new List<ContextMenuEntry>();
-    
+
     private ElementReference ContextMenuRef { get; set; }
 
     protected override void OnInitialized() => InitializeContextMenu();
@@ -42,10 +42,10 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        
+
         if (GetGridData.HasDelegate)
             await UpdateDataGridData();
-        
+
         IsLoading = false;
         StateHasChanged();
     }
@@ -60,11 +60,11 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     private void InitializeContextMenu()
     {
         AddContextMenuEntryIfDelegateExists(ReadAction, "ContextMenuOpen",
-            HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenClicked);
+        HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenClicked);
         AddContextMenuEntryIfDelegateExists(OpenInTabAction, "ContextMenuOpenInNewTab",
-            HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenInNewTabClicked);
-        AddContextMenuEntryIfDelegateExists(DeleteAction, "ContextMenuDelete", 
-            HeroiconName.Trash, OnContextItemDeleteClicked, "hover:bg-red-200 hover:text-red-600");
+        HeroiconName.ArrowTopRightOnSquare, OnContextItemOpenInNewTabClicked);
+        AddContextMenuEntryIfDelegateExists(DeleteAction, "ContextMenuDelete",
+        HeroiconName.Trash, OnContextItemDeleteClicked, "hover:bg-red-200 hover:text-red-600");
     }
 
     private void AddContextMenuEntryIfDelegateExists(EventCallback<TItem> actionDelegate, string nameLocalizationKey,
@@ -80,11 +80,12 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
             CustomClass = customClass
         });
     }
-    
+
     private static void RowStyling(TItem item, DataGridRowStyling styling) =>
-        styling.Class = "transition-colors !border-y !border-black/[.1] dark:!text-neutral-200 hover:bg-neutral-100 dark:hover:!bg-neutral-950";
-    
-    
+        styling.Class =
+            "transition-colors !border-y !border-black/[.1] dark:!text-neutral-200 hover:bg-neutral-100 dark:hover:!bg-neutral-950";
+
+
     private static DataGridRowStyling HeaderRowStyling() =>
         new() { Class = "[&_th]:truncate" };
 
@@ -93,13 +94,13 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         styling.Color = new("e5e5e5");
         styling.Class = "!bg-neutral-200 !text-black dark:!text-neutral-200 dark:!bg-neutral-900";
     }
-    
+
     private static void SelectedCellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
         styling.Class = "break-words";
-    
+
     private static void CellStyling(TItem item, DataGridColumn<TItem> gridItem, DataGridCellStyling styling) =>
         styling.Class = "font-light truncate";
-    
+
     private string GetSpinnerStyle() => $"h-5 w-5 text-white dark:text-black {(IsLoading ? "animate-spin" : "")}";
 
     private string GetTableStyle() =>
@@ -109,7 +110,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         $" {(!GetIsPagerNeeded() ? "[&>tbody>tr:last-child]:!border-b-0 !mb-0" : "")}";
 
     private bool GetIsPagerNeeded() => !IsGroupable && (GridData.Count() > ItemsPerPage || IsBorderless);
-    
+
     private async Task OnRowContextMenu(DataGridRowMouseEventArgs<TItem> eventArgs)
     {
         await ContextMenuRef.FocusAsync();
@@ -118,22 +119,22 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         SelectedItem = ContextMenuItem;
         ContextMenuPos = eventArgs.MouseEventArgs.Client;
     }
-    
+
     private async Task OnContextItemOpenClicked()
     {
         await ReadAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
     }
-    
+
     private async Task OnContextItemOpenInNewTabClicked()
     {
         await OpenInTabAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
     }
-    
+
     private async Task OnContextItemDeleteClicked()
     {
-        if (DataGrid != null && ContextMenuItem != null) 
+        if (DataGrid != null && ContextMenuItem != null)
             await DataGrid.Delete(ContextMenuItem);
         await DeleteAction.InvokeAsync(ContextMenuItem);
         IsVisibleContextMenu = false;
@@ -160,7 +161,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         StateHasChanged();
 
         await UpdateDataGridData();
-        
+
         IsLoading = false;
         StateHasChanged();
     }

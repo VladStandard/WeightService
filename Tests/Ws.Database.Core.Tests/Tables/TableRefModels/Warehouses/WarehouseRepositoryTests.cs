@@ -11,8 +11,7 @@ public sealed class WarehouseRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<WarehouseEntity> items = WarehousesRepository.GetAll();
             ParseRecords(items);
         });

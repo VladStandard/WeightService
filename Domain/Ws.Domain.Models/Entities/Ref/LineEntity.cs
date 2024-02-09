@@ -9,7 +9,7 @@ namespace Ws.Domain.Models.Entities.Ref;
 public class LineEntity : EntityBase
 {
     private int _counter;
-    
+
     public virtual string PcName { get; set; }
     public virtual WarehouseEntity Warehouse { get; set; }
     public virtual PrinterEntity Printer { get; set; }
@@ -33,11 +33,11 @@ public class LineEntity : EntityBase
     {
         LineEntity item = (LineEntity)obj;
         return Equals(Number, item.Number) &&
-            Equals(Counter, item.Counter) &&
-            Equals(PcName, item.PcName) &&
-            Equals(Type, item.Type) &&
-            Equals(Warehouse, item.Warehouse) &&
-            Equals(Printer, item.Printer) &&
-            Equals(Version, item.Version);
+               Equals(Counter, item.Counter) &&
+               Equals(PcName, item.PcName) &&
+               Equals(Type, item.Type) &&
+               Equals(Warehouse, item.Warehouse) &&
+               Equals(Printer, item.Printer) &&
+               Equals(Version, item.Version);
     }
 }

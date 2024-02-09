@@ -6,16 +6,16 @@ using Microsoft.JSInterop;
 
 namespace DeviceControl.Features.Sections.Shared;
 
-public sealed partial class SelectMultiple<TItem>: ComponentBase, IDisposable where TItem: new()
+public sealed partial class SelectMultiple<TItem> : ComponentBase, IDisposable where TItem : new()
 {
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
     [Parameter, EditorRequired] public IEnumerable<TItem> SelectedItems { get; set; } = [];
     [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
     [Parameter] public EventCallback<IEnumerable<TItem>> SelectedItemsChanged { get; set; }
-    
+
     private Dropdown Dropdown { get; set; } = new();
     private ElementReference DropdownWrapper { get; set; }
     private IJSObjectReference Module { get; set; } = null!;
@@ -28,22 +28,23 @@ public sealed partial class SelectMultiple<TItem>: ComponentBase, IDisposable wh
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/selectResize.js");
         await Module.InvokeVoidAsync("initializeResizeSelect", DropdownWrapper);
     }
-    
+
     private async Task SwitchSelectedItem(TItem item)
     {
         TItem? existingItem = SelectedItems.SingleOrDefault(i => i != null && i.Equals(item));
-        SelectedItems = existingItem == null ? SelectedItems.Append(item) : 
+        SelectedItems = existingItem == null ? SelectedItems.Append(item) :
             SelectedItems.Where(i => i != null && !i.Equals(existingItem)).ToList();
         await SelectedItemsChanged.InvokeAsync(SelectedItems);
     }
-    
+
     private IEnumerable<TItem> GetFilteredList()
     {
         IEnumerable<TItem> searchingList = SelectVisibility == SelectVisibility.Selected ? SelectedItems : Items;
-        return string.IsNullOrWhiteSpace(SearchString) ? searchingList : 
-            searchingList.Where(item => ItemDisplayName(item).Contains(SearchString, StringComparison.OrdinalIgnoreCase));
+        return string.IsNullOrWhiteSpace(SearchString) ? searchingList :
+            searchingList.Where(
+            item => ItemDisplayName(item).Contains(SearchString, StringComparison.OrdinalIgnoreCase));
     }
-    
+
     private async Task HandleSearchingChange(ChangeEventArgs e)
     {
         SearchString = e.Value?.ToString() ?? string.Empty;
@@ -66,9 +67,9 @@ public sealed partial class SelectMultiple<TItem>: ComponentBase, IDisposable wh
     }
 
     private bool GetIsAllSelectedInFilteredList() => !GetFilteredList().Except(SelectedItems).Any();
-    
+
     private bool IsSelectedItem(TItem item) => SelectedItems.Any(i => i != null && i.Equals(item));
-    
+
     private bool IsButtonSwitcherDisabled() => SelectedItems.Count() == Items.Count();
 
     public async void Dispose()

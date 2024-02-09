@@ -16,10 +16,10 @@ internal sealed class PluCharacteristicController(
     IHttpContextAccessor httpContextAccessor,
     ResponseDto responseDto) : BaseController(responseDto, logWebService, httpContextAccessor)
 {
-    
+
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ContentResult LoadCharacteristics([FromBody] XElement xml) => 
+    public ContentResult LoadCharacteristics([FromBody] XElement xml) =>
         HandleXmlRequest<CharacteristicsWrapper>(xml, pluCharacteristicApiService.Load);
 
 }

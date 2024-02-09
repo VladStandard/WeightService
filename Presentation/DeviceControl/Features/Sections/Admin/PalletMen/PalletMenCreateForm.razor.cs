@@ -6,10 +6,10 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace DeviceControl.Features.Sections.Admin.PalletMen;
 
-public sealed partial class PalletMenCreateForm: SectionFormBase<PalletManEntity>
+public sealed partial class PalletMenCreateForm : SectionFormBase<PalletManEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     private string Uid1C
     {
         get => SectionEntity.Uid1C.ToString();

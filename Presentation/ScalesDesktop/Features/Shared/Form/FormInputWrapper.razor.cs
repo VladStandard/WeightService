@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace ScalesDesktop.Features.Shared.Form;
 
-public sealed partial class FormInputWrapper: FormInputBase
+public sealed partial class FormInputWrapper : FormInputBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public SectionFormInputSizeEnum Size { get; set; } = SectionFormInputSizeEnum.Small;

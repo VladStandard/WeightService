@@ -8,7 +8,7 @@ namespace Ws.Domain.Models.Entities.Ref1c;
 public class ClipEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
 {
     public virtual decimal Weight { get; set; }
-    
+
     protected override bool CastEquals(EntityBase obj)
     {
         ClipEntity item = (ClipEntity)obj;

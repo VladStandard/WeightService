@@ -12,7 +12,7 @@ public sealed partial class Workspace : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private LineContext LineContext { get; set; } = null!;
-    
+
     private List<EnumTypeModel<string>> TabsButtonList { get; set; } = [];
     private string SelectedTab { get; set; } = "main";
     private Tabs TabsRef { get; set; } = null!;
@@ -21,7 +21,7 @@ public sealed partial class Workspace : ComponentBase, IDisposable
     {
         TabsButtonList = [new("Информация", "main"), new("Этикетки", "labels")];
         PalletContext.OnStateChanged += StateHasChanged;
-    } 
+    }
 
     private void CloseCurrentPallet() => PalletContext.ChangePallet(new());
 

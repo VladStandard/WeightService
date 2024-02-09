@@ -10,6 +10,6 @@ public class PrintLabelService : IPrintLabelService
     public string GenerateWeightLabel(LabelWeightDto labelDto) =>
         new LabelWeightGenerator().GenerateLabel(labelDto);
 
-    public string GeneratePieceLabel(LabelPieceDto labelDto) => 
+    public string GeneratePieceLabel(LabelPieceDto labelDto) =>
         new LabelPieceGenerator().GenerateLabel(labelDto);
 }

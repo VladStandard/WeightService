@@ -12,7 +12,7 @@ public class PluTemplateFkEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
     public virtual TemplateEntity Template { get; set; } = new();
 
     public override string ToString() => $"{Plu} : {Template} ";
-    
+
     protected override bool CastEquals(EntityBase obj)
     {
         PluTemplateFkEntity item = (PluTemplateFkEntity)obj;

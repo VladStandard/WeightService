@@ -9,7 +9,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Admin.PalletMen;
 
-public sealed partial class PalletMenUpdateDialog: SectionDialogBase<PalletManEntity>
+public sealed partial class PalletMenUpdateDialog : SectionDialogBase<PalletManEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

@@ -32,20 +32,20 @@ public abstract class EntityBase
     {
         if (obj == null || GetType() != obj.GetType())
             return false;
-        
+
         if (ReferenceEquals(this, obj))
             return true;
-        
+
         EntityBase entity = (EntityBase)obj;
-        
+
         return Equals(Identity, entity.Identity) &&
                Equals(CreateDt, entity.CreateDt) &&
                Equals(ChangeDt, entity.ChangeDt) &&
-               Equals(Name, entity.Name) && 
+               Equals(Name, entity.Name) &&
                CastEquals(entity);
     }
 
     protected virtual bool CastEquals(EntityBase obj) => false;
-    
+
     public override int GetHashCode() => Identity.GetHashCode();
 }

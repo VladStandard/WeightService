@@ -20,10 +20,10 @@ public partial class Scales
             Parity = Parity.Even,
             StopBits = StopBits.One,
             DataBits = 8,
-            Handshake = Handshake.RequestToSend,
+            Handshake = Handshake.RequestToSend
         };
     }
-    
+
     private void SetStatus(ScalesStatus status)
     {
         Status = status;

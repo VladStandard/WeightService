@@ -9,7 +9,7 @@ using Ws.Domain.Services.Features.Warehouse;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinesUpdateForm: SectionFormBase<LineEntity>
+public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
 {
     #region Inject
 
@@ -18,7 +18,7 @@ public sealed partial class LinesUpdateForm: SectionFormBase<LineEntity>
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
 
     #endregion
-    
+
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();
     private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = new List<WarehouseEntity>();
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = new List<LineTypeEnum>();

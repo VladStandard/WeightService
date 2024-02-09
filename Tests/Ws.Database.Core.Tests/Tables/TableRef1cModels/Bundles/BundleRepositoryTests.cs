@@ -8,17 +8,16 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
 {
     private SqlBundleRepository BundleRepository { get; } = new();
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(BundleEntity.Weight)).Ascending;
-    
+
     private BundleEntity GetFirstBundleModel()
     {
         return BundleRepository.GetAll().First();
     }
-    
+
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<BundleEntity> items = BundleRepository.GetAll();
             ParseRecords(items);
         });
@@ -27,13 +26,11 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByUid1C()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             BundleEntity oldBundle = GetFirstBundleModel();
             BundleEntity bundleBy1C = BundleRepository.GetByUid1C(oldBundle.Uid1C);
 
-            Assert.Multiple(() =>
-            {
+            Assert.Multiple(() => {
                 Assert.That(bundleBy1C.IsExists, Is.True);
                 Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
             });

@@ -14,17 +14,17 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
     private void UpdateOrCreate(BrandDto brandDto)
     {
         BrandEntity brandDb = brandService.GetItemByUid1С(brandDto.Uid);
-        
+
         brandDb = brandDto.AdaptTo(brandDb);
-        
+
         SqlCoreHelper.Instance.SaveOrUpdate(brandDb);
         responseDto.AddSuccess(brandDto.Uid, brandDb.Name);
     }
-    
+
     private void DeleteBrand(Guid uid)
     {
         BrandEntity brandDb = brandService.GetItemByUid1С(uid);
-        
+
         if (brandDb.IsNew)
         {
             responseDto.AddSuccess(uid, "Бренд не найден для удаления");
@@ -35,7 +35,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
     }
 
     #endregion
-    
+
     public void Load(BrandsWrapper brandsWrapper)
     {
         foreach (BrandDto brandDto in brandsWrapper.Brands)
@@ -45,9 +45,9 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
                 DeleteBrand(brandDto.Uid);
                 continue;
             }
-            
+
             ValidationResult validationResult = new ValidatorBrandDto().Validate(brandDto);
-    
+
             if (validationResult.IsValid)
             {
                 UpdateOrCreate(brandDto);

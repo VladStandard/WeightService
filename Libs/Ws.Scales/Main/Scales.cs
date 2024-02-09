@@ -10,15 +10,15 @@ namespace Ws.Scales.Main;
 
 public partial class Scales : IScales
 {
-    private SerialPort Port { get; set; }
+    private SerialPort Port { get; }
     private ScalesStatus Status { get; set; }
-    
+
     public Scales(string comPort)
     {
         Port = GenerateSerialPort(comPort);
         SetStatus(ScalesStatus.IsDisabled);
     }
-    
+
     public void Calibrate() => ExecuteCommand(new(Port, MassaKCommands.CmdSetZero));
     public void SendGetWeight() => ExecuteCommand(new GetMassaCommand(Port));
 
@@ -35,7 +35,7 @@ public partial class Scales : IScales
             SetStatus(ScalesStatus.IsForceDisconnected);
         }
     }
-    
+
     public void Disconnect()
     {
         SetStatus(ScalesStatus.IsDisabled);
@@ -43,6 +43,6 @@ public partial class Scales : IScales
         Port.Dispose();
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
-    
+
     public void Dispose() => Disconnect();
 }

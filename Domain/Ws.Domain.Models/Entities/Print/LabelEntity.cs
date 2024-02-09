@@ -28,17 +28,17 @@ public class LabelEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
     protected override bool CastEquals(EntityBase obj)
     {
         LabelEntity item = (LabelEntity)obj;
-        return  Equals(Zpl, item.Zpl) &&
-                Equals(BarcodeTop, item.BarcodeTop) &&
-                Equals(BarcodeRight, item.BarcodeRight) &&
-                Equals(BarcodeBottom, item.BarcodeBottom) &&
-                Equals(WeightNet, item.WeightNet) &&
-                Equals(WeightTare, item.WeightTare) &&
-                Equals(ProductDt, item.ProductDt) &&
-                Equals(ExpirationDt, item.ExpirationDt) &&
-                Equals(Kneading, item.Kneading) &&
-                Equals(Plu, item.Plu) &&
-                Equals(Line, item.Line) &&
-                Equals(Pallet, item.Pallet);
+        return Equals(Zpl, item.Zpl) &&
+               Equals(BarcodeTop, item.BarcodeTop) &&
+               Equals(BarcodeRight, item.BarcodeRight) &&
+               Equals(BarcodeBottom, item.BarcodeBottom) &&
+               Equals(WeightNet, item.WeightNet) &&
+               Equals(WeightTare, item.WeightTare) &&
+               Equals(ProductDt, item.ProductDt) &&
+               Equals(ExpirationDt, item.ExpirationDt) &&
+               Equals(Kneading, item.Kneading) &&
+               Equals(Plu, item.Plu) &&
+               Equals(Line, item.Line) &&
+               Equals(Pallet, item.Pallet);
     }
 }

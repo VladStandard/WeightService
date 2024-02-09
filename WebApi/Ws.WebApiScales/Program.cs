@@ -29,8 +29,7 @@ builder.Services.AddDomainServices();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers(options =>
-{
+builder.Services.AddControllers(options => {
     options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
 }).AddXmlDataContractSerializerFormatters();
 

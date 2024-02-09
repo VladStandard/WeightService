@@ -8,7 +8,7 @@ using Ws.Domain.Services.Features.Printer;
 
 namespace DeviceControl.Features.Sections.Devices.Printers;
 
-public sealed partial class PrintersDataGrid: SectionDataGridBase<PrinterEntity>
+public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity>
 {
     #region Inject
 
@@ -16,18 +16,18 @@ public sealed partial class PrintersDataGrid: SectionDataGridBase<PrinterEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
 
     #endregion
-    
+
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PrintersCreateDialog>(new());
-    
+
     protected override async Task OpenDataGridEntityModal(PrinterEntity item)
         => await OpenSectionModal<PrintersUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(PrinterEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.IdentityValueUid.ToString()}");
 
     protected override IEnumerable<PrinterEntity> SetSqlSectionCast() => PrinterService.GetAll();
-    
+
     protected override IEnumerable<PrinterEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);

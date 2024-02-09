@@ -8,12 +8,11 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
 {
     private SqlPrinterRepository PrinterRepository { get; } = new();
     protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(PrinterEntity.Type)).Ascending;
-    
+
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<PrinterEntity> items = PrinterRepository.GetAll();
             ParseRecords(items);
         });

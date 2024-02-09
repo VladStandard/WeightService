@@ -14,6 +14,6 @@ public class WarehouseEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
         WarehouseEntity item = (WarehouseEntity)obj;
         return ProductionSite.Equals(item.ProductionSite);
     }
-    
+
     public override string ToString() => $"{Name} {ProductionSite}";
 }

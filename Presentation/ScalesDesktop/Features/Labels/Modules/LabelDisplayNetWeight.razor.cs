@@ -8,12 +8,12 @@ using Ws.Shared.TypeUtils;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
-public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
+public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     [Inject] private LabelContext LabelContext { get; set; } = null!;
-    
+
     private bool IsStable { get; set; }
 
     protected override void OnInitialized()
@@ -23,15 +23,15 @@ public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
     }
 
     private decimal GetNetWeight => (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
-    
+
     private decimal GetTareWeight => LabelContext.PluNesting.WeightTare;
 
     private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
-    
+
     private string IntegerPart => DecimalUtils.ToStrToLen(Math.Truncate(Math.Abs(GetNetWeight)), 4);
-    
+
     private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
-    
+
     private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload)
     {
         IsStable = payload.IsStable;
@@ -41,10 +41,10 @@ public sealed partial class LabelDisplayNetWeight: ComponentBase, IDisposable
 
     private void MassaSubscribe() =>
         WeakReferenceMessenger.Default.Register<GetScaleMassaEvent>(this, UpdateScalesInfo);
-    
+
     private void MassaUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
-    
+
     public void Dispose()
     {
         LabelContext.OnStateChanged -= StateHasChanged;

@@ -9,7 +9,8 @@ public sealed class TemplateResourceRepositoryTests : TableRepositoryTests
     private SqlTemplateResourceRepository TemplateResourceRepository { get; } = new();
 
     protected override IResolveConstraint SortOrderValue =>
-        Is.Ordered.By(nameof(TemplateResourceEntity.Name)).Ascending.Then.By(nameof(TemplateResourceEntity.Name)).Ascending;
+        Is.Ordered.By(nameof(TemplateResourceEntity.Name)).Ascending.Then.By(nameof(TemplateResourceEntity.Name))
+            .Ascending;
 
     [Test]
     public void GetList()

@@ -9,14 +9,13 @@ using Ws.Domain.Services.Features.Plu;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
-
-public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
+public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
 {
     #region MyRegion
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
-    
+
     #endregion
 
     private TemplateEntity Template { get; set; } = new();
@@ -29,13 +28,13 @@ public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
 
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
-    
-    private string GetTemplateLink() => Template.IsNew ? 
+
+    private string GetTemplateLink() => Template.IsNew ?
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
-    
-    private string GetLineLink() => SectionEntity.Line.IsNew ? 
+
+    private string GetLineLink() => SectionEntity.Line.IsNew ?
         string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.IdentityValueUid}";
-    
-    private string GetPluLink() => SectionEntity.Plu.IsNew ? 
+
+    private string GetPluLink() => SectionEntity.Plu.IsNew ?
         string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Plu.IdentityValueUid}";
 }

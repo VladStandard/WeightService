@@ -8,11 +8,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.References1C.Clips;
 
-
-public sealed partial class ClipsUpdateDialog: SectionDialogBase<ClipEntity>
+public sealed partial class ClipsUpdateDialog : SectionDialogBase<ClipEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionClips"], "main")];
 }

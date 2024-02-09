@@ -5,7 +5,7 @@ namespace Ws.Domain.Models.Models;
 public sealed class FieldBinaryModel
 {
     public byte[] Value { get; set; }
-    
+
     public string ValueUnicode
     {
         get => Encoding.Unicode.GetString(Value);
@@ -16,7 +16,7 @@ public sealed class FieldBinaryModel
     {
         Value = Array.Empty<byte>();
     }
-    
+
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
@@ -25,6 +25,6 @@ public sealed class FieldBinaryModel
         FieldBinaryModel item = (FieldBinaryModel)obj;
         return Value.SequenceEqual(item.Value);
     }
-    
+
     public override int GetHashCode() => Value.GetHashCode();
 }

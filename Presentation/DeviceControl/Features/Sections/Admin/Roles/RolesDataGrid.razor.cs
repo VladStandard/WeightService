@@ -8,21 +8,21 @@ using Ws.Domain.Services.Features.Claim;
 
 namespace DeviceControl.Features.Sections.Admin.Roles;
 
-public sealed partial class RolesDataGrid: SectionDataGridBase<ClaimEntity>
+public sealed partial class RolesDataGrid : SectionDataGridBase<ClaimEntity>
 {
     #region Inject
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
-    
+
     #endregion
-    
+
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<RolesCreateDialog>(new());
-    
+
     protected override async Task OpenDataGridEntityModal(ClaimEntity item)
         => await OpenSectionModal<RolesUpdateDialog>(item);
-    
+
     protected override async Task OpenItemInNewTab(ClaimEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionRoles}/{item.IdentityValueUid.ToString()}");
 

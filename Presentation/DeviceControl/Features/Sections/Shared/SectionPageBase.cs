@@ -6,4 +6,3 @@ public class SectionPageBase : ComponentBase
 {
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
 }
-

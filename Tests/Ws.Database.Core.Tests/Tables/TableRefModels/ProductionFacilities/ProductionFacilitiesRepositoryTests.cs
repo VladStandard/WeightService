@@ -6,13 +6,12 @@ namespace Ws.StorageCoreTests.Tables.TableRefModels.ProductionFacilities;
 [TestFixture]
 public sealed class ProductionFacilitiesRepositoryTests : TableRepositoryTests
 {
-    private SqlProductionSiteRepository ProductionSiteRepository { get; set; } = new();
+    private SqlProductionSiteRepository ProductionSiteRepository { get; } = new();
 
     [Test]
     public void GetList()
     {
-        AssertAction(() =>
-        {
+        AssertAction(() => {
             IEnumerable<ProductionSiteEntity> items = ProductionSiteRepository.GetAll();
             ParseRecords(items);
         });

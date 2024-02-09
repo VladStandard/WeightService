@@ -12,7 +12,7 @@ namespace ScalesDesktop.WinUI;
 public partial class App : MauiWinUIApplication
 {
     private readonly IKeyboardMouseEvents _mGlobalHook;
-    
+
     public App()
     {
         InitializeComponent();
@@ -28,18 +28,18 @@ public partial class App : MauiWinUIApplication
                     windowsLifecycleBuilder.OnClosed((_, _) => MouseUnsubscribe())))
             .Build();
     }
-    
+
     private static void MiddleButtonHandler(object? sender, MouseEventExtArgs e)
     {
         if (e.Button == MouseButtons.Middle)
             WeakReferenceMessenger.Default.Send(new MiddleBtnIsClickedEvent());
     }
-    
+
     private void MouseSubscribe()
     {
         _mGlobalHook.MouseDownExt += MiddleButtonHandler;
     }
-    
+
     private void MouseUnsubscribe()
     {
         _mGlobalHook.MouseDownExt -= MiddleButtonHandler;

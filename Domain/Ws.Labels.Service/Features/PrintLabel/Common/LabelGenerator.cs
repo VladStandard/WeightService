@@ -15,28 +15,28 @@ public static partial class LabelGenerator
 
     [GeneratedRegex(@"\^FH\^FD\s*(.*?)\s*\^FS", RegexOptions.Singleline)]
     private static partial Regex RegexOfTextBlocks();
-    
-    public static LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem : 
+
+    public static LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem :
         XmlLabelBaseModel, ISerializable
     {
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
-        
+
         XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument(labelModel);
         template = template.Replace("Context", labelModel.GetType().Name);
-        
+
         string zpl = XmlUtil.XsltTransformation(template, xmlLabelContext.OuterXml);
-        
+
         zpl = PrintCmdReplaceZplResources(zpl, plu);
         zpl = ReplaceValuesWithHex(zpl);
-        
+
         return new(zpl, labelModel);
     }
-    
+
     private static string PrintCmdReplaceZplResources(string zpl, PluEntity plu)
     {
         if (string.IsNullOrEmpty(zpl))
-            throw new ArgumentException("Value must be fill!", nameof(zpl)); 
-        
+            throw new ArgumentException("Value must be fill!", nameof(zpl));
+
         MatchCollection matches = RegexOfResources().Matches(zpl);
         foreach (Match match in matches)
         {
@@ -47,20 +47,19 @@ public static partial class LabelGenerator
         }
 
         zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", plu.StorageMethod.Zpl, StringComparison.OrdinalIgnoreCase);
-        
+
         return zpl;
     }
-    
+
     private static string ReplaceValuesWithHex(string input)
     {
-        return RegexOfTextBlocks().Replace(input, match =>
-        {
+        return RegexOfTextBlocks().Replace(input, match => {
             string text = match.Groups[1].Value;
             string hexText = ConvertStringToHex(text);
             return $"\n\n^FH^FD\n{hexText}\n^FS\n\n";
         });
     }
-    
+
     private static string ConvertStringToHex(string text)
     {
         StringBuilder zplBuilder = new();

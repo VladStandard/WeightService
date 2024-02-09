@@ -6,11 +6,12 @@ using Ws.Scales.Events;
 
 namespace ScalesDesktop.Features.Labels.Layouts;
 
-public sealed partial class ScaleStatusIcon: ComponentBase, IDisposable
+public sealed partial class ScaleStatusIcon : ComponentBase, IDisposable
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
-    
-    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
+
+    protected override void OnInitialized() =>
+        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
 
     private void GetStatus(object recipient, GetScaleStatusEvent message)
     {

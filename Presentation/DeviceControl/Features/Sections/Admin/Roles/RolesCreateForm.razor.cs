@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace DeviceControl.Features.Sections.Admin.Roles;
 
-public sealed partial class RolesCreateForm: SectionFormBase<ClaimEntity>
+public sealed partial class RolesCreateForm : SectionFormBase<ClaimEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

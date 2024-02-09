@@ -26,7 +26,7 @@ public static class DependencyInjection
     public static void AddDomainServices(this IServiceCollection services)
     {
         services.AddNhibernate();
-        
+
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();

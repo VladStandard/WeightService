@@ -10,7 +10,7 @@ public sealed class ClipDto
 
     [XmlAttribute("Name")]
     public string Name { get; set; } = string.Empty;
-    
+
     [XmlAttribute("Weight")]
     public decimal Weight { get; set; }
 }

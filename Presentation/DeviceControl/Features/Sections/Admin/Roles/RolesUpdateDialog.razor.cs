@@ -9,7 +9,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Admin.Roles;
 
-public sealed partial class RolesUpdateDialog: SectionDialogBase<ClaimEntity>
+public sealed partial class RolesUpdateDialog : SectionDialogBase<ClaimEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

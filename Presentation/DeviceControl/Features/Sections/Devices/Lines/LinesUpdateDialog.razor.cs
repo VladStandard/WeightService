@@ -8,7 +8,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Devices.Lines;
 
-public sealed partial class LinesUpdateDialog: SectionDialogBase<LineEntity>
+public sealed partial class LinesUpdateDialog : SectionDialogBase<LineEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

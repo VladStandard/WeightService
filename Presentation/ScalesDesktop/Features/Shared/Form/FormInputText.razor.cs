@@ -6,12 +6,12 @@ using ScalesDesktop.Resources;
 
 namespace ScalesDesktop.Features.Shared.Form;
 
-public sealed partial class FormInputText: FormInputBase
+public sealed partial class FormInputText : FormInputBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
-    
+
     [Parameter] public bool IsDisabled { get; set; }
     [Parameter] public string Value { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
@@ -32,5 +32,5 @@ public sealed partial class FormInputText: FormInputBase
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", value);
         await NotificationService.Info(Localizer["ToastCopyToClipboard"]);
     }
-        
+
 }

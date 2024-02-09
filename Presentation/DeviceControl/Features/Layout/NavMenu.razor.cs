@@ -12,7 +12,7 @@ public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Parameter] public ClaimsPrincipal? User { get; set; }
-    
+
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
@@ -22,7 +22,7 @@ public sealed partial class NavMenu : ComponentBase
         IsProduction = !ConfigurationUtil.IsDevelop;
         MenuSections = CreateNavMenus();
     }
-    
+
     private IEnumerable<MenuSection> CreateNavMenus() =>
     [
         new()
@@ -65,7 +65,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
-                new(Localizer["SectionProductionSites"],RouteUtils.SectionProductionSites),
+                new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites),
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
                 new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
                 new(Localizer["SectionPluStorages"], RouteUtils.SectionStorageMethods)
@@ -89,15 +89,15 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.UserGroup,
             SubItems =
             [
-                new(Localizer["SectionUsers"],RouteUtils.SectionUsers),
-                new(Localizer["SectionPalletMen"],RouteUtils.SectionPalletMen),
-                new(Localizer["SectionRoles"],RouteUtils.SectionRoles),
-                new(Localizer["SectionDatabase"],RouteUtils.SectionDatabase)
+                new(Localizer["SectionUsers"], RouteUtils.SectionUsers),
+                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen),
+                new(Localizer["SectionRoles"], RouteUtils.SectionRoles),
+                new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
             ]
         }
     ];
-    
-    
+
+
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }
 

@@ -7,13 +7,13 @@ using Microsoft.JSInterop;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
-public sealed partial class SectionFormWrapper: ComponentBase
+public sealed partial class SectionFormWrapper : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
-    
+
     [Parameter] public DateTime? CreateDate { get; set; }
     [Parameter] public DateTime? ChangeDate { get; set; }
     [Parameter] public EventCallback OnSubmitAction { get; set; }
@@ -22,7 +22,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string ShareUrl { get; set; } = string.Empty;
     [Parameter] public IEnumerable<ActionMenuEntry> AdditionButtons { get; set; } = [];
-    
+
     private IEnumerable<ActionMenuEntry> ActionMenuEntries { get; set; } = new List<ActionMenuEntry>();
 
     protected override void OnInitialized()
@@ -34,19 +34,19 @@ public sealed partial class SectionFormWrapper: ComponentBase
     {
         if (!string.IsNullOrEmpty(ShareUrl))
             ActionMenuEntries = ActionMenuEntries.Append(new()
-                {
-                    Name = Localizer["ActionMenuShare"],
-                    IconName = HeroiconName.Share,
-                    OnClickAction = EventCallback.Factory.Create(this, CopyToClipboard)
-                });
+            {
+                Name = Localizer["ActionMenuShare"],
+                IconName = HeroiconName.Share,
+                OnClickAction = EventCallback.Factory.Create(this, CopyToClipboard)
+            });
         if (ResetItemAction.HasDelegate)
             ActionMenuEntries = ActionMenuEntries.Append(new()
-                {
-                    Name = Localizer["ActionMenuReset"],
-                    IconName = HeroiconName.ArrowTopRightOnSquare,
-                    OnClickAction = EventCallback.Factory.Create(this, ResetItemAction)
-                });
-        if(DeleteItemAction.HasDelegate)
+            {
+                Name = Localizer["ActionMenuReset"],
+                IconName = HeroiconName.ArrowTopRightOnSquare,
+                OnClickAction = EventCallback.Factory.Create(this, ResetItemAction)
+            });
+        if (DeleteItemAction.HasDelegate)
             ActionMenuEntries = ActionMenuEntries.Append(new()
             {
                 Name = Localizer["ActionMenuDelete"],
@@ -65,7 +65,7 @@ public sealed partial class SectionFormWrapper: ComponentBase
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", GetAbsoluteUrl(ShareUrl));
         await NotificationService.Info(Localizer["ToastUrlCopyToClipboard"]);
     }
-    
+
 }
 
 public class ActionMenuEntry

@@ -13,7 +13,7 @@ public class JsService
         JsRuntime = jsRuntime;
         InitializeModuleAsync();
     }
-    
+
     private async void InitializeModuleAsync()
     {
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/appUtils.js");

@@ -10,7 +10,7 @@ public abstract class PrinterBase : IPrinter
 {
     private readonly string _ip;
     private readonly int _port;
-    
+
     protected PrinterStatusEnum Status { get; set; }
     protected TcpClient TcpClient { get; set; }
 
@@ -18,10 +18,10 @@ public abstract class PrinterBase : IPrinter
     {
         _ip = ip;
         _port = port;
-        
+
         TcpClient = new();
         TcpClient.ReceiveTimeout = 0_200;
-        
+
         SetStatus(PrinterStatusEnum.IsDisabled);
     }
 
@@ -32,7 +32,7 @@ public abstract class PrinterBase : IPrinter
             TcpClient.Dispose();
             TcpClient = new();
             TcpClient.ReceiveTimeout = 200;
-            
+
             await TcpClient.ConnectAsync(_ip, _port).WaitAsync(TimeSpan.FromMilliseconds(200));
             SetStatus(PrinterStatusEnum.Ready);
         }
@@ -46,7 +46,7 @@ public abstract class PrinterBase : IPrinter
     {
         ExecuteCommand(new(TcpClient, zpl));
     }
-    
+
     public void Disconnect()
     {
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(PrinterStatusEnum.IsDisabled));
@@ -58,14 +58,14 @@ public abstract class PrinterBase : IPrinter
     {
         throw new NotImplementedException();
     }
-    
-    
+
+
     private void SetStatus(PrinterStatusEnum state)
     {
         Status = state;
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
     }
-    
+
     protected void ExecuteCommand(PrinterCommandBase command)
     {
         try
@@ -85,7 +85,7 @@ public abstract class PrinterBase : IPrinter
             Connect();
         }
     }
-    
+
     public void Dispose()
     {
         Disconnect();

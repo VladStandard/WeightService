@@ -8,11 +8,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.References1C.Brands;
 
-
-public sealed partial class BrandsUpdateDialog: SectionDialogBase<BrandEntity>
+public sealed partial class BrandsUpdateDialog : SectionDialogBase<BrandEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
         [new(Localizer["SectionBrands"], "main")];
 }

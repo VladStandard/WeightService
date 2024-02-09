@@ -9,7 +9,8 @@ public static class CrcUtil
         int crc = 0;
         for (k = 0; k < data.Length; k++)
         {
-            a = 0; temp = crc >> 8 << 8;
+            a = 0;
+            temp = crc >> 8 << 8;
             for (bits = 0; bits < 8; bits++)
             {
                 if (((temp ^ a) & 0x8000) != 0)
@@ -26,12 +27,12 @@ public static class CrcUtil
 
         return BitConverter.ToUInt16(crcReverse, 0);
     }
-    
+
     private static byte[] MergeBytes(List<byte[]> bytesList)
     {
         int len = bytesList.Sum(bytes => bytes.Length);
         List<byte> dataList = new(len);
-        
+
         foreach (byte[] bytes in bytesList)
             dataList.AddRange(bytes);
 
@@ -44,7 +45,7 @@ public static class CrcUtil
         byte[] crc = BitConverter.GetBytes(Crc16Generate(body));
         return MergeBytes([Header, len, body, crc]);
     }
-    
+
     public static byte[] Generate(byte body)
     {
         return Generate([body]);

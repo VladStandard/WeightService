@@ -7,12 +7,12 @@ public sealed partial class SharedInputText : ComponentBase
 {
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> Attributes { get; set; } = new();
-    
+
     [Parameter] public string Value { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
-    
+
     private async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
-    
+
     private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 
     private string InputClass => $"flex h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm" +

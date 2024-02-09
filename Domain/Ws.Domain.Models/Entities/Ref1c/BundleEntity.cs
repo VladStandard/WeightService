@@ -10,7 +10,7 @@ public class BundleEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
     public virtual decimal Weight { get; set; }
 
     public override string ToString() => $"{Name} | {Weight} | {Uid1C}";
-    
+
     protected override bool CastEquals(EntityBase obj)
     {
         BundleEntity item = (BundleEntity)obj;

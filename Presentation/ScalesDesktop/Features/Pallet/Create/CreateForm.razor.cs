@@ -4,11 +4,11 @@ using ScalesDesktop.Services;
 
 namespace ScalesDesktop.Features.Pallet.Create;
 
-public sealed partial class CreateForm: ComponentBase
+public sealed partial class CreateForm : ComponentBase
 {
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private LineContext LineContext { get; set; } = null!;
-    
+
     [SupplyParameterFromForm]
     private PalletCreateModel FormModel { get; set; } = new();
 

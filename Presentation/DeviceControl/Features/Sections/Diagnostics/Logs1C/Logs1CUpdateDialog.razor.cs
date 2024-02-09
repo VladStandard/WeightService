@@ -8,10 +8,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Diagnostics.Logs1C;
 
-public sealed partial class Logs1CUpdateDialog: SectionDialogBase<LogWebEntity>
+public sealed partial class Logs1CUpdateDialog : SectionDialogBase<LogWebEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
-        [ new(Localizer["Section1CLogs"], "main") ];
+        [new(Localizer["Section1CLogs"], "main")];
 }

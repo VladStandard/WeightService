@@ -11,7 +11,7 @@ namespace Ws.WebApiScales.Features.Brands;
 [ApiController]
 [Route("api/brands/")]
 internal sealed class BrandController(
-    IBrandApiService brandApiService, 
+    IBrandApiService brandApiService,
     IHttpContextAccessor httpContextAccessor,
     ILogWebService logWebService,
     ResponseDto responseDto) : BaseController(responseDto, logWebService, httpContextAccessor)
@@ -19,6 +19,6 @@ internal sealed class BrandController(
     [AllowAnonymous]
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ContentResult LoadBrands([FromBody] XElement xml) => 
+    public ContentResult LoadBrands([FromBody] XElement xml) =>
         HandleXmlRequest<BrandsWrapper>(xml, brandApiService.Load);
 }

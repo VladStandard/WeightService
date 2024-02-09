@@ -7,11 +7,10 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Features.Sections.Operations.Labels;
 
-
-public sealed partial class LabelsUpdateDialog: SectionDialogBase<LabelEntity>
+public sealed partial class LabelsUpdateDialog : SectionDialogBase<LabelEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    
+
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
     [
         new(Localizer["SectionLabels"], "main"),
