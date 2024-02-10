@@ -8,6 +8,25 @@
   border-collapse: collapse !important;
 }
 
+.select-dropdown ul {
+  height: fit-content;
+  max-height: 15rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.select-button span {
+  width: 100%;
+  text-align: left;
+  font-weight: 300;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (min-width: 1280px) {
   .xl\:text-3xl {
     font-size: 1.875rem; /* 30px */

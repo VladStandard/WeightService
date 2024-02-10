@@ -1,8 +1,14 @@
+@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Scale
+
+
 <EditForm
   Model="FormModel"
   OnValidSubmit="OnSubmit"
+  OnInvalidSubmit="HandleInvalidForm"
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
 >
+  <DataAnnotationsValidator />
   <CreateFormInputWrapper Label="Склад" HtmlFor="warehouse">
     <SharedInputText
       id="warehouse"
@@ -11,17 +17,19 @@
     />
   </CreateFormInputWrapper>
   <CreateFormInputWrapper Label="ПЛУ" HtmlFor="plu">
-    <SharedInputText
-      id="plu"
-      placeholder="Выберите плу..."
-      @bind-Value="FormModel.Plu"
+    <SharedSelectSingle
+      TItem="PluEntity"
+      @bind-SelectedItem="@FormModel.Plu"
+      @bind-SelectedItem:after="SetPluNestings"
+      Items="GetAllPlus()"
+      IsFilterable
     />
   </CreateFormInputWrapper>
   <CreateFormInputWrapper Label="Вложенность" HtmlFor="nesting">
-    <SharedInputText
-      id="nesting"
-      placeholder="Выберите вложенность..."
-      @bind-Value="FormModel.Nesting"
+    <SharedSelectSingle
+      TItem="PluNestingEntity"
+      @bind-SelectedItem="FormModel.Nesting"
+      @bind-Items="PluNestings"
     />
   </CreateFormInputWrapper>
   <CreateFormInputWrapper Label="Вес паллеты" HtmlFor="pallet-weight">
