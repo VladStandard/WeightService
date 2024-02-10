@@ -1,5 +1,6 @@
 @using Ws.Domain.Models.Entities.Ref1c
 @using Ws.Domain.Models.Entities.Scale
+@using ButtonType = ScalesDesktop.Features.Shared.ButtonType
 
 
 <EditForm
@@ -57,7 +58,7 @@
       @bind-Value="FormModel.Count"
     />
   </CreateFormInputWrapper>
-  <SharedButton type="submit" class="!mt-8 !mb-2" >
+  <SharedButton Type="ButtonType.Submit" class="!mt-8 !mb-2" >
     Создать
   </SharedButton>
 </EditForm>
