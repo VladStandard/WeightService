@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 
-namespace ScalesDesktop.Features.Pallet.Create;
+namespace ScalesDesktop.Features.Shared;
 
-public sealed partial class CreateFormInputWrapper
+public sealed partial class SharedInputLabelWrapper: ComponentBase
 {
     [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
     [Parameter, EditorRequired] public string HtmlFor { get; set; } = string.Empty;

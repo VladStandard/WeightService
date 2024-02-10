@@ -10,14 +10,14 @@
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
 >
   <DataAnnotationsValidator />
-  <CreateFormInputWrapper Label="Склад" HtmlFor="warehouse">
+  <SharedInputLabelWrapper Label="Склад" HtmlFor="warehouse">
     <SharedInputText
       id="warehouse"
       Value="@LineContext.Line.Warehouse.Name"
       disabled
     />
-  </CreateFormInputWrapper>
-  <CreateFormInputWrapper Label="ПЛУ" HtmlFor="plu">
+  </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="ПЛУ" HtmlFor="plu">
     <SharedSelectSingle
       TItem="PluEntity"
       @bind-SelectedItem="@FormModel.Plu"
@@ -25,15 +25,15 @@
       Items="GetAllPlus()"
       IsFilterable
     />
-  </CreateFormInputWrapper>
-  <CreateFormInputWrapper Label="Вложенность" HtmlFor="nesting">
+  </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="Вложенность" HtmlFor="nesting">
     <SharedSelectSingle
       TItem="PluNestingEntity"
       @bind-SelectedItem="FormModel.Nesting"
       @bind-Items="PluNestings"
     />
-  </CreateFormInputWrapper>
-  <CreateFormInputWrapper Label="Вес паллеты" HtmlFor="pallet-weight">
+  </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="Вес паллеты" HtmlFor="pallet-weight">
     <SharedInputNumber
       TValue="decimal"
       id="pallet-weight"
@@ -41,15 +41,15 @@
       placeholder="Введите вес палетты..."
       @bind-Value="FormModel.PalletWeight"
     />
-    </CreateFormInputWrapper>
-  <CreateFormInputWrapper Label="Дата создания" HtmlFor="create-dt">
+    </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="Дата создания" HtmlFor="create-dt">
     <SharedInputDate
       id="create-dt"
       TValue="DateOnly"
       @bind-Value="FormModel.CreateDt"
     />
-  </CreateFormInputWrapper>
-  <CreateFormInputWrapper Label="Количество" HtmlFor="count">
+  </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="Количество" HtmlFor="count">
     <SharedInputNumber
       TValue="int"
       id="count"
@@ -57,7 +57,7 @@
       placeholder="Введите количество..."
       @bind-Value="FormModel.Count"
     />
-  </CreateFormInputWrapper>
+  </SharedInputLabelWrapper>
   <SharedButton Type="ButtonType.Submit" class="!mt-8 !mb-2" >
     Создать
   </SharedButton>

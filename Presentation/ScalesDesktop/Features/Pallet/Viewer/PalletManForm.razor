@@ -1,0 +1,38 @@
+@using ButtonType = ScalesDesktop.Features.Shared.ButtonType
+@using Ws.Domain.Models.Entities.Ref
+
+
+<div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
+  <div class="w-full pb-4 border-b border-b-neutral-200">
+    <h2 class="text-lg font-semibold leading-none tracking-tight">
+      Вход в профиль
+    </h2>
+  </div>
+  <EditForm
+    Model="FormModel"
+    OnValidSubmit="OnSubmit"
+    OnInvalidSubmit="HandleInvalidForm"
+    class="space-y-4 pt-3"
+  >
+    <DataAnnotationsValidator />
+    <SharedInputLabelWrapper Label="Пользователь" HtmlFor="user">
+      <SharedSelectSingle
+        TItem="PalletManEntity"
+        @bind-SelectedItem="@FormModel.User"
+        Items="@GetAllPalletMen()"
+        Placeholder="Выберите пользователя..."
+      />
+    </SharedInputLabelWrapper>
+    <SharedInputLabelWrapper Label="Пароль" HtmlFor="password">
+      <SharedInputText
+        id="password"
+        @bind-Value="@FormModel.Password"
+        type="password"
+        placeholder="Введите пароль..."
+      />
+    </SharedInputLabelWrapper>
+    <SharedButton Type="ButtonType.Submit" class="!mt-4">
+      Создать
+    </SharedButton>
+  </EditForm>
+</div>
