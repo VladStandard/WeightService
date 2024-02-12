@@ -34,6 +34,7 @@
       Placeholder="Выберите вложенность"
       @bind-SelectedItem="FormModel.Nesting"
       @bind-Items="PluNestings"
+      IsDisabled="@(FormModel.Plu == null || !PluNestings.Any() )"
     />
   </SharedInputLabelWrapper>
   <SharedInputLabelWrapper Label="Вес паллеты" HtmlFor="pallet-weight">

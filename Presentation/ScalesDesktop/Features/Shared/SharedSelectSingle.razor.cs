@@ -16,6 +16,7 @@ public sealed partial class SharedSelectSingle<TItem> : IAsyncDisposable
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
     [Parameter] public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
     [Parameter] public bool IsFilterable { get; set; }
+    [Parameter] public bool IsDisabled { get; set; }
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
