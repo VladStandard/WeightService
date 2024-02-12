@@ -9,6 +9,7 @@ using Ws.Domain.Services.Features.DatabaseFile;
 using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.LogWeb;
+using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.PalletMan;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.Printer;
@@ -45,5 +46,6 @@ public static class DependencyInjection
         services.AddScoped<IWarehouseService, WarehouseService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IPalletManService, PalletManService>();
+        services.AddScoped<IPalletService, PalletService>();
     }
 }

@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Entities.Print;
 
-namespace Ws.Database.Core.Entities.Print.Pallets;
+namespace Ws.Database.Core.Entities.Print.Pallets.Mappings;
 
 internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
 {
@@ -26,7 +26,7 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
         Property(x => x.Counter, m =>
         {
             m.Column("COUNTER");
-            m.Type(NHibernateUtil.DateTime);
+            m.Type(NHibernateUtil.Int32);
             m.NotNullable(true);
         });
 
