@@ -1,12 +1,6 @@
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using NHibernate.Cfg;
-using NHibernate.Cfg.MappingSchema;
-using NHibernate.Dialect;
-using NHibernate.Driver;
 using NHibernate.Transform;
-using Ws.Database.Core.Listeners;
+using Ws.Database.Core.UnitOfWork;
 using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Helpers;
@@ -20,61 +14,9 @@ public sealed class SqlCoreHelper
 
     #endregion
 
-    #region Public and private fields, properties, constructor
-
-    private static SqlSettingsModels SqlSettingsModels { get; set; } = new();
-    private ISessionFactory SessionFactory { get; set; } = null!;
-    private Configuration SqlConfiguration { get; set; } = new();
-
-    public void SetSessionFactory()
-    {
-        SetSqlConfiguration();
-        AddConfigurationMappings();
-        SessionFactory = SqlConfiguration.BuildSessionFactory();
-    }
-
-    private static SqlSettingsModels LoadJsonConfig()
-    {
-        IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
-            .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
-            .Build();
-
-        SqlSettingsModels sqlSettingsModels = new();
-        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
-        return sqlSettingsModels;
-    }
-
-    private void SetSqlConfiguration()
-    {
-        SqlSettingsModels = LoadJsonConfig();
-        SqlConfiguration = new();
-        SqlConfiguration.DataBaseIntegration(db => {
-            db.ConnectionString = SqlSettingsModels.GetConnectionString();
-            db.Dialect<MsSql2012Dialect>();
-            db.Driver<SqlClientDriver>();
-            db.LogSqlInConsole = SqlSettingsModels.IsShowSql;
-        });
-        SqlConfiguration.EventListeners.PreInsertEventListeners =
-            [new SqlCreateDtListener()];
-        SqlConfiguration.EventListeners.PreUpdateEventListeners =
-            [new SqlChangeDtListener()];
-    }
-
-    private void AddConfigurationMappings()
-    {
-        ModelMapper mapper = new();
-        mapper.AddMappings(Assembly.GetExecutingAssembly().GetTypes());
-        HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
-        SqlConfiguration.AddMapping(mapping);
-    }
-    
-    #endregion
-    
-    #region Public and private methods - Base
-
     private void ExecuteSelectCore(Action<ISession> action)
     {
-        using ISession session = SessionFactory.OpenSession();
+        using ISession session = NHibernateHelper.SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Manual;
         
         try
@@ -89,7 +31,7 @@ public sealed class SqlCoreHelper
 
     private void ExecuteTransactionCore(Action<ISession> action)
     {
-        using ISession session = SessionFactory.OpenSession();
+        using ISession session = NHibernateHelper.SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Commit;
         
         using ITransaction transaction = session.BeginTransaction();
@@ -103,8 +45,7 @@ public sealed class SqlCoreHelper
             transaction.Rollback();
         }
     }
-
-    #endregion
+    
 
     #region GetItem
 

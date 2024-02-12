@@ -1,4 +1,4 @@
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.UnitOfWork;
 using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.StorageCoreTests.Tables.Common;
@@ -7,7 +7,7 @@ public class TableRepositoryTests
 {
     public TableRepositoryTests()
     {
-        SqlCoreHelper.Instance.SetSessionFactory();
+        NHibernateHelper.SetSessionFactory();
     }
 
     [SetUp]

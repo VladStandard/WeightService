@@ -2,7 +2,7 @@
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
 
-public class SqlPrinterRepository : IGetItemByUid<PrinterEntity>, IGetAll<PrinterEntity>
+public class SqlPrinterRepository : BaseRepository, IGetItemByUid<PrinterEntity>, IGetAll<PrinterEntity>
 {
     public PrinterEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PrinterEntity>(uid);
     

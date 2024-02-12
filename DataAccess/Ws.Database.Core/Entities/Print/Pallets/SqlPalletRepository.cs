@@ -1,6 +1,6 @@
 namespace Ws.Database.Core.Entities.Print.Pallets;
 
-public sealed class SqlPalletRepository
+public sealed class SqlPalletRepository : BaseRepository
 {
     // public IEnumerable<PalletEntity> GetList(SqlCrudConfigModel sqlCrudConfig)
     // {

@@ -2,7 +2,7 @@
 
 namespace Ws.Database.Core.Entities.Ref.PalletMen;
 
-public class SqlPalletManRepository : IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>
+public class SqlPalletManRepository : BaseRepository, IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>
 {
     public PalletManEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PalletManEntity>(uid);
     

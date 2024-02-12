@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Users;
 
-public sealed class SqlUserRepository : IGetItemByUid<UserEntity>, IGetAll<UserEntity>
+public sealed class SqlUserRepository :  BaseRepository, IGetItemByUid<UserEntity>, IGetAll<UserEntity>
 {
     public UserEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<UserEntity>(uid);
     

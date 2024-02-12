@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.StorageMethods;
 
-public class SqlStorageMethodRepository : IGetItemByUid<StorageMethodEntity>
+public class SqlStorageMethodRepository :  BaseRepository, IGetItemByUid<StorageMethodEntity>
 {
     public StorageMethodEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<StorageMethodEntity>(uid);
     
