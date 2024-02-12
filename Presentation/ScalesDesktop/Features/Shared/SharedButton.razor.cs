@@ -12,6 +12,7 @@ public sealed partial class SharedButton : ComponentBase
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
     [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
     
     private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
                                     $" font-medium transition-colors focus-visible:outline-none focus-visible:ring-1" +
@@ -40,6 +41,13 @@ public sealed partial class SharedButton : ComponentBase
         ButtonSize.Icon => "h-9 w-9",
         _ => string.Empty
     };
+
+    private string HtmlType => Type switch
+    {
+        ButtonType.Reset => "reset",
+        ButtonType.Submit => "submit",
+        _ => "button"
+    };
 }
 
 public enum ButtonVariant
@@ -58,4 +66,11 @@ public enum ButtonSize
     Small,
     Large,
     Icon
+}
+
+public enum ButtonType
+{
+    Button,
+    Reset,
+    Submit
 }

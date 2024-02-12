@@ -1,6 +1,7 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Pallet.Create;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Shared.Enums;
@@ -12,6 +13,7 @@ public sealed partial class Workspace : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private LineContext LineContext { get; set; } = null!;
+    [Inject] private IModalService ModalService { get; set; } = null!;
 
     private List<EnumTypeModel<string>> TabsButtonList { get; set; } = [];
     private string SelectedTab { get; set; } = "main";
@@ -22,6 +24,8 @@ public sealed partial class Workspace : ComponentBase, IDisposable
         TabsButtonList = [new("Информация", "main"), new("Этикетки", "labels")];
         PalletContext.OnStateChanged += StateHasChanged;
     }
+    
+    private async Task ShowCreateFormDialog() => await ModalService.Show<CreateFormModal>();
 
     private void CloseCurrentPallet() => PalletContext.ChangePallet(new());
 

@@ -12,7 +12,7 @@
   transform: translateY(100%);
   transition: opacity 0s var(--transition-duration-mobile-leaving, 0.195s), transform var(--transition-duration-mobile-leaving, 0.195s) cubic-bezier(0.4, 0, 1, 1);
   width: 100%;
-  z-index: 40;
+  z-index: 100;
 }
 @media (min-width: 768px) {
   .snackbar {
@@ -356,7 +356,7 @@
   justify-content: center;
   align-content: center;
   position: fixed;
-  /*z-index: 1090 !important;*/
+  z-index: 1090 !important;
   top: 0;
 }
 .snackbar-stack-top-end .snackbar,

@@ -12,6 +12,7 @@ public class PalletContext : IDisposable
 
     public PalletModel Pallet { get; private set; } = new();
     public IEnumerable<PalletModel> PalletEntities { get; private set; } = [];
+    public PalletManEntity PalletMan { get; private set; } = new();
 
     public event Action? OnStateChanged;
 
@@ -24,7 +25,18 @@ public class PalletContext : IDisposable
     public void InitializeData()
     {
         Pallet = new();
+        PalletMan = new();
         PalletEntities = GetPallets();
+        OnStateChanged?.Invoke();
+    }
+
+    public void SetPalletMan(PalletManEntity palletManEntity)
+    {
+        PalletMan.Identity.SetUid(Guid.NewGuid());
+        PalletMan.IdentityValueUid = Guid.NewGuid();
+        PalletMan.IdentityValueId = long.MaxValue;
+        PalletMan.Identity.SetId(long.MaxValue);
+        PalletMan.Uid1C = Guid.NewGuid();
         OnStateChanged?.Invoke();
     }
 
