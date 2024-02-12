@@ -15,18 +15,17 @@
           <input
             type="text"
             class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-            placeholder="Поиск по номеру..."
-          />
+            placeholder="Поиск по номеру..."/>
         </div>
         <SharedButton Variant="ButtonVariant.Outline" Size="ButtonSize.Icon">
-          <FunnelIcon class="h-5 w-5 mx-2" />
+          <FunnelIcon class="h-5 w-5 mx-2"/>
         </SharedButton>
       </div>
       <ul class="w-full space-y-3 grow p-4 pr-0.5 pt-0 overflow-y-auto">
         @foreach (PalletModel item in PalletContext.PalletEntities.Take(100))
         {
           <li>
-            <PalletSelectItem Pallet="item" />
+            <PalletSelectItem Pallet="item"/>
           </li>
         }
       </ul>
