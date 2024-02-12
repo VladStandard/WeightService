@@ -30,6 +30,21 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
             m.NotNullable(true);
         });
 
+        Property(x => x.ProdDt, m =>
+        {
+            m.Column("PROD_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+        
+        Property(x => x.Weight, m => {
+            m.Column("WEIGHT");
+            m.Type(NHibernateUtil.Decimal);
+            m.Precision(10);
+            m.Scale(3);
+            m.NotNullable(true);
+        });
+        
         ManyToOne(x => x.PalletMan, m => {
             m.Column("PALLET_MAN_UID");
             m.NotNullable(true);
