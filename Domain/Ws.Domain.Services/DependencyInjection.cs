@@ -43,7 +43,7 @@ public static class DependencyInjection
         services.AddScoped<ITemplateService, TemplateService>();
         services.AddScoped<ITemplateResourceService, TemplateResourceService>();
         services.AddScoped<IWarehouseService, WarehouseService>();
-        services.AddSingleton<IUserService, UserService>();
-        services.AddSingleton<IPalletManService, PalletManService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IPalletManService, PalletManService>();
     }
 }
