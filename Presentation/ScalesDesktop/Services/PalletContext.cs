@@ -40,6 +40,19 @@ public class PalletContext : IDisposable
         OnStateChanged?.Invoke();
     }
 
+    public void ResetContext()
+    {
+        Pallet = new();
+        PalletEntities = GetPallets();
+        OnStateChanged?.Invoke();
+    }
+
+    public void ResetPalletMan()
+    {
+        PalletMan = new();
+        OnStateChanged?.Invoke();
+    }
+
     private static IEnumerable<PalletModel> GetPallets() =>
     [
         new()

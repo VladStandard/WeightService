@@ -17,8 +17,24 @@
             class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
             placeholder="Поиск по номеру..."/>
         </div>
-        <SharedButton Variant="ButtonVariant.Outline" Size="ButtonSize.Icon">
+        <SharedButton
+          Variant="ButtonVariant.Outline"
+          Size="ButtonSize.Icon"
+        >
           <FunnelIcon class="h-5 w-5 mx-2"/>
+        </SharedButton>
+        <SharedButton
+          Variant="ButtonVariant.Outline"
+          Size="ButtonSize.Icon"
+          OnClick="@ReloadData"
+        >
+          <ArrowPathIcon class="h-5 w-5 mx-2"/>
+        </SharedButton>
+        <SharedButton
+          Size="ButtonSize.Icon"
+          OnClick="@ShowCreateFormDialog"
+        >
+          <PlusIcon class="h-5 w-5 mx-2" />
         </SharedButton>
       </div>
       <ul class="w-full space-y-3 grow p-4 pr-0.5 pt-0 overflow-y-auto">

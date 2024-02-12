@@ -1,0 +1,69 @@
+@using Blazor.Heroicons.Outline
+
+
+<div class="rounded-md max-w-2xl max-h-full overflow-y-auto border shadow-sm bg-white p-6 w-full">
+  <div class="flex flex-col space-y-1.5">
+    <h3 class="font-semibold leading-none tracking-tight">
+      Функционал
+    </h3>
+    <p class="text-sm text-neutral-500">
+      Описание основного функционала приложения
+    </p>
+  </div>
+  <div class="grid">
+    <div class="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-colors hover:bg-neutral-100">
+      <PlusIcon class="mt-px h-5 w-5 shrink-0" />
+      <div class="space-y-1">
+        <h4 class="text-sm font-medium leading-none">
+          Создание
+        </h4>
+        <p class="text-sm text-neutral-500">
+          Для создания новой паллеты, нажмите кнопку
+          <span class="p-1 rounded-md bg-neutral-900 inline-flex border text-white">
+            <PlusIcon class="h-3 w-3"/>
+          </span>
+          в верхней части левого блока
+        </p>
+      </div>
+    </div>
+    <div class="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-colors hover:bg-neutral-100">
+      <EyeIcon class="mt-px h-5 w-5 shrink-0" />
+      <div class="space-y-1">
+        <h4 class="text-sm font-medium leading-none">
+          Просмотр
+        </h4>
+        <p class="text-sm text-neutral-500">
+          Для просмотра информации об паллете, выберите нужную паллету в левом блоке
+        </p>
+      </div>
+    </div>
+    <div class="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-colors hover:bg-neutral-100">
+      <PrinterIcon class="mt-px h-5 w-5 shrink-0" />
+      <div class="space-y-1">
+        <h4 class="text-sm font-medium leading-none">
+          Печать паллетной карты
+        </h4>
+        <p class="text-sm text-neutral-500">
+          Для печати паллетной карты выберите паллету и перейдите на вкладку "Информация", затем нажмите
+          <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
+            Печать ПК
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-colors hover:bg-neutral-100">
+      <TagIcon class="mt-px h-5 w-5 shrink-0" />
+      <div class="space-y-1">
+        <h4 class="text-sm font-medium leading-none">
+          Печать этикеток
+        </h4>
+        <p class="text-sm text-neutral-500">
+          Для печати этикеток выберите паллету. Во вкладке "Этикетки" вы можете распечатать все этикетки, либо выбрать нужные в таблице и нажать
+          <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
+            Печать выбранных
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

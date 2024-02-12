@@ -4,7 +4,7 @@
   disabled="@PalletContext.Pallet.Equals(Pallet)"
   @onclick="@(() => PalletContext.ChangePallet(Pallet))"
   class="w-full h-18 pb-2.5 pt-2 gap-2 px-4 items-center flex shadow-sm transition-colors rounded-md border hover:bg-neutral-100
-                      @(PalletContext.Pallet.Equals(Pallet) ? "bg-neutral-100" : "")"
+                      @(PalletContext.Pallet.Equals(Pallet) ? "bg-neutral-100 invert" : "")"
 >
   <div class="w-full h-full overflow-hidden grow flex flex-col">
     <div class="flex w-full items-center gap-2 justify-between">
