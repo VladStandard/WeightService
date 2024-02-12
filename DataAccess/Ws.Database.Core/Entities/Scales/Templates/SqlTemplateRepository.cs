@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.Templates;
 
-public sealed class SqlTemplateRepository : IGetAll<TemplateEntity>
+public sealed class SqlTemplateRepository :  BaseRepository, IGetAll<TemplateEntity>
 {
     public TemplateEntity GetById(long id) => SqlCoreHelper.Instance.GetItemById<TemplateEntity>(id);
 

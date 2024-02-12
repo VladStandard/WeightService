@@ -27,6 +27,12 @@ public sealed partial class PalletManForm : ComponentBase
 
     private void OnSubmit()
     {
+        if (FormModel.Password != FormModel.User!.Password)
+        {
+            // TODO: localization
+            NotificationService.Error("Введи пароль сучка!!!");
+            return;
+        }
         PalletContext.SetPalletMan(FormModel.User!);
     } 
 }

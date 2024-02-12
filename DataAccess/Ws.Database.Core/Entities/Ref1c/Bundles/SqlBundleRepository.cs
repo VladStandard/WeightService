@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository : IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>
+public sealed class SqlBundleRepository :  BaseRepository, IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>
 {
     public BundleEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BundleEntity>(uid);
     

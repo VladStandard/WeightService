@@ -19,6 +19,7 @@
       <SharedSelectSingle
         TItem="PalletManEntity"
         @bind-SelectedItem="@FormModel.User"
+        ItemDisplayName="@(item => item.FioShort)"
         Items="@GetAllPalletMen()"
         Placeholder="Выберите пользователя..."
       />

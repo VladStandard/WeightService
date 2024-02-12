@@ -7,8 +7,8 @@ namespace Ws.Domain.Abstractions.Entities.Common;
 public abstract class EntityBase
 {
     public virtual IdentityModel Identity { get; set; }
-    public virtual long IdentityValueId { get => Identity.Id; set => Identity.SetId(value); }
-    public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.SetUid(value); }
+    public virtual long IdentityValueId { get => Identity.Id; set => Identity.Id = value; }
+    public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.Uid = value; }
     public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     public virtual string Name { get; set; } = string.Empty;
@@ -21,7 +21,7 @@ public abstract class EntityBase
         Identity = new(SqlEnumFieldIdentity.Uid);
     }
 
-    protected EntityBase(SqlEnumFieldIdentity identityName) : this()
+    protected EntityBase(SqlEnumFieldIdentity identityName)
     {
         Identity = new(identityName);
     }
@@ -45,7 +45,7 @@ public abstract class EntityBase
                CastEquals(entity);
     }
 
-    protected virtual bool CastEquals(EntityBase obj) => false;
+    protected virtual bool CastEquals(EntityBase obj) => true;
 
     public override int GetHashCode() => Identity.GetHashCode();
 }

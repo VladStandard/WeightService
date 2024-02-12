@@ -20,6 +20,8 @@
   <SharedInputLabelWrapper Label="ПЛУ" HtmlFor="plu">
     <SharedSelectSingle
       TItem="PluEntity"
+      Placeholder="Выберите плу"
+      ItemDisplayName="entity => entity.DisplayName"
       @bind-SelectedItem="@FormModel.Plu"
       @bind-SelectedItem:after="SetPluNestings"
       Items="GetAllPlus()"
@@ -29,6 +31,7 @@
   <SharedInputLabelWrapper Label="Вложенность" HtmlFor="nesting">
     <SharedSelectSingle
       TItem="PluNestingEntity"
+      Placeholder="Выберите вложенность"
       @bind-SelectedItem="FormModel.Nesting"
       @bind-Items="PluNestings"
       ItemDisplayName="@(item => NameFormatting.GetPluNestingFormattedName(item))"

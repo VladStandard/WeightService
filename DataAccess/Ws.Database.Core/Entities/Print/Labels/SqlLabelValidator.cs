@@ -28,11 +28,9 @@ public sealed class SqlLabelValidator : SqlTableValidator<LabelEntity>
         RuleFor(item => item.Line)
             .SetValidator(new SqlLineValidator(isCheckIdentity));
         RuleFor(item => item.ProductDt)
-            .NotEmpty()
-            .NotNull();
+            .NotEmpty();
         RuleFor(item => item.ExpirationDt)
             .NotEmpty()
-            .NotNull()
             .GreaterThanOrEqualTo(item => item.ProductDt);
     }
 }

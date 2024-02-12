@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
 
-public class SqlTemplateResourceRepository : IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
+public class SqlTemplateResourceRepository :  BaseRepository, IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
 {
     public TemplateResourceEntity GetByUid(Guid uid) =>
         SqlCoreHelper.Instance.GetItemById<TemplateResourceEntity>(uid);

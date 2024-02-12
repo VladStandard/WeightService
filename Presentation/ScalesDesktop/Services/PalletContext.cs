@@ -1,12 +1,16 @@
 using ScalesDesktop.Features.Pallet;
+using Ws.Database.Core.Entities.Print.Pallets;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Services.Features.Pallet;
 
 namespace ScalesDesktop.Services;
 
 public class PalletContext : IDisposable
 {
     private LineContext LineContext { get; }
-
+    private IPalletService PalletService { get; }
+    
     public LineEntity Line { get => LineContext.Line; }
     public PrinterEntity Printer { get => LineContext.PrinterEntity; }
 
@@ -16,8 +20,9 @@ public class PalletContext : IDisposable
 
     public event Action? OnStateChanged;
 
-    public PalletContext(LineContext lineContext)
+    public PalletContext(LineContext lineContext, IPalletService palletService)
     {
+        PalletService = palletService;
         LineContext = lineContext;
         LineContext.OnLineChanged += InitializeData;
     }
@@ -32,14 +37,10 @@ public class PalletContext : IDisposable
 
     public void SetPalletMan(PalletManEntity palletManEntity)
     {
-        PalletMan.Identity.SetUid(Guid.NewGuid());
         PalletMan.IdentityValueUid = Guid.NewGuid();
-        PalletMan.IdentityValueId = long.MaxValue;
-        PalletMan.Identity.SetId(long.MaxValue);
-        PalletMan.Uid1C = Guid.NewGuid();
         OnStateChanged?.Invoke();
     }
-
+    
     public void ResetContext()
     {
         Pallet = new();
@@ -53,63 +54,20 @@ public class PalletContext : IDisposable
         OnStateChanged?.Invoke();
     }
 
-    private static IEnumerable<PalletModel> GetPallets() =>
-    [
-        new()
+    private IEnumerable<PalletModel> GetPallets()
+    {
+        List<PalletModel> pallets = [];
+        IEnumerable<ViewPallet> palletsView = new PalletService().GetAllViewByWarehouse(Line.Warehouse);
+        
+        pallets.AddRange(palletsView.Select(pallet => new PalletModel()
         {
-            Uid = Guid.NewGuid(), Number = 9919998, Labels =
-            [
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() },
-                new() { IdentityValueUid = Guid.NewGuid() }
-
-            ]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9929999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] },
-        new()
-        {
-            Uid = Guid.NewGuid(), Number = 9119998,
-            Labels = [new() { IdentityValueUid = Guid.NewGuid() }, new() { IdentityValueUid = Guid.NewGuid() }]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9229999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] },
-        new()
-        {
-            Uid = Guid.NewGuid(), Number = 9319998,
-            Labels = [new() { IdentityValueUid = Guid.NewGuid() }, new() { IdentityValueUid = Guid.NewGuid() }]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9429999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] },
-        new()
-        {
-            Uid = Guid.NewGuid(), Number = 9519698,
-            Labels = [new() { IdentityValueUid = Guid.NewGuid() }, new() { IdentityValueUid = Guid.NewGuid() }]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9629999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] },
-        new()
-        {
-            Uid = Guid.NewGuid(), Number = 9719998,
-            Labels = [new() { IdentityValueUid = Guid.NewGuid() }, new() { IdentityValueUid = Guid.NewGuid() }]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9829999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] },
-        new()
-        {
-            Uid = Guid.NewGuid(), Number = 9979998,
-            Labels = [new() { IdentityValueUid = Guid.NewGuid() }, new() { IdentityValueUid = Guid.NewGuid() }]
-        },
-        new() { Uid = Guid.NewGuid(), Number = 9959999, Labels = [new() { IdentityValueUid = Guid.NewGuid() }] }
-    ];
+            CreateDt = pallet.CreateDt,
+            Number = pallet.Counter,
+            Uid = pallet.IdentityValueUid
+        }));
+        
+        return pallets;
+    }
 
     public void ChangePallet(PalletModel palletModel)
     {

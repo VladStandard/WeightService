@@ -13,5 +13,4 @@ public interface IPluService : IGetItemByUid<PluEntity>, IGetItemByUid1C<PluEnti
     PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C);
     public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C);
     public TemplateEntity GetPluTemplate(PluEntity plu);
-    public PluLineEntity GetPluLineByPlu1СAndLineName(Guid pluUid, string lineName);
 }

@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : IGetItemByUid<LineEntity>, IGetItemByQuery<LineEntity>
+public sealed class SqlLineRepository : BaseRepository, IGetItemByUid<LineEntity>, IGetItemByQuery<LineEntity>
 {
     public LineEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<LineEntity>(uid);
 

@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Entities.Print;
 
-namespace Ws.Database.Core.Entities.Print.Labels;
+namespace Ws.Database.Core.Entities.Print.Labels.Mappings;
 
 internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
 {

@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Plus;
 
-public sealed class SqlPluRepository : IGetItemByUid1C<PluEntity>, IGetItemByUid<PluEntity>, IGetAll<PluEntity>, 
+public sealed class SqlPluRepository :  BaseRepository, IGetItemByUid1C<PluEntity>, IGetItemByUid<PluEntity>, IGetAll<PluEntity>, 
     IGetListByQuery<PluEntity>
 {
     public PluEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PluEntity>(uid);

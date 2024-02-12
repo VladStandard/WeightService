@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
-public sealed class SqlPluNestingFkRepository : IGetListByQuery<PluNestingEntity>
+public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery<PluNestingEntity>
 {
     public IEnumerable<PluNestingEntity> GetListByQuery(QueryOver<PluNestingEntity> query)
     {

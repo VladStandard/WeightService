@@ -3,33 +3,28 @@ using System.Diagnostics;
 namespace Ws.Domain.Abstractions.Entities.Common;
 
 [DebuggerDisplay("{ToString()}")]
-public class IdentityModel
+public class IdentityModel(SqlEnumFieldIdentity identityName)
 {
-    public virtual SqlEnumFieldIdentity Name { get; }
-    public virtual Guid Uid { get; private set; }
-    public virtual long Id { get; private set; }
+    public virtual SqlEnumFieldIdentity Name { get; } = identityName;
+    public virtual Guid Uid { get; set; } = Guid.Empty;
+    public virtual long Id { get; set; } 
 
-    public IdentityModel()
+    public override string ToString() => Name switch
     {
-        Uid = Guid.Empty;
-        Id = 0;
-    }
-
-    public IdentityModel(SqlEnumFieldIdentity identityName) : this()
-    {
-        Name = identityName;
-    }
-
-    public override string ToString() =>
-        Name.Equals(SqlEnumFieldIdentity.Id) ? $"{Id}" : Name.Equals(SqlEnumFieldIdentity.Uid) ? $"{Uid}"
-        : string.Empty;
+        SqlEnumFieldIdentity.Id => $"{Id}",
+        SqlEnumFieldIdentity.Uid => $"{Uid}",
+        _ => string.Empty
+    };
 
     public override bool Equals(object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
-        return Equals((IdentityModel)obj);
+        IdentityModel item = (IdentityModel)obj;
+        return Equals(Name, item.Name) 
+               && Equals(Id, item.Id) 
+               && Equals(Uid, item.Uid);
     }
 
     public override int GetHashCode() => Name switch
@@ -38,15 +33,6 @@ public class IdentityModel
         SqlEnumFieldIdentity.Uid => Uid.GetHashCode(),
         _ => default
     };
-
-    public virtual bool Equals(IdentityModel item) =>
-        ReferenceEquals(this, item) || Equals(Name, item.Name) &&
-        Id.Equals(item.Id) &&
-        Uid.Equals(item.Uid);
-
-    public virtual void SetId(long value) => Id = value;
-
-    public virtual void SetUid(Guid value) => Uid = value;
 
     public virtual bool IsNew => Name switch
     {

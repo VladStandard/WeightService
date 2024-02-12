@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandRepository : 
+public sealed class SqlBrandRepository :  BaseRepository, 
     IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>, ISave<BrandEntity>
 {
     public BrandEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BrandEntity>(uid);

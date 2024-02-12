@@ -14,18 +14,6 @@ public sealed class SqlPluValidator : SqlTableValidator<PluEntity>
             .NotNull()
             .GreaterThanOrEqualTo(byte.MinValue)
             .LessThanOrEqualTo(byte.MaxValue);
-        // RuleFor(item => item.Gtin)
-        //     .NotNull()
-        //     .Empty().When(item => item.IsGroup)
-        //     .Length(14).When(item => item.IsGroup == false);
-        // RuleFor(item => item.Ean13)
-        //     .NotNull()
-        //     .Empty().When(item => item.IsGroup)
-        //     .Length(13).When(item => item.IsGroup == false);
-        // RuleFor(item => item.Itf14)
-        //     .NotNull()
-        //     .Empty().When(item => item.IsGroup || item.IsCheckWeight)
-        //     .Length(14).When(item => item.IsGroup == false);
         RuleFor(item => item.IsCheckWeight)
             .NotNull();
         RuleFor(item => item.Name)
