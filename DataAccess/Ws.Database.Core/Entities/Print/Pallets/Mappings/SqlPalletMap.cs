@@ -15,7 +15,14 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
-
+        
+        Property(x => x.Barcode, m =>
+        {
+            m.Column("BARCODE");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+        
         Property(x => x.CreateDt, m =>
         {
             m.Column("CREATE_DT");
