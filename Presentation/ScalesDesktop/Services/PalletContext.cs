@@ -1,5 +1,3 @@
-using ScalesDesktop.Features.Pallet;
-using Ws.Database.Core.Entities.Print.Pallets;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Pallet;
@@ -14,8 +12,8 @@ public class PalletContext : IDisposable
     public LineEntity Line { get => LineContext.Line; }
     public PrinterEntity Printer { get => LineContext.PrinterEntity; }
 
-    public PalletModel Pallet { get; private set; } = new();
-    public IEnumerable<PalletModel> PalletEntities { get; private set; } = [];
+    public ViewPallet CurrentPallet { get; private set; } = new();
+    public IEnumerable<ViewPallet> PalletEntities { get; private set; } = [];
     public PalletManEntity PalletMan { get; private set; } = new();
 
     public event Action? OnStateChanged;
@@ -29,7 +27,7 @@ public class PalletContext : IDisposable
 
     public void InitializeData()
     {
-        Pallet = new();
+        CurrentPallet = new();
         PalletMan = new();
         PalletEntities = GetPallets();
         OnStateChanged?.Invoke();
@@ -43,7 +41,7 @@ public class PalletContext : IDisposable
     
     public void ResetContext()
     {
-        Pallet = new();
+        CurrentPallet = new();
         PalletEntities = GetPallets();
         OnStateChanged?.Invoke();
     }
@@ -54,25 +52,12 @@ public class PalletContext : IDisposable
         OnStateChanged?.Invoke();
     }
 
-    private IEnumerable<PalletModel> GetPallets()
-    {
-        List<PalletModel> pallets = [];
-        IEnumerable<ViewPallet> palletsView = new PalletService().GetAllViewByWarehouse(Line.Warehouse);
-        
-        pallets.AddRange(palletsView.Select(pallet => new PalletModel()
-        {
-            CreateDt = pallet.CreateDt,
-            Number = pallet.Counter,
-            Uid = pallet.IdentityValueUid
-        }));
-        
-        return pallets;
-    }
+    private IEnumerable<ViewPallet> GetPallets() => new PalletService().GetAllViewByWarehouse(Line.Warehouse);
 
-    public void ChangePallet(PalletModel palletModel)
+    public void ChangePallet(ViewPallet palletView)
     {
-        if (Pallet.Equals(palletModel)) return;
-        Pallet = palletModel;
+        if (CurrentPallet.Equals(palletView)) return;
+        CurrentPallet = palletView;
         OnStateChanged?.Invoke();
     }
 

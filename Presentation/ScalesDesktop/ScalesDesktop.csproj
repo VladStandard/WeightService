@@ -32,6 +32,8 @@
         
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
+        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+        <NeutralLanguage>ru-RU</NeutralLanguage>
         <NoWarn>CA1806</NoWarn>
     </PropertyGroup>
 
@@ -64,6 +66,7 @@
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
         <PackageReference Include="Mapster" Version="7.4.0" />
         <PackageReference Include="Mapster.Core" Version="1.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

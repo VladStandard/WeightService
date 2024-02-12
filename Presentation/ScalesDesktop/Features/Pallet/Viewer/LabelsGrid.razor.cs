@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Services.Features.Pallet;
 
 namespace ScalesDesktop.Features.Pallet.Viewer;
 
@@ -11,13 +12,14 @@ public sealed partial class LabelsGrid : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
+    [Inject] private PalletService PalletService { get; set; } = null!;
 
     private IEnumerable<LabelEntity> GridData { get; set; } = [];
     private DataGrid<LabelEntity> DataGridRef { get; set; } = null!;
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
 
-    private IEnumerable<LabelEntity> GetGridData() => PalletContext.Pallet.Labels;
+    private IEnumerable<LabelEntity> GetGridData() => PalletService.GetAllLabels(PalletContext.CurrentPallet.IdentityValueUid);
 
     protected override void OnInitialized()
     {

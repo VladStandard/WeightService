@@ -3,6 +3,8 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using ScalesDesktop.Services;
+using Ws.Database.Core.Helpers;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
@@ -14,8 +16,10 @@ public sealed partial class CreateForm : ComponentBase
 {
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private LineContext LineContext { get; set; } = null!;
+    [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
-    [Inject] private ILineService LineService{ get; set; } = null!;
+    [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private IModalService ModalService { get; set; } = null!;
     [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
 
     private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];
@@ -37,9 +41,17 @@ public sealed partial class CreateForm : ComponentBase
 
     private void OnSubmit()
     {
-        string msg = $"{FormModel.Nesting} {FormModel.Plu} {FormModel.CreateDt} {FormModel.Count} " +
-                     $"{FormModel.PalletWeight}";
-        NotificationService.Info(msg);
+        PalletEntity palletEntity = new()
+        {
+            CreateDt = FormModel.CreateDt,
+            PalletMan = PalletContext.PalletMan,
+            Weight = FormModel.PalletWeight,
+            ProdDt = FormModel.CreateDt,
+            Counter = 121212,
+            Barcode = string.Empty
+        };
+        SqlCoreHelper.Instance.Save(palletEntity);
+        ModalService.Hide();
     } 
 }
 
@@ -57,5 +69,5 @@ public class PalletCreateModel
     [Range(0, double.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
     public decimal PalletWeight { get; set; }
 
-    public DateOnly CreateDt { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    public DateTime CreateDt { get; set; } = DateTime.Now;
 }

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using NHibernate.Type;
 using ScalesDesktop.Utils;
 
 namespace ScalesDesktop.Features.Shared;
@@ -9,6 +11,7 @@ public sealed partial class SharedInputDate<TValue> : ComponentBase
     public Dictionary<string, object> Attributes { get; set; } = new();
     [Parameter] public TValue Value { get; set; } = default!;
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter] public InputDateType Type { get; set; } = InputDateType.Date;
 
     private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 

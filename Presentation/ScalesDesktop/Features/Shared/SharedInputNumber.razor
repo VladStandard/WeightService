@@ -3,6 +3,8 @@
 <InputNumber
   @attributes="Attributes"
   TItem="TValue"
+  min="@Min"
+  max="@Max"
   @bind-Value="Value"
   @bind-Value:after="OnValueChanged"
   class="@InputClass"

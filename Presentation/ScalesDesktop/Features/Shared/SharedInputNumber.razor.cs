@@ -11,6 +11,8 @@ public sealed partial class SharedInputNumber<TValue> : ComponentBase
     public Dictionary<string, object> Attributes { get; set; } = new();
     [Parameter] public TValue Value { get; set; } = default!;
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter] public TValue Min { get; set; } = TValue.MinValue;
+    [Parameter] public TValue Max { get; set; } = TValue.MaxValue;
 
     private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 

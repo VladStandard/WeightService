@@ -25,7 +25,7 @@
     <DataGrid
       TItem="LabelEntity"
       @ref="DataGridRef"
-      Data="PalletContext.Pallet.Labels"
+      Data="GridData"
       @bind-SelectedRows="SelectedItems"
       VirtualizeOptions="@(new() { DataGridHeight = "100%", DataGridMaxHeight = "100%" })"
       SelectionMode="DataGridSelectionMode.Multiple"

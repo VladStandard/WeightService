@@ -1,44 +1,45 @@
 @using Blazor.Heroicons.Outline
+@using Ws.Domain.Models.Entities.Print
 <div class="h-full w-full overflow-hidden flex flex-col">
   <div class="h-full w-full grow flex flex-col overflow-hidden">
-    @if (!PalletContext.PalletEntities.Any())
-    {
-      <div class="h-full w-full flex items-center justify-center">
-        <p>Информация о паллетах отсутствует</p>
+    <div class="py-3 flex gap-2 w-full px-4 flex items-center shrink-0">
+      <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9">
+        <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-500"/>
+        <input
+          type="text"
+          class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
+          placeholder="Поиск по номеру..."/>
       </div>
-    }
+      <SharedButton
+        Variant="ButtonVariant.Outline"
+        Size="ButtonSize.Icon"
+      >
+        <FunnelIcon class="h-5 w-5 mx-2"/>
+      </SharedButton>
+      <SharedButton
+        Variant="ButtonVariant.Outline"
+        Size="ButtonSize.Icon"
+        OnClick="@ReloadData"
+      >
+        <ArrowPathIcon class="h-5 w-5 mx-2"/>
+      </SharedButton>
+      <SharedButton
+        Size="ButtonSize.Icon"
+        OnClick="@ShowCreateFormDialog"
+      >
+        <PlusIcon class="h-5 w-5 mx-2" />
+      </SharedButton>
+    </div>
+    @if (!PalletContext.PalletEntities.Any())
+        {
+          <div class="h-full w-full flex items-center justify-center">
+            <p>Информация о паллетах отсутствует</p>
+          </div>
+        }
     else
     {
-      <div class="py-3 flex gap-2 w-full px-4 flex items-center shrink-0">
-        <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9">
-          <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-500"/>
-          <input
-            type="text"
-            class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-            placeholder="Поиск по номеру..."/>
-        </div>
-        <SharedButton
-          Variant="ButtonVariant.Outline"
-          Size="ButtonSize.Icon"
-        >
-          <FunnelIcon class="h-5 w-5 mx-2"/>
-        </SharedButton>
-        <SharedButton
-          Variant="ButtonVariant.Outline"
-          Size="ButtonSize.Icon"
-          OnClick="@ReloadData"
-        >
-          <ArrowPathIcon class="h-5 w-5 mx-2"/>
-        </SharedButton>
-        <SharedButton
-          Size="ButtonSize.Icon"
-          OnClick="@ShowCreateFormDialog"
-        >
-          <PlusIcon class="h-5 w-5 mx-2" />
-        </SharedButton>
-      </div>
       <ul class="w-full space-y-3 grow p-4 pr-0.5 pt-0 overflow-y-auto">
-        @foreach (PalletModel item in PalletContext.PalletEntities.Take(100))
+        @foreach (ViewPallet item in PalletContext.PalletEntities.Take(100))
         {
           <li>
             <PalletSelectItem Pallet="item"/>

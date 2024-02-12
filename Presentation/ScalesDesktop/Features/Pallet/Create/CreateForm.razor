@@ -43,6 +43,7 @@
       TValue="decimal"
       id="pallet-weight"
       step="0.001"
+      Min="@decimal.Zero"
       placeholder="Введите вес палетты..."
       @bind-Value="FormModel.PalletWeight"
     />
@@ -50,7 +51,8 @@
   <SharedInputLabelWrapper Label="Дата создания" HtmlFor="create-dt">
     <SharedInputDate
       id="create-dt"
-      TValue="DateOnly"
+      TValue="DateTime"
+      Type="InputDateType.DateTimeLocal"
       @bind-Value="FormModel.CreateDt"
     />
   </SharedInputLabelWrapper>
@@ -59,6 +61,7 @@
       TValue="int"
       id="count"
       step="1"
+      Min="1"
       placeholder="Введите количество..."
       @bind-Value="FormModel.Count"
     />

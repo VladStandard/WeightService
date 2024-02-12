@@ -26,10 +26,10 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-
-        builder.Services.AddLocalization();
+        
         CultureInfo.DefaultThreadCurrentCulture = new("ru-RU");
         CultureInfo.DefaultThreadCurrentUICulture = new("ru-RU");
+        builder.Services.AddLocalization();
         
         builder.Services.AddScoped<IPrintingService, PrintingService>();
         builder.Services.AddSingleton<ExternalDevicesService>();
