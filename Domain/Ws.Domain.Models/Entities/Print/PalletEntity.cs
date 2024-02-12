@@ -11,6 +11,8 @@ public class PalletEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
     public virtual PalletManEntity PalletMan { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;
     public virtual int Counter { get; set; } = 0;
+    public DateTime ProdDt { get; set; }
+    public decimal Weight { get; set; }
 
     protected override bool CastEquals(EntityBase obj)
     {
