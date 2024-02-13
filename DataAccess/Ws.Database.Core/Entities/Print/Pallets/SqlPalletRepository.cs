@@ -7,9 +7,9 @@ public sealed class SqlPalletRepository : BaseRepository
 {
     public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse)
     {
-        return SqlCoreHelper.Instance.GetEnumerable(
-            QueryOver.Of<ViewPallet>().Where(i => i.Warehouse == warehouse.Name).OrderBy(i => i.CreateDt).Desc()
-        );
+        return SqlCoreHelper.Instance.GetEnumerable<ViewPallet>();
+            // QueryOver.Of<ViewPallet>().Where(i => i.Warehouse == warehouse.Name).OrderBy(i => i.CreateDt).Desc()
+        // );
     }
     
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid)

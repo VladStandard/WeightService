@@ -6,7 +6,7 @@ namespace Ws.Domain.Abstractions.Entities.Common;
 public class IdentityModel(SqlEnumFieldIdentity identityName)
 {
     public virtual SqlEnumFieldIdentity Name { get; } = identityName;
-    public virtual Guid Uid { get; set; } = Guid.Empty;
+    public virtual Guid Uid { get; set; }
     public virtual long Id { get; set; } 
 
     public override string ToString() => Name switch
@@ -22,9 +22,7 @@ public class IdentityModel(SqlEnumFieldIdentity identityName)
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != GetType()) return false;
         IdentityModel item = (IdentityModel)obj;
-        return Equals(Name, item.Name) 
-               && Equals(Id, item.Id) 
-               && Equals(Uid, item.Uid);
+        return Equals(Name, item.Name) && Equals(Id, item.Id) && Equals(Uid, item.Uid);
     }
 
     public override int GetHashCode() => Name switch

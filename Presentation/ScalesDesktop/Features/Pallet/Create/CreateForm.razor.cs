@@ -9,6 +9,8 @@ using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
+using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
 
 namespace ScalesDesktop.Features.Pallet.Create;
 
@@ -19,6 +21,7 @@ public sealed partial class CreateForm : ComponentBase
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
     [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
 
@@ -43,7 +46,6 @@ public sealed partial class CreateForm : ComponentBase
     {
         PalletEntity palletEntity = new()
         {
-            CreateDt = FormModel.CreateDt,
             PalletMan = PalletContext.PalletMan,
             Weight = FormModel.PalletWeight,
             ProdDt = FormModel.CreateDt,
@@ -51,6 +53,19 @@ public sealed partial class CreateForm : ComponentBase
             Barcode = string.Empty
         };
         SqlCoreHelper.Instance.Save(palletEntity);
+
+        LabelPieceDto dto = new ()
+        {
+            ExpirationDt = FormModel.CreateDt.AddDays(FormModel.Plu!.ShelfLifeDays),
+            Kneading = 1,
+            Line = LineContext.Line,
+            Nesting = FormModel.Nesting!,
+            ProductDt = FormModel.CreateDt,
+            Template = PluService.GetPluTemplate(FormModel.Plu).Data
+        };
+        
+        PrintLabelService.GeneratePiecePallet(dto, palletEntity, FormModel.Count);
+        
         ModalService.Hide();
     } 
 }

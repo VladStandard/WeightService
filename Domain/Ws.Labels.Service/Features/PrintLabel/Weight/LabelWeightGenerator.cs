@@ -31,7 +31,7 @@ public class LabelWeightGenerator
             BarcodeRight = labelReady.BarcodeRight,
             BarcodeTop = labelReady.BarcodeTop,
             WeightNet = labelDto.Weight,
-            WeightTare = labelDto.WeightTare,
+            WeightTare = labelDto.Nesting.WeightTare,
             Kneading = labelDto.Kneading,
             ProductDt = labelDto.ProductDt,
             ExpirationDt = labelDto.ExpirationDt,

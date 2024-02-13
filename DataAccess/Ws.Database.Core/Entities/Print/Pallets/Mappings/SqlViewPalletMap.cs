@@ -10,8 +10,7 @@ public class SqlViewPalletMap: ClassMapping<ViewPallet>
         Table(SqlTablesUtils.ViewPallets);
         Mutable(false);
         
-        Id(x => x.IdentityValueUid, m =>
-        {
+        Id(x => x.IdentityValueUid, m => { 
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
         });
@@ -61,11 +60,6 @@ public class SqlViewPalletMap: ClassMapping<ViewPallet>
         
         Property(x => x.WeightNet, m => {
             m.Column("WEIGHT_NETTO");
-            m.Type(NHibernateUtil.String);
-        });
-        
-        Property(x => x.WeightBrut, m => {
-            m.Column("WEIGHT_BRUT");
             m.Type(NHibernateUtil.Decimal);
         });
         
@@ -74,7 +68,7 @@ public class SqlViewPalletMap: ClassMapping<ViewPallet>
             m.Type(NHibernateUtil.Decimal);
         });
         
-        Id(x => x.LabelCount, m =>
+        Property(x => x.LabelCount, m =>
         {
             m.Column("LABEL_COUNT");
             m.Type(NHibernateUtil.Int32);

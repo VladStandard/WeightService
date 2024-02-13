@@ -65,7 +65,7 @@
       <SharedLabel for="netto">Вес нетто</SharedLabel>
       <SharedInputText
         id="netto"
-        Value="@PalletContext.CurrentPallet.WeightNet.ToString(CultureInfo.InvariantCulture)"
+        Value="@PalletContext.CurrentPallet.WeightNet?.ToString(CultureInfo.InvariantCulture)"
         class="disabled:opacity-100"
         disabled
       />
@@ -74,7 +74,7 @@
       <SharedLabel for="brutto">Вес брутто</SharedLabel>
       <SharedInputText
         id="brutto"
-        Value="@PalletContext.CurrentPallet.WeightBrut.ToString(CultureInfo.InvariantCulture)"
+        Value="@PalletContext.CurrentPallet.WeightBrut?.ToString(CultureInfo.InvariantCulture)"
         class="disabled:opacity-100"
         disabled
       />

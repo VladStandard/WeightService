@@ -11,8 +11,8 @@ namespace ScalesDesktop.Features.Pallet.Viewer;
 public sealed partial class LabelsGrid : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IPalletService PalletService { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
-    [Inject] private PalletService PalletService { get; set; } = null!;
 
     private IEnumerable<LabelEntity> GridData { get; set; } = [];
     private DataGrid<LabelEntity> DataGridRef { get; set; } = null!;

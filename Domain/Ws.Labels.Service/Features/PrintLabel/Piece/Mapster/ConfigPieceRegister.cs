@@ -1,14 +1,14 @@
 ﻿using Mapster;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Models;
+using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Weight.Mapster;
+namespace Ws.Labels.Service.Features.PrintLabel.Piece.Mapster;
 
-public class ConfigRegister : IRegister
+public class ConfigPieceRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<LabelWeightDto, XmlWeightLabelModel>()
+        config.NewConfig<LabelPieceDto, XmlPieceLabelModel>()
             .Map(d => d.LineName, s => s.Line.Name)
             .Map(d => d.LineAddress, s => s.Line.Warehouse.ProductionSite.Address)
             .Map(d => d.LineNumber, s => s.Line.Number)
@@ -20,7 +20,6 @@ public class ConfigRegister : IRegister
             .Map(d => d.PluFullName, s => s.Nesting.Plu.FullName)
             .Map(d => d.PluDescription, s => s.Nesting.Plu.Description)
             .Map(d => d.Kneading, s => s.Kneading)
-            .Map(d => d.Weight, s => s.Weight)
             .IgnoreNonMapped(true)
             .GenerateMapper(MapType.Map);
     }

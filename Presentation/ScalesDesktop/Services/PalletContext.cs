@@ -35,7 +35,7 @@ public class PalletContext : IDisposable
 
     public void SetPalletMan(PalletManEntity palletManEntity)
     {
-        PalletMan.IdentityValueUid = Guid.NewGuid();
+        PalletMan = palletManEntity;
         OnStateChanged?.Invoke();
     }
     

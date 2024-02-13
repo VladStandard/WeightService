@@ -103,7 +103,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         {
             Kneading = (short)LabelContext.KneadingModel.KneadingCount,
             Weight = GetWeight(),
-            WeightTare = LabelContext.PluNesting.WeightTare,
             Nesting = LabelContext.PluNesting,
             Line = LabelContext.Line,
             Template = LabelContext.PluTemplate.Data,
