@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
+using Ws.Domain.Models.Entities.Print;
 using Border = iText.Layout.Borders.Border;
 using Paragraph = iText.Layout.Element.Paragraph;
 using IText = iText.Layout.Element.Text;
@@ -28,6 +29,8 @@ public sealed partial class Overview : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPrintingService PrintingService { get; set; } = null!;
+
+    private ViewPallet Pallet => PalletContext.CurrentPallet;
 
     protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;
 
@@ -56,7 +59,7 @@ public sealed partial class Overview : ComponentBase, IDisposable
 
     private void GeneratePalletCardHtml(Document doc, PdfDocument pdf)
     {
-        Paragraph paragraph = new("Паллетная карта № 00165896");
+        Paragraph paragraph = new($"Паллетная карта № {Pallet.Counter}");
         paragraph.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
         paragraph.SetBold();
         paragraph.SetFontSize(16);
@@ -73,10 +76,10 @@ public sealed partial class Overview : ComponentBase, IDisposable
         cell = new ICell().Add(new Paragraph("Время формирования")).SetBorder(Border.NO_BORDER);
         dateTimeTable.AddCell(cell);
         
-        cell = new ICell().Add(new Paragraph("15.01.2024").SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER);
+        cell = new ICell().Add(new Paragraph(Pallet.ProdDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER);
         dateTimeTable.AddCell(cell);
         
-        cell = new ICell().Add(new Paragraph("0:00:00").SetFontSize(30)).SetBorder(Border.NO_BORDER);
+        cell = new ICell().Add(new Paragraph(Pallet.ProdDt.ToString("HH:mm:ss")).SetFontSize(30)).SetBorder(Border.NO_BORDER);
         dateTimeTable.AddCell(cell);
         
         doc.Add(dateTimeTable);
@@ -87,25 +90,25 @@ public sealed partial class Overview : ComponentBase, IDisposable
             .SetMarginBottom(10);
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Вес нетто")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("294,000");
+        infoTable.AddCell(Pallet.WeightNet.ToString());
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Вес брутто + Вес паллеты")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("348,601");
+        infoTable.AddCell(Pallet.WeightBrut.ToString());
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Вес паллеты")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("0,001");
+        infoTable.AddCell("0");
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Количество коробок")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("140");
+        infoTable.AddCell(Pallet.LabelCount.ToString());
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Склад")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("Склад фасовка 4");
+        infoTable.AddCell(Pallet.Warehouse);
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Линия")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("Линия 14");
+        infoTable.AddCell(Pallet.Line);
         
         infoTable.AddCell(new ICell().Add(new Paragraph("Замес")).SetBorder(Border.NO_BORDER));
-        infoTable.AddCell("0");
+        infoTable.AddCell(Pallet.Kneading.ToString());
         
         doc.Add(infoTable);
         
@@ -120,17 +123,17 @@ public sealed partial class Overview : ComponentBase, IDisposable
         pluTable.AddCell("Кол-во единиц товара шт.");
         pluTable.AddCell("Коробки шт.");
         
-        pluTable.AddCell(new Paragraph("Владимирский в.к 350 г").SetBold().SetFontSize(40));
-        pluTable.AddCell("294,000");
-        pluTable.AddCell("348,600");
+        pluTable.AddCell(new Paragraph(Pallet.Plu).SetBold().SetFontSize(30));
+        pluTable.AddCell(Pallet.WeightNet.ToString());
+        pluTable.AddCell(Pallet.WeightBrut.ToString());
         pluTable.AddCell("840");
-        pluTable.AddCell("140");
+        pluTable.AddCell(Pallet.LabelCount.ToString());
 
         pluTable.AddCell(new Paragraph("Всего").SetBold());
-        pluTable.AddCell(new Paragraph("294,000").SetBold());
-        pluTable.AddCell(new Paragraph("348,600").SetBold());
+        pluTable.AddCell(new Paragraph(Pallet.WeightNet.ToString()).SetBold());
+        pluTable.AddCell(new Paragraph(Pallet.WeightBrut.ToString()).SetBold());
         pluTable.AddCell(new Paragraph("840").SetBold());
-        pluTable.AddCell(new Paragraph("140").SetBold());
+        pluTable.AddCell(new Paragraph(Pallet.LabelCount.ToString()).SetBold());
         
         doc.Add(pluTable);
         
@@ -142,7 +145,6 @@ public sealed partial class Overview : ComponentBase, IDisposable
         barcodeImage.ScaleAbsolute(barcodeSize.GetWidth() * scaleFactor, barcodeSize.GetHeight() * scaleFactor);
         barcodeImage.SetMarginTop(barcodeImage.GetImageHeight() * 3);
         doc.Add(barcodeImage);
-
     }
 
     public void Dispose() => PalletContext.OnStateChanged -= StateHasChanged;

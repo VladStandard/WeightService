@@ -66,6 +66,16 @@
       @bind-Value="FormModel.Count"
     />
   </SharedInputLabelWrapper>
+  <SharedInputLabelWrapper Label="Замес" HtmlFor="kneading">
+    <SharedInputNumber
+      TValue="short"
+      id="kneading"
+      step="1"
+      Min="0"
+      placeholder="Введите замес..."
+      @bind-Value="FormModel.Kneading"
+    />
+  </SharedInputLabelWrapper>
   <SharedButton Type="ButtonType.Submit" class="!mt-8 !mb-2" >
     Создать
   </SharedButton>

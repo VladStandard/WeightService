@@ -9,13 +9,13 @@ public sealed partial class PalletPage : ComponentBase, IDisposable
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     protected override void OnInitialized()
     {
-        PalletContext.InitializeData();
+        PalletContext.InitializeContext();
         PalletContext.OnStateChanged += StateHasChanged;
     }
 
     public void Dispose()
     {
-        PalletContext.InitializeData();
+        PalletContext.ResetPalletMan();
         PalletContext.OnStateChanged -= StateHasChanged;
     } 
 }

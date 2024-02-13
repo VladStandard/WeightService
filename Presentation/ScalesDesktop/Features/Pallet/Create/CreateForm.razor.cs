@@ -57,7 +57,7 @@ public sealed partial class CreateForm : ComponentBase
         LabelPieceDto dto = new ()
         {
             ExpirationDt = FormModel.CreateDt.AddDays(FormModel.Plu!.ShelfLifeDays),
-            Kneading = 1,
+            Kneading = FormModel.Kneading,
             Line = LineContext.Line,
             Nesting = FormModel.Nesting!,
             ProductDt = FormModel.CreateDt,
@@ -78,11 +78,14 @@ public class PalletCreateModel
     [Required(ErrorMessage = "Поле 'Вложенность' обязательно для заполнения")]
     public PluNestingEntity? Nesting { get; set; }
 
-    [Range(1, int.MaxValue, ErrorMessage = "Поле 'Количество' не может быть меньше 1")]
+    [Range(1, 200, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 200")]
     public int Count { get; set; } = 1;
 
     [Range(0, double.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
     public decimal PalletWeight { get; set; }
+
+    [Range(0, short.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
+    public short Kneading { get; set; } = 0;
 
     public DateTime CreateDt { get; set; } = DateTime.Now;
 }

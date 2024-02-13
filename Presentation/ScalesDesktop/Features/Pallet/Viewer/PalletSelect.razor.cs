@@ -12,7 +12,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
 
     protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;
 
-    private void ReloadData() => PalletContext.ResetContext();
+    private void ReloadData() => PalletContext.UpdatePalletData();
 
     private async Task ShowCreateFormDialog() => await ModalService.Show<CreateFormModal>();
 
