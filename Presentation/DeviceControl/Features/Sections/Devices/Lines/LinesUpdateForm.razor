@@ -59,7 +59,7 @@
     Label="@Localizer["DataGridColumnWarehouse"]"
     Link="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.IdentityValueUid}")"
     @bind-SelectedItem="@SectionEntity.Warehouse"
-    ItemDisplayName="item => item.DisplayName"
+    ItemDisplayName="item => item.Name"
     IsFilterable
   />
 </SectionFormWrapper>

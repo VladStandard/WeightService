@@ -10,8 +10,8 @@ namespace Ws.WebApiScales.Features.Brands.Dto
             }
             Ws.Domain.Models.Entities.Ref1c.BrandEntity result = p2 ?? new Ws.Domain.Models.Entities.Ref1c.BrandEntity();
             
-            result.Uid1C = p1.Uid;
             result.Name = p1.Name;
+            result.Uid1C = p1.Uid;
             return result;
             
         }

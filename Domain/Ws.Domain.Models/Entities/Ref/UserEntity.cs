@@ -8,12 +8,13 @@ namespace Ws.Domain.Models.Entities.Ref;
 [DebuggerDisplay("{ToString()}")]
 public class UserEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
+    public virtual string Name { get; set; } = string.Empty;
     public virtual DateTime LoginDt { get; set; } = SqlTypeUtils.MinDateTime;
     public virtual ISet<ClaimEntity> Claims { get; set; } = new HashSet<ClaimEntity>();
 
     protected override bool CastEquals(EntityBase obj)
     {
         UserEntity item = (UserEntity)obj;
-        return Claims.SetEquals(item.Claims) && Equals(LoginDt, item.LoginDt);
+        return Claims.SetEquals(item.Claims) && Equals(LoginDt, item.LoginDt) && Equals(Name, item.Name);
     }
 }

@@ -18,8 +18,8 @@ namespace Ws.WebApiScales.Features.Plus.Dto
             result.Itf14 = p1.IsCheckWeight == true ? "" : p1.Itf14;
             result.IsCheckWeight = p1.IsCheckWeight;
             result.Description = p1.Description;
-            result.Uid1C = p1.Uid;
             result.Name = p1.Name;
+            result.Uid1C = p1.Uid;
             return result;
             
         }

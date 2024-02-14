@@ -11,8 +11,8 @@ namespace Ws.WebApiScales.Features.Bundles.Dto
             Ws.Domain.Models.Entities.Ref1c.BundleEntity result = p2 ?? new Ws.Domain.Models.Entities.Ref1c.BundleEntity();
             
             result.Weight = p1.Weight;
-            result.Uid1C = p1.Uid;
             result.Name = p1.Name;
+            result.Uid1C = p1.Uid;
             return result;
             
         }

@@ -15,7 +15,7 @@ public class TableRepositoryTests
     {
     }
 
-    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(EntityBase.Name)).Ascending;
+    protected virtual IResolveConstraint SortOrderValue => Is.Ordered.Ascending;
 
     protected void ParseRecords<T>(IEnumerable<T> items) where T : EntityBase, new()
     {

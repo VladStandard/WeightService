@@ -6,25 +6,19 @@ using Ws.Domain.Models.Enums;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class PrinterEntity : EntityBase
+public class PrinterEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
-    public virtual string Ip { get; set; }
-    public virtual short Port { get; set; }
-    public virtual PrinterTypeEnum Type { get; set; }
-    public override string DisplayName => $"{Name} | {Ip}";
-
-    public PrinterEntity() : base(SqlEnumFieldIdentity.Uid)
-    {
-        Ip = string.Empty;
-        Port = 9100;
-        Type = PrinterTypeEnum.Tsc;
-    }
-
+    public virtual string Ip { get; set; } = string.Empty;
+    public virtual short Port { get; set; } = 9100;
+    public virtual PrinterTypeEnum Type { get; set; } = PrinterTypeEnum.Tsc;
+    public virtual string Name { get; set; } = string.Empty;
+    public virtual string DisplayName => $"{Name} | {Ip}";
+    
     public override string ToString() => $"{nameof(Type)}: {Type}.";
 
     protected override bool CastEquals(EntityBase obj)
     {
         PrinterEntity item = (PrinterEntity)obj;
-        return Equals(Ip, item.Ip) && Equals(Port, item.Port) && Equals(Type, item.Type);
+        return Equals(Ip, item.Ip) && Equals(Port, item.Port) && Equals(Type, item.Type) && Equals(Name, item.Name);
     }
 }

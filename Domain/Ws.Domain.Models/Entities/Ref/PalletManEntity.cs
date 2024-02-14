@@ -5,12 +5,12 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletManEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
+public class PalletManEntity() : Entity1CBase
 {
     public virtual string Surname { get; set; } = string.Empty;
     public virtual string Patronymic { get; set; } = string.Empty;
     public virtual string Password { get; set; } = string.Empty;
-
+    public virtual string Name { get; set; } = string.Empty;
     public virtual string Fio => $"{Surname} {Name} {Patronymic}";
 
     public virtual string FioShort =>
@@ -22,6 +22,7 @@ public class PalletManEntity() : Entity1CBase(SqlEnumFieldIdentity.Uid)
         PalletManEntity item = (PalletManEntity)obj;
         return Equals(Surname, item.Surname) &&
                Equals(Patronymic, item.Patronymic) &&
+               Equals(Name, item.Name) &&
                Equals(Password, item.Password);
     }
 

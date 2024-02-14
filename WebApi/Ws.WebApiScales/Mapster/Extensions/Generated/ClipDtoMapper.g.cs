@@ -10,9 +10,9 @@ namespace Ws.WebApiScales.Features.Clips.Dto
             }
             Ws.Domain.Models.Entities.Ref1c.ClipEntity result = p2 ?? new Ws.Domain.Models.Entities.Ref1c.ClipEntity();
             
+            result.Name = p1.Name;
             result.Weight = p1.Weight;
             result.Uid1C = p1.Uid;
-            result.Name = p1.Name;
             return result;
             
         }

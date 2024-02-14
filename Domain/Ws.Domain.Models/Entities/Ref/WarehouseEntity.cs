@@ -7,12 +7,13 @@ namespace Ws.Domain.Models.Entities.Ref;
 [DebuggerDisplay("{ToString()}")]
 public class WarehouseEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
+    public virtual string Name { get; set; } = string.Empty;
     public virtual ProductionSiteEntity ProductionSite { get; set; } = new();
 
     protected override bool CastEquals(EntityBase obj)
     {
         WarehouseEntity item = (WarehouseEntity)obj;
-        return ProductionSite.Equals(item.ProductionSite);
+        return Equals(ProductionSite, item.ProductionSite) && Equals(Name, item.Name);
     }
 
     public override string ToString() => $"{Name} {ProductionSite}";

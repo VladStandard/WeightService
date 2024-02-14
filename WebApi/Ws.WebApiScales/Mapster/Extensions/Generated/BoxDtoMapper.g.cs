@@ -11,8 +11,8 @@ namespace Ws.WebApiScales.Features.Boxes.Dto
             Ws.Domain.Models.Entities.Ref1c.BoxEntity result = p2 ?? new Ws.Domain.Models.Entities.Ref1c.BoxEntity();
             
             result.Weight = p1.Weight;
-            result.Uid1C = p1.Uid;
             result.Name = p1.Name;
+            result.Uid1C = p1.Uid;
             return result;
             
         }

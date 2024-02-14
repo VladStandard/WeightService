@@ -8,12 +8,13 @@ namespace Ws.Domain.Models.Entities.Scale;
 [DebuggerDisplay("{ToString()}")]
 public class TemplateResourceEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
 {
+    public virtual string Name { get; set; } = string.Empty;
     public virtual FieldBinaryModel Data { get; set; } = new();
     public virtual byte[] DataValue { get => Data.Value; set => Data.Value = value; }
 
     protected override bool CastEquals(EntityBase obj)
     {
         TemplateResourceEntity item = (TemplateResourceEntity)obj;
-        return Equals(Data, item.Data);
+        return Equals(Data, item.Data) && Equals(Name, item.Name);
     }
 }
