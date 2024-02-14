@@ -3,13 +3,13 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Services.Features.Box;
 
-internal class BoxService : IBoxService
+internal class BoxService(SqlBoxRepository boxRepo) : IBoxService
 {
-    public IEnumerable<BoxEntity> GetAll() => new SqlBoxRepository().GetAll();
+    public IEnumerable<BoxEntity> GetAll() => boxRepo.GetAll();
 
-    public BoxEntity GetItemByUid(Guid uid) => new SqlBoxRepository().GetByUid(uid);
+    public BoxEntity GetItemByUid(Guid uid) => boxRepo.GetByUid(uid);
 
-    public BoxEntity GetItemByUid1С(Guid uid) => new SqlBoxRepository().GetByUid1C(uid);
+    public BoxEntity GetItemByUid1С(Guid uid) => boxRepo.GetByUid1C(uid);
 
     public BoxEntity GetDefaultForCharacteristic()
     {

@@ -8,8 +8,10 @@ using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Database.Core.Entities.Ref.Printers;
 using Ws.Database.Core.Entities.Ref.ProductionSites;
 using Ws.Database.Core.Entities.Ref.StorageMethods;
+using Ws.Database.Core.Entities.Ref.Templates;
 using Ws.Database.Core.Entities.Ref.Users;
 using Ws.Database.Core.Entities.Ref.Warehouses;
+using Ws.Database.Core.Entities.Ref.ZplResources;
 using Ws.Database.Core.Entities.Ref1c.Boxes;
 using Ws.Database.Core.Entities.Ref1c.Brands;
 using Ws.Database.Core.Entities.Ref1c.Bundles;
@@ -17,8 +19,6 @@ using Ws.Database.Core.Entities.Ref1c.Clips;
 using Ws.Database.Core.Entities.Ref1c.Plus;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
 using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
-using Ws.Database.Core.Entities.Scales.Templates;
-using Ws.Database.Core.Entities.Scales.TemplatesResources;
 using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
@@ -48,7 +48,7 @@ public static class SqlValidationUtils
             LineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
             PalletManEntity man => new SqlPalletManValidator(isCheckIdentity).Validate(man),
             TemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
-            TemplateResourceEntity templateResource => new SqlTemplateResourceValidator(isCheckIdentity).Validate(templateResource),
+            TemplateResourceEntity templateResource => new SqlZplResourceValidator(isCheckIdentity).Validate(templateResource),
             WarehouseEntity workShop => new SqlWarehouseValidator(isCheckIdentity).Validate(workShop),
             PrinterEntity printer => new SqlPrinterValidator(isCheckIdentity).Validate(printer),
             UserEntity user => new SqlUserValidator(isCheckIdentity).Validate(user),

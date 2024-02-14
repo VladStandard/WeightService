@@ -4,11 +4,11 @@ using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Domain.Services.Features.Label;
 
-internal class LabelService : ILabelService
+internal class LabelService(SqlLabelRepository labelRepo) : ILabelService
 {
-    public LabelEntity GetItemByUid(Guid uid) => SqlCoreHelper.GetItemById<LabelEntity>(uid);
+    public LabelEntity GetItemByUid(Guid uid) => labelRepo.GetByUid(uid);
 
-    public IEnumerable<ViewLabel> GetAll() => new SqlLabelRepository().GetAllView();
+    public IEnumerable<ViewLabel> GetAll() => labelRepo.GetAllView();
 
     public ViewLabel GetViewByUid(Guid uid) => SqlCoreHelper.GetItemById<ViewLabel>(uid);
 }

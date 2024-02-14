@@ -4,11 +4,11 @@ using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Domain.Services.Features.LogWeb;
 
-internal class LogWebService : ILogWebService
+internal class LogWebService(SqlLogWebRepository logWebRepo) : ILogWebService
 {
-    public IEnumerable<LogWebEntity> GetAll() => new SqlLogWebRepository().GetList();
+    public IEnumerable<LogWebEntity> GetAll() => logWebRepo.GetList();
 
-    public LogWebEntity GetItemByUid(Guid uid) => new SqlLogWebRepository().GetByUid(uid);
+    public LogWebEntity GetItemByUid(Guid uid) => logWebRepo.GetByUid(uid);
 
     public void Save(DateTime requestStampDt, string request, string response, string url, int success, int errors)
     {

@@ -3,9 +3,9 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.ProductionSite;
 
-internal class ProductionSiteService : IProductionSiteService
+internal class ProductionSiteService(SqlProductionSiteRepository productionSiteRepo) : IProductionSiteService
 {
-    public ProductionSiteEntity GetItemByUid(Guid uid) => new SqlProductionSiteRepository().GetByUid(uid);
+    public ProductionSiteEntity GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
 
-    public IEnumerable<ProductionSiteEntity> GetAll() => new SqlProductionSiteRepository().GetAll();
+    public IEnumerable<ProductionSiteEntity> GetAll() => productionSiteRepo.GetAll();
 }

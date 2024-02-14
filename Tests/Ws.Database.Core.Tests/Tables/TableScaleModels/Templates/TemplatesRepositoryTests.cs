@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Scales.Templates;
+﻿using Ws.Database.Core.Entities.Ref.Templates;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.Templates;

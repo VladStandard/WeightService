@@ -1,14 +1,15 @@
 using Ws.Domain.Models.Entities.Scale;
 
-namespace Ws.Database.Core.Entities.Scales.Templates;
+namespace Ws.Database.Core.Entities.Ref.ZplResources;
 
-internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
+internal sealed class SqlZplResourceMap : ClassMapping<TemplateResourceEntity>
 {
-    public SqlTemplateMap()
+    public SqlZplResourceMap()
     {
-        Schema(SqlSchemasUtils.Ref);
-        Table(SqlTablesUtils.Templates);
-        
+        Schema(SqlSchemasUtils.Print);
+        Table(SqlTablesUtils.ZplResources);
+        Lazy(false);
+
         Id(x => x.Uid, m =>
         {
             m.Column("UID");
@@ -35,13 +36,15 @@ internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(64);
+            m.NotNullable(true);
         });
 
-        Property(x => x.Body, m =>
+        Property(x => x.Zpl, m =>
         {
-            m.Column("BODY");
+            m.Column("ZPL");
             m.Type(NHibernateUtil.String);
             m.NotNullable(true);
+            m.Length(int.MaxValue);
         });
     }
 }

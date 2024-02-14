@@ -3,8 +3,8 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.Printer;
 
-internal class PrinterService : IPrinterService
+internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterService
 {
-    public PrinterEntity GetItemByUid(Guid uid) => new SqlPrinterRepository().GetByUid(uid);
-    public IEnumerable<PrinterEntity> GetAll() => new SqlPrinterRepository().GetAll();
+    public PrinterEntity GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
+    public IEnumerable<PrinterEntity> GetAll() => printerRepo.GetAll();
 }

@@ -4,15 +4,15 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.User;
 
-internal class UserService : IUserService
+internal class UserService(SqlUserRepository userRepo) : IUserService
 {
-    public IEnumerable<UserEntity> GetAll() => new SqlUserRepository().GetAll();
+    public IEnumerable<UserEntity> GetAll() => userRepo.GetAll();
 
-    public UserEntity GetItemByUid(Guid uid) => new SqlUserRepository().GetByUid(uid);
+    public UserEntity GetItemByUid(Guid uid) => userRepo.GetByUid(uid);
 
     public UserEntity GetItemByNameOrCreate(string username)
     {
-        UserEntity user = new SqlUserRepository().GetItemByUsername(username);
+        UserEntity user = userRepo.GetItemByUsername(username);
 
         user.Name = username;
         user.LoginDt = DateTime.Now;

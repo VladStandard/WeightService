@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Entities.Scale;
 
-namespace Ws.Database.Core.Entities.Scales.Templates;
+namespace Ws.Database.Core.Entities.Ref.Templates;
 
 public sealed class SqlTemplateRepository :  BaseRepository, IGetAll<TemplateEntity>
 {

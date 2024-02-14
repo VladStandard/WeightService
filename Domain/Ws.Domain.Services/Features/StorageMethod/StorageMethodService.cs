@@ -4,17 +4,17 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.StorageMethod;
 
-internal class StorageMethodService : IStorageMethodService
+internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo) : IStorageMethodService
 {
-    public IEnumerable<StorageMethodEntity> GetAll() => new SqlStorageMethodRepository().GetList();
+    public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
 
-    public StorageMethodEntity GetItemByUid(Guid uid) => new SqlStorageMethodRepository().GetByUid(uid);
+    public StorageMethodEntity GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
 
-    public StorageMethodEntity GetByName(string name) => new SqlStorageMethodRepository().GetItemByName(name);
+    public StorageMethodEntity GetByName(string name) => storageMethodRepo.GetItemByName(name);
 
     public StorageMethodEntity GetDefault()
     {
-        StorageMethodEntity defaultMethod = new SqlStorageMethodRepository().GetItemByName("Без способа хранения");
+        StorageMethodEntity defaultMethod = storageMethodRepo.GetItemByName("Без способа хранения");
         if (defaultMethod.IsNew) SqlCoreHelper.Save(defaultMethod);
         return defaultMethod;
     }

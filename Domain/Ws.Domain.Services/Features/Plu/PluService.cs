@@ -8,15 +8,15 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Services.Features.Plu;
 
-public class PluService : IPluService
+public class PluService(SqlPluRepository pluRepo) : IPluService
 {
     #region Queries
 
-    public PluEntity GetItemByUid(Guid uid) => new SqlPluRepository().GetByUid(uid);
+    public PluEntity GetItemByUid(Guid uid) => pluRepo.GetByUid(uid);
 
-    public PluEntity GetItemByUid1С(Guid uid) => new SqlPluRepository().GetByUid1C(uid);
+    public PluEntity GetItemByUid1С(Guid uid) => pluRepo.GetByUid1C(uid);
 
-    public IEnumerable<PluEntity> GetAll() => new SqlPluRepository().GetAll();
+    public IEnumerable<PluEntity> GetAll() => pluRepo.GetAll();
 
     public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu) =>
         new SqlPluNestingFkRepository().GetEnumerableByPlu(plu);

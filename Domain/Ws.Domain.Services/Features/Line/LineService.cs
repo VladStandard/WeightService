@@ -7,18 +7,18 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Domain.Services.Features.Line;
 
-internal partial class LineService : ILineService
+internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineRepository pluLineRepo) : ILineService
 {
     #region Get Lines
 
     public LineEntity GetCurrentLine()
     {
-        return new SqlLineRepository().GetItemByQuery(
+        return lineRepo.GetItemByQuery(
         QueryOver.Of<LineEntity>().Where(i => i.PcName == Dns.GetHostName())
         );
     }
-    public IEnumerable<LineEntity> GetAll() => new SqlLineRepository().GetAll();
-    public LineEntity GetItemByUid(Guid uid) => new SqlLineRepository().GetByUid(uid);
+    public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
+    public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     #endregion
 
@@ -34,7 +34,7 @@ internal partial class LineService : ILineService
 
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
     {
-        return new SqlPluLineRepository().GetListByQuery(
+        return pluLineRepo.GetListByQuery(
         QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)
         );
     }

@@ -1,8 +1,8 @@
 using Ws.Domain.Models.Entities.Scale;
 
-namespace Ws.Database.Core.Entities.Scales.TemplatesResources;
+namespace Ws.Database.Core.Entities.Ref.ZplResources;
 
-public class SqlTemplateResourceRepository :  BaseRepository, IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
+public class SqlZplResourceRepository :  BaseRepository, IGetItemByUid<TemplateResourceEntity>, IGetAll<TemplateResourceEntity>
 {
     public TemplateResourceEntity GetByUid(Guid uid) =>
         SqlCoreHelper.GetItemById<TemplateResourceEntity>(uid);

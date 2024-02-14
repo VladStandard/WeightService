@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Ws.Database.Core.Entities.Scales.TemplatesResources;
+using Ws.Database.Core.Entities.Ref.ZplResources;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Shared.Utils;
 
@@ -41,7 +41,7 @@ public static partial class LabelGenerator
         foreach (Match match in matches)
         {
             string word = match.Value;
-            string replacement = new SqlTemplateResourceRepository().GetByName(word.Trim('[', ']')).Zpl;
+            string replacement = new SqlZplResourceRepository().GetByName(word.Trim('[', ']')).Zpl;
             if (string.IsNullOrEmpty(replacement)) continue;
             zpl = zpl.Replace(word, replacement);
         }

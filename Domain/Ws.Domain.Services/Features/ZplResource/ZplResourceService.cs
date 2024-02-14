@@ -1,10 +1,10 @@
-﻿using Ws.Database.Core.Entities.Scales.TemplatesResources;
+﻿using Ws.Database.Core.Entities.Ref.ZplResources;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Services.Features.ZplResource;
 
-internal class ZplResourceService : IZplResourceService
+internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo) : IZplResourceService
 {
-    public TemplateResourceEntity GetItemByUid(Guid uid) => new SqlTemplateResourceRepository().GetByUid(uid);
-    public IEnumerable<TemplateResourceEntity> GetAll() => new SqlTemplateResourceRepository().GetAll();
+    public TemplateResourceEntity GetItemByUid(Guid uid) => zplResourceRepo.GetByUid(uid);
+    public IEnumerable<TemplateResourceEntity> GetAll() => zplResourceRepo.GetAll();
 }
