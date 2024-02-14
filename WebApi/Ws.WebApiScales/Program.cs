@@ -12,20 +12,15 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ResponseDto>();
 
-#region Ready
-
 builder.Services.AddScoped<IBoxApiService, BoxApiService>();
 builder.Services.AddScoped<IClipApiService, ClipApiService>();
 builder.Services.AddScoped<IBundleApiService, BundleApiService>();
-
-#endregion
-
-
 builder.Services.AddScoped<IPluApiService, PluApiService>();
 builder.Services.AddScoped<IBrandApiService, BrandApiService>();
 builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
 
 builder.Services.AddDomainServices();
+
 
 builder.Services.AddHttpContextAccessor();
 

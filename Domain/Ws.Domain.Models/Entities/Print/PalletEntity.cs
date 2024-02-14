@@ -10,7 +10,7 @@ public class PalletEntity : EntityBase
 {
     public virtual PalletManEntity PalletMan { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;
-    public virtual int Counter { get; set; } = 0;
+    public virtual int Counter { get; protected set; }
     public virtual DateTime ProdDt { get; set; }
     public virtual decimal Weight { get; set; }
 

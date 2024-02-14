@@ -49,7 +49,6 @@ public sealed partial class CreateForm : ComponentBase
             PalletMan = PalletContext.PalletMan,
             Weight = FormModel.PalletWeight,
             ProdDt = FormModel.CreateDt,
-            Counter = 121212,
             Barcode = string.Empty
         };
         SqlCoreHelper.Save(palletEntity);

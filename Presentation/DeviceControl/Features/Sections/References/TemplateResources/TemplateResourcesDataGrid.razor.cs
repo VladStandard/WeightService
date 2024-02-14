@@ -3,12 +3,13 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.ZplResource;
 
 namespace DeviceControl.Features.Sections.References.TemplateResources;
 
-public sealed partial class TemplateResourcesDataGrid : SectionDataGridBase<TemplateResourceEntity>
+public sealed partial class TemplateResourcesDataGrid : SectionDataGridBase<ZplResourceEntity>
 {
     #region Inject
 
@@ -20,15 +21,15 @@ public sealed partial class TemplateResourcesDataGrid : SectionDataGridBase<Temp
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(TemplateResourceEntity item)
+    protected override async Task OpenDataGridEntityModal(ZplResourceEntity item)
         => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(TemplateResourceEntity item)
+    protected override async Task OpenItemInNewTab(ZplResourceEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<TemplateResourceEntity> SetSqlSectionCast() => ZplResourceService.GetAll();
+    protected override IEnumerable<ZplResourceEntity> SetSqlSectionCast() => ZplResourceService.GetAll();
 
-    protected override IEnumerable<TemplateResourceEntity> SetSqlSearchingCast()
+    protected override IEnumerable<ZplResourceEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [ZplResourceService.GetItemByUid(itemUid)];

@@ -10,9 +10,7 @@ public class PluLineEntity : EntityBase
 {
     public virtual PluEntity Plu { get; set; } = new();
     public virtual LineEntity Line { get; set; } = new();
-
-    public override string ToString() => $"{Plu} | {Line}";
-
+    
     protected override bool CastEquals(EntityBase obj)
     {
         PluLineEntity item = (PluLineEntity)obj;

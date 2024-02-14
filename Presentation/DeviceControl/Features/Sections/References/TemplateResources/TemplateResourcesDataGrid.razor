@@ -1,9 +1,10 @@
 @using Ws.Domain.Models.Entities.Scale
-@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Scale.TemplateResourceEntity>
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionDataGridBase<Ws.Domain.Models.Entities.Ref.ZplResourceEntity>
 
 
 <SectionDataGridWrapper
-  TItem="TemplateResourceEntity"
+  TItem="ZplResourceEntity"
   @ref="DataGridWrapperRef"
   Title="@Localizer["SectionTemplatesResources"]"
   GridData="SectionItems"
@@ -14,12 +15,12 @@
 >
   <DataGridColumn
       Caption="@Localizer["DataGridColumnChangeDt"]"
-      Field="@nameof(TemplateResourceEntity.ChangeDt)"
+      Field="@nameof(ZplResourceEntity.ChangeDt)"
       Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
-    Field="@nameof(TemplateResourceEntity.Name)"
+    Field="@nameof(ZplResourceEntity.Name)"
     Width="80%"
   />
 </SectionDataGridWrapper>

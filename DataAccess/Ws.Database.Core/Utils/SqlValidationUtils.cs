@@ -48,7 +48,7 @@ public static class SqlValidationUtils
             LineEntity scale => new SqlLineValidator(isCheckIdentity).Validate(scale),
             PalletManEntity man => new SqlPalletManValidator(isCheckIdentity).Validate(man),
             TemplateEntity template => new SqlTemplateValidator(isCheckIdentity).Validate(template),
-            TemplateResourceEntity templateResource => new SqlZplResourceValidator(isCheckIdentity).Validate(templateResource),
+            ZplResourceEntity templateResource => new SqlZplResourceValidator(isCheckIdentity).Validate(templateResource),
             WarehouseEntity workShop => new SqlWarehouseValidator(isCheckIdentity).Validate(workShop),
             PrinterEntity printer => new SqlPrinterValidator(isCheckIdentity).Validate(printer),
             UserEntity user => new SqlUserValidator(isCheckIdentity).Validate(user),

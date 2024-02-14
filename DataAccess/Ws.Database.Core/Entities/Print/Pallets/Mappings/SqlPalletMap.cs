@@ -32,8 +32,10 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
         
         Property(x => x.Counter, m =>
         {
-            m.Column("COUNTER");
+            m.Generated(PropertyGeneration.Insert);
             m.Type(NHibernateUtil.Int32);
+            m.Insert(false);
+            m.Update(false);
             m.NotNullable(true);
         });
 

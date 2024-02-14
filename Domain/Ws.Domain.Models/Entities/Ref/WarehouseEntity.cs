@@ -16,5 +16,5 @@ public class WarehouseEntity : EntityBase
         return Equals(ProductionSite, item.ProductionSite) && Equals(Name, item.Name);
     }
 
-    public override string ToString() => $"{Name} {ProductionSite}";
+    public override string ToString() => Name;
 }

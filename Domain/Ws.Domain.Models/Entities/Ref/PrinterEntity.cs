@@ -13,8 +13,6 @@ public class PrinterEntity : EntityBase
     public virtual PrinterTypeEnum Type { get; set; } = PrinterTypeEnum.Tsc;
     public virtual string Name { get; set; } = string.Empty;
     public virtual string DisplayName => $"{Name} | {Ip}";
-    
-    public override string ToString() => $"{nameof(Type)}: {Type}.";
 
     protected override bool CastEquals(EntityBase obj)
     {

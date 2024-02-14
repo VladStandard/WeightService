@@ -15,9 +15,6 @@ public class PluNestingEntity() : Entity1CBase
     public virtual bool IsDefault => Uid1C.Equals(Guid.Empty);
     public virtual decimal WeightTare => (Plu.Bundle.Weight + Plu.Clip.Weight) * BundleCount + Box.Weight;
 
-    public override string ToString() =>
-        $"{Plu.Number} | {Plu.Name} | {Plu.Bundle.Weight} * {BundleCount} + {Box.Weight} = {WeightTare}";
-
     protected override bool CastEquals(EntityBase obj)
     {
         PluNestingEntity item = (PluNestingEntity)obj;

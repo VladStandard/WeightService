@@ -4,7 +4,6 @@ using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
-[Serializable]
 [DebuggerDisplay("{ToString()}")]
 public class StorageMethodEntity : EntityBase
 {

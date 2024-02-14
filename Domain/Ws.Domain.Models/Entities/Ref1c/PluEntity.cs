@@ -24,7 +24,7 @@ public class PluEntity() : Entity1CBase
     
     public virtual string DisplayName => $"{Number} | {Name}";
 
-    public override string ToString() => $"{Number} | {Name} | {Uid1C}";
+    public override string ToString() => DisplayName;
 
     protected override bool CastEquals(EntityBase obj)
     {

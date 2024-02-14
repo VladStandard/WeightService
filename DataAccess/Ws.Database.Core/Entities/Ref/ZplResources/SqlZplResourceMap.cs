@@ -1,8 +1,9 @@
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Ref.ZplResources;
 
-internal sealed class SqlZplResourceMap : ClassMapping<TemplateResourceEntity>
+internal sealed class SqlZplResourceMap : ClassMapping<ZplResourceEntity>
 {
     public SqlZplResourceMap()
     {
