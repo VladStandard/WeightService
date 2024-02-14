@@ -79,6 +79,7 @@
       <div class="w-full h-full grow overflow-hidden blazorise-tabs">
         <Tabs
           @ref="TabsRef"
+          RenderMode="TabsRenderMode.LazyLoad"
           @bind-SelectedTab="SelectedTab"
           Class="!p-0 h-full w-full overflow-hidden"
         >
