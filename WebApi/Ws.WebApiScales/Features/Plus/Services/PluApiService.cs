@@ -60,7 +60,7 @@ internal sealed class PluApiService(
         pluDb.Clip = clip;
         pluDb.StorageMethod = storageMethodService.GetByNameOrDefault(pluDto.StorageMethod);
 
-        SqlCoreHelper.Instance.SaveOrUpdate(pluDb);
+        SqlCoreHelper.SaveOrUpdate(pluDb);
         SaveOrUpdateDefaultNesting(pluDb, box, pluDto.BundleCount);
 
         return true;
@@ -73,7 +73,7 @@ internal sealed class PluApiService(
         pluNestingDb.Plu = plu;
         pluNestingDb.Box = box;
         pluNestingDb.BundleCount = bundleCount;
-        SqlCoreHelper.Instance.SaveOrUpdate(pluNestingDb);
+        SqlCoreHelper.SaveOrUpdate(pluNestingDb);
     }
 
     #endregion

@@ -63,7 +63,7 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
 
     protected Task DeleteSqlItem(TItem item)
     {
-        SqlCoreHelper.Instance.Delete(item);
+        SqlCoreHelper.Delete(item);
         return Task.CompletedTask;
     }
 

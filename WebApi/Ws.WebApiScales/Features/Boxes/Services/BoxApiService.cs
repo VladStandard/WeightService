@@ -13,7 +13,7 @@ internal sealed class BoxApiService(ResponseDto responseDto, IBoxService boxServ
     {
         BoxEntity boxDb = boxService.GetItemByUid1С(boxDto.Uid);
         boxDb = boxDto.AdaptTo(boxDb);
-        SqlCoreHelper.Instance.SaveOrUpdate(boxDb);
+        SqlCoreHelper.SaveOrUpdate(boxDb);
         responseDto.AddSuccess(boxDb.Uid1C, boxDb.Name);
     }
 

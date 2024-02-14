@@ -18,6 +18,6 @@ public class SqlViewDbFileSizeRepository
             $"\n FROM [SYS].[DATABASE_FILES]" +
             $"\n ORDER BY [{sizeMbAlias}] DESC, [NAME]";
 
-        return SqlCoreHelper.Instance.GetEnumerableBySql<DbFileSizeInfoEntity>(sqlQuery).ToList();
+        return SqlCoreHelper.GetEnumerableBySql<DbFileSizeInfoEntity>(sqlQuery).ToList();
     }
 }

@@ -61,7 +61,7 @@ internal sealed class PluCharacteristicApiService(
 
                 nesting.Plu = pluDb;
                 nesting = characteristic.AdaptTo(nesting);
-                SqlCoreHelper.Instance.SaveOrUpdate(nesting);
+                SqlCoreHelper.SaveOrUpdate(nesting);
 
                 responseDto.AddSuccess(pluCharacteristicDto.Uid,
                 $"{pluDb.DisplayName} | Кол-во вложений: {nesting.BundleCount}");

@@ -15,7 +15,7 @@ internal class BundleService : IBundleService
         BundleEntity bundle = GetItemByUid1С(Guid.Empty);
         bundle.Name = "Без пакета";
         bundle.Weight = 0;
-        SqlCoreHelper.Instance.SaveOrUpdate(bundle);
+        SqlCoreHelper.SaveOrUpdate(bundle);
         return bundle;
     }
 }

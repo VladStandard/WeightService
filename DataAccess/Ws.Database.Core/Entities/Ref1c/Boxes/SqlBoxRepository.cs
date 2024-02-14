@@ -4,17 +4,17 @@ namespace Ws.Database.Core.Entities.Ref1c.Boxes;
 
 public sealed class SqlBoxRepository : BaseRepository, IGetItemByUid1C<BoxEntity>, IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>, ISave<BoxEntity>
 {
-    public BoxEntity Save(BoxEntity item) => SqlCoreHelper.Instance.Save(item);
-    public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<BoxEntity>(uid);
+    public BoxEntity Save(BoxEntity item) => SqlCoreHelper.Save(item);
+    public BoxEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<BoxEntity>(uid);
     public BoxEntity GetByUid1C(Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem(
+        return SqlCoreHelper.GetItem(
             QueryOver.Of<BoxEntity>().Where(i => i.Uid1C == uid1C)
         );
     }
     public IEnumerable<BoxEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable(
+        return SqlCoreHelper.GetEnumerable(
             QueryOver.Of<BoxEntity>().OrderBy(i => i.Weight).Asc.ThenBy(i => i.Name).Asc
         );
     }

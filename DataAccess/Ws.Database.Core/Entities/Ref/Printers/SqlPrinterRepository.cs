@@ -4,11 +4,11 @@ namespace Ws.Database.Core.Entities.Ref.Printers;
 
 public class SqlPrinterRepository : BaseRepository, IGetItemByUid<PrinterEntity>, IGetAll<PrinterEntity>
 {
-    public PrinterEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PrinterEntity>(uid);
+    public PrinterEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<PrinterEntity>(uid);
     
     public IEnumerable<PrinterEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable(
+        return SqlCoreHelper.GetEnumerable(
             QueryOver.Of<PrinterEntity>().OrderBy(i => i.Type).Asc
         );
     }

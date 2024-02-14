@@ -15,7 +15,7 @@ internal class StorageMethodService : IStorageMethodService
     public StorageMethodEntity GetDefault()
     {
         StorageMethodEntity defaultMethod = new SqlStorageMethodRepository().GetItemByName("Без способа хранения");
-        if (defaultMethod.IsNew) SqlCoreHelper.Instance.Save(defaultMethod);
+        if (defaultMethod.IsNew) SqlCoreHelper.Save(defaultMethod);
         return defaultMethod;
     }
 

@@ -15,7 +15,7 @@ internal class ClipService : IClipService
         ClipEntity entity = GetItemByUid1С(Guid.Empty);
         entity.Name = "Без клипсы";
         entity.Weight = 0;
-        SqlCoreHelper.Instance.SaveOrUpdate(entity);
+        SqlCoreHelper.SaveOrUpdate(entity);
         return entity;
     }
 }

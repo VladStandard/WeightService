@@ -38,7 +38,7 @@ public class LabelPieceGenerator
             Line = labelDto.Line,
             Plu = labelDto.Nesting.Plu
         };
-        SqlCoreHelper.Instance.Save(labelSql);
+        SqlCoreHelper.Save(labelSql);
 
         return labelReady.Zpl;
     }
@@ -72,7 +72,7 @@ public class LabelPieceGenerator
                 Line = labelDto.Line,
                 Plu = labelDto.Nesting.Plu
             };
-            SqlCoreHelper.Instance.Save(labelSql);
+            SqlCoreHelper.Save(labelSql);
 
             labelDto.ProductDt = labelDto.ProductDt.AddSeconds(1);
         }

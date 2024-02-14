@@ -46,7 +46,7 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
     private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserCacheService.ClearCacheForUser(item.Name);
-        SqlCoreHelper.Instance.Delete(item);
+        SqlCoreHelper.Delete(item);
         return Task.CompletedTask;
     }
 

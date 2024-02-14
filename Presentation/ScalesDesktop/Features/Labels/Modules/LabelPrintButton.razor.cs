@@ -67,7 +67,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
             string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
-            SqlCoreHelper.Instance.Update(LabelContext.Line);
+            SqlCoreHelper.Update(LabelContext.Line);
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)

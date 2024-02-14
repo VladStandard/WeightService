@@ -17,7 +17,7 @@ internal class UserService : IUserService
         user.Name = username;
         user.LoginDt = DateTime.Now;
 
-        SqlCoreHelper.Instance.SaveOrUpdate(user);
+        SqlCoreHelper.SaveOrUpdate(user);
         return user;
     }
 }

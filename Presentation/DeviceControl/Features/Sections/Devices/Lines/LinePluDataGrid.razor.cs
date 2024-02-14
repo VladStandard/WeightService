@@ -41,13 +41,13 @@ public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
         foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
             PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
-            if (pluLineItem != null) SqlCoreHelper.Instance.Delete(pluLineItem);
+            if (pluLineItem != null) SqlCoreHelper.Delete(pluLineItem);
         }
 
         foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
-            SqlCoreHelper.Instance.SaveOrUpdate(pluLine);
+            SqlCoreHelper.SaveOrUpdate(pluLine);
         }
 
         await DataGridWrapperRef.ReloadData();

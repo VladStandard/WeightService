@@ -52,7 +52,7 @@ public sealed partial class CreateForm : ComponentBase
             Counter = 121212,
             Barcode = string.Empty
         };
-        SqlCoreHelper.Instance.Save(palletEntity);
+        SqlCoreHelper.Save(palletEntity);
 
         LabelPieceDto dto = new ()
         {

@@ -24,6 +24,6 @@ internal class LogWebService : ILogWebService
             CountErrors = errors,
             CountAll = errors + success
         };
-        SqlCoreHelper.Instance.Save(webLog);
+        SqlCoreHelper.Save(webLog);
     }
 }

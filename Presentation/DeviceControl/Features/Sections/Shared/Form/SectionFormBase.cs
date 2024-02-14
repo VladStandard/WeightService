@@ -40,7 +40,7 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
     protected async Task AddItem(TItem item)
     {
         if (!await IsValidateItem(item, false)) return;
-        SqlCoreHelper.Instance.Save(item);
+        SqlCoreHelper.Save(item);
         await NotificationService.Success(Localizer["ToastAddItem"]);
         await OnSubmitAction.InvokeAsync();
     }
@@ -49,7 +49,7 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
     {
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
-        SqlCoreHelper.Instance.Update(item);
+        SqlCoreHelper.Update(item);
         await NotificationService.Success(Localizer["ToastUpdateItem"]);
         await OnSubmitAction.InvokeAsync();
     }
@@ -65,7 +65,7 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     protected async Task DeleteItem()
     {
-        SqlCoreHelper.Instance.Delete(SectionEntity);
+        SqlCoreHelper.Delete(SectionEntity);
         await NotificationService.Success(Localizer["ToastDeleteItem"]);
         await OnSubmitAction.InvokeAsync();
     }

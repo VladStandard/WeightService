@@ -38,7 +38,7 @@ public class LabelWeightGenerator
             Line = labelDto.Line,
             Plu = labelDto.Nesting.Plu
         };
-        SqlCoreHelper.Instance.Save(labelSql);
+        SqlCoreHelper.Save(labelSql);
 
         return labelReady.Zpl;
     }

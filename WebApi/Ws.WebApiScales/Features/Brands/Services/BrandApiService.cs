@@ -17,7 +17,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
 
         brandDb = brandDto.AdaptTo(brandDb);
 
-        SqlCoreHelper.Instance.SaveOrUpdate(brandDb);
+        SqlCoreHelper.SaveOrUpdate(brandDb);
         responseDto.AddSuccess(brandDto.Uid, brandDb.Name);
     }
 
@@ -30,7 +30,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
             responseDto.AddSuccess(uid, "Бренд не найден для удаления");
             return;
         }
-        SqlCoreHelper.Instance.Delete(brandDb);
+        SqlCoreHelper.Delete(brandDb);
         responseDto.AddSuccess(uid, $"{brandDb.Name} - удален");
     }
 

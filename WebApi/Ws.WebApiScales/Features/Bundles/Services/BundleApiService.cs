@@ -13,7 +13,7 @@ internal sealed class BundleApiService(ResponseDto responseDto, IBundleService b
     {
         BundleEntity bundleDb = bundleService.GetItemByUid1С(bundleDto.Uid);
         bundleDb = bundleDto.AdaptTo(bundleDb);
-        SqlCoreHelper.Instance.SaveOrUpdate(bundleDb);
+        SqlCoreHelper.SaveOrUpdate(bundleDb);
         responseDto.AddSuccess(bundleDb.Uid1C, bundleDb.Name);
     }
 

@@ -4,11 +4,11 @@ namespace Ws.Database.Core.Entities.Ref.PalletMen;
 
 public class SqlPalletManRepository : BaseRepository, IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>
 {
-    public PalletManEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<PalletManEntity>(uid);
+    public PalletManEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<PalletManEntity>(uid);
     
     public IEnumerable<PalletManEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable(
+        return SqlCoreHelper.GetEnumerable(
             QueryOver.Of<PalletManEntity>().OrderBy(i => i.Surname).Asc
         );
     }

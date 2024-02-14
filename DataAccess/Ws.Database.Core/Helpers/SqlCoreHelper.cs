@@ -5,16 +5,10 @@ using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Helpers;
 
-public sealed class SqlCoreHelper
+public static class SqlCoreHelper
 {
-    #region Design pattern "Lazy Singleton"
-    
-    private static SqlCoreHelper _instance;
-    public static SqlCoreHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-    #endregion
-
-    private void ExecuteSelectCore(Action<ISession> action)
+    private static void ExecuteSelectCore(Action<ISession> action)
     {
         using ISession session = NHibernateHelper.SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Manual;
@@ -25,11 +19,11 @@ public sealed class SqlCoreHelper
         }
         catch (Exception)
         {
-            return;
+            // ignored
         }
     }
 
-    private void ExecuteTransactionCore(Action<ISession> action)
+    private static void ExecuteTransactionCore(Action<ISession> action)
     {
         using ISession session = NHibernateHelper.SessionFactory.OpenSession();
         session.FlushMode = FlushMode.Commit;
@@ -49,7 +43,7 @@ public sealed class SqlCoreHelper
 
     #region GetItem
 
-    public T GetItemById<T>(object id) where T : EntityBase, new()
+    public static T GetItemById<T>(object id) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session => {
@@ -58,7 +52,7 @@ public sealed class SqlCoreHelper
         return item ?? new();
     }
     
-    public T GetItem<T>(QueryOver<T> query) where T : EntityBase, new()
+    public static T GetItem<T>(QueryOver<T> query) where T : EntityBase, new()
     {
         T? item = null;
         ExecuteSelectCore(session => {
@@ -72,7 +66,7 @@ public sealed class SqlCoreHelper
 
     #region GetList
     
-    public IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
+    public static IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
     {
         IEnumerable<T> items = Enumerable.Empty<T>();
         
@@ -86,7 +80,7 @@ public sealed class SqlCoreHelper
         return items;
     }
 
-    public IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
+    public static IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
     {
         IEnumerable<TObject> items = Enumerable.Empty<TObject>();
         
@@ -103,25 +97,25 @@ public sealed class SqlCoreHelper
     
     #region CRUD
 
-    public T SaveOrUpdate<T>(T item) where T : EntityBase
+    public static T SaveOrUpdate<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.SaveOrUpdate(item));
         return item;
     }
 
-    public T Save<T>(T item) where T : EntityBase
+    public static T Save<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Save(item));
         return item;
     }
 
-    public T Update<T>(T item) where T : EntityBase
+    public static T Update<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Update(item));
         return item;
     }
 
-    public void Delete<T>(T item) where T : EntityBase
+    public static void Delete<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Delete(item));
     }

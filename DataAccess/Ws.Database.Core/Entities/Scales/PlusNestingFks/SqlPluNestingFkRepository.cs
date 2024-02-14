@@ -9,7 +9,7 @@ public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery
     {
         QueryOver<PluNestingEntity> queryOver = 
             query.Clone().JoinQueryOver<PluEntity>(i => i.Plu).OrderBy(plu => plu.Number).Asc;
-        return SqlCoreHelper.Instance.GetEnumerable(queryOver);
+        return SqlCoreHelper.GetEnumerable(queryOver);
     }
     
     public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu) =>
@@ -17,14 +17,14 @@ public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C)
     {
-        return SqlCoreHelper.Instance.GetItem(
+        return SqlCoreHelper.GetItem(
             QueryOver.Of<PluNestingEntity>().Where(i => i.Plu == plu && i.Uid1C == uid1C)
         );
     }
     
     public PluNestingEntity GetDefaultByPlu(PluEntity plu)
     {
-        return SqlCoreHelper.Instance.GetItem(
+        return SqlCoreHelper.GetItem(
             QueryOver.Of<PluNestingEntity>().Where(i => i.Plu == plu && i.Uid1C == Guid.Empty)
         );
     }
@@ -34,6 +34,6 @@ public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery
         if (plu.IsNew) return;
         List<PluNestingEntity> pluNestingEntities = GetEnumerableByPlu(plu).ToList();
         foreach (PluNestingEntity entity in pluNestingEntities)
-            SqlCoreHelper.Instance.Delete(entity);
+            SqlCoreHelper.Delete(entity);
     }
 }

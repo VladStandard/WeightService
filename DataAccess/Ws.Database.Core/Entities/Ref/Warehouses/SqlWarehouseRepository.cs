@@ -4,11 +4,11 @@ namespace Ws.Database.Core.Entities.Ref.Warehouses;
 
 public sealed class SqlWarehouseRepository :  BaseRepository, IGetItemByUid<WarehouseEntity>, IGetAll<WarehouseEntity>
 {
-    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.Instance.GetItemById<WarehouseEntity>(uid);
+    public WarehouseEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<WarehouseEntity>(uid);
     
     public IEnumerable<WarehouseEntity> GetAll()
     {
-        return SqlCoreHelper.Instance.GetEnumerable(
+        return SqlCoreHelper.GetEnumerable(
             QueryOver.Of<WarehouseEntity>().OrderBy(i => i.Name).Asc
         );
     }
