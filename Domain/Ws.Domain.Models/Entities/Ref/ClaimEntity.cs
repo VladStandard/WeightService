@@ -5,7 +5,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class ClaimEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class ClaimEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
 

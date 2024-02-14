@@ -9,7 +9,7 @@ internal sealed class SqlBrandMap : ClassMapping<BrandEntity>
         Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Brands);
 
-        Id(x => x.IdentityValueUid, m => {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);

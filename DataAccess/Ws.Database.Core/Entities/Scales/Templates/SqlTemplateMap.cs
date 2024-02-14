@@ -6,40 +6,40 @@ internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
 {
     public SqlTemplateMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Templates);
         
-        Id(x => x.IdentityValueId, m =>
+        Id(x => x.Uid, m =>
         {
-            m.Column("Id");
-            m.Type(NHibernateUtil.Int64);
-            m.Generator(Generators.Identity);
+            m.Column("UID");
+            m.Type(NHibernateUtil.Guid);
+            m.Generator(Generators.Guid);
         });
 
         Property(x => x.CreateDt, m =>
         {
-            m.Column("CreateDate");
+            m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
         Property(x => x.ChangeDt, m =>
         {
-            m.Column("ModifiedDate");
+            m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        Property(x => x.Title, m =>
+        Property(x => x.Name, m =>
         {
-            m.Column("Title");
+            m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(250);
+            m.Length(64);
         });
 
-        Property(x => x.Data, m =>
+        Property(x => x.Body, m =>
         {
-            m.Column("DATA");
+            m.Column("BODY");
             m.Type(NHibernateUtil.String);
             m.NotNullable(true);
         });

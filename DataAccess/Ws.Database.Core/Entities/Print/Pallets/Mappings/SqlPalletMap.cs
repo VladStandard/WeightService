@@ -9,7 +9,7 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
         Schema(SqlSchemasUtils.Print);
         Table(SqlTablesUtils.Pallets);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

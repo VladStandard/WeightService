@@ -24,7 +24,7 @@ public sealed partial class RolesDataGrid : SectionDataGridBase<ClaimEntity>
         => await OpenSectionModal<RolesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(ClaimEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionRoles}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionRoles}/{item.Uid.ToString()}");
 
     protected override IEnumerable<ClaimEntity> SetSqlSectionCast() => ClaimService.GetAll();
 

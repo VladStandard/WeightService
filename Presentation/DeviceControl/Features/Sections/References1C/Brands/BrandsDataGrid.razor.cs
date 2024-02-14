@@ -21,7 +21,7 @@ public sealed partial class BrandsDataGrid : SectionDataGridBase<BrandEntity>
         => await OpenSectionModal<BrandsUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(BrandEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.Uid.ToString()}");
 
     protected override IEnumerable<BrandEntity> SetSqlSectionCast() => BrandService.GetAll();
 

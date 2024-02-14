@@ -60,5 +60,5 @@ public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
     protected override IEnumerable<PluLineEntity> SetSqlSectionCast() => LineService.GetLinePlusFk(LineEntity);
 
     protected override async Task OpenItemInNewTab(PluLineEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.IdentityValueUid}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");
 }

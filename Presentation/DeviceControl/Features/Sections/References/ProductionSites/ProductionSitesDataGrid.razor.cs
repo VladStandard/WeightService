@@ -24,7 +24,7 @@ public sealed partial class ProductionSitesDataGrid : SectionDataGridBase<Produc
         => await OpenSectionModal<ProductionSitesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(ProductionSiteEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.Uid.ToString()}");
 
     protected override IEnumerable<ProductionSiteEntity> SetSqlSectionCast() => ProductionSiteService.GetAll();
 

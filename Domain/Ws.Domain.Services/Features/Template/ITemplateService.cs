@@ -3,7 +3,4 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Template;
 
-public interface ITemplateService : IGetAll<TemplateEntity>
-{
-    TemplateEntity GetById(long id);
-}
+public interface ITemplateService : IGetAll<TemplateEntity>, IGetItemByUid<TemplateEntity>;

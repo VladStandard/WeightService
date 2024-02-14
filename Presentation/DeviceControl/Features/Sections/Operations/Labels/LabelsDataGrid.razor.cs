@@ -21,7 +21,7 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<ViewLabel>
 
     protected override async Task OpenDataGridEntityModal(ViewLabel item)
     {
-        LabelEntity labelItem = LabelService.GetItemByUid(item.IdentityValueUid);
+        LabelEntity labelItem = LabelService.GetItemByUid(item.Uid);
         await ModalService.Show<LabelsUpdateDialog>(p => {
             p.Add(x => x.DialogSectionEntity, labelItem);
             p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
@@ -29,7 +29,7 @@ public sealed partial class LabelsDataGrid : SectionDataGridBase<ViewLabel>
     }
 
     protected override async Task OpenItemInNewTab(ViewLabel item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.Uid.ToString()}");
 
     protected override IEnumerable<ViewLabel> SetSqlSectionCast() => LabelService.GetAll();
 

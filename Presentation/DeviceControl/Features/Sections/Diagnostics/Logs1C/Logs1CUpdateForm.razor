@@ -2,10 +2,10 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Diag.LogWebEntity>
 
 <SectionFormWrapper
-  ShareUrl="@($"{RouteUtils.Section1CLogs}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.Section1CLogs}/{SectionEntity.Uid}")"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable

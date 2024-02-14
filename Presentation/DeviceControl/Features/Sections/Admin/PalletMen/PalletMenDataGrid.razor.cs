@@ -24,7 +24,7 @@ public sealed partial class PalletMenDataGrid : SectionDataGridBase<PalletManEnt
         => await OpenSectionModal<PalletMenUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(PalletManEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.Uid.ToString()}");
 
     protected override IEnumerable<PalletManEntity> SetSqlSectionCast() => PalletManService.GetAll();
 

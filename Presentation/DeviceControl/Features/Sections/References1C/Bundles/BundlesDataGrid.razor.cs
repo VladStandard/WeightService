@@ -21,7 +21,7 @@ public sealed partial class BundlesDataGrid : SectionDataGridBase<BundleEntity>
         => await OpenSectionModal<BundlesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(BundleEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}/{item.Uid.ToString()}");
 
     protected override IEnumerable<BundleEntity> SetSqlSectionCast() => BundleService.GetAll();
 

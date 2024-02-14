@@ -41,7 +41,7 @@ public static partial class LabelGenerator
         foreach (Match match in matches)
         {
             string word = match.Value;
-            string replacement = new SqlTemplateResourceRepository().GetByName(word.Trim('[', ']')).Data.ValueUnicode;
+            string replacement = new SqlTemplateResourceRepository().GetByName(word.Trim('[', ']')).Zpl;
             if (string.IsNullOrEmpty(replacement)) continue;
             zpl = zpl.Replace(word, replacement);
         }

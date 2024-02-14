@@ -5,12 +5,12 @@
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
-  ShareUrl="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable
@@ -23,7 +23,7 @@
     TItem="ProductionSiteEntity"
     Items="PlatformEntities"
     Label="@Localizer["DataGridColumnProductionSite"]"
-    Link="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.ProductionSite.IdentityValueUid}")"
+    Link="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.ProductionSite.Uid}")"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemDisplayName="item => item.Name"
     IsFilterable

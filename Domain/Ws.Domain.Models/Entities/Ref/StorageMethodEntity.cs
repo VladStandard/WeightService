@@ -6,7 +6,7 @@ namespace Ws.Domain.Models.Entities.Ref;
 
 [Serializable]
 [DebuggerDisplay("{ToString()}")]
-public class StorageMethodEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class StorageMethodEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
     public virtual string Zpl { get; set; } = string.Empty;

@@ -8,7 +8,7 @@ using Ws.Domain.Models.Utils;
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
-public class LabelEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class LabelEntity : EntityBase
 {
     public virtual string Zpl { get; set; } = string.Empty;
     public virtual string BarcodeTop { get; set; } = string.Empty;

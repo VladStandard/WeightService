@@ -3,12 +3,12 @@
 
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Title"
+    @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnTitle"]"
     Size="SectionFormInputSizeEnum.Medium"
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Data"
+    @bind-Value="@SectionEntity.Body"
     Label="@Localizer["DataGridColumnData"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
   />

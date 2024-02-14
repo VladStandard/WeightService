@@ -5,11 +5,11 @@
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   DeleteItemAction="DeleteItem"
-  ShareUrl="@($"{RouteUtils.SectionRoles}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionRoles}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable

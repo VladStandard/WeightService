@@ -24,7 +24,7 @@ public sealed partial class TemplateResourcesDataGrid : SectionDataGridBase<Temp
         => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(TemplateResourceEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.Uid.ToString()}");
 
     protected override IEnumerable<TemplateResourceEntity> SetSqlSectionCast() => TemplateResourceService.GetAll();
 

@@ -9,7 +9,7 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
         Schema(SqlSchemasUtils.DbScales);
         Table(SqlTablesUtils.Plus);
         
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

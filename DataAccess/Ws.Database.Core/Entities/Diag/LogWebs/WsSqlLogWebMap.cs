@@ -9,7 +9,7 @@ internal sealed class WsSqlLogWebMap : ClassMapping<LogWebEntity>
         Schema(SqlSchemasUtils.Diag);
         Table(SqlTablesUtils.LogsWebs);
 
-        Id(x => x.IdentityValueUid, m => {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);

@@ -9,7 +9,7 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
         Schema(SqlSchemasUtils.Print);
         Table(SqlTablesUtils.Labels);
 
-        Id(x => x.IdentityValueUid, m => {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);

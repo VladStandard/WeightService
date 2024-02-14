@@ -10,7 +10,7 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
         Table(SqlTablesUtils.PlusLines);
         
        
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

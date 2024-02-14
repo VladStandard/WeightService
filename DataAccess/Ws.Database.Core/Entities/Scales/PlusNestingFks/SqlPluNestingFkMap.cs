@@ -9,7 +9,7 @@ internal sealed class SqlPluNestingFkMap : ClassMapping<PluNestingEntity>
         Schema(SqlSchemasUtils.DbScales);
         Table(SqlTablesUtils.PlusNestingFks);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

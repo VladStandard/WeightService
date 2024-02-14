@@ -8,6 +8,6 @@ public abstract class SqlTableValidator<T> : AbstractValidator<T> where T : Enti
     protected SqlTableValidator(bool isCheckIdentity)
     {
         if (isCheckIdentity)
-            RuleFor(item => item.Identity).SetValidator(new SqlFieldIdentityValidator());
+            RuleFor(item => item.IsNew).NotEqual(true);
     }
 }

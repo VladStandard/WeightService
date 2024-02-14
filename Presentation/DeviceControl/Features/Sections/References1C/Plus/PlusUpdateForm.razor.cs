@@ -30,17 +30,17 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
     private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ?
-        string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.Uid}";
 
     private string GetClipLink() => SectionEntity.Clip.IsNew || SectionEntity.Clip.Uid1C == Guid.Empty ?
-        string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.Uid}";
 
     private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ?
-        string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.Uid}";
 
     private string GetTemplateLink() => Template.IsNew ?
-        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
+        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
 
     private string GetStorageLink() => SectionEntity.StorageMethod.IsNew ?
-        string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.Uid}";
 }

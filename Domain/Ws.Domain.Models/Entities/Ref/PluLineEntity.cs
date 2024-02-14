@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluLineEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class PluLineEntity : EntityBase
 {
     public virtual PluEntity Plu { get; set; } = new();
     public virtual LineEntity Line { get; set; } = new();

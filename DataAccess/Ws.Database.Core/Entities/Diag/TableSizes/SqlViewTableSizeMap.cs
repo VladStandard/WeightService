@@ -10,7 +10,7 @@ internal class SqlViewTableSizeMap : ClassMapping<TableSizeEntity>
         Table(SqlTablesUtils.ViewTablesSizes);
         Mutable(false);
         
-        Id(x => x.IdentityValueUid, m => { 
+        Id(x => x.Uid, m => { 
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
         });

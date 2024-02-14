@@ -21,7 +21,7 @@ public sealed partial class ClipsDataGrid : SectionDataGridBase<ClipEntity>
         => await OpenSectionModal<ClipsUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(ClipEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.Uid.ToString()}");
 
     protected override IEnumerable<ClipEntity> SetSqlSectionCast() => ClipService.GetAll();
 

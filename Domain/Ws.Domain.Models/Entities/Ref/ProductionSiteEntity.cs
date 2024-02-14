@@ -5,7 +5,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class ProductionSiteEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class ProductionSiteEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
     public virtual string Address { get; set; } = string.Empty;

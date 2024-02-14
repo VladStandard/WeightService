@@ -19,7 +19,7 @@ public sealed partial class LabelsGrid : ComponentBase
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
 
-    private IEnumerable<LabelEntity> GetGridData() => PalletService.GetAllLabels(PalletContext.CurrentPallet.IdentityValueUid);
+    private IEnumerable<LabelEntity> GetGridData() => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid);
 
     protected override void OnInitialized()
     {

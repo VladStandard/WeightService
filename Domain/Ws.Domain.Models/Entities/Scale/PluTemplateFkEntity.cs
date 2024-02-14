@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluTemplateFkEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class PluTemplateFkEntity : EntityBase
 {
     public virtual PluEntity Plu { get; set; } = new();
     public virtual TemplateEntity Template { get; set; } = new();

@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref;
 namespace Ws.Domain.Models.Entities.Print;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class PalletEntity : EntityBase
 {
     public virtual PalletManEntity PalletMan { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;

@@ -10,7 +10,7 @@ public class SqlViewPalletMap: ClassMapping<ViewPallet>
         Table(SqlTablesUtils.ViewPallets);
         Mutable(false);
         
-        Id(x => x.IdentityValueUid, m => { 
+        Id(x => x.Uid, m => { 
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
         });

@@ -1,13 +1,13 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.BrandEntity>
 
 <SectionFormWrapper
-  ShareUrl="@($"{RouteUtils.SectionBrands}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionBrands}/{SectionEntity.Uid}")"
   DeleteItemAction="DeleteItem"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable

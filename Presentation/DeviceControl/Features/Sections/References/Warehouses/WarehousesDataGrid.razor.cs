@@ -24,7 +24,7 @@ public sealed partial class WarehousesDataGrid : SectionDataGridBase<WarehouseEn
         => await OpenSectionModal<WarehousesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(WarehouseEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.Uid.ToString()}");
 
     protected override IEnumerable<WarehouseEntity> SetSqlSectionCast() => WarehouseService.GetAll();
 

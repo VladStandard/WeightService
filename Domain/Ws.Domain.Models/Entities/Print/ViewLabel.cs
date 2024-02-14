@@ -3,7 +3,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Print;
 
-public class ViewLabel() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class ViewLabel : EntityBase
 {
     public virtual DateTime ProductDate { get; set; }
     public virtual bool IsCheckWeight { get; set; }

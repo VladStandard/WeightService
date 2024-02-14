@@ -21,7 +21,7 @@ public sealed partial class PlusDataGrid : SectionDataGridBase<PluEntity>
         => await OpenSectionModal<PlusUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(PluEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Uid.ToString()}");
 
     protected override IEnumerable<PluEntity> SetSqlSectionCast() => PluService.GetAll();
 

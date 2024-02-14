@@ -15,7 +15,7 @@ public sealed class SqlPalletRepository : BaseRepository
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid)
     {
         return SqlCoreHelper.Instance.GetEnumerable(
-            QueryOver.Of<LabelEntity>().Where(i => i.Pallet!.IdentityValueUid == palletUid).OrderBy(i => i.CreateDt).Desc()
+            QueryOver.Of<LabelEntity>().Where(i => i.Pallet!.Uid == palletUid).OrderBy(i => i.CreateDt).Desc()
         );
     }
     

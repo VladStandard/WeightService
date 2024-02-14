@@ -7,7 +7,7 @@ namespace Ws.StorageCoreTests.Tables.TableScaleModels.Templates;
 public sealed class TemplatesRepositoryTests : TableRepositoryTests
 {
     private SqlTemplateRepository TemplateRepository { get; } = new();
-    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(TemplateEntity.Title)).Ascending;
+    protected override IResolveConstraint SortOrderValue => Is.Ordered.By(nameof(TemplateEntity.Name)).Ascending;
 
     [Test]
     public void GetList()

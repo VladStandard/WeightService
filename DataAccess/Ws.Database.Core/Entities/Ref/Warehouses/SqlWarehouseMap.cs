@@ -9,7 +9,7 @@ internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Warehouses);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

@@ -10,7 +10,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Lines);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

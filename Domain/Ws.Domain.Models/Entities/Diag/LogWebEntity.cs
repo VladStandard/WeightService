@@ -5,7 +5,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Diag;
 
 [DebuggerDisplay("{ToString()}")]
-public class LogWebEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class LogWebEntity : EntityBase
 {
     public virtual DateTime StampDt { get; set; } = DateTime.MinValue;
     public virtual string Version { get; set; } = string.Empty;

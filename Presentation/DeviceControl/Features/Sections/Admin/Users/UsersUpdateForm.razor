@@ -7,11 +7,11 @@
   DeleteItemAction="DeleteUserWithRelogin"
   ResetItemAction="ResetItem"
   AdditionButtons="AdditionalButtons"
-  ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable

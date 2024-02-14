@@ -22,7 +22,7 @@ public sealed partial class BoxesDataGrid: SectionDataGridBase<BoxEntity>
         => await OpenSectionModal<BoxesUpdateDialog>(item);
     
     protected override async Task OpenItemInNewTab(BoxEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.Uid.ToString()}");
 
     protected override IEnumerable<BoxEntity> SetSqlSectionCast() => BoxService.GetAll();
     

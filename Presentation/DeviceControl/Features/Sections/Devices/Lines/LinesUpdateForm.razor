@@ -7,12 +7,12 @@
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   DeleteItemAction="DeleteItem"
-  ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable
@@ -48,7 +48,7 @@
     TItem="PrinterEntity"
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
-    Link="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.IdentityValueUid}")"
+    Link="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.Uid}")"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemDisplayName="item => item.DisplayName"
     IsFilterable
@@ -57,7 +57,7 @@
     TItem="WarehouseEntity"
     Items="WarehousesEntities"
     Label="@Localizer["DataGridColumnWarehouse"]"
-    Link="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.IdentityValueUid}")"
+    Link="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.Uid}")"
     @bind-SelectedItem="@SectionEntity.Warehouse"
     ItemDisplayName="item => item.Name"
     IsFilterable

@@ -29,7 +29,7 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
         => await OpenSectionModal<UsersUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(UserEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.Uid.ToString()}");
 
     protected override IEnumerable<UserEntity> SetSqlSectionCast()
     {

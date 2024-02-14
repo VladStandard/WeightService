@@ -5,6 +5,6 @@ namespace Ws.Domain.Services.Features.Template;
 
 public class TemplateService : ITemplateService
 {
-    public TemplateEntity GetById(long id) => new SqlTemplateRepository().GetById(id);
     public IEnumerable<TemplateEntity> GetAll() => new SqlTemplateRepository().GetAll();
+    public TemplateEntity GetItemByUid(Guid uid) => new SqlTemplateRepository().GetByUid(uid);
 }

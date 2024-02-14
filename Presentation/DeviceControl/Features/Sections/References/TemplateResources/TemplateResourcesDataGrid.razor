@@ -13,17 +13,13 @@
   OpenInTabAction="OpenItemInNewTab"
 >
   <DataGridColumn
+      Caption="@Localizer["DataGridColumnChangeDt"]"
+      Field="@nameof(TemplateResourceEntity.ChangeDt)"
+      Width="20%"
+  />
+  <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(TemplateResourceEntity.Name)"
     Width="80%"
   />
-  <DataGridColumn
-    Caption="@Localizer["DataGridColumnSize"]"
-    Field="@nameof(TemplateResourceEntity.DataValue)"
-    Width="20%"
-  >
-    <DisplayTemplate>
-      <p>@ConvertBytes(context.DataValue.Length)</p>
-    </DisplayTemplate>
-  </DataGridColumn>
 </SectionDataGridWrapper>

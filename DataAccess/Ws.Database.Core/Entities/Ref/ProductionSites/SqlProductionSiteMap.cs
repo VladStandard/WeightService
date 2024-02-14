@@ -9,7 +9,7 @@ internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.ProductionSites);
         
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

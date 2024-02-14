@@ -9,7 +9,7 @@ internal class SqlBoxMap : ClassMapping<BoxEntity>
         Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Boxes);
 
-        Id(x => x.IdentityValueUid, m => {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);

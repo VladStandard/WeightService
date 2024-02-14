@@ -5,23 +5,23 @@
   OnSubmitAction="() => UpdateItem(SectionEntity)"
   ResetItemAction="ResetItem"
   DeleteItemAction="DeleteItem"
-  ShareUrl="@($"{RouteUtils.SectionTemplates}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionTemplates}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueId.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Title"
+    @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnTitle"]"
     Size="SectionFormInputSizeEnum.Medium"
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Data"
+    @bind-Value="@SectionEntity.Body"
     Label="@Localizer["DataGridColumnData"]"
     Size="SectionFormInputSizeEnum.ExtraLarge"
     IsCopyable

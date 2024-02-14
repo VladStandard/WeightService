@@ -6,7 +6,7 @@ using Ws.Domain.Models.Utils;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class UserEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class UserEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
     public virtual DateTime LoginDt { get; set; } = SqlTypeUtils.MinDateTime;

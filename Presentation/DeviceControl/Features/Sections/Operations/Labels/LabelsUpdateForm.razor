@@ -2,11 +2,11 @@
 
 
 <SectionFormWrapper
-  ShareUrl="@($"{RouteUtils.SectionLabels}/{SectionEntity.IdentityValueUid}")"
+  ShareUrl="@($"{RouteUtils.SectionLabels}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
   <SectionFormInputText
-    Value="@SectionEntity.IdentityValueUid.ToString()"
+    Value="@SectionEntity.Uid.ToString()"
     Label="@Localizer["DataGridColumnUID"]"
     IsDisabled
     IsCopyable
@@ -29,7 +29,7 @@
     IsDisabled
   />
   <SectionFormInputText
-    Value="@Template.Title"
+    Value="@Template.Name"
     Label="@Localizer["DataGridColumnTemplate"]"
     Link="@GetTemplateLink()"
     IsDisabled

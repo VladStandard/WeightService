@@ -61,7 +61,7 @@ public sealed partial class CreateForm : ComponentBase
             Line = LineContext.Line,
             Nesting = FormModel.Nesting!,
             ProductDt = FormModel.CreateDt,
-            Template = PluService.GetPluTemplate(FormModel.Plu).Data
+            Template = PluService.GetPluTemplate(FormModel.Plu).Body
         };
         
         PrintLabelService.GeneratePiecePallet(dto, palletEntity, FormModel.Count);

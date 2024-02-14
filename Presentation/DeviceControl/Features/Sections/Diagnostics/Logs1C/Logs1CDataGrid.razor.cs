@@ -21,7 +21,7 @@ public sealed partial class Logs1CDataGrid : SectionDataGridBase<LogWebEntity>
         => await OpenSectionModal<Logs1CUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(LogWebEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.Section1CLogs}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.Section1CLogs}/{item.Uid.ToString()}");
 
     protected override IEnumerable<LogWebEntity> SetSqlSectionCast() => LogWebService.GetAll();
 

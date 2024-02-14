@@ -6,7 +6,7 @@ using Ws.Domain.Models.Enums;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class LineEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class LineEntity : EntityBase
 {
     private int _counter;
     public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }

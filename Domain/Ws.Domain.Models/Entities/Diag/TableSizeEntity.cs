@@ -5,7 +5,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Diag;
 
 [DebuggerDisplay("{ToString()}")]
-public class TableSizeEntity() : EntityBase(SqlEnumFieldIdentity.Uid)
+public class TableSizeEntity : EntityBase
 {
     public virtual string Schema { get; init; } = string.Empty;
     public virtual string Table { get; init; } = string.Empty;

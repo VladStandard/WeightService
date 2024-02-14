@@ -10,7 +10,7 @@ public sealed class SqlTemplateResourceValidator : SqlTableValidator<TemplateRes
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.DataValue)
+        RuleFor(item => item.Zpl)
             .NotEmpty()
             .NotNull();
     }

@@ -24,7 +24,7 @@ public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity
         => await OpenSectionModal<PrintersUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(PrinterEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.Uid.ToString()}");
 
     protected override IEnumerable<PrinterEntity> SetSqlSectionCast() => PrinterService.GetAll();
 

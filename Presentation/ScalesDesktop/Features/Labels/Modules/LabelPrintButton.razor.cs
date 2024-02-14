@@ -105,7 +105,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
             Weight = GetWeight(),
             Nesting = LabelContext.PluNesting,
             Line = LabelContext.Line,
-            Template = LabelContext.PluTemplate.Data,
+            Template = LabelContext.PluTemplate.Body,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
             ExpirationDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
                 .AddDays(LabelContext.Plu.ShelfLifeDays)

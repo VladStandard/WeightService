@@ -3,7 +3,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Domain.Models.Entities.Print;
 
-public class ViewPallet(): EntityBase(SqlEnumFieldIdentity.Uid)
+public class ViewPallet: EntityBase
 { 
     public virtual DateTime ProdDt { get; set; }
     public virtual int Counter { get; set; } = 0;

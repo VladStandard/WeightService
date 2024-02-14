@@ -6,23 +6,11 @@ namespace Ws.Domain.Abstractions.Entities.Common;
 [DebuggerDisplay("{ToString()}")]
 public abstract class EntityBase
 {
-    public virtual IdentityModel Identity { get; set; }
-    public virtual long IdentityValueId { get => Identity.Id; set => Identity.Id = value; }
-    public virtual Guid IdentityValueUid { get => Identity.Uid; set => Identity.Uid = value; }
+    public virtual Guid Uid { get; set; } = Guid.Empty;
     public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
-    public virtual bool IsExists => Identity.IsExists;
-    public virtual bool IsNew => Identity.IsNew;
-
-    protected EntityBase()
-    {
-        Identity = new(SqlEnumFieldIdentity.Uid);
-    }
-
-    protected EntityBase(SqlEnumFieldIdentity identityName)
-    {
-        Identity = new(identityName);
-    }
+    public virtual bool IsExists => !IsNew;
+    public virtual bool IsNew => Uid == Guid.Empty;
     
     public override bool Equals(object? obj)
     {
@@ -34,7 +22,7 @@ public abstract class EntityBase
 
         EntityBase entity = (EntityBase)obj;
 
-        return Equals(Identity, entity.Identity) &&
+        return Equals(Uid, entity.Uid) &&
                Equals(CreateDt, entity.CreateDt) &&
                Equals(ChangeDt, entity.ChangeDt) &&
                CastEquals(entity);
@@ -42,5 +30,5 @@ public abstract class EntityBase
 
     protected virtual bool CastEquals(EntityBase obj) => true;
 
-    public override int GetHashCode() => Identity.GetHashCode();
+    public override int GetHashCode() => Uid.GetHashCode();
 }

@@ -9,7 +9,7 @@ internal sealed class SqlBundleMap : ClassMapping<BundleEntity>
         Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Bundles);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

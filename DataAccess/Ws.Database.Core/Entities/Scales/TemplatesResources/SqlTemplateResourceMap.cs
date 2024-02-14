@@ -6,11 +6,11 @@ internal sealed class SqlTemplateResourceMap : ClassMapping<TemplateResourceEnti
 {
     public SqlTemplateResourceMap()
     {
-        Schema(SqlSchemasUtils.DbScales);
-        Table(SqlTablesUtils.TemplatesResources);
+        Schema(SqlSchemasUtils.Print);
+        Table(SqlTablesUtils.ZplResources);
         Lazy(false);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
@@ -39,10 +39,10 @@ internal sealed class SqlTemplateResourceMap : ClassMapping<TemplateResourceEnti
             m.NotNullable(true);
         });
 
-        Property(x => x.DataValue, m =>
+        Property(x => x.Zpl, m =>
         {
-            m.Column("DATA");
-            m.Type(NHibernateUtil.BinaryBlob);
+            m.Column("ZPL");
+            m.Type(NHibernateUtil.String);
             m.NotNullable(true);
             m.Length(int.MaxValue);
         });

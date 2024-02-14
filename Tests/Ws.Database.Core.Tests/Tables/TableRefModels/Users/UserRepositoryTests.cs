@@ -31,7 +31,7 @@ public sealed class UserRepositoryTests : TableRepositoryTests
         AssertAction(() => {
             UserEntity access = UserRepository.GetItemByUsername(CurrentUser);
             Assert.That(access.IsExists, Is.True);
-            TestContext.WriteLine($"Success: {access.Name} / {access.IdentityValueUid}");
+            TestContext.WriteLine($"Success: {access.Name} / {access.Uid}");
         });
     }
 }

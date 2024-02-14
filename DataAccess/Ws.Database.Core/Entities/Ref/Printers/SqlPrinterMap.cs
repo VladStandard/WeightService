@@ -10,7 +10,7 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Printers);
         
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

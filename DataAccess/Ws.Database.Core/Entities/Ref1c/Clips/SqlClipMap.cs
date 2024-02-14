@@ -9,7 +9,7 @@ internal sealed class SqlClipMap : ClassMapping<ClipEntity>
         Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Clips);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

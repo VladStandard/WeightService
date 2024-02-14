@@ -9,7 +9,7 @@ internal sealed class SqlStorageMethodMap : ClassMapping<StorageMethodEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.StorageMethods);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);

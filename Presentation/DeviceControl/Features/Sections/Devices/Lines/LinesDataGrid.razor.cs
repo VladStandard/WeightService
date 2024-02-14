@@ -20,7 +20,7 @@ public sealed partial class LinesDataGrid : SectionDataGridBase<LineEntity>
         => await OpenSectionModal<LinesUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(LineEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.Uid.ToString()}");
 
     protected override IEnumerable<LineEntity> SetSqlSectionCast() => LineService.GetAll().ToList();
 

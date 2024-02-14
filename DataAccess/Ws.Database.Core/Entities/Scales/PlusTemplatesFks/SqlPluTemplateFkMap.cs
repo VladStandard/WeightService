@@ -9,7 +9,7 @@ internal sealed class SqlPluTemplateFkMap : ClassMapping<PluTemplateFkEntity>
         Schema(SqlSchemasUtils.DbScales);
         Table(SqlTablesUtils.PlusTemplatesFks);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
@@ -38,7 +38,7 @@ internal sealed class SqlPluTemplateFkMap : ClassMapping<PluTemplateFkEntity>
 
         ManyToOne(x => x.Template, m =>
         {
-            m.Column("TEMPLATE_ID");
+            m.Column("TEMPLATE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

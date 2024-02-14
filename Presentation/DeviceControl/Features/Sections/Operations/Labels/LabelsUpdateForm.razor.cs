@@ -30,11 +30,11 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
     private string GetTemplateLink() => Template.IsNew ?
-        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.IdentityValueId}";
+        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
 
     private string GetLineLink() => SectionEntity.Line.IsNew ?
-        string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.Uid}";
 
     private string GetPluLink() => SectionEntity.Plu.IsNew ?
-        string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Plu.IdentityValueUid}";
+        string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Plu.Uid}";
 }

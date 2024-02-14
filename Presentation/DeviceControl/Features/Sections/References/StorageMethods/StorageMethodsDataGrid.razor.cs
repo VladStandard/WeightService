@@ -24,7 +24,7 @@ public sealed partial class StorageMethodsDataGrid : SectionDataGridBase<Storage
         => await OpenSectionModal<StorageMethodsUpdateDialog>(item);
 
     protected override async Task OpenItemInNewTab(StorageMethodEntity item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionStorageMethods}/{item.IdentityValueUid.ToString()}");
+        => await OpenLinkInNewTab($"{RouteUtils.SectionStorageMethods}/{item.Uid.ToString()}");
 
     protected override IEnumerable<StorageMethodEntity> SetSqlSectionCast() => StorageMethodService.GetAll();
 

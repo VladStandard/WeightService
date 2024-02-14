@@ -9,7 +9,7 @@ internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Claims);
 
-        Id(x => x.IdentityValueUid, m =>
+        Id(x => x.Uid, m =>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
