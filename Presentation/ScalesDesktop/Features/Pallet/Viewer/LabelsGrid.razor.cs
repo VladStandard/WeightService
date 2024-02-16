@@ -21,10 +21,10 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private IEnumerable<LabelEntity> GetGridData() => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid);
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        InitializeData();
         PalletContext.OnStateChanged += async () => await ReloadGrid();
+        await Task.Run(InitializeData);
     }
 
     private async Task OnSearchingNumberChanged() => await DataGridRef.Reload();
@@ -33,7 +33,7 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private async Task ReloadGrid()
     {
-        InitializeData();
+        await Task.Run(InitializeData);
         SelectedItems = [];
         await DataGridRef.Reload();
         StateHasChanged();

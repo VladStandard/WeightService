@@ -32,8 +32,6 @@
         
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
-        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-        <NeutralLanguage>ru-RU</NeutralLanguage>
         <NoWarn>CA1806</NoWarn>
     </PropertyGroup>
 

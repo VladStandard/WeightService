@@ -1,5 +1,7 @@
 @using Blazor.Heroicons.Outline
 @using Ws.Domain.Models.Entities.Print
+
+
 <div class="py-3 bg-neutral-50 w-full flex shrink-0 items-center gap-2 px-4">
   <div class="w-1/2 border bg-white rounded-md border-neutral-200 px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
     <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-600" />
@@ -34,20 +36,17 @@
       Virtualize
       Class="!mb-0"
     >
-      <DataGridMultiSelectColumn Width="1rem"/>
+      <DataGridMultiSelectColumn Width="1rem" />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnProductDt"]"
+        Caption="Дата создания"
         Field="@nameof(LabelEntity.CreateDt)"
-        Width="50%"/>
+        Width="40%"
+      />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnNumber"]"
-        Field="Plu.Number"
-        Width="25%"/>
-      <DataGridColumn
-        Caption="@Localizer["DataGridColumnPLU"]"
-        Field="@nameof(LabelEntity.WeightNet)"
-        Width="25%"/>
+        Caption="Линия"
+        Field="@nameof(LabelEntity.Line)"
+        Width="60%"
+      />
     </DataGrid>
   </div>
 </div>
-
