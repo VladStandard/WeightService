@@ -1,4 +1,5 @@
-﻿using Ws.Domain.Models.Entities.Ref;
+﻿using Ws.Database.Core.Types;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
@@ -38,11 +39,9 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
             m.Length(50);
         });
 
-        Property(x => x.Ip, m =>
-        {
+        Property(x => x.Ip, m => {
+            m.Type<IpAddressType>();
             m.Column("IP");
-            m.Type(NHibernateUtil.String);
-            m.Length(15);
         });
 
         Property(x => x.Port, m =>

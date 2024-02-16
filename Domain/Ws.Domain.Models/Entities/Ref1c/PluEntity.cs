@@ -6,7 +6,7 @@ using Ws.Domain.Models.Entities.Ref;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluEntity() : Entity1CBase
+public class PluEntity : Entity1CBase
 {
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; } = string.Empty;

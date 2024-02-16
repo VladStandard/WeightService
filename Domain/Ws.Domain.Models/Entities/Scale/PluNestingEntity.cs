@@ -7,7 +7,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Domain.Models.Entities.Scale;
 
 [DebuggerDisplay("{ToString()}")]
-public class PluNestingEntity() : Entity1CBase
+public class PluNestingEntity : Entity1CBase
 {
     public virtual BoxEntity Box { get; set; } = new();
     public virtual PluEntity Plu { get; set; } = new();

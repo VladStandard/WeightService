@@ -10,6 +10,5 @@ public class SqlPrinterValidator : SqlTableValidator<PrinterEntity>
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Ip).MustBeAValidIpAddress();
     }
 }

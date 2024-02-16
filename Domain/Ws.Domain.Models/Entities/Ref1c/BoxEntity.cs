@@ -5,7 +5,7 @@ using Ws.Domain.Abstractions.Entities.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BoxEntity() : Entity1CBase
+public class BoxEntity : Entity1CBase
 {
     public virtual decimal Weight { get; set; }
     public virtual string Name { get; set; } = string.Empty;

@@ -1,3 +1,4 @@
+using System.Net;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,16 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();
+    
+    private string PrinterIp
+    {
+        get => SectionEntity.Ip.ToString();
+        set
+        {
+            IPAddress.TryParse(value, out IPAddress? ip);
+            SectionEntity.Ip = ip ?? SectionEntity.Ip;
+        }
+    }
 
     protected override void OnInitialized()
     {

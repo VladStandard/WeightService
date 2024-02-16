@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.Net;
+using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
@@ -8,13 +9,13 @@ namespace Ws.Printers.Common;
 
 public abstract class PrinterBase : IPrinter
 {
-    private readonly string _ip;
+    private readonly IPAddress _ip;
     private readonly int _port;
 
     protected PrinterStatusEnum Status { get; set; }
     protected TcpClient TcpClient { get; set; }
 
-    protected PrinterBase(string ip, int port)
+    protected PrinterBase(IPAddress ip, int port)
     {
         _ip = ip;
         _port = port;
