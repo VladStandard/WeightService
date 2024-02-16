@@ -1,5 +1,4 @@
 ﻿using Ws.Domain.Models.Entities.Ref;
-using Ws.Shared.Validators;
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
 
