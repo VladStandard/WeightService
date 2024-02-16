@@ -1,13 +1,14 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Labels.Resources;
 using ScalesDesktop.Resources;
 
-namespace ScalesDesktop.Features.Shared;
+namespace ScalesDesktop.Features.Labels.Modals;
 
 public sealed partial class NumericKeyboardDialog : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<LabelsResources> LabelsLocalizer { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
 
     [Parameter] public Action<int> CallbackFunction { get; set; } = _ => {};
@@ -31,7 +32,7 @@ public sealed partial class NumericKeyboardDialog : ComponentBase
             new() { Title = "9", CalculatorAction = () => SetNumber(9) },
             new() { Title = "C", CalculatorAction = ClearNumber },
             new() { Title = "0", CalculatorAction = () => SetNumber(0) },
-            new() { Title = Localizer["ButtonCalculatorEnter"], CalculatorAction = SubmitInput }
+            new() { Title = LabelsLocalizer["BtnEnter"], CalculatorAction = SubmitInput }
         ];
     }
 

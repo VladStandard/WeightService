@@ -10,17 +10,17 @@
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
 >
   <DataAnnotationsValidator />
-  <SharedInputLabelWrapper Label="Склад" HtmlFor="warehouse">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColWarehouse"]" HtmlFor="warehouse">
     <SharedInputText
       id="warehouse"
       Value="@LineContext.Line.Warehouse.Name"
       disabled
     />
   </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="ПЛУ" HtmlFor="plu">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlFor="plu">
     <SharedSelectSingle
       TItem="PluEntity"
-      Placeholder="Выберите плу"
+      Placeholder="@PalletLocalizer["PluSelectPlaceholder"]"
       ItemDisplayName="entity => entity.DisplayName"
       @bind-SelectedItem="@FormModel.Plu"
       @bind-SelectedItem:after="SetPluNestings"
@@ -28,27 +28,27 @@
       IsFilterable
     />
   </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="Вложенность" HtmlFor="nesting">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlFor="nesting">
     <SharedSelectSingle
       TItem="PluNestingEntity"
-      Placeholder="Выберите вложенность"
+      Placeholder="@PalletLocalizer["NestingSelectPlaceholder"]"
       @bind-SelectedItem="FormModel.Nesting"
       @bind-Items="PluNestings"
       ItemDisplayName="@(item => NameFormatting.GetPluNestingFormattedName(item))"
       IsDisabled="@(FormModel.Plu == null || !PluNestings.Any() )"
     />
   </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="Вес паллеты" HtmlFor="pallet-weight">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColPalletWeight"]" HtmlFor="pallet-weight">
     <SharedInputNumber
       TValue="decimal"
       id="pallet-weight"
       step="0.001"
       Min="@decimal.Zero"
-      placeholder="Введите вес палетты..."
+      placeholder="@PalletLocalizer["PalletWeightInputPlaceholder"]"
       @bind-Value="FormModel.PalletWeight"
     />
     </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="Дата создания" HtmlFor="create-dt">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColCreateDt"]" HtmlFor="create-dt">
     <SharedInputDate
       id="create-dt"
       TValue="DateTime"
@@ -56,27 +56,27 @@
       @bind-Value="FormModel.CreateDt"
     />
   </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="Количество" HtmlFor="count">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColCount"]" HtmlFor="count">
     <SharedInputNumber
       TValue="int"
       id="count"
       step="1"
       Min="1"
-      placeholder="Введите количество..."
+      placeholder="@PalletLocalizer["LabelCountInputPlaceholder"]"
       @bind-Value="FormModel.Count"
     />
   </SharedInputLabelWrapper>
-  <SharedInputLabelWrapper Label="Замес" HtmlFor="kneading">
+  <SharedInputLabelWrapper Label="@WsDataLocalizer["ColKneading"]" HtmlFor="kneading">
     <SharedInputNumber
       TValue="short"
       id="kneading"
       step="1"
       Min="0"
-      placeholder="Введите замес..."
+      placeholder="@PalletLocalizer["KneadingInputPlaceholder"]"
       @bind-Value="FormModel.Kneading"
     />
   </SharedInputLabelWrapper>
   <SharedButton Type="ButtonType.Submit" class="!mt-8 !mb-2" >
-    Создать
+    @PalletLocalizer["BtnCreate"]
   </SharedButton>
 </EditForm>

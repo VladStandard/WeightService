@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
+using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
 public sealed partial class LabelDisplayDate : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> Localizer { get; set; } = null!;
 
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 

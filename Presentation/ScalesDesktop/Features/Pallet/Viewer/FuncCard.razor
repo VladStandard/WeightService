@@ -1,0 +1,57 @@
+@using Blazor.Heroicons.Outline
+@using Blazor.Heroicons
+
+
+<div class="rounded-md max-w-2xl max-h-full overflow-y-auto border shadow-sm bg-white p-6 w-full">
+  <div class="flex flex-col space-y-1.5">
+    <h3 class="font-semibold leading-none tracking-tight">
+      @PalletLocalizer["FuncCardHeader"]
+    </h3>
+    <p class="text-sm text-neutral-500">
+      @PalletLocalizer["FuncCardDescription"]
+    </p>
+  </div>
+  <div class="grid">
+    <FuncCardItem IconName="@HeroiconName.Plus">
+      <CardTitle>
+        @PalletLocalizer["FuncCardCreationTitle"]
+      </CardTitle>
+      <CardDescription>
+        @PalletLocalizer["FuncCardCreationDescription"]
+        <span class="p-1 rounded-md bg-neutral-900 inline-flex border text-white">
+          <PlusIcon class="h-3 w-3"/>
+        </span>
+      </CardDescription>
+    </FuncCardItem>
+    <FuncCardItem IconName="@HeroiconName.Eye">
+      <CardTitle>
+        @PalletLocalizer["FuncCardViewingTitle"]
+      </CardTitle>
+      <CardDescription>
+        @PalletLocalizer["FuncCardViewingDescription"]
+      </CardDescription>
+    </FuncCardItem>
+    <FuncCardItem IconName="@HeroiconName.Printer">
+      <CardTitle>
+        @PalletLocalizer["FuncCardPCPrintingTitle"]
+      </CardTitle>
+      <CardDescription>
+        @PalletLocalizer["FuncCardPCPrintingDescription"]
+        <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
+          @PalletLocalizer["BtnPrintPC"]
+        </span>
+      </CardDescription>
+    </FuncCardItem>
+    <FuncCardItem IconName="@HeroiconName.Tag">
+      <CardTitle>
+        @PalletLocalizer["FuncCardLabelPrintingTitle"]
+      </CardTitle>
+      <CardDescription>
+        @PalletLocalizer["FuncCardLabelPrintingDescription"]
+        <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
+          @PalletLocalizer["BtnSelectedLabelsPrinting"]
+        </span>
+      </CardDescription>
+    </FuncCardItem>
+  </div>
+</div>

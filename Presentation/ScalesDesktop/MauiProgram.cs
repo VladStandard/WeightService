@@ -26,9 +26,9 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
-        
-        CultureInfo.DefaultThreadCurrentCulture = new("ru-RU");
-        CultureInfo.DefaultThreadCurrentUICulture = new("ru-RU");
+        const string currentLanguage = "ru-RU";
+        CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);
+        CultureInfo.DefaultThreadCurrentUICulture = new(currentLanguage);
         builder.Services.AddLocalization();
         
         builder.Services.AddScoped<IPrintingService, PrintingService>();
