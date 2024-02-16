@@ -64,7 +64,7 @@ public sealed partial class CreateForm : ComponentBase
         };
         
         PrintLabelService.GeneratePiecePallet(dto, palletEntity, FormModel.Count);
-        
+        PalletContext.UpdatePalletData();
         ModalService.Hide();
     } 
 }

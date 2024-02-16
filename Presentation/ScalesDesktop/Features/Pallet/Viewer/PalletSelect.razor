@@ -1,5 +1,7 @@
 @using Blazor.Heroicons.Outline
 @using Ws.Domain.Models.Entities.Print
+
+
 <div class="h-full w-full overflow-hidden flex flex-col">
   <div class="h-full w-full grow flex flex-col overflow-hidden">
     <div class="h-14 border-b flex gap-2 w-full px-4 flex items-center shrink-0">
@@ -7,8 +9,11 @@
         <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-500"/>
         <input
           type="text"
+          @bind="InputSearchCounter"
+          @bind:event="oninput"
           class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-          placeholder="Поиск по номеру..."/>
+          placeholder="Поиск по номеру..."
+        />
       </div>
       <SharedButton
         Variant="ButtonVariant.Outline"
@@ -39,7 +44,7 @@
     else
     {
       <ul class="w-full space-y-3 grow px-4 py-3 pr-[1px] overflow-y-scroll">
-        @foreach (ViewPallet item in PalletContext.PalletEntities.Take(100))
+        @foreach (ViewPallet item in GetFilteredPalletList())
         {
           <li>
             <PalletSelectItem Pallet="item"/>
