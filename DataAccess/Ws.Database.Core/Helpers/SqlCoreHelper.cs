@@ -40,45 +40,7 @@ public static class SqlCoreHelper
         }
     }
     
-
-    #region GetItem
-
-    public static T GetItemById<T>(object id) where T : EntityBase, new()
-    {
-        T? item = null;
-        ExecuteSelectCore(session => {
-            item = session.Get<T>(id);
-        });
-        return item ?? new();
-    }
-    
-    public static T GetItem<T>(QueryOver<T> query) where T : EntityBase, new()
-    {
-        T? item = null;
-        ExecuteSelectCore(session => {
-            ICriteria criteria = query.DetachedCriteria.GetExecutableCriteria(session);
-            item = criteria.UniqueResult<T>();
-        });
-        return item ?? new();
-    }
-
-    #endregion
-
     #region GetList
-    
-    public static IEnumerable<T> GetEnumerable<T>(QueryOver<T>? query = null) where T : EntityBase, new()
-    {
-        IEnumerable<T> items = Enumerable.Empty<T>();
-        
-        ExecuteSelectCore(session => {
-            ICriteria criteria = query != null ? 
-                query.DetachedCriteria.GetExecutableCriteria(session) : 
-                session.CreateCriteria<T>();
-            items = criteria.List<T>();
-        });
-        
-        return items;
-    }
 
     public static IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
     {

@@ -5,5 +5,5 @@ namespace Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 public class SqlPluTemplateFkRepository :  BaseRepository, IGetItemByQuery<PluTemplateFkEntity>
 {
     public PluTemplateFkEntity GetItemByQuery(QueryOver<PluTemplateFkEntity> query) =>
-        SqlCoreHelper.GetItem(query);
+        query.DetachedCriteria.GetExecutableCriteria(Session).UniqueResult<PluTemplateFkEntity>();
 }

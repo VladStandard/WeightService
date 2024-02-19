@@ -5,19 +5,13 @@ namespace Ws.Database.Core.Entities.Print.Pallets;
 
 public sealed class SqlPalletRepository : BaseRepository
 {
-    public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse)
-    {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<ViewPallet>().Where(i => i.Warehouse == warehouse.Name).OrderBy(i => i.CreateDt).Desc()
-        );
-    }
-    
-    public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid)
-    {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<LabelEntity>().Where(i => i.Pallet!.Uid == palletUid).OrderBy(i => i.CreateDt).Desc()
-        );
-    }
-    
-    public ViewPallet GetViewByUid(Guid uid) => SqlCoreHelper.GetItemById<ViewPallet>(uid);
+    public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
+        Session.Query<ViewPallet>().Where(i => i.Warehouse == warehouse.Name)
+            .OrderByDescending(i => i.CreateDt).ToList();
+
+    public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) =>
+        Session.Query<LabelEntity>().Where(i => i.Pallet!.Uid == palletUid)
+            .OrderByDescending(i => i.CreateDt).ToList();
+
+    public ViewPallet GetViewByUid(Guid uid) => Session.Get<ViewPallet>(uid) ?? new();
 }

@@ -40,22 +40,24 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
         });
 
         Property(x => x.Ip, m => {
-            m.Type<IpAddressType>();
             m.Column("IP");
+            m.Type<IpAddressType>();
+            m.NotNullable(true);
         });
 
         Property(x => x.Port, m =>
         {
             m.Column("PORT");
             m.Type(NHibernateUtil.Int16);
+            m.NotNullable(true);
         });
 
         Property(x => x.Type, m =>
         {
-            m.Column("TYPE");
-            m.NotNullable(true);
-            m.Type<EnumStringType<PrinterTypeEnum>>();
             m.Length(15);
+            m.Column("TYPE");
+            m.Type<EnumStringType<PrinterTypeEnum>>();
+            m.NotNullable(true);
         });
     }
 }

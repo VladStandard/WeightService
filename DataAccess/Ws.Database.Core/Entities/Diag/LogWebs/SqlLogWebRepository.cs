@@ -4,12 +4,8 @@ namespace Ws.Database.Core.Entities.Diag.LogWebs;
 
 public class SqlLogWebRepository : BaseRepository, IGetItemByUid<LogWebEntity>
 {
-    public LogWebEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<LogWebEntity>(uid);
-    
-    public IEnumerable<LogWebEntity> GetList()
-    {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<LogWebEntity>().OrderBy(log => log.CreateDt).Desc.Take(500)
-        );
-    }
+    public LogWebEntity GetByUid(Guid uid) => Session.Get<LogWebEntity>(uid) ?? new();
+
+    public IEnumerable<LogWebEntity> GetList() =>
+        Session.Query<LogWebEntity>().OrderByDescending(i => i.CreateDt).Take(500).ToList();
 }

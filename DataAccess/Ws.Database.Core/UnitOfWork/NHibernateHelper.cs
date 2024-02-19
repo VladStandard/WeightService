@@ -43,6 +43,9 @@ public static class NHibernateHelper
             db.Driver<SqlClientDriver>();
             db.LogSqlInConsole = SqlSettingsModels.IsShowSql;
         });
+        
+        SqlConfiguration.SetProperty("current_session_context_class", "call");
+        
         SqlConfiguration.EventListeners.PreInsertEventListeners =
             [new SqlCreateDtListener()];
         SqlConfiguration.EventListeners.PreUpdateEventListeners =

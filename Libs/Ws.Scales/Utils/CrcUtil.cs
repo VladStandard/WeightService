@@ -46,8 +46,5 @@ public static class CrcUtil
         return MergeBytes([Header, len, body, crc]);
     }
 
-    public static byte[] Generate(byte body)
-    {
-        return Generate([body]);
-    }
+    public static byte[] Generate(byte body) => Generate([body]);
 }

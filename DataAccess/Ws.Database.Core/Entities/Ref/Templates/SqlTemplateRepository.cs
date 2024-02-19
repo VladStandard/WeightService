@@ -5,12 +5,7 @@ namespace Ws.Database.Core.Entities.Ref.Templates;
 
 public sealed class SqlTemplateRepository :  BaseRepository, IGetAll<TemplateEntity>
 {
-    public TemplateEntity GetByUid(Guid id) => SqlCoreHelper.GetItemById<TemplateEntity>(id);
-
-    public IEnumerable<TemplateEntity> GetAll()
-    {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<TemplateEntity>().OrderBy(i => i.Name).Asc
-        );
-    }
+    public TemplateEntity GetByUid(Guid id) => Session.Get<TemplateEntity>(id) ?? new();
+    
+    public IEnumerable<TemplateEntity> GetAll() => Session.Query<TemplateEntity>().OrderBy(i => i.Name).ToList();
 }

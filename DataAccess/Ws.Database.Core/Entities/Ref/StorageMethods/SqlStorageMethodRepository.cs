@@ -4,19 +4,11 @@ namespace Ws.Database.Core.Entities.Ref.StorageMethods;
 
 public class SqlStorageMethodRepository :  BaseRepository, IGetItemByUid<StorageMethodEntity>
 {
-    public StorageMethodEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<StorageMethodEntity>(uid);
+    public StorageMethodEntity GetByUid(Guid uid) => Session.Get<StorageMethodEntity>(uid) ?? new();
     
-    public IEnumerable<StorageMethodEntity> GetList()
-    {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<StorageMethodEntity>().OrderBy(i => i.Name).Asc
-        );
-    }
+    public IEnumerable<StorageMethodEntity> GetList() =>
+        Session.Query<StorageMethodEntity>().OrderBy(i => i.Name).ToList();
     
-    public StorageMethodEntity GetItemByName(string name)
-    {
-        return SqlCoreHelper.GetItem(
-            QueryOver.Of<StorageMethodEntity>().Where(i => i.Name == name)
-        );
-    }
+    public StorageMethodEntity GetItemByName(string name) =>
+        Session.Query<StorageMethodEntity>().FirstOrDefault(i => i.Name == name) ?? new();
 }
