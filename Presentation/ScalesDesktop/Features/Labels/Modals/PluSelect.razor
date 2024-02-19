@@ -1,31 +1,31 @@
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits DataGridBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+@inherits DataGridBase<PluEntity>
 
 
-<DialogWrapper Title="@Localizer["DialogPluSelectHeaderLabel"]">
+<DialogWrapper Title="@PalletLocalizer["PluSelectHeader"]">
   <DataGridWrapper
     TItem="PluEntity"
     GridData="GridData"
     OnItemSelect="OnItemSelect"
   >
     <DataGridColumn
-      Caption="@Localizer["DataGridColumnNumber"]"
+      Caption="@WsDataLocalizer["ColNumber"]"
       TItem="PluEntity"
       Field="@nameof(PluEntity.Number)"
       Width="15%"
     />
     <DataGridColumn
-      Caption="@Localizer["DataGridColumnType"]"
+      Caption="@WsDataLocalizer["ColType"]"
       TItem="PluEntity"
       Field="@nameof(PluEntity.IsCheckWeight)"
       Width="15%"
     >
       <DisplayTemplate>
-        <span>@(context.IsCheckWeight ? "Вес" : "Шт")</span>
+        @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
       </DisplayTemplate>
     </DataGridColumn>
     <DataGridColumn
-      Caption="@Localizer["DataGridColumnName"]"
+      Caption="@WsDataLocalizer["ColName"]"
       TItem="PluEntity"
       Field="@nameof(PluEntity.Name)"
       Width="70%"

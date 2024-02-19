@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Labels.Resources;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;

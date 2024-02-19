@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Create;
 using ScalesDesktop.Features.Pallet.Resources;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Shared.Enums;
 using Ws.SharedUI.Resources;

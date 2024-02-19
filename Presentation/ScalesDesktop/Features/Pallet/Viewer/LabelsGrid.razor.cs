@@ -2,7 +2,6 @@ using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Resources;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;

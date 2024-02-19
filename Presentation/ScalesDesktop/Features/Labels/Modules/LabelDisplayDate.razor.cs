@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.SharedUI.Resources;
 

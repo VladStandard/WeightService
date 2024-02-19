@@ -258,6 +258,15 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Этикетка.
+        /// </summary>
+        public static string ColLabel {
+            get {
+                return ResourceManager.GetString("ColLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Линия.
         /// </summary>
         public static string ColLine {
