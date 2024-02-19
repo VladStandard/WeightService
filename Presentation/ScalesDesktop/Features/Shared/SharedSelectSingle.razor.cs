@@ -2,7 +2,6 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
-using ScalesDesktop.Resources;
 
 namespace ScalesDesktop.Features.Shared;
 

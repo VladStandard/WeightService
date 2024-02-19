@@ -2,7 +2,6 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Labels.Resources;
-using ScalesDesktop.Resources;
 
 namespace ScalesDesktop.Features.Labels.Modals;
 

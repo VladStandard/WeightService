@@ -101,18 +101,6 @@
     </Target>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\ApplicationResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\ApplicationResources.ru-RU.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\ApplicationResources.en-US.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Remove="obj\**" />
       <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
@@ -141,21 +129,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\ApplicationResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\ApplicationResources.ru-RU.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\ApplicationResources.en-US.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
-      </Compile>
       <Compile Remove="obj\**" />
       <Compile Update="Features\Labels\Resources\LabelsResources.Designer.cs">
         <DesignTime>True</DesignTime>

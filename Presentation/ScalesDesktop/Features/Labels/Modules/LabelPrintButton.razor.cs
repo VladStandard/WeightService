@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Events;
 using ScalesDesktop.Features.Labels.Resources;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
 using Ws.Labels.Service.Features.PrintLabel;

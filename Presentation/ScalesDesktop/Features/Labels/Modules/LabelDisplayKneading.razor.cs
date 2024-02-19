@@ -4,7 +4,6 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Labels.Modals;
 using ScalesDesktop.Features.Labels.Resources;
 using ScalesDesktop.Features.Shared;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.SharedUI.Resources;
 

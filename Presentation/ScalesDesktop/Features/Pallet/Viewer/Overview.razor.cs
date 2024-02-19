@@ -4,7 +4,6 @@ using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Resources;
-using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.SharedUI.Resources;
 

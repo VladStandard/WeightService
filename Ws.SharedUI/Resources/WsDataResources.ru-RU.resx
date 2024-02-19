@@ -159,4 +159,7 @@
     <data name="ColCreateDt" xml:space="preserve">
         <value>Дата создания</value>
     </data>
+    <data name="ColLabel" xml:space="preserve">
+        <value>Этикетка</value>
+    </data>
 </root>

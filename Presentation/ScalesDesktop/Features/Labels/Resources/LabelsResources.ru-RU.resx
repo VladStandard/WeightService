@@ -72,4 +72,7 @@
     <data name="BtnCooldown" xml:space="preserve">
         <value>Доступно через</value>
     </data>
+    <data name="PluSelectHeader" xml:space="preserve">
+        <value>Выбор ПЛУ</value>
+    </data>
 </root>

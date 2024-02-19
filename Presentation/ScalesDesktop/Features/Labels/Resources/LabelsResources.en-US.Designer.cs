@@ -132,6 +132,15 @@ namespace ScalesDesktop.Features.Labels.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLU select.
+        /// </summary>
+        internal static string PluSelectHeader {
+            get {
+                return ResourceManager.GetString("PluSelectHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select plu.
         /// </summary>
         internal static string PluSelectPlaceholder {

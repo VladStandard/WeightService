@@ -159,4 +159,7 @@
     <data name="ColCreateDt" xml:space="preserve">
         <value>Create date</value>
     </data>
+    <data name="ColLabel" xml:space="preserve">
+        <value>Label</value>
+    </data>
 </root>

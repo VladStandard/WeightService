@@ -260,6 +260,15 @@ namespace Ws.SharedUI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColLabel {
+            get {
+                return ResourceManager.GetString("ColLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColLine {
             get {
                 return ResourceManager.GetString("ColLine", resourceCulture);

@@ -72,4 +72,7 @@
     <data name="BtnCooldown" xml:space="preserve">
         <value>Available in</value>
     </data>
+    <data name="PluSelectHeader" xml:space="preserve">
+        <value>PLU select</value>
+    </data>
 </root>
