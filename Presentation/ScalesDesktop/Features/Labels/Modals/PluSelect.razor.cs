@@ -3,11 +3,12 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Shared;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Domain.Models.Entities.Ref1c;
 
-namespace ScalesDesktop.Features.Shared;
+namespace ScalesDesktop.Features.Labels.Modals;
 
 public sealed partial class PluSelect : DataGridBase<PluEntity>
 {

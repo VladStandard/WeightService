@@ -1,4 +1,4 @@
-<LabelDisplayItem Label="@Localizer["ProductDisplayNetWeightLabel"]">
+<LabelDisplayItem Label="@WsDataLocalizer["ColNetWeight"]">
   <div class="text-[2rem] flex items-end mx-auto px-4 border border-black/[.1] bg-gray-50 text-center
                  rounded-lg overflow-hidden xl:text-[2.5rem] @(!IsStable || GetNetWeight <= 0 ? "text-red-400" : "text-green-400")"
   >
@@ -12,6 +12,6 @@
     {
       <span class="w-5 flex justify-center xl:w-6">@decChar</span>
     }
-    <span>@Localizer["WeightMeasureKilogram"]</span>
+    <span>@WsDataLocalizer["MeasureKg"]</span>
   </div>
 </LabelDisplayItem>

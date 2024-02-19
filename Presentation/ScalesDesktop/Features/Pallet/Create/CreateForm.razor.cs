@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Pallet.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
@@ -11,6 +13,7 @@ using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
+using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Features.Pallet.Create;
 
@@ -23,6 +26,8 @@ public sealed partial class CreateForm : ComponentBase
     [Inject] private ILineService LineService { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<PalletResources> PalletLocalizer { get; set; } = null!;
     [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
 
     private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];

@@ -1,6 +1,8 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Create;
+using ScalesDesktop.Features.Pallet.Resources;
 using ScalesDesktop.Services;
 using Ws.Domain.Models.Entities.Print;
 
@@ -10,6 +12,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
 {
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IStringLocalizer<PalletResources> PalletLocalizer { get; set; } = null!;
 
     private string InputSearchCounter { get; set; } = string.Empty;
 

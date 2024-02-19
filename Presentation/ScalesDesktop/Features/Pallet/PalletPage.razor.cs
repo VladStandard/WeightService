@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Services;
 
-namespace ScalesDesktop.Features.Pallet.Viewer;
+namespace ScalesDesktop.Features.Pallet;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed partial class PalletPage : ComponentBase, IDisposable

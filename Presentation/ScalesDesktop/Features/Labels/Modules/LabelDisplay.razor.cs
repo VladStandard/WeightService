@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Labels.Resources;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Scales.Enums;
@@ -10,7 +11,7 @@ namespace ScalesDesktop.Features.Labels.Modules;
 
 public sealed partial class LabelDisplay : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<LabelsResources> LabelsLocalizer { get; set; } = null!;
 
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 

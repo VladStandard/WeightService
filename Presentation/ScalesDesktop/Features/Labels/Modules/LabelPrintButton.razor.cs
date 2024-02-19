@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Events;
+using ScalesDesktop.Features.Labels.Resources;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Database.Core.Helpers;
@@ -12,6 +13,7 @@ using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
+using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
@@ -19,14 +21,16 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 {
     # region Injects
 
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<LabelsResources> LabelsLocalizer { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
+    [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     #endregion
 
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    
 
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
@@ -88,10 +92,10 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         switch (LabelContext.Plu.IsCheckWeight)
         {
             case true when !IsScalesStable:
-                await NotificationService.Warning(Localizer["ScalesStatusUnstable"]);
+                await NotificationService.Warning(LabelsLocalizer["ScalesStatusUnstable"]);
                 return false;
             case true when GetWeight() <= 0:
-                await NotificationService.Warning(Localizer["ScalesStatusTooLight"]);
+                await NotificationService.Warning(LabelsLocalizer["ScalesStatusTooLight"]);
                 return false;
             default:
                 return true;
@@ -117,13 +121,13 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     private async Task PrintPrinterStatusMessage() =>
         await NotificationService.Warning(PrinterStatus switch
         {
-            PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
-            PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatusEnum.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatusEnum.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
-            _ => Localizer["PrinterStatusUnknown"]
+            PrinterStatusEnum.IsDisabled => LabelsLocalizer["PrinterStatusIsDisabled"],
+            PrinterStatusEnum.IsForceDisconnected => LabelsLocalizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatusEnum.Paused => LabelsLocalizer["PrinterStatusPaused"],
+            PrinterStatusEnum.HeadOpen => LabelsLocalizer["PrinterStatusHeadOpen"],
+            PrinterStatusEnum.PaperOut => LabelsLocalizer["PrinterStatusPaperOut"],
+            PrinterStatusEnum.PaperJam => LabelsLocalizer["PrinterStatusPaperJam"],
+            _ => LabelsLocalizer["PrinterStatusUnknown"]
         });
 
     private bool GetPrintLabelDisabledStatus() =>

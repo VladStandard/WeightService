@@ -4,6 +4,6 @@
   @onclick="PrintLabel"
   disabled="@GetPrintLabelDisabledStatus()"
 >
-  <p class="text-xl xl:text-2xl">@Localizer["ButtonLabelPrint"]</p>
-  <p class="xl:text-lg">@Localizer["ButtonLineCounter"]: @LabelContext.Line.Counter</p>
+  <span class="text-xl xl:text-2xl">@LabelsLocalizer["BtnLabelPrint"]</span>
+  <span class="xl:text-lg">@WsDataLocalizer["ColCounter"]: @LabelContext.Line.Counter</span>
 </button>

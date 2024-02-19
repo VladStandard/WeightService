@@ -5,12 +5,13 @@ using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
 using Ws.Scales.Events;
 using Ws.Shared.TypeUtils;
+using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Features.Labels.Modules;
 
 public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
 
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 

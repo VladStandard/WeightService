@@ -80,6 +80,7 @@
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\..\Ws.SharedUI\Ws.SharedUI.csproj" />
     </ItemGroup>
 
 
@@ -113,6 +114,30 @@
         <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Remove="obj\**" />
+      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LabelsResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LabelsResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LabelsResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PalletResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PalletResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PalletResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -132,6 +157,36 @@
         <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
       </Compile>
       <Compile Remove="obj\**" />
+      <Compile Update="Features\Labels\Resources\LabelsResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LabelsResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Labels\Resources\LabelsResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LabelsResources.en-US.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Labels\Resources\LabelsResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LabelsResources.ru-RU.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Pallet\Resources\PalletResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PalletResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Pallet\Resources\PalletResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PalletResources.en-US.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Pallet\Resources\PalletResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PalletResources.ru-RU.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

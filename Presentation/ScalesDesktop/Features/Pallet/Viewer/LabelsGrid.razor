@@ -8,16 +8,16 @@
     <input
       @bind="SearchingNumber"
       @bind:after="OnSearchingNumberChanged"
-      placeholder="Поиск по номеру..."
+      placeholder="@PalletLocalizer["SearchByNumberPlaceholder"]"
       class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
     />
   </div>
   <div class="w-1/2 flex gap-2 h-full items-center overflow-hidden">
     <SharedButton class="w-1/2">
-      Печать выбранных
+      @PalletLocalizer["BtnSelectedLabelsPrinting"]
     </SharedButton>
     <SharedButton Variant="ButtonVariant.Outline" class="w-1/2">
-      Печать всех
+      @PalletLocalizer["BtnAllLabelsPrinting"]
     </SharedButton>
   </div>
 </div>
@@ -38,12 +38,12 @@
     >
       <DataGridMultiSelectColumn Width="1rem" />
       <DataGridColumn
-        Caption="Дата создания"
+        Caption="@WsDataLocalizer["ColCreateDt"]"
         Field="@nameof(LabelEntity.CreateDt)"
         Width="40%"
       />
       <DataGridColumn
-        Caption="Линия"
+        Caption="@WsDataLocalizer["ColLine"]"
         Field="@nameof(LabelEntity.Line)"
         Width="60%"
       />

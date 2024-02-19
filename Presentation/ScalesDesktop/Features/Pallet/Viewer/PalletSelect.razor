@@ -12,7 +12,7 @@
           @bind="InputSearchCounter"
           @bind:event="oninput"
           class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-          placeholder="Поиск по номеру..."
+          placeholder="@PalletLocalizer["SearchByNumberPlaceholder"]"
         />
       </div>
       <SharedButton
@@ -38,7 +38,7 @@
     @if (!PalletContext.PalletEntities.Any())
         {
           <div class="h-full w-full flex items-center justify-center">
-            <p>Информация о паллетах отсутствует</p>
+            <p>@PalletLocalizer["PalletSelectEmpty"]</p>
           </div>
         }
     else

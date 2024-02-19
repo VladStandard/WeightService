@@ -1,17 +1,18 @@
 @using Blazor.Heroicons.Outline
 
+
 <div class="w-full h-fit rounded-lg flex flex-col max-h-screen bg-white border overflow-x-hidden overflow-y-auto">
   <div class="h-12 w-full shrink-0 items-center border-b border-b-neutral-200 px-4 flex justify-between">
     <div class="w-32">
       <a href="@RouteUtils.Pallet">
         <SharedButton Variant="ButtonVariant.Outline" OnClick="@CloseModal">
           <ArrowLeftIcon class="h-4 w-4 mr-2" />
-          <span>Назад</span>
+          @PalletLocalizer["BtnBack"]
         </SharedButton>
       </a>
     </div>
     <SharedButton Variant="ButtonVariant.Secondary">
-      Форма создания
+      @PalletLocalizer["CreatePalletFormHeader"]
     </SharedButton>
     <div class="w-32"></div>
   </div>

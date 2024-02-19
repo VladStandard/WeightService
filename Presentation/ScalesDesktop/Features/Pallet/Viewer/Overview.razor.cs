@@ -3,15 +3,18 @@ using Append.Blazor.Printing;
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using ScalesDesktop.Features.Pallet.Resources;
 using ScalesDesktop.Resources;
 using ScalesDesktop.Services;
+using Ws.SharedUI.Resources;
 
 
 namespace ScalesDesktop.Features.Pallet.Viewer;
 
 public sealed partial class Overview : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<PalletResources> PalletLocalizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPrintingService PrintingService { get; set; } = null!;
     
