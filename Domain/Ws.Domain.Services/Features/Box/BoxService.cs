@@ -6,19 +6,19 @@ namespace Ws.Domain.Services.Features.Box;
 
 internal class BoxService(SqlBoxRepository boxRepo) : IBoxService
 {
-    [Session] public IEnumerable<BoxEntity> GetAll() => boxRepo.GetAll();
+    [Transactional] public IEnumerable<BoxEntity> GetAll() => boxRepo.GetAll();
 
-    [Session] public BoxEntity GetItemByUid(Guid uid) => boxRepo.GetByUid(uid);
+    [Transactional] public BoxEntity GetItemByUid(Guid uid) => boxRepo.GetByUid(uid);
 
-    [Session] public BoxEntity GetItemByUid1С(Guid uid) => boxRepo.GetByUid1C(uid);
+    [Transactional] public BoxEntity GetItemByUid1С(Guid uid) => boxRepo.GetByUid1C(uid);
 
-    [Session] public BoxEntity GetDefaultForCharacteristic()
+    [Transactional] public BoxEntity GetDefaultForCharacteristic()
     {
         BoxEntity entity = GetItemByUid1С(Guid.Parse("71BC8E8A-99CF-11EA-A220-A4BF0139EB1B"));
         return entity.IsExists ? entity : GetDefault();
     }
 
-    [Session] public BoxEntity GetDefault()
+    [Transactional] public BoxEntity GetDefault()
     {
         BoxEntity entity = GetItemByUid1С(Guid.Empty);
         if (entity.IsExists) return entity;

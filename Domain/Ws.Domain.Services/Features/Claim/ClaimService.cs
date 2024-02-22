@@ -6,6 +6,6 @@ namespace Ws.Domain.Services.Features.Claim;
 
 internal class ClaimService(SqlClaimRepository claimRepo) : IClaimService
 {
-    [Session] public IEnumerable<ClaimEntity> GetAll() => claimRepo.GetAll();
+    [Transactional] public IEnumerable<ClaimEntity> GetAll() => claimRepo.GetAll();
     public ClaimEntity GetItemByUid(Guid uid) => claimRepo.GetByUid(uid);
 }

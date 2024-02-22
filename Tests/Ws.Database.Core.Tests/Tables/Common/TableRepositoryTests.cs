@@ -1,4 +1,4 @@
-using Ws.Database.Core.UnitOfWork;
+using Ws.Database.Core.Sessions;
 using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.StorageCoreTests.Tables.Common;

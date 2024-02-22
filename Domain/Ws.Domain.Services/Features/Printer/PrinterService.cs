@@ -6,6 +6,6 @@ namespace Ws.Domain.Services.Features.Printer;
 
 internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterService
 {
-    [Session] public PrinterEntity GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
-    [Session] public IEnumerable<PrinterEntity> GetAll() => printerRepo.GetAll();
+    [Transactional] public PrinterEntity GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
+    [Transactional] public IEnumerable<PrinterEntity> GetAll() => printerRepo.GetAll();
 }

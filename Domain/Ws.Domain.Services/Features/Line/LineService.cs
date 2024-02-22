@@ -12,30 +12,30 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
 {
     #region Get Lines
 
-    [Session] public LineEntity GetCurrentLine()
+    [Transactional] public LineEntity GetCurrentLine()
     {
         return lineRepo.GetItemByQuery(
             QueryOver.Of<LineEntity>().Where(i => i.PcName == Dns.GetHostName())
         );
     }
     
-    [Session] public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
+    [Transactional] public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
     
-    [Session] public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
+    [Transactional] public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     #endregion
 
     #region Get Plus
 
-    [Session] public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);
-    [Session] public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
-    [Session] public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
+    [Transactional] public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);
+    [Transactional] public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
+    [Transactional] public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
 
     #endregion
 
     #region Other
 
-    [Session] public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
+    [Transactional] public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
     {
         return pluLineRepo.GetListByQuery(
             QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)

@@ -7,10 +7,10 @@ namespace Ws.Domain.Services.Features.Pallet;
 
 public class PalletService(SqlPalletRepository palletRepo) : IPalletService
 {
-    [Session] public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
+    [Transactional] public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
         palletRepo.GetAllViewByWarehouse(warehouse);
     
-    [Session] public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
+    [Transactional] public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
     
-    [Session] public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
+    [Transactional] public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
 }

@@ -7,11 +7,11 @@ namespace Ws.Domain.Services.Features.Bundle;
 
 internal class BundleService(SqlBundleRepository bundleRepo) : IBundleService
 {
-    [Session] public BundleEntity GetItemByUid(Guid uid) => bundleRepo.GetByUid(uid);
-    [Session] public BundleEntity GetItemByUid1С(Guid uid) => bundleRepo.GetByUid1C(uid);
-    [Session] public IEnumerable<BundleEntity> GetAll() => bundleRepo.GetAll();
+    [Transactional] public BundleEntity GetItemByUid(Guid uid) => bundleRepo.GetByUid(uid);
+    [Transactional] public BundleEntity GetItemByUid1С(Guid uid) => bundleRepo.GetByUid1C(uid);
+    [Transactional] public IEnumerable<BundleEntity> GetAll() => bundleRepo.GetAll();
 
-    [Session] public BundleEntity GetDefault()
+    [Transactional] public BundleEntity GetDefault()
     {
         BundleEntity bundle = GetItemByUid1С(Guid.Empty);
         bundle.Name = "Без пакета";

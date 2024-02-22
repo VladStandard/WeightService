@@ -6,7 +6,6 @@ namespace Ws.Domain.Services.Features.ProductionSite;
 
 internal class ProductionSiteService(SqlProductionSiteRepository productionSiteRepo) : IProductionSiteService
 {
-    [Session] public ProductionSiteEntity GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
-
-    [Session] public IEnumerable<ProductionSiteEntity> GetAll() => productionSiteRepo.GetAll();
+    [Transactional] public ProductionSiteEntity GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
+    [Transactional] public IEnumerable<ProductionSiteEntity> GetAll() => productionSiteRepo.GetAll();
 }

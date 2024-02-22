@@ -6,9 +6,9 @@ using NHibernate.Context;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using Ws.Database.Core.Listeners;
-using Ws.UnitOfWork.Abstractions.Exceptions;
+using DataBaseSessionException=Ws.Database.Core.Sessions.Exceptions.DataBaseSessionException;
 
-namespace Ws.Database.Core.UnitOfWork;
+namespace Ws.Database.Core.Sessions;
 
 public static class NHibernateHelper
 {

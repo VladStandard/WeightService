@@ -7,11 +7,11 @@ namespace Ws.Domain.Services.Features.Clip;
 
 internal class ClipService(SqlClipRepository clipRepo) : IClipService
 {
-    [Session] public IEnumerable<ClipEntity> GetAll() => clipRepo.GetAll();
-    [Session] public ClipEntity GetItemByUid(Guid uid) => clipRepo.GetByUid(uid);
-    [Session] public ClipEntity GetItemByUid1С(Guid uid) => clipRepo.GetByUid1C(uid);
+    [Transactional] public IEnumerable<ClipEntity> GetAll() => clipRepo.GetAll();
+    [Transactional] public ClipEntity GetItemByUid(Guid uid) => clipRepo.GetByUid(uid);
+    [Transactional] public ClipEntity GetItemByUid1С(Guid uid) => clipRepo.GetByUid1C(uid);
 
-    [Session] public ClipEntity GetDefault()
+    [Transactional] public ClipEntity GetDefault()
     {
         ClipEntity entity = GetItemByUid1С(Guid.Empty);
         entity.Name = "Без клипсы";

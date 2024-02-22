@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Ws.Database.Core.UnitOfWork;
+using Ws.Database.Core.Sessions;
 
 namespace Ws.Database.Core;
 

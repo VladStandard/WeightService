@@ -1,6 +1,6 @@
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 using NHibernate.Transform;
-using Ws.Database.Core.UnitOfWork;
+using Ws.Database.Core.Sessions;
 using Ws.Domain.Abstractions.Entities.Common;
 
 namespace Ws.Database.Core.Helpers;

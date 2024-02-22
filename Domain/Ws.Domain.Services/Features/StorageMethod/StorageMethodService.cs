@@ -7,20 +7,20 @@ namespace Ws.Domain.Services.Features.StorageMethod;
 
 internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo) : IStorageMethodService
 { 
-    [Session] public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
+    [Transactional] public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
 
-    [Session] public StorageMethodEntity GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
+    [Transactional] public StorageMethodEntity GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
 
-    [Session] public StorageMethodEntity GetByName(string name) => storageMethodRepo.GetItemByName(name);
+    [Transactional] public StorageMethodEntity GetByName(string name) => storageMethodRepo.GetItemByName(name);
 
-    [Session] public StorageMethodEntity GetDefault()
+    [Transactional] public StorageMethodEntity GetDefault()
     {
         StorageMethodEntity defaultMethod = storageMethodRepo.GetItemByName("Без способа хранения");
         if (defaultMethod.IsNew) SqlCoreHelper.Save(defaultMethod);
         return defaultMethod;
     }
 
-    [Session] public StorageMethodEntity GetByNameOrDefault(string name)
+    [Transactional] public StorageMethodEntity GetByNameOrDefault(string name)
     {
         StorageMethodEntity method = GetByName(name);
         return method.IsNew ? GetDefault() : method;

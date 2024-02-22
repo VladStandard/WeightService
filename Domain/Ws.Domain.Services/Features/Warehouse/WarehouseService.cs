@@ -6,6 +6,6 @@ namespace Ws.Domain.Services.Features.Warehouse;
 
 internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehouseService
 {
-    [Session] public WarehouseEntity GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
-    [Session] public IEnumerable<WarehouseEntity> GetAll() => warehouseRepo.GetAll();
+    [Transactional] public WarehouseEntity GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
+    [Transactional] public IEnumerable<WarehouseEntity> GetAll() => warehouseRepo.GetAll();
 }

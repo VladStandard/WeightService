@@ -7,11 +7,11 @@ namespace Ws.Domain.Services.Features.User;
 
 internal class UserService(SqlUserRepository userRepo) : IUserService
 {
-    [Session] public IEnumerable<UserEntity> GetAll() => userRepo.GetAll();
+    [Transactional] public IEnumerable<UserEntity> GetAll() => userRepo.GetAll();
 
-    [Session] public UserEntity GetItemByUid(Guid uid) => userRepo.GetByUid(uid);
+    [Transactional] public UserEntity GetItemByUid(Guid uid) => userRepo.GetByUid(uid);
 
-    [Session] public UserEntity GetItemByNameOrCreate(string username)
+    [Transactional] public UserEntity GetItemByNameOrCreate(string username)
     {
         UserEntity user = userRepo.GetItemByUsername(username);
 

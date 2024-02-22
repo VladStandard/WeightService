@@ -6,6 +6,6 @@ namespace Ws.Domain.Services.Features.Template;
 
 public class TemplateService(SqlTemplateRepository templateRepo) : ITemplateService
 {
-    [Session] public IEnumerable<TemplateEntity> GetAll() => templateRepo.GetAll();
-    [Session] public TemplateEntity GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
+    [Transactional] public IEnumerable<TemplateEntity> GetAll() => templateRepo.GetAll();
+    [Transactional] public TemplateEntity GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
 }

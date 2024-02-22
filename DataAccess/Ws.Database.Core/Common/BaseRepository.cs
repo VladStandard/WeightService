@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Ws.Database.Core.UnitOfWork;
+using Ws.Database.Core.Sessions;
 
 namespace Ws.Database.Core.Common;
 
