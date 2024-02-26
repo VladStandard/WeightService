@@ -19,6 +19,7 @@ using Ws.Domain.Services.Features.Template;
 using Ws.Domain.Services.Features.User;
 using Ws.Domain.Services.Features.Warehouse;
 using Ws.Domain.Services.Features.ZplResource;
+using Ws.Domain.Services.Redis;
 
 namespace Ws.Domain.Services;
 
@@ -27,7 +28,21 @@ public static class DependencyInjection
     public static void AddDomainServices(this IServiceCollection services)
     {
         services.AddNhibernate();
-
+        
+        RedisSettingsModel settings = RedisUtils.LoadJsonConfig();
+        
+        services.AddEasyCaching(option =>
+        {
+            option.WithProtobuf();
+            option.UseRedis(config => 
+            {
+                config.DBConfig.Endpoints.Add(new(settings.Server, settings.Port));
+                config.SerializerName = "proto";
+            }, "ws-redis");
+        });
+        
+        
+        
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();

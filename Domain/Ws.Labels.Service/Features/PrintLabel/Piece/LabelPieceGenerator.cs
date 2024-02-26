@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
@@ -9,7 +10,7 @@ using Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Piece;
 
-public class LabelPieceGenerator
+public class LabelPieceGenerator(IZplResourceService zplResourceService)
 {
     public string GenerateLabel(LabelPieceDto labelDto)
     {
@@ -22,7 +23,8 @@ public class LabelPieceGenerator
             throw new LabelGenerateException(result);
 
 
-        LabelReadyDto labelReady = LabelGenerator.GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
+        LabelReadyDto labelReady = new LabelGenerator(zplResourceService)
+            .GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
 
         LabelEntity labelSql = new()
         {
@@ -55,7 +57,8 @@ public class LabelPieceGenerator
         
         for (int i = 0; i < labelCount; i++)
         {
-            LabelReadyDto labelReady = LabelGenerator.GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
+            LabelReadyDto labelReady = new LabelGenerator(zplResourceService)
+                .GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
     
             LabelEntity labelSql = new()
             {

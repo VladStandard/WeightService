@@ -5,8 +5,12 @@
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="EasyCaching.Redis" Version="1.9.2" />
+      <PackageReference Include="EasyCaching.Serialization.Protobuf" Version="1.9.2" />
       <PackageReference Include="FluentValidation" Version="11.9.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
       <PackageReference Include="PostSharp" Version="2024.0.5" />
     </ItemGroup>
+
+    <Import Project="..\..\Targets\RedisSettings.targets" />
 </Project>
