@@ -10,8 +10,11 @@ public sealed class SqlBrandRepository :  BaseRepository,
     public BrandEntity GetByUid1C(Guid uid1C) => 
         Session.Query<BrandEntity>().FirstOrDefault(i => i.Uid1C == uid1C) ?? new();
     
-    public IEnumerable<BrandEntity> GetAll() => 
-        Session.Query<BrandEntity>().OrderBy(i => i.Name).ToList();
-    
-    public BrandEntity Save(BrandEntity item) => SqlCoreHelper.Save(item);
+    public IEnumerable<BrandEntity> GetAll() => Session.Query<BrandEntity>().OrderBy(i => i.Name).ToList();
+
+    public BrandEntity Save(BrandEntity item)
+    {
+        Session.Save(item);
+        return item;
+    }
 }

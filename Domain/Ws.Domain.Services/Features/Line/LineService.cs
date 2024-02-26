@@ -12,15 +12,8 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
 {
     #region Get Lines
 
-    [Transactional] public LineEntity GetCurrentLine()
-    {
-        return lineRepo.GetItemByQuery(
-            QueryOver.Of<LineEntity>().Where(i => i.PcName == Dns.GetHostName())
-        );
-    }
-    
+    [Transactional] public LineEntity GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
     [Transactional] public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
-    
     [Transactional] public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     #endregion

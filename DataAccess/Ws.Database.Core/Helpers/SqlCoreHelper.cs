@@ -7,22 +7,6 @@ namespace Ws.Database.Core.Helpers;
 
 public static class SqlCoreHelper
 {
-
-    private static void ExecuteSelectCore(Action<ISession> action)
-    {
-        using ISession session = NHibernateHelper.SessionFactory.OpenSession();
-        session.FlushMode = FlushMode.Manual;
-        
-        try
-        {
-            action(session);
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-    }
-
     private static void ExecuteTransactionCore(Action<ISession> action)
     {
         using ISession session = NHibernateHelper.SessionFactory.OpenSession();
@@ -46,11 +30,19 @@ public static class SqlCoreHelper
     {
         IEnumerable<TObject> items = Enumerable.Empty<TObject>();
         
-        ExecuteSelectCore(session => {
+        using ISession session = NHibernateHelper.SessionFactory.OpenSession();
+        session.FlushMode = FlushMode.Manual;
+        
+        try
+        {
             ISQLQuery query = session.CreateSQLQuery(sqlQuery);
             query.SetResultTransformer(Transformers.AliasToBean<TObject>()); 
             items = query.List<TObject>();
-        });
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
         
         return items;
     }

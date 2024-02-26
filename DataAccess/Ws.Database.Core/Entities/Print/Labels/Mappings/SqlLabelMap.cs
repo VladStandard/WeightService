@@ -14,7 +14,7 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
-
+        
         Property(x => x.CreateDt, m => {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);

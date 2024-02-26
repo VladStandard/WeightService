@@ -1,5 +1,4 @@
-﻿using NHibernate.Criterion;
-using Ws.Database.Core.Entities.Ref1c.Plus;
+﻿using Ws.Database.Core.Entities.Ref1c.Plus;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
 using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 using Ws.Database.Core.Helpers;
@@ -27,13 +26,8 @@ public class PluService(SqlPluRepository pluRepo) : IPluService
 
     [Transactional]  public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => 
         new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
-    
-    [Transactional] public TemplateEntity GetPluTemplate(PluEntity plu)
-    {
-        return new SqlPluTemplateFkRepository().GetItemByQuery(
-        QueryOver.Of<PluTemplateFkEntity>().Where(i => i.Plu == plu)
-        ).Template;
-    }
+
+    [Transactional] public TemplateEntity GetPluTemplate(PluEntity plu) => new SqlPluTemplateFkRepository().GetTemplateByPlu(plu);
     
     #endregion
 

@@ -3,15 +3,8 @@ using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
-public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery<PluNestingEntity>
+public sealed class SqlPluNestingFkRepository :  BaseRepository
 {
-    public IEnumerable<PluNestingEntity> GetListByQuery(QueryOver<PluNestingEntity> query)
-    {
-        QueryOver<PluNestingEntity> queryOver = 
-            query.Clone().JoinQueryOver<PluEntity>(i => i.Plu).OrderBy(plu => plu.Number).Asc;
-        return  queryOver.DetachedCriteria.GetExecutableCriteria(Session).List<PluNestingEntity>().OrderBy(i => i.Plu.Number);
-    }
-
     public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu) =>
         Session.Query<PluNestingEntity>().Where(i => i.Plu == plu).ToList();
 
@@ -28,6 +21,6 @@ public sealed class SqlPluNestingFkRepository :  BaseRepository, IGetListByQuery
         if (plu.IsNew) return;
         List<PluNestingEntity> pluNestingEntities = GetEnumerableByPlu(plu).ToList();
         foreach (PluNestingEntity entity in pluNestingEntities)
-            SqlCoreHelper.Delete(entity);
+            Session.Delete(entity);
     }
 }
