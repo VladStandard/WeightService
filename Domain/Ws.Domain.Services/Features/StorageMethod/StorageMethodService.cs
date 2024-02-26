@@ -1,5 +1,4 @@
 ﻿using Ws.Database.Core.Entities.Ref.StorageMethods;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 
@@ -15,14 +14,14 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
 
     [Transactional] public StorageMethodEntity GetDefault()
     {
-        StorageMethodEntity defaultMethod = storageMethodRepo.GetItemByName("Без способа хранения");
-        if (defaultMethod.IsNew) SqlCoreHelper.Save(defaultMethod);
-        return defaultMethod;
+        const string name = "Без способа хранения";
+        StorageMethodEntity defaultMethod = storageMethodRepo.GetItemByName(name);
+        return defaultMethod.IsExists ? defaultMethod : storageMethodRepo.Save(new() { Name = name });
     }
 
     [Transactional] public StorageMethodEntity GetByNameOrDefault(string name)
     {
         StorageMethodEntity method = GetByName(name);
-        return method.IsNew ? GetDefault() : method;
+        return method.IsExists ? method : GetDefault();
     }
 }

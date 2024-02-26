@@ -14,9 +14,6 @@ internal class ClipService(SqlClipRepository clipRepo) : IClipService
     [Transactional] public ClipEntity GetDefault()
     {
         ClipEntity entity = GetItemByUid1С(Guid.Empty);
-        entity.Name = "Без клипсы";
-        entity.Weight = 0;
-        SqlCoreHelper.SaveOrUpdate(entity);
-        return entity;
+        return entity.IsExists ? entity : clipRepo.Save(new() { Name = "Без клипсы" });
     }
 }

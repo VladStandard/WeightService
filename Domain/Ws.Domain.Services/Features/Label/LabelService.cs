@@ -7,8 +7,6 @@ namespace Ws.Domain.Services.Features.Label;
 internal class LabelService(SqlLabelRepository labelRepo) : ILabelService
 {
     [Transactional] public LabelEntity GetItemByUid(Guid uid) => labelRepo.GetByUid(uid);
-
     [Transactional] public IEnumerable<ViewLabel> GetAll() => labelRepo.GetAllView();
-
     [Transactional] public ViewLabel GetViewByUid(Guid uid) => labelRepo.GetViewByUid(uid);
 }

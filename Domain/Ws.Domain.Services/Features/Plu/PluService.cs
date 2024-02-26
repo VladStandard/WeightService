@@ -9,7 +9,9 @@ using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Plu;
 
-public class PluService(SqlPluRepository pluRepo) : IPluService
+public class PluService(
+    SqlPluRepository pluRepo, SqlPluNestingFkRepository pluNestingFkRepo, 
+    SqlPluTemplateFkRepository pluTemplateFkRepo) : IPluService
 {
     #region Queries
 
@@ -19,21 +21,20 @@ public class PluService(SqlPluRepository pluRepo) : IPluService
 
     [Transactional] public IEnumerable<PluEntity> GetAll() => pluRepo.GetAll();
 
-    [Transactional] public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu) =>
-        new SqlPluNestingFkRepository().GetEnumerableByPlu(plu);
+    [Transactional] public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu) => pluNestingFkRepo.GetAllByPlu(plu);
 
-    [Transactional] public PluNestingEntity GetDefaultNesting(PluEntity plu) => new SqlPluNestingFkRepository().GetDefaultByPlu(plu);
+    [Transactional] public PluNestingEntity GetDefaultNesting(PluEntity plu) => pluNestingFkRepo.GetDefaultByPlu(plu);
 
-    [Transactional]  public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => 
-        new SqlPluNestingFkRepository().GetByPluAndUid1C(plu, nestingUid1C);
+    [Transactional] public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => 
+        pluNestingFkRepo.GetByPluAndUid1C(plu, nestingUid1C);
 
-    [Transactional] public TemplateEntity GetPluTemplate(PluEntity plu) => new SqlPluTemplateFkRepository().GetTemplateByPlu(plu);
+    [Transactional] public TemplateEntity GetPluTemplate(PluEntity plu) => pluTemplateFkRepo.GetTemplateByPlu(plu);
     
     #endregion
 
     #region Commands
 
-    [Transactional] public void DeleteAllPluNestings(PluEntity plu) => new SqlPluNestingFkRepository().DeleteAllPluNestings(plu);
+    [Transactional] public void DeleteAllPluNestings(PluEntity plu) => pluNestingFkRepo.DeleteAllPluNestings(plu);
 
     [Transactional] public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C)
     {

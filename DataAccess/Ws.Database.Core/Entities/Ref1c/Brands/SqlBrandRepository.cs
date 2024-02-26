@@ -12,9 +12,5 @@ public sealed class SqlBrandRepository :  BaseRepository,
     
     public IEnumerable<BrandEntity> GetAll() => Session.Query<BrandEntity>().OrderBy(i => i.Name).ToList();
 
-    public BrandEntity Save(BrandEntity item)
-    {
-        Session.Save(item);
-        return item;
-    }
+    public BrandEntity Save(BrandEntity item) => (Session.Save(item) as BrandEntity)!;
 }

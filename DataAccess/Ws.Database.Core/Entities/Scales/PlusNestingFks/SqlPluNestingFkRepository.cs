@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
 public sealed class SqlPluNestingFkRepository :  BaseRepository
 {
-    public IEnumerable<PluNestingEntity> GetEnumerableByPlu(PluEntity plu) =>
+    public IEnumerable<PluNestingEntity> GetAllByPlu(PluEntity plu) =>
         Session.Query<PluNestingEntity>().Where(i => i.Plu == plu).ToList();
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C) =>
@@ -19,7 +19,7 @@ public sealed class SqlPluNestingFkRepository :  BaseRepository
     public void DeleteAllPluNestings(PluEntity plu)
     {
         if (plu.IsNew) return;
-        List<PluNestingEntity> pluNestingEntities = GetEnumerableByPlu(plu).ToList();
+        List<PluNestingEntity> pluNestingEntities = GetAllByPlu(plu).ToList();
         foreach (PluNestingEntity entity in pluNestingEntities)
             Session.Delete(entity);
     }

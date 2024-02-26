@@ -2,7 +2,8 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository :  BaseRepository, IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>
+public sealed class SqlBundleRepository :  BaseRepository, 
+    IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>, ISave<BundleEntity>
 {
     public BundleEntity GetByUid(Guid uid) => Session.Get<BundleEntity>(uid);
 
@@ -11,4 +12,6 @@ public sealed class SqlBundleRepository :  BaseRepository, IGetItemByUid1C<Bundl
 
     public IEnumerable<BundleEntity> GetAll() =>
         Session.Query<BundleEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
+    
+    public BundleEntity Save(BundleEntity item) => (Session.Save(item) as BundleEntity)!;
 }
