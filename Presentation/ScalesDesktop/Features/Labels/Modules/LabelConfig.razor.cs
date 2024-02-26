@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Labels.Modals;
 using ScalesDesktop.Features.Labels.Resources;
-using ScalesDesktop.Features.Shared;
 using ScalesDesktop.Services;
 using Ws.SharedUI.Resources;
 

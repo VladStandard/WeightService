@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Shared.Utils;
 
 namespace ScalesDesktop.Features.Shared;

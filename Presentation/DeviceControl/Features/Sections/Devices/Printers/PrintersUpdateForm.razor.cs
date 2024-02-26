@@ -1,5 +1,3 @@
-using System.Net;
-using System.Text.RegularExpressions;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;

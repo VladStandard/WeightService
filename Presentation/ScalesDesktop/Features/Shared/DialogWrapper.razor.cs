@@ -1,6 +1,5 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 
 namespace ScalesDesktop.Features.Shared;
 

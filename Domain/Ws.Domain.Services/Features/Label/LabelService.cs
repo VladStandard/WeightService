@@ -1,5 +1,4 @@
 ﻿using Ws.Database.Core.Entities.Print.Labels;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Aspects;
 
