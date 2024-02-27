@@ -29,19 +29,11 @@ public static class DependencyInjection
     {
         services.AddNhibernate();
         
-        RedisSettingsModel settings = RedisUtils.LoadJsonConfig();
-        
         services.AddEasyCaching(option =>
         {
             option.WithProtobuf();
-            option.UseRedis(config => 
-            {
-                config.DBConfig.Endpoints.Add(new(settings.Server, settings.Port));
-                config.SerializerName = "proto";
-            }, "ws-redis");
+            option.UseRedis(RedisUtils.LoadRedisCfg(), "ws-redis");
         });
-        
-        
         
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();

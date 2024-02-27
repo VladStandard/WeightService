@@ -24,8 +24,7 @@ public sealed partial class SectionFormFooter : ComponentBase
     {
         IsSubmitDisabled = true;
         StateHasChanged();
-        await Task.Delay(2000);
-        await OnSubmitAction.InvokeAsync(null);
+        await OnSubmitAction.InvokeAsync();
         IsSubmitDisabled = false;
         StateHasChanged();
     }

@@ -1,5 +1,4 @@
 ﻿using Ws.Database.Core.Entities.Ref1c.Clips;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Aspects;
 

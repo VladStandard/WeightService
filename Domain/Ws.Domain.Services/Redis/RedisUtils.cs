@@ -4,14 +4,10 @@ namespace Ws.Domain.Services.Redis;
 
 public static class RedisUtils
 {
-    internal static RedisSettingsModel LoadJsonConfig()
+    internal static IConfigurationRoot LoadRedisCfg()
     {
-        IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
+        return new ConfigurationBuilder()
             .AddJsonFile("redis_config.json", optional: false, reloadOnChange: false)
             .Build();
-
-        RedisSettingsModel redisSettingsModels = new();
-        sqlConfiguration.GetSection("RedisSettings").Bind(redisSettingsModels);
-        return redisSettingsModels;
     }
 }

@@ -30,15 +30,14 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     protected async Task ResetItem()
     {
-        dynamic dynamicVariable = SectionEntity;
-        dynamic dynamicVariable2 = SectionEntityCopy;
-        if (dynamicVariable.Equals(dynamicVariable2)) return;
+        if (SectionEntity.Equals(SectionEntityCopy)) return;
         SectionEntity = SectionEntityCopy.DeepClone();
         await NotificationService.Info(Localizer["ToastResetItem"]);
     }
 
     protected async Task AddItem(TItem item)
     {
+        if (item.IsExists) return;
         if (!await IsValidateItem(item, false)) return;
         SqlCoreHelper.Save(item);
         await NotificationService.Success(Localizer["ToastAddItem"]);
@@ -49,7 +48,10 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
     {
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
-        SqlCoreHelper.Update(item);
+        
+        if (!SectionEntity.Equals(SectionEntityCopy))
+            SqlCoreHelper.Update(item);
+        
         await NotificationService.Success(Localizer["ToastUpdateItem"]);
         await OnSubmitAction.InvokeAsync();
     }

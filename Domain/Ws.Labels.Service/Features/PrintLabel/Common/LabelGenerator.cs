@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Ws.Database.Core.Entities.Ref.ZplResources;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Shared.Utils;
