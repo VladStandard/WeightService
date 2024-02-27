@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
 using Microsoft.Maui.LifecycleEvents;
-using ScalesDesktop.Events;
+using ScalesDesktop.Source.Shared.Events;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

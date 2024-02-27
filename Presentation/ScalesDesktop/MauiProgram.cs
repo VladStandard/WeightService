@@ -5,7 +5,7 @@ using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
-using ScalesDesktop.Services;
+using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 

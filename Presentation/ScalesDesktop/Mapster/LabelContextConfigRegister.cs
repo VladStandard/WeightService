@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using ScalesDesktop.Services;
+using ScalesDesktop.Source.Shared.Services;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 
 namespace ScalesDesktop.Mapster;

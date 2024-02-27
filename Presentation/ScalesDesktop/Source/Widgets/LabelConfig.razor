@@ -1,0 +1,29 @@
+@using ScalesDesktop.Source.Shared.Utils
+
+<div class="w-full h-full flex flex-col overflow-hidden">
+  <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b border-b-black/[.1] xl:px-8">
+    <h1 class="text-xl line-clamp-1 text-center xl:text-2xl">
+      @LabelsLocalizer["LabelConfigHeader"]
+    </h1>
+  </div>
+  <div class="flex flex-col w-full h-full pt-2 pb-5 px-6 overflow-hidden justify-around xl:px-8 xl:pt-4 xl:pb-7">
+    <LineInputWithReset />
+    <InputWithLabel
+      Label=@WsDataLocalizer["ColWarehouse"]
+      Value="@LabelContext.Line.Warehouse.Name"
+      IsDisabled
+    />
+    <InputWithLabel
+      Label=@WsDataLocalizer["ColPlu"]
+      Value=@(LabelContext.Plu.IsNew ? LabelsLocalizer["PluSelectPlaceholder"] : LabelContext.Plu.DisplayName)
+      OnClickAction="ShowPluSelectDialog"
+      IsDisabled="LabelContext.Line.IsNew"
+    />
+    <InputWithLabel
+      Label=@WsDataLocalizer["ColNesting"]
+      Value=@(LabelContext.PluNesting.IsNew ? LabelsLocalizer["NestingSelectPlaceholder"] :
+                NameFormatting.GetPluNestingFormattedName(LabelContext.PluNesting))
+      IsDisabled
+    />
+  </div>
+</div>

@@ -1,0 +1,40 @@
+@using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
+@using Ws.Domain.Models.Entities.Ref
+@using ScalesDesktop.Source.Shared.UI
+
+
+<div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
+  <div class="w-full pb-4 border-b border-b-neutral-200">
+    <h2 class="text-lg font-semibold leading-none tracking-tight">
+      @PalletLocalizer["PalletManFormHeader"]
+    </h2>
+  </div>
+  <EditForm
+    Model="FormModel"
+    OnValidSubmit="OnSubmit"
+    OnInvalidSubmit="HandleInvalidForm"
+    class="space-y-4 pt-3"
+  >
+    <DataAnnotationsValidator />
+    <InputLabelWrapper Label="@WsDataLocalizer["ColUser"]" HtmlFor="login-user">
+      <SelectSingle
+        TItem="PalletManEntity"
+        @bind-SelectedItem="@FormModel.User"
+        ItemDisplayName="@(item => item.FioShort)"
+        Items="@GetAllPalletMen()"
+        Placeholder="@PalletLocalizer["UserSelectPlaceholder"]"
+      />
+    </InputLabelWrapper>
+    <InputLabelWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlFor="login-password">
+      <VsInputText
+        id="login-password"
+        @bind-Value="@FormModel.Password"
+        type="password"
+        placeholder="@PalletLocalizer["PasswordInputPlaceholder"]"
+      />
+    </InputLabelWrapper>
+    <Button Type="ButtonType.Submit" class="!mt-4">
+      @PalletLocalizer["BtnLogIn"]
+    </Button>
+  </EditForm>
+</div>

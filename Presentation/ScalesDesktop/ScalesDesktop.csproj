@@ -43,8 +43,6 @@
         <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.min.css" />
         <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.js" />
         <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.min.css" />
-        <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
-        <MauiAsset Include="wwwroot\libs\tailwind\tailwind.config.js" />
 
         <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
         <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
@@ -102,18 +100,6 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="obj\**" />
-      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LabelsResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.en-US.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LabelsResources.en-US.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Features\Labels\Resources\LabelsResources.ru-RU.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LabelsResources.ru-RU.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PalletResources.Designer.cs</LastGenOutput>
@@ -126,25 +112,22 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PalletResources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Source\Shared\Localization\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Source\Shared\Localization\Resources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Source\Shared\Localization\Resources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="obj\**" />
-      <Compile Update="Features\Labels\Resources\LabelsResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>LabelsResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Features\Labels\Resources\LabelsResources.en-US.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>LabelsResources.en-US.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Features\Labels\Resources\LabelsResources.ru-RU.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>LabelsResources.ru-RU.resx</DependentUpon>
-      </Compile>
       <Compile Update="Features\Pallet\Resources\PalletResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -160,10 +143,26 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>PalletResources.ru-RU.resx</DependentUpon>
       </Compile>
+      <Compile Update="Source\Shared\Localization\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Source\Shared\Localization\Resources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.en-US.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Source\Shared\Localization\Resources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.ru-RU.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Mapster\Extensions\Generated\" />
+      <Folder Include="Source\Entities\" />
       <Folder Include="wwwroot\fonts\" />
       <Folder Include="wwwroot\libs\fontawasome\" />
     </ItemGroup>
@@ -181,6 +180,11 @@
 
     <ItemGroup>
       <None Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind.config.js" />
     </ItemGroup>
 
 </Project>
