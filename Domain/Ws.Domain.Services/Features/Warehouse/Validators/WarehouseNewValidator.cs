@@ -2,7 +2,7 @@
 
 internal sealed class WarehouseNewValidator : WarehouseValidator
 {
-    public WarehouseNewValidator() : base()
+    public WarehouseNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

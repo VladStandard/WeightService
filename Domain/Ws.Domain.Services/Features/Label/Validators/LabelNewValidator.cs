@@ -4,10 +4,10 @@ namespace Ws.Domain.Services.Features.Label.Validators;
 
 internal sealed class LabelNewValidator : AbstractValidator<LabelEntity>
 {
-    public LabelNewValidator() : base()
+    public LabelNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
-        
+
         RuleFor(item => item.Zpl)
             .NotEmpty();
         RuleFor(item => item.WeightNet)

@@ -2,7 +2,7 @@
 
 internal sealed class ProductionSiteUpdateValidator : ProductionSiteValidator
 {
-    public ProductionSiteUpdateValidator() : base()
+    public ProductionSiteUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

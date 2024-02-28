@@ -2,7 +2,7 @@
 
 internal class PluUpdateValidator : PluValidator
 {
-    public PluUpdateValidator() : base()
+    public PluUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

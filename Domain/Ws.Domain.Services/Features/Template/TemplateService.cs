@@ -7,15 +7,18 @@ namespace Ws.Domain.Services.Features.Template;
 
 internal class TemplateService(SqlTemplateRepository templateRepo) : ITemplateService
 {
-    [Transactional] 
+    [Transactional]
     public IEnumerable<TemplateEntity> GetAll() => templateRepo.GetAll();
-    
-    [Transactional] 
+
+    [Transactional]
     public TemplateEntity GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
-    
-    [Transactional, Validate<TemplateNewValidator>] 
+
+    [Transactional, Validate<TemplateNewValidator>]
     public TemplateEntity Create(TemplateEntity item) => templateRepo.Save(item);
-    
+
     [Transactional, Validate<TemplateUpdateValidator>]
     public TemplateEntity Update(TemplateEntity item) => templateRepo.Update(item);
+
+    [Transactional]
+    public void Delete(TemplateEntity item) => templateRepo.Delete(item);
 }

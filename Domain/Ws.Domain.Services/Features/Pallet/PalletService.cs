@@ -10,10 +10,10 @@ internal class PalletService(SqlPalletRepository palletRepo) : IPalletService
     [Transactional]
     public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
         palletRepo.GetAllViewByWarehouse(warehouse);
-    
+
     [Transactional]
     public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
-    
+
     [Transactional]
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
 }

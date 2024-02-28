@@ -4,5 +4,5 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.PalletMan;
 
-public interface IPalletManService : IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>, 
-    ICreate<PalletManEntity>, IUpdate<PalletManEntity>;
+public interface IPalletManService : IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>,
+    ICreate<PalletManEntity>, IUpdate<PalletManEntity>, IDelete<PalletManEntity>;

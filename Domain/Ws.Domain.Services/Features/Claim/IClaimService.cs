@@ -4,5 +4,5 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Claim;
 
-public interface IClaimService : IGetItemByUid<ClaimEntity>, IGetAll<ClaimEntity>, ICreate<ClaimEntity>, 
-    IUpdate<ClaimEntity>;
+public interface IClaimService : IGetItemByUid<ClaimEntity>, IGetAll<ClaimEntity>, ICreate<ClaimEntity>,
+    IUpdate<ClaimEntity>, IDelete<ClaimEntity>;

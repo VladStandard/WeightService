@@ -4,6 +4,7 @@
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity, ClaimService.Update)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="() => DeleteItem(ClaimService.Delete)"
   ShareUrl="@($"{RouteUtils.SectionRoles}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >

@@ -5,4 +5,4 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.Printer;
 
 public interface IPrinterService : IGetAll<PrinterEntity>, IGetItemByUid<PrinterEntity>, ICreate<PrinterEntity>,
-    IUpdate<PrinterEntity>;
+    IUpdate<PrinterEntity>, IDelete<PrinterEntity>;

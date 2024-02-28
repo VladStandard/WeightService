@@ -2,7 +2,7 @@
 
 internal sealed class BrandUpdateValidator : BrandValidator
 {
-    public BrandUpdateValidator() : base()
+    public BrandUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

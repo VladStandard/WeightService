@@ -3,6 +3,7 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
@@ -58,12 +59,6 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     {
         await ReloadGrid();
         await ModalService.Hide();
-    }
-
-    protected Task DeleteSqlItem(TItem item)
-    {
-        // TODO: fixDelete
-        return Task.CompletedTask;
     }
 
     private async Task ReloadGrid() => await DataGridWrapperRef.ReloadData();

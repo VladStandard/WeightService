@@ -2,7 +2,7 @@
 
 internal sealed class TemplateUpdateValidator : TemplateValidator
 {
-    public TemplateUpdateValidator() : base()
+    public TemplateUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

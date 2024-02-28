@@ -2,7 +2,7 @@
 
 internal sealed class UserUpdateValidator : UserValidator
 {
-    public UserUpdateValidator() : base()
+    public UserUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

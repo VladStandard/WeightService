@@ -15,24 +15,24 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
 
     [Transactional]
     public LineEntity GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
-    
+
     [Transactional]
     public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
-    
+
     [Transactional]
     public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
-    
+
     [Transactional]
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);
-    
+
     [Transactional]
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
-    
+
     [Transactional]
     public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
-   
+
     [Transactional]
-    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) => 
+    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) =>
         pluLineRepo.GetListByQuery(QueryOver.Of<PluLineEntity>().Where(i => i.Line == line));
 
     #endregion
@@ -41,9 +41,15 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
 
     [Transactional, Validate<LineNewValidator>]
     public LineEntity Create(LineEntity line) => lineRepo.Save(line);
-    
+
     [Transactional, Validate<LineUpdateValidator>]
     public LineEntity Update(LineEntity line) => lineRepo.Update(line);
+
+    [Transactional]
+    public void Delete(LineEntity item) => lineRepo.Delete(item);
+
+    [Transactional]
+    public void DeletePluLine(PluLineEntity item) => pluLineRepo.Delete(item);
 
     #endregion
 }

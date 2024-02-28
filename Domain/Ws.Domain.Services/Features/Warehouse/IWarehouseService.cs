@@ -4,5 +4,5 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Warehouse;
 
-public interface IWarehouseService : IGetAll<WarehouseEntity>, IGetItemByUid<WarehouseEntity>, 
-    ICreate<WarehouseEntity>, IUpdate<WarehouseEntity>;
+public interface IWarehouseService : IGetAll<WarehouseEntity>, IGetItemByUid<WarehouseEntity>,
+    ICreate<WarehouseEntity>, IUpdate<WarehouseEntity>, IDelete<WarehouseEntity>;

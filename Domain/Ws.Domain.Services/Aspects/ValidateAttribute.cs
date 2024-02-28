@@ -15,12 +15,15 @@ internal class ValidateAttribute<TValidator> : OnMethodBoundaryAspect where TVal
 
         if (objectType == null || !typeof(EntityBase).IsAssignableFrom(objectType))
             throw new ArgumentException("Method must have at least one argument of type object.");
-        
+
         TValidator validator = new();
-        
+
         MethodInfo? validateMethod = typeof(TValidator).GetMethod("Validate", [objectType]);
-        
-        if (validateMethod?.Invoke(validator, [args.Arguments.GetArgument(0)]) is ValidationResult { IsValid: false } validationResult)
+
+        if (validateMethod?.Invoke(validator, [args.Arguments.GetArgument(0)]) is ValidationResult
+            {
+                IsValid: false
+            } validationResult)
         {
             throw new ValidateException(validationResult);
         }

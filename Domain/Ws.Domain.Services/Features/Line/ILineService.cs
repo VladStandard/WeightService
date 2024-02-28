@@ -5,7 +5,8 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Line;
 
-public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, ICreate<LineEntity>, IUpdate<LineEntity>
+public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, ICreate<LineEntity>,
+    IUpdate<LineEntity>, IDelete<LineEntity>
 {
     #region Queries
 
@@ -16,4 +17,6 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, 
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line);
 
     #endregion
+    
+    public void DeletePluLine(PluLineEntity item);
 }

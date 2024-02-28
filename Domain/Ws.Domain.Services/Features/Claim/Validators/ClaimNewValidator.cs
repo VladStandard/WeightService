@@ -2,7 +2,7 @@
 
 internal sealed class ClaimNewValidator : ClaimValidator
 {
-    public ClaimNewValidator() : base()
+    public ClaimNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

@@ -1,11 +1,12 @@
-﻿namespace Ws.Domain.Services.Exceptions;
+﻿using Ws.Domain.Services.Common;
 
-public class ValidateException : Exception
+namespace Ws.Domain.Services.Exceptions;
+
+public class ValidateException : ServiceException
 {
-    public IDictionary<string, string> Errors { get; private set; }
+    public IDictionary<string, string> Errors { get; }
     
-    
-    public ValidateException(ValidationResult result) : base()
+    public ValidateException(ValidationResult result)
     {
         Errors = new Dictionary<string, string>();
 

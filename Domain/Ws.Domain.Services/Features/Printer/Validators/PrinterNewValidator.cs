@@ -2,7 +2,7 @@
 
 internal sealed class PrinterNewValidator : PrinterValidator
 {
-    public PrinterNewValidator() : base()
+    public PrinterNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

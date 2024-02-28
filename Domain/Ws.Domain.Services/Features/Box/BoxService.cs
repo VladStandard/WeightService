@@ -8,13 +8,13 @@ internal class BoxService(SqlBoxRepository boxRepo) : IBoxService
 {
     [Transactional]
     public IEnumerable<BoxEntity> GetAll() => boxRepo.GetAll();
-    
+
     [Transactional]
     public BoxEntity GetItemByUid(Guid uid) => boxRepo.GetByUid(uid);
-    
+
     [Transactional]
     public BoxEntity GetItemByUid1С(Guid uid) => boxRepo.GetByUid1C(uid);
-    
+
     [Transactional]
     public BoxEntity GetDefaultForCharacteristic()
     {
@@ -22,7 +22,7 @@ internal class BoxService(SqlBoxRepository boxRepo) : IBoxService
         BoxEntity entity = GetItemByUid1С(uid1C);
         return entity.IsExists ? entity : GetDefault();
     }
-    
+
     private BoxEntity GetDefault()
     {
         BoxEntity entity = GetItemByUid1С(Guid.Empty);

@@ -10,7 +10,8 @@ using Ws.Domain.Services.Aspects;
 namespace Ws.Domain.Services.Features.Plu;
 
 internal class PluService(
-    SqlPluRepository pluRepo, SqlPluNestingFkRepository pluNestingFkRepo, 
+    SqlPluRepository pluRepo,
+    SqlPluNestingFkRepository pluNestingFkRepo,
     SqlPluTemplateFkRepository pluTemplateFkRepo) : IPluService
 {
     #region Queries
@@ -31,12 +32,12 @@ internal class PluService(
     public PluNestingEntity GetDefaultNesting(PluEntity plu) => pluNestingFkRepo.GetDefaultByPlu(plu);
 
     [Transactional]
-    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) => 
+    public PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C) =>
         pluNestingFkRepo.GetByPluAndUid1C(plu, nestingUid1C);
 
     [Transactional]
     public TemplateEntity GetPluTemplate(PluEntity plu) => pluTemplateFkRepo.GetTemplateByPlu(plu);
-    
+
     #endregion
 
     #region Commands

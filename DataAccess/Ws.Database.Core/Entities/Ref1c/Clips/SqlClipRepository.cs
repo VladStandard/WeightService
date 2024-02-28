@@ -16,5 +16,5 @@ public sealed class SqlClipRepository :  BaseRepository,
     public IEnumerable<ClipEntity> GetAll() =>
         Session.Query<ClipEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
     
-    public ClipEntity Save(ClipEntity item) => (Session.Save(item) as ClipEntity)!;
+    public ClipEntity Save(ClipEntity item) { Session.Save(item); return item; }
 }

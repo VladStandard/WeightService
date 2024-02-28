@@ -2,7 +2,7 @@
 
 internal sealed class BoxUpdateValidator : BoxValidator
 {
-    public BoxUpdateValidator() : base()
+    public BoxUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

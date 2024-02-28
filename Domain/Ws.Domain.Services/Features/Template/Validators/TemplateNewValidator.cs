@@ -2,7 +2,7 @@
 
 internal sealed class TemplateNewValidator : TemplateValidator
 {
-    public TemplateNewValidator() : base()
+    public TemplateNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

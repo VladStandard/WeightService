@@ -2,7 +2,7 @@
 
 internal sealed class LineUpdateValidator : LineValidator
 {
-    public LineUpdateValidator() : base()
+    public LineUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

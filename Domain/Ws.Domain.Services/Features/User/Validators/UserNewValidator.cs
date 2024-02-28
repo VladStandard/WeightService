@@ -2,7 +2,7 @@
 
 internal sealed class UserNewValidator : UserValidator
 {
-    public UserNewValidator() : base()
+    public UserNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

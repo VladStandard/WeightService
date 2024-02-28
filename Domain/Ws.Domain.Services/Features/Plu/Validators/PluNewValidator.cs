@@ -2,7 +2,7 @@
 
 internal sealed class PluNewValidator : PluValidator
 {
-    public PluNewValidator() : base()
+    public PluNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

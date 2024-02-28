@@ -2,8 +2,8 @@
 
 internal class PalletManUpdateValidator : PalletManValidator
 {
-    public PalletManUpdateValidator() : base()
+    public PalletManUpdateValidator()
     {
-        RuleFor(item => item.IsExists).Equal(true);        
+        RuleFor(item => item.IsExists).Equal(true);
     }
 }

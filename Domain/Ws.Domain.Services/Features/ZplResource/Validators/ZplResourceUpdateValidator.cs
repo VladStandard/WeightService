@@ -2,7 +2,7 @@
 
 internal class ZplResourceUpdateValidator : ZplResourceValidator
 {
-    public ZplResourceUpdateValidator() : base()
+    public ZplResourceUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

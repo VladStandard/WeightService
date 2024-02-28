@@ -4,8 +4,8 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.StorageMethod;
 
-public interface IStorageMethodService : IGetItemByUid<StorageMethodEntity>, IGetAll<StorageMethodEntity>, 
-    ICreate<StorageMethodEntity>, IUpdate<StorageMethodEntity>
+public interface IStorageMethodService : IGetItemByUid<StorageMethodEntity>, IGetAll<StorageMethodEntity>,
+    ICreate<StorageMethodEntity>, IUpdate<StorageMethodEntity>, IDelete<StorageMethodEntity>
 {
     StorageMethodEntity GetByName(string name);
     StorageMethodEntity GetDefault();

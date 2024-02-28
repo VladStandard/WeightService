@@ -2,7 +2,7 @@
 
 internal sealed class LineNewValidator : LineValidator
 {
-    public LineNewValidator() : base()
+    public LineNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

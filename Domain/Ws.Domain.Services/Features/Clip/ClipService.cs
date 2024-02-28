@@ -8,10 +8,10 @@ internal class ClipService(SqlClipRepository clipRepo) : IClipService
 {
     [Transactional]
     public IEnumerable<ClipEntity> GetAll() => clipRepo.GetAll();
-    
+
     [Transactional]
     public ClipEntity GetItemByUid(Guid uid) => clipRepo.GetByUid(uid);
-    
+
     [Transactional]
     public ClipEntity GetItemByUid1С(Guid uid) => clipRepo.GetByUid1C(uid);
 

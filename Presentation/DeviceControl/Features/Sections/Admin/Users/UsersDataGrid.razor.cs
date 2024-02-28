@@ -43,10 +43,11 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
         return [UserService.GetItemByUid(itemUid)];
     }
 
+    // TODO: parse exception
     private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserCacheService.ClearCacheForUser(item.Name);
-        SqlCoreHelper.Delete(item);
+        UserService.Delete(item);
         return Task.CompletedTask;
     }
 

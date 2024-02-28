@@ -2,8 +2,8 @@
 
 internal class ZplResourceNewValidator : ZplResourceValidator
 {
-    public ZplResourceNewValidator() : base()
+    public ZplResourceNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
-    }   
+    }
 }

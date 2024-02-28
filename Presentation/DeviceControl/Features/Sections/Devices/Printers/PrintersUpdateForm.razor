@@ -4,6 +4,7 @@
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity, PrinterService.Update)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="() => DeleteItem(PrinterService.Delete)"
   ShareUrl="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Uid}")"
   CreateDate="@SectionEntity.CreateDt"
   ChangeDate="@SectionEntity.ChangeDt"

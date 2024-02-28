@@ -9,7 +9,7 @@ internal class ProductionSiteService(SqlProductionSiteRepository productionSiteR
 {
     [Transactional]
     public ProductionSiteEntity GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
-    
+
     [Transactional]
     public IEnumerable<ProductionSiteEntity> GetAll() => productionSiteRepo.GetAll();
 
@@ -18,4 +18,7 @@ internal class ProductionSiteService(SqlProductionSiteRepository productionSiteR
 
     [Transactional, Validate<ProductionSiteUpdateValidator>]
     public ProductionSiteEntity Update(ProductionSiteEntity item) => productionSiteRepo.Update(item);
+
+    [Transactional]
+    public void Delete(ProductionSiteEntity item) => productionSiteRepo.Delete(item);
 }

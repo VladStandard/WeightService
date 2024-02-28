@@ -2,7 +2,7 @@
 
 internal sealed class ClipNewValidator : ClipValidator
 {
-    public ClipNewValidator() : base()
+    public ClipNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

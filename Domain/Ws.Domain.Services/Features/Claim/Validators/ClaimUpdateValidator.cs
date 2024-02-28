@@ -2,7 +2,7 @@
 
 internal sealed class ClaimUpdateValidator : ClaimValidator
 {
-    public ClaimUpdateValidator() : base()
+    public ClaimUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

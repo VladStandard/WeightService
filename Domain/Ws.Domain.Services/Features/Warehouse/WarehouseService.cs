@@ -7,15 +7,18 @@ namespace Ws.Domain.Services.Features.Warehouse;
 
 internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehouseService
 {
-    [Transactional] 
+    [Transactional]
     public WarehouseEntity GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
-    
+
     [Transactional]
     public IEnumerable<WarehouseEntity> GetAll() => warehouseRepo.GetAll();
-    
-    [Transactional, Validate<WarehouseNewValidator>] 
+
+    [Transactional, Validate<WarehouseNewValidator>]
     public WarehouseEntity Create(WarehouseEntity item) => warehouseRepo.Save(item);
-    
+
     [Transactional, Validate<WarehouseUpdateValidator>]
     public WarehouseEntity Update(WarehouseEntity item) => warehouseRepo.Update(item);
+
+    [Transactional]
+    public void Delete(WarehouseEntity item) => warehouseRepo.Delete(item);
 }

@@ -9,13 +9,16 @@ internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletM
 {
     [Transactional]
     public PalletManEntity GetItemByUid(Guid uid) => palletManRepo.GetByUid(uid);
-    
+
     [Transactional]
     public IEnumerable<PalletManEntity> GetAll() => palletManRepo.GetAll();
-    
+
     [Transactional, Validate<PalletManNewValidator>]
     public PalletManEntity Create(PalletManEntity item) => palletManRepo.Save(item);
-    
+
     [Transactional, Validate<PalletManUpdateValidator>]
     public PalletManEntity Update(PalletManEntity item) => palletManRepo.Update(item);
+
+    [Transactional]
+    public void Delete(PalletManEntity item) => palletManRepo.Delete(item);
 }

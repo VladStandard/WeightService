@@ -16,5 +16,5 @@ public sealed class SqlBundleRepository :  BaseRepository,
     public IEnumerable<BundleEntity> GetAll() =>
         Session.Query<BundleEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
     
-    public BundleEntity Save(BundleEntity item) => (Session.Save(item) as BundleEntity)!;
+    public BundleEntity Save(BundleEntity item) { Session.Save(item); return item; }
 }

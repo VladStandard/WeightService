@@ -2,7 +2,7 @@
 
 internal sealed class PrinterUpdateValidator : PrinterValidator
 {
-    public PrinterUpdateValidator() : base()
+    public PrinterUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

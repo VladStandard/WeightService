@@ -2,7 +2,7 @@
 
 internal sealed class PalletManNewValidator : PalletManValidator
 {
-    public PalletManNewValidator() : base()
+    public PalletManNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

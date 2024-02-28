@@ -8,10 +8,10 @@ internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
 {
     [Transactional]
     public IEnumerable<BrandEntity> GetAll() => brandRepo.GetAll();
-    
+
     [Transactional]
     public BrandEntity GetItemByUid(Guid uid) => brandRepo.GetByUid(uid);
-    
+
     [Transactional]
     public BrandEntity GetItemByUid1С(Guid uid) => brandRepo.GetByUid1C(uid);
 

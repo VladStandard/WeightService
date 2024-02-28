@@ -4,7 +4,8 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.User;
 
-public interface IUserService : IGetAll<UserEntity>, IGetItemByUid<UserEntity>, ICreate<UserEntity>, IUpdate<UserEntity>
+public interface IUserService : IGetAll<UserEntity>, IGetItemByUid<UserEntity>, ICreate<UserEntity>,
+    IUpdate<UserEntity>, IDelete<UserEntity>
 {
     UserEntity GetItemByNameOrCreate(string username);
 }

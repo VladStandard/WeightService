@@ -2,7 +2,7 @@
 
 internal sealed class WarehouseUpdateValidator : WarehouseValidator
 {
-    public WarehouseUpdateValidator() : base()
+    public WarehouseUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }

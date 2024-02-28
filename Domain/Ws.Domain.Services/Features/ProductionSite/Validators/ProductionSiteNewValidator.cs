@@ -2,7 +2,7 @@
 
 internal sealed class ProductionSiteNewValidator : ProductionSiteValidator
 {
-    public ProductionSiteNewValidator() : base()
+    public ProductionSiteNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

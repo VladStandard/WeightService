@@ -2,7 +2,7 @@
 
 internal sealed class BrandNewValidator : BrandValidator
 {
-    public BrandNewValidator() : base()
+    public BrandNewValidator()
     {
         RuleFor(item => item.IsNew).Equal(true);
     }

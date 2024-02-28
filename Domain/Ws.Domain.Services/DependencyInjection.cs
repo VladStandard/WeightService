@@ -28,13 +28,12 @@ public static class DependencyInjection
     public static void AddDomainServices(this IServiceCollection services)
     {
         services.AddNhibernate();
-        
-        services.AddEasyCaching(option =>
-        {
+
+        services.AddEasyCaching(option => {
             option.WithProtobuf();
             option.UseRedis(RedisUtils.LoadRedisCfg(), "ws-redis");
         });
-        
+
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();
@@ -53,7 +52,7 @@ public static class DependencyInjection
         services.AddScoped<IWarehouseService, WarehouseService>();
         services.AddScoped<IPalletManService, PalletManService>();
         services.AddScoped<IPalletService, PalletService>();
-        
+
         services.AddSingleton<IUserService, UserService>();
     }
 }

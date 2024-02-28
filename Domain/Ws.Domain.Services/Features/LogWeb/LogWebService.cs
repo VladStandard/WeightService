@@ -8,7 +8,7 @@ internal class LogWebService(SqlLogWebRepository logWebRepo) : ILogWebService
 {
     [Transactional]
     public IEnumerable<LogWebEntity> GetAll() => logWebRepo.GetList();
-    
+
     [Transactional]
     public LogWebEntity GetItemByUid(Guid uid) => logWebRepo.GetByUid(uid);
 

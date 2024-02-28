@@ -44,7 +44,11 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
         catch (ValidateException ex)
         {
             foreach (string error in ex.Errors.Keys)
-                await NotificationService.Error(ex.Errors[error]);
+                await NotificationService.Warning(ex.Errors[error]);
+        }
+        catch (DbServiceException)
+        {
+            await NotificationService.Error("Неизвестная ошибка. Попробуйте позже");
         }
     }
 
@@ -60,17 +64,30 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
             catch (ValidateException ex)
             {
                 foreach (string error in ex.Errors.Keys)
-                    await NotificationService.Error(ex.Errors[error]);
+                    await NotificationService.Warning(ex.Errors[error]);
+                return;
+            }
+            catch (DbServiceException)
+            {
+                await NotificationService.Error("Неизвестная ошибка. Попробуйте позже");
                 return;
             }
         }
         await OnSubmitAction.InvokeAsync();
     }
 
+    // TODO: localization
     protected async Task DeleteItem(Action<TItem> deleteItem)
     {
-        deleteItem(SectionEntity);
-        await NotificationService.Success(Localizer["ToastDeleteItem"]);
-        await OnSubmitAction.InvokeAsync();
+        try
+        {
+            deleteItem(SectionEntity);
+            await NotificationService.Success(Localizer["ToastDeleteItem"]);
+            await OnSubmitAction.InvokeAsync();
+        }
+        catch (DbServiceException)
+        {
+            await NotificationService.Error("Удаление не возможно. Запись используется");
+        }
     }
 }

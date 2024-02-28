@@ -5,4 +5,4 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.Template;
 
 public interface ITemplateService : IGetAll<TemplateEntity>, IGetItemByUid<TemplateEntity>,
-    ICreate<TemplateEntity>, IUpdate<TemplateEntity>;
+    ICreate<TemplateEntity>, IUpdate<TemplateEntity>, IDelete<TemplateEntity>;

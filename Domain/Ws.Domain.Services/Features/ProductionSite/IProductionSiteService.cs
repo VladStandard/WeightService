@@ -4,5 +4,5 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.ProductionSite;
 
-public interface IProductionSiteService : IGetItemByUid<ProductionSiteEntity>, IGetAll<ProductionSiteEntity>, 
-    ICreate<ProductionSiteEntity>, IUpdate<ProductionSiteEntity>;
+public interface IProductionSiteService : IGetItemByUid<ProductionSiteEntity>, IGetAll<ProductionSiteEntity>,
+    ICreate<ProductionSiteEntity>, IUpdate<ProductionSiteEntity>, IDelete<ProductionSiteEntity>;

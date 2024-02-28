@@ -2,7 +2,7 @@
 
 internal sealed class BundleUpdateValidator : BundleValidator
 {
-    public BundleUpdateValidator() : base()
+    public BundleUpdateValidator()
     {
         RuleFor(item => item.IsExists).Equal(true);
     }
