@@ -10,7 +10,7 @@ public class SqlViewDbFileSizeRepository
         const string sizeMbAlias = nameof(DbFileSizeInfoEntity.SizeMb);
         const string maxSizeMbAlias = nameof(DbFileSizeInfoEntity.MaxSizeMb);
 
-        const string sqlQuery = 
+        const string sqlQuery =
             $"SELECT" +
             $"\n [NAME] AS [{fileNameAlias}]," +
             $"\n [SIZE] * 8 / 1024 AS [{sizeMbAlias}]," +

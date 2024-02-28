@@ -4,7 +4,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : BaseRepository, 
+public sealed class SqlLineRepository : BaseRepository,
     IGetItemByUid<LineEntity>, ISave<LineEntity>, IUpdate<LineEntity>, IDelete<LineEntity>
 {
     public LineEntity GetByUid(Guid uid) => Session.Get<LineEntity>(uid) ?? new();

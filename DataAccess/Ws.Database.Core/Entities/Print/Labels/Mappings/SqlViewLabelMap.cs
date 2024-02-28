@@ -9,7 +9,7 @@ internal class ViewLabelMap : ClassMapping<ViewLabel>
         Schema(SqlSchemasUtils.Print);
         Table(SqlTablesUtils.ViewLabels);
         Mutable(false);
-        
+
         Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
@@ -19,17 +19,17 @@ internal class ViewLabelMap : ClassMapping<ViewLabel>
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
         });
-        
+
         Property(x => x.ProductDate, m => {
             m.Column("PROD_DT");
             m.Type(NHibernateUtil.DateTime);
         });
-        
+
         Property(x => x.LineName, m => {
             m.Column("LINE");
             m.Type(NHibernateUtil.String);
         });
-        
+
         Property(x => x.PluName, m => {
             m.Column("PLU_NAME");
             m.Type(NHibernateUtil.String);
@@ -39,22 +39,22 @@ internal class ViewLabelMap : ClassMapping<ViewLabel>
             m.Column("PLU_NUMBER");
             m.Type(NHibernateUtil.Int16);
         });
-        
+
         Property(x => x.Warehouse, m => {
             m.Column("WAREHOUSE");
             m.Type(NHibernateUtil.String);
         });
-        
+
         Property(x => x.IsCheckWeight, m => {
             m.Column("IS_CHECK_WEIGHT");
             m.Type(NHibernateUtil.Boolean);
         });
-        
+
         Property(x => x.BarcodeTop, m => {
             m.Column("BARCODE_TOP");
             m.Type(NHibernateUtil.String);
         });
-        
+
         Property(x => x.BarcodeRight, m => {
             m.Column("BARCODE_RIGHT");
             m.Type(NHibernateUtil.String);

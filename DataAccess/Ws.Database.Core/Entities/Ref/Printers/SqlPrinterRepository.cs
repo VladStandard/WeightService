@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Printers;
 
-public class SqlPrinterRepository : BaseRepository, IGetItemByUid<PrinterEntity>, 
+public class SqlPrinterRepository : BaseRepository, IGetItemByUid<PrinterEntity>,
     IGetAll<PrinterEntity>, ISave<PrinterEntity>, IUpdate<PrinterEntity>, IDelete<PrinterEntity>
 {
     public PrinterEntity GetByUid(Guid uid) => Session.Get<PrinterEntity>(uid) ?? new();

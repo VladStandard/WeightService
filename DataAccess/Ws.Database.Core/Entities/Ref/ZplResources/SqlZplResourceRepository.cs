@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.ZplResources;
 
-public class SqlZplResourceRepository :  BaseRepository, IGetItemByUid<ZplResourceEntity>, IGetAll<ZplResourceEntity>,
+public class SqlZplResourceRepository : BaseRepository, IGetItemByUid<ZplResourceEntity>, IGetAll<ZplResourceEntity>,
     ISave<ZplResourceEntity>, IUpdate<ZplResourceEntity>, IDelete<ZplResourceEntity>
 {
     public ZplResourceEntity GetByUid(Guid uid) => Session.Get<ZplResourceEntity>(uid) ?? new();

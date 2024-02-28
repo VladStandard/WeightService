@@ -13,14 +13,14 @@ public class TransactionalSession : ITransactionalSession
     {
         _session = NHibernateHelper.SessionFactory.OpenSession();
         _transaction = _session.BeginTransaction(isolationLevel);
-        
+
         CurrentSessionContext.Bind(_session);
     }
 
     #region IUnitOfWork Members
 
     public void Commit() => _transaction.Commit();
-    
+
     public void Rollback()
     {
         if (_transaction is { WasCommitted: false, WasRolledBack: false })
@@ -31,10 +31,10 @@ public class TransactionalSession : ITransactionalSession
     {
         CurrentSessionContext.Unbind(_session.SessionFactory);
         Rollback();
-        
+
         _session.Dispose();
         _transaction.Dispose();
     }
-    
+
     #endregion
 }

@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Core.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository :  BaseRepository, 
+public sealed class SqlBundleRepository : BaseRepository,
     IGetItemByUid1C<BundleEntity>, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>, ISave<BundleEntity>
 {
     public BundleEntity GetByUid(Guid uid) => Session.Get<BundleEntity>(uid);

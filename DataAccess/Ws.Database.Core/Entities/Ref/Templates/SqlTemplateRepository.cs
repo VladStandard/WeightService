@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Templates;
 
-public sealed class SqlTemplateRepository :  BaseRepository, IGetAll<TemplateEntity>, IGetItemByUid<TemplateEntity>, 
+public sealed class SqlTemplateRepository : BaseRepository, IGetAll<TemplateEntity>, IGetItemByUid<TemplateEntity>,
     ISave<TemplateEntity>, IUpdate<TemplateEntity>, IDelete<TemplateEntity>
 {
     public TemplateEntity GetByUid(Guid id) => Session.Get<TemplateEntity>(id) ?? new();

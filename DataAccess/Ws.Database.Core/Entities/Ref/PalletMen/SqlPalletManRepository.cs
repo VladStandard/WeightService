@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.PalletMen;
 
-public class SqlPalletManRepository : BaseRepository, IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>, 
+public class SqlPalletManRepository : BaseRepository, IGetItemByUid<PalletManEntity>, IGetAll<PalletManEntity>,
     ISave<PalletManEntity>, IUpdate<PalletManEntity>, IDelete<PalletManEntity>
 {
     public PalletManEntity GetByUid(Guid uid) => Session.Get<PalletManEntity>(uid) ?? new();

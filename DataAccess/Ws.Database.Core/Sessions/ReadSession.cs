@@ -14,12 +14,12 @@ public class ReadSession : IDisposable
     }
 
     #region IUnitOfWork Members
-    
+
     public void Dispose()
     {
         CurrentSessionContext.Unbind(_session.SessionFactory);
         _session.Dispose();
     }
-    
+
     #endregion
 }
