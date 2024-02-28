@@ -5,8 +5,10 @@ using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Claim;
+using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
@@ -18,9 +20,9 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
 
     #endregion
-
 
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
@@ -59,6 +61,6 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
     private async Task DeleteUserWithRelogin()
     {
         UserCacheService.ClearCacheForUser(SectionEntity.Name);
-        await DeleteItem();
+        await DeleteItem(SqlCoreHelper.Delete);
     }
 }

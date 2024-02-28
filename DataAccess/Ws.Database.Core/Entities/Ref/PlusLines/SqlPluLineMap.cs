@@ -8,7 +8,6 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
     {
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.PlusLines);
-        
        
         Id(x => x.Uid, m =>
         {

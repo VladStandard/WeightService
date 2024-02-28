@@ -1,9 +1,12 @@
+using Ws.Database.Core.Common.Commands;
+using Ws.Database.Core.Common.Queries.Item;
+using Ws.Database.Core.Common.Queries.List;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Users;
 
-public sealed class SqlUserRepository : BaseRepository, 
-    IGetItemByUid<UserEntity>, IGetAll<UserEntity>, ISave<UserEntity>
+public sealed class SqlUserRepository : BaseRepository, IGetItemByUid<UserEntity>, IGetAll<UserEntity>, 
+    ISave<UserEntity>, IUpdate<UserEntity>
 {
     public UserEntity GetByUid(Guid uid) => Session.Get<UserEntity>(uid) ?? new();
     public IEnumerable<UserEntity> GetAll() => Session.Query<UserEntity>().OrderBy(i => i.Name).ToList();
@@ -12,4 +15,5 @@ public sealed class SqlUserRepository : BaseRepository,
         u.Name.ToLower().Equals(userName.ToLower())) ?? new();
     
     public UserEntity Save(UserEntity item) => (Session.Save(item) as UserEntity)!;
+    public UserEntity Update(UserEntity item) { Session.Update(item); return item; }
 }

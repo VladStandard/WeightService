@@ -10,30 +10,30 @@ namespace Ws.Domain.Services.Features.Line;
 
 internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineRepository pluLineRepo) : ILineService
 {
-    #region Get Lines
+    #region Queries
 
     [Transactional] public LineEntity GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
-    [Transactional] public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
     [Transactional] public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
-
-    #endregion
-
-    #region Get Plus
-
+    [Transactional] public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
     [Transactional] public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);
     [Transactional] public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
     [Transactional] public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
+    [Transactional] public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) => 
+        pluLineRepo.GetListByQuery(QueryOver.Of<PluLineEntity>().Where(i => i.Line == line));
+
+    #endregion
+
+    #region Commands
+
+    [Transactional] public LineEntity Create(LineEntity line) => lineRepo.Save(line);
+    [Transactional] public LineEntity Update(LineEntity line) => lineRepo.Update(line);
 
     #endregion
 
     #region Other
 
-    [Transactional] public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line)
-    {
-        return pluLineRepo.GetListByQuery(
-            QueryOver.Of<PluLineEntity>().Where(i => i.Line == line)
-        );
-    }
+
 
     #endregion
+
 }

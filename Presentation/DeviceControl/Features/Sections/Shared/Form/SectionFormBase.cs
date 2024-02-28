@@ -4,7 +4,6 @@ using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Helpers;
 using Ws.Database.Core.Utils;
 using Ws.Domain.Abstractions.Entities.Common;
 
@@ -35,24 +34,25 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
         await NotificationService.Info(Localizer["ToastResetItem"]);
     }
 
-    protected async Task AddItem(TItem item)
+    protected async Task AddItem(TItem item, Func<TItem, TItem> saveAction)
     {
         if (item.IsExists) return;
         if (!await IsValidateItem(item, false)) return;
-        SqlCoreHelper.Save(item);
+        saveAction(item);
         await NotificationService.Success(Localizer["ToastAddItem"]);
         await OnSubmitAction.InvokeAsync();
     }
 
-    protected async Task UpdateItem(TItem item)
+    protected async Task UpdateItem(TItem item, Func<TItem, TItem> updateAction)
     {
         if (item.IsNew) return;
         if (!await IsValidateItem(item, true)) return;
-        
+
         if (!SectionEntity.Equals(SectionEntityCopy))
-            SqlCoreHelper.Update(item);
-        
-        await NotificationService.Success(Localizer["ToastUpdateItem"]);
+        {
+            updateAction(item);
+            await NotificationService.Success(Localizer["ToastUpdateItem"]);
+        }
         await OnSubmitAction.InvokeAsync();
     }
 
@@ -65,9 +65,9 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
         return false;
     }
 
-    protected async Task DeleteItem()
+    protected async Task DeleteItem(Action<TItem> deleteItem)
     {
-        SqlCoreHelper.Delete(SectionEntity);
+        deleteItem(SectionEntity);
         await NotificationService.Success(Localizer["ToastDeleteItem"]);
         await OnSubmitAction.InvokeAsync();
     }

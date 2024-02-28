@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Resources;
 using ScalesDesktop.Services;
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;

@@ -9,6 +9,5 @@ global using FluentValidation.Results;
 global using NHibernate;
 global using NHibernate.Criterion;
 global using Ws.Database.Core.Common;
-global using Ws.Database.Core.Helpers;
 global using Ws.Database.Core.Models;
 global using Ws.Database.Core.Utils;

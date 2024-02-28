@@ -3,7 +3,7 @@ using NHibernate.Transform;
 using Ws.Database.Core.Sessions;
 using Ws.Domain.Abstractions.Entities.Common;
 
-namespace Ws.Database.Core.Helpers;
+namespace Ws.Database.Core.Utils;
 
 public static class SqlCoreHelper
 {

@@ -7,11 +7,11 @@ namespace Ws.Domain.Services.Features.StorageMethod;
 internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo) : IStorageMethodService
 { 
     [Transactional] public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
-
     [Transactional] public StorageMethodEntity GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
-
     [Transactional] public StorageMethodEntity GetByName(string name) => storageMethodRepo.GetItemByName(name);
-
+    [Transactional] public StorageMethodEntity Create(StorageMethodEntity item) => storageMethodRepo.Save(item);
+    [Transactional] public StorageMethodEntity Update(StorageMethodEntity item) => storageMethodRepo.Update(item);
+    
     [Transactional] public StorageMethodEntity GetDefault()
     {
         const string name = "Без способа хранения";

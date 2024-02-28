@@ -1,9 +1,10 @@
 @using Ws.Domain.Models.Enums
 @using Ws.Domain.Models.Entities.Ref
+@using Ws.Database.Core.Utils
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
-<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity)">
+<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity, LineService.Create)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

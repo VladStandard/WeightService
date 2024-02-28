@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Claim;
+using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
 
@@ -14,6 +15,7 @@ public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
+    [Inject] private IUserService UserService { get; set; } = null!;
 
     #endregion
 

@@ -2,9 +2,8 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity, PrinterService.Update)"
   ResetItemAction="ResetItem"
-  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Uid}")"
   CreateDate="@SectionEntity.CreateDt"
   ChangeDate="@SectionEntity.ChangeDt"

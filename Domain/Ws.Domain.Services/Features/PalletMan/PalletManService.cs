@@ -8,4 +8,6 @@ public class PalletManService(SqlPalletManRepository palletManRepo) : IPalletMan
 {
     [Transactional] public PalletManEntity GetItemByUid(Guid uid) => palletManRepo.GetByUid(uid);
     [Transactional] public IEnumerable<PalletManEntity> GetAll() => palletManRepo.GetAll();
+    [Transactional] public PalletManEntity Create(PalletManEntity item) => palletManRepo.Save(item);
+    [Transactional] public PalletManEntity Update(PalletManEntity item) => palletManRepo.Update(item);
 }

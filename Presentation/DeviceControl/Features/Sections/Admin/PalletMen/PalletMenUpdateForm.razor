@@ -2,8 +2,7 @@
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
-  DeleteItemAction="DeleteItem"
+  OnSubmitAction="() => UpdateItem(SectionEntity, PalletManService.Update)"
   ResetItemAction="ResetItem"
   ShareUrl="@($"{RouteUtils.SectionPalletMen}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"

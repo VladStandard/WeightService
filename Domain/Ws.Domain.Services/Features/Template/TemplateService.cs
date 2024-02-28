@@ -8,4 +8,6 @@ public class TemplateService(SqlTemplateRepository templateRepo) : ITemplateServ
 {
     [Transactional] public IEnumerable<TemplateEntity> GetAll() => templateRepo.GetAll();
     [Transactional] public TemplateEntity GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
+    [Transactional] public TemplateEntity Create(TemplateEntity item) => templateRepo.Save(item);
+    [Transactional] public TemplateEntity Update(TemplateEntity item) => templateRepo.Update(item);
 }

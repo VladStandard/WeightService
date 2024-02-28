@@ -5,7 +5,7 @@ namespace Ws.Database.Core.Entities.Scales.PlusNestingFks;
 
 public sealed class SqlPluNestingFkRepository :  BaseRepository
 {
-    public IEnumerable<PluNestingEntity> GetAllByPlu(PluEntity plu) =>
+    public IEnumerable<PluNestingEntity> GetAllByPlu(PluEntity plu) => 
         Session.Query<PluNestingEntity>().Where(i => i.Plu == plu).ToList();
 
     public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C) =>

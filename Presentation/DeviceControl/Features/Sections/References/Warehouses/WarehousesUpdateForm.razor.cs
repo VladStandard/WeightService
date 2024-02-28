@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.ProductionSite;
+using Ws.Domain.Services.Features.Warehouse;
 
 namespace DeviceControl.Features.Sections.References.Warehouses;
 
@@ -13,6 +14,7 @@ public sealed partial class WarehousesUpdateForm : SectionFormBase<WarehouseEnti
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
+    [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
 
     #endregion
 

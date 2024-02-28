@@ -2,9 +2,8 @@
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity, ZplResourceService.Update)"
   ResetItemAction="ResetItem"
-  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionTemplateResources}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"

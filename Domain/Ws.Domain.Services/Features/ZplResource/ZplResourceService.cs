@@ -5,10 +5,12 @@ using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.ZplResource;
 
-internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRedisCachingProvider provider) : IZplResourceService
+internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRedisCachingProvider provider) : IZplResourceService
 {
     [Transactional] public ZplResourceEntity GetItemByUid(Guid uid) => zplResourceRepo.GetByUid(uid);
     [Transactional] public IEnumerable<ZplResourceEntity> GetAll() => zplResourceRepo.GetAll().ToList();
+    [Transactional] public ZplResourceEntity Create(ZplResourceEntity item) => UpdateCache(zplResourceRepo.Save(item));
+    [Transactional] public ZplResourceEntity Update(ZplResourceEntity item) => UpdateCache(zplResourceRepo.Update(item));
     
     public Dictionary<string, string> GetAllCachedResources()
     {
@@ -20,5 +22,5 @@ internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRed
         provider.HMSet("ZPL_RESOURCES", cached, TimeSpan.FromHours(1));
         
         return cached;
-    } 
+    }
 }

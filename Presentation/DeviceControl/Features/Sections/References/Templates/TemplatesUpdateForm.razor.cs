@@ -3,10 +3,12 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Services.Features.Template;
 
 namespace DeviceControl.Features.Sections.References.Templates;
 
 public sealed partial class TemplatesUpdateForm : SectionFormBase<TemplateEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private ITemplateService TemplateService { get; set; } = null!;
 }

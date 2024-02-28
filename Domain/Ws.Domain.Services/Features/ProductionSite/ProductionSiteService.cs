@@ -8,4 +8,12 @@ internal class ProductionSiteService(SqlProductionSiteRepository productionSiteR
 {
     [Transactional] public ProductionSiteEntity GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
     [Transactional] public IEnumerable<ProductionSiteEntity> GetAll() => productionSiteRepo.GetAll();
+    [Transactional] public ProductionSiteEntity Create(ProductionSiteEntity item)
+    {
+        throw new NotImplementedException();
+    }
+    [Transactional] public ProductionSiteEntity Update(ProductionSiteEntity item)
+    {
+        throw new NotImplementedException();
+    }
 }

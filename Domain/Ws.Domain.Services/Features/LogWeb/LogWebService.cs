@@ -1,5 +1,5 @@
 ﻿using Ws.Database.Core.Entities.Diag.LogWebs;
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Aspects;
 

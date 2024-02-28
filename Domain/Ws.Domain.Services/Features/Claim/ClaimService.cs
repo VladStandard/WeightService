@@ -8,4 +8,6 @@ internal class ClaimService(SqlClaimRepository claimRepo) : IClaimService
 {
     [Transactional] public IEnumerable<ClaimEntity> GetAll() => claimRepo.GetAll();
     [Transactional] public ClaimEntity GetItemByUid(Guid uid) => claimRepo.GetByUid(uid);
+    [Transactional] public ClaimEntity Create(ClaimEntity item) => claimRepo.Save(item);
+    [Transactional] public ClaimEntity Update(ClaimEntity item) => claimRepo.Update(item);
 }

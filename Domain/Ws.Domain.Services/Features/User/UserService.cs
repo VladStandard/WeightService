@@ -8,6 +8,8 @@ internal class UserService(SqlUserRepository userRepo) : IUserService
 {
     [Transactional] public IEnumerable<UserEntity> GetAll() => userRepo.GetAll();
     [Transactional] public UserEntity GetItemByUid(Guid uid) => userRepo.GetByUid(uid);
+    [Transactional] public UserEntity Create(UserEntity item) => userRepo.Save(item);
+    [Transactional] public UserEntity Update(UserEntity item) => userRepo.Update(item);
     
     [Transactional] public UserEntity GetItemByNameOrCreate(string username)
     {

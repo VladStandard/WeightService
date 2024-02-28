@@ -8,4 +8,6 @@ internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehou
 {
     [Transactional] public WarehouseEntity GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
     [Transactional] public IEnumerable<WarehouseEntity> GetAll() => warehouseRepo.GetAll();
+    [Transactional] public WarehouseEntity Create(WarehouseEntity item) => warehouseRepo.Save(item);
+    [Transactional] public WarehouseEntity Update(WarehouseEntity item) => warehouseRepo.Update(item);
 }

@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Common;

@@ -2,7 +2,7 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.UserEntity>
 
 
-<SectionFormWrapper OnSubmitAction="() => AddItem(ProcessItem(SectionEntity))">
+<SectionFormWrapper OnSubmitAction="() => AddItem(ProcessItem(SectionEntity), UserService.Create)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"
     Label="@Localizer["DataGridColumnName"]"

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Events;
 using ScalesDesktop.Features.Labels.Resources;
 using ScalesDesktop.Services;
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 using Ws.Printers.Enums;

@@ -1,12 +1,12 @@
 @using Ws.Domain.Models.Enums
 @using Ws.Domain.Models.Entities.Ref
+@using Ws.Database.Core.Utils
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity, LineService.Update)"
   ResetItemAction="ResetItem"
-  DeleteItemAction="DeleteItem"
   ShareUrl="@($"{RouteUtils.SectionLines}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
