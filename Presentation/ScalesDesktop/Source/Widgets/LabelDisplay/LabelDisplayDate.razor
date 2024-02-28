@@ -1,34 +1,35 @@
 @using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Shared.UI
 
 
 <LabelDisplayItem Label="@Localizer["ColDt"]">
-  <div class="flex overflow-hidden w-full h-full">
-    <button
-      type="button"
-      class="bg-gray-100 border border-black/[.1] w-[30%] flex items-center justify-center h-full rounded-lg
-                overflow-hidden transition-colors hover:bg-sky-200"
-      @onclick="DecreaseDate"
-    >
-      <ChevronLeftIcon class="h-full w-full px-3 py-3"/>
-    </button>
-    <p class="text-xl w-2/5 flex items-center justify-center font-medium truncate xl:text-3xl">
-      @LabelContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
-    </p>
-    <div class="w-[30%] flex gap-2 h-full">
-      <button
-        type="button"
-        class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-lg
-                  overflow-hidden transition-colors hover:bg-sky-200"
-        @onclick="ResetDate">
-        <ArrowPathIcon class="h-full w-full px-3 py-3"/>
-      </button>
-      <button
-        type="button"
-        class="bg-gray-100 border border-black/[.1] w-1/2 flex items-center justify-center h-full rounded-lg
-                  overflow-hidden transition-colors hover:bg-sky-200"
-        @onclick="IncreaseDate">
-        <ChevronRightIcon class="h-full w-full px-3 py-3"/>
-      </button>
+  <div class="grid overflow-hidden grid-cols-7 size-full">
+    <div class="col-span-2 size-full py-1 overflow-hidden">
+      <Button
+        Variant="ButtonVariant.Outline"
+        Size="ButtonSize.Full"
+        OnClick="@DecreaseDate">
+        <ChevronLeftIcon class="size-full p-3"/>
+      </Button>
+    </div>
+    <div class="col-span-3 flex items-center justify-center size-full overflow-hidden">
+      <span class="text-3xl font-medium">
+        @LabelContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
+      </span>
+    </div>
+    <div class="col-span-2 flex gap-2 size-full overflow-hidden py-1">
+      <Button
+        Variant="ButtonVariant.Outline"
+        Size="ButtonSize.Full"
+        OnClick="@ResetDate">
+        <ArrowPathIcon class="size-full p-3"/>
+      </Button>
+      <Button
+        Variant="ButtonVariant.Outline"
+        Size="ButtonSize.Full"
+        OnClick="@IncreaseDate">
+        <ChevronRightIcon class="size-full p-3"/>
+      </Button>
     </div>
   </div>
 </LabelDisplayItem>

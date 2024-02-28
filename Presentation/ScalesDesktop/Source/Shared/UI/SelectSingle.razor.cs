@@ -55,7 +55,15 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
 
     public async ValueTask DisposeAsync()
     {
-        await Module.InvokeVoidAsync("removeResizeEvent", DropdownWrapper);
+        try
+        {
+            await Module.InvokeVoidAsync("removeResizeEvent", DropdownWrapper);
+        }
+        catch
+        {
+            // pass
+        }
+        
         await Module.DisposeAsync();
     }
 }

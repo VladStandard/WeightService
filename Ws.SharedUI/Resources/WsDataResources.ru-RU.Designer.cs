@@ -249,7 +249,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вложенность.
+        ///   Looks up a localized string similar to Замес.
         /// </summary>
         public static string ColKneading {
             get {

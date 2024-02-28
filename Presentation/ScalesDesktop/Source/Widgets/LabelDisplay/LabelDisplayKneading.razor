@@ -1,16 +1,24 @@
+@using ScalesDesktop.Source.Shared.UI
+
 <LabelDisplayItem Label="@WsDataLocalizer["ColKneading"]">
-  <div class="flex items-center w-full h-full">
-    <div class="w-[30%] h-full"></div>
-    <span class="text-xl flex items-center justify-center w-2/5 font-medium truncate xl:text-3xl">
-      @LabelContext.KneadingModel.KneadingCount
-    </span>
-    <button
-      type="button"
-      @onclick="ShowNumericKeyboard"
-      class="bg-gray-100 border border-black/[.1] w-[30%] flex items-center justify-center h-full rounded-lg
-              overflow-hidden transition-colors hover:bg-sky-200"
-    >
-      <span class="text-2xl">@LabelsLocalizer["BtnEnter"]</span>
-    </button>
+  <div class="grid grid-cols-7 items-center w-full h-full">
+    <div class="col-span-2"></div>
+    <div class="col-span-3 flex items-center justify-center size-full overflow-hidden">
+      <span class="text-3xl font-medium">
+          @LabelContext.KneadingModel.KneadingCount
+        </span>
+    </div>
+    <div class="col-span-2 size-full overflow-hidden">
+      <Button
+        Size="ButtonSize.Full"
+        Variant="ButtonVariant.Outline"
+        OnClick="@ShowNumericKeyboard"
+      >
+        <span class="text-2xl">
+          @LabelsLocalizer["BtnEnter"]
+        </span>
+      </Button>
+    </div>
+
   </div>
 </LabelDisplayItem>

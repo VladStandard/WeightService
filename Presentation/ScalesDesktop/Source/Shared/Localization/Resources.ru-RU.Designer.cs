@@ -276,7 +276,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Настройка этикетки.
+        ///   Looks up a localized string similar to Настройка ПЛУ.
         /// </summary>
         internal static string LabelConfigHeader {
             get {

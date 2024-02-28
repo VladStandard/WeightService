@@ -130,7 +130,7 @@
         <value>Дата</value>
     </data>
     <data name="ColKneading" xml:space="preserve">
-        <value>Вложенность</value>
+        <value>Замес</value>
     </data>
     <data name="MeasureKg" xml:space="preserve">
         <value>кг</value>

@@ -91,7 +91,7 @@
         <value>Введите замес</value>
     </data>
     <data name="LabelConfigHeader" xml:space="preserve">
-        <value>Настройка этикетки</value>
+        <value>Настройка ПЛУ</value>
     </data>
     <data name="LabelCountInputPlaceholder" xml:space="preserve">
         <value>Введите количество этикеток</value>

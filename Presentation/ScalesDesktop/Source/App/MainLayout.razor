@@ -2,9 +2,9 @@
 @using Blazorise.Components
 @using Blazorise
 
-<div class="w-screen h-screen overflow-hidden text-black bg-gray-100 overscroll-none">
+<div class="w-screen h-screen overflow-hidden text-black bg-secondary/90 overscroll-none">
   @Body
 </div>
 
-<ModalProvider UseModalStructure="false" Class="!p-0 [&_div:first-child]:md:!h-auto" Size="ModalSize.Large"  />
+<ModalProvider UseModalStructure="false" Class="!p-0 [&_div[role=document]]:!h-auto" Size="ModalSize.Large"  />
 <NotificationProvider Class="bg-black" Location="NotificationLocation.Center"  />

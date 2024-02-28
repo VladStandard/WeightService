@@ -1,9 +1,12 @@
-<button
-  class="flex flex-col overflow-hidden items-center justify-center bg-gray-100 border border-black/[.1] rounded-md w-full
-          h-full transition-colors hover:bg-sky-200 disabled:bg-gray-300"
-  @onclick="PrintLabel"
+@using ScalesDesktop.Source.Shared.UI
+
+<Button
+  Size="ButtonSize.Full"
+  OnClick="@PrintLabel"
   disabled="@GetPrintLabelDisabledStatus()"
 >
-  <span class="text-xl xl:text-2xl">@LabelsLocalizer["BtnLabelPrint"]</span>
-  <span class="xl:text-lg">@WsDataLocalizer["ColCounter"]: @LabelContext.Line.Counter</span>
-</button>
+  <div class="flex flex-col items-center">
+    <span class="text-xl">@LabelsLocalizer["BtnLabelPrint"]</span>
+    <span class="text-base font-light">@WsDataLocalizer["ColCounter"]: @LabelContext.Line.Counter</span>
+  </div>
+</Button>

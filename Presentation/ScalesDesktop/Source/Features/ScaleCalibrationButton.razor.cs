@@ -15,24 +15,24 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
 
-    private bool IsScalesTerminalWasOpened { get; set; }
+    private bool IsOnceClicked { get; set; }
     private bool IsScalesAvailable { get; set; } = true;
     private int SecToOpen { get; set; } = 0;
+    
+    private const int ButtonDebounceSeconds = 10;
+    
 
-    protected override void OnInitialized()
-    {
-        ScalesSubscribe();
-    }
+    protected override void OnInitialized() => ScalesSubscribe();
 
     private string GetCooldownString() =>
         $"{LabelsLocalizer["BtnCooldown"]} {SecToOpen} {WsDataLocalizer["MeasureSec"]}";
 
     private async Task HandleButtonOpenScalesTerminal()
     {
-        if (IsScalesTerminalWasOpened) return;
+        if (IsOnceClicked) return;
 
-        IsScalesTerminalWasOpened = true;
-        SecToOpen = 10;
+        IsOnceClicked = true;
+        SecToOpen = ButtonDebounceSeconds;
         StateHasChanged();
         ExternalDevices.Scales.Calibrate();
         while (SecToOpen > 0)
@@ -41,7 +41,7 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
             SecToOpen--;
             StateHasChanged();
         }
-        IsScalesTerminalWasOpened = false;
+        IsOnceClicked = false;
         StateHasChanged();
     }
 

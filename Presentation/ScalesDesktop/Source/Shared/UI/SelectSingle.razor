@@ -5,13 +5,13 @@
 
 <div @ref="DropdownWrapper" class="h-full w-full overflow-hidden">
   <Dropdown @ref="Dropdown" Class="h-full w-full" PositionStrategy="DropdownPositionStrategy.Fixed">
-    <DropdownToggle aria-disabled="@(IsDisabled.ToString().ToLower())" Disabled="IsDisabled" Class="select-button w-full border bg-white !rounded-md overflow-hidden h-full gap-1 !px-2 border-black/[.1] aria-disabled:opacity-50 dark:bg-black dark:border-neutral-800">
+    <DropdownToggle aria-disabled="@(IsDisabled.ToString().ToLower())" Disabled="IsDisabled" Class="select-button w-full border bg-white !rounded-md overflow-hidden h-full gap-1 !px-2 aria-disabled:opacity-50 dark:bg-black">
       @GetToggleText()
     </DropdownToggle>
-    <DropdownMenu Class="select-dropdown overflow-hidden max-h-60 border border-black/[.1] shadow-none !max-w-[inherit] dark:!bg-black dark:border-neutral-800">
+    <DropdownMenu Class="select-dropdown overflow-hidden max-h-60 border shadow-none !max-w-[inherit] dark:!bg-black">
       @if (IsFilterable)
       {
-        <div class="h-8 w-full flex items-center border-b border-black/[.1] gap-3 px-3 dark:border-b-neutral-800">
+        <div class="h-8 w-full flex items-center border-b gap-3 px-3">
           <input
             type="text"
             @bind="SearchString"

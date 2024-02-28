@@ -1,12 +1,17 @@
-<button
-  class="flex flex-col overflow-hidden items-center justify-center bg-gray-100 border border-black/[.1] rounded-md w-full
-          h-full transition-colors hover:bg-sky-200 disabled:bg-gray-300"
-  @onclick="HandleButtonOpenScalesTerminal"
-  disabled="@(!(IsScalesAvailable && !IsScalesTerminalWasOpened))"
+@using ScalesDesktop.Source.Shared.UI
+
+<Button
+  Variant="ButtonVariant.Secondary"
+  Size="ButtonSize.Full"
+  OnClick="@HandleButtonOpenScalesTerminal"
+  disabled="@(!(IsScalesAvailable && !IsOnceClicked))"
+  class="border disabled:!opacity-70"
 >
-  <span class="text-xl xl:text-2xl">@LabelsLocalizer["BtnScaleCalibration"]</span>
-  @if (IsScalesTerminalWasOpened)
-  {
-    <span class="xl:text-lg">@GetCooldownString()</span>
-  }
-</button>
+  <div class="flex items-center flex-col">
+    <span class="text-xl">@LabelsLocalizer["BtnScaleCalibration"]</span>
+      @if (IsOnceClicked)
+      {
+        <span class="xl:text-lg">@GetCooldownString()</span>
+      }
+  </div>
+</Button>

@@ -21,7 +21,7 @@ public sealed partial class DataGridWrapper<TItem> : ComponentBase where TItem :
     private void OnSelectedItemsChanged() => SelectedItemsChanged?.Invoke(SelectedItems);
 
     private static void CustomRowStyling(TItem item, DataGridRowStyling styling) =>
-        styling.Class = "transition-colors hover:bg-blue-100";
+        styling.Class = "transition-colors hover:bg-secondary/80";
 
 
     private static DataGridRowStyling CustomHeaderRowStyling() =>

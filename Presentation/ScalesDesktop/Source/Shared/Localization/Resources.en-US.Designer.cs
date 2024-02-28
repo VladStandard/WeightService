@@ -276,7 +276,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Label config.
+        ///   Looks up a localized string similar to PLU config.
         /// </summary>
         internal static string LabelConfigHeader {
             get {

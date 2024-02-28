@@ -91,7 +91,7 @@
         <value>Enter the kneading</value>
     </data>
     <data name="LabelConfigHeader" xml:space="preserve">
-        <value>Label config</value>
+        <value>PLU config</value>
     </data>
     <data name="LabelCountInputPlaceholder" xml:space="preserve">
         <value>Enter a label count</value>
