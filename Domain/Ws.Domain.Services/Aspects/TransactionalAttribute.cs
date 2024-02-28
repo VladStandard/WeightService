@@ -8,7 +8,7 @@ using Ws.Shared.Utils;
 namespace Ws.Domain.Services.Aspects;
 
 [PSerializable]
-public class TransactionalAttribute : OnMethodBoundaryAspect
+internal class TransactionalAttribute : OnMethodBoundaryAspect
 {
     private ITransactionalSession? UnitOfWork { get; set; }
     

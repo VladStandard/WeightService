@@ -8,7 +8,8 @@ namespace Ws.Domain.Services.Features.DatabaseFile;
 
 internal class DatabaseFileService : IDatabaseFileService
 {
-    [Transactional] public IEnumerable<DbFileSizeInfoEntity> GetAll()
+    [Transactional]
+    public IEnumerable<DbFileSizeInfoEntity> GetAll()
     {
         List<DbFileSizeInfoEntity> sqlFiles = new SqlViewDbFileSizeRepository().GetList();
         List<TableSizeEntity> sqlTables = new SqlViewTableSizeRepository().GetAll().ToList();

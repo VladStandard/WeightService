@@ -1,11 +1,10 @@
 using Blazorise;
 using DeviceControl.Resources;
-using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Utils;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
+using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
@@ -36,33 +35,36 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     protected async Task AddItem(TItem item, Func<TItem, TItem> saveAction)
     {
-        if (item.IsExists) return;
-        if (!await IsValidateItem(item, false)) return;
-        saveAction(item);
-        await NotificationService.Success(Localizer["ToastAddItem"]);
-        await OnSubmitAction.InvokeAsync();
+        try
+        {
+            saveAction(item);
+            await NotificationService.Success(Localizer["ToastAddItem"]);
+            await OnSubmitAction.InvokeAsync();
+        }
+        catch (ValidateException ex)
+        {
+            foreach (string error in ex.Errors.Keys)
+                await NotificationService.Error(ex.Errors[error]);
+        }
     }
 
     protected async Task UpdateItem(TItem item, Func<TItem, TItem> updateAction)
     {
-        if (item.IsNew) return;
-        if (!await IsValidateItem(item, true)) return;
-
         if (!SectionEntity.Equals(SectionEntityCopy))
         {
-            updateAction(item);
-            await NotificationService.Success(Localizer["ToastUpdateItem"]);
+            try
+            {
+                updateAction(item);
+                await NotificationService.Success(Localizer["ToastUpdateItem"]);
+            }
+            catch (ValidateException ex)
+            {
+                foreach (string error in ex.Errors.Keys)
+                    await NotificationService.Error(ex.Errors[error]);
+                return;
+            }
         }
         await OnSubmitAction.InvokeAsync();
-    }
-
-    private async Task<bool> IsValidateItem(TItem item, bool isUpdateForm)
-    {
-        ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
-        if (result.Errors.Count == 0) return true;
-        foreach (ValidationFailure error in result.Errors)
-            await NotificationService.Error(error.ErrorMessage);
-        return false;
     }
 
     protected async Task DeleteItem(Action<TItem> deleteItem)

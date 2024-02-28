@@ -1,6 +1,6 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Models.Entities.Ref1c;

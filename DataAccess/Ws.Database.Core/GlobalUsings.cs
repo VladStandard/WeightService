@@ -4,8 +4,6 @@ global using System.Diagnostics;
 global using System.Linq;
 global using System.Threading;
 global using System.Threading.Tasks;
-global using FluentValidation;
-global using FluentValidation.Results;
 global using NHibernate;
 global using NHibernate.Criterion;
 global using Ws.Database.Core.Common;

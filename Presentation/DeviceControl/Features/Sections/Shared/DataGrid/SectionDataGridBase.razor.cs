@@ -2,8 +2,7 @@ using Blazorise;
 using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Ws.Database.Core.Utils;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 

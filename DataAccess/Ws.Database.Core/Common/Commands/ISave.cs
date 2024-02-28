@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Abstractions.Entities.Common;
+﻿using Ws.Domain.Models.Common;
 
 namespace Ws.Database.Core.Common.Commands;
 

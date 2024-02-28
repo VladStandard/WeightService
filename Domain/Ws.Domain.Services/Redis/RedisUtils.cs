@@ -2,7 +2,7 @@
 
 namespace Ws.Domain.Services.Redis;
 
-public static class RedisUtils
+internal static class RedisUtils
 {
     internal static IConfigurationRoot LoadRedisCfg()
     {
