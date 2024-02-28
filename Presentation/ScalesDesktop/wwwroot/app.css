@@ -74,4 +74,20 @@
   .dark {
     color-scheme: dark;
   }
+
+  .blazorise-tabs > div:first-child {
+    @apply size-full overflow-hidden;
+  }
+
+  .b-table-fixed-header > .b-table {
+    @apply !border-collapse
+  }
+
+  .select-dropdown ul {
+    @apply h-fit max-h-60 w-full flex flex-col;
+  }
+
+  .select-button span {
+    @apply w-full text-left font-light text-sm truncate;
+  }
 }

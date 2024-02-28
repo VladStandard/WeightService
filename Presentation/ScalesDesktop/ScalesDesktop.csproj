@@ -61,7 +61,7 @@
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
         <PackageReference Include="Mapster" Version="7.4.0" />
         <PackageReference Include="Mapster.Core" Version="1.2.1" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -186,5 +186,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
       <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind.config.js" />
     </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build" />
+    </Target>
 
 </Project>

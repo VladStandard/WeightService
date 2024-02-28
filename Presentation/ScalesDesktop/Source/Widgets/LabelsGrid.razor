@@ -25,7 +25,7 @@
 </div>
 
 <div class="h-full w-full bg-neutral-50 flex grow overflow-hidden p-4 pt-0">
-  <div class="rounded-md border flex w-full bg-neutral-50 h-fit max-h-full shadow-sm overflow-hidden [&_form]:w-full">
+  <div class="rounded-md border flex w-full bg-neutral-50 h-fit max-h-full shadow-sm overflow-hidden grid-row [&_form]:w-full">
     <DataGrid
       TItem="LabelEntity"
       @ref="DataGridRef"
@@ -36,7 +36,7 @@
       SelectedRowStyling="SelectedRowStyling"
       RowStyling="RowStyling"
       Virtualize
-      Class="!mb-0"
+      Class="!mb-0 [&_tbody_td]:py-4"
     >
       <DataGridMultiSelectColumn Width="1rem" />
       <DataGridColumn

@@ -294,6 +294,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вложенность не выбрана.
+        /// </summary>
+        internal static string NestingSelectPlaceholder {
+            get {
+                return ResourceManager.GetString("NestingSelectPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вход в профиль.
         /// </summary>
         internal static string PalletManFormHeader {
@@ -335,6 +344,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         internal static string PluSelectHeader {
             get {
                 return ResourceManager.GetString("PluSelectHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать ПЛУ.
+        /// </summary>
+        internal static string PluSelectPlaceholder {
+            get {
+                return ResourceManager.GetString("PluSelectPlaceholder", resourceCulture);
             }
         }
         

@@ -296,6 +296,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string NestingSelectPlaceholder {
+            get {
+                return ResourceManager.GetString("NestingSelectPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string PalletManFormHeader {
             get {
                 return ResourceManager.GetString("PalletManFormHeader", resourceCulture);
@@ -335,6 +344,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         internal static string PluSelectHeader {
             get {
                 return ResourceManager.GetString("PluSelectHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PluSelectPlaceholder {
+            get {
+                return ResourceManager.GetString("PluSelectPlaceholder", resourceCulture);
             }
         }
         

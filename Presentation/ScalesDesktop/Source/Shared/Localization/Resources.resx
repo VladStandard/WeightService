@@ -144,4 +144,10 @@
     <data name="UserSelectPlaceholder" xml:space="preserve">
         <value />
     </data>
+    <data name="PluSelectPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="NestingSelectPlaceholder" xml:space="preserve">
+        <value />
+    </data>
 </root>

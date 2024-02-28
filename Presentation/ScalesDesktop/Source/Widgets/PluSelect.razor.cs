@@ -20,9 +20,9 @@ public sealed partial class PluSelect : DataGridBase<PluEntity>
 
     protected override void GetGridData() => GridData = LabelContext.PluEntities;
 
-    protected override async Task OnItemSelect(PluEntity obj)
-    {
-        LabelContext.ChangePlu(obj);
-        await ModalService.Hide();
-    }
+     protected override async Task OnItemSelect(PluEntity obj)
+     {
+         LabelContext.ChangePlu(obj);
+         await ModalService.Hide();
+     }
 }
