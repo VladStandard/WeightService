@@ -10,6 +10,7 @@ using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
+using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
@@ -25,6 +26,7 @@ public sealed partial class CreateForm : ComponentBase
     [Inject] private IPluService PluService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
+    [Inject] private IPalletService PalletService { get; set; } = null!;
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<PalletResources> PalletLocalizer { get; set; } = null!;
@@ -56,7 +58,7 @@ public sealed partial class CreateForm : ComponentBase
             ProdDt = FormModel.CreateDt,
             Barcode = string.Empty
         };
-        SqlCoreHelper.Save(palletEntity);
+        PalletService.Create(palletEntity);
 
         LabelPieceDto dto = new ()
         {

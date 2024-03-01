@@ -6,8 +6,7 @@ using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 
 namespace Ws.Labels.Service.Features.PrintLabel;
 
-public class PrintLabelService(
-    LabelPieceGenerator labelPieceGenerator, LabelWeightGenerator labelWeightGenerator) : IPrintLabelService
+public class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelWeightGenerator labelWeightGenerator) : IPrintLabelService
 {
     public string GenerateWeightLabel(LabelWeightDto labelDto) =>
         labelWeightGenerator.GenerateLabel(labelDto);

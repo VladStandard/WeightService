@@ -57,18 +57,6 @@ public static class SqlCoreHelper
         return item;
     }
 
-    public static T Save<T>(T item) where T : EntityBase
-    {
-        ExecuteTransactionCore(session => session.Save(item));
-        return item;
-    }
-
-    public static T Update<T>(T item) where T : EntityBase
-    {
-        ExecuteTransactionCore(session => session.Update(item));
-        return item;
-    }
-
     public static void Delete<T>(T item) where T : EntityBase
     {
         ExecuteTransactionCore(session => session.Delete(item));

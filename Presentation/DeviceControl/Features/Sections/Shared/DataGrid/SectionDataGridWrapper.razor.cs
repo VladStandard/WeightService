@@ -143,6 +143,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
             await DeleteAction.InvokeAsync(ContextMenuItem);
             if (DataGrid != null && ContextMenuItem != null)
                 await DataGrid.Delete(ContextMenuItem);
+            await NotificationService.Success(Localizer["ToastDeleteItem"]);
         }
         catch (DbServiceException)
         {

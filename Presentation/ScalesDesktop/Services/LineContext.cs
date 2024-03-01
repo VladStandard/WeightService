@@ -27,7 +27,7 @@ public class LineContext : IDisposable
         if (Line.IsExists)
         {
             Line.Version = VersionTracking.CurrentVersion;
-            SqlCoreHelper.Update(Line);
+            LineService.Update(Line);
         }
 
         PrinterEntity = Line.Printer;

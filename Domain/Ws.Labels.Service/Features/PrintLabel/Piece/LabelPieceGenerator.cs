@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
-using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
@@ -10,7 +10,7 @@ using Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Piece;
 
-public class LabelPieceGenerator(IZplResourceService zplResourceService)
+public class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService)
 {
     public string GenerateLabel(LabelPieceDto labelDto)
     {
@@ -40,7 +40,7 @@ public class LabelPieceGenerator(IZplResourceService zplResourceService)
             Line = labelDto.Line,
             Plu = labelDto.Nesting.Plu
         };
-        SqlCoreHelper.Save(labelSql);
+        labelService.Create(labelSql);
 
         return labelReady.Zpl;
     }
@@ -75,7 +75,7 @@ public class LabelPieceGenerator(IZplResourceService zplResourceService)
                 Line = labelDto.Line,
                 Plu = labelDto.Nesting.Plu
             };
-            SqlCoreHelper.Save(labelSql);
+            labelService.Create(labelSql);
 
             labelDto.ProductDt = labelDto.ProductDt.AddSeconds(1);
         }

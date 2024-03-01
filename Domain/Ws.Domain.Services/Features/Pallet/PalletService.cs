@@ -16,4 +16,7 @@ internal class PalletService(SqlPalletRepository palletRepo) : IPalletService
 
     [Transactional]
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
+
+    [Transactional]
+    public PalletEntity Create(PalletEntity item) => palletRepo.Save(item);
 }
