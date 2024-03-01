@@ -19,4 +19,5 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, 
     #endregion
     
     public void DeletePluLine(PluLineEntity item);
+    void AddPluLine(PluLineEntity pluLine);
 }

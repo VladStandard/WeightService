@@ -51,5 +51,8 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     [Transactional]
     public void DeletePluLine(PluLineEntity item) => pluLineRepo.Delete(item);
 
+    [Transactional]
+    public void AddPluLine(PluLineEntity pluLine) => pluLineRepo.Save(pluLine);
+
     #endregion
 }

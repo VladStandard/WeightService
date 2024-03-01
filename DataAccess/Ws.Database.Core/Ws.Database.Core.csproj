@@ -13,7 +13,6 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
-      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"  />
     </ItemGroup>
 
     <Import Project="..\..\Targets\SqlSettings.targets" />

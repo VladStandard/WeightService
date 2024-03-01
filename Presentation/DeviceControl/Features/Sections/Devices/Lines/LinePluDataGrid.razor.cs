@@ -4,7 +4,6 @@ using DeviceControl.Utils;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Line;
@@ -41,15 +40,15 @@ public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
         foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
             PluLineEntity? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
-            if (pluLineItem != null) SqlCoreHelper.Delete(pluLineItem);
+            if (pluLineItem != null) LineService.DeletePluLine(pluLineItem);
         }
 
         foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
-            SqlCoreHelper.SaveOrUpdate(pluLine);
+            LineService.AddPluLine(pluLine);
         }
-
+        
         await DataGridWrapperRef.ReloadData();
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
