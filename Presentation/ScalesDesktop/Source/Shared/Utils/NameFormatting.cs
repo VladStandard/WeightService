@@ -10,17 +10,17 @@ public static class NameFormatting
         BoxEntity box = pluNestingEntity.Box;
         BundleEntity bundle = pluNestingEntity.Plu.Bundle;
         short bundleCount = pluNestingEntity.BundleCount;
-        return string.Join(" | ", new List<string> { FormatBoxName(box), FormatBundleName(bundle, bundleCount) });
+        return string.Join(" | ", new List<string> { GetFormatBoxName(box), GetFormatBundleName(bundle, bundleCount) });
     }
 
-    private static string FormatBoxName(BoxEntity box)
+    public static string GetFormatBoxName(BoxEntity box)
     {
         if (box.Uid1C == Guid.Empty) return string.Empty;
         string[] boxNameWords = box.Name.Split(" ");
         return $"{string.Join(" ", boxNameWords.Take(2))} {box.Weight}кг";
     }
 
-    private static string FormatBundleName(BundleEntity bundle, short bundleCount)
+    public static string GetFormatBundleName(BundleEntity bundle, short bundleCount)
     {
         if (bundle.Uid1C == Guid.Empty) return string.Empty;
         string firstBundleWord = bundle.Name.Split(" ").FirstOrDefault() ?? string.Empty;

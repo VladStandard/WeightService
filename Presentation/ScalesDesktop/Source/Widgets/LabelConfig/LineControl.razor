@@ -1,0 +1,22 @@
+@using ScalesDesktop.Source.Shared.UI
+@using Blazor.Heroicons.Outline
+
+<div class="shrink-0 w-full flex gap-4 pt-4 border-t">
+  <div class="flex items-center justify-center h-full">
+    <div class="rounded-full flex items-center bg-secondary justify-center size-14">
+      <ComputerDesktopIcon class="h-6" />
+    </div>
+  </div>
+  <div class="flex flex-col justify-center overflow-hidden w-full">
+    <span class="text-xl truncate">@LabelContext.Line.Name</span>
+    <span class="text-lg truncate">@LabelContext.Line.Warehouse</span>
+  </div>
+  <div class="h-full flex items-center justify-center shrink-0">
+    <Button
+      Size="ButtonSize.Large"
+      OnClick="@AppReset"
+    >
+      Обновить
+    </Button>
+  </div>
+</div>

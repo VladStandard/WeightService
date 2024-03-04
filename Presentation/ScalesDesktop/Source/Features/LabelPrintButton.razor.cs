@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Events;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Database.Core.Helpers;
+using Ws.Domain.Services.Features.Line;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 using Ws.Printers.Enums;
@@ -25,6 +25,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
+    [Inject] private ILineService LineService { get; set; } = null!;
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     #endregion
@@ -70,7 +71,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
             string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
             ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
-            SqlCoreHelper.Update(LabelContext.Line);
+            LineService.Update(LabelContext.Line);
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)

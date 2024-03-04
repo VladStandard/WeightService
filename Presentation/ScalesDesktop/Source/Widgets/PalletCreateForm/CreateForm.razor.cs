@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
+using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
@@ -28,6 +28,8 @@ public sealed partial class CreateForm : ComponentBase
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
+    [Inject] private IPalletService PalletService { get; set; } = null!;
+    
     [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
 
     private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];
@@ -56,7 +58,7 @@ public sealed partial class CreateForm : ComponentBase
             ProdDt = FormModel.CreateDt,
             Barcode = string.Empty
         };
-        SqlCoreHelper.Save(palletEntity);
+        PalletService.Create(palletEntity);
 
         LabelPieceDto dto = new ()
         {
