@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using NHibernate.Criterion;
 using Ws.Database.Core.Entities.Ref.Lines;
 using Ws.Database.Core.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Ref;
@@ -23,7 +22,7 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
 
     [Transactional]
-    public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => GetLinePlusFk(line).Select(i => i.Plu);
+    public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
 
     [Transactional]
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
@@ -32,8 +31,7 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
 
     [Transactional]
-    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) =>
-        pluLineRepo.GetListByQuery(QueryOver.Of<PluLineEntity>().Where(i => i.Line == line));
+    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) => pluLineRepo.GetListByLine(line);
 
     #endregion
 
