@@ -5,25 +5,19 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.SharedUI.Resources;
 
-namespace ScalesDesktop.Source.Widgets;
+namespace ScalesDesktop.Source.Widgets.LabelConfig;
 
 public sealed partial class LabelConfig : ComponentBase, IDisposable
 {
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private LabelContext LabelContext { get; set; } = null!;
-    [Inject] private LineContext LineContext { get; set; } = null!;
+    
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 
     private async Task ShowPluSelectDialog() => await ModalService.Show<PluSelect>();
-
-    private void AppReset()
-    {
-        LineContext.ResetLine();
-        LabelContext.InitializeData();
-    }
-
+    
     public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
 }
