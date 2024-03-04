@@ -1,0 +1,41 @@
+@using ScalesDesktop.Source.Shared.UI
+@using Blazor.Heroicons.Outline
+
+<div class="w-full h-full flex flex-col overflow-hidden">
+  <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b xl:px-8">
+    <h1 class="text-xl line-clamp-1 text-center xl:text-2xl">
+      @LabelsLocalizer["LabelConfigHeader"]
+    </h1>
+  </div>
+  <div class="flex flex-col w-full h-full pt-2 pb-5 px-6 overflow-hidden justify-around xl:px-8 xl:pt-4 xl:pb-7">
+    <div class="w-full h-full flex flex-col gap-2">
+      <div class="w-full h-14 shrink-0">
+        <Button
+          Size="ButtonSize.Full"
+          Variant="ButtonVariant.Outline"
+          OnClick="@ShowPluSelectDialog"
+          disabled="@LabelContext.Line.IsNew"
+        >
+          <div class="size-full text-xl font-normal px-5 flex items-center justify-between">
+            <span class="pb-1 truncate">
+              @(LabelContext.Plu.IsNew ? "Выберите ПЛУ" : LabelContext.Plu.DisplayName)
+            </span>
+            <ChevronDownIcon class="size-5"/>
+          </div>
+        </Button>
+      </div>
+      @if (LabelContext.Plu.IsNew)
+      {
+        <div class="size-full flex flex-col items-center justify-center">
+          <ExclamationCircleIcon class="size-8" />
+          <p class="text-lg">Информация отсутствует</p>
+        </div>
+      }
+      else
+      {
+        <PluDescription Plu="@LabelContext.Plu" PluNesting="@LabelContext.PluNesting" />
+      }
+    </div>
+    <LineControl />
+  </div>
+</div>

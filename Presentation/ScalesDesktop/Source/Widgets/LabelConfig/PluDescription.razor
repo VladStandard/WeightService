@@ -1,0 +1,28 @@
+@using ScalesDesktop.Source.Shared.Utils
+@using Blazor.Heroicons.Outline
+
+<div class="grid w-full overflow-hidden px-4 py-4 grid-cols-[auto_1fr] gap-y-2 gap-x-4 xl:text-xl">
+  <div class="flex items-center text-muted-foreground">
+    <MagnifyingGlassIcon class="size-4 mr-1" />
+    <h3>Номер</h3>
+  </div>
+  <span class="line-clamp-2">@Plu.Number</span>
+
+  <div class="flex text-muted-foreground">
+    <DocumentTextIcon class="size-4 mr-1 mt-2" />
+    <h3>Имя</h3>
+  </div>
+  <span class="line-clamp-2 xl:line-clamp-3">@Plu.FullName</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ArchiveBoxIcon class="size-4 mr-1" />
+    <h3>Коробка</h3>
+  </div>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(PluNesting.Box)</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ShoppingBagIcon class="size-4 mr-1" />
+    <h3>Пакет</h3>
+  </div>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(Plu.Bundle, PluNesting.BundleCount)</span>
+</div>
