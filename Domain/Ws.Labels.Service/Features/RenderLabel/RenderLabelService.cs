@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.Text;
 using Ws.Labels.Service.Features.RenderLabel.Exceptions;
 
 namespace Ws.Labels.Service.Features.RenderLabel;
