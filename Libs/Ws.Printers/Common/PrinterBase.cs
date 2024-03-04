@@ -37,7 +37,7 @@ public abstract class PrinterBase : IPrinter
             await TcpClient.ConnectAsync(_ip, _port).WaitAsync(TimeSpan.FromMilliseconds(200));
             SetStatus(PrinterStatusEnum.Ready);
         }
-        catch (Exception _)
+        catch (Exception)
         {
             SetStatus(PrinterStatusEnum.IsForceDisconnected);
         }
