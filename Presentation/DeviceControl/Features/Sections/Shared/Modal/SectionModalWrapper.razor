@@ -1,33 +1,31 @@
 @using Ws.Shared.Enums
-<div class="rounded-md overflow-hidden">
+
+<div class="rounded-md overflow-hidden bg-background">
   <SectionModalHeader>
     <ul class="w-full h-full flex items-center gap-2 justify-center">
       @foreach (EnumTypeModel<string> item in TabsButtonList)
       {
         <li>
-          <button
-            type="button"
-            disabled="@IsSelectedTab(item.Value)"
-            @onclick="() => ChangeSelectedTab(item.Value)"
-            class="px-4 py-1 rounded-md overflow-hidden transition-colors text-black @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" :
-                    "hover:bg-gray-50 dark:bg-transparent dark:border dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-900")"
+          <VsButton
+            Variant="@(IsSelectedTab(item.Value) ? ButtonVariant.Secondary: ButtonVariant.Outline)"
+            OnClick="@(() => ChangeSelectedTab(item.Value))"
           >
-            <span class="pt-[1px]">@item.Name</span>
-          </button>
+            @item.Name
+          </VsButton>
         </li>
       }
     </ul>
   </SectionModalHeader>
-  <ModalBody Class="!p-0 bg-gray-100 !rounded-none dark:!bg-neutral-950">
+  <div class="w-full overflow-y-auto overflow-x-hidden">
     <Tabs
       @ref="TabsRef"
       RenderMode="TabsRenderMode.LazyLoad"
       @bind-SelectedTab="SelectedTab"
-      Class="!p-0 !bg-black"
+      Class="!p-0"
     >
       <Content>
       @ChildContent
       </Content>
     </Tabs>
-  </ModalBody>
+  </div>
 </div>

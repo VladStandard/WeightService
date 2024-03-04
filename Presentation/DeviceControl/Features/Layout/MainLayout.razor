@@ -4,7 +4,7 @@
 <div class="flex w-full relative h-screen overflow-x-hidden">
   <div class="grid w-full min-h-full h-fit grid-cols-[17rem,1fr] grid-rows-1 grow">
     <NavMenu User="User"/>
-    <div class="flex flex-col bg-gray-100 w-full h-full grow dark:bg-neutral-950">
+    <div class="flex flex-col w-full h-full grow bg-secondary/[.9] dark:bg-inherit">
       @Body
     </div>
   </div>
@@ -13,6 +13,7 @@
 <ModalProvider
   UseModalStructure="false"
   Size="ModalSize.Large"
+  Class="!p-0 [&_div[role=document]]:!h-auto"
 />
 
 <NotificationProvider Location="NotificationLocation.End" />

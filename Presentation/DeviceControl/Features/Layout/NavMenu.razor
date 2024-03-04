@@ -1,10 +1,9 @@
 @using Blazor.Heroicons.Outline
-<nav class="flex sticky top-0 flex-col bg-white w-full overflow-hidden grow h-screen border-r dark:border-r-neutral-800 dark:bg-black @(!IsProduction ? "invertф" : "" )">
-  <div class="flex flex-col items-center border-b shrink-0 justify-center h-12 dark:border-b-neutral-800">
-    <a href="@RouteUtils.Home">
-      <span class="text-lg">
-        @Localizer["ApplicationName"]
-      </span>
+
+<nav class="flex sticky top-0 flex-col bg-background w-full overflow-hidden grow h-screen border-r @(!IsProduction ? "invert1" : "" )">
+  <div class="flex flex-col items-center border-b shrink-0 justify-center h-12">
+    <a href="@RouteUtils.Home" class="text-lg">
+      @Localizer["ApplicationName"]
     </a>
   </div>
   <div class="w-full h-full overflow-y-auto">
@@ -21,7 +20,7 @@
       }
     </ul>
   </div>
-  <div class="h-10 pl-3 pr-4 border-t flex items-center text-neutral-600 gap-2 w-full shrink-0 dark:border-t-neutral-800 dark:text-neutral-300">
+  <div class="h-10 pl-3 pr-4 border-t flex items-center text-muted-foreground gap-2 w-full shrink-0">
     <a href="@RouteUtils.SectionUsers" class="h-full flex items-center w-3/4">
       <div class="flex w-full items-center overflow-hidden gap-2">
         <UserIcon class="h-4 w-4" />

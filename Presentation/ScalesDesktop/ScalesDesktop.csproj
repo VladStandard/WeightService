@@ -165,6 +165,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind.config.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Features\Labels\Modules\LabelDisplayDate.razor" />
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
