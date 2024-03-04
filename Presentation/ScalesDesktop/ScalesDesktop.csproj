@@ -22,7 +22,7 @@
         <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
         
         <ApplicationTitle>Весовой пост</ApplicationTitle>
-        <ApplicationId>com.companyname.ScalesDesktop</ApplicationId>
+        <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
         <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
@@ -81,7 +81,6 @@
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.SharedUI\Ws.SharedUI.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\..\Ws.SharedUI\Ws.SharedUI.csproj" />
     </ItemGroup>
 
 
@@ -130,7 +129,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="obj\**" />
       <Compile Update="Features\Labels\Resources\LabelsResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -161,27 +159,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>PalletResources.ru-RU.resx</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Mapster\Extensions\Generated\" />
-      <Folder Include="wwwroot\fonts\" />
-      <Folder Include="wwwroot\libs\fontawasome\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include=".Publish\dev.cmd" />
-      <Content Include=".Publish\prod.cmd" />
-      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
-      <Content Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <MauiXaml Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="obj\**" />
     </ItemGroup>
 
 </Project>

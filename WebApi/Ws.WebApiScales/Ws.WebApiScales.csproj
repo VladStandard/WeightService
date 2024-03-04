@@ -21,22 +21,9 @@
     <ItemGroup>
         <Generated Include="**\*.g.cs" />
         <Generated Remove="obj\**" />
+        <EmbeddedResource Remove="obj\**" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Properties\PublishProfiles\" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="obj\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <Content Remove="obj\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="obj\**" />
-    </ItemGroup>
+    
     <Target Name="CleanGenerated">
         <Delete Files="@(Generated)" />
     </Target>
