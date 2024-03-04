@@ -97,7 +97,6 @@ public sealed partial class NavMenu : ComponentBase
         }
     ];
 
-
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }
 

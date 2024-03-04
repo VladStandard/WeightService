@@ -26,7 +26,6 @@
         <Watch Include="..\**\*.razor;..\**\*.css;..\**\*.html;" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
@@ -66,15 +65,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
       </Compile>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenCreateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenCreateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenPage.razor" />
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenUpdateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\Admin\PalletMen\PalletMenUpdateForm.razor" />
     </ItemGroup>
     
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">

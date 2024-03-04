@@ -1,5 +1,5 @@
 ﻿using NHibernate.Event;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
 
 namespace Ws.Database.Core.Listeners;
 
@@ -9,14 +9,14 @@ internal class SqlCreateDtListener : BaseListener, IPreInsertEventListener
     {
         if (@event.Entity is not EntityBase entity)
             return false;
-        
+
         DateTime now = DateTime.Now;
         entity.CreateDt = now;
         entity.ChangeDt = now;
 
         Set(@event.Persister, @event.State, nameof(entity.CreateDt), entity.CreateDt);
         Set(@event.Persister, @event.State, nameof(entity.ChangeDt), entity.ChangeDt);
-            
+
         return false;
     }
 

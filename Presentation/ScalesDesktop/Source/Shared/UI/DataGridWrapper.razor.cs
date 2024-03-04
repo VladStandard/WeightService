@@ -1,6 +1,6 @@
 using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
 
 namespace ScalesDesktop.Source.Shared.UI;
 

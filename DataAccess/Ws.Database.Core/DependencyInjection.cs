@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Ws.Database.Core.UnitOfWork;
+using Ws.Database.Core.Sessions;
 
 namespace Ws.Database.Core;
 
@@ -11,7 +11,7 @@ public static class DependencyInjection
         NHibernateHelper.SetSessionFactory();
         AddRepositories(services);
     }
-    
+
     private static void AddRepositories(this IServiceCollection services)
     {
         IEnumerable<Type> repositoryTypes = Assembly.GetExecutingAssembly().GetTypes()

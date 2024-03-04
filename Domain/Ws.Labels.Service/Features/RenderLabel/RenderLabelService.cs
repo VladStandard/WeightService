@@ -15,6 +15,7 @@ public class RenderLabelService : IRenderLabelService
         await response.Content.CopyToAsync(ms);
         return ms.ToArray();
     }
+    
     private static string ConvertImageToBase64(byte[] imageBytes)
     {
         using MemoryStream imageStream = new(imageBytes);

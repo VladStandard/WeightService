@@ -1,4 +1,4 @@
-using Ws.Database.Core.Helpers;
+using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Line;
 
@@ -27,7 +27,7 @@ public class LineContext : IDisposable
         if (Line.IsExists)
         {
             Line.Version = VersionTracking.CurrentVersion;
-            SqlCoreHelper.Update(Line);
+            LineService.Update(Line);
         }
 
         PrinterEntity = Line.Printer;

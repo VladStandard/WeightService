@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Services.Features.Label;
+using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
@@ -9,7 +10,7 @@ using Ws.Labels.Service.Features.PrintLabel.Weight.Validators;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Weight;
 
-public class LabelWeightGenerator
+public class LabelWeightGenerator(IZplResourceService zplResourceService, ILabelService labelService)
 {
     public string GenerateLabel(LabelWeightDto labelDto)
     {
@@ -22,7 +23,8 @@ public class LabelWeightGenerator
             throw new LabelGenerateException(result);
 
 
-        LabelReadyDto labelReady = LabelGenerator.GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
+        LabelReadyDto labelReady = new LabelGenerator(zplResourceService)
+            .GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
 
         LabelEntity labelSql = new()
         {
@@ -38,7 +40,7 @@ public class LabelWeightGenerator
             Line = labelDto.Line,
             Plu = labelDto.Nesting.Plu
         };
-        SqlCoreHelper.Save(labelSql);
+        labelService.Create(labelSql);
 
         return labelReady.Zpl;
     }

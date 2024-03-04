@@ -3,8 +3,9 @@
 
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity, WarehouseService.Update)"
   ResetItemAction="ResetItem"
+  DeleteItemAction="() => DeleteItem(WarehouseService.Delete)"
   ShareUrl="@($"{RouteUtils.SectionWarehouses}/{SectionEntity.Uid}")"
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"

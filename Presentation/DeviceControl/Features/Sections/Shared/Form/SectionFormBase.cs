@@ -1,12 +1,10 @@
 using Blazorise;
 using DeviceControl.Resources;
-using FluentValidation.Results;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Helpers;
-using Ws.Database.Core.Utils;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
+using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.Form;
 
@@ -30,43 +28,66 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     protected async Task ResetItem()
     {
-        dynamic dynamicVariable = SectionEntity;
-        dynamic dynamicVariable2 = SectionEntityCopy;
-        if (dynamicVariable.Equals(dynamicVariable2)) return;
+        if (SectionEntity.Equals(SectionEntityCopy)) return;
         SectionEntity = SectionEntityCopy.DeepClone();
         await NotificationService.Info(Localizer["ToastResetItem"]);
     }
 
-    protected async Task AddItem(TItem item)
+    protected async Task AddItem(TItem item, Func<TItem, TItem> saveAction)
     {
-        if (!await IsValidateItem(item, false)) return;
-        SqlCoreHelper.Save(item);
-        await NotificationService.Success(Localizer["ToastAddItem"]);
+        try
+        {
+            saveAction(item);
+            await NotificationService.Success(Localizer["ToastAddItem"]);
+            await OnSubmitAction.InvokeAsync();
+        }
+        catch (ValidateException ex)
+        {
+            foreach (string error in ex.Errors.Keys)
+                await NotificationService.Warning(ex.Errors[error]);
+        }
+        catch (DbServiceException)
+        {
+            await NotificationService.Error("Неизвестная ошибка. Попробуйте позже");
+        }
+    }
+
+    protected async Task UpdateItem(TItem item, Func<TItem, TItem> updateAction)
+    {
+        if (!SectionEntity.Equals(SectionEntityCopy))
+        {
+            try
+            {
+                updateAction(item);
+                await NotificationService.Success(Localizer["ToastUpdateItem"]);
+            }
+            catch (ValidateException ex)
+            {
+                foreach (string error in ex.Errors.Keys)
+                    await NotificationService.Warning(ex.Errors[error]);
+                return;
+            }
+            catch (DbServiceException)
+            {
+                await NotificationService.Error("Неизвестная ошибка. Попробуйте позже");
+                return;
+            }
+        }
         await OnSubmitAction.InvokeAsync();
     }
 
-    protected async Task UpdateItem(TItem item)
+    // TODO: localization
+    protected async Task DeleteItem(Action<TItem> deleteItem)
     {
-        if (item.IsNew) return;
-        if (!await IsValidateItem(item, true)) return;
-        SqlCoreHelper.Update(item);
-        await NotificationService.Success(Localizer["ToastUpdateItem"]);
-        await OnSubmitAction.InvokeAsync();
-    }
-
-    private async Task<bool> IsValidateItem(TItem item, bool isUpdateForm)
-    {
-        ValidationResult result = SqlValidationUtils.GetValidationResult(item, isUpdateForm);
-        if (result.Errors.Count == 0) return true;
-        foreach (ValidationFailure error in result.Errors)
-            await NotificationService.Error(error.ErrorMessage);
-        return false;
-    }
-
-    protected async Task DeleteItem()
-    {
-        SqlCoreHelper.Delete(SectionEntity);
-        await NotificationService.Success(Localizer["ToastDeleteItem"]);
-        await OnSubmitAction.InvokeAsync();
+        try
+        {
+            deleteItem(SectionEntity);
+            await NotificationService.Success(Localizer["ToastDeleteItem"]);
+            await OnSubmitAction.InvokeAsync();
+        }
+        catch (DbServiceException)
+        {
+            await NotificationService.Error("Удаление не возможно. Запись используется");
+        }
     }
 }

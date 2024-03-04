@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
+using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.Warehouse;
 
@@ -16,6 +17,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
+    [Inject] private ILineService LineService { get; set; } = null!;
 
     #endregion
 

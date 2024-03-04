@@ -1,0 +1,22 @@
+﻿version: "3"
+
+services:
+    ws-redis:
+        image: redis:latest
+        container_name: ws-redis
+        restart: unless-stopped
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./redis_logs:/log
+            - ./redis_conf:/conf
+            - ./redis_data:/data
+    redis-insight:
+        image: redislabs/redisinsight:latest
+        container_name: ws-redis-insight
+        restart: unless-stopped
+        ports:
+            - "8001:8001"
+        volumes:
+            - ./insight_data:/db
+        

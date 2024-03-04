@@ -2,13 +2,13 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Ws.Database.Core.Entities.Ref.ZplResources;
 using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Services.Features.ZplResource;
 using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
-public static partial class LabelGenerator
+public partial class LabelGenerator(IZplResourceService zplResourceService)
 {
     [GeneratedRegex(@"\[(?!@)([^[\]]+)]")]
     private static partial Regex RegexOfResources();
@@ -16,7 +16,7 @@ public static partial class LabelGenerator
     [GeneratedRegex(@"\^FH\^FD\s*(.*?)\s*\^FS", RegexOptions.Singleline)]
     private static partial Regex RegexOfTextBlocks();
 
-    public static LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem :
+    public LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem :
         XmlLabelBaseModel, ISerializable
     {
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
@@ -32,16 +32,18 @@ public static partial class LabelGenerator
         return new(zpl, labelModel);
     }
 
-    private static string PrintCmdReplaceZplResources(string zpl, PluEntity plu)
+    private string PrintCmdReplaceZplResources(string zpl, PluEntity plu)
     {
         if (string.IsNullOrEmpty(zpl))
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         MatchCollection matches = RegexOfResources().Matches(zpl);
+
+        Dictionary<string, string> resources = zplResourceService.GetAllCachedResources();
         foreach (Match match in matches)
         {
             string word = match.Value;
-            string replacement = new SqlZplResourceRepository().GetByName(word.Trim('[', ']')).Zpl;
+            string replacement = resources[word.Trim('[', ']')];
             if (string.IsNullOrEmpty(replacement)) continue;
             zpl = zpl.Replace(word, replacement);
         }

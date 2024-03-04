@@ -2,9 +2,9 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
 
 <SectionFormWrapper
-  OnSubmitAction="() => UpdateItem(SectionEntity)"
+  OnSubmitAction="() => UpdateItem(SectionEntity, PrinterService.Update)"
   ResetItemAction="ResetItem"
-  DeleteItemAction="DeleteItem"
+  DeleteItemAction="() => DeleteItem(PrinterService.Delete)"
   ShareUrl="@($"{RouteUtils.SectionPrinters}/{SectionEntity.Uid}")"
   CreateDate="@SectionEntity.CreateDt"
   ChangeDate="@SectionEntity.ChangeDt"
@@ -25,7 +25,7 @@
     Label="@Localizer["DataGridColumnName"]"
   />
   <SectionFormInputText
-    @bind-Value="@SectionEntity.Ip"
+    @bind-Value="@PrinterIp"
     Link="@($"http://{SectionEntity.Ip}")"
     Label="@($"{Localizer["DataGridColumnIp"]} ({Localizer["SectionFormPrinterControl"]})")"
   />

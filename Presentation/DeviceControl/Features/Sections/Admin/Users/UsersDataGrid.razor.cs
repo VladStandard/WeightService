@@ -4,7 +4,6 @@ using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Ws.Database.Core.Helpers;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.User;
 
@@ -43,10 +42,11 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
         return [UserService.GetItemByUid(itemUid)];
     }
 
+    // TODO: parse exception
     private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserCacheService.ClearCacheForUser(item.Name);
-        SqlCoreHelper.Delete(item);
+        UserService.Delete(item);
         return Task.CompletedTask;
     }
 

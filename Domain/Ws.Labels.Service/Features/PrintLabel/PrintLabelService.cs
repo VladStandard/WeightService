@@ -6,14 +6,14 @@ using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
 
 namespace Ws.Labels.Service.Features.PrintLabel;
 
-public class PrintLabelService : IPrintLabelService
+public class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelWeightGenerator labelWeightGenerator) : IPrintLabelService
 {
     public string GenerateWeightLabel(LabelWeightDto labelDto) =>
-        new LabelWeightGenerator().GenerateLabel(labelDto);
+        labelWeightGenerator.GenerateLabel(labelDto);
 
     public string GeneratePieceLabel(LabelPieceDto labelDto) =>
-        new LabelPieceGenerator().GenerateLabel(labelDto);
+        labelPieceGenerator.GenerateLabel(labelDto);
     
     public void GeneratePiecePallet(LabelPieceDto labelDto, PalletEntity pallet, int labelCount) =>
-        new LabelPieceGenerator().GeneratePiecePallet(labelDto, pallet, labelCount);
+        labelPieceGenerator.GeneratePiecePallet(labelDto, pallet, labelCount);
 }

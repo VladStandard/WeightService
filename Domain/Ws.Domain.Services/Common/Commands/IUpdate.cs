@@ -1,6 +1,6 @@
 ﻿namespace Ws.Domain.Services.Common.Commands;
 
-public interface IUpdate<in TItem>
+public interface IUpdate<TItem>
 {
-    void Update(TItem item);
+    TItem Update(TItem item);
 }

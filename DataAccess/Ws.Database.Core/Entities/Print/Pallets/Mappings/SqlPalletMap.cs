@@ -9,29 +9,25 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
         Schema(SqlSchemasUtils.Print);
         Table(SqlTablesUtils.Pallets);
 
-        Id(x => x.Uid, m =>
-        {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
-        
-        Property(x => x.Barcode, m =>
-        {
+
+        Property(x => x.Barcode, m => {
             m.Column("BARCODE");
             m.Type(NHibernateUtil.String);
             m.NotNullable(true);
         });
-        
-        Property(x => x.CreateDt, m =>
-        {
+
+        Property(x => x.CreateDt, m => {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-        
-        Property(x => x.Counter, m =>
-        {
+
+        Property(x => x.Counter, m => {
             m.Generated(PropertyGeneration.Insert);
             m.Type(NHibernateUtil.Int32);
             m.Insert(false);
@@ -39,13 +35,12 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.ProdDt, m =>
-        {
+        Property(x => x.ProdDt, m => {
             m.Column("PROD_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-        
+
         Property(x => x.Weight, m => {
             m.Column("WEIGHT");
             m.Type(NHibernateUtil.Decimal);
@@ -53,7 +48,7 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
             m.Scale(3);
             m.NotNullable(true);
         });
-        
+
         ManyToOne(x => x.PalletMan, m => {
             m.Column("PALLET_MAN_UID");
             m.NotNullable(true);

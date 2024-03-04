@@ -1,5 +1,5 @@
-using Ws.Database.Core.UnitOfWork;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Database.Core.Sessions;
+using Ws.Domain.Models.Common;
 
 namespace Ws.StorageCoreTests.Tables.Common;
 

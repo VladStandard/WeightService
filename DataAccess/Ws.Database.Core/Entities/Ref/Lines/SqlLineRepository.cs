@@ -1,16 +1,23 @@
+using Ws.Database.Core.Common.Commands;
+using Ws.Database.Core.Common.Queries.Item;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Core.Entities.Ref.Lines;
 
-public sealed class SqlLineRepository : BaseRepository, IGetItemByUid<LineEntity>, IGetItemByQuery<LineEntity>
+public sealed class SqlLineRepository : BaseRepository,
+    IGetItemByUid<LineEntity>, ISave<LineEntity>, IUpdate<LineEntity>, IDelete<LineEntity>
 {
-    public LineEntity GetByUid(Guid uid) => SqlCoreHelper.GetItemById<LineEntity>(uid);
+    public LineEntity GetByUid(Guid uid) => Session.Get<LineEntity>(uid) ?? new();
+    public IEnumerable<LineEntity> GetAll() => Session.Query<LineEntity>().OrderBy(i => i.Name).ToList();
 
-    public IEnumerable<LineEntity> GetAll()
+    public LineEntity GetByPcName(string pcName)
     {
-        return SqlCoreHelper.GetEnumerable(
-            QueryOver.Of<LineEntity>().OrderBy(i => i.Name).Asc
-        );
+        return Session.QueryOver<LineEntity>()
+            .WhereRestrictionOn(i => i.PcName).IsInsensitiveLike(pcName, MatchMode.Exact)
+            .SingleOrDefault() ?? new();
     }
-    public LineEntity GetItemByQuery(QueryOver<LineEntity> query) => SqlCoreHelper.GetItem(query);
+
+    public LineEntity Save(LineEntity item) { Session.Save(item); return item; }    
+    public LineEntity Update(LineEntity item) { Session.Update(item); return item; }
+    public void Delete(LineEntity item) => Session.Delete(item);
 }

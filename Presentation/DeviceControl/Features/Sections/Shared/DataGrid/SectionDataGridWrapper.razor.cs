@@ -1,9 +1,11 @@
 using System.Drawing;
 using Blazor.Heroicons;
+using Blazorise;
 using Blazorise.DataGrid;
 using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
@@ -11,7 +13,8 @@ namespace DeviceControl.Features.Sections.Shared.DataGrid;
 public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-
+    [Inject] private INotificationService NotificationService { get; set; } = null!;
+    
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public RenderFragment? DataGridButtons { get; set; }
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
@@ -132,11 +135,21 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         IsVisibleContextMenu = false;
     }
 
+    // TODO: localization
     private async Task OnContextItemDeleteClicked()
     {
-        if (DataGrid != null && ContextMenuItem != null)
-            await DataGrid.Delete(ContextMenuItem);
-        await DeleteAction.InvokeAsync(ContextMenuItem);
+        try
+        {
+            await DeleteAction.InvokeAsync(ContextMenuItem);
+            if (DataGrid != null && ContextMenuItem != null)
+                await DataGrid.Delete(ContextMenuItem);
+            await NotificationService.Success(Localizer["ToastDeleteItem"]);
+        }
+        catch (DbServiceException)
+        {
+            await NotificationService.Error("Удаление не возможно. Запись используется");
+        }
+        
         IsVisibleContextMenu = false;
     }
 

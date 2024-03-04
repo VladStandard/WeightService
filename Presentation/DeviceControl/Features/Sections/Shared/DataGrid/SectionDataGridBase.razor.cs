@@ -2,8 +2,8 @@ using Blazorise;
 using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Ws.Database.Core.Helpers;
-using Ws.Domain.Abstractions.Entities.Common;
+using Ws.Domain.Models.Common;
+using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
@@ -59,12 +59,6 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
     {
         await ReloadGrid();
         await ModalService.Hide();
-    }
-
-    protected Task DeleteSqlItem(TItem item)
-    {
-        SqlCoreHelper.Delete(item);
-        return Task.CompletedTask;
     }
 
     private async Task ReloadGrid() => await DataGridWrapperRef.ReloadData();

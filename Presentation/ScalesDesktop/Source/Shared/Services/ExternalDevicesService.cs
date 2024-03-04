@@ -1,4 +1,5 @@
-﻿using Ws.Domain.Models.Enums;
+﻿using System.Net;
+using Ws.Domain.Models.Enums;
 using Ws.Printers;
 using Ws.Printers.Common;
 using Ws.Printers.Features.Tsc;
@@ -9,10 +10,10 @@ namespace ScalesDesktop.Source.Shared.Services;
 
 public class ExternalDevicesService : IDisposable
 {
-    public IPrinter Printer { get; private set; } = new TscPrinter("127.0.0.1", 9100);
+    public IPrinter Printer { get; private set; } = new TscPrinter(IPAddress.Parse("127.0.0.1"), 9100);
     public IScales Scales { get; private set; } = new Scales("COM6");
 
-    public void SetupPrinter(string ip, int port, PrinterTypeEnum type)
+    public void SetupPrinter(IPAddress ip, int port, PrinterTypeEnum type)
     {
         Printer.Dispose();
         Printer = PrinterFactory.Create(ip, port, type);

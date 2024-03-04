@@ -9,37 +9,32 @@ internal sealed class SqlUserMap : ClassMapping<UserEntity>
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Users);
 
-        Id(x => x.Uid, m =>
-        {
+        Id(x => x.Uid, m => {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
 
-        Property(x => x.CreateDt, m =>
-        {
+        Property(x => x.CreateDt, m => {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
-        
-        Property(x => x.LoginDt, m =>
-        {
+
+        Property(x => x.LoginDt, m => {
             m.Column("LOGIN_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        Property(x => x.Name, m =>
-        {
+        Property(x => x.Name, m => {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(128);
             m.NotNullable(true);
         });
-        
-        Set(x => x.Claims, m =>
-        {
+
+        Set(x => x.Claims, m => {
             m.Schema(SqlSchemasUtils.Ref);
             m.Table("USERS_CLAIMS_FK");
             m.Cascade(Cascade.Detach);
