@@ -94,8 +94,4 @@
   .snackbar-stack {
     @apply !pb-12;
   }
-
-  .class-utils {
-    @apply md:inline-block group-[.b-table-sm]:py-2 group-[:not(.b-table-sm)]:py-4
-  }
 }

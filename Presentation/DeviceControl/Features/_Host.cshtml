@@ -21,8 +21,15 @@
   <link href="app.min.css" rel="stylesheet"/>
 
   <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
+  <script>
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage)
+    && window.matchMedia('(prefers-color-scheme: dark)').matches))
+      document.documentElement.classList.add('dark')
+    else
+      document.documentElement.classList.remove('dark')
+  </script>
 </head>
-<body class="h-screen w-screen overflow-hidden bg-background font-['Roboto']">
+<body class="h-screen w-screen overflow-hidden bg-background font-['Roboto'] [&_.b-modal-fade]:!bg-muted/[.4]">
   <component type="typeof(App)" render-mode="ServerPrerendered"/>
 
   <div id="blazor-error-ui" class="fixed z-50 bottom-0 left-0 hidden w-full p-2 bg-yellow-300">

@@ -20,16 +20,17 @@
       }
     </ul>
   </div>
-  <div class="h-10 pl-3 pr-4 border-t flex items-center text-muted-foreground gap-2 w-full shrink-0">
-    <a href="@RouteUtils.SectionUsers" class="h-full flex items-center w-3/4">
+  <div class="h-12 pl-3 !pr-3 border-t flex items-center text-muted-foreground gap-2 w-full shrink-0">
+    <a href="@RouteUtils.SectionUsers" class="h-full flex overflow-hidden items-center w-3/4">
       <div class="flex w-full items-center overflow-hidden gap-2">
-        <UserIcon class="h-4 w-4" />
+        <UserIcon class="size-5" />
         <span class="truncate text-xs">@User?.Identity?.Name</span>
       </div>
     </a>
     <div class="flex h-full items-center w-1/4 gap-2">
-      <InformationCircleIcon class="h-4 w-4" />
+      <InformationCircleIcon class="size-5" />
       <span class="truncate text-xs">@VerBlazor</span>
     </div>
+    <ThemeToggle />
   </div>
 </nav>

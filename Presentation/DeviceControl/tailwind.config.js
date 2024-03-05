@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
-  content: ["./Features/**/*.{razor,razor.cs,html,cshtml}"],
+  content: ["./Features/**/*.{razor,razor.cs,cs,html,cshtml}"],
   theme: {
     container: {
       center: true,
