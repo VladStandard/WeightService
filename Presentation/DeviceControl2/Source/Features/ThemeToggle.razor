@@ -1,0 +1,35 @@
+@using Blazor.Heroicons.Outline
+
+<Button
+  Variant="ButtonVariant.Ghost"
+  Size="ButtonSize.Icon"
+  OnClick="@(() => IsOpen = !IsOpen)"
+  id="theme-button"
+>
+  <SunIcon class="size-5 dark:hidden" />
+  <MoonIcon class="size-5 hidden dark:block" />
+</Button>
+
+<FluentMenu Anchor="theme-button" @bind-Open="@IsOpen" Class="!bg-inherit rounded-md overflow-hidden [&>fluent-menu]:p-1 [&>fluent-menu]:border [&>fluent-menu]:bg-background">
+  <button
+    type="button"
+    class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
+    onclick="@(() => SetTheme("light"))"
+  >
+    Светлая
+  </button>
+  <button
+    type="button"
+    class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
+    onclick="@(() => SetTheme("dark"))"
+  >
+    Темная
+  </button>
+  <button
+    type="button"
+    class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
+    onclick="@(() => SetTheme("system"))"
+  >
+    Системная
+  </button>
+</FluentMenu>

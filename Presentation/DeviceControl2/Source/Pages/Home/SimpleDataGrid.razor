@@ -1,0 +1,67 @@
+@using Ws.Domain.Services.Features.Plu
+@using Ws.Domain.Models.Entities.Ref1c
+@using Blazor.Heroicons.Outline
+@using DeviceControl2.Source.Shared.UI.DataGrid
+
+@inject IDialogService DialogService
+@inject IPluService PluService
+
+<div class="max-w-screen-2xl mx-auto border rounded-md overflow-hidden shadow-sm bg-background mb-4">
+  <FluentDataGrid GenerateHeader="GenerateHeaderOption.None" Items="@FilteredData" Pagination="@Pagination" GridTemplateColumns="1fr 1fr 4fr" RowClass="RowClass">
+    <FluentDataGridRow GridTemplateColumns="1fr 1fr 4fr" RowType="DataGridRowType.Header" Class="border-b !py-3">
+      <FluentDataGridCell Class="font-bold text-primary">Номер</FluentDataGridCell>
+      <FluentDataGridCell Class="font-bold text-primary">Тип</FluentDataGridCell>
+      <FluentDataGridCell Class="font-bold text-primary">Имя</FluentDataGridCell>
+    </FluentDataGridRow>
+
+    <FluentDataGridRow RowType="DataGridRowType.Header" GridTemplateColumns="1fr 1fr 4fr" Class="border-b !py-2">
+      <FluentDataGridCell Class=""><FluentNumberField @bind-Value="Number" /></FluentDataGridCell>
+      <FluentDataGridCell Class="font-bold"></FluentDataGridCell>
+      <FluentDataGridCell Class=""><FluentTextField @bind-Value="Name" /></FluentDataGridCell>
+    </FluentDataGridRow>
+
+    <PropertyColumn Property="@(p => p.Number)"/>
+    <PropertyColumn Property="@(p => p.IsCheckWeight)"/>
+    <PropertyColumn Property="@(p => p.Name)"/>
+  </FluentDataGrid>
+
+  <DataGridPagination Pagination="Pagination" />
+</div>
+
+
+@code {
+  private IQueryable<PluEntity>? Data { get; set; } = new List<PluEntity>().AsQueryable();
+  private PaginationState Pagination { get; set; } = new() { ItemsPerPage = 10 };
+  private short? Number { get; set; }
+  private string Name { get; set; } = string.Empty;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await Task.Run(() =>
+    {
+      Data = PluService.GetAll().AsQueryable();
+    });
+    Pagination.TotalItemCountChanged += (_, _) => StateHasChanged();
+  }
+
+  IQueryable<PluEntity>? FilteredData
+  {
+    get
+    {
+      IQueryable<PluEntity>? tempData = Data;
+      if (Number != null)
+        tempData = tempData?.Where(x => x.Number.ToString().Contains(Number.ToString()!));
+
+      if (!string.IsNullOrEmpty(Name))
+        tempData = tempData?.Where(x => x.Name.Contains(Name));
+      return tempData;
+    }
+  }
+
+
+
+  private string RowClass(PluEntity arg) => "hover:bg-secondary/[.5] py-3 border-b";
+
+  private async Task HandleRowClick() => await DialogService.ShowDialogAsync<SimpleDialog>(new());
+
+}

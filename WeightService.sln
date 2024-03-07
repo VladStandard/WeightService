@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesMobile", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.SharedUI", "Libs\Ws.SharedUI\Ws.SharedUI.csproj", "{19FB2930-E645-4F86-B087-2D7DA6F414D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl2", "Presentation\DeviceControl2\DeviceControl2.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -116,6 +118,10 @@ Global
 		{19FB2930-E645-4F86-B087-2D7DA6F414D7}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{19FB2930-E645-4F86-B087-2D7DA6F414D7}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{19FB2930-E645-4F86-B087-2D7DA6F414D7}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{B29D6609-092B-4310-95EF-A66DACE97AF0}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{B29D6609-092B-4310-95EF-A66DACE97AF0}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{B29D6609-092B-4310-95EF-A66DACE97AF0}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{B29D6609-092B-4310-95EF-A66DACE97AF0}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +142,7 @@ Global
 		{B12FDEFD-5FC6-4AE7-976D-AF4C639A07E1} = {7E4603B5-852C-4551-832C-46EA9E7D3ECE}
 		{956FA304-F0A4-46EC-B00D-7106B06E279C} = {F20FF1E7-9D46-4912-B830-EF82E287B995}
 		{19FB2930-E645-4F86-B087-2D7DA6F414D7} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
+		{B29D6609-092B-4310-95EF-A66DACE97AF0} = {F20FF1E7-9D46-4912-B830-EF82E287B995}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

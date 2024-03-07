@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Source\Widgets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.en-US.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.ru-RU.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.Heroicons" Version="2.1.2" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.4.2-preview.24065.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+    <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm run build" ContinueOnError="true" />
+  </Target>
+    
+</Project>

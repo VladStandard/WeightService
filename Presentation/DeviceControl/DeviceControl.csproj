@@ -14,6 +14,7 @@
         <PackageReference Include="Blazorise.DataGrid" Version="1.4.0" />
         <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
         <PackageReference Include="Blazorise.Tailwind" Version="1.4.0" />
+        <PackageReference Include="Ignis.Utils" Version="1.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
         <PackageReference Include="ObjectCloner" Version="2.2.2" />
@@ -29,9 +30,6 @@
       <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-    </ItemGroup>
-    <ItemGroup>
-      <MauiAsset Include="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
     </ItemGroup>
     
     <ItemGroup>
@@ -66,6 +64,15 @@
         <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+    
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind.config.js" />
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build" ContinueOnError="true" />
+    </Target>
     
     <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
         <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

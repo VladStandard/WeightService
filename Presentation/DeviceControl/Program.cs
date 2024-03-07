@@ -39,7 +39,6 @@ builder.Services.AddLocalization();
 #region AddScoped
 
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<JsService>();
 builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
 builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
 
