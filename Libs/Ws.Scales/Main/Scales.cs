@@ -8,7 +8,7 @@ using Ws.Scales.Events;
 namespace Ws.Scales.Main;
 
 public partial class Scales : IScales
-{ 
+{
     private SerialPort Port { get; }
     private ScalesStatus Status { get; set; }
 

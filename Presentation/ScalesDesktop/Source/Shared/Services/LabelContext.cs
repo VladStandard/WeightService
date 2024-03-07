@@ -29,7 +29,7 @@ public class LabelContext : IDisposable
         LineService = lineService;
         LineContext = lineContext;
 
-        LineContext.OnLineChanged += InitializeData; 
+        LineContext.OnLineChanged += InitializeData;
     }
 
     public void InitializeData()
