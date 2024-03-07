@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="DataGridColumnVersion" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnNumber" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnLine" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDevice" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPrinter" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnWarehouse" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnCounter" xml:space="preserve">
+        <value />
+    </data>
+    <data name="HomeMsgDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuDevices" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuOperations" xml:space="preserve">
+        <value />
+    </data>
+    <data name="Menu1CReferences" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuReferences" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuDiagnostics" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuAdministration" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionLines" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPrinters" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBarcodes" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionWeightings" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionAggregatedLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPLU" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBoxes" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionClips" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBundles" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionBrands" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionWarehouses" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionProductionSites" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionTemplates" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionTemplatesResources" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPluStorages" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionAppsLogs" xml:space="preserve">
+        <value />
+    </data>
+    <data name="Section1CLogs" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionUsers" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionDatabase" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionVersions" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ApplicationName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridTotalItems" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnLoginDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDeviceIp" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnCreateDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnChangeDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnCount" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnErrorCounter" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnSuccessCounter" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnRequestUrl" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnLogType" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnMessage" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnApp" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ButtonCancel" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ButtonSave" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIp" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnUID" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIsArchival" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnCOM" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIsWeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIsPiece" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionLinePLU" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnType" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPcName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormInputTextPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormWarehouseDefaultName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormPrinterDefaultName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPort" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormPrinterControl" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnProductionSite" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormPlatformDefaultName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnAddress" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnData" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnSize" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnMaxTemp" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnMinTemp" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnBoxWeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnUID1C" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnCode" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnWeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridNoResult" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ContextMenuOpen" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ContextMenuOpenInNewTab" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ContextMenuDelete" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ButtonShare" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ActionMenuReset" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ActionMenuShare" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ActionMenuDelete" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastResetItem" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastUrlCopyToClipboard" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastAddItem" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastDeleteItem" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastUpdateItem" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPercentages" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnScheme" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTable" xml:space="preserve">
+        <value />
+    </data>
+    <data name="UtilsSizeMb" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnFile" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTableCount" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnRowsCount" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnShelfLifeDays" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPluNestings" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnBundle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnBrand" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTemplate" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnStorage" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnFullName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnIsDefault" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnTareWeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormInputEmpty" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnProductDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPluNumber" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPluName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPlu" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnExpirationDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewErrorMsg" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewNoData" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPreviewTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastCopyToClipboard" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormRelogin" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormSearch" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionFormSelectEmpty" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionRoles" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnRoles" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnActive" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnRequest" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnResponse" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPalletMen" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnFIO" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnSurname" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnFirstName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPatronymic" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnPassword" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnClip" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DataGridColumnDatabaseTables" xml:space="preserve">
+        <value />
+    </data>
+</root>

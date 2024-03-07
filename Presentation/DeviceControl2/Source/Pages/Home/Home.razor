@@ -1,0 +1,23 @@
+﻿@inject IDialogService DialogService
+@rendermode InteractiveServer
+@using DeviceControl2.Source.Features
+
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<div class="flex gap-2 items-center px-2 pt-2 mb-4">
+  <Button OnClick="@OpenDialog">
+    Open dialog
+  </Button>
+  <ThemeToggle />
+</div>
+
+<SimpleDataGrid />
+
+@code {
+  private async Task OpenDialog()
+  {
+    await DialogService.ShowDialogAsync<SimpleDialog>(new());
+  }
+}
