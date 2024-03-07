@@ -59,8 +59,6 @@
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
         <PackageReference Include="itext7" Version="8.0.3" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
-        <PackageReference Include="Mapster" Version="7.4.0" />
-        <PackageReference Include="Mapster.Core" Version="1.2.1" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
@@ -72,7 +70,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" PrivateAssets="All" />
@@ -80,24 +77,7 @@
       <ProjectReference Include="..\..\Libs\Ws.SharedUI\Ws.SharedUI.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
-
-
-    <!-- Добавление команд для генерации мапперов -->
-    <Target Name="Mapster" AfterTargets="AfterBuild">
-        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
-        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/MapServices/Generated -p 1" />
-        <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster extension -a &quot;$(TargetDir)$(ProjectName).dll&quot; -o ./Mapster/Extensions/Generated -p 1" />
-    </Target>
-
-    <!-- Для очистки сгенерированных файлов командой dotnet msbuild -t:CleanGenerated -->
-    <ItemGroup>
-        <Generated Include="**\*.g.cs" />
-        <Generated Remove="obj\**" />
-    </ItemGroup>
-    <Target Name="CleanGenerated">
-        <Delete Files="@(Generated)" />
-    </Target>
-
+    
     <ItemGroup>
       <EmbeddedResource Remove="obj\**" />
       <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.resx">
