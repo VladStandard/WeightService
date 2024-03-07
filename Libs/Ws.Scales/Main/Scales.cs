@@ -4,12 +4,11 @@ using Ws.Scales.Commands;
 using Ws.Scales.Common;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
-using Ws.Scales.Utils;
 
 namespace Ws.Scales.Main;
 
 public partial class Scales : IScales
-{
+{ 
     private SerialPort Port { get; }
     private ScalesStatus Status { get; set; }
 
@@ -19,14 +18,45 @@ public partial class Scales : IScales
         SetStatus(ScalesStatus.IsDisabled);
     }
 
-    public void Calibrate() => ExecuteCommand(new(Port, MassaKCommands.CmdSetZero));
-    public void SendGetWeight() => ExecuteCommand(new GetMassaCommand(Port));
+    public void Calibrate() => ExecuteCommand(new CalibrateCommand(Port));
+    
+    public void StartWeightPolling()
+    {
+        lock (_pollingLock)
+        {
+            if (!_cancelPollingToken.IsCancellationRequested)
+                return;
+            
+            _cancelPollingToken = new();
+            CancellationToken cancellationToken = _cancelPollingToken.Token;
 
+            
+            Task.Run(async () =>
+            {
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    ExecuteCommand(new GetMassaCommand(Port));
+                    await Task.Delay(200, cancellationToken);
+                }
+            }, cancellationToken);
+        }
+    }
+    
+    public void StopWeightPolling()
+    {
+        lock (_pollingLock)
+        {
+            if (_cancelPollingToken.IsCancellationRequested)
+                return;
+            _cancelPollingToken.Cancel();
+        }
+    }
+    
     public void Connect()
     {
         try
         {
-            Disconnect();
+            StopWeightPolling();
             Port.Open();
             SetStatus(ScalesStatus.IsConnect);
         }
@@ -35,12 +65,15 @@ public partial class Scales : IScales
             SetStatus(ScalesStatus.IsForceDisconnected);
         }
     }
-
+    
     public void Disconnect()
     {
         SetStatus(ScalesStatus.IsDisabled);
+        StopWeightPolling();
+        
         if (Port.IsOpen) Port.Close();
         Port.Dispose();
+
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
 

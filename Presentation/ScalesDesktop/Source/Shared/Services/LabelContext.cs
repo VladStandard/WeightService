@@ -22,7 +22,6 @@ public class LabelContext : IDisposable
     public IEnumerable<PluEntity> PluEntities { get; private set; } = [];
 
     public event Action? OnStateChanged;
-    private Timer Timer { get; set; }
 
     public LabelContext(ILineService lineService, IPluService pluService, LineContext lineContext)
     {
@@ -30,8 +29,7 @@ public class LabelContext : IDisposable
         LineService = lineService;
         LineContext = lineContext;
 
-        LineContext.OnLineChanged += InitializeData;
-        Timer = new(_ => LineContext.RequestScale(), null, TimeSpan.Zero, TimeSpan.FromSeconds(0.5));
+        LineContext.OnLineChanged += InitializeData; 
     }
 
     public void InitializeData()
@@ -54,10 +52,6 @@ public class LabelContext : IDisposable
         IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetAllPluNestings(Plu);
         PluNesting = pluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
         KneadingModel.KneadingCount = 1;
-        if (Plu.IsCheckWeight)
-            LineContext.ConnectScale();
-        else
-            LineContext.DisconnectScale();
         OnStateChanged?.Invoke();
     }
 

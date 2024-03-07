@@ -9,6 +9,9 @@ namespace Ws.Scales.Main;
 
 public partial class Scales
 {
+    private readonly object _pollingLock = new();
+    private CancellationTokenSource _cancelPollingToken = new();
+    
     private static SerialPort GenerateSerialPort(string comPort)
     {
         return new()
@@ -16,8 +19,8 @@ public partial class Scales
             PortName = comPort.ToUpper(),
             ReadTimeout = 0_100,
             WriteTimeout = 0_100,
-            BaudRate = 19200,
-            Parity = Parity.Even,
+            BaudRate = 57600,
+            Parity = Parity.None,
             StopBits = StopBits.One,
             DataBits = 8,
             Handshake = Handshake.RequestToSend

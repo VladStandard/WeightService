@@ -4,6 +4,7 @@ public interface IScales : IDisposable
 {
     void Connect();
     void Disconnect();
-    void SendGetWeight();
+    void StartWeightPolling();
+    void StopWeightPolling();
     void Calibrate();
 }

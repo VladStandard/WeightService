@@ -1,16 +1,18 @@
 ﻿namespace Ws.Scales.Utils;
 
-public static class CrcUtil
+internal static class CrcUtil
 {
-    private static readonly byte[] Header = [0xF8, 0x55, 0xCE];
-    public static ushort Crc16Generate(byte[] data)
+    private static readonly byte[] HeaderBytes = [0xF8, 0x55, 0xCE];
+    
+    public static ushort CalculateCrc16(byte[] data)
     {
-        int bits, k, a, temp;
+        int k;
         int crc = 0;
         for (k = 0; k < data.Length; k++)
         {
-            a = 0;
-            temp = crc >> 8 << 8;
+            int a = 0;
+            int temp = crc >> 8 << 8;
+            int bits;
             for (bits = 0; bits < 8; bits++)
             {
                 if (((temp ^ a) & 0x8000) != 0)
@@ -42,8 +44,8 @@ public static class CrcUtil
     private static byte[] Generate(byte[] body)
     {
         byte[] len = BitConverter.GetBytes((ushort)body.Length);
-        byte[] crc = BitConverter.GetBytes(Crc16Generate(body));
-        return MergeBytes([Header, len, body, crc]);
+        byte[] crc = BitConverter.GetBytes(CalculateCrc16(body));
+        return MergeBytes([HeaderBytes, len, body, crc]);
     }
 
     public static byte[] Generate(byte body) => Generate([body]);
