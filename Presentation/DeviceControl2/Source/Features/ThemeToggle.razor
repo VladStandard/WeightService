@@ -16,6 +16,7 @@
     class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
     onclick="@(() => SetTheme("light"))"
   >
+    <SunIcon class="size-4 mr-2" />
     Светлая
   </button>
   <button
@@ -23,6 +24,7 @@
     class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
     onclick="@(() => SetTheme("dark"))"
   >
+    <MoonIcon class="size-4 mr-2" />
     Темная
   </button>
   <button
@@ -30,6 +32,7 @@
     class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground"
     onclick="@(() => SetTheme("system"))"
   >
+    <ComputerDesktopIcon class="size-4 mr-2" />
     Системная
   </button>
 </FluentMenu>

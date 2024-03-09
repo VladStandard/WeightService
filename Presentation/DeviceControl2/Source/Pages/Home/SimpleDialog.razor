@@ -7,10 +7,33 @@
     Test
   </SectionDialogHeader>
   <div class="p-6 w-full">
-    Content
+    <Button
+      Variant="@(CurrentTabId == "main" ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+      OnClick="@(() => CurrentTabId = "main")"
+    >
+      First
+    </Button>
+    <Button
+      Variant="@(CurrentTabId == "test" ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+      OnClick="@(() => CurrentTabId = "test")"
+    >
+      Second
+    </Button>
+    <FluentTabs Id="main" @bind-ActiveTabId="CurrentTabId">
+      <FluentTab>
+        Test 1
+      </FluentTab>
+      <FluentTab Id="test">
+        Test 2
+      </FluentTab>
+    </FluentTabs>
   </div>
 </Dialog>
 
 <FluentDialogHeader Visible="false"></FluentDialogHeader>
 <FluentDialogBody Class="hidden"></FluentDialogBody>
 <FluentDialogFooter Visible="false"></FluentDialogFooter>
+
+@code {
+  private string CurrentTabId { get; set; } = "main";
+}
