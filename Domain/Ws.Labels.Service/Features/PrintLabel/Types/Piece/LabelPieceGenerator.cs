@@ -3,14 +3,14 @@ using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.ZplResource;
-using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Validators;
+using Ws.Labels.Service.Features.PrintLabel.Utils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Piece;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 
 internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService, IPalletService palletService)
 {
@@ -55,7 +55,7 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
     private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems, 
         XmlPieceLabelModel labelXml)
     {
-        LabelReadyDto labelReady = LabelGenerator.GetZpl(zplItems, labelXml);
+        LabelReadyDto labelReady = LabelGeneratorUtils.GetZpl(zplItems, labelXml);
         return new()
         {
             Zpl = labelReady.Zpl,

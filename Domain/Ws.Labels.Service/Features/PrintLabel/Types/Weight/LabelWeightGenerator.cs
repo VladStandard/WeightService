@@ -2,14 +2,14 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.ZplResource;
-using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Models;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Validators;
+using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
+using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Validators;
+using Ws.Labels.Service.Features.PrintLabel.Utils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Weight;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight;
 
 internal class LabelWeightGenerator(IZplResourceService zplResourceService, ILabelService labelService)
 {
@@ -30,7 +30,7 @@ internal class LabelWeightGenerator(IZplResourceService zplResourceService, ILab
             zplResourceService.GetAllCachedResources()
         );
 
-        LabelReadyDto labelReady = LabelGenerator.GetZpl(zplItems, labelXml);
+        LabelReadyDto labelReady = LabelGeneratorUtils.GetZpl(zplItems, labelXml);
 
         LabelEntity labelSql = new()
         {

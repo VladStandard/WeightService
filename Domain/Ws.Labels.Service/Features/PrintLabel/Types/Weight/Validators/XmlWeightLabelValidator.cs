@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Models;
+using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Weight.Validators;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Validators;
 
-public class XmlWeightLabelValidator : AbstractValidator<XmlWeightLabelModel>
+internal class XmlWeightLabelValidator : AbstractValidator<XmlWeightLabelModel>
 {
     public XmlWeightLabelValidator()
     {

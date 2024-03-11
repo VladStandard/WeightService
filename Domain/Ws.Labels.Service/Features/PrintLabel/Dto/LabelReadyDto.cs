@@ -1,6 +1,8 @@
-﻿namespace Ws.Labels.Service.Features.PrintLabel.Common;
+﻿using Ws.Labels.Service.Features.PrintLabel.Common;
 
-public class LabelReadyDto(string zpl, XmlLabelBaseModel labelBarcodeModel)
+namespace Ws.Labels.Service.Features.PrintLabel.Dto;
+
+internal class LabelReadyDto(string zpl, XmlLabelBaseModel labelBarcodeModel)
 {
     public readonly string Zpl = zpl;
     public readonly string BarcodeRight = labelBarcodeModel.BarCodeRight;

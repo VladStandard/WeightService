@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Validators;
 
-public class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabelModel>
+internal class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabelModel>
 {
     public XmlLabelPiecePalletValidator()
     {

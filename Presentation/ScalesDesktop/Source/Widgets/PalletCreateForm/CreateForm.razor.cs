@@ -12,7 +12,7 @@ using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Source.Widgets.PalletCreateForm;
@@ -28,7 +28,6 @@ public sealed partial class CreateForm : ComponentBase
     [Inject] private IModalService ModalService { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
-    [Inject] private IPalletService PalletService { get; set; } = null!;
     
     [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
 
@@ -78,14 +77,14 @@ public class PalletCreateModel
     [Required(ErrorMessage = "Поле 'Вложенность' обязательно для заполнения")]
     public PluNestingEntity? Nesting { get; set; }
 
-    [Range(1, 200, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 200")]
+    [Range(1, 240, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 240")]
     public int Count { get; set; } = 1;
 
     [Range(0, double.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
     public decimal PalletWeight { get; set; }
 
-    [Range(0, short.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
-    public short Kneading { get; set; } = 0;
+    [Range(1, 999, ErrorMessage = "Поле 'Замес' не может быть меньше 1 и больше 999")]
+    public short Kneading { get; set; } = 1;
 
     public DateTime CreateDt { get; set; } = DateTime.Now;
 }

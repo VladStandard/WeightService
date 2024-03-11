@@ -2,12 +2,13 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Shared.Utils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Common;
+namespace Ws.Labels.Service.Features.PrintLabel.Utils;
 
-public static partial class LabelGenerator
+internal static partial class LabelGeneratorUtils
 {
     [GeneratedRegex(@"\[(?!@)([^[\]]+)]")]
     private static partial Regex RegexOfResources();
@@ -19,7 +20,6 @@ public static partial class LabelGenerator
         XmlLabelBaseModel, ISerializable
     {
         string template = zplItems.Template;
-        
         
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
 
@@ -51,7 +51,8 @@ public static partial class LabelGenerator
             }
         }
 
-        zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", zplItems.StorageMethod, StringComparison.OrdinalIgnoreCase);
+        zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", zplItems.StorageMethod,
+            StringComparison.OrdinalIgnoreCase);
 
         return zpl;
     }
@@ -64,17 +65,13 @@ public static partial class LabelGenerator
             return $"\n\n^FH^FD\n{hexText}\n^FS\n\n";
         });
     }
-
+    
     private static string ConvertStringToHex(string text)
     {
         StringBuilder zplBuilder = new();
-        foreach (char i in text)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(new[] { i });
-            IEnumerable<string> hexBytes = bytes.Select(b => $"_{b:X2}");
-            foreach (var hexByte in hexBytes)
-                zplBuilder.Append(hexByte);
-        }
+        byte[] bytes = Encoding.UTF8.GetBytes(text);
+        foreach (byte b in bytes)
+            zplBuilder.Append($"_{b:X2}");
         return zplBuilder.ToString();
     }
 }
