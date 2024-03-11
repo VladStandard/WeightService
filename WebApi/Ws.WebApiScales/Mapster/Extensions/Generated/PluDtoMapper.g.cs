@@ -13,7 +13,6 @@ namespace Ws.WebApiScales.Features.Plus.Dto
             result.Number = (short)p1.Number;
             result.FullName = p1.FullName;
             result.ShelfLifeDays = (byte)p1.ShelfLifeDays;
-            result.Gtin = p1.IsCheckWeight == true ? "0" + p1.Ean13 : p1.Itf14;
             result.Ean13 = p1.Ean13;
             result.Itf14 = p1.IsCheckWeight == true ? "" : p1.Itf14;
             result.IsCheckWeight = p1.IsCheckWeight;
