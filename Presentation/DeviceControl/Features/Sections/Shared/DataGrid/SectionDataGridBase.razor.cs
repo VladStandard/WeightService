@@ -3,7 +3,6 @@ using DeviceControl.Features.Sections.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
-using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 

@@ -1,4 +1,3 @@
-using Ws.Database.Core.Utils;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Line;
 
@@ -45,10 +44,9 @@ public class LineContext : IDisposable
     }
 
     public void DisconnectScale() => ExternalDevices.Scales.Disconnect();
-
     public void ConnectScale() => ExternalDevices.Scales.Connect();
-
-    public void RequestScale() => ExternalDevices.Scales.SendGetWeight();
+    public void StartWeightPolling() => ExternalDevices.Scales.StartWeightPolling();
+    public void StopWeightPolling() => ExternalDevices.Scales.StopWeightPolling();
 
     public void Dispose()
     {

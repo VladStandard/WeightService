@@ -5,7 +5,7 @@ using Ws.Labels.Service.Features.RenderLabel.Exceptions;
 
 namespace Ws.Labels.Service.Features.RenderLabel;
 
-public class RenderLabelService : IRenderLabelService
+internal class RenderLabelService : IRenderLabelService
 {
     #region Private
 

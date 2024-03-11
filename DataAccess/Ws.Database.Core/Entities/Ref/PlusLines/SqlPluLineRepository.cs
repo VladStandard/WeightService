@@ -10,6 +10,9 @@ public sealed class SqlPluLineRepository : BaseRepository, IGetListByQuery<PluLi
     public IEnumerable<PluLineEntity> GetListByQuery(QueryOver<PluLineEntity> query) =>
         query.DetachedCriteria.GetExecutableCriteria(Session).List<PluLineEntity>().OrderBy(i => i.Plu.Number);
 
+    public IEnumerable<PluLineEntity> GetListByLine(LineEntity item) =>
+        Session.Query<PluLineEntity>().Where(i => i.Line == item).ToList();
+    
     public void Delete(PluLineEntity item) => Session.Delete(item);
     public PluLineEntity Save(PluLineEntity pluLine) { Session.Save(pluLine); return pluLine; }
 }

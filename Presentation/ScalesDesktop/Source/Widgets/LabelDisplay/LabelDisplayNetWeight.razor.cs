@@ -13,12 +13,14 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
 
     [Inject] private LabelContext LabelContext { get; set; } = null!;
+    [Inject] private LineContext LineContext { get; set; } = null!;
 
     private bool IsStable { get; set; }
 
     protected override void OnInitialized()
     {
         LabelContext.OnStateChanged += StateHasChanged;
+        LineContext.StartWeightPolling();
         MassaSubscribe();
     }
 

@@ -2,7 +2,7 @@
 
 namespace Ws.Printers.Features.Zebra.Utils;
 
-public static class ZebraStatusParserUtils
+internal static class ZebraStatusParserUtils
 {
     private const int PaperOutIndex = 1;
     private const int PauseIndex = 2;

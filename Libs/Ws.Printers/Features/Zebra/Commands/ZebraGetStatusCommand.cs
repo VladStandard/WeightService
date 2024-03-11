@@ -8,7 +8,7 @@ using Ws.Printers.Features.Zebra.Utils;
 
 namespace Ws.Printers.Features.Zebra.Commands;
 
-public class ZebraGetStatusCommands(TcpClient tcp) : PrinterCommandBase(tcp, ZebraCommandUtil.GetStatus)
+internal class ZebraGetStatusCommands(TcpClient tcp) : PrinterCommandBase(tcp, ZebraCommandUtil.GetStatus)
 {
     protected override void Response(NetworkStream stream)
     {
