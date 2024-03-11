@@ -1,0 +1,54 @@
+@using Blazor.Heroicons.Outline
+@typeparam TItem
+
+<div @ref="DropdownWrapper" class="w-full overflow-hidden">
+  <Button
+    id="@Id"
+    Variant="ButtonVariant.Outline"
+    OnClick="@OpenDropdown"
+    Class="select-button !justify-between !h-10 !px-3 w-full disabled:!opacity-70"
+    Disabled="@IsDisabled"
+  >
+    @GetToggleText
+    <ChevronDownIcon class="@Css.Class("transition-transform size-4", IsOpen ? "rotate-180" : "rotate-0")" />
+  </Button>
+  <FluentMenu
+    Anchor="@Id"
+    @bind-Open="IsOpen"
+    Class="select-dropdown !bg-inherit rounded-md overflow-hidden [&>fluent-menu]:border [&>fluent-menu]:bg-background"
+  >
+    @if (IsFilterable)
+    {
+      <div class="h-8 w-full border-b mb-1 flex items-center px-3">
+        <MagnifyingGlassIcon class="size-4 text-muted-foreground mr-2" />
+        <input
+          type="text"
+          @bind="SearchString"
+          @oninput="HandleSearchingChange"
+          class="border-none text-sm bg-transparent h-full w-full px-0 focus:border-none focus:ring-0 placeholder:font-light placeholder:text-muted-foreground"
+          placeholder="@SearchPlaceholder"/>
+      </div>
+    }
+    <div class="w-full h-full overflow-x-hidden overflow-y-auto p-1">
+      <ul class="flex flex-col w-full">
+        @if (!GetFilteredList.Any())
+        {
+          <div class="h-10 w-full flex items-center justify-center text-sm">
+            <span>@EmptyPlaceholder</span>
+          </div>
+        }
+        @foreach (TItem item in GetFilteredList)
+        {
+          <button
+            type="button"
+            @onclick="() => SetSelectedItem(item)"
+            class="relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors truncate hover:bg-accent focus:text-accent-foreground"
+          >
+            <CheckIcon class="@Css.Class("mr-2 size-4", IsSelectedItem(item) ? "opacity-100" : "opacity-0")" />
+            @ItemDisplayName(item)
+          </button>
+        }
+      </ul>
+    </div>
+  </FluentMenu>
+</div>

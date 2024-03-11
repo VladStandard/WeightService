@@ -1,11 +1,10 @@
-// ReSharper disable ClassNeverInstantiated.Global
-
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 
 namespace ScalesDesktop.Source.Pages.Home;
 
+// ReSharper disable ClassNeverInstantiated.Global
 public sealed partial class HomePage : ComponentBase, IDisposable
 {
     [Inject] private LineContext LineContext { get; set; } = null!;

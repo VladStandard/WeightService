@@ -14,6 +14,8 @@ export const removeResizeEvent = (element) => {
   }
 };
 
+export const updateDropdownWidth = (element) => resizeSelect(element)
+
 const resizeSelect = (element) => {
   const button = element.querySelector('.select-button')
   const dropdown = element.querySelector('.select-dropdown')

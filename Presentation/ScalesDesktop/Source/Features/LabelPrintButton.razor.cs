@@ -1,4 +1,3 @@
-using Blazorise;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -24,7 +23,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
@@ -77,7 +75,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         catch (Exception ex)
         {
             ToastService.ShowError(ex.ToString());
-            // await NotificationService.Error(ex.ToString());
         }
     }
 

@@ -1,6 +1,7 @@
-using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.FluentUI.AspNetCore.Components;
+using ScalesDesktop.Source.Features;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using ScalesDesktop.Source.Widgets.PalletCreateForm;
@@ -11,7 +12,7 @@ namespace ScalesDesktop.Source.Widgets.PalletSelect;
 public sealed partial class PalletSelect : ComponentBase, IDisposable
 {
     [Inject] private PalletContext PalletContext { get; set; } = null!;
-    [Inject] private IModalService ModalService { get; set; } = null!;
+    [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
 
     private string InputSearchCounter { get; set; } = string.Empty;
@@ -28,7 +29,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
         return pallets.Take(100);
     }
 
-    private async Task ShowCreateFormDialog() => await ModalService.Show<CreateFormModal>();
+    private async Task ShowCreateFormDialog() => await DialogService.ShowDialogAsync<PalletCreateFormDialog>(new());
 
     public void Dispose() => PalletContext.OnStateChanged -= StateHasChanged;
 }

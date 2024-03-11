@@ -1,5 +1,6 @@
 @using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
 @using ScalesDesktop.Source.Shared.UI
+@using ScalesDesktop.Source.Shared.UI.Form
 @using Ws.Domain.Models.Entities.Ref
 
 <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
@@ -20,7 +21,7 @@
         TItem="PalletManEntity"
         @bind-SelectedItem="@FormModel.User"
         ItemDisplayName="@(item => item.FioShort)"
-        Items="@GetAllPalletMen()"
+        Items="@GetAllPalletMen"
         Placeholder="@PalletLocalizer["UserSelectPlaceholder"]"
       />
     </InputLabelWrapper>

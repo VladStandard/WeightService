@@ -139,6 +139,9 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Resources.ru-RU.resx</DependentUpon>
       </Compile>
+      <Compile Remove="Source\Shared\UI\DataGridBase.cs" />
+      <Compile Remove="Source\Shared\UI\DataGridWrapper.razor.cs" />
+      <Compile Remove="Source\Shared\UI\DialogWrapper.razor.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -148,6 +151,11 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Features\Labels\Modules\LabelDisplayDate.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Source\Shared\UI\DataGridWrapper.razor" />
+      <Content Remove="Source\Shared\UI\DialogWrapper.razor" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Ref;
@@ -14,7 +14,7 @@ namespace ScalesDesktop.Source.Widgets;
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed partial class PalletManForm : ComponentBase
 {
-    [Inject] private INotificationService NotificationService { get; set; } = null!;
+    [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPalletManService PalletManService { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
@@ -22,19 +22,19 @@ public sealed partial class PalletManForm : ComponentBase
     
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
     
-    private IEnumerable<PalletManEntity> GetAllPalletMen() => PalletManService.GetAll();
+    private IEnumerable<PalletManEntity> GetAllPalletMen => PalletManService.GetAll();
     
     private void HandleInvalidForm(EditContext context)
     {
         foreach (string msg in context.GetValidationMessages())
-            NotificationService.Error(msg);
+            ToastService.ShowError(msg);
     }
 
     private void OnSubmit()
     {
         if (FormModel.Password != FormModel.User!.Password)
         {
-            NotificationService.Error("Пароль неверный");
+            ToastService.ShowError("Пароль неверный");
             return;
         }
         PalletContext.SetPalletMan(FormModel.User!);

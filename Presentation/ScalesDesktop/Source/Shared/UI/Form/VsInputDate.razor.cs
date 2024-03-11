@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using ScalesDesktop.Source.Shared.Utils;
 
-namespace ScalesDesktop.Source.Shared.UI;
+namespace ScalesDesktop.Source.Shared.UI.Form;
 
 public sealed partial class VsInputDate<TValue> : ComponentBase
 {

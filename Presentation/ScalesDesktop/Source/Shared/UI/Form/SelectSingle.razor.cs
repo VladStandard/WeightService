@@ -1,8 +1,7 @@
-using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace ScalesDesktop.Source.Shared.UI;
+namespace ScalesDesktop.Source.Shared.UI.Form;
 
 public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposable
 {
@@ -18,11 +17,12 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
-
-    private Dropdown Dropdown { get; set; } = new();
+    
     private ElementReference DropdownWrapper { get; set; }
     private IJSObjectReference Module { get; set; } = null!;
+    private string Id { get; } = $"id-{Guid.NewGuid()}";
     private string SearchString { get; set; } = string.Empty;
+    private bool IsOpen { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -31,20 +31,27 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
         await Module.InvokeVoidAsync("initializeResizeSelect", DropdownWrapper);
     }
 
+    private async Task OpenDropdown()
+    {
+        if (IsDisabled) return;
+        IsOpen = !IsOpen;
+        await Task.Delay(20);
+        await Module.InvokeVoidAsync("updateDropdownWidth", DropdownWrapper);
+    }
+
     private async Task SetSelectedItem(TItem item)
     {
         SelectedItem = item;
         await SelectedItemChanged.InvokeAsync(SelectedItem);
         SearchString = string.Empty;
-        await Dropdown.Hide();
     }
 
-    private IEnumerable<TItem> GetFilteredList() => string.IsNullOrWhiteSpace(SearchString) ? Items :
+    private IEnumerable<TItem> GetFilteredList => string.IsNullOrWhiteSpace(SearchString) ? Items :
         Items.Where(item => ItemDisplayName(item).Contains(SearchString, StringComparison.OrdinalIgnoreCase));
 
     private bool IsSelectedItem(TItem item) => SelectedItem != null && SelectedItem.Equals(item);
 
-    private string GetToggleText() => SelectedItem != null ? ItemDisplayName(SelectedItem) : Placeholder;
+    private string GetToggleText => SelectedItem != null ? ItemDisplayName(SelectedItem) : Placeholder;
 
     private async Task HandleSearchingChange(ChangeEventArgs e)
     {
@@ -58,12 +65,11 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
         try
         {
             await Module.InvokeVoidAsync("removeResizeEvent", DropdownWrapper);
+            await Module.DisposeAsync();
         }
         catch
         {
             // pass
         }
-        
-        await Module.DisposeAsync();
     }
 }

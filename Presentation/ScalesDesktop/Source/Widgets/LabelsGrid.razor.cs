@@ -23,6 +23,8 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private IEnumerable<LabelEntity> GetGridData() => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid);
 
+    private IQueryable<LabelEntity> Data => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid).AsQueryable();
+
     protected override async Task OnInitializedAsync()
     {
         PalletContext.OnStateChanged += async () => await ReloadGrid();

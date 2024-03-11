@@ -72,6 +72,7 @@
     --type-ramp-base-line-height: unset;
     --neutral-foreground-rest: 0;
     --type-ramp-base-font-variations: 0;
+    --base-height-multiplier: 0;
   }
 
   fluent-dialog::part(overlay) {
@@ -94,8 +95,12 @@
     --accent-fill-rest: #fafafa;
   }
 
-  fluent-tabs {
-    --accent-fill-rest: 0;
+  /*fluent-tabs {*/
+  /*  --accent-fill-rest: 0;*/
+  /*}*/
+
+  fluent-menu {
+    @apply !max-w-[unset]
   }
 
   .custom-input::part(root) {

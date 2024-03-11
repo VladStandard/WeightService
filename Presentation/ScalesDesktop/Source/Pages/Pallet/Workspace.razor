@@ -2,7 +2,9 @@
 @using ScalesDesktop.Source.Widgets
 @using Ws.Shared.Enums
 @using Blazor.Heroicons.Outline
-@using Blazorise
+@using ScalesDesktop.Source.Shared.UI.Form
+@using ScalesDesktop.Source.Shared.UI.Dialog
+@using ScalesDesktop.Source.Shared.UI.Tabs
 
 <div class="w-full h-full overflow-hidden">
   @if (PalletContext.CurrentPallet.IsNew)
@@ -44,54 +46,42 @@
   else
   {
     <div class="w-full h-full overflow-hidden flex flex-col">
-      <div class="w-full px-4 shrink-0 border-b items-center flex justify-between h-14">
-        <div class="w-32 overflow-hidden">
-          <button
-            type="button"
-            @onclick="CloseCurrentPallet"
-            class="px-3 py-1.5 flex gap-2 items-center transition-colors justify-center border rounded-md
-                      overflow-hidden hover:bg-gray-100"
+      <div class="h-14 shrink-0 w-full grid grid-cols-4 border-b px-4">
+        <div class="flex h-full items-center">
+          <Button
+            Variant="ButtonVariant.Outline"
+            OnClick="@CloseCurrentPallet"
           >
-            <ArrowLeftIcon class="h-4 w-4"/>
-            <span class="text-sm pt-[2px] text-black font-medium">
-              @PalletLocalizer["BtnBack"]
-            </span>
-          </button>
+            <ArrowLeftIcon class="size-4 mr-2"/>
+            Back
+          </Button>
         </div>
-        <div class="h-full w-full grow overflow-hidden">
+        <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">
           <ul class="w-full h-full flex items-center gap-2 justify-center">
-            @foreach(EnumTypeModel<string> item in TabsButtonList)
+            @foreach (EnumTypeModel<string> item in TabsButtonList)
             {
               <li>
-                <button
-                  type="button"
-                  disabled="@IsSelectedTab(item.Value)"
-                  @onclick="() => ChangeSelectedTab(item.Value)"
-                  class="px-4 py-1 rounded-md overflow-hidden transition-colors
-                            @(IsSelectedTab(item.Value) ? "bg-gray-100 hover:bg-gray-200" : "hover:bg-gray-50")">
-                  <span class="text-black pt-[1px] font-normal">@item.Name</span>
-                </button>
+                <Button
+                  Variant="@(CurrentTabId == item.Value ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                  OnClick="@(() => CurrentTabId = item.Value)"
+                  Disabled="@(CurrentTabId == item.Value)"
+                  Class="disabled:!opacity-100"
+                >
+                  @item.Name
+                </Button>
               </li>
             }
           </ul>
         </div>
-        <div class="w-32"></div>
       </div>
-      <div class="w-full h-full grow overflow-hidden blazorise-tabs">
-        <Tabs
-          @ref="TabsRef"
-          RenderMode="TabsRenderMode.LazyLoad"
-          @bind-SelectedTab="SelectedTab"
-          Class="!p-0 h-full w-full overflow-hidden"
-        >
-          <Content>
-            <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="main">
-              <PalletOverview />
-            </TabPanel>
-            <TabPanel Class="!p-0 rounded-none h-full flex flex-col w-full bg-inherit" Name="labels">
-              <LabelsGrid />
-            </TabPanel>
-          </Content>
+      <div class="w-full h-full grow overflow-hidden flex flex-col bg-secondary/[.3]">
+        <Tabs @bind-ActiveTabId="CurrentTabId">
+          <Tab Id="overview">
+            <PalletOverview />
+          </Tab>
+          <Tab Id="labels">
+            <LabelsGrid />
+          </Tab>
         </Tabs>
       </div>
     </div>

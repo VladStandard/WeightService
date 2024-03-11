@@ -1,22 +1,19 @@
-using System.Numerics;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Utils;
 
-namespace ScalesDesktop.Source.Shared.UI;
+namespace ScalesDesktop.Source.Shared.UI.Form;
 
-public sealed partial class VsInputNumber<TValue> : ComponentBase
-    where TValue : IMinMaxValue<TValue>, IConvertible, IComparable<TValue>, IEquatable<TValue>
+public sealed partial class VsInputText : ComponentBase
 {
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> Attributes { get; set; } = new();
-    [Parameter] public TValue Value { get; set; } = default!;
-    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
-    [Parameter] public TValue Min { get; set; } = TValue.MinValue;
-    [Parameter] public TValue Max { get; set; } = TValue.MaxValue;
 
-    private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
+    [Parameter] public string Value { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
 
     private async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
+
+    private string AdditionalClass => DictionaryUtils.TryGetValue(Attributes, "class");
 
     private string InputClass => $"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" +
                                  $" ring-offset-background file:border-0 file:bg-transparent file:text-sm" +
