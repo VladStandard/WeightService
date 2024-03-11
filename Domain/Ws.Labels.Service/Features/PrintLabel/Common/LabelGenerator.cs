@@ -2,13 +2,12 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Features.ZplResource;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Common;
 
-public partial class LabelGenerator(IZplResourceService zplResourceService)
+public static partial class LabelGenerator
 {
     [GeneratedRegex(@"\[(?!@)([^[\]]+)]")]
     private static partial Regex RegexOfResources();
@@ -16,9 +15,12 @@ public partial class LabelGenerator(IZplResourceService zplResourceService)
     [GeneratedRegex(@"\^FH\^FD\s*(.*?)\s*\^FS", RegexOptions.Singleline)]
     private static partial Regex RegexOfTextBlocks();
 
-    public LabelReadyDto GetZpl<TItem>(string template, PluEntity plu, TItem labelModel) where TItem :
+    public static LabelReadyDto GetZpl<TItem>(ZplItemsDto zplItems, TItem labelModel) where TItem :
         XmlLabelBaseModel, ISerializable
     {
+        string template = zplItems.Template;
+        
+        
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
 
         XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument(labelModel);
@@ -26,29 +28,30 @@ public partial class LabelGenerator(IZplResourceService zplResourceService)
 
         string zpl = XmlUtil.XsltTransformation(template, xmlLabelContext.OuterXml);
 
-        zpl = PrintCmdReplaceZplResources(zpl, plu);
+        zpl = PrintCmdReplaceZplResources(zpl, zplItems);
         zpl = ReplaceValuesWithHex(zpl);
 
         return new(zpl, labelModel);
     }
 
-    private string PrintCmdReplaceZplResources(string zpl, PluEntity plu)
+    private static string PrintCmdReplaceZplResources(string zpl, ZplItemsDto zplItems)
     {
         if (string.IsNullOrEmpty(zpl))
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         MatchCollection matches = RegexOfResources().Matches(zpl);
-
-        Dictionary<string, string> resources = zplResourceService.GetAllCachedResources();
+        
         foreach (Match match in matches)
         {
             string word = match.Value;
-            string replacement = resources[word.Trim('[', ']')];
-            if (string.IsNullOrEmpty(replacement)) continue;
-            zpl = zpl.Replace(word, replacement);
+            
+            if (zplItems.Resources.TryGetValue(word.Trim('[', ']'), out var value))
+            {
+                zpl = zpl.Replace(word, value);
+            }
         }
 
-        zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", plu.StorageMethod.Zpl, StringComparison.OrdinalIgnoreCase);
+        zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", zplItems.StorageMethod, StringComparison.OrdinalIgnoreCase);
 
         return zpl;
     }

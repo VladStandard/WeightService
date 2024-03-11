@@ -1,8 +1,10 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Label;
+using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
@@ -10,73 +12,63 @@ using Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Piece;
 
-public class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService)
+internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService, IPalletService palletService)
 {
-    public string GenerateLabel(LabelPieceDto labelDto)
+    public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount)
     {
-        if (labelDto.Nesting.Plu.IsCheckWeight)
+        if (labelCount > 240)
+            throw new LabelGenerateException("Превышен размер паллеты");
+        
+        if (labelPalletDto.Nesting.Plu.IsCheckWeight)
             throw new LabelGenerateException("Плу весовая");
-
-        XmlPieceLabelModel labelXml = labelDto.AdaptToXmlPieceLabelModel();
-        ValidationResult result = new XmlLabelPieceValidator().Validate(labelXml);
+        
+        XmlPieceLabelModel labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
+        ValidationResult result = new XmlLabelPiecePalletValidator().Validate(labelXml);
+        
         if (!result.IsValid)
             throw new LabelGenerateException(result);
 
-
-        LabelReadyDto labelReady = new LabelGenerator(zplResourceService)
-            .GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
-
-        LabelEntity labelSql = new()
+        PalletEntity pallet = new()
+        {
+            Barcode = string.Empty,
+            ProdDt = labelPalletDto.ProductDt,
+            PalletMan = labelPalletDto.PalletMan,
+        };
+        palletService.Create(pallet);
+        
+        ZplItemsDto zplItems = new(
+            labelPalletDto.Template, 
+            labelPalletDto.Nesting.Plu.StorageMethod.Zpl, 
+            zplResourceService.GetAllCachedResources()
+        );
+        
+        for (int i = 0; i < labelCount; i++)
+        {
+            LabelEntity label = GenerateLabel(labelPalletDto, zplItems, labelXml);
+            label.Pallet = pallet;
+            
+            labelService.Create(label);
+            labelPalletDto = labelPalletDto with { ProductDt = labelPalletDto.ProductDt.AddSeconds(1) };
+        }
+    }
+    
+    private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems, 
+        XmlPieceLabelModel labelXml)
+    {
+        LabelReadyDto labelReady = LabelGenerator.GetZpl(zplItems, labelXml);
+        return new()
         {
             Zpl = labelReady.Zpl,
             BarcodeBottom = labelReady.BarcodeBottom,
             BarcodeRight = labelReady.BarcodeRight,
             BarcodeTop = labelReady.BarcodeTop,
             WeightNet = 0,
-            WeightTare = labelDto.Nesting.WeightTare,
-            Kneading = labelDto.Kneading,
-            ProductDt = labelDto.ProductDt,
-            ExpirationDt = labelDto.ExpirationDt,
-            Line = labelDto.Line,
-            Plu = labelDto.Nesting.Plu
+            WeightTare = labelPalletDto.Nesting.WeightTare,
+            Kneading = labelPalletDto.Kneading,
+            ProductDt = labelPalletDto.ProductDt,
+            ExpirationDt = labelPalletDto.ExpirationDt,
+            Line = labelPalletDto.Line,
+            Plu = labelPalletDto.Nesting.Plu
         };
-        
-        return labelService.Create(labelSql).Zpl;
-    }
-    
-    public void GeneratePiecePallet(LabelPieceDto labelDto, PalletEntity pallet, int labelCount)
-    {
-        if (labelDto.Nesting.Plu.IsCheckWeight)
-            throw new LabelGenerateException("Плу весовая");
-
-        XmlPieceLabelModel labelXml = labelDto.AdaptToXmlPieceLabelModel();
-        ValidationResult result = new XmlLabelPieceValidator().Validate(labelXml);
-        if (!result.IsValid)
-            throw new LabelGenerateException(result);
-        
-        for (int i = 0; i < labelCount; i++)
-        {
-            LabelReadyDto labelReady = new LabelGenerator(zplResourceService)
-                .GetZpl(labelDto.Template, labelDto.Nesting.Plu, labelXml);
-    
-            LabelEntity labelSql = new()
-            {
-                Zpl = labelReady.Zpl,
-                BarcodeBottom = labelReady.BarcodeBottom,
-                BarcodeRight = labelReady.BarcodeRight,
-                BarcodeTop = labelReady.BarcodeTop,
-                WeightNet = 0,
-                Pallet = pallet,
-                WeightTare = labelDto.Nesting.WeightTare,
-                Kneading = labelDto.Kneading,
-                ProductDt = labelDto.ProductDt,
-                ExpirationDt = labelDto.ExpirationDt,
-                Line = labelDto.Line,
-                Plu = labelDto.Nesting.Plu
-            };
-            labelService.Create(labelSql);
-
-            labelDto.ProductDt = labelDto.ProductDt.AddSeconds(1);
-        }
     }
 }

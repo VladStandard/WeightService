@@ -3,9 +3,9 @@ using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
 
-public class XmlLabelPieceValidator : AbstractValidator<XmlPieceLabelModel>
+public class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabelModel>
 {
-    public XmlLabelPieceValidator()
+    public XmlLabelPiecePalletValidator()
     {
         RuleFor(i => i.LineNumber).GreaterThanOrEqualTo(0).WithMessage("Номер линии должен быть >= 1");
         RuleFor(i => i.Kneading).GreaterThanOrEqualTo((short)1).WithMessage("Замес должен быть >= 1");

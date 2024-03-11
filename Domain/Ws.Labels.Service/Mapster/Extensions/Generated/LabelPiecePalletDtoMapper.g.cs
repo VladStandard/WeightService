@@ -1,8 +1,8 @@
 namespace Ws.Labels.Service.Features.PrintLabel.Piece.Dto
 {
-    public static partial class LabelPieceDtoMapper
+    public static partial class LabelPiecePalletDtoMapper
     {
-        public static Ws.Labels.Service.Features.PrintLabel.Piece.Models.XmlPieceLabelModel AdaptToXmlPieceLabelModel(this Ws.Labels.Service.Features.PrintLabel.Piece.Dto.LabelPieceDto p1)
+        public static Ws.Labels.Service.Features.PrintLabel.Piece.Models.XmlPieceLabelModel AdaptToXmlPieceLabelModel(this Ws.Labels.Service.Features.PrintLabel.Piece.Dto.LabelPiecePalletDto p1)
         {
             return p1 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Piece.Models.XmlPieceLabelModel()
             {

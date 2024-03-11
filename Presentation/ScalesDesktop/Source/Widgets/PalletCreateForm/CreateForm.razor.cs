@@ -51,17 +51,10 @@ public sealed partial class CreateForm : ComponentBase
 
     private void OnSubmit()
     {
-        PalletEntity palletEntity = new()
+        LabelPiecePalletDto palletDto = new ()
         {
             PalletMan = PalletContext.PalletMan,
             Weight = FormModel.PalletWeight,
-            ProdDt = FormModel.CreateDt,
-            Barcode = string.Empty
-        };
-        PalletService.Create(palletEntity);
-
-        LabelPieceDto dto = new ()
-        {
             ExpirationDt = FormModel.CreateDt.AddDays(FormModel.Plu!.ShelfLifeDays),
             Kneading = FormModel.Kneading,
             Line = LineContext.Line,
@@ -70,7 +63,8 @@ public sealed partial class CreateForm : ComponentBase
             Template = PluService.GetPluTemplate(FormModel.Plu).Body
         };
         
-        PrintLabelService.GeneratePiecePallet(dto, palletEntity, FormModel.Count);
+        PrintLabelService.GeneratePiecePallet(palletDto, FormModel.Count);
+        
         PalletContext.UpdatePalletData();
         ModalService.Hide();
     } 

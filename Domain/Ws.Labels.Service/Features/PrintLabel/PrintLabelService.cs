@@ -1,5 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Print;
-using Ws.Labels.Service.Features.PrintLabel.Piece;
+﻿using Ws.Labels.Service.Features.PrintLabel.Piece;
 using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Weight;
 using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
@@ -10,10 +9,7 @@ internal class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelW
 {
     public string GenerateWeightLabel(LabelWeightDto labelDto) =>
         labelWeightGenerator.GenerateLabel(labelDto);
-
-    public string GeneratePieceLabel(LabelPieceDto labelDto) =>
-        labelPieceGenerator.GenerateLabel(labelDto);
     
-    public void GeneratePiecePallet(LabelPieceDto labelDto, PalletEntity pallet, int labelCount) =>
-        labelPieceGenerator.GeneratePiecePallet(labelDto, pallet, labelCount);
+    public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount) =>
+        labelPieceGenerator.GeneratePiecePallet(labelPalletDto, labelCount);
 }

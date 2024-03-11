@@ -8,7 +8,7 @@ public class ConfigPieceRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<LabelPieceDto, XmlPieceLabelModel>()
+        config.NewConfig<LabelPiecePalletDto, XmlPieceLabelModel>()
             .Map(d => d.LineName, s => s.Line.Name)
             .Map(d => d.LineAddress, s => s.Line.Warehouse.ProductionSite.Address)
             .Map(d => d.LineNumber, s => s.Line.Number)
