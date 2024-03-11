@@ -11,7 +11,6 @@ public class PluEntity : Entity1CBase
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; } = string.Empty;
     public virtual byte ShelfLifeDays { get; set; }
-    public virtual string Gtin { get; set; } = string.Empty;
     public virtual string Ean13 { get; set; } = string.Empty;
     public virtual string Itf14 { get; set; } = string.Empty;
     public virtual bool IsCheckWeight { get; set; }
@@ -22,6 +21,7 @@ public class PluEntity : Entity1CBase
     public virtual string Description { get; set; } = string.Empty;
     public virtual string Name { get; set; } = string.Empty;
     
+    public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
     public virtual string DisplayName => $"{Number} | {Name}";
 
     public override string ToString() => DisplayName;

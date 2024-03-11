@@ -6,7 +6,8 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace Ws.Database.Core.Entities.Ref1c.Brands;
 
 public sealed class SqlBrandRepository : BaseRepository,
-    IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>, ISave<BrandEntity>
+    IGetItemByUid1C<BrandEntity>, IGetItemByUid<BrandEntity>, IGetAll<BrandEntity>, ISave<BrandEntity>, 
+    IDelete<BrandEntity>
 {
     public BrandEntity GetByUid(Guid uid) => Session.Get<BrandEntity>(uid) ?? new();
 
@@ -16,4 +17,6 @@ public sealed class SqlBrandRepository : BaseRepository,
     public IEnumerable<BrandEntity> GetAll() => Session.Query<BrandEntity>().OrderBy(i => i.Name).ToList();
 
     public BrandEntity Save(BrandEntity item) { Session.Save(item); return item; }
+
+    public void Delete(BrandEntity item) => Session.Delete(item);
 }

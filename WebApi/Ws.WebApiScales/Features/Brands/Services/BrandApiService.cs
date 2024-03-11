@@ -31,7 +31,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
             responseDto.AddSuccess(uid, "Бренд не найден для удаления");
             return;
         }
-        SqlCoreHelper.Delete(brandDb);
+        brandService.Delete(brandDb);
         responseDto.AddSuccess(uid, $"{brandDb.Name} - удален");
     }
 

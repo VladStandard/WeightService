@@ -21,4 +21,7 @@ internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
         BrandEntity brand = GetItemByUid1С(Guid.Empty);
         return brand.IsExists ? brand : brandRepo.Save(new() { Name = "Без бренда" });
     }
+
+    [Transactional]
+    public void Delete(BrandEntity item) => brandRepo.Delete(item);
 }

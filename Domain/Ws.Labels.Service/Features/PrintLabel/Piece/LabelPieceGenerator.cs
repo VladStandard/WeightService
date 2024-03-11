@@ -40,9 +40,8 @@ public class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelS
             Line = labelDto.Line,
             Plu = labelDto.Nesting.Plu
         };
-        labelService.Create(labelSql);
-
-        return labelReady.Zpl;
+        
+        return labelService.Create(labelSql).Zpl;
     }
     
     public void GeneratePiecePallet(LabelPieceDto labelDto, PalletEntity pallet, int labelCount)

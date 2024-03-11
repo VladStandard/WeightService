@@ -49,7 +49,7 @@ internal class PluService(
     public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C)
     {
         PluNestingEntity nesting = GetNestingByUid1C(plu, nestingUid1C);
-        if (nesting.IsExists) SqlCoreHelper.Delete(nesting);
+        if (nesting.IsExists) pluNestingFkRepo.Delete(nesting);
     }
 
     #endregion

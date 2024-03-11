@@ -56,11 +56,6 @@ public static class SqlCoreHelper
         ExecuteTransactionCore(session => session.SaveOrUpdate(item));
         return item;
     }
-
-    public static void Delete<T>(T item) where T : EntityBase
-    {
-        ExecuteTransactionCore(session => session.Delete(item));
-    }
-
+    
     #endregion
 }
