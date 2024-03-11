@@ -7,7 +7,7 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Weight.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;

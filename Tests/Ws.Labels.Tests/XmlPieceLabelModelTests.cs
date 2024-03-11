@@ -1,4 +1,4 @@
-﻿using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
+﻿using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
 
 namespace Ws.Labels.Tests;
 

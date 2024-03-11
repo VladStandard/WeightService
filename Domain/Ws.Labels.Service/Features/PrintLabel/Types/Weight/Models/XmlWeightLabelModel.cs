@@ -2,7 +2,7 @@
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Weight.Models;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
 
 [Serializable]
 public class XmlWeightLabelModel : XmlLabelBaseModel

@@ -1,10 +1,10 @@
-namespace Ws.Labels.Service.Features.PrintLabel.Weight.Dto
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto
 {
     public static partial class LabelWeightDtoMapper
     {
-        public static Ws.Labels.Service.Features.PrintLabel.Weight.Models.XmlWeightLabelModel AdaptToXmlWeightLabelModel(this Ws.Labels.Service.Features.PrintLabel.Weight.Dto.LabelWeightDto p1)
+        public static Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models.XmlWeightLabelModel AdaptToXmlWeightLabelModel(this Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto.LabelWeightDto p1)
         {
-            return p1 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Weight.Models.XmlWeightLabelModel()
+            return p1 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models.XmlWeightLabelModel()
             {
                 Weight = p1.Weight,
                 Kneading = p1.Kneading,
