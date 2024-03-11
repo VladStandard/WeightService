@@ -4,8 +4,8 @@
   Variant="ButtonVariant.Secondary"
   Size="ButtonSize.Full"
   OnClick="@HandleButtonOpenScalesTerminal"
-  disabled="@(!(IsScalesAvailable && !IsOnceClicked))"
-  class="border disabled:!opacity-70"
+  Disabled="@(!(IsScalesAvailable && !IsOnceClicked))"
+  Class="border disabled:!opacity-70"
 >
   <div class="flex items-center flex-col">
     <span class="xl:text-xl">@LabelsLocalizer["BtnScaleCalibration"]</span>

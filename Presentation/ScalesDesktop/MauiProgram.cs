@@ -5,6 +5,7 @@ using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
+using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
@@ -36,6 +37,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<LineContext>();
         builder.Services.AddSingleton<LabelContext>();
         builder.Services.AddSingleton<PalletContext>();
+        
+        builder.Services.AddFluentUIComponents();
 
         builder.Services
             .AddBlazorise()

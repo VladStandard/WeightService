@@ -1,0 +1,40 @@
+@using ScalesDesktop.Source.Shared.UI
+@using ScalesDesktop.Source.Shared.UI.Dialog
+@using ScalesDesktop.Source.Shared.UI.DataGrid
+@using ScalesDesktop.Source.Shared.Utils
+@using Ws.Domain.Models.Entities.Ref1c
+
+
+<Dialog Class="max-w-screen-md w-max">
+  <DialogHeader>
+    <Button
+      Variant="ButtonVariant.Secondary"
+      Class="disabled:!opacity-100"
+      Disabled
+    >
+      Выбор ПЛУ
+    </Button>
+  </DialogHeader>
+  <FluentDataGrid
+    TGridItem="PluEntity"
+    GridTemplateColumns="1fr 3fr"
+    Items="Content.Data"
+    Pagination="Pagination"
+    OnRowFocus="HandleOnRowFocus"
+    RowClass="@(_ => "py-1 border-b hover:bg-secondary/[.5] hover:cursor-pointer md:py-2")"
+    Class="@Css.Class("[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary",
+            "[&_.col-sort-button]:!text-primary [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1")"
+  >
+    <PropertyColumn
+      Property="@(p => p.Number)"
+      Title="@WsDataLocalizer["ColNumber"]"
+      Sortable="true"
+    />
+    <PropertyColumn
+      Property="@(p => p.Name)"
+      Title="@WsDataLocalizer["ColName"]"
+      Sortable="true"
+    />
+  </FluentDataGrid>
+  <DataGridPaginationMobile Pagination="Pagination" />
+</Dialog>

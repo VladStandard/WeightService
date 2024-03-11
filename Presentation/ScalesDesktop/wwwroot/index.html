@@ -11,9 +11,10 @@
   <link href="libs/fontawasome/css/all.min.css" rel="stylesheet"/>
   <link href="libs/blazorise/blazorise.tailwind.min.css" rel="stylesheet" />
   <link href="libs/blazorise/blazorise.snackbar.min.css" rel="stylesheet">
-  <link href="app.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="app.min.css" />
+  <link rel="stylesheet" href="ScalesDesktop.styles.css" />
 </head>
-<body class="h-screen w-screen overflow-hidden bg-background">
+<body class="h-screen w-screen overflow-hidden bg-background antialiased">
   <div class="status-bar-safe-area"></div>
 
   <div class="h-screen w-full overscroll-none overflow-hidden flex items-center justify-center" id="app">
@@ -30,6 +31,7 @@
   </div>
 
   <script src="libs/flowbite/flowbite-v1.5.4.js"></script>
+  <script app-name="ScalesDesktop" src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
   <script src="_framework/blazor.webview.js" autostart="false"></script>
 </body>
 </html>

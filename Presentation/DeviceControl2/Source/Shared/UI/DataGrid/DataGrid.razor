@@ -5,9 +5,9 @@
 <div class="max-w-screen-2xl mx-auto border rounded-md overflow-hidden shadow-sm bg-background mb-4">
   <FluentDataGrid
     TGridItem="TGridItem"
-    Items="@Items"
-    Pagination="@Pagination"
-    GridTemplateColumns="1fr 1fr 4fr"
+    Items="Items"
+    Pagination="Pagination"
+    GridTemplateColumns="@GridTemplate"
     OnRowFocus="@(obj => HandleOnRowFocus(obj))"
     RowClass="@(_ => "hover:bg-secondary/[.5] py-3 border-b")"
     Class="@Css.Class("[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary",

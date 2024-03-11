@@ -6,16 +6,29 @@
 
 @inject IPluService PluService
 
-<DataGrid TGridItem="PluEntity" Items="FilteredData">
-  <PropertyColumn Property="@(p => p.Number)" Title="Номер" Sortable="true">
+<DataGrid TGridItem="PluEntity" Items="FilteredData" GridTemplate="1fr 1fr 4fr">
+  <PropertyColumn
+    Property="@(p => p.Number)"
+    Title="Номер"
+    Sortable="true"
+  >
     <ColumnOptions>
-      <FluentNumberField @bind-Value="Number" Min="0" Class="custom-input" Placeholder="Введите номер..." />
+      <FluentNumberField
+        @bind-Value="Number"
+        Min="0"
+        Class="custom-input"
+        Placeholder="Введите номер..."
+      />
     </ColumnOptions>
   </PropertyColumn>
   <TemplateColumn Title="Тип">
     <span>@(context.IsCheckWeight ? "Весовая": "Штучная")</span>
   </TemplateColumn>
-  <PropertyColumn Property="@(p => p.Name)" Title="Имя" Sortable="true" />
+  <PropertyColumn
+    Property="@(p => p.Name)"
+    Title="Имя"
+    Sortable="true"
+  />
 </DataGrid>
 
 @code {
@@ -42,6 +55,5 @@
     {
       Data = PluService.GetAll().AsQueryable();
     });
-
   }
 }

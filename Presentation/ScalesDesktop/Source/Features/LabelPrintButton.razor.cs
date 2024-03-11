@@ -2,6 +2,7 @@ using Blazorise;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Events;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
@@ -22,6 +23,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
@@ -29,9 +31,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     #endregion
-
     
-
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
@@ -63,7 +63,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         ExternalDevices.Printer.RequestStatus();
         await Task.Delay(PrinterRequestDelay);
 
-        if (!await ValidateScalesStatus() || !await ValidatePrinterStatus()) return;
+        if (!ValidateScalesStatus() || !ValidatePrinterStatus()) return;
 
         try
         {
@@ -76,26 +76,27 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         }
         catch (Exception ex)
         {
-            await NotificationService.Error(ex.ToString());
+            ToastService.ShowError(ex.ToString());
+            // await NotificationService.Error(ex.ToString());
         }
     }
 
-    private async Task<bool> ValidatePrinterStatus()
+    private bool ValidatePrinterStatus()
     {
         if (PrinterStatus is PrinterStatusEnum.Ready or PrinterStatusEnum.Busy) return true;
-        await PrintPrinterStatusMessage();
+        PrintPrinterStatusMessage();
         return false;
     }
 
-    private async Task<bool> ValidateScalesStatus()
+    private bool ValidateScalesStatus()
     {
         switch (LabelContext.Plu.IsCheckWeight)
         {
             case true when !IsScalesStable:
-                await NotificationService.Warning(LabelsLocalizer["ScalesStatusUnstable"]);
+                ToastService.ShowWarning(LabelsLocalizer["ScalesStatusUnstable"]);
                 return false;
             case true when GetWeight() <= 0:
-                await NotificationService.Warning(LabelsLocalizer["ScalesStatusTooLight"]);
+                ToastService.ShowWarning(LabelsLocalizer["ScalesStatusTooLight"]);
                 return false;
             default:
                 return true;
@@ -118,8 +119,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     private static DateTime GetProductDt(DateTime time) =>
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-    private async Task PrintPrinterStatusMessage() =>
-        await NotificationService.Warning(PrinterStatus switch
+    private void PrintPrinterStatusMessage() =>
+        ToastService.ShowWarning(PrinterStatus switch
         {
             PrinterStatusEnum.IsDisabled => LabelsLocalizer["PrinterStatusIsDisabled"],
             PrinterStatusEnum.IsForceDisconnected => LabelsLocalizer["PrinterStatusIsForceDisconnected"],

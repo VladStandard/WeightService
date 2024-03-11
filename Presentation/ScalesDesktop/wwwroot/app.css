@@ -66,28 +66,44 @@
   }
 }
 
-@layer base {
+@layer components {
   * {
-    @apply border-border;
+    --type-ramp-base-font-size: unset;
+    --type-ramp-base-line-height: unset;
+    --neutral-foreground-rest: 0;
+    --type-ramp-base-font-variations: 0;
   }
 
-  .dark {
-    color-scheme: dark;
+  fluent-dialog::part(overlay) {
+    @apply !bg-black/[.6]
   }
 
-  .blazorise-tabs > div:first-child {
-    @apply size-full overflow-hidden;
+  fluent-dialog::part(control) {
+    @apply max-w-[100vw] overflow-x-hidden !p-0 !w-[unset] !shadow-lg !bg-none !rounded-lg !border-none
   }
 
-  .b-table-fixed-header > .b-table {
-    @apply !border-collapse
+  fluent-data-grid {
+    --neutral-fill-stealth-rest: #ffffff;
+    --accent-fill-rest: #18181b;
   }
 
-  .select-dropdown ul {
-    @apply h-fit max-h-60 w-full flex flex-col;
+  .dark fluent-data-grid {
+    --neutral-fill-stealth-rest: #070708;
+    --neutral-fill-stealth-active: #18181b;
+    --neutral-fill-stealth-hover: #252527;
+    --accent-fill-rest: #fafafa;
   }
 
-  .select-button span {
-    @apply w-full text-left font-light text-sm truncate;
+  fluent-tabs {
+    --accent-fill-rest: 0;
+  }
+
+  .custom-input::part(root) {
+    background: inherit;
+    @apply !bg-background !border-border !h-10 !rounded-md
+  }
+
+  .custom-input::part(controls) {
+    @apply py-1
   }
 }
