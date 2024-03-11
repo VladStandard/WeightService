@@ -4,7 +4,6 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Features;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using ScalesDesktop.Source.Widgets.PalletCreateForm;
 using Ws.Domain.Models.Entities.Print;
 
 namespace ScalesDesktop.Source.Widgets.PalletSelect;

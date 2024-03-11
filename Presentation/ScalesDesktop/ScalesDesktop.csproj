@@ -37,12 +37,8 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.css" />
-        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.snackbar.min.css" />
-        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.css" />
-        <MauiAsset Include="wwwroot\libs\blazorise\blazorise.tailwind.min.css" />
-        <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.js" />
-        <MauiAsset Include="wwwroot\libs\flowbite\flowbite-v1.5.4.min.css" />
+
+        <MauiAsset Include="wwwroot\fonts\roboto-font.css" />
 
         <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
         <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
@@ -151,6 +147,8 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Features\Labels\Modules\LabelDisplayDate.razor" />
+      <UpToDateCheckInput Remove="Source\Widgets\PalletCreateForm\CreateForm.razor" />
+      <UpToDateCheckInput Remove="Source\Widgets\PalletCreateForm\CreateFormModal.razor" />
     </ItemGroup>
 
     <ItemGroup>

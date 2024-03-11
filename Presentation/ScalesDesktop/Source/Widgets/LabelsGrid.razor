@@ -1,5 +1,4 @@
 @using Blazor.Heroicons.Outline
-@using Blazorise.DataGrid
 @using ScalesDesktop.Source.Shared.UI
 @using ScalesDesktop.Source.Shared.Utils
 @using Ws.Domain.Models.Entities.Print
@@ -9,7 +8,7 @@
     <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-600" />
     <input
       @bind="SearchingNumber"
-      @bind:after="OnSearchingNumberChanged"
+
       placeholder="@PalletLocalizer["SearchByNumberPlaceholder"]"
       class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
     />
@@ -24,26 +23,29 @@
   </div>
 </div>
 
-<div class="h-full w-full flex grow overflow-hidden p-4 pt-0">
-  <div class="rounded-md border flex bg-background shadow-sm overflow-hidden">
+<div class="size-full flex grow overflow-hidden p-4 pt-0">
+  <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
     <FluentDataGrid
       TGridItem="LabelEntity"
-      GridTemplateColumns="2fr 3fr"
-      Items="Data"
+      GridTemplateColumns="1rem 2fr 3fr"
+      Items="@Data"
       RowClass="@(_ => "py-1 border-b hover:bg-secondary/[.5] hover:cursor-pointer md:py-2")"
-      Class="@Css.Class("[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary",
-               "[&_.col-sort-button]:!text-primary h-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1")"
+      Class="@Css.Class("[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary", "[&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1")"
+      Virtualize
     >
+      <TemplateColumn>
+        <div class="flex items-center">
+
+        </div>
+      </TemplateColumn>
       <PropertyColumn
         Property="@(p => p.CreateDt)"
         Title="@WsDataLocalizer["ColCreateDt"]"
-        Sortable="true"
-      />
+        Sortable="true"/>
       <PropertyColumn
         Property="@(p => p.Line)"
         Title="@nameof(LabelEntity.Line)"
-        Sortable="true"
-      />
+        Sortable="true"/>
     </FluentDataGrid>
     @* <DataGrid *@
     @*   TItem="LabelEntity" *@

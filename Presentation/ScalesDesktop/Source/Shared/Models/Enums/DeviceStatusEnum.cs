@@ -4,5 +4,6 @@ public enum DeviceStatusEnum
 {
     IsDisabled,
     IsForceDisconnected,
+    Warning,
     Connected
 }

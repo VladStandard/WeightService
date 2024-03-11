@@ -21,7 +21,7 @@ public sealed partial class ScaleStatusIcon : ComponentBase, IDisposable
             ScalesStatus.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
             _ => DeviceStatusEnum.Connected
         };
-        InvokeAsync(StateHasChanged);
+        StateHasChanged();
     }
 
     private string GetScaleStatusStyle() => DeviceStatus switch

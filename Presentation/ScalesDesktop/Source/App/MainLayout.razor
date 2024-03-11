@@ -1,6 +1,4 @@
-﻿@using Blazorise
-@using Blazorise.Components
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <div class="w-screen h-screen overflow-hidden text-black bg-secondary/90 overscroll-none">
   @Body
@@ -8,5 +6,3 @@
 
 <FluentDialogProvider />
 <FluentToastProvider Position="ToastPosition.TopCenter" />
-<ModalProvider UseModalStructure="false" Class="!p-0 [&_div[role=document]]:!h-auto" Size="ModalSize.Large"  />
-<NotificationProvider Class="bg-primary" Location="NotificationLocation.Center"  />

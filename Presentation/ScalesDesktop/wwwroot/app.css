@@ -72,7 +72,6 @@
     --type-ramp-base-line-height: unset;
     --neutral-foreground-rest: 0;
     --type-ramp-base-font-variations: 0;
-    --base-height-multiplier: 0;
   }
 
   fluent-dialog::part(overlay) {

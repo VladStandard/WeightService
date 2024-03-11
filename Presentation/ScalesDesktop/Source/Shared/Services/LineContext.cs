@@ -36,7 +36,6 @@ public class LineContext : IDisposable
 
     public void ResetLine()
     {
-        ExternalDevices.Scales.Disconnect();
         Line = LineService.GetCurrentLine();
         PrinterEntity = Line.Printer;
         ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);

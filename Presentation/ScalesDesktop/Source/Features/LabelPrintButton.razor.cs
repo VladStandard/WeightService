@@ -87,17 +87,19 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 
     private bool ValidateScalesStatus()
     {
-        switch (LabelContext.Plu.IsCheckWeight)
+        if (!IsScalesStable)
         {
-            case true when !IsScalesStable:
-                ToastService.ShowWarning(LabelsLocalizer["ScalesStatusUnstable"]);
-                return false;
-            case true when GetWeight() <= 0:
-                ToastService.ShowWarning(LabelsLocalizer["ScalesStatusTooLight"]);
-                return false;
-            default:
-                return true;
+            ToastService.ShowWarning(LabelsLocalizer["ScalesStatusUnstable"]);
+            return false;
         }
+
+        if (GetWeight() <= 0)
+        {
+            ToastService.ShowWarning(LabelsLocalizer["ScalesStatusTooLight"]);
+            return false;
+        }
+
+        return true;
     }
 
     private LabelWeightDto CreateLabelInfoDto() =>

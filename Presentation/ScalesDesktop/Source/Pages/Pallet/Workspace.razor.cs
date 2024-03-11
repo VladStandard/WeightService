@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using ScalesDesktop.Source.Widgets.PalletCreateForm;
 using Ws.Shared.Enums;
 using Ws.SharedUI.Resources;
 

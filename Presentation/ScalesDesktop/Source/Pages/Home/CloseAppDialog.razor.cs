@@ -1,14 +1,12 @@
-// ReSharper disable ClassNeverInstantiated.Global
-
-using Blazorise;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace ScalesDesktop.Source.Pages.Home;
 
-public sealed partial class CloseAppDialog : ComponentBase
+public sealed partial class CloseAppDialog : ComponentBase, IDialogContentComponent
 {
-    [Inject] private IModalService ModalService { get; set; } = null!;
+    [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 
     private static void ExitApp() => MauiWinUIApplication.Current.Exit();
-    private async Task CloseDialog() => await ModalService.Hide();
+    private async Task CloseDialog() => await Dialog.CloseAsync();
 }

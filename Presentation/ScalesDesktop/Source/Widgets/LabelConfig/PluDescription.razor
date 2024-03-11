@@ -24,5 +24,11 @@
     <ShoppingBagIcon class="size-4 mr-1" />
     <h3>Пакет</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(Plu.Bundle, PluNesting.BundleCount)</span>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(Plu.Bundle)</span>
+
+  <div class="flex items-center text-muted-foreground">
+      <InboxStackIcon class="size-4 mr-1" />
+      <h3>Кол-во</h3>
+    </div>
+    <span class="line-clamp-2">@PluNesting.BundleCount шт</span>
 </div>

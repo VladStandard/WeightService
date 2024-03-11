@@ -1,21 +1,25 @@
-<div class="w-full flex flex-col px-6 py-3">
-  <p class="text-2xl py-8 text-center">
-    Вы хотите выйти из приложения?
-  </p>
-  <div class="h-14 mt-4 w-full flex justify-between gap-6">
-    <button
-      type="button"
-      class="h-full w-full overflow-hidden rounded-lg transition-colors border bg-gray-100 border-gray-300 text-gray-600 hover:bg-red-200 hover:border-red-300 hover:text-red-600"
-      @onclick="CloseDialog"
-    >
-      <p class="text-lg">Отмена</p>
-    </button>
-    <button
-      type="button"
-      class="bg-green-400 rounded-lg h-full w-full overflow-hidden transition-colors hover:bg-green-500"
-      @onclick="ExitApp"
-    >
-      <p class="text-lg text-white">Выход</p>
-    </button>
+@using ScalesDesktop.Source.Shared.UI.Dialog
+
+<Dialog class="max-w-screen-sm">
+  <div class="w-full flex flex-col px-6 py-3">
+    <p class="text-2xl py-8 text-center">
+      Вы хотите выйти из приложения?
+    </p>
+    <div class="h-14 mt-4 w-full flex justify-between gap-6">
+      <button
+        type="button"
+        class="h-full w-full overflow-hidden rounded-lg transition-colors border bg-gray-100 border-gray-300 text-gray-600 hover:bg-red-200 hover:border-red-300 hover:text-red-600"
+        @onclick="CloseDialog"
+      >
+        <p class="text-lg">Отмена</p>
+      </button>
+      <button
+        type="button"
+        class="bg-green-400 rounded-lg h-full w-full overflow-hidden transition-colors hover:bg-green-500"
+        @onclick="ExitApp"
+      >
+        <p class="text-lg text-white">Выход</p>
+      </button>
+    </div>
   </div>
-</div>
+</Dialog>
