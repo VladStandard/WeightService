@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Models;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Piece.Validators;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Validators;
 
-public class XmlLabelPieceValidator : AbstractValidator<XmlPieceLabelModel>
+internal class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabelModel>
 {
-    public XmlLabelPieceValidator()
+    public XmlLabelPiecePalletValidator()
     {
         RuleFor(i => i.LineNumber).GreaterThanOrEqualTo(0).WithMessage("Номер линии должен быть >= 1");
         RuleFor(i => i.Kneading).GreaterThanOrEqualTo((short)1).WithMessage("Замес должен быть >= 1");

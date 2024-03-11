@@ -32,4 +32,8 @@
       <EmbeddedResource Remove="obj\**" />
     </ItemGroup>
     
+    <ItemGroup>
+      <Folder Include="Features\PrintLabel\Types\" />
+    </ItemGroup>
+    
 </Project>

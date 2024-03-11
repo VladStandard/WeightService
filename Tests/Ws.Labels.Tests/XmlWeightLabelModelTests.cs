@@ -1,4 +1,4 @@
-﻿using Ws.Labels.Service.Features.PrintLabel.Weight.Models;
+﻿using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
 
 namespace Ws.Labels.Tests;
 

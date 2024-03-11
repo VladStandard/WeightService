@@ -2,7 +2,7 @@
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Piece.Models;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
 
 [Serializable]
 public class XmlPieceLabelModel : XmlLabelBaseModel
@@ -19,8 +19,7 @@ public class XmlPieceLabelModel : XmlLabelBaseModel
                $"00000{IntUtils.ToStringToLen(Kneading, 3)}";
         set => _ = value;
     }
-
-
+    
     [XmlElement] public override string BarCodeRight
     {
         get => $"234{IntUtils.ToStringToLen(LineNumber, 5)}" +
