@@ -6,13 +6,12 @@ using Ws.Printers.Events;
 
 namespace Ws.Printers.Features.Tsc.Commands;
 
-public class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1B!?")
+internal class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1B!?")
 {
     protected override void Response(NetworkStream stream)
     {
-        byte[] buffer = new byte[1];
-        _ = stream.Read(buffer, 0, buffer.Length);
-        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(GetStatus(buffer[0])));
+        int buffer = stream.ReadByte();
+        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(GetStatus((byte)buffer)));
     }
 
     private static PrinterStatusEnum GetStatus(byte value)

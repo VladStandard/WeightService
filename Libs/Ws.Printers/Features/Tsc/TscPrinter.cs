@@ -4,10 +4,7 @@ using Ws.Printers.Features.Tsc.Commands;
 
 namespace Ws.Printers.Features.Tsc;
 
-public class TscPrinter(IPAddress ip, int port) : PrinterBase(ip, port)
+internal class TscPrinter(IPAddress ip, int port) : PrinterBase(ip, port)
 {
-    public override void RequestStatus()
-    {
-        ExecuteCommand(new TscGetStatusCommand(TcpClient));
-    }
+    public override void RequestStatus() => ExecuteCommand(new TscGetStatusCommand(TcpClient));
 }
