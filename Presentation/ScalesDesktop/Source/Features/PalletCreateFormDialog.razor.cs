@@ -5,14 +5,12 @@ using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.SharedUI.Resources;
 
 namespace ScalesDesktop.Source.Features
@@ -27,7 +25,6 @@ namespace ScalesDesktop.Source.Features
         [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
         [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
         [Inject] private IStringLocalizer<Resources> Localizer { get; set; } = null!;
-        [Inject] private IPalletService PalletService { get; set; } = null!;
     
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
@@ -51,17 +48,10 @@ namespace ScalesDesktop.Source.Features
 
         private async Task OnSubmit()
         {
-            PalletEntity palletEntity = new()
+            LabelPiecePalletDto dto = new ()
             {
                 PalletMan = PalletContext.PalletMan,
                 Weight = FormModel.PalletWeight,
-                ProdDt = FormModel.CreateDt,
-                Barcode = string.Empty
-            };
-            PalletService.Create(palletEntity);
-
-            LabelPieceDto dto = new ()
-            {
                 ExpirationDt = FormModel.CreateDt.AddDays(FormModel.Plu!.ShelfLifeDays),
                 Kneading = FormModel.Kneading,
                 Line = LineContext.Line,
@@ -72,7 +62,7 @@ namespace ScalesDesktop.Source.Features
 
             await Task.Run(() =>
             {
-                PrintLabelService.GeneratePiecePallet(dto, palletEntity, FormModel.Count);
+                PrintLabelService.GeneratePiecePallet(dto, FormModel.Count);
                 PalletContext.UpdatePalletData();
             });
             
@@ -88,13 +78,13 @@ namespace ScalesDesktop.Source.Features
         [Required(ErrorMessage = "Поле 'Вложенность' обязательно для заполнения")]
         public PluNestingEntity? Nesting { get; set; }
 
-        [Range(1, 200, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 200")]
+        [Range(1, 240, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 240")]
         public int Count { get; set; } = 1;
 
-        [Range(0, double.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
+        [Range(0, 999, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0 и больше 999")]
         public decimal PalletWeight { get; set; }
 
-        [Range(1, short.MaxValue, ErrorMessage = "Поле 'Вес паллеты' не может быть меньше 0")]
+        [Range(1, 999, ErrorMessage = "Поле 'Замес' не может быть меньше 1 и больше 999")]
         public short Kneading { get; set; } = 1;
 
         public DateTime CreateDt { get; set; } = DateTime.Now;
