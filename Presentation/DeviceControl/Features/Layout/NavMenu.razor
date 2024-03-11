@@ -1,10 +1,16 @@
 @using Blazor.Heroicons.Outline
+@using DeviceControl.Auth.Claims
 
 <nav class="flex sticky top-0 flex-col bg-background w-full overflow-hidden grow h-screen border-r @(!IsProduction ? "invert1" : "" )">
   <div class="flex flex-col items-center border-b shrink-0 justify-center h-14">
-    <a href="@RouteUtils.Home" class="text-lg">
+    <a href="@RouteUtils.Home">
       @Localizer["ApplicationName"]
     </a>
+    <AuthorizeView Policy="@PolicyNameUtils.Admin">
+        <span class="text-xs text-muted-foreground">
+          @TimeOnline
+        </span>
+    </AuthorizeView>
   </div>
   <div class="w-full h-full overflow-y-auto">
     <ul class="flex select-none w-full gap-1 mt-2 flex-col">
