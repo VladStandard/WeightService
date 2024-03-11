@@ -20,14 +20,14 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
     
     #region Public
 
-    public void Connect()
+    public async void Connect()
     {
         try
         {
             TcpClient.Dispose();
             TcpClient = new() { ReceiveTimeout = 200 };
+            await TcpClient.ConnectAsync(ip, port).WaitAsync(TimeSpan.FromMilliseconds(200));
             
-            TcpClient.ConnectAsync(ip, port).WaitAsync(TimeSpan.FromMilliseconds(200));
             SetStatus(PrinterStatusEnum.Ready);
         }
         catch (Exception)
@@ -53,18 +53,18 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
         Status = state;
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
     }
+    
     protected void ExecuteCommand(PrinterCommandBase command)
     {
         if (Status is PrinterStatusEnum.IsDisabled) return;
+        if (Status is PrinterStatusEnum.IsForceDisconnected)  Connect();
         
-        try
-        {
-            if (Status is PrinterStatusEnum.IsForceDisconnected)  Connect();
-            ErrorUtil.Suppress<TimeoutException>(command.Request);
+        try {
+            command.Request();
         }
         catch (Exception)
         {
-            Connect();
+            SetStatus(PrinterStatusEnum.IsForceDisconnected);
         }
     }
 

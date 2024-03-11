@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
 using DeviceControl.Resources;
+using DeviceControl.Services;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -11,12 +12,13 @@ namespace DeviceControl.Features.Layout;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private StartupService StartupService { get; set; } = null!;
     [Parameter] public ClaimsPrincipal? User { get; set; }
-
+    
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-
+    private string TimeOnline => $"{StartupService.TimeOnline.Days} дн {StartupService.TimeOnline.Hours} ч {StartupService.TimeOnline.Minutes} мин";
     protected override void OnInitialized()
     {
         IsProduction = !ConfigurationUtil.IsDevelop;

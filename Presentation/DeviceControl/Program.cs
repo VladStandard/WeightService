@@ -40,7 +40,9 @@ builder.Services.AddLocalization();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
+
 builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
+builder.Services.AddSingleton<StartupService>();
 
 #endregion
 
