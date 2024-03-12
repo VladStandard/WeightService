@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Utils;
 
 namespace ScalesDesktop.Source.Shared.UI;
 

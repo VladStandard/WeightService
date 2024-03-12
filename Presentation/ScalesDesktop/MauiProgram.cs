@@ -1,8 +1,5 @@
 ﻿using System.Globalization;
 using Append.Blazor.Printing;
-using Blazorise;
-using Blazorise.Icons.FontAwesome;
-using Blazorise.Tailwind;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -39,11 +36,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<PalletContext>();
         
         builder.Services.AddFluentUIComponents();
-
-        builder.Services
-            .AddBlazorise()
-            .AddTailwindProviders()
-            .AddFontAwesomeIcons();
 
         return builder;
     }

@@ -50,6 +50,8 @@ builder.Services.AddSingleton<StartupService>();
 
 WebApplication app = builder.Build();
 
+app.Services.GetService<StartupService>();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
