@@ -60,13 +60,16 @@ namespace ScalesDesktop.Source.Features
                 Template = PluService.GetPluTemplate(FormModel.Plu).Body
             };
 
-            await Task.Run(() =>
+            try
             {
-                PrintLabelService.GeneratePiecePallet(dto, FormModel.Count);
+                await Task.Run(() => { PrintLabelService.GeneratePiecePallet(dto, FormModel.Count); });
                 PalletContext.UpdatePalletData();
-            });
-            
-            await Dialog.CloseAsync();
+                await Dialog.CloseAsync();
+            }
+            catch
+            {
+                ToastService.ShowError("Ошибка при создании паллеты");    
+            }
         } 
     }
 
