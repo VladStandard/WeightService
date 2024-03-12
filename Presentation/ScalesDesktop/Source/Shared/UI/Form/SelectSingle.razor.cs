@@ -44,6 +44,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
         SelectedItem = item;
         await SelectedItemChanged.InvokeAsync(SelectedItem);
         SearchString = string.Empty;
+        IsOpen = false;
     }
 
     private IEnumerable<TItem> GetFilteredList => string.IsNullOrWhiteSpace(SearchString) ? Items :

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
@@ -36,6 +37,12 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
         new() { Title = "0", CalculatorAction = () => SetNumber(0) },
         new() { Title = Localizer["BtnEnter"], CalculatorAction = SubmitInput }
     ];
+    
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Code is "Enter" or "NumpadEnter")
+            SubmitInput();
+    }
 
     private async void SubmitInput()
     {
