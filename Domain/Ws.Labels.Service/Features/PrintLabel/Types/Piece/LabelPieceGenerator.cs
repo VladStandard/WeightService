@@ -12,7 +12,7 @@ using Ws.Labels.Service.Features.PrintLabel.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 
-internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService, IPalletService palletService)
+internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPalletService palletService)
 {
     public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount)
     {
@@ -42,9 +42,8 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
             ProdDt = labelPalletDto.ProductDt,
             PalletMan = labelPalletDto.PalletMan,
         };
-        palletService.Create(pallet);
-
-        
+   
+        IList<LabelEntity> labels = [];
         for (int i = 0; i < labelCount; i++)
         {
             labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
@@ -53,11 +52,12 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
                 throw new LabelGenerateException(result);
             
             LabelEntity label = GenerateLabel(labelPalletDto, zplItems, labelXml);
-            label.Pallet = pallet;
             
-            labelService.Create(label);
+            labels.Add(label);
+            
             labelPalletDto = labelPalletDto with { ProductDt = labelPalletDto.ProductDt.AddSeconds(1) };
         }
+        palletService.Create(pallet, labels);
     }
     
     private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems, 

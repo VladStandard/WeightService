@@ -36,7 +36,7 @@
           ItemDisplayName="entity => entity.DisplayName"
           @bind-SelectedItem="@FormModel.Plu"
           @bind-SelectedItem:after="SetPluNestings"
-          Items="GetAllPlus()"
+          Items="Plus"
           IsFilterable/>
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlFor="nesting">

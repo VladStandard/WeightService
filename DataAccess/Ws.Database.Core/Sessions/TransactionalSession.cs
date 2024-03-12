@@ -30,8 +30,6 @@ public class TransactionalSession : ITransactionalSession
     public void Dispose()
     {
         CurrentSessionContext.Unbind(_session.SessionFactory);
-        Rollback();
-
         _session.Dispose();
         _transaction.Dispose();
     }
