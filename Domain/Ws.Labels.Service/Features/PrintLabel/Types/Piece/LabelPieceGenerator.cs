@@ -28,19 +28,22 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
         if (!result.IsValid)
             throw new LabelGenerateException(result);
 
-        PalletEntity pallet = new()
-        {
-            Barcode = string.Empty,
-            ProdDt = labelPalletDto.ProductDt,
-            PalletMan = labelPalletDto.PalletMan,
-        };
-        palletService.Create(pallet);
-        
+                
         ZplItemsDto zplItems = new(
             labelPalletDto.Template, 
             labelPalletDto.Nesting.Plu.StorageMethod.Zpl, 
             zplResourceService.GetAllCachedResources()
         );
+        
+        PalletEntity pallet = new()
+        {
+            Barcode = string.Empty,
+            Weight = labelPalletDto.Weight,
+            ProdDt = labelPalletDto.ProductDt,
+            PalletMan = labelPalletDto.PalletMan,
+        };
+        palletService.Create(pallet);
+
         
         for (int i = 0; i < labelCount; i++)
         {
