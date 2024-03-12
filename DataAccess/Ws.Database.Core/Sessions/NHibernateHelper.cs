@@ -78,5 +78,7 @@ public static class NHibernateHelper
         throw new DataBaseSessionException();
     }
 
+    public static bool SessionExists() => CurrentSessionContext.HasBind(SessionFactory);
+
     #endregion
 }
