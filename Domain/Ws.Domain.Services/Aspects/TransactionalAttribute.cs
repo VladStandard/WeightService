@@ -16,11 +16,7 @@ internal class TransactionalAttribute : OnMethodBoundaryAspect
 
     public override void OnEntry(MethodExecutionArgs args)
     {
-        bool sessionNotExist = ErrorUtil.Suppress<DataBaseSessionException>(
-        () => NHibernateHelper.GetSession()
-        );
-        if (!sessionNotExist) return;
-
+        if (NHibernateHelper.SessionExists()) return;
         UnitOfWork = new TransactionalSession();
     }
 
