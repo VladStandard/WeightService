@@ -4,6 +4,8 @@
 @using ScalesDesktop.Source.Shared.Utils
 @using Ws.Domain.Models.Entities.Ref1c
 @using Ws.Domain.Models.Entities.Scale
+@using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
+
 
 <Dialog class="max-w-screen-lg">
   <DialogHeader>
@@ -24,10 +26,11 @@
     >
       <DataAnnotationsValidator/>
       <InputLabelWrapper Label="@WsDataLocalizer["ColWarehouse"]" HtmlFor="warehouse">
-        <VsInputText
+        <InputTextField
           id="warehouse"
           Value="@LineContext.Line.Warehouse.Name"
-          disabled/>
+          readonly
+        />
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlFor="plu">
         <SelectSingle
@@ -49,40 +52,37 @@
           IsDisabled="@(FormModel.Plu == null || !PluNestings.Any())"/>
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColPalletWeight"]" HtmlFor="pallet-weight">
-        <VsInputNumber
+        <InputNumberField
           TValue="decimal"
           id="pallet-weight"
-          step="0.001"
-          Min="@decimal.Zero"
-          placeholder="@Localizer["PalletWeightInputPlaceholder"]"
+          Step="0.001"
+          Min="0"
+          Placeholder="@Localizer["PalletWeightInputPlaceholder"]"
           @bind-Value="FormModel.PalletWeight"/>
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColCreateDt"]" HtmlFor="create-dt">
-        <VsInputDate
-          id="create-dt"
-          TValue="DateTime"
-          Type="InputDateType.DateTimeLocal"
-          @bind-Value="FormModel.CreateDt"/>
+        <InputDateField @bind-Value="FormModel.CreateDt" />
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColCount"]" HtmlFor="count">
-        <VsInputNumber
+        <InputNumberField
           TValue="int"
           id="count"
-          step="1"
+          Step="1"
           Min="1"
-          placeholder="@Localizer["LabelCountInputPlaceholder"]"
-          @bind-Value="FormModel.Count"/>
+          Placeholder="@Localizer["LabelCountInputPlaceholder"]"
+          @bind-Value="FormModel.Count"
+        />
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColKneading"]" HtmlFor="kneading">
-        <VsInputNumber
+        <InputNumberField
           TValue="short"
           id="kneading"
-          step="1"
-          Min="0"
-          placeholder="@Localizer["KneadingInputPlaceholder"]"
+          Step="1"
+          Min="1"
+          Placeholder="@Localizer["KneadingInputPlaceholder"]"
           @bind-Value="FormModel.Kneading"/>
       </InputLabelWrapper>
-      <Button Type="Shared.UI.ButtonType.Submit" Class="!mt-8 !mb-2">
+      <Button Type="ButtonType.Submit" Class="!mt-8 !mb-2">
         @Localizer["BtnCreate"]
       </Button>
     </EditForm>

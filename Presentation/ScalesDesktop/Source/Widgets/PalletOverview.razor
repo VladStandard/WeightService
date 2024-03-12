@@ -12,83 +12,74 @@
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-4 px-2 lg:grid-cols-2 items-start">
     <div class="space-y-2">
       <Label for="number">@WsDataLocalizer["ColNumber"]</Label>
-      <VsInputText
+      <InputTextField
         id="number"
         Value="@PalletContext.CurrentPallet.Counter.ToString()"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="barcode">@WsDataLocalizer["ColBarcode"]</Label>
-      <VsInputText
+      <InputTextField
         id="barcode"
         Value="@PalletContext.CurrentPallet.Barcode"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="line">@WsDataLocalizer["ColLine"]</Label>
-      <VsInputText
+      <InputTextField
         id="line"
         Value="@PalletContext.CurrentPallet.Line"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="delivery">@WsDataLocalizer["ColPalletMan"]</Label>
-      <VsInputText
+      <InputTextField
         id="delivery"
         Value="@PalletContext.CurrentPallet.PalletMan"
-        class="disabled:opacity-100"
-        disabled
-        />
+        ReadOnly
+      />
     </div>
     <div class="space-y-2">
       <Label for="count">@WsDataLocalizer["ColCount"]</Label>
-      <VsInputText
+      <InputTextField
         id="count"
         Value="@PalletContext.CurrentPallet.LabelCount.ToString()"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="kneading">@WsDataLocalizer["ColKneading"]</Label>
-      <VsInputText
+      <InputTextField
         id="kneading"
         Value="@PalletContext.CurrentPallet.Kneading.ToString()"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="netto">@WsDataLocalizer["ColNetWeight"]</Label>
-      <VsInputText
+      <InputTextField
         id="netto"
         Value="@PalletContext.CurrentPallet.WeightNet?.ToString(CultureInfo.InvariantCulture)"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="brutto">@WsDataLocalizer["ColGrossWeight"]</Label>
-      <VsInputText
+      <InputTextField
         id="brutto"
         Value="@PalletContext.CurrentPallet.WeightBrut?.ToString(CultureInfo.InvariantCulture)"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
     <div class="space-y-2">
       <Label for="plu">@WsDataLocalizer["ColPlu"]</Label>
-      <VsInputText
+      <InputTextField
         id="plu"
         Value="@PalletContext.CurrentPallet.Plu"
-        class="disabled:opacity-100"
-        disabled
+        ReadOnly
       />
     </div>
   </div>

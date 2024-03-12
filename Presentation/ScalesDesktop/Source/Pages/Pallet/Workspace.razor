@@ -16,27 +16,25 @@
         <div class="w-1/2 space-y-2">
           <ScalesDesktop.Source.Shared.UI.Label>@WsDataLocalizer["ColUser"]</ScalesDesktop.Source.Shared.UI.Label>
           <div class="flex items-center gap-2">
-            <VsInputText
+            <InputTextField
               Value="@PalletContext.PalletMan.FioShort"
-              class="!opacity-100"
-              disabled
+              ReadOnly
             />
             <ScalesDesktop.Source.Shared.UI.Button
               Variant="ButtonVariant.Outline"
               Size="ButtonSize.Icon"
               OnClick="@PalletContext.ResetPalletMan"
-              class="shrink-0 !h-10 !w-10"
+              class="shrink-0"
             >
-              <ArrowLeftOnRectangleIcon class="h-4 w-4" />
+              <ArrowLeftOnRectangleIcon class="size-4" />
             </ScalesDesktop.Source.Shared.UI.Button>
           </div>
         </div>
         <div class="w-1/2 space-y-2">
           <ScalesDesktop.Source.Shared.UI.Label>@WsDataLocalizer["ColWarehouse"]</ScalesDesktop.Source.Shared.UI.Label>
-          <VsInputText
+          <InputTextField
             Value="@LineContext.Line.Warehouse.Name"
-            class="!opacity-100"
-            disabled
+            ReadOnly
           />
         </div>
       </div>

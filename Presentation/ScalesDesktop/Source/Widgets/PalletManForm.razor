@@ -26,11 +26,11 @@
       />
     </InputLabelWrapper>
     <InputLabelWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlFor="login-password">
-      <VsInputText
+      <InputTextField
         id="login-password"
         @bind-Value="@FormModel.Password"
-        type="password"
-        placeholder="@PalletLocalizer["PasswordInputPlaceholder"]"
+        Type="TextInputType.Password"
+        Placeholder="@PalletLocalizer["PasswordInputPlaceholder"]"
       />
     </InputLabelWrapper>
     <Button Type="ButtonType.Submit" Class="!mt-4">
