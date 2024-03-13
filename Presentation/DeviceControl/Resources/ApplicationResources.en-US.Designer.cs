@@ -879,6 +879,15 @@ namespace ScalesDesktop.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Print settings.
+        /// </summary>
+        internal static string MenuPrintSettings {
+            get {
+                return ResourceManager.GetString("MenuPrintSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to References.
         /// </summary>
         internal static string MenuReferences {

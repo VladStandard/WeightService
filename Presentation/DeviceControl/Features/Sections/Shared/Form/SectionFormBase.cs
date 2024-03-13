@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using Blazorise;
 using DeviceControl.Resources;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Services.Exceptions;
@@ -10,17 +12,20 @@ namespace DeviceControl.Features.Sections.Shared.Form;
 
 public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
+    [Inject] private AuthenticationStateProvider AuthProvider { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Parameter] public TItem SectionEntity { get; set; } = new();
     [Parameter] public EventCallback OnSubmitAction { get; set; }
 
     private TItem SectionEntityCopy { get; set; } = new();
+    protected ClaimsPrincipal User { get; set; } = new();
+    
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
+        User =  (await AuthProvider.GetAuthenticationStateAsync()).User;
         SectionEntityCopy = SectionEntity.DeepClone();
-        return Task.CompletedTask;
     }
 
     protected string GetMockIfEmptyInput(string value) =>
@@ -90,4 +95,6 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
             await NotificationService.Error("Удаление не возможно. Запись используется");
         }
     }
+    
+    protected bool UserHasClaim(string claim) => User.HasClaim(c => c.Value == claim);
 }

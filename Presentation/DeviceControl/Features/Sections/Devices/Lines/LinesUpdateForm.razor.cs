@@ -1,5 +1,7 @@
+using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -31,4 +33,10 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
         WarehousesEntities = WarehouseService.GetAll();
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
     }
+    
+    private string GetPrinterLink() => SectionEntity.Printer.IsNew || !UserHasClaim(PolicyNameUtils.Support)?
+        string.Empty : $"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.Uid}";
+    
+    private string GetWarehouseLink() => SectionEntity.Warehouse.IsNew || !UserHasClaim(PolicyNameUtils.Admin)?
+        string.Empty : $"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.Uid}";
 }

@@ -5,9 +5,9 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.StorageMethod;
 
-namespace DeviceControl.Features.Sections.References.StorageMethods;
+namespace DeviceControl.Features.Sections.PrintSettings.StorageMethods;
 
-public sealed partial class StorageMethodsCreateForm : SectionFormBase<StorageMethodEntity>
+public sealed partial class StorageMethodsUpdateForm : SectionFormBase<StorageMethodEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IStorageMethodService StorageMethodService { get; set; } = null!;

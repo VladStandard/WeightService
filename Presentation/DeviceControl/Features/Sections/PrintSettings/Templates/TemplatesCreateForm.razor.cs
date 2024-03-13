@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Template;
 
-namespace DeviceControl.Features.Sections.References.Templates;
+namespace DeviceControl.Features.Sections.PrintSettings.Templates;
 
 public sealed partial class TemplatesCreateForm : SectionFormBase<TemplateEntity>
 {

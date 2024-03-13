@@ -34,7 +34,8 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuDevices"],
-            Icon = HeroiconName.DeviceTablet,
+            Icon = HeroiconName.ComputerDesktop,
+            RequiredClaim = PolicyNameUtils.Support,
             SubItems =
             [
                 new(Localizer["SectionLines"], RouteUtils.SectionLines),
@@ -68,28 +69,25 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuReferences"],
             Icon = HeroiconName.BookOpen,
+            RequiredClaim = PolicyNameUtils.Admin,
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
                 new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites),
+            ]
+        },
+        new()
+        {
+            Label = Localizer["MenuPrintSettings"],
+            Icon = HeroiconName.Printer,
+            RequiredClaim = PolicyNameUtils.Admin,
+            SubItems =
+            [
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
                 new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
                 new(Localizer["SectionPluStorages"], RouteUtils.SectionStorageMethods)
             ]
         },
-
-        new()
-        {
-            Label = Localizer["MenuDiagnostics"],
-            Icon = HeroiconName.Wrench,
-            RequiredClaim = PolicyNameUtils.Admin,
-            SubItems =
-            [
-                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
-                new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
-            ]
-        },
-
         new()
         {
             Label = Localizer["MenuAdministration"],
@@ -101,7 +99,18 @@ public sealed partial class NavMenu : ComponentBase
                 new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyNameUtils.Admin),
                 new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyNameUtils.Admin),
             ]
-        }
+        },
+        new()
+        {
+            Label = Localizer["MenuDiagnostics"],
+            Icon = HeroiconName.Wrench,
+            RequiredClaim = PolicyNameUtils.Admin,
+            SubItems =
+            [
+                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
+                new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
+            ]
+        },
     ];
 
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";

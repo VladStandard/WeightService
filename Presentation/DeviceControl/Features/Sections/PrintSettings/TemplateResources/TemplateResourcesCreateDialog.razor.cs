@@ -6,12 +6,12 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Shared.Enums;
 
-namespace DeviceControl.Features.Sections.References.Templates;
+namespace DeviceControl.Features.Sections.PrintSettings.TemplateResources;
 
-public sealed partial class TemplatesCreateDialog : SectionDialogBase<TemplateEntity>
+public sealed partial class TemplateResourcesCreateDialog : SectionDialogBase<ZplResourceEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
     protected override List<EnumTypeModel<string>> InitializeTabList() =>
-        [new(Localizer["SectionTemplates"], "main")];
+        [new(Localizer["SectionTemplatesResources"], "main")];
 }

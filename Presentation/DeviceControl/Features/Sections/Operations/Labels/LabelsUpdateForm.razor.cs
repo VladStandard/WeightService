@@ -1,3 +1,4 @@
+using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -29,10 +30,10 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
-    private string GetTemplateLink() => Template.IsNew ?
+    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin)?
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
 
-    private string GetLineLink() => SectionEntity.Line.IsNew ?
+    private string GetLineLink() => SectionEntity.Line.IsNew || !UserHasClaim(PolicyNameUtils.Support) ?
         string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.Uid}";
 
     private string GetPluLink() => SectionEntity.Plu.IsNew ?

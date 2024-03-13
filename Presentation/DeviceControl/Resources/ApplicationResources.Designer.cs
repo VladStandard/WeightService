@@ -881,6 +881,15 @@ namespace DeviceControl.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string MenuPrintSettings {
+            get {
+                return ResourceManager.GetString("MenuPrintSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string MenuReferences {
             get {
                 return ResourceManager.GetString("MenuReferences", resourceCulture);

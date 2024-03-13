@@ -1,6 +1,5 @@
 @using DeviceControl.Auth.Claims
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
-@attribute [Authorize(Policy = PolicyNameUtils.Support)]
 
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity, PalletManService.Update)"

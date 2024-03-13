@@ -6,9 +6,9 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Shared.Enums;
 
-namespace DeviceControl.Features.Sections.References.Templates;
+namespace DeviceControl.Features.Sections.PrintSettings.Templates;
 
-public sealed partial class TemplatesUpdateDialog : SectionDialogBase<TemplateEntity>
+public sealed partial class TemplatesCreateDialog : SectionDialogBase<TemplateEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 

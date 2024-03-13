@@ -1,4 +1,6 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionPageBase
 @attribute [Route($"{RouteUtils.SectionProductionSites}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyNameUtils.Admin)]
 
 <ProductionSitesDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

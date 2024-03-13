@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Shared.Enums;
 
-namespace DeviceControl.Features.Sections.References.StorageMethods;
+namespace DeviceControl.Features.Sections.PrintSettings.StorageMethods;
 
 public sealed partial class StorageMethodsCreateDialog : SectionDialogBase<StorageMethodEntity>
 {

@@ -417,4 +417,7 @@
     <data name="DataGridColumnDatabaseTables" xml:space="preserve">
         <value>Таблицы</value>
     </data>
+    <data name="MenuPrintSettings" xml:space="preserve">
+        <value>Настройки печати</value>
+    </data>
 </root>

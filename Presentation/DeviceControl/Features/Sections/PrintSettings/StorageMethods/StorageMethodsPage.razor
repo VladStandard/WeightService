@@ -1,5 +1,7 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionPageBase
 @attribute [Route($"{RouteUtils.SectionStorageMethods}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyNameUtils.Admin)]
 
 
 <StorageMethodsDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

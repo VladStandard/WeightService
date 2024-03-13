@@ -74,6 +74,18 @@
       <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\DatabaseFilesDialog.razor" />
       <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\DatabaseFilesPage.razor" />
       <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\FileTablesDataGrid.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesCreateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesCreateForm.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesDataGrid.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesPage.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesUpdateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesUpdateForm.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesCreateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesCreateForm.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesDataGrid.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesPage.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesUpdateDialog.razor" />
+      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesUpdateForm.razor" />
     </ItemGroup>
     
     <ItemGroup>
@@ -81,6 +93,28 @@
       <AdditionalFiles Include="Features\Sections\Diagnostics\Database\DatabaseFilesDialog.razor" />
       <AdditionalFiles Include="Features\Sections\Diagnostics\Database\DatabaseFilesPage.razor" />
       <AdditionalFiles Include="Features\Sections\Diagnostics\Database\FileTablesDataGrid.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsCreateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsCreateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsDataGrid.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsPage.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsUpdateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsUpdateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesCreateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesCreateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesDataGrid.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesPage.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesUpdateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesUpdateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesCreateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesCreateForm.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesDataGrid.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesPage.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesUpdateDialog.razor" />
+      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesUpdateForm.razor" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Features\Sections\PrintSettings\" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

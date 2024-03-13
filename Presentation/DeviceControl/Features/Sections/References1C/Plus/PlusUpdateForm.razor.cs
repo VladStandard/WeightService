@@ -1,8 +1,12 @@
+using System.Security.Claims;
+using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using Microsoft.VisualBasic.ApplicationServices;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Plu;
@@ -19,7 +23,7 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
     #endregion
 
     private TemplateEntity Template { get; set; } = new();
-
+    
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;
@@ -32,15 +36,15 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
     private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ?
         string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.Uid}";
 
-    private string GetClipLink() => SectionEntity.Clip.IsNew || SectionEntity.Clip.Uid1C == Guid.Empty ?
+    private string GetClipLink() => SectionEntity.Clip.IsNew ?
         string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.Uid}";
 
     private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ?
         string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.Uid}";
-
-    private string GetTemplateLink() => Template.IsNew ?
+    
+    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ? 
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
 
-    private string GetStorageLink() => SectionEntity.StorageMethod.IsNew ?
+    private string GetStorageLink() => SectionEntity.StorageMethod.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ?
         string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.Uid}";
 }
