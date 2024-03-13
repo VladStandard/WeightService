@@ -16,8 +16,7 @@ public static class PolicyAuthUtils
         options.AddPolicy(PolicyNameUtils.Support, builder =>
             builder.RequireAssertion(x =>
                 x.User.HasRole(
-                RolesNameUtils.Support, RolesNameUtils.SectionReferences,
-                RolesNameUtils.SectionReferences1C, RolesNameUtils.SectionDevices
+                    RolesNameUtils.Support, RolesNameUtils.Admin
                 )
             )
         );

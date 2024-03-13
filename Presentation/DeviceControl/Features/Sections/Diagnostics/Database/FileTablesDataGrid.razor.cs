@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities;
 
-namespace DeviceControl.Features.Sections.Admin.Database;
+namespace DeviceControl.Features.Sections.Diagnostics.Database;
 
 public sealed partial class FileTablesDataGrid : ComponentBase
 {

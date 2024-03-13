@@ -1,3 +1,4 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.LabelEntity>
 
 
@@ -44,11 +45,15 @@
     Label="@Localizer["DataGridColumnExpirationDt"]"
     IsDisabled
   />
-  <SectionFormInputText
-    Value="@SectionEntity.Zpl"
-    Label="Zpl"
-    Size="SectionFormInputSizeEnum.ExtraLarge"
-    IsDisabled
-    IsCopyable
-  />
+
+  <AuthorizeView Policy="@PolicyNameUtils.Admin">
+    <SectionFormInputText
+      Value="@SectionEntity.Zpl"
+      Label="Zpl"
+      Size="SectionFormInputSizeEnum.ExtraLarge"
+      IsDisabled
+      IsCopyable
+    />
+  </AuthorizeView>
+
 </SectionFormWrapper>
