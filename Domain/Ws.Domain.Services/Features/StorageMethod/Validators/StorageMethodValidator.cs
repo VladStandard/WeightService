@@ -6,6 +6,8 @@ internal abstract class StorageMethodValidator : AbstractValidator<StorageMethod
 {
     protected StorageMethodValidator()
     {
+        RuleFor(item => item.Name)
+            .NotEmpty();
         RuleFor(item => item.Zpl)
             .NotEmpty();
     }

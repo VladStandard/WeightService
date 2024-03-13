@@ -19,6 +19,7 @@ internal abstract class PalletManValidator : AbstractValidator<PalletManEntity>
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Password)
-            .NotNull().NotEmpty().Length(4).Matches("^[0-9]+$").WithMessage("Пароль должен содержать только цифры.");
+            .Length(4).WithMessage("'Password' должен состоять из 4х символов.")
+            .Matches("^[0-9]+$").WithMessage("Пароль должен содержать только цифры.");
     }
 }
