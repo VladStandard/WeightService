@@ -1,4 +1,5 @@
-﻿using Ws.Database.Core.Entities.Ref1c.Plus;
+﻿using EasyCaching.Core;
+using Ws.Database.Core.Entities.Ref1c.Plus;
 using Ws.Database.Core.Entities.Scales.PlusNestingFks;
 using Ws.Database.Core.Entities.Scales.PlusTemplatesFks;
 using Ws.Domain.Models.Entities.Ref;
@@ -11,7 +12,8 @@ namespace Ws.Domain.Services.Features.Plu;
 internal class PluService(
     SqlPluRepository pluRepo,
     SqlPluNestingFkRepository pluNestingFkRepo,
-    SqlPluTemplateFkRepository pluTemplateFkRepo) : IPluService
+    SqlPluTemplateFkRepository pluTemplateFkRepo,
+    IRedisCachingProvider provider) : IPluService
 {
     #region Queries
 
@@ -36,7 +38,31 @@ internal class PluService(
 
     [Transactional]
     public TemplateEntity GetPluTemplate(PluEntity plu) => pluTemplateFkRepo.GetTemplateByPlu(plu);
+    
+    public string GetPluCachedTemplate(PluEntity plu)
+    {
+        List<string> templatesKeys = provider.SearchKeys("TEMPLATE-*:PLUS");
 
+        foreach (string templateKey in templatesKeys)
+        {
+            if (!provider.SIsMember(templateKey, $"{plu.Uid}"))
+                continue;
+            
+            string? zpl = provider.StringGet($"{templateKey.Replace(":PLUS", ":ZPL")}");
+
+            if (zpl != null)
+                return zpl;
+            break;
+        }
+        
+        TemplateEntity template = GetPluTemplate(plu);
+        
+        provider.SAdd($"TEMPLATE-{template.Uid}:PLUS", [$"{plu.Uid}"], TimeSpan.FromHours(1));
+        provider.StringSet($"TEMPLATE-{template.Uid}:ZPL", template.Body, TimeSpan.FromHours(1));
+        
+        return template.Body;
+    }
+    
     #endregion
 
     #region Commands

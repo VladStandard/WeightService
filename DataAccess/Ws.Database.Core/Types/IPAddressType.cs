@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿// ReSharper disable ClassNeverInstantiated.Global
+using System.Data;
 using System.Data.Common;
 using System.Net;
 using NHibernate.Engine;

@@ -13,7 +13,7 @@ public sealed class ViewDbFileSizeInfoRepositoryTest : ViewRepositoryTests
     public void GetList()
     {
         NHibernateHelper.SetSessionFactory();
-        List<DbFileSizeInfoEntity> items = DbFileSizeRepository.GetList();
+        IEnumerable<DbFileSizeInfoEntity> items = DbFileSizeRepository.GetAll();
         foreach (DbFileSizeInfoEntity info in items)
         {
             TestContext.WriteLine($"{info.FileName}: {info.DbFillSize}%");

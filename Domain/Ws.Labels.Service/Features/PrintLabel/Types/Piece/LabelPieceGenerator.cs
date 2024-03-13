@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
+using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
@@ -11,7 +12,7 @@ using Ws.Labels.Service.Features.PrintLabel.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 
-internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPalletService palletService)
+internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluService pluService, IPalletService palletService)
 {
     public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount)
     {
@@ -28,11 +29,12 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPall
             throw new LabelGenerateException(result);
 
                 
-        ZplItemsDto zplItems = new(
-            labelPalletDto.Template, 
-            labelPalletDto.Nesting.Plu.StorageMethod.Zpl, 
-            zplResourceService.GetAllCachedResources()
-        );
+        ZplItemsDto zplItems = new()
+        {
+            Resources = zplResourceService.GetAllCachedResources(),
+            Template = pluService.GetPluCachedTemplate(labelPalletDto.Nesting.Plu),
+            StorageMethod = labelPalletDto.Nesting.Plu.StorageMethod.Zpl,
+        };
         
         PalletEntity pallet = new()
         {
