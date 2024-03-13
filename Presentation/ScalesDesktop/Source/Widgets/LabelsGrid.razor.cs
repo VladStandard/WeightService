@@ -20,10 +20,10 @@ public sealed partial class LabelsGrid : ComponentBase
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> Data => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid)
-        .Select((label, index) => new DataItem { Id = index, Label = label })
+        .Select((label, index) => new DataItem { Id = index + 1, Label = label })
         .AsQueryable();
     
-    protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;
+    protected override void OnInitialized() => PalletContext.OnStateChanged += ResetDataGrid;
 
     private void ToggleItem(LabelEntity item)
     {
@@ -31,13 +31,15 @@ public sealed partial class LabelsGrid : ComponentBase
             SelectedItems.Add(item);
     }
 
-    // private bool OnCustomFilter(LabelEntity entity) =>
-    //     string.IsNullOrEmpty(SearchingNumber) ||
-    //     entity.Plu.Number.ToString().Contains(SearchingNumber, StringComparison.OrdinalIgnoreCase);
+    private void ResetDataGrid()
+    {
+        SelectedItems = [];
+        StateHasChanged();
+    }
 }
 
 internal record DataItem
 {
-    public int Id { get; set; }
-    public LabelEntity Label { get; set; } = new();
+    public int Id { get; init; }
+    public LabelEntity Label { get; init; } = new();
 }

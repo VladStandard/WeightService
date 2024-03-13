@@ -4,16 +4,16 @@
 @using ScalesDesktop.Source.Widgets.LabelDisplay
 @attribute [Route(RouteUtils.Labels)]
 
-<div class="flex flex-col select-none grow w-full h-full">
+<div class="flex flex-col select-none grow size-full">
   <PageHeader>
-    <div class="h-full w-full items-center justify-end flex pr-6">
+    <div class="size-full items-center justify-end flex pr-6">
       <ul class="flex justify-between items-center gap-4">
         <li><PrinterStatusIcon/></li>
         <li><ScaleStatusIcon/></li>
       </ul>
     </div>
   </PageHeader>
-  <div class="w-full h-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4">
+  <div class="size-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4">
     <div class="w-full grid grid-rows-1 grid-cols-[1fr,1.5fr] h-[34rem] rounded-xl bg-white border divide-x max-w-screen-2xl overflow-hidden">
       <LabelConfig/>
       <LabelDisplay/>

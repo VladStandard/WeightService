@@ -49,21 +49,23 @@ namespace ScalesDesktop.Source.Features
             foreach (string msg in context.GetValidationMessages())
                 ToastService.ShowError(msg);
         }
+        
 
         private async Task OnSubmit()
         {
+            DateTime createDt = FormModel.CreateDt ?? DateTime.Now;
             LabelPiecePalletDto dto = new ()
             {
                 PalletMan = PalletContext.PalletMan,
                 Weight = FormModel.PalletWeight,
-                ExpirationDt = FormModel.CreateDt.AddDays(FormModel.Plu!.ShelfLifeDays),
+                ExpirationDt = createDt.AddDays(FormModel.Plu!.ShelfLifeDays),
                 Kneading = FormModel.Kneading,
                 Line = LineContext.Line,
                 Nesting = FormModel.Nesting!,
-                ProductDt = FormModel.CreateDt,
+                ProductDt = createDt ,
                 Template = PluService.GetPluTemplate(FormModel.Plu).Body
             };
-
+            
             try
             {
                 await Task.Run(() => { PrintLabelService.GeneratePiecePallet(dto, FormModel.Count); });
@@ -94,6 +96,6 @@ namespace ScalesDesktop.Source.Features
         [Range(1, 999, ErrorMessage = "Поле 'Замес' не может быть меньше 1 и больше 999")]
         public short Kneading { get; set; } = 1;
 
-        public DateTime CreateDt { get; set; } = DateTime.Now;
+        public DateTime? CreateDt { get; set; } = DateTime.Now;
     }
 }

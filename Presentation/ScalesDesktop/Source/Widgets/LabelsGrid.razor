@@ -27,33 +27,32 @@
   <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
     <FluentDataGrid
       TGridItem="DataItem"
-      GridTemplateColumns="2rem 2rem 2fr 3fr"
+      GridTemplateColumns="3rem 3rem 1fr 3fr"
       Items="@Data"
       OnRowFocus="@(obj => { if (obj.Item != null) ToggleItem(obj.Item.Label); })"
-      RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer !h-[unset]")"
-      Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_fluent-data-grid-cell]:!py-2 [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
+      RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer")"
+      Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
       Virtualize
     >
+      <TemplateColumn Align="Align.Center">
+        <input
+          type="checkbox"
+          checked="@SelectedItems.Contains(context.Label)"
+          disabled
+        />
+      </TemplateColumn>
       <PropertyColumn
         Property="@(p => p.Id)"
-        Title="#"
+        Align="Align.Center"
+        Title="№"
       />
-      <TemplateColumn>
-        <div class="flex items-center">
-          <input
-            type="checkbox"
-            checked="@SelectedItems.Contains(context.Label)"
-            disabled/>
-        </div>
-      </TemplateColumn>
       <PropertyColumn
         Property="@(p => p.Label.ProductDt)"
         Title="@WsDataLocalizer["ColCreateDt"]"
-        Format="dd-MM-yyyy HH-mm-ss-fff"
         Sortable="true"/>
       <PropertyColumn
-        Property="@(p => p.Label.Line)"
-        Title="@nameof(LabelEntity.Line)"/>
+        Property="@(p => p.Label.BarcodeTop)"
+        Title="Штрихкод"/>
     </FluentDataGrid>
     @* <DataGrid *@
     @*   TItem="LabelEntity" *@

@@ -74,6 +74,15 @@
     --type-ramp-base-font-variations: 0;
   }
 
+  fluent-data-grid {
+    --neutral-fill-stealth-rest: #ffffff;
+    --accent-fill-rest: #18181b;
+  }
+
+  fluent-menu {
+    @apply !max-w-[unset]
+  }
+
   fluent-dialog::part(overlay) {
     @apply !bg-black/[.6]
   }
@@ -82,32 +91,7 @@
     @apply max-w-[100vw] overflow-x-hidden !p-0 !w-[unset] !shadow-lg !bg-none !rounded-lg !border-none
   }
 
-  fluent-data-grid {
-    --neutral-fill-stealth-rest: #ffffff;
-    --accent-fill-rest: #18181b;
-  }
-
-  .dark fluent-data-grid {
-    --neutral-fill-stealth-rest: #070708;
-    --neutral-fill-stealth-active: #18181b;
-    --neutral-fill-stealth-hover: #252527;
-    --accent-fill-rest: #fafafa;
-  }
-
-  /*fluent-tabs {*/
-  /*  --accent-fill-rest: 0;*/
-  /*}*/
-
-  fluent-menu {
-    @apply !max-w-[unset]
-  }
-
-  .custom-input::part(root) {
-    background: inherit;
-    @apply !bg-background !border-border !h-10 !rounded-md
-  }
-
-  .custom-input::part(controls) {
-    @apply py-1
+  .fluent-datepicker-popup {
+    @apply border-border !border !shadow-md !rounded-md !bg-background
   }
 }
