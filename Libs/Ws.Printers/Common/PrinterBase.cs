@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
-using Ws.Shared.Utils;
 
 namespace Ws.Printers.Common;
 

@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
