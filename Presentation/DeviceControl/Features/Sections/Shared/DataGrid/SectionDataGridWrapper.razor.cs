@@ -6,6 +6,7 @@ using DeviceControl.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Services.Exceptions;
+using Ws.Shared.Utils;
 
 namespace DeviceControl.Features.Sections.Shared.DataGrid;
 
@@ -172,8 +173,8 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
 
     private async Task OnGetGridDataAction()
     {
-        if (!IsGroupable || IsCollapsed || DataGrid == null) return;
-        await DataGrid.ExpandAllGroups();
+        if (!IsGroupable || IsCollapsed || DataGrid == null || !GridData.Any()) return;
+            await DataGrid.ExpandAllGroups();
     }
 }
 

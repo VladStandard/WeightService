@@ -11,11 +11,8 @@
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputNumeric
     @bind-Value="@SectionEntity.Number"

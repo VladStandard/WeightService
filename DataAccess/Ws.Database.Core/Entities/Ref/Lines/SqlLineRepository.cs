@@ -11,8 +11,8 @@ public sealed class SqlLineRepository : BaseRepository,
     public IEnumerable<LineEntity> GetAll() => Session.Query<LineEntity>().OrderBy(i => i.Name).ToList();
     public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site)
     {
-        return Session.Query<LineEntity>()
-            .Where(i => i.Warehouse.ProductionSite == site).ToList();
+        return Session.Query<LineEntity>().Where(i => i.Warehouse.ProductionSite == site)
+            .OrderBy(i => i.Name).ToList();
     }
     
     public LineEntity GetByPcName(string pcName)

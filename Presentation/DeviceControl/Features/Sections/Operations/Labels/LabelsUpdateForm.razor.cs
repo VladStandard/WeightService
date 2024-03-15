@@ -30,7 +30,7 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 
-    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin)?
+    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ?
         string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
 
     private string GetLineLink() => SectionEntity.Line.IsNew || !UserHasClaim(PolicyNameUtils.Support) ?

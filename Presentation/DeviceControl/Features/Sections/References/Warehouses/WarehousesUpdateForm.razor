@@ -1,7 +1,6 @@
 @using Ws.Domain.Models.Entities.Ref
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
 
-
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity, WarehouseService.Update)"
   ResetItemAction="ResetItem"
@@ -10,11 +9,8 @@
   ChangeDate="SectionEntity.ChangeDt"
   CreateDate="SectionEntity.CreateDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"

@@ -6,11 +6,8 @@
   ShareUrl="@($"{RouteUtils.SectionLabels}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     Value="@GetPluTypeTitle(SectionEntity.Plu.IsCheckWeight)"

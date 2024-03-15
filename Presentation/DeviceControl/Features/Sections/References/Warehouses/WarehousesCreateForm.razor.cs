@@ -24,6 +24,5 @@ public sealed partial class WarehousesCreateForm : SectionFormBase<WarehouseEnti
     {
         SectionEntity.ProductionSite.Name = Localizer["SectionFormProductionSiteDefaultName"];
         PlatformEntities = ProductionSiteService.GetAll();
-        PlatformEntities = PlatformEntities.Append(SectionEntity.ProductionSite);
     }
 }

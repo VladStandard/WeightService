@@ -46,6 +46,12 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
             m.Type(NHibernateUtil.Int16);
             m.NotNullable(true);
         });
+        
+        ManyToOne(x => x.ProductionSite, m => {
+            m.Column("PRODUCTION_SITE_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
 
         Property(x => x.Type, m => {
             m.Length(15);

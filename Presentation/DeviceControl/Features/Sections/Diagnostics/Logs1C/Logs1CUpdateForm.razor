@@ -4,11 +4,8 @@
 <SectionFormWrapper
   ShareUrl="@($"{RouteUtils.Section1CLogs}/{SectionEntity.Uid}")"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     Value="@SectionEntity.Version"
