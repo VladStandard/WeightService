@@ -20,6 +20,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
 
     #endregion
 
@@ -33,10 +34,4 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
         WarehousesEntities = WarehouseService.GetAll();
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
     }
-    
-    private string GetPrinterLink() => SectionEntity.Printer.IsNew || !UserHasClaim(PolicyNameUtils.Support)?
-        string.Empty : $"{RouteUtils.SectionPrinters}/{SectionEntity.Printer.Uid}";
-    
-    private string GetWarehouseLink() => SectionEntity.Warehouse.IsNew || !UserHasClaim(PolicyNameUtils.Admin)?
-        string.Empty : $"{RouteUtils.SectionWarehouses}/{SectionEntity.Warehouse.Uid}";
 }

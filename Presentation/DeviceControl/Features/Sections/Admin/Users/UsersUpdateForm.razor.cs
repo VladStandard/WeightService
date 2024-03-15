@@ -3,6 +3,7 @@ using Blazorise;
 using DeviceControl.Auth.Common;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -16,6 +17,7 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
 {
     #region Inject
 
+    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;

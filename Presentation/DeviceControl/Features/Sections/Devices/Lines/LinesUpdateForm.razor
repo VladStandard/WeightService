@@ -45,7 +45,7 @@
     TItem="PrinterEntity"
     Items="PrinterEntities"
     Label="@Localizer["DataGridColumnPrinter"]"
-    Link="@GetPrinterLink()"
+    Link="@RedirectUtils.ToPrinter(SectionEntity.Printer, User)"
     @bind-SelectedItem="@SectionEntity.Printer"
     ItemDisplayName="item => item.DisplayName"
     IsFilterable
@@ -54,7 +54,7 @@
     TItem="WarehouseEntity"
     Items="WarehousesEntities"
     Label="@Localizer["DataGridColumnWarehouse"]"
-    Link="@GetWarehouseLink()"
+    Link="@RedirectUtils.ToWarehouse(SectionEntity.Warehouse, User)"
     @bind-SelectedItem="@SectionEntity.Warehouse"
     ItemDisplayName="item => item.Name"
     IsFilterable

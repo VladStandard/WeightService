@@ -28,6 +28,7 @@
     TItem="ProductionSiteEntity"
     Items="ProductionSite"
     Label="@Localizer["DataGridColumnProductionSite"]"
+    Link="@RedirectUtils.ToProductionSite(SectionEntity.ProductionSite ?? new(), User)"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemDisplayName="@(item => item != null ? item.Name : Localizer["SectionFormProductionSiteDefaultName"])"
     IsFilterable

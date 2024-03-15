@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Blazorise;
 using DeviceControl.Resources;
 using Force.DeepCloner;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -19,7 +20,7 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
     [Parameter] public EventCallback OnSubmitAction { get; set; }
 
     private TItem SectionEntityCopy { get; set; } = new();
-    protected ClaimsPrincipal User { get; set; } = new();
+    protected ClaimsPrincipal User { get; private set; } = new();
     
 
     protected override async Task OnInitializedAsync()
@@ -95,6 +96,4 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
             await NotificationService.Error("Удаление не возможно. Запись используется");
         }
     }
-    
-    protected bool UserHasClaim(string claim) => User.HasClaim(c => c.Value == claim);
 }

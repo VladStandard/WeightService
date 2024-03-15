@@ -20,7 +20,7 @@
     TItem="ProductionSiteEntity"
     Items="PlatformEntities"
     Label="@Localizer["DataGridColumnProductionSite"]"
-    Link="@($"{RouteUtils.SectionProductionSites}/{SectionEntity.ProductionSite.Uid}")"
+    Link="@RedirectUtils.ToProductionSite(SectionEntity.ProductionSite, User)"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemDisplayName="item => item.Name"
     IsFilterable

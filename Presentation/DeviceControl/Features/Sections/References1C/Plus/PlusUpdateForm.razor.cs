@@ -13,7 +13,7 @@ namespace DeviceControl.Features.Sections.References1C.Plus;
 public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 {
     #region Inject
-
+    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
 
@@ -29,19 +29,4 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
-
-    private string GetBundleLink() => SectionEntity.Bundle.IsNew || SectionEntity.Bundle.Uid1C == Guid.Empty ?
-        string.Empty : $"{RouteUtils.SectionBundles}/{SectionEntity.Bundle.Uid}";
-
-    private string GetClipLink() => SectionEntity.Clip.IsNew ?
-        string.Empty : $"{RouteUtils.SectionClips}/{SectionEntity.Clip.Uid}";
-
-    private string GetBrandLink() => SectionEntity.Brand.IsNew || SectionEntity.Brand.Uid1C == Guid.Empty ?
-        string.Empty : $"{RouteUtils.SectionBrands}/{SectionEntity.Brand.Uid}";
-    
-    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ? 
-        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
-
-    private string GetStorageLink() => SectionEntity.StorageMethod.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ?
-        string.Empty : $"{RouteUtils.SectionStorageMethods}/{SectionEntity.StorageMethod.Uid}";
 }

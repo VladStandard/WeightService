@@ -17,19 +17,19 @@
   <SectionFormInputText
     Value="@SectionEntity.Line.Name"
     Label="@Localizer["DataGridColumnLine"]"
-    Link="@GetLineLink()"
+    Link="@(RedirectUtils.ToLine(SectionEntity.Line, User))"
     IsDisabled
   />
   <SectionFormInputText
     Value="@SectionEntity.Plu.DisplayName"
     Label="@Localizer["DataGridColumnPlu"]"
-    Link="@GetPluLink()"
+    Link="@RedirectUtils.ToPlu(SectionEntity.Plu)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@Template.Name"
     Label="@Localizer["DataGridColumnTemplate"]"
-    Link="@GetTemplateLink()"
+    Link="@RedirectUtils.ToTemplate(Template, User)"
     IsDisabled
   />
   <SectionFormInputText

@@ -4,6 +4,7 @@ using Blazorise.Tailwind;
 using DeviceControl.Auth;
 using DeviceControl.Auth.Common;
 using DeviceControl.Services;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Ws.Domain.Services;
@@ -40,6 +41,7 @@ builder.Services.AddLocalization();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
+builder.Services.AddScoped<RedirectUtils>();
 
 builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
 builder.Services.AddSingleton<StartupService>();

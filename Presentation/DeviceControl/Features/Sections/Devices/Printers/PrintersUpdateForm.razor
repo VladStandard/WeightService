@@ -37,6 +37,7 @@
   <SectionFormInputSelect
     TItem="ProductionSiteEntity"
     Items="ProductionSites"
+    Link="@RedirectUtils.ToProductionSite(SectionEntity.ProductionSite, User)"
     Label="@Localizer["DataGridColumnProductionSite"]"
     @bind-SelectedItem="@SectionEntity.ProductionSite"
     ItemDisplayName="item => item.Name"

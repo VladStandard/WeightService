@@ -14,6 +14,7 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
 {
     #region MyRegion
 
+    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
 
@@ -29,13 +30,4 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
 
     private string GetPluTypeTitle(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
-
-    private string GetTemplateLink() => Template.IsNew || !UserHasClaim(PolicyNameUtils.Admin) ?
-        string.Empty : $"{RouteUtils.SectionTemplates}/{Template.Uid}";
-
-    private string GetLineLink() => SectionEntity.Line.IsNew || !UserHasClaim(PolicyNameUtils.Support) ?
-        string.Empty : $"{RouteUtils.SectionLines}/{SectionEntity.Line.Uid}";
-
-    private string GetPluLink() => SectionEntity.Plu.IsNew ?
-        string.Empty : $"{RouteUtils.SectionPlus}/{SectionEntity.Plu.Uid}";
 }
