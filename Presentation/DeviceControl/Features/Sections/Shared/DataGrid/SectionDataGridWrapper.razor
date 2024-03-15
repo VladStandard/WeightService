@@ -47,25 +47,30 @@
       TItem="TItem"
       @ref="DataGrid"
       Data="GridData"
+
       SelectedRow="SelectedItem"
       RowDoubleClicked="OnDoubleClick"
+      RowContextMenu="OnRowContextMenu"
+      RowContextMenuPreventDefault
+
+      PagerPosition="DataGridPagerPosition.Bottom"
+      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
       PageSize="@(IsGroupable ? 1000 : ItemsPerPage)"
+      ShowPager="@GetIsPagerNeeded()"
+
       RowStyling="RowStyling"
       CellStyling="CellStyling"
       SelectedRowStyling="SelectedRowStyling"
       SelectedCellStyling="SelectedCellStyling"
       HeaderRowStyling="@HeaderRowStyling()"
-      PagerPosition="DataGridPagerPosition.Bottom"
-      PagerOptions="@(new() { PaginationPosition = PagerElementPosition.Center })"
-      RowContextMenu="OnRowContextMenu"
-      RowContextMenuPreventDefault
-      Filterable="IsFilterable"
-      Groupable="IsGroupable"
-      ShowPager="@GetIsPagerNeeded()"
       Class="@Css.Class("table-fixed [&_thead_tr]:!bg-inherit [&_thead]:!bg-inherit [&_thead]:!text-primary",
              "[&_thead_tr_th_input]:!bg-secondary/[.5] [&_thead_tr_th_input]:!border-border [&_thead_tr]:!border-b",
              "[&_thead_tr]:!border-border [&_tbody_.b-table-group]:!bg-secondary/[.3] [&_tbody_.b-table-group]:!text-primary [&_tbody_.b-table-group-cell]:!py-3",
              !GetIsPagerNeeded() ? "[&>tbody>tr:last-child]:!border-b-0 !mb-0" : "")"
+
+
+      Filterable="IsFilterable"
+      Groupable="IsGroupable"
     >
       <DataGridColumns>
         @ChildContent

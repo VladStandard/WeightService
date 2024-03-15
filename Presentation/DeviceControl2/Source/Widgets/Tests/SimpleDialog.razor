@@ -1,11 +1,10 @@
 @using DeviceControl2.Source.Shared.UI.Dialog
-@using DeviceControl2.Source.Features
 @implements IDialogContentComponent
 
 <Dialog Class="w-[600px] !p-0">
-  <SectionDialogHeader>
+  <DialogHeader>
     Test
-  </SectionDialogHeader>
+  </DialogHeader>
   <div class="p-6 w-full">
     <Button
       Variant="@(CurrentTabId == "main" ? ButtonVariant.Secondary : ButtonVariant.Outline)"

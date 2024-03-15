@@ -7,7 +7,11 @@
   <base href="/" />
   <link rel="icon" href="favicon.svg" />
   <link rel="stylesheet" href="app.min.css" />
+  <link rel="stylesheet" href="libs/fontawasome/css/all.min.css" />
   <link rel="stylesheet" href="DeviceControl2.styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <script>
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage)
     && window.matchMedia('(prefers-color-scheme: dark)').matches))
@@ -17,7 +21,7 @@
   </script>
   <HeadOutlet />
 </head>
-<body class="min-h-screen bg-background overflow-x-hidden antialiased">
+<body class="min-h-screen font-['Inter'] bg-background overflow-x-hidden antialiased">
   <Routes />
   <script src="_framework/blazor.web.js"></script>
   </body>

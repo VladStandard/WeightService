@@ -1,11 +1,11 @@
-using DeviceControl2.Source.Pages.Home;
+using DeviceControl2.Source.Widgets.Tests;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace DeviceControl2.Source.Shared.UI.DataGrid;
 
 [CascadingTypeParameter(nameof(TGridItem))]
-public sealed partial class DataGrid<TGridItem> : ComponentBase
+public sealed partial class FluentUIDataGrid<TGridItem> : ComponentBase
 {
     [Inject] private IDialogService DialogService { get; set; } = default!;
     [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;

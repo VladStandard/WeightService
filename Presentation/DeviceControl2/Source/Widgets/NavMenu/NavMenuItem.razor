@@ -1,0 +1,42 @@
+@using Blazor.Heroicons
+@using DeviceControl2.Source.Shared.Utils
+
+<div class="flex flex-col w-full overflow-x-hidden px-3">
+  <button
+    type="button"
+    @onclick="SwitchVisibility"
+    class="@Css.Class("w-full gap-2 py-1.5 flex items-center transition-colors justify-between px-3 rounded-md",
+            GetIsAnyActive() ? "bg-primary font-medium text-primary-foreground hover:bg-primary/[.9]": "text-muted-foreground hover:bg-muted")"
+  >
+    <div class="flex gap-3 items-center overflow-hidden">
+      <Heroicon
+        Name="@Icon"
+        Type="HeroiconType.Outline"
+        class="h-5 w-5 shrink-0"
+      />
+      <span class="truncate">
+        @Label
+      </span>
+    </div>
+    <Heroicon
+      Name="@(IsOpened ? HeroiconName.ChevronUp : HeroiconName.ChevronDown)"
+      Type="HeroiconType.Outline"
+      class="h-4 w-4 shrink-0"
+    />
+  </button>
+  <ul class="@Css.Class("flex flex-col gap-1 transition-opacity w-full", IsOpened ? "opacity-100 mt-2 mb-1" : "opacity-0 h-0 overflow-hidden")">
+    @foreach (NavMenuItemModel item in Items)
+    {
+      <li>
+        <a href="@item.Link">
+          <button
+            type="button"
+            class="@Css.Class("w-full pr-3 py-1 pl-11 text-left truncate", GetIsActivePath(item.Link) ? "text-primary" : "font-light text-muted-foreground hover:underline")"
+          >
+            @item.Name
+          </button>
+        </a>
+      </li>
+    }
+  </ul>
+</div>

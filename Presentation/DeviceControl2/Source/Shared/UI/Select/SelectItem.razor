@@ -1,0 +1,21 @@
+@using Blazor.Heroicons.Outline
+
+<button
+  type="button"
+  @attributes="AdditionalAttributes"
+  @onclick="OnClick"
+  class="@Css.Class("relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors truncate hover:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50", Class)"
+  disabled="@IsDisabled"
+>
+  <CheckIcon class="@Css.Class("mr-2 size-4", IsActive ? "opacity-100" : "opacity-0")"/>
+  @ChildContent
+</button>
+
+@code {
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter] public string Class { get; set; } = string.Empty;
+  [Parameter] public bool IsActive { get; set; }
+  [Parameter] public EventCallback OnClick { get; set; }
+  [Parameter] public bool IsDisabled { get; set; }
+  [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+}

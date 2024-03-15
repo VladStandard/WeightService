@@ -1,0 +1,45 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl2.Source.Shared.Auth.Claims
+@using DeviceControl2.Source.Shared.Utils
+@using DeviceControl2.Source.Features
+@rendermode InteractiveServer
+
+<nav class="flex sticky top-0 flex-col bg-background w-full grow h-screen border-r @(!IsProduction ? "invert1" : "" )">
+  <div class="flex flex-col items-center border-b shrink-0 justify-center h-14">
+    <a href="@RouteUtils.Home">
+      @Localizer["ApplicationName"]
+    </a>
+    <AuthorizeView Policy="@PolicyNameUtils.Admin">
+        <span class="text-xs text-muted-foreground">
+          @TimeOnline
+        </span>
+    </AuthorizeView>
+  </div>
+  <div class="w-full h-full overflow-y-auto">
+    <ul class="flex select-none w-full gap-1 mt-2 flex-col">
+      @foreach (MenuSection menu in MenuSections)
+      {
+        <li>
+          <NavMenuItem
+            Icon="@menu.Icon"
+            Label="@menu.Label"
+            Items="@menu.SubItems"
+          />
+        </li>
+      }
+    </ul>
+  </div>
+  <div class="h-12 pl-3 !pr-3 border-t flex items-center text-muted-foreground gap-2 w-full shrink-0">
+    <a href="@RouteUtils.SectionUsers" class="h-full flex overflow-hidden items-center w-3/4">
+      <div class="flex w-full items-center overflow-hidden gap-2">
+        <UserIcon class="size-5 md:inline-block" />
+        <span class="truncate text-xs">@User?.Identity?.Name</span>
+      </div>
+    </a>
+    <div class="flex h-full items-center w-1/4 gap-2">
+      <InformationCircleIcon class="size-5" />
+      <span class="truncate text-xs">@VerBlazor</span>
+    </div>
+    <ThemeToggle />
+  </div>
+</nav>

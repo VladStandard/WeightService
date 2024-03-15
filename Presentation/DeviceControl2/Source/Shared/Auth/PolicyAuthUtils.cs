@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using DeviceControl.Auth.Claims;
+using DeviceControl2.Source.Shared.Auth.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceControl2.Source.Shared.Auth;

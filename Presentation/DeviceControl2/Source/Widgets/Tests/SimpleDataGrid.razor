@@ -1,12 +1,9 @@
 @using Ws.Domain.Services.Features.Plu
 @using Ws.Domain.Models.Entities.Ref1c
-@using Blazor.Heroicons.Outline
-@using DeviceControl2.Source.Shared.UI.DataGrid
-@using DeviceControl2.Source.Shared.Utils
 
 @inject IPluService PluService
 
-<DataGrid TGridItem="PluEntity" Items="FilteredData" GridTemplate="1fr 1fr 4fr">
+<FluentUIDataGrid TGridItem="PluEntity" Items="FilteredData" GridTemplate="1fr 1fr 4fr">
   <PropertyColumn
     Property="@(p => p.Number)"
     Title="Номер"
@@ -29,7 +26,7 @@
     Title="Имя"
     Sortable="true"
   />
-</DataGrid>
+</FluentUIDataGrid>
 
 @code {
   private short? Number { get; set; }
