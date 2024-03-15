@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Claim;
+using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
 
 namespace DeviceControl.Features.Sections.Admin.Users;
@@ -20,11 +21,14 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
     [Inject] private IUserService UserService { get; set; } = null!;
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
 
     #endregion
 
     private string UserPrefix { get; set; } = "KOLBASA-VS\\";
     private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
+    private IEnumerable<ProductionSiteEntity> ProductionSite { get; set; } = new List<ProductionSiteEntity>();
+
     private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SectionEntity.Claims.ToList();
@@ -37,6 +41,8 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
     {
         SelectedRoles = SectionEntity.Claims.ToList();
         RolesEntities = ClaimService.GetAll();
+        ProductionSite = ProductionSiteService.GetAll();
+        
         AdditionalButtons = AdditionalButtons.Append(
         new()
         {

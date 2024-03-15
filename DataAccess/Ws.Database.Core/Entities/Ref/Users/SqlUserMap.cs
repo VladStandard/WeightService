@@ -33,7 +33,13 @@ internal sealed class SqlUserMap : ClassMapping<UserEntity>
             m.Length(128);
             m.NotNullable(true);
         });
-
+        
+        ManyToOne(x => x.ProductionSite, m => {
+            m.Column("PRODUCTION_SITE_UID");
+            m.NotNullable(false);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+        
         Set(x => x.Claims, m => {
             m.Schema(SqlSchemasUtils.Ref);
             m.Table("USERS_CLAIMS_FK");

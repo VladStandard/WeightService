@@ -49,9 +49,6 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
         {
             labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
             
-            if (!result.IsValid)
-                throw new LabelGenerateException(result);
-            
             LabelEntity label = GenerateLabel(labelPalletDto, zplItems, labelXml);
             
             labels.Add(label);

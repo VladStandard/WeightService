@@ -27,11 +27,16 @@
   <DataGridColumn
     Caption="@Localizer["DataGridColumnLoginDt"]"
     Field="@nameof(UserEntity.LoginDt)"
-    Width="40%"
+    Width="20%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(UserEntity.Name)"
+    Width="40%"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnProductionSite"]"
+    Field="ProductionSite.Name"
     Width="40%"
   />
 </SectionDataGridWrapper>

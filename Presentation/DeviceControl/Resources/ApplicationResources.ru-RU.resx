@@ -216,8 +216,8 @@
     <data name="DataGridColumnProductionSite" xml:space="preserve">
         <value>Площадка</value>
     </data>
-    <data name="SectionFormPlatformDefaultName" xml:space="preserve">
-        <value>Выберите платформу</value>
+    <data name="SectionFormProductionSiteDefaultName" xml:space="preserve">
+        <value>Выберите площадку</value>
     </data>
     <data name="DataGridColumnAddress" xml:space="preserve">
         <value>Адрес</value>

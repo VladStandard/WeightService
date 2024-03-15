@@ -28,4 +28,12 @@
     @bind-SelectedItems="@SelectedRoles"
     ItemDisplayName="item => item.Name"
   />
+  <SectionFormInputSelect
+    TItem="ProductionSiteEntity"
+    Items="ProductionSite"
+    Label="@Localizer["DataGridColumnProductionSite"]"
+    @bind-SelectedItem="@SectionEntity.ProductionSite"
+    ItemDisplayName="@(item => item != null ? item.Name : Localizer["SectionFormProductionSiteDefaultName"])"
+    IsFilterable
+  />
 </SectionFormWrapper>

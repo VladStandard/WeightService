@@ -2,7 +2,6 @@
 @using Ws.Domain.Models.Entities.Ref
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
-
 <SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity, LineService.Create)">
   <SectionFormInputText
     @bind-Value="@SectionEntity.Name"

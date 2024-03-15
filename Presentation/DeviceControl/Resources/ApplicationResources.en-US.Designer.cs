@@ -996,15 +996,6 @@ namespace ScalesDesktop.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the platform.
-        /// </summary>
-        internal static string SectionFormPlatformDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormPlatformDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Printer control.
         /// </summary>
         internal static string SectionFormPrinterControl {
@@ -1019,6 +1010,15 @@ namespace ScalesDesktop.Resources {
         internal static string SectionFormPrinterDefaultName {
             get {
                 return ResourceManager.GetString("SectionFormPrinterDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the production site.
+        /// </summary>
+        internal static string SectionFormProductionSiteDefaultName {
+            get {
+                return ResourceManager.GetString("SectionFormProductionSiteDefaultName", resourceCulture);
             }
         }
         
