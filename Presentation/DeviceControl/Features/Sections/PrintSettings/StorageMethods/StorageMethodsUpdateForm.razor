@@ -1,0 +1,24 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.StorageMethodEntity>
+
+<SectionFormWrapper
+  OnSubmitAction="() => UpdateItem(SectionEntity, StorageMethodService.Update)"
+  ResetItemAction="ResetItem"
+  ShareUrl="@($"{RouteUtils.SectionStorageMethods}/{SectionEntity.Uid}")"
+  DeleteItemAction="() => DeleteItem(StorageMethodService.Delete)"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnName"]"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Zpl"
+    Label="ZPL"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsCopyable
+  />
+</SectionFormWrapper>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Printer;
+using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Shared.Parsers;
 
 namespace DeviceControl.Features.Sections.Devices.Printers;
@@ -13,6 +14,8 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
+    private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
     
     private string PrinterIp
     {
@@ -25,5 +28,7 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
     protected override void OnInitialized()
     {
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
+        SectionEntity.ProductionSite.Name = Localizer["SectionFormProductionSiteDefaultName"];
+        ProductionSites = ProductionSiteService.GetAll();
     }
 }

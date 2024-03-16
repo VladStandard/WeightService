@@ -1,0 +1,10 @@
+﻿@using DeviceControl.Auth.Claims
+
+<AuthorizeView Policy="@PolicyNameUtils.Admin">
+  <SectionFormInputText
+    Value="@Value.ToString()"
+    Label="@Localizer["DataGridColumnUID"]"
+    IsDisabled
+    IsCopyable
+  />
+</AuthorizeView>

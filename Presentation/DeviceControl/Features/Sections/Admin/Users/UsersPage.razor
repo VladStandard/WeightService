@@ -1,6 +1,6 @@
 @using DeviceControl.Auth.Claims
 @inherits SectionPageBase
 @attribute [Route($"{RouteUtils.SectionUsers}{RouteUtils.SectionQrlQuery}")]
-@attribute [Authorize(Policy = PolicyNameUtils.Admin)]
+@attribute [Authorize(Policy = PolicyNameUtils.SupportSenior)]
 
 <UsersDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

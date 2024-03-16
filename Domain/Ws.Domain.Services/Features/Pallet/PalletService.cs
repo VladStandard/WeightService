@@ -1,11 +1,13 @@
-﻿using Ws.Database.Core.Entities.Print.Pallets;
+﻿using Ws.Database.Core.Entities.Print.Labels;
+using Ws.Database.Core.Entities.Print.Pallets;
+using Ws.Database.Core.Sessions;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Pallet;
 
-internal class PalletService(SqlPalletRepository palletRepo) : IPalletService
+internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository labelRepo) : IPalletService
 {
     [Transactional]
     public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
@@ -16,7 +18,17 @@ internal class PalletService(SqlPalletRepository palletRepo) : IPalletService
 
     [Transactional]
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
-
+    
     [Transactional]
-    public PalletEntity Create(PalletEntity item) => palletRepo.Save(item);
+    public void Create(PalletEntity pallet, IList<LabelEntity> labels)
+    {
+        NHibernateHelper.GetSession().SetBatchSize(labels.Count);
+        
+        pallet = palletRepo.Save(pallet);
+        foreach (LabelEntity label in labels)
+        {
+            label.Pallet = pallet;
+            labelRepo.Save(label);
+        }
+    }
 }

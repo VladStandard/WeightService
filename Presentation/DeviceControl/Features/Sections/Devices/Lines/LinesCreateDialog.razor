@@ -1,5 +1,6 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref.LineEntity>
-
+@attribute [Authorize(Policy = PolicyNameUtils.Admin)]
 
 <SectionModalWrapper TabsButtonList="@TabsList">
   <SectionTabPanel Name="main">

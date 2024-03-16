@@ -9,10 +9,11 @@ public sealed partial class NavMenuItem : ComponentBase
 {
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
-    [Parameter] public string Label { get; set; } = string.Empty;
-    [Parameter] public string Icon { get; set; } = HeroiconName.Home;
-    [Parameter] public IEnumerable<NavMenuItemModel> Items { get; set; } = new List<NavMenuItemModel>();
-
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Icon { get; set; } = HeroiconName.Home;
+    [Parameter, EditorRequired] public IEnumerable<NavMenuItemModel> Items { get; set; } = new List<NavMenuItemModel>();
+    [Parameter, EditorRequired] public string? RequiredClaim { get; set; }
+    
     private bool IsOpened { get; set; }
     private bool IsProduction { get; set; }
 

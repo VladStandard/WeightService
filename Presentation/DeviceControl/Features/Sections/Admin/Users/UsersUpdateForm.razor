@@ -1,7 +1,6 @@
 @using Ws.Domain.Models.Entities.Ref
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.UserEntity>
 
-
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(ReloginUser(SectionEntity), UserService.Update)"
   DeleteItemAction="DeleteUserWithRelogin"
@@ -10,11 +9,8 @@
   ShareUrl="@($"{RouteUtils.SectionUsers}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     Value="@SectionEntity.Name"
@@ -27,5 +23,14 @@
     Label="@Localizer["DataGridColumnRoles"]"
     @bind-SelectedItems="@SelectedRoles"
     ItemDisplayName="item => item.Name"
+  />
+  <SectionFormInputSelect
+    TItem="ProductionSiteEntity"
+    Items="ProductionSite"
+    Label="@Localizer["DataGridColumnProductionSite"]"
+    Link="@RedirectUtils.ToProductionSite(SectionEntity.ProductionSite ?? new(), User)"
+    @bind-SelectedItem="@SectionEntity.ProductionSite"
+    ItemDisplayName="@(item => item != null ? item.Name : Localizer["SectionFormProductionSiteDefaultName"])"
+    IsFilterable
   />
 </SectionFormWrapper>

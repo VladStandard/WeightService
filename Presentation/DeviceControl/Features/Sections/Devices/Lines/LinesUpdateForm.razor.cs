@@ -1,5 +1,7 @@
+using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
+using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -18,6 +20,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
+    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
 
     #endregion
 

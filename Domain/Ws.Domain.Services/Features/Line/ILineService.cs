@@ -10,6 +10,7 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, 
 {
     #region Queries
 
+    public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site);
     public LineEntity GetCurrentLine();
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line);
     public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line);

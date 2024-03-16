@@ -12,6 +12,7 @@ public class ValidateException : ServiceException
 
         foreach (ValidationFailure error in result.Errors)
         {
+            if (Errors.ContainsKey(error.PropertyName)) continue;
             Errors.Add(error.PropertyName, error.ErrorMessage);
         }
     }

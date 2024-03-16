@@ -13,6 +13,7 @@ public interface IPluService : IGetItemByUid<PluEntity>, IGetItemByUid1C<PluEnti
     public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu);
     PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C);
     public TemplateEntity GetPluTemplate(PluEntity plu);
+    public string GetPluCachedTemplate(PluEntity plu);
 
     #endregion
 

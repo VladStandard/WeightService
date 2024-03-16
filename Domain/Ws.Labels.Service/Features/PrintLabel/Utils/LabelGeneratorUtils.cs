@@ -46,9 +46,7 @@ internal static partial class LabelGeneratorUtils
             string word = match.Value;
             
             if (zplItems.Resources.TryGetValue(word.Trim('[', ']'), out var value))
-            {
                 zpl = zpl.Replace(word, value);
-            }
         }
 
         zpl = zpl.Replace("[@PLUS_STORAGE_METHODS_FK]", zplItems.StorageMethod,

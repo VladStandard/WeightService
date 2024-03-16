@@ -1,4 +1,6 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionPageBase
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyNameUtils.Support)]
 
 <PrintersDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

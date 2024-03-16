@@ -22,8 +22,7 @@ public sealed partial class WarehousesCreateForm : SectionFormBase<WarehouseEnti
 
     protected override void OnInitialized()
     {
-        SectionEntity.ProductionSite.Name = Localizer["SectionFormPlatformDefaultName"];
+        SectionEntity.ProductionSite.Name = Localizer["SectionFormProductionSiteDefaultName"];
         PlatformEntities = ProductionSiteService.GetAll();
-        PlatformEntities = PlatformEntities.Append(SectionEntity.ProductionSite);
     }
 }

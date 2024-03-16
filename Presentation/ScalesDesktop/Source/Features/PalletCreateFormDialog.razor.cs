@@ -28,11 +28,15 @@ namespace ScalesDesktop.Source.Features
     
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
-
         private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];
 
-        private IEnumerable<PluEntity> GetAllPlus() => LineService.GetLinePiecePlus(LineContext.Line);
+        private IEnumerable<PluEntity> Plus { get; set; } = [];
 
+        protected override void OnInitialized()
+        {
+            Plus = LineService.GetLinePiecePlus(LineContext.Line);
+        }
+        
         private void SetPluNestings()
         {
             if (FormModel.Plu == null) return;

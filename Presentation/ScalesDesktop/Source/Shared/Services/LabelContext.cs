@@ -16,7 +16,6 @@ public class LabelContext : IDisposable
     public LineEntity Line { get => LineContext.Line; }
     public PrinterEntity Printer { get => LineContext.PrinterEntity; }
     public PluEntity Plu { get; private set; } = new();
-    public TemplateEntity PluTemplate { get; private set; } = new();
     public PluNestingEntity PluNesting { get; private set; } = new();
     public WeightKneadingModel KneadingModel { get; private set; } = new();
     public IEnumerable<PluEntity> PluEntities { get; private set; } = [];
@@ -38,7 +37,6 @@ public class LabelContext : IDisposable
 
         Plu = new();
         PluNesting = new();
-        PluTemplate = new();
         KneadingModel = new();
 
         OnStateChanged?.Invoke();
@@ -48,7 +46,6 @@ public class LabelContext : IDisposable
     {
         if (Plu.Equals(sqlPluEntity)) return;
         Plu = sqlPluEntity;
-        PluTemplate = PluService.GetPluTemplate(Plu);
         IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetAllPluNestings(Plu);
         PluNesting = pluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
         KneadingModel.KneadingCount = 1;

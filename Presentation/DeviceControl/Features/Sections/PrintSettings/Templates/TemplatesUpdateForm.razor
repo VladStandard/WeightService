@@ -1,0 +1,25 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.TemplateEntity>
+
+<SectionFormWrapper
+  OnSubmitAction="() => UpdateItem(SectionEntity, TemplateService.Update)"
+  ResetItemAction="ResetItem"
+  DeleteItemAction="() => DeleteItem(TemplateService.Delete)"
+  ShareUrl="@($"{RouteUtils.SectionTemplates}/{SectionEntity.Uid}")"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+>
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Name"
+    Label="@Localizer["DataGridColumnTitle"]"
+    Size="SectionFormInputSizeEnum.Medium"
+  />
+  <SectionFormInputText
+    @bind-Value="@SectionEntity.Body"
+    Label="@Localizer["DataGridColumnData"]"
+    Size="SectionFormInputSizeEnum.ExtraLarge"
+    IsCopyable
+  />
+</SectionFormWrapper>

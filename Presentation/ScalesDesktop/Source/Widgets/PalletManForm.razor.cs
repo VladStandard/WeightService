@@ -19,11 +19,14 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IPalletManService PalletManService { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
+    private IEnumerable<PalletManEntity> GetAllPalletMen { get; set; } = [];
     
-    private IEnumerable<PalletManEntity> GetAllPalletMen => PalletManService.GetAll();
-    
+    protected override void OnInitialized()
+    {
+        GetAllPalletMen = PalletManService.GetAll();
+    }
+
     private void HandleInvalidForm(EditContext context)
     {
         foreach (string msg in context.GetValidationMessages())

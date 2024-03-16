@@ -1,11 +1,10 @@
+@using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
 @using ScalesDesktop.Source.Shared.UI.Dialog
 @using ScalesDesktop.Source.Shared.UI.Form
-@using ScalesDesktop.Source.Shared.UI
 @using ScalesDesktop.Source.Shared.Utils
 @using Ws.Domain.Models.Entities.Ref1c
 @using Ws.Domain.Models.Entities.Scale
-@using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
-
+@using ScalesDesktop.Source.Shared.UI
 
 <Dialog class="max-w-screen-lg">
   <DialogHeader>
@@ -39,7 +38,7 @@
           ItemDisplayName="entity => entity.DisplayName"
           @bind-SelectedItem="@FormModel.Plu"
           @bind-SelectedItem:after="SetPluNestings"
-          Items="GetAllPlus()"
+          Items="Plus"
           IsFilterable/>
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlFor="nesting">

@@ -21,4 +21,8 @@ internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterServic
 
     [Transactional]
     public void Delete(PrinterEntity item) => printerRepo.Delete(item);
+
+    [Transactional]
+    public IEnumerable<PrinterEntity> GetAllByProductionSite(ProductionSiteEntity site) =>
+        printerRepo.GetAllByProductionSite(site);
 }

@@ -1,10 +1,12 @@
-﻿using Ws.Domain.Models.Entities;
+﻿using NHibernate.Transform;
+using Ws.Database.Core.Common.Queries.List;
+using Ws.Domain.Models.Entities;
 
 namespace Ws.Database.Core.Entities;
 
-public class SqlViewDbFileSizeRepository
+public class SqlViewDbFileSizeRepository : BaseRepository, IGetAll<DbFileSizeInfoEntity>
 {
-    public List<DbFileSizeInfoEntity> GetList()
+    public IEnumerable<DbFileSizeInfoEntity> GetAll()
     {
         const string fileNameAlias = nameof(DbFileSizeInfoEntity.FileName);
         const string sizeMbAlias = nameof(DbFileSizeInfoEntity.SizeMb);
@@ -18,6 +20,8 @@ public class SqlViewDbFileSizeRepository
             $"\n FROM [SYS].[DATABASE_FILES]" +
             $"\n ORDER BY [{sizeMbAlias}] DESC, [NAME]";
 
-        return SqlCoreHelper.GetEnumerableBySql<DbFileSizeInfoEntity>(sqlQuery).ToList();
+        ISQLQuery query = Session.CreateSQLQuery(sqlQuery);
+        query.SetResultTransformer(Transformers.AliasToBean<DbFileSizeInfoEntity>());
+        return query.List<DbFileSizeInfoEntity>().ToList();
     }
 }

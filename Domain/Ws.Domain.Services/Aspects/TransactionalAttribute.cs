@@ -3,9 +3,7 @@ using PostSharp.Aspects;
 using PostSharp.Serialization;
 using Ws.Database.Core.Sessions;
 using Ws.Database.Core.Sessions.Common;
-using Ws.Database.Core.Sessions.Exceptions;
 using Ws.Domain.Services.Exceptions;
-using Ws.Shared.Utils;
 
 namespace Ws.Domain.Services.Aspects;
 

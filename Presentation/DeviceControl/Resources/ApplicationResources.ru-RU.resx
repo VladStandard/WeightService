@@ -216,8 +216,8 @@
     <data name="DataGridColumnProductionSite" xml:space="preserve">
         <value>Площадка</value>
     </data>
-    <data name="SectionFormPlatformDefaultName" xml:space="preserve">
-        <value>Выберите платформу</value>
+    <data name="SectionFormProductionSiteDefaultName" xml:space="preserve">
+        <value>Выберите площадку</value>
     </data>
     <data name="DataGridColumnAddress" xml:space="preserve">
         <value>Адрес</value>
@@ -416,5 +416,8 @@
     </data>
     <data name="DataGridColumnDatabaseTables" xml:space="preserve">
         <value>Таблицы</value>
+    </data>
+    <data name="MenuPrintSettings" xml:space="preserve">
+        <value>Настройки печати</value>
     </data>
 </root>

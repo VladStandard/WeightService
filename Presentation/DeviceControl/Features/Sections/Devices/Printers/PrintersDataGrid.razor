@@ -17,18 +17,24 @@
   <DataGridColumn
     Caption="@Localizer["DataGridColumnName"]"
     Field="@nameof(PrinterEntity.Name)"
-    Width="40%"
+    Width="25%"
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnType"]"
     Field="@nameof(PrinterEntity.Type)"
-    Width="30%"
+    Width="10%"
     Groupable
     Grouping
   />
   <DataGridColumn
     Caption="@Localizer["DataGridColumnIp"]"
     Field="@nameof(PrinterEntity.Ip)"
-    Width="30%"
+    Width="25%"
+    Sortable="false"
+  />
+  <DataGridColumn
+    Caption="@Localizer["DataGridColumnProductionSite"]"
+    Field="ProductionSite.Name"
+    Width="40%"
   />
 </SectionDataGridWrapper>

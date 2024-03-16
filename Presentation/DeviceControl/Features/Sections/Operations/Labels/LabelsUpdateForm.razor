@@ -1,3 +1,4 @@
+@using DeviceControl.Auth.Claims
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.LabelEntity>
 
 
@@ -5,11 +6,8 @@
   ShareUrl="@($"{RouteUtils.SectionLabels}/{SectionEntity.Uid}")"
   CreateDate="SectionEntity.CreateDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     Value="@GetPluTypeTitle(SectionEntity.Plu.IsCheckWeight)"
@@ -19,19 +17,19 @@
   <SectionFormInputText
     Value="@SectionEntity.Line.Name"
     Label="@Localizer["DataGridColumnLine"]"
-    Link="@GetLineLink()"
+    Link="@(RedirectUtils.ToLine(SectionEntity.Line, User))"
     IsDisabled
   />
   <SectionFormInputText
     Value="@SectionEntity.Plu.DisplayName"
     Label="@Localizer["DataGridColumnPlu"]"
-    Link="@GetPluLink()"
+    Link="@RedirectUtils.ToPlu(SectionEntity.Plu)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@Template.Name"
     Label="@Localizer["DataGridColumnTemplate"]"
-    Link="@GetTemplateLink()"
+    Link="@RedirectUtils.ToTemplate(Template, User)"
     IsDisabled
   />
   <SectionFormInputText
@@ -44,11 +42,15 @@
     Label="@Localizer["DataGridColumnExpirationDt"]"
     IsDisabled
   />
-  <SectionFormInputText
-    Value="@SectionEntity.Zpl"
-    Label="Zpl"
-    Size="SectionFormInputSizeEnum.ExtraLarge"
-    IsDisabled
-    IsCopyable
-  />
+
+  <AuthorizeView Policy="@PolicyNameUtils.Admin">
+    <SectionFormInputText
+      Value="@SectionEntity.Zpl"
+      Label="Zpl"
+      Size="SectionFormInputSizeEnum.ExtraLarge"
+      IsDisabled
+      IsCopyable
+    />
+  </AuthorizeView>
+
 </SectionFormWrapper>

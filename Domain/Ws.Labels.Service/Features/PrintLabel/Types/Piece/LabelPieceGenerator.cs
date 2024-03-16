@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Label;
 using Ws.Domain.Services.Features.Pallet;
+using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
@@ -12,7 +12,7 @@ using Ws.Labels.Service.Features.PrintLabel.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 
-internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabelService labelService, IPalletService palletService)
+internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluService pluService, IPalletService palletService)
 {
     public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount)
     {
@@ -29,11 +29,12 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
             throw new LabelGenerateException(result);
 
                 
-        ZplItemsDto zplItems = new(
-            labelPalletDto.Template, 
-            labelPalletDto.Nesting.Plu.StorageMethod.Zpl, 
-            zplResourceService.GetAllCachedResources()
-        );
+        ZplItemsDto zplItems = new()
+        {
+            Resources = zplResourceService.GetAllCachedResources(),
+            Template = pluService.GetPluCachedTemplate(labelPalletDto.Nesting.Plu),
+            StorageMethod = labelPalletDto.Nesting.Plu.StorageMethod.Zpl,
+        };
         
         PalletEntity pallet = new()
         {
@@ -42,22 +43,19 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ILabe
             ProdDt = labelPalletDto.ProductDt,
             PalletMan = labelPalletDto.PalletMan,
         };
-        palletService.Create(pallet);
-
-        
+   
+        IList<LabelEntity> labels = [];
         for (int i = 0; i < labelCount; i++)
         {
             labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
             
-            if (!result.IsValid)
-                throw new LabelGenerateException(result);
-            
             LabelEntity label = GenerateLabel(labelPalletDto, zplItems, labelXml);
-            label.Pallet = pallet;
             
-            labelService.Create(label);
+            labels.Add(label);
+            
             labelPalletDto = labelPalletDto with { ProductDt = labelPalletDto.ProductDt.AddSeconds(1) };
         }
+        palletService.Create(pallet, labels);
     }
     
     private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems, 

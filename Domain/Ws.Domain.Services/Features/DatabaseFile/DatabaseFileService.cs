@@ -6,12 +6,12 @@ using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.DatabaseFile;
 
-internal class DatabaseFileService : IDatabaseFileService
+internal class DatabaseFileService(SqlViewDbFileSizeRepository viewDbFileSizeRepo) : IDatabaseFileService
 {
     [Transactional]
     public IEnumerable<DbFileSizeInfoEntity> GetAll()
     {
-        List<DbFileSizeInfoEntity> sqlFiles = new SqlViewDbFileSizeRepository().GetList();
+        List<DbFileSizeInfoEntity> sqlFiles = viewDbFileSizeRepo.GetAll().ToList();
         List<TableSizeEntity> sqlTables = new SqlViewTableSizeRepository().GetAll().ToList();
         foreach (DbFileSizeInfoEntity sqlFile in sqlFiles)
             sqlFile.Tables.AddRange(sqlTables.Where(table => table.FileName == sqlFile.FileName));

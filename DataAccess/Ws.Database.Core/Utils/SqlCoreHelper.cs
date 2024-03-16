@@ -1,5 +1,4 @@
 #pragma warning disable CS8618// Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-using NHibernate.Transform;
 using Ws.Database.Core.Sessions;
 using Ws.Domain.Models.Common;
 
@@ -23,32 +22,7 @@ public static class SqlCoreHelper
             transaction.Rollback();
         }
     }
-
-    #region GetList
-
-    public static IEnumerable<TObject> GetEnumerableBySql<TObject>(string sqlQuery)
-    {
-        IEnumerable<TObject> items = Enumerable.Empty<TObject>();
-
-        using ISession session = NHibernateHelper.SessionFactory.OpenSession();
-        session.FlushMode = FlushMode.Manual;
-
-        try
-        {
-            ISQLQuery query = session.CreateSQLQuery(sqlQuery);
-            query.SetResultTransformer(Transformers.AliasToBean<TObject>());
-            items = query.List<TObject>();
-        }
-        catch (Exception)
-        {
-            // ignored
-        }
-
-        return items;
-    }
-
-    #endregion
-
+    
     #region CRUD
 
     public static T SaveOrUpdate<T>(T item) where T : EntityBase

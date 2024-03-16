@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
+using DeviceControl.Auth.Claims;
 using DeviceControl.Resources;
 using DeviceControl.Services;
 using DeviceControl.Utils;
@@ -18,7 +19,10 @@ public sealed partial class NavMenu : ComponentBase
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    private string TimeOnline => $"{StartupService.TimeOnline.Days} дн {StartupService.TimeOnline.Hours} ч {StartupService.TimeOnline.Minutes} мин";
+    private string TimeOnline => $"{StartupService.TimeOnline.Days} дн " +
+                                 $"{StartupService.TimeOnline.Hours} ч " +
+                                 $"{StartupService.TimeOnline.Minutes} мин";
+    
     protected override void OnInitialized()
     {
         IsProduction = !ConfigurationUtil.IsDevelop;
@@ -30,7 +34,8 @@ public sealed partial class NavMenu : ComponentBase
         new()
         {
             Label = Localizer["MenuDevices"],
-            Icon = HeroiconName.DeviceTablet,
+            Icon = HeroiconName.ComputerDesktop,
+            RequiredClaim = PolicyNameUtils.Support,
             SubItems =
             [
                 new(Localizer["SectionLines"], RouteUtils.SectionLines),
@@ -64,48 +69,57 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuReferences"],
             Icon = HeroiconName.BookOpen,
+            RequiredClaim = PolicyNameUtils.Admin,
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
                 new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites),
+            ]
+        },
+        new()
+        {
+            Label = Localizer["MenuPrintSettings"],
+            Icon = HeroiconName.Printer,
+            RequiredClaim = PolicyNameUtils.Admin,
+            SubItems =
+            [
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
                 new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
                 new(Localizer["SectionPluStorages"], RouteUtils.SectionStorageMethods)
             ]
         },
-
-        new()
-        {
-            Label = Localizer["MenuDiagnostics"],
-            Icon = HeroiconName.Wrench,
-            SubItems =
-            [
-                // new(Localizer["SectionAppsLogs"],RouteUtils.SectionLogs),
-                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs)
-            ]
-        },
-
         new()
         {
             Label = Localizer["MenuAdministration"],
             Icon = HeroiconName.UserGroup,
+            RequiredClaim = PolicyNameUtils.Support,
             SubItems =
             [
-                new(Localizer["SectionUsers"], RouteUtils.SectionUsers),
-                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen),
-                new(Localizer["SectionRoles"], RouteUtils.SectionRoles),
+                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyNameUtils.Support),
+                new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyNameUtils.SupportSenior),
+                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyNameUtils.Admin),
+            ]
+        },
+        new()
+        {
+            Label = Localizer["MenuDiagnostics"],
+            Icon = HeroiconName.Wrench,
+            RequiredClaim = PolicyNameUtils.Admin,
+            SubItems =
+            [
+                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
                 new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
             ]
-        }
+        },
     ];
 
     private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }
 
-internal class MenuSection
+public class MenuSection
 {
-    public string Label { get; init; } = string.Empty;
-    public string Icon { get; init; } = string.Empty;
-    public string RequiredRole { get; init; } = string.Empty;
-    public IEnumerable<NavMenuItemModel> SubItems { get; init; } = [];
+    public required string Label { get; init; } = string.Empty;
+    public required string Icon { get; init; } = string.Empty;
+    public required IEnumerable<NavMenuItemModel> SubItems { get; init; } = [];
+    public string? RequiredClaim { get; init; }
 }

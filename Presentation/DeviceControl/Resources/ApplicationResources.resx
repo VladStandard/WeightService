@@ -216,7 +216,7 @@
     <data name="DataGridColumnProductionSite" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionFormPlatformDefaultName" xml:space="preserve">
+    <data name="SectionFormProductionSiteDefaultName" xml:space="preserve">
         <value />
     </data>
     <data name="DataGridColumnAddress" xml:space="preserve">
@@ -415,6 +415,9 @@
         <value />
     </data>
     <data name="DataGridColumnDatabaseTables" xml:space="preserve">
+        <value />
+    </data>
+    <data name="MenuPrintSettings" xml:space="preserve">
         <value />
     </data>
 </root>

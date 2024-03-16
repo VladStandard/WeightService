@@ -22,6 +22,10 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
 
     [Transactional]
+    public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site)
+        => lineRepo.GetAllByProductionSite(site);
+
+    [Transactional]
     public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
 
     [Transactional]

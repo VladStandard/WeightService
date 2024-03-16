@@ -1,6 +1,5 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
 
-
 <SectionFormWrapper
   OnSubmitAction="() => UpdateItem(SectionEntity, PalletManService.Update)"
   ResetItemAction="ResetItem"
@@ -9,11 +8,8 @@
   CreateDate="SectionEntity.CreateDt"
   ChangeDate="SectionEntity.ChangeDt"
 >
-  <SectionFormInputText
-    Value="@SectionEntity.Uid.ToString()"
-    Label="@Localizer["DataGridColumnUID"]"
-    IsDisabled
-    IsCopyable
+  <SectionInputGuid
+    Value="@SectionEntity.Uid"
   />
   <SectionFormInputText
     @bind-Value="@Uid1C"

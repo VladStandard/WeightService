@@ -9,7 +9,12 @@ public sealed class SqlLineRepository : BaseRepository,
 {
     public LineEntity GetByUid(Guid uid) => Session.Get<LineEntity>(uid) ?? new();
     public IEnumerable<LineEntity> GetAll() => Session.Query<LineEntity>().OrderBy(i => i.Name).ToList();
-
+    public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site)
+    {
+        return Session.Query<LineEntity>().Where(i => i.Warehouse.ProductionSite == site)
+            .OrderBy(i => i.Name).ToList();
+    }
+    
     public LineEntity GetByPcName(string pcName)
     {
         return Session.QueryOver<LineEntity>()
