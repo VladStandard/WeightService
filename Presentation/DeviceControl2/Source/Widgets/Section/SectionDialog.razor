@@ -1,0 +1,30 @@
+@using Ws.Shared.Enums
+
+
+<Dialog Class="max-w-screen-lg !p-0">
+  <Tabs @bind-ActiveTabId="CurrentTabId">
+    <DialogHeader>
+      <ul class="flex gap-2">
+        @foreach (EnumTypeModel<string> item in TabsList)
+        {
+          <li>
+            <Button
+              Variant="@(CurrentTabId == item.Value ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+              OnClick="@(() => CurrentTabId = item.Value)"
+            >
+              @item.Name
+            </Button>
+          </li>
+        }
+      </ul>
+    </DialogHeader>
+    @ChildContent
+  </Tabs>
+</Dialog>
+
+@code {
+  [Parameter] public List<EnumTypeModel<string>> TabsList { get; set; } = [];
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  private string CurrentTabId { get; set; } = "main";
+}

@@ -1,0 +1,70 @@
+@using Blazorise.DataGrid
+@using Ws.Domain.Models.Entities.Ref1c
+@using DeviceControl2.Source.Features
+@using DeviceControl2.Source.Widgets
+@using Blazor.Heroicons.Outline
+
+@inherits DeviceControl2.Source.Widgets.Section.SectionDataGridPageBase<PluEntity>
+@attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>ПЛУ</span>
+  <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <Button Size="ButtonSize.Icon" OnClick="@UpdateData" Disabled="@IsLoading">
+    <ArrowPathIcon class="size-5"/>
+  </Button>
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="PluEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="Номер"
+        Field="@nameof(PluEntity.Number)"
+        FilterMethod="DataGridColumnFilterMethod.StartsWith"
+        Width="10%"
+      />
+      <DataGridColumn
+        Caption="Название"
+        Field="@nameof(PluEntity.Name)"
+        FilterMethod="DataGridColumnFilterMethod.Contains"
+        Width="45%"
+      />
+      <DataGridColumn
+        Caption="Тип"
+        Field="@nameof(PluEntity.IsCheckWeight)"
+        Width="10%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          <span>
+            @(context.IsCheckWeight ? "Весовая" : "Штучная")
+          </span>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="Дата изменения"
+        Field="@nameof(PluEntity.ChangeDt)"
+        Width="15%"
+        Filterable="false"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DropdownItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))">
+        <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
+        View item
+      </DropdownItem>
+      <DropdownItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))">
+        <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
+        Open in new tab
+      </DropdownItem>
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

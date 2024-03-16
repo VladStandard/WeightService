@@ -11,9 +11,11 @@ public sealed partial class DataGridContainer<TItem>: ComponentBase
     [Parameter] public IEnumerable<TItem> Items { get; set; } = [];
     [Parameter] public RenderFragment? ColumnsContent { get; set; }
     [Parameter] public RenderFragment<ContextMenuContext<TItem>>? ContextMenuContent { get; set; }
-    [Parameter] public int ItemsPerPage { get; set; } = 10;
-    [Parameter] public bool IsGroupable { get; set; }
     [Parameter] public EventCallback<TItem> OnItemSelect { get; set; }
+    [Parameter] public int ItemsPerPage { get; set; } = 13;
+    [Parameter] public bool IsGroupable { get; set; }
+    [Parameter] public bool IsFilterable { get; set; }
+    
     
     private TItem? SelectedItem { get; set; }
     private TItem? ContextMenuItem { get; set; }
@@ -33,6 +35,12 @@ public sealed partial class DataGridContainer<TItem>: ComponentBase
     }
 
     private void CloseContextMenu() => IsContextMenuOpen = false;
+
+    private async Task HandleRowDoubleClick(TItem item)
+    {
+        SelectedItem = item;
+        await OnItemSelect.InvokeAsync(item);
+    }
 }
 
 public record ContextMenuContext<TItem>(TItem? Item, EventCallback CloseContextMenu);

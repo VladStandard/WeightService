@@ -1,0 +1,14 @@
+@using DeviceControl2.Source.Widgets.Section
+@inherits DeviceControl2.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+
+
+
+<SectionDialog TabsList="@TabsList">
+  <Tab Id="main">
+    Hello World
+    @SectionEntity.Name
+  </Tab>
+  <Tab Id="nesting">
+    Nesting
+  </Tab>
+</SectionDialog>

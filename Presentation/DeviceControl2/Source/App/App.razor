@@ -19,10 +19,10 @@
     else
       document.documentElement.classList.remove('dark')
   </script>
-  <HeadOutlet />
+  <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 <body class="min-h-screen font-['Inter'] bg-background overflow-x-hidden antialiased">
-  <Routes />
+  <Routes @rendermode="InteractiveServer" />
   <script src="_framework/blazor.web.js"></script>
   </body>
 </html>
