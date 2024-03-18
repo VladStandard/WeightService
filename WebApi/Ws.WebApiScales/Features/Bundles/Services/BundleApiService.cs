@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Ws.Database.Core.Utils;
+using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Bundle;
 using Ws.WebApiScales.Dto;

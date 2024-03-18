@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.Warehouses;
+﻿using Ws.Database.Nhibernate.Entities.Ref.Warehouses;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Warehouses;

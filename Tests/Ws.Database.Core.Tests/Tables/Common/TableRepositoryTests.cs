@@ -1,4 +1,4 @@
-using Ws.Database.Core.Sessions;
+using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Common;
 
 namespace Ws.StorageCoreTests.Tables.Common;

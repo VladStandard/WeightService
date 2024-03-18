@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Diag.TableSizes;
+﻿using Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.ViewTableSize;

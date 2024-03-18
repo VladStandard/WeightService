@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Ws.Database.Core;
+using Ws.Database.Nhibernate;
 using Ws.Domain.Services.Features.Box;
 using Ws.Domain.Services.Features.Brand;
 using Ws.Domain.Services.Features.Bundle;

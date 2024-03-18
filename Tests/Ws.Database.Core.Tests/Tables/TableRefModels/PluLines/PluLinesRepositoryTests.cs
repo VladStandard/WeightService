@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.PlusLines;
+﻿using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;

@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.Claims;
+﻿using Ws.Database.Nhibernate.Entities.Ref.Claims;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Claims;

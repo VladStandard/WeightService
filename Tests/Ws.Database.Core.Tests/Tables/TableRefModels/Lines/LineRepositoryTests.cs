@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.Lines;
+﻿using Ws.Database.Nhibernate.Entities.Ref.Lines;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Lines;

@@ -1,5 +1,5 @@
 ﻿using EasyCaching.Core;
-using Ws.Database.Core.Entities.Ref.Templates;
+using Ws.Database.Nhibernate.Entities.Ref.Templates;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Template.Validators;

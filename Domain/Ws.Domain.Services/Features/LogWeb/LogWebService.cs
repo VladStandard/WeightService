@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Diag.LogWebs;
+﻿using Ws.Database.Nhibernate.Entities.Diag.LogWebs;
 using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Aspects;
 

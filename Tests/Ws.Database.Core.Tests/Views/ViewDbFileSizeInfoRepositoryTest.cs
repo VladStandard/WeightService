@@ -1,5 +1,5 @@
-﻿using Ws.Database.Core.Entities;
-using Ws.Database.Core.Sessions;
+﻿using Ws.Database.Nhibernate.Entities;
+using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities;
 
 namespace Ws.StorageCoreTests.Views;

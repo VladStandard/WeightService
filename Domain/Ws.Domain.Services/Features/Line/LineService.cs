@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using Ws.Database.Core.Entities.Ref.Lines;
-using Ws.Database.Core.Entities.Ref.PlusLines;
+using Ws.Database.Nhibernate.Entities.Ref.Lines;
+using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Aspects;
