@@ -1,6 +1,6 @@
 using Blazor.Heroicons;
 using Blazorise;
-using DeviceControl.Auth.Common;
+using DeviceControl.Auth.ClaimsTransform.CacheProviders.Common;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -17,13 +17,13 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
 {
     #region Inject
 
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IClaimService ClaimService { get; set; } = null!;
     [Inject] private IUserService UserService { get; set; } = null!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
+    [Inject] private IClaimsCacheProvider ClaimsCacheProvider { get; set; } = null!;
 
     #endregion
 
@@ -55,19 +55,19 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
 
     private async Task ReloginCurrentUser()
     {
-        UserCacheService.ClearCacheForUser(SectionEntity.Name);
+        ReloginUser(SectionEntity);
         await NotificationService.Info("Релогин выполнен");
     }
 
     private UserEntity ReloginUser(UserEntity user)
     {
-        UserCacheService.ClearCacheForUser(user.Name);
+        ClaimsCacheProvider.ClearCacheByUserName(user.Name);
         return SectionEntity;
     }
 
     private async Task DeleteUserWithRelogin()
     {
-        UserCacheService.ClearCacheForUser(SectionEntity.Name);
+        ReloginUser(SectionEntity);
         await DeleteItem(UserService.Delete);
     }
 }

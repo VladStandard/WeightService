@@ -1,6 +1,6 @@
-﻿namespace DeviceControl.Auth.Claims;
+﻿namespace DeviceControl.Auth.Policies;
 
-public static class PolicyNameUtils
+public static class PolicyEnum
 {
     public const string Admin = nameof(Admin);
     public const string Support = nameof(Support);

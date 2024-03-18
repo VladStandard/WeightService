@@ -1,4 +1,3 @@
-using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -14,7 +13,7 @@ public sealed partial class LabelsUpdateForm : SectionFormBase<LabelEntity>
 {
     #region MyRegion
 
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
 

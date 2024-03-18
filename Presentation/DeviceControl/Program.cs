@@ -1,9 +1,10 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.Tailwind;
-using DeviceControl.Auth;
-using DeviceControl.Auth.Common;
-using DeviceControl.Services;
+using DeviceControl.Auth.ClaimsTransform;
+using DeviceControl.Auth.ClaimsTransform.CacheProviders;
+using DeviceControl.Auth.ClaimsTransform.CacheProviders.Common;
+using DeviceControl.Auth.Policies;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
@@ -39,20 +40,15 @@ builder.Services.AddLocalization();
 
 #region AddScoped
 
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
-builder.Services.AddScoped<RedirectUtils>();
-
-builder.Services.AddSingleton<IUserCacheService, UserCacheService>();
-builder.Services.AddSingleton<StartupService>();
+builder.Services.AddScoped<Redirector>();
+builder.Services.AddScoped<IClaimsCacheProvider, ClaimsInMemoryCacheProvider>();
+builder.Services.AddScoped<IClaimsTransformation, WsClaimsTransformation>();
 
 #endregion
 
 #region App
 
 WebApplication app = builder.Build();
-
-app.Services.GetService<StartupService>();
 
 if (!app.Environment.IsDevelopment())
 {

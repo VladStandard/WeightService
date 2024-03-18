@@ -20,7 +20,7 @@
   >
     <DisplayTemplate>
       <div class="flex items-center justify-center w-full h-full">
-        <div class="h-3 w-3 rounded-full overflow-hidden @(IsUserActive(context.Name) ? "bg-green-400" : "bg-gray-600")"/>
+        <div class="h-3 w-3 rounded-full overflow-hidden @((DateTime.Now - context.LoginDt).TotalMinutes <= 5 ? "bg-green-400" : "bg-gray-600")"/>
       </div>
     </DisplayTemplate>
   </DataGridColumn>

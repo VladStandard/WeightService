@@ -1,28 +1,27 @@
 ﻿using System.Security.Claims;
-using DeviceControl.Auth.Claims;
 using Microsoft.AspNetCore.Authorization;
 
-namespace DeviceControl.Auth;
+namespace DeviceControl.Auth.Policies;
 
 public static class PolicyAuthUtils
 {
     public static void RegisterAuthorization(AuthorizationOptions options)
     {
         options.FallbackPolicy = options.DefaultPolicy;
-        options.AddPolicy(PolicyNameUtils.Admin, builder =>
-            builder.RequireRole(ClaimTypes.Role, RolesNameUtils.Admin)
+        options.AddPolicy(PolicyEnum.Admin, builder =>
+            builder.RequireRole(ClaimTypes.Role, RoleEnum.Admin)
         );
     
-        options.AddPolicy(PolicyNameUtils.SupportSenior, builder =>
+        options.AddPolicy(PolicyEnum.SupportSenior, builder =>
             builder.RequireAssertion(x =>
-                x.User.HasRole(RolesNameUtils.Admin, RolesNameUtils.SupportSenior)
+                x.User.HasRole(RoleEnum.Admin, RoleEnum.SupportSenior)
             )
         );
         
-        options.AddPolicy(PolicyNameUtils.Support, builder =>
+        options.AddPolicy(PolicyEnum.Support, builder =>
             builder.RequireAssertion(x =>
                 x.User.HasRole(
-                    RolesNameUtils.Support, RolesNameUtils.Admin, RolesNameUtils.SupportSenior
+                    RoleEnum.Support, RoleEnum.Admin, RoleEnum.SupportSenior
                 )
             )
         );

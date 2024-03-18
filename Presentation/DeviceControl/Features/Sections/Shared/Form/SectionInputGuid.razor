@@ -1,6 +1,6 @@
-﻿@using DeviceControl.Auth.Claims
+﻿@using DeviceControl.Auth.Policies
 
-<AuthorizeView Policy="@PolicyNameUtils.Admin">
+<AuthorizeView Policy="@PolicyEnum.Admin">
   <SectionFormInputText
     Value="@Value.ToString()"
     Label="@Localizer["DataGridColumnUID"]"

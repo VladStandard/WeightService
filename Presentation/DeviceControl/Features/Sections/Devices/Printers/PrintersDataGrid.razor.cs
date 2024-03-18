@@ -1,9 +1,9 @@
 using System.Security.Claims;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
-using DeviceControl.Services;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Printer;
@@ -14,11 +14,11 @@ namespace DeviceControl.Features.Sections.Devices.Printers;
 public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity>
 {
     #region Inject
-
+    
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IUserService UserDomainService { get; set; } = null!;
-    [Inject] private UserService UserService { get; set; } = null!;
 
     #endregion
     
@@ -26,7 +26,7 @@ public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity
 
     protected override async Task OnInitializedAsync()
     {
-        ClaimsPrincipal? userClaims = await UserService.GetUser();
+        ClaimsPrincipal userClaims = (await AuthState).User;
         if (userClaims is { Identity.Name: not null })
             User = UserDomainService.GetItemByNameOrCreate(userClaims.Identity.Name);
     }

@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using DeviceControl.Auth.Claims;
+using DeviceControl.Auth.Policies;
 using Microsoft.AspNetCore.Authorization;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
@@ -8,7 +8,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace DeviceControl.Utils;
 
 
-public class RedirectUtils(IAuthorizationService authorizationService)
+public class Redirector(IAuthorizationService authorizationService)
 {
     #region Private
 
@@ -23,21 +23,21 @@ public class RedirectUtils(IAuthorizationService authorizationService)
     #endregion
     
     public string ToLine(LineEntity line, ClaimsPrincipal user) =>
-        Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyNameUtils.Support));
+        Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 
     public string ToTemplate(TemplateEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyNameUtils.Admin));
+        Link(item, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToPlu(PluEntity item) => Link(item, RouteUtils.SectionPlus);
 
     public string ToPrinter(PrinterEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyNameUtils.Support));
+        Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
 
     public string ToWarehouse(WarehouseEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyNameUtils.Admin));
+        Link(item, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToProductionSite(ProductionSiteEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyNameUtils.Admin));
+        Link(item, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToBundle(BundleEntity item) => Link(item, RouteUtils.SectionBundles);
 
@@ -46,5 +46,5 @@ public class RedirectUtils(IAuthorizationService authorizationService)
     public string ToBrand(BrandEntity item) => Link(item, RouteUtils.SectionBrands);
 
     public string ToStorage(StorageMethodEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyNameUtils.Admin));
+        Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyEnum.Admin));
 }

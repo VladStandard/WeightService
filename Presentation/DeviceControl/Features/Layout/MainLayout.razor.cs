@@ -1,14 +1,14 @@
 // ReSharper disable ClassNeverInstantiated.Global
 using System.Security.Claims;
-using DeviceControl.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace DeviceControl.Features.Layout;
 
 public partial class MainLayout : LayoutComponentBase
 {
-    [Inject] private UserService UserService { get; set; } = null!;
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = null!;
     private ClaimsPrincipal? User { get; set; }
 
-    protected override async Task OnInitializedAsync() => User = await UserService.GetUser();
+    protected override async Task OnInitializedAsync() => User = (await AuthState).User;
 }

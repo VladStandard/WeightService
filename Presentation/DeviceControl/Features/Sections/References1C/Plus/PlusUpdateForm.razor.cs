@@ -1,4 +1,3 @@
-using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -13,7 +12,7 @@ namespace DeviceControl.Features.Sections.References1C.Plus;
 public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 {
     #region Inject
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
 

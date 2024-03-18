@@ -1,4 +1,4 @@
-@using DeviceControl.Auth.Claims
+@using DeviceControl.Auth.Policies
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.LabelEntity>
 
 
@@ -17,19 +17,19 @@
   <SectionFormInputText
     Value="@SectionEntity.Line.Name"
     Label="@Localizer["DataGridColumnLine"]"
-    Link="@(RedirectUtils.ToLine(SectionEntity.Line, User))"
+    Link="@(Redirector.ToLine(SectionEntity.Line, User))"
     IsDisabled
   />
   <SectionFormInputText
     Value="@SectionEntity.Plu.DisplayName"
     Label="@Localizer["DataGridColumnPlu"]"
-    Link="@RedirectUtils.ToPlu(SectionEntity.Plu)"
+    Link="@Redirector.ToPlu(SectionEntity.Plu)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@Template.Name"
     Label="@Localizer["DataGridColumnTemplate"]"
-    Link="@RedirectUtils.ToTemplate(Template, User)"
+    Link="@Redirector.ToTemplate(Template, User)"
     IsDisabled
   />
   <SectionFormInputText
@@ -43,7 +43,7 @@
     IsDisabled
   />
 
-  <AuthorizeView Policy="@PolicyNameUtils.Admin">
+  <AuthorizeView Policy="@PolicyEnum.Admin">
     <SectionFormInputText
       Value="@SectionEntity.Zpl"
       Label="Zpl"
