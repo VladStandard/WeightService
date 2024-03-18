@@ -1,8 +1,7 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
-using DeviceControl.Auth.Claims;
+using DeviceControl.Auth.Policies;
 using DeviceControl.Resources;
-using DeviceControl.Services;
 using DeviceControl.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -13,15 +12,10 @@ namespace DeviceControl.Features.Layout;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private StartupService StartupService { get; set; } = null!;
-    [Parameter] public ClaimsPrincipal? User { get; set; }
-    
+    [Parameter, EditorRequired] public ClaimsPrincipal User { get; set; } = null!;
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    private string TimeOnline => $"{StartupService.TimeOnline.Days} дн " +
-                                 $"{StartupService.TimeOnline.Hours} ч " +
-                                 $"{StartupService.TimeOnline.Minutes} мин";
     
     protected override void OnInitialized()
     {
@@ -35,7 +29,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuDevices"],
             Icon = HeroiconName.ComputerDesktop,
-            RequiredClaim = PolicyNameUtils.Support,
+            RequiredClaim = PolicyEnum.Support,
             SubItems =
             [
                 new(Localizer["SectionLines"], RouteUtils.SectionLines),
@@ -69,7 +63,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuReferences"],
             Icon = HeroiconName.BookOpen,
-            RequiredClaim = PolicyNameUtils.Admin,
+            RequiredClaim = PolicyEnum.Admin,
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
@@ -80,7 +74,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuPrintSettings"],
             Icon = HeroiconName.Printer,
-            RequiredClaim = PolicyNameUtils.Admin,
+            RequiredClaim = PolicyEnum.Admin,
             SubItems =
             [
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
@@ -92,19 +86,19 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuAdministration"],
             Icon = HeroiconName.UserGroup,
-            RequiredClaim = PolicyNameUtils.Support,
+            RequiredClaim = PolicyEnum.Support,
             SubItems =
             [
-                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyNameUtils.Support),
-                new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyNameUtils.SupportSenior),
-                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyNameUtils.Admin),
+                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyEnum.Support),
+                new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyEnum.SupportSenior),
+                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyEnum.Admin),
             ]
         },
         new()
         {
             Label = Localizer["MenuDiagnostics"],
             Icon = HeroiconName.Wrench,
-            RequiredClaim = PolicyNameUtils.Admin,
+            RequiredClaim = PolicyEnum.Admin,
             SubItems =
             [
                 new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
@@ -112,8 +106,6 @@ public sealed partial class NavMenu : ComponentBase
             ]
         },
     ];
-
-    private static string VerBlazor => $"v{BlazorCoreUtils.GetLibVersion()}";
 }
 
 public class MenuSection

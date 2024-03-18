@@ -1,5 +1,5 @@
-﻿using Ws.Database.Core.Entities;
-using Ws.Database.Core.Entities.Diag.TableSizes;
+﻿using Ws.Database.Nhibernate.Entities;
+using Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 using Ws.Domain.Models.Entities;
 using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Aspects;

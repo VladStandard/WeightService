@@ -1,6 +1,6 @@
 // using Ws.Domain.Models.Entities.Diag;
 //
-// namespace Ws.Database.Core.Entities.Diag.LogWebs;
+// namespace Ws.Database.Nhibernate.Entities.Diag.LogWebs;
 //
 // public sealed class SqlLogWebValidator : SqlTableValidator<LogWebEntity>
 // {

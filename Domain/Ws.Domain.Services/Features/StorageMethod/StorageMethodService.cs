@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.StorageMethods;
+﻿using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.StorageMethod.Validators;

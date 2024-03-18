@@ -13,7 +13,7 @@ namespace DeviceControl.Features.Sections.Devices.Printers;
 
 public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
 {
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;

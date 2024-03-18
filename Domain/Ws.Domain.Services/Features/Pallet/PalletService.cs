@@ -1,6 +1,6 @@
-﻿using Ws.Database.Core.Entities.Print.Labels;
-using Ws.Database.Core.Entities.Print.Pallets;
-using Ws.Database.Core.Sessions;
+﻿using Ws.Database.Nhibernate.Entities.Print.Labels;
+using Ws.Database.Nhibernate.Entities.Print.Pallets;
+using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;

@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\DataAccess\Ws.Database.Core\Ws.Database.Core.csproj" />
+        <ProjectReference Include="..\..\DataAccess\Ws.Database.Nhibernate\Ws.Database.Nhibernate.csproj" />
         <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>

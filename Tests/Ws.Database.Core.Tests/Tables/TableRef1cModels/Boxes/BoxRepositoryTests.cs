@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref1c.Boxes;
+﻿using Ws.Database.Nhibernate.Entities.Ref1c.Boxes;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Boxes;

@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Blazorise;
 using DeviceControl.Resources;
 using Force.DeepCloner;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -13,7 +12,7 @@ namespace DeviceControl.Features.Sections.Shared.Form;
 
 public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
-    [Inject] private AuthenticationStateProvider AuthProvider { get; set; } = null!;
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Parameter] public TItem SectionEntity { get; set; } = new();
@@ -25,7 +24,7 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     protected override async Task OnInitializedAsync()
     {
-        User =  (await AuthProvider.GetAuthenticationStateAsync()).User;
+        User =  (await AuthState).User;
         SectionEntityCopy = SectionEntity.DeepClone();
     }
 

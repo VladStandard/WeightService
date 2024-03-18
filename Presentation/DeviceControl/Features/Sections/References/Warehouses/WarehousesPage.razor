@@ -1,6 +1,6 @@
-@using DeviceControl.Auth.Claims
+@using DeviceControl.Auth.Policies
 @inherits SectionPageBase
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
-@attribute [Authorize(Policy = PolicyNameUtils.Admin)]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
 
 <WarehousesDataGrid SearchingSectionItemId="@SearchingSectionItemId" />

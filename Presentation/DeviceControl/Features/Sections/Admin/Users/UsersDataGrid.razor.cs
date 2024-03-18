@@ -1,4 +1,4 @@
-using DeviceControl.Auth.Common;
+using DeviceControl.Auth.ClaimsTransform.CacheProviders.Common;
 using DeviceControl.Features.Sections.Shared.DataGrid;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -14,12 +14,10 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
     #region Inject
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IUserCacheService UserCacheService { get; set; } = null!;
     [Inject] private IUserService UserService { get; set; } = null!;
+    [Inject] private IClaimsCacheProvider ClaimsCacheProvider { get; set; } = null!;
 
     #endregion
-
-    private IEnumerable<string> UserNames { get; set; } = [];
 
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<UsersCreateDialog>(new());
@@ -32,7 +30,6 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
 
     protected override IEnumerable<UserEntity> SetSqlSectionCast()
     {
-        UserNames = UserCacheService.GetCachedUsernames();
         return UserService.GetAll();
     }
 
@@ -41,15 +38,11 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [UserService.GetItemByUid(itemUid)];
     }
-
-    // TODO: parse exception
+    
     private Task DeleteUserWithRelogin(UserEntity item)
     {
-        UserCacheService.ClearCacheForUser(item.Name);
         UserService.Delete(item);
+        ClaimsCacheProvider.ClearCacheByUserName(item.Name);
         return Task.CompletedTask;
     }
-
-    private bool IsUserActive(string userName) =>
-        UserNames.Any(i => i.Equals(userName, StringComparison.OrdinalIgnoreCase));
 }

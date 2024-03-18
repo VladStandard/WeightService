@@ -1,4 +1,3 @@
-using DeviceControl.Auth.Claims;
 using DeviceControl.Features.Sections.Shared.Form;
 using DeviceControl.Resources;
 using DeviceControl.Utils;
@@ -20,7 +19,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
 
     #endregion
 

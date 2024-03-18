@@ -38,31 +38,31 @@
   <SectionFormInputText
     Value="@GetMockIfEmptyInput(SectionEntity.Bundle.Name)"
     Label="@Localizer["DataGridColumnBundle"]"
-    Link="@RedirectUtils.ToBundle(SectionEntity.Bundle)"
+    Link="@Redirector.ToBundle(SectionEntity.Bundle)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@GetMockIfEmptyInput(SectionEntity.Clip.Name)"
     Label="@Localizer["DataGridColumnClip"]"
-    Link="@RedirectUtils.ToClip(SectionEntity.Clip)"
+    Link="@Redirector.ToClip(SectionEntity.Clip)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@GetMockIfEmptyInput(SectionEntity.Brand.Name)"
     Label="@Localizer["DataGridColumnBrand"]"
-    Link="@RedirectUtils.ToBrand(SectionEntity.Brand)"
+    Link="@Redirector.ToBrand(SectionEntity.Brand)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@GetMockIfEmptyInput(Template.Name)"
     Label="@Localizer["DataGridColumnTemplate"]"
-    Link="@RedirectUtils.ToTemplate(Template, User)"
+    Link="@Redirector.ToTemplate(Template, User)"
     IsDisabled
   />
   <SectionFormInputText
     Value="@GetMockIfEmptyInput(SectionEntity.StorageMethod.Name)"
     Label="@Localizer["DataGridColumnStorage"]"
-    Link="@RedirectUtils.ToStorage(SectionEntity.StorageMethod, User)"
+    Link="@Redirector.ToStorage(SectionEntity.StorageMethod, User)"
     IsDisabled
   />
   <SectionFormInputText

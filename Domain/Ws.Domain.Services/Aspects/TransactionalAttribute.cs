@@ -1,8 +1,8 @@
 ﻿using NHibernate;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
-using Ws.Database.Core.Sessions;
-using Ws.Database.Core.Sessions.Common;
+using Ws.Database.Nhibernate.Sessions;
+using Ws.Database.Nhibernate.Sessions.Common;
 using Ws.Domain.Services.Exceptions;
 
 namespace Ws.Domain.Services.Aspects;

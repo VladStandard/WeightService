@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.Printers;
+﻿using Ws.Database.Nhibernate.Entities.Ref.Printers;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Printers;

@@ -12,7 +12,7 @@ namespace DeviceControl.Features.Sections.References.Warehouses;
 public sealed partial class WarehousesUpdateForm : SectionFormBase<WarehouseEntity>
 {
     #region Inject
-    [Inject] private RedirectUtils RedirectUtils { get; set; } = null!;
+    [Inject] private Redirector Redirector { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;

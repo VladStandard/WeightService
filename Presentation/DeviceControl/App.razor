@@ -3,17 +3,22 @@
     <Found Context="routeData">
       <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
         <NotAuthorized>
-          <h1>Недостаточно уровня прав для данной операции.</h1>
+          <div class="flex w-full h-full items-center justify-center">
+            <div class="text-center font-light text-lg">
+              <span>Недостаточно уровня прав для данной операции.</span>
+            </div>
+          </div>
         </NotAuthorized>
-        <Authorizing>
-          <h1>Выполняется авторизация...</h1>
-        </Authorizing>
       </AuthorizeRouteView>
       <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
     </Found>
     <NotFound>
       <LayoutView Layout="@typeof(MainLayout)">
-        <p>Ошибка</p>
+        <div class="flex w-full h-full items-center justify-center">
+          <div class="text-center font-light text-lg">
+           <span>Страница не найдена</span>
+          </div>
+       </div>
       </LayoutView>
     </NotFound>
   </Router>

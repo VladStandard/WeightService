@@ -1,4 +1,4 @@
-﻿using Ws.Database.Core.Entities.Ref.ProductionSites;
+﻿using Ws.Database.Nhibernate.Entities.Ref.ProductionSites;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.ProductionFacilities;
