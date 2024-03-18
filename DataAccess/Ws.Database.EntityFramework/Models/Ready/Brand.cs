@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Ws.Database.EntityFramework.Common;
 using Ws.Database.EntityFramework.Constants;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
@@ -9,7 +10,7 @@ namespace Ws.Database.EntityFramework.Models.Ready;
 [Table(SqlTables.Brands)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME")]
 [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Brands}_UID_1C")]
-public partial class Brand : EfEntityBase
+public sealed class Brand : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]

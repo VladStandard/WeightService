@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318164454_AddClaimsTable")]
+    partial class AddClaimsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,42 +214,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL");
 
                     b.ToTable("STORAGE_METHODS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Template", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasMaxLength(10240)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("BODY");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.HasKey("Uid");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME");
-
-                    b.ToTable("TEMPLATES");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.ZplResource", b =>

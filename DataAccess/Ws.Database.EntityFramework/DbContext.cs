@@ -8,6 +8,10 @@ public class WsDbContext : DbContext
     public DbSet<ZplResource> ZplResources { get; set; }
     public DbSet<PalletMan> PalletMen { get; set; }
     public DbSet<Brand> Brands { get; set; }
+    public DbSet<ProductionSite> ProductionSites { get; set; }
+    public DbSet<StorageMethod> StorageMethods { get; set; }
+    public DbSet<Claim> Claims { get; set; }
+    public DbSet<Template> Templates { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

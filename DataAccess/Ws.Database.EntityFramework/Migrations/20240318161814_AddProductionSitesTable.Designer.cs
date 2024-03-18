@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318161814_AddProductionSitesTable")]
+    partial class AddProductionSitesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,31 +61,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("BRANDS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Claim", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasColumnName("NAME");
-
-                    b.HasKey("Uid");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_CLAIMS_NAME");
-
-                    b.ToTable("CLAIMS");
-                });
-
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.PalletMan", b =>
                 {
                     b.Property<Guid>("Uid")
@@ -102,8 +80,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
                         .HasColumnName("NAME");
 
                     b.Property<string>("Password")
@@ -114,14 +92,14 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
                         .HasColumnName("PATRONYMIC");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
                         .HasColumnName("SURNAME");
 
                     b.Property<Guid>("Uid1C")
@@ -175,80 +153,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PRODUCTION_SITES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.StorageMethod", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.Property<string>("Zpl")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnName("DESCRIPTION");
-
-                    b.HasKey("Uid");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_STORAGE_METHODS_NAME");
-
-                    b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL");
-
-                    b.ToTable("STORAGE_METHODS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Template", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasMaxLength(10240)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("BODY");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.HasKey("Uid");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME");
-
-                    b.ToTable("TEMPLATES");
-                });
-
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.ZplResource", b =>
                 {
                     b.Property<Guid>("Uid")
@@ -274,8 +178,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
                         .HasColumnName("ZPL");
 
                     b.HasKey("Uid");

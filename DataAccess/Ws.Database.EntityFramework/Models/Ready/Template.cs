@@ -7,18 +7,18 @@ using Ws.Database.EntityFramework.Constants;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
 
-[Table(SqlTables.ZplResources)]
-[Index(nameof(Name), IsUnique = true, Name = $"UQ_{SqlTables.ZplResources}_NAME")] 
-public sealed class ZplResource : EfEntityBase
+[Table(SqlTables.Templates)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Templates}_NAME")]
+public sealed class Template : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]
-    public string Name { get; private set; } = string.Empty;
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    public string Name { get; set; } = string.Empty;
 
-    [Column("ZPL")]
-    [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1000 characters")]
-    public string Zpl { get; private set; } = string.Empty;
-    
+    [Column("BODY")]
+    [StringLength(10240, MinimumLength = 1, ErrorMessage = "Body must be between 1 and 10240 characters")]
+    public string Body { get; set; } = string.Empty;
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [ReadOnly(true)]
     [Column(SqlColumns.CreateDt)]
@@ -28,4 +28,5 @@ public sealed class ZplResource : EfEntityBase
     [ReadOnly(true)]
     [Column(SqlColumns.ChangeDt)]
     public DateTime ChangeDt { get; private set; }
+    // public virtual ICollection<PlusTemplatesFk> PlusTemplatesFks { get; set; } = new List<PlusTemplatesFk>();
 }

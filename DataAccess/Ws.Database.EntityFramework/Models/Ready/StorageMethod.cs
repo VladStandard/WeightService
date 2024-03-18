@@ -7,18 +7,19 @@ using Ws.Database.EntityFramework.Constants;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
 
-[Table(SqlTables.ZplResources)]
-[Index(nameof(Name), IsUnique = true, Name = $"UQ_{SqlTables.ZplResources}_NAME")] 
-public sealed class ZplResource : EfEntityBase
+[Table(SqlTables.StorageMethods)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.StorageMethods}_NAME")]
+[Index(nameof(Zpl), Name = $"UQ_{SqlTables.StorageMethods}_ZPL")]
+public sealed class StorageMethod : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]
-    public string Name { get; private set; } = string.Empty;
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    public string Name { get; set; } = string.Empty;
 
-    [Column("ZPL")]
-    [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1000 characters")]
-    public string Zpl { get; private set; } = string.Empty;
-    
+    [Column("DESCRIPTION")]
+    [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1024 characters")]
+    public string Zpl { get; set; } = string.Empty;
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [ReadOnly(true)]
     [Column(SqlColumns.CreateDt)]
@@ -28,4 +29,5 @@ public sealed class ZplResource : EfEntityBase
     [ReadOnly(true)]
     [Column(SqlColumns.ChangeDt)]
     public DateTime ChangeDt { get; private set; }
+    // public virtual ICollection<Plu> Plus { get; set; } = new List<Plu>();
 }

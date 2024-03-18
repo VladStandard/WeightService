@@ -1,4 +1,6 @@
-﻿namespace Ws.Database.EntityFramework.Models;
+﻿using Ws.Database.EntityFramework.Models.Ready;
+
+namespace Ws.Database.EntityFramework.Models;
 
 /// <summary>
 /// PLUS_TEMPLATES_FK reference
