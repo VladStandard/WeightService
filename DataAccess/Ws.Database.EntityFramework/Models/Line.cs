@@ -28,7 +28,7 @@ public partial class Line
 
     public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();
 
-    public virtual Printer PrinterU { get; set; } = null!;
-
-    public virtual Ready.Warehouse WarehouseU { get; set; } = null!;
+    // public virtual Printer PrinterU { get; set; } = null!;
+    //
+    // public virtual Warehouse WarehouseU { get; set; } = null!;
 }

@@ -16,7 +16,7 @@ public sealed class User : EfEntityBase
     public string Name { get; set; } = string.Empty;
     
     [ForeignKey("PRODUCTION_SITE_UID")]
-    public ProductionSite? ProductionSites { get; set; }
+    public ProductionSite? ProductionSite { get; set; }
     
     [Column("LOGIN_DT")]
     public DateTime LoginDt { get; set; }

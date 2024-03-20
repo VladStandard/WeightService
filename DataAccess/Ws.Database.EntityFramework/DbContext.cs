@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Ws.Database.EntityFramework.Extensions;
 using Ws.Database.EntityFramework.Models.Ready;
 
 namespace Ws.Database.EntityFramework;
@@ -17,6 +18,8 @@ public class WsDbContext : DbContext
     public DbSet<Bundle> Bundles { get; set; }
     public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Printer> Printers { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
@@ -24,6 +27,9 @@ public class WsDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseIpAddressConversion();
+        modelBuilder.UseEnumStringConversion();
+        
         modelBuilder.Entity<User>()
             .HasMany(e => e.Claims)
             .WithMany(e => e.Users)
@@ -33,13 +39,12 @@ public class WsDbContext : DbContext
                 .WithMany()
                 .HasForeignKey("CLAIM_UID")
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasPrincipalKey(nameof(Claim.Uid)),
+                .HasPrincipalKey(nameof(Claim.Id)),
             r => r.HasOne(typeof(User))
                 .WithMany()
                 .HasForeignKey("USER_UID")
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasPrincipalKey(nameof(User.Uid)),
+                .HasPrincipalKey(nameof(User.Id)),
             j => j.HasKey("CLAIM_UID", "USER_UID"));
-
     }
 }

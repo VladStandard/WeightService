@@ -28,7 +28,7 @@ public sealed class PalletMan : EfEntityBase
     public string Patronymic { get; set; } = string.Empty;
 
     [Column("PASSWORD")]
-    [StringLength(4, ErrorMessage = "Name must be between 4 characters")]
+    [StringLength(4, MinimumLength = 4, ErrorMessage = "Name must be between 4 characters")]
     public string Password { get; set; } = string.Empty;
 
     #region Date
