@@ -7,20 +7,24 @@ using Ws.Database.EntityFramework.Constants;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
 
-[Table(SqlTables.Claims)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Claims}_NAME", IsUnique = true)]
-public sealed class Claim : EfEntityBase
+[Table(SqlTables.Users)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Users}_NAME", IsUnique = true)]
+public sealed class User : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(16, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 16 characters")]
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Name { get; set; } = string.Empty;
     
-    public List<User> Users { get; } = [];
+    [ForeignKey("PRODUCTION_SITE_UID")]
+    public ProductionSite? ProductionSites { get; set; }
+    
+    [Column("LOGIN_DT")]
+    public DateTime LoginDt { get; set; }
+    
+    public List<Claim> Claims { get; } = [];
     
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [ReadOnly(true)]
     [Column(SqlColumns.CreateDt)]
-    public DateTime CreateDt { get; private set; }
-
-    // public virtual ICollection<UsersClaimsFk> UsersClaimsFks { get; set; } = new List<UsersClaimsFk>();
+    public DateTime CreateDt { get; set; }
 }

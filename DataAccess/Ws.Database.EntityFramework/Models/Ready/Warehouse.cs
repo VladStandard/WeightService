@@ -14,14 +14,9 @@ public sealed class Warehouse : EfEntityBase
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Name { get; set; } = string.Empty;
-
-    #region ProductionSite
-
-    // public Guid ProductionSitesUid { get; set; }
+    
     [ForeignKey("PRODUCTION_SITE_UID")]
     public ProductionSite ProductionSites { get; set; } = new();
-
-    #endregion
 
     #region Date
 

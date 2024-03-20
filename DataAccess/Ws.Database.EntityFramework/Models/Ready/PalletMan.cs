@@ -16,15 +16,15 @@ public sealed class PalletMan : EfEntityBase
     public Guid Uid1C { get; set; }
     
     [Column(SqlColumns.Name)]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Name { get; set; } = string.Empty;
 
     [Column("SURNAME")]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Surname { get; set; } = string.Empty;
 
     [Column("PATRONYMIC")]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Patronymic { get; set; } = string.Empty;
 
     [Column("PASSWORD")]
