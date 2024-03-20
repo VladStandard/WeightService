@@ -19,6 +19,7 @@ public class WsDbContext : DbContext
     public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Printer> Printers { get; set; }
+    public DbSet<Line> Lines { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -46,5 +47,18 @@ public class WsDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasPrincipalKey(nameof(User.Id)),
             j => j.HasKey("CLAIM_UID", "USER_UID"));
+        
+        modelBuilder.Entity<Line>(entity =>
+        {
+            entity.HasOne(l => l.Warehouse)
+                .WithMany()
+                .HasForeignKey("WAREHOUSE_UID")
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(l => l.Printer)
+                .WithMany()
+                .HasForeignKey("PRINTER_UID")
+                .OnDelete(DeleteBehavior.Restrict);
+        });
     }
 }
