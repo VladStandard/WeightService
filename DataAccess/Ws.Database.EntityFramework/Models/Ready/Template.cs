@@ -8,7 +8,7 @@ using Ws.Database.EntityFramework.Constants;
 namespace Ws.Database.EntityFramework.Models.Ready;
 
 [Table(SqlTables.Templates)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Templates}_NAME")]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Templates}_NAME", IsUnique = true)]
 public sealed class Template : EfEntityBase
 {
     [Column(SqlColumns.Name)]
@@ -19,6 +19,8 @@ public sealed class Template : EfEntityBase
     [StringLength(10240, MinimumLength = 1, ErrorMessage = "Body must be between 1 and 10240 characters")]
     public string Body { get; set; } = string.Empty;
 
+    #region Date
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [ReadOnly(true)]
     [Column(SqlColumns.CreateDt)]
@@ -28,5 +30,7 @@ public sealed class Template : EfEntityBase
     [ReadOnly(true)]
     [Column(SqlColumns.ChangeDt)]
     public DateTime ChangeDt { get; private set; }
+
+    #endregion
     // public virtual ICollection<PlusTemplatesFk> PlusTemplatesFks { get; set; } = new List<PlusTemplatesFk>();
 }

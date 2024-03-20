@@ -30,5 +30,5 @@ public partial class Line
 
     public virtual Printer PrinterU { get; set; } = null!;
 
-    public virtual Warehouse WarehouseU { get; set; } = null!;
+    public virtual Ready.Warehouse WarehouseU { get; set; } = null!;
 }

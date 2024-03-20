@@ -8,8 +8,8 @@ using Ws.Database.EntityFramework.Constants;
 namespace Ws.Database.EntityFramework.Models.Ready;
 
 [Table(SqlTables.PalletMen)]
-[Index(nameof(Name), nameof(Surname), nameof(Patronymic), Name = $"UQ_{SqlTables.PalletMen}_FIO")]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C")]
+[Index(nameof(Name),nameof(Surname), nameof(Patronymic), Name = $"UQ_{SqlTables.PalletMen}_FIO", IsUnique = true)]
+[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
 public sealed class PalletMan : EfEntityBase
 {
     [Column(SqlColumns.Uid1C)]
@@ -31,6 +31,8 @@ public sealed class PalletMan : EfEntityBase
     [StringLength(4, ErrorMessage = "Name must be between 4 characters")]
     public string Password { get; set; } = string.Empty;
 
+    #region Date
+
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [ReadOnly(true)]
     [Column(SqlColumns.CreateDt)]
@@ -40,6 +42,8 @@ public sealed class PalletMan : EfEntityBase
     [ReadOnly(true)]
     [Column(SqlColumns.ChangeDt)]
     public DateTime ChangeDt { get; private set; }
+
+    #endregion
     
     // public virtual ICollection<Pallet> Pallets { get; set; } = new List<Pallet>();
 }

@@ -8,7 +8,7 @@ using Ws.Database.EntityFramework.Constants;
 namespace Ws.Database.EntityFramework.Models.Ready;
 
 [Table(SqlTables.Claims)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Claims}_NAME")]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Claims}_NAME", IsUnique = true)]
 public sealed class Claim : EfEntityBase
 {
     [Column(SqlColumns.Name)]
