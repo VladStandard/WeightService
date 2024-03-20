@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320061132_AddClipsTable")]
+    partial class AddClipsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,46 +99,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Uid1C" }, "UQ_BRANDS_UID_1C");
 
                     b.ToTable("BRANDS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Bundle", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.Property<Guid>("Uid1C")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID_1C");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(4,3)")
-                        .HasColumnName("WEIGHT");
-
-                    b.HasKey("Uid");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_BUNDLES_NAME");
-
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_BUNDLES_UID_1C");
-
-                    b.ToTable("BUNDLES");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Claim", b =>
