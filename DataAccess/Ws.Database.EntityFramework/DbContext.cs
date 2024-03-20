@@ -12,7 +12,7 @@ public class WsDbContext : DbContext
     public DbSet<StorageMethod> StorageMethods { get; set; }
     public DbSet<Claim> Claims { get; set; }
     public DbSet<Template> Templates { get; set; }
-    
+    public DbSet<Box> Boxes { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");

@@ -2,6 +2,7 @@
 
 internal static class SqlTables
 {
+    public const string Boxes = "BOXES";
     public const string Brands = "BRANDS";
     public const string PalletMen = "PALLET_MEN";
     public const string ZplResources = "ZPL_RESOURCES";
