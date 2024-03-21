@@ -2,6 +2,7 @@
 
 internal static class SqlTables
 {
+    public const string PlusResources = "PLUS_RESOURCES";
     public const string Plus = "PLUS";
     public const string Lines = "LINES";
     public const string Printers = "PRINTERS";

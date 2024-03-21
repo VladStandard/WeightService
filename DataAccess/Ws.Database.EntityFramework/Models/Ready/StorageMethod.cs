@@ -16,7 +16,7 @@ public sealed class StorageMethod : EfEntityBase
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Name { get; set; } = string.Empty;
 
-    [Column("DESCRIPTION")]
+    [Column("ZPL")]
     [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1024 characters")]
     public string Zpl { get; set; } = string.Empty;
 

@@ -54,6 +54,8 @@ public sealed class Plu : EfEntityBase
     [ForeignKey("CLIP_UID")]
     public Clip Clip { get; set; } = new();
 
+    public PluResource Resource { get; set; } = new();
+    
     #region Date
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
