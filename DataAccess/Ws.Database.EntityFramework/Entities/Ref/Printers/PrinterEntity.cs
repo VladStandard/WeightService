@@ -1,18 +1,12 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Net;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
-using Ws.Database.EntityFramework.ValueTypes;
+﻿using System.Net;
+using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
-namespace Ws.Database.EntityFramework.Models.Ready;
+namespace Ws.Database.EntityFramework.Entities.Ref.Printers;
 
 [Table(SqlTables.Printers)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Printers}_NAME", IsUnique = true)]
 [Index(nameof(Ip), Name = $"UQ_{SqlTables.Printers}_IP_V4", IsUnique = true)]
-public sealed class Printer : EfEntityBase
+public sealed class PrinterEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(16, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 16 characters")]
@@ -25,7 +19,7 @@ public sealed class Printer : EfEntityBase
     public PrinterType Type { get; set; } = PrinterType.Tsc;
     
     [ForeignKey("PRODUCTION_SITE_UID")]
-    public ProductionSite ProductionSite { get; set; } = new();
+    public ProductionSiteEntity ProductionSite { get; set; } = new();
     
     #region Date
 
@@ -34,5 +28,5 @@ public sealed class Printer : EfEntityBase
 
     #endregion
     
-    // public ICollection<Line> Lines { get; set; } = new List<Line>();
+    // public ICollection<LineEntity> Lines { get; set; } = new List<LineEntity>();
 }

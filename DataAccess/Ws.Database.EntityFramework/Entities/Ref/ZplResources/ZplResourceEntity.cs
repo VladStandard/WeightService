@@ -1,15 +1,8 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
-
-namespace Ws.Database.EntityFramework.Models.Ready;
+﻿namespace Ws.Database.EntityFramework.Entities.Ref.ZplResources;
 
 [Table(SqlTables.ZplResources)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.ZplResources}_NAME", IsUnique = true)] 
-public sealed class ZplResource : EfEntityBase
+public sealed class ZplResourceEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]

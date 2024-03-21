@@ -40,7 +40,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("USERS_СLAIMS_FK");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Box", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("BOXES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Brand", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -120,7 +120,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("BRANDS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Bundle", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -162,7 +162,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("BUNDLES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Claim", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Claims.ClaimEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -188,7 +188,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("CLAIMS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Clip", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -230,7 +230,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("CLIPS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.PalletMan", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PalletMen.PalletManEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -286,7 +286,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PALLET_MEN");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.ProductionSite", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ProductionSites.ProductionSiteEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -326,7 +326,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PRODUCTION_SITES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.StorageMethod", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.StorageMethods.StorageMethodEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -366,7 +366,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("STORAGE_METHODS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Template", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Templates.TemplateEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -403,7 +403,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("TEMPLATES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.User", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -438,7 +438,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("USERS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Warehouse", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Warehouses.WarehouseEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -474,7 +474,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("WAREHOUSES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.ZplResource", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -513,31 +513,31 @@ namespace Ws.Database.EntityFramework.Migrations
 
             modelBuilder.Entity("USERS_СLAIMS_FK", b =>
                 {
-                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.Claim", null)
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Claims.ClaimEntity", null)
                         .WithMany()
                         .HasForeignKey("CLAIM_UID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.User", null)
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("USER_UID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.User", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
                 {
-                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.ProductionSite", "ProductionSites")
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.ProductionSites.ProductionSiteEntity", "ProductionSites")
                         .WithMany()
                         .HasForeignKey("PRODUCTION_SITE_UID");
 
                     b.Navigation("ProductionSites");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Warehouse", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Warehouses.WarehouseEntity", b =>
                 {
-                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.ProductionSite", "ProductionSites")
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.ProductionSites.ProductionSiteEntity", "ProductionSites")
                         .WithMany()
                         .HasForeignKey("PRODUCTION_SITE_UID")
                         .OnDelete(DeleteBehavior.Cascade)

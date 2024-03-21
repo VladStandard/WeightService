@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Models.Ready;
+﻿using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework;
 
@@ -8,13 +8,13 @@ public abstract class Program
     {
         using (WsDbContext db = new())
         {
-            Box box = new()
+            BoxEntity boxEntity = new()
             {
                 Name = "Hello3",
                 Uid1C = Guid.NewGuid(),
                 Weight = 1000m
             };
-            db.Add(box);
+            db.Add(boxEntity);
             db.SaveChanges();
         }
     }

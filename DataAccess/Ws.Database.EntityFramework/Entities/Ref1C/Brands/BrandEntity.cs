@@ -1,16 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
-
-namespace Ws.Database.EntityFramework.Models.Ready;
+﻿namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
 [Table(SqlTables.Brands)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME", IsUnique = true)]
 [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Brands}_UID_1C", IsUnique = true)]
-public sealed class Brand : EfEntityBase
+public sealed class BrandEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
@@ -26,5 +19,5 @@ public sealed class Brand : EfEntityBase
 
     #endregion
     
-    // public virtual ICollection<Plu> Plus { get; set; } = new List<Plu>();
+    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

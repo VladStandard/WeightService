@@ -1,15 +1,10 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
+﻿using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
-namespace Ws.Database.EntityFramework.Models.Ready;
+namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
 [Table(SqlTables.PluNesting)]
 [Index(nameof(BundleCount), nameof(BoxId), Name = $"UQ_{SqlTables.PluNesting}_BUNDLE_BOX", IsUnique = true)]
-public sealed class PluNesting : EfEntityBase
+public sealed class PluNestingEntity : EfEntityBase
 {
     [Column("UID_1C")]
     public Guid Uid1C { get; set; }
@@ -22,12 +17,12 @@ public sealed class PluNesting : EfEntityBase
 
     [ForeignKey("BOX_UID"), Column("BOX_UID")]
     public Guid BoxId { get; set;}
-    public Box Box { get; set; } = new();
+    public BoxEntity Box { get; set; } = new();
 
     #endregion
 
     [ForeignKey("PLU_UID"), Column("PLU_UID")]
-    public Guid PluId { get; set; }
+    public Guid PluEntityId { get; set; }
 
     [Column("IS_DEFAULT")]
     public bool IsDefault { get; set; }

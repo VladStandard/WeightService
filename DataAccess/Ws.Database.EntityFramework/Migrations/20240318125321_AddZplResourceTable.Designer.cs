@@ -25,7 +25,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.ZplResource", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()

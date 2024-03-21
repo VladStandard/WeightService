@@ -1,16 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
-
-namespace Ws.Database.EntityFramework.Models.Ready;
+﻿namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 [Table(SqlTables.PalletMen)]
 [Index(nameof(Name),nameof(Surname), nameof(Patronymic), Name = $"UQ_{SqlTables.PalletMen}_FIO", IsUnique = true)]
 [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
-public sealed class PalletMan : EfEntityBase
+public sealed class PalletManEntity : EfEntityBase
 {
     [Column(SqlColumns.Uid1C)]
     public Guid Uid1C { get; set; }
