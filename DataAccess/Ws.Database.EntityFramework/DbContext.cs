@@ -48,6 +48,23 @@ public class WsDbContext : DbContext
                 .HasPrincipalKey(nameof(User.Id)),
             j => j.HasKey("CLAIM_UID", "USER_UID"));
         
+        modelBuilder.Entity<Line>()
+            .HasMany(e => e.Plus)
+            .WithMany()
+            .UsingEntity(
+            "LINES_PLUS_FK",
+            l => l.HasOne(typeof(Plu))
+                .WithMany()
+                .HasForeignKey("PLU_UID")
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasPrincipalKey(nameof(Plu.Id)),
+            r => r.HasOne(typeof(Line))
+                .WithMany()
+                .HasForeignKey("LINE_UID")
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasPrincipalKey(nameof(Line.Id)),
+            j => j.HasKey("PLU_UID", "LINE_UID"));
+        
         modelBuilder.Entity<Line>(entity =>
         {
             entity.HasOne(l => l.Warehouse)

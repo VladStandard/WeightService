@@ -39,6 +39,8 @@ public sealed class Line : EfEntityBase
     [Column("TYPE", TypeName = "varchar(8)")]
     public LineType Type { get; set; } = LineType.Tablet;
 
+    public ICollection<Plu> Plus { get; set; } = [];
+    
     #region Date
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -53,10 +55,6 @@ public sealed class Line : EfEntityBase
 
     #endregion
     
-    // public virtual ICollection<Label> Labels { get; set; } = new List<Label>();
-    //
-    // public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();
-
     // public virtual Printer PrinterU { get; set; } = null!;
     //
     // public virtual Warehouse WarehouseU { get; set; } = null!;
