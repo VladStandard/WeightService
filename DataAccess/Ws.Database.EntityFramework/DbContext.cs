@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Ws.Database.EntityFramework.Constants;
 using Ws.Database.EntityFramework.Extensions;
 using Ws.Database.EntityFramework.Models.Ready;
 
@@ -22,6 +23,8 @@ public class WsDbContext : DbContext
     public DbSet<Line> Lines { get; set; }
     public DbSet<Plu> Plus { get; set; }
     public DbSet<PluResource> PluResources { get; set; }
+    public DbSet<PluNesting> PlusNestings { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
@@ -32,30 +35,31 @@ public class WsDbContext : DbContext
         modelBuilder.UseIpAddressConversion();
         modelBuilder.UseEnumStringConversion();
         
-        modelBuilder.Entity<User>()
-            .HasMany(e => e.Claims)
-            .WithMany(e => e.Users)
-            .UsingEntity(
-            "USERS_СLAIMS_FK",
-            l => l.HasOne(typeof(Claim))
-                .WithMany()
-                .HasForeignKey("CLAIM_UID")
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasPrincipalKey(nameof(Claim.Id)),
-            r => r.HasOne(typeof(User))
-                .WithMany()
-                .HasForeignKey("USER_UID")
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasPrincipalKey(nameof(User.Id)),
-            j => j.HasKey("CLAIM_UID", "USER_UID"));
+        modelBuilder.Entity<User>(entity => {
+            entity.HasMany(e => e.Claims)
+                .WithMany(e => e.Users)
+                .UsingEntity(
+                "USERS_СLAIMS_FK",
+                l => l.HasOne(typeof(Claim))
+                    .WithMany()
+                    .HasForeignKey("CLAIM_UID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasPrincipalKey(nameof(Claim.Id)),
+                r => r.HasOne(typeof(User))
+                    .WithMany()
+                    .HasForeignKey("USER_UID")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasPrincipalKey(nameof(User.Id)),
+                j => j.HasKey("CLAIM_UID", "USER_UID"));   
+        });
         
-        modelBuilder.Entity<PluResource>()
-            .HasOne<Plu>()
-            .WithOne(p => p.Resource)
-            .HasForeignKey<PluResource>(pr => pr.Id);
+        modelBuilder.Entity<PluResource>(entity => {
+            entity.HasOne<Plu>()
+                .WithOne(p => p.Resource)
+                .HasForeignKey<PluResource>(pr => pr.Id);
+        });
         
-        modelBuilder.Entity<Line>(entity =>
-        {
+        modelBuilder.Entity<Line>(entity => {
             entity.HasOne(l => l.Warehouse)
                 .WithMany()
                 .HasForeignKey("WAREHOUSE_UID")
@@ -81,6 +85,13 @@ public class WsDbContext : DbContext
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasPrincipalKey(nameof(Line.Id)),
                 j => j.HasKey("PLU_UID", "LINE_UID"));
+        });
+
+        modelBuilder.Entity<PluNesting>(entity => {
+            entity.HasIndex(pn => new { pn.PluId, pn.IsDefault })
+                .IsUnique()
+                .HasDatabaseName($"UQ_{SqlTables.PluNesting}_IS_DEFAULT_TRUE_ON_PLU")
+                .HasFilter("[IS_DEFAULT] = 1");
         });
     }
 }

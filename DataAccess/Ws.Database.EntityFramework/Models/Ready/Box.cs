@@ -38,5 +38,5 @@ public sealed class Box : EfEntityBase
 
     #endregion
 
-    // public virtual ICollection<PlusNestingFk> PlusNestingFks { get; set; } = new List<PlusNestingFk>();
+    public ICollection<PluNesting> PlusNestingFks { get; set; } = [];
 }

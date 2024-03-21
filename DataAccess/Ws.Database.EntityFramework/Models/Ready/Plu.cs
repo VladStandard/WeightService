@@ -56,6 +56,8 @@ public sealed class Plu : EfEntityBase
 
     public PluResource Resource { get; set; } = new();
     
+    public ICollection<PluNesting> Nestings { get; set; } = [];
+    
     #region Date
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -73,6 +75,4 @@ public sealed class Plu : EfEntityBase
     // public virtual ICollection<Label> Labels { get; set; } = new List<Label>();
     //
     // public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();
-    //
-    // public virtual ICollection<PlusNestingFk> PlusNestingFks { get; set; } = new List<PlusNestingFk>();
 }
