@@ -1,16 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
+﻿namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
-namespace Ws.Database.EntityFramework.Models.Ready;
-
-[Table(SqlTables.Boxes)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Boxes}_NAME", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Boxes}_UID_1C", IsUnique = true)]
-public sealed class Box : EfEntityBase
+[Table(SqlTables.Clips)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Clips}_NAME", IsUnique = true)]
+[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Clips}_UID_1C", IsUnique = true)]
+public sealed class ClipEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
@@ -25,11 +18,10 @@ public sealed class Box : EfEntityBase
     public Guid Uid1C { get; set; }
     
     #region Date
-    
+
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    public ICollection<PluNesting> PlusNestingFks { get; set; } = [];
+    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

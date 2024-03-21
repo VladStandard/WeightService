@@ -1,16 +1,9 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
+﻿namespace Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
-namespace Ws.Database.EntityFramework.Models.Ready;
-
-[Table(SqlTables.Clips)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Clips}_NAME", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Clips}_UID_1C", IsUnique = true)]
-public sealed class Clip : EfEntityBase
+[Table(SqlTables.Bundles)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Bundles}_NAME", IsUnique = true)]
+[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Bundles}_UID_1C", IsUnique = true)]
+public sealed class BundleEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
@@ -28,7 +21,7 @@ public sealed class Clip : EfEntityBase
 
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
-
+    
     #endregion
-    // public virtual ICollection<Plu> Plus { get; set; } = new List<Plu>();
+    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

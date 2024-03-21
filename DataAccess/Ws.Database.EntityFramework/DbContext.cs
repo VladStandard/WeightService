@@ -1,29 +1,43 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Constants;
+﻿using Ws.Database.EntityFramework.Entities.Ref.Claims;
+using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
+using Ws.Database.EntityFramework.Entities.Ref.PluResources;
+using Ws.Database.EntityFramework.Entities.Ref.Printers;
+using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
+using Ws.Database.EntityFramework.Entities.Ref.Templates;
+using Ws.Database.EntityFramework.Entities.Ref.Users;
+using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.EntityFramework.Entities.Ref.ZplResources;
+using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
+using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Database.EntityFramework.Extensions;
-using Ws.Database.EntityFramework.Models.Ready;
 
 namespace Ws.Database.EntityFramework;
 
 public class WsDbContext : DbContext
 {
-    public DbSet<ZplResource> ZplResources { get; set; }
-    public DbSet<PalletMan> PalletMen { get; set; }
-    public DbSet<Brand> Brands { get; set; }
-    public DbSet<ProductionSite> ProductionSites { get; set; }
-    public DbSet<StorageMethod> StorageMethods { get; set; }
-    public DbSet<Claim> Claims { get; set; }
-    public DbSet<Template> Templates { get; set; }
-    public DbSet<Box> Boxes { get; set; }
-    public DbSet<Clip> Clips { get; set; }
-    public DbSet<Bundle> Bundles { get; set; }
-    public DbSet<Warehouse> Warehouses { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Printer> Printers { get; set; }
-    public DbSet<Line> Lines { get; set; }
-    public DbSet<Plu> Plus { get; set; }
-    public DbSet<PluResource> PluResources { get; set; }
-    public DbSet<PluNesting> PlusNestings { get; set; }
+    public DbSet<ZplResourceEntity> ZplResources { get; set; }
+    public DbSet<PalletManEntity> PalletMen { get; set; }
+    public DbSet<BrandEntity> Brands { get; set; }
+    public DbSet<ProductionSiteEntity> ProductionSites { get; set; }
+    public DbSet<StorageMethodEntity> StorageMethods { get; set; }
+    public DbSet<ClaimEntity> Claims { get; set; }
+    public DbSet<TemplateEntity> Templates { get; set; }
+    public DbSet<BoxEntity> Boxes { get; set; }
+    public DbSet<ClipEntity> Clips { get; set; }
+    public DbSet<BundleEntity> Bundles { get; set; }
+    public DbSet<WarehouseEntity> Warehouses { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<PrinterEntity> Printers { get; set; }
+    public DbSet<LineEntity> Lines { get; set; }
+    public DbSet<PluEntity> Plus { get; set; }
+    public DbSet<PluResourceEntity> PluResources { get; set; }
+    public DbSet<PluNestingEntity> PlusNestings { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -36,31 +50,31 @@ public class WsDbContext : DbContext
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
         
-        modelBuilder.Entity<User>(entity => {
+        modelBuilder.Entity<UserEntity>(entity => {
             entity.HasMany(e => e.Claims)
                 .WithMany(e => e.Users)
                 .UsingEntity(
                 "USERS_СLAIMS_FK",
-                l => l.HasOne(typeof(Claim))
+                l => l.HasOne(typeof(ClaimEntity))
                     .WithMany()
                     .HasForeignKey("CLAIM_UID")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(Claim.Id)),
-                r => r.HasOne(typeof(User))
+                    .HasPrincipalKey(nameof(ClaimEntity.Id)),
+                r => r.HasOne(typeof(UserEntity))
                     .WithMany()
                     .HasForeignKey("USER_UID")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(User.Id)),
+                    .HasPrincipalKey(nameof(UserEntity.Id)),
                 j => j.HasKey("CLAIM_UID", "USER_UID"));   
         });
         
-        modelBuilder.Entity<PluResource>(entity => {
-            entity.HasOne<Plu>()
+        modelBuilder.Entity<PluResourceEntity>(entity => {
+            entity.HasOne<PluEntity>()
                 .WithOne(p => p.Resource)
-                .HasForeignKey<PluResource>(pr => pr.Id);
+                .HasForeignKey<PluResourceEntity>(pr => pr.Id);
         });
         
-        modelBuilder.Entity<Line>(entity => {
+        modelBuilder.Entity<LineEntity>(entity => {
             entity.HasOne(l => l.Warehouse)
                 .WithMany()
                 .HasForeignKey("WAREHOUSE_UID")
@@ -75,21 +89,21 @@ public class WsDbContext : DbContext
                 .WithMany()
                 .UsingEntity(
                 "LINES_PLUS_FK",
-                l => l.HasOne(typeof(Plu))
+                l => l.HasOne(typeof(PluEntity))
                     .WithMany()
                     .HasForeignKey("PLU_UID")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(Plu.Id)),
-                r => r.HasOne(typeof(Line))
+                    .HasPrincipalKey(nameof(PluEntity.Id)),
+                r => r.HasOne(typeof(LineEntity))
                     .WithMany()
                     .HasForeignKey("LINE_UID")
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(Line.Id)),
+                    .HasPrincipalKey(nameof(LineEntity.Id)),
                 j => j.HasKey("PLU_UID", "LINE_UID"));
         });
 
-        modelBuilder.Entity<PluNesting>(entity => {
-            entity.HasIndex(pn => new { pn.PluId, pn.IsDefault })
+        modelBuilder.Entity<PluNestingEntity>(entity => {
+            entity.HasIndex(pn => new { pn.PluEntityId, pn.IsDefault })
                 .IsUnique()
                 .HasDatabaseName($"UQ_{SqlTables.PluNesting}_IS_DEFAULT_TRUE_ON_PLU")
                 .HasFilter("[IS_DEFAULT] = 1");

@@ -1,16 +1,15 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
+﻿using Ws.Database.EntityFramework.Entities.Ref.PluResources;
+using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
+using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-namespace Ws.Database.EntityFramework.Models.Ready;
+namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 [Table(SqlTables.Plus)]
 [Index(nameof(Number), Name = $"UQ_{SqlTables.Lines}_NUMBER", IsUnique = true)]
 [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Plus}_UID_1C", IsUnique = true)]
-public sealed class Plu : EfEntityBase
+public sealed class PluEntity : EfEntityBase
 {
     [Column("UID_1C")]
     public Guid Uid1C { get; set; }
@@ -46,17 +45,17 @@ public sealed class Plu : EfEntityBase
     public bool IsWeight { get; set; }
 
     [ForeignKey("BUNDLE_UID")]
-    public Bundle Bundle { get; set; } = new();
+    public BundleEntity Bundle { get; set; } = new();
 
     [ForeignKey("BRAND_UID")]
-    public Brand Brand { get; set; } = new();
+    public BrandEntity Brand { get; set; } = new();
 
     [ForeignKey("CLIP_UID")]
-    public Clip Clip { get; set; } = new();
+    public ClipEntity Clip { get; set; } = new();
 
-    public PluResource Resource { get; set; } = new();
+    public PluResourceEntity Resource { get; set; } = new();
     
-    public ICollection<PluNesting> Nestings { get; set; } = [];
+    public ICollection<PluNestingEntity> Nestings { get; set; } = [];
     
     #region Date
 

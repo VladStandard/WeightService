@@ -25,7 +25,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.PalletMan", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PalletMen.PalletManEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PALLET_MEN");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.ZplResource", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
