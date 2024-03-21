@@ -19,13 +19,10 @@ public sealed class ZplResource : EfEntityBase
     [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1000 characters")]
     public string Zpl { get; private set; } = string.Empty;
     
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.CreateDt)]
-    public DateTime CreateDt { get; private set; }
+    #region Date
 
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.ChangeDt)]
-    public DateTime ChangeDt { get; private set; }
+    public DateTime CreateDt { get; init; }
+    public DateTime ChangeDt { get; init; }
+
+    #endregion
 }

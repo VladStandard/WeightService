@@ -21,15 +21,8 @@ public sealed class Template : EfEntityBase
 
     #region Date
 
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.CreateDt)]
-    public DateTime CreateDt { get; private set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.ChangeDt)]
-    public DateTime ChangeDt { get; private set; }
+    public DateTime CreateDt { get; init; }
+    public DateTime ChangeDt { get; init; }
 
     #endregion
     // public virtual ICollection<PlusTemplatesFk> PlusTemplatesFks { get; set; } = new List<PlusTemplatesFk>();

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework.Common;
@@ -23,8 +22,5 @@ public sealed class User : EfEntityBase
     
     public List<Claim> Claims { get; } = [];
     
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.CreateDt)]
-    public DateTime CreateDt { get; set; }
+    public DateTime CreateDt { get; init; }
 }

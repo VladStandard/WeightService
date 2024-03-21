@@ -34,6 +34,7 @@ public class WsDbContext : DbContext
     {
         modelBuilder.UseIpAddressConversion();
         modelBuilder.UseEnumStringConversion();
+        modelBuilder.MapCreateOrChangeDt();
         
         modelBuilder.Entity<User>(entity => {
             entity.HasMany(e => e.Claims)

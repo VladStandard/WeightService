@@ -17,10 +17,7 @@ public sealed class Claim : EfEntityBase
     
     public List<User> Users { get; } = [];
     
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [ReadOnly(true)]
-    [Column(SqlColumns.CreateDt)]
-    public DateTime CreateDt { get; private set; }
+    public DateTime CreateDt { get; init; }
 
     // public virtual ICollection<UsersClaimsFk> UsersClaimsFks { get; set; } = new List<UsersClaimsFk>();
 }
