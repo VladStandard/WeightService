@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240318163251_AddStoraheMethodTable")]
+    [Migration("20240318163251_AddStorageMethodTable")]
     partial class AddStoraheMethodTable
     {
         /// <inheritdoc />

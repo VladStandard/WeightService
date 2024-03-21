@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240318165229_AddTemplatesTable")]
+    [Migration("20240318165229_AddTemplateTable")]
     partial class AddTemplatesTable
     {
         /// <inheritdoc />

@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240320061418_AddBundlesTable")]
+    [Migration("20240320061418_AddBundleTable")]
     partial class AddBundlesTable
     {
         /// <inheritdoc />

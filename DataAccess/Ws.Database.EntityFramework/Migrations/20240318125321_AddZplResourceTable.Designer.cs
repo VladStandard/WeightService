@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240318125321_InitialMigration")]
+    [Migration("20240318125321_AddZplResourceTable")]
     partial class InitialMigration
     {
         /// <inheritdoc />

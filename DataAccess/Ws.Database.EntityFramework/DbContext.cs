@@ -20,7 +20,7 @@ public class WsDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Printer> Printers { get; set; }
     public DbSet<Line> Lines { get; set; }
-
+    public DbSet<Plu> Plus { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");

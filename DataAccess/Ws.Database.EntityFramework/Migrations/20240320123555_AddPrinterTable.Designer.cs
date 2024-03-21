@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240320123555_AddPrintersTable")]
+    [Migration("20240320123555_AddPrinterTable")]
     partial class AddPrintersTable
     {
         /// <inheritdoc />

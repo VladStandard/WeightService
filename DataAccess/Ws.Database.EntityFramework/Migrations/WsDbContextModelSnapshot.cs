@@ -349,6 +349,95 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PALLET_MEN");
                 });
 
+            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Plu", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BRAND_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BUNDLE_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CLIP_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
+                        .HasColumnName("DESCRIPTION");
+
+                    b.Property<string>("Ean13")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar")
+                        .HasColumnName("EAN_13");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
+                        .HasColumnName("FULL_NAME");
+
+                    b.Property<bool>("IsWeight")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_WEIGHT");
+
+                    b.Property<string>("Itf14")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar")
+                        .HasColumnName("ITF_14");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("NAME");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int")
+                        .HasColumnName("NUMBER");
+
+                    b.Property<byte>("ShelfLifeDays")
+                        .HasColumnType("tinyint")
+                        .HasColumnName("SHELF_LIFE_DAYS");
+
+                    b.Property<Guid>("Uid1C")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID_1C");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BRAND_UID");
+
+                    b.HasIndex("BUNDLE_UID");
+
+                    b.HasIndex("CLIP_UID");
+
+                    b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Uid1C" }, "UQ_PLUS_UID_1C")
+                        .IsUnique();
+
+                    b.ToTable("PLUS");
+                });
+
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Printer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -655,6 +744,33 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Printer");
 
                     b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Plu", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BRAND_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.Bundle", "Bundle")
+                        .WithMany()
+                        .HasForeignKey("BUNDLE_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Models.Ready.Clip", "Clip")
+                        .WithMany()
+                        .HasForeignKey("CLIP_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Bundle");
+
+                    b.Navigation("Clip");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Models.Ready.Printer", b =>
