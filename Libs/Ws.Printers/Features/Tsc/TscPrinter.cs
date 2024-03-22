@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using Ws.Printers.Common;
 using Ws.Printers.Features.Tsc.Commands;
 

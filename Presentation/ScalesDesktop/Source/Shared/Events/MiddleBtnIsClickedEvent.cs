@@ -1,3 +1,3 @@
-﻿namespace ScalesDesktop.Source.Shared.Events;
+namespace ScalesDesktop.Source.Shared.Events;
 
 public class MiddleBtnIsClickedEvent;

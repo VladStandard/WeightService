@@ -48,7 +48,8 @@ public class SectionDataGridBase<TItem> : ComponentBase where TItem : EntityBase
 
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem>
     {
-        await ModalService.Show<T>(p => {
+        await ModalService.Show<T>(p =>
+        {
             p.Add(x => x.DialogSectionEntity, sectionEntity);
             p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
         });

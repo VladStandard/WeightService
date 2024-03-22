@@ -1,4 +1,4 @@
-﻿namespace Ws.Printers.Enums;
+namespace Ws.Printers.Enums;
 
 public enum PrinterStatusEnum
 {

@@ -24,7 +24,8 @@ public sealed partial class DatabaseFilesDataGrid : ComponentBase
 
     private async Task OpenTablesDataGridModal(DbFileSizeInfoEntity sectionEntity)
     {
-        await ModalService.Show<DatabaseFilesDialog>(p => {
+        await ModalService.Show<DatabaseFilesDialog>(p =>
+        {
             p.Add(x => x.DbFileData, sectionEntity);
             p.Add(x => x.OnDataChangedAction, new(this, OnModalSubmit));
         });

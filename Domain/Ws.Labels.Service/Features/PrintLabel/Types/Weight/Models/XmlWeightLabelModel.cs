@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Shared.TypeUtils;
 
@@ -9,13 +9,15 @@ public class XmlWeightLabelModel : XmlLabelBaseModel
 {
     [XmlIgnore] public decimal Weight { get; set; }
 
-    [XmlElement] public string WeightStr
+    [XmlElement]
+    public string WeightStr
     {
         get => DecimalUtils.ToStrWithSep(Weight, ",");
         set => _ = value;
     }
 
-    [XmlElement] public override string BarCodeTop
+    [XmlElement]
+    public override string BarCodeTop
     {
         get => $"298{IntUtils.ToStringToLen(LineNumber, 5)}" +
                $"{IntUtils.ToStringToLen(LineCounter, 8)}{ProductDate}" +
@@ -24,13 +26,15 @@ public class XmlWeightLabelModel : XmlLabelBaseModel
         set => _ = value;
     }
 
-    [XmlElement] public override string BarCodeRight
+    [XmlElement]
+    public override string BarCodeRight
     {
         get => $"299{IntUtils.ToStringToLen(LineNumber, 5)}{IntUtils.ToStringToLen(LineCounter, 8)}";
         set => _ = value;
     }
 
-    [XmlElement] public override string BarCodeBottom
+    [XmlElement]
+    public override string BarCodeBottom
     {
         get => $"(01){PluGtin}(3103){GetWeightStr(6)}(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;

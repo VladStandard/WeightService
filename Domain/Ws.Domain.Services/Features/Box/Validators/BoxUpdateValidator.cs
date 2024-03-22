@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Box.Validators;
+namespace Ws.Domain.Services.Features.Box.Validators;
 
 internal sealed class BoxUpdateValidator : BoxValidator
 {

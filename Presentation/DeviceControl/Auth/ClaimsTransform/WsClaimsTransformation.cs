@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using DeviceControl.Auth.ClaimsTransform.CacheProviders.Common;
 using Microsoft.AspNetCore.Authentication;
 
@@ -14,7 +14,7 @@ internal class WsClaimsTransformation(IClaimsCacheProvider cacheProvider) : ICla
 
         List<Claim> existingClaims = principal.Claims.ToList();
         existingClaims.AddRange(userRights);
-        
+
         ClaimsIdentity newIdentity = new(existingClaims, principal.Identity?.AuthenticationType);
         return new(newIdentity);
     }

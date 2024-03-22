@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Domain.Services.Features.Plu;
@@ -18,24 +18,24 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
     {
         if (labelCount > 240)
             throw new LabelGenerateException("Превышен размер паллеты");
-        
+
         if (labelPalletDto.Nesting.Plu.IsCheckWeight)
             throw new LabelGenerateException("Плу весовая");
-        
+
         XmlPieceLabelModel labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
         ValidationResult result = new XmlLabelPiecePalletValidator().Validate(labelXml);
-        
+
         if (!result.IsValid)
             throw new LabelGenerateException(result);
 
-                
+
         ZplItemsDto zplItems = new()
         {
             Resources = zplResourceService.GetAllCachedResources(),
             Template = pluService.GetPluCachedTemplate(labelPalletDto.Nesting.Plu),
             StorageMethod = labelPalletDto.Nesting.Plu.StorageMethod.Zpl,
         };
-        
+
         PalletEntity pallet = new()
         {
             Barcode = string.Empty,
@@ -43,22 +43,22 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
             ProdDt = labelPalletDto.ProductDt,
             PalletMan = labelPalletDto.PalletMan,
         };
-   
+
         IList<LabelEntity> labels = [];
-        for (int i = 0; i < labelCount; i++)
+        for (int i = 0 ; i < labelCount ; i++)
         {
             labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
-            
+
             LabelEntity label = GenerateLabel(labelPalletDto, zplItems, labelXml);
-            
+
             labels.Add(label);
-            
+
             labelPalletDto = labelPalletDto with { ProductDt = labelPalletDto.ProductDt.AddSeconds(1) };
         }
         palletService.Create(pallet, labels);
     }
-    
-    private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems, 
+
+    private static LabelEntity GenerateLabel(LabelPiecePalletDto labelPalletDto, ZplItemsDto zplItems,
         XmlPieceLabelModel labelXml)
     {
         LabelReadyDto labelReady = LabelGeneratorUtils.GetZpl(zplItems, labelXml);

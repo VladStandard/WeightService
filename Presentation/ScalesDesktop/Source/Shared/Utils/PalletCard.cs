@@ -6,10 +6,10 @@ using iText.Layout;
 using iText.Layout.Properties;
 using Ws.Domain.Models.Entities.Print;
 using Border = iText.Layout.Borders.Border;
-using Paragraph = iText.Layout.Element.Paragraph;
-using ITable = iText.Layout.Element.Table;
 using ICell = iText.Layout.Element.Cell;
 using IImage = iText.Layout.Element.Image;
+using ITable = iText.Layout.Element.Table;
+using Paragraph = iText.Layout.Element.Paragraph;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace ScalesDesktop.Features.Pallet.Viewer;
@@ -17,7 +17,7 @@ namespace ScalesDesktop.Features.Pallet.Viewer;
 public class PalletCard
 {
     private const string FontPath = "C:\\Windows\\Fonts\\arial.ttf";
-    
+
     public static string CreateBase64(ViewPallet palletView)
     {
         MemoryStream stream = new();
@@ -66,7 +66,7 @@ public class PalletCard
             .SetWidth(UnitValue.CreatePercentValue(100))
             .SetBorderCollapse(BorderCollapsePropertyValue.COLLAPSE)
             .SetMarginBottom(10);
-        
+
         dateTimeTable.AddCell(new ICell().Add(new Paragraph("Дата")).SetBorder(Border.NO_BORDER));
         dateTimeTable.AddCell(new ICell().Add(new Paragraph("Время формирования")).SetBorder(Border.NO_BORDER));
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(palletView.ProdDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
@@ -92,7 +92,7 @@ public class PalletCard
 
         doc.Add(infoTable);
     }
-    
+
     private static void AddInfoTableRow(ITable table, string label, string value)
     {
         table.AddCell(new ICell().Add(new Paragraph(label)).SetBorder(Border.NO_BORDER));

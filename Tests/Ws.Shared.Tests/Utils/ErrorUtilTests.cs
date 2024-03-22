@@ -1,4 +1,4 @@
-﻿using Ws.Shared.Utils;
+using Ws.Shared.Utils;
 
 namespace Ws.Shared.Tests.Utils;
 
@@ -8,7 +8,8 @@ public class ErrorUtilTests
     public void Throw_exception()
     {
         Assert.Throws<NotImplementedException>(
-        () => {
+        () =>
+        {
             ErrorUtil.Suppress<ArgumentNullException>(() => throw new NotImplementedException());
         });
     }
@@ -22,7 +23,7 @@ public class ErrorUtilTests
     [Fact]
     public void Suppress_without_exception()
     {
-        Assert.False(ErrorUtil.Suppress<ArgumentNullException>(() => {}));
+        Assert.False(ErrorUtil.Suppress<ArgumentNullException>(() => { }));
     }
 
     [Fact]

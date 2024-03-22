@@ -9,7 +9,7 @@ public sealed partial class LabelsPage : ComponentBase, IDisposable
 {
     [Inject] public LabelContext LabelContext { get; set; } = null!;
     [Inject] public LineContext LineContext { get; set; } = null!;
-    
+
     protected override void OnInitialized()
     {
         LabelContext.InitializeData();

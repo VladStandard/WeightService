@@ -17,9 +17,9 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
-    
+
     [Inject] private ILineService LineService { get; set; } = null!;
-    
+
     #endregion
 
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();

@@ -14,7 +14,7 @@ public sealed class SqlUserRepository : BaseRepository, IGetItemByUid<UserEntity
 
     public UserEntity GetItemByUsername(string userName) => Session.Query<UserEntity>().FirstOrDefault(u =>
         u.Name.ToLower().Equals(userName.ToLower())) ?? new();
-    
+
     public UserEntity Save(UserEntity item) { Session.Save(item); return item; }
     public UserEntity Update(UserEntity item) { Session.Update(item); return item; }
     public void Delete(UserEntity item) => Session.Delete(item);

@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref1c.Brands;
+using Ws.Database.Nhibernate.Entities.Ref1c.Brands;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Aspects;
 

@@ -19,13 +19,13 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
     private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();
-    
+
     private string PrinterIp
     {
         get => SectionEntity.Ip.ToString();
         set => SectionEntity.Ip = IpAddressParser.Parse(value, SectionEntity.Ip);
     }
-    
+
     protected override void OnInitialized()
     {
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();

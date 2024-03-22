@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
 

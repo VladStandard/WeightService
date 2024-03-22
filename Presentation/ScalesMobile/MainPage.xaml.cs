@@ -1,4 +1,4 @@
-﻿namespace ScalesMobile;
+namespace ScalesMobile;
 
 public partial class MainPage : ContentPage
 {

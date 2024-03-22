@@ -11,7 +11,7 @@ public abstract class EntityBase
     public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     public virtual bool IsExists => !IsNew;
     public virtual bool IsNew => Uid == Guid.Empty;
-    
+
     public override bool Equals(object? obj)
     {
         if (obj == null || GetType() != obj.GetType())

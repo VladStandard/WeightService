@@ -1,4 +1,4 @@
-﻿namespace Ws.Shared.Utils;
+namespace Ws.Shared.Utils;
 
 public static class ErrorUtil
 {

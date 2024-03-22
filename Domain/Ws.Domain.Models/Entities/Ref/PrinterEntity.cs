@@ -19,10 +19,10 @@ public class PrinterEntity : EntityBase
     protected override bool CastEquals(EntityBase obj)
     {
         PrinterEntity item = (PrinterEntity)obj;
-        return Equals(Ip, item.Ip) && 
-               Equals(Port, item.Port) && 
-               Equals(Type, item.Type) && 
-               Equals(Name, item.Name) && 
+        return Equals(Ip, item.Ip) &&
+               Equals(Port, item.Port) &&
+               Equals(Type, item.Type) &&
+               Equals(Name, item.Name) &&
                Equals(ProductionSite, item.ProductionSite);
     }
 }

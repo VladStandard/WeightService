@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Enums;
@@ -16,7 +16,7 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
     public abstract void RequestStatus();
 
     #endregion
-    
+
     #region Public
 
     public async void Connect()
@@ -26,7 +26,7 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
             TcpClient.Dispose();
             TcpClient = new() { ReceiveTimeout = 200 };
             await TcpClient.ConnectAsync(ip, port).WaitAsync(TimeSpan.FromMilliseconds(200));
-            
+
             SetStatus(PrinterStatusEnum.Ready);
         }
         catch (Exception)
@@ -52,13 +52,14 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
         Status = state;
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
     }
-    
+
     protected void ExecuteCommand(PrinterCommandBase command)
     {
         if (Status is PrinterStatusEnum.IsDisabled) return;
-        if (Status is PrinterStatusEnum.IsForceDisconnected)  Connect();
-        
-        try {
+        if (Status is PrinterStatusEnum.IsForceDisconnected) Connect();
+
+        try
+        {
             command.Request();
         }
         catch (Exception)

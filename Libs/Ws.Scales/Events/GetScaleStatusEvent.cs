@@ -1,4 +1,4 @@
-﻿using Ws.Scales.Enums;
+using Ws.Scales.Enums;
 
 namespace Ws.Scales.Events;
 

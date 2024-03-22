@@ -17,5 +17,5 @@ public static class ConfigurationUtil
 #else
         EnumConfiguration.DevelopVs;
 #endif
-    
+
 }

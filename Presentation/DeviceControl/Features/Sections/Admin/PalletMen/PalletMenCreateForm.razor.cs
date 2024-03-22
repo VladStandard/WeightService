@@ -11,7 +11,7 @@ public sealed partial class PalletMenCreateForm : SectionFormBase<PalletManEntit
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPalletManService PalletManService { get; set; } = null!;
-    
+
     private string Uid1C
     {
         get => SectionEntity.Uid1C.ToString();

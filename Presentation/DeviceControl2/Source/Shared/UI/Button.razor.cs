@@ -13,7 +13,7 @@ public sealed partial class Button : ComponentBase
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
     [Parameter] public string Class { get; set; } = string.Empty;
-    
+
     private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
                                     $" font-medium ring-offset-background transition-colors focus-visible:outline-none" +
                                     $" focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" +

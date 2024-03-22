@@ -1,4 +1,4 @@
-﻿namespace Ws.Scales.Utils;
+namespace Ws.Scales.Utils;
 
 internal static class MassaKCommands
 {

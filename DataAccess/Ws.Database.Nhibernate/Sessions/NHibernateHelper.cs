@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -7,11 +7,11 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using Ws.Database.Nhibernate.Listeners;
 using Ws.Database.Nhibernate.Models;
-using DataBaseSessionException=Ws.Database.Nhibernate.Sessions.Exceptions.DataBaseSessionException;
+using DataBaseSessionException = Ws.Database.Nhibernate.Sessions.Exceptions.DataBaseSessionException;
 
 namespace Ws.Database.Nhibernate.Sessions;
 
-using DataBaseSessionException=Exceptions.DataBaseSessionException;
+using DataBaseSessionException = Exceptions.DataBaseSessionException;
 
 public static class NHibernateHelper
 {
@@ -40,7 +40,8 @@ public static class NHibernateHelper
     {
         SqlSettingsModels = LoadJsonConfig();
         SqlConfiguration = new();
-        SqlConfiguration.DataBaseIntegration(db => {
+        SqlConfiguration.DataBaseIntegration(db =>
+        {
             db.ConnectionString = SqlSettingsModels.GetConnectionString();
             db.Dialect<MsSql2012Dialect>();
             db.Driver<SqlClientDriver>();

@@ -1,4 +1,4 @@
-﻿using NHibernate.Persister.Entity;
+using NHibernate.Persister.Entity;
 
 namespace Ws.Database.Nhibernate.Common;
 

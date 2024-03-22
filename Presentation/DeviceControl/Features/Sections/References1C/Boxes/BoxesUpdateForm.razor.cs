@@ -7,7 +7,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 namespace DeviceControl.Features.Sections.References1C.Boxes;
 
 
-public sealed partial class BoxesUpdateForm: SectionFormBase<BoxEntity>
+public sealed partial class BoxesUpdateForm : SectionFormBase<BoxEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 }

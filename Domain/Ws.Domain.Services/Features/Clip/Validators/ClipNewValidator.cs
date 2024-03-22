@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Clip.Validators;
+namespace Ws.Domain.Services.Features.Clip.Validators;
 
 internal sealed class ClipNewValidator : ClipValidator
 {

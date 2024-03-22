@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;

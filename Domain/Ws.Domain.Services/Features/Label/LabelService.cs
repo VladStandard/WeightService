@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Print.Labels;
+using Ws.Database.Nhibernate.Entities.Print.Labels;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Label.Validators;

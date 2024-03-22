@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.Nhibernate.Models;
+namespace Ws.Database.Nhibernate.Models;
 
 internal class SqlSettingsModels
 {

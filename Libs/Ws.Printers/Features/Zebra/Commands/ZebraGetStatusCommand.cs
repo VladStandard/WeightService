@@ -1,4 +1,4 @@
-﻿using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Text;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Common;

@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Print.Pallets;
+using Ws.Database.Nhibernate.Entities.Print.Pallets;
 using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.StorageCoreTests.Tables.TablePrintModels.Pallets;

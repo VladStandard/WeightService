@@ -1,4 +1,4 @@
-﻿namespace Ws.Labels.Service.Features.RenderLabel;
+namespace Ws.Labels.Service.Features.RenderLabel;
 
 public interface IRenderLabelService
 {

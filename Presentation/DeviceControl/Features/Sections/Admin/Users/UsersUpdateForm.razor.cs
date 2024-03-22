@@ -44,7 +44,7 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
         SelectedRoles = SectionEntity.Claims.ToList();
         RolesEntities = ClaimService.GetAll();
         ProductionSite = ProductionSiteService.GetAll();
-        
+
         AdditionalButtons = AdditionalButtons.Append(
         new()
         {

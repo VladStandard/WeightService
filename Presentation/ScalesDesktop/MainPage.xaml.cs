@@ -1,4 +1,4 @@
-﻿using MauiPageFullScreen;
+using MauiPageFullScreen;
 using Microsoft.AspNetCore.Components.WebView;
 using Ws.Shared.Enums;
 using Ws.Shared.Utils;

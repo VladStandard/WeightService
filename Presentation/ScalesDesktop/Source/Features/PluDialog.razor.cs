@@ -12,7 +12,7 @@ public sealed partial class PluDialog : ComponentBase, IDialogContentComponent<P
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Parameter] public PluDialogContent Content { get; set; } = default!;
     [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
-    
+
     private PaginationState Pagination { get; } = new() { ItemsPerPage = 7 };
 
     private async Task HandleOnRowFocus(FluentDataGridRow<PluEntity> obj) =>

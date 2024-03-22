@@ -1,10 +1,10 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+// ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using Ws.Domain.Models.Common;
 
 namespace Ws.Domain.Models.Entities.Print;
 
-public class ViewPallet: EntityBase
-{ 
+public class ViewPallet : EntityBase
+{
     public virtual DateTime ProdDt { get; set; }
     public virtual int Counter { get; set; } = 0;
     public virtual string? Line { get; set; } = string.Empty;

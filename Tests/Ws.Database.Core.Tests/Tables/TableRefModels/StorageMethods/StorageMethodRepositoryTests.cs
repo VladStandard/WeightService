@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
+using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.StorageMethods;
@@ -11,7 +11,8 @@ public sealed class PluStorageRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<StorageMethodEntity> items = StorageMethodRepository.GetList();
             ParseRecords(items);
         });

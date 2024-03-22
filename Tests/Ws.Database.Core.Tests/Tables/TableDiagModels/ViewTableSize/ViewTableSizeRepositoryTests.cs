@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Diag.TableSizes;
+using Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.StorageCoreTests.Tables.TableDiagModels.ViewTableSize;
@@ -11,7 +11,8 @@ public sealed class ViewTableSizeRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<TableSizeEntity> items = TableSizeRepository.GetAll();
             ParseRecords(items);
         });

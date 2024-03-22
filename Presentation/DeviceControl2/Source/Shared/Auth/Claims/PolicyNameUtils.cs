@@ -1,4 +1,4 @@
-﻿namespace DeviceControl.Auth.Claims;
+namespace DeviceControl.Auth.Claims;
 
 public static class PolicyNameUtils
 {

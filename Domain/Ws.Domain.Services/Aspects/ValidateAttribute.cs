@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
 using Ws.Domain.Models.Common;

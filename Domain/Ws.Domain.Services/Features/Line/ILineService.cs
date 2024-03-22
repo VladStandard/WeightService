@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Common.Commands;
 using Ws.Domain.Services.Common.Queries;
@@ -18,7 +18,7 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, 
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line);
 
     #endregion
-    
+
     public void DeletePluLine(PluLineEntity item);
     void AddPluLine(PluLineEntity pluLine);
 }

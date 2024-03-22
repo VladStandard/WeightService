@@ -1,4 +1,4 @@
-﻿using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Text;
 
 namespace Ws.Printers.Common;
@@ -12,6 +12,6 @@ internal class PrinterCommandBase(TcpClient tcp, string command)
         stream.Write(commandBytes, 0, commandBytes.Length);
         Response(stream);
     }
-    
-    protected virtual void Response(NetworkStream stream) {}
+
+    protected virtual void Response(NetworkStream stream) { }
 }

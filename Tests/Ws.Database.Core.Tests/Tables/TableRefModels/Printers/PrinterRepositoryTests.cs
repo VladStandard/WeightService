@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.Printers;
+using Ws.Database.Nhibernate.Entities.Ref.Printers;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Printers;
@@ -12,7 +12,8 @@ public sealed class PrinterRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<PrinterEntity> items = PrinterRepository.GetAll();
             ParseRecords(items);
         });

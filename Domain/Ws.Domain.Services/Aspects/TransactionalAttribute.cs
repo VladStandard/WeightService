@@ -1,4 +1,4 @@
-﻿using NHibernate;
+using NHibernate;
 using PostSharp.Aspects;
 using PostSharp.Serialization;
 using Ws.Database.Nhibernate.Sessions;
@@ -19,7 +19,7 @@ internal class TransactionalAttribute : OnMethodBoundaryAspect
     }
 
     public override void OnExit(MethodExecutionArgs args) => UnitOfWork?.Dispose();
-    
+
     public override void OnSuccess(MethodExecutionArgs args) => UnitOfWork?.Commit();
 
     public override void OnException(MethodExecutionArgs args)

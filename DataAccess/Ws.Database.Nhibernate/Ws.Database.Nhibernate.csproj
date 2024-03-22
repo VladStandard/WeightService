@@ -9,9 +9,6 @@
         <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="..\..\IsExternalInit.cs" Visible="false" />
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
     </ItemGroup>
 

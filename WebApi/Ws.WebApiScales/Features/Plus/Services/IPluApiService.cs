@@ -1,4 +1,4 @@
-﻿using Ws.WebApiScales.Features.Plus.Dto;
+using Ws.WebApiScales.Features.Plus.Dto;
 
 namespace Ws.WebApiScales.Features.Plus.Services;
 
