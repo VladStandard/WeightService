@@ -1,0 +1,55 @@
+@using Ws.Domain.Models.Entities.Scale
+@using DeviceControl2.Source.Features
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.DataGridActions
+@using Blazor.Heroicons.Solid
+@inherits DeviceControl2.Source.Widgets.Section.SectionDataGridPageBase<PluNestingEntity>
+@rendermode InteractiveServer
+
+<PageHeader>
+  <span>Вложенности</span>
+  <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+  <DataGridContainer
+    TItem="PluNestingEntity"
+    Items="SectionItems"
+    IsForcePagination
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnIsDefault"]"
+        Field="@nameof(PluNestingEntity.IsDefault)"
+        Width="20%"
+      >
+        <DisplayTemplate>
+          @if (context.IsDefault)
+          {
+            <StarIcon class="size-5 text-yellow-500" />
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnName"]"
+        Field="Box.Name"
+        Width="40%"
+      />
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnCount"]"
+        Field="@nameof(PluNestingEntity.BundleCount)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@Localizer["DataGridColumnTareWeight"]"
+        Field="@nameof(PluNestingEntity.WeightTare)"
+        Width="20%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

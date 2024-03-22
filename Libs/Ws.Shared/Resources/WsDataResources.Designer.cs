@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ws.SharedUI {
+namespace Ws.Shared.Resources {
     using System;
     
     
@@ -21,14 +21,14 @@ namespace Ws.SharedUI {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WsDataResources_ru_RU {
+    public class WsDataResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WsDataResources_ru_RU() {
+        internal WsDataResources() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace Ws.SharedUI {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources.ru-RU", typeof(WsDataResources_ru_RU).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources", typeof(WsDataResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,7 +60,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColAddress {
             get {
@@ -69,7 +69,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Штрихкод.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColBarcode {
             get {
@@ -78,7 +78,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес коробки.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColBoxWeight {
             get {
@@ -87,7 +87,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Бренд.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColBrand {
             get {
@@ -96,7 +96,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пакет.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColBundle {
             get {
@@ -105,7 +105,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата изменения.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColChangeDt {
             get {
@@ -114,7 +114,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Клипса.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColClip {
             get {
@@ -123,7 +123,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кол-во.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColCount {
             get {
@@ -132,7 +132,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Счетчик.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColCounter {
             get {
@@ -141,7 +141,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата создания.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColCreateDt {
             get {
@@ -150,7 +150,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Данные.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColData {
             get {
@@ -159,7 +159,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to По умолчанию.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColDefault {
             get {
@@ -168,7 +168,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Описание.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColDescription {
             get {
@@ -177,7 +177,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Устройство.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColDevice {
             get {
@@ -186,7 +186,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColDt {
             get {
@@ -195,7 +195,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Срок годности.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColExpirationDt {
             get {
@@ -204,7 +204,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColFile {
             get {
@@ -213,7 +213,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ФИО.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColFIO {
             get {
@@ -222,7 +222,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColFirstName {
             get {
@@ -231,7 +231,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Полное имя.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColFullName {
             get {
@@ -240,7 +240,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес брутто.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColGrossWeight {
             get {
@@ -249,7 +249,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Замес.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColKneading {
             get {
@@ -258,7 +258,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Этикетка.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColLabel {
             get {
@@ -267,7 +267,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Линия.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColLine {
             get {
@@ -276,7 +276,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата входа.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColLoginDt {
             get {
@@ -285,7 +285,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Макс температура.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColMaxTemp {
             get {
@@ -294,7 +294,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сообщение.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColMessage {
             get {
@@ -303,7 +303,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Мин температура.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColMinTemp {
             get {
@@ -312,7 +312,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColName {
             get {
@@ -321,7 +321,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вложенность.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColNesting {
             get {
@@ -330,7 +330,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес нетто.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColNetWeight {
             get {
@@ -339,7 +339,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Номер.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColNumber {
             get {
@@ -348,7 +348,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Паллета.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPallet {
             get {
@@ -357,7 +357,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сдатчик.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPalletMan {
             get {
@@ -366,7 +366,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес паллеты.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPalletWeight {
             get {
@@ -375,7 +375,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пароль.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPassword {
             get {
@@ -384,7 +384,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отчество.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPatronymic {
             get {
@@ -393,7 +393,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя ПК.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPcName {
             get {
@@ -402,7 +402,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ПЛУ.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPlu {
             get {
@@ -411,7 +411,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Штучная.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPluPiece {
             get {
@@ -420,7 +420,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Весовая.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColPluWeight {
             get {
@@ -429,7 +429,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Таблицы.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColTables {
             get {
@@ -438,7 +438,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вес тары.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColTareWeight {
             get {
@@ -447,7 +447,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Тип.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColType {
             get {
@@ -456,7 +456,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пользователь.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColUser {
             get {
@@ -465,7 +465,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Склад.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColWarehouse {
             get {
@@ -474,7 +474,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to кг.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string MeasureKg {
             get {
@@ -483,7 +483,7 @@ namespace Ws.SharedUI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to сек.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string MeasureSec {
             get {

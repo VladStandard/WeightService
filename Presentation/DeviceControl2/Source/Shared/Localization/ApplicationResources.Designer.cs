@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DeviceControl.Resources {
+namespace DeviceControl2.Source.Shared.Localization {
     using System;
     
     

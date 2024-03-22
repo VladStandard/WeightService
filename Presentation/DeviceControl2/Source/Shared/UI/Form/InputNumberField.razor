@@ -5,22 +5,19 @@
   TValue="TValue"
   @bind-Value="Value"
   @bind-Value:after="OnValueChanged"
-  Style="background: inherit !important;"
-  Class="@Css.Class("[&::part(control)]:!pl-3 [&::part(controls)]:!py-1 [&::part(root)]:!bg-background [&::part(root)]:!border-input [&::part(root)]:!h-10 [&::part(root)]:!rounded-md", Class)"
-  Disabled="Disabled"
-  Autofocus="AutoFocus"
+  Class="@Css.Class("w-full [&::part(control)]:!pl-3 [&::part(control)]:!text-sm [&::part(controls)]:py-1 [&::part(controls)]:pr-1 [&::part(root)]:!bg-none [&::part(root)]:!bg-background [&::part(root)]:!border-input [&::part(root)]:!h-10 [&::part(root)]:!rounded-md", Class)"
+  Disabled="@Disabled"
+  Autofocus="@AutoFocus"
   Placeholder="@Placeholder"
-  ReadOnly="ReadOnly"
+  ReadOnly="@ReadOnly"
   Min="@Min"
   Max="@Max"
   Step="@Step"
   AdditionalAttributes="AdditionalAttributes"
->
-
-</FluentNumberField>
+/>
 
 @code {
   [Parameter] public string? Min { get; set; }
   [Parameter] public string? Max { get; set; }
-  [Parameter] public string Step { get; set; } = string.Empty;
+  [Parameter] public string Step { get; set; } = "1";
 }

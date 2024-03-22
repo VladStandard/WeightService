@@ -67,7 +67,6 @@
       <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\..\Libs\Ws.SharedUI\Ws.SharedUI.csproj" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
     

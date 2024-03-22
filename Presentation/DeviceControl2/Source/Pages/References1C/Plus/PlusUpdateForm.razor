@@ -1,0 +1,61 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using Ws.Domain.Models.Entities.Ref
+
+@inherits DeviceControl2.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="SectionEntity.ChangeDt"
+  CreateDate="SectionEntity.CreateDt"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@(IsForceSubmit ? EventCallback.Factory.Create(this, () => UpdateAction(UpdatePluEntity)) : null)"
+>
+  <FieldsContent>
+
+    <SectionFormGuidField Value="@SectionEntity.Uid.ToString()" />
+    <SectionFormReadOnlyField Label="1C UID" Value="@SectionEntity.Uid1C.ToString()" IsCopyable />
+    <SectionFormReadOnlyField Label="Номер" Value="@SectionEntity.Number.ToString()"/>
+    <SectionFormReadOnlyField Label="Тип" Value="@GetPluTypeName(SectionEntity.IsCheckWeight)"/>
+    <SectionFormReadOnlyField Label="Срок годности" Value="@SectionEntity.ShelfLifeDays.ToString()"/>
+
+    <SectionFormInputWrapper Label="Название" HtmlFor="plu-name">
+      <InputTextField id="plu-name" @bind-Value="@FormModel.Name" Disabled="@(!IsForceSubmit)"/>
+      <FieldValidation For="@(() => FormModel.Name)"/>
+    </SectionFormInputWrapper>
+
+    <SectionFormReadOnlyField Label="Пакет" Value="@SectionEntity.Bundle.Name" Path="@Redirector.ToPath(SectionEntity.Bundle)"/>
+    <SectionFormReadOnlyField Label="Клипса" Value="@SectionEntity.Clip.Name" Path="@Redirector.ToPath(SectionEntity.Clip)"/>
+    <SectionFormReadOnlyField Label="Бренд" Value="@SectionEntity.Brand.Name" Path="@Redirector.ToPath(SectionEntity.Brand)"/>
+    <SectionFormReadOnlyField Label="Способ хранения" Value="@SectionEntity.StorageMethod.Name" Path="@Redirector.ToPath(SectionEntity.StorageMethod, User)"/>
+
+    <SectionFormInputWrapper Label="Шаблон" HtmlFor="plu-template" Path="@Redirector.ToPath(Template, User)">
+      <SelectSingle TItem="TemplateEntity" Items="AllTemplates" @bind-SelectedItem="FormModel.Template"
+                    ItemDisplayName="@(item => item.Name)" IsDisabled="@(!IsForceSubmit)"/>
+      <FieldValidation For="@(() => FormModel.Template)"/>
+    </SectionFormInputWrapper>
+
+    <SectionFormReadOnlyField Label="Ean13" Value="@SectionEntity.Ean13"/>
+    <SectionFormReadOnlyField Label="Gtin" Value="@SectionEntity.Gtin"/>
+    <SectionFormReadOnlyField Label="Itf14" Value="@SectionEntity.Itf14"/>
+
+    <SectionFormInputWrapper Label="Полное название" HtmlFor="plu-full-name" Size="SectionInputSize.Large">
+      <InputTextAreaField id="plu-full-name" @bind-Value="@FormModel.FullName" Disabled="@(!IsForceSubmit)"/>
+      <FieldValidation For="@(() => FormModel.FullName)"/>
+    </SectionFormInputWrapper>
+
+    <SectionFormInputWrapper Label="Описание" HtmlFor="plu-description" Size="SectionInputSize.Large">
+      <InputTextAreaField id="plu-description" @bind-Value="@FormModel.Description" Disabled="@(!IsForceSubmit)" />
+      <FieldValidation For="@(() => FormModel.Description)"/>
+    </SectionFormInputWrapper>
+
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}/{SectionEntity.Uid}")" />
+    <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" />
+    @if (IsForceSubmit)
+    {
+      <SectionFormActionReset OnClick="@(() => ResetItem(FormModel, FormModelCopy))" />
+    }
+  </ActionsContent>
+</SectionForm>

@@ -2,13 +2,15 @@
 @inherits DeviceControl2.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 
-
 <SectionDialog TabsList="@TabsList">
   <Tab Id="main">
-    Hello World
-    @SectionEntity.Name
+    <PlusUpdateForm
+      SectionEntity="SectionEntity"
+      OnCancelAction="@CancelDialog"
+      OnSubmitAction="@CloseDialog"
+    />
   </Tab>
   <Tab Id="nesting">
-    Nesting
+    <PlusNestingDataGrid PluEntity="SectionEntity" />
   </Tab>
 </SectionDialog>

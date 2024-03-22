@@ -1,0 +1,53 @@
+@using Microsoft.Extensions.Localization
+@using DeviceControl2.Source.Shared.Localization
+@using ButtonType = DeviceControl2.Source.Shared.UI.ButtonType
+@inject IStringLocalizer<ApplicationResources> Localizer
+
+<div class="w-full !mt-0 bg-background border-t gap-3 py-4 flex flex-col">
+  @if (CreateDate != null || ChangeDate != null)
+  {
+    <div class="flex px-4 items-center w-full text-muted-foreground text-sm font-light">
+      @if (CreateDate != null)
+      {
+        <div class="w-1/2 px-10 truncate items-center flex gap-2">
+          <span>@Localizer["DataGridColumnCreateDt"]:</span>
+          <span>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+      }
+      @if (ChangeDate != null)
+      {
+        <div class="w-1/2 px-10 truncate flex-items flex gap-2">
+          <span>@Localizer["DataGridColumnChangeDt"]:</span>
+          <span>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+      }
+    </div>
+  }
+  <div class="flex px-6 w-full gap-2 justify-end">
+    @if (OnCancelAction.HasDelegate)
+    {
+      <Button
+        Variant="ButtonVariant.Outline"
+        OnClick="@OnCancelAction"
+      >
+        @Localizer["ButtonCancel"]
+      </Button>
+    }
+    @if (OnSubmitAction != null)
+    {
+      <Button
+        Variant="ButtonVariant.Secondary"
+        Type="ButtonType.Submit"
+      >
+        @Localizer["ButtonSave"]
+      </Button>
+    }
+  </div>
+</div>
+
+@code {
+  [Parameter] public DateTime? CreateDate { get; set; }
+  [Parameter] public DateTime? ChangeDate { get; set; }
+  [Parameter] public EventCallback? OnSubmitAction { get; set; }
+  [Parameter] public EventCallback OnCancelAction { get; set; }
+}

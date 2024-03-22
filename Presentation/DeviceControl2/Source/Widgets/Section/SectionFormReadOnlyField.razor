@@ -1,0 +1,25 @@
+@using Microsoft.Extensions.Localization
+<SectionFormInputWrapper
+  Label="@Label"
+  HtmlFor="@HtmlId"
+  Path="@Path"
+  ValueToCopy="@(IsCopyable ? Value : string.Empty)"
+>
+  <InputTextField
+    id="@HtmlId"
+    Value="@Value"
+    Placeholder="@Localizer["SectionFormInputEmpty"]"
+    Disabled
+  />
+</SectionFormInputWrapper>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  [Parameter] public string Label { get; set; } = string.Empty;
+  [Parameter] public string Value { get; set; } = string.Empty;
+  [Parameter] public string Path { get; set; } = string.Empty;
+  [Parameter] public bool IsCopyable { get; set; }
+
+  private string HtmlId { get; set; } = $"field-{Guid.NewGuid()}";
+}

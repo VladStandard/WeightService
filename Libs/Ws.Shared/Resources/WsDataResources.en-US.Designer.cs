@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ws.SharedUI.Resources {
+namespace Ws.Shared.Resources {
     using System;
     
     
@@ -21,14 +21,14 @@ namespace Ws.SharedUI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WsDataResources {
+    public class WsDataResources_en_US {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WsDataResources() {
+        internal WsDataResources_en_US() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace Ws.SharedUI.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources", typeof(WsDataResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources.en-US", typeof(WsDataResources_en_US).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,7 +60,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string ColAddress {
             get {
@@ -69,7 +69,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Barcode.
         /// </summary>
         public static string ColBarcode {
             get {
@@ -78,7 +78,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Box weight.
         /// </summary>
         public static string ColBoxWeight {
             get {
@@ -87,7 +87,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Brand.
         /// </summary>
         public static string ColBrand {
             get {
@@ -96,7 +96,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Bundle.
         /// </summary>
         public static string ColBundle {
             get {
@@ -105,7 +105,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Change date.
         /// </summary>
         public static string ColChangeDt {
             get {
@@ -114,7 +114,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Clip.
         /// </summary>
         public static string ColClip {
             get {
@@ -123,7 +123,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Count.
         /// </summary>
         public static string ColCount {
             get {
@@ -132,7 +132,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Counter.
         /// </summary>
         public static string ColCounter {
             get {
@@ -141,7 +141,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Create date.
         /// </summary>
         public static string ColCreateDt {
             get {
@@ -150,7 +150,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Data.
         /// </summary>
         public static string ColData {
             get {
@@ -159,7 +159,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string ColDefault {
             get {
@@ -168,7 +168,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string ColDescription {
             get {
@@ -177,7 +177,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string ColDevice {
             get {
@@ -186,7 +186,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string ColDt {
             get {
@@ -195,7 +195,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Expiration date.
         /// </summary>
         public static string ColExpirationDt {
             get {
@@ -204,7 +204,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to File.
         /// </summary>
         public static string ColFile {
             get {
@@ -213,7 +213,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to FIO.
         /// </summary>
         public static string ColFIO {
             get {
@@ -222,7 +222,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to First name.
         /// </summary>
         public static string ColFirstName {
             get {
@@ -231,7 +231,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Full name.
         /// </summary>
         public static string ColFullName {
             get {
@@ -240,7 +240,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Gross weight.
         /// </summary>
         public static string ColGrossWeight {
             get {
@@ -249,7 +249,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Kneading.
         /// </summary>
         public static string ColKneading {
             get {
@@ -258,7 +258,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Label.
         /// </summary>
         public static string ColLabel {
             get {
@@ -267,7 +267,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Line.
         /// </summary>
         public static string ColLine {
             get {
@@ -276,7 +276,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Login date.
         /// </summary>
         public static string ColLoginDt {
             get {
@@ -285,7 +285,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Max temp.
         /// </summary>
         public static string ColMaxTemp {
             get {
@@ -294,7 +294,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string ColMessage {
             get {
@@ -303,7 +303,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Min temp.
         /// </summary>
         public static string ColMinTemp {
             get {
@@ -312,7 +312,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ColName {
             get {
@@ -321,7 +321,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Nesting.
         /// </summary>
         public static string ColNesting {
             get {
@@ -330,7 +330,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Net weight.
         /// </summary>
         public static string ColNetWeight {
             get {
@@ -339,7 +339,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Number.
         /// </summary>
         public static string ColNumber {
             get {
@@ -348,7 +348,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Pallet.
         /// </summary>
         public static string ColPallet {
             get {
@@ -357,7 +357,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Deliverer.
         /// </summary>
         public static string ColPalletMan {
             get {
@@ -366,7 +366,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Pallet weight.
         /// </summary>
         public static string ColPalletWeight {
             get {
@@ -375,7 +375,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string ColPassword {
             get {
@@ -384,7 +384,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Patronymic.
         /// </summary>
         public static string ColPatronymic {
             get {
@@ -393,7 +393,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to PC name.
         /// </summary>
         public static string ColPcName {
             get {
@@ -402,7 +402,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to PLU.
         /// </summary>
         public static string ColPlu {
             get {
@@ -411,7 +411,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Piece.
         /// </summary>
         public static string ColPluPiece {
             get {
@@ -420,7 +420,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Weight.
         /// </summary>
         public static string ColPluWeight {
             get {
@@ -429,7 +429,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Tables.
         /// </summary>
         public static string ColTables {
             get {
@@ -438,7 +438,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Tare weight.
         /// </summary>
         public static string ColTareWeight {
             get {
@@ -447,7 +447,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string ColType {
             get {
@@ -456,7 +456,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to User.
         /// </summary>
         public static string ColUser {
             get {
@@ -465,7 +465,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Warehouse.
         /// </summary>
         public static string ColWarehouse {
             get {
@@ -474,7 +474,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to kg.
         /// </summary>
         public static string MeasureKg {
             get {
@@ -483,7 +483,7 @@ namespace Ws.SharedUI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to sec.
         /// </summary>
         public static string MeasureSec {
             get {

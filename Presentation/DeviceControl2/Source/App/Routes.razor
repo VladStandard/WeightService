@@ -1,6 +1,25 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
-  <Found Context="routeData">
-    <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
-    <FocusOnNavigate RouteData="routeData" Selector="h1" />
-  </Found>
-</Router>
+﻿<CascadingAuthenticationState>
+  <Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+      <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+        <NotAuthorized>
+          <div class="flex w-full h-full items-center justify-center">
+            <div class="text-center font-light text-lg">
+              <h2>Недостаточно уровня прав для данной операции.</h2>
+            </div>
+          </div>
+        </NotAuthorized>
+      </AuthorizeRouteView>
+      <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+    </Found>
+    <NotFound>
+      <LayoutView Layout="@typeof(MainLayout)">
+        <div class="flex w-full h-full items-center justify-center">
+          <div class="text-center font-light text-lg">
+            <h2>Страница не найдена</h2>
+          </div>
+        </div>
+      </LayoutView>
+    </NotFound>
+  </Router>
+</CascadingAuthenticationState>

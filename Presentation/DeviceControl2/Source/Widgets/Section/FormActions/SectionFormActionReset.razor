@@ -1,0 +1,15 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl2.Source.Shared.Localization;
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<ApplicationResources> Localizer
+
+<SectionFormAction OnClick="@OnClick" Class="@Class">
+  <ArrowRightOnRectangleIcon class="size-4 mr-2" />
+  @Localizer["ActionMenuReset"]
+</SectionFormAction>
+
+@code {
+  [Parameter] public string Class { get; set; } = string.Empty;
+  [Parameter] public EventCallback OnClick { get; set; }
+}

@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 
 namespace DeviceControl2.Source.Widgets.Section;
 
-public class SectionDataGridPageBase<TItem> : ComponentBase where TItem : EntityBase, new()
+public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable where TItem : EntityBase, new()
 {
     [Inject] private IDialogService DialogService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
@@ -15,11 +15,17 @@ public class SectionDataGridPageBase<TItem> : ComponentBase where TItem : Entity
     protected IEnumerable<TItem> SectionItems { get; set; } = [];
     protected bool IsLoading { get; set; } = true;
     private bool IsFirstLoading { get; set; } = true;
+    private IJSObjectReference? Module { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await GetSectionData();
         IsLoading = false;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
     }
 
     protected virtual IEnumerable<TItem> SetSqlSectionCast() =>
@@ -49,7 +55,21 @@ public class SectionDataGridPageBase<TItem> : ComponentBase where TItem : Entity
 
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
         await DialogService.ShowDialogAsync<T>(sectionEntity, new()
-            { OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback) });
+            { 
+                OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
+                    {
+                        if (Module == null) return;
+                        await Module.InvokeVoidAsync("animateDialogClosing", instance.Id);
+                    }
+                ),
+                OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
+                    {
+                        if (Module == null) return;
+                        await Module.InvokeVoidAsync("animateDialogOpening", instance.Id);
+                    }
+                ), 
+                OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback) 
+            });
     
 
     private async Task HandleDialogCallback(DialogResult result)
@@ -83,5 +103,18 @@ public class SectionDataGridPageBase<TItem> : ComponentBase where TItem : Entity
         }
 
         SectionItems = await Task.Run(SetSqlSectionCast);
+    }
+    
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (Module == null) return;
+            await Module.DisposeAsync();
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException or ArgumentNullException)
+        {
+            // pass error
+        }
     }
 }

@@ -1,4 +1,4 @@
-using DeviceControl.Resources;
+using DeviceControl2.Source.Shared.Localization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 

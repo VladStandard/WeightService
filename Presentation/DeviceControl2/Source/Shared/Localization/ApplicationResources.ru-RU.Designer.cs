@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ScalesDesktop.Resources {
+namespace DeviceControl2.Source.Shared.Localization {
     using System;
     
     

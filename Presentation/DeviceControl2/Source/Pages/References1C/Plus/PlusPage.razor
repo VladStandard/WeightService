@@ -1,8 +1,8 @@
-@using Blazorise.DataGrid
 @using Ws.Domain.Models.Entities.Ref1c
-@using DeviceControl2.Source.Features
-@using DeviceControl2.Source.Widgets
 @using Blazor.Heroicons.Outline
+@using DeviceControl2.Source.Features
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.DataGridActions
 
 @inherits DeviceControl2.Source.Widgets.Section.SectionDataGridPageBase<PluEntity>
 @attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
@@ -12,9 +12,7 @@
 <PageHeader>
   <span>ПЛУ</span>
   <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <Button Size="ButtonSize.Icon" OnClick="@UpdateData" Disabled="@IsLoading">
-    <ArrowPathIcon class="size-5"/>
-  </Button>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
 </PageHeader>
 
 <DataGridWrapper>
@@ -25,6 +23,20 @@
     IsFilterable
   >
     <ColumnsContent>
+      <DataGridColumn
+        Caption="Статус"
+        Width="5%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          @if (!GetIsPluValid(context))
+          {
+            <div class="w-full flex items-center justify-center">
+              <ExclamationTriangleIcon class="text-orange-400 size-5" />
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
       <DataGridColumn
         Caption="Номер"
         Field="@nameof(PluEntity.Number)"
@@ -57,14 +69,8 @@
       />
     </ColumnsContent>
     <ContextMenuContent>
-      <DropdownItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))">
-        <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
-        View item
-      </DropdownItem>
-      <DropdownItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))">
-        <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
-        Open in new tab
-      </DropdownItem>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
     </ContextMenuContent>
   </DataGridContainer>
 </DataGridWrapper>

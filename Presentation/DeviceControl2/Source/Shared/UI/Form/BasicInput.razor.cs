@@ -11,7 +11,7 @@ public abstract class BasicInput<TValue>: ComponentBase
     [Parameter] public bool AutoFocus { get; set; }
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public bool ReadOnly { get; set; }
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+    [Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
     
     protected async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
 }

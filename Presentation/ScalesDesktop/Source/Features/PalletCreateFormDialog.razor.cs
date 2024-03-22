@@ -11,7 +11,7 @@ using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features
 {

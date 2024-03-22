@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Viewer;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets;
 

@@ -1,4 +1,4 @@
-<div class="w-full max-h-full p-4">
+<div class="@Css.Class("w-full max-h-full p-4", Class)">
   <div class="size-full bg-background rounded-md overflow-hidden border">
     @ChildContent
   </div>
@@ -6,4 +6,5 @@
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter] public string Class { get; set; } = string.Empty;
 }

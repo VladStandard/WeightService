@@ -79,6 +79,7 @@
 @layer components {
   * {
     --type-ramp-base-font-size: unset;
+    --body-font: 0;
     --type-ramp-base-line-height: unset;
     --neutral-foreground-rest: 0;
     --type-ramp-base-font-variations: 0;
@@ -110,12 +111,11 @@
     --accent-fill-rest: 0;
   }
 
-  .custom-input::part(root) {
-    background: inherit;
-    @apply !bg-background !border-border !h-10 !rounded-md
+  .fluent-toast {
+    @apply !bg-background !text-primary border
   }
 
-  .custom-input::part(controls) {
-    @apply py-1
+  .fluent-toast-action > svg {
+    @apply !fill-black dark:!fill-white
   }
 }

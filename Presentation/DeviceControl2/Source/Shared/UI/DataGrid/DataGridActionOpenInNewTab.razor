@@ -1,0 +1,10 @@
+@using Blazor.Heroicons.Outline
+
+<DropdownItem OnClick="@OnClick">
+  <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
+  Open in new tab
+</DropdownItem>
+
+@code {
+  [Parameter] public EventCallback OnClick { get; set; }
+}

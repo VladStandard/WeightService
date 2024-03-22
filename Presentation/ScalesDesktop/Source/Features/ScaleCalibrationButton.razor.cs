@@ -5,7 +5,7 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 

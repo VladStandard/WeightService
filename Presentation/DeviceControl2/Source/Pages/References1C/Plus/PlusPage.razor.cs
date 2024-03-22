@@ -24,4 +24,16 @@ public sealed partial class PlusPage: SectionDataGridPageBase<PluEntity>
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [PluService.GetItemByUid(itemUid)];
     }
+
+    private static bool GetIsPluValid(PluEntity entity) =>
+        !string.IsNullOrEmpty(entity.Description) &&
+        !string.IsNullOrEmpty(entity.Name) &&
+        !string.IsNullOrEmpty(entity.FullName) &&
+        !string.IsNullOrEmpty(entity.Description) &&
+        !string.IsNullOrEmpty(entity.Ean13) &&
+        !string.IsNullOrEmpty(entity.Gtin) &&
+        !string.IsNullOrEmpty(entity.Itf14) &&
+        !entity.Brand.IsNew &&
+        !entity.Bundle.IsNew &&
+        !entity.Clip.IsNew;
 }

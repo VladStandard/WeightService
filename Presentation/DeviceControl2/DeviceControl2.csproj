@@ -44,6 +44,7 @@
     <PackageReference Include="Blazorise" Version="1.4.3" />
     <PackageReference Include="Blazorise.DataGrid" Version="1.4.2" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.2" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.5.0" />
   </ItemGroup>
 
@@ -56,7 +57,6 @@
   <ItemGroup>
     <AdditionalFiles Include="Source\Shared\UI\Form\InputNumberField.razor" />
     <AdditionalFiles Include="Source\Shared\UI\Form\InputTextField.razor" />
-    <AdditionalFiles Include="Source\Shared\UI\Form\SelectSingle.razor" />
     <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenu.razor" />
     <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenuItem.razor" />
   </ItemGroup>

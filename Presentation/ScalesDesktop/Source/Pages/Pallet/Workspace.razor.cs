@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Shared.Enums;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Pages.Pallet;
 
