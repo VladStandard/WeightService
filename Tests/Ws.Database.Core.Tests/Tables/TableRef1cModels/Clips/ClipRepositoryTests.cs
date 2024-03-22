@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref1c.Clips;
+using Ws.Database.Nhibernate.Entities.Ref1c.Clips;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Clips;
@@ -11,7 +11,8 @@ public sealed class ClipRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<ClipEntity> items = ClipRepository.GetAll();
             ParseRecords(items);
         });

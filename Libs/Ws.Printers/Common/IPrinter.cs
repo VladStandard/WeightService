@@ -1,4 +1,4 @@
-﻿namespace Ws.Printers.Common;
+namespace Ws.Printers.Common;
 
 public interface IPrinter : IDisposable
 {

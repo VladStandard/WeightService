@@ -3,11 +3,11 @@ using Microsoft.JSInterop;
 
 namespace DeviceControl.Features.Layout;
 
-public sealed partial class ThemeToggle: ComponentBase, IAsyncDisposable
+public sealed partial class ThemeToggle : ComponentBase, IAsyncDisposable
 {
     [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
     private IJSObjectReference? Module { get; set; }
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
@@ -16,7 +16,7 @@ public sealed partial class ThemeToggle: ComponentBase, IAsyncDisposable
 
     private async Task SetTheme(string theme) =>
         await Module!.InvokeVoidAsync("switchTheme", theme);
-    
+
 
     public async ValueTask DisposeAsync()
     {

@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.Pallet;

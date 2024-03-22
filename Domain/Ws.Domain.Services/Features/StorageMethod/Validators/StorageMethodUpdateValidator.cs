@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.StorageMethod.Validators;
+namespace Ws.Domain.Services.Features.StorageMethod.Validators;
 
 internal sealed class StorageMethodUpdateValidator : StorageMethodValidator
 {

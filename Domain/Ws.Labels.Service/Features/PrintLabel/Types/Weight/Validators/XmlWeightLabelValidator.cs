@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Validators;

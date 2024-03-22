@@ -48,7 +48,7 @@ public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
             PluLineEntity pluLine = new() { Line = LineEntity, Plu = pluEntity };
             LineService.AddPluLine(pluLine);
         }
-        
+
         await DataGridWrapperRef.ReloadData();
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }

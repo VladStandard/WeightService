@@ -1,4 +1,4 @@
-﻿using Ws.Shared.TypeUtils;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.Shared.Tests.TypeUtils;
 

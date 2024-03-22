@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 
 namespace DeviceControl2.Source.Shared.Auth;
 

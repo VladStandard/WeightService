@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Ws.Database.Nhibernate.Sessions;
 
 namespace Ws.Database.Nhibernate.Common;

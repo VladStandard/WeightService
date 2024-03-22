@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Ws.Database.Nhibernate;
 using Ws.Domain.Services.Features.Box;
 using Ws.Domain.Services.Features.Brand;
@@ -29,7 +29,8 @@ public static class DependencyInjection
     {
         services.AddNhibernate();
 
-        services.AddEasyCaching(option => {
+        services.AddEasyCaching(option =>
+        {
             option.WithProtobuf();
             option.UseRedis(RedisUtils.LoadRedisCfg(), "ws-redis");
         });

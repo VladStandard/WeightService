@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.Warehouses;
+using Ws.Database.Nhibernate.Entities.Ref.Warehouses;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Warehouses;
@@ -11,7 +11,8 @@ public sealed class WarehouseRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<WarehouseEntity> items = WarehousesRepository.GetAll();
             ParseRecords(items);
         });

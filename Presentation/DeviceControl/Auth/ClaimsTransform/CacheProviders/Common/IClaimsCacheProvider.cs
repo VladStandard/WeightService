@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 
 namespace DeviceControl.Auth.ClaimsTransform.CacheProviders.Common;
 

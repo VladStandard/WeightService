@@ -10,13 +10,15 @@ internal class SqlBoxMap : ClassMapping<BoxEntity>
         Schema(SqlSchemasUtils.Ref1C);
         Table(SqlTablesUtils.Boxes);
 
-        Id(x => x.Uid, m => {
+        Id(x => x.Uid, m =>
+        {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
 
-        Property(x => x.Name, m => {
+        Property(x => x.Name, m =>
+        {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
             m.Length(128);
@@ -24,13 +26,15 @@ internal class SqlBoxMap : ClassMapping<BoxEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.Uid1C, m => {
+        Property(x => x.Uid1C, m =>
+        {
             m.Column("UID_1C");
             m.Type(NHibernateUtil.Guid);
             m.NotNullable(true);
         });
 
-        Property(x => x.Weight, m => {
+        Property(x => x.Weight, m =>
+        {
             m.Column("WEIGHT");
             m.Type(NHibernateUtil.Decimal);
             m.Precision(10);
@@ -38,13 +42,15 @@ internal class SqlBoxMap : ClassMapping<BoxEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.CreateDt, m => {
+        Property(x => x.CreateDt, m =>
+        {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        Property(x => x.ChangeDt, m => {
+        Property(x => x.ChangeDt, m =>
+        {
             m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);

@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceControl.Auth.Policies;
@@ -11,13 +11,13 @@ public static class PolicyAuthUtils
         options.AddPolicy(PolicyEnum.Admin, builder =>
             builder.RequireRole(ClaimTypes.Role, RoleEnum.Admin)
         );
-    
+
         options.AddPolicy(PolicyEnum.SupportSenior, builder =>
             builder.RequireAssertion(x =>
                 x.User.HasRole(RoleEnum.Admin, RoleEnum.SupportSenior)
             )
         );
-        
+
         options.AddPolicy(PolicyEnum.Support, builder =>
             builder.RequireAssertion(x =>
                 x.User.HasRole(

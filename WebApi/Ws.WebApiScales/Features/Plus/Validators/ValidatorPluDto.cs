@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Ws.WebApiScales.Features.Plus.Dto;
 
 namespace Ws.WebApiScales.Features.Plus.Validators;

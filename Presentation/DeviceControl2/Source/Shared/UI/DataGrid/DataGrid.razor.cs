@@ -11,12 +11,12 @@ public sealed partial class DataGrid<TGridItem> : ComponentBase
     [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
     [Parameter] public IQueryable<TGridItem> Items { get; set; } = new List<TGridItem>().AsQueryable();
     [Parameter] public string GridTemplate { get; set; } = "1fr";
-    
+
     private PaginationState Pagination { get; } = new() { ItemsPerPage = 10 };
 
     protected override void OnInitialized() =>
         Pagination.TotalItemCountChanged += (_, _) => StateHasChanged();
-    
+
     private async Task HandleOnRowFocus(FluentDataGridRow<TGridItem> row) =>
         await DialogService.ShowDialogAsync<SimpleDialog>(new());
 }

@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Exceptions;
 

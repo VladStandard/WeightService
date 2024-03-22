@@ -20,11 +20,11 @@ public class SectionFormBase<TItem> : ComponentBase where TItem : EntityBase, ne
 
     private TItem SectionEntityCopy { get; set; } = new();
     protected ClaimsPrincipal User { get; private set; } = new();
-    
+
 
     protected override async Task OnInitializedAsync()
     {
-        User =  (await AuthState).User;
+        User = (await AuthState).User;
         SectionEntityCopy = SectionEntity.DeepClone();
     }
 

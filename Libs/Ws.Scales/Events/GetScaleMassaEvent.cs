@@ -1,4 +1,4 @@
-﻿namespace Ws.Scales.Events;
+namespace Ws.Scales.Events;
 
 public class GetScaleMassaEvent(int weight, bool isStable)
 {

@@ -16,6 +16,6 @@ public sealed class SqlBoxRepository : BaseRepository, IGetItemByUid1C<BoxEntity
 
     public IEnumerable<BoxEntity> GetAll() =>
         Session.Query<BoxEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
-    
+
     public BoxEntity Save(BoxEntity item) { Session.Save(item); return item; }
 }

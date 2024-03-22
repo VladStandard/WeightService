@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.ProductionSite.Validators;
+namespace Ws.Domain.Services.Features.ProductionSite.Validators;
 
 internal sealed class ProductionSiteUpdateValidator : ProductionSiteValidator
 {

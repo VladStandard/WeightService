@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.Claims;
+using Ws.Database.Nhibernate.Entities.Ref.Claims;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Claim.Validators;
@@ -22,4 +22,3 @@ internal class ClaimService(SqlClaimRepository claimRepo) : IClaimService
     [Transactional, Validate<ClaimUpdateValidator>]
     public ClaimEntity Update(ClaimEntity item) => claimRepo.Update(item);
 }
-

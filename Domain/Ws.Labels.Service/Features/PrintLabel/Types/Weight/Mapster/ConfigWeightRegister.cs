@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
 

@@ -1,4 +1,4 @@
-﻿using EasyCaching.Core;
+using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.Templates;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
@@ -21,11 +21,11 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
     public TemplateEntity Update(TemplateEntity item)
     {
         TemplateEntity template = templateRepo.Update(item);
-        
+
         string zplKey = $"TEMPLATE-{template.Uid}:ZPL";
         if (provider.KeyExists(zplKey))
             provider.StringSet(zplKey, template.Body, TimeSpan.FromHours(1));
-        
+
         return template;
     }
 

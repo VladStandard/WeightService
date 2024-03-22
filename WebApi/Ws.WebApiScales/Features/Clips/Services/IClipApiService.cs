@@ -1,4 +1,4 @@
-﻿using Ws.WebApiScales.Features.Clips.Dto;
+using Ws.WebApiScales.Features.Clips.Dto;
 
 namespace Ws.WebApiScales.Features.Clips.Services;
 

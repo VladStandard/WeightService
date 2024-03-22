@@ -1,4 +1,4 @@
-﻿using Ws.WebApiScales.Features.Bundles.Dto;
+using Ws.WebApiScales.Features.Bundles.Dto;
 
 namespace Ws.WebApiScales.Features.Bundles.Services;
 

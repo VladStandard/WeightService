@@ -26,7 +26,7 @@ public static class NameFormatting
         string firstBundleWord = bundle.Name.Split(" ").FirstOrDefault() ?? string.Empty;
         return $"{firstBundleWord} {bundle.Weight}кг * {bundleCount}шт";
     }
-    
+
     public static string GetFormatBundleName(BundleEntity bundle)
     {
         if (bundle.Uid1C == Guid.Empty) return string.Empty;

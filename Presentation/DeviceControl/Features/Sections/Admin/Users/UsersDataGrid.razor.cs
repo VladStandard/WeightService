@@ -38,7 +38,7 @@ public sealed partial class UsersDataGrid : SectionDataGridBase<UserEntity>
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [UserService.GetItemByUid(itemUid)];
     }
-    
+
     private Task DeleteUserWithRelogin(UserEntity item)
     {
         UserService.Delete(item);

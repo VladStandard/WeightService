@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Common.Commands;
 using Ws.Domain.Services.Common.Queries;
 

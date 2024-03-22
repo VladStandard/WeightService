@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Models.Enums;
+namespace Ws.Domain.Models.Enums;
 
 public enum LineTypeEnum
 {

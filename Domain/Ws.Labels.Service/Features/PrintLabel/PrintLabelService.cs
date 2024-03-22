@@ -1,4 +1,4 @@
-﻿using Ws.Labels.Service.Features.PrintLabel.Types.Piece;
+using Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
@@ -9,7 +9,7 @@ internal class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelW
 {
     public string GenerateWeightLabel(LabelWeightDto labelDto) =>
         labelWeightGenerator.GenerateLabel(labelDto);
-    
+
     public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount) =>
         labelPieceGenerator.GeneratePiecePallet(labelPalletDto, labelCount);
 }

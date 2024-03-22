@@ -1,4 +1,4 @@
-﻿using System.IO.Ports;
+using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Scales.Common;
 using Ws.Scales.Enums;
@@ -11,7 +11,7 @@ public partial class Scales
 {
     private readonly object _pollingLock = new();
     private CancellationTokenSource _cancelPollingToken = new();
-    
+
     private static SerialPort GenerateSerialPort(string comPort)
     {
         return new()
@@ -37,7 +37,8 @@ public partial class Scales
     {
         try
         {
-            ErrorUtil.Suppress<TimeoutException>(() => {
+            ErrorUtil.Suppress<TimeoutException>(() =>
+            {
                 switch (Status)
                 {
                     case ScalesStatus.IsConnect:

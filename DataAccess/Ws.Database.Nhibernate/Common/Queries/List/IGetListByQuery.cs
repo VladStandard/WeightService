@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.Nhibernate.Common.Queries.List;
+namespace Ws.Database.Nhibernate.Common.Queries.List;
 
 internal interface IGetListByQuery<TItem>
 {

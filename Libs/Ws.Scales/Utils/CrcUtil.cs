@@ -1,19 +1,19 @@
-﻿namespace Ws.Scales.Utils;
+namespace Ws.Scales.Utils;
 
 internal static class CrcUtil
 {
     private static readonly byte[] HeaderBytes = [0xF8, 0x55, 0xCE];
-    
+
     public static ushort CalculateCrc16(byte[] data)
     {
         int k;
         int crc = 0;
-        for (k = 0; k < data.Length; k++)
+        for (k = 0 ; k < data.Length ; k++)
         {
             int a = 0;
             int temp = crc >> 8 << 8;
             int bits;
-            for (bits = 0; bits < 8; bits++)
+            for (bits = 0 ; bits < 8 ; bits++)
             {
                 if (((temp ^ a) & 0x8000) != 0)
                     a = a << 1 ^ 0x1021;

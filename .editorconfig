@@ -13,12 +13,13 @@ indent_style = space
 trim_trailing_whitespace = true
 
 dotnet_sort_system_directives_first = true
-dotnet_separate_import_directive_groups = true
+dotnet_separate_import_directive_groups = false
 
 [**.{html,css,scss,js,cshtml,razor}]
 indent_size = 2
 
 [*.{cs,vb}]
+resharper_csharp_place_field_attribute_on_same_line = true
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 
 # Code style defaults

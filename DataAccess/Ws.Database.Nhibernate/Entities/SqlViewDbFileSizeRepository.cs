@@ -1,4 +1,4 @@
-﻿using NHibernate.Transform;
+using NHibernate.Transform;
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Queries.List;
 using Ws.Domain.Models.Entities;

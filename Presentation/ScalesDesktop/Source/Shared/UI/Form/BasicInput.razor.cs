@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace ScalesDesktop.Source.Shared.UI.Form;
 
-public abstract class BasicInput<TValue>: ComponentBase
+public abstract class BasicInput<TValue> : ComponentBase
 {
     [Parameter] public TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
@@ -12,6 +12,6 @@ public abstract class BasicInput<TValue>: ComponentBase
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public bool ReadOnly { get; set; }
     [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
-    
+
     protected async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
 }

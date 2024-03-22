@@ -29,7 +29,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     #endregion
-    
+
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
@@ -169,7 +169,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
 
     private void MouseSubscribe() =>
-        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) => {
+        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) =>
+        {
             if (!GetPrintLabelDisabledStatus()) Task.Run(PrintLabel);
         }
         );

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 using Ws.Labels.Service.Features.PrintLabel.Types.Weight;
@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IPrintLabelService, PrintLabelService>();
         services.AddScoped<IRenderLabelService, RenderLabelService>();
-        
+
         services.AddScoped<LabelPieceGenerator>();
         services.AddScoped<LabelWeightGenerator>();
     }

@@ -18,9 +18,9 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
     private bool IsOnceClicked { get; set; }
     private bool IsScalesAvailable { get; set; } = true;
     private int SecToOpen { get; set; } = 0;
-    
+
     private const int ButtonDebounceSeconds = 10;
-    
+
 
     protected override void OnInitialized() => ScalesSubscribe();
 

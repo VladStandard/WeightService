@@ -1,4 +1,4 @@
-﻿namespace Ws.Scales.Common;
+namespace Ws.Scales.Common;
 
 public interface IScales : IDisposable
 {

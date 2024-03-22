@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities;
+using Ws.Database.Nhibernate.Entities;
 using Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 using Ws.Domain.Models.Entities;
 using Ws.Domain.Models.Entities.Diag;

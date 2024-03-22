@@ -15,7 +15,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private INotificationService NotificationService { get; set; } = null!;
-    
+
     [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public RenderFragment? DataGridButtons { get; set; }
     [Parameter] public IEnumerable<TItem> GridData { get; set; } = new List<TItem>();
@@ -141,7 +141,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
         {
             await NotificationService.Error("Удаление не возможно. Запись используется");
         }
-        
+
         IsVisibleContextMenu = false;
     }
 
@@ -174,7 +174,7 @@ public sealed partial class SectionDataGridWrapper<TItem> : ComponentBase
     private async Task OnGetGridDataAction()
     {
         if (!IsGroupable || IsCollapsed || DataGrid == null || !GridData.Any()) return;
-            await DataGrid.ExpandAllGroups();
+        await DataGrid.ExpandAllGroups();
     }
 }
 

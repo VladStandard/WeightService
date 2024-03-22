@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Brand.Validators;
+namespace Ws.Domain.Services.Features.Brand.Validators;
 
 internal sealed class BrandUpdateValidator : BrandValidator
 {

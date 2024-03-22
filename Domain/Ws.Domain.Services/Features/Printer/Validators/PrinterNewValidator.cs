@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Printer.Validators;
+namespace Ws.Domain.Services.Features.Printer.Validators;
 
 internal sealed class PrinterNewValidator : PrinterValidator
 {

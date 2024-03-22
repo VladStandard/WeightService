@@ -25,6 +25,6 @@ public sealed class SqlPluNestingFkRepository : BaseRepository, IDelete<PluNesti
         foreach (PluNestingEntity entity in pluNestingEntities)
             Session.Delete(entity);
     }
-    
+
     public void Delete(PluNestingEntity item) => Session.Delete(item);
 }

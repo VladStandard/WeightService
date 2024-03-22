@@ -13,7 +13,7 @@ public sealed partial class LabelConfig : ComponentBase, IDisposable
 {
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private LabelContext LabelContext { get; set; } = null!;
-    
+
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
 
@@ -26,7 +26,7 @@ public sealed partial class LabelConfig : ComponentBase, IDisposable
         DialogResult result = await dialog.Result;
         if (result is { Cancelled: false, Data: PluEntity pluEntity })
             LabelContext.ChangePlu(pluEntity);
-    } 
-    
+    }
+
     public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
 }

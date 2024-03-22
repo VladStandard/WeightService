@@ -1,3 +1,3 @@
-﻿namespace Ws.Domain.Services.Common;
+namespace Ws.Domain.Services.Common;
 
 public class ServiceException : Exception;

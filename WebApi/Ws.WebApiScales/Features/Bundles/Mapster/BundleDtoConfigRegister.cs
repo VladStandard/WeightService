@@ -1,4 +1,4 @@
-﻿using Mapster;
+using Mapster;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.WebApiScales.Features.Bundles.Dto;
 

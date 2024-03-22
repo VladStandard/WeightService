@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Template.Validators;
+namespace Ws.Domain.Services.Features.Template.Validators;
 
 internal sealed class TemplateNewValidator : TemplateValidator
 {

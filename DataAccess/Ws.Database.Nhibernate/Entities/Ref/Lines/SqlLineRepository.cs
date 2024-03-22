@@ -15,7 +15,7 @@ public sealed class SqlLineRepository : BaseRepository,
         return Session.Query<LineEntity>().Where(i => i.Warehouse.ProductionSite == site)
             .OrderBy(i => i.Name).ToList();
     }
-    
+
     public LineEntity GetByPcName(string pcName)
     {
         return Session.QueryOver<LineEntity>()
@@ -23,7 +23,7 @@ public sealed class SqlLineRepository : BaseRepository,
             .SingleOrDefault() ?? new();
     }
 
-    public LineEntity Save(LineEntity item) { Session.Save(item); return item; }    
+    public LineEntity Save(LineEntity item) { Session.Save(item); return item; }
     public LineEntity Update(LineEntity item) { Session.Update(item); return item; }
     public void Delete(LineEntity item) => Session.Delete(item);
 }

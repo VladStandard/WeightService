@@ -1,4 +1,4 @@
-﻿namespace DeviceControl.Auth.Policies;
+namespace DeviceControl.Auth.Policies;
 
 public static class PolicyEnum
 {

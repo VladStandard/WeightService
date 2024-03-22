@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 using Ws.Labels.Service.Features.PrintLabel.Common;
 using Ws.Shared.TypeUtils;
 
@@ -9,7 +9,8 @@ public class XmlPieceLabelModel : XmlLabelBaseModel
 {
     [XmlElement] public short BundleCount { get; set; }
 
-    [XmlElement] public override string BarCodeTop
+    [XmlElement]
+    public override string BarCodeTop
     {
         get => $"233{IntUtils.ToStringToLen(LineNumber, 5)}" +
                $"{IntUtils.ToStringToLen(BundleCount, 2)}" +
@@ -19,8 +20,9 @@ public class XmlPieceLabelModel : XmlLabelBaseModel
                $"00000{IntUtils.ToStringToLen(Kneading, 3)}";
         set => _ = value;
     }
-    
-    [XmlElement] public override string BarCodeRight
+
+    [XmlElement]
+    public override string BarCodeRight
     {
         get => $"234{IntUtils.ToStringToLen(LineNumber, 5)}" +
                $"{IntUtils.ToStringToLen(LineCounter, 6)}" +
@@ -28,7 +30,8 @@ public class XmlPieceLabelModel : XmlLabelBaseModel
         set => _ = value;
     }
 
-    [XmlElement] public override string BarCodeBottom
+    [XmlElement]
+    public override string BarCodeBottom
     {
         get => $"(01){PluGtin}(37)" +
                $"{IntUtils.ToStringToLen(BundleCount, 8)}" +

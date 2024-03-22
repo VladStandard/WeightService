@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -20,7 +20,7 @@ internal static partial class LabelGeneratorUtils
         XmlLabelBaseModel, ISerializable
     {
         string template = zplItems.Template;
-        
+
         labelModel.PluFullName = labelModel.PluFullName.Replace("|", "");
 
         XmlDocument xmlLabelContext = XmlUtil.SerializeAsXmlDocument(labelModel);
@@ -40,11 +40,11 @@ internal static partial class LabelGeneratorUtils
             throw new ArgumentException("Value must be fill!", nameof(zpl));
 
         MatchCollection matches = RegexOfResources().Matches(zpl);
-        
+
         foreach (Match match in matches)
         {
             string word = match.Value;
-            
+
             if (zplItems.Resources.TryGetValue(word.Trim('[', ']'), out var value))
                 zpl = zpl.Replace(word, value);
         }
@@ -57,13 +57,14 @@ internal static partial class LabelGeneratorUtils
 
     private static string ReplaceValuesWithHex(string input)
     {
-        return RegexOfTextBlocks().Replace(input, match => {
+        return RegexOfTextBlocks().Replace(input, match =>
+        {
             string text = match.Groups[1].Value;
             string hexText = ConvertStringToHex(text);
             return $"\n\n^FH^FD\n{hexText}\n^FS\n\n";
         });
     }
-    
+
     private static string ConvertStringToHex(string text)
     {
         StringBuilder zplBuilder = new();

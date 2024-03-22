@@ -1,4 +1,4 @@
-﻿using EasyCaching.Core;
+using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 using Ws.Database.Nhibernate.Entities.Scales.PlusNestingFks;
 using Ws.Database.Nhibernate.Entities.Scales.PlusTemplatesFks;
@@ -38,7 +38,7 @@ internal class PluService(
 
     [Transactional]
     public TemplateEntity GetPluTemplate(PluEntity plu) => pluTemplateFkRepo.GetTemplateByPlu(plu);
-    
+
     public string GetPluCachedTemplate(PluEntity plu)
     {
         List<string> templatesKeys = provider.SearchKeys("TEMPLATE-*:PLUS");
@@ -47,22 +47,22 @@ internal class PluService(
         {
             if (!provider.SIsMember(templateKey, $"{plu.Uid}"))
                 continue;
-            
+
             string? zpl = provider.StringGet($"{templateKey.Replace(":PLUS", ":ZPL")}");
 
             if (zpl != null)
                 return zpl;
             break;
         }
-        
+
         TemplateEntity template = GetPluTemplate(plu);
-        
+
         provider.SAdd($"TEMPLATE-{template.Uid}:PLUS", [$"{plu.Uid}"], TimeSpan.FromHours(1));
         provider.StringSet($"TEMPLATE-{template.Uid}:ZPL", template.Body, TimeSpan.FromHours(1));
-        
+
         return template.Body;
     }
-    
+
     #endregion
 
     #region Commands

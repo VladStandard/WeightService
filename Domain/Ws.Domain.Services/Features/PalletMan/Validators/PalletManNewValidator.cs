@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.PalletMan.Validators;
+namespace Ws.Domain.Services.Features.PalletMan.Validators;
 
 internal sealed class PalletManNewValidator : PalletManValidator
 {

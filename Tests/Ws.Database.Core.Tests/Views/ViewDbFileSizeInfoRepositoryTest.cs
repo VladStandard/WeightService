@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities;
+using Ws.Database.Nhibernate.Entities;
 using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities;
 

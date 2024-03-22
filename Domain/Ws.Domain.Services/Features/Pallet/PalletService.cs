@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Print.Labels;
+using Ws.Database.Nhibernate.Entities.Print.Labels;
 using Ws.Database.Nhibernate.Entities.Print.Pallets;
 using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities.Print;
@@ -18,12 +18,12 @@ internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository 
 
     [Transactional]
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
-    
+
     [Transactional]
     public void Create(PalletEntity pallet, IList<LabelEntity> labels)
     {
         NHibernateHelper.GetSession().SetBatchSize(labels.Count);
-        
+
         pallet = palletRepo.Save(pallet);
         foreach (LabelEntity label in labels)
         {

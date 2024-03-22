@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using DeviceControl.Auth.Claims;
 using Microsoft.AspNetCore.Authorization;
 
@@ -25,5 +25,5 @@ public static class PolicyAuthUtils
 
     private static bool HasRole(this ClaimsPrincipal user, params string[] roles) =>
         roles.Any(role => user.HasClaim(ClaimTypes.Role, role));
-    
+
 }
