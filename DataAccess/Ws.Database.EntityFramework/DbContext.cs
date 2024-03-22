@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref.Claims;
+using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 using Ws.Database.EntityFramework.Entities.Ref.PluResources;
@@ -38,19 +38,20 @@ public class WsDbContext : DbContext
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<PluResourceEntity> PluResources { get; set; }
     public DbSet<PluNestingEntity> PlusNestings { get; set; }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseIpAddressConversion();
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
-        
-        modelBuilder.Entity<UserEntity>(entity => {
+
+        modelBuilder.Entity<UserEntity>(entity =>
+        {
             entity.HasMany(e => e.Claims)
                 .WithMany(e => e.Users)
                 .UsingEntity(
@@ -65,16 +66,18 @@ public class WsDbContext : DbContext
                     .HasForeignKey("USER_UID")
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasPrincipalKey(nameof(UserEntity.Id)),
-                j => j.HasKey("CLAIM_UID", "USER_UID"));   
+                j => j.HasKey("CLAIM_UID", "USER_UID"));
         });
-        
-        modelBuilder.Entity<PluResourceEntity>(entity => {
+
+        modelBuilder.Entity<PluResourceEntity>(entity =>
+        {
             entity.HasOne<PluEntity>()
                 .WithOne(p => p.Resource)
                 .HasForeignKey<PluResourceEntity>(pr => pr.Id);
         });
-        
-        modelBuilder.Entity<LineEntity>(entity => {
+
+        modelBuilder.Entity<LineEntity>(entity =>
+        {
             entity.HasOne(l => l.Warehouse)
                 .WithMany()
                 .HasForeignKey("WAREHOUSE_UID")
@@ -84,7 +87,7 @@ public class WsDbContext : DbContext
                 .WithMany()
                 .HasForeignKey("PRINTER_UID")
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             entity.HasMany(e => e.Plus)
                 .WithMany()
                 .UsingEntity(
@@ -102,7 +105,8 @@ public class WsDbContext : DbContext
                 j => j.HasKey("PLU_UID", "LINE_UID"));
         });
 
-        modelBuilder.Entity<PluNestingEntity>(entity => {
+        modelBuilder.Entity<PluNestingEntity>(entity =>
+        {
             entity.HasIndex(pn => new { pn.PluEntityId, pn.IsDefault })
                 .IsUnique()
                 .HasDatabaseName($"UQ_{SqlTables.PluNesting}_IS_DEFAULT_TRUE_ON_PLU")

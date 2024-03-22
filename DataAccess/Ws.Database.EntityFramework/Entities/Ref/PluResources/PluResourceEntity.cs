@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
+using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
 using Ws.Database.EntityFramework.Entities.Ref.Templates;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 

@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Common;
+namespace Ws.Database.EntityFramework.Common;
 
 public abstract class EfEntityBase
 {

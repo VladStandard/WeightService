@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Printers;
@@ -14,19 +14,19 @@ public sealed class PrinterEntity : EfEntityBase
 
     [Column("IP_V4")]
     public IPAddress Ip { get; set; } = IPAddress.Parse("127.0.0.1");
-    
+
     [Column("TYPE", TypeName = "varchar(8)")]
     public PrinterType Type { get; set; } = PrinterType.Tsc;
-    
+
     [ForeignKey("PRODUCTION_SITE_UID")]
     public ProductionSiteEntity ProductionSite { get; set; } = new();
-    
+
     #region Date
 
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    
+
     // public ICollection<LineEntity> Lines { get; set; } = new List<LineEntity>();
 }

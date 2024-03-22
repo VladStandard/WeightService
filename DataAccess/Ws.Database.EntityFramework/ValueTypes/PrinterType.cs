@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.ValueTypes;
+namespace Ws.Database.EntityFramework.ValueTypes;
 
 public enum PrinterType
 {

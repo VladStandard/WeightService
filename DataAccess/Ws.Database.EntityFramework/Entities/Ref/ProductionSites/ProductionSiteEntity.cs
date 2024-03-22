@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+namespace Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 [Table(SqlTables.ProductionSites)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.ProductionSites}_NAME", IsUnique = true)]

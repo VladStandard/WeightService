@@ -1,6 +1,6 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Print;
+namespace Ws.Database.EntityFramework.Entities.Print;
 
 public class PalletEntity
 {
-    
+
 }

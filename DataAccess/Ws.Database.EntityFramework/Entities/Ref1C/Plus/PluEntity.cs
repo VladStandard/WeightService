@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref.PluResources;
+using Ws.Database.EntityFramework.Entities.Ref.PluResources;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
@@ -13,7 +13,7 @@ public sealed class PluEntity : EfEntityBase
 {
     [Column("UID_1C")]
     public Guid Uid1C { get; set; }
-    
+
     [Column(SqlColumns.Name)]
     [StringLength(100, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]
     public string Name { get; set; } = string.Empty;
@@ -25,14 +25,14 @@ public sealed class PluEntity : EfEntityBase
     [Column("DESCRIPTION")]
     [StringLength(150, MinimumLength = 1, ErrorMessage = "Description must be between 1 and 150 characters")]
     public string Description { get; set; } = string.Empty;
-    
+
     [Column("NUMBER")]
     [Range(100, 999, ErrorMessage = "Number must be between 100 and 999")]
     public int Number { get; set; }
 
     [Column("SHELF_LIFE_DAYS")]
     public byte ShelfLifeDays { get; set; }
-    
+
     [Column("EAN_13", TypeName = "varchar")]
     [StringLength(13, MinimumLength = 13, ErrorMessage = "Ean13 must be 13 len")]
     public string Ean13 { get; set; } = string.Empty;
@@ -54,16 +54,16 @@ public sealed class PluEntity : EfEntityBase
     public ClipEntity Clip { get; set; } = new();
 
     public PluResourceEntity Resource { get; set; } = new();
-    
+
     public ICollection<PluNestingEntity> Nestings { get; set; } = [];
-    
+
     #region Date
 
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    
+
     // public virtual ICollection<Label> Labels { get; set; } = new List<Label>();
     //
     // public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();

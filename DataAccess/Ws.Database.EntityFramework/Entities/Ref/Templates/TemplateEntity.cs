@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Ref.Templates;
+namespace Ws.Database.EntityFramework.Entities.Ref.Templates;
 
 [Table(SqlTables.Templates)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Templates}_NAME", IsUnique = true)]

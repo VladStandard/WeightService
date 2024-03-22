@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using System.Net;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 

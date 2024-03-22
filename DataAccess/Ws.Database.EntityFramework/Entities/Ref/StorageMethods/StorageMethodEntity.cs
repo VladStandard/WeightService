@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
+namespace Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
 
 [Table(SqlTables.StorageMethods)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.StorageMethods}_NAME", IsUnique = true)]

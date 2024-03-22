@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
@@ -8,7 +8,7 @@ public sealed class PluNestingEntity : EfEntityBase
 {
     [Column("UID_1C")]
     public Guid Uid1C { get; set; }
-   
+
     [Column("BUNDLE_COUNT")]
     [Range(1, 100, ErrorMessage = "BundleCount must be between 1 and 100")]
     public short BundleCount { get; set; }
@@ -16,7 +16,7 @@ public sealed class PluNestingEntity : EfEntityBase
     #region Box
 
     [ForeignKey("BOX_UID"), Column("BOX_UID")]
-    public Guid BoxId { get; set;}
+    public Guid BoxId { get; set; }
     public BoxEntity Box { get; set; } = new();
 
     #endregion
@@ -26,7 +26,7 @@ public sealed class PluNestingEntity : EfEntityBase
 
     [Column("IS_DEFAULT")]
     public bool IsDefault { get; set; }
-    
+
     #region Date
 
     public DateTime CreateDt { get; init; }

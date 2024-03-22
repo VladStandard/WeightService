@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 
@@ -9,7 +9,7 @@ public sealed class WarehouseEntity : EfEntityBase
     [Column(SqlColumns.Name)]
     [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
     public string Name { get; set; } = string.Empty;
-    
+
     [ForeignKey("PRODUCTION_SITE_UID")]
     public ProductionSiteEntity ProductionSite { get; set; } = new();
 
@@ -19,6 +19,6 @@ public sealed class WarehouseEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    
+
     // public virtual ICollection<LineEntity> Lines { get; set; } = new List<LineEntity>();
 }

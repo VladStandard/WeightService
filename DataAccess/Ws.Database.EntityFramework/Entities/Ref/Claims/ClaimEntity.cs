@@ -1,4 +1,4 @@
-﻿using Ws.Database.EntityFramework.Entities.Ref.Users;
+using Ws.Database.EntityFramework.Entities.Ref.Users;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Claims;
 
@@ -9,9 +9,9 @@ public sealed class ClaimEntity : EfEntityBase
     [Column(SqlColumns.Name)]
     [StringLength(16, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 16 characters")]
     public string Name { get; set; } = string.Empty;
-    
+
     public List<UserEntity> Users { get; } = [];
-    
+
     public DateTime CreateDt { get; init; }
 
     // public virtual ICollection<UsersClaimsFk> UsersClaimsFks { get; set; } = new List<UsersClaimsFk>();

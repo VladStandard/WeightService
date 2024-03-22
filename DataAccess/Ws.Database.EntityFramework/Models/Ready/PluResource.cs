@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Ws.Database.EntityFramework.Common;
-using Ws.Database.EntityFramework.Constants;
+using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
+using Ws.Database.EntityFramework.Entities.Ref.Templates;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
 
@@ -8,12 +8,12 @@ namespace Ws.Database.EntityFramework.Models.Ready;
 public sealed class PluResource : EfEntityBase
 {
     [ForeignKey("TEMPLATE_UID")]
-    public Template Template { get; set; } = new();
+    public TemplateEntity Template { get; set; } = new();
 
     [ForeignKey("STORAGE_METHOD_UID")]
-    public StorageMethod StorageMethod { get; set; } = new();
+    public StorageMethodEntity StorageMethod { get; set; } = new();
 
-    public void SetPlu(Plu plu)
+    public void SetPlu(PluEntity plu)
     {
         if (plu.Id != Guid.Empty) return;
         Id = plu.Id;

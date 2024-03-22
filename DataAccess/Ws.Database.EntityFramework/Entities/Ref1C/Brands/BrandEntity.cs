@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
 [Table(SqlTables.Brands)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME", IsUnique = true)]
@@ -11,13 +11,13 @@ public sealed class BrandEntity : EfEntityBase
 
     [Column("UID_1C")]
     public Guid Uid1C { get; set; }
-    
+
     #region Date
-    
+
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    
+
     // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

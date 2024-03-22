@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -22,7 +22,7 @@ internal static class ModelBuilderExtensions
             }
         }
     }
-    
+
     public static void UseEnumStringConversion(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
@@ -49,7 +49,7 @@ internal static class ModelBuilderExtensions
         {
             IMutableProperty? createDtProperty = entityType.FindProperty(nameof(SqlColumns.CreateDt)) ?? null;
             IMutableProperty? changeDtProperty = entityType.FindProperty(nameof(SqlColumns.ChangeDt)) ?? null;
-            
+
             if (createDtProperty != null)
             {
                 // Настройка столбца CreateDt

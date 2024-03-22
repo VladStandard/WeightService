@@ -1,4 +1,4 @@
-﻿namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 public class BoxRepository(DbContext context)
 {

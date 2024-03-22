@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -34,12 +34,12 @@ namespace Ws.Database.EntityFramework.Migrations
             name: "UQ_BRANDS_UID_1C",
             table: "BRANDS",
             column: "UID_1C");
-            
+
             migrationBuilder.CreateIndex(
                 name: "UQ_PALLET_MEN_UID_1C",
                 table: "PALLET_MEN",
                 column: "UID_1C");
-            
+
         }
 
         /// <inheritdoc />
@@ -48,7 +48,7 @@ namespace Ws.Database.EntityFramework.Migrations
             migrationBuilder.DropIndex(
                 name: "UQ_PALLET_MEN_UID_1C",
                 table: "PALLET_MEN");
-            
+
             migrationBuilder.DropTable(
                 name: "BRANDS");
         }
