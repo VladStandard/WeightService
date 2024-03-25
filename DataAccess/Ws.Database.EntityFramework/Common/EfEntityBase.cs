@@ -6,4 +6,7 @@ public abstract class EfEntityBase
     [Column(SqlColumns.Uid)]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; protected set; }
+
+    [NotMapped] public bool IsExists => !IsNew;
+    [NotMapped] public bool IsNew => Id.Equals(Guid.Empty);
 }

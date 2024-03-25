@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Labels.Service", "Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ws.Domain.Models", "Domain\Ws.Domain.Models\Ws.Domain.Models.csproj", "{B12FDEFD-5FC6-4AE7-976D-AF4C639A07E1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{CEE360D7-ED7D-49C0-93C1-133E93574FC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CEE360D7-ED7D-49C0-93C1-133E93574FC2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A5F7E5F1-61ED-463F-9F5A-0C615709938D}"
 EndProject
@@ -49,6 +49,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl2", "Presentation\DeviceControl2\DeviceControl2.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Database.EntityFramework", "DataAccess\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj", "{C21AFB00-DFBF-421D-AD61-747D9DFC7E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.PalychExchangeApi", "WebApi\Ws.PalychExchangeApi\Ws.PalychExchangeApi.csproj", "{1ACDF130-0EB8-43FD-8E76-587384A4DBB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +130,10 @@ Global
 		{C21AFB00-DFBF-421D-AD61-747D9DFC7E61}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{C21AFB00-DFBF-421D-AD61-747D9DFC7E61}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{C21AFB00-DFBF-421D-AD61-747D9DFC7E61}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +156,7 @@ Global
 		{19FB2930-E645-4F86-B087-2D7DA6F414D7} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 		{B29D6609-092B-4310-95EF-A66DACE97AF0} = {F20FF1E7-9D46-4912-B830-EF82E287B995}
 		{C21AFB00-DFBF-421D-AD61-747D9DFC7E61} = {E799E47F-67BB-4B10-BE06-297B00FD2954}
+		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1} = {CEE360D7-ED7D-49C0-93C1-133E93574FC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

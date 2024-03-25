@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
@@ -16,6 +18,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Database.EntityFramework.Extensions;
+using Ws.Shared.Utils;
 
 namespace Ws.Database.EntityFramework;
 
@@ -39,9 +42,15 @@ public class WsDbContext : DbContext
     public DbSet<PluResourceEntity> PluResources { get; set; }
     public DbSet<PluNestingEntity> PlusNestings { get; set; }
 
+    public static readonly ILoggerFactory MyLoggerFactory
+        = LoggerFactory.Create(builder => { builder.AddConsole(); });
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
+
+        if (ConfigurationUtil.IsDevelop)
+            optionsBuilder.UseLoggerFactory(MyLoggerFactory);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
