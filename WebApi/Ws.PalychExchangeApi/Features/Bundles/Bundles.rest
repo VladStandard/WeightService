@@ -1,0 +1,7 @@
+﻿POST https://localhost:7298/api/bundles/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Bundles>
+    <Bundle Uid="d29f442b-93ef-11e9-a217-a4bf0139eb1b" Name="Коробка №5 400 грамм (400*300*200)" Weight="0.35" />
+</Bundles>

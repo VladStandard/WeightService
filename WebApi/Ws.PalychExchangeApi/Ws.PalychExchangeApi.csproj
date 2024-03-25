@@ -11,7 +11,5 @@
       <ProjectReference Include="..\..\DataAccess\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Features\Bundles\" />
-      <Folder Include="Features\Clips\" />
     </ItemGroup>
 </Project>
