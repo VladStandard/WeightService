@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Ws.PalychExchangeApi.Features.Boxes.Common;
-using Ws.PalychExchangeApi.Features.Boxes.Dto;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
 

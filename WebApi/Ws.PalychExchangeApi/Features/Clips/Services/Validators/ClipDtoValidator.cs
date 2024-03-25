@@ -1,12 +1,12 @@
 using System.Globalization;
 using FluentValidation;
-using Ws.PalychExchangeApi.Features.Boxes.Dto;
+using Ws.PalychExchangeApi.Features.Clips.Dto;
 
-namespace Ws.PalychExchangeApi.Features.Boxes.Services.Validators;
+namespace Ws.PalychExchangeApi.Features.Clips.Services.Validators;
 
-public class BoxDtoValidator : AbstractValidator<BoxDto>
+public class ClipDtoValidator : AbstractValidator<ClipDto>
 {
-    public BoxDtoValidator()
+    public ClipDtoValidator()
     {
         RuleFor(dto => dto.Uid)
             .NotEmpty().WithMessage("'UID' обязателен");
@@ -15,7 +15,7 @@ public class BoxDtoValidator : AbstractValidator<BoxDto>
             .MaximumLength(64).WithMessage("'Наименование' не должно превышать 64 символов.");
         RuleFor(dto => dto.Weight)
             .Must(BeValidWeight)
-            .WithMessage("'Вес коробки' должен быть в диапазоне от 0 до 1.");
+            .WithMessage("'Вес клипсы' должен быть в диапазоне от 0 до 1.");
     }
 
     private static bool BeValidWeight(decimal number)

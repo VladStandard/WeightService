@@ -1,6 +1,5 @@
 using FluentValidation.Results;
 using Ws.Database.EntityFramework;
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
