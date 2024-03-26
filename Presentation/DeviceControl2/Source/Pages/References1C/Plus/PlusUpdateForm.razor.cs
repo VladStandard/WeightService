@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
+using FluentValidation;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -20,9 +21,6 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     [Inject] private ITemplateService TemplateService { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     
-    [SupplyParameterFromForm]
-    private PlusUpdateFormModel FormModel { get; set; } = new();
-    private PlusUpdateFormModel FormModelCopy { get; set; } = new();
     private TemplateEntity Template { get; set; } = new();
     private IEnumerable<TemplateEntity> AllTemplates { get; set; } = [];
     
@@ -30,45 +28,23 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Template = PluService.GetPluTemplate(SectionEntity);
+        Template = PluService.GetPluTemplate(DialogItem);
         AllTemplates = TemplateService.GetAll();
-        
-        FormModel.Description = SectionEntity.Description;
-        FormModel.Name = SectionEntity.Name;
-        FormModel.FullName = SectionEntity.FullName;
-        FormModel.Template = Template;
-        
-        FormModelCopy = FormModel.DeepClone();
     }
 
-    private async Task UpdatePluEntity()
-    {
-        SectionEntity.Description = FormModel.Description;
-        SectionEntity.Name = FormModel.Name;
-        SectionEntity.FullName = FormModel.FullName;
-        if (FormModel.Equals(FormModelCopy))
-        {
-            await OnCancelAction.InvokeAsync();
-            return;
-        }
-        await OnSubmitAction.InvokeAsync();
-    }
+    protected override PluEntity UpdateItemAction() => DialogItem;
 
     private string GetPluTypeName(bool isWeight) =>
         isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
 }
 
-public record PlusUpdateFormModel
+
+public class PlusUpdateFormValidator : AbstractValidator<PluEntity>
 {
-    [Required]
-    public string Name { get; set; } = string.Empty;
-    
-    [Required]
-    public string FullName { get; set; } = string.Empty;
-    
-    [Required]
-    public string Description { get; set; } = string.Empty;
-    
-    [Required]
-    public TemplateEntity? Template { get; set; }
+    public PlusUpdateFormValidator()
+    {
+        RuleFor(item => item.Name).NotEmpty();
+        RuleFor(item => item.FullName).NotEmpty();
+        RuleFor(item => item.Description).NotEmpty();
+    }
 }

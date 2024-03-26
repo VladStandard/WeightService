@@ -1,0 +1,83 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<LineEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new LinesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionGuidField Value="@DialogItem.Uid" />
+
+    <SectionNumericField
+      Label="@Localizer["DataGridColumnNumber"]"
+      @bind-Value="@DialogItem.Number"
+      Min="10000"
+      Max="99999"
+      For="@(() => DialogItem.Number)"
+    />
+
+    <SectionTextField
+      Label="@Localizer["DataGridColumnName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextField
+      Label="@Localizer["DataGridColumnPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+    />
+
+    <SectionSelectSingleField
+      TItem="LineTypeEnum"
+      Label="@Localizer["DataGridColumnType"]"
+      Items="LineTypesEntities"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionNumericField
+      Label="@Localizer["DataGridColumnCounter"]"
+      @bind-Value="@DialogItem.Counter"
+      Min="0"
+      For="@(() => DialogItem.Counter)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterEntity"
+      Label="@Localizer["DataGridColumnPrinter"]"
+      Items="PrinterEntities"
+      @bind-Value="@DialogItem.Printer"
+      ItemDisplayName="item => item.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Printer, User)"
+      For="@(() => DialogItem.Printer)"
+      IsFilterable
+    />
+
+    <SectionSelectSingleField
+      TItem="WarehouseEntity"
+      Label="@Localizer["DataGridColumnWarehouse"]"
+      Items="WarehousesEntities"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, User)"
+      For="@(() => DialogItem.Warehouse)"
+      IsFilterable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

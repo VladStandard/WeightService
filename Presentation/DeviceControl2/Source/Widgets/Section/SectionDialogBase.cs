@@ -5,22 +5,26 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl2.Source.Widgets.Section;
 
-public class SectionDialogBase<TItem> : ComponentBase, IDialogContentComponent<TItem> where TItem: new()
+[CascadingTypeParameter(nameof(TDialogItem))]
+
+public class SectionDialogBase<TDialogItem> : ComponentBase, IDialogContentComponent<SectionDialogContent<TDialogItem>>
 {
-    [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
-    [Parameter] public TItem Content { get; set; } = default!;
-    protected TItem SectionEntity { get; private set; } = new();
+    [Parameter] public SectionDialogContent<TDialogItem> Content { get; set; } = default!;
+    protected TDialogItem DialogItem { get; private set; } = default!;
     protected List<EnumTypeModel<string>> TabsList { get; private set; } = [];
 
     protected override void OnInitialized()
     {
-        SectionEntity = Content.DeepClone();
+        DialogItem = Content.Item.DeepClone();
         TabsList = InitializeTabList();
     }
 
-    protected async Task CancelDialog() => await Dialog.CancelAsync();
-    protected async Task CloseDialog() => await Dialog.CloseAsync();
-
     protected virtual List<EnumTypeModel<string>> InitializeTabList() =>
         [new("Main", "main")];
+}
+
+public record SectionDialogContent<TDialogItem>
+{
+    public TDialogItem Item { get; init; } = default!;
+    public SectionDialogResultEnum DataAction { get; init; } = SectionDialogResultEnum.Cancel;
 }

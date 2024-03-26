@@ -4,7 +4,7 @@ namespace DeviceControl2.Source.Shared.UI.Form;
 
 public abstract class BasicInput<TValue>: ComponentBase
 {
-    [Parameter] public TValue? Value { get; set; }
+    [Parameter] public virtual TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
     [Parameter] public string Class { get; set; } = string.Empty;
     [Parameter] public bool Disabled { get; set; }

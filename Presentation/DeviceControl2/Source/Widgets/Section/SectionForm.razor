@@ -1,7 +1,10 @@
-<EditForm Model="@FormModel" OnValidSubmit="@SubmitAction" class="w-full flex flex-col overflow-y-auto overflow-x-hidden bg-secondary/[.3] dark:bg-inherit">
-  <DataAnnotationsValidator />
+@using Blazored.FluentValidation
+@using FluentValidation
+
+<EditForm Model="@FormModel" OnValidSubmit="@OnSubmitAction" class="w-full flex flex-col overflow-y-auto overflow-x-hidden bg-secondary/[.3] dark:bg-inherit">
+  <FluentValidationValidator Validator="Validator" />
   <div class="w-full flex bg-secondary/[.3] dark:bg-inherit">
-    <div class="@Css.Class("w-full grid-cols-1 place-items-baseline grid gap-4 pt-6 pb-8 px-5", ActionsContent != null ? "lg:grid-cols-2" : "")">
+    <div class="w-full grid-cols-1 place-items-baseline grid gap-4 pt-6 pb-8 px-5 lg:grid-cols-2">
       @FieldsContent
     </div>
     @if (ActionsContent != null)
@@ -29,11 +32,6 @@
   [Parameter] public DateTime? ChangeDate { get; set; }
   [Parameter] public DateTime? CreateDate { get; set; }
   [Parameter] public EventCallback OnCancelAction { get; set; }
-  [Parameter] public EventCallback? OnSubmitAction { get; set; }
-
-  private async Task SubmitAction()
-  {
-    if (OnSubmitAction == null) return;
-    await ((EventCallback)OnSubmitAction).InvokeAsync();
-  }
+  [Parameter] public EventCallback OnSubmitAction { get; set; }
+  [Parameter] public IValidator? Validator { get; set; }
 }

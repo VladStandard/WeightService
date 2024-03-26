@@ -6,7 +6,8 @@ using Microsoft.JSInterop;
 
 namespace DeviceControl2.Source.Shared.UI.DataGrid;
 
-public sealed partial class DataGridContainer<TItem>: ComponentBase
+[CascadingTypeParameter(nameof(TItem))]
+public sealed partial class DataGridContainer<TItem> : ComponentBase
 {
     [Parameter] public IEnumerable<TItem> Items { get; set; } = [];
     [Parameter] public RenderFragment? ColumnsContent { get; set; }

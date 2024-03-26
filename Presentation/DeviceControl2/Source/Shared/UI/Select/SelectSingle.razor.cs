@@ -11,7 +11,6 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     [Parameter, EditorRequired] public TItem? SelectedItem { get; set; }
     [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
-    [Parameter] public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
     [Parameter] public bool IsFilterable { get; set; }
     [Parameter] public bool IsDisabled { get; set; }
     [Parameter] public string Placeholder { get; set; } = string.Empty;
@@ -35,7 +34,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await Task.Delay(20);
+        await Task.Delay(10);
         await Module.InvokeVoidAsync("updateDropdownWidth", DropdownWrapper);
     }
 
@@ -52,7 +51,8 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
 
     private bool IsSelectedItem(TItem item) => SelectedItem != null && SelectedItem.Equals(item);
 
-    private string GetToggleText => SelectedItem != null ? ItemDisplayName(SelectedItem) : Placeholder;
+    private string GetToggleText =>
+        SelectedItem != null ? ItemDisplayName(SelectedItem) : Placeholder;
 
     private async Task HandleSearchingChange(ChangeEventArgs e)
     {

@@ -13,7 +13,7 @@ public sealed partial class PlusNestingDataGrid : SectionDataGridPageBase<PluNes
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPluService PluService { get; set; } = null!;
 
-    [Parameter, EditorRequired] public PluEntity PluEntity { get; set; } = null!;
+    [CascadingParameter(Name = "DialogItem")] public PluEntity PluEntity { get; set; } = null!;
 
     protected override IEnumerable<PluNestingEntity> SetSqlSectionCast() =>
         SectionItems = PluService.GetAllPluNestings(PluEntity);

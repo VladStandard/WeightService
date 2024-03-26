@@ -1,14 +1,14 @@
 @if (!string.IsNullOrEmpty(Url))
 {
-  <a href="@Url" class="leading-none">
-    <label
-      @attributes="AdditionalAttributes"
-      for="@HtmlFor"
-      class="@Css.Class("text-sm text-blue-400 font-medium leading-none hover:cursor-pointer", Class)"
-    >
+  <label
+    @attributes="AdditionalAttributes"
+    for="@HtmlFor"
+    class="@Css.Class("text-sm text-blue-400 font-medium leading-none hover:cursor-pointer", Class)"
+  >
+    <a href="@Url" target="_blank">
       @ChildContent
-    </label>
-  </a>
+    </a>
+  </label>
 }
 else
 {

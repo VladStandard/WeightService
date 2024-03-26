@@ -1,13 +1,12 @@
-using System.Linq.Expressions;
 using DeviceControl2.Source.Shared.Localization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace DeviceControl2.Source.Widgets.Section;
+namespace DeviceControl2.Source.Widgets.Section.FormFields;
 
-public sealed partial class SectionFormInputWrapper : ComponentBase
+public sealed partial class SectionInputWrapper : ComponentBase
 {
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;

@@ -1,61 +1,118 @@
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Ref
 
-@inherits DeviceControl2.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 <SectionForm
-  FormModel="@FormModel"
-  ChangeDate="SectionEntity.ChangeDt"
-  CreateDate="SectionEntity.CreateDt"
+  FormModel="@DialogItem"
+  ChangeDate="DialogItem.ChangeDt"
+  CreateDate="DialogItem.CreateDt"
+  Validator="@(new PlusUpdateFormValidator())"
   OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@(IsForceSubmit ? EventCallback.Factory.Create(this, () => UpdateAction(UpdatePluEntity)) : null)"
+  OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
+    <SectionGuidField Value="@DialogItem.Uid" />
 
-    <SectionFormGuidField Value="@SectionEntity.Uid.ToString()" />
-    <SectionFormReadOnlyField Label="1C UID" Value="@SectionEntity.Uid1C.ToString()" IsCopyable />
-    <SectionFormReadOnlyField Label="Номер" Value="@SectionEntity.Number.ToString()"/>
-    <SectionFormReadOnlyField Label="Тип" Value="@GetPluTypeName(SectionEntity.IsCheckWeight)"/>
-    <SectionFormReadOnlyField Label="Срок годности" Value="@SectionEntity.ShelfLifeDays.ToString()"/>
+    <SectionReadOnlyField
+      Label="1C UID"
+      Value="@DialogItem.Uid1C"
+      IsCopyable
+    />
 
-    <SectionFormInputWrapper Label="Название" HtmlFor="plu-name">
-      <InputTextField id="plu-name" @bind-Value="@FormModel.Name" Disabled="@(!IsForceSubmit)"/>
-      <FieldValidation For="@(() => FormModel.Name)"/>
-    </SectionFormInputWrapper>
+    <SectionReadOnlyField
+      Label="Номер"
+      Value="@DialogItem.Number"
+    />
 
-    <SectionFormReadOnlyField Label="Пакет" Value="@SectionEntity.Bundle.Name" Path="@Redirector.ToPath(SectionEntity.Bundle)"/>
-    <SectionFormReadOnlyField Label="Клипса" Value="@SectionEntity.Clip.Name" Path="@Redirector.ToPath(SectionEntity.Clip)"/>
-    <SectionFormReadOnlyField Label="Бренд" Value="@SectionEntity.Brand.Name" Path="@Redirector.ToPath(SectionEntity.Brand)"/>
-    <SectionFormReadOnlyField Label="Способ хранения" Value="@SectionEntity.StorageMethod.Name" Path="@Redirector.ToPath(SectionEntity.StorageMethod, User)"/>
+    <SectionReadOnlyField
+      Label="Тип"
+      Value="@GetPluTypeName(DialogItem.IsCheckWeight)"
+    />
 
-    <SectionFormInputWrapper Label="Шаблон" HtmlFor="plu-template" Path="@Redirector.ToPath(Template, User)">
-      <SelectSingle TItem="TemplateEntity" Items="AllTemplates" @bind-SelectedItem="FormModel.Template"
-                    ItemDisplayName="@(item => item.Name)" IsDisabled="@(!IsForceSubmit)"/>
-      <FieldValidation For="@(() => FormModel.Template)"/>
-    </SectionFormInputWrapper>
+    <SectionReadOnlyField
+      Label="Срок годности"
+      Value="@DialogItem.ShelfLifeDays"
+    />
 
-    <SectionFormReadOnlyField Label="Ean13" Value="@SectionEntity.Ean13"/>
-    <SectionFormReadOnlyField Label="Gtin" Value="@SectionEntity.Gtin"/>
-    <SectionFormReadOnlyField Label="Itf14" Value="@SectionEntity.Itf14"/>
+    <SectionTextField
+      Label="Название"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      Disabled="@(!IsForceSubmit)"
+    />
 
-    <SectionFormInputWrapper Label="Полное название" HtmlFor="plu-full-name" Size="SectionInputSize.Large">
-      <InputTextAreaField id="plu-full-name" @bind-Value="@FormModel.FullName" Disabled="@(!IsForceSubmit)"/>
-      <FieldValidation For="@(() => FormModel.FullName)"/>
-    </SectionFormInputWrapper>
+    <SectionReadOnlyField
+      Label="Пакет"
+      Value="@DialogItem.Bundle.Name"
+      Path="@Redirector.ToPath(DialogItem.Bundle)"
+    />
 
-    <SectionFormInputWrapper Label="Описание" HtmlFor="plu-description" Size="SectionInputSize.Large">
-      <InputTextAreaField id="plu-description" @bind-Value="@FormModel.Description" Disabled="@(!IsForceSubmit)" />
-      <FieldValidation For="@(() => FormModel.Description)"/>
-    </SectionFormInputWrapper>
+    <SectionReadOnlyField
+      Label="Клипса"
+      Value="@DialogItem.Clip.Name"
+      Path="@Redirector.ToPath(DialogItem.Clip)"
+    />
 
+    <SectionReadOnlyField
+      Label="Бренд"
+      Value="@DialogItem.Brand.Name"
+      Path="@Redirector.ToPath(DialogItem.Brand)"
+    />
+
+    <SectionReadOnlyField
+      Label="Способ хранения"
+      Value="@DialogItem.StorageMethod.Name"
+      Path="@Redirector.ToPath(DialogItem.StorageMethod, User)"
+    />
+
+    <SectionSelectSingleField
+      TItem="TemplateEntity"
+      Label="Шаблон"
+      Items="AllTemplates"
+      @bind-Value="Template"
+      ItemDisplayName="@(item => item.Name)"
+      Disabled="@(!IsForceSubmit)"
+      Path="@Redirector.ToPath(Template, User)"
+    />
+
+    <SectionReadOnlyField
+      Label="Ean13"
+      Value="@DialogItem.Ean13"
+    />
+
+    <SectionReadOnlyField
+      Label="Gtin"
+      Value="@DialogItem.Gtin"
+    />
+
+    <SectionReadOnlyField
+      Label="Itf14"
+      Value="@DialogItem.Itf14"
+    />
+
+    <SectionTextAreaField
+      Label="Полное название"
+      @bind-Value="@DialogItem.FullName"
+      For="@(() => DialogItem.FullName)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <SectionTextAreaField
+      Label="Описание"
+      @bind-Value="@DialogItem.Description"
+      For="@(() => DialogItem.Description)"
+      Disabled="@(!IsForceSubmit)"
+    />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}/{SectionEntity.Uid}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}/{DialogItem.Uid}")" />
     <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" />
     @if (IsForceSubmit)
     {
-      <SectionFormActionReset OnClick="@(() => ResetItem(FormModel, FormModelCopy))" />
+      <SectionFormActionReset OnClick="@ResetAction" />
     }
   </ActionsContent>
 </SectionForm>

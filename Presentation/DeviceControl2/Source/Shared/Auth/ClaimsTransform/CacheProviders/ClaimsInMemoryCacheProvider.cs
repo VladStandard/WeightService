@@ -11,7 +11,7 @@ internal class ClaimsInMemoryCacheProvider(IMemoryCache cache, IUserService user
     public Task<List<Claim>> GetUserClaimsAsync(ClaimsPrincipal principal, int cacheMinutes)
     {
         string cacheKey = (principal.Identity!.Name ?? string.Empty).ToLower();
-        
+
         if (cache.TryGetValue(cacheKey, out List<Claim>? claimsCache))
             if (claimsCache != null)
                 return Task.FromResult(claimsCache);
@@ -20,18 +20,18 @@ internal class ClaimsInMemoryCacheProvider(IMemoryCache cache, IUserService user
         cache.Set(cacheKey, claims, TimeSpan.FromMinutes(cacheMinutes));
         return Task.FromResult(claims);
     }
-    
+
     public void ClearAllCache()
     {
         if (cache is MemoryCache memCache)
             memCache.Clear();
     }
-    
+
     public void ClearCacheByUserName(string username)
     {
         cache.Remove(username.ToLower());
     }
-    
+
     private List<Claim> GetUserRightsFromRepository(string username)
     {
         UserEntity user = userService.GetItemByNameOrCreate(username);

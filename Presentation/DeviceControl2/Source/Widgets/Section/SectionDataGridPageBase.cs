@@ -1,4 +1,6 @@
+using DeviceControl2.Source.Shared.Localization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Common;
@@ -9,6 +11,8 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
 {
     [Inject] private IDialogService DialogService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
 
@@ -25,6 +29,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (!firstRender) return;   
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
     }
 
@@ -42,6 +47,9 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
 
     protected virtual Task OpenItemInNewTab(TItem item) =>
         throw new NotImplementedException();
+    
+    protected virtual Task DeleteItemAction(TItem item) =>
+        throw new NotImplementedException();
 
     protected async Task OpenLinkInNewTab(string url) =>
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
@@ -54,7 +62,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     }
 
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
-        await DialogService.ShowDialogAsync<T>(sectionEntity, new()
+        await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem>{ Item = sectionEntity }, new()
             { 
                 OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
                     {
@@ -72,10 +80,29 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
             });
     
 
-    private async Task HandleDialogCallback(DialogResult result)
+    private Task HandleDialogCallback(DialogResult result)
     {
-        if (result is { Cancelled: false })
-            await UpdateData();
+        if (result.Cancelled || result.Data is not SectionDialogContent<TItem> dialogResult) return Task.CompletedTask;
+        TItem item = dialogResult.Item;
+        
+        switch (dialogResult.DataAction)
+        {
+            case SectionDialogResultEnum.Delete: 
+                SectionItems = SectionItems.Where(entity => entity.Uid != item.Uid);
+                break;
+            case SectionDialogResultEnum.Update:
+                SectionItems = SectionItems.Where(entity => entity.Uid != item.Uid).Concat(new[] { item });
+                break;
+            case SectionDialogResultEnum.Create:
+                SectionItems = SectionItems.Concat(new[] { item });
+                break;
+            case SectionDialogResultEnum.Cancel:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return Task.CompletedTask;
     }
 
     protected async Task UpdateData()
@@ -89,6 +116,21 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
         
         IsLoading = false;
         StateHasChanged();
+    }
+
+    protected async Task DeleteItem(TItem item)
+    {
+        try
+        {
+            await DeleteItemAction(item);
+            SectionItems = SectionItems.Where(entity => !entity.Equals(item));
+            ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
+            StateHasChanged();
+        }
+        catch
+        {
+            ToastService.ShowError("Неизвестная ошибка. Попробуйте позже");
+        }
     }
 
     private async Task GetSectionData()

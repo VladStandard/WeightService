@@ -1,0 +1,46 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<PrinterEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new PrintersCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      Label="Название"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionIpField
+      Label="IP"
+      @bind-Value="@DialogItem.Ip"
+      For="@(() => DialogItem.Ip)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterTypeEnum"
+      Label="Тип"
+      Items="PrinterTypesEntities"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ProductionSiteEntity"
+      Label="Площадка"
+      Items="ProductionSites"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="item => item.Name"
+      For="@(() => DialogItem.ProductionSite)"
+    />
+  </FieldsContent>
+</SectionForm>

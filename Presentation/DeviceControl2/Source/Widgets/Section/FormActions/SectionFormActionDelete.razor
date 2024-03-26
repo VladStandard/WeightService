@@ -4,7 +4,7 @@
 
 @inject IStringLocalizer<ApplicationResources> Localizer
 
-<SectionFormAction OnClick="@OnClick" Class="@Class">
+<SectionFormAction OnClick="@OnClick" Class="@Css.Class("!bg-destructive !text-destructive-foreground",Class)">
   <TrashIcon class="size-4 mr-2" />
   @Localizer["ActionMenuDelete"]
 </SectionFormAction>

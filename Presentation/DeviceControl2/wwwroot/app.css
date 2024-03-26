@@ -107,6 +107,10 @@
     --accent-fill-rest: #fafafa;
   }
 
+  fluent-anchored-region {
+    @apply !fixed
+  }
+
   fluent-tabs {
     --accent-fill-rest: 0;
   }

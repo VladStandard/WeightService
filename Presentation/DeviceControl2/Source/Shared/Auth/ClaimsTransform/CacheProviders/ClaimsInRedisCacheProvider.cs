@@ -9,12 +9,12 @@ public class ClaimsInRedisCacheProvider : IClaimsCacheProvider
     {
         throw new NotImplementedException();
     }
-    
+
     public void ClearAllCache()
     {
         throw new NotImplementedException();
     }
-    
+
     public void ClearCacheByUserName(String username)
     {
         throw new NotImplementedException();

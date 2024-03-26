@@ -22,7 +22,6 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IDisposable w
     private string SearchString { get; set; } = string.Empty;
     private SelectVisibility SelectVisibility { get; set; } = SelectVisibility.All;
     private string Id { get; } = $"id-{Guid.NewGuid()}";
-    
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -30,12 +29,12 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IDisposable w
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/select-resize.js");
         await Module.InvokeVoidAsync("initializeResizeSelect", DropdownWrapper);
     }
-    
+
     private async Task OpenDropdown()
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await Task.Delay(20);
+        await Task.Delay(10);
         await Module.InvokeVoidAsync("updateDropdownWidth", DropdownWrapper);
     }
 

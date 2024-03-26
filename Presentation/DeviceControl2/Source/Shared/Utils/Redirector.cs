@@ -7,7 +7,6 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace DeviceControl2.Source.Shared.Utils;
 
-
 public class Redirector(IAuthorizationService authorizationService)
 {
     #region Private
@@ -21,7 +20,7 @@ public class Redirector(IAuthorizationService authorizationService)
         authorizationService.AuthorizeAsync(user, policyName).GetAwaiter().GetResult().Succeeded;
 
     #endregion
-    
+
     public string ToPath(LineEntity line, ClaimsPrincipal user) =>
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 

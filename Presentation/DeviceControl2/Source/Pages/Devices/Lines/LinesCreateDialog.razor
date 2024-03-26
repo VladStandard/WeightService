@@ -1,0 +1,20 @@
+@using DeviceControl2.Source.Widgets.Section
+@using Microsoft.Extensions.Localization
+@using Ws.Shared.Enums
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref.LineEntity>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="main">
+    <LinesCreateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+
+  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  [
+    new(Localizer["SectionLines"], "main"),
+  ];
+}

@@ -1,0 +1,20 @@
+@using Ws.Shared.Parsers
+@inherits BasicInput<System.Net.IPAddress>
+
+<InputTextField @bind-Value="InputValue" @attributes="@AdditionalAttributes" />
+
+@code {
+  private string InputValue
+  {
+    get
+    {
+      return Value == null ? "" : Value.ToString();
+    }
+    set
+    {
+      if (Value == null) return;
+      Value = IpAddressParser.Parse(value, Value);
+      ValueChanged.InvokeAsync(Value);
+    }
+  }
+}

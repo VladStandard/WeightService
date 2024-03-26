@@ -1,0 +1,66 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<LineEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new LinesCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionNumericField
+      Label="@Localizer["DataGridColumnNumber"]"
+      @bind-Value="@DialogItem.Number"
+      Min="10000"
+      Max="99999"
+    />
+
+    <SectionTextField
+      Label="@Localizer["DataGridColumnName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextField
+      Label="@Localizer["DataGridColumnPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+    />
+
+    <SectionSelectSingleField
+      TItem="LineTypeEnum"
+      Label="@Localizer["DataGridColumnType"]"
+      Items="LineTypesEntities"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterEntity"
+      Label="@Localizer["DataGridColumnPrinter"]"
+      Items="PrinterEntities"
+      @bind-Value="@DialogItem.Printer"
+      ItemDisplayName="item => item.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Printer, User)"
+      For="@(() => DialogItem.Printer)"
+      IsFilterable
+    />
+
+    <SectionSelectSingleField
+      TItem="WarehouseEntity"
+      Label="@Localizer["DataGridColumnWarehouse"]"
+      Items="WarehousesEntities"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, User)"
+      For="@(() => DialogItem.Warehouse)"
+      IsFilterable
+    />
+  </FieldsContent>
+</SectionForm>
