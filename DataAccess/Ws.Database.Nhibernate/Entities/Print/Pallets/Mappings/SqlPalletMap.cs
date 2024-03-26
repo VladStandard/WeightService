@@ -14,7 +14,7 @@ internal sealed class SqlPalletMap : ClassMapping<PalletEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Guid);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.Barcode, m =>

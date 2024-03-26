@@ -14,7 +14,7 @@ internal sealed class WsSqlLogWebMap : ClassMapping<LogWebEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Guid);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.CreateDt, m =>

@@ -14,7 +14,7 @@ internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Guid);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.CreateDt, m =>
