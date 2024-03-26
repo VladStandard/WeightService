@@ -16,18 +16,18 @@ internal class ClipService : IClipService
 
         try
         {
-            ClipEntity existingClip = dbContext.Clips.FirstOrDefault(b => b.Uid1C == clipDto.Uid) ?? new();
-
-            existingClip.Name = clipDto.Name;
-            existingClip.Weight = clipDto.Weight;
-
-            if (existingClip.IsNew)
-            {
-                existingClip.Uid1C = clipDto.Uid;
-                dbContext.Add(existingClip);
-            }
-            dbContext.SaveChanges();
-            transaction.Commit();
+            // ClipEntity existingClip = dbContext.Clips.FirstOrDefault(b => b.Uid1C == clipDto.Uid) ?? new();
+            //
+            // existingClip.Name = clipDto.Name;
+            // existingClip.Weight = clipDto.Weight;
+            //
+            // if (existingClip.IsNew)
+            // {
+            //     existingClip.Uid1C = clipDto.Uid;
+            //     dbContext.Add(existingClip);
+            // }
+            // dbContext.SaveChanges();
+            // transaction.Commit();
         }
         catch (Exception)
         {

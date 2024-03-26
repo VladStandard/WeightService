@@ -3,8 +3,6 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 [Table(SqlTables.Boxes)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Boxes}_NAME", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Boxes}_UID_1C", IsUnique = true)]
 public sealed class BoxEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
@@ -15,9 +13,6 @@ public sealed class BoxEntity : EfEntityBase
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
 
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
-
     #region Date
 
     public DateTime CreateDt { get; init; }
@@ -26,4 +21,13 @@ public sealed class BoxEntity : EfEntityBase
     #endregion
 
     public ICollection<PluNestingEntity> PlusNestingFks { get; set; } = [];
+
+    public BoxEntity() { }
+
+    public BoxEntity(Guid uid, string name, decimal weight)
+    {
+        Id = uid;
+        Name = name;
+        Weight = weight;
+    }
 }

@@ -1,8 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
 [Table(SqlTables.Bundles)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Bundles}_NAME", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Bundles}_UID_1C", IsUnique = true)]
 public sealed class BundleEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
@@ -13,9 +11,6 @@ public sealed class BundleEntity : EfEntityBase
     [RegularExpression(@"^\d+\.\d{3}$", ErrorMessage = "Weight must have exactly three decimal places")]
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
-
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
 
     #region Date
 

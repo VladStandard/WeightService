@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers().AddXmlSerializerFormatters();
+
+
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IClipService, ClipService>();
 builder.Services.AddScoped<IBundleService, BundleService>();

@@ -1,8 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
 [Table(SqlTables.Clips)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Clips}_NAME", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Clips}_UID_1C", IsUnique = true)]
 public sealed class ClipEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
@@ -13,9 +11,6 @@ public sealed class ClipEntity : EfEntityBase
     [RegularExpression(@"^\d+\.\d{3}$", ErrorMessage = "Weight must have exactly three decimal places")]
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
-
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
 
     #region Date
 

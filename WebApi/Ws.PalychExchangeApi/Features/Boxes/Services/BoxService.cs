@@ -9,25 +9,19 @@ namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
 internal class BoxService : IBoxService
 {
-    private void SaveBox(BoxDto boxDto)
+    private static void SaveBoxes(IEnumerable<BoxDto> boxesDto)
     {
         using var dbContext = new WsDbContext();
-        using var transaction = dbContext.Database.BeginTransaction();
 
+        List<BoxEntity> boxes = boxesDto.Select(boxDto => new BoxEntity(boxDto.Uid, boxDto.Name, boxDto.Weight))
+            .ToList();
+
+        using var transaction = dbContext.Database.BeginTransaction();
         try
         {
-            BoxEntity existingBox = dbContext.Boxes.FirstOrDefault(b => b.Uid1C == boxDto.Uid) ?? new();
-
-            existingBox.Name = boxDto.Name;
-            existingBox.Weight = boxDto.Weight;
-
-            if (existingBox.IsNew)
-            {
-                existingBox.Uid1C = boxDto.Uid;
-                dbContext.Add(existingBox);
-            }
-            dbContext.SaveChanges();
+            dbContext.BulkMerge(boxes);
             transaction.Commit();
+            dbContext.SaveChanges();
         }
         catch (Exception)
         {
@@ -36,17 +30,21 @@ internal class BoxService : IBoxService
         }
     }
 
-
     public BoxWrapper Load(BoxWrapper dto)
     {
+        BoxDtoValidator boxValidator = new();
+        HashSet<BoxDto> validDtoBoxes = [];
+
         foreach (BoxDto boxDto in dto.Boxes)
         {
-            ValidationResult validationResult = new BoxDtoValidator().Validate(boxDto);
-
+            ValidationResult validationResult = boxValidator.Validate(boxDto);
+            if (validDtoBoxes.Any(box => box.Uid == boxDto.Uid))
+                continue;
             if (!validationResult.IsValid)
                 continue;
-            SaveBox(boxDto);
+            validDtoBoxes.Add(boxDto);
         }
+        SaveBoxes(validDtoBoxes);
         return new();
     }
 }

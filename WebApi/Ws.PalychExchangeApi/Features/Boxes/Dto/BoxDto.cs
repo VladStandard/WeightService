@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 namespace Ws.PalychExchangeApi.Features.Boxes.Dto;
 
 [Serializable]
-public sealed class BoxDto
+public sealed record BoxDto
 {
     [XmlAttribute("Uid")]
     public Guid Uid { get; set; }

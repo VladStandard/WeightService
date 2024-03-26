@@ -16,18 +16,18 @@ internal class BundleService : IBundleService
 
         try
         {
-            BundleEntity existingBundle = dbContext.Bundles.FirstOrDefault(b => b.Uid1C == bundleDto.Uid) ?? new();
-
-            existingBundle.Name = bundleDto.Name;
-            existingBundle.Weight = bundleDto.Weight;
-
-            if (existingBundle.IsNew)
-            {
-                existingBundle.Uid1C = bundleDto.Uid;
-                dbContext.Add(existingBundle);
-            }
-            dbContext.SaveChanges();
-            transaction.Commit();
+            // BundleEntity existingBundle = dbContext.Bundles.FirstOrDefault(b => b.Uid1C == bundleDto.Uid) ?? new();
+            //
+            // existingBundle.Name = bundleDto.Name;
+            // existingBundle.Weight = bundleDto.Weight;
+            //
+            // if (existingBundle.IsNew)
+            // {
+            //     existingBundle.Uid1C = bundleDto.Uid;
+            //     dbContext.Add(existingBundle);
+            // }
+            // dbContext.SaveChanges();
+            // transaction.Commit();
         }
         catch (Exception)
         {

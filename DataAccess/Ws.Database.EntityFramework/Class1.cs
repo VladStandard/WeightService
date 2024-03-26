@@ -11,7 +11,6 @@ public abstract class Program
             BoxEntity boxEntity = new()
             {
                 Name = "Hello3",
-                Uid1C = Guid.NewGuid(),
                 Weight = 1000m
             };
             db.Add(boxEntity);
