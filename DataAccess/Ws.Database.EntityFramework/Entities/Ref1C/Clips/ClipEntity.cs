@@ -18,5 +18,13 @@ public sealed class ClipEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
+
+    public ClipEntity() { }
+
+    public ClipEntity(Guid uid, string name, decimal weight)
+    {
+        Id = uid;
+        Name = name;
+        Weight = weight;
+    }
 }

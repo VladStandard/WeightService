@@ -1,4 +1,5 @@
 using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
@@ -7,9 +8,9 @@ using Ws.PalychExchangeApi.Features.Boxes.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
-internal class BoxService : IBoxService
+internal class BoxService(DbContext dbContext) : IBoxService
 {
-    private static void SaveBoxes(IEnumerable<BoxDto> boxesDto)
+    private void SaveBoxes(IEnumerable<BoxDto> boxesDto)
     {
         using var dbContext = new WsDbContext();
 

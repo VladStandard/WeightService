@@ -1,3 +1,4 @@
+using Ws.Database.EntityFramework;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
 using Ws.PalychExchangeApi.Features.Boxes.Services;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddXmlSerializerFormatters();
 
+builder.Services.AddDbContext<WsDbContext>();
 
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IClipService, ClipService>();

@@ -1,5 +1,5 @@
 using FluentValidation.Results;
-using Ws.Database.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Dto;
@@ -7,27 +7,19 @@ using Ws.PalychExchangeApi.Features.Clips.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
-internal class ClipService : IClipService
+internal class ClipService(DbContext dbContext) : IClipService
 {
-    private void SaveClip(ClipDto clipDto)
+    private void SaveClips(IEnumerable<ClipDto> clipsDto)
     {
-        using var dbContext = new WsDbContext();
-        using var transaction = dbContext.Database.BeginTransaction();
+        List<ClipEntity> clips = clipsDto.Select(boxDto => new ClipEntity(boxDto.Uid, boxDto.Name, boxDto.Weight))
+            .ToList();
 
+        using var transaction = dbContext.Database.BeginTransaction();
         try
         {
-            // ClipEntity existingClip = dbContext.Clips.FirstOrDefault(b => b.Uid1C == clipDto.Uid) ?? new();
-            //
-            // existingClip.Name = clipDto.Name;
-            // existingClip.Weight = clipDto.Weight;
-            //
-            // if (existingClip.IsNew)
-            // {
-            //     existingClip.Uid1C = clipDto.Uid;
-            //     dbContext.Add(existingClip);
-            // }
-            // dbContext.SaveChanges();
-            // transaction.Commit();
+            dbContext.BulkMerge(clips);
+            transaction.Commit();
+            dbContext.SaveChanges();
         }
         catch (Exception)
         {
@@ -36,17 +28,21 @@ internal class ClipService : IClipService
         }
     }
 
-
     public ClipWrapper Load(ClipWrapper dto)
     {
+        ClipDtoValidator clipValidator = new();
+        HashSet<ClipDto> validDtoClips = [];
+
         foreach (ClipDto clipDto in dto.Clips)
         {
-            ValidationResult validationResult = new ClipDtoValidator().Validate(clipDto);
-
+            ValidationResult validationResult = clipValidator.Validate(clipDto);
+            if (validDtoClips.Any(clip => clip.Uid == clipDto.Uid))
+                continue;
             if (!validationResult.IsValid)
                 continue;
-            SaveClip(clipDto);
+            validDtoClips.Add(clipDto);
         }
+        SaveClips(validDtoClips);
         return new();
     }
 }
