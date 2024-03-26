@@ -1,4 +1,4 @@
-﻿namespace Ws.Printers.Features.Zebra.Utils;
+namespace Ws.Printers.Features.Zebra.Utils;
 
 internal static class ZebraCommandUtil
 {

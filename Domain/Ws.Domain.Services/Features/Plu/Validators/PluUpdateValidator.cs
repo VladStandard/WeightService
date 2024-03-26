@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Plu.Validators;
+namespace Ws.Domain.Services.Features.Plu.Validators;
 
 internal class PluUpdateValidator : PluValidator
 {

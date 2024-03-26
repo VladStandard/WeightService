@@ -18,7 +18,7 @@ public class PluNestingEntity : Entity1CBase
     protected override bool CastEquals(EntityBase obj)
     {
         PluNestingEntity item = (PluNestingEntity)obj;
-        return Equals(Box, item.Box) && 
+        return Equals(Box, item.Box) &&
                Equals(Plu, item.Plu) &&
                Equals(IsDefault, item.IsDefault) &&
                Equals(BundleCount, item.BundleCount);

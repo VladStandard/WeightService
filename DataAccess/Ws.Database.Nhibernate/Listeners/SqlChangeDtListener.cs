@@ -1,4 +1,4 @@
-﻿using NHibernate.Event;
+using NHibernate.Event;
 using Ws.Database.Nhibernate.Common;
 using Ws.Domain.Models.Common;
 

@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Messaging;
 using Gma.System.MouseKeyHook;
 using Microsoft.Maui.LifecycleEvents;

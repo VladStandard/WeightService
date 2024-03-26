@@ -16,11 +16,11 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = null!;
     private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
-    
+
     private string PrinterIp
     {
         get => SectionEntity.Ip.ToString();
-        set =>  SectionEntity.Ip = IpAddressParser.Parse(value, SectionEntity.Ip);
+        set => SectionEntity.Ip = IpAddressParser.Parse(value, SectionEntity.Ip);
     }
 
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();

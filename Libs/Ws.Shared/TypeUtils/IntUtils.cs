@@ -1,4 +1,4 @@
-﻿namespace Ws.Shared.TypeUtils;
+namespace Ws.Shared.TypeUtils;
 
 public static class IntUtils
 {

@@ -14,14 +14,14 @@ namespace DeviceControl.Features.Sections.Devices.Printers;
 public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity>
 {
     #region Inject
-    
+
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = null!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IUserService UserDomainService { get; set; } = null!;
 
     #endregion
-    
+
     private UserEntity User { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
@@ -30,7 +30,7 @@ public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity
         if (userClaims is { Identity.Name: not null })
             User = UserDomainService.GetItemByNameOrCreate(userClaims.Identity.Name);
     }
-    
+
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PrintersCreateDialog>(new());
 
@@ -44,7 +44,7 @@ public sealed partial class PrintersDataGrid : SectionDataGridBase<PrinterEntity
     {
         return User.ProductionSite == null ? [] : PrinterService.GetAllByProductionSite(User.ProductionSite);
     }
-    
+
     protected override IEnumerable<PrinterEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);

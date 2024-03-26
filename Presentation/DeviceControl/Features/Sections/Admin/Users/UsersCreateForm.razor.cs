@@ -26,7 +26,7 @@ public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
     private IEnumerable<ClaimEntity> RolesEntities { get; set; } = [];
     private IEnumerable<ClaimEntity> SelectedRolesInternal { get; set; } = [];
     private IEnumerable<ProductionSiteEntity> ProductionSite { get; set; } = new List<ProductionSiteEntity>();
-    
+
     private IEnumerable<ClaimEntity> SelectedRoles
     {
         get => SelectedRolesInternal;
@@ -36,7 +36,7 @@ public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
             SelectedRolesInternal = value;
         }
     }
-    
+
     protected override void OnInitialized()
     {
         SectionEntity.Name = UserPrefix;

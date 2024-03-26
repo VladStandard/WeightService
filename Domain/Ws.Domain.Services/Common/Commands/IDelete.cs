@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Common.Commands;
+namespace Ws.Domain.Services.Common.Commands;
 
 public interface IDelete<in TItem>
 {

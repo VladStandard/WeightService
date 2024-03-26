@@ -1,4 +1,4 @@
-﻿namespace Ws.Labels.Service.Features.PrintLabel.Dto;
+namespace Ws.Labels.Service.Features.PrintLabel.Dto;
 
 internal record ZplItemsDto
 {

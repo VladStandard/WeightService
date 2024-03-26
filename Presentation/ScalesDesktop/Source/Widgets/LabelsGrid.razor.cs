@@ -16,13 +16,13 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IPalletService PalletService { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
-    
+
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> Data => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid)
         .Select((label, index) => new DataItem { Id = index + 1, Label = label })
         .AsQueryable();
-    
+
     protected override void OnInitialized() => PalletContext.OnStateChanged += ResetDataGrid;
 
     private void ToggleItem(LabelEntity item)

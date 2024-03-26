@@ -25,7 +25,7 @@ namespace ScalesDesktop.Source.Features
         [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
         [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
         [Inject] private IStringLocalizer<Resources> Localizer { get; set; } = null!;
-    
+
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
         private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];
@@ -36,7 +36,7 @@ namespace ScalesDesktop.Source.Features
         {
             Plus = LineService.GetLinePiecePlus(LineContext.Line);
         }
-        
+
         private void SetPluNestings()
         {
             if (FormModel.Plu == null) return;
@@ -49,12 +49,12 @@ namespace ScalesDesktop.Source.Features
             foreach (string msg in context.GetValidationMessages())
                 ToastService.ShowError(msg);
         }
-        
+
 
         private async Task OnSubmit()
         {
             DateTime createDt = FormModel.CreateDt ?? DateTime.Now;
-            LabelPiecePalletDto dto = new ()
+            LabelPiecePalletDto dto = new()
             {
                 PalletMan = PalletContext.PalletMan,
                 Weight = FormModel.PalletWeight,
@@ -62,10 +62,10 @@ namespace ScalesDesktop.Source.Features
                 Kneading = FormModel.Kneading,
                 Line = LineContext.Line,
                 Nesting = FormModel.Nesting!,
-                ProductDt = createDt ,
+                ProductDt = createDt,
                 Template = PluService.GetPluTemplate(FormModel.Plu).Body
             };
-            
+
             try
             {
                 await Task.Run(() => { PrintLabelService.GeneratePiecePallet(dto, FormModel.Count); });
@@ -74,9 +74,9 @@ namespace ScalesDesktop.Source.Features
             }
             catch
             {
-                ToastService.ShowError("Ошибка при создании паллеты");    
+                ToastService.ShowError("Ошибка при создании паллеты");
             }
-        } 
+        }
     }
 
     public class PalletCreateModel

@@ -17,14 +17,14 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
         PalletMan = new();
         UpdatePalletData();
     }
-    
+
     public void UpdatePalletData()
     {
         CurrentPallet = new();
         PalletEntities = GetPallets();
         OnStateChanged?.Invoke();
     }
-    
+
     public void SetPalletMan(PalletManEntity palletManEntity)
     {
         PalletMan = palletManEntity;

@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Claim.Validators;
+namespace Ws.Domain.Services.Features.Claim.Validators;
 
 internal sealed class ClaimUpdateValidator : ClaimValidator
 {

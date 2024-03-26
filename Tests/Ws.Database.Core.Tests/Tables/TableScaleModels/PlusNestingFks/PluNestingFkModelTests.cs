@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Scale;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.PlusNestingFks;
 

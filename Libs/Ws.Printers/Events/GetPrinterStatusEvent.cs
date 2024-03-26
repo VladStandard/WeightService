@@ -1,4 +1,4 @@
-﻿using Ws.Printers.Enums;
+using Ws.Printers.Enums;
 
 namespace Ws.Printers.Events;
 

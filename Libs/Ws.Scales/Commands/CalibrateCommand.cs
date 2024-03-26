@@ -1,4 +1,4 @@
-﻿using System.IO.Ports;
+using System.IO.Ports;
 using Ws.Scales.Common;
 using Ws.Scales.Utils;
 

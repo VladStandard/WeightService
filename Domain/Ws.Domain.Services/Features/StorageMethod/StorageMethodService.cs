@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
+using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.StorageMethod.Validators;
@@ -21,7 +21,7 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
 
     [Transactional, Validate<StorageMethodUpdateValidator>]
     public StorageMethodEntity Update(StorageMethodEntity item) => storageMethodRepo.Update(item);
-    
+
     [Transactional]
     public void Delete(StorageMethodEntity item) => storageMethodRepo.Delete(item);
 

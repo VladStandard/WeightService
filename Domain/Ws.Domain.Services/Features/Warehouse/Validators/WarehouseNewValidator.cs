@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Warehouse.Validators;
+namespace Ws.Domain.Services.Features.Warehouse.Validators;
 
 internal sealed class WarehouseNewValidator : WarehouseValidator
 {

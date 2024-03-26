@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using Ws.Database.Nhibernate.Entities.Ref.Lines;
 using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Ref;

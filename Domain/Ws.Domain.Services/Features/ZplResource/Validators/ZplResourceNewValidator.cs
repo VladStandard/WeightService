@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.ZplResource.Validators;
+namespace Ws.Domain.Services.Features.ZplResource.Validators;
 
 internal class ZplResourceNewValidator : ZplResourceValidator
 {

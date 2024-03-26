@@ -20,7 +20,7 @@ public class PluEntity : Entity1CBase
     public virtual StorageMethodEntity StorageMethod { get; set; } = new();
     public virtual string Description { get; set; } = string.Empty;
     public virtual string Name { get; set; } = string.Empty;
-    
+
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
     public virtual string DisplayName => $"{Number} | {Name}";
 

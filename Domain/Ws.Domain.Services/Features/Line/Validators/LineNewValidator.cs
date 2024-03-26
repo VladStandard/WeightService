@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Line.Validators;
+namespace Ws.Domain.Services.Features.Line.Validators;
 
 internal sealed class LineNewValidator : LineValidator
 {

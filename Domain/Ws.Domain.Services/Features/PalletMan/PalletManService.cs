@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.PalletMen;
+using Ws.Database.Nhibernate.Entities.Ref.PalletMen;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.PalletMan.Validators;

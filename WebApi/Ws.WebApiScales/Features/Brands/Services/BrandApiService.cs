@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+using FluentValidation.Results;
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Brand;
@@ -17,7 +17,7 @@ internal sealed class BrandApiService(ResponseDto responseDto, IBrandService bra
         BrandEntity brandDb = brandService.GetItemByUid1С(brandDto.Uid);
 
         brandDb = brandDto.AdaptTo(brandDb);
-        
+
         SqlCoreHelper.SaveOrUpdate(brandDb);
         responseDto.AddSuccess(brandDto.Uid, brandDb.Name);
     }

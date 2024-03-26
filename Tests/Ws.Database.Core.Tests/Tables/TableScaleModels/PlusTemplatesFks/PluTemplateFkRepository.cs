@@ -1,4 +1,4 @@
-﻿// using Ws.Database.Nhibernate.Entities.Scales.PlusTemplatesFks;
+// using Ws.Database.Nhibernate.Entities.Scales.PlusTemplatesFks;
 // using Ws.Domain.Models.Entities.Ref1c;
 // using Ws.Domain.Models.Entities.Scale;
 //

@@ -1,4 +1,4 @@
-﻿using System.Security.Principal;
+using System.Security.Principal;
 using Ws.Database.Nhibernate.Entities.Ref.Users;
 using Ws.Domain.Models.Entities.Ref;
 
@@ -19,7 +19,8 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<UserEntity> items = new SqlUserRepository().GetAll();
             ParseRecords(items);
         });
@@ -28,7 +29,8 @@ public sealed class UserRepositoryTests : TableRepositoryTests
     [Test, Order(2)]
     public void GetOrCreate()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             UserEntity access = UserRepository.GetItemByUsername(CurrentUser);
             Assert.That(access.IsExists, Is.True);
             TestContext.WriteLine($"Success: {access.Name} / {access.Uid}");

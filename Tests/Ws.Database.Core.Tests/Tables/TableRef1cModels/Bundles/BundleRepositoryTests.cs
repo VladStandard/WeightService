@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref1c.Bundles;
+using Ws.Database.Nhibernate.Entities.Ref1c.Bundles;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Bundles;
@@ -17,7 +17,8 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<BundleEntity> items = BundleRepository.GetAll();
             ParseRecords(items);
         });
@@ -26,11 +27,13 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
     [Test]
     public void GetItemByUid1C()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             BundleEntity oldBundle = GetFirstBundleModel();
             BundleEntity bundleBy1C = BundleRepository.GetByUid1C(oldBundle.Uid1C);
 
-            Assert.Multiple(() => {
+            Assert.Multiple(() =>
+            {
                 Assert.That(bundleBy1C.IsExists, Is.True);
                 Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
             });

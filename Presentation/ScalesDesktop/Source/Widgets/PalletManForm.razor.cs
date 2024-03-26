@@ -21,7 +21,7 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
     private IEnumerable<PalletManEntity> GetAllPalletMen { get; set; } = [];
-    
+
     protected override void OnInitialized()
     {
         GetAllPalletMen = PalletManService.GetAll();
@@ -41,14 +41,14 @@ public sealed partial class PalletManForm : ComponentBase
             return;
         }
         PalletContext.SetPalletMan(FormModel.User!);
-    } 
+    }
 }
 
 public class PalletManFormModel
 {
     [Required(ErrorMessage = "Пользователь обязателен для заполнения")]
     public PalletManEntity? User { get; set; }
-    
+
     [Required(ErrorMessage = "Пароль обязателен для заполнения")]
     [RegularExpression(@"\d{4}$", ErrorMessage = "Пароль должен состоять из 4 цифр")]
     public string Password { get; set; } = string.Empty;

@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Common.Queries;
+namespace Ws.Domain.Services.Common.Queries;
 
 public interface IGetAll<out TItem>
 {

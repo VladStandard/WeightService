@@ -29,7 +29,8 @@ public class TableRepositoryTests
 
     protected void AssertAction(Action action)
     {
-        Assert.DoesNotThrow(() => {
+        Assert.DoesNotThrow(() =>
+        {
             action();
             TestContext.WriteLine();
         });

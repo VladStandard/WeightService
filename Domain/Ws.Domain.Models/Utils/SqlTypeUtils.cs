@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Models.Utils;
+namespace Ws.Domain.Models.Utils;
 
 internal static class SqlTypeUtils
 {

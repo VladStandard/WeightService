@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref1c.Brands;
+using Ws.Database.Nhibernate.Entities.Ref1c.Brands;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.StorageCoreTests.Tables.TableRef1cModels.Brands;
@@ -11,7 +11,8 @@ public sealed class BrandRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<BrandEntity> items = BrandRepository.GetAll();
             ParseRecords(items);
         });

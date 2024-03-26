@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using DeviceControl.Auth.Policies;
 using Microsoft.AspNetCore.Authorization;
 using Ws.Domain.Models.Common;
@@ -21,7 +21,7 @@ public class Redirector(IAuthorizationService authorizationService)
         authorizationService.AuthorizeAsync(user, policyName).GetAwaiter().GetResult().Succeeded;
 
     #endregion
-    
+
     public string ToLine(LineEntity line, ClaimsPrincipal user) =>
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 

@@ -14,7 +14,7 @@ public sealed partial class PalletOverview : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPrintingService PrintingService { get; set; } = null!;
-    
+
     private PalletCard PalletCard { get; set; } = new();
 
     protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;

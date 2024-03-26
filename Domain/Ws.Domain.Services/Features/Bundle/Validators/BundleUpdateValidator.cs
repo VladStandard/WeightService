@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.Bundle.Validators;
+namespace Ws.Domain.Services.Features.Bundle.Validators;
 
 internal sealed class BundleUpdateValidator : BundleValidator
 {

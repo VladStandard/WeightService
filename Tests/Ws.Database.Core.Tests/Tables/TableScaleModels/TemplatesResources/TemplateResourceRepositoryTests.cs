@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.ZplResources;
+using Ws.Database.Nhibernate.Entities.Ref.ZplResources;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableScaleModels.TemplatesResources;

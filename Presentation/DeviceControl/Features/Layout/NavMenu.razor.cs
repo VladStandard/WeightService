@@ -16,7 +16,7 @@ public sealed partial class NavMenu : ComponentBase
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    
+
     protected override void OnInitialized()
     {
         IsProduction = !ConfigurationUtil.IsDevelop;

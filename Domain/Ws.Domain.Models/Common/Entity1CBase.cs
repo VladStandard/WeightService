@@ -10,10 +10,10 @@ public abstract class Entity1CBase : EntityBase
 
     public override bool Equals(object? obj)
     {
-        if (!base.Equals(obj) || !CastEquals((EntityBase)obj)) 
+        if (!base.Equals(obj) || !CastEquals((EntityBase)obj))
             return false;
         return Equals(Uid1C, ((Entity1CBase)obj).Uid1C);
     }
-    
+
     public override int GetHashCode() => base.GetHashCode();
 }

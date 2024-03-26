@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
 using Ws.Labels.Service.Features.RenderLabel.Exceptions;
@@ -15,7 +15,7 @@ internal class RenderLabelService : IRenderLabelService
         await response.Content.CopyToAsync(ms);
         return ms.ToArray();
     }
-    
+
     private static string ConvertImageToBase64(byte[] imageBytes)
     {
         using MemoryStream imageStream = new(imageBytes);

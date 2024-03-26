@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Domain.Services.Features.Label.Validators;
 

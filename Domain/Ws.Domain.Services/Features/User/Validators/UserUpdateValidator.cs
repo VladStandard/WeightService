@@ -1,4 +1,4 @@
-﻿namespace Ws.Domain.Services.Features.User.Validators;
+namespace Ws.Domain.Services.Features.User.Validators;
 
 internal sealed class UserUpdateValidator : UserValidator
 {

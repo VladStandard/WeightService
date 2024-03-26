@@ -10,30 +10,35 @@ internal sealed class SqlPluTemplateFkMap : ClassMapping<PluTemplateFkEntity>
         Schema(SqlSchemasUtils.DbScales);
         Table(SqlTablesUtils.PlusTemplatesFks);
 
-        Id(x => x.Uid, m => {
+        Id(x => x.Uid, m =>
+        {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
             m.Generator(Generators.Guid);
         });
-        Property(x => x.CreateDt, m => {
+        Property(x => x.CreateDt, m =>
+        {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        Property(x => x.ChangeDt, m => {
+        Property(x => x.ChangeDt, m =>
+        {
             m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
         });
 
-        ManyToOne(x => x.Plu, m => {
+        ManyToOne(x => x.Plu, m =>
+        {
             m.Column("PLU_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.Template, m => {
+        ManyToOne(x => x.Template, m =>
+        {
             m.Column("TEMPLATE_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);

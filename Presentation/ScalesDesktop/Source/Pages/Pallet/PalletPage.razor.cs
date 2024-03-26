@@ -17,5 +17,5 @@ public sealed partial class PalletPage : ComponentBase, IDisposable
     {
         PalletContext.ResetPalletMan();
         PalletContext.OnStateChanged -= StateHasChanged;
-    } 
+    }
 }

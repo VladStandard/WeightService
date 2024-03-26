@@ -1,4 +1,4 @@
-﻿using Ws.WebApiScales.Features.Brands.Dto;
+using Ws.WebApiScales.Features.Brands.Dto;
 
 namespace Ws.WebApiScales.Features.Brands.Services;
 

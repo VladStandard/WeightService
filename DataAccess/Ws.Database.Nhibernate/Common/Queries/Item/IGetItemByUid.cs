@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Common;
 
 namespace Ws.Database.Nhibernate.Common.Queries.Item;
 

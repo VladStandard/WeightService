@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.Claims;
+using Ws.Database.Nhibernate.Entities.Ref.Claims;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.Claims;
@@ -11,7 +11,8 @@ public sealed class ClaimRepositoryTests : TableRepositoryTests
     [Test, Order(1)]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             IEnumerable<ClaimEntity> items = ClaimRepository.GetAll();
             ParseRecords(items);
         });

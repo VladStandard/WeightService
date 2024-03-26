@@ -19,7 +19,7 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
     #endregion
 
     private TemplateEntity Template { get; set; } = new();
-    
+
     protected override void OnAfterRender(bool firstRender)
     {
         if (!firstRender) return;

@@ -13,7 +13,7 @@ public sealed partial class NavMenuItem : ComponentBase
     [Parameter, EditorRequired] public string Icon { get; set; } = HeroiconName.Home;
     [Parameter, EditorRequired] public IEnumerable<NavMenuItemModel> Items { get; set; } = new List<NavMenuItemModel>();
     [Parameter, EditorRequired] public string? RequiredClaim { get; set; }
-    
+
     private bool IsOpened { get; set; }
     private bool IsProduction { get; set; }
 

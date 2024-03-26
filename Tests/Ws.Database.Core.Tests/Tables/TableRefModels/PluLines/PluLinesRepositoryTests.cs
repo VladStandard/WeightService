@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
+using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.StorageCoreTests.Tables.TableRefModels.PluLines;
@@ -16,7 +16,8 @@ public sealed class PluLinesRepositoryTests : TableRepositoryTests
     [Test]
     public void GetList()
     {
-        AssertAction(() => {
+        AssertAction(() =>
+        {
             // IEnumerable<PluLineEntity> items = PluLineRepository.GetList(SqlCrudConfig);
             // ParseRecords(items);
         });

@@ -22,7 +22,7 @@ public static class SqlCoreHelper
             transaction.Rollback();
         }
     }
-    
+
     #region CRUD
 
     public static T SaveOrUpdate<T>(T item) where T : EntityBase
@@ -30,6 +30,6 @@ public static class SqlCoreHelper
         ExecuteTransactionCore(session => session.SaveOrUpdate(item));
         return item;
     }
-    
+
     #endregion
 }

@@ -1,4 +1,4 @@
-﻿using NHibernate.Context;
+using NHibernate.Context;
 
 namespace Ws.Database.Nhibernate.Sessions;
 

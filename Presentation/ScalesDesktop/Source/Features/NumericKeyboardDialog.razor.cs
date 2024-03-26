@@ -9,11 +9,11 @@ namespace ScalesDesktop.Source.Features;
 public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogContentComponent<NumericKeyboardDialogContent>
 {
     [Inject] private IStringLocalizer<Resources> Localizer { get; set; } = null!;
-    
+
     [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
     [Parameter] public int MaxDigitCount { get; set; } = 3;
     [Parameter] public NumericKeyboardDialogContent Content { get; set; } = new();
-    
+
     private string Number { get; set; } = string.Empty;
     private List<CalculatorControl> CalculatorControls { get; set; } = [];
 
@@ -22,7 +22,7 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
         Number = Content.Kneading.ToString();
         CalculatorControls = GetControls();
     }
-    
+
     private List<CalculatorControl> GetControls() => [
         new() { Title = "1", CalculatorAction = () => SetNumber(1) },
         new() { Title = "2", CalculatorAction = () => SetNumber(2) },
@@ -37,7 +37,7 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
         new() { Title = "0", CalculatorAction = () => SetNumber(0) },
         new() { Title = Localizer["BtnEnter"], CalculatorAction = SubmitInput }
     ];
-    
+
     private void HandleKeyDown(KeyboardEventArgs e)
     {
         if (e.Code is "Enter" or "NumpadEnter")
@@ -67,7 +67,7 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
 internal class CalculatorControl
 {
     public string Title { get; init; } = string.Empty;
-    public Action CalculatorAction { get; init; } = () => {};
+    public Action CalculatorAction { get; init; } = () => { };
 }
 
 public record NumericKeyboardDialogContent

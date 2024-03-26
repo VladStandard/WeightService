@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Utils;
+using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Print.Pallets.Mappings;
@@ -11,62 +11,74 @@ public class SqlViewPalletMap : ClassMapping<ViewPallet>
         Table(SqlTablesUtils.ViewPallets);
         Mutable(false);
 
-        Id(x => x.Uid, m => {
+        Id(x => x.Uid, m =>
+        {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
         });
 
-        Property(x => x.CreateDt, m => {
+        Property(x => x.CreateDt, m =>
+        {
             m.Column("CREATE_DT");
             m.Type(NHibernateUtil.DateTime);
         });
 
-        Property(x => x.ProdDt, m => {
+        Property(x => x.ProdDt, m =>
+        {
             m.Column("PROD_DT");
             m.Type(NHibernateUtil.DateTime);
         });
 
-        Property(x => x.Counter, m => {
+        Property(x => x.Counter, m =>
+        {
             m.Column("COUNTER");
             m.Type(NHibernateUtil.Int32);
         });
 
-        Property(x => x.PalletMan, m => {
+        Property(x => x.PalletMan, m =>
+        {
             m.Column("PALLET_MAN");
             m.Type(NHibernateUtil.String);
         });
 
-        Property(x => x.Barcode, m => {
+        Property(x => x.Barcode, m =>
+        {
             m.Column("BARCODE");
             m.Type(NHibernateUtil.String);
         });
 
-        Property(x => x.Plu, m => {
+        Property(x => x.Plu, m =>
+        {
             m.Column("PLU_NAME");
             m.Type(NHibernateUtil.String);
         });
 
-        Property(x => x.Line, m => {
+        Property(x => x.Line, m =>
+        {
             m.Column("LINE_NAME");
             m.Type(NHibernateUtil.String);
         });
 
-        Property(x => x.Warehouse, m => {
+        Property(x => x.Warehouse, m =>
+        {
             m.Column("WAREHOUSE_NAME");
             m.Type(NHibernateUtil.String);
         });
 
-        Property(x => x.WeightNet, m => {
+        Property(x => x.WeightNet, m =>
+        {
             m.Column("WEIGHT_NETTO");
             m.Type(NHibernateUtil.Decimal);
         });
 
-        Property(x => x.WeightBrut, m => {
+        Property(x => x.WeightBrut, m =>
+        {
             m.Column("WEIGHT_BRUT");
             m.Type(NHibernateUtil.Decimal);
         });
 
-        Property(x => x.LabelCount, m => {
+        Property(x => x.LabelCount, m =>
+        {
             m.Column("LABEL_COUNT");
             m.Type(NHibernateUtil.Int32);
         });

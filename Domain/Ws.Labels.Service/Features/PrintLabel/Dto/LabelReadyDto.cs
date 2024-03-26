@@ -1,4 +1,4 @@
-﻿using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Common;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Dto;
 
