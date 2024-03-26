@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
 namespace Ws.PalychExchangeApi.Features.Bundles.Dto;
 
@@ -13,4 +14,9 @@ public sealed class BundleDto
 
     [XmlAttribute("Weight")]
     public decimal Weight { get; set; }
+}
+
+internal static class BundleDtoExtensions
+{
+    internal static BundleEntity ToEntity(this BundleDto dto) => new(dto.Uid, dto.Name, dto.Weight);
 }

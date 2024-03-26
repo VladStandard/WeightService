@@ -4,5 +4,5 @@ namespace Ws.PalychExchangeApi.Features.Boxes.Common;
 
 public interface IBoxService
 {
-    BoxWrapper Load(BoxWrapper dto);
+    BoxWrapper Load(BoxWrapper dtoWrapper);
 }

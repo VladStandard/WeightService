@@ -9,10 +9,9 @@ namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
 internal class ClipService(DbContext dbContext) : IClipService
 {
-    private void SaveClips(IEnumerable<ClipDto> clipsDto)
+    private void SaveClips(IEnumerable<ClipDto> validDtos)
     {
-        List<ClipEntity> clips = clipsDto.Select(boxDto => new ClipEntity(boxDto.Uid, boxDto.Name, boxDto.Weight))
-            .ToList();
+        List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity()).ToList();
 
         using var transaction = dbContext.Database.BeginTransaction();
         try
@@ -28,21 +27,21 @@ internal class ClipService(DbContext dbContext) : IClipService
         }
     }
 
-    public ClipWrapper Load(ClipWrapper dto)
+    public ClipWrapper Load(ClipWrapper dtoWrapper)
     {
-        ClipDtoValidator clipValidator = new();
-        HashSet<ClipDto> validDtoClips = [];
+        ClipDtoValidator validator = new();
+        HashSet<ClipDto> validDtos = [];
 
-        foreach (ClipDto clipDto in dto.Clips)
+        foreach (ClipDto dto in dtoWrapper.Clips)
         {
-            ValidationResult validationResult = clipValidator.Validate(clipDto);
-            if (validDtoClips.Any(clip => clip.Uid == clipDto.Uid))
+            ValidationResult validationResult = validator.Validate(dto);
+            if (validDtos.Any(clip => clip.Uid == dto.Uid))
                 continue;
             if (!validationResult.IsValid)
                 continue;
-            validDtoClips.Add(clipDto);
+            validDtos.Add(dto);
         }
-        SaveClips(validDtoClips);
+        SaveClips(validDtos);
         return new();
     }
 }

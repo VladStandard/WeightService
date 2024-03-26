@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Dto;
 
@@ -13,4 +14,9 @@ public sealed record BoxDto
 
     [XmlAttribute("Weight")]
     public decimal Weight { get; set; }
+}
+
+internal static class BoxDtoExtensions
+{
+    internal static BoxEntity ToEntity(this BoxDto dto) => new(dto.Uid, dto.Name, dto.Weight);
 }

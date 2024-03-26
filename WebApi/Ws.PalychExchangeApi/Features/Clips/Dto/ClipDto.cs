@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
 namespace Ws.PalychExchangeApi.Features.Clips.Dto;
 
@@ -13,4 +14,9 @@ public sealed class ClipDto
 
     [XmlAttribute("Weight")]
     public decimal Weight { get; set; }
+}
+
+internal static class ClipDtoExtensions
+{
+    internal static ClipEntity ToEntity(this ClipDto dto) => new(dto.Uid, dto.Name, dto.Weight);
 }

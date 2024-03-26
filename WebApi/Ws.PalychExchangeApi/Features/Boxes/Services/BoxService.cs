@@ -1,6 +1,5 @@
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
@@ -10,12 +9,9 @@ namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
 internal class BoxService(DbContext dbContext) : IBoxService
 {
-    private void SaveBoxes(IEnumerable<BoxDto> boxesDto)
+    private void SaveBoxes(IEnumerable<BoxDto> validDtos)
     {
-        using var dbContext = new WsDbContext();
-
-        List<BoxEntity> boxes = boxesDto.Select(boxDto => new BoxEntity(boxDto.Uid, boxDto.Name, boxDto.Weight))
-            .ToList();
+        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity()).ToList();
 
         using var transaction = dbContext.Database.BeginTransaction();
         try
@@ -31,21 +27,21 @@ internal class BoxService(DbContext dbContext) : IBoxService
         }
     }
 
-    public BoxWrapper Load(BoxWrapper dto)
+    public BoxWrapper Load(BoxWrapper dtoWrapper)
     {
-        BoxDtoValidator boxValidator = new();
-        HashSet<BoxDto> validDtoBoxes = [];
+        BoxDtoValidator validator = new();
+        HashSet<BoxDto> validDtos = [];
 
-        foreach (BoxDto boxDto in dto.Boxes)
+        foreach (BoxDto dto in dtoWrapper.Boxes)
         {
-            ValidationResult validationResult = boxValidator.Validate(boxDto);
-            if (validDtoBoxes.Any(box => box.Uid == boxDto.Uid))
+            ValidationResult validationResult = validator.Validate(dto);
+            if (validDtos.Any(box => box.Uid == dto.Uid))
                 continue;
             if (!validationResult.IsValid)
                 continue;
-            validDtoBoxes.Add(boxDto);
+            validDtos.Add(dto);
         }
-        SaveBoxes(validDtoBoxes);
+        SaveBoxes(validDtos);
         return new();
     }
 }

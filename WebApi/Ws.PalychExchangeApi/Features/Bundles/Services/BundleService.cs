@@ -1,5 +1,5 @@
 using FluentValidation.Results;
-using Ws.Database.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
@@ -7,27 +7,18 @@ using Ws.PalychExchangeApi.Features.Bundles.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Bundles.Services;
 
-internal class BundleService : IBundleService
+internal class BundleService(DbContext dbContext) : IBundleService
 {
-    private void SaveBundle(BundleDto bundleDto)
+    private void SaveBundles(IEnumerable<BundleDto> validDtos)
     {
-        using var dbContext = new WsDbContext();
-        using var transaction = dbContext.Database.BeginTransaction();
+        List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity()).ToList();
 
+        using var transaction = dbContext.Database.BeginTransaction();
         try
         {
-            // BundleEntity existingBundle = dbContext.Bundles.FirstOrDefault(b => b.Uid1C == bundleDto.Uid) ?? new();
-            //
-            // existingBundle.Name = bundleDto.Name;
-            // existingBundle.Weight = bundleDto.Weight;
-            //
-            // if (existingBundle.IsNew)
-            // {
-            //     existingBundle.Uid1C = bundleDto.Uid;
-            //     dbContext.Add(existingBundle);
-            // }
-            // dbContext.SaveChanges();
-            // transaction.Commit();
+            dbContext.BulkMerge(bundles);
+            transaction.Commit();
+            dbContext.SaveChanges();
         }
         catch (Exception)
         {
@@ -37,16 +28,21 @@ internal class BundleService : IBundleService
     }
 
 
-    public BundleWrapper Load(BundleWrapper dto)
+    public BundleWrapper Load(BundleWrapper dtoWrapper)
     {
-        foreach (BundleDto bundleDto in dto.Bundles)
-        {
-            ValidationResult validationResult = new BundleDtoValidator().Validate(bundleDto);
+        BundleDtoValidator validator = new();
+        HashSet<BundleDto> validDtos = [];
 
+        foreach (BundleDto dto in dtoWrapper.Bundles)
+        {
+            ValidationResult validationResult = validator.Validate(dto);
+            if (validDtos.Any(box => box.Uid == dto.Uid))
+                continue;
             if (!validationResult.IsValid)
                 continue;
-            SaveBundle(bundleDto);
+            validDtos.Add(dto);
         }
+        SaveBundles(validDtos);
         return new();
     }
 }

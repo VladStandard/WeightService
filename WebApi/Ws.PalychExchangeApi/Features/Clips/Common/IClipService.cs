@@ -4,5 +4,5 @@ namespace Ws.PalychExchangeApi.Features.Clips.Common;
 
 public interface IClipService
 {
-    ClipWrapper Load(ClipWrapper dto);
+    ClipWrapper Load(ClipWrapper dtoWrapper);
 }

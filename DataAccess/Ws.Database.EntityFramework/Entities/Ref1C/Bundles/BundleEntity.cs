@@ -18,5 +18,14 @@ public sealed class BundleEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
+
+    public BundleEntity() { }
+
+    public BundleEntity(Guid uid, string name, decimal weight)
+    {
+        Id = uid;
+        Name = name;
+        Weight = weight;
+    }
     // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

@@ -4,5 +4,5 @@ namespace Ws.PalychExchangeApi.Features.Bundles.Common;
 
 public interface IBundleService
 {
-    BundleWrapper Load(BundleWrapper dto);
+    BundleWrapper Load(BundleWrapper dtoWrapper);
 }
