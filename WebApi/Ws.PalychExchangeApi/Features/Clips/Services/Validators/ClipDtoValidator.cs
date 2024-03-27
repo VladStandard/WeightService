@@ -9,15 +9,12 @@ public class ClipDtoValidator : AbstractValidator<ClipDto>
     public ClipDtoValidator()
     {
         RuleFor(dto => dto.Uid)
-            .NotEmpty()
-            .WithMessage("'UID' обязателен");
+            .NotEmpty().WithMessage("'UID' обязателен");
         RuleFor(dto => dto.Name)
-            .NotEmpty()
-            .WithMessage("'Наименование' обязательно")
-            .MaximumLength(64)
-            .WithMessage("'Наименование' не должно превышать 64 символов.");
+            .NotEmpty().WithMessage("'Наименование' обязательно")
+            .MaximumLength(64).WithMessage("'Наименование' не должно превышать 64 символов.");
         RuleFor(dto => dto.Weight)
             .Must(ValidatorUtils.BeValidWeight)
-            .WithMessage("'Вес клипсы' должен быть в диапазоне от 0 до 1.");
+            .WithMessage("'Вес' должен быть в диапазоне от 0 до 1.");
     }
 }

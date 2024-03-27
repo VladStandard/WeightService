@@ -45,7 +45,7 @@ internal static partial class LabelGeneratorUtils
         {
             string word = match.Value;
 
-            if (zplItems.Resources.TryGetValue(word.Trim('[', ']'), out var value))
+            if (zplItems.Resources.TryGetValue(word.Trim('[', ']'), out string? value))
                 zpl = zpl.Replace(word, value);
         }
 

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
 
@@ -18,14 +19,19 @@ internal partial class BoxService
     }
     private void SaveBoxes(IEnumerable<BoxDto> validDtos)
     {
-        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity()).ToList();
+        DateTime updateDt = DateTime.UtcNow.AddHours(3);
+        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
-        using var transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(boxes);
+            dbContext.BulkMerge(boxes, options =>
+            {
+                options.InsertIfNotExists = true;
+                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
+                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+            });
             transaction.Commit();
-            dbContext.SaveChanges();
             OutputDto.AddSuccess(boxes.Select(i => i.Id).ToList());
         }
         catch (Exception)

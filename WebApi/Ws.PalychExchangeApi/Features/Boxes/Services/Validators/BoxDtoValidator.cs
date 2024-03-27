@@ -15,6 +15,6 @@ public class BoxDtoValidator : AbstractValidator<BoxDto>
             .MaximumLength(64).WithMessage("'Наименование' не должно превышать 64 символов.");
         RuleFor(dto => dto.Weight)
             .Must(ValidatorUtils.BeValidWeight)
-            .WithMessage("'Вес коробки' должен быть в диапазоне от 0 до 1.");
+            .WithMessage("'Вес' должен быть в диапазоне от 0 до 1.");
     }
 }

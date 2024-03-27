@@ -24,10 +24,11 @@ public sealed class BoxEntity : EfEntityBase
 
     public BoxEntity() { }
 
-    public BoxEntity(Guid uid, string name, decimal weight)
+    public BoxEntity(Guid uid, string name, decimal weight, DateTime updateDate)
     {
         Id = uid;
         Name = name;
         Weight = weight;
+        ChangeDt = updateDate;
     }
 }

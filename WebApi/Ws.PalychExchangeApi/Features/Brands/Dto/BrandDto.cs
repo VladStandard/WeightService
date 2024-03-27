@@ -19,5 +19,6 @@ public sealed class BrandDto
 
 internal static class BrandDtoExtensions
 {
-    internal static BrandEntity ToEntity(this BrandDto dto) => new(dto.Uid, dto.Name);
+    internal static BrandEntity ToEntity(this BrandDto dto, DateTime updateDate) =>
+        new(dto.Uid, dto.Name, updateDate);
 }

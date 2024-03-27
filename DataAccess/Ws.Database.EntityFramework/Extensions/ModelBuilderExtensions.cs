@@ -12,7 +12,7 @@ internal static class ModelBuilderExtensions
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
-            var ipAddressProperties = entityType.ClrType.GetProperties()
+            IEnumerable<PropertyInfo> ipAddressProperties = entityType.ClrType.GetProperties()
                 .Where(p => p.PropertyType == typeof(IPAddress));
 
             foreach (PropertyInfo property in ipAddressProperties)
@@ -27,7 +27,7 @@ internal static class ModelBuilderExtensions
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
-            var enumProperties = entityType.ClrType.GetProperties()
+            IEnumerable<PropertyInfo> enumProperties = entityType.ClrType.GetProperties()
                 .Where(p => p.PropertyType.IsEnum);
 
             foreach (PropertyInfo property in enumProperties)
@@ -52,21 +52,15 @@ internal static class ModelBuilderExtensions
 
             if (createDtProperty != null)
             {
-                // Настройка столбца CreateDt
                 createDtProperty.ValueGenerated = ValueGenerated.OnAdd;
                 createDtProperty.SetColumnName(SqlColumns.CreateDt);
                 createDtProperty.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
-                createDtProperty.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
                 createDtProperty.SetDefaultValueSql(getDateCmd);
             }
 
             if (changeDtProperty != null)
             {
-                // Настройка столбца ChangeDt
-                changeDtProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
                 changeDtProperty.SetColumnName(SqlColumns.ChangeDt);
-                changeDtProperty.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
-                changeDtProperty.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
                 changeDtProperty.SetDefaultValueSql(getDateCmd);
             }
         }

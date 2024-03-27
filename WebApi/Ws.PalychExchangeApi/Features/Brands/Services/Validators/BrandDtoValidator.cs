@@ -7,10 +7,10 @@ internal sealed class BrandDtoValidator : AbstractValidator<BrandDto>
 {
     public BrandDtoValidator()
     {
-        RuleFor(dto => dto.Name)
-            .NotEmpty().WithMessage("'Наименование' обязательно")
-            .MaximumLength(128).WithMessage("'Наименование' не должно превышать 128 символов.");
         RuleFor(dto => dto.Uid)
             .NotEmpty().WithMessage("'UID' обязателен");
+        RuleFor(dto => dto.Name)
+            .NotEmpty().WithMessage("'Наименование' обязательно")
+            .MaximumLength(64).WithMessage("'Наименование' не должно превышать 128 символов.");
     }
 }

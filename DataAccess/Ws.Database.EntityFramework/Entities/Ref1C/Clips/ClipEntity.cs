@@ -21,10 +21,11 @@ public sealed class ClipEntity : EfEntityBase
 
     public ClipEntity() { }
 
-    public ClipEntity(Guid uid, string name, decimal weight)
+    public ClipEntity(Guid uid, string name, decimal weight, DateTime updateDate)
     {
         Id = uid;
         Name = name;
         Weight = weight;
+        ChangeDt = updateDate;
     }
 }

@@ -8,13 +8,13 @@ using Ws.PalychExchangeApi.Features.Bundles.Services;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers().AddXmlSerializerFormatters();
 
-builder.Services.AddDbContext<WsDbContext>();
+builder.Services.AddEfCore();
 
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IClipService, ClipService>();
@@ -25,7 +25,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

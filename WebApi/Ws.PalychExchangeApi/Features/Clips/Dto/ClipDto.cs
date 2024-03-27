@@ -18,5 +18,6 @@ public sealed class ClipDto
 
 internal static class ClipDtoExtensions
 {
-    internal static ClipEntity ToEntity(this ClipDto dto) => new(dto.Uid, dto.Name, dto.Weight);
+    internal static ClipEntity ToEntity(this ClipDto dto, DateTime updateDt) =>
+        new(dto.Uid, dto.Name, dto.Weight, updateDt);
 }

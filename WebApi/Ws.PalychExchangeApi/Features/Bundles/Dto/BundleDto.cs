@@ -18,5 +18,6 @@ public sealed class BundleDto
 
 internal static class BundleDtoExtensions
 {
-    internal static BundleEntity ToEntity(this BundleDto dto) => new(dto.Uid, dto.Name, dto.Weight);
+    internal static BundleEntity ToEntity(this BundleDto dto, DateTime updateDt) =>
+        new(dto.Uid, dto.Name, dto.Weight, updateDt);
 }

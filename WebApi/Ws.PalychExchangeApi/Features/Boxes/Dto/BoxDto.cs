@@ -18,5 +18,6 @@ public sealed record BoxDto
 
 internal static class BoxDtoExtensions
 {
-    internal static BoxEntity ToEntity(this BoxDto dto) => new(dto.Uid, dto.Name, dto.Weight);
+    internal static BoxEntity ToEntity(this BoxDto dto, DateTime updateDt) =>
+        new(dto.Uid, dto.Name, dto.Weight, updateDt);
 }

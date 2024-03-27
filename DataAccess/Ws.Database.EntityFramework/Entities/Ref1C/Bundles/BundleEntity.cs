@@ -21,11 +21,12 @@ public sealed class BundleEntity : EfEntityBase
 
     public BundleEntity() { }
 
-    public BundleEntity(Guid uid, string name, decimal weight)
+    public BundleEntity(Guid uid, string name, decimal weight, DateTime updateDate)
     {
         Id = uid;
         Name = name;
         Weight = weight;
+        ChangeDt = updateDate;
     }
     // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.PalychExchangeApi.Features.Brands.Dto;
 
@@ -57,14 +58,19 @@ internal partial class BrandService
         ResolveUniqueNameDb(validDtos);
         if (validDtos.Count == 0) return;
 
-        List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity()).ToList();
+        DateTime updateDt = DateTime.UtcNow.AddHours(3);
+        List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
-        using var transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(brands);
+            dbContext.BulkMerge(brands, options =>
+            {
+                options.InsertIfNotExists = true;
+                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
+                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+            });
             transaction.Commit();
-            dbContext.SaveChanges();
             OutputDto.AddSuccess(brands.Select(i => i.Id).ToList());
         }
         catch (Exception)
@@ -75,17 +81,17 @@ internal partial class BrandService
     }
     private void DeleteBrands(List<BrandDto> dtos)
     {
-        List<BrandEntity> brandsToDelete = dtos.Where(brand => brand.IsDelete).Select(dto => dto.ToEntity()).ToList();
+        DateTime updateDt = DateTime.UtcNow.AddHours(3);
+        List<BrandEntity> brandsToDelete = dtos.Where(brand => brand.IsDelete).Select(dto => dto.ToEntity(updateDt)).ToList();
         HashSet<Guid> deletedUid = brandsToDelete.Select(brand => brand.Id).ToHashSet();
 
         if (brandsToDelete.Count == 0) return;
 
-        using var transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
         try
         {
             dbContext.BulkDelete(brandsToDelete);
             transaction.Commit();
-            dbContext.SaveChanges();
             OutputDto.AddSuccess(brandsToDelete.Select(i => i.Id).ToList());
         }
         catch (Exception)

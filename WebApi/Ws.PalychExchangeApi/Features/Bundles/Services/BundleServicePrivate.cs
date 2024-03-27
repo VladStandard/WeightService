@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
 
@@ -18,14 +19,19 @@ internal partial class BundleService
     }
     private void SaveBundles(IEnumerable<BundleDto> validDtos)
     {
-        List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity()).ToList();
+        DateTime updateDt = DateTime.UtcNow.AddHours(3);
+        List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
-        using var transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(bundles);
+            dbContext.BulkMerge(bundles, options =>
+            {
+                options.InsertIfNotExists = true;
+                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
+                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+            });
             transaction.Commit();
-            dbContext.SaveChanges();
             OutputDto.AddSuccess(bundles.Select(i => i.Id).ToList());
         }
         catch (Exception)

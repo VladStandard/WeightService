@@ -17,10 +17,11 @@ public sealed class BrandEntity : EfEntityBase
 
     public BrandEntity() { }
 
-    public BrandEntity(Guid uid, string name)
+    public BrandEntity(Guid uid, string name, DateTime updateDate)
     {
         Id = uid;
         Name = name;
+        ChangeDt = updateDate;
     }
     // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }
