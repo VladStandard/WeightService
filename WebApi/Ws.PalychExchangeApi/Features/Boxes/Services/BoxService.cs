@@ -1,47 +1,35 @@
 using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
 using Ws.PalychExchangeApi.Features.Boxes.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
-internal class BoxService(DbContext dbContext) : IBoxService
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+internal partial class BoxService(WsDbContext dbContext) : IBoxService
 {
-    private void SaveBoxes(IEnumerable<BoxDto> validDtos)
-    {
-        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity()).ToList();
+    private ResponseDto OutputDto { get; } = new();
 
-        using var transaction = dbContext.Database.BeginTransaction();
-        try
-        {
-            dbContext.BulkMerge(boxes);
-            transaction.Commit();
-            dbContext.SaveChanges();
-        }
-        catch (Exception)
-        {
-            transaction.Rollback();
-            throw;
-        }
-    }
-
-    public BoxWrapper Load(BoxWrapper dtoWrapper)
+    public ResponseDto Load(BoxesWrapper dtoWrapper)
     {
         BoxDtoValidator validator = new();
         HashSet<BoxDto> validDtos = [];
 
+        ResolveUniqueUidLocal(dtoWrapper.Boxes);
+
         foreach (BoxDto dto in dtoWrapper.Boxes)
         {
             ValidationResult validationResult = validator.Validate(dto);
-            if (validDtos.Any(box => box.Uid == dto.Uid))
-                continue;
             if (!validationResult.IsValid)
+            {
+                OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
                 continue;
+            }
             validDtos.Add(dto);
         }
         SaveBoxes(validDtos);
-        return new();
+        return OutputDto;
     }
 }

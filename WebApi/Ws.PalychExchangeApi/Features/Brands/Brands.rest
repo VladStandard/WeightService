@@ -1,0 +1,30 @@
+﻿POST https://localhost:7298/api/brands/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Brands>
+    <Brand Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №16 125 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="c77cbc2b-3cac-11ec-bd12-00155df8551b" Name="Коробка №16 125 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="980c592a-55b6-424d-a687-0a340915744d" Name="Коробка №16 126 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="e25fd6ee-b63b-4e6a-942b-7f667fd02561" Name="Коробка №16 1000 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 1065 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 5000 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №16 21321 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="f26e1c9c-a35b-4139-a90f-d5b67a8f7d03" Name="Коробка №16 1231 грамм (235*195*150)" IsDelete="false" />
+    <Braёnd Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 2131 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 1323 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="a687cdf4-1e12-4a90-afa2-2549e2158d2d" Name="Коробка №16 1012365 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 1231 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №16 12321 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="a687cdf4-1e12-4a90-afa2-2549e2158d2d" Name="Коробка №16 12321312321312 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="40720725-e056-4730-bde6-5714699e3c18" Name="Коробка №16 123132 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 10012312310 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 123213213213 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 123213312312 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №16 3231323 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="081dd6b1-f288-4c81-bdd3-0f3639c504be" Name="Коробка №16 112321321325 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 112321321312326 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 123213213123213213213 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 1012321321312321365 грамм (235*195*150)" IsDelete="false" />
+    <Brand Uid="59ea5740-0f8b-42bd-8f7b-2c7b1361782e" Name="Коробка №16 2123132 грамм (235*195*150)" IsDelete="false" />
+</Brands>

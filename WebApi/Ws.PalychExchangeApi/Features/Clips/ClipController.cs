@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Dto;
 
@@ -12,5 +13,5 @@ public sealed class ClipController(IClipService clipService) : ControllerBase
 {
     [HttpPost("load")]
     [Produces("application/xml")]
-    public ClipWrapper Load([FromBody] ClipWrapper clips) => clipService.Load(clips);
+    public ResponseDto Load([FromBody] ClipsWrapper wrapper) => clipService.Load(wrapper);
 }

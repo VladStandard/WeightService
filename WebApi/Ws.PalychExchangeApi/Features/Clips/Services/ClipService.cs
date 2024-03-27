@@ -1,47 +1,35 @@
 using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Dto;
 using Ws.PalychExchangeApi.Features.Clips.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
-internal class ClipService(DbContext dbContext) : IClipService
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+internal partial class ClipService(WsDbContext dbContext) : IClipService
 {
-    private void SaveClips(IEnumerable<ClipDto> validDtos)
-    {
-        List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity()).ToList();
+    private ResponseDto OutputDto { get; } = new();
 
-        using var transaction = dbContext.Database.BeginTransaction();
-        try
-        {
-            dbContext.BulkMerge(clips);
-            transaction.Commit();
-            dbContext.SaveChanges();
-        }
-        catch (Exception)
-        {
-            transaction.Rollback();
-            throw;
-        }
-    }
-
-    public ClipWrapper Load(ClipWrapper dtoWrapper)
+    public ResponseDto Load(ClipsWrapper dtoWrapper)
     {
         ClipDtoValidator validator = new();
         HashSet<ClipDto> validDtos = [];
 
+        ResolveUniqueUidLocal(dtoWrapper.Clips);
+
         foreach (ClipDto dto in dtoWrapper.Clips)
         {
             ValidationResult validationResult = validator.Validate(dto);
-            if (validDtos.Any(clip => clip.Uid == dto.Uid))
-                continue;
             if (!validationResult.IsValid)
+            {
+                OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
                 continue;
+            }
             validDtos.Add(dto);
         }
         SaveClips(validDtos);
-        return new();
+        return OutputDto;
     }
 }

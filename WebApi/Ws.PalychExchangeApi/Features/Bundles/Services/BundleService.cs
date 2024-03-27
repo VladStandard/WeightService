@@ -1,48 +1,35 @@
 using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
+using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
 using Ws.PalychExchangeApi.Features.Bundles.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Bundles.Services;
 
-internal class BundleService(DbContext dbContext) : IBundleService
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+internal partial class BundleService(WsDbContext dbContext) : IBundleService
 {
-    private void SaveBundles(IEnumerable<BundleDto> validDtos)
-    {
-        List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity()).ToList();
+    private ResponseDto OutputDto { get; } = new();
 
-        using var transaction = dbContext.Database.BeginTransaction();
-        try
-        {
-            dbContext.BulkMerge(bundles);
-            transaction.Commit();
-            dbContext.SaveChanges();
-        }
-        catch (Exception)
-        {
-            transaction.Rollback();
-            throw;
-        }
-    }
-
-
-    public BundleWrapper Load(BundleWrapper dtoWrapper)
+    public ResponseDto Load(BundlesWrapper dtoWrapper)
     {
         BundleDtoValidator validator = new();
         HashSet<BundleDto> validDtos = [];
 
+        ResolveUniqueUidLocal(dtoWrapper.Bundles);
+
         foreach (BundleDto dto in dtoWrapper.Bundles)
         {
             ValidationResult validationResult = validator.Validate(dto);
-            if (validDtos.Any(box => box.Uid == dto.Uid))
-                continue;
             if (!validationResult.IsValid)
+            {
+                OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
                 continue;
+            }
             validDtos.Add(dto);
         }
         SaveBundles(validDtos);
-        return new();
+        return OutputDto;
     }
 }

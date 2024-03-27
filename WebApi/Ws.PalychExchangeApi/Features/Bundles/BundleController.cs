@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Dto;
 
@@ -12,5 +13,5 @@ public sealed class BundleController(IBundleService bundleService) : ControllerB
 {
     [HttpPost("load")]
     [Produces("application/xml")]
-    public BundleWrapper Load([FromBody] BundleWrapper bundles) => bundleService.Load(bundles);
+    public ResponseDto Load([FromBody] BundlesWrapper wrapper) => bundleService.Load(wrapper);
 }

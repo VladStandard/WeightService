@@ -1,22 +1,15 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Ws.Domain.Services;
 using Ws.WebApiScales.Dto;
-using Ws.WebApiScales.Features.Boxes.Services;
-using Ws.WebApiScales.Features.Brands.Services;
-using Ws.WebApiScales.Features.Bundles.Services;
 using Ws.WebApiScales.Features.Characteristics.Services;
-using Ws.WebApiScales.Features.Clips.Services;
 using Ws.WebApiScales.Features.Plus.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ResponseDto>();
 
-builder.Services.AddScoped<IBoxApiService, BoxApiService>();
-builder.Services.AddScoped<IClipApiService, ClipApiService>();
-builder.Services.AddScoped<IBundleApiService, BundleApiService>();
 builder.Services.AddScoped<IPluApiService, PluApiService>();
-builder.Services.AddScoped<IBrandApiService, BrandApiService>();
+
 builder.Services.AddScoped<IPluCharacteristicApiService, PluCharacteristicApiService>();
 
 builder.Services.AddDomainServices();

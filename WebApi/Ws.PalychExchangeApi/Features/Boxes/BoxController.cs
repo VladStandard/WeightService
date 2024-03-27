@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
 
@@ -12,5 +13,5 @@ public sealed class BoxController(IBoxService boxService) : ControllerBase
 {
     [HttpPost("load")]
     [Produces("application/xml")]
-    public BoxWrapper Load([FromBody] BoxWrapper boxes) => boxService.Load(boxes);
+    public ResponseDto Load([FromBody] BoxesWrapper wrapper) => boxService.Load(wrapper);
 }

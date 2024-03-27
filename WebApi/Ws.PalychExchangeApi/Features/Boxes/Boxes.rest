@@ -3,7 +3,7 @@ Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>
 <Boxes>
-    <Box Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №22 120 грамм (380*150*120 Чудо- печка)" Weight="0.120" />
+    <Box Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №22 120 грамм (380*150*120 Чудо- печка)" Weight="1.120" />
     <Box Uid="c77cbc2b-3cac-11ec-bd12-00155df8551b" Name="Коробка №16 125 грамм (235*195*150)" Weight="0.125" />
     <Box Uid="7d257226-e611-11eb-bd05-00155df47a08" Name="Коробка №17 180 грамм (380*230*100 Огогонь)" Weight="0.180" />
     <Box Uid="19eb0417-3429-11e9-a216-a4bf0139eb1b" Name="Коробка №9 200 грамм (350*235*200)" Weight="0.200" />
