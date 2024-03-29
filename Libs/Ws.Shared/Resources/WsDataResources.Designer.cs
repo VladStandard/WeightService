@@ -38,7 +38,7 @@ namespace Ws.Shared.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources", typeof(WsDataResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.Shared.Resources.WsDataResources", typeof(WsDataResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -431,6 +431,60 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColPort {
+            get {
+                return ResourceManager.GetString("ColPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColPrinter {
+            get {
+                return ResourceManager.GetString("ColPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColProductionSite {
+            get {
+                return ResourceManager.GetString("ColProductionSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColShelfLifeDays {
+            get {
+                return ResourceManager.GetString("ColShelfLifeDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColStatus {
+            get {
+                return ResourceManager.GetString("ColStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColStorageMethod {
+            get {
+                return ResourceManager.GetString("ColStorageMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColTables {
             get {
                 return ResourceManager.GetString("ColTables", resourceCulture);
@@ -449,6 +503,15 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColTemplate {
+            get {
+                return ResourceManager.GetString("ColTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColType {
             get {
                 return ResourceManager.GetString("ColType", resourceCulture);
@@ -461,6 +524,15 @@ namespace Ws.Shared.Resources {
         public static string ColUser {
             get {
                 return ResourceManager.GetString("ColUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColVersion {
+            get {
+                return ResourceManager.GetString("ColVersion", resourceCulture);
             }
         }
         

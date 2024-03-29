@@ -12,25 +12,27 @@ using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Warehouse;
+using Ws.Shared.Resources;
 
 namespace DeviceControl2.Source.Pages.Devices.Lines;
 
 public sealed partial class LinesCreateForm: SectionFormBase<LineEntity>
 {
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
     [Inject] private ILineService LineService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
-    
+
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();
     private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = new List<WarehouseEntity>();
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = new List<LineTypeEnum>();
 
     protected override void OnInitialized()
     {
-        DialogItem.Warehouse.Name = Localizer["SectionFormWarehouseDefaultName"];
-        DialogItem.Printer.Name = Localizer["SectionFormPrinterDefaultName"];
+        DialogItem.Warehouse.Name = Localizer["FormWarehouseDefaultPlaceholder"];
+        DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
         DialogItem.Number = 10001;
 
         WarehousesEntities = WarehouseService.GetAll();

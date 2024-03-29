@@ -18,18 +18,18 @@
     <SectionGuidField Value="@DialogItem.Uid" />
 
     <SectionReadOnlyField
-      Label="Порт"
+      Label="@WsDataLocalizer["ColPort"]"
       Value="@DialogItem.Port"
     />
 
     <SectionTextField
-      Label="Название"
+      Label="@WsDataLocalizer["ColName"]"
       @bind-Value="DialogItem.Name"
       For="@(() => DialogItem.Name)"
     />
 
     <SectionIpField
-      Label="IP (Управление принтером)"
+      Label="@($"IP ${Localizer["FormPrinterControl"]}")"
       @bind-Value="@DialogItem.Ip"
       For="@(() => DialogItem.Ip)"
       Path="@($"http://{DialogItemCopy.Ip}")"
@@ -37,7 +37,7 @@
 
     <SectionSelectSingleField
       TItem="PrinterTypeEnum"
-      Label="Тип"
+      Label="@WsDataLocalizer["ColType"]"
       Items="PrinterTypesEntities"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
@@ -46,7 +46,7 @@
 
     <SectionSelectSingleField
       TItem="ProductionSiteEntity"
-      Label="Площадка"
+      Label="@WsDataLocalizer["ColProductionSite"]"
       Items="ProductionSites"
       @bind-Value="@DialogItem.ProductionSite"
       ItemDisplayName="item => item.Name"

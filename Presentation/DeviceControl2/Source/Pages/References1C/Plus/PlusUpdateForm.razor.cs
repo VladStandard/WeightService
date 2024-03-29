@@ -11,6 +11,7 @@ using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.Template;
+using Ws.Shared.Resources;
 
 namespace DeviceControl2.Source.Pages.References1C.Plus;
 
@@ -19,11 +20,11 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IPluService PluService { get; set; } = default!;
     [Inject] private ITemplateService TemplateService { get; set; } = default!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
     private TemplateEntity Template { get; set; } = new();
     private IEnumerable<TemplateEntity> AllTemplates { get; set; } = [];
-    
+
 
     protected override void OnInitialized()
     {
@@ -35,7 +36,7 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
     protected override PluEntity UpdateItemAction() => DialogItem;
 
     private string GetPluTypeName(bool isWeight) =>
-        isWeight ? Localizer["DataGridColumnIsWeight"] : Localizer["DataGridColumnIsPiece"];
+        isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];
 }
 
 

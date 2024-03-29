@@ -10,7 +10,7 @@
 
 
 <PageHeader>
-  <span>ПЛУ</span>
+  <span>@Localizer["SectionPLU"]</span>
   <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
 </PageHeader>
@@ -24,7 +24,7 @@
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="Статус"
+        Caption="@WsDataLocalizer["ColStatus"]"
         Width="5%"
         Filterable="false"
       >
@@ -38,31 +38,31 @@
         </DisplayTemplate>
       </DataGridColumn>
       <DataGridColumn
-        Caption="Номер"
+        Caption="@WsDataLocalizer["ColNumber"]"
         Field="@nameof(PluEntity.Number)"
         FilterMethod="DataGridColumnFilterMethod.StartsWith"
         Width="10%"
       />
       <DataGridColumn
-        Caption="Название"
+        Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(PluEntity.Name)"
         FilterMethod="DataGridColumnFilterMethod.Contains"
         Width="45%"
       />
       <DataGridColumn
-        Caption="Тип"
+        Caption="@WsDataLocalizer["ColType"]"
         Field="@nameof(PluEntity.IsCheckWeight)"
         Width="10%"
         Filterable="false"
       >
         <DisplayTemplate>
           <span>
-            @(context.IsCheckWeight ? "Весовая" : "Штучная")
+            @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
           </span>
         </DisplayTemplate>
       </DataGridColumn>
       <DataGridColumn
-        Caption="Дата изменения"
+        Caption="@WsDataLocalizer["ColChangeDt"]"
         Field="@nameof(PluEntity.ChangeDt)"
         Width="15%"
         Filterable="false"

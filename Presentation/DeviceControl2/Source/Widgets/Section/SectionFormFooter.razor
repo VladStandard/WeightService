@@ -1,7 +1,7 @@
 @using Microsoft.Extensions.Localization
 @using DeviceControl2.Source.Shared.Localization
+@using Ws.Shared.Resources
 @using ButtonType = DeviceControl2.Source.Shared.UI.ButtonType
-@inject IStringLocalizer<ApplicationResources> Localizer
 
 <div class="w-full !mt-0 bg-background border-t gap-3 py-4 flex flex-col">
   @if (CreateDate != null || ChangeDate != null)
@@ -10,14 +10,14 @@
       @if (CreateDate != null)
       {
         <div class="w-1/2 px-10 truncate items-center flex gap-2">
-          <span>@Localizer["DataGridColumnCreateDt"]:</span>
+          <span>@WsDataLocalizer["ColCreateDt"]:</span>
           <span>@CreateDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
       @if (ChangeDate != null)
       {
         <div class="w-1/2 px-10 truncate flex-items flex gap-2">
-          <span>@Localizer["DataGridColumnChangeDt"]:</span>
+          <span>@WsDataLocalizer["ColChangeDt"]:</span>
           <span>@ChangeDate?.ToString("dd.MM.yyyy HH:mm")</span>
         </div>
       }
@@ -30,7 +30,7 @@
         Variant="ButtonVariant.Outline"
         OnClick="@OnCancelAction"
       >
-        @Localizer["ButtonCancel"]
+        @Localizer["BtnCancel"]
       </Button>
     }
     @if (OnSubmitAction != null)
@@ -39,13 +39,16 @@
         Variant="ButtonVariant.Secondary"
         Type="ButtonType.Submit"
       >
-        @Localizer["ButtonSave"]
+        @Localizer["BtnSubmit"]
       </Button>
     }
   </div>
 </div>
 
 @code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
   [Parameter] public DateTime? CreateDate { get; set; }
   [Parameter] public DateTime? ChangeDate { get; set; }
   [Parameter] public EventCallback? OnSubmitAction { get; set; }

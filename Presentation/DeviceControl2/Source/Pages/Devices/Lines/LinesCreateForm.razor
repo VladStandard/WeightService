@@ -14,27 +14,27 @@
 >
   <FieldsContent>
     <SectionNumericField
-      Label="@Localizer["DataGridColumnNumber"]"
+      Label="@WsDataLocalizer["ColNumber"]"
       @bind-Value="@DialogItem.Number"
       Min="10000"
       Max="99999"
     />
 
     <SectionTextField
-      Label="@Localizer["DataGridColumnName"]"
+      Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
     />
 
     <SectionTextField
-      Label="@Localizer["DataGridColumnPcName"]"
+      Label="@WsDataLocalizer["ColPcName"]"
       @bind-Value="@DialogItem.PcName"
       For="@(() => DialogItem.PcName)"
     />
 
     <SectionSelectSingleField
       TItem="LineTypeEnum"
-      Label="@Localizer["DataGridColumnType"]"
+      Label="@WsDataLocalizer["ColType"]"
       Items="LineTypesEntities"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
@@ -43,7 +43,7 @@
 
     <SectionSelectSingleField
       TItem="PrinterEntity"
-      Label="@Localizer["DataGridColumnPrinter"]"
+      Label="@WsDataLocalizer["ColPrinter"]"
       Items="PrinterEntities"
       @bind-Value="@DialogItem.Printer"
       ItemDisplayName="item => item.DisplayName"
@@ -54,7 +54,7 @@
 
     <SectionSelectSingleField
       TItem="WarehouseEntity"
-      Label="@Localizer["DataGridColumnWarehouse"]"
+      Label="@WsDataLocalizer["ColWarehouse"]"
       Items="WarehousesEntities"
       @bind-Value="@DialogItem.Warehouse"
       ItemDisplayName="item => item.Name"

@@ -15,23 +15,25 @@ using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Template;
 using Ws.Shared.Parsers;
+using Ws.Shared.Resources;
 
 namespace DeviceControl2.Source.Pages.Devices.Printers;
 
 public sealed partial class PrintersCreateForm: SectionFormBase<PrinterEntity>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
-    
+
     private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();
-    
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
-        DialogItem.ProductionSite.Name = Localizer["SectionFormProductionSiteDefaultName"];
+        DialogItem.ProductionSite.Name = Localizer["FormProductionSiteDefaultPlaceholder"];
         ProductionSites = ProductionSiteService.GetAll();
     }
 
@@ -40,8 +42,6 @@ public sealed partial class PrintersCreateForm: SectionFormBase<PrinterEntity>
         PrinterEntity item = PrinterService.Create(DialogItem);
         return item;
     }
-        
-    
 }
 
 public class PrintersCreateFormValidator : AbstractValidator<PrinterEntity>

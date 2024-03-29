@@ -9,7 +9,7 @@
 
 
 <PageHeader>
-  <span>Принтеры</span>
+  <span>@Localizer["SectionPrinters"]</span>
   <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
@@ -24,25 +24,24 @@
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnName"]"
+        Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(PrinterEntity.Name)"
         Width="35%"
       />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnType"]"
         Field="@nameof(PrinterEntity.Type)"
         Width="0%"
         Groupable
         Grouping
       />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnIp"]"
+        Caption="IP"
         Field="@nameof(PrinterEntity.Ip)"
         Width="25%"
         Sortable="false"
       />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnProductionSite"]"
+        Caption="@WsDataLocalizer["ColProductionSite"]"
         Field="ProductionSite.Name"
         Width="40%"
       />

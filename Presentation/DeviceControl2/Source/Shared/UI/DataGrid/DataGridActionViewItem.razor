@@ -1,10 +1,12 @@
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
 
 <DropdownItem OnClick="@OnClick">
   <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
-  View item
+  @Localizer["DataGridContextMenuOpenInDialog"]
 </DropdownItem>
 
 @code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Parameter] public EventCallback OnClick { get; set; }
 }

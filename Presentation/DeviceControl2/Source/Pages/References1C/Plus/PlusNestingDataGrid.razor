@@ -7,7 +7,7 @@
 @rendermode InteractiveServer
 
 <PageHeader>
-  <span>Вложенности</span>
+  <span>@Localizer["SectionPluNestings"]</span>
   <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
 </PageHeader>
@@ -20,7 +20,7 @@
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnIsDefault"]"
+        Caption="@WsDataLocalizer["ColDefault"]"
         Field="@nameof(PluNestingEntity.IsDefault)"
         Width="20%"
       >
@@ -32,17 +32,17 @@
         </DisplayTemplate>
       </DataGridColumn>
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnName"]"
+        Caption="@WsDataLocalizer["ColName"]"
         Field="Box.Name"
         Width="40%"
       />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnCount"]"
+        Caption="@WsDataLocalizer["ColCount"]"
         Field="@nameof(PluNestingEntity.BundleCount)"
         Width="20%"
       />
       <DataGridColumn
-        Caption="@Localizer["DataGridColumnTareWeight"]"
+        Caption="@WsDataLocalizer["ColTareWeight"]"
         Field="@nameof(PluNestingEntity.WeightTare)"
         Width="20%"
       />

@@ -15,21 +15,22 @@ using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Warehouse;
+using Ws.Shared.Resources;
 
 namespace DeviceControl2.Source.Pages.Devices.Lines;
 
 public sealed partial class LinesUpdateForm: SectionFormBase<LineEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = null!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = null!;
     [Inject] private ILineService LineService { get; set; } = null!;
     [Inject] private Redirector Redirector { get; set; } = default!;
-    
+
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = [];
     private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = [];
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = [];
-    
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -40,7 +41,7 @@ public sealed partial class LinesUpdateForm: SectionFormBase<LineEntity>
 
     protected override LineEntity UpdateItemAction() =>
         LineService.Update(DialogItem);
-    
+
 
     protected override Task DeleteItemAction()
     {

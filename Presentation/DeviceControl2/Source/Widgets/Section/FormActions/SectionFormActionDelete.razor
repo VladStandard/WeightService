@@ -2,14 +2,15 @@
 @using DeviceControl2.Source.Shared.Localization;
 @using Microsoft.Extensions.Localization
 
-@inject IStringLocalizer<ApplicationResources> Localizer
 
 <SectionFormAction OnClick="@OnClick" Class="@Css.Class("!bg-destructive !text-destructive-foreground",Class)">
   <TrashIcon class="size-4 mr-2" />
-  @Localizer["ActionMenuDelete"]
+  @Localizer["FormActionDelete"]
 </SectionFormAction>
 
 @code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
   [Parameter] public string Class { get; set; } = string.Empty;
   [Parameter] public EventCallback OnClick { get; set; }
 }

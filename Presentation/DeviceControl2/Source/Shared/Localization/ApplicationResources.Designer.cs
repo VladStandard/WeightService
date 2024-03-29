@@ -38,7 +38,7 @@ namespace DeviceControl2.Source.Shared.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DeviceControl.Resources.ApplicationResources", typeof(ApplicationResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DeviceControl2.Source.Shared.Localization.ApplicationResources", typeof(ApplicationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,33 +62,6 @@ namespace DeviceControl2.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ActionMenuDelete {
-            get {
-                return ResourceManager.GetString("ActionMenuDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ActionMenuReset {
-            get {
-                return ResourceManager.GetString("ActionMenuReset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ActionMenuShare {
-            get {
-                return ResourceManager.GetString("ActionMenuShare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string ApplicationName {
             get {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
@@ -98,693 +71,54 @@ namespace DeviceControl2.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonCancel {
+        internal static string BtnBack {
             get {
-                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+                return ResourceManager.GetString("BtnBack", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonSave {
+        internal static string BtnCancel {
             get {
-                return ResourceManager.GetString("ButtonSave", resourceCulture);
+                return ResourceManager.GetString("BtnCancel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ButtonShare {
+        internal static string BtnSubmit {
             get {
-                return ResourceManager.GetString("ButtonShare", resourceCulture);
+                return ResourceManager.GetString("BtnSubmit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ContextMenuDelete {
+        internal static string DataGridContextMenuDelete {
             get {
-                return ResourceManager.GetString("ContextMenuDelete", resourceCulture);
+                return ResourceManager.GetString("DataGridContextMenuDelete", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ContextMenuOpen {
+        internal static string DataGridContextMenuOpenInDialog {
             get {
-                return ResourceManager.GetString("ContextMenuOpen", resourceCulture);
+                return ResourceManager.GetString("DataGridContextMenuOpenInDialog", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ContextMenuOpenInNewTab {
+        internal static string DataGridContextMenuOpenInNewTab {
             get {
-                return ResourceManager.GetString("ContextMenuOpenInNewTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnActive {
-            get {
-                return ResourceManager.GetString("DataGridColumnActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnAddress {
-            get {
-                return ResourceManager.GetString("DataGridColumnAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnApp {
-            get {
-                return ResourceManager.GetString("DataGridColumnApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnBoxWeight {
-            get {
-                return ResourceManager.GetString("DataGridColumnBoxWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnBrand {
-            get {
-                return ResourceManager.GetString("DataGridColumnBrand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnBundle {
-            get {
-                return ResourceManager.GetString("DataGridColumnBundle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnChangeDt {
-            get {
-                return ResourceManager.GetString("DataGridColumnChangeDt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnClip {
-            get {
-                return ResourceManager.GetString("DataGridColumnClip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnCode {
-            get {
-                return ResourceManager.GetString("DataGridColumnCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnCOM {
-            get {
-                return ResourceManager.GetString("DataGridColumnCOM", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnCount {
-            get {
-                return ResourceManager.GetString("DataGridColumnCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnCounter {
-            get {
-                return ResourceManager.GetString("DataGridColumnCounter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnCreateDt {
-            get {
-                return ResourceManager.GetString("DataGridColumnCreateDt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnData {
-            get {
-                return ResourceManager.GetString("DataGridColumnData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnDatabaseTables {
-            get {
-                return ResourceManager.GetString("DataGridColumnDatabaseTables", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnDescription {
-            get {
-                return ResourceManager.GetString("DataGridColumnDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnDevice {
-            get {
-                return ResourceManager.GetString("DataGridColumnDevice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnDeviceIp {
-            get {
-                return ResourceManager.GetString("DataGridColumnDeviceIp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnErrorCounter {
-            get {
-                return ResourceManager.GetString("DataGridColumnErrorCounter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnExpirationDt {
-            get {
-                return ResourceManager.GetString("DataGridColumnExpirationDt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnFile {
-            get {
-                return ResourceManager.GetString("DataGridColumnFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnFIO {
-            get {
-                return ResourceManager.GetString("DataGridColumnFIO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnFirstName {
-            get {
-                return ResourceManager.GetString("DataGridColumnFirstName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnFullName {
-            get {
-                return ResourceManager.GetString("DataGridColumnFullName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnIp {
-            get {
-                return ResourceManager.GetString("DataGridColumnIp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnIsArchival {
-            get {
-                return ResourceManager.GetString("DataGridColumnIsArchival", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnIsDefault {
-            get {
-                return ResourceManager.GetString("DataGridColumnIsDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnIsPiece {
-            get {
-                return ResourceManager.GetString("DataGridColumnIsPiece", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnIsWeight {
-            get {
-                return ResourceManager.GetString("DataGridColumnIsWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnLine {
-            get {
-                return ResourceManager.GetString("DataGridColumnLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnLoginDt {
-            get {
-                return ResourceManager.GetString("DataGridColumnLoginDt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnLogType {
-            get {
-                return ResourceManager.GetString("DataGridColumnLogType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnMaxTemp {
-            get {
-                return ResourceManager.GetString("DataGridColumnMaxTemp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnMessage {
-            get {
-                return ResourceManager.GetString("DataGridColumnMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnMinTemp {
-            get {
-                return ResourceManager.GetString("DataGridColumnMinTemp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnName {
-            get {
-                return ResourceManager.GetString("DataGridColumnName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnNumber {
-            get {
-                return ResourceManager.GetString("DataGridColumnNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPassword {
-            get {
-                return ResourceManager.GetString("DataGridColumnPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPatronymic {
-            get {
-                return ResourceManager.GetString("DataGridColumnPatronymic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPcName {
-            get {
-                return ResourceManager.GetString("DataGridColumnPcName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPercentages {
-            get {
-                return ResourceManager.GetString("DataGridColumnPercentages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPlu {
-            get {
-                return ResourceManager.GetString("DataGridColumnPlu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPluName {
-            get {
-                return ResourceManager.GetString("DataGridColumnPluName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPluNumber {
-            get {
-                return ResourceManager.GetString("DataGridColumnPluNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPort {
-            get {
-                return ResourceManager.GetString("DataGridColumnPort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnPrinter {
-            get {
-                return ResourceManager.GetString("DataGridColumnPrinter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnProductDt {
-            get {
-                return ResourceManager.GetString("DataGridColumnProductDt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnProductionSite {
-            get {
-                return ResourceManager.GetString("DataGridColumnProductionSite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnRequest {
-            get {
-                return ResourceManager.GetString("DataGridColumnRequest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnRequestUrl {
-            get {
-                return ResourceManager.GetString("DataGridColumnRequestUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnResponse {
-            get {
-                return ResourceManager.GetString("DataGridColumnResponse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnRoles {
-            get {
-                return ResourceManager.GetString("DataGridColumnRoles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnRowsCount {
-            get {
-                return ResourceManager.GetString("DataGridColumnRowsCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnScheme {
-            get {
-                return ResourceManager.GetString("DataGridColumnScheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnShelfLifeDays {
-            get {
-                return ResourceManager.GetString("DataGridColumnShelfLifeDays", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnSize {
-            get {
-                return ResourceManager.GetString("DataGridColumnSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnStorage {
-            get {
-                return ResourceManager.GetString("DataGridColumnStorage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnSuccessCounter {
-            get {
-                return ResourceManager.GetString("DataGridColumnSuccessCounter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnSurname {
-            get {
-                return ResourceManager.GetString("DataGridColumnSurname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnTable {
-            get {
-                return ResourceManager.GetString("DataGridColumnTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnTableCount {
-            get {
-                return ResourceManager.GetString("DataGridColumnTableCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnTareWeight {
-            get {
-                return ResourceManager.GetString("DataGridColumnTareWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnTemplate {
-            get {
-                return ResourceManager.GetString("DataGridColumnTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnTitle {
-            get {
-                return ResourceManager.GetString("DataGridColumnTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnType {
-            get {
-                return ResourceManager.GetString("DataGridColumnType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnUID {
-            get {
-                return ResourceManager.GetString("DataGridColumnUID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnUID1C {
-            get {
-                return ResourceManager.GetString("DataGridColumnUID1C", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnVersion {
-            get {
-                return ResourceManager.GetString("DataGridColumnVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnWarehouse {
-            get {
-                return ResourceManager.GetString("DataGridColumnWarehouse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridColumnWeight {
-            get {
-                return ResourceManager.GetString("DataGridColumnWeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DataGridNoResult {
-            get {
-                return ResourceManager.GetString("DataGridNoResult", resourceCulture);
+                return ResourceManager.GetString("DataGridContextMenuOpenInNewTab", resourceCulture);
             }
         }
         
@@ -800,9 +134,144 @@ namespace DeviceControl2.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string FormActionDelete {
+            get {
+                return ResourceManager.GetString("FormActionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionLock {
+            get {
+                return ResourceManager.GetString("FormActionLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionRelogin {
+            get {
+                return ResourceManager.GetString("FormActionRelogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionReset {
+            get {
+                return ResourceManager.GetString("FormActionReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionShare {
+            get {
+                return ResourceManager.GetString("FormActionShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionsTitle {
+            get {
+                return ResourceManager.GetString("FormActionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormActionUnlock {
+            get {
+                return ResourceManager.GetString("FormActionUnlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormEmptyItemPlaceholder {
+            get {
+                return ResourceManager.GetString("FormEmptyItemPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormPrinterControl {
+            get {
+                return ResourceManager.GetString("FormPrinterControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormPrinterDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormPrinterDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormProductionSiteDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormProductionSiteDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormSelectEmptyDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormSelectEmptyDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormSelectSearchDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormSelectSearchDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FormWarehouseDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormWarehouseDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string HomeMsgDescription {
             get {
                 return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InputDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("InputDefaultPlaceholder", resourceCulture);
             }
         }
         
@@ -875,6 +344,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         internal static string MenuOperations {
             get {
                 return ResourceManager.GetString("MenuOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MenuPrintSettings {
+            get {
+                return ResourceManager.GetString("MenuPrintSettings", resourceCulture);
             }
         }
         
@@ -965,87 +443,6 @@ namespace DeviceControl2.Source.Shared.Localization {
         internal static string SectionDatabase {
             get {
                 return ResourceManager.GetString("SectionDatabase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormInputEmpty {
-            get {
-                return ResourceManager.GetString("SectionFormInputEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormInputTextPlaceholder {
-            get {
-                return ResourceManager.GetString("SectionFormInputTextPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormPlatformDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormPlatformDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormPrinterControl {
-            get {
-                return ResourceManager.GetString("SectionFormPrinterControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormPrinterDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormPrinterDefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormRelogin {
-            get {
-                return ResourceManager.GetString("SectionFormRelogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormSearch {
-            get {
-                return ResourceManager.GetString("SectionFormSearch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormSelectEmpty {
-            get {
-                return ResourceManager.GetString("SectionFormSelectEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string SectionFormWarehouseDefaultName {
-            get {
-                return ResourceManager.GetString("SectionFormWarehouseDefaultName", resourceCulture);
             }
         }
         
@@ -1244,15 +641,6 @@ namespace DeviceControl2.Source.Shared.Localization {
         internal static string ToastUrlCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string UtilsSizeMb {
-            get {
-                return ResourceManager.GetString("UtilsSizeMb", resourceCulture);
             }
         }
     }

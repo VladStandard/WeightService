@@ -14,7 +14,7 @@
 >
   <FieldsContent>
     <SectionTextField
-      Label="Название"
+      Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
     />
@@ -27,7 +27,7 @@
 
     <SectionSelectSingleField
       TItem="PrinterTypeEnum"
-      Label="Тип"
+      Label="@WsDataLocalizer["ColType"]"
       Items="PrinterTypesEntities"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
@@ -36,7 +36,7 @@
 
     <SectionSelectSingleField
       TItem="ProductionSiteEntity"
-      Label="Площадка"
+      Label="@WsDataLocalizer["ColProductionSite"]"
       Items="ProductionSites"
       @bind-Value="@DialogItem.ProductionSite"
       ItemDisplayName="item => item.Name"

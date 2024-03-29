@@ -162,4 +162,28 @@
     <data name="ColLabel" xml:space="preserve">
         <value>Этикетка</value>
     </data>
+    <data name="ColVersion" xml:space="preserve">
+        <value>Версия</value>
+    </data>
+    <data name="ColProductionSite" xml:space="preserve">
+        <value>Площадка</value>
+    </data>
+    <data name="ColShelfLifeDays" xml:space="preserve">
+        <value>Срок годности</value>
+    </data>
+    <data name="ColStatus" xml:space="preserve">
+        <value>Статус</value>
+    </data>
+    <data name="ColPrinter" xml:space="preserve">
+        <value>Принтер</value>
+    </data>
+    <data name="ColPort" xml:space="preserve">
+        <value>Порт</value>
+    </data>
+    <data name="ColStorageMethod" xml:space="preserve">
+        <value>Способ хранения</value>
+    </data>
+    <data name="ColTemplate" xml:space="preserve">
+        <value>Шаблон</value>
+    </data>
 </root>

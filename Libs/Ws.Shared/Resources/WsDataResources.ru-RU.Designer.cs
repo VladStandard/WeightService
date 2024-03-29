@@ -38,7 +38,7 @@ namespace Ws.Shared.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.SharedUI.Resources.WsDataResources.ru-RU", typeof(WsDataResources_ru_RU).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ws.Shared.Resources.WsDataResources.ru-RU", typeof(WsDataResources_ru_RU).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -429,6 +429,60 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Порт.
+        /// </summary>
+        public static string ColPort {
+            get {
+                return ResourceManager.GetString("ColPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Принтер.
+        /// </summary>
+        public static string ColPrinter {
+            get {
+                return ResourceManager.GetString("ColPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Площадка.
+        /// </summary>
+        public static string ColProductionSite {
+            get {
+                return ResourceManager.GetString("ColProductionSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Срок годности.
+        /// </summary>
+        public static string ColShelfLifeDays {
+            get {
+                return ResourceManager.GetString("ColShelfLifeDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статус.
+        /// </summary>
+        public static string ColStatus {
+            get {
+                return ResourceManager.GetString("ColStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Способ хранения.
+        /// </summary>
+        public static string ColStorageMethod {
+            get {
+                return ResourceManager.GetString("ColStorageMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Таблицы.
         /// </summary>
         public static string ColTables {
@@ -447,6 +501,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Шаблон.
+        /// </summary>
+        public static string ColTemplate {
+            get {
+                return ResourceManager.GetString("ColTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Тип.
         /// </summary>
         public static string ColType {
@@ -461,6 +524,15 @@ namespace Ws.Shared.Resources {
         public static string ColUser {
             get {
                 return ResourceManager.GetString("ColUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Версия.
+        /// </summary>
+        public static string ColVersion {
+            get {
+                return ResourceManager.GetString("ColVersion", resourceCulture);
             }
         }
         
