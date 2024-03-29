@@ -3,7 +3,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.WebApiScales.Features.Plus.Dto;
+namespace Ws.PalychExchangeApi.Features.Plus.Dto;
 
 [Serializable]
 public sealed class PluDto : IXmlSerializable
@@ -16,13 +16,19 @@ public sealed class PluDto : IXmlSerializable
     public int Number { get; set; }
     public short BundleCount { get; set; }
     public int ShelfLifeDays { get; set; }
+
+    #region Fk
+
     public Guid BrandUid { get; set; }
     public Guid BoxUid { get; set; }
     public Guid ClipUid { get; set; }
     public Guid BundleUid { get; set; }
+
+    #endregion
+
     public string Ean13 { get; set; } = string.Empty;
     public string Itf14 { get; set; } = string.Empty;
-    public bool IsCheckWeight { get; set; }
+    public bool IsWeight { get; set; }
     public string StorageMethod { get; set; } = string.Empty;
 
     #region IXmlSerializable
@@ -33,7 +39,7 @@ public sealed class PluDto : IXmlSerializable
     {
         Uid = ParseGuidOrDefault(reader, nameof(Uid));
         IsDelete = ParseBoolOrDefault(reader, nameof(IsDelete));
-        IsCheckWeight = ParseBoolOrDefault(reader, nameof(IsCheckWeight));
+        IsWeight = ParseBoolOrDefault(reader, nameof(IsWeight));
 
         BrandUid = ParseGuidOrDefault(reader, nameof(BrandUid));
         BoxUid = ParseGuidOrDefault(reader, nameof(BoxUid));

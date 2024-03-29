@@ -2,7 +2,7 @@ using System.Xml.Serialization;
 
 namespace Ws.PalychExchangeApi.Features.Clips.Dto;
 
-[XmlRoot("Clip")]
+[XmlRoot("Clips")]
 public sealed class ClipsWrapper
 {
     [XmlElement("Clip")]

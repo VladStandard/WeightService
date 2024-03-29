@@ -1,0 +1,7 @@
+﻿POST https://palych-exchange-dev.kolbasa-vs.local/api/clips/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Clips>
+    <Clip Uid="52471ffc-972e-11e2-ba6d-90e6ba17bdd7" Name="яКлипсы В-3" Weight="0.02"/>
+</Clips>

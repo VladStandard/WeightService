@@ -1,4 +1,4 @@
-﻿POST https://localhost:7298/api/boxes/load
+﻿POST https://palych-exchange-dev.kolbasa-vs.local/api/boxes/load
 Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -6,5 +6,4 @@ Content-Type: application/xml
     <Box Uid="ac0b41c5-04f5-4c87-ad75-dc11f01c421e" Name="Коробка №22 260 грамм (380*150*120 Чудо- печка)" Weight="0.510" />
     <Box Uid="c77cbc2b-3cac-11ec-bd12-00155df8551b" Name="Коробка №16 200 грамм (235*195*150)" Weight="0.125" />
     <Box Uid="f5864c4a-06a9-4b9e-b960-c0e54318e000" Name="Коробка №22 260 грамм (380*150*120 Чудо- печка)" Weight="0.510" />
-    <Box Uid="7c6b3ce1-403c-4cdb-96d4-9a9310bd1093" Name="ФЕУЕУ" Weight="0.510" />
 </Boxes>

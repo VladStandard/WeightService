@@ -1,5 +1,4 @@
 using System.Xml.Serialization;
-using Ws.WebApiScales.Features.Plus.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Dto;
 

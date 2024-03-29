@@ -1,7 +1,8 @@
-﻿POST https://localhost:7298/api/bundles/load
+﻿POST https://palych-exchange-dev.kolbasa-vs.local/api/bundles/load
 Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>
 <Bundles>
     <Bundle Uid="d29f442b-93ef-11e9-a217-a4bf0139eb1b" Name="Коробка №5 400 грамм (400*300*200)" Weight="0.35" />
+    <Bundle Uid="7bc510aa-04ce-11ec-bd11-00155df8551b" Name="Пакет 3  грамм" Weight="0.003"/>
 </Bundles>

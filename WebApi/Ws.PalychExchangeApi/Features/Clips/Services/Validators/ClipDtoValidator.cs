@@ -9,7 +9,7 @@ public class ClipDtoValidator : AbstractValidator<ClipDto>
     public ClipDtoValidator()
     {
         RuleFor(dto => dto.Uid)
-            .NotEmpty().WithMessage("'UID' обязателен");
+            .NotEqual(Guid.Empty).WithMessage("'UID' обязателен");
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("'Наименование' обязательно")
             .MaximumLength(64).WithMessage("'Наименование' не должно превышать 64 символов.");

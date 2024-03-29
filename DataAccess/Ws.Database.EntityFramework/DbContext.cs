@@ -47,7 +47,7 @@ public class WsDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=172.16.2.5;Database=WEIGHT;User Id=Developer;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
+        optionsBuilder.UseSqlServer("Server=CREATIO\\INS1;Database=WEIGHT;User Id=DEVOLOPER;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
         optionsBuilder.AddInterceptors(new ChangeDtInterceptor());
 
         if (ConfigurationUtil.IsDevelop)

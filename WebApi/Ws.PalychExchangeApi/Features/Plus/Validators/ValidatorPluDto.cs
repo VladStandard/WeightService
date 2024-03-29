@@ -1,5 +1,5 @@
 using FluentValidation;
-using Ws.WebApiScales.Features.Plus.Dto;
+using Ws.PalychExchangeApi.Features.Plus.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Validators;
 
@@ -8,7 +8,7 @@ internal sealed class ValidatorPluDto : AbstractValidator<PluDto>
     public ValidatorPluDto()
     {
         RuleFor(dto => dto.Uid)
-            .NotEmpty().WithMessage("'UID' обязателен");
+            .NotEqual(Guid.Empty).WithMessage("'UID' обязателен");
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("'Наименование' обязательно")
             .MaximumLength(150).WithMessage("'Наименование' не должно превышать 150 символов");
@@ -33,8 +33,8 @@ internal sealed class ValidatorPluDto : AbstractValidator<PluDto>
         RuleFor(dto => dto.Ean13)
             .Length(13).WithMessage("'Ean13' должен состоять из 13 символов");
         RuleFor(dto => dto.Itf14)
-            .Empty().When(item => item.IsCheckWeight).WithMessage("У весовой ПЛУ 'Itf14' должен отсутствовать")
-            .Length(14).When(item => !item.IsCheckWeight).WithMessage("'Itf14' должен состоять из 14 символов");
+            .Empty().When(item => item.IsWeight).WithMessage("У весовой ПЛУ 'Itf14' должен отсутствовать")
+            .Length(14).When(item => !item.IsWeight).WithMessage("'Itf14' должен состоять из 14 символов");
 
         RuleFor(dto => dto.StorageMethod)
             .Must(value => value is "Замороженное" or "Охлаждённое")
