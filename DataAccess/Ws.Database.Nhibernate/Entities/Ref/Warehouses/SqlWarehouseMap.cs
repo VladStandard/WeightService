@@ -14,7 +14,7 @@ internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Guid);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.CreateDt, m =>
