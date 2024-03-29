@@ -11,9 +11,13 @@ namespace DeviceControl2.Source.Pages.References1C.Plus;
 
 public sealed partial class PlusNestingDataGrid : SectionDataGridPageBase<PluNestingEntity>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IPluService PluService { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IPluService PluService { get; set; } = default!;
+
+    # endregion
 
     [CascadingParameter(Name = "DialogItem")] public PluEntity PluEntity { get; set; } = null!;
 

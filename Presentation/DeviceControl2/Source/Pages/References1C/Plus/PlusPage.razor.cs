@@ -12,10 +12,13 @@ namespace DeviceControl2.Source.Pages.References1C.Plus;
 // ReSharper disable ClassNeverInstantiated.Global
 public sealed partial class PlusPage: SectionDataGridPageBase<PluEntity>
 {
-    [Inject] private IPluService PluService { get; set; } = default!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    # region Injects
 
+    [Inject] private IPluService PluService { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+    # endregion
 
     protected override async Task OpenDataGridEntityModal(PluEntity item)
         => await OpenSectionModal<PlusUpdateDialog>(item);

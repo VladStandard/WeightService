@@ -21,7 +21,7 @@
 </div>
 
 @code {
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Parameter] public bool IsLoading { get; set; }
   [Parameter] public int ItemsCount { get; set; }
 }

@@ -11,9 +11,13 @@ namespace DeviceControl2.Source.Pages.Operations.Labels;
 
 public sealed partial class LabelsUpdateForm: SectionFormBase<LabelEntity>
 {
+    # region Injects
+
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private IPluService PluService { get; set; } = null!;
+    [Inject] private IPluService PluService { get; set; } = default!;
+
+    # endregion
     private TemplateEntity Template { get; set; } = new();
 
     protected override void OnInitialized()

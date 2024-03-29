@@ -1,0 +1,38 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<TemplateEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new TemplatesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      @bind-Value="@DialogItem.Name"
+      Label="@WsDataLocalizer["ColTitle"]"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextAreaField
+      @bind-Value="@DialogItem.Body"
+      Label="@WsDataLocalizer["ColData"]"
+      For="@(() => DialogItem.Body)"
+      IsCopyable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

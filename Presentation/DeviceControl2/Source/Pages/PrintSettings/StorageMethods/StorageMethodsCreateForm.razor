@@ -1,0 +1,28 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<StorageMethodEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new StorageMethodsCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColData"]"
+      @bind-Value="@DialogItem.Zpl"
+      For="@(() => DialogItem.Zpl)"
+    />
+  </FieldsContent>
+</SectionForm>

@@ -14,9 +14,9 @@ public sealed partial class BundlesPage: SectionDataGridPageBase<BundleEntity>
 {
     #region Inject
 
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IBundleService BundleService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IBundleService BundleService { get; set; } = default!;
 
     #endregion
 

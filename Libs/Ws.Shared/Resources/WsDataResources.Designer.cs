@@ -539,6 +539,15 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColTitle {
+            get {
+                return ResourceManager.GetString("ColTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColType {
             get {
                 return ResourceManager.GetString("ColType", resourceCulture);

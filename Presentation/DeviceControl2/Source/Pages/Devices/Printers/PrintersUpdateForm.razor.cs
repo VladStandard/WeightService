@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using DeviceControl2.Source.Pages.References1C.Plus;
 using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
@@ -9,22 +6,23 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
-using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Domain.Services.Features.Template;
-using Ws.Shared.Parsers;
 using Ws.Shared.Resources;
 
 namespace DeviceControl2.Source.Pages.Devices.Printers;
 
 public sealed partial class PrintersUpdateForm: SectionFormBase<PrinterEntity>
 {
+    # region Injects
+
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
+
+    # endregion
 
     private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();

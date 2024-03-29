@@ -5,7 +5,7 @@ namespace DeviceControl2.Source.Shared.UI.Select;
 
 public sealed partial class SelectMultiple<TItem> : ComponentBase, IDisposable where TItem : new()
 {
-    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = new List<TItem>();
     [Parameter, EditorRequired] public IEnumerable<TItem> SelectedItems { get; set; } = [];
@@ -15,7 +15,7 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IDisposable w
     [Parameter] public bool IsFilterable { get; set; }
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
-    
+
     private ElementReference DropdownWrapper { get; set; }
     private bool IsOpen { get; set; }
     private IJSObjectReference Module { get; set; } = null!;

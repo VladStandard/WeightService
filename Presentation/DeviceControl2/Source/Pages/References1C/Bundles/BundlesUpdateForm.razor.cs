@@ -8,5 +8,5 @@ namespace DeviceControl2.Source.Pages.References1C.Bundles;
 
 public sealed partial class BundlesUpdateForm: SectionFormBase<BundleEntity>
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 }

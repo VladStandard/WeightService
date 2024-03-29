@@ -16,11 +16,11 @@ public sealed partial class LinesPage : SectionDataGridPageBase<LineEntity>
 {
     #region Inject
 
-    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = null!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private ILineService LineService { get; set; } = null!;
-    [Inject] private IUserService UserService { get; set; } = null!;
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IUserService UserService { get; set; } = default!;
 
     #endregion
 

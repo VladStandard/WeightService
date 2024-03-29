@@ -510,15 +510,6 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Способы хранения.
-        /// </summary>
-        internal static string SectionPluStorages {
-            get {
-                return ResourceManager.GetString("SectionPluStorages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Принтеры.
         /// </summary>
         internal static string SectionPrinters {
@@ -546,20 +537,29 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Шаблоны.
+        ///   Looks up a localized string similar to Способы хранения.
         /// </summary>
-        internal static string SectionTemplates {
+        internal static string SectionStorageMethods {
             get {
-                return ResourceManager.GetString("SectionTemplates", resourceCulture);
+                return ResourceManager.GetString("SectionStorageMethods", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ресурсы шаблонов.
         /// </summary>
-        internal static string SectionTemplatesResources {
+        internal static string SectionTemplateResources {
             get {
-                return ResourceManager.GetString("SectionTemplatesResources", resourceCulture);
+                return ResourceManager.GetString("SectionTemplateResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Шаблоны.
+        /// </summary>
+        internal static string SectionTemplates {
+            get {
+                return ResourceManager.GetString("SectionTemplates", resourceCulture);
             }
         }
         

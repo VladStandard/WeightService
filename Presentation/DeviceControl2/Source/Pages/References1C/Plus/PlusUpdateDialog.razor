@@ -14,7 +14,7 @@
 </SectionDialog>
 
 @code {
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   protected override List<EnumTypeModel<string>> InitializeTabList() =>
   [

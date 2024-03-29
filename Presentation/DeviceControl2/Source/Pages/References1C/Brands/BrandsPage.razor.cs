@@ -1,4 +1,3 @@
-using DeviceControl2.Source.Pages.References1C.Boxes;
 using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
@@ -15,9 +14,9 @@ public sealed partial class BrandsPage: SectionDataGridPageBase<BrandEntity>
 {
     #region Inject
 
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IBrandService BrandService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IBrandService BrandService { get; set; } = default!;
 
     #endregion
 

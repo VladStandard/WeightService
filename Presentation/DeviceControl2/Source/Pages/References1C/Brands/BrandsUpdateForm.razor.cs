@@ -8,5 +8,5 @@ namespace DeviceControl2.Source.Pages.References1C.Brands;
 
 public sealed partial class BrandsUpdateForm: SectionFormBase<BrandEntity>
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 }

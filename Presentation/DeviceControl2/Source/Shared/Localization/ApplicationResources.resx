@@ -81,10 +81,10 @@
     <data name="SectionTemplates" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionTemplatesResources" xml:space="preserve">
+    <data name="SectionTemplateResources" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionPluStorages" xml:space="preserve">
+    <data name="SectionStorageMethods" xml:space="preserve">
         <value />
     </data>
     <data name="SectionAppsLogs" xml:space="preserve">

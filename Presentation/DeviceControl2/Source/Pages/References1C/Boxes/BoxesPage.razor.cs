@@ -16,10 +16,9 @@ public sealed partial class BoxesPage: SectionDataGridPageBase<BoxEntity>
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IBoxService BoxService { get; set; } = null!;
+    [Inject] private IBoxService BoxService { get; set; } = default!;
 
     # endregion
-
 
     protected override async Task OpenDataGridEntityModal(BoxEntity item)
         => await OpenSectionModal<BoxesUpdateDialog>(item);

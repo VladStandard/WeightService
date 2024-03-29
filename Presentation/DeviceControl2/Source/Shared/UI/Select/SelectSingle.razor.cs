@@ -5,8 +5,8 @@ namespace DeviceControl2.Source.Shared.UI.Select;
 
 public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposable
 {
-    [Inject] private IJSRuntime JsRuntime { get; set; } = null!;
-    
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+
     [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = [];
     [Parameter, EditorRequired] public TItem? SelectedItem { get; set; }
     [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
@@ -16,7 +16,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
-    
+
     private ElementReference DropdownWrapper { get; set; }
     private IJSObjectReference Module { get; set; } = null!;
     private string Id { get; } = $"id-{Guid.NewGuid()}";

@@ -14,9 +14,9 @@ public sealed partial class ClipsPage: SectionDataGridPageBase<ClipEntity>
 {
     #region Inject
 
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IClipService ClipService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IClipService ClipService { get; set; } = default!;
 
     #endregion
 

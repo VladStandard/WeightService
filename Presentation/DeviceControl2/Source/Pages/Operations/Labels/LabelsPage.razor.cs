@@ -13,11 +13,14 @@ namespace DeviceControl2.Source.Pages.Operations.Labels;
 // ReSharper disable ClassNeverInstantiated.Global
 public sealed partial class LabelsPage: SectionDataGridPageBase<ViewLabel>
 {
-    [Inject] private ILabelService LabelService { get; set; } = null!;
-    [Inject] private IDialogService DialogService { get; set; } = default!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    # region Injects
 
+    [Inject] private ILabelService LabelService { get; set; } = default!;
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+    # endregion
 
     protected override async Task OpenDataGridEntityModal(ViewLabel item)
     {

@@ -198,4 +198,7 @@
     <data name="ColWeight" xml:space="preserve">
         <value>Вес</value>
     </data>
+    <data name="ColTitle" xml:space="preserve">
+        <value>Заголовок</value>
+    </data>
 </root>

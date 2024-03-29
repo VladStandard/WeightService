@@ -11,12 +11,12 @@ namespace DeviceControl2.Source.Widgets.NavMenu;
 
 public sealed partial class NavMenu : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Parameter, EditorRequired] public ClaimsPrincipal User { get; set; } = null!;
     private bool IsProduction { get; set; }
 
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    
+
     protected override void OnInitialized()
     {
         IsProduction = !ConfigurationUtil.IsDevelop;
@@ -78,8 +78,8 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
-                new(Localizer["SectionTemplatesResources"], RouteUtils.SectionTemplateResources),
-                new(Localizer["SectionPluStorages"], RouteUtils.SectionStorageMethods)
+                new(Localizer["SectionTemplateResources"], RouteUtils.SectionTemplateResources),
+                new(Localizer["SectionStorageMethods"], RouteUtils.SectionStorageMethods)
             ]
         },
         new()

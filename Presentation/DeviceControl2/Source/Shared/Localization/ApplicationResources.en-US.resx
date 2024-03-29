@@ -78,7 +78,7 @@
     <data name="SectionPLU" xml:space="preserve">
         <value>PLU</value>
     </data>
-    <data name="SectionPluStorages" xml:space="preserve">
+    <data name="SectionStorageMethods" xml:space="preserve">
         <value>PLU Storages</value>
     </data>
     <data name="SectionPrinters" xml:space="preserve">
@@ -87,7 +87,7 @@
     <data name="SectionTemplates" xml:space="preserve">
         <value>Templates</value>
     </data>
-    <data name="SectionTemplatesResources" xml:space="preserve">
+    <data name="SectionTemplateResources" xml:space="preserve">
         <value>Templates Resources</value>
     </data>
     <data name="SectionUsers" xml:space="preserve">

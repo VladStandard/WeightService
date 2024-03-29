@@ -8,5 +8,5 @@ namespace DeviceControl2.Source.Pages.References1C.Clips;
 
 public sealed partial class ClipsUpdateForm: SectionFormBase<ClipEntity>
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 }

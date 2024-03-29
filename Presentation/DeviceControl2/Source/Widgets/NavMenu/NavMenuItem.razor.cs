@@ -7,13 +7,13 @@ namespace DeviceControl2.Source.Widgets.NavMenu;
 
 public sealed partial class NavMenuItem : ComponentBase
 {
-    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
     [Parameter, EditorRequired] public string Icon { get; set; } = HeroiconName.Home;
     [Parameter, EditorRequired] public IEnumerable<NavMenuItemModel> Items { get; set; } = new List<NavMenuItemModel>();
     [Parameter, EditorRequired] public string? RequiredClaim { get; set; }
-    
+
     private bool IsOpened { get; set; }
     private bool IsProduction { get; set; }
 

@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Net;
 using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
@@ -10,7 +8,6 @@ using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Printer;
-using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Warehouse;
 using Ws.Shared.Resources;
 
@@ -18,12 +15,16 @@ namespace DeviceControl2.Source.Pages.Devices.Lines;
 
 public sealed partial class LinesCreateForm: SectionFormBase<LineEntity>
 {
+    # region Injects
+
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
     [Inject] private ILineService LineService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
+
+    # endregion
 
     private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = new List<PrinterEntity>();
     private IEnumerable<WarehouseEntity> WarehousesEntities { get; set; } = new List<WarehouseEntity>();
