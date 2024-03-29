@@ -8,5 +8,5 @@ public abstract class EfEntityBase
     public Guid Id { get; protected set; }
 
     [NotMapped] public bool IsExists => !IsNew;
-    [NotMapped] public bool IsNew => Id.Equals(Guid.Empty);
+    [NotMapped] public virtual bool IsNew => Id.Equals(Guid.Empty);
 }

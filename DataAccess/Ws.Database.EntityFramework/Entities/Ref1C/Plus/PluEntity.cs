@@ -2,18 +2,13 @@ using Ws.Database.EntityFramework.Entities.Ref.PluResources;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 [Table(SqlTables.Plus)]
 [Index(nameof(Number), Name = $"UQ_{SqlTables.Lines}_NUMBER", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.Plus}_UID_1C", IsUnique = true)]
 public sealed class PluEntity : EfEntityBase
 {
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
-
     [Column(SqlColumns.Name)]
     [StringLength(100, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]
     public string Name { get; set; } = string.Empty;
@@ -28,7 +23,7 @@ public sealed class PluEntity : EfEntityBase
 
     [Column("NUMBER")]
     [Range(100, 999, ErrorMessage = "Number must be between 100 and 999")]
-    public int Number { get; set; }
+    public short Number { get; set; }
 
     [Column("SHELF_LIFE_DAYS")]
     public byte ShelfLifeDays { get; set; }
@@ -44,18 +39,19 @@ public sealed class PluEntity : EfEntityBase
     [Column("IS_WEIGHT")]
     public bool IsWeight { get; set; }
 
-    [ForeignKey("BUNDLE_UID")]
+    [ForeignKey("BUNDLE_UID"), Column("BUNDLE_UID")]
+    public Guid BundleEntityId { get; set; }
     public BundleEntity Bundle { get; set; } = new();
 
-    [ForeignKey("BRAND_UID")]
+    [ForeignKey("BRAND_UID"), Column("BRAND_UID")]
+    public Guid BrandEntityId { get; set; }
     public BrandEntity Brand { get; set; } = new();
 
-    [ForeignKey("CLIP_UID")]
+    [ForeignKey("CLIP_UID"), Column("CLIP_UID")]
+    public Guid ClipEntityId { get; set; }
     public ClipEntity Clip { get; set; } = new();
 
     public PluResourceEntity Resource { get; set; } = new();
-
-    public ICollection<PluNestingEntity> Nestings { get; set; } = [];
 
     #region Date
 
@@ -64,6 +60,15 @@ public sealed class PluEntity : EfEntityBase
 
     #endregion
 
+    public PluEntity() { }
+
+    public PluEntity(Guid uid, DateTime updateDt)
+    {
+        Id = uid;
+        ChangeDt = updateDt;
+    }
+
+    // public ICollection<PluNestingEntity> Nestings { get; set; } = [];
     // public virtual ICollection<Label> Labels { get; set; } = new List<Label>();
     //
     // public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();

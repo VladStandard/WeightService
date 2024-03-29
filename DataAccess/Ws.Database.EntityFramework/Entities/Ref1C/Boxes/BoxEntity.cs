@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 [Table(SqlTables.Boxes)]
@@ -20,7 +18,7 @@ public sealed class BoxEntity : EfEntityBase
 
     #endregion
 
-    public ICollection<PluNestingEntity> PlusNestingFks { get; set; } = [];
+    // public ICollection<PluNestingEntity> PlusNestingFks { get; set; } = [];
 
     public BoxEntity() { }
 

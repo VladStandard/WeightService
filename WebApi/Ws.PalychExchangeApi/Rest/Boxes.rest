@@ -1,4 +1,4 @@
-﻿POST https://palych-exchange-dev.kolbasa-vs.local/api/boxes/load
+﻿POST {{url}}/api/boxes/load
 Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>

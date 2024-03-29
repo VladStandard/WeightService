@@ -1,4 +1,4 @@
-﻿POST https://palych-exchange-dev.kolbasa-vs.local/api/brands/load
+﻿POST {{url}}/api/brands/load
 Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>

@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
 namespace Ws.Database.EntityFramework;
 
@@ -8,12 +8,9 @@ public abstract class Program
     {
         using (WsDbContext db = new())
         {
-            BoxEntity boxEntity = new()
-            {
-                Name = "Hello3",
-                Weight = 1000m
-            };
-            db.Add(boxEntity);
+            BundleEntity boxEntity = db.Bundles.Find(Guid.Empty) ?? new();
+            boxEntity.Name = "Test";
+            db.Update(boxEntity);
             db.SaveChanges();
         }
     }

@@ -12,6 +12,8 @@ public sealed class BundleEntity : EfEntityBase
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
 
+    [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
+
     #region Date
 
     public DateTime CreateDt { get; init; }
