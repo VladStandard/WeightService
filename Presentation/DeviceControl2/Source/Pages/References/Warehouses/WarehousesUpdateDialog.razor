@@ -1,12 +1,12 @@
 @using DeviceControl2.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
 @using Ws.Shared.Enums
-@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.BoxEntity>
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="main">
-    <BoxesUpdateForm />
+    <WarehousesUpdateForm />
   </Tab>
 </SectionDialog>
 
@@ -15,6 +15,6 @@
 
   protected override List<EnumTypeModel<string>> InitializeTabList() =>
   [
-    new(Localizer["SectionBoxes"], "main"),
+    new(Localizer["SectionWarehouses"], "main"),
   ];
 }

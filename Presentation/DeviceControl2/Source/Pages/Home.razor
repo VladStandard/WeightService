@@ -1,12 +1,9 @@
 @attribute [Route(RouteUtils.Home)]
-@using DeviceControl2.Source.Widgets.Tests
 @rendermode InteractiveServer
 
 <div class="flex flex-col size-full items-center gap-2 justify-center">
-  @* <div class="text-center font-light text-lg"> *@
-  @*   <span>@Localizer["ApplicationName"]</span> *@
-  @*   <span>@Localizer["HomeMsgDescription"]</span> *@
-  @* </div> *@
-  <TestMultiSelect />
-  <InputNumberField TValue="int" Value="100" Class="!w-52" />
+  <div class="text-center font-light text-lg">
+    <span>@Localizer["ApplicationName"]</span>
+    <span>@Localizer["HomeMsgDescription"]</span>
+  </div>
 </div>

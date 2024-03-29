@@ -141,7 +141,7 @@
     <data name="ToastUrlCopyToClipboard" xml:space="preserve">
         <value>Url copied to clipboard</value>
     </data>
-    <data name="ToastAddItem" xml:space="preserve">
+    <data name="ToastCreateItem" xml:space="preserve">
         <value>The item was created</value>
     </data>
     <data name="ToastDeleteItem" xml:space="preserve">

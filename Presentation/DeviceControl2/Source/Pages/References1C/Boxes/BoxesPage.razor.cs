@@ -1,4 +1,3 @@
-using DeviceControl2.Source.Pages.References1C.Plus;
 using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
@@ -13,9 +12,13 @@ namespace DeviceControl2.Source.Pages.References1C.Boxes;
 // ReSharper disable ClassNeverInstantiated.Global
 public sealed partial class BoxesPage: SectionDataGridPageBase<BoxEntity>
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IBoxService BoxService { get; set; } = null!;
+
+    # endregion
 
 
     protected override async Task OpenDataGridEntityModal(BoxEntity item)

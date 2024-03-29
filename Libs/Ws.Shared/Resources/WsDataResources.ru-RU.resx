@@ -94,7 +94,7 @@
         <value>Мин температура</value>
     </data>
     <data name="ColName" xml:space="preserve">
-        <value>Имя</value>
+        <value>Название</value>
     </data>
     <data name="ColMessage" xml:space="preserve">
         <value>Сообщение</value>

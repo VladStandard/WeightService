@@ -312,7 +312,7 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя.
+        ///   Looks up a localized string similar to Название.
         /// </summary>
         public static string ColName {
             get {

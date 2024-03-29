@@ -602,18 +602,18 @@ namespace DeviceControl2.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ToastAddItem {
+        internal static string ToastCopyToClipboard {
             get {
-                return ResourceManager.GetString("ToastAddItem", resourceCulture);
+                return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ToastCopyToClipboard {
+        internal static string ToastCreateItem {
             get {
-                return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
+                return ResourceManager.GetString("ToastCreateItem", resourceCulture);
             }
         }
         

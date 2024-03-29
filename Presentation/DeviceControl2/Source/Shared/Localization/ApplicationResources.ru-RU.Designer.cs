@@ -600,20 +600,20 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Объект успешно создан.
-        /// </summary>
-        internal static string ToastAddItem {
-            get {
-                return ResourceManager.GetString("ToastAddItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Значение сохранено в буфер обмена.
         /// </summary>
         internal static string ToastCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Объект успешно создан.
+        /// </summary>
+        internal static string ToastCreateItem {
+            get {
+                return ResourceManager.GetString("ToastCreateItem", resourceCulture);
             }
         }
         
