@@ -195,4 +195,7 @@
     <data name="ColPluNumber" xml:space="preserve">
         <value />
     </data>
+    <data name="ColWeight" xml:space="preserve">
+        <value />
+    </data>
 </root>

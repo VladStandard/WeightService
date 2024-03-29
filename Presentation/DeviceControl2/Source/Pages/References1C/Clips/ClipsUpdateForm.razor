@@ -1,0 +1,35 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.ClipEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="DialogItem.ChangeDt"
+  CreateDate="DialogItem.CreateDt"
+>
+  <FieldsContent>
+    <SectionGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="UID 1C"
+      Value="@DialogItem.Uid1C"
+      IsCopyable
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColName"]"
+      Value="@DialogItem.Name"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColWeight"]"
+      Value="DialogItem.Weight"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionClips}/{DialogItem.Uid}")" />
+  </ActionsContent>
+</SectionForm>

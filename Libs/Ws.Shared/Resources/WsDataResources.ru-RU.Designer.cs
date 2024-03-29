@@ -573,6 +573,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вес.
+        /// </summary>
+        public static string ColWeight {
+            get {
+                return ResourceManager.GetString("ColWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to кг.
         /// </summary>
         public static string MeasureKg {

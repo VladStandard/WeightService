@@ -1,0 +1,44 @@
+@using Ws.Domain.Models.Entities.Ref1c
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.DataGridActions
+
+@inherits DeviceControl2.Source.Widgets.Section.SectionDataGridPageBase<BundleEntity>
+@attribute [Route($"{RouteUtils.SectionBundles}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionBundles"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="BundleEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(BundleEntity.ChangeDt)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(BundleEntity.Name)"
+        Width="60%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWeight"]"
+        Field="@nameof(BundleEntity.Weight)"
+        Width="20%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

@@ -33,7 +33,7 @@
         @Localizer["BtnCancel"]
       </Button>
     }
-    @if (OnSubmitAction != null)
+    @if (OnSubmitAction.HasDelegate)
     {
       <Button
         Variant="ButtonVariant.Secondary"
@@ -51,6 +51,6 @@
 
   [Parameter] public DateTime? CreateDate { get; set; }
   [Parameter] public DateTime? ChangeDate { get; set; }
-  [Parameter] public EventCallback? OnSubmitAction { get; set; }
+  [Parameter] public EventCallback OnSubmitAction { get; set; }
   [Parameter] public EventCallback OnCancelAction { get; set; }
 }
