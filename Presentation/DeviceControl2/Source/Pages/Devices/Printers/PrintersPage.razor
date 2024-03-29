@@ -1,4 +1,3 @@
-@using DeviceControl2.Source.Features
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
@@ -10,7 +9,7 @@
 
 <PageHeader>
   <span>@Localizer["SectionPrinters"]</span>
-  <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
 </PageHeader>

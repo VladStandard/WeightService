@@ -186,4 +186,13 @@
     <data name="ColTemplate" xml:space="preserve">
         <value>Шаблон</value>
     </data>
+    <data name="ColProductDt" xml:space="preserve">
+        <value>Дата производства</value>
+    </data>
+    <data name="ColPluName" xml:space="preserve">
+        <value>Имя ПЛУ</value>
+    </data>
+    <data name="ColPluNumber" xml:space="preserve">
+        <value>Номер ПЛУ</value>
+    </data>
 </root>

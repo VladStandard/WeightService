@@ -1,0 +1,60 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl2.Source.Shared.Auth.Policies
+
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.LabelEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  CreateDate="DialogItem.CreateDt"
+>
+  <FieldsContent>
+    <SectionGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetPluTypeName(DialogItem.Plu.IsCheckWeight)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColLine"]"
+      Value="@DialogItem.Line.Name"
+      Path="@Redirector.ToPath(DialogItem.Line, User)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColPlu"]"
+      Value="@DialogItem.Plu.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Plu)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColTemplate"]"
+      Value="@Template.Name"
+      Path="@Redirector.ToPath(Template, User)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductDt"]"
+      Value="@DialogItem.ProductDt"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColExpirationDt"]"
+      Value="@DialogItem.ExpirationDt"
+    />
+
+    <AuthorizeView Policy="@PolicyEnum.Admin">
+      <SectionTextAreaField
+        Label="Zpl"
+        Value="@DialogItem.Zpl"
+        IsCopyable
+      />
+    </AuthorizeView>
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLabels}/{DialogItem.Uid}")" />
+  </ActionsContent>
+</SectionForm>

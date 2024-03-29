@@ -20,25 +20,41 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     protected bool IsLoading { get; set; } = true;
     private bool IsFirstLoading { get; set; } = true;
     private IJSObjectReference? Module { get; set; }
+    protected DialogParameters DialogParameters { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         await GetSectionData();
         IsLoading = false;
+        DialogParameters = new() {
+            OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
+                {
+                    if (Module == null) return;
+                    await Module.InvokeVoidAsync("animateDialogClosing", instance.Id);
+                }
+            ),
+            OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
+                {
+                    if (Module == null) return;
+                    await Module.InvokeVoidAsync("animateDialogOpening", instance.Id);
+                }
+            ),
+            OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback)
+        };
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender) return;   
+        if (!firstRender) return;
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
     }
 
     protected virtual IEnumerable<TItem> SetSqlSectionCast() =>
         throw new NotImplementedException();
-    
+
     protected virtual IEnumerable<TItem> SetSqlSearchingCast() =>
         throw new NotImplementedException();
-    
+
     protected virtual Task OpenDataGridEntityModal(TItem item) =>
         throw new NotImplementedException();
 
@@ -47,13 +63,13 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
 
     protected virtual Task OpenItemInNewTab(TItem item) =>
         throw new NotImplementedException();
-    
+
     protected virtual Task DeleteItemAction(TItem item) =>
         throw new NotImplementedException();
 
     protected async Task OpenLinkInNewTab(string url) =>
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
-    
+
     protected async Task ContextFuncWrapper(TItem? item, EventCallback onComplete, Func<TItem, Task> action)
     {
         await onComplete.InvokeAsync();
@@ -62,32 +78,18 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     }
 
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
-        await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem>{ Item = sectionEntity }, new()
-            { 
-                OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                    {
-                        if (Module == null) return;
-                        await Module.InvokeVoidAsync("animateDialogClosing", instance.Id);
-                    }
-                ),
-                OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                    {
-                        if (Module == null) return;
-                        await Module.InvokeVoidAsync("animateDialogOpening", instance.Id);
-                    }
-                ), 
-                OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback) 
-            });
-    
+        await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem> { Item = sectionEntity },
+            DialogParameters);
+
 
     private Task HandleDialogCallback(DialogResult result)
     {
         if (result.Cancelled || result.Data is not SectionDialogContent<TItem> dialogResult) return Task.CompletedTask;
         TItem item = dialogResult.Item;
-        
+
         switch (dialogResult.DataAction)
         {
-            case SectionDialogResultEnum.Delete: 
+            case SectionDialogResultEnum.Delete:
                 SectionItems = SectionItems.Where(entity => entity.Uid != item.Uid);
                 break;
             case SectionDialogResultEnum.Update:
@@ -108,12 +110,12 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     protected async Task UpdateData()
     {
         if (IsLoading) return;
-        
+
         IsLoading = true;
         StateHasChanged();
 
         await GetSectionData();
-        
+
         IsLoading = false;
         StateHasChanged();
     }
@@ -146,7 +148,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
 
         SectionItems = await Task.Run(SetSqlSectionCast);
     }
-    
+
     public async ValueTask DisposeAsync()
     {
         try

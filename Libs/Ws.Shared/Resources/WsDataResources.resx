@@ -186,4 +186,13 @@
     <data name="ColTemplate" xml:space="preserve">
         <value />
     </data>
+    <data name="ColProductDt" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColPluName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColPluNumber" xml:space="preserve">
+        <value />
+    </data>
 </root>

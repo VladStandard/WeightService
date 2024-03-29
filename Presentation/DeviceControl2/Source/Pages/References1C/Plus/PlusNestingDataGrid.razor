@@ -1,5 +1,4 @@
 @using Ws.Domain.Models.Entities.Scale
-@using DeviceControl2.Source.Features
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.DataGridActions
 @using Blazor.Heroicons.Solid
@@ -8,7 +7,7 @@
 
 <PageHeader>
   <span>@Localizer["SectionPluNestings"]</span>
-  <ItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
 </PageHeader>
 

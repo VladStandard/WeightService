@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Services;
+using Ws.Labels.Service;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNe
 builder.Services.AddAuthorization(PolicyAuthUtils.RegisterAuthorization);
 builder.Services.AddLocalization();
 builder.Services.AddDomainServices();
+builder.Services.AddLabelsServices();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<Redirector>();

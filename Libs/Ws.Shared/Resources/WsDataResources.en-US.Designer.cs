@@ -411,6 +411,24 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLU name.
+        /// </summary>
+        public static string ColPluName {
+            get {
+                return ResourceManager.GetString("ColPluName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLU number.
+        /// </summary>
+        public static string ColPluNumber {
+            get {
+                return ResourceManager.GetString("ColPluNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Piece.
         /// </summary>
         public static string ColPluPiece {
@@ -443,6 +461,15 @@ namespace Ws.Shared.Resources {
         public static string ColPrinter {
             get {
                 return ResourceManager.GetString("ColPrinter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product date.
+        /// </summary>
+        public static string ColProductDt {
+            get {
+                return ResourceManager.GetString("ColProductDt", resourceCulture);
             }
         }
         
