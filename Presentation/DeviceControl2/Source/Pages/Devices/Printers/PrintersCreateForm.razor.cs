@@ -5,7 +5,6 @@ using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
 using FluentValidation;
-using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -37,11 +36,8 @@ public sealed partial class PrintersCreateForm: SectionFormBase<PrinterEntity>
         ProductionSites = ProductionSiteService.GetAll();
     }
 
-    protected override PrinterEntity CreateItemAction()
-    {
-        PrinterEntity item = PrinterService.Create(DialogItem);
-        return item;
-    }
+    protected override PrinterEntity CreateItemAction(PrinterEntity item) =>
+        PrinterService.Create(item);
 }
 
 public class PrintersCreateFormValidator : AbstractValidator<PrinterEntity>

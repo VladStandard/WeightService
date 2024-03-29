@@ -368,6 +368,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string NavMenuDeveloperVersion {
+            get {
+                return ResourceManager.GetString("NavMenuDeveloperVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string Section1CLogs {
             get {
                 return ResourceManager.GetString("Section1CLogs", resourceCulture);

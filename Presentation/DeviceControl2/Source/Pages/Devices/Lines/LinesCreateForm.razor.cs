@@ -44,8 +44,8 @@ public sealed partial class LinesCreateForm: SectionFormBase<LineEntity>
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
     }
 
-    protected override LineEntity CreateItemAction() =>
-        LineService.Create(DialogItem);
+    protected override LineEntity CreateItemAction(LineEntity item) =>
+        LineService.Create(item);
 }
 
 public class LinesCreateFormValidator : AbstractValidator<LineEntity>

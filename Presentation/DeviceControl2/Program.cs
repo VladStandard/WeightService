@@ -39,7 +39,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.UseRequestLocalization("en-US");
+app.UseRequestLocalization("ru-RU");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

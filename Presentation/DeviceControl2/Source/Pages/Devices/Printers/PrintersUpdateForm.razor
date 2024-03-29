@@ -29,7 +29,7 @@
     />
 
     <SectionIpField
-      Label="@($"IP ${Localizer["FormPrinterControl"]}")"
+      Label="@($"IP {Localizer["FormPrinterControl"]}")"
       @bind-Value="@DialogItem.Ip"
       For="@(() => DialogItem.Ip)"
       Path="@($"http://{DialogItemCopy.Ip}")"

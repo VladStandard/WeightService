@@ -6,7 +6,6 @@ using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
 using DeviceControl2.Source.Widgets.Section.FormFields;
 using FluentValidation;
-using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -39,13 +38,13 @@ public sealed partial class LinesUpdateForm: SectionFormBase<LineEntity>
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
     }
 
-    protected override LineEntity UpdateItemAction() =>
-        LineService.Update(DialogItem);
+    protected override LineEntity UpdateItemAction(LineEntity item) =>
+        LineService.Update(item);
 
 
-    protected override Task DeleteItemAction()
+    protected override Task DeleteItemAction(LineEntity item)
     {
-        LineService.Delete(DialogItem);
+        LineService.Delete(item);
         return Task.CompletedTask;
     }
 }

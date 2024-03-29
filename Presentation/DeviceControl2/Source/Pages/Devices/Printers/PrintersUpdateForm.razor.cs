@@ -5,7 +5,6 @@ using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
 using FluentValidation;
-using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
@@ -37,13 +36,13 @@ public sealed partial class PrintersUpdateForm: SectionFormBase<PrinterEntity>
         ProductionSites = ProductionSiteService.GetAll();
     }
 
-    protected override PrinterEntity UpdateItemAction() =>
-        PrinterService.Update(DialogItem);
+    protected override PrinterEntity UpdateItemAction(PrinterEntity item) =>
+        PrinterService.Update(item);
 
 
-    protected override Task DeleteItemAction()
+    protected override Task DeleteItemAction(PrinterEntity item)
     {
-        PrinterService.Delete(DialogItem);
+        PrinterService.Delete(item);
         return Task.CompletedTask;
     }
 }

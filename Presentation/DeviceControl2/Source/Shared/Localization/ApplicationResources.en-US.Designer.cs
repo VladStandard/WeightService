@@ -366,6 +366,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Developer version.
+        /// </summary>
+        internal static string NavMenuDeveloperVersion {
+            get {
+                return ResourceManager.GetString("NavMenuDeveloperVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1C Logs.
         /// </summary>
         internal static string Section1CLogs {

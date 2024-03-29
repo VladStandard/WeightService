@@ -3,7 +3,6 @@ using DeviceControl2.Source.Shared.Localization;
 using DeviceControl2.Source.Shared.Utils;
 using DeviceControl2.Source.Widgets.Section;
 using FluentValidation;
-using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -33,7 +32,7 @@ public sealed partial class PlusUpdateForm: SectionFormBase<PluEntity>
         AllTemplates = TemplateService.GetAll();
     }
 
-    protected override PluEntity UpdateItemAction() => DialogItem;
+    protected override PluEntity UpdateItemAction(PluEntity item) => item;
 
     private string GetPluTypeName(bool isWeight) =>
         isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];
