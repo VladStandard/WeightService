@@ -12,9 +12,9 @@ namespace DeviceControl2.Source.Widgets.NavMenu;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Parameter, EditorRequired] public ClaimsPrincipal User { get; set; } = null!;
-    private bool IsProduction { get; set; }
+    [Parameter, EditorRequired] public ClaimsPrincipal User { get; set; } = default!;
 
+    private bool IsProduction { get; set; }
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
 
     protected override void OnInitialized()

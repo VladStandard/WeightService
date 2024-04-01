@@ -210,4 +210,19 @@
     <data name="ColActive" xml:space="preserve">
         <value>В сети</value>
     </data>
+    <data name="MeasureMb" xml:space="preserve">
+        <value>Мб</value>
+    </data>
+    <data name="ColTable" xml:space="preserve">
+        <value>Таблица</value>
+    </data>
+    <data name="ColScheme" xml:space="preserve">
+        <value>Схема</value>
+    </data>
+    <data name="ColSize" xml:space="preserve">
+        <value>Размер</value>
+    </data>
+    <data name="ColPercentages" xml:space="preserve">
+        <value>Проценты</value>
+    </data>
 </root>

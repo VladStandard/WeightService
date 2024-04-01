@@ -210,4 +210,19 @@
     <data name="ColActive" xml:space="preserve">
         <value />
     </data>
+    <data name="MeasureMb" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColTable" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColScheme" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColSize" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColPercentages" xml:space="preserve">
+        <value />
+    </data>
 </root>

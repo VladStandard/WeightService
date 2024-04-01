@@ -8,6 +8,9 @@
   <Tab Id="main">
     <LinesUpdateForm />
   </Tab>
+  <Tab Id="plu">
+    <LinePluDataGrid />
+  </Tab>
 </SectionDialog>
 
 @code {
@@ -16,5 +19,6 @@
   protected override List<EnumTypeModel<string>> InitializeTabList() =>
   [
     new(Localizer["SectionLines"], "main"),
+    new(Localizer["SectionLinePLU"], "plu"),
   ];
 }

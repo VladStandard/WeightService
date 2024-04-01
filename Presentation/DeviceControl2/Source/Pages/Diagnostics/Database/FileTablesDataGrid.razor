@@ -1,0 +1,46 @@
+@using Ws.Domain.Models.Entities.Scale
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.DataGridActions
+@using Blazor.Heroicons.Solid
+@using Ws.Domain.Models.Entities.Diag
+
+@inherits DeviceControl2.Source.Widgets.Section.SectionDataGridPageBase<TableSizeEntity>
+@rendermode InteractiveServer
+
+<PageHeader>
+  <span>@DbFile.FileName</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridFileSize CurrentSize="@DbFile.SizeMb" MaxSize="@DbFile.MaxSizeMb" />
+</PageHeader>
+
+<DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+  <DataGridContainer
+    TItem="TableSizeEntity"
+    Items="SectionItems"
+    ItemsPerPage="6"
+    IsForcePagination
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColScheme"]"
+        Field="@nameof(TableSizeEntity.Schema)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColTable"]"
+        Field="@nameof(TableSizeEntity.Table)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCount"]"
+        Field="@nameof(TableSizeEntity.RowsCount)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
+        Field="@nameof(TableSizeEntity.UsedSpaceMb)"
+        Width="25%"
+      />
+    </ColumnsContent>
+  </DataGridContainer>
+</DataGridWrapper>

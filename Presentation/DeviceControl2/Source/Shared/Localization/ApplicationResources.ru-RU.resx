@@ -219,4 +219,7 @@
     <data name="ToastReloginUser" xml:space="preserve">
         <value>Повторных вход систему выполнен</value>
     </data>
+    <data name="ToastErrorGettingData" xml:space="preserve">
+        <value>При попытке получить данные произошла ошибка. Попробуйте еще раз позже</value>
+    </data>
 </root>

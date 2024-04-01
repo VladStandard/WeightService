@@ -1,37 +1,40 @@
-using DeviceControl.Features.Sections.Shared.DataGrid;
-using DeviceControl.Resources;
-using DeviceControl.Utils;
+using DeviceControl2.Source.Shared.Localization;
+using DeviceControl2.Source.Shared.Utils;
+using DeviceControl2.Source.Widgets.Section;
 using Force.DeepCloner;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
+using Ws.Shared.Resources;
 
-namespace DeviceControl.Features.Sections.Devices.Lines;
+namespace DeviceControl2.Source.Pages.Devices.Lines;
 
-public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
+public sealed partial class LinePluDataGrid : SectionDataGridPageBase<PluLineEntity>
 {
-    #region Inject
+    # region Injects
 
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
-    [Inject] private ILineService LineService { get; set; } = null!;
-    [Inject] private IPluService PluService { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IPluService PluService { get; set; } = default!;
 
-    #endregion
+    # endregion
 
-    [Parameter, EditorRequired] public LineEntity LineEntity { get; set; } = null!;
+    [CascadingParameter(Name = "DialogItem")] public LineEntity LineEntity { get; set; } = null!;
 
-    private IEnumerable<PluEntity> SelectPluEntities { get; set; } = [];
-    private IEnumerable<PluEntity> SelectedPluEntities { get; set; } = [];
-    private IEnumerable<PluEntity> SelectedPluEntitiesCopy { get; set; } = [];
+    private HashSet<PluEntity> SelectPluEntities { get; set; } = [];
+    private HashSet<PluEntity> SelectedPluEntities { get; set; } = [];
+    private HashSet<PluEntity> SelectedPluEntitiesCopy { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        SelectPluEntities = PluService.GetAll();
-        SelectedPluEntities = LineService.GetLinePlus(LineEntity);
+        SelectPluEntities = [..PluService.GetAll()];
+        SelectedPluEntities = [..LineService.GetLinePlus(LineEntity)];
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
 
@@ -49,13 +52,15 @@ public sealed partial class LinePluDataGrid : SectionDataGridBase<PluLineEntity>
             LineService.AddPluLine(pluLine);
         }
 
-        await DataGridWrapperRef.ReloadData();
+        await UpdateData();
+
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
 
-    protected override IEnumerable<PluLineEntity> SetSqlSectionCast() => LineService.GetLinePlusFk(LineEntity);
+    protected override IEnumerable<PluLineEntity> SetSqlSectionCast() =>
+        LineService.GetLinePlusFk(LineEntity);
 
     protected override async Task OpenItemInNewTab(PluLineEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");

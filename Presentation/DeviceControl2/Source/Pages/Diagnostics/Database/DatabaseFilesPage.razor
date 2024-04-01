@@ -1,0 +1,58 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities
+
+@attribute [Route(RouteUtils.SectionDatabase)]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionDatabase"]</span>
+  <DataGridItemsCounter ItemsCount="@DbFileSizesData.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@GetDatabaseData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="DbFileSizeInfoEntity"
+    Items="DbFileSizesData"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColFile"]"
+        Field="@nameof(DbFileSizeInfoEntity.FileName)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColPercentages"]"
+        Field="@nameof(DbFileSizeInfoEntity.DbFillSize)"
+        Width="40%"
+      >
+        <DisplayTemplate>
+          @{
+            int progress = Convert.ToInt32(context.DbFillSize);
+
+            <div class="flex items-center gap-2 w-full">
+              <span class="shrink-0">@progress</span>
+              <FluentProgress Min="0" Max="100" Value="progress" Class="w-full [&::part(progress)]:!bg-muted"/>
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCount"]"
+        Field="Tables.Count"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
+        Field="@nameof(DbFileSizeInfoEntity.SizeMb)"
+        Width="20%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

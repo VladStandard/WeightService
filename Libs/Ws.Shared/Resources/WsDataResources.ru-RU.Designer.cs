@@ -411,6 +411,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Проценты.
+        /// </summary>
+        public static string ColPercentages {
+            get {
+                return ResourceManager.GetString("ColPercentages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ПЛУ.
         /// </summary>
         public static string ColPlu {
@@ -501,11 +510,29 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Схема.
+        /// </summary>
+        public static string ColScheme {
+            get {
+                return ResourceManager.GetString("ColScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Срок годности.
         /// </summary>
         public static string ColShelfLifeDays {
             get {
                 return ResourceManager.GetString("ColShelfLifeDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Размер.
+        /// </summary>
+        public static string ColSize {
+            get {
+                return ResourceManager.GetString("ColSize", resourceCulture);
             }
         }
         
@@ -533,6 +560,15 @@ namespace Ws.Shared.Resources {
         public static string ColSurname {
             get {
                 return ResourceManager.GetString("ColSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Таблица.
+        /// </summary>
+        public static string ColTable {
+            get {
+                return ResourceManager.GetString("ColTable", resourceCulture);
             }
         }
         
@@ -623,6 +659,15 @@ namespace Ws.Shared.Resources {
         public static string MeasureKg {
             get {
                 return ResourceManager.GetString("MeasureKg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Мб.
+        /// </summary>
+        public static string MeasureMb {
+            get {
+                return ResourceManager.GetString("MeasureMb", resourceCulture);
             }
         }
         

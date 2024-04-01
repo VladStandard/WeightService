@@ -627,6 +627,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while trying to retrieve the data. Try again later.
+        /// </summary>
+        internal static string ToastErrorGettingData {
+            get {
+                return ResourceManager.GetString("ToastErrorGettingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A relogin has been executed.
         /// </summary>
         internal static string ToastReloginUser {

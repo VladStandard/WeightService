@@ -20,7 +20,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     protected bool IsLoading { get; set; } = true;
     private bool IsFirstLoading { get; set; } = true;
     private IJSObjectReference? Module { get; set; }
-    protected DialogParameters DialogParameters { get; set; } = new();
+    protected DialogParameters DialogParameters { get; private set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -139,14 +139,27 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     {
         if (!string.IsNullOrEmpty(SearchingSectionItemId) && IsFirstLoading)
         {
-            SectionItems = await Task.Run(SetSqlSearchingCast);
+            SectionItems = await GetItemsAsync(SetSqlSearchingCast);
             IsFirstLoading = false;
             SectionItems = SectionItems.Where(i => !i.IsNew).ToList();
             if (SectionItems.Any()) await OpenDataGridEntityModal(SectionItems.First());
             return;
         }
 
-        SectionItems = await Task.Run(SetSqlSectionCast);
+        SectionItems = await GetItemsAsync(SetSqlSectionCast);
+    }
+
+    private async Task<IEnumerable<TItem>> GetItemsAsync(Func<IEnumerable<TItem>> sectionItemsProvider)
+    {
+        try
+        {
+            return await Task.Run(sectionItemsProvider);
+        }
+        catch
+        {
+            ToastService.ShowError(Localizer["ToastErrorGettingData"]);
+            return [];
+        }
     }
 
     public async ValueTask DisposeAsync()

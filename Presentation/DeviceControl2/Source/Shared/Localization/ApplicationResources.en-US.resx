@@ -219,4 +219,7 @@
     <data name="ToastReloginUser" xml:space="preserve">
         <value>A relogin has been executed</value>
     </data>
+    <data name="ToastErrorGettingData" xml:space="preserve">
+        <value>An error occurred while trying to retrieve the data. Try again later</value>
+    </data>
 </root>

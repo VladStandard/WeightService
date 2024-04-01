@@ -627,6 +627,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to При попытке получить данные произошла ошибка. Попробуйте еще раз позже.
+        /// </summary>
+        internal static string ToastErrorGettingData {
+            get {
+                return ResourceManager.GetString("ToastErrorGettingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Повторных вход систему выполнен.
         /// </summary>
         internal static string ToastReloginUser {
