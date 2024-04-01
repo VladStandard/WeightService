@@ -1,8 +1,10 @@
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities
+@using DeviceControl2.Source.Shared.Auth.Policies
 
 @attribute [Route(RouteUtils.SectionDatabase)]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 
 

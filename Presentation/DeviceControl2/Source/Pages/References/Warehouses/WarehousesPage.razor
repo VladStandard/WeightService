@@ -1,9 +1,11 @@
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
+@using DeviceControl2.Source.Shared.Auth.Policies
 
 @inherits SectionDataGridPageBase<WarehouseEntity>
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 
 

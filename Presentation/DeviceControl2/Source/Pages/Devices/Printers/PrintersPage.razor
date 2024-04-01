@@ -1,9 +1,11 @@
 @using DeviceControl2.Source.Widgets.Section
 @using DeviceControl2.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
+@using DeviceControl2.Source.Shared.Auth.Policies
 
 @inherits SectionDataGridPageBase<PrinterEntity>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
 
