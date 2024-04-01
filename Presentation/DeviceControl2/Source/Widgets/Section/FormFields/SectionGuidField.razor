@@ -1,21 +1,20 @@
-@using DeviceControl2.Source.Shared.Auth.Policies
+@inherits SectionFieldBase<Guid>
 
-<AuthorizeView Policy="@PolicyEnum.Admin">
-  <SectionInputWrapper
-    Label="UID"
-    HtmlFor="@HtmlId()"
-    ValueToCopy="@Value.ToString()"
-  >
-    <InputTextField
-      id="@HtmlId()"
-      Value="@Value.ToString()"
-      Disabled
-    />
-  </SectionInputWrapper>
-</AuthorizeView>
-
-@code {
-  [Parameter] public Guid Value { get; set; }
-
-  private string HtmlId() => $"uid-{Value}";
-}
+<SectionInputWrapper
+  Path="@Path"
+  Label="@Label"
+  HtmlFor="@HtmlId"
+  ValueToCopy="@(IsCopyable ? Value.ToString() : string.Empty)"
+>
+  <InputGuidField
+    id="@HtmlId"
+    @bind-Value="@Value"
+    @bind-Value:after="OnValueChanged"
+    Placeholder="@Placeholder"
+    Disabled="Disabled"
+  />
+  @if (For != null)
+  {
+    <FieldValidation For="@For" />
+  }
+</SectionInputWrapper>

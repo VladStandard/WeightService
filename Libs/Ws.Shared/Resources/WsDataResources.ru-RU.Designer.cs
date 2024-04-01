@@ -60,6 +60,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to В сети.
+        /// </summary>
+        public static string ColActive {
+            get {
+                return ResourceManager.GetString("ColActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Адрес.
         /// </summary>
         public static string ColAddress {
@@ -483,6 +492,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Роли.
+        /// </summary>
+        public static string ColRoles {
+            get {
+                return ResourceManager.GetString("ColRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Срок годности.
         /// </summary>
         public static string ColShelfLifeDays {
@@ -506,6 +524,15 @@ namespace Ws.Shared.Resources {
         public static string ColStorageMethod {
             get {
                 return ResourceManager.GetString("ColStorageMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фамилия.
+        /// </summary>
+        public static string ColSurname {
+            get {
+                return ResourceManager.GetString("ColSurname", resourceCulture);
             }
         }
         

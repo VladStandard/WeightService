@@ -201,4 +201,13 @@
     <data name="ColTitle" xml:space="preserve">
         <value>Title</value>
     </data>
+    <data name="ColSurname" xml:space="preserve">
+        <value>Surname</value>
+    </data>
+    <data name="ColRoles" xml:space="preserve">
+        <value>Roles</value>
+    </data>
+    <data name="ColActive" xml:space="preserve">
+        <value>Active</value>
+    </data>
 </root>

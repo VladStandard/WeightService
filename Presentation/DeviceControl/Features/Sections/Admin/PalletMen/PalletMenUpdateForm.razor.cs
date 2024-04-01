@@ -15,6 +15,6 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletManEntit
     private string Uid1C
     {
         get => SectionEntity.Uid1C.ToString();
-        set { SectionEntity.Uid1C = Guid.TryParse(value, out Guid guid1C) ? guid1C : Guid.Empty; }
+        set => SectionEntity.Uid1C = Guid.TryParse(value, out Guid guid1C) ? guid1C : Guid.Empty;
     }
 }

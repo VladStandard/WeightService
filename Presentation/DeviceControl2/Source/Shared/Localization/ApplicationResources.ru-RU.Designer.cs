@@ -627,6 +627,15 @@ namespace DeviceControl2.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Повторных вход систему выполнен.
+        /// </summary>
+        internal static string ToastReloginUser {
+            get {
+                return ResourceManager.GetString("ToastReloginUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Исходные значения восстановлены.
         /// </summary>
         internal static string ToastResetItem {

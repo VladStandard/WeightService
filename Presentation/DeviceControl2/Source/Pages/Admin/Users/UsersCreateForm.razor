@@ -1,0 +1,41 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<UserEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new UsersCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionSelectMultipleField
+      TItem="ClaimEntity"
+      Items="RolesEntities"
+      Label="@WsDataLocalizer["ColRoles"]"
+      @bind-Value="@DialogItem.Claims"
+      ItemDisplayName="item => item.Name"
+      For="@(() => DialogItem.Claims)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ProductionSiteEntity"
+      Items="ProductionSites"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="@(item => item.Name)"
+      For="@(() => DialogItem.ProductionSite!)"
+      IsFilterable
+    />
+  </FieldsContent>
+</SectionForm>

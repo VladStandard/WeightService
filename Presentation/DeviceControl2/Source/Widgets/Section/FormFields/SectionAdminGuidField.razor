@@ -1,0 +1,21 @@
+@using DeviceControl2.Source.Shared.Auth.Policies
+
+<AuthorizeView Policy="@PolicyEnum.Admin">
+  <SectionInputWrapper
+    Label="UID"
+    HtmlFor="@HtmlId()"
+    ValueToCopy="@Value.ToString()"
+  >
+    <InputTextField
+      id="@HtmlId()"
+      Value="@Value.ToString()"
+      Disabled
+    />
+  </SectionInputWrapper>
+</AuthorizeView>
+
+@code {
+  [Parameter] public Guid Value { get; set; }
+
+  private string HtmlId() => $"uid-{Value}";
+}

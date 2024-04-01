@@ -201,4 +201,13 @@
     <data name="ColTitle" xml:space="preserve">
         <value>Заголовок</value>
     </data>
+    <data name="ColSurname" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="ColRoles" xml:space="preserve">
+        <value>Роли</value>
+    </data>
+    <data name="ColActive" xml:space="preserve">
+        <value>В сети</value>
+    </data>
 </root>

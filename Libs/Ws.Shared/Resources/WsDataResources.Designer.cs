@@ -62,6 +62,15 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColActive {
+            get {
+                return ResourceManager.GetString("ColActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColAddress {
             get {
                 return ResourceManager.GetString("ColAddress", resourceCulture);
@@ -485,6 +494,15 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColRoles {
+            get {
+                return ResourceManager.GetString("ColRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColShelfLifeDays {
             get {
                 return ResourceManager.GetString("ColShelfLifeDays", resourceCulture);
@@ -506,6 +524,15 @@ namespace Ws.Shared.Resources {
         public static string ColStorageMethod {
             get {
                 return ResourceManager.GetString("ColStorageMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColSurname {
+            get {
+                return ResourceManager.GetString("ColSurname", resourceCulture);
             }
         }
         

@@ -216,4 +216,7 @@
     <data name="NavMenuDeveloperVersion" xml:space="preserve">
         <value />
     </data>
+    <data name="ToastReloginUser" xml:space="preserve">
+        <value />
+    </data>
 </root>

@@ -101,7 +101,7 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.Admin,
             SubItems =
             [
-                new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
+                // new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
                 new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
             ]
         },

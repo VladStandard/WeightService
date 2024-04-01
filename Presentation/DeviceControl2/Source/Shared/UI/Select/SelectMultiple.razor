@@ -14,7 +14,7 @@
     Anchor="@Id"
     @bind-IsOpen="IsOpen"
     Class="select-dropdown"
-    VerticalThreshold="@(Items.Count() * 40)"
+    VerticalThreshold="@(Math.Max(Items.Count, 8) * 40)"
   >
     @if (IsFilterable)
     {

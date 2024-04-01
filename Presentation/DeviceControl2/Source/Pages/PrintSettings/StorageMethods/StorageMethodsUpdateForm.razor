@@ -15,7 +15,7 @@
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionGuidField Value="@DialogItem.Uid" />
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
@@ -23,7 +23,7 @@
       For="@(() => DialogItem.Name)"
     />
 
-    <SectionTextField
+    <SectionTextAreaField
       Label="@WsDataLocalizer["ColData"]"
       @bind-Value="@DialogItem.Zpl"
       For="@(() => DialogItem.Zpl)"

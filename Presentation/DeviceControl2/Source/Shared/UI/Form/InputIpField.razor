@@ -6,10 +6,7 @@
 @code {
   private string InputValue
   {
-    get
-    {
-      return Value == null ? "" : Value.ToString();
-    }
+    get => Value == null ? string.Empty : Value.ToString();
     set
     {
       if (Value == null) return;

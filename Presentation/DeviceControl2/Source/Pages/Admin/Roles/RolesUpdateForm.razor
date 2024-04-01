@@ -1,0 +1,30 @@
+@using DeviceControl2.Source.Widgets.Section
+@using DeviceControl2.Source.Widgets.Section.FormActions
+@using DeviceControl2.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+
+@inherits SectionFormBase<ClaimEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new RolesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      @bind-Value="@DialogItem.Name"
+      Label="@WsDataLocalizer["ColName"]"
+      For="@(() => DialogItem.Name)"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionRoles}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>
