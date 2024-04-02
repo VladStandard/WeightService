@@ -1,0 +1,74 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref1c
+@using Blazor.Heroicons.Outline
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+@attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionPLU"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="PluEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColStatus"]"
+        Width="5%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          @if (!GetIsPluValid(context))
+          {
+            <div class="w-full flex items-center justify-center">
+              <ExclamationTriangleIcon class="text-orange-400 size-5" />
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColNumber"]"
+        Field="@nameof(PluEntity.Number)"
+        FilterMethod="DataGridColumnFilterMethod.StartsWith"
+        Width="10%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(PluEntity.Name)"
+        FilterMethod="DataGridColumnFilterMethod.Contains"
+        Width="45%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(PluEntity.IsCheckWeight)"
+        Width="10%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          <span>
+            @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
+          </span>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(PluEntity.ChangeDt)"
+        Width="15%"
+        Filterable="false"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

@@ -1,0 +1,23 @@
+@using Microsoft.Extensions.Localization
+@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common
+@using Blazor.Heroicons.Outline
+<SectionFormAction OnClick="@ReloginUser">
+  <UserIcon class="size-4 mr-2" />
+  @Localizer["FormActionRelogin"]
+</SectionFormAction>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IClaimsCacheProvider ClaimsCacheProvider { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+
+  [Parameter,EditorRequired] public UserEntity User { get; set; } = null!;
+
+  private Task ReloginUser()
+  {
+    ClaimsCacheProvider.ClearCacheByUserName(User.Name);
+    ToastService.ShowSuccess(Localizer["ToastReloginUser"]);
+    return Task.CompletedTask;
+  }
+}

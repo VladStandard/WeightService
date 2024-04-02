@@ -1,0 +1,82 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new LinesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColNumber"]"
+      @bind-Value="@DialogItem.Number"
+      Min="10000"
+      Max="99999"
+      For="@(() => DialogItem.Number)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+    />
+
+    <SectionSelectSingleField
+      TItem="LineTypeEnum"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="LineTypesEntities"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColCounter"]"
+      @bind-Value="@DialogItem.Counter"
+      Min="0"
+      For="@(() => DialogItem.Counter)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterEntity"
+      Label="@WsDataLocalizer["ColPrinter"]"
+      Items="PrinterEntities"
+      @bind-Value="@DialogItem.Printer"
+      ItemDisplayName="item => item.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Printer, User)"
+      For="@(() => DialogItem.Printer)"
+      IsFilterable
+    />
+
+    <SectionSelectSingleField
+      TItem="WarehouseEntity"
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Items="WarehousesEntities"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, User)"
+      For="@(() => DialogItem.Warehouse)"
+      IsFilterable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

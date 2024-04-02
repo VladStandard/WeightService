@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesMobile", "Presentation\ScalesMobile\ScalesMobile.csproj", "{956FA304-F0A4-46EC-B00D-7106B06E279C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl2", "Presentation\DeviceControl2\DeviceControl2.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl", "Presentation\DeviceControl\DeviceControl.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

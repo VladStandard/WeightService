@@ -1,0 +1,42 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl.Source.Shared.Auth.Policies
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.StorageMethodEntity>
+@attribute [Route($"{RouteUtils.SectionStorageMethods}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionStorageMethods"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="StorageMethodEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCreateDt"]"
+        Field="@nameof(StorageMethodEntity.CreateDt)"
+        Width="15%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(StorageMethodEntity.Name)"
+        Width="85%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>
