@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 

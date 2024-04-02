@@ -1,128 +1,78 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-    
-    <PropertyGroup>
-        <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-        <Version>1.1.9.0</Version>
-        <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
-        <NoWarn>CA1806</NoWarn>
-        <SingleProject>true</SingleProject>
-    </PropertyGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="Blazor.Heroicons" Version="2.1.2" />
-        <PackageReference Include="Blazorise.Components" Version="1.4.2" />
-        <PackageReference Include="Blazorise.DataGrid" Version="1.4.2" />
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.2" />
-        <PackageReference Include="Blazorise.Tailwind" Version="1.4.2" />
-        <PackageReference Include="Ignis.Utils" Version="1.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.2" />
-        <PackageReference Include="ObjectCloner" Version="2.2.2" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <SupportedPlatform Include="browser" />
-    </ItemGroup>
-    <ItemGroup>
-        <Watch Include="..\**\*.razor;..\**\*.css;..\**\*.html;" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Update="Resources\ApplicationResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\ApplicationResources.en-US.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\ApplicationResources.ru-RU.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Compile Update="Resources\ApplicationResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\ApplicationResources.en-US.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\ApplicationResources.ru-RU.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind-v3.3.5.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\tailwind\tailwind.config.js" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Diagnostics\AppLogs\AppLogsDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Diagnostics\AppLogs\AppLogsPage.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\DatabaseFilesDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\DatabaseFilesDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\DatabaseFilesPage.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\Admin\Database\FileTablesDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesCreateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesCreateForm.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesPage.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesUpdateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\TemplateResources\TemplateResourcesUpdateForm.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesCreateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesCreateForm.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesDataGrid.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesPage.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesUpdateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Features\Sections\References\Templates\TemplatesUpdateForm.razor" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <AdditionalFiles Include="Features\Sections\Diagnostics\Database\DatabaseFilesDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\Diagnostics\Database\DatabaseFilesDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\Diagnostics\Database\DatabaseFilesPage.razor" />
-      <AdditionalFiles Include="Features\Sections\Diagnostics\Database\FileTablesDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsCreateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsCreateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsPage.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsUpdateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\StorageMethods\StorageMethodsUpdateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesCreateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesCreateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesPage.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesUpdateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\TemplateResources\TemplateResourcesUpdateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesCreateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesCreateForm.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesDataGrid.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesPage.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesUpdateDialog.razor" />
-      <AdditionalFiles Include="Features\Sections\PrintSettings\Templates\TemplatesUpdateForm.razor" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Features\Sections\PrintSettings\" />
-    </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-        <Exec Command="npm run build" ContinueOnError="true" />
-    </Target>
-    
-    <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
-        <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />
-    </Target>
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.en-US.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Source\Shared\Localization\ApplicationResources.ru-RU.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.Heroicons" Version="2.1.2.2" />
+    <PackageReference Include="Blazorise" Version="1.5.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="1.5.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.1" />
+    <PackageReference Include="DeepCloner" Version="0.10.4" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="8.0.3" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.6.0" />
+    <PackageReference Include="vNext.BlazorComponents.FluentValidation" Version="1.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+    <ProjectReference Include="..\..\Domain\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+    <ProjectReference Include="..\..\Domain\Ws.Labels.Service\Ws.Labels.Service.csproj" />
+    <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Source\Shared\UI\Form\InputNumberField.razor" />
+    <AdditionalFiles Include="Source\Shared\UI\Form\InputTextField.razor" />
+    <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenu.razor" />
+    <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenuItem.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Source\Pages\Home\Home.razor" />
+    <_ContentIncludedByDefault Remove="Source\Features\NavMenu\NavMenu.razor" />
+    <_ContentIncludedByDefault Remove="Source\Features\NavMenu\NavMenuItem.razor" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="npm run build" ContinueOnError="true" />
+  </Target>
+    
 </Project>

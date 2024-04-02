@@ -14,7 +14,7 @@ internal class SqlBoxMap : ClassMapping<BoxEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Guid);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.Name, m =>

@@ -12,7 +12,7 @@ using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 

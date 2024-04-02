@@ -74,24 +74,52 @@
   .dark {
     color-scheme: dark;
   }
+}
 
-  .blazorise-tabs > div {
-    @apply size-full overflow-hidden;
+@layer components {
+  * {
+    --type-ramp-base-font-size: unset;
+    --body-font: 0;
+    --type-ramp-base-line-height: unset;
+    --neutral-foreground-rest: 0;
+    --type-ramp-base-font-variations: 0;
   }
 
-  .b-table-fixed-header > .b-table {
-    @apply !border-collapse
+  fluent-dialog {
+    --dialog-width: unset !important;
+    --fill-color: 0;
+    --elevation-shadow-dialog: 0;
+    --layer-corner-radius: 0;
+    --design-unit: 0;
   }
 
-  .select-dropdown ul {
-    @apply h-fit max-h-60 w-full flex flex-col;
+  fluent-dialog::part(overlay) {
+    @apply !bg-black/[.6]
   }
 
-  .select-button span {
-    @apply w-full text-left font-light text-sm truncate;
+  fluent-data-grid {
+    --accent-fill-rest: #18181b;
   }
 
-  .snackbar-stack {
-    @apply !pb-12;
+  .dark fluent-data-grid {
+    --neutral-fill-stealth-rest: #18181b;
+    --neutral-fill-stealth-hover: #252527;
+    --accent-fill-rest: #fafafa;
+  }
+
+  fluent-anchored-region {
+    @apply !fixed
+  }
+
+  fluent-tabs {
+    --accent-fill-rest: 0;
+  }
+
+  .fluent-toast {
+    @apply !bg-background !text-primary border
+  }
+
+  .fluent-toast-action > svg {
+    @apply !fill-black dark:!fill-white
   }
 }

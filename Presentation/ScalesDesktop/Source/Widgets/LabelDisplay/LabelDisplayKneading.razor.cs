@@ -4,7 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Features;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 

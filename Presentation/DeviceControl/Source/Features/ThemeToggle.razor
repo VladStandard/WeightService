@@ -1,0 +1,42 @@
+@using Blazor.Heroicons.Outline
+@inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
+
+<Button
+  id="theme-button"
+  Variant="ButtonVariant.Ghost"
+  Size="ButtonSize.Icon"
+  OnClick="@(() => IsOpen = !IsOpen)"
+  Class="shrink-0"
+>
+  <SunIcon class="size-5 dark:hidden" />
+  <MoonIcon class="size-5 hidden dark:block" />
+  <span class="sr-only">Toggle theme</span>
+</Button>
+
+<Dropdown
+  Anchor="theme-button"
+  @bind-IsOpen="@IsOpen"
+  VerticalThreshold="100"
+>
+  <ul class="flex flex-col p-1">
+    <li>
+      <DropdownItem OnClick="@(() => SetTheme("light"))">
+        <SunIcon class="size-4 mr-2"/>
+        <span>Светлая</span>
+      </DropdownItem>
+    </li>
+    <li>
+      <DropdownItem OnClick="@(() => SetTheme("dark"))">
+        <MoonIcon class="size-4 mr-2"/>
+        <span>Темная</span>
+      </DropdownItem>
+    </li>
+    <li>
+      <DropdownItem OnClick="@(() => SetTheme("system"))">
+        <ComputerDesktopIcon class="size-4 mr-2"/>
+        <span>Системная</span>
+      </DropdownItem>
+    </li>
+  </ul>
+</Dropdown>

@@ -1,0 +1,28 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new WarehousesCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      @bind-Value="@DialogItem.Name"
+      Label="@WsDataLocalizer["ColName"]"
+      For="@(() => DialogItem.Name)"
+    />
+    <SectionSelectSingleField
+      TItem="ProductionSiteEntity"
+      Items="PlatformEntities"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="item => item.Name"
+      For="@(() => DialogItem.ProductionSite)"
+      IsFilterable
+    />
+  </FieldsContent>
+</SectionForm>

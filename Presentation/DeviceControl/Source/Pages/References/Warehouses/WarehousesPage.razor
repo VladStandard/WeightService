@@ -1,0 +1,42 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl.Source.Shared.Auth.Policies
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
+@attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionWarehouses"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="WarehouseEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(WarehouseEntity.Name)"
+        Width="50%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColProductionSite"]"
+        Field="ProductionSite.Name"
+        Width="50%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

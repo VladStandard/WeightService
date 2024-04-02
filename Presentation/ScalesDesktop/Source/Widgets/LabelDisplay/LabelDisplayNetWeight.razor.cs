@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Events;
 using Ws.Shared.TypeUtils;
-using Ws.SharedUI.Resources;
+using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 

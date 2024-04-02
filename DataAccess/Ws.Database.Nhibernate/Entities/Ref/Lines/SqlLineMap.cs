@@ -15,7 +15,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.Identity);
+            m.Generator(Generators.GuidComb);
         });
 
         Property(x => x.CreateDt, m =>

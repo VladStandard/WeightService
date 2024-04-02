@@ -1,0 +1,15 @@
+@using Blazor.Heroicons.Outline
+<div class="@Css.Class("space-y-2 w-full relative flex-col flex", Size == SectionInputSize.Large ? "col-span-2" : "", Class)">
+  <FieldLabel HtmlFor="@HtmlFor" Url="@Path">@Label</FieldLabel>
+  @ChildContent
+  @if (!string.IsNullOrEmpty(ValueToCopy))
+  {
+    <button
+      type="button"
+      onclick="@(() => SaveToClipboard(ValueToCopy))"
+      class="text-muted-foreground absolute opacity-50 hover:opacity-100 top-6 right-2"
+    >
+      <ClipboardDocumentIcon class="size-5" />
+    </button>
+  }
+</div>
