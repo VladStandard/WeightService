@@ -2,7 +2,8 @@ namespace Ws.Database.EntityFramework.Constants;
 
 internal static class SqlTables
 {
-    public const string PluNesting = "NESTINGS";
+    public const string Nestings = "NESTINGS";
+    public const string Characteristics = "CHARACTERISTICS";
     public const string PlusResources = "PLUS_RESOURCES";
     public const string Plus = "PLUS";
     public const string Lines = "LINES";

@@ -1,6 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
 using Ws.Database.EntityFramework.Entities.Ref.Templates;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.PluResources;
 
@@ -12,10 +11,4 @@ public sealed class PluResourceEntity : EfEntityBase
 
     [ForeignKey("STORAGE_METHOD_UID")]
     public StorageMethodEntity StorageMethod { get; set; } = new();
-
-    public void SetPlu(PluEntity plu)
-    {
-        if (plu.Id != Guid.Empty) return;
-        Id = plu.Id;
-    }
 }

@@ -2,13 +2,10 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-[Table(SqlTables.PluNesting)]
-[Index(nameof(BundleCount), nameof(BoxId), Name = $"UQ_{SqlTables.PluNesting}_BUNDLE_BOX", IsUnique = true)]
-public sealed class PluNestingEntity : EfEntityBase
+[Table(SqlTables.Nestings)]
+[Index(nameof(BundleCount), nameof(BoxId), Name = $"UQ_{SqlTables.Nestings}_BUNDLE_BOX", IsUnique = true)]
+public sealed class NestingEntity : EfEntityBase
 {
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
-
     [Column("BUNDLE_COUNT")]
     [Range(1, 100, ErrorMessage = "BundleCount must be between 1 and 100")]
     public short BundleCount { get; set; }
@@ -21,16 +18,20 @@ public sealed class PluNestingEntity : EfEntityBase
 
     #endregion
 
-    [ForeignKey("PLU_UID"), Column("PLU_UID")]
-    public Guid PluEntityId { get; set; }
-
-    [Column("IS_DEFAULT")]
-    public bool IsDefault { get; set; }
-
     #region Date
 
     public DateTime CreateDt { get; init; }
     public DateTime ChangeDt { get; init; }
 
     #endregion
+
+    [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
+
+    public NestingEntity() { }
+
+    public NestingEntity(Guid uid, DateTime updateDt)
+    {
+        Id = uid;
+        ChangeDt = updateDt;
+    }
 }

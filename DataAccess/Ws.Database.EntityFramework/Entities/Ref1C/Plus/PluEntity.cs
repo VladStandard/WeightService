@@ -26,7 +26,7 @@ public sealed class PluEntity : EfEntityBase
     public short Number { get; set; }
 
     [Column("SHELF_LIFE_DAYS")]
-    public byte ShelfLifeDays { get; set; }
+    public short ShelfLifeDays { get; set; }
 
     [Column("EAN_13", TypeName = "varchar")]
     [StringLength(13, MinimumLength = 13, ErrorMessage = "Ean13 must be 13 len")]
@@ -59,6 +59,8 @@ public sealed class PluEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
+
+    [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
 
     public PluEntity() { }
 

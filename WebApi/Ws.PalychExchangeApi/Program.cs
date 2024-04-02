@@ -7,6 +7,8 @@ using Ws.PalychExchangeApi.Features.Bundles.Common;
 using Ws.PalychExchangeApi.Features.Bundles.Services;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Services;
+using Ws.PalychExchangeApi.Features.Plus.Common;
+using Ws.PalychExchangeApi.Features.Plus.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,7 @@ builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IClipService, ClipService>();
 builder.Services.AddScoped<IBundleService, BundleService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IPluService, PluService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

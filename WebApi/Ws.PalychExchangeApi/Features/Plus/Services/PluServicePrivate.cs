@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Storage;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
 
@@ -17,7 +18,7 @@ internal sealed partial class PluService
             duplicateNameSet.Add(dtoGroup.Key);
             OutputDto.AddError(dtoGroup.Select(i => i.Uid), "Номер (внутри запроса) - не уникален");
         }
-        dtos.RemoveAll(brandDto => duplicateNameSet.Contains(brandDto.Number));
+        dtos.RemoveAll(dto => duplicateNameSet.Contains(dto.Number));
     }
 
     private void ResolveUniqueUidLocal(List<PluDto> dtos)
@@ -98,10 +99,10 @@ internal sealed partial class PluService
 
     #endregion
 
-    private void SavePlus(IEnumerable<PluDto> validDtos)
+    private void SavePlus(IReadOnlyCollection<PluDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<PluEntity> plus = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
+        List<PluEntity> plus = validDtos.Select(dto => dto.ToPluEntity(updateDt)).ToList();
 
         using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
         try
@@ -113,12 +114,36 @@ internal sealed partial class PluService
                 options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
             });
             transaction.Commit();
+            SaveNestings(validDtos);
             OutputDto.AddSuccess(plus.Select(i => i.Id).ToList());
         }
         catch (Exception)
         {
             transaction.Rollback();
             OutputDto.AddError(plus.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+        }
+    }
+
+    private void SaveNestings(IEnumerable<PluDto> validDtos)
+    {
+        DateTime updateDt = DateTime.UtcNow.AddHours(3);
+        List<NestingEntity> nestings = validDtos.Select(dto => dto.ToNestingEntity(updateDt)).ToList();
+
+        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
+        try
+        {
+            dbContext.BulkMerge(nestings, options =>
+            {
+                options.InsertIfNotExists = true;
+                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
+                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.MergeKeepIdentity = true;
+            });
+            transaction.Commit();
+        }
+        catch (Exception)
+        {
+            transaction.Rollback();
         }
     }
 }

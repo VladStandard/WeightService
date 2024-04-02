@@ -64,8 +64,8 @@ internal sealed class PluDtoValidator : AbstractValidator<PluDto>
             .LessThanOrEqualTo((short)100).WithMessage("Кол-во пакетов - должно быть < 100");
 
         RuleFor(dto => dto.ShelfLifeDays)
-            .Must(days => days > 0)
-            .WithMessage("Срок годности - должны быть в диапазоне [1, 255]");
+            .Must(days => days is > 0 and < 1000)
+            .WithMessage("Срок годности - должны быть в диапазоне [1, 1000]");
 
         RuleFor(dto => dto.StorageMethod)
             .Must(value => value is "Замороженное" or "Охлаждённое")

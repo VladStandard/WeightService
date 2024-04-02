@@ -40,7 +40,7 @@ public class WsDbContext : DbContext
     public DbSet<LineEntity> Lines { get; set; }
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<PluResourceEntity> PluResources { get; set; }
-    public DbSet<PluNestingEntity> PlusNestings { get; set; }
+    public DbSet<NestingEntity> Nestings { get; set; }
 
     private static readonly ILoggerFactory MyLoggerFactory
         = LoggerFactory.Create(builder => { builder.AddConsole(); });
@@ -60,67 +60,10 @@ public class WsDbContext : DbContext
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
 
-        modelBuilder.Entity<UserEntity>(entity =>
-        {
-            entity.HasMany(e => e.Claims)
-                .WithMany(e => e.Users)
-                .UsingEntity(
-                "USERS_СLAIMS_FK",
-                l => l.HasOne(typeof(ClaimEntity))
-                    .WithMany()
-                    .HasForeignKey("CLAIM_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(ClaimEntity.Id)),
-                r => r.HasOne(typeof(UserEntity))
-                    .WithMany()
-                    .HasForeignKey("USER_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(UserEntity.Id)),
-                j => j.HasKey("CLAIM_UID", "USER_UID"));
-        });
-
-        modelBuilder.Entity<PluResourceEntity>(entity =>
-        {
-            entity.HasOne<PluEntity>()
-                .WithOne(p => p.Resource)
-                .HasForeignKey<PluResourceEntity>(pr => pr.Id);
-        });
-
-        modelBuilder.Entity<LineEntity>(entity =>
-        {
-            entity.HasOne(l => l.Warehouse)
-                .WithMany()
-                .HasForeignKey("WAREHOUSE_UID")
-                .OnDelete(DeleteBehavior.Restrict);
-
-            entity.HasOne(l => l.Printer)
-                .WithMany()
-                .HasForeignKey("PRINTER_UID")
-                .OnDelete(DeleteBehavior.Restrict);
-
-            entity.HasMany(e => e.Plus)
-                .WithMany()
-                .UsingEntity(
-                "LINES_PLUS_FK",
-                l => l.HasOne(typeof(PluEntity))
-                    .WithMany()
-                    .HasForeignKey("PLU_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(PluEntity.Id)),
-                r => r.HasOne(typeof(LineEntity))
-                    .WithMany()
-                    .HasForeignKey("LINE_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasPrincipalKey(nameof(LineEntity.Id)),
-                j => j.HasKey("PLU_UID", "LINE_UID"));
-        });
-
-        modelBuilder.Entity<PluNestingEntity>(entity =>
-        {
-            entity.HasIndex(pn => new { pn.PluEntityId, pn.IsDefault })
-                .IsUnique()
-                .HasDatabaseName($"UQ_{SqlTables.PluNesting}_IS_DEFAULT_TRUE_ON_PLU")
-                .HasFilter("[IS_DEFAULT] = 1");
-        });
+        modelBuilder.MapLine();
+        modelBuilder.MapUser();
+        modelBuilder.MapPluResource();
+        modelBuilder.MapNesting();
+        // modelBuilder.MapCharacteristic();
     }
 }
