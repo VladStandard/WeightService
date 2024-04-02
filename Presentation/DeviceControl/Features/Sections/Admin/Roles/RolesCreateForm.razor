@@ -1,9 +1,0 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.ClaimEntity>
-
-
-<SectionFormWrapper OnSubmitAction="() => AddItem(SectionEntity, ClaimService.Create)">
-  <SectionFormInputText
-    @bind-Value="@SectionEntity.Name"
-    Label="@Localizer["DataGridColumnName"]"
-  />
-</SectionFormWrapper>
