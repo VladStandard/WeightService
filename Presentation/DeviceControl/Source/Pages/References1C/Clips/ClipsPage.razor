@@ -1,0 +1,43 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref1c
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.ClipEntity>
+@attribute [Route($"{RouteUtils.SectionClips}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionClips"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="ClipEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(ClipEntity.ChangeDt)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(ClipEntity.Name)"
+        Width="60%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWeight"]"
+        Field="@nameof(ClipEntity.Weight)"
+        Width="20%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

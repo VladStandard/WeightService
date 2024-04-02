@@ -1,0 +1,26 @@
+@* @using Ws.Domain.Models.Entities.Ref *@
+@* @using Ws.Domain.Services.Features.Claim *@
+@* @using DeviceControl.Source.Shared.UI.Select *@
+@* *@
+@* @inject IClaimService ClaimService *@
+@* *@
+@* <div class="w-52"> *@
+@*   <SelectMultiple *@
+@*     TItem="ClaimEntity" *@
+@*     Items="RolesEntities" *@
+@*     @bind-SelectedItems="@SelectedRoles" *@
+@*     ItemDisplayName="item => item.Name" *@
+@*     IsFilterable *@
+@*   /> *@
+@* </div> *@
+@* *@
+@* *@
+@* @code { *@
+@*   private IEnumerable<ClaimEntity> RolesEntities { get; set; } = []; *@
+@*   private IEnumerable<ClaimEntity> SelectedRoles { get; set; } = []; *@
+@* *@
+@*   protected override void OnInitialized() *@
+@*   { *@
+@*     RolesEntities = ClaimService.GetAll(); *@
+@*   } *@
+@* } *@

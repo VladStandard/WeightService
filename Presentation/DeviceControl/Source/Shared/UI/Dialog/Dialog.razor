@@ -1,0 +1,12 @@
+<div class="@Css.Class("bg-background rounded-md overflow-hidden flex flex-col max-h-screen w-screen border shadow-lg", Class)">
+  @ChildContent
+</div>
+
+<FluentDialogHeader Visible="false"></FluentDialogHeader>
+<FluentDialogBody Class="hidden"></FluentDialogBody>
+<FluentDialogFooter Visible="false"></FluentDialogFooter>
+
+@code {
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter] public string Class { get; set; } = string.Empty;
+}
