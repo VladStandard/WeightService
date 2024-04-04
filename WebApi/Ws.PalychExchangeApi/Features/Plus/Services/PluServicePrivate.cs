@@ -5,6 +5,12 @@ using Ws.PalychExchangeApi.Features.Plus.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
+file class NumberIdPair
+{
+    public Guid Id { get; set; }
+    public short Number { get; set; }
+}
+
 internal sealed partial class PluService
 {
     #region Resolve uniques local
@@ -37,19 +43,47 @@ internal sealed partial class PluService
 
     #region Resolve uniques db
 
+    private void ResolveUniqueNumberDb(List<PluDto> dtos)
+    {
+        HashSet<short> numberList = dtos.Select(dto => dto.Number).ToHashSet();
+
+        List<NumberIdPair> existingNumbersIdPairs = dbContext.Plus
+            .Where(plu => numberList.Contains(plu.Number))
+            .Select(plu => new NumberIdPair { Number = plu.Number, Id = plu.Id }).OrderBy(i => i.Number)
+            .ToList();
+
+        List<PluDto> notUniqueBrandsDto =
+            dtos
+                .Where(dto => existingNumbersIdPairs.Any(pair => pair.Number == dto.Number))
+                .Where(dto => !existingNumbersIdPairs.Any(pair => pair.Number == dto.Number && pair.Id == dto.Uid))
+                .ToList();
+        OutputDto.AddError(notUniqueBrandsDto.Select(i => i.Uid), "Номер плу не уникален (бд)");
+
+        dtos.RemoveAll(dto =>
+        {
+            if (existingNumbersIdPairs.All(pair => pair.Number != dto.Number))
+                return false;
+            return !existingNumbersIdPairs.Any(pair => pair.Number == dto.Number && pair.Id == dto.Uid);
+        });
+    }
+
+    #endregion
+
+    #region Resolve exsists FK
+
     private void ResolveNotExistClipFkDb(List<PluDto> dtos)
     {
-        HashSet<Guid> bundleUidList = dtos.Select(dto => dto.BundleUid).ToHashSet();
+        HashSet<Guid> clipUidList = dtos.Select(dto => dto.ClipUid).ToHashSet();
 
-        HashSet<Guid> existingBundles = dbContext.Bundles
-            .Where(brand => bundleUidList.Contains(brand.Id))
-            .Select(brand => brand.Id)
+        HashSet<Guid> existingClips = dbContext.Clips
+            .Where(clip => clipUidList.Contains(clip.Id))
+            .Select(clip => clip.Id)
             .ToHashSet();
 
-        List<PluDto> notExistsBundlesDto = dtos.Where(dto => !existingBundles.Contains(dto.Uid)).ToList();
+        List<PluDto> notExistsBundlesDto = dtos.Where(dto => !existingClips.Contains(dto.ClipUid)).ToList();
         OutputDto.AddError(notExistsBundlesDto.Select(i => i.Uid), "Клипса - не найдена");
 
-        dtos.RemoveAll(dto => !existingBundles.Contains(dto.BundleUid));
+        dtos.RemoveAll(dto => !existingClips.Contains(dto.ClipUid));
     }
 
     private void ResolveNotExistsBoxFkDb(List<PluDto> dtos)
@@ -61,7 +95,7 @@ internal sealed partial class PluService
             .Select(box => box.Id)
             .ToHashSet();
 
-        List<PluDto> notExistsBoxesDto = dtos.Where(dto => !existingBoxes.Contains(dto.Uid)).ToList();
+        List<PluDto> notExistsBoxesDto = dtos.Where(dto => !existingBoxes.Contains(dto.BoxUid)).ToList();
         OutputDto.AddError(notExistsBoxesDto.Select(i => i.Uid), "Коробка - не найдена");
 
         dtos.RemoveAll(dto => !existingBoxes.Contains(dto.BoxUid));
@@ -76,7 +110,7 @@ internal sealed partial class PluService
             .Select(brand => brand.Id)
             .ToHashSet();
 
-        List<PluDto> notExistsBrandsDto = dtos.Where(dto => !existingBrands.Contains(dto.Uid)).ToList();
+        List<PluDto> notExistsBrandsDto = dtos.Where(dto => !existingBrands.Contains(dto.BrandUid)).ToList();
         OutputDto.AddError(notExistsBrandsDto.Select(i => i.Uid), "Бренд - не найден");
 
         dtos.RemoveAll(dto => !existingBrands.Contains(dto.BrandUid));
@@ -91,7 +125,7 @@ internal sealed partial class PluService
             .Select(brand => brand.Id)
             .ToHashSet();
 
-        List<PluDto> notExistsBundlesDto = dtos.Where(dto => !existingBundles.Contains(dto.Uid)).ToList();
+        List<PluDto> notExistsBundlesDto = dtos.Where(dto => !existingBundles.Contains(dto.BundleUid)).ToList();
         OutputDto.AddError(notExistsBundlesDto.Select(i => i.Uid), "Пакет - не найден");
 
         dtos.RemoveAll(dto => !existingBundles.Contains(dto.BundleUid));

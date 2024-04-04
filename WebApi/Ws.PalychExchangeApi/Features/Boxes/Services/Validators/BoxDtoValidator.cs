@@ -14,7 +14,7 @@ public class BoxDtoValidator : AbstractValidator<BoxDto>
             .NotEmpty().WithMessage("Наименование - обязательно")
             .MaximumLength(64).WithMessage("Наименование - не должно превышать 64 символа");
         RuleFor(dto => dto.Weight)
-            .Must(ValidatorUtils.BeValidWeight)
+            .Must(ValidatorUtils.BeValidWeightDefault)
             .WithMessage("Вес - должен быть в [0, 1)");
     }
 }

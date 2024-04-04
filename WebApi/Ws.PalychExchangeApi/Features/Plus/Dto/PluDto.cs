@@ -28,6 +28,9 @@ public sealed class PluDto
     [XmlAttribute("ShelfLife")]
     public short ShelfLifeDays { get; set; }
 
+    [XmlAttribute("IsDelete")]
+    public bool IsDelete { get; set; }
+
     #region Fk
 
     [XmlAttribute("BrandUid")]
@@ -43,6 +46,9 @@ public sealed class PluDto
     public Guid BundleUid { get; set; }
 
     #endregion
+
+    [XmlAttribute("Weight")]
+    public decimal Weight { get; set; }
 
     [XmlAttribute("Ean13")]
     public string Ean13 { get; set; } = string.Empty;
@@ -73,7 +79,8 @@ internal static class PluDtoExtensions
             ShelfLifeDays = dto.ShelfLifeDays,
             BrandEntityId = dto.BrandUid,
             ClipEntityId = dto.ClipUid,
-            BundleEntityId = dto.BundleUid
+            BundleEntityId = dto.BundleUid,
+            Weight = dto.Weight
         };
 
     internal static NestingEntity ToNestingEntity(this PluDto dto, DateTime updateDt) =>

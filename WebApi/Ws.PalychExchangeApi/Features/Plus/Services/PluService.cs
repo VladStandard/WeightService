@@ -11,23 +11,20 @@ namespace Ws.PalychExchangeApi.Features.Plus.Services;
 internal sealed partial class PluService(WsDbContext dbContext) : IPluService
 {
     private ResponseDto OutputDto { get; } = new();
+    private PluDtoValidator Validator { get; } = new();
 
     public ResponseDto Load(PlusWrapper dtoWrapper)
     {
-        PluDtoValidator validator = new();
         List<PluDto> validDtos = [];
+
+        dtoWrapper.Plus.RemoveAll(i => i.IsDelete);
 
         ResolveUniqueUidLocal(dtoWrapper.Plus);
         ResolveUniqueNumberLocal(dtoWrapper.Plus);
 
-        ResolveNotExistsBoxFkDb(dtoWrapper.Plus);
-        ResolveNotExistClipFkDb(dtoWrapper.Plus);
-        ResolveNotExistsBrandFkDb(dtoWrapper.Plus);
-        ResolveNotExistsBundleFkDb(dtoWrapper.Plus);
-
         foreach (PluDto dto in dtoWrapper.Plus)
         {
-            ValidationResult validationResult = validator.Validate(dto);
+            ValidationResult validationResult = Validator.Validate(dto);
             if (!validationResult.IsValid)
             {
                 OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
@@ -35,6 +32,12 @@ internal sealed partial class PluService(WsDbContext dbContext) : IPluService
             }
             validDtos.Add(dto);
         }
+
+        ResolveUniqueNumberDb(validDtos);
+        ResolveNotExistsBoxFkDb(validDtos);
+        ResolveNotExistClipFkDb(validDtos);
+        ResolveNotExistsBrandFkDb(validDtos);
+        ResolveNotExistsBundleFkDb(validDtos);
 
         SavePlus(validDtos);
         return OutputDto;

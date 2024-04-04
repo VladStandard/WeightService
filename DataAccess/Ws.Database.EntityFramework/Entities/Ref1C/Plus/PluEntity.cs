@@ -14,11 +14,11 @@ public sealed class PluEntity : EfEntityBase
     public string Name { get; set; } = string.Empty;
 
     [Column("FULL_NAME")]
-    [StringLength(150, MinimumLength = 1, ErrorMessage = "Full name must be between 1 and 150 characters")]
+    [StringLength(200, MinimumLength = 1, ErrorMessage = "Full name must be between 1 and 200 characters")]
     public string FullName { get; set; } = string.Empty;
 
     [Column("DESCRIPTION")]
-    [StringLength(150, MinimumLength = 1, ErrorMessage = "Description must be between 1 and 150 characters")]
+    [StringLength(200, MinimumLength = 1, ErrorMessage = "Description must be between 1 and 200 characters")]
     public string Description { get; set; } = string.Empty;
 
     [Column("NUMBER")]
@@ -38,6 +38,9 @@ public sealed class PluEntity : EfEntityBase
 
     [Column("IS_WEIGHT")]
     public bool IsWeight { get; set; }
+
+    [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
+    public decimal Weight { get; set; }
 
     [ForeignKey("BUNDLE_UID"), Column("BUNDLE_UID")]
     public Guid BundleEntityId { get; set; }

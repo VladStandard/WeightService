@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Events;
-using Ws.Shared.TypeUtils;
 using Ws.Shared.Resources;
+using Ws.Shared.TypeUtils;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 

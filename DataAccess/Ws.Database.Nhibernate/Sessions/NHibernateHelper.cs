@@ -7,11 +7,9 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using Ws.Database.Nhibernate.Listeners;
 using Ws.Database.Nhibernate.Models;
-using DataBaseSessionException = Ws.Database.Nhibernate.Sessions.Exceptions.DataBaseSessionException;
+using Ws.Database.Nhibernate.Sessions.Exceptions;
 
 namespace Ws.Database.Nhibernate.Sessions;
-
-using DataBaseSessionException = Exceptions.DataBaseSessionException;
 
 public static class NHibernateHelper
 {

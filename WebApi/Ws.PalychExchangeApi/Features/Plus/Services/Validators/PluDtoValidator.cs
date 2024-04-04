@@ -1,5 +1,6 @@
 using FluentValidation;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
+using Ws.PalychExchangeApi.Utils;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services.Validators;
 
@@ -18,11 +19,11 @@ internal sealed class PluDtoValidator : AbstractValidator<PluDto>
 
         RuleFor(dto => dto.FullName)
             .NotEmpty().WithMessage("Полное наименование - обязательно")
-            .MaximumLength(150).WithMessage("Полное наименование - не должно превышать 150 символов");
+            .MaximumLength(200).WithMessage("Полное наименование - не должно превышать 200 символов");
 
         RuleFor(dto => dto.Description)
             .NotEmpty().WithMessage("Описание - обязательно")
-            .MaximumLength(150).WithMessage("Описание - не должно превышать 150 символов");
+            .MaximumLength(200).WithMessage("Описание - не должно превышать 200 символов");
 
         #endregion
 
@@ -54,6 +55,11 @@ internal sealed class PluDtoValidator : AbstractValidator<PluDto>
         #endregion
 
         #region Other
+
+        RuleFor(dto => dto.Weight)
+            .Must(x => ValidatorUtils.BeValidWeight(x, 0, 2))
+            .When(x => !x.IsWeight).WithMessage("Вес - должен быть в [0, 2]")
+            .Equal(0).When(x => x.IsWeight).WithMessage("Вес - у весовой ПЛУ должен быть 0");
 
         RuleFor(dto => dto.Number)
             .Must(number => number is > 0 and < 1000)

@@ -46,7 +46,7 @@ internal partial class BrandService
             .ToHashSet();
 
         List<BrandDto> notUniqueBrandsDto = dtos.Where(dto => existingNames.Contains(dto.Name)).ToList();
-        OutputDto.AddError(notUniqueBrandsDto.Select(i => i.Uid), "Нарушение уникальности в бд");
+        OutputDto.AddError(notUniqueBrandsDto.Select(i => i.Uid), "Наименование не уникально (бд)");
 
         dtos.RemoveAll(dto => existingNames.Contains(dto.Name));
     }

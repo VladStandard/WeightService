@@ -4,9 +4,12 @@ namespace Ws.PalychExchangeApi.Utils;
 
 internal static class ValidatorUtils
 {
-    public static bool BeValidWeight(decimal number)
+    public static bool BeValidWeightDefault(decimal number) =>
+        BeValidWeight(number);
+
+    public static bool BeValidWeight(decimal number, int min = 0, int max = 1)
     {
-        if (number is <= 0 or >= 1) return false;
+        if (number > min && number < max) return false;
 
         string numberString = number.ToString(CultureInfo.InvariantCulture);
         string[] parts = numberString.Split('.');

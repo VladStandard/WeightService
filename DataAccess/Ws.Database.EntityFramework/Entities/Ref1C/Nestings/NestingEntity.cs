@@ -3,7 +3,6 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
 [Table(SqlTables.Nestings)]
-[Index(nameof(BundleCount), nameof(BoxId), Name = $"UQ_{SqlTables.Nestings}_BUNDLE_BOX", IsUnique = true)]
 public sealed class NestingEntity : EfEntityBase
 {
     [Column("BUNDLE_COUNT")]
