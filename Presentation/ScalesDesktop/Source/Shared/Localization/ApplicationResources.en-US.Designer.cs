@@ -9,8 +9,8 @@
 
 namespace ScalesDesktop.Source.Shared.Localization {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -21,16 +21,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources_ru_RU {
-        
+    internal class ApplicationResources_en_US {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources_ru_RU() {
+        internal ApplicationResources_en_US() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -38,13 +38,13 @@ namespace ScalesDesktop.Source.Shared.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ScalesDesktop.Source.Shared.Localization.Resources.ru-RU", typeof(Resources_ru_RU).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ScalesDesktop.Source.Shared.Localization.ApplicationResources.en-US", typeof(ApplicationResources_en_US).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,396 +58,396 @@ namespace ScalesDesktop.Source.Shared.Localization {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печатать все.
+        ///   Looks up a localized string similar to Print all.
         /// </summary>
         internal static string BtnAllLabelsPrinting {
             get {
                 return ResourceManager.GetString("BtnAllLabelsPrinting", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Назад.
+        ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string BtnBack {
             get {
                 return ResourceManager.GetString("BtnBack", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Доступно через.
+        ///   Looks up a localized string similar to Available in.
         /// </summary>
         internal static string BtnCooldown {
             get {
                 return ResourceManager.GetString("BtnCooldown", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Создать.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         internal static string BtnCreate {
             get {
                 return ResourceManager.GetString("BtnCreate", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Ввод.
+        ///   Looks up a localized string similar to Enter.
         /// </summary>
         internal static string BtnEnter {
             get {
                 return ResourceManager.GetString("BtnEnter", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печать этикетки.
+        ///   Looks up a localized string similar to Print label.
         /// </summary>
         internal static string BtnLabelPrint {
             get {
                 return ResourceManager.GetString("BtnLabelPrint", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Войти.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string BtnLogIn {
             get {
                 return ResourceManager.GetString("BtnLogIn", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печать ПК.
+        ///   Looks up a localized string similar to Print PC.
         /// </summary>
         internal static string BtnPrintPC {
             get {
                 return ResourceManager.GetString("BtnPrintPC", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Откалибровать весы.
+        ///   Looks up a localized string similar to Calibrate scale.
         /// </summary>
         internal static string BtnScaleCalibration {
             get {
                 return ResourceManager.GetString("BtnScaleCalibration", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печать выбранных.
+        ///   Looks up a localized string similar to Print selected.
         /// </summary>
         internal static string BtnSelectedLabelsPrinting {
             get {
                 return ResourceManager.GetString("BtnSelectedLabelsPrinting", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Форма создания паллеты.
+        ///   Looks up a localized string similar to Create pallet form.
         /// </summary>
         internal static string CreatePalletFormHeader {
             get {
                 return ResourceManager.GetString("CreatePalletFormHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Выберите ПЛУ.
+        ///   Looks up a localized string similar to Select PLU.
         /// </summary>
         internal static string DisplayPluSelectWarning {
             get {
                 return ResourceManager.GetString("DisplayPluSelectWarning", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Весы отключены.
+        ///   Looks up a localized string similar to Scales are disconnected.
         /// </summary>
         internal static string DisplayScalesDisconnectedWarning {
             get {
                 return ResourceManager.GetString("DisplayScalesDisconnectedWarning", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Для создания новой паллеты, в верхней части левого блока нажмите .
+        ///   Looks up a localized string similar to To create a new pallet, click the button at the top of the left block.
         /// </summary>
         internal static string FuncCardCreationDescription {
             get {
                 return ResourceManager.GetString("FuncCardCreationDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Создание.
+        ///   Looks up a localized string similar to Creation.
         /// </summary>
         internal static string FuncCardCreationTitle {
             get {
                 return ResourceManager.GetString("FuncCardCreationTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Описание основного функционала приложения.
+        ///   Looks up a localized string similar to Description of the main functionality of the application.
         /// </summary>
         internal static string FuncCardDescription {
             get {
                 return ResourceManager.GetString("FuncCardDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Функционал.
+        ///   Looks up a localized string similar to Functional.
         /// </summary>
         internal static string FuncCardHeader {
             get {
                 return ResourceManager.GetString("FuncCardHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Для печати этикеток выберите паллету. Во вкладке &quot;Этикетки&quot; вы можете распечатать все этикетки, либо выбрать нужные в таблице и нажать.
+        ///   Looks up a localized string similar to To print labels, select a pallet. In the Labels tab, you can print all the labels, or select the ones you need in the table and click.
         /// </summary>
         internal static string FuncCardLabelPrintingDescription {
             get {
                 return ResourceManager.GetString("FuncCardLabelPrintingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печать этикеток.
+        ///   Looks up a localized string similar to Label printing.
         /// </summary>
         internal static string FuncCardLabelPrintingTitle {
             get {
                 return ResourceManager.GetString("FuncCardLabelPrintingTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Для печати паллетной карты выберите паллету и перейдите на вкладку &quot;Информация&quot;, затем нажмите.
+        ///   Looks up a localized string similar to To print a pallet card, select the pallet and go to the Information tab, then click.
         /// </summary>
         internal static string FuncCardPCPrintingDescription {
             get {
                 return ResourceManager.GetString("FuncCardPCPrintingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Печать паллетной карты.
+        ///   Looks up a localized string similar to Pallet card printing.
         /// </summary>
         internal static string FuncCardPCPrintingTitle {
             get {
                 return ResourceManager.GetString("FuncCardPCPrintingTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Для просмотра информации об паллете, выберите нужную паллету в левом блоке.
+        ///   Looks up a localized string similar to To view information about the pallet, select the desired pallet in the left block.
         /// </summary>
         internal static string FuncCardViewingDescription {
             get {
                 return ResourceManager.GetString("FuncCardViewingDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Просмотр.
+        ///   Looks up a localized string similar to Viewing.
         /// </summary>
         internal static string FuncCardViewingTitle {
             get {
                 return ResourceManager.GetString("FuncCardViewingTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Введите замес.
+        ///   Looks up a localized string similar to Enter the kneading.
         /// </summary>
         internal static string KneadingInputPlaceholder {
             get {
                 return ResourceManager.GetString("KneadingInputPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Настройка ПЛУ.
+        ///   Looks up a localized string similar to PLU config.
         /// </summary>
         internal static string LabelConfigHeader {
             get {
                 return ResourceManager.GetString("LabelConfigHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Введите количество этикеток.
+        ///   Looks up a localized string similar to Enter a label count.
         /// </summary>
         internal static string LabelCountInputPlaceholder {
             get {
                 return ResourceManager.GetString("LabelCountInputPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Вложенность не выбрана.
+        ///   Looks up a localized string similar to Nesting is not selected.
         /// </summary>
         internal static string NestingSelectPlaceholder {
             get {
                 return ResourceManager.GetString("NestingSelectPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Вход в профиль.
+        ///   Looks up a localized string similar to Log in to your account.
         /// </summary>
         internal static string PalletManFormHeader {
             get {
                 return ResourceManager.GetString("PalletManFormHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Нет информации о паллетах.
+        ///   Looks up a localized string similar to No pallets found.
         /// </summary>
         internal static string PalletSelectEmpty {
             get {
                 return ResourceManager.GetString("PalletSelectEmpty", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Введите вес паллеты.
+        ///   Looks up a localized string similar to Enter the pallet weight.
         /// </summary>
         internal static string PalletWeightInputPlaceholder {
             get {
                 return ResourceManager.GetString("PalletWeightInputPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Введите пароль.
+        ///   Looks up a localized string similar to Enter the password.
         /// </summary>
         internal static string PasswordInputPlaceholder {
             get {
                 return ResourceManager.GetString("PasswordInputPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Выбор ПЛУ.
+        ///   Looks up a localized string similar to PLU select.
         /// </summary>
         internal static string PluSelectHeader {
             get {
                 return ResourceManager.GetString("PluSelectHeader", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Выбрать ПЛУ.
+        ///   Looks up a localized string similar to PLU is not selected.
         /// </summary>
         internal static string PluSelectPlaceholder {
             get {
                 return ResourceManager.GetString("PluSelectPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Открыта головка принтера.
+        ///   Looks up a localized string similar to The printer head is opened.
         /// </summary>
         internal static string PrinterStatusHeadOpen {
             get {
                 return ResourceManager.GetString("PrinterStatusHeadOpen", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Принтер не активен.
+        ///   Looks up a localized string similar to The printer is deactivated.
         /// </summary>
         internal static string PrinterStatusIsDisabled {
             get {
                 return ResourceManager.GetString("PrinterStatusIsDisabled", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Принтер не в сети.
+        ///   Looks up a localized string similar to The printer is offline.
         /// </summary>
         internal static string PrinterStatusIsForceDisconnected {
             get {
                 return ResourceManager.GetString("PrinterStatusIsForceDisconnected", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to В принтере замялась этикетка.
+        ///   Looks up a localized string similar to The label is stuck in the printer.
         /// </summary>
         internal static string PrinterStatusPaperJam {
             get {
                 return ResourceManager.GetString("PrinterStatusPaperJam", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Кончилась лента в принтере.
+        ///   Looks up a localized string similar to The printer has run out of tape.
         /// </summary>
         internal static string PrinterStatusPaperOut {
             get {
                 return ResourceManager.GetString("PrinterStatusPaperOut", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Принтер стоит на паузе.
+        ///   Looks up a localized string similar to The printer is on pause.
         /// </summary>
         internal static string PrinterStatusPaused {
             get {
                 return ResourceManager.GetString("PrinterStatusPaused", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Неизвестная ошибка принтера.
+        ///   Looks up a localized string similar to Unknown printer error.
         /// </summary>
         internal static string PrinterStatusUnknown {
             get {
                 return ResourceManager.GetString("PrinterStatusUnknown", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to На весах недостаточный вес.
+        ///   Looks up a localized string similar to The scales lack the necessary weight..
         /// </summary>
         internal static string ScalesStatusTooLight {
             get {
                 return ResourceManager.GetString("ScalesStatusTooLight", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Весы нестабильны.
+        ///   Looks up a localized string similar to The scales are not stable.
         /// </summary>
         internal static string ScalesStatusUnstable {
             get {
                 return ResourceManager.GetString("ScalesStatusUnstable", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Поиск по номеру.
+        ///   Looks up a localized string similar to Search by number.
         /// </summary>
         internal static string SearchByNumberPlaceholder {
             get {
                 return ResourceManager.GetString("SearchByNumberPlaceholder", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Выберите пользователя.
+        ///   Looks up a localized string similar to Select your user.
         /// </summary>
         internal static string UserSelectPlaceholder {
             get {

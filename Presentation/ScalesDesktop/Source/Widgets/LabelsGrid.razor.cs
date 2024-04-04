@@ -11,7 +11,7 @@ namespace ScalesDesktop.Source.Widgets;
 
 public sealed partial class LabelsGrid : ComponentBase
 {
-    [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IPalletService PalletService { get; set; } = null!;

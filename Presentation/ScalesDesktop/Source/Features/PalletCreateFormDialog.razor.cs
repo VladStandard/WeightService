@@ -24,7 +24,7 @@ namespace ScalesDesktop.Source.Features
         [Inject] private ILineService LineService { get; set; } = null!;
         [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
         [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-        [Inject] private IStringLocalizer<Resources> Localizer { get; set; } = null!;
+        [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
 
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();

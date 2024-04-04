@@ -37,9 +37,6 @@
 
     <ItemGroup>
         <!-- App Icon -->
-
-        <MauiAsset Include="wwwroot\fonts\roboto-font.css" />
-
         <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
         <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
@@ -84,15 +81,15 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PalletResources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Source\Shared\Localization\Resources.resx">
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Source\Shared\Localization\Resources.en-US.resx">
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.en-US.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Source\Shared\Localization\Resources.ru-RU.resx">
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -115,21 +112,76 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>PalletResources.ru-RU.resx</DependentUpon>
       </Compile>
-      <Compile Update="Source\Shared\Localization\Resources.Designer.cs">
+      <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
+        <DependentUpon>ApplicationResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Source\Shared\Localization\Resources.en-US.Designer.cs">
+      <Compile Update="Source\Shared\Localization\ApplicationResources.en-US.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.en-US.resx</DependentUpon>
+        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
       </Compile>
-      <Compile Update="Source\Shared\Localization\Resources.ru-RU.Designer.cs">
+      <Compile Update="Source\Shared\Localization\ApplicationResources.ru-RU.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.ru-RU.resx</DependentUpon>
+        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Source\Shared\UI\Dialog\Dialog.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Dialog\DialogHeader.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Tabs\Tab.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Tabs\Tabs.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="Source\Shared\UI\Dialog\DialogHeader.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Dialog\Dialog.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Form\InputDateField.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Form\InputCheckboxField.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Form\InputNumberField.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Form\InputTextField.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Tabs\Tab.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Tabs\Tabs.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Source\Shared\UI\Button.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Source\Shared\UI\Dialog\Dialog.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Dialog\DialogHeader.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\FieldLabel.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\FieldValidation.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\InputCheckboxField.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\InputDateField.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\InputIpField.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\InputTextAreaField.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Select\SelectItem.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Select\SelectMultiple.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Select\SelectSearch.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Select\SelectSingle.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Select\SelectTrigger.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Tabs\Tab.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Tabs\Tabs.razor" />
     </ItemGroup>
     
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

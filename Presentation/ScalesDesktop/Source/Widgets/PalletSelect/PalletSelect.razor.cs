@@ -12,7 +12,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
 {
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
 
     private string InputSearchCounter { get; set; } = string.Empty;
 

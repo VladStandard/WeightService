@@ -11,7 +11,7 @@ namespace ScalesDesktop.Source.Features;
 
 public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
 

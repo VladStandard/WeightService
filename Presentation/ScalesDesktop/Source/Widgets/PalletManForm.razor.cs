@@ -17,7 +17,7 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IToastService ToastService { get; set; } = null!;
     [Inject] private PalletContext PalletContext { get; set; } = null!;
     [Inject] private IPalletManService PalletManService { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
     private IEnumerable<PalletManEntity> GetAllPalletMen { get; set; } = [];

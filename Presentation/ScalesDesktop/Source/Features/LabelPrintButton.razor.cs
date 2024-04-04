@@ -21,7 +21,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     # region Injects
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;

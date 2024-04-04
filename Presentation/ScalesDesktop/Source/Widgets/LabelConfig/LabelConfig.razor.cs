@@ -15,7 +15,7 @@ public sealed partial class LabelConfig : ComponentBase, IDisposable
     [Inject] private LabelContext LabelContext { get; set; } = null!;
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 

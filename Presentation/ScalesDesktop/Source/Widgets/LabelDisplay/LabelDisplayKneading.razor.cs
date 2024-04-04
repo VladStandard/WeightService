@@ -10,7 +10,7 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayKneading : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = default!;
 
