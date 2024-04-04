@@ -8,7 +8,7 @@ namespace ScalesDesktop.Source.Features;
 
 public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogContentComponent<NumericKeyboardDialogContent>
 {
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
     [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
     [Parameter] public int MaxDigitCount { get; set; } = 3;

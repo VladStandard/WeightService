@@ -10,10 +10,13 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    # region Injects
 
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
-    [Inject] private LineContext LineContext { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+    [Inject] private LineContext LineContext { get; set; } = default!;
+
+    # endregion
 
     private bool IsStable { get; set; }
 

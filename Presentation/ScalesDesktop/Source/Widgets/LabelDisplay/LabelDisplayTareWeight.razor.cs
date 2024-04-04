@@ -7,8 +7,12 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayTareWeight : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+    # endregion
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 

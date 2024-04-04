@@ -10,9 +10,13 @@ namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
 public sealed partial class PalletSelect : ComponentBase, IDisposable
 {
-    [Inject] private PalletContext PalletContext { get; set; } = null!;
-    [Inject] private IDialogService DialogService { get; set; } = null!;
-    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
+    # region Injects
+
+    [Inject] private PalletContext PalletContext { get; set; } = default!;
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+    # endregion
 
     private string InputSearchCounter { get; set; } = string.Empty;
 

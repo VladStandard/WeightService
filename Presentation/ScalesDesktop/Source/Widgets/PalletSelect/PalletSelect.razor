@@ -3,7 +3,7 @@
 @using Ws.Domain.Models.Entities.Print
 <div class="h-full w-full overflow-hidden flex flex-col">
   <div class="h-full w-full grow flex flex-col overflow-hidden">
-    <div class="h-14 border-b flex gap-2 w-full px-4 flex items-center shrink-0">
+    <div class="h-14 border-b flex gap-2 w-full px-4 items-center shrink-0">
       <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9">
         <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-500"/>
         <input
@@ -11,15 +11,15 @@
           @bind="InputSearchCounter"
           @bind:event="oninput"
           class="h-full w-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-          placeholder="@PalletLocalizer["SearchByNumberPlaceholder"]"
+          placeholder="@Localizer["SearchByNumberPlaceholder"]"
         />
       </div>
-      <Button
-        Variant="ButtonVariant.Outline"
-        Size="ButtonSize.Icon"
-      >
-        <FunnelIcon class="h-5 w-5 mx-2"/>
-      </Button>
+      @* <Button *@
+      @*   Variant="ButtonVariant.Outline" *@
+      @*   Size="ButtonSize.Icon" *@
+      @* > *@
+      @*   <FunnelIcon class="h-5 w-5 mx-2"/> *@
+      @* </Button> *@
       <Button
         Variant="ButtonVariant.Outline"
         Size="ButtonSize.Icon"
@@ -37,7 +37,7 @@
     @if (!PalletContext.PalletEntities.Any())
         {
           <div class="h-full w-full flex items-center justify-center">
-            <p>@PalletLocalizer["PalletSelectEmpty"]</p>
+            <p>@Localizer["PalletSelectEmpty"]</p>
           </div>
         }
     else

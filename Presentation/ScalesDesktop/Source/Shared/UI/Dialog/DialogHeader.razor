@@ -19,6 +19,7 @@
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 

@@ -10,9 +10,12 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplay : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
+    # region Injects
 
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+    # endregion
 
     private bool IsScalesDisconnected { get; set; }
 

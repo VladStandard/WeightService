@@ -1,4 +1,7 @@
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Shared.Localization
+@using ScalesDesktop.Source.Shared.Services
 @using ScalesDesktop.Source.Shared.UI
 
 <div class="shrink-0 w-full flex gap-4 pt-4 border-t">
@@ -18,7 +21,24 @@
       Class="!px-4 lg:!px-8"
     >
       <ArrowPathIcon class="size-5 lg:hidden" />
-      <span class="hidden lg:block">Обновить</span>
+      <span class="hidden lg:block">@Localizer["BtnUpdate"]</span>
     </Button>
   </div>
 </div>
+
+@code {
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  private void AppReset()
+  {
+    LineContext.ResetLine();
+    LabelContext.InitializeData();
+  }
+
+}

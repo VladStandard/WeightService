@@ -7,16 +7,17 @@
     <input
       @bind="SearchingNumber"
 
-      placeholder="@PalletLocalizer["SearchByNumberPlaceholder"]"
+      placeholder="@Localizer["SearchByNumberPlaceholder"]"
       class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
     />
   </div>
   <div class="w-1/2 flex gap-2 h-full items-center overflow-hidden">
-    <Button Class="w-1/2">
-      @PalletLocalizer["BtnSelectedLabelsPrinting"]
+
+    <Button Variant="ButtonVariant.Outline" Class="w-1/2" OnClick="@SelectAllItems">
+      @Localizer["BtnSelectAllLabels"]
     </Button>
-    <Button Variant="ButtonVariant.Outline" Class="w-1/2">
-      @PalletLocalizer["BtnAllLabelsPrinting"]
+    <Button Class="w-1/2">
+      @Localizer["BtnSelectedLabelsPrinting"]
     </Button>
   </div>
 </div>
@@ -25,19 +26,27 @@
   <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
     <FluentDataGrid
       TGridItem="DataItem"
-      GridTemplateColumns="3rem 3rem 1fr 3fr"
-      Items="@Data"
-      OnRowFocus="@(obj => { if (obj.Item != null) ToggleItem(obj.Item.Label); })"
+      GridTemplateColumns="8rem 3rem 3rem 1fr 3fr"
+      Items="@LabelData"
       RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer")"
       Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
       Virtualize
     >
       <TemplateColumn Align="Align.Center">
-        <input
-          type="checkbox"
-          checked="@SelectedItems.Contains(context.Label)"
-          disabled
-        />
+        <Button
+          Size="ButtonSize.Small"
+          Variant="ButtonVariant.Outline"
+          OnClick="@(() => ToggleItem(context.Label))"
+          Class="!h-6 !w-24 !py-1"
+        >
+          @Localizer["BtnSelect"]
+        </Button>
+      </TemplateColumn>
+      <TemplateColumn Align="Align.Center">
+        @if (SelectedItems.Contains(context.Label))
+        {
+          <CheckIcon class="size-4" />
+        }
       </TemplateColumn>
       <PropertyColumn
         Property="@(p => p.Id)"
@@ -47,34 +56,12 @@
       <PropertyColumn
         Property="@(p => p.Label.ProductDt)"
         Title="@WsDataLocalizer["ColCreateDt"]"
-        Sortable="true"/>
+        Sortable="true"
+      />
       <PropertyColumn
         Property="@(p => p.Label.BarcodeTop)"
-        Title="Штрихкод"/>
+        Title="@WsDataLocalizer["ColBarcode"]"
+      />
     </FluentDataGrid>
-    @* <DataGrid *@
-    @*   TItem="LabelEntity" *@
-    @*   @ref="DataGridRef" *@
-    @*   Data="GridData" *@
-    @*   @bind-SelectedRows="SelectedItems" *@
-    @*   VirtualizeOptions="@(new() { DataGridHeight = "100%", DataGridMaxHeight = "100%" })" *@
-    @*   SelectionMode="DataGridSelectionMode.Multiple" *@
-    @*   SelectedRowStyling="SelectedRowStyling" *@
-    @*   RowStyling="RowStyling" *@
-    @*   Virtualize *@
-    @*   Class="!mb-0 [&_tbody_td]:py-4" *@
-    @* > *@
-    @*   <DataGridMultiSelectColumn Width="1rem" /> *@
-    @*   <DataGridColumn *@
-    @*     Caption="@WsDataLocalizer["ColCreateDt"]" *@
-    @*     Field="@nameof(LabelEntity.CreateDt)" *@
-    @*     Width="40%" *@
-    @*   /> *@
-    @*   <DataGridColumn *@
-    @*     Caption="@WsDataLocalizer["ColLine"]" *@
-    @*     Field="@nameof(LabelEntity.Line)" *@
-    @*     Width="60%" *@
-    @*   /> *@
-    @* </DataGrid> *@
   </div>
 </div>

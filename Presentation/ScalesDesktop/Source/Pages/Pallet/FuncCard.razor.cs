@@ -6,5 +6,5 @@ namespace ScalesDesktop.Source.Pages.Pallet;
 
 public sealed partial class FuncCard : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 }

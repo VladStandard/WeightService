@@ -7,8 +7,12 @@ namespace ScalesDesktop.Source.Pages.Labels;
 
 public sealed partial class LabelsPage : ComponentBase, IDisposable
 {
-    [Inject] public LabelContext LabelContext { get; set; } = null!;
-    [Inject] public LineContext LineContext { get; set; } = null!;
+    # region Injects
+
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+    [Inject] private LineContext LineContext { get; set; } = default!;
+
+    # endregion
 
     protected override void OnInitialized()
     {

@@ -10,11 +10,14 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayKneading : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IDialogService DialogService { get; set; } = default!;
+    # region Injects
 
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+    # endregion
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 

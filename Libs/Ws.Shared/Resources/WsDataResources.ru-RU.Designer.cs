@@ -87,6 +87,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Коробка.
+        /// </summary>
+        public static string ColBox {
+            get {
+                return ResourceManager.GetString("ColBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вес коробки.
         /// </summary>
         public static string ColBoxWeight {

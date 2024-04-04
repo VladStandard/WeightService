@@ -225,4 +225,7 @@
     <data name="ColPercentages" xml:space="preserve">
         <value>Percentages</value>
     </data>
+    <data name="ColBox" xml:space="preserve">
+        <value>Box</value>
+    </data>
 </root>

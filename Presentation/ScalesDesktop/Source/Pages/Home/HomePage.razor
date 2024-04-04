@@ -1,65 +1,15 @@
 @using ScalesDesktop.Source.Shared.Utils
 @using Blazor.Heroicons.Outline
-@using ScalesDesktop.Source.Features
 @using Ws.Domain.Models.Enums
+
 @attribute [Route(RouteUtils.Home)]
 
-@* <div class="size-full flex items-center"> *@
-@*   <div class="w-full flex flex-col gap-20"> *@
-@*     <div class="w-full"> *@
-@*       <p class="truncate text-center text-4xl font-medium">Весовая Служба 2.0</p> *@
-@*     </div> *@
-@*     <div class="w-full flex items-center justify-center px-10 gap-4"> *@
-@*       @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal) *@
-@*       { *@
-@*         <div class="flex flex-col gap-2"> *@
-@*           <a href="@RouteUtils.Labels"> *@
-@*             <button *@
-@*               type="button" *@
-@*               class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"> *@
-@*               <p class="text-3xl">Этикетка</p> *@
-@*             </button> *@
-@*           </a> *@
-@*         </div> *@
-@* *@
-@*       } *@
-@*       @if (LineContext.Line.Type is LineTypeEnum.Pc or LineTypeEnum.Universal) *@
-@*       { *@
-@*         <a href="@RouteUtils.Pallet"> *@
-@*           <button *@
-@*             type="button" *@
-@*             class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"> *@
-@*             <p class="text-3xl">Паллеты</p> *@
-@*           </button> *@
-@*         </a> *@
-@*       } *@
-@*       <button *@
-@*         type="button" *@
-@*         @onclick="ShowCloseAppDialog" *@
-@*         class="h-48 w-64 rounded-2xl bg-white transition-all overflow-hidden shadow-md border hover:bg-red-300 hover:shadow-red-200 hover:scale-105"> *@
-@*         <p class="text-3xl">Выход</p> *@
-@*       </button> *@
-@*     </div> *@
-@*     <div class="flex gap-10 px-10 w-full max-w-screen-lg mx-auto"> *@
-@*       <div class="w-1/2"> *@
-@*         <LineInputWithReset /> *@
-@*       </div> *@
-@*       <div class="w-1/2"> *@
-@*         <InputWithLabel *@
-@*           Label="Склад" *@
-@*           Value="@LineContext.Line.Warehouse.Name" *@
-@*           IsDisabled *@
-@*         /> *@
-@*       </div> *@
-@*     </div> *@
-@*   </div> *@
-@* </div> *@
 
 <div class="size-full flex items-center justify-center">
   <div class="bg-background max-w-lg shadow-sm w-full rounded-lg overflow-hidden p-6 border flex gap-6 flex-col">
     <div class="flex flex-col space-y-1 text-center">
-      <h2 class="text-2xl font-semibold">Весовая Служба</h2>
-      <p class="text-sm text-muted-foreground">Выберите необходимый пункт</p>
+      <h2 class="text-2xl font-semibold">@Localizer["AppName"]</h2>
+      <p class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</p>
     </div>
     <ul class="flex flex-col gap-2">
       @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal)
@@ -67,8 +17,8 @@
         <li>
           <a href="@RouteUtils.Labels">
             <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg">
-              <TagIcon class="size-6 mr-4"/>
-              Этикетка
+              <TagIcon class="size-5 mr-3"/>
+              @WsDataLocalizer["ColLabel"]
             </Button>
           </a>
         </li>
@@ -78,16 +28,16 @@
         <li>
           <a href="@RouteUtils.Pallet">
             <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg">
-              <ClipboardIcon class="size-6 mr-4"/>
-              Паллета
+              <ClipboardIcon class="size-5 mr-3"/>
+              @WsDataLocalizer["ColPallet"]
             </Button>
           </a>
         </li>
       }
       <li>
         <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg" OnClick="@ShowCloseAppDialog">
-          <ArrowRightStartOnRectangleIcon class="size-6 mr-4"/>
-          Выход
+          <ArrowRightStartOnRectangleIcon class="size-5 mr-3"/>
+          @Localizer["BtnExit"]
         </Button>
       </li>
     </ul>
@@ -101,7 +51,7 @@
       </div>
       <Button Class="shrink-0">
         <ArrowPathIcon class="size-4 mr-4"/>
-        Обновить
+        @Localizer["BtnUpdate"]
       </Button>
     </div>
   </div>

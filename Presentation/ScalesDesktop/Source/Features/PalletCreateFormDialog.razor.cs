@@ -17,14 +17,18 @@ namespace ScalesDesktop.Source.Features
 {
     public sealed partial class PalletCreateFormDialog : ComponentBase, IDialogContentComponent
     {
-        [Inject] private IToastService ToastService { get; set; } = null!;
-        [Inject] private LineContext LineContext { get; set; } = null!;
-        [Inject] private PalletContext PalletContext { get; set; } = null!;
-        [Inject] private IPluService PluService { get; set; } = null!;
-        [Inject] private ILineService LineService { get; set; } = null!;
-        [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
-        [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-        [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = null!;
+        # region Injects
+
+        [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+        [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+        [Inject] private IToastService ToastService { get; set; } = default!;
+        [Inject] private LineContext LineContext { get; set; } = default!;
+        [Inject] private PalletContext PalletContext { get; set; } = default!;
+        [Inject] private IPluService PluService { get; set; } = default!;
+        [Inject] private ILineService LineService { get; set; } = default!;
+        [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
+
+        # endregion
 
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();

@@ -20,13 +20,13 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 {
     # region Injects
 
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
-    [Inject] private IPrintLabelService PrintLabelService { get; set; } = null!;
-    [Inject] private ILineService LineService { get; set; } = null!;
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    [Inject] private ExternalDevicesService ExternalDevices { get; set; } = default!;
+    [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
+    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
 
     #endregion
 
@@ -89,13 +89,13 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     {
         if (!IsScalesStable)
         {
-            ToastService.ShowWarning(LabelsLocalizer["ScalesStatusUnstable"]);
+            ToastService.ShowWarning(Localizer["ScalesStatusUnstable"]);
             return false;
         }
 
         if (GetWeight() <= 0)
         {
-            ToastService.ShowWarning(LabelsLocalizer["ScalesStatusTooLight"]);
+            ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
             return false;
         }
 
@@ -120,13 +120,13 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     private void PrintPrinterStatusMessage() =>
         ToastService.ShowWarning(PrinterStatus switch
         {
-            PrinterStatusEnum.IsDisabled => LabelsLocalizer["PrinterStatusIsDisabled"],
-            PrinterStatusEnum.IsForceDisconnected => LabelsLocalizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatusEnum.Paused => LabelsLocalizer["PrinterStatusPaused"],
-            PrinterStatusEnum.HeadOpen => LabelsLocalizer["PrinterStatusHeadOpen"],
-            PrinterStatusEnum.PaperOut => LabelsLocalizer["PrinterStatusPaperOut"],
-            PrinterStatusEnum.PaperJam => LabelsLocalizer["PrinterStatusPaperJam"],
-            _ => LabelsLocalizer["PrinterStatusUnknown"]
+            PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatusEnum.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatusEnum.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
+            _ => Localizer["PrinterStatusUnknown"]
         });
 
     private bool GetPrintLabelDisabledStatus() =>

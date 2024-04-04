@@ -11,19 +11,22 @@ namespace ScalesDesktop.Source.Widgets;
 
 public sealed partial class LabelsGrid : ComponentBase
 {
-    [Inject] private IStringLocalizer<ApplicationResources> PalletLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] private IPalletService PalletService { get; set; } = null!;
-    [Inject] private PalletContext PalletContext { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IPalletService PalletService { get; set; } = default!;
+    [Inject] private PalletContext PalletContext { get; set; } = default!;
+
+    # endregion
 
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
-    private IQueryable<DataItem> Data => PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid)
-        .Select((label, index) => new DataItem { Id = index + 1, Label = label })
-        .AsQueryable();
+    private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
 
-    protected override void OnInitialized() => PalletContext.OnStateChanged += ResetDataGrid;
+    protected override void OnInitialized() => PalletContext.OnStateChanged += async() => await ResetDataGrid();
+
+    protected override async Task OnInitializedAsync() => await InitializeData();
 
     private void ToggleItem(LabelEntity item)
     {
@@ -31,9 +34,19 @@ public sealed partial class LabelsGrid : ComponentBase
             SelectedItems.Add(item);
     }
 
-    private void ResetDataGrid()
+    private void SelectAllItems() => SelectedItems = LabelData.Select(item => item.Label).ToList();
+
+    private Task<IQueryable<DataItem>> InitializeData()
+    {
+        return Task.Run(() => LabelData = PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid)
+            .Select((label, index) => new DataItem { Id = index + 1, Label = label })
+            .AsQueryable());
+    }
+
+    private async Task ResetDataGrid()
     {
         SelectedItems = [];
+        await InitializeData();
         StateHasChanged();
     }
 }

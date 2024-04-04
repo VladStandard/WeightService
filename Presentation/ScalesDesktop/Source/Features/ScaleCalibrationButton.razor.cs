@@ -11,9 +11,13 @@ namespace ScalesDesktop.Source.Features;
 
 public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<ApplicationResources> LabelsLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private ExternalDevicesService ExternalDevices { get; set; } = null!;
+    #region Injects
+
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private ExternalDevicesService ExternalDevices { get; set; } = default!;
+
+    # endregion
 
     private bool IsOnceClicked { get; set; }
     private bool IsScalesAvailable { get; set; } = true;
@@ -25,7 +29,7 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
     protected override void OnInitialized() => ScalesSubscribe();
 
     private string GetCooldownString() =>
-        $"{LabelsLocalizer["BtnCooldown"]} {SecToOpen} {WsDataLocalizer["MeasureSec"]}";
+        $"{Localizer["BtnCooldown"]} {SecToOpen} {WsDataLocalizer["MeasureSec"]}";
 
     private async Task HandleButtonOpenScalesTerminal()
     {
