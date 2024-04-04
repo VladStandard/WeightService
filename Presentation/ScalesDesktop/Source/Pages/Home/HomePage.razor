@@ -1,52 +1,108 @@
 @using ScalesDesktop.Source.Shared.Utils
+@using Blazor.Heroicons.Outline
 @using ScalesDesktop.Source.Features
 @using Ws.Domain.Models.Enums
 @attribute [Route(RouteUtils.Home)]
 
-<div class="size-full flex items-center">
-  <div class="w-full flex flex-col gap-20">
-    <div class="w-full">
-      <p class="truncate text-center text-4xl font-medium">Весовая Служба 2.0</p>
+@* <div class="size-full flex items-center"> *@
+@*   <div class="w-full flex flex-col gap-20"> *@
+@*     <div class="w-full"> *@
+@*       <p class="truncate text-center text-4xl font-medium">Весовая Служба 2.0</p> *@
+@*     </div> *@
+@*     <div class="w-full flex items-center justify-center px-10 gap-4"> *@
+@*       @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal) *@
+@*       { *@
+@*         <div class="flex flex-col gap-2"> *@
+@*           <a href="@RouteUtils.Labels"> *@
+@*             <button *@
+@*               type="button" *@
+@*               class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"> *@
+@*               <p class="text-3xl">Этикетка</p> *@
+@*             </button> *@
+@*           </a> *@
+@*         </div> *@
+@* *@
+@*       } *@
+@*       @if (LineContext.Line.Type is LineTypeEnum.Pc or LineTypeEnum.Universal) *@
+@*       { *@
+@*         <a href="@RouteUtils.Pallet"> *@
+@*           <button *@
+@*             type="button" *@
+@*             class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105"> *@
+@*             <p class="text-3xl">Паллеты</p> *@
+@*           </button> *@
+@*         </a> *@
+@*       } *@
+@*       <button *@
+@*         type="button" *@
+@*         @onclick="ShowCloseAppDialog" *@
+@*         class="h-48 w-64 rounded-2xl bg-white transition-all overflow-hidden shadow-md border hover:bg-red-300 hover:shadow-red-200 hover:scale-105"> *@
+@*         <p class="text-3xl">Выход</p> *@
+@*       </button> *@
+@*     </div> *@
+@*     <div class="flex gap-10 px-10 w-full max-w-screen-lg mx-auto"> *@
+@*       <div class="w-1/2"> *@
+@*         <LineInputWithReset /> *@
+@*       </div> *@
+@*       <div class="w-1/2"> *@
+@*         <InputWithLabel *@
+@*           Label="Склад" *@
+@*           Value="@LineContext.Line.Warehouse.Name" *@
+@*           IsDisabled *@
+@*         /> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@* </div> *@
+
+<div class="size-full flex items-center justify-center">
+  <div class="bg-background max-w-lg shadow-sm w-full rounded-lg overflow-hidden p-6 border flex gap-6 flex-col">
+    <div class="flex flex-col space-y-1 text-center">
+      <h2 class="text-2xl font-semibold">Весовая Служба</h2>
+      <p class="text-sm text-muted-foreground">Выберите необходимый пункт</p>
     </div>
-    <div class="w-full flex items-center justify-center px-10 gap-4">
+    <ul class="flex flex-col gap-2">
       @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal)
       {
-        <a href="@RouteUtils.Labels">
-          <button
-            type="button"
-            class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105">
-            <p class="text-3xl">Этикетка</p>
-          </button>
-        </a>
+        <li>
+          <a href="@RouteUtils.Labels">
+            <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg">
+              <TagIcon class="size-6 mr-4"/>
+              Этикетка
+            </Button>
+          </a>
+        </li>
       }
       @if (LineContext.Line.Type is LineTypeEnum.Pc or LineTypeEnum.Universal)
       {
-        <a href="@RouteUtils.Pallet">
-          <button
-            type="button"
-            class="h-48 w-64 rounded-2xl bg-white transition-transform overflow-hidden shadow-md border hover:scale-105">
-            <p class="text-3xl">Паллеты</p>
-          </button>
-        </a>
+        <li>
+          <a href="@RouteUtils.Pallet">
+            <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg">
+              <ClipboardIcon class="size-6 mr-4"/>
+              Паллета
+            </Button>
+          </a>
+        </li>
       }
-      <button
-        type="button"
-        @onclick="ShowCloseAppDialog"
-        class="h-48 w-64 rounded-2xl bg-white transition-all overflow-hidden shadow-md border hover:bg-red-300 hover:shadow-red-200 hover:scale-105">
-        <p class="text-3xl">Выход</p>
-      </button>
-    </div>
-    <div class="flex gap-10 px-10 w-full max-w-screen-lg mx-auto">
-      <div class="w-1/2">
-        <LineInputWithReset />
+      <li>
+        <Button Variant="ButtonVariant.Outline" Class="!w-full !px-6 !justify-start !py-6 !text-lg" OnClick="@ShowCloseAppDialog">
+          <ArrowRightStartOnRectangleIcon class="size-6 mr-4"/>
+          Выход
+        </Button>
+      </li>
+    </ul>
+    <div class="flex justify-between items-center w-full">
+      <div class="h-16 px-4 shrink-0 rounded-full flex items-center justify-center overflow-hidden bg-secondary">
+        <ComputerDesktopIcon class="size-8"/>
       </div>
-      <div class="w-1/2">
-        <InputWithLabel
-          Label="Склад"
-          Value="@LineContext.Line.Warehouse.Name"
-          IsDisabled
-        />
+      <div class="flex w-full flex-col px-3 justify-start">
+        <span class="font-medium truncate">@LineContext.Line.Name</span>
+        <span class="truncate">@LineContext.Line.Warehouse.Name</span>
       </div>
+      <Button Class="shrink-0">
+        <ArrowPathIcon class="size-4 mr-4"/>
+        Обновить
+      </Button>
     </div>
   </div>
 </div>
