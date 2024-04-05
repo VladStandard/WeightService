@@ -26,8 +26,10 @@ builder.Services.AddLabelsServices();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<Redirector>();
-builder.Services.AddScoped<IClaimsCacheProvider, ClaimsInMemoryCacheProvider>();
+
 builder.Services.AddScoped<IClaimsTransformation, WsClaimsTransformation>();
+builder.Services.AddScoped<IClaimsCacheProvider, ClaimsInMemoryCacheProvider>();
+
 
 WebApplication app = builder.Build();
 
