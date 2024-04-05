@@ -5,5 +5,5 @@ namespace Ws.PalychExchangeApi.Features.Characteristics.Common;
 
 public interface ICharacteristicService
 {
-    public ResponseDto Load(List<PluCharacteristicsDto> dtoWrapper);
+    public ResponseDto Load(PluCharacteristicsWrapper dtoWrapper);
 }

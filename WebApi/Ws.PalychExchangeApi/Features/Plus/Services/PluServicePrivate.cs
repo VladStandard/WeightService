@@ -52,12 +52,12 @@ internal sealed partial class PluService
             .Select(plu => new NumberIdPair { Number = plu.Number, Id = plu.Id }).OrderBy(i => i.Number)
             .ToList();
 
-        List<PluDto> notUniqueBrandsDto =
+        List<PluDto> notUniquePluDto =
             dtos
                 .Where(dto => existingNumbersIdPairs.Any(pair => pair.Number == dto.Number))
                 .Where(dto => !existingNumbersIdPairs.Any(pair => pair.Number == dto.Number && pair.Id == dto.Uid))
                 .ToList();
-        OutputDto.AddError(notUniqueBrandsDto.Select(i => i.Uid), "Номер плу не уникален (бд)");
+        OutputDto.AddError(notUniquePluDto.Select(i => i.Uid), "Номер плу не уникален (бд)");
 
         dtos.RemoveAll(dto =>
         {

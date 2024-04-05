@@ -15,5 +15,5 @@ public sealed class CharacteristicController(ICharacteristicService characterist
     [HttpPost("load")]
     [Produces("application/xml")]
     public ResponseDto Load([FromBody] PluCharacteristicsWrapper wrapper) =>
-        characteristicService.Load(wrapper.PluCharacteristics);
+        characteristicService.Load(wrapper);
 }

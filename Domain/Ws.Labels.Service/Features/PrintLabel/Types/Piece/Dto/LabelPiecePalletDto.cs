@@ -6,7 +6,7 @@ namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 public record LabelPiecePalletDto
 {
     public required PalletManEntity PalletMan { get; init; }
-    public required Decimal Weight { get; init; }
+    public required decimal Weight { get; init; }
     public required DateTime ProductDt { get; init; }
     public required LineEntity Line { get; init; }
     public required PluNestingEntity Nesting { get; init; }

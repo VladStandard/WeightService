@@ -2,11 +2,11 @@ using System.Xml.Serialization;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Dto;
 
-public sealed class PluCharacteristicsDto
+public sealed record PluCharacteristicsDto
 {
     [XmlAttribute("Uid")]
     public Guid Uid { get; set; }
 
-    [XmlElement("Plu")]
+    [XmlElement("Characteristic")]
     public List<CharacteristicDto> Characteristics { get; set; } = [];
 }

@@ -43,7 +43,7 @@ public class WsDbContext : DbContext
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<PluResourceEntity> PluResources { get; set; }
     public DbSet<NestingEntity> Nestings { get; set; }
-    public DbSet<CharacteristicEntity> Characteristic { get; set; }
+    public DbSet<CharacteristicEntity> Characteristics { get; set; }
 
     private static readonly ILoggerFactory MyLoggerFactory
         = LoggerFactory.Create(builder => { builder.AddConsole(); });

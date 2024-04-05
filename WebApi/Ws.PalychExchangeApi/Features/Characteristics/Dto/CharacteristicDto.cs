@@ -4,7 +4,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 namespace Ws.PalychExchangeApi.Features.Characteristics.Dto;
 
 [Serializable]
-public sealed class CharacteristicDto
+public sealed record CharacteristicDto
 {
     [XmlAttribute("Uid")]
     public Guid Uid { get; set; }
@@ -20,15 +20,4 @@ public sealed class CharacteristicDto
 
     [XmlAttribute("Name")]
     public string Name { get; set; } = string.Empty;
-}
-
-internal static class BoxDtoExtensions
-{
-    internal static CharacteristicEntity ToEntity(this CharacteristicDto dto, Guid pluUid, DateTime updateDt) =>
-        new(dto.Uid, pluUid, updateDt)
-        {
-            Name = dto.Name,
-            BoxId = dto.BoxUid,
-            BundleCount = dto.BundleCount
-        };
 }

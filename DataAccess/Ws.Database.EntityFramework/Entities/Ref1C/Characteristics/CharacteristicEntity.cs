@@ -34,10 +34,9 @@ public sealed class CharacteristicEntity : EfEntityBase
 
     public CharacteristicEntity() { }
 
-    public CharacteristicEntity(Guid uid, Guid pluUid, DateTime updateDt)
+    public CharacteristicEntity(Guid uid, DateTime updateDt)
     {
         Id = uid;
-        PluId = pluUid;
         ChangeDt = updateDt;
     }
 }
