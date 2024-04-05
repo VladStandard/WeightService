@@ -1,3 +1,5 @@
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
 internal static class CharacteristicMapExtension
@@ -6,10 +8,11 @@ internal static class CharacteristicMapExtension
     {
         modelBuilder.Entity<CharacteristicEntity>(entity =>
         {
-            entity.HasIndex(pn => new { pn.PluEntityId, pn.IsDefault })
-                .IsUnique()
-                .HasDatabaseName($"UQ_{SqlTables.Characteristics}_IS_DEFAULT_TRUE_ON_PLU")
-                .HasFilter("[IS_DEFAULT] = 1");
+            entity
+                .HasOne<PluEntity>()
+                .WithOne()
+                .HasForeignKey<CharacteristicEntity>(n => n.PluId)
+                .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
         });
     }
 }

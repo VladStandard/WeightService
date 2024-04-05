@@ -3,14 +3,15 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
 [Table(SqlTables.Characteristics)]
-[Index(nameof(BundleCount), nameof(BoxId), Name = $"UQ_{SqlTables.Characteristics}_BUNDLE_BOX", IsUnique = true)]
+[Index(nameof(PluId), nameof(BoxId), nameof(BundleCount), Name = $"UQ_{SqlTables.Characteristics}_UNIQ", IsUnique = true)]
 public sealed class CharacteristicEntity : EfEntityBase
 {
-    [Column("UID_1C")]
-    public Guid Uid1C { get; set; }
+    [Column(SqlColumns.Name)]
+    [StringLength(64, MinimumLength = 1)]
+    public string Name { get; set; } = string.Empty;
 
     [Column("BUNDLE_COUNT")]
-    [Range(1, 100, ErrorMessage = "BundleCount must be between 1 and 100")]
+    [Range(1, 100)]
     public short BundleCount { get; set; }
 
     #region Box
@@ -21,11 +22,8 @@ public sealed class CharacteristicEntity : EfEntityBase
 
     #endregion
 
-    [ForeignKey("PLU_UID"), Column("PLU_UID")]
-    public Guid PluEntityId { get; set; }
-
-    [Column("IS_DEFAULT")]
-    public bool IsDefault { get; set; }
+    [Column("PLU_UID")]
+    public Guid PluId { get; set; }
 
     #region Date
 
@@ -33,4 +31,13 @@ public sealed class CharacteristicEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
+
+    public CharacteristicEntity() { }
+
+    public CharacteristicEntity(Guid uid, Guid pluUid, DateTime updateDt)
+    {
+        Id = uid;
+        PluId = pluUid;
+        ChangeDt = updateDt;
+    }
 }

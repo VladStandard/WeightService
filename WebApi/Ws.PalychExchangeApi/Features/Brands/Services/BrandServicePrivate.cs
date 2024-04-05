@@ -79,29 +79,4 @@ internal partial class BrandService
             OutputDto.AddError(brands.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
         }
     }
-    private void DeleteBrands(List<BrandDto> dtos)
-    {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<BrandEntity> brandsToDelete = dtos.Where(brand => brand.IsDelete).Select(dto => dto.ToEntity(updateDt)).ToList();
-        HashSet<Guid> deletedUid = brandsToDelete.Select(brand => brand.Id).ToHashSet();
-
-        if (brandsToDelete.Count == 0) return;
-
-        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
-        try
-        {
-            dbContext.BulkDelete(brandsToDelete);
-            transaction.Commit();
-            OutputDto.AddSuccess(brandsToDelete.Select(i => i.Id).ToList());
-        }
-        catch (Exception)
-        {
-            OutputDto.AddError(brandsToDelete.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
-            transaction.Rollback();
-        }
-        finally
-        {
-            dtos.RemoveAll(brandDto => deletedUid.Contains(brandDto.Uid));
-        }
-    }
 }

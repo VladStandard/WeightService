@@ -66,8 +66,8 @@ internal sealed class PluDtoValidator : AbstractValidator<PluDto>
             .WithMessage("Номер - должен быть в диапазоне [1, 999]");
 
         RuleFor(dto => dto.BundleCount)
-            .GreaterThan((short)0).WithMessage("Кол-во пакетов - обязательно")
-            .LessThanOrEqualTo((short)100).WithMessage("Кол-во пакетов - должно быть < 100");
+            .Must(count => count is > 0 and <= 100)
+            .WithMessage("Кол-во пакетов должно быть от 1 до 100");
 
         RuleFor(dto => dto.ShelfLifeDays)
             .Must(days => days is > 0 and < 1000)

@@ -1,8 +1,8 @@
 using System.Xml.Serialization;
 
-namespace Ws.PalychExchangeApi.Features.Nestings.Dto;
+namespace Ws.PalychExchangeApi.Features.Characteristics.Dto;
 
-internal sealed class PluCharacteristicDto
+public sealed class PluCharacteristicsDto
 {
     [XmlAttribute("Uid")]
     public Guid Uid { get; set; }

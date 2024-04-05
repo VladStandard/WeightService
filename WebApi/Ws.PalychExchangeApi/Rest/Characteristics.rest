@@ -1,0 +1,12 @@
+﻿POST {{url}}/api/characteristics/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Characteristics>
+    <Plu Uid="2b9f1d14-7b4d-11e6-80ce-a4bf01016d50">
+        <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="cd6b5bae-2a73-11eb-a22e-00155d8a4602" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="d8a6858e-0c30-45a2-a685-8e0c30e5a264" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+</Characteristics>

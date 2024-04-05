@@ -1,3 +1,4 @@
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
@@ -40,4 +41,19 @@ internal partial class BoxService
             OutputDto.AddError(boxes.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
         }
     }
+
+    #region Validation
+
+    private bool IsBoxDtoValid(BoxDto dto)
+    {
+        ValidationResult validationResult = Validator.Validate(dto);
+        if (validationResult.IsValid) return true;
+
+        OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
+        return false;
+    }
+
+    private IEnumerable<BoxDto> FilterValidDtos(IEnumerable<BoxDto> dtos) => dtos.Where(IsBoxDtoValid);
+
+    #endregion
 }

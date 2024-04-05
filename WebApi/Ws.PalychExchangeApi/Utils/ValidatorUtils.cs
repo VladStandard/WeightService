@@ -4,8 +4,7 @@ namespace Ws.PalychExchangeApi.Utils;
 
 internal static class ValidatorUtils
 {
-    public static bool BeValidWeightDefault(decimal number) =>
-        BeValidWeight(number);
+    public static bool BeValidWeightDefault(decimal number) => BeValidWeight(number);
 
     public static bool BeValidWeight(decimal number, int min = 0, int max = 1)
     {

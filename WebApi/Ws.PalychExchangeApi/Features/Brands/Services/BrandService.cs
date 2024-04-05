@@ -18,7 +18,6 @@ internal partial class BrandService(WsDbContext dbContext) : IBrandService
         List<BrandDto> validDtos = [];
 
         ResolveUniqueUidLocal(dtoWrapper.Brands);
-        DeleteBrands(dtoWrapper.Brands);
         ResolveUniqueNameLocal(dtoWrapper.Brands);
 
         foreach (BrandDto dto in dtoWrapper.Brands)

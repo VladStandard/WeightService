@@ -1,3 +1,4 @@
+using System.Reflection.PortableExecutable;
 using Microsoft.Extensions.Logging;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
@@ -13,6 +14,7 @@ using Ws.Database.EntityFramework.Entities.Ref.ZplResources;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
+using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
@@ -41,6 +43,7 @@ public class WsDbContext : DbContext
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<PluResourceEntity> PluResources { get; set; }
     public DbSet<NestingEntity> Nestings { get; set; }
+    public DbSet<CharacteristicEntity> Characteristic { get; set; }
 
     private static readonly ILoggerFactory MyLoggerFactory
         = LoggerFactory.Create(builder => { builder.AddConsole(); });
@@ -64,6 +67,7 @@ public class WsDbContext : DbContext
         modelBuilder.MapUser();
         modelBuilder.MapPluResource();
         modelBuilder.MapNesting();
+        modelBuilder.MapCharacteristic();
         // modelBuilder.MapCharacteristic();
     }
 }
