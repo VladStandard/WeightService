@@ -1,4 +1,3 @@
-using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchangeApi.Features.Boxes.Dto;
@@ -7,26 +6,15 @@ namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
 internal partial class BoxService
 {
-    private void ResolveUniqueUidLocal(List<BoxDto> dtos)
-    {
-        HashSet<Guid> duplicateUidSet = [];
-        foreach (IGrouping<Guid, BoxDto> dtoGroup in dtos.GroupBy(dto => dto.Uid))
-        {
-            if (dtoGroup.Count() <= 1) continue;
-            duplicateUidSet.Add(dtoGroup.Key);
-            OutputDto.AddError(dtoGroup.Select(i => i.Uid), "Uid не уникален");
-        }
-        dtos.RemoveAll(brandDto => duplicateUidSet.Contains(brandDto.Uid));
-    }
     private void SaveBoxes(IEnumerable<BoxDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
-        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(boxes, options =>
+            DbContext.BulkMerge(boxes, options =>
             {
                 options.InsertIfNotExists = true;
                 options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
@@ -41,19 +29,4 @@ internal partial class BoxService
             OutputDto.AddError(boxes.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
         }
     }
-
-    #region Validation
-
-    private bool IsBoxDtoValid(BoxDto dto)
-    {
-        ValidationResult validationResult = Validator.Validate(dto);
-        if (validationResult.IsValid) return true;
-
-        OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
-        return false;
-    }
-
-    private IEnumerable<BoxDto> FilterValidDtos(IEnumerable<BoxDto> dtos) => dtos.Where(IsBoxDtoValid);
-
-    #endregion
 }

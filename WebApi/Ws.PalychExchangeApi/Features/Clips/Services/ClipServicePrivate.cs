@@ -6,18 +6,6 @@ namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
 internal partial class ClipService
 {
-    private void ResolveUniqueUidLocal(List<ClipDto> dtos)
-    {
-        HashSet<Guid> duplicateUidSet = [];
-        foreach (IGrouping<Guid, ClipDto> dtoGroup in dtos.GroupBy(dto => dto.Uid))
-        {
-            if (dtoGroup.Count() <= 1) continue;
-            duplicateUidSet.Add(dtoGroup.Key);
-            OutputDto.AddError(dtoGroup.Select(i => i.Uid), "Uid не уникален");
-        }
-        dtos.RemoveAll(brandDto => duplicateUidSet.Contains(brandDto.Uid));
-    }
-
     private void SaveClips(IEnumerable<ClipDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);

@@ -1,11 +1,11 @@
 using FluentValidation;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
+using Ws.PalychExchangeApi.Common;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
-internal record GroupedCharacteristic
+internal record GroupedCharacteristic : BaseDto
 {
-    public required Guid Uid { get; set; }
     public required Guid PluUid { get; set; }
     public required Guid BoxUid { get; set; }
     public required short BundleCount { get; set; }
@@ -22,7 +22,8 @@ internal record GroupedCharacteristic
         };
 }
 
-internal class GroupedCharacteristicValidator : AbstractValidator<GroupedCharacteristic>
+// ReSharper disable once ClassNeverInstantiated.Global
+internal sealed class GroupedCharacteristicValidator : AbstractValidator<GroupedCharacteristic>
 {
     public GroupedCharacteristicValidator()
     {
@@ -31,7 +32,7 @@ internal class GroupedCharacteristicValidator : AbstractValidator<GroupedCharact
 
         RuleFor(dto => dto.BundleCount)
             .Must(count => count is > 0 and <= 100)
-            .WithMessage("Кол-во пакетов должно быть от 1 до 100");
+            .WithMessage("Кол-во пакетов - должно быть от 1 до 100");
 
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("Наименование - обязательно")

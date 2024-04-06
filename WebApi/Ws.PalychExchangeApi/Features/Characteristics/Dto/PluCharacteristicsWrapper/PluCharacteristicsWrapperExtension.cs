@@ -1,19 +1,12 @@
-using System.Xml.Serialization;
 using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
-namespace Ws.PalychExchangeApi.Features.Characteristics.Dto;
-
-[XmlRoot("Characteristics")]
-public sealed record PluCharacteristicsWrapper
-{
-    [XmlElement("Plu")]
-    public List<PluCharacteristicsDto> PluCharacteristics { get; set; } = [];
-}
+namespace Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
 
 internal static class PluCharacteristicsWrapperExtensions
 {
-    internal static List<GroupedCharacteristic> ToGrouped(this PluCharacteristicsWrapper dto) =>
-        dto.PluCharacteristics.SelectMany(plu => plu.Characteristics
+    internal static List<GroupedCharacteristic> ToGrouped(this PluCharacteristicsWrapper dto)
+    {
+        return dto.PluCharacteristics.SelectMany(plu => plu.Characteristics
             .GroupBy(characteristic => new GroupedCharacteristic
             {
                 PluUid = plu.Uid,
@@ -25,4 +18,5 @@ internal static class PluCharacteristicsWrapperExtensions
             })
             .Select(group => group.Key))
         .ToList();
+    }
 }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Characteristics.Common;
-using Ws.PalychExchangeApi.Features.Characteristics.Dto;
+using Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics;
 

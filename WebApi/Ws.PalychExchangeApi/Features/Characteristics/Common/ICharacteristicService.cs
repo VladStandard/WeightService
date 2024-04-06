@@ -1,5 +1,5 @@
 using Ws.PalychExchangeApi.Dto;
-using Ws.PalychExchangeApi.Features.Characteristics.Dto;
+using Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Common;
 

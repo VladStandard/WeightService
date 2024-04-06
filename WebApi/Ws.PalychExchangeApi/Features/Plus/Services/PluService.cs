@@ -1,43 +1,31 @@
-using FluentValidation.Results;
 using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Plus.Common;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
-using Ws.PalychExchangeApi.Features.Plus.Services.Validators;
+using Ws.PalychExchangeApi.Features.Plus.Dto.PluDto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
 // ReSharper disable once SuggestBaseTypeForParameterInConstructor
-internal sealed partial class PluService(WsDbContext dbContext) : IPluService
+internal sealed partial class PluService(WsDbContext dbContext, PluDtoValidator validator) :
+    BaseService<PluDto>(dbContext, validator), IPluService
 {
-    private ResponseDto OutputDto { get; } = new();
-    private PluDtoValidator Validator { get; } = new();
-
     public ResponseDto Load(PlusWrapper dtoWrapper)
     {
-        List<PluDto> validDtos = [];
-
         dtoWrapper.Plus.RemoveAll(i => i.IsDelete);
 
         ResolveUniqueUidLocal(dtoWrapper.Plus);
-        ResolveUniqueNumberLocal(dtoWrapper.Plus);
+        ResolveUniqueLocal(dtoWrapper.Plus, dto => dto.Number, "Номер (внутри запроса) - не уникален");
 
-        foreach (PluDto dto in dtoWrapper.Plus)
-        {
-            ValidationResult validationResult = Validator.Validate(dto);
-            if (!validationResult.IsValid)
-            {
-                OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
-                continue;
-            }
-            validDtos.Add(dto);
-        }
+        List<PluDto> validDtos = FilterValidDtos(dtoWrapper.Plus);
 
         ResolveUniqueNumberDb(validDtos);
-        ResolveNotExistsBoxFkDb(validDtos);
-        ResolveNotExistClipFkDb(validDtos);
-        ResolveNotExistsBrandFkDb(validDtos);
-        ResolveNotExistsBundleFkDb(validDtos);
+
+        ResolveNotExistsFkDb(validDtos, dbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
+        ResolveNotExistsFkDb(validDtos, dbContext.Clips, dto => dto.ClipUid, "Клипса - не найдена");
+        ResolveNotExistsFkDb(validDtos, dbContext.Brands, dto => dto.BrandUid, "Бренд - не найден");
+        ResolveNotExistsFkDb(validDtos, dbContext.Bundles, dto => dto.BundleUid, "Пакет - не найден");
 
         SavePlus(validDtos);
         return OutputDto;

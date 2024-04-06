@@ -1,7 +1,5 @@
-using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
-using Ws.PalychExchangeApi.Features.Characteristics.Dto;
 using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
@@ -18,45 +16,6 @@ file record CharacteristicsUniqueFields
 
 internal sealed partial class CharacteristicService
 {
-    #region Resolve uniques local
-
-    private void ResolveUniqueUidLocal(List<GroupedCharacteristic> dtos)
-    {
-        HashSet<Guid> duplicateUids = dtos
-            .GroupBy(dto => dto.Uid)
-            .Where(group => group.Count() > 1)
-            .Select(group => group.Key)
-            .ToHashSet();
-
-        dtos.RemoveAll(dto =>
-        {
-            if (!duplicateUids.Contains(dto.Uid))
-                return false;
-            OutputDto.AddError(dto.Uid, "PluUid - не уникален");
-            return true;
-        });
-    }
-
-    private void ResolveUniqueLocal(List<GroupedCharacteristic> dtos)
-    {
-        List<Guid> duplicates = dtos
-            .GroupBy(dto => (dto.PluUid, dto.BoxUid, dto.BundleCount))
-            .Where(group => group.Count() > 1)
-            .SelectMany(group => group)
-            .Select(dto => dto.Uid)
-            .ToList();
-
-        dtos.RemoveAll(dto =>
-        {
-            if (!duplicates.Contains(dto.Uid))
-                return false;
-            OutputDto.AddError(dto.Uid, "Характеристика - (Box, Plu, BundleCount) не уникальна");
-            return true;
-        });
-    }
-
-    #endregion
-
     #region Resolve uniques Db
 
     private void ResolveUniqueDb(List<GroupedCharacteristic> dtos)
@@ -95,45 +54,6 @@ internal sealed partial class CharacteristicService
             OutputDto.AddError(characteristic.Uid, "Характеристика - (Box, Plu, BundleCount) не уникальна (бд)");
             return true;
         });
-    }
-
-    #endregion
-
-    #region Resolve exsists FK
-
-    private void ResolveNotExistsBoxFkDb(List<GroupedCharacteristic> dtos)
-    {
-        HashSet<Guid> boxUidList = dtos.Select(i => i.BoxUid).ToHashSet();
-
-        HashSet<Guid> existingBoxes = dbContext.Boxes
-            .Where(box => boxUidList.Contains(box.Id))
-            .Select(box => box.Id)
-            .ToHashSet();
-
-
-        dtos.RemoveAll(characteristic =>
-        {
-            if (existingBoxes.Contains(characteristic.BoxUid))
-                return false;
-            OutputDto.AddError(characteristic.Uid, "Коробка - не найдена");
-            return true;
-        });
-    }
-
-    #endregion
-
-    #region Validation
-
-    private IEnumerable<GroupedCharacteristic> FilterValidDtos(IEnumerable<GroupedCharacteristic> groupedCharacteristics) =>
-        groupedCharacteristics.Where(IsCharacteristicDtoValid).ToList();
-
-    private bool IsCharacteristicDtoValid(GroupedCharacteristic groupedCharacteristic)
-    {
-        ValidationResult validationResult = Validator.Validate(groupedCharacteristic);
-        if (validationResult.IsValid) return true;
-
-        OutputDto.AddError(groupedCharacteristic.Uid, validationResult.Errors.First().ErrorMessage);
-        return false;
     }
 
     #endregion

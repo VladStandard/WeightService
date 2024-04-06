@@ -1,36 +1,23 @@
-using FluentValidation.Results;
 using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Brands.Common;
 using Ws.PalychExchangeApi.Features.Brands.Dto;
-using Ws.PalychExchangeApi.Features.Brands.Services.Validators;
 
 namespace Ws.PalychExchangeApi.Features.Brands.Services;
 
 // ReSharper disable once SuggestBaseTypeForParameterInConstructor
-internal partial class BrandService(WsDbContext dbContext) : IBrandService
+internal partial class BrandService(WsDbContext dbContext, BrandDtoValidator validator) :
+    BaseService<BrandDto>(dbContext, validator), IBrandService
 {
-    private ResponseDto OutputDto { get; } = new();
-
     public ResponseDto Load(BrandsWrapper dtoWrapper)
     {
-        BrandDtoValidator validator = new();
-        List<BrandDto> validDtos = [];
-
         ResolveUniqueUidLocal(dtoWrapper.Brands);
-        ResolveUniqueNameLocal(dtoWrapper.Brands);
+        ResolveUniqueLocal(dtoWrapper.Brands, dto => dto.Name, "Name - не уникален");
 
-        foreach (BrandDto dto in dtoWrapper.Brands)
-        {
-            ValidationResult validationResult = validator.Validate(dto);
-            if (!validationResult.IsValid)
-            {
-                OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
-                continue;
-            }
-            validDtos.Add(dto);
-        }
+        List<BrandDto> validDtos = FilterValidDtos(dtoWrapper.Brands);
 
+        ResolveUniqueNameDb(validDtos);
         SaveBrands(validDtos);
         return OutputDto;
     }

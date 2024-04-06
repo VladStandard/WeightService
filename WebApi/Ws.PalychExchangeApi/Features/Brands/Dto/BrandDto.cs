@@ -1,21 +1,29 @@
 using System.Xml.Serialization;
+using FluentValidation;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+using Ws.PalychExchangeApi.Common;
 
 namespace Ws.PalychExchangeApi.Features.Brands.Dto;
 
 [Serializable]
-public sealed class BrandDto
+public sealed record BrandDto : BaseDto
 {
-    [XmlAttribute("Uid")]
-    public Guid Uid { get; set; }
-
     [XmlAttribute("Name")]
-    public string Name { get; set; } = string.Empty;
+    public string Name = string.Empty;
+
+    public BrandEntity ToEntity(DateTime updateDate) => new(Uid, Name, updateDate);
 }
 
 
-internal static class BrandDtoExtensions
+// ReSharper disable once ClassNeverInstantiated.Global
+internal sealed class BrandDtoValidator : AbstractValidator<BrandDto>
 {
-    internal static BrandEntity ToEntity(this BrandDto dto, DateTime updateDate) =>
-        new(dto.Uid, dto.Name, updateDate);
+    public BrandDtoValidator()
+    {
+        RuleFor(dto => dto.Uid)
+            .NotEqual(Guid.Empty).WithMessage("UID - обязателен");
+        RuleFor(dto => dto.Name)
+            .NotEmpty().WithMessage("Наименование - обязательно")
+            .MaximumLength(64).WithMessage("Наименование - не должно превышать 64 символа");
+    }
 }

@@ -1,9 +1,9 @@
 using FluentValidation;
-using Ws.PalychExchangeApi.Features.Plus.Dto;
 using Ws.PalychExchangeApi.Utils;
 
-namespace Ws.PalychExchangeApi.Features.Plus.Services.Validators;
+namespace Ws.PalychExchangeApi.Features.Plus.Dto.PluDto;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 internal sealed class PluDtoValidator : AbstractValidator<PluDto>
 {
     public PluDtoValidator()

@@ -1,4 +1,5 @@
 using Ws.Database.EntityFramework;
+using Ws.PalychExchangeApi.Extensions;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
 using Ws.PalychExchangeApi.Features.Boxes.Services;
 using Ws.PalychExchangeApi.Features.Brands.Common;
@@ -20,6 +21,7 @@ builder.Services.AddControllers().AddXmlSerializerFormatters();
 
 builder.Services.AddEfCore();
 
+builder.Services.AddValidators();
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IClipService, ClipService>();
 builder.Services.AddScoped<IBundleService, BundleService>();
