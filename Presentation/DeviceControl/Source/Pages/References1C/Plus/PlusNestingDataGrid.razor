@@ -20,18 +20,6 @@
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColDefault"]"
-        Field="@nameof(PluNestingEntity.IsDefault)"
-        Width="20%"
-      >
-        <DisplayTemplate>
-          @if (context.IsDefault)
-          {
-            <StarIcon class="size-5 text-yellow-500" />
-          }
-        </DisplayTemplate>
-      </DataGridColumn>
-      <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
         Field="Box.Name"
         Width="40%"

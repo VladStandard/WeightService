@@ -17,6 +17,13 @@ internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
             m.Generator(Generators.GuidComb);
         });
 
+        Property(x => x.Name, m =>
+        {
+            m.Column("NAME");
+            m.Type(NHibernateUtil.String);
+            m.Length(64);
+        });
+
         Property(x => x.CreateDt, m =>
         {
             m.Column("CREATE_DT");
@@ -31,18 +38,11 @@ internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.Name, m =>
-        {
-            m.Column("NAME");
-            m.Type(NHibernateUtil.String);
-            m.Length(150);
-        });
-
         Property(x => x.Address, m =>
         {
             m.Column("ADDRESS");
             m.Type(NHibernateUtil.String);
-            m.Length(512);
+            m.Length(128);
         });
     }
 }

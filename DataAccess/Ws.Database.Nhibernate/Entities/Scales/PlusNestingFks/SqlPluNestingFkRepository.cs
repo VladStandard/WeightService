@@ -10,14 +10,6 @@ public sealed class SqlPluNestingFkRepository : BaseRepository, IDelete<PluNesti
     public IEnumerable<PluNestingEntity> GetAllByPlu(PluEntity plu) =>
         Session.Query<PluNestingEntity>().Where(i => i.Plu == plu).ToList();
 
-    public PluNestingEntity GetByPluAndUid1C(PluEntity plu, Guid uid1C) =>
-        Session.Query<PluNestingEntity>()
-            .FirstOrDefault(i => i.Plu == plu && i.Uid1C == uid1C) ?? new();
-
-    public PluNestingEntity GetDefaultByPlu(PluEntity plu) =>
-        Session.Query<PluNestingEntity>()
-            .FirstOrDefault(i => i.Plu == plu && i.Uid1C == Guid.Empty) ?? new();
-
     public void DeleteAllPluNestings(PluEntity plu)
     {
         if (plu.IsNew) return;

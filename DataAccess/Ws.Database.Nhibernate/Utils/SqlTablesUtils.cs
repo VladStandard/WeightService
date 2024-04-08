@@ -22,7 +22,7 @@ internal static class SqlTablesUtils
     public const string ZplResources = "ZPL_RESOURCES";
     public const string Warehouses = "WAREHOUSES";
     public const string Printers = "PRINTERS";
-    public const string Lines = "LINES";
+    public const string Lines = "ARMS";
     public const string ViewLabels = "VIEW_LABELS";
     public const string ViewPallets = "VIEW_PALLETS";
     public const string ViewTablesSizes = "VIEW_TABLES_SIZES";

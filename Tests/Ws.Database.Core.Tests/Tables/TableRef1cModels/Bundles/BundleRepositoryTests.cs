@@ -23,22 +23,4 @@ public sealed class BundleRepositoryTests : TableRepositoryTests
             ParseRecords(items);
         });
     }
-
-    [Test]
-    public void GetItemByUid1C()
-    {
-        AssertAction(() =>
-        {
-            BundleEntity oldBundle = GetFirstBundleModel();
-            BundleEntity bundleBy1C = BundleRepository.GetByUid1C(oldBundle.Uid1C);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(bundleBy1C.IsExists, Is.True);
-                Assert.That(bundleBy1C, Is.EqualTo(oldBundle));
-            });
-
-            TestContext.WriteLine(bundleBy1C);
-        });
-    }
 }

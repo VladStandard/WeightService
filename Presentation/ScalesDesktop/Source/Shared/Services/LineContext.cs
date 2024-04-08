@@ -30,7 +30,7 @@ public class LineContext : IDisposable
         }
 
         PrinterEntity = Line.Printer;
-        ExternalDevices.SetupPrinter(Line.Printer.Ip, Line.Printer.Port, Line.Printer.Type);
+        ExternalDevices.SetupPrinter(Line.Printer.Ip, 9100, Line.Printer.Type);
         ExternalDevices.SetupScales();
     }
 
@@ -38,7 +38,7 @@ public class LineContext : IDisposable
     {
         Line = LineService.GetCurrentLine();
         PrinterEntity = Line.Printer;
-        ExternalDevices.SetupPrinter(PrinterEntity.Ip, PrinterEntity.Port, PrinterEntity.Type);
+        ExternalDevices.SetupPrinter(PrinterEntity.Ip, 9100, PrinterEntity.Type);
         OnLineChanged?.Invoke();
     }
 

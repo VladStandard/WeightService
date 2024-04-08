@@ -7,7 +7,6 @@ internal sealed class SqlUserMap : ClassMapping<UserEntity>
 {
     public SqlUserMap()
     {
-        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Users);
 
         Id(x => x.Uid, m =>
@@ -35,7 +34,7 @@ internal sealed class SqlUserMap : ClassMapping<UserEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
+            m.Length(32);
             m.NotNullable(true);
         });
 
@@ -48,7 +47,7 @@ internal sealed class SqlUserMap : ClassMapping<UserEntity>
 
         Set(x => x.Claims, m =>
         {
-            m.Schema(SqlSchemasUtils.Ref);
+            m.Schema("dbo");
             m.Table("USERS_CLAIMS_FK");
             m.Cascade(Cascade.Detach);
             m.Lazy(CollectionLazy.NoLazy);

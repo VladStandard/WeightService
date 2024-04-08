@@ -39,9 +39,10 @@ namespace ScalesDesktop.Source.Features
 
         private void SetPluNestings()
         {
+            // TODO: make Nesting default
             if (FormModel.Plu == null) return;
             PluNestings = PluService.GetAllPluNestings(FormModel.Plu);
-            FormModel.Nesting = PluNestings.FirstOrDefault(item => item.IsDefault);
+            FormModel.Nesting = PluNestings.FirstOrDefault();
         }
 
         private void HandleInvalidForm(EditContext context)

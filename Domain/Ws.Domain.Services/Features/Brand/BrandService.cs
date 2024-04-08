@@ -13,15 +13,5 @@ internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
     public BrandEntity GetItemByUid(Guid uid) => brandRepo.GetByUid(uid);
 
     [Transactional]
-    public BrandEntity GetItemByUid1С(Guid uid) => brandRepo.GetByUid1C(uid);
-
-    [Transactional]
-    public BrandEntity GetDefault()
-    {
-        BrandEntity brand = GetItemByUid1С(Guid.Empty);
-        return brand.IsExists ? brand : brandRepo.Save(new() { Name = "Без бренда" });
-    }
-
-    [Transactional]
     public void Delete(BrandEntity item) => brandRepo.Delete(item);
 }

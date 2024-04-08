@@ -4,8 +4,7 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Brand;
 
-public interface IBrandService : IGetAll<BrandEntity>, IGetItemByUid<BrandEntity>, IGetItemByUid1C<BrandEntity>,
+public interface IBrandService : IGetAll<BrandEntity>, IGetItemByUid<BrandEntity>,
     IDelete<BrandEntity>
 {
-    BrandEntity GetDefault();
 }

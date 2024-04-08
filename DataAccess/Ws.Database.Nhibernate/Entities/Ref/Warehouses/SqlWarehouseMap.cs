@@ -17,6 +17,21 @@ internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
             m.Generator(Generators.GuidComb);
         });
 
+        Property(x => x.Name, m =>
+        {
+            m.Column("NAME");
+            m.Type(NHibernateUtil.String);
+            m.Length(32);
+            m.NotNullable(true);
+        });
+
+        ManyToOne(x => x.ProductionSite, m =>
+        {
+            m.Column("PRODUCTION_SITE_UID");
+            m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
+        });
+
         Property(x => x.CreateDt, m =>
         {
             m.Column("CREATE_DT");
@@ -29,21 +44,6 @@ internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
             m.Column("CHANGE_DT");
             m.Type(NHibernateUtil.DateTime);
             m.NotNullable(true);
-        });
-
-        Property(x => x.Name, m =>
-        {
-            m.Column("NAME");
-            m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.NotNullable(true);
-        });
-
-        ManyToOne(x => x.ProductionSite, m =>
-        {
-            m.Column("PRODUCTION_SITES_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
         });
     }
 }

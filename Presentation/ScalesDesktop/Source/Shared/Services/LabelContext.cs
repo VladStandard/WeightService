@@ -44,10 +44,11 @@ public class LabelContext : IDisposable
 
     public void ChangePlu(PluEntity sqlPluEntity)
     {
+        // TODO: set default nesting
         if (Plu.Equals(sqlPluEntity)) return;
         Plu = sqlPluEntity;
         IEnumerable<PluNestingEntity> pluNestingEntities = PluService.GetAllPluNestings(Plu);
-        PluNesting = pluNestingEntities.FirstOrDefault(item => item.IsDefault) ?? new();
+        PluNesting = pluNestingEntities.FirstOrDefault() ?? new();
         KneadingModel.KneadingCount = 1;
         OnStateChanged?.Invoke();
     }

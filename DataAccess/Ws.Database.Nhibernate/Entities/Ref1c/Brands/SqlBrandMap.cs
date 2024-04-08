@@ -35,14 +35,7 @@ internal sealed class SqlBrandMap : ClassMapping<BrandEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.Uid1C, m =>
-        {
-            m.Column("UID_1C");
-            m.Type(NHibernateUtil.Guid);
+            m.Length(32);
             m.NotNullable(true);
         });
     }

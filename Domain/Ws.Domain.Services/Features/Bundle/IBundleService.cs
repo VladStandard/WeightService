@@ -3,7 +3,4 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Bundle;
 
-public interface IBundleService : IGetAll<BundleEntity>, IGetItemByUid<BundleEntity>, IGetItemByUid1C<BundleEntity>
-{
-    BundleEntity GetDefault();
-}
+public interface IBundleService : IGetAll<BundleEntity>, IGetItemByUid<BundleEntity>;

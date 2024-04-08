@@ -3,7 +3,4 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Box;
 
-public interface IBoxService : IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>, IGetItemByUid1C<BoxEntity>
-{
-    BoxEntity GetDefaultForCharacteristic();
-}
+public interface IBoxService : IGetItemByUid<BoxEntity>, IGetAll<BoxEntity>;

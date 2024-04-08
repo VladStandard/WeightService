@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class ClipEntity : Entity1CBase
+public class ClipEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
     public virtual decimal Weight { get; set; }

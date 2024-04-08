@@ -35,8 +35,7 @@ internal sealed class SqlBundleMap : ClassMapping<BundleEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
-            m.Unique(true);
+            m.Length(64);
             m.NotNullable(true);
         });
 
@@ -46,13 +45,6 @@ internal sealed class SqlBundleMap : ClassMapping<BundleEntity>
             m.Type(NHibernateUtil.Decimal);
             m.Precision(10);
             m.Scale(3);
-            m.NotNullable(true);
-        });
-
-        Property(x => x.Uid1C, m =>
-        {
-            m.Column("UID_1C");
-            m.Type(NHibernateUtil.Guid);
             m.NotNullable(true);
         });
     }

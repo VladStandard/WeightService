@@ -9,7 +9,6 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
 {
     public SqlPrinterMap()
     {
-        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Printers);
 
         Id(x => x.Uid, m =>
@@ -37,20 +36,13 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
         {
             m.Column("Name");
             m.Type(NHibernateUtil.String);
-            m.Length(50);
+            m.Length(16);
         });
 
         Property(x => x.Ip, m =>
         {
-            m.Column("IP");
+            m.Column("IP_V4");
             m.Type<IpAddressType>();
-            m.NotNullable(true);
-        });
-
-        Property(x => x.Port, m =>
-        {
-            m.Column("PORT");
-            m.Type(NHibernateUtil.Int16);
             m.NotNullable(true);
         });
 

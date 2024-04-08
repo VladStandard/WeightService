@@ -5,13 +5,11 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Plu;
 
-public interface IPluService : IGetItemByUid<PluEntity>, IGetItemByUid1C<PluEntity>, IGetAll<PluEntity>
+public interface IPluService : IGetItemByUid<PluEntity>, IGetAll<PluEntity>
 {
     #region Queries
 
-    public PluNestingEntity GetDefaultNesting(PluEntity plu);
     public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu);
-    PluNestingEntity GetNestingByUid1C(PluEntity plu, Guid nestingUid1C);
     public TemplateEntity GetPluTemplate(PluEntity plu);
     public string GetPluCachedTemplate(PluEntity plu);
 
@@ -20,8 +18,6 @@ public interface IPluService : IGetItemByUid<PluEntity>, IGetItemByUid1C<PluEnti
     #region Commands
 
     public void DeleteAllPluNestings(PluEntity plu);
-
-    public void DeleteNestingByUid1C(PluEntity plu, Guid nestingUid1C);
 
     #endregion
 }

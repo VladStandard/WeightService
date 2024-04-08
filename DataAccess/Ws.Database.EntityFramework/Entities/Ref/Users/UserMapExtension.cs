@@ -11,7 +11,7 @@ internal static class UserMapExtension
             entity.HasMany(e => e.Claims)
                 .WithMany(e => e.Users)
                 .UsingEntity(
-                "USERS_СLAIMS_FK",
+                "USERS_CLAIMS_FK",
                 l => l.HasOne(typeof(ClaimEntity))
                     .WithMany()
                     .HasForeignKey("CLAIM_UID")

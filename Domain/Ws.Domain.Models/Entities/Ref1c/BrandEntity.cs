@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BrandEntity : Entity1CBase
+public class BrandEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
 

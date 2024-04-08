@@ -8,7 +8,6 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
 {
     public SqlLineMap()
     {
-        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Lines);
 
         Id(x => x.Uid, m =>
@@ -36,7 +35,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(150);
+            m.Length(32);
         });
 
         Property(x => x.Number, m =>
@@ -53,12 +52,12 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
             m.NotNullable(true);
         });
 
-        Property(x => x.Version, m =>
-        {
-            m.Column("VERSION");
-            m.Type(NHibernateUtil.String);
-            m.NotNullable(true);
-        });
+        // Property(x => x.Version, m =>
+        // {
+        //     m.Column("VERSION");
+        //     m.Type(NHibernateUtil.String);
+        //     m.NotNullable(true);
+        // });
 
         Property(x => x.PcName, m =>
         {
@@ -71,7 +70,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
         {
             m.Column("TYPE");
             m.Type<EnumStringType<LineTypeEnum>>();
-            m.Length(16);
+            m.Length(8);
             m.NotNullable(true);
         });
 

@@ -6,9 +6,9 @@ internal abstract class PalletManValidator : AbstractValidator<PalletManEntity>
 {
     protected PalletManValidator()
     {
-        RuleFor(item => item.Uid1C)
-            .NotEmpty()
-            .NotNull();
+        // RuleFor(item => item.Uid1C)
+        //     .NotEmpty()
+        //     .NotNull();
         RuleFor(item => item.Name)
             .NotEmpty()
             .NotNull();

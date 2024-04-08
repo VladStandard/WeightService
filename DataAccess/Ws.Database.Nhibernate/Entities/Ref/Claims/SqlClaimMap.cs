@@ -7,7 +7,6 @@ internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
 {
     public SqlClaimMap()
     {
-        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Claims);
 
         Id(x => x.Uid, m =>
@@ -28,7 +27,7 @@ internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
         {
             m.Column("NAME");
             m.Type(NHibernateUtil.String);
-            m.Length(50);
+            m.Length(16);
             m.NotNullable(true);
         });
     }

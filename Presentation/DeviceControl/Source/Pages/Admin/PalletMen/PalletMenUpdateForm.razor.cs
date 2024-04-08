@@ -30,7 +30,6 @@ public class PalletMenUpdateFormValidator : AbstractValidator<PalletManEntity>
 {
     public PalletMenUpdateFormValidator()
     {
-        RuleFor(item => item.Uid1C).NotEmpty();
         RuleFor(item => item.Name).NotEmpty();
         RuleFor(item => item.Surname).NotEmpty();
         RuleFor(item => item.Patronymic).NotEmpty();

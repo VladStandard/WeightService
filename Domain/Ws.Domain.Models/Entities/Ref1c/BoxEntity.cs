@@ -5,12 +5,12 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
-public class BoxEntity : Entity1CBase
+public class BoxEntity : EntityBase
 {
     public virtual decimal Weight { get; set; }
     public virtual string Name { get; set; } = string.Empty;
 
-    public override string ToString() => $"{Uid1C} | {Name} | {Weight}";
+    public override string ToString() => $"{Name} | {Weight}";
 
     protected override bool CastEquals(EntityBase obj)
     {

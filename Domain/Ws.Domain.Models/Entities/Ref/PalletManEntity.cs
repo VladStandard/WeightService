@@ -5,7 +5,7 @@ using Ws.Domain.Models.Common;
 namespace Ws.Domain.Models.Entities.Ref;
 
 [DebuggerDisplay("{ToString()}")]
-public class PalletManEntity : Entity1CBase
+public class PalletManEntity : EntityBase
 {
     public virtual string Surname { get; set; } = string.Empty;
     public virtual string Patronymic { get; set; } = string.Empty;
