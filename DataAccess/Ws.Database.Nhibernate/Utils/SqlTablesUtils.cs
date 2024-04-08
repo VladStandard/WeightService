@@ -19,7 +19,7 @@ internal static class SqlTablesUtils
     public const string PlusTemplatesFks = "PLUS_TEMPLATES_FK";
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "TEMPLATES";
-    public const string ZplResources = "ZPL_RESOURCES";
+    public const string ZplResources = "RESOURCES";
     public const string Warehouses = "WAREHOUSES";
     public const string Printers = "PRINTERS";
     public const string Lines = "ARMS";
