@@ -11,10 +11,10 @@ internal partial class ClipService
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
-        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(clips, options =>
+            DbContext.BulkMerge(clips, options =>
             {
                 options.InsertIfNotExists = true;
                 options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };

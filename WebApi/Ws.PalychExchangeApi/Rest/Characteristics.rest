@@ -4,9 +4,432 @@ Content-Type: application/xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Characteristics>
     <Plu Uid="2b9f1d14-7b4d-11e6-80ce-a4bf01016d50">
-        <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
-        <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
-        <Characteristic Uid="cd6b5bae-2a73-11eb-a22e-00155d8a4602" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
-        <Characteristic Uid="d8a6858e-0c30-45a2-a685-8e0c30e5a264" IsDelete="0" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="c8a6aada-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="cd6b5bae-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="45dbd182-4470-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="bc753e9a-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="17e195a1-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="8a458086-4470-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="bc753e9b-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b02dd-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="bc753ea0-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="1def5930-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="3d659b9a-7cb8-11e5-941c-001e6722b449">
+        <Characteristic Uid="bc753ea2-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="69b5b81a-2b3b-11ec-bd11-00155df8551b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="5c2fbe15-4471-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="bc753ea3-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="1def5932-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="c9a756b5-4471-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="bc753ea5-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="090bce04-3a1b-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="c2abc35e-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="69b5b818-2b3b-11ec-bd11-00155df8551b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="f66b02f6-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c2abc364-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="f66b0300-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c2abc367-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="cd6b5bb3-2a73-11eb-a22e-00155d8a4602" IsDelete="0" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="b9750f39-08ff-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c2abc368-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="0232e009-9b71-11ea-a220-a4bf0139eb1b" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="22246a82-08fe-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c2abc36c-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="83bac0cf-08ff-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c2abc36d-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="0232e00b-9b71-11ea-a220-a4bf0139eb1b" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="f66b0353-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c2abc36e-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="f66b0319-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c2abc371-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="cd6b5baf-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="914b8ea0-0901-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c2abc373-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="bae3bf97-ed65-11e3-9407-001e6722b449">
+        <Characteristic Uid="c8a6aacc-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="d37b7174-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="61d168fd-b466-11e5-9420-001e6722b449">
+        <Characteristic Uid="c8a6aacd-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="d37b7176-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="7e6cfe08-3a20-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="c8a6aace-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(17)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="17"/>
+        <Characteristic Uid="17e195a7-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="b15464d1-fd0c-11ec-bd1b-00155d8a460f" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+        <Characteristic Uid="00e2f85a-06a9-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="5422cfa6-6231-11e7-80d3-a4bf01016d50">
+        <Characteristic Uid="c8a6aad0-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="ec8bdaf6-ca3e-11ed-bd20-00155d8a460f" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="f66b0334-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c8a6aad4-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(11)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="11"/>
+        <Characteristic Uid="1def593a-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="b15464cf-fd0c-11ec-bd1b-00155d8a460f" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+        <Characteristic Uid="00e2f85c-06a9-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="f66b0338-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c8a6aad5-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(11)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="11"/>
+        <Characteristic Uid="1def5940-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="e716a24f-0672-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+        <Characteristic Uid="00e2f85e-06a9-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="c6bdeba0-0902-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c8a6aad9-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b0345-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c8a6aadb-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="2060a27b-ac3e-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="3478f4d2-0902-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c8a6aadd-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="55ea4a26-c376-11e6-80d0-a4bf01016d50">
+        <Characteristic Uid="c8a6aade-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="d6e6ad49-29aa-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="f3b262ef-0902-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c8a6aadf-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b0349-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="c8a6aae0-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="cd6b5bb5-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="a83c2322-08e8-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c8a6aae1-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="e96919cb-08e8-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="c8a6aae3-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="3af32483-08e8-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="cec7ba87-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="ec8bdaef-ca3e-11ed-bd20-00155d8a460f" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="784e17df-623b-11e7-80d3-a4bf01016d50">
+        <Characteristic Uid="cec7ba88-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="5"/>
+        <Characteristic Uid="d0d8f23b-29aa-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)*" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="17e1959d-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="f5df84b5-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d2455-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="80394068-2a74-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+        <Characteristic Uid="aca381a0-2a74-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)**" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="f609b687-43a6-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="f66b0366-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="cec7ba8b-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="5"/>
+        <Characteristic Uid="1def592c-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="f5df84b9-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d2457-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="1d1a536c-2a74-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="b2b6015d-2a74-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="f3f3556a-2a74-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+    </Plu>
+    <Plu Uid="4a646c27-8435-11e3-9403-001e6722b449">
+        <Characteristic Uid="cec7ba8c-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b0368-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="cec7ba8d-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="5"/>
+        <Characteristic Uid="1def592e-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="f5df84bb-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d2458-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="d37b7175-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)+++" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="1d1a536d-2a74-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)++" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="b2b6015f-2a74-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(2,8)+" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="f3f3556c-2a74-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+    </Plu>
+    <Plu Uid="bea67cd3-8435-11e3-9403-001e6722b449">
+        <Characteristic Uid="cec7ba8f-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="a8b8ad66-f47d-11ed-bd21-00155d8a460f" IsDelete="1" Name="УдалитьКор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b0370-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="cec7ba92-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="5"/>
+        <Characteristic Uid="f5df84c5-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245e-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="30660b37-7a8d-11e6-80ce-a4bf01016d50">
+        <Characteristic Uid="17a6e731-daec-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="075440b1-623b-11e7-80d3-a4bf01016d50">
+        <Characteristic Uid="17a6e734-daec-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="564b7295-8435-11e3-9403-001e6722b449">
+        <Characteristic Uid="17a6e736-daec-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="7e08b0e1-cf5f-11e7-80dd-a4bf01016d50">
+        <Characteristic Uid="0232e015-9b71-11ea-a220-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="669b653c-2a63-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="7f9924c2-9931-11eb-bcd4-00155d8a4603" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="d57411b5-a62b-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="881113f7-daeb-11ea-a221-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="d7f83b5b-3a20-11e7-80d2-a4bf01016d50">
+        <Characteristic Uid="d6e6ad45-29aa-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="4e992a2d-8486-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="17e195af-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="cd6b5bb7-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(4,2)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="2d900a1f-ac72-11e4-9410-001e6722b449">
+        <Characteristic Uid="1def592a-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="f1175764-7a8c-11e6-80ce-a4bf01016d50">
+        <Characteristic Uid="1def593e-2a2c-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="20caca35-b9d7-11e5-9420-001e6722b449">
+        <Characteristic Uid="4f782375-2a33-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="f5df84c9-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245a-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="4896fa56-2a65-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+    </Plu>
+    <Plu Uid="c5ab69b8-8488-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="f5df84b7-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d2456-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="64c4bacf-d259-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="f5df84bf-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245b-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="547c6188-2a73-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="8039406c-2a74-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+    </Plu>
+    <Plu Uid="17d5fefb-8488-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="f5df84c1-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245c-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="d51b5061-e60a-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="f5df84c3-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245d-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="62e00a9c-c50f-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="f5df84c7-2a4b-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(14)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="14"/>
+        <Characteristic Uid="bf9d245f-2a5e-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+        <Characteristic Uid="547c618c-2a73-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="8039406a-2a74-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+    </Plu>
+    <Plu Uid="c7453b20-70c3-11e9-a216-a4bf0139eb1b">
+        <Characteristic Uid="6cfa2d6c-2a63-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+    </Plu>
+    <Plu Uid="f66b02e7-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="dff0a255-30a8-11eb-a22e-00155d8a4602" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="5ad487f4-1174-11eb-a22a-00155d8a4602">
+        <Characteristic Uid="94d8e190-5740-11eb-a234-00155d8a4602" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="1ef3c776-c7e7-11e9-a217-a4bf0139eb1b">
+        <Characteristic Uid="a2480ffd-6ada-11eb-a235-00155d8a4602" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="ee17f563-f288-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="fdf29e16-76ab-11eb-a237-00155d8a4602" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="d866a9ac-e8fb-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="040c44dc-76ac-11eb-a237-00155d8a4602" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+        <Characteristic Uid="84d877cf-9c37-11eb-bcd6-00155d8a4603" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="e3d298ad-8485-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="b47655b6-823a-11eb-bcd2-00155d8a4603" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="0a4aeb19-8485-11ea-a220-a4bf0139eb1b">
+        <Characteristic Uid="b47655b8-823a-11eb-bcd2-00155d8a4603" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="aef12ef3-e8fc-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="ee565dce-87c8-11eb-bcd2-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="25feff03-3f75-11eb-a22e-00155d8a4602">
+        <Characteristic Uid="ee565dd0-87c8-11eb-bcd2-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="2092c0f1-d2f0-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="ee565dd2-87c8-11eb-bcd2-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="1afe70b6-e8fc-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="8a69e972-8b08-11eb-bcd3-00155d8a4603" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+        <Characteristic Uid="84d877cd-9c37-11eb-bcd6-00155d8a4603" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="51c775dd-9dc0-11eb-bcd8-00155d8a4603">
+        <Characteristic Uid="b2689a37-b4d7-11eb-bce4-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="c44cfdce-9d2f-11eb-bcd7-00155d8a4603">
+        <Characteristic Uid="b2689a3b-b4d7-11eb-bce4-00155d8a4603" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="280dc594-b705-11eb-bce4-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="96c7e541-9dc5-11eb-bcd8-00155d8a4603">
+        <Characteristic Uid="411ca4b3-b666-11eb-bce4-00155d8a4603" IsDelete="1" Name="Удалить Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+        <Characteristic Uid="411ca4b5-b666-11eb-bce4-00155d8a4603" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+        <Characteristic Uid="2e19181a-b705-11eb-bce4-00155d8a4603" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="a6bd0f1e-9ea0-11eb-bcd8-00155d8a4603">
+        <Characteristic Uid="47745dbe-b666-11eb-bce4-00155d8a4603" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="df14cb93-d8b8-11eb-bcf0-00155d8a4604" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="a8067945-d2f3-11ea-a221-a4bf0139eb1b">
+        <Characteristic Uid="01d379b0-ebbe-11eb-bd0d-00155df47a08" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="7a81c658-360a-11eb-a22e-00155d8a4602">
+        <Characteristic Uid="44e51a64-ebbf-11eb-bd0d-00155df47a08" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="5c8b9df6-9cff-11eb-bcd7-00155d8a4603">
+        <Characteristic Uid="e295e9bb-f261-11eb-bd0f-00155df8551b" IsDelete="1" Name="УдалитьКор(0)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="1"/>
+        <Characteristic Uid="16f24f86-f262-11eb-bd0f-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="beb0c805-51c4-11e7-80d3-a4bf01016d50">
+        <Characteristic Uid="2aae1938-ff28-11eb-bd11-00155df8551b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+        <Characteristic Uid="5b1f6115-d5ac-11ec-bd1a-00155d8a460f" IsDelete="0" Name="Кор(5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="5"/>
+        <Characteristic Uid="e716a24d-0672-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(7)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="7"/>
+        <Characteristic Uid="cecb57b3-08f0-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="9c5212c1-04dd-11ec-bd11-00155df8551b">
+        <Characteristic Uid="ffd2fd49-2d7e-11ec-bd11-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="1fafb287-8b3a-11ec-bd19-00155df8551b" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+    </Plu>
+    <Plu Uid="a38701f2-b6f4-11eb-bce4-00155d8a4603">
+        <Characteristic Uid="0465447d-58e2-11ec-bd13-00155df8551b" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+    </Plu>
+    <Plu Uid="989b126e-be2c-11eb-bce4-00155d8a4603">
+        <Characteristic Uid="14e54903-72df-11ec-bd18-00155df8551b" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+    </Plu>
+    <Plu Uid="c3598c8a-1a05-11ec-bd11-00155df8551b">
+        <Characteristic Uid="3880c914-93e8-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="238606b1-1a05-11ec-bd11-00155df8551b">
+        <Characteristic Uid="3880c916-93e8-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="67348d17-1a04-11ec-bd11-00155df8551b">
+        <Characteristic Uid="3880c918-93e8-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="b85d4828-53bf-11ea-a21c-a4bf0139eb1b">
+        <Characteristic Uid="13cce58f-98be-11ec-bd19-00155df8551b" IsDelete="1" Name="Удалить Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>
+        <Characteristic Uid="1faa0329-95af-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="ed1dea75-8a66-11ec-bd19-00155df8551b">
+        <Characteristic Uid="a0be141a-994a-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="9b6b31e2-8f1e-11ec-bd19-00155df8551b">
+        <Characteristic Uid="26a5ded2-a558-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="fc35197d-c75e-11eb-bcef-00155d8a4604">
+        <Characteristic Uid="797aa34e-b019-11ec-bd19-00155df8551b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="8f47aa8f-b987-11ec-bd19-00155df8551b">
+        <Characteristic Uid="7e8eef4b-d5bb-11ec-bd1a-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="221b84d1-0b0e-11ec-bd11-00155df8551b">
+        <Characteristic Uid="0ec9ed52-ecbc-11ec-bd1b-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="7e9f0a87-bf01-11ec-bd1a-00155d8a460f">
+        <Characteristic Uid="6ef44149-fd0c-11ec-bd1b-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="9762ba3b-bf00-11ec-bd1a-00155d8a460f">
+        <Characteristic Uid="6ef4414b-fd0c-11ec-bd1b-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="f66b032e-9705-11e2-ba6d-90e6ba17bdd7">
+        <Characteristic Uid="cecb57b5-08f0-11ed-bd1b-00155d8a460f" IsDelete="0" Name="Кор(3)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="3"/>
+    </Plu>
+    <Plu Uid="4b22d53d-dcf4-11ec-bd1b-00155d8a460f">
+        <Characteristic Uid="31b1b478-60ef-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="7b6c1495-6018-11ed-bd20-00155d8a460f">
+        <Characteristic Uid="85513cab-6654-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="765f4934-dcf0-11ec-bd1b-00155d8a460f">
+        <Characteristic Uid="0762dce1-7239-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="0500c33e-1444-41c2-b250-5ece2a7ed525">
+        <Characteristic Uid="31c8cf40-7862-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="7e184a64-381c-11ed-bd20-00155d8a460f">
+        <Characteristic Uid="0569a0cf-95ae-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="201c3775-1198-11ed-bd1c-00155d8a460f">
+        <Characteristic Uid="b95a7d22-95ae-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+        <Characteristic Uid="267bd6ef-9a67-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="d3d393b7-002d-432b-b319-fa19d097ccc2">
+        <Characteristic Uid="76db5f82-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="1976e2d4-447c-4161-a516-7c5b822919f0">
+        <Characteristic Uid="8a172296-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="5025d26d-f715-494c-bfb3-1ff48d422ad5">
+        <Characteristic Uid="8a172298-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="9b237421-f3ea-4516-b133-0b62f6b1dc1b">
+        <Characteristic Uid="8a17229a-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="0c3ec766-d7d2-4c84-9549-3bca17d5b4ed">
+        <Characteristic Uid="9abdb9fe-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="9be9e6be-d0b1-45ea-b18d-de6bca80d209">
+        <Characteristic Uid="ad4d3638-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="1153d549-4c23-4b87-8a62-94f168c907b0">
+        <Characteristic Uid="ad4d363a-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="d36f39ac-e53e-48e9-b2de-c58a272961de">
+        <Characteristic Uid="ad4d363c-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="eb5fc3d0-c74a-4dfc-ba7b-cea87a47be08">
+        <Characteristic Uid="ad4d363e-a94d-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(4)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="4"/>
+        <Characteristic Uid="8e8465a7-66a6-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="60b80ad4-20b2-4299-9b5a-399d6d62a850">
+        <Characteristic Uid="742b66ae-b1f9-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="4ebe6aed-698d-11ed-bd20-00155d8a460f">
+        <Characteristic Uid="0f8b2e58-ca20-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="a6af6f60-e3f6-49bb-93b4-55dad927adef">
+        <Characteristic Uid="68f5ee7e-ca20-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="4ebe6ae8-698d-11ed-bd20-00155d8a460f">
+        <Characteristic Uid="d9b40d96-d868-11ed-bd20-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="1b79a9bf-58a7-4a1d-826c-3a36e1765e34">
+        <Characteristic Uid="7075ddd7-f326-11ed-bd21-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="30c92573-c0fd-11ee-bd24-00155d8a460f" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="1d91267e-f3bf-48ee-a1ec-8e73efaaffcb">
+        <Characteristic Uid="0a67f3f9-fea2-11ed-bd22-00155d8a460f" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="f5f188d2-1327-432d-b6cc-24d715fde66e">
+        <Characteristic Uid="c8365d5a-2b93-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="3c806691-0fa2-4abf-9c0b-27490d23349a">
+        <Characteristic Uid="846b2ca5-463c-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+        <Characteristic Uid="03d51b3b-854f-11ee-bd23-00155d8a460f" IsDelete="1" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="5ce14943-541d-11ec-bd13-00155df8551b">
+        <Characteristic Uid="7b4bcd85-51fe-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(10)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="10"/>
+    </Plu>
+    <Plu Uid="9171d879-1fb6-11ed-bd1c-00155d8a460f">
+        <Characteristic Uid="7b4bcd87-51fe-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(12)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
+    </Plu>
+    <Plu Uid="58ba2419-698d-11ed-bd20-00155d8a460f">
+        <Characteristic Uid="1eaedbac-5946-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="c0c492c1-8188-4964-a1b4-09d80f8496e3">
+        <Characteristic Uid="ed71d01a-5eba-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
+    </Plu>
+    <Plu Uid="e594319e-992b-4838-9d4e-794e79a82929">
+        <Characteristic Uid="5b59b3ed-7fbb-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="8"/>
+    </Plu>
+    <Plu Uid="b41b57ec-3f75-11eb-a22e-00155d8a4602">
+        <Characteristic Uid="267bd6ed-9a67-11ee-bd23-00155d8a460f" IsDelete="0" Name="Кор(11)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="11"/>
     </Plu>
 </Characteristics>

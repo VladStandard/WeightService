@@ -25,10 +25,8 @@ internal partial class BrandService
 
     #endregion
 
-    private void SaveBrands(IReadOnlyCollection<BrandDto> validDtos)
+    private void SaveBrands(IEnumerable<BrandDto> validDtos)
     {
-        if (validDtos.Count == 0) return;
-
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 

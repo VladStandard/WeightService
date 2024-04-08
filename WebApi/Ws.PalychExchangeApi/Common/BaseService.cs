@@ -8,10 +8,10 @@ using Ws.PalychExchangeApi.Dto;
 namespace Ws.PalychExchangeApi.Common;
 
 // ReSharper disable once SuggestBaseTypeForParameterInConstructor
-internal abstract class BaseService<TDto>(WsDbContext dbContext, IValidator<TDto> validator) where TDto : BaseDto
+internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto : BaseDto
 {
     private readonly IValidator _validator = validator;
-    protected readonly WsDbContext DbContext = dbContext;
+    protected readonly WsDbContext DbContext = new();
     protected readonly ResponseDto OutputDto = new();
 
     # region ResolveUniqueLocal
@@ -29,8 +29,7 @@ internal abstract class BaseService<TDto>(WsDbContext dbContext, IValidator<TDto
 
         dtos.RemoveAll(dto =>
         {
-            if (!duplicates.Contains(dto.Uid))
-                return false;
+            if (!duplicates.Contains(dto.Uid)) return false;
             OutputDto.AddError(dto.Uid, msg);
             return true;
         });

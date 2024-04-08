@@ -1,4 +1,4 @@
-using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
+using Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
 

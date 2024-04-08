@@ -1,4 +1,3 @@
-using Ws.Database.EntityFramework;
 using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
@@ -6,9 +5,7 @@ using Ws.PalychExchangeApi.Features.Boxes.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
-// ReSharper disable once SuggestBaseTypeForParameterInConstructor
-internal partial class BoxService(WsDbContext dbContext, BoxDtoValidator validator) :
-    BaseService<BoxDto>(dbContext, validator), IBoxService
+internal partial class BoxService(BoxDtoValidator validator) : BaseService<BoxDto>(validator), IBoxService
 {
     public ResponseDto Load(BoxesWrapper dtoWrapper)
     {

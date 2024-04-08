@@ -1,18 +1,8 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
-using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
+using Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
-
-
-file record CharacteristicsUniqueFields
-{
-    public required Guid Uid { get; set; }
-    public required Guid PluUid { get; set; }
-    public required Guid BoxUid { get; set; }
-    public required short BundleCount { get; set; }
-}
-
 
 internal sealed partial class CharacteristicService
 {
@@ -20,38 +10,39 @@ internal sealed partial class CharacteristicService
 
     private void ResolveUniqueDb(List<GroupedCharacteristic> dtos)
     {
-        List<Guid> boxUids = dtos.Select(x => x.BoxUid).ToList();
-        List<Guid> pluUids = dtos.Select(x => x.PluUid).ToList();
-        List<Guid> characteristicUids = dtos.Select(x => x.Uid).ToList();
-        List<short> bundleCounts = dtos.Select(x => x.BundleCount).ToList();
+        HashSet<Guid> boxUids = dtos.Select(x => x.BoxUid).ToHashSet();
+        HashSet<Guid> pluUids = dtos.Select(x => x.PluUid).ToHashSet();
+        HashSet<Guid> characteristicUids = dtos.Select(x => x.Uid).ToHashSet();
+        HashSet<short> bundleCounts = dtos.Select(x => x.BundleCount).ToHashSet();
 
-
-        List<CharacteristicsUniqueFields> existingPairs = dbContext.Characteristics
+        List<GroupedCharacteristic> existingPairs = DbContext.Characteristics
             .Where(i =>
                 !characteristicUids.Contains(i.Id) &&
                 boxUids.Contains(i.BoxId) &&
                 bundleCounts.Contains(i.BundleCount) &&
                 pluUids.Contains(i.PluId)
             ).Select(i =>
-                new CharacteristicsUniqueFields
+                new GroupedCharacteristic
                 {
                     Uid = i.Id,
                     PluUid = i.PluId,
                     BoxUid = i.BoxId,
-                    BundleCount = i.BundleCount
+                    BundleCount = i.BundleCount,
+                    IsDelete = false,
+                    Name = ""
                 })
             .ToList();
 
 
-        dtos.RemoveAll(characteristic =>
+        dtos.RemoveAll(dto =>
         {
-            if (!existingPairs.Any(grouped =>
-                    characteristic.Uid == grouped.PluUid &&
-                    characteristic.BoxUid == grouped.BoxUid &&
-                    characteristic.BundleCount == grouped.BundleCount &&
-                    characteristic.Uid != grouped.Uid
+            if (!existingPairs.Any(uniq =>
+                    dto.Uid == uniq.PluUid &&
+                    dto.BoxUid == uniq.BoxUid &&
+                    dto.BundleCount == uniq.BundleCount &&
+                    dto.Uid != uniq.Uid
                 )) return false;
-            OutputDto.AddError(characteristic.Uid, "Характеристика - (Box, Plu, BundleCount) не уникальна (бд)");
+            OutputDto.AddError(dto.Uid, "Характеристика - (Box, Plu, BundleCount) не уникальна (бд)");
             return true;
         });
     }
@@ -63,10 +54,10 @@ internal sealed partial class CharacteristicService
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<CharacteristicEntity> characteristics = dtos.Select(i => i.ToEntity(updateDt)).ToList();
 
-        using IDbContextTransaction transaction = dbContext.Database.BeginTransaction();
+        using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            dbContext.BulkMerge(characteristics, options =>
+            DbContext.BulkMerge(characteristics, options =>
             {
                 options.InsertIfNotExists = true;
                 options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
@@ -79,6 +70,35 @@ internal sealed partial class CharacteristicService
         {
             transaction.Rollback();
             OutputDto.AddError(characteristics.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+        }
+    }
+
+    private void DeleteCharacteristics(List<GroupedCharacteristic> dtos)
+    {
+        List<CharacteristicEntity> characteristicToDelete =
+            dtos.Where(dto => dto.IsDelete)
+                .Select(dto => dto.ToEntity(DateTime.MinValue))
+                .ToList();
+
+        if (characteristicToDelete.Count == 0) return;
+
+        HashSet<Guid> deletedUid = characteristicToDelete.Select(i => i.Id).ToHashSet();
+
+        using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
+        try
+        {
+            DbContext.BulkDelete(characteristicToDelete);
+            transaction.Commit();
+            OutputDto.AddSuccess(deletedUid);
+        }
+        catch (Exception)
+        {
+            OutputDto.AddError(deletedUid, "Не предвиденная ошибка");
+            transaction.Rollback();
+        }
+        finally
+        {
+            dtos.RemoveAll(brandDto => deletedUid.Contains(brandDto.Uid));
         }
     }
 }

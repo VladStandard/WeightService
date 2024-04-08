@@ -1,4 +1,3 @@
-using Ws.Database.EntityFramework;
 using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Brands.Common;
@@ -6,9 +5,7 @@ using Ws.PalychExchangeApi.Features.Brands.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Brands.Services;
 
-// ReSharper disable once SuggestBaseTypeForParameterInConstructor
-internal partial class BrandService(WsDbContext dbContext, BrandDtoValidator validator) :
-    BaseService<BrandDto>(dbContext, validator), IBrandService
+internal partial class BrandService(BrandDtoValidator validator) : BaseService<BrandDto>(validator), IBrandService
 {
     public ResponseDto Load(BrandsWrapper dtoWrapper)
     {

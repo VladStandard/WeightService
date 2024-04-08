@@ -46,12 +46,6 @@ namespace Ws.Database.EntityFramework.Migrations
                 column: "BOX_UID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CHARACTERISTICS_PLU_UID",
-                table: "CHARACTERISTICS",
-                column: "PLU_UID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "UQ_CHARACTERISTICS_UNIQ",
                 table: "CHARACTERISTICS",
                 columns: new[] { "PLU_UID", "BOX_UID", "BUNDLE_COUNT" },

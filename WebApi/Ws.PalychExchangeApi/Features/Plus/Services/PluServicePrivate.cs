@@ -17,25 +17,19 @@ internal sealed partial class PluService
 
     private void ResolveUniqueNumberDb(List<PluDto> dtos)
     {
-        HashSet<short> numberList = dtos.Select(dto => dto.Number).ToHashSet();
+        HashSet<short> numbers = dtos.Select(dto => dto.Number).ToHashSet();
+        HashSet<Guid> plusUid = dtos.Select(dto => dto.Uid).ToHashSet();
 
-        List<NumberIdPair> existingNumbersIdPairs = DbContext.Plus
-            .Where(plu => numberList.Contains(plu.Number))
-            .Select(plu => new NumberIdPair { Number = plu.Number, Id = plu.Id }).OrderBy(i => i.Number)
+        List<NumberIdPair> existingPairs = DbContext.Plus
+            .Where(i => !plusUid.Contains(i.Id) && numbers.Contains(i.Number))
+            .Select(i => new NumberIdPair { Number = i.Number, Id = i.Id })
             .ToList();
-
-        List<PluDto> notUniquePluDto =
-            dtos
-                .Where(dto => existingNumbersIdPairs.Any(pair => pair.Number == dto.Number))
-                .Where(dto => !existingNumbersIdPairs.Any(pair => pair.Number == dto.Number && pair.Id == dto.Uid))
-                .ToList();
-        OutputDto.AddError(notUniquePluDto.Select(i => i.Uid), "Номер плу не уникален (бд)");
 
         dtos.RemoveAll(dto =>
         {
-            if (existingNumbersIdPairs.All(pair => pair.Number != dto.Number))
-                return false;
-            return !existingNumbersIdPairs.Any(pair => pair.Number == dto.Number && pair.Id == dto.Uid);
+            if (!existingPairs.Any(uniq => dto.Uid != uniq.Id && dto.Number == uniq.Number)) return false;
+            OutputDto.AddError(dto.Uid, $"Номер плу - ({dto.Number}) не уникален (бд)");
+            return true;
         });
     }
 

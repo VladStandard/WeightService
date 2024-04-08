@@ -36,7 +36,6 @@ internal sealed class PluDtoValidator : AbstractValidator<PluDto>
             .Empty().When(item => item.IsWeight).WithMessage("У весовой ПЛУ Itf14 - должен быть пустой")
             .Length(14).When(item => !item.IsWeight).WithMessage("Itf14 - должен состоять из 14 символов");
 
-
         #endregion
 
         #region Fk

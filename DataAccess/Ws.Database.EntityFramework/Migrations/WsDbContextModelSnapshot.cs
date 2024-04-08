@@ -656,9 +656,6 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("BoxId");
 
-                    b.HasIndex("PluId")
-                        .IsUnique();
-
                     b.HasIndex(new[] { "PluId", "BoxId", "BundleCount" }, "UQ_CHARACTERISTICS_UNIQ")
                         .IsUnique();
 
@@ -938,8 +935,8 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsRequired();
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
-                        .WithOne()
-                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", "PluId")
+                        .WithMany()
+                        .HasForeignKey("PluId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");

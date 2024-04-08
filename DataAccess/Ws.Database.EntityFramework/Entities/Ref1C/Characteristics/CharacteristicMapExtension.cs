@@ -10,8 +10,8 @@ internal static class CharacteristicMapExtension
         {
             entity
                 .HasOne<PluEntity>()
-                .WithOne()
-                .HasForeignKey<CharacteristicEntity>(n => n.PluId)
+                .WithMany()
+                .HasForeignKey(characteristic => characteristic.PluId)
                 .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
         });
     }
