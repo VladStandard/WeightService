@@ -2,7 +2,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
-[Table(SqlTables.Characteristics)]
+[Table(SqlTables.Characteristics, Schema = SqlSchemas.Ref1C)]
 [Index(nameof(PluId), nameof(BoxId), nameof(BundleCount), Name = $"UQ_{SqlTables.Characteristics}_UNIQ", IsUnique = true)]
 public sealed class CharacteristicEntity : EfEntityBase
 {

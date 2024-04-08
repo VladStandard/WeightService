@@ -1,6 +1,6 @@
-namespace Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
+namespace Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
 
-[Table(SqlTables.StorageMethods)]
+[Table(SqlTables.StorageMethods, Schema = SqlSchemas.Zpl)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.StorageMethods}_NAME", IsUnique = true)]
 [Index(nameof(Zpl), Name = $"UQ_{SqlTables.StorageMethods}_ZPL", IsUnique = true)]
 public sealed class StorageMethodEntity : EfEntityBase

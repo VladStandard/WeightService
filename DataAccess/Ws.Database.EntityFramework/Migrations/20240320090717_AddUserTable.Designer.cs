@@ -326,7 +326,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PRODUCTION_SITES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.StorageMethods.StorageMethodEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -366,7 +366,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("STORAGE_METHODS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Templates.TemplateEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
@@ -474,7 +474,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("WAREHOUSES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()

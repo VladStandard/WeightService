@@ -1,6 +1,6 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
-namespace Ws.Database.EntityFramework.Entities.Ref.PluResources;
+namespace Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 
 internal static class PluResourceMapExtension
 {

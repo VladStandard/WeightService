@@ -77,7 +77,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PALLET_MEN");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()

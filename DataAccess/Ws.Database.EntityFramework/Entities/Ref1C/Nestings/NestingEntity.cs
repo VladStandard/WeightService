@@ -2,7 +2,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-[Table(SqlTables.Nestings)]
+[Table(SqlTables.Nestings, Schema = SqlSchemas.Ref1C)]
 public sealed class NestingEntity : EfEntityBase
 {
     [Column("BUNDLE_COUNT")]

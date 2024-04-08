@@ -1,9 +1,9 @@
-using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
-using Ws.Database.EntityFramework.Entities.Ref.Templates;
+using Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
-namespace Ws.Database.EntityFramework.Entities.Ref.PluResources;
+namespace Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 
-[Table(SqlTables.PlusResources)]
+[Table(SqlTables.PlusResources,  Schema = SqlSchemas.Zpl)]
 public sealed class PluResourceEntity : EfEntityBase
 {
     [ForeignKey("TEMPLATE_UID")]

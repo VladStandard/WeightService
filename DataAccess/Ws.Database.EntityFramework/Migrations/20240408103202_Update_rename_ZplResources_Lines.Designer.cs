@@ -12,8 +12,8 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240404060252_AddWeightColumn_PluTable")]
-    partial class AddWeightColumn_PluTable
+    [Migration("20240408103202_Update_rename_ZplResources_Lines")]
+    partial class Update_rename_ZplResources_Lines
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,16 +138,16 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("WAREHOUSE_UID");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_LINES_NAME")
+                    b.HasIndex(new[] { "Name" }, "UQ_ARMS_NAME")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
+                    b.HasIndex(new[] { "Number" }, "UQ_ARMS_NUMBER")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "PcName" }, "UQ_LINES_PC_NAME")
+                    b.HasIndex(new[] { "PcName" }, "UQ_ARMS_PC_NAME")
                         .IsUnique();
 
-                    b.ToTable("LINES");
+                    b.ToTable("ARMS");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PalletMen.PalletManEntity", b =>
@@ -206,28 +206,6 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsUnique();
 
                     b.ToTable("PALLET_MEN");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<Guid>("STORAGE_METHOD_UID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TEMPLATE_UID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("STORAGE_METHOD_UID");
-
-                    b.HasIndex("TEMPLATE_UID");
-
-                    b.ToTable("PLUS_RESOURCES");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Printers.PrinterEntity", b =>
@@ -320,88 +298,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_PRODUCTION_SITES_NAME")
                         .IsUnique();
 
-                    b.ToTable("PRODUCTION_SITES");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.Property<string>("Zpl")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnName("ZPL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_STORAGE_METHODS_NAME")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL")
-                        .IsUnique();
-
-                    b.ToTable("STORAGE_METHODS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasMaxLength(10240)
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("BODY");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME")
-                        .IsUnique();
-
-                    b.ToTable("TEMPLATES");
+                    b.ToTable("PRODUCTION_SITES", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
@@ -475,46 +372,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
                         .IsUnique();
 
-                    b.ToTable("WAREHOUSES");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("NAME");
-
-                    b.Property<string>("Zpl")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnName("ZPL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_ZPL_RESOURCES_NAME")
-                        .IsUnique();
-
-                    b.ToTable("ZPL_RESOURCES");
+                    b.ToTable("WAREHOUSES", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", b =>
@@ -548,7 +406,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BOXES");
+                    b.ToTable("BOXES", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", b =>
@@ -581,7 +439,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_BRANDS_NAME")
                         .IsUnique();
 
-                    b.ToTable("BRANDS");
+                    b.ToTable("BRANDS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", b =>
@@ -615,7 +473,54 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BUNDLES");
+                    b.ToTable("BUNDLES", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BoxId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BOX_UID");
+
+                    b.Property<short>("BundleCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("BUNDLE_COUNT");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<Guid>("PluId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("PLU_UID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoxId");
+
+                    b.HasIndex(new[] { "PluId", "BoxId", "BundleCount" }, "UQ_CHARACTERISTICS_UNIQ")
+                        .IsUnique();
+
+                    b.ToTable("CHARACTERISTICS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", b =>
@@ -649,7 +554,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CLIPS");
+                    b.ToTable("CLIPS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
@@ -683,10 +588,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("BoxId");
 
-                    b.HasIndex(new[] { "BundleCount", "BoxId" }, "UQ_NESTINGS_BUNDLE_BOX")
-                        .IsUnique();
-
-                    b.ToTable("NESTINGS");
+                    b.ToTable("NESTINGS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
@@ -722,8 +624,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("DESCRIPTION");
 
                     b.Property<string>("Ean13")
@@ -734,8 +636,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("FULL_NAME");
 
                     b.Property<bool>("IsWeight")
@@ -774,10 +676,152 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("ClipEntityId");
 
-                    b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
+                    b.HasIndex(new[] { "Number" }, "UQ_PLUS_NUMBER")
                         .IsUnique();
 
-                    b.ToTable("PLUS");
+                    b.ToTable("PLUS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("STORAGE_METHOD_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TEMPLATE_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("STORAGE_METHOD_UID");
+
+                    b.HasIndex("TEMPLATE_UID");
+
+                    b.ToTable("PLUS_RESOURCES", "ZPL");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("NAME");
+
+                    b.Property<string>("Zpl")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnName("ZPL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_STORAGE_METHODS_NAME")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL")
+                        .IsUnique();
+
+                    b.ToTable("STORAGE_METHODS", "ZPL");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(10240)
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BODY");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("NAME");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME")
+                        .IsUnique();
+
+                    b.ToTable("TEMPLATES", "ZPL");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<string>("Zpl")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnName("ZPL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_RESOURCES_NAME")
+                        .IsUnique();
+
+                    b.ToTable("RESOURCES", "ZPL");
                 });
 
             modelBuilder.Entity("LINES_PLUS_FK", b =>
@@ -829,31 +873,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
-                {
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
-                        .WithOne("Resource")
-                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", "StorageMethod")
-                        .WithMany()
-                        .HasForeignKey("STORAGE_METHOD_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", "Template")
-                        .WithMany()
-                        .HasForeignKey("TEMPLATE_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StorageMethod");
-
-                    b.Navigation("Template");
-                });
-
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Printers.PrinterEntity", b =>
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref.ProductionSites.ProductionSiteEntity", "ProductionSite")
@@ -883,6 +902,24 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductionSite");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", "Box")
+                        .WithMany()
+                        .HasForeignKey("BoxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PluId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
+
+                    b.Navigation("Box");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
@@ -927,6 +964,31 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Bundle");
 
                     b.Navigation("Clip");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
+                        .WithOne("Resource")
+                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", "StorageMethod")
+                        .WithMany()
+                        .HasForeignKey("STORAGE_METHOD_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", "Template")
+                        .WithMany()
+                        .HasForeignKey("TEMPLATE_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StorageMethod");
+
+                    b.Navigation("Template");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>

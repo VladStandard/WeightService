@@ -1,6 +1,6 @@
-namespace Ws.Database.EntityFramework.Entities.Ref.ZplResources;
+namespace Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 
-[Table(SqlTables.ZplResources)]
+[Table(SqlTables.ZplResources, Schema = SqlSchemas.Zpl)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.ZplResources}_NAME", IsUnique = true)]
 public sealed class ZplResourceEntity : EfEntityBase
 {

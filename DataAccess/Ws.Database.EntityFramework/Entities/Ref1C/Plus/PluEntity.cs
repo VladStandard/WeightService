@@ -1,12 +1,12 @@
-using Ws.Database.EntityFramework.Entities.Ref.PluResources;
+using Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
-[Table(SqlTables.Plus)]
-[Index(nameof(Number), Name = $"UQ_{SqlTables.Lines}_NUMBER", IsUnique = true)]
+[Table(SqlTables.Plus, Schema = SqlSchemas.Ref1C)]
+[Index(nameof(Number), Name = $"UQ_{SqlTables.Plus}_NUMBER", IsUnique = true)]
 public sealed class PluEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]

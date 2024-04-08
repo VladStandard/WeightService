@@ -17,4 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Zpl\" />
+  </ItemGroup>
 </Project>

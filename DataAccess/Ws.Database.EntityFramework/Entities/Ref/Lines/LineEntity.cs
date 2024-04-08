@@ -4,10 +4,10 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 
-[Table(SqlTables.Lines)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Lines}_NAME", IsUnique = true)]
-[Index(nameof(PcName), Name = $"UQ_{SqlTables.Lines}_PC_NAME", IsUnique = true)]
-[Index(nameof(Number), Name = $"UQ_{SqlTables.Lines}_NUMBER", IsUnique = true)]
+[Table(SqlTables.Arms)]
+[Index(nameof(Name), Name = $"UQ_{SqlTables.Arms}_NAME", IsUnique = true)]
+[Index(nameof(PcName), Name = $"UQ_{SqlTables.Arms}_PC_NAME", IsUnique = true)]
+[Index(nameof(Number), Name = $"UQ_{SqlTables.Arms}_NUMBER", IsUnique = true)]
 public sealed class LineEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]

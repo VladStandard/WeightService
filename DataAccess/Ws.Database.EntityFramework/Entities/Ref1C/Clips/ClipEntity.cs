@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
-[Table(SqlTables.Clips)]
+[Table(SqlTables.Clips, Schema = SqlSchemas.Ref1C)]
 public sealed class ClipEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]

@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
-[Table(SqlTables.Boxes)]
+[Table(SqlTables.Boxes, Schema = SqlSchemas.Ref1C)]
 public sealed class BoxEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]

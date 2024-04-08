@@ -12,8 +12,8 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240404060252_AddWeightColumn_PluTable")]
-    partial class AddWeightColumn_PluTable
+    [Migration("20240408100843_Add_ref1c_ref_zpl_schemes")]
+    partial class Add_ref1c_ref_zpl_schemes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,7 +227,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("TEMPLATE_UID");
 
-                    b.ToTable("PLUS_RESOURCES");
+                    b.ToTable("PLUS_RESOURCES", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Printers.PrinterEntity", b =>
@@ -320,7 +320,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_PRODUCTION_SITES_NAME")
                         .IsUnique();
 
-                    b.ToTable("PRODUCTION_SITES");
+                    b.ToTable("PRODUCTION_SITES", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
@@ -362,7 +362,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL")
                         .IsUnique();
 
-                    b.ToTable("STORAGE_METHODS");
+                    b.ToTable("STORAGE_METHODS", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
@@ -401,7 +401,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME")
                         .IsUnique();
 
-                    b.ToTable("TEMPLATES");
+                    b.ToTable("TEMPLATES", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
@@ -475,7 +475,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
                         .IsUnique();
 
-                    b.ToTable("WAREHOUSES");
+                    b.ToTable("WAREHOUSES", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
@@ -514,7 +514,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_ZPL_RESOURCES_NAME")
                         .IsUnique();
 
-                    b.ToTable("ZPL_RESOURCES");
+                    b.ToTable("ZPL_RESOURCES", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", b =>
@@ -548,7 +548,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BOXES");
+                    b.ToTable("BOXES", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", b =>
@@ -581,7 +581,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_BRANDS_NAME")
                         .IsUnique();
 
-                    b.ToTable("BRANDS");
+                    b.ToTable("BRANDS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", b =>
@@ -615,7 +615,54 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BUNDLES");
+                    b.ToTable("BUNDLES", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BoxId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BOX_UID");
+
+                    b.Property<short>("BundleCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("BUNDLE_COUNT");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<Guid>("PluId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("PLU_UID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoxId");
+
+                    b.HasIndex(new[] { "PluId", "BoxId", "BundleCount" }, "UQ_CHARACTERISTICS_UNIQ")
+                        .IsUnique();
+
+                    b.ToTable("CHARACTERISTICS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", b =>
@@ -649,7 +696,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CLIPS");
+                    b.ToTable("CLIPS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
@@ -683,10 +730,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("BoxId");
 
-                    b.HasIndex(new[] { "BundleCount", "BoxId" }, "UQ_NESTINGS_BUNDLE_BOX")
-                        .IsUnique();
-
-                    b.ToTable("NESTINGS");
+                    b.ToTable("NESTINGS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
@@ -722,8 +766,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("DESCRIPTION");
 
                     b.Property<string>("Ean13")
@@ -734,8 +778,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("FULL_NAME");
 
                     b.Property<bool>("IsWeight")
@@ -777,7 +821,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
                         .IsUnique();
 
-                    b.ToTable("PLUS");
+                    b.ToTable("PLUS", "REF_1C");
                 });
 
             modelBuilder.Entity("LINES_PLUS_FK", b =>
@@ -883,6 +927,24 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductionSite");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", "Box")
+                        .WithMany()
+                        .HasForeignKey("BoxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PluId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
+
+                    b.Navigation("Box");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>

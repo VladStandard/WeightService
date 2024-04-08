@@ -1,6 +1,6 @@
-namespace Ws.Database.EntityFramework.Entities.Ref.Templates;
+namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
-[Table(SqlTables.Templates)]
+[Table(SqlTables.Templates, Schema = SqlSchemas.Zpl)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Templates}_NAME", IsUnique = true)]
 public sealed class TemplateEntity : EfEntityBase
 {

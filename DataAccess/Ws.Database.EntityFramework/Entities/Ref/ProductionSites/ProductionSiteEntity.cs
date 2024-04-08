@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
-[Table(SqlTables.ProductionSites)]
+[Table(SqlTables.ProductionSites, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.ProductionSites}_NAME", IsUnique = true)]
 [Index(nameof(Address), Name = $"UQ_{SqlTables.ProductionSites}_ADDRESS", IsUnique = true)]
 public sealed class ProductionSiteEntity : EfEntityBase

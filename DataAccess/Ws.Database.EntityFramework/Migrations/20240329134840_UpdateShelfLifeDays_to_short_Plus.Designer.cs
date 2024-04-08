@@ -208,7 +208,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PALLET_MEN");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PluResources.PluResourceEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -323,7 +323,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("PRODUCTION_SITES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.StorageMethods.StorageMethodEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -365,7 +365,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("STORAGE_METHODS");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Templates.TemplateEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -478,7 +478,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.ToTable("WAREHOUSES");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ZplResources.ZplResourceEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -842,21 +842,21 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PluResources.PluResourceEntity", b =>
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
                         .WithOne("Resource")
-                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Ref.PluResources.PluResourceEntity", "Id")
+                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.StorageMethods.StorageMethodEntity", "StorageMethod")
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", "StorageMethod")
                         .WithMany()
                         .HasForeignKey("STORAGE_METHOD_UID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Templates.TemplateEntity", "Template")
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", "Template")
                         .WithMany()
                         .HasForeignKey("TEMPLATE_UID")
                         .OnDelete(DeleteBehavior.Cascade)

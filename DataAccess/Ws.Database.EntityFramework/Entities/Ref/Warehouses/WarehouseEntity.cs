@@ -2,7 +2,7 @@ using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 
-[Table(SqlTables.Warehouses)]
+[Table(SqlTables.Warehouses, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Warehouses}_NAME", IsUnique = true)]
 public sealed class WarehouseEntity : EfEntityBase
 {

@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
-[Table(SqlTables.Bundles)]
+[Table(SqlTables.Bundles, Schema = SqlSchemas.Ref1C)]
 public sealed class BundleEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]

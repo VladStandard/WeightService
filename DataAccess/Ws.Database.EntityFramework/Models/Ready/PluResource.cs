@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref.StorageMethods;
-using Ws.Database.EntityFramework.Entities.Ref.Templates;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 namespace Ws.Database.EntityFramework.Models.Ready;
 
