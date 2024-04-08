@@ -11,11 +11,14 @@ namespace ScalesDesktop.Source.Widgets.LabelConfig;
 
 public sealed partial class LabelConfig : ComponentBase, IDisposable
 {
-    [Inject] private IDialogService DialogService { get; set; } = null!;
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    # region Injects
 
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> LabelsLocalizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+    # endregion
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 

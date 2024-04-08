@@ -1,5 +1,3 @@
-@using ScalesDesktop.Source.Shared.UI.Dialog
-@using ScalesDesktop.Source.Shared.UI
 <Dialog Class="max-w-screen-sm select-none p-3 md:p-6">
   <input
     type="text"
@@ -8,7 +6,7 @@
     @onkeydown="HandleKeyDown"
     maxlength="@MaxDigitCount"
     placeholder="1"
-    class="w-full border-border focus:border-border focus:outline-none rounded-lg focus:ring-0 pb-3 text-right text-4xl"
+    class="w-full border px-3 py-2 focus:border-border focus:outline-none rounded-lg focus:ring-0 text-right text-4xl"
   />
   <div class="grid grid-cols-3 grid-rows-4 mt-6 w-full gap-2">
     @foreach (CalculatorControl control in CalculatorControls)

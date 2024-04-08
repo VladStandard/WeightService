@@ -7,9 +7,12 @@ namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayDate : ComponentBase
 {
-    [Inject] private IStringLocalizer<WsDataResources> Localizer { get; set; } = null!;
+    # region Injects
 
-    [Inject] private LabelContext LabelContext { get; set; } = null!;
+    [Inject] private IStringLocalizer<WsDataResources> Localizer { get; set; } = default!;
+    [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+    # endregion
 
     private void IncreaseDate() =>
         LabelContext.KneadingModel.ProductDate = LabelContext.KneadingModel.ProductDate.AddDays(1);

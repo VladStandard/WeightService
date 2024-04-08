@@ -13,7 +13,7 @@
       </div>
       <div class="shrink-0 w-full flex gap-8 pt-4 px-6 border-t">
         <div class="w-1/2 space-y-2">
-          <ScalesDesktop.Source.Shared.UI.Label>@WsDataLocalizer["ColUser"]</ScalesDesktop.Source.Shared.UI.Label>
+          <FieldLabel>@WsDataLocalizer["ColUser"]</FieldLabel>
           <div class="flex items-center gap-2">
             <InputTextField
               Value="@PalletContext.PalletMan.FioShort"
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="w-1/2 space-y-2">
-          <ScalesDesktop.Source.Shared.UI.Label>@WsDataLocalizer["ColWarehouse"]</ScalesDesktop.Source.Shared.UI.Label>
+          <FieldLabel>@WsDataLocalizer["ColWarehouse"]</FieldLabel>
           <InputTextField
             Value="@LineContext.Line.Warehouse.Name"
             ReadOnly
@@ -49,7 +49,7 @@
             OnClick="@CloseCurrentPallet"
           >
             <ArrowLeftIcon class="size-4 mr-2"/>
-            Back
+            @Localizer["BtnBack"]
           </Button>
         </div>
         <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">

@@ -10,10 +10,14 @@ namespace ScalesDesktop.Source.Widgets;
 
 public sealed partial class PalletOverview : ComponentBase, IDisposable
 {
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
-    [Inject] private PalletContext PalletContext { get; set; } = null!;
-    [Inject] private IPrintingService PrintingService { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private PalletContext PalletContext { get; set; } = default!;
+    [Inject] private IPrintingService PrintingService { get; set; } = default!;
+
+    # endregion
 
     private PalletCard PalletCard { get; set; } = new();
 

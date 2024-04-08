@@ -30,8 +30,8 @@
     <data name="BtnScaleCalibration" xml:space="preserve">
         <value>Calibrate scale</value>
     </data>
-    <data name="BtnAllLabelsPrinting" xml:space="preserve">
-        <value>Print all</value>
+    <data name="BtnSelectAllLabels" xml:space="preserve">
+        <value>Select all labels</value>
     </data>
     <data name="BtnBack" xml:space="preserve">
         <value>Back</value>
@@ -149,5 +149,41 @@
     </data>
     <data name="PluSelectPlaceholder" xml:space="preserve">
         <value>PLU is not selected</value>
+    </data>
+    <data name="BtnSelect" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value>Do you want to log out of the app?</value>
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value>This action is irreversible. You will need a system administrator to log in to the application again.</value>
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Weight Service</value>
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
+    <data name="HomePageCardDescription" xml:space="preserve">
+        <value>Select the desired item</value>
+    </data>
+    <data name="BtnUpdate" xml:space="preserve">
+        <value>Update</value>
+    </data>
+    <data name="BtnPaginationNext" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="BtnPaginationPrev" xml:space="preserve">
+        <value>Prev</value>
+    </data>
+    <data name="BtnMenu" xml:space="preserve">
+        <value>Menu</value>
+    </data>
+    <data name="LabelConfigEmptyPluWarning" xml:space="preserve">
+        <value>No information</value>
     </data>
 </root>

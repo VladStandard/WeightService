@@ -14,11 +14,16 @@ namespace ScalesDesktop.Source.Widgets;
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed partial class PalletManForm : ComponentBase
 {
-    [Inject] private IToastService ToastService { get; set; } = null!;
-    [Inject] private PalletContext PalletContext { get; set; } = null!;
-    [Inject] private IPalletManService PalletManService { get; set; } = null!;
-    [Inject] private IStringLocalizer<Resources> PalletLocalizer { get; set; } = null!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private PalletContext PalletContext { get; set; } = default!;
+    [Inject] private IPalletManService PalletManService { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+    # endregion
+
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
     private IEnumerable<PalletManEntity> GetAllPalletMen { get; set; } = [];
 

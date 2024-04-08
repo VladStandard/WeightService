@@ -1,33 +1,46 @@
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Shared.Localization
 @using ScalesDesktop.Source.Shared.Utils
+@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Scale
+@using Ws.Shared.Resources
+
 <div class="grid w-full overflow-hidden px-4 py-4 grid-cols-[auto_1fr] gap-y-2 gap-x-4 xl:text-xl">
   <div class="flex items-center text-muted-foreground">
     <MagnifyingGlassIcon class="size-4 mr-1" />
-    <h3>Номер</h3>
+    <h3>@WsDataLocalizer["ColNumber"]</h3>
   </div>
   <span class="line-clamp-2">@Plu.Number</span>
 
   <div class="flex text-muted-foreground">
     <DocumentTextIcon class="size-4 mr-1 mt-2" />
-    <h3>Имя</h3>
+    <h3>@WsDataLocalizer["ColName"]</h3>
   </div>
   <span class="line-clamp-2 xl:line-clamp-3">@Plu.FullName.Replace("|", "")</span>
 
   <div class="flex items-center text-muted-foreground">
     <ArchiveBoxIcon class="size-4 mr-1" />
-    <h3>Коробка</h3>
+    <h3>@WsDataLocalizer["ColBox"]</h3>
   </div>
   <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(PluNesting.Box)</span>
 
   <div class="flex items-center text-muted-foreground">
     <ShoppingBagIcon class="size-4 mr-1" />
-    <h3>Пакет</h3>
+    <h3>@WsDataLocalizer["ColBundle"]</h3>
   </div>
   <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(Plu.Bundle)</span>
 
   <div class="flex items-center text-muted-foreground">
-      <InboxStackIcon class="size-4 mr-1" />
-      <h3>Кол-во</h3>
-    </div>
-    <span class="line-clamp-2">@PluNesting.BundleCount шт</span>
+    <InboxStackIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColCount"]</h3>
+  </div>
+  <span class="line-clamp-2">@PluNesting.BundleCount шт</span>
 </div>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  [Parameter] public PluEntity Plu { get; set; } = default!;
+  [Parameter] public PluNestingEntity PluNesting { get; set; } = default!;
+}

@@ -30,7 +30,7 @@
     <data name="BtnScaleCalibration" xml:space="preserve">
         <value />
     </data>
-    <data name="BtnAllLabelsPrinting" xml:space="preserve">
+    <data name="BtnSelectAllLabels" xml:space="preserve">
         <value />
     </data>
     <data name="BtnBack" xml:space="preserve">
@@ -148,6 +148,42 @@
         <value />
     </data>
     <data name="NestingSelectPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnSelect" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value />
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="HomePageCardDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnUpdate" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnPaginationNext" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnPaginationPrev" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnMenu" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelConfigEmptyPluWarning" xml:space="preserve">
         <value />
     </data>
 </root>

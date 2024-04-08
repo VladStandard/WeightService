@@ -5,12 +5,12 @@
   <div class="w-full border-b flex px-2 justify-between items-center pb-4">
     <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@PalletContext.CurrentPallet.Counter</h2>
     <Button OnClick="@PrintPalletCard">
-      @PalletLocalizer["BtnPrintPC"]
+      @Localizer["BtnPrintPC"]
     </Button>
   </div>
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-4 px-2 lg:grid-cols-2 items-start">
     <div class="space-y-2">
-      <Label for="number">@WsDataLocalizer["ColNumber"]</Label>
+      <FieldLabel for="number">@WsDataLocalizer["ColNumber"]</FieldLabel>
       <InputTextField
         id="number"
         Value="@PalletContext.CurrentPallet.Counter.ToString()"
@@ -18,7 +18,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="barcode">@WsDataLocalizer["ColBarcode"]</Label>
+      <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
       <InputTextField
         id="barcode"
         Value="@PalletContext.CurrentPallet.Barcode"
@@ -26,7 +26,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="line">@WsDataLocalizer["ColLine"]</Label>
+      <FieldLabel for="line">@WsDataLocalizer["ColLine"]</FieldLabel>
       <InputTextField
         id="line"
         Value="@PalletContext.CurrentPallet.Line"
@@ -34,7 +34,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="delivery">@WsDataLocalizer["ColPalletMan"]</Label>
+      <FieldLabel for="delivery">@WsDataLocalizer["ColPalletMan"]</FieldLabel>
       <InputTextField
         id="delivery"
         Value="@PalletContext.CurrentPallet.PalletMan"
@@ -42,7 +42,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="count">@WsDataLocalizer["ColCount"]</Label>
+      <FieldLabel for="count">@WsDataLocalizer["ColCount"]</FieldLabel>
       <InputTextField
         id="count"
         Value="@PalletContext.CurrentPallet.LabelCount.ToString()"
@@ -50,7 +50,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="kneading">@WsDataLocalizer["ColKneading"]</Label>
+      <FieldLabel for="kneading">@WsDataLocalizer["ColKneading"]</FieldLabel>
       <InputTextField
         id="kneading"
         Value="@PalletContext.CurrentPallet.Kneading.ToString()"
@@ -58,7 +58,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="netto">@WsDataLocalizer["ColNetWeight"]</Label>
+      <FieldLabel for="netto">@WsDataLocalizer["ColNetWeight"]</FieldLabel>
       <InputTextField
         id="netto"
         Value="@PalletContext.CurrentPallet.WeightNet?.ToString(CultureInfo.InvariantCulture)"
@@ -66,7 +66,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="brutto">@WsDataLocalizer["ColGrossWeight"]</Label>
+      <FieldLabel for="brutto">@WsDataLocalizer["ColGrossWeight"]</FieldLabel>
       <InputTextField
         id="brutto"
         Value="@PalletContext.CurrentPallet.WeightBrut?.ToString(CultureInfo.InvariantCulture)"
@@ -74,7 +74,7 @@
       />
     </div>
     <div class="space-y-2">
-      <Label for="plu">@WsDataLocalizer["ColPlu"]</Label>
+      <FieldLabel for="plu">@WsDataLocalizer["ColPlu"]</FieldLabel>
       <InputTextField
         id="plu"
         Value="@PalletContext.CurrentPallet.Plu"

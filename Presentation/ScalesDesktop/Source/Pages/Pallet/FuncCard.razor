@@ -1,21 +1,22 @@
-@using Blazor.Heroicons.Outline
 @using Blazor.Heroicons
+@using Blazor.Heroicons.Outline
+
 <div class="rounded-md max-w-2xl max-h-full overflow-y-auto border shadow-sm bg-white p-6 w-full">
   <div class="flex flex-col space-y-1.5">
     <h3 class="font-semibold leading-none tracking-tight">
-      @PalletLocalizer["FuncCardHeader"]
+      @Localizer["FuncCardHeader"]
     </h3>
     <p class="text-sm text-neutral-500">
-      @PalletLocalizer["FuncCardDescription"]
+      @Localizer["FuncCardDescription"]
     </p>
   </div>
   <div class="grid">
     <FuncCardItem IconName="@HeroiconName.Plus">
       <CardTitle>
-        @PalletLocalizer["FuncCardCreationTitle"]
+        @Localizer["FuncCardCreationTitle"]
       </CardTitle>
       <CardDescription>
-        @PalletLocalizer["FuncCardCreationDescription"]
+        @Localizer["FuncCardCreationDescription"]
         <span class="p-1 rounded-md bg-neutral-900 inline-flex border text-white">
           <PlusIcon class="size-3"/>
         </span>
@@ -23,31 +24,31 @@
     </FuncCardItem>
     <FuncCardItem IconName="@HeroiconName.Eye">
       <CardTitle>
-        @PalletLocalizer["FuncCardViewingTitle"]
+        @Localizer["FuncCardViewingTitle"]
       </CardTitle>
       <CardDescription>
-        @PalletLocalizer["FuncCardViewingDescription"]
+        @Localizer["FuncCardViewingDescription"]
       </CardDescription>
     </FuncCardItem>
     <FuncCardItem IconName="@HeroiconName.Printer">
       <CardTitle>
-        @PalletLocalizer["FuncCardPCPrintingTitle"]
+        @Localizer["FuncCardPCPrintingTitle"]
       </CardTitle>
       <CardDescription>
-        @PalletLocalizer["FuncCardPCPrintingDescription"]
+        @Localizer["FuncCardPCPrintingDescription"]
         <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
-          @PalletLocalizer["BtnPrintPC"]
+          @Localizer["BtnPrintPC"]
         </span>
       </CardDescription>
     </FuncCardItem>
     <FuncCardItem IconName="@HeroiconName.Tag">
       <CardTitle>
-        @PalletLocalizer["FuncCardLabelPrintingTitle"]
+        @Localizer["FuncCardLabelPrintingTitle"]
       </CardTitle>
       <CardDescription>
-        @PalletLocalizer["FuncCardLabelPrintingDescription"]
+        @Localizer["FuncCardLabelPrintingDescription"]
         <span class="p-1 rounded-md bg-neutral-900 border inline-flex text-xs text-neutral-200">
-          @PalletLocalizer["BtnSelectedLabelsPrinting"]
+          @Localizer["BtnSelectedLabelsPrinting"]
         </span>
       </CardDescription>
     </FuncCardItem>

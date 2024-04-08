@@ -8,7 +8,13 @@ namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
 public sealed partial class PalletSelectItem : ComponentBase
 {
-    [Inject] private PalletContext PalletContext { get; set; } = null!;
+    # region Injects
+
+    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private PalletContext PalletContext { get; set; } = default!;
+
+    # endregion
+
     [Parameter, EditorRequired] public ViewPallet Pallet { get; set; } = default!;
-    [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = null!;
+
 }

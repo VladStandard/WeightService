@@ -64,6 +64,18 @@
     />
 
     <SectionSelectSingleField
+      TItem="ProductionSiteEntity"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Items="ProductionSitesEntities"
+      @bind-Value="@ProductionSiteEntity"
+      @bind-Value:after="UpdateCurrentWarehouses"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(ProductionSiteEntity, User)"
+      Disabled="@(!IsAdmin())"
+      IsFilterable
+    />
+
+    <SectionSelectSingleField
       TItem="WarehouseEntity"
       Label="@WsDataLocalizer["ColWarehouse"]"
       Items="WarehousesEntities"

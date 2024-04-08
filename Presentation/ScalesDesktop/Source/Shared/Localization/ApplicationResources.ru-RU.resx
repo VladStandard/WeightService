@@ -30,8 +30,8 @@
     <data name="BtnScaleCalibration" xml:space="preserve">
         <value>Откалибровать весы</value>
     </data>
-    <data name="BtnAllLabelsPrinting" xml:space="preserve">
-        <value>Печатать все</value>
+    <data name="BtnSelectAllLabels" xml:space="preserve">
+        <value>Выбрать все</value>
     </data>
     <data name="BtnBack" xml:space="preserve">
         <value>Назад</value>
@@ -149,5 +149,41 @@
     </data>
     <data name="PluSelectPlaceholder" xml:space="preserve">
         <value>Выбрать ПЛУ</value>
+    </data>
+    <data name="BtnSelect" xml:space="preserve">
+        <value>Выбрать</value>
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value>Вы хотите выйти из приложения?</value>
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value>Данное действие необратимо. Для повторного входа в приложение потребуется системный администратор.</value>
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Весовая Служба</value>
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value>Выход</value>
+    </data>
+    <data name="HomePageCardDescription" xml:space="preserve">
+        <value>Выберите необходимый пункт</value>
+    </data>
+    <data name="BtnUpdate" xml:space="preserve">
+        <value>Обновить</value>
+    </data>
+    <data name="BtnPaginationNext" xml:space="preserve">
+        <value>Следующая</value>
+    </data>
+    <data name="BtnPaginationPrev" xml:space="preserve">
+        <value>Предыдущая</value>
+    </data>
+    <data name="BtnMenu" xml:space="preserve">
+        <value>Меню</value>
+    </data>
+    <data name="LabelConfigEmptyPluWarning" xml:space="preserve">
+        <value>Информация отсутствует</value>
     </data>
 </root>

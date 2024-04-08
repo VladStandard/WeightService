@@ -25,7 +25,7 @@
       TItem="ProductionSiteEntity"
       Items="PlatformEntities"
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Path="@Redirector.ToPath(DialogItemCopy.ProductionSite, User)"
+      Path="@Redirector.ToPath(DialogItem.ProductionSite, User)"
       @bind-Value="@DialogItem.ProductionSite"
       ItemDisplayName="item => item.Name"
       For="@(() => DialogItem.ProductionSite)"

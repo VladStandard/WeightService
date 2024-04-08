@@ -1,0 +1,21 @@
+@using Blazor.Heroicons.Outline
+
+<div class="h-8 w-full border-b flex items-center px-3">
+  <MagnifyingGlassIcon class="size-4 text-muted-foreground mr-2"/>
+  <input
+    type="text"
+    @bind-Value="Value"
+    @bind-Value:event="oninput"
+    @bind-Value:after="OnValueChanged"
+    class="border-none text-sm bg-transparent h-full w-full px-0 focus:outline-none focus:border-none focus:ring-0 placeholder:font-light placeholder:text-muted-foreground"
+    placeholder="@Placeholder"
+  />
+</div>
+
+@code {
+  [Parameter] public string Value { get; set; } = string.Empty;
+  [Parameter] public EventCallback<string> ValueChanged { get; set; }
+  [Parameter] public string Placeholder { get; set; } = string.Empty;
+
+  private async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
+}

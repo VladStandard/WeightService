@@ -1,6 +1,6 @@
-@using ScalesDesktop.Source.Shared.UI
 @using ScalesDesktop.Source.Shared.Utils
 @using Ws.Domain.Models.Entities.Ref1c
+
 <Dialog Class="max-w-screen-md select-none">
   <DialogHeader>
     <Button
@@ -8,7 +8,7 @@
       Class="disabled:!opacity-100"
       Disabled
     >
-      Выбор ПЛУ
+      @Localizer["PluSelectHeader"]
     </Button>
   </DialogHeader>
   <FluentDataGrid

@@ -20,7 +20,7 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
 
     protected ClaimsPrincipal User { get; private set; } = new();
     protected bool IsForceSubmit { get; set; }
-    protected TItem DialogItemCopy { get; private set; } = new();
+    private TItem DialogItemCopy { get; set; } = new();
 
     protected override void OnInitialized() => DialogItemCopy = DialogItem.DeepClone();
 

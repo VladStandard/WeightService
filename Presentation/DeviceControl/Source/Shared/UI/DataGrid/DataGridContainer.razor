@@ -34,7 +34,7 @@
     </EmptyTemplate>
     <PageButtonTemplate>
       <Button
-        Variant="ButtonVariant.Outline"
+        Variant="@(context.Active ? ButtonVariant.Secondary : ButtonVariant.Outline)"
         Size="ButtonSize.Icon"
       >
         <span class="text-muted-foreground">@context.PageNumber</span>
