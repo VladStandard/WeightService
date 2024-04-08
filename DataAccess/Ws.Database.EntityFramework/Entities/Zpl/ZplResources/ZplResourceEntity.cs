@@ -5,11 +5,11 @@ namespace Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 public sealed class ZplResourceEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(64)]
     public string Name { get; private set; } = string.Empty;
 
     [Column("ZPL")]
-    [StringLength(2048, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 2048 characters")]
+    [StringLength(2048)]
     public string Zpl { get; private set; } = string.Empty;
 
     #region Date

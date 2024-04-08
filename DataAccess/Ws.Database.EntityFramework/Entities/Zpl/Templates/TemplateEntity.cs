@@ -5,11 +5,11 @@ namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 public sealed class TemplateEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
     [Column("BODY")]
-    [StringLength(10240, MinimumLength = 1, ErrorMessage = "Body must be between 1 and 10240 characters")]
+    [StringLength(10240)]
     public string Body { get; set; } = string.Empty;
 
     #region Date

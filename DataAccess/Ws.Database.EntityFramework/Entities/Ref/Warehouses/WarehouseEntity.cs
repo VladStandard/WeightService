@@ -7,7 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 public sealed class WarehouseEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     [ForeignKey("PRODUCTION_SITE_UID")]

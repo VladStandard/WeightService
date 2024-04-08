@@ -6,7 +6,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 public sealed class NestingEntity : EfEntityBase
 {
     [Column("BUNDLE_COUNT")]
-    [Range(1, 100, ErrorMessage = "BundleCount must be between 1 and 100")]
+    [Range(1, 100)]
     public short BundleCount { get; set; }
 
     #region Box

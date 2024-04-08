@@ -10,30 +10,29 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 public sealed class PluEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(100, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 100 characters")]
+    [StringLength(100)]
     public string Name { get; set; } = string.Empty;
 
     [Column("FULL_NAME")]
-    [StringLength(200, MinimumLength = 1, ErrorMessage = "Full name must be between 1 and 200 characters")]
+    [StringLength(200)]
     public string FullName { get; set; } = string.Empty;
 
     [Column("DESCRIPTION")]
-    [StringLength(200, MinimumLength = 1, ErrorMessage = "Description must be between 1 and 200 characters")]
+    [StringLength(200)]
     public string Description { get; set; } = string.Empty;
 
     [Column("NUMBER")]
-    [Range(100, 999, ErrorMessage = "Number must be between 100 and 999")]
     public short Number { get; set; }
 
     [Column("SHELF_LIFE_DAYS")]
     public short ShelfLifeDays { get; set; }
 
     [Column("EAN_13", TypeName = "varchar")]
-    [StringLength(13, MinimumLength = 13, ErrorMessage = "Ean13 must be 13 len")]
+    [StringLength(133)]
     public string Ean13 { get; set; } = string.Empty;
 
     [Column("ITF_14", TypeName = "varchar")]
-    [StringLength(14, MinimumLength = 14, ErrorMessage = "Itf14 must be 14 len")]
+    [StringLength(144)]
     public string Itf14 { get; set; } = string.Empty;
 
     [Column("IS_WEIGHT")]

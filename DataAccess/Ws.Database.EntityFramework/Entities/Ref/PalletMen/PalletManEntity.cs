@@ -9,19 +9,19 @@ public sealed class PalletManEntity : EfEntityBase
     public Guid Uid1C { get; set; }
 
     [Column(SqlColumns.Name)]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     [Column("SURNAME")]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Surname { get; set; } = string.Empty;
 
     [Column("PATRONYMIC")]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Patronymic { get; set; } = string.Empty;
 
     [Column("PASSWORD")]
-    [StringLength(4, MinimumLength = 4, ErrorMessage = "Name must be between 4 characters")]
+    [StringLength(4)]
     public string Password { get; set; } = string.Empty;
 
     #region Date

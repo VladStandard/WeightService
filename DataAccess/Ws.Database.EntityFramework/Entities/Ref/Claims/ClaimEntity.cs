@@ -7,7 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref.Claims;
 public sealed class ClaimEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(16, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 16 characters")]
+    [StringLength(16)]
     public string Name { get; set; } = string.Empty;
 
     public List<UserEntity> Users { get; } = [];

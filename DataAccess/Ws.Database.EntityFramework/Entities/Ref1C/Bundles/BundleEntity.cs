@@ -4,7 +4,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 public sealed class BundleEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 64 characters")]
+    [StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
     [Range(0, 1.000, ErrorMessage = "Weight must be less than 1.000")]

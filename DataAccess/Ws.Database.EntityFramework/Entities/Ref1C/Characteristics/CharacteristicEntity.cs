@@ -7,7 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 public sealed class CharacteristicEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(64, MinimumLength = 1)]
+    [StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
     [Column("BUNDLE_COUNT")]

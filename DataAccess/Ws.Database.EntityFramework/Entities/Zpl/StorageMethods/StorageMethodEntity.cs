@@ -6,11 +6,11 @@ namespace Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
 public sealed class StorageMethodEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     [Column("ZPL")]
-    [StringLength(1024, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 1024 characters")]
+    [StringLength(1024)]
     public string Zpl { get; set; } = string.Empty;
 
     #region Date

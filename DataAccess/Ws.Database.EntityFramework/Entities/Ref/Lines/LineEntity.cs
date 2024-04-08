@@ -11,15 +11,15 @@ namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 public sealed class LineEntity : EfEntityBase
 {
     [Column(SqlColumns.Name)]
-    [StringLength(32, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 32 characters")]
+    [StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     [Column("COUNTER")]
-    [Range(1000000, 9999999, ErrorMessage = "Counter must be between 1000000 and 9999999")]
+    [Range(1000000, 9999999)]
     public int Counter { get; set; }
 
     [Column("NUMBER")]
-    [Range(10000, 99999, ErrorMessage = "Number must be between 10000 and 99999")]
+    [Range(10000, 99999)]
     public int Number { get; set; }
 
     [ForeignKey("WAREHOUSE_UID")]
@@ -29,7 +29,7 @@ public sealed class LineEntity : EfEntityBase
     public PrinterEntity Printer { get; set; } = new();
 
     [Column("PC_NAME")]
-    [StringLength(16, MinimumLength = 1, ErrorMessage = "Name must be between 1 and 16 characters")]
+    [StringLength(16, ErrorMessage = "Name must be between 1 and 16 characters")]
     public string PcName { get; set; } = string.Empty;
 
     [Column("TYPE", TypeName = "varchar(8)")]
