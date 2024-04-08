@@ -6,7 +6,6 @@
     <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-600" />
     <input
       @bind="SearchingNumber"
-
       placeholder="@Localizer["SearchByNumberPlaceholder"]"
       class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
     />
@@ -27,7 +26,7 @@
     <FluentDataGrid
       TGridItem="DataItem"
       GridTemplateColumns="8rem 3rem 3rem 1fr 3fr"
-      Items="@LabelData"
+      Items="@FilteredLabelData"
       RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer")"
       Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
       Virtualize

@@ -28,6 +28,12 @@ public sealed partial class LabelsGrid : ComponentBase
 
     protected override async Task OnInitializedAsync() => await InitializeData();
 
+    private IQueryable<DataItem> FilteredLabelData
+    {
+        get => string.IsNullOrEmpty(SearchingNumber) ? LabelData : LabelData.Where(item => item.Id.ToString().Contains(SearchingNumber));
+        set => LabelData = value;
+    }
+
     private void ToggleItem(LabelEntity item)
     {
         if (!SelectedItems.Remove(item))
