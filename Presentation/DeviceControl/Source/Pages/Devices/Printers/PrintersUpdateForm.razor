@@ -19,12 +19,14 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColPort"]"
       Value="@DialogItem.Port"
+      Disabled="IsOnlyView"
     />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="DialogItem.Name"
       For="@(() => DialogItem.Name)"
+      Disabled="IsOnlyView"
     />
 
     <SectionIpField
@@ -32,6 +34,7 @@
       @bind-Value="@DialogItem.Ip"
       For="@(() => DialogItem.Ip)"
       Path="@($"http://{DialogItem.Ip}")"
+      Disabled="IsOnlyView"
     />
 
     <SectionSelectSingleField
@@ -40,6 +43,7 @@
       Items="PrinterTypesEntities"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      Disabled="IsOnlyView"
       For="@(() => DialogItem.Type)"
     />
 
@@ -51,6 +55,7 @@
       ItemDisplayName="item => item.Name"
       For="@(() => DialogItem.ProductionSite)"
       Path="@Redirector.ToPath(DialogItem.ProductionSite, UserPrincipal)"
+      Disabled="@(!IsSeniorSupport)"
       IsFilterable
     />
   </FieldsContent>

@@ -39,6 +39,7 @@
       @bind-Value="@DialogItem.ProductionSite"
       ItemDisplayName="item => item.Name"
       For="@(() => DialogItem.ProductionSite)"
+      Disabled="@(!IsSeniorSupport)"
     />
   </FieldsContent>
 </SectionForm>

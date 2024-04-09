@@ -40,7 +40,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     private ProductionSiteEntity ProductionSiteEntity { get; set; } = new();
     private UserEntity User { get; set; } = new();
     private bool IsOnlyView { get; set; }
-    private bool IsAdmin { get; set; }
+    private bool IsSeniorSupport { get; set; }
 
     protected override void OnInitialized()
     {
@@ -60,9 +60,8 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
         await base.OnInitializedAsync();
         if (UserPrincipal is { Identity.Name: not null })
             User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
-        bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-        IsAdmin = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Admin)).Succeeded;
-        IsOnlyView = !isSeniorSupport && !(User.ProductionSite != null && User.ProductionSite.Equals(ProductionSiteEntity));
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsOnlyView = !IsSeniorSupport && !(User.ProductionSite != null && User.ProductionSite.Equals(ProductionSiteEntity));
     }
 
     protected override LineEntity UpdateItemAction(LineEntity item) =>
