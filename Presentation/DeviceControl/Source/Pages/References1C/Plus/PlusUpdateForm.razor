@@ -37,7 +37,7 @@
     />
 
     <SectionTextField
-      Label="@WsDataLocalizer["ColType"]"
+      Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
       Disabled="@(!IsForceSubmit)"
@@ -64,7 +64,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColStorageMethod"]"
       Value="@DialogItem.StorageMethod.Name"
-      Path="@Redirector.ToPath(DialogItem.StorageMethod, User)"
+      Path="@Redirector.ToPath(DialogItem.StorageMethod, UserPrincipal)"
     />
 
     <SectionSelectSingleField
@@ -74,7 +74,7 @@
       @bind-Value="Template"
       ItemDisplayName="@(item => item.Name)"
       Disabled="@(!IsForceSubmit)"
-      Path="@Redirector.ToPath(Template, User)"
+      Path="@Redirector.ToPath(Template, UserPrincipal)"
     />
 
     <SectionReadOnlyField
@@ -87,10 +87,13 @@
       Value="@DialogItem.Gtin"
     />
 
-    <SectionReadOnlyField
-      Label="Itf14"
-      Value="@DialogItem.Itf14"
-    />
+    @if (!DialogItem.IsCheckWeight)
+    {
+      <SectionReadOnlyField
+        Label="Itf14"
+        Value="@DialogItem.Itf14"
+      />
+    }
 
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColFullName"]"

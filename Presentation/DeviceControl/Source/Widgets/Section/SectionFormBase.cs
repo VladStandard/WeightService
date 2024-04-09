@@ -18,14 +18,14 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
     [CascadingParameter(Name = "DialogItem")] protected TItem DialogItem { get; set; } = new();
     [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
 
-    protected ClaimsPrincipal User { get; private set; } = new();
+    protected ClaimsPrincipal UserPrincipal { get; private set; } = new();
     protected bool IsForceSubmit { get; set; }
-    private TItem DialogItemCopy { get; set; } = new();
+    protected TItem DialogItemCopy { get; private set; } = new();
 
     protected override void OnInitialized() => DialogItemCopy = DialogItem.DeepClone();
 
     protected override async Task OnInitializedAsync() =>
-        User = (await AuthProvider.GetAuthenticationStateAsync()).User;
+        UserPrincipal = (await AuthProvider.GetAuthenticationStateAsync()).User;
 
     protected virtual Task DeleteItemAction(TItem item) =>
         throw new NotImplementedException();

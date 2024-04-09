@@ -22,18 +22,21 @@
       Min="10000"
       Max="99999"
       For="@(() => DialogItem.Number)"
+      Disabled="IsOnlyView"
     />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
+      Disabled="IsOnlyView"
     />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColPcName"]"
       @bind-Value="@DialogItem.PcName"
       For="@(() => DialogItem.PcName)"
+      Disabled="IsOnlyView"
     />
 
     <SectionSelectSingleField
@@ -43,6 +46,7 @@
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
       For="@(() => DialogItem.Type)"
+      Disabled="IsOnlyView"
     />
 
     <SectionNumericField
@@ -50,6 +54,7 @@
       @bind-Value="@DialogItem.Counter"
       Min="0"
       For="@(() => DialogItem.Counter)"
+      Disabled="IsOnlyView"
     />
 
     <SectionSelectSingleField
@@ -58,8 +63,9 @@
       Items="PrinterEntities"
       @bind-Value="@DialogItem.Printer"
       ItemDisplayName="item => item.DisplayName"
-      Path="@Redirector.ToPath(DialogItem.Printer, User)"
+      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
       For="@(() => DialogItem.Printer)"
+      Disabled="IsOnlyView"
       IsFilterable
     />
 
@@ -70,8 +76,8 @@
       @bind-Value="@ProductionSiteEntity"
       @bind-Value:after="UpdateCurrentWarehouses"
       ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(ProductionSiteEntity, User)"
-      Disabled="@(!IsAdmin())"
+      Path="@Redirector.ToPath(ProductionSiteEntity, UserPrincipal)"
+      Disabled="@(!IsAdmin)"
       IsFilterable
     />
 
@@ -81,14 +87,15 @@
       Items="WarehousesEntities"
       @bind-Value="@DialogItem.Warehouse"
       ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(DialogItem.Warehouse, User)"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
       For="@(() => DialogItem.Warehouse)"
+      Disabled="IsOnlyView"
       IsFilterable
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@LineResetAction" />
     <SectionFormActionDelete OnClick="@DeleteItem" />
   </ActionsContent>
 </SectionForm>

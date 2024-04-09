@@ -2,6 +2,8 @@
 @using DeviceControl.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.Domain.Models.Enums
+@using Blazor.Heroicons.Outline
+
 @inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 <SectionForm
@@ -11,12 +13,20 @@
   OnSubmitAction="@CreateItem"
 >
   <FieldsContent>
-    <SectionNumericField
-      Label="@WsDataLocalizer["ColNumber"]"
-      @bind-Value="@DialogItem.Number"
-      Min="10000"
-      Max="99999"
-    />
+    <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb">
+      <div class="w-full items-center flex gap-2">
+        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@DialogItem.Number" />
+        <Button
+          Size="ButtonSize.Icon"
+          Variant="ButtonVariant.Outline"
+          Class="shrink-0 !size-10"
+          OnClick="@GenerateLineNumber"
+        >
+          <ArrowPathIcon class="size-5" />
+        </Button>
+      </div>
+      <FieldValidation For="@(() => DialogItem.Number)"/>
+    </SectionInputWrapper>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
@@ -45,7 +55,7 @@
       Items="PrinterEntities"
       @bind-Value="@DialogItem.Printer"
       ItemDisplayName="item => item.DisplayName"
-      Path="@Redirector.ToPath(DialogItem.Printer, User)"
+      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
       For="@(() => DialogItem.Printer)"
       IsFilterable
     />
@@ -57,8 +67,8 @@
       @bind-Value="@ProductionSiteEntity"
       @bind-Value:after="UpdateCurrentWarehouses"
       ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(ProductionSiteEntity, User)"
-      Disabled="@(!IsAdmin())"
+      Path="@Redirector.ToPath(ProductionSiteEntity, UserPrincipal)"
+      Disabled="@(!IsAdmin)"
       IsFilterable
     />
 
@@ -68,7 +78,7 @@
       Items="WarehousesEntities"
       @bind-Value="@DialogItem.Warehouse"
       ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(DialogItem.Warehouse, User)"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
       For="@(() => DialogItem.Warehouse)"
       IsFilterable
     />

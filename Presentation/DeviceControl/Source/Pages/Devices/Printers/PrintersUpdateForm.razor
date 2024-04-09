@@ -50,7 +50,7 @@
       @bind-Value="@DialogItem.ProductionSite"
       ItemDisplayName="item => item.Name"
       For="@(() => DialogItem.ProductionSite)"
-      Path="@Redirector.ToPath(DialogItem.ProductionSite, User)"
+      Path="@Redirector.ToPath(DialogItem.ProductionSite, UserPrincipal)"
       IsFilterable
     />
   </FieldsContent>
