@@ -36,8 +36,12 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
         base.OnInitialized();
     }
 
-    protected override UserEntity UpdateItemAction(UserEntity item) =>
+    protected override UserEntity UpdateItemAction(UserEntity item)
+    {
         UserService.Update(item);
+        ClaimsCacheProvider.ClearCacheByUserName(item.Name);
+        return item;
+    }
 
     protected override Task DeleteItemAction(UserEntity item)
     {
