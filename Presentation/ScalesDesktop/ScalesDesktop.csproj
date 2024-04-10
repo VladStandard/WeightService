@@ -2,14 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-        
+
         <OutputType>Exe</OutputType>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>true</SelfContained>
         <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">True</UseInterpreter>
-        
+
         <IncludeSymbols>False</IncludeSymbols>
         <GenerateTestArtifacts>False</GenerateTestArtifacts>
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -20,16 +20,16 @@
         <UapAppxPackageBuildMode>SideLoadOnly</UapAppxPackageBuildMode>
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
-        
+
         <ApplicationTitle>Весовой пост</ApplicationTitle>
         <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
         <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
-        
+
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-        
+
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
         <NoWarn>CA1806,CA1416</NoWarn>
@@ -48,15 +48,15 @@
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
         <PackageReference Include="itext7" Version="8.0.3" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.6.0" />
         <PackageReference Include="MouseKeyHook" Version="5.7.1" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.14" />
-        <PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.20" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.6.0" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240404000" />
     </ItemGroup>
 
     <ItemGroup>
@@ -66,7 +66,7 @@
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <EmbeddedResource Remove="obj\**" />
       <EmbeddedResource Update="Features\Pallet\Resources\PalletResources.resx">
@@ -183,7 +183,7 @@
       <AdditionalFiles Include="Source\Shared\UI\Tabs\Tab.razor" />
       <AdditionalFiles Include="Source\Shared\UI\Tabs\Tabs.razor" />
     </ItemGroup>
-    
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
