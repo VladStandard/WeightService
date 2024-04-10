@@ -3,7 +3,7 @@
 
 <div class="py-3 w-full flex shrink-0 items-center gap-2 px-4">
   <div class="w-1/2 border bg-white rounded-md px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
-    <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-gray-600" />
+    <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground" />
     <input
       @bind="SearchingNumber"
       placeholder="@Localizer["SearchByNumberPlaceholder"]"
@@ -15,7 +15,7 @@
     <Button Variant="ButtonVariant.Outline" Class="w-1/2" OnClick="@SelectAllItems">
       @Localizer["BtnSelectAllLabels"]
     </Button>
-    <Button Class="w-1/2">
+    <Button Class="w-1/2" OnClick="@PrintLabelsAsync">
       @Localizer["BtnSelectedLabelsPrinting"]
     </Button>
   </div>
