@@ -602,6 +602,15 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColTareWeightTotal {
+            get {
+                return ResourceManager.GetString("ColTareWeightTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ColTemplate {
             get {
                 return ResourceManager.GetString("ColTemplate", resourceCulture);

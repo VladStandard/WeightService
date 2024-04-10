@@ -8,17 +8,21 @@
   <Tab Id="main">
     <PlusUpdateForm />
   </Tab>
-  <Tab Id="nesting">
-    <PlusNestingDataGrid />
+  <Tab Id="characteristic">
+    <CharacteristicsDataGrid />
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<EnumTypeModel<string>> InitializeTabList() =>
-  [
-    new(Localizer["SectionPLU"], "main"),
-    new(Localizer["SectionPluNestings"], "nesting")
-  ];
+  protected override List<EnumTypeModel<string>> InitializeTabList()
+  {
+    List<EnumTypeModel<string>> data = [new(Localizer["SectionPLU"], "main")];
+    if (!DialogItem.IsCheckWeight)
+      data.Add(new(
+        $"{Localizer["SectionPluCharacteristics"]} ({DialogItem.Characteristics.Count})", "characteristic")
+        );
+    return data;
+  }
 }

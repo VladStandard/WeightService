@@ -16,7 +16,7 @@ public sealed partial class LabelDisplayTareWeight : ComponentBase, IDisposable
 
     protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
 
-    private decimal GetTareWeight => LabelContext.PluNesting.WeightTare;
+    private decimal GetTareWeight => LabelContext.Plu.DefaultWeightTare;
 
     public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
 }

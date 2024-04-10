@@ -150,8 +150,8 @@
     <data name="ToastUpdateItem" xml:space="preserve">
         <value>The item was updated</value>
     </data>
-    <data name="SectionPluNestings" xml:space="preserve">
-        <value>Nestrings</value>
+    <data name="SectionPluNesting" xml:space="preserve">
+        <value>Nestring</value>
     </data>
     <data name="FormEmptyItemPlaceholder" xml:space="preserve">
         <value>Empty</value>
@@ -221,5 +221,8 @@
     </data>
     <data name="ToastErrorGettingData" xml:space="preserve">
         <value>An error occurred while trying to retrieve the data. Try again later</value>
+    </data>
+    <data name="SectionPluCharacteristics" xml:space="preserve">
+        <value>Characteristics</value>
     </data>
 </root>

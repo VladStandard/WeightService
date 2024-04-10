@@ -4,23 +4,21 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
-using Ws.Domain.Services.Features.Plu;
 using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
-public sealed partial class PlusNestingDataGrid : SectionDataGridPageBase<PluNestingEntity>
+public sealed partial class CharacteristicsDataGrid : SectionDataGridPageBase<CharacteristicEntity>
 {
     # region Injects
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private IPluService PluService { get; set; } = default!;
 
     # endregion
 
-    [CascadingParameter(Name = "DialogItem")] public PluEntity PluEntity { get; set; } = null!;
+    [CascadingParameter(Name = "DialogItem")] public PluEntity Plu { get; set; } = null!;
 
-    protected override IEnumerable<PluNestingEntity> SetSqlSectionCast() =>
-        SectionItems = PluService.GetAllPluNestings(PluEntity);
+    protected override IEnumerable<CharacteristicEntity> SetSqlSectionCast() =>
+        Plu.Characteristics.ToList();
 }

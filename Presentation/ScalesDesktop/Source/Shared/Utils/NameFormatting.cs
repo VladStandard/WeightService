@@ -5,11 +5,11 @@ namespace ScalesDesktop.Source.Shared.Utils;
 
 public static class NameFormatting
 {
-    public static string GetPluNestingFormattedName(PluNestingEntity pluNestingEntity)
+    public static string GetPluNestingFormattedName(CharacteristicEntity characteristicEntity)
     {
-        BoxEntity box = pluNestingEntity.Box;
-        BundleEntity bundle = pluNestingEntity.Plu.Bundle;
-        short bundleCount = pluNestingEntity.BundleCount;
+        BoxEntity box = characteristicEntity.Box;
+        BundleEntity bundle = characteristicEntity.Plu.Bundle;
+        short bundleCount = characteristicEntity.BundleCount;
         return string.Join(" | ", new List<string> { GetFormatBoxName(box), GetFormatBundleName(bundle, bundleCount) });
     }
 

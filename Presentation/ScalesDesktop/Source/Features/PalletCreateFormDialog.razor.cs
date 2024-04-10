@@ -32,7 +32,7 @@ namespace ScalesDesktop.Source.Features
 
         [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
         [SupplyParameterFromForm] private PalletCreateModel FormModel { get; set; } = new();
-        private IEnumerable<PluNestingEntity> PluNestings { get; set; } = [];
+        private IEnumerable<CharacteristicEntity> PlusCharacteristics { get; set; } = [];
 
         private IEnumerable<PluEntity> Plus { get; set; } = [];
 
@@ -45,8 +45,8 @@ namespace ScalesDesktop.Source.Features
         {
             // TODO: make Nesting default
             if (FormModel.Plu == null) return;
-            PluNestings = PluService.GetAllPluNestings(FormModel.Plu);
-            FormModel.Nesting = PluNestings.FirstOrDefault();
+            PlusCharacteristics = FormModel.Plu.Characteristics;
+            FormModel.Nesting = PlusCharacteristics.FirstOrDefault();
         }
 
         private void HandleInvalidForm(EditContext context)
@@ -90,7 +90,7 @@ namespace ScalesDesktop.Source.Features
         public PluEntity? Plu { get; set; }
 
         [Required(ErrorMessage = "Поле 'Вложенность' обязательно для заполнения")]
-        public PluNestingEntity? Nesting { get; set; }
+        public CharacteristicEntity? Nesting { get; set; }
 
         [Range(1, 240, ErrorMessage = "Поле 'Количество' не может быть меньше 1 и больше 240")]
         public int Count { get; set; } = 1;

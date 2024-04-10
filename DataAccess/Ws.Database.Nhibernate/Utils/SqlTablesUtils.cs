@@ -13,8 +13,8 @@ internal static class SqlTablesUtils
     public const string PalletMen = "PALLET_MEN";
     public const string Labels = "LABELS";
     public const string Pallets = "PALLETS";
-    public const string PlusNestingFks = "PLUS_NESTING_FK";
-    public const string PlusLines = "PLUS_LINES";
+    public const string Nestings = "NESTINGS";
+    public const string PlusLines = "LINES_PLUS_FK";
     public const string StorageMethods = "STORAGE_METHODS";
     public const string PlusTemplatesFks = "PLUS_TEMPLATES_FK";
     public const string ProductionSites = "PRODUCTION_SITES";
@@ -26,4 +26,5 @@ internal static class SqlTablesUtils
     public const string ViewLabels = "VIEW_LABELS";
     public const string ViewPallets = "VIEW_PALLETS";
     public const string ViewTablesSizes = "VIEW_TABLES_SIZES";
+    public const string Characteristics = "CHARACTERISTICS";
 }

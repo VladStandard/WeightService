@@ -29,8 +29,8 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Template = PluService.GetPluTemplate(DialogItem);
-        AllTemplates = TemplateService.GetAll();
+        // Template = PluService.GetPluTemplate(DialogItem);
+        // AllTemplates = TemplateService.GetAll();
     }
 
     protected override PluEntity UpdateItemAction(PluEntity item) => item;

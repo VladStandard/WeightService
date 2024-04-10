@@ -41,12 +41,12 @@
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlFor="nesting">
         <SelectSingle
-          TItem="PluNestingEntity"
-          Items="PluNestings"
+          TItem="CharacteristicEntity"
+          Items="PlusCharacteristics"
           @bind-SelectedItem="FormModel.Nesting"
           Placeholder="@Localizer["NestingSelectPlaceholder"]"
           ItemDisplayName="item => NameFormatting.GetPluNestingFormattedName(item)"
-          IsDisabled="@(FormModel.Plu == null || !PluNestings.Any())"
+          IsDisabled="@(FormModel.Plu == null || !PlusCharacteristics.Any())"
         />
       </InputLabelWrapper>
       <InputLabelWrapper Label="@WsDataLocalizer["ColPalletWeight"]" HtmlFor="pallet-weight">

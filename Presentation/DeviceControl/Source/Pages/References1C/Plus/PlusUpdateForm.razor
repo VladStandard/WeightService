@@ -55,21 +55,21 @@
       Path="@Redirector.ToPath(DialogItem.Brand)"
     />
 
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColStorageMethod"]"
-      Value="@DialogItem.StorageMethod.Name"
-      Path="@Redirector.ToPath(DialogItem.StorageMethod, User)"
-    />
-
-    <SectionSelectSingleField
-      TItem="TemplateEntity"
-      Label="@WsDataLocalizer["ColTemplate"]"
-      Items="AllTemplates"
-      @bind-Value="Template"
-      ItemDisplayName="@(item => item.Name)"
-      Disabled="@(!IsForceSubmit)"
-      Path="@Redirector.ToPath(Template, User)"
-    />
+    @* <SectionReadOnlyField *@
+    @*   Label="@WsDataLocalizer["ColStorageMethod"]" *@
+    @*   Value="@DialogItem.StorageMethod.Name" *@
+    @*   Path="@Redirector.ToPath(DialogItem.StorageMethod, User)" *@
+    @* /> *@
+    @* *@
+    @* <SectionSelectSingleField *@
+    @*   TItem="TemplateEntity" *@
+    @*   Label="@WsDataLocalizer["ColTemplate"]" *@
+    @*   Items="AllTemplates" *@
+    @*   @bind-Value="Template" *@
+    @*   ItemDisplayName="@(item => item.Name)" *@
+    @*   Disabled="@(!IsForceSubmit)" *@
+    @*   Path="@Redirector.ToPath(Template, User)" *@
+    @* /> *@
 
     <SectionReadOnlyField
       Label="Ean13"
@@ -84,6 +84,22 @@
     <SectionReadOnlyField
       Label="Itf14"
       Value="@DialogItem.Itf14"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColWeight"]"
+      Value="@DialogItem.Weight"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBox"]"
+      Value="@DialogItem.Nesting.Box.Name"
+      Path="@Redirector.ToPath(DialogItem.Nesting.Box)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColCount"]"
+      Value="@DialogItem.Nesting.BundleCount"
     />
 
     <SectionTextAreaField

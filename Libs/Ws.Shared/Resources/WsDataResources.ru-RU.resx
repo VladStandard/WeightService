@@ -228,4 +228,7 @@
     <data name="ColBox" xml:space="preserve">
         <value>Коробка</value>
     </data>
+    <data name="ColTareWeightTotal" xml:space="preserve">
+        <value>Вес тары (Итого)</value>
+    </data>
 </root>

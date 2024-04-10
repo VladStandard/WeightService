@@ -107,7 +107,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         {
             Kneading = (short)LabelContext.KneadingModel.KneadingCount,
             Weight = GetWeight(),
-            Nesting = LabelContext.PluNesting,
+            Plu = LabelContext.Plu,
             Line = LabelContext.Line,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
             ExpirationDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
@@ -130,11 +130,11 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         });
 
     private bool GetPrintLabelDisabledStatus() =>
-        LabelContext.Plu.IsNew || LabelContext.PluNesting.IsNew ||
+        LabelContext.Plu.IsNew || LabelContext.Plu.Nesting.IsNew ||
         LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
-        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.PluNesting.WeightTare;
+        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.DefaultWeightTare;
 
     private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
         PrinterStatus = payload.Status;

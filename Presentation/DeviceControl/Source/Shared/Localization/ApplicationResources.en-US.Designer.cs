@@ -9,8 +9,8 @@
 
 namespace DeviceControl.Source.Shared.Localization {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +22,15 @@ namespace DeviceControl.Source.Shared.Localization {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ApplicationResources_en_US {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal ApplicationResources_en_US() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,7 +58,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Device control.
         /// </summary>
@@ -67,7 +67,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
@@ -76,7 +76,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("BtnBack", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -85,7 +85,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("BtnCancel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
@@ -94,7 +94,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("BtnSubmit", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
@@ -103,7 +103,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("DataGridContextMenuDelete", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Open in a dialog.
         /// </summary>
@@ -112,7 +112,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("DataGridContextMenuOpenInDialog", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Open in new tab.
         /// </summary>
@@ -121,7 +121,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("DataGridContextMenuOpenInNewTab", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to items.
         /// </summary>
@@ -130,7 +130,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("DataGridTotalItems", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
@@ -139,7 +139,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionDelete", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Lock.
         /// </summary>
@@ -148,7 +148,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionLock", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Relogin.
         /// </summary>
@@ -157,7 +157,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionRelogin", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
@@ -166,7 +166,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionReset", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
@@ -175,7 +175,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionShare", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
@@ -184,7 +184,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionsTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Unlock.
         /// </summary>
@@ -193,7 +193,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormActionUnlock", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Empty.
         /// </summary>
@@ -202,7 +202,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormEmptyItemPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Printer control.
         /// </summary>
@@ -211,7 +211,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormPrinterControl", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select the printer.
         /// </summary>
@@ -220,7 +220,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormPrinterDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select the production site.
         /// </summary>
@@ -229,7 +229,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormProductionSiteDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
@@ -238,7 +238,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormSelectEmptyDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Search....
         /// </summary>
@@ -247,7 +247,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormSelectSearchDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Select the warehouse.
         /// </summary>
@@ -256,7 +256,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("FormWarehouseDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Click on the menu section to continue.
         /// </summary>
@@ -265,7 +265,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter value....
         /// </summary>
@@ -274,7 +274,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("InputDefaultPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error while converting zpl code to image.
         /// </summary>
@@ -283,7 +283,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("LabelsPreviewErrorMsg", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to No image.
         /// </summary>
@@ -292,7 +292,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("LabelsPreviewNoData", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
@@ -301,7 +301,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("LabelsPreviewTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to 1C References.
         /// </summary>
@@ -310,7 +310,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("Menu1CReferences", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
@@ -319,7 +319,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuAdministration", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
@@ -328,7 +328,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuDevices", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Diagnostics.
         /// </summary>
@@ -337,7 +337,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuDiagnostics", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Operations.
         /// </summary>
@@ -346,7 +346,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuOperations", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Print settings.
         /// </summary>
@@ -355,7 +355,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuPrintSettings", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to References.
         /// </summary>
@@ -364,7 +364,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("MenuReferences", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Developer version.
         /// </summary>
@@ -373,7 +373,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("NavMenuDeveloperVersion", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to 1C Logs.
         /// </summary>
@@ -382,7 +382,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("Section1CLogs", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Agg. labels.
         /// </summary>
@@ -391,7 +391,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionAggregatedLabels", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Apps logs.
         /// </summary>
@@ -400,7 +400,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionAppsLogs", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Barcodes.
         /// </summary>
@@ -409,7 +409,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionBarcodes", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Boxes.
         /// </summary>
@@ -418,7 +418,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionBoxes", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Brands.
         /// </summary>
@@ -427,7 +427,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionBrands", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bundles.
         /// </summary>
@@ -436,7 +436,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionBundles", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Clips.
         /// </summary>
@@ -445,7 +445,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionClips", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Database.
         /// </summary>
@@ -454,7 +454,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionDatabase", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
@@ -463,7 +463,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionLabels", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Line PLU.
         /// </summary>
@@ -472,7 +472,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionLinePLU", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Lines.
         /// </summary>
@@ -481,7 +481,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionLines", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Pallet Men.
         /// </summary>
@@ -490,7 +490,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionPalletMen", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to PLU.
         /// </summary>
@@ -499,16 +499,25 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionPLU", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Nestrings.
+        ///   Looks up a localized string similar to Characteristics.
         /// </summary>
-        internal static string SectionPluNestings {
+        internal static string SectionPluCharacteristics {
             get {
-                return ResourceManager.GetString("SectionPluNestings", resourceCulture);
+                return ResourceManager.GetString("SectionPluCharacteristics", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nestring.
+        /// </summary>
+        internal static string SectionPluNesting {
+            get {
+                return ResourceManager.GetString("SectionPluNesting", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Printers.
         /// </summary>
@@ -517,7 +526,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionPrinters", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Production Sites.
         /// </summary>
@@ -526,7 +535,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionProductionSites", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Roles.
         /// </summary>
@@ -535,7 +544,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionRoles", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to PLU Storages.
         /// </summary>
@@ -544,7 +553,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionStorageMethods", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Templates Resources.
         /// </summary>
@@ -553,7 +562,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionTemplateResources", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Templates.
         /// </summary>
@@ -562,7 +571,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionTemplates", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
@@ -571,7 +580,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionUsers", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Versions.
         /// </summary>
@@ -580,7 +589,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionVersions", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Warehouses.
         /// </summary>
@@ -589,7 +598,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionWarehouses", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Weightings.
         /// </summary>
@@ -598,7 +607,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("SectionWeightings", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Value copied to clipboard.
         /// </summary>
@@ -607,7 +616,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The item was created.
         /// </summary>
@@ -616,7 +625,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastCreateItem", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The item was deleted.
         /// </summary>
@@ -625,7 +634,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastDeleteItem", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while trying to retrieve the data. Try again later.
         /// </summary>
@@ -634,7 +643,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastErrorGettingData", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to A relogin has been executed.
         /// </summary>
@@ -643,7 +652,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastReloginUser", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Original values restored.
         /// </summary>
@@ -652,7 +661,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastResetItem", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The item was updated.
         /// </summary>
@@ -661,7 +670,7 @@ namespace DeviceControl.Source.Shared.Localization {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Url copied to clipboard.
         /// </summary>

@@ -16,7 +16,7 @@ internal class LabelWeightGenerator(IZplResourceService zplResourceService, IPlu
 {
     public string GenerateLabel(LabelWeightDto labelDto)
     {
-        if (labelDto.Nesting.Plu.IsCheckWeight == false)
+        if (labelDto.Plu.IsCheckWeight == false)
             throw new LabelGenerateException("Плу не весовая");
 
         XmlWeightLabelModel labelXml = labelDto.AdaptToXmlWeightLabelModel();
@@ -28,8 +28,8 @@ internal class LabelWeightGenerator(IZplResourceService zplResourceService, IPlu
         ZplItemsDto zplItems = new()
         {
             Resources = zplResourceService.GetAllCachedResources(),
-            Template = pluService.GetPluCachedTemplate(labelDto.Nesting.Plu),
-            StorageMethod = labelDto.Nesting.Plu.StorageMethod.Zpl,
+            Template = pluService.GetPluCachedTemplate(labelDto.Plu),
+            StorageMethod = labelDto.Plu.StorageMethod.Zpl,
         };
 
         LabelReadyDto labelReady = LabelGeneratorUtils.GetZpl(zplItems, labelXml);
@@ -41,12 +41,12 @@ internal class LabelWeightGenerator(IZplResourceService zplResourceService, IPlu
             BarcodeRight = labelReady.BarcodeRight,
             BarcodeTop = labelReady.BarcodeTop,
             WeightNet = labelDto.Weight,
-            WeightTare = labelDto.Nesting.WeightTare,
+            WeightTare = labelDto.Plu.DefaultWeightTare,
             Kneading = labelDto.Kneading,
             ProductDt = labelDto.ProductDt,
             ExpirationDt = labelDto.ExpirationDt,
             Line = labelDto.Line,
-            Plu = labelDto.Nesting.Plu
+            Plu = labelDto.Plu
         };
         labelService.Create(labelSql);
 

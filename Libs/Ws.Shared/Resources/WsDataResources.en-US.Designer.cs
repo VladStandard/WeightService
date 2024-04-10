@@ -600,6 +600,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tare weight (Total) .
+        /// </summary>
+        public static string ColTareWeightTotal {
+            get {
+                return ResourceManager.GetString("ColTareWeightTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Template.
         /// </summary>
         public static string ColTemplate {

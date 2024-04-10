@@ -29,7 +29,7 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 
     private decimal GetNetWeight => (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
 
-    private decimal GetTareWeight => LabelContext.PluNesting.WeightTare;
+    private decimal GetTareWeight => LabelContext.Plu.DefaultWeightTare;
 
     private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
 

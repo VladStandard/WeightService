@@ -150,7 +150,7 @@
     <data name="ToastUpdateItem" xml:space="preserve">
         <value />
     </data>
-    <data name="SectionPluNestings" xml:space="preserve">
+    <data name="SectionPluNesting" xml:space="preserve">
         <value />
     </data>
     <data name="FormEmptyItemPlaceholder" xml:space="preserve">
@@ -220,6 +220,9 @@
         <value />
     </data>
     <data name="ToastErrorGettingData" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionPluCharacteristics" xml:space="preserve">
         <value />
     </data>
 </root>

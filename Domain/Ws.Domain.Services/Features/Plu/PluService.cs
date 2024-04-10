@@ -1,6 +1,6 @@
 using EasyCaching.Core;
+using Ws.Database.Nhibernate.Entities.Ref1c.Characteristics;
 using Ws.Database.Nhibernate.Entities.Ref1c.Plus;
-using Ws.Database.Nhibernate.Entities.Scales.PlusNestingFks;
 using Ws.Database.Nhibernate.Entities.Scales.PlusTemplatesFks;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
@@ -11,7 +11,6 @@ namespace Ws.Domain.Services.Features.Plu;
 
 internal class PluService(
     SqlPluRepository pluRepo,
-    SqlPluNestingFkRepository pluNestingFkRepo,
     SqlPluTemplateFkRepository pluTemplateFkRepo,
     IRedisCachingProvider provider) : IPluService
 {
@@ -22,9 +21,6 @@ internal class PluService(
 
     [Transactional]
     public IEnumerable<PluEntity> GetAll() => pluRepo.GetAll();
-
-    [Transactional]
-    public IEnumerable<PluNestingEntity> GetAllPluNestings(PluEntity plu) => pluNestingFkRepo.GetAllByPlu(plu);
 
     [Transactional]
     public TemplateEntity GetPluTemplate(PluEntity plu) => pluTemplateFkRepo.GetTemplateByPlu(plu);
@@ -52,13 +48,6 @@ internal class PluService(
 
         return template.Body;
     }
-
-    #endregion
-
-    #region Commands
-
-    [Transactional]
-    public void DeleteAllPluNestings(PluEntity plu) => pluNestingFkRepo.DeleteAllPluNestings(plu);
 
     #endregion
 }

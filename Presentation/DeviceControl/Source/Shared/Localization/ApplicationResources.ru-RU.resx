@@ -150,8 +150,8 @@
     <data name="ToastUpdateItem" xml:space="preserve">
         <value>Объект успешно обновлен</value>
     </data>
-    <data name="SectionPluNestings" xml:space="preserve">
-        <value>Вложенности</value>
+    <data name="SectionPluNesting" xml:space="preserve">
+        <value>Вложенность</value>
     </data>
     <data name="FormEmptyItemPlaceholder" xml:space="preserve">
         <value>Пусто</value>
@@ -221,5 +221,8 @@
     </data>
     <data name="ToastErrorGettingData" xml:space="preserve">
         <value>При попытке получить данные произошла ошибка. Попробуйте еще раз позже</value>
+    </data>
+    <data name="SectionPluCharacteristics" xml:space="preserve">
+        <value>Характеристики</value>
     </data>
 </root>

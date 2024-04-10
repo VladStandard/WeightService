@@ -1,7 +1,9 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
+using System.Reflection.PortableExecutable;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
@@ -10,7 +12,7 @@ public class PluEntity : EntityBase
 {
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; } = string.Empty;
-    public virtual byte ShelfLifeDays { get; set; }
+    public virtual short ShelfLifeDays { get; set; }
     public virtual string Ean13 { get; set; } = string.Empty;
     public virtual string Itf14 { get; set; } = string.Empty;
     public virtual bool IsCheckWeight { get; set; }
@@ -18,13 +20,17 @@ public class PluEntity : EntityBase
     public virtual BrandEntity Brand { get; set; } = new();
     public virtual ClipEntity Clip { get; set; } = new();
     public virtual StorageMethodEntity StorageMethod { get; set; } = new();
+    public virtual NestingEntity Nesting { get; set; } = new();
+    public virtual ISet<CharacteristicEntity> Characteristics { get; set; } = new HashSet<CharacteristicEntity>();
     public virtual string Description { get; set; } = string.Empty;
+    public virtual decimal Weight { get; set;}
     public virtual string Name { get; set; } = string.Empty;
-
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
     public virtual string DisplayName => $"{Number} | {Name}";
 
     public override string ToString() => DisplayName;
+
+    public virtual decimal DefaultWeightTare => (Bundle.Weight + Clip.Weight) * Nesting.BundleCount + Nesting.Box.Weight;
 
     protected override bool CastEquals(EntityBase obj)
     {

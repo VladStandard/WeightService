@@ -44,6 +44,8 @@ public class Redirector(IAuthorizationService authorizationService)
 
     public string ToPath(BrandEntity item) => Link(item, RouteUtils.SectionBrands);
 
+    public string ToPath(BoxEntity item) => Link(item, RouteUtils.SectionBoxes);
+
     public string ToPath(StorageMethodEntity item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyEnum.Admin));
 }

@@ -23,7 +23,7 @@
     <ArchiveBoxIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColBox"]</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(PluNesting.Box)</span>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(Plu.Nesting.Box)</span>
 
   <div class="flex items-center text-muted-foreground">
     <ShoppingBagIcon class="size-4 mr-1" />
@@ -35,12 +35,11 @@
     <InboxStackIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColCount"]</h3>
   </div>
-  <span class="line-clamp-2">@PluNesting.BundleCount шт</span>
+  <span class="line-clamp-2">@Plu.Nesting.BundleCount шт</span>
 </div>
 
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
   [Parameter] public PluEntity Plu { get; set; } = default!;
-  [Parameter] public PluNestingEntity PluNesting { get; set; } = default!;
 }

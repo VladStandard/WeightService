@@ -600,6 +600,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вес тары (Итого).
+        /// </summary>
+        public static string ColTareWeightTotal {
+            get {
+                return ResourceManager.GetString("ColTareWeightTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Шаблон.
         /// </summary>
         public static string ColTemplate {
