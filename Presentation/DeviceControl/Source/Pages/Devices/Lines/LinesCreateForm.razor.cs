@@ -41,14 +41,14 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
     private IEnumerable<ProductionSiteEntity> ProductionSitesEntities { get; set; } = [];
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = [];
     private ProductionSiteEntity ProductionSiteEntity { get; set; } = new();
+    private bool IsAdmin { get; set; }
 
     protected override void OnInitialized()
     {
         DialogItem.Warehouse.Name = Localizer["FormWarehouseDefaultPlaceholder"];
         DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
-        DialogItem.Number = 10001;
+        GenerateLineNumber();
 
-        PrinterEntities = PrinterService.GetAll();
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
         CachedWarehousesEntities = WarehouseService.GetAll().ToList();
         ProductionSitesEntities = new HashSet<ProductionSiteEntity>(CachedWarehousesEntities.Select(warehouse => warehouse.ProductionSite)
@@ -65,6 +65,7 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
             ProductionSiteEntity = userEntity.ProductionSite ?? ProductionSitesEntities.FirstOrDefault() ?? new();
             UpdateCurrentWarehouses();
         }
+        IsAdmin = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Admin)).Succeeded;
     }
 
     protected override LineEntity CreateItemAction(LineEntity item) =>
@@ -72,20 +73,22 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
 
     private void UpdateCurrentWarehouses()
     {
+        PrinterEntities = PrinterService.GetAll().Where(item => item.ProductionSite.Equals(ProductionSiteEntity));
+        DialogItem.Printer = PrinterEntities.FirstOrDefault() ?? new PrinterEntity { Name = Localizer["FormPrinterDefaultPlaceholder"] };
         WarehousesEntities = CachedWarehousesEntities.Where(item => item.ProductionSite.Equals(ProductionSiteEntity));
         DialogItem.Warehouse = WarehousesEntities.FirstOrDefault() ?? new();
     }
 
-    private bool IsAdmin() => AuthorizationService.AuthorizeAsync(User, PolicyEnum.Admin).GetAwaiter().GetResult().Succeeded;
+    private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);
 }
 
 public class LinesCreateFormValidator : AbstractValidator<LineEntity>
 {
     public LinesCreateFormValidator()
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Number).GreaterThanOrEqualTo(10001);
-        RuleFor(item => item.PcName).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().MaximumLength(64);
+        RuleFor(item => item.Number).GreaterThan(10000).LessThan(100000);
+        RuleFor(item => item.PcName).NotEmpty().Matches("^[A-Z0-9-]*$");
         RuleFor(item => item.Type).IsInEnum();
         RuleFor(item => item.Printer).Custom((obj, context) =>
         {

@@ -1,7 +1,11 @@
 @using Ws.Shared.Parsers
 @inherits BasicInput<System.Net.IPAddress>
 
-<InputTextField @bind-Value="InputValue" @attributes="@AdditionalAttributes" />
+<InputTextField
+  @bind-Value="InputValue"
+  Disabled="Disabled"
+  @attributes="@AdditionalAttributes"
+/>
 
 @code {
   private string InputValue

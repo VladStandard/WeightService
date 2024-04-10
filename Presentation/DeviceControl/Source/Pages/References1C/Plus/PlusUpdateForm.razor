@@ -31,7 +31,7 @@
     />
 
     <SectionTextField
-      Label="@WsDataLocalizer["ColType"]"
+      Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
       Disabled="@(!IsForceSubmit)"
@@ -81,10 +81,13 @@
       Value="@DialogItem.Gtin"
     />
 
-    <SectionReadOnlyField
-      Label="Itf14"
-      Value="@DialogItem.Itf14"
-    />
+    @if (!DialogItem.IsCheckWeight)
+    {
+      <SectionReadOnlyField
+        Label="Itf14"
+        Value="@DialogItem.Itf14"
+      />
+    }
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColWeight"]"

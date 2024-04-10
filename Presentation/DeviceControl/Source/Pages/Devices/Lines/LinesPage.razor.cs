@@ -28,9 +28,9 @@ public sealed partial class LinesPage : SectionDataGridPageBase<LineEntity>
 
     protected override async Task OnInitializedAsync()
     {
-        ClaimsPrincipal userClaims = (await AuthState).User;
-        if (userClaims is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(userClaims.Identity.Name);
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+        if (userPrincipal is { Identity.Name: not null })
+            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
         await base.OnInitializedAsync();
     }
     protected override async Task OpenSectionCreateForm()

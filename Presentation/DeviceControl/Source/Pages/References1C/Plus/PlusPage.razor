@@ -27,10 +27,16 @@
         Filterable="false"
       >
         <DisplayTemplate>
-          @if (!GetIsPluValid(context))
+          @if (context.Name.StartsWith('я'))
           {
             <div class="w-full flex items-center justify-center">
-              <ExclamationTriangleIcon class="text-orange-400 size-5" />
+              <TrashIcon class="text-red-600 size-5"/>
+            </div>
+          }
+          else if (!GetIsPluValid(context))
+          {
+            <div class="w-full flex items-center justify-center">
+              <ExclamationTriangleIcon class="text-orange-400 size-5"/>
             </div>
           }
         </DisplayTemplate>

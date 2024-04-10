@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>;net7.0-android33.0</TargetFrameworks>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
-        
+        <TargetFrameworks>net8.0-android;</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+
         <OutputType>Exe</OutputType>
         <RootNamespace>ScalesMobile</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -11,7 +11,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>true</SelfContained>
-        
+
         <!-- Display name -->
         <ApplicationTitle>ScalesMobile</ApplicationTitle>
 
@@ -30,6 +30,17 @@
 
     <ItemGroup>
         <!-- App Icon -->
+        <MauiAsset Include="wwwroot\app.css" />
+        <MauiAsset Include="wwwroot\font\Inter-Black.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Bold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-ExtraBold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-ExtraLight.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Light.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Medium.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Regular.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-SemiBold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Thin.ttf" />
+        <MauiAsset Include="wwwroot\inter.css" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
@@ -49,5 +60,14 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Shared\NavMenu.razor" />
+      <UpToDateCheckInput Remove="Shared\SurveyPrompt.razor" />
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build" />
+    </Target>
 
 </Project>

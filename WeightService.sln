@@ -38,9 +38,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CEE360D7-ED7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A5F7E5F1-61ED-463F-9F5A-0C615709938D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesMobile", "Presentation\ScalesMobile\ScalesMobile.csproj", "{956FA304-F0A4-46EC-B00D-7106B06E279C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScalesMobile", "Presentation\ScalesMobile\ScalesMobile.csproj", "{956FA304-F0A4-46EC-B00D-7106B06E279C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl", "Presentation\DeviceControl\DeviceControl.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceControl", "Presentation\DeviceControl\DeviceControl.csproj", "{B29D6609-092B-4310-95EF-A66DACE97AF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Database.EntityFramework", "DataAccess\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj", "{C21AFB00-DFBF-421D-AD61-747D9DFC7E61}"
 EndProject
@@ -138,7 +138,7 @@ Global
 		{1ACDF130-0EB8-43FD-8E76-587384A4DBB1} = {CEE360D7-ED7D-49C0-93C1-133E93574FC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

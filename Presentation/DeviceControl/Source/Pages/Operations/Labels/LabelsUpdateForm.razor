@@ -19,7 +19,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColLine"]"
       Value="@DialogItem.Line.Name"
-      Path="@Redirector.ToPath(DialogItem.Line, User)"
+      Path="@Redirector.ToPath(DialogItem.Line, UserPrincipal)"
     />
 
     <SectionReadOnlyField
@@ -31,7 +31,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColTemplate"]"
       Value="@Template.Name"
-      Path="@Redirector.ToPath(Template, User)"
+      Path="@Redirector.ToPath(Template, UserPrincipal)"
     />
 
     <SectionReadOnlyField
