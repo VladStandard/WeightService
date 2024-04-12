@@ -231,4 +231,7 @@
     <data name="ColTareWeightTotal" xml:space="preserve">
         <value />
     </data>
+    <data name="WeightTotal" xml:space="preserve">
+        <value />
+    </data>
 </root>

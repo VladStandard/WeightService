@@ -1,5 +1,4 @@
 @using ButtonType = ScalesDesktop.Source.Shared.UI.ButtonType
-@using ScalesDesktop.Source.Shared.Utils
 @using Ws.Domain.Models.Entities.Ref1c
 @using Ws.Domain.Models.Entities.Scale
 
@@ -45,7 +44,7 @@
           Items="PlusCharacteristics"
           @bind-SelectedItem="FormModel.Nesting"
           Placeholder="@Localizer["NestingSelectPlaceholder"]"
-          ItemDisplayName="item => NameFormatting.GetPluNestingFormattedName(item)"
+          ItemDisplayName="item => item.Name"
           IsDisabled="@(FormModel.Plu == null || !PlusCharacteristics.Any())"
         />
       </InputLabelWrapper>

@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
-using Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 using Ws.Database.EntityFramework.Entities.Ref.Printers;
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.Database.EntityFramework.Entities.Ref.Users;

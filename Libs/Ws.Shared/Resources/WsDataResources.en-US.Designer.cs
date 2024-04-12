@@ -697,5 +697,14 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("MeasureSec", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight (total).
+        /// </summary>
+        public static string WeightTotal {
+            get {
+                return ResourceManager.GetString("WeightTotal", resourceCulture);
+            }
+        }
     }
 }

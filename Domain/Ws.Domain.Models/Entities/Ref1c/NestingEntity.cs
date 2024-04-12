@@ -16,3 +16,9 @@ public class NestingEntity : EntityBase
                Equals(BundleCount, item.BundleCount);
     }
 }
+
+public static class NestingExtension
+{
+    public static CharacteristicEntity ToCharacteristic(this NestingEntity nesting) => new()
+        { Name = "По умолчанию", Box = nesting.Box, BundleCount = nesting.BundleCount, PluUid = nesting.Uid };
+}

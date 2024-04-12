@@ -104,9 +104,12 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
         {
             c.Key(k => k.Column("PLU_UID"));
             c.Cascade(Cascade.All);
+            c.Mutable(false);
             c.Lazy(CollectionLazy.NoLazy);
             c.Inverse(true);
+            c.Fetch(CollectionFetchMode.Select);
         }, r => r.OneToMany());
+
 
         Property(x => x.Weight, m =>
         {

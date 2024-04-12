@@ -62,11 +62,12 @@ namespace ScalesDesktop.Source.Features
             LabelPiecePalletDto dto = new()
             {
                 PalletMan = PalletContext.PalletMan,
+                Plu = FormModel.Plu!,
                 Weight = FormModel.PalletWeight,
                 ExpirationDt = createDt.AddDays(FormModel.Plu!.ShelfLifeDays),
                 Kneading = FormModel.Kneading,
                 Line = LineContext.Line,
-                Nesting = FormModel.Nesting!,
+                Characteristic = FormModel.Nesting!,
                 ProductDt = createDt,
                 Template = PluService.GetPluTemplate(FormModel.Plu).Body
             };

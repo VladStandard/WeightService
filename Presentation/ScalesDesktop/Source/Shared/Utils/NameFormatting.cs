@@ -1,17 +1,16 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.Scale;
 
 namespace ScalesDesktop.Source.Shared.Utils;
 
 public static class NameFormatting
 {
-    public static string GetPluNestingFormattedName(CharacteristicEntity characteristicEntity)
-    {
-        BoxEntity box = characteristicEntity.Box;
-        BundleEntity bundle = characteristicEntity.Plu.Bundle;
-        short bundleCount = characteristicEntity.BundleCount;
-        return string.Join(" | ", new List<string> { GetFormatBoxName(box), GetFormatBundleName(bundle, bundleCount) });
-    }
+    // public static string GetPluNestingFormattedName(CharacteristicEntity characteristicEntity)
+    // {
+    //     BoxEntity box = characteristicEntity.Box;
+    //     BundleEntity bundle = characteristicEntity.Plu.Bundle;
+    //     short bundleCount = characteristicEntity.BundleCount;
+    //     return string.Join(" | ", new List<string> { GetFormatBoxName(box), GetFormatBundleName(bundle, bundleCount) });
+    // }
 
     public static string GetFormatBoxName(BoxEntity box)
     {

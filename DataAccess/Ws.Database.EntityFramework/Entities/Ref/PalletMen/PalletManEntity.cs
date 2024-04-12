@@ -2,12 +2,9 @@ namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 [Table(SqlTables.PalletMen)]
 [Index(nameof(Name), nameof(Surname), nameof(Patronymic), Name = $"UQ_{SqlTables.PalletMen}_FIO", IsUnique = true)]
-[Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
+// [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
 public sealed class PalletManEntity : EfEntityBase
 {
-    [Column(SqlColumns.Uid1C)]
-    public Guid Uid1C { get; set; }
-
     [Column(SqlColumns.Name)]
     [StringLength(32)]
     public string Name { get; set; } = string.Empty;

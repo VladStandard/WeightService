@@ -231,4 +231,7 @@
     <data name="ColTareWeightTotal" xml:space="preserve">
         <value>Вес тары (Итого)</value>
     </data>
+    <data name="WeightTotal" xml:space="preserve">
+        <value>Вес (Итого)</value>
+    </data>
 </root>

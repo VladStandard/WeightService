@@ -6,9 +6,9 @@ using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Scale;
 using Ws.Shared.Resources;
 
-namespace DeviceControl.Source.Pages.References1C.Plus;
+namespace DeviceControl.Source.Pages.References1C.Plus.Characteristics;
 
-public sealed partial class CharacteristicsDataGrid : SectionDataGridPageBase<CharacteristicEntity>
+public sealed partial class WeightCharacteristicsDataGrid : SectionDataGridPageBase<CharacteristicEntity>
 {
     # region Injects
 
@@ -19,6 +19,5 @@ public sealed partial class CharacteristicsDataGrid : SectionDataGridPageBase<Ch
 
     [CascadingParameter(Name = "DialogItem")] public PluEntity Plu { get; set; } = null!;
 
-    protected override IEnumerable<CharacteristicEntity> SetSqlSectionCast() =>
-        Plu.Characteristics.ToList();
+    protected override IEnumerable<CharacteristicEntity> SetSqlSectionCast() => [Plu.Nesting.ToCharacteristic()];
 }

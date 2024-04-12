@@ -1,10 +1,8 @@
 using EasyCaching.Core;
-using Ws.Database.Nhibernate.Entities.Ref1c.Characteristics;
 using Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 using Ws.Database.Nhibernate.Entities.Scales.PlusTemplatesFks;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Plu;

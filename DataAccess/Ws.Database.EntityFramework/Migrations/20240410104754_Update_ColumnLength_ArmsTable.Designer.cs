@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410104754_Update_ColumnLength_ArmsTable")]
+    partial class Update_ColumnLength_ArmsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,9 +193,16 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnType("nvarchar(32)")
                         .HasColumnName("SURNAME");
 
+                    b.Property<Guid>("Uid1C")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID_1C");
+
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Name", "Surname", "Patronymic" }, "UQ_PALLET_MEN_FIO")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Uid1C" }, "UQ_PALLET_MEN_UID_1C")
                         .IsUnique();
 
                     b.ToTable("PALLET_MEN");

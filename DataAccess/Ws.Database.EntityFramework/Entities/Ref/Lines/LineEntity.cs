@@ -29,10 +29,10 @@ public sealed class LineEntity : EfEntityBase
     public PrinterEntity Printer { get; set; } = new();
 
     [Column("PC_NAME")]
-    [StringLength(16, ErrorMessage = "Name must be between 1 and 16 characters")]
+    [StringLength(32)]
     public string PcName { get; set; } = string.Empty;
 
-    [Column("TYPE", TypeName = "varchar(8)")]
+    [Column("TYPE", TypeName = "varchar(12)")]
     public LineType Type { get; set; } = LineType.Tablet;
 
     public ICollection<PluEntity> Plus { get; set; } = [];

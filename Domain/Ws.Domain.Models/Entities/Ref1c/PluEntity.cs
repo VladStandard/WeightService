@@ -1,6 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
 using System.Diagnostics;
-using System.Reflection.PortableExecutable;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Scale;
@@ -26,11 +25,27 @@ public class PluEntity : EntityBase
     public virtual decimal Weight { get; set;}
     public virtual string Name { get; set; } = string.Empty;
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
+
+    public virtual IEnumerable<CharacteristicEntity> CharacteristicsWithNesting
+    {
+        get
+        {
+            List<CharacteristicEntity> characteristics = Characteristics.ToList();
+            characteristics.Insert(0, Nesting.ToCharacteristic());
+            return characteristics;
+        }
+    }
+
     public virtual string DisplayName => $"{Number} | {Name}";
 
     public override string ToString() => DisplayName;
 
-    public virtual decimal DefaultWeightTare => (Bundle.Weight + Clip.Weight) * Nesting.BundleCount + Nesting.Box.Weight;
+    public virtual decimal DefaultWeightTare => CalculateTotalWeight(Nesting.Box, Nesting.BundleCount);
+    public virtual decimal GetWeightWithCharacteristic(CharacteristicEntity characteristic) =>
+        CalculateTotalWeight(characteristic.Box, characteristic.BundleCount);
+
+    private decimal CalculateTotalWeight(BoxEntity box, short bundleCount) =>
+        ((IsCheckWeight ? 0 : Weight) + Bundle.Weight + Clip.Weight) * bundleCount + box.Weight;
 
     protected override bool CastEquals(EntityBase obj)
     {

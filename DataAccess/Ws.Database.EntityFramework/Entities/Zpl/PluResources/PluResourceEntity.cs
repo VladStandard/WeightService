@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 namespace Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 
-[Table(SqlTables.PlusResources,  Schema = SqlSchemas.Zpl)]
+[Table(SqlTables.PlusResources, Schema = SqlSchemas.Zpl)]
 public sealed class PluResourceEntity : EfEntityBase
 {
     [ForeignKey("TEMPLATE_UID")]

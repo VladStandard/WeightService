@@ -19,7 +19,7 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
         if (labelCount > 240)
             throw new LabelGenerateException("Превышен размер паллеты");
 
-        if (labelPalletDto.Nesting.Plu.IsCheckWeight)
+        if (labelPalletDto.Plu.IsCheckWeight)
             throw new LabelGenerateException("Плу весовая");
 
         XmlPieceLabelModel labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
@@ -32,8 +32,8 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
         ZplItemsDto zplItems = new()
         {
             Resources = zplResourceService.GetAllCachedResources(),
-            Template = pluService.GetPluCachedTemplate(labelPalletDto.Nesting.Plu),
-            StorageMethod = labelPalletDto.Nesting.Plu.StorageMethod.Zpl,
+            Template = pluService.GetPluCachedTemplate(labelPalletDto.Plu),
+            StorageMethod = labelPalletDto.Plu.StorageMethod.Zpl,
         };
 
         PalletEntity pallet = new()
@@ -69,12 +69,12 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
             BarcodeRight = labelReady.BarcodeRight,
             BarcodeTop = labelReady.BarcodeTop,
             WeightNet = 0,
-            WeightTare = labelPalletDto.Nesting.WeightTare,
+            WeightTare = labelPalletDto.Plu.GetWeightWithCharacteristic(labelPalletDto.Characteristic),
             Kneading = labelPalletDto.Kneading,
             ProductDt = labelPalletDto.ProductDt,
             ExpirationDt = labelPalletDto.ExpirationDt,
             Line = labelPalletDto.Line,
-            Plu = labelPalletDto.Nesting.Plu
+            Plu = labelPalletDto.Plu
         };
     }
 }

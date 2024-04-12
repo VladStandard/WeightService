@@ -36,14 +36,12 @@ internal sealed class SqlCharacteristicsFkMap : ClassMapping<CharacteristicEntit
         {
             m.Column("BOX_UID");
             m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.Plu, m =>
+        Property(x => x.PluUid, m =>
         {
             m.Column("PLU_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
+            m.Type(NHibernateUtil.Guid);
         });
 
         Property(x => x.CreateDt, m =>

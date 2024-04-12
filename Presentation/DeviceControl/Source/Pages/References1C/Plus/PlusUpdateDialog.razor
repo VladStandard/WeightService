@@ -1,6 +1,7 @@
 @using Microsoft.Extensions.Localization
 @using Ws.Shared.Enums
 @using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Pages.References1C.Plus.Characteristics
 @inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 
@@ -9,20 +10,23 @@
     <PlusUpdateForm />
   </Tab>
   <Tab Id="characteristic">
-    <CharacteristicsDataGrid />
+    @if (!DialogItem.IsCheckWeight)
+    {
+      <PieceCharacteristicsDataGrid/>
+    }
+    else
+    {
+      <WeightCharacteristicsDataGrid />
+    }
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<EnumTypeModel<string>> InitializeTabList()
-  {
-    List<EnumTypeModel<string>> data = [new(Localizer["SectionPLU"], "main")];
-    if (!DialogItem.IsCheckWeight)
-      data.Add(new(
-        $"{Localizer["SectionPluCharacteristics"]} ({DialogItem.Characteristics.Count})", "characteristic")
-        );
-    return data;
-  }
+  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  [
+    new(Localizer["SectionPLU"], "main"),
+    new($"{Localizer["SectionPluCharacteristics"]}", "characteristic"),
+  ];
 }

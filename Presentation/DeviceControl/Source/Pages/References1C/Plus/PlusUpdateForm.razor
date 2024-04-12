@@ -1,7 +1,6 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
-@using Ws.Domain.Models.Entities.Ref
 @inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 <SectionForm
@@ -92,17 +91,6 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColWeight"]"
       Value="@DialogItem.Weight"
-    />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColBox"]"
-      Value="@DialogItem.Nesting.Box.Name"
-      Path="@Redirector.ToPath(DialogItem.Nesting.Box)"
-    />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColCount"]"
-      Value="@DialogItem.Nesting.BundleCount"
     />
 
     <SectionTextAreaField
