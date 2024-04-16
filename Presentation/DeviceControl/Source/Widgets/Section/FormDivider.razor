@@ -1,0 +1,9 @@
+<h3 class="flex py-2 font-semibold items-center w-full after:ml-2 col-span-2 after:content-[''] after:grow after:h-[1px] after:bg-muted">
+  @ChildContent
+</h3>
+
+@code {
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+}
