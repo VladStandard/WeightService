@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
 [DebuggerDisplay("{ToString()}")]
 public class PluEntity : EntityBase
 {
+    public virtual Guid? TemplateUid { get; set; }
     public virtual short Number { get; set; }
     public virtual string FullName { get; set; } = string.Empty;
     public virtual short ShelfLifeDays { get; set; }
@@ -18,7 +18,7 @@ public class PluEntity : EntityBase
     public virtual BundleEntity Bundle { get; set; } = new();
     public virtual BrandEntity Brand { get; set; } = new();
     public virtual ClipEntity Clip { get; set; } = new();
-    public virtual StorageMethodEntity StorageMethod { get; set; } = new();
+    public virtual string StorageMethod { get; set; } = string.Empty;
     public virtual NestingEntity Nesting { get; set; } = new();
     public virtual ISet<CharacteristicEntity> Characteristics { get; set; } = new HashSet<CharacteristicEntity>();
     public virtual string Description { get; set; } = string.Empty;
@@ -38,9 +38,8 @@ public class PluEntity : EntityBase
 
     public virtual string DisplayName => $"{Number} | {Name}";
 
-    public override string ToString() => DisplayName;
-
     public virtual decimal DefaultWeightTare => CalculateTotalWeight(Nesting.Box, Nesting.BundleCount);
+
     public virtual decimal GetWeightWithCharacteristic(CharacteristicEntity characteristic) =>
         CalculateTotalWeight(characteristic.Box, characteristic.BundleCount);
 
@@ -53,6 +52,7 @@ public class PluEntity : EntityBase
         return Equals(StorageMethod, item.StorageMethod) &&
                Equals(Number, item.Number) &&
                Equals(Clip, item.Clip) &&
+               Equals(TemplateUid, item.TemplateUid) &&
                Equals(Brand, item.Brand) &&
                Equals(Bundle, item.Bundle) &&
                Equals(FullName, item.FullName) &&

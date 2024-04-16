@@ -22,18 +22,16 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 
     # endregion
 
-    private TemplateEntity Template { get; set; } = new();
     private IEnumerable<TemplateEntity> AllTemplates { get; set; } = [];
 
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        // Template = PluService.GetPluTemplate(DialogItem);
-        // AllTemplates = TemplateService.GetAll();
+        AllTemplates = TemplateService.GetTemplatesByIsWeight(DialogItem.IsCheckWeight);
     }
 
-    protected override PluEntity UpdateItemAction(PluEntity item) => item;
+    protected override PluEntity UpdateItemAction(PluEntity item) => PluService.Update(item);
 
     private string GetPluTypeName(bool isWeight) =>
         isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];

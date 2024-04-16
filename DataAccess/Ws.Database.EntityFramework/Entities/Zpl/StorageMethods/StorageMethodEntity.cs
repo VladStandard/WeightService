@@ -19,5 +19,4 @@ public sealed class StorageMethodEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

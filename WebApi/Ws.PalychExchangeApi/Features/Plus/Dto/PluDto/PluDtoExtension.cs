@@ -19,7 +19,8 @@ internal static class PluDtoExtensions
             BrandEntityId = dto.BrandUid,
             ClipEntityId = dto.ClipUid,
             BundleEntityId = dto.BundleUid,
-            Weight = dto.Weight
+            Weight = dto.Weight,
+            StorageMethod = dto.StorageMethod
         };
 
     internal static NestingEntity ToNestingEntity(this PluDto dto, DateTime updateDt) =>

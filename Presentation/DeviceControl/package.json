@@ -1,12 +1,18 @@
 {
-  "name": "device-control",
-  "version": "1.0.0",
-  "description": "Создан для управления устройствами в составе проекта **Весовая Служба 2.0**",
-  "main": "index.js",
-  "scripts": {
-    "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify",
-    "tw": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --watch"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "device-control",
+    "version": "1.0.0",
+    "description": "Создан для управления устройствами в составе проекта Весовая Служба 2.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify",
+        "tw": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --watch"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "autoprefixer": "^10.4.19",
+        "postcss": "^8.4.38",
+        "postcss-cli": "^11.0.0",
+        "tailwindcss": "^3.4.3"
+    }
 }

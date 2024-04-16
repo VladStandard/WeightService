@@ -25,6 +25,7 @@ internal sealed partial class CharacteristicService(GroupedCharacteristicValidat
         List<GroupedCharacteristic> validDtos = FilterValidDtos(grouped);
 
         ResolveUniqueDb(validDtos);
+        ResolveIsWeightDb(validDtos);
 
         ResolveNotExistsFkDb(validDtos, DbContext.Plus, dto => dto.PluUid, "Плу - не найдена");
         ResolveNotExistsFkDb(validDtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");

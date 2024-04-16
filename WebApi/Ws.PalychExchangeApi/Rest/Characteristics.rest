@@ -3,7 +3,7 @@ Content-Type: application/xml
 
 <?xml version="1.0" encoding="UTF-8"?>
 <Characteristics>
-    <Plu Uid="2b9f1d14-7b4d-11e6-80ce-a4bf01016d50">
+    <Plu Uid="3b9692e2-738b-4577-ac93-0c2ea780711a">
         <Characteristic Uid="bc753e86-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(6)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="6"/>
         <Characteristic Uid="c8a6aada-d089-11e9-a218-a4bf0139eb1b" IsDelete="0" Name="Кор(8)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="12"/>
         <Characteristic Uid="cd6b5bae-2a73-11eb-a22e-00155d8a4602" IsDelete="1" Name="Удалить Кор(3,5)" BoxUid="71bc8e8a-99cf-11ea-a220-a4bf0139eb1b" BundleCount="0"/>

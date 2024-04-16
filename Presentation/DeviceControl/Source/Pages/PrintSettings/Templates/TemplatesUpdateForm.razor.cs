@@ -27,6 +27,9 @@ public sealed partial class TemplatesUpdateForm : SectionFormBase<TemplateEntity
         TemplateService.Delete(item);
         return Task.CompletedTask;
     }
+
+    private string GetTemplateTypeName(bool isWeight) =>
+        isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
 }
 
 public class TemplatesUpdateFormValidator : AbstractValidator<TemplateEntity>

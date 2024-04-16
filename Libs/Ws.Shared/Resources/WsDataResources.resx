@@ -231,7 +231,19 @@
     <data name="ColTareWeightTotal" xml:space="preserve">
         <value />
     </data>
-    <data name="WeightTotal" xml:space="preserve">
+    <data name="ColWeightTotal" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColWidth" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColHeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColTemplatePiece" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColTemplateWeight" xml:space="preserve">
         <value />
     </data>
 </root>

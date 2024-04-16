@@ -47,6 +47,28 @@ internal sealed partial class CharacteristicService
         });
     }
 
+    private void ResolveIsWeightDb(List<GroupedCharacteristic> dtos)
+    {
+        HashSet<Guid> charUids = dtos.Select(x => x.Uid).ToHashSet();
+
+        List<Guid> existingPairs = DbContext.Characteristics
+            .Join(
+                DbContext.Plus, characteristic => characteristic.PluId, plu => plu.Id,
+                (characteristic, plu) => new { Characteristic = characteristic, Plu = plu }
+            )
+            .Where(pair => charUids.Contains(pair.Characteristic.Id) && pair.Plu.IsWeight == true)
+            .Select(pair => pair.Characteristic.Id)
+            .ToList();
+
+
+        dtos.RemoveAll(dto =>
+        {
+            if (existingPairs.All(weightUid => dto.Uid != weightUid)) return false;
+            OutputDto.AddError(dto.Uid, "Характеристика - принадлежит весовой плу");
+            return true;
+        });
+    }
+
     #endregion
 
     private void SaveCharacteristics(IEnumerable<GroupedCharacteristic> dtos)

@@ -16,7 +16,6 @@ internal static class SqlTablesUtils
     public const string Nestings = "NESTINGS";
     public const string PlusLines = "LINES_PLUS_FK";
     public const string StorageMethods = "STORAGE_METHODS";
-    public const string PlusTemplatesFks = "PLUS_TEMPLATES_FK";
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string Templates = "TEMPLATES";
     public const string ZplResources = "RESOURCES";

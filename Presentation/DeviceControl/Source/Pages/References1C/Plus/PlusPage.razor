@@ -2,6 +2,7 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c
 @using Blazor.Heroicons.Outline
+@using SortDirection=Blazorise.SortDirection
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 @attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
@@ -24,6 +25,7 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColStatus"]"
         Width="5%"
+        Sortable="false"
         Filterable="false"
       >
         <DisplayTemplate>
@@ -33,7 +35,13 @@
               <TrashIcon class="text-red-600 size-5"/>
             </div>
           }
-          else if (!GetIsPluValid(context))
+          else if (context.TemplateUid == Guid.Empty || context.TemplateUid == null)
+          {
+            <div class="w-full flex items-center justify-center">
+              <BookmarkSlashIcon class="text-purple-500 size-5 transition-colors hover:text-purple-700 dark:hover:text-purple-300"/>
+            </div>
+          }
+          else if (!PluValidator.Validate(context).IsValid)
           {
             <div class="w-full flex items-center justify-center">
               <ExclamationTriangleIcon class="text-orange-400 size-5"/>
@@ -46,6 +54,7 @@
         Field="@nameof(PluEntity.Number)"
         FilterMethod="DataGridColumnFilterMethod.StartsWith"
         Width="10%"
+        SortDirection="SortDirection.Ascending"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"

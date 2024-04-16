@@ -1,7 +1,6 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
-using Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
@@ -28,11 +27,11 @@ public sealed class PluEntity : EfEntityBase
     public short ShelfLifeDays { get; set; }
 
     [Column("EAN_13", TypeName = "varchar")]
-    [StringLength(133)]
+    [StringLength(13)]
     public string Ean13 { get; set; } = string.Empty;
 
     [Column("ITF_14", TypeName = "varchar")]
-    [StringLength(144)]
+    [StringLength(14)]
     public string Itf14 { get; set; } = string.Empty;
 
     [Column("IS_WEIGHT")]
@@ -40,6 +39,10 @@ public sealed class PluEntity : EfEntityBase
 
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
+
+    [Column("STORAGE_METHOD")]
+    [StringLength(32)]
+    public string StorageMethod { get; set; } = string.Empty;
 
     [ForeignKey("BUNDLE_UID"), Column("BUNDLE_UID")]
     public Guid BundleEntityId { get; set; }
@@ -53,7 +56,8 @@ public sealed class PluEntity : EfEntityBase
     public Guid ClipEntityId { get; set; }
     public ClipEntity Clip { get; set; } = new();
 
-    public PluResourceEntity Resource { get; set; } = new();
+    [ForeignKey("TEMPLATE_UID"), Column("TEMPLATE_UID")]
+    public Guid? TemplateEntityId { get; set; }
 
     #region Date
 
@@ -71,9 +75,4 @@ public sealed class PluEntity : EfEntityBase
         Id = uid;
         ChangeDt = updateDt;
     }
-
-    // public ICollection<PluNestingEntity> Nestings { get; set; } = [];
-    // public virtual ICollection<Label> Labels { get; set; } = new List<Label>();
-    //
-    // public virtual ICollection<PlusLine> PlusLines { get; set; } = new List<PlusLine>();
 }

@@ -15,6 +15,28 @@
       For="@(() => DialogItem.Name)"
     />
 
+    <SectionSelectSingleField
+      TItem="bool"
+      Items="@(new []{ false, true })"
+      Label="@WsDataLocalizer["ColType"]"
+      @bind-Value="DialogItem.IsWeight"
+      ItemDisplayName="GetTemplateTypeName"
+    />
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Width"
+      Max="255"
+      Label="@WsDataLocalizer["ColWidth"]"
+      For="@(() => DialogItem.Width)"
+    />
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Height"
+      Max="255"
+      Label="@WsDataLocalizer["ColHeight"]"
+      For="@(() => DialogItem.Height)"
+    />
+
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColData"]"
       @bind-Value="@DialogItem.Body"

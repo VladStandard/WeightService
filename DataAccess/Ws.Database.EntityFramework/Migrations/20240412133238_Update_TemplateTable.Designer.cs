@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412133238_Update_TemplateTable")]
+    partial class Update_TemplateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -620,7 +623,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Ean13")
                         .IsRequired()
-                        .HasMaxLength(13)
+                        .HasMaxLength(133)
                         .HasColumnType("varchar")
                         .HasColumnName("EAN_13");
 
@@ -636,7 +639,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Itf14")
                         .IsRequired()
-                        .HasMaxLength(14)
+                        .HasMaxLength(144)
                         .HasColumnType("varchar")
                         .HasColumnName("ITF_14");
 
@@ -653,12 +656,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Property<short>("ShelfLifeDays")
                         .HasColumnType("smallint")
                         .HasColumnName("SHELF_LIFE_DAYS");
-
-                    b.Property<string>("StorageMethod")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("STORAGE_METHOD");
 
                     b.Property<Guid?>("TemplateEntityId")
                         .HasColumnType("uniqueidentifier")
@@ -680,6 +677,28 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsUnique();
 
                     b.ToTable("PLUS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("STORAGE_METHOD_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TEMPLATE_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("STORAGE_METHOD_UID");
+
+                    b.HasIndex("TEMPLATE_UID");
+
+                    b.ToTable("PLUS_RESOURCES", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
@@ -954,6 +973,37 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Bundle");
 
                     b.Navigation("Clip");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
+                        .WithOne("Resource")
+                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", "StorageMethod")
+                        .WithMany()
+                        .HasForeignKey("STORAGE_METHOD_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", "Template")
+                        .WithMany()
+                        .HasForeignKey("TEMPLATE_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StorageMethod");
+
+                    b.Navigation("Template");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
+                {
+                    b.Navigation("Resource")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

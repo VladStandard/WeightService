@@ -38,6 +38,24 @@ internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
             m.Length(32);
         });
 
+        Property(x => x.Width, m =>
+        {
+            m.Column("WIDTH");
+            m.Type(NHibernateUtil.Int16);
+        });
+
+        Property(x => x.Height, m =>
+        {
+            m.Column("HEIGHT");
+            m.Type(NHibernateUtil.Int16);
+        });
+
+        Property(x => x.IsWeight, m =>
+        {
+            m.Column("IS_WEIGHT");
+            m.Type(NHibernateUtil.Boolean);
+        });
+
         Property(x => x.Body, m =>
         {
             m.Column("BODY");

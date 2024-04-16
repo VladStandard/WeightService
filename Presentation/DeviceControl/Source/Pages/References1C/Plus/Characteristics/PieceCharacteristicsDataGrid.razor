@@ -1,8 +1,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c
-@using Ws.Domain.Models.Entities.Scale
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Scale.CharacteristicEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<CharacteristicEntity>
 @rendermode InteractiveServer
 
 <PageHeader>
@@ -22,7 +21,7 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(CharacteristicEntity.Name)"
-        Filterable="false"
+        Sortable="false"
         Width="15%"
       />
       <DataGridColumn
@@ -41,7 +40,7 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColBundle"]"
         Width="15%"
-        Filterable="false"
+        Sortable="false"
       >
         <DisplayTemplate>
           @Plu.Bundle.Weight * @context.BundleCount
@@ -50,7 +49,7 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColClip"]"
         Width="15%"
-        Filterable="false"
+        Sortable="false"
       >
         <DisplayTemplate>
           @Plu.Clip.Weight * @context.BundleCount
@@ -60,10 +59,10 @@
           Caption="@WsDataLocalizer["ColBox"]"
           Field="@($"{nameof(CharacteristicEntity.Box)}.{nameof(BoxEntity.Weight)}")"
           Width="15%"
-          Filterable="false"
+          Sortable="false"
       />
       <DataGridColumn
-        Caption="@WsDataLocalizer["WeightTotal"]"
+        Caption="@WsDataLocalizer["ColWeightTotal"]"
         Width="15%"
       >
         <DisplayTemplate>

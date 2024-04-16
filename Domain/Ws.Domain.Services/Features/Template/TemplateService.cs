@@ -22,7 +22,7 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
     {
         TemplateEntity template = templateRepo.Update(item);
 
-        string zplKey = $"TEMPLATE-{template.Uid}:ZPL";
+        string zplKey = $"TEMPLATES:{template.Uid}";
         if (provider.KeyExists(zplKey))
             provider.StringSet(zplKey, template.Body, TimeSpan.FromHours(1));
 
@@ -31,4 +31,23 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
 
     [Transactional]
     public void Delete(TemplateEntity item) => templateRepo.Delete(item);
+
+    [Transactional]
+    public IEnumerable<TemplateEntity> GetTemplatesByIsWeight(bool isWeight) =>
+        templateRepo.GetTemplatesByIsWeight(isWeight);
+
+    public string? GetTemplateByUidFromCacheOrDb(Guid templateUid)
+    {
+        string zplKey = $"TEMPLATES:{templateUid}";
+
+        if (provider.KeyExists(zplKey))
+            return provider.StringGet(zplKey);
+
+        TemplateEntity temp = GetItemByUid(templateUid);
+
+        if (!temp.IsExists || temp.Body == string.Empty) return null;
+
+        provider.StringSet(zplKey, temp.Body, TimeSpan.FromHours(1));
+        return temp.Body;
+    }
 }

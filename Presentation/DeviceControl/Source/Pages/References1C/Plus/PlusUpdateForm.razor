@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
 @inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 <SectionForm
@@ -60,15 +61,17 @@
     @*   Path="@Redirector.ToPath(DialogItem.StorageMethod, User)" *@
     @* /> *@
     @* *@
-    @* <SectionSelectSingleField *@
-    @*   TItem="TemplateEntity" *@
-    @*   Label="@WsDataLocalizer["ColTemplate"]" *@
-    @*   Items="AllTemplates" *@
-    @*   @bind-Value="Template" *@
-    @*   ItemDisplayName="@(item => item.Name)" *@
-    @*   Disabled="@(!IsForceSubmit)" *@
-    @*   Path="@Redirector.ToPath(Template, User)" *@
-    @* /> *@
+
+    <SectionSelectSingleField
+      TItem="TemplateEntity"
+      Label="@WsDataLocalizer["ColTemplate"]"
+      Items="AllTemplates"
+      ValueChanged="(i) => DialogItem.TemplateUid = i.Uid"
+      Value="AllTemplates.SingleOrDefault(i => i.Uid == DialogItem.TemplateUid)"
+      ItemDisplayName="@(item => item.Name)"
+      Disabled="@(!IsForceSubmit)"
+      Path="@Redirector.ToTemplatePath(DialogItem.TemplateUid ?? Guid.Empty, UserPrincipal)"
+    />
 
     <SectionReadOnlyField
       Label="Ean13"

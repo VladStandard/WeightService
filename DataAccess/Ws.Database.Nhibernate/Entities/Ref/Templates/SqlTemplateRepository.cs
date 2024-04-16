@@ -14,4 +14,8 @@ public sealed class SqlTemplateRepository : BaseRepository, IGetAll<TemplateEnti
     public TemplateEntity Save(TemplateEntity item) { Session.Save(item); return item; }
     public TemplateEntity Update(TemplateEntity item) { Session.Update(item); return item; }
     public void Delete(TemplateEntity item) => Session.Delete(item);
+
+    public IEnumerable<TemplateEntity> GetTemplatesByIsWeight(bool isWeight) =>
+        Session.Query<TemplateEntity>().Where(i => i.IsWeight == isWeight)
+            .OrderBy(i => i.Name).ToList();
 }

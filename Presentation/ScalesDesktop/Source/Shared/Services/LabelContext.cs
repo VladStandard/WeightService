@@ -1,7 +1,6 @@
 using ScalesDesktop.Source.Shared.Models;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
 

@@ -11,10 +11,23 @@ public class Redirector(IAuthorizationService authorizationService)
 {
     #region Private
 
+    #region LinkByEntity
+
     private static string Link(EntityBase entity, string baseUrl) => Link(entity, baseUrl, true);
 
     private static string Link(EntityBase entity, string baseUrl, bool isActive) =>
         entity.IsNew || !isActive ? string.Empty : $"{baseUrl}/{entity.Uid}";
+
+    #endregion
+
+    #region LinkByUid
+
+    private static string Link(Guid uid, string baseUrl) => Link(uid, baseUrl, true);
+
+    private static string Link(Guid uid, string baseUrl, bool isActive) =>
+        !isActive ? string.Empty : $"{baseUrl}/{uid}";
+
+    #endregion
 
     private bool CheckPolicy(ClaimsPrincipal user, string policyName) =>
         authorizationService.AuthorizeAsync(user, policyName).GetAwaiter().GetResult().Succeeded;
@@ -23,9 +36,6 @@ public class Redirector(IAuthorizationService authorizationService)
 
     public string ToPath(LineEntity line, ClaimsPrincipal user) =>
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
-
-    public string ToPath(TemplateEntity item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToPath(PluEntity item) => Link(item, RouteUtils.SectionPlus);
 
@@ -48,4 +58,8 @@ public class Redirector(IAuthorizationService authorizationService)
 
     public string ToPath(StorageMethodEntity item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyEnum.Admin));
+
+    public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
+        Link(uid, RouteUtils.SectionTemplates, uid != Guid.Empty);
+
 }

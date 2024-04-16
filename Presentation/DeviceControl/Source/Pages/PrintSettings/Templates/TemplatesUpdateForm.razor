@@ -14,7 +14,26 @@
   <FieldsContent>
     <SectionAdminGuidField Value="@DialogItem.Uid" />
 
-    <SectionTextField
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetTemplateTypeName(DialogItem.IsWeight)"
+    />
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Width"
+      Max="255"
+      Label="@WsDataLocalizer["ColWidth"]"
+      For="@(() => DialogItem.Width)"
+    />
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Height"
+      Max="255"
+      Label="@WsDataLocalizer["ColHeight"]"
+      For="@(() => DialogItem.Height)"
+    />
+
+    <SectionTextAreaField
       @bind-Value="@DialogItem.Name"
       Label="@WsDataLocalizer["ColTitle"]"
       For="@(() => DialogItem.Name)"
@@ -26,6 +45,7 @@
       For="@(() => DialogItem.Body)"
       IsCopyable
     />
+
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}/{DialogItem.Uid}")" />

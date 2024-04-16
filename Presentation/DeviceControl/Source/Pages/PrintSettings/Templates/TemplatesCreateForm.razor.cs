@@ -19,6 +19,9 @@ public sealed partial class TemplatesCreateForm : SectionFormBase<TemplateEntity
 
     protected override TemplateEntity CreateItemAction(TemplateEntity item) =>
         TemplateService.Create(item);
+
+    private string GetTemplateTypeName(bool isWeight) =>
+        isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
 }
 
 public class TemplatesCreateFormValidator : AbstractValidator<TemplateEntity>

@@ -13,7 +13,6 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-using Ws.Database.EntityFramework.Entities.Zpl.PluResources;
 using Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
@@ -40,7 +39,6 @@ public class WsDbContext : DbContext
     public DbSet<PrinterEntity> Printers { get; set; }
     public DbSet<LineEntity> Lines { get; set; }
     public DbSet<PluEntity> Plus { get; set; }
-    public DbSet<PluResourceEntity> PluResources { get; set; }
     public DbSet<NestingEntity> Nestings { get; set; }
     public DbSet<CharacteristicEntity> Characteristics { get; set; }
 
@@ -64,7 +62,6 @@ public class WsDbContext : DbContext
 
         modelBuilder.MapLine();
         modelBuilder.MapUser();
-        modelBuilder.MapPluResource();
         modelBuilder.MapNesting();
         modelBuilder.MapCharacteristic();
         // modelBuilder.MapCharacteristic();

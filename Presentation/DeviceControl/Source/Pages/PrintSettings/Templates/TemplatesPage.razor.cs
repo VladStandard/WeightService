@@ -31,6 +31,9 @@ public sealed partial class TemplatesPage : SectionDataGridPageBase<TemplateEnti
 
     protected override IEnumerable<TemplateEntity> SetSqlSectionCast() => TemplateService.GetAll();
 
+    private string GetTemplateTypeName(bool isWeight) =>
+        isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
+
     protected override IEnumerable<TemplateEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemId);

@@ -267,6 +267,15 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string ColHeight {
+            get {
+                return ResourceManager.GetString("ColHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kneading.
         /// </summary>
         public static string ColKneading {
@@ -618,6 +627,24 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Piece.
+        /// </summary>
+        public static string ColTemplatePiece {
+            get {
+                return ResourceManager.GetString("ColTemplatePiece", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        public static string ColTemplateWeight {
+            get {
+                return ResourceManager.GetString("ColTemplateWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string ColTitle {
@@ -672,6 +699,24 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weight (total).
+        /// </summary>
+        public static string ColWeightTotal {
+            get {
+                return ResourceManager.GetString("ColWeightTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string ColWidth {
+            get {
+                return ResourceManager.GetString("ColWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to kg.
         /// </summary>
         public static string MeasureKg {
@@ -695,15 +740,6 @@ namespace Ws.Shared.Resources {
         public static string MeasureSec {
             get {
                 return ResourceManager.GetString("MeasureSec", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weight (total).
-        /// </summary>
-        public static string WeightTotal {
-            get {
-                return ResourceManager.GetString("WeightTotal", resourceCulture);
             }
         }
     }

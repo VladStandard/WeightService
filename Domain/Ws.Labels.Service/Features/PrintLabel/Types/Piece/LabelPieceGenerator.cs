@@ -1,7 +1,8 @@
 using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
-using Ws.Domain.Services.Features.Plu;
+using Ws.Domain.Services.Features.StorageMethod;
+using Ws.Domain.Services.Features.Template;
 using Ws.Domain.Services.Features.ZplResource;
 using Ws.Labels.Service.Features.PrintLabel.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Exceptions;
@@ -12,15 +13,28 @@ using Ws.Labels.Service.Features.PrintLabel.Utils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece;
 
-internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluService pluService, IPalletService palletService)
+internal class LabelPieceGenerator(IZplResourceService zplResourceService, ITemplateService templateService,
+    IStorageMethodService storageMethodService, IPalletService palletService)
 {
     public void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount)
     {
+        string templateBody = string.Empty;
+        string storageMethodBody = string.Empty;
+
         if (labelCount > 240)
             throw new LabelGenerateException("Превышен размер паллеты");
 
         if (labelPalletDto.Plu.IsCheckWeight)
             throw new LabelGenerateException("Плу весовая");
+
+        if (Guid.TryParse(labelPalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
+            templateBody = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? string.Empty;
+
+        if (storageMethodService.GetStorageByNameFromCacheOrDb(labelPalletDto.Plu.StorageMethod) is {} storageMethod)
+            storageMethodBody = storageMethod;
+
+        if (templateBody == string.Empty) throw new();
+        if (storageMethodBody == string.Empty) throw new();
 
         XmlPieceLabelModel labelXml = labelPalletDto.AdaptToXmlPieceLabelModel();
         ValidationResult result = new XmlLabelPiecePalletValidator().Validate(labelXml);
@@ -31,9 +45,9 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, IPluS
 
         ZplItemsDto zplItems = new()
         {
-            Resources = zplResourceService.GetAllCachedResources(),
-            Template = pluService.GetPluCachedTemplate(labelPalletDto.Plu),
-            StorageMethod = labelPalletDto.Plu.StorageMethod.Zpl,
+            Resources = zplResourceService.GetAllResourcesFromCacheOrDb(),
+            Template = templateBody,
+            StorageMethod = storageMethodBody,
         };
 
         PalletEntity pallet = new()

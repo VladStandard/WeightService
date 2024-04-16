@@ -231,7 +231,19 @@
     <data name="ColTareWeightTotal" xml:space="preserve">
         <value>Вес тары (Итого)</value>
     </data>
-    <data name="WeightTotal" xml:space="preserve">
+    <data name="ColWeightTotal" xml:space="preserve">
         <value>Вес (Итого)</value>
+    </data>
+    <data name="ColWidth" xml:space="preserve">
+        <value>Ширина</value>
+    </data>
+    <data name="ColHeight" xml:space="preserve">
+        <value>Высота</value>
+    </data>
+    <data name="ColTemplatePiece" xml:space="preserve">
+        <value>Штучный</value>
+    </data>
+    <data name="ColTemplateWeight" xml:space="preserve">
+        <value>Весовой</value>
     </data>
 </root>

@@ -1,3 +1,4 @@
+using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
@@ -5,7 +6,7 @@ using Ws.Domain.Services.Features.StorageMethod.Validators;
 
 namespace Ws.Domain.Services.Features.StorageMethod;
 
-internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo) : IStorageMethodService
+internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo, IRedisCachingProvider provider) : IStorageMethodService
 {
     [Transactional]
     public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
@@ -19,24 +20,34 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
     [Transactional, Validate<StorageMethodNewValidator>]
     public StorageMethodEntity Create(StorageMethodEntity item) => storageMethodRepo.Save(item);
 
+
     [Transactional, Validate<StorageMethodUpdateValidator>]
-    public StorageMethodEntity Update(StorageMethodEntity item) => storageMethodRepo.Update(item);
+    public StorageMethodEntity Update(StorageMethodEntity item)
+    {
+       item = storageMethodRepo.Update(item);
+
+       string zplKey =  $"STORAGE_METHODS:{item.Name}";
+       if (provider.KeyExists(zplKey))
+           provider.StringSet(zplKey, item.Zpl, TimeSpan.FromHours(1));
+
+       return item;
+    }
 
     [Transactional]
     public void Delete(StorageMethodEntity item) => storageMethodRepo.Delete(item);
 
-    [Transactional]
-    public StorageMethodEntity GetDefault()
+    public string? GetStorageByNameFromCacheOrDb(string name)
     {
-        const string name = "Без способа хранения";
-        StorageMethodEntity defaultMethod = storageMethodRepo.GetItemByName(name);
-        return defaultMethod.IsExists ? defaultMethod : storageMethodRepo.Save(new() { Name = name });
-    }
+        string key = $"STORAGE_METHODS:{name}";
 
-    [Transactional]
-    public StorageMethodEntity GetByNameOrDefault(string name)
-    {
-        StorageMethodEntity method = GetByName(name);
-        return method.IsExists ? method : GetDefault();
+        if (provider.KeyExists(key))
+            return provider.StringGet(key);
+
+        StorageMethodEntity temp = GetByName(name);
+
+        if (!temp.IsExists || temp.Zpl == string.Empty) return null;
+
+        provider.StringSet(key, temp.Zpl, TimeSpan.FromHours(1));
+        return temp.Zpl;
     }
 }

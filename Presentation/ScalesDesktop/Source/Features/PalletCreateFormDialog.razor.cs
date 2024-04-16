@@ -6,7 +6,6 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.Scale;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
@@ -69,7 +68,6 @@ namespace ScalesDesktop.Source.Features
                 Line = LineContext.Line,
                 Characteristic = FormModel.Nesting!,
                 ProductDt = createDt,
-                Template = PluService.GetPluTemplate(FormModel.Plu).Body
             };
 
             try

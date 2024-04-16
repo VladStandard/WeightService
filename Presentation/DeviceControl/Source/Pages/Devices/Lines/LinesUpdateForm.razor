@@ -29,6 +29,7 @@
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
+      MaxLength="32"
       Disabled="IsOnlyView"
     />
 
@@ -37,6 +38,7 @@
       @bind-Value="@DialogItem.PcName"
       For="@(() => DialogItem.PcName)"
       Disabled="IsOnlyView"
+      MaxLength="16"
     />
 
     <SectionSelectSingleField

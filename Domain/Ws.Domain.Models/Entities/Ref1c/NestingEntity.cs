@@ -1,5 +1,4 @@
 ﻿using Ws.Domain.Models.Common;
-using Ws.Domain.Models.Entities.Scale;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 

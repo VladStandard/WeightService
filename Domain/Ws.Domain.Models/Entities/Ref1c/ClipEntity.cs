@@ -9,6 +9,7 @@ public class ClipEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
     public virtual decimal Weight { get; set; }
+    public override bool IsNew => CreateDt == DateTime.MinValue;
 
     protected override bool CastEquals(EntityBase obj)
     {

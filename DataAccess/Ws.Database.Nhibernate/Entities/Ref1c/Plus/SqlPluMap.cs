@@ -59,6 +59,13 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.NotNullable(true);
         });
 
+        Property(x => x.StorageMethod, m =>
+        {
+            m.Column("STORAGE_METHOD");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+
         Property(x => x.Itf14, m =>
         {
             m.Column("ITF_14");
@@ -85,6 +92,12 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.Column("BRAND_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
+        });
+
+        Property(x => x.TemplateUid, m =>
+        {
+            m.Column("TEMPLATE_UID");
+            m.NotNullable(false);
         });
 
         ManyToOne(x => x.Clip, m =>

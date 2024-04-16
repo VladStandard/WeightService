@@ -7,5 +7,5 @@ namespace Ws.Domain.Services.Features.ZplResource;
 public interface IZplResourceService : IGetItemByUid<ZplResourceEntity>, IGetAll<ZplResourceEntity>,
     ICreate<ZplResourceEntity>, IUpdate<ZplResourceEntity>, IDelete<ZplResourceEntity>
 {
-    Dictionary<string, string> GetAllCachedResources();
+    Dictionary<string, string> GetAllResourcesFromCacheOrDb();
 }

@@ -29,9 +29,9 @@ internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRe
     }
 
     [Transactional]
-    public Dictionary<string, string> GetAllCachedResources()
+    public Dictionary<string, string> GetAllResourcesFromCacheOrDb()
     {
-        Dictionary<String, String>? cached = provider.HGetAll("ZPL_RESOURCES");
+        Dictionary<string, string>? cached = provider.HGetAll("ZPL_RESOURCES");
 
         if (cached != null && cached.Any()) return cached;
 
