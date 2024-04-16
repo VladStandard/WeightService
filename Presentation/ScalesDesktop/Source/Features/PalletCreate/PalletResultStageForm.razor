@@ -1,0 +1,58 @@
+@using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Shared.Utils
+
+<div class="max-w-sm mx-auto w-full grid grid-cols-[auto_1fr] gap-x-3 space-y-1">
+  <div class="flex items-center text-muted-foreground">
+    <ClipboardIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColPlu"]</h3>
+  </div>
+  <span class="line-clamp-2">@FormModel.Plu!.DisplayName</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ArchiveBoxIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColBox"]</h3>
+  </div>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(FormModel.Nesting!.Box)</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ShoppingBagIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColBundle"]</h3>
+  </div>
+  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(FormModel.Plu.Bundle)</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ScaleIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColWeight"]</h3>
+  </div>
+  <span class="line-clamp-2">@FormModel.PalletWeight</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <ScaleIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColKneading"]</h3>
+  </div>
+  <span class="line-clamp-2">@FormModel.Kneading</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <CalendarDaysIcon class="size-4 mr-1" />
+    <h3>Дата</h3>
+  </div>
+  <span class="line-clamp-2">@FormModel.CreateDt</span>
+
+  <div class="flex items-center text-muted-foreground">
+    <InboxStackIcon class="size-4 mr-1" />
+    <h3>@WsDataLocalizer["ColCount"]</h3>
+  </div>
+  <span class="line-clamp-2">@FormModel.Count</span>
+</div>
+
+<div class="w-full flex max-w-sm mx-auto justify-end gap-2 py-2">
+  <Button
+    OnClick="@OnCancelAction"
+    Variant="ButtonVariant.Outline"
+  >
+    @Localizer["BtnBack"]
+  </Button>
+  <Button OnClick="@OnSubmit">
+    @Localizer["BtnCreate"]
+  </Button>
+</div>

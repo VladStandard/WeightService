@@ -11,7 +11,7 @@ public sealed partial class Button : ComponentBase
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
     [Parameter] public EventCallback OnClick { get; set; }
-    [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
+    [Parameter] public BtnType Type { get; set; } = BtnType.Button;
     [Parameter] public string Class { get; set; } = string.Empty;
     [Parameter] public bool Disabled { get; set; }
 
@@ -44,8 +44,8 @@ public sealed partial class Button : ComponentBase
 
     private string HtmlType => Type switch
     {
-        ButtonType.Reset => "reset",
-        ButtonType.Submit => "submit",
+        BtnType.Reset => "reset",
+        BtnType.Submit => "submit",
         _ => "button"
     };
 }
@@ -69,7 +69,7 @@ public enum ButtonSize
     Icon
 }
 
-public enum ButtonType
+public enum BtnType
 {
     Button,
     Reset,

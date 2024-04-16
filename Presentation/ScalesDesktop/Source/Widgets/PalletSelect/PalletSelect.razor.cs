@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Features;
+using ScalesDesktop.Source.Features.PalletCreate;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Print;
@@ -32,7 +33,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
         return pallets.Take(100);
     }
 
-    private async Task ShowCreateFormDialog() => await DialogService.ShowDialogAsync<PalletCreateFormDialog>(new());
+    private async Task ShowCreateFormDialog() => await DialogService.ShowDialogAsync<PalletCreateDialog>(new());
 
     public void Dispose() => PalletContext.OnStateChanged -= StateHasChanged;
 }
