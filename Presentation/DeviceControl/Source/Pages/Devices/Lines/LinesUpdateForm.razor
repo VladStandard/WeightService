@@ -33,12 +33,12 @@
       Disabled="IsOnlyView"
     />
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPcName"]"
-      @bind-Value="@DialogItem.PcName"
-      For="@(() => DialogItem.PcName)"
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColCounter"]"
+      @bind-Value="@DialogItem.Counter"
+      Min="0"
+      For="@(() => DialogItem.Counter)"
       Disabled="IsOnlyView"
-      MaxLength="16"
     />
 
     <SectionSelectSingleField
@@ -51,12 +51,14 @@
       Disabled="IsOnlyView"
     />
 
-    <SectionNumericField
-      Label="@WsDataLocalizer["ColCounter"]"
-      @bind-Value="@DialogItem.Counter"
-      Min="0"
-      For="@(() => DialogItem.Counter)"
+    <FormDivider>Устройства</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
       Disabled="IsOnlyView"
+      MaxLength="16"
     />
 
     <SectionSelectSingleField
@@ -70,6 +72,8 @@
       Disabled="IsOnlyView"
       IsFilterable
     />
+
+    <FormDivider>Местоположение</FormDivider>
 
     <SectionSelectSingleField
       TItem="ProductionSiteEntity"

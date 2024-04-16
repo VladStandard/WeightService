@@ -19,6 +19,8 @@
       Value="@GetTemplateTypeName(DialogItem.IsWeight)"
     />
 
+    <FormDivider>Размер</FormDivider>
+
     <SectionNumericField
       @bind-Value="@DialogItem.Width"
       Max="255"
@@ -32,6 +34,8 @@
       Label="@WsDataLocalizer["ColHeight"]"
       For="@(() => DialogItem.Height)"
     />
+
+    <FormDivider>Описание</FormDivider>
 
     <SectionTextAreaField
       @bind-Value="@DialogItem.Name"

@@ -68,7 +68,6 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
     {
         if (DialogItem != null && DialogItem.Equals(DialogItemCopy))
         {
-            ToastService.ShowWarning("Изменения отсутствуют");
             await Dialog.CancelAsync();
             return;
         }
