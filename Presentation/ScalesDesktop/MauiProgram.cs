@@ -17,6 +17,7 @@ public static class MauiProgram
 
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
+        builder.Services.AddFluentUIComponents();
         builder.Services.AddDomainServices();
         builder.Services.AddLabelsServices();
 
@@ -34,8 +35,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<LineContext>();
         builder.Services.AddSingleton<LabelContext>();
         builder.Services.AddSingleton<PalletContext>();
-
-        builder.Services.AddFluentUIComponents();
 
         return builder;
     }

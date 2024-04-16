@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0-android;</TargetFrameworks>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFramework>net8.0-android</TargetFramework>
 
         <OutputType>Exe</OutputType>
         <RootNamespace>ScalesMobile</RootNamespace>
@@ -24,8 +23,6 @@
         <ApplicationVersion>1</ApplicationVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">25.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -41,6 +38,10 @@
         <MauiAsset Include="wwwroot\font\Inter-SemiBold.ttf" />
         <MauiAsset Include="wwwroot\font\Inter-Thin.ttf" />
         <MauiAsset Include="wwwroot\inter.css" />
+        <MauiAsset Include="wwwroot\libs\dialog-animation.js" />
+        <MauiAsset Include="wwwroot\libs\focus-handler.js" />
+        <MauiAsset Include="wwwroot\libs\select-resize.js" />
+        <MauiAsset Include="wwwroot\libs\theme-utils.js" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
@@ -58,12 +59,61 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Blazor.Heroicons" Version="2.1.2.2" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.6.0" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.20" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Shared\NavMenu.razor" />
       <UpToDateCheckInput Remove="Shared\SurveyPrompt.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Dialog\Dialog.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Dialog\DialogHeader.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Tabs\Tab.razor" />
+      <UpToDateCheckInput Remove="Source\Shared\UI\Tabs\Tabs.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Source\Shared\UI\Button.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Dropdown.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\DropdownItem.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.en-US.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Source\Shared\Localization\ApplicationResources.en-US.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Source\Shared\Localization\ApplicationResources.ru-RU.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
