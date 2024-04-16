@@ -3,11 +3,26 @@
 @using ScalesDesktop.Source.Shared.Localization
 @using ScalesDesktop.Source.Shared.Services
 @using ScalesDesktop.Source.Shared.UI
+@using Ws.Domain.Models.Enums
 
 <div class="shrink-0 w-full flex gap-4 pt-4 border-t">
   <div class="flex items-center justify-center h-full">
     <div class="rounded-full flex items-center bg-secondary justify-center size-14">
-      <ComputerDesktopIcon class="h-6" />
+      @switch (LineContext.Line.Type)
+      {
+        case LineTypeEnum.Pc:
+          <ComputerDesktopIcon class="size-6" />
+          break;
+        case LineTypeEnum.Tablet:
+          <DeviceTabletIcon class="size-6" />
+          break;
+        case LineTypeEnum.Universal:
+          <ServerIcon class="size-6" />
+          break;
+        default:
+          <ExclamationTriangleIcon class="size-6 text-destructive" />
+          break;
+      }
     </div>
   </div>
   <div class="flex flex-col justify-center overflow-hidden w-full">

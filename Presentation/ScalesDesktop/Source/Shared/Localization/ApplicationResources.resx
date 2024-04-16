@@ -186,4 +186,7 @@
     <data name="LabelConfigEmptyPluWarning" xml:space="preserve">
         <value />
     </data>
+    <data name="BtnNext" xml:space="preserve">
+        <value />
+    </data>
 </root>

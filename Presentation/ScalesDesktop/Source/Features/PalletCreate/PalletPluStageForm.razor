@@ -1,0 +1,46 @@
+@using vNext.BlazorComponents.FluentValidation
+@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Scale
+@using ScalesDesktop.Source.Shared.Utils
+
+<EditForm
+  Model="FormModel"
+  OnValidSubmit="@OnValidSubmit"
+  class="max-w-md mx-auto w-full flex flex-col space-y-4"
+>
+  <FluentValidationValidator Validator="@(new PalletPluStageFormValidator())" />
+  <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
+    <SelectSingle
+      TItem="PluEntity"
+      Items="PluEntities"
+      @bind-SelectedItem="@FormModel.Plu"
+      @bind-SelectedItem:after="SetPluNestings"
+      Placeholder="@Localizer["PluSelectPlaceholder"]"
+      ItemDisplayName="entity => entity.DisplayName"
+      IsFilterable
+    />
+    <FieldValidation For="@(() => FormModel.Plu)" />
+  </FormFieldWrapper>
+  <FormFieldWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlId="nesting">
+    <SelectSingle
+      TItem="PluNestingEntity"
+      Items="PluNestingsEntities"
+      @bind-SelectedItem="FormModel.Nesting"
+      Placeholder="@Localizer["NestingSelectPlaceholder"]"
+      ItemDisplayName="NameFormatting.GetPluNestingFormattedName"
+      IsDisabled="@(FormModel.Plu == null || !PluNestingsEntities.Any())"
+    />
+    <FieldValidation For="@(() => FormModel.Nesting)" />
+  </FormFieldWrapper>
+  <div class="w-full flex justify-end gap-2 py-2">
+    <Button
+      OnClick="@OnCancelAction"
+      Variant="ButtonVariant.Outline"
+    >
+      @Localizer["BtnCancel"]
+    </Button>
+    <Button Type="BtnType.Submit">
+      @Localizer["BtnNext"]
+    </Button>
+  </div>
+</EditForm>
