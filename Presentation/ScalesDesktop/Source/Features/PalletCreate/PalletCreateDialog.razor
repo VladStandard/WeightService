@@ -1,10 +1,6 @@
 @implements IDialogContentComponent
 @using ScalesDesktop.Source.Shared.Localization
 @using Microsoft.Extensions.Localization
-@using ScalesDesktop.Source.Shared.Services
-@using Ws.Domain.Services.Features.Plu
-@using Ws.Labels.Service.Features.PrintLabel
-@using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto
 
 <Dialog class="max-w-screen-md">
   <DialogHeader>
@@ -24,7 +20,7 @@
     </Stepper>
     @if (CurrentStepIndex == 1)
     {
-      <PalletPluStageForm
+      <PalletFirstStageForm
         FormModel="FormModel"
         OnCancelAction="@(async() => await Dialog.CloseAsync())"
         OnValidSubmit="@(() => CurrentStepIndex = 2)"
@@ -43,52 +39,17 @@
       <PalletResultStageForm
         FormModel="FormModel"
         OnCancelAction="@(() => CurrentStepIndex = 2)"
-        OnSubmit="@CreatePallet"
+        OnSubmitAction="@(async () => await Dialog.CloseAsync())"
       />
     }
   </div>
 </Dialog>
 
 @code {
-  # region Injects
-
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
-  [Inject] private IPluService PluService { get; set; } = default!;
-  [Inject] private LineContext LineContext { get; set; } = default!;
-  [Inject] private IToastService ToastService { get; set; } = default!;
-
-  # endregion
   [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 
   private int CurrentStepIndex { get; set; } = 1;
   private PalletCreateModel FormModel { get; set; } = new();
 
-  private async Task CreatePallet()
-  {
-    DateTime createDt = FormModel.CreateDt ?? DateTime.Now;
-    LabelPiecePalletDto dto = new()
-    {
-      PalletMan = PalletContext.PalletMan,
-      Weight = FormModel.PalletWeight,
-      ExpirationDt = createDt.AddDays(FormModel.Plu!.ShelfLifeDays),
-      Kneading = FormModel.Kneading,
-      Line = LineContext.Line,
-      Plu = FormModel.Plu,
-      Characteristic = FormModel.Nesting!,
-      ProductDt = createDt,
-    };
-
-    try
-    {
-      await Task.Run(() => { PrintLabelService.GeneratePiecePallet(dto, FormModel.Count); });
-      PalletContext.UpdatePalletData();
-      await Dialog.CloseAsync();
-    }
-    catch
-    {
-      ToastService.ShowError("Ошибка при создании паллеты");
-    }
-  }
 }

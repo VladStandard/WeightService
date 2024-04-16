@@ -1,9 +1,9 @@
 @using Blazor.Heroicons.Outline
 @using ScalesDesktop.Source.Shared.Utils
 
-<div class="max-w-sm mx-auto w-full grid grid-cols-[auto_1fr] gap-x-3 space-y-1">
-  <div class="flex items-center text-muted-foreground">
-    <ClipboardIcon class="size-4 mr-1" />
+<div class="max-w-sm border bg-secondary/[.2] rounded-md p-4 mx-auto w-full grid grid-cols-[auto_1fr] gap-2">
+  <div class="flex text-muted-foreground">
+    <ClipboardIcon class="size-4 mr-1 mt-1" />
     <h3>@WsDataLocalizer["ColPlu"]</h3>
   </div>
   <span class="line-clamp-2">@FormModel.Plu!.DisplayName</span>
@@ -45,14 +45,15 @@
   <span class="line-clamp-2">@FormModel.Count</span>
 </div>
 
-<div class="w-full flex max-w-sm mx-auto justify-end gap-2 py-2">
+<div class="w-full flex max-w-sm mx-auto justify-end gap-2 pb-2 pt-4">
   <Button
     OnClick="@OnCancelAction"
     Variant="ButtonVariant.Outline"
+    Disabled="@IsLoading"
   >
     @Localizer["BtnBack"]
   </Button>
-  <Button OnClick="@OnSubmit">
+  <Button OnClick="@CreatePallet" Disabled="@IsLoading">
     @Localizer["BtnCreate"]
   </Button>
 </div>

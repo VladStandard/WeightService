@@ -2,6 +2,9 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Shared.Auth.Policies
+@using Ws.Domain.Models.Enums
+@using Blazor.Heroicons.Outline
+
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -23,9 +26,34 @@
   >
     <ColumnsContent>
       <DataGridColumn
+        Field="@(nameof(LineEntity.Type))"
+        Caption="@WsDataLocalizer["ColType"]"
+        Width="4rem"
+      >
+        <DisplayTemplate>
+          <div class="size-full flex items-center justify-center">
+            @switch (context.Type)
+            {
+              case LineTypeEnum.Pc:
+                <ComputerDesktopIcon class="size-5"/>
+                break;
+              case LineTypeEnum.Tablet:
+                <DeviceTabletIcon class="size-5"/>
+                break;
+              case LineTypeEnum.Universal:
+                <ServerIcon class="size-5"/>
+                break;
+              default:
+                <ExclamationTriangleIcon class="size-5 text-destructive"/>
+                break;
+            }
+          </div>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
         Caption="@WsDataLocalizer["ColVersion"]"
         Field="@nameof(LineEntity.Version)"
-        Width="10%"
+        Width="6rem"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColLine"]"

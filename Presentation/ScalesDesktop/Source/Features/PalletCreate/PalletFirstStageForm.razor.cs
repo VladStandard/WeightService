@@ -10,7 +10,7 @@ using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
-public sealed partial class PalletPluStageForm : ComponentBase
+public sealed partial class PalletFirstStageForm : ComponentBase
 {
     # region Injects
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
