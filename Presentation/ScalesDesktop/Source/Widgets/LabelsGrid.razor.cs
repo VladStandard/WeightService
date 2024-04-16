@@ -15,7 +15,7 @@ using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets;
 
-public sealed partial class LabelsGrid : ComponentBase
+public sealed partial class LabelsGrid : ComponentBase, IDisposable
 {
     # region Injects
 
@@ -33,12 +33,14 @@ public sealed partial class LabelsGrid : ComponentBase
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
     private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
+    private Action? StateChangedHandler { get; set; }
     private const int PrinterRequestDelay = 100;
 
     protected override void OnInitialized()
     {
         PrinterStatusSubscribe();
-        PalletContext.OnStateChanged += async() => await ResetDataGrid();
+        StateChangedHandler = async () => await ResetDataGrid();
+        PalletContext.OnStateChanged += StateChangedHandler;
     }
 
     protected override async Task OnInitializedAsync() => await InitializeData();
@@ -57,11 +59,23 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private void SelectAllItems() => SelectedItems = LabelData.Select(item => item.Label).ToList();
 
-    private Task<IQueryable<DataItem>> InitializeData()
-    {
-        return Task.Run(() => LabelData = PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid)
+    private Task<IQueryable<DataItem>> InitializeData() =>
+        Task.Run(() => LabelData = GetLabelsData()
             .Select((label, index) => new DataItem { Id = index + 1, Label = label })
             .AsQueryable());
+
+
+    private IEnumerable<LabelEntity> GetLabelsData()
+    {
+        try
+        {
+            return PalletService.GetAllLabels(PalletContext.CurrentPallet.Uid);
+        }
+        catch
+        {
+            ToastService.ShowError("Ошибка получения данных");
+            return [];
+        }
     }
 
     private async Task ResetDataGrid()
@@ -121,7 +135,12 @@ public sealed partial class LabelsGrid : ComponentBase
     private void PrinterStatusUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
 
-    public void Dispose() => PrinterStatusUnsubscribe();
+    public void Dispose()
+    {
+        PrinterStatusUnsubscribe();
+        if (StateChangedHandler != null)
+            PalletContext.OnStateChanged -= StateChangedHandler;
+    }
 }
 
 internal record DataItem
