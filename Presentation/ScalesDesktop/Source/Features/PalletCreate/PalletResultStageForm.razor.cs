@@ -43,9 +43,9 @@ public sealed partial class PalletResultStageForm : ComponentBase
             ExpirationDt = createDt.AddDays(FormModel.Plu!.ShelfLifeDays),
             Kneading = FormModel.Kneading,
             Line = LineContext.Line,
-            Nesting = FormModel.Nesting!,
+            Characteristic = FormModel.Nesting!,
             ProductDt = createDt,
-            Template = PluService.GetPluTemplate(FormModel.Plu).Body
+            Plu = FormModel.Plu,
         };
 
         try
