@@ -6,7 +6,25 @@
 
 
 <div class="size-full flex items-center justify-center">
-  <div class="bg-background max-w-lg shadow-sm w-full rounded-xl overflow-hidden p-6 border flex gap-6 flex-col">
+  @if (LineContext.Line.IsNew)
+  {
+    <div class="flex max-w-sm flex-col items-center gap-2">
+      <ExclamationTriangleIcon class="size-24 text-destructive" />
+      <div class="flex flex-col text-center">
+        <h2 class="text-lg font-semibold">Линия не настроена</h2>
+        <p class="text-xs">
+          Пожалуйста, обратитесь к технической поддержке для настройки линии. После настройки линии нажмите "Обновить"
+        </p>
+      </div>
+      <Button Size="ButtonSize.Large">
+        <ArrowPathIcon class="size-4 mr-4"/>
+        @Localizer["BtnUpdate"]
+      </Button>
+    </div>
+  }
+  else
+  {
+    <div class="bg-background max-w-lg shadow-sm w-full rounded-xl overflow-hidden p-6 border flex gap-6 flex-col">
     <div class="flex flex-col space-y-1 text-center">
       <h2 class="text-2xl font-semibold">@Localizer["AppName"]</h2>
       <p class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</p>
@@ -63,10 +81,11 @@
         <span class="font-medium truncate">@LineContext.Line.Name</span>
         <span class="truncate">@LineContext.Line.Warehouse.Name</span>
       </div>
-      <Button Class="shrink-0">
+      <Button Class="shrink-0" OnClick="@ResetLine">
         <ArrowPathIcon class="size-4 mr-4"/>
         @Localizer["BtnUpdate"]
       </Button>
     </div>
   </div>
+  }
 </div>

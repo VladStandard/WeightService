@@ -21,6 +21,8 @@ public sealed partial class HomePage : ComponentBase, IDisposable
 
     protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
 
+    private void ResetLine() => LineContext.ResetLine();
+
     private async Task ShowCloseAppDialog() => await DialogService.ShowDialogAsync<CloseAppDialog>(new());
 
     public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
