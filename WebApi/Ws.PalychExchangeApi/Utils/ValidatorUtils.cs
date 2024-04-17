@@ -8,7 +8,7 @@ internal static class ValidatorUtils
 
     public static bool BeValidWeight(decimal number, int min = 0, int max = 1)
     {
-        if (number > min && number < max) return false;
+        if (number < min && number > max) return false;
 
         string numberString = number.ToString(CultureInfo.InvariantCulture);
         string[] parts = numberString.Split('.');

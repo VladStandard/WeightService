@@ -102,7 +102,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 // new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
-                new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
+                // new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
             ]
         },
     ];

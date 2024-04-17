@@ -59,10 +59,11 @@ internal class LabelWeightGenerator(
             BarcodeBottom = ready.BarcodeBottom,
             BarcodeRight = ready.BarcodeRight,
             BarcodeTop = ready.BarcodeTop,
-            WeightNet = dto.Weight,
+            ProductDt = labelXml.ProductDtValue,
+            ExpirationDt = labelXml.ExpirationDtValue,
+            WeightNet = labelXml.Weight,
+            Kneading = labelXml.Kneading,
             WeightTare = dto.Plu.DefaultWeightTare,
-            Kneading = dto.Kneading,
-            ProductDt = dto.ProductDt,
             Line = dto.Line,
             Plu = dto.Plu
         };
