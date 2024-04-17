@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Printers;
 
-[Table(SqlTables.Printers)]
+[Table(SqlTables.Printers, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Printers}_NAME", IsUnique = true)]
 [Index(nameof(Ip), Name = $"UQ_{SqlTables.Printers}_IP_V4", IsUnique = true)]
 public sealed class PrinterEntity : EfEntityBase

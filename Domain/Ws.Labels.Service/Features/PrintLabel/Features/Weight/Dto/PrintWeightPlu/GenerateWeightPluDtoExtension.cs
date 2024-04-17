@@ -1,4 +1,5 @@
-﻿using XmlWeightLabelModel=Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel.XmlWeightLabelModel;
+﻿using Ws.Domain.Models.Entities.Print;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
 
@@ -19,5 +20,16 @@ internal static class GenerateWeightPluDtoExtension
             PluDescription = dto.Plu.Description,
             Weight = dto.Weight,
             Kneading = dto.Kneading,
+        };
+
+    internal static LabelEntity ToLabel(this GenerateWeightLabelDto dto) =>
+        new()
+        {
+            WeightNet = dto.Weight,
+            WeightTare = dto.Plu.DefaultWeightTare,
+            Kneading = dto.Kneading,
+            ProductDt = dto.ProductDt,
+            Line = dto.Line,
+            Plu = dto.Plu
         };
 }

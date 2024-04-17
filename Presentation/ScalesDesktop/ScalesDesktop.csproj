@@ -187,6 +187,9 @@
       <Content Update="Source\Shared\UI\DropdownItem.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
+      <Content Include=".Publish\dev.cmd" />
+      <Content Include=".Publish\prod.cmd" />
+      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
     </ItemGroup>
 
     <ItemGroup>

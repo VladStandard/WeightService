@@ -11,7 +11,7 @@ using Ws.Shared.Resources;
 namespace DeviceControl.Source.Pages.Operations.Labels;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class LabelsPage : SectionDataGridPageBase<ViewLabel>
+public sealed partial class LabelsPage : SectionDataGridPageBase<LabelEntity>
 {
     # region Injects
 
@@ -22,20 +22,20 @@ public sealed partial class LabelsPage : SectionDataGridPageBase<ViewLabel>
 
     # endregion
 
-    protected override async Task OpenDataGridEntityModal(ViewLabel item)
+    protected override async Task OpenDataGridEntityModal(LabelEntity item)
     {
         LabelEntity labelItem = LabelService.GetItemByUid(item.Uid);
         await DialogService.ShowDialogAsync<LabelsUpdateDialog>(new SectionDialogContent<LabelEntity> { Item = labelItem }, DialogParameters);
     }
 
-    protected override async Task OpenItemInNewTab(ViewLabel item)
+    protected override async Task OpenItemInNewTab(LabelEntity item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<ViewLabel> SetSqlSectionCast() => LabelService.GetAll();
+    protected override IEnumerable<LabelEntity> SetSqlSectionCast() => LabelService.GetAll();
 
-    protected override IEnumerable<ViewLabel> SetSqlSearchingCast()
+    protected override IEnumerable<LabelEntity> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return new[] { LabelService.GetViewByUid(itemUid) };
+        return new[] { LabelService.GetItemByUid(itemUid) };
     }
 }

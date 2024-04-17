@@ -7,6 +7,7 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletManEntity>
 {
     public SqlPalletManMap()
     {
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.PalletMen);
 
         Id(x => x.Uid, m =>

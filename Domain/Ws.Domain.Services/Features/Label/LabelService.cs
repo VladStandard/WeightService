@@ -11,10 +11,7 @@ internal class LabelService(SqlLabelRepository labelRepo) : ILabelService
     public LabelEntity GetItemByUid(Guid uid) => labelRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<ViewLabel> GetAll() => labelRepo.GetAllView();
-
-    [Transactional]
-    public ViewLabel GetViewByUid(Guid uid) => labelRepo.GetViewByUid(uid);
+    public IEnumerable<LabelEntity> GetAll() => labelRepo.GetAll();
 
     [Transactional, Validate<LabelNewValidator>]
     public LabelEntity Create(LabelEntity item)

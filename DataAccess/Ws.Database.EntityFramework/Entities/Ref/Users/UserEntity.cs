@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Users;
 
-[Table(SqlTables.Users)]
+[Table(SqlTables.Users, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Users}_NAME", IsUnique = true)]
 public sealed class UserEntity : EfEntityBase
 {

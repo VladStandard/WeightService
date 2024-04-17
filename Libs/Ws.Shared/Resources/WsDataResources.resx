@@ -3,7 +3,7 @@
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -244,6 +244,15 @@
         <value />
     </data>
     <data name="ColTemplateWeight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColBarcodeTop" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColBarcodeBottom" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColBarcodeRight" xml:space="preserve">
         <value />
     </data>
 </root>

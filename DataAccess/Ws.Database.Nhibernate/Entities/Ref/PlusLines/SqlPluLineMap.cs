@@ -7,6 +7,7 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
 {
     public SqlPluLineMap()
     {
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.PlusLines);
 
         ComposedId(map =>
@@ -19,7 +20,7 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
 
             map.ManyToOne(x => x.Line, m =>
             {
-                m.Column("LINE_UID");
+                m.Column("ARM_UID");
                 m.Lazy(LazyRelation.NoLazy);
             });
         });
@@ -33,7 +34,7 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
 
         ManyToOne(x => x.Line, m =>
         {
-            m.Column("LINE_UID");
+            m.Column("ARM_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });

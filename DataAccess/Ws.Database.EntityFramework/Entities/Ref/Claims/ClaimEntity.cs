@@ -2,7 +2,7 @@ using Ws.Database.EntityFramework.Entities.Ref.Users;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Claims;
 
-[Table(SqlTables.Claims)]
+[Table(SqlTables.Claims, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Claims}_NAME", IsUnique = true)]
 public sealed class ClaimEntity : EfEntityBase
 {

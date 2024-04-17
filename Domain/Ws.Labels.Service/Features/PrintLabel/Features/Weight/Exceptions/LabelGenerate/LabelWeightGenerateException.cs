@@ -2,5 +2,5 @@ namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Exceptions.Label
 
 public class LabelWeightGenerateException(LabelGenExceptionEnum exception) : Exception
 {
-    public LabelGenExceptionEnum Code = exception;
+    public readonly LabelGenExceptionEnum Code = exception;
 }

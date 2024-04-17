@@ -20,4 +20,5 @@ internal static class SqlTables
     public const string Warehouses = "WAREHOUSES";
     public const string Templates = "TEMPLATES";
     public const string Users = "USERS";
+    public const string Labels = "LABELS";
 }

@@ -1,3 +1,4 @@
+using System.Data;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
@@ -21,18 +22,18 @@ internal static class LineMapExtension
             entity.HasMany(e => e.Plus)
                 .WithMany()
                 .UsingEntity(
-                "LINES_PLUS_FK",
+                "ARMS_PLUS_FK",
                 l => l.HasOne(typeof(PluEntity))
                     .WithMany()
                     .HasForeignKey("PLU_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasPrincipalKey(nameof(PluEntity.Id)),
                 r => r.HasOne(typeof(LineEntity))
                     .WithMany()
-                    .HasForeignKey("LINE_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasForeignKey("ARM_UID")
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasPrincipalKey(nameof(LineEntity.Id)),
-                j => j.HasKey("PLU_UID", "LINE_UID"));
+                j => j.HasKey("PLU_UID", "ARM_UID"));
         });
     }
 }

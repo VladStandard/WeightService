@@ -18,13 +18,13 @@ public class LabelEntity : EntityBase
     public virtual decimal WeightTare { get; set; }
     public virtual short Kneading { get; set; }
     public virtual Guid? PalletUid { get; set; }
-    public virtual PluEntity Plu { get; set; } = new();
+    public virtual PluEntity? Plu { get; set; }
     public virtual LineEntity Line { get; set; } = new();
     public virtual DateTime ProductDt { get; set; } = SqlTypeUtils.MinDateTime;
     public virtual DateTime ExpirationDt { get; set; } = SqlTypeUtils.MinDateTime;
     public virtual decimal WeightGross => WeightNet + WeightTare;
 
-    public override string ToString() => $"{CreateDt} : {Plu.Name}";
+    public override string ToString() => $"{CreateDt} : {Plu?.Name}";
 
     protected override bool CastEquals(EntityBase obj)
     {

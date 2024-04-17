@@ -9,6 +9,7 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
 {
     public SqlPrinterMap()
     {
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Printers);
 
         Id(x => x.Uid, m =>

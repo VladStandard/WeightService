@@ -8,6 +8,7 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
 {
     public SqlLineMap()
     {
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Lines);
 
         Id(x => x.Uid, m =>

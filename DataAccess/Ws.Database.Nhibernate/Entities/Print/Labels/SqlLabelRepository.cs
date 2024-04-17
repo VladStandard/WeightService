@@ -9,9 +9,8 @@ public sealed class SqlLabelRepository : BaseRepository, IGetItemByUid<LabelEnti
 {
     public LabelEntity GetByUid(Guid uid) => Session.Get<LabelEntity>(uid) ?? new();
 
-    public ViewLabel GetViewByUid(Guid uid) => Session.Get<ViewLabel>(uid) ?? new();
+    public IEnumerable<LabelEntity> GetAll() => Session.Query<LabelEntity>()
+        .OrderByDescending(i => i.CreateDt).ToList();
 
-    public IEnumerable<ViewLabel> GetAllView() => Session.Query<ViewLabel>().ToList();
-
-    public LabelEntity Save(LabelEntity item) { Session.Save(item); return item; }
+    public LabelEntity Save(LabelEntity item) { Session.Merge(item); return item; }
 }

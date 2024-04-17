@@ -15,7 +15,7 @@ public class ClaimsInRedisCacheProvider : IClaimsCacheProvider
         throw new NotImplementedException();
     }
 
-    public void ClearCacheByUserName(String username)
+    public void ClearCacheByUserName(string username)
     {
         throw new NotImplementedException();
     }

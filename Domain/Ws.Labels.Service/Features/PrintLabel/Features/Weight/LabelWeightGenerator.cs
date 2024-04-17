@@ -66,7 +66,7 @@ internal class LabelWeightGenerator(
             Line = dto.Line,
             Plu = dto.Plu
         };
-        // labelService.Create(labelSql);
+        labelService.Create(labelSql);
 
         return labelSql;
     }

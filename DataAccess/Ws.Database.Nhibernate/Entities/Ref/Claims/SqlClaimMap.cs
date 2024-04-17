@@ -7,6 +7,7 @@ internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
 {
     public SqlClaimMap()
     {
+        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Claims);
 
         Id(x => x.Uid, m =>

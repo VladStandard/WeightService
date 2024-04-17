@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
-[Table(SqlTables.PalletMen)]
+[Table(SqlTables.PalletMen, Schema = SqlSchemas.Ref)]
 [Index(nameof(Name), nameof(Surname), nameof(Patronymic), Name = $"UQ_{SqlTables.PalletMen}_FIO", IsUnique = true)]
 // [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
 public sealed class PalletManEntity : EfEntityBase

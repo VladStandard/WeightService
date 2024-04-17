@@ -87,6 +87,33 @@ namespace Ws.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Barcode Bottom.
+        /// </summary>
+        public static string ColBarcodeBottom {
+            get {
+                return ResourceManager.GetString("ColBarcodeBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barcode Right.
+        /// </summary>
+        public static string ColBarcodeRight {
+            get {
+                return ResourceManager.GetString("ColBarcodeRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barcode Top.
+        /// </summary>
+        public static string ColBarcodeTop {
+            get {
+                return ResourceManager.GetString("ColBarcodeTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Box.
         /// </summary>
         public static string ColBox {

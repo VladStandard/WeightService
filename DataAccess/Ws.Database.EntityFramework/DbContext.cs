@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Ws.Database.EntityFramework.Entities.Print;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
@@ -18,6 +20,7 @@ using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 using Ws.Database.EntityFramework.Extensions;
 using Ws.Database.EntityFramework.Interceptors;
+using Ws.Database.EntityFramework.Models;
 using Ws.Shared.Utils;
 
 namespace Ws.Database.EntityFramework;
@@ -41,13 +44,15 @@ public class WsDbContext : DbContext
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<NestingEntity> Nestings { get; set; }
     public DbSet<CharacteristicEntity> Characteristics { get; set; }
+    public DbSet<LabelEntity> Labels { get; set; }
 
     private static readonly ILoggerFactory MyLoggerFactory
         = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=CREATIO\\INS1;Database=WEIGHT;User Id=DEVOLOPER;Password=Hz&V5Gnq4d4584;TrustServerCertificate=true;");
+
+        optionsBuilder.UseSqlServer(LoadJsonConfig().GetConnectionString());
         optionsBuilder.AddInterceptors(new ChangeDtInterceptor());
 
         if (ConfigurationUtil.IsDevelop)
@@ -65,5 +70,16 @@ public class WsDbContext : DbContext
         modelBuilder.MapNesting();
         modelBuilder.MapCharacteristic();
         // modelBuilder.MapCharacteristic();
+    }
+
+    private static SqlSettingsModels LoadJsonConfig()
+    {
+        IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
+            .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
+            .Build();
+
+        SqlSettingsModels sqlSettingsModels = new();
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
+        return sqlSettingsModels;
     }
 }
