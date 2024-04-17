@@ -1,7 +1,8 @@
 ﻿@using DeviceControl.Source.Widgets.NavMenu
+@using Ws.Shared.Utils
 @inherits LayoutComponentBase
 
-<div class="flex w-full relative h-screen overflow-x-hidden">
+<div class="@Css.Class("flex w-full relative h-screen overflow-x-hidden", IsProduction ? "bg-dot-black/[.15] dark:bg-dot-white/[.1]" : "")">
   <div class="grid w-full min-h-full h-fit grid-cols-[17rem,1fr] grid-rows-1 grow">
     <NavMenu />
     <main class="flex flex-col size-full grow bg-secondary/[.3] dark:bg-inherit">
@@ -12,3 +13,9 @@
 
 <FluentDialogProvider @rendermode="InteractiveServer" />
 <FluentToastProvider @rendermode="InteractiveServer" />
+
+@code {
+  private bool IsProduction { get; set; }
+
+  protected override void OnInitialized() => IsProduction = !ConfigurationUtil.IsDevelop;
+}
