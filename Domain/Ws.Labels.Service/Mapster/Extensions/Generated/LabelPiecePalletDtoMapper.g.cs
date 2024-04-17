@@ -1,10 +1,13 @@
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Models;
+
 namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto
 {
     public static partial class LabelPiecePalletDtoMapper
     {
-        public static Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models.XmlPieceLabelModel AdaptToXmlPieceLabelModel(this Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto.LabelPiecePalletDto p1)
+        public static XmlPieceLabelModel AdaptToXmlPieceLabelModel(this GeneratePiecePalletDto p1)
         {
-            return p1 == null ? null : new Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models.XmlPieceLabelModel()
+            return p1 == null ? null : new XmlPieceLabelModel()
             {
                 Kneading = p1.Kneading,
                 ExpirationDtValue = p1.ExpirationDt,

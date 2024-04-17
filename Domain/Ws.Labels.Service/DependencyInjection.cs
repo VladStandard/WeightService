@@ -1,7 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece;
-using Ws.Labels.Service.Features.PrintLabel.Types.Weight;
 using Ws.Labels.Service.Features.RenderLabel;
 
 namespace Ws.Labels.Service;

@@ -1,6 +1,6 @@
-namespace Ws.Labels.Service.Features.PrintLabel.Dto;
+namespace Ws.Labels.Service.Features.PrintLabel.Models;
 
-internal record ZplItemsDto
+internal record ZplPrintItems
 {
     public required string Template;
     public required string StorageMethod;

@@ -5,6 +5,7 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
 using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.Shared.Resources;
 
@@ -36,7 +37,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         IsLoading = true;
 
         DateTime createDt = FormModel.CreateDt ?? DateTime.Now;
-        LabelPiecePalletDto dto = new()
+        GeneratePiecePalletDto dto = new()
         {
             PalletMan = PalletContext.PalletMan,
             Weight = FormModel.PalletWeight,

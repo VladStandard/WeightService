@@ -20,5 +20,9 @@ public class PluValidValidator : AbstractValidator<PluEntity>
         RuleFor(item => item.TemplateUid)
             .NotNull()
             .NotEqual(Guid.Empty).WithMessage("Шаблон не задан");
+
+        RuleFor(item => item.StorageMethod)
+            .Must(value => value is "Замороженное" or "Охлаждённое")
+            .WithMessage("Способ хранения - должен быть ['Замороженное', 'Охлаждённое']");
     }
 }

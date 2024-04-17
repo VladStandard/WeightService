@@ -1,17 +1,14 @@
 using System.Xml.Serialization;
-using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Models.XmlLabelBase;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
+namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel;
 
 [Serializable]
-public class XmlWeightLabelModel : XmlLabelBaseModel
+public partial class XmlWeightLabelModel : XmlLabelBaseModel
 {
-    [XmlIgnore] public decimal Weight { get; set; }
-
     [XmlElement]
-    public string WeightStr
-    {
+    public string WeightStr {
         get => DecimalUtils.ToStrWithSep(Weight, ",");
         set => _ = value;
     }
@@ -39,6 +36,4 @@ public class XmlWeightLabelModel : XmlLabelBaseModel
         get => $"(01){PluGtin}(3103){GetWeightStr(6)}(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;
     }
-
-    public string GetWeightStr(int len) => DecimalUtils.ToStrToLen(Weight, len);
 }

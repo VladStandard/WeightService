@@ -1,13 +1,12 @@
 using FluentValidation;
-using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Models;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Validators;
+namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Validators;
 
-internal class XmlWeightLabelValidator : AbstractValidator<XmlWeightLabelModel>
+internal class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabelModel>
 {
-    public XmlWeightLabelValidator()
+    public XmlLabelPiecePalletValidator()
     {
-        RuleFor(i => i.Weight).GreaterThanOrEqualTo((decimal)0.100).WithMessage("Вес должен быть > 0.100 у весовой ПЛУ");
         RuleFor(i => i.LineNumber).GreaterThanOrEqualTo(0).WithMessage("Номер линии должен быть >= 1");
         RuleFor(i => i.Kneading).GreaterThanOrEqualTo((short)1).WithMessage("Замес должен быть >= 1");
         RuleFor(i => i.LineCounter).GreaterThanOrEqualTo(0).WithMessage("Счетчик линии должен быть >= 0");

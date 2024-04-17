@@ -12,7 +12,7 @@ public sealed class SqlPalletRepository : BaseRepository, ISave<PalletEntity>
             .OrderByDescending(i => i.CreateDt).ToList();
 
     public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) =>
-        Session.Query<LabelEntity>().Where(i => i.Pallet!.Uid == palletUid)
+        Session.Query<LabelEntity>().Where(i => i.PalletUid == palletUid)
             .OrderByDescending(i => i.CreateDt).ToList();
 
     public ViewPallet GetViewByUid(Guid uid) => Session.Get<ViewPallet>(uid) ?? new();

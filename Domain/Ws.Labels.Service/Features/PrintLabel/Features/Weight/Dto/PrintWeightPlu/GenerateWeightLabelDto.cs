@@ -1,14 +1,13 @@
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
+namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
 
-public class LabelWeightDto
+public class GenerateWeightLabelDto
 {
-    public required LineEntity Line { get; init; }
     public required PluEntity Plu { get; init; }
+    public required LineEntity Line { get; init; }
     public required decimal Weight { get; init; }
     public required short Kneading { get; init; }
     public required DateTime ProductDt { get; init; }
-    public required DateTime ExpirationDt { get; init; }
 }

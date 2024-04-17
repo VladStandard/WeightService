@@ -1,4 +1,5 @@
-using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Models;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models;
+using XmlWeightLabelModel=Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel.XmlWeightLabelModel;
 
 namespace Ws.Labels.Tests;
 
@@ -15,7 +16,12 @@ public class XmlWeightLabelModelTests
             LineNumber = 10430,
             ProductDtValue = new(2023, 12, 5, 15, 19, 49),
             PluGtin = "02600770000002",
-            PluNumber = 333
+            PluNumber = 333,
+            ExpirationDtValue = default,
+            LineName = "",
+            LineAddress = "",
+            PluFullName = "",
+            PluDescription = ""
         };
         Assert.Equal("2991043000288095", labelModel.BarCodeRight);
         Assert.Equal("298104300028809523120515194933316696016", labelModel.BarCodeTop);
@@ -33,7 +39,12 @@ public class XmlWeightLabelModelTests
             LineNumber = 12312,
             ProductDtValue = new(2023, 12, 12, 16, 17, 38),
             PluGtin = "02600914000004",
-            PluNumber = 101
+            PluNumber = 101,
+            ExpirationDtValue = default,
+            LineName = "",
+            LineAddress = "",
+            PluFullName = "",
+            PluDescription = ""
         };
         Assert.Equal("2991231200000200", labelModel.BarCodeRight);
         Assert.Equal("298123120000020023121216173810102360001", labelModel.BarCodeTop);

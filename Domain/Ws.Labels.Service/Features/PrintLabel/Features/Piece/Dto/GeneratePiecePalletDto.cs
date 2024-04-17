@@ -1,9 +1,9 @@
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
+namespace Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
 
-public record LabelPiecePalletDto
+public record GeneratePiecePalletDto
 {
     public required PalletManEntity PalletMan { get; init; }
     public required decimal Weight { get; init; }

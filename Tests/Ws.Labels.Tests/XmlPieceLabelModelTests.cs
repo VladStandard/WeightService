@@ -1,4 +1,4 @@
-using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Models;
 
 namespace Ws.Labels.Tests;
 
@@ -15,7 +15,12 @@ public class XmlPieceLabelModelTests
             LineNumber = 12312,
             ProductDtValue = new(2023, 11, 20, 11, 40, 29),
             PluGtin = "14607100238000",
-            PluNumber = 844
+            PluNumber = 844,
+            ExpirationDtValue = default,
+            LineName = "",
+            LineAddress = "",
+            PluFullName = "",
+            PluDescription = ""
         };
         Assert.Equal("23412312000101231120", xmlPieceLabelModel.BarCodeRight);
         Assert.Equal("233123121500010123112011402984400000001", xmlPieceLabelModel.BarCodeTop);

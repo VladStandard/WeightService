@@ -1,10 +1,16 @@
-using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
-using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
+using Ws.Domain.Models.Entities.Print;
+using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
 
 namespace Ws.Labels.Service.Features.PrintLabel;
 
 public interface IPrintLabelService
 {
-    string GenerateWeightLabel(LabelWeightDto labelInfo);
-    void GeneratePiecePallet(LabelPiecePalletDto labelPalletDto, int labelCount);
+    /// <summary>
+    /// Создает весовую этикетку
+    /// </summary>
+    /// <exception cref="LabelWeightGenerateException">Ошибка формирования.</exception>
+    LabelEntity GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
+
+    void GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount);
 }

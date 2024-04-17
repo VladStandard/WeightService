@@ -1,8 +1,8 @@
 using System.Xml.Serialization;
-using Ws.Labels.Service.Features.PrintLabel.Common;
+using Ws.Labels.Service.Features.PrintLabel.Models.XmlLabelBase;
 using Ws.Shared.TypeUtils;
 
-namespace Ws.Labels.Service.Features.PrintLabel.Types.Piece.Models;
+namespace Ws.Labels.Service.Features.PrintLabel.Features.Piece.Models;
 
 [Serializable]
 public class XmlPieceLabelModel : XmlLabelBaseModel

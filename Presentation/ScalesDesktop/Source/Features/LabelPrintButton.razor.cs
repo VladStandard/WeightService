@@ -7,7 +7,8 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
 using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Types.Weight.Dto;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Exceptions.LabelGenerate;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
@@ -65,11 +66,22 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 
         try
         {
-            LabelWeightDto labelDto = CreateLabelInfoDto();
-            string zpl = PrintLabelService.GenerateWeightLabel(labelDto);
-            ExternalDevices.Printer.PrintLabel(zpl);
-            LabelContext.Line.Counter += 1;
-            LineService.Update(LabelContext.Line);
+            GenerateWeightLabelDto generateLabelDto = CreateLabelInfoDto();
+
+            try
+            {
+               string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
+
+               // TODO: PrintLabel, Counter, Update remove from this try
+               ExternalDevices.Printer.PrintLabel(zpl);
+               LabelContext.Line.Counter += 1;
+               LineService.Update(LabelContext.Line);
+            }
+            catch (LabelWeightGenerateException ex)
+            {
+                // TODO: Localize exception while generating label
+                ToastService.ShowError(ex.Code.ToString());
+            }
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
@@ -102,16 +114,14 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         return true;
     }
 
-    private LabelWeightDto CreateLabelInfoDto() =>
+    private GenerateWeightLabelDto CreateLabelInfoDto() =>
         new()
         {
-            Kneading = (short)LabelContext.KneadingModel.KneadingCount,
-            Weight = GetWeight(),
             Plu = LabelContext.Plu,
             Line = LabelContext.Line,
-            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
-            ExpirationDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
-                .AddDays(LabelContext.Plu.ShelfLifeDays)
+            Weight = GetWeight(),
+            Kneading = (short)LabelContext.KneadingModel.KneadingCount,
+            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
         };
 
     private static DateTime GetProductDt(DateTime time) =>

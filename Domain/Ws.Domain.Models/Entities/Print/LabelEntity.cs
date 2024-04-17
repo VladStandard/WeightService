@@ -17,11 +17,12 @@ public class LabelEntity : EntityBase
     public virtual decimal WeightNet { get; set; }
     public virtual decimal WeightTare { get; set; }
     public virtual short Kneading { get; set; }
-    public virtual PalletEntity? Pallet { get; set; }
+    public virtual Guid? PalletUid { get; set; }
     public virtual PluEntity Plu { get; set; } = new();
     public virtual LineEntity Line { get; set; } = new();
     public virtual DateTime ProductDt { get; set; } = SqlTypeUtils.MinDateTime;
     public virtual DateTime ExpirationDt { get; set; } = SqlTypeUtils.MinDateTime;
+    public virtual decimal WeightGross => WeightNet + WeightTare;
 
     public override string ToString() => $"{CreateDt} : {Plu.Name}";
 
@@ -39,6 +40,6 @@ public class LabelEntity : EntityBase
                Equals(Kneading, item.Kneading) &&
                Equals(Plu, item.Plu) &&
                Equals(Line, item.Line) &&
-               Equals(Pallet, item.Pallet);
+               Equals(PalletUid, item.PalletUid);
     }
 }

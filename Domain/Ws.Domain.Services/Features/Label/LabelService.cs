@@ -19,7 +19,6 @@ internal class LabelService(SqlLabelRepository labelRepo) : ILabelService
     [Transactional, Validate<LabelNewValidator>]
     public LabelEntity Create(LabelEntity item)
     {
-        item.Pallet = null;
         return labelRepo.Save(item);
     }
 }

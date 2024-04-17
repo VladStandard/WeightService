@@ -27,7 +27,7 @@ internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository 
         pallet = palletRepo.Save(pallet);
         foreach (LabelEntity label in labels)
         {
-            label.Pallet = pallet;
+            label.PalletUid = pallet.Uid;
             labelRepo.Save(label);
         }
     }
