@@ -189,4 +189,16 @@
     <data name="BtnNext" xml:space="preserve">
         <value>Далее</value>
     </data>
+    <data name="LabelGenErrorInvalid" xml:space="preserve">
+        <value>Этикетка неверна</value>
+    </data>
+    <data name="LabelGenErrorTemplateNotFound" xml:space="preserve">
+        <value>Шаблон не найден</value>
+    </data>
+    <data name="LabelGenErrorStorageMethodNotFound" xml:space="preserve">
+        <value>Метод хранения не найден</value>
+    </data>
+    <data name="UnknownError" xml:space="preserve">
+        <value>Неизвестная ошибка</value>
+    </data>
 </root>

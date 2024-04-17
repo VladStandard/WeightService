@@ -64,30 +64,31 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
 
         if (!ValidateScalesStatus() || !ValidatePrinterStatus()) return;
 
+        GenerateWeightLabelDto generateLabelDto = CreateLabelInfoDto();
+
         try
         {
-            GenerateWeightLabelDto generateLabelDto = CreateLabelInfoDto();
-
-            try
-            {
-               string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
-
-               // TODO: PrintLabel, Counter, Update remove from this try
-               ExternalDevices.Printer.PrintLabel(zpl);
-               LabelContext.Line.Counter += 1;
-               LineService.Update(LabelContext.Line);
-            }
-            catch (LabelWeightGenerateException ex)
-            {
-                // TODO: Localize exception while generating label
-                ToastService.ShowError(ex.Code.ToString());
-            }
-            await InvokeAsync(StateHasChanged);
+            string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
+            ExternalDevices.Printer.PrintLabel(zpl);
+            LabelContext.Line.Counter += 1;
+            LineService.Update(LabelContext.Line);
         }
-        catch (Exception ex)
+        catch (LabelWeightGenerateException ex)
         {
-            ToastService.ShowError(ex.ToString());
+            ToastService.ShowError(ex.Code switch
+            {
+                LabelGenExceptionEnum.Invalid => Localizer["LabelGenErrorInvalid"],
+                LabelGenExceptionEnum.TemplateNotFound => Localizer["LabelGenErrorTemplateNotFound"],
+                LabelGenExceptionEnum.StorageMethodNotFound => Localizer["LabelGenErrorStorageMethodNotFound"],
+                _ => Localizer["UnknownError"]
+            });
         }
+        catch (Exception)
+        {
+            ToastService.ShowError(Localizer["UnknownError"]);
+        }
+
+        await InvokeAsync(StateHasChanged);
     }
 
     private bool ValidatePrinterStatus()

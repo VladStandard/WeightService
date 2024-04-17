@@ -189,4 +189,16 @@
     <data name="BtnNext" xml:space="preserve">
         <value />
     </data>
+    <data name="LabelGenErrorInvalid" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenErrorTemplateNotFound" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenErrorStorageMethodNotFound" xml:space="preserve">
+        <value />
+    </data>
+    <data name="UnknownError" xml:space="preserve">
+        <value />
+    </data>
 </root>
