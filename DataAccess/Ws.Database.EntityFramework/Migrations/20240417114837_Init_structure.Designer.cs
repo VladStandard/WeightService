@@ -12,8 +12,8 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240404060252_AddWeightColumn_PluTable")]
-    partial class AddWeightColumn_PluTable
+    [Migration("20240417114837_Init_structure")]
+    partial class Init_structure
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,22 +25,22 @@ namespace Ws.Database.EntityFramework.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LINES_PLUS_FK", b =>
+            modelBuilder.Entity("ARMS_PLUS_FK", b =>
                 {
                     b.Property<Guid>("PLU_UID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LINE_UID")
+                    b.Property<Guid>("ARM_UID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PLU_UID", "LINE_UID");
+                    b.HasKey("PLU_UID", "ARM_UID");
 
-                    b.HasIndex("LINE_UID");
+                    b.HasIndex("ARM_UID");
 
-                    b.ToTable("LINES_PLUS_FK");
+                    b.ToTable("ARMS_PLUS_FK");
                 });
 
-            modelBuilder.Entity("USERS_СLAIMS_FK", b =>
+            modelBuilder.Entity("USERS_CLAIMS_FK", b =>
                 {
                     b.Property<Guid>("CLAIM_UID")
                         .HasColumnType("uniqueidentifier");
@@ -52,7 +52,82 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("USER_UID");
 
-                    b.ToTable("USERS_СLAIMS_FK");
+                    b.ToTable("USERS_CLAIMS_FK", "REF");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Print.LabelEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("ARM_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BarcodeBottom")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("BARCODE_BOTTOM");
+
+                    b.Property<string>("BarcodeRight")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("BARCODE_RIGHT");
+
+                    b.Property<string>("BarcodeTop")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("BARCODE_TOP");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("ExpirationDt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EXPIRATION_DT");
+
+                    b.Property<short>("Kneading")
+                        .HasColumnType("smallint")
+                        .HasColumnName("KNEADING");
+
+                    b.Property<Guid?>("PLU_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ProductDt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PRODUCT_DT");
+
+                    b.Property<decimal>("WeightNet")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT_NET");
+
+                    b.Property<decimal>("WeightTare")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT_TARE");
+
+                    b.Property<string>("Zpl")
+                        .IsRequired()
+                        .HasMaxLength(10240)
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ZPL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ARM_UID");
+
+                    b.HasIndex("PLU_UID");
+
+                    b.HasIndex(new[] { "BarcodeTop" }, "UQ_PLUS_BARCODE_TOP")
+                        .IsUnique();
+
+                    b.ToTable("LABELS", "PRINT");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Claims.ClaimEntity", b =>
@@ -79,7 +154,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_CLAIMS_NAME")
                         .IsUnique();
 
-                    b.ToTable("CLAIMS");
+                    b.ToTable("CLAIMS", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Lines.LineEntity", b =>
@@ -120,13 +195,13 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("PcName")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
                         .HasColumnName("PC_NAME");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("varchar(8)")
+                        .HasColumnType("varchar(12)")
                         .HasColumnName("TYPE");
 
                     b.Property<Guid>("WAREHOUSE_UID")
@@ -138,16 +213,16 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("WAREHOUSE_UID");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_LINES_NAME")
+                    b.HasIndex(new[] { "Name" }, "UQ_ARMS_NAME")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
+                    b.HasIndex(new[] { "Number" }, "UQ_ARMS_NUMBER")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "PcName" }, "UQ_LINES_PC_NAME")
+                    b.HasIndex(new[] { "PcName" }, "UQ_ARMS_PC_NAME")
                         .IsUnique();
 
-                    b.ToTable("LINES");
+                    b.ToTable("ARMS", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.PalletMen.PalletManEntity", b =>
@@ -193,41 +268,12 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnType("nvarchar(32)")
                         .HasColumnName("SURNAME");
 
-                    b.Property<Guid>("Uid1C")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID_1C");
-
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "Name", "Surname", "Patronymic" }, "UQ_PALLET_MEN_FIO")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_PALLET_MEN_UID_1C")
-                        .IsUnique();
-
-                    b.ToTable("PALLET_MEN");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<Guid>("STORAGE_METHOD_UID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TEMPLATE_UID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("STORAGE_METHOD_UID");
-
-                    b.HasIndex("TEMPLATE_UID");
-
-                    b.ToTable("PLUS_RESOURCES");
+                    b.ToTable("PALLET_MEN", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Printers.PrinterEntity", b =>
@@ -278,7 +324,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_PRINTERS_NAME")
                         .IsUnique();
 
-                    b.ToTable("PRINTERS");
+                    b.ToTable("PRINTERS", "REF");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.ProductionSites.ProductionSiteEntity", b =>
@@ -320,7 +366,398 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_PRODUCTION_SITES_NAME")
                         .IsUnique();
 
-                    b.ToTable("PRODUCTION_SITES");
+                    b.ToTable("PRODUCTION_SITES", "REF");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("LoginDt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LOGIN_DT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("NAME");
+
+                    b.Property<Guid?>("PRODUCTION_SITE_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PRODUCTION_SITE_UID");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_USERS_NAME")
+                        .IsUnique();
+
+                    b.ToTable("USERS", "REF");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Warehouses.WarehouseEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("NAME");
+
+                    b.Property<Guid>("PRODUCTION_SITE_UID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PRODUCTION_SITE_UID");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
+                        .IsUnique();
+
+                    b.ToTable("WAREHOUSES", "REF");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BOXES", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("NAME");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UQ_BRANDS_NAME")
+                        .IsUnique();
+
+                    b.ToTable("BRANDS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BUNDLES", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BoxId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BOX_UID");
+
+                    b.Property<short>("BundleCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("BUNDLE_COUNT");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<Guid>("PluId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("PLU_UID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoxId");
+
+                    b.HasIndex(new[] { "PluId", "BoxId", "BundleCount" }, "UQ_CHARACTERISTICS_UNIQ")
+                        .IsUnique();
+
+                    b.ToTable("CHARACTERISTICS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("NAME");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CLIPS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BoxId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BOX_UID");
+
+                    b.Property<short>("BundleCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("BUNDLE_COUNT");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoxId");
+
+                    b.ToTable("NESTINGS", "REF_1C");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UID");
+
+                    b.Property<Guid>("BrandEntityId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BRAND_UID");
+
+                    b.Property<Guid>("BundleEntityId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("BUNDLE_UID");
+
+                    b.Property<DateTime>("ChangeDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CHANGE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid>("ClipEntityId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CLIP_UID");
+
+                    b.Property<DateTime>("CreateDt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CREATE_DT")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("DESCRIPTION");
+
+                    b.Property<string>("Ean13")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar")
+                        .HasColumnName("EAN_13");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("FULL_NAME");
+
+                    b.Property<bool>("IsWeight")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_WEIGHT");
+
+                    b.Property<string>("Itf14")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar")
+                        .HasColumnName("ITF_14");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("NAME");
+
+                    b.Property<short>("Number")
+                        .HasColumnType("smallint")
+                        .HasColumnName("NUMBER");
+
+                    b.Property<short>("ShelfLifeDays")
+                        .HasColumnType("smallint")
+                        .HasColumnName("SHELF_LIFE_DAYS");
+
+                    b.Property<string>("StorageMethod")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)")
+                        .HasColumnName("STORAGE_METHOD");
+
+                    b.Property<Guid?>("TemplateEntityId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("TEMPLATE_UID");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(4,3)")
+                        .HasColumnName("WEIGHT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandEntityId");
+
+                    b.HasIndex("BundleEntityId");
+
+                    b.HasIndex("ClipEntityId");
+
+                    b.HasIndex(new[] { "Number" }, "UQ_PLUS_NUMBER")
+                        .IsUnique();
+
+                    b.ToTable("PLUS", "REF_1C");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", b =>
@@ -362,7 +799,7 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL")
                         .IsUnique();
 
-                    b.ToTable("STORAGE_METHODS");
+                    b.ToTable("STORAGE_METHODS", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", b =>
@@ -390,92 +827,30 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnName("CREATE_DT")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
+                    b.Property<short>("Height")
+                        .HasColumnType("smallint")
+                        .HasColumnName("HEIGHT");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_TEMPLATES_NAME")
-                        .IsUnique();
-
-                    b.ToTable("TEMPLATES");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Users.UserEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("LoginDt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LOGIN_DT");
+                    b.Property<bool>("IsWeight")
+                        .HasColumnType("bit")
+                        .HasColumnName("IS_WEIGHT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
                         .HasColumnName("NAME");
 
-                    b.Property<Guid?>("PRODUCTION_SITE_UID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<short>("Width")
+                        .HasColumnType("smallint")
+                        .HasColumnName("WIDTH");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PRODUCTION_SITE_UID");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_USERS_NAME")
+                    b.HasIndex(new[] { "Name", "IsWeight" }, "UQ_TEMPLATES_NAME_IS_WEIGHT")
                         .IsUnique();
 
-                    b.ToTable("USERS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Warehouses.WarehouseEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.Property<Guid>("PRODUCTION_SITE_UID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PRODUCTION_SITE_UID");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
-                        .IsUnique();
-
-                    b.ToTable("WAREHOUSES");
+                    b.ToTable("TEMPLATES", "ZPL");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.ZplResources.ZplResourceEntity", b =>
@@ -505,297 +880,34 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("ZPL");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_ZPL_RESOURCES_NAME")
+                    b.HasIndex(new[] { "Name" }, "UQ_RESOURCES_NAME")
                         .IsUnique();
 
-                    b.ToTable("ZPL_RESOURCES");
+                    b.ToTable("RESOURCES", "ZPL");
                 });
 
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("NAME");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(4,3)")
-                        .HasColumnName("WEIGHT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BOXES");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)")
-                        .HasColumnName("NAME");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UQ_BRANDS_NAME")
-                        .IsUnique();
-
-                    b.ToTable("BRANDS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("NAME");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(4,3)")
-                        .HasColumnName("WEIGHT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BUNDLES");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("NAME");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(4,3)")
-                        .HasColumnName("WEIGHT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CLIPS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<Guid>("BoxId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("BOX_UID");
-
-                    b.Property<short>("BundleCount")
-                        .HasColumnType("smallint")
-                        .HasColumnName("BUNDLE_COUNT");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoxId");
-
-                    b.HasIndex(new[] { "BundleCount", "BoxId" }, "UQ_NESTINGS_BUNDLE_BOX")
-                        .IsUnique();
-
-                    b.ToTable("NESTINGS");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID");
-
-                    b.Property<Guid>("BrandEntityId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("BRAND_UID");
-
-                    b.Property<Guid>("BundleEntityId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("BUNDLE_UID");
-
-                    b.Property<DateTime>("ChangeDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CHANGE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<Guid>("ClipEntityId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CLIP_UID");
-
-                    b.Property<DateTime>("CreateDt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CREATE_DT")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
-                        .HasColumnName("DESCRIPTION");
-
-                    b.Property<string>("Ean13")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar")
-                        .HasColumnName("EAN_13");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
-                        .HasColumnName("FULL_NAME");
-
-                    b.Property<bool>("IsWeight")
-                        .HasColumnType("bit")
-                        .HasColumnName("IS_WEIGHT");
-
-                    b.Property<string>("Itf14")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("varchar")
-                        .HasColumnName("ITF_14");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("NAME");
-
-                    b.Property<short>("Number")
-                        .HasColumnType("smallint")
-                        .HasColumnName("NUMBER");
-
-                    b.Property<short>("ShelfLifeDays")
-                        .HasColumnType("smallint")
-                        .HasColumnName("SHELF_LIFE_DAYS");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(4,3)")
-                        .HasColumnName("WEIGHT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandEntityId");
-
-                    b.HasIndex("BundleEntityId");
-
-                    b.HasIndex("ClipEntityId");
-
-                    b.HasIndex(new[] { "Number" }, "UQ_LINES_NUMBER")
-                        .IsUnique();
-
-                    b.ToTable("PLUS");
-                });
-
-            modelBuilder.Entity("LINES_PLUS_FK", b =>
+            modelBuilder.Entity("ARMS_PLUS_FK", b =>
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Lines.LineEntity", null)
                         .WithMany()
-                        .HasForeignKey("LINE_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ARM_UID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
                         .WithMany()
                         .HasForeignKey("PLU_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("USERS_СLAIMS_FK", b =>
+            modelBuilder.Entity("USERS_CLAIMS_FK", b =>
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Claims.ClaimEntity", null)
                         .WithMany()
@@ -808,6 +920,23 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasForeignKey("USER_UID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Print.LabelEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Lines.LineEntity", "Line")
+                        .WithMany()
+                        .HasForeignKey("ARM_UID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", "Plu")
+                        .WithMany()
+                        .HasForeignKey("PLU_UID");
+
+                    b.Navigation("Line");
+
+                    b.Navigation("Plu");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Lines.LineEntity", b =>
@@ -827,31 +956,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Printer");
 
                     b.Navigation("Warehouse");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", b =>
-                {
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
-                        .WithOne("Resource")
-                        .HasForeignKey("Ws.Database.EntityFramework.Entities.Zpl.PluResources.PluResourceEntity", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.StorageMethods.StorageMethodEntity", "StorageMethod")
-                        .WithMany()
-                        .HasForeignKey("STORAGE_METHOD_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", "Template")
-                        .WithMany()
-                        .HasForeignKey("TEMPLATE_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("StorageMethod");
-
-                    b.Navigation("Template");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref.Printers.PrinterEntity", b =>
@@ -883,6 +987,24 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductionSite");
+                });
+
+            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Characteristics.CharacteristicEntity", b =>
+                {
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Boxes.BoxEntity", "Box")
+                        .WithMany()
+                        .HasForeignKey("BoxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PluId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
+
+                    b.Navigation("Box");
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Nestings.NestingEntity", b =>
@@ -927,12 +1049,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Navigation("Bundle");
 
                     b.Navigation("Clip");
-                });
-
-            modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", b =>
-                {
-                    b.Navigation("Resource")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
