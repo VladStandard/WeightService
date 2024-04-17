@@ -8,7 +8,7 @@ namespace ScalesDesktop.Source.Features.StatusIcons;
 
 public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
 {
-    private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
+    private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.Connected;
 
     protected override void OnInitialized() => WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, GetStatus);
 

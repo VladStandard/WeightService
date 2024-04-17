@@ -6,7 +6,7 @@
 
 
 <div class="size-full flex items-center justify-center">
-  <div class="bg-background max-w-lg shadow-sm w-full rounded-lg overflow-hidden p-6 border flex gap-6 flex-col">
+  <div class="bg-background max-w-lg shadow-sm w-full rounded-xl overflow-hidden p-6 border flex gap-6 flex-col">
     <div class="flex flex-col space-y-1 text-center">
       <h2 class="text-2xl font-semibold">@Localizer["AppName"]</h2>
       <p class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</p>
@@ -46,16 +46,16 @@
         @switch (LineContext.Line.Type)
         {
           case LineTypeEnum.Pc:
-            <ComputerDesktopIcon class="size-8" />
+            <ComputerDesktopIcon class="size-8"/>
             break;
           case LineTypeEnum.Tablet:
-            <DeviceTabletIcon class="size-8" />
+            <DeviceTabletIcon class="size-8"/>
             break;
           case LineTypeEnum.Universal:
-            <ServerIcon class="size-8" />
+            <ServerIcon class="size-8"/>
             break;
           default:
-            <ExclamationTriangleIcon class="size-8 text-destructive" />
+            <ExclamationTriangleIcon class="size-8 text-destructive"/>
             break;
         }
       </div>
