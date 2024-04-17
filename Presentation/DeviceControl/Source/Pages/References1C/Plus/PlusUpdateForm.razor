@@ -58,7 +58,7 @@
       Value="@DialogItem.StorageMethod"
     />
 
-    <FormDivider>Описание</FormDivider>
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
@@ -81,7 +81,7 @@
       Disabled="@(!IsForceSubmit)"
     />
 
-    <FormDivider>Упаковка</FormDivider>
+    <FormDivider>@Localizer["FieldPackaging"]</FormDivider>
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColBundle"]"

@@ -72,7 +72,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
         }
         catch
         {
-            ToastService.ShowError("Ошибка получения данных");
+            ToastService.ShowError(Localizer["ToastErrorWhileGettingData"]);
             return [];
         }
     }

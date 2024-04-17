@@ -9,19 +9,8 @@
   OnSubmitAction="@CreateItem"
 >
   <FieldsContent>
-    <SectionTextField
-      Label="@WsDataLocalizer["ColTitle"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
-    />
 
-    <SectionSelectSingleField
-      TItem="bool"
-      Items="@(new []{ false, true })"
-      Label="@WsDataLocalizer["ColType"]"
-      @bind-Value="DialogItem.IsWeight"
-      ItemDisplayName="GetTemplateTypeName"
-    />
+    <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider>
 
     <SectionNumericField
       @bind-Value="@DialogItem.Width"
@@ -37,10 +26,27 @@
       For="@(() => DialogItem.Height)"
     />
 
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColTitle"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionSelectSingleField
+      TItem="bool"
+      Items="@(new []{ false, true })"
+      Label="@WsDataLocalizer["ColType"]"
+      @bind-Value="DialogItem.IsWeight"
+      ItemDisplayName="GetTemplateTypeName"
+    />
+
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColData"]"
       @bind-Value="@DialogItem.Body"
       For="@(() => DialogItem.Body)"
     />
+
   </FieldsContent>
 </SectionForm>

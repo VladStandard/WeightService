@@ -132,6 +132,24 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Местоположение.
+        /// </summary>
+        internal static string FieldLocation {
+            get {
+                return ResourceManager.GetString("FieldLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Упаковка.
+        /// </summary>
+        internal static string FieldPackaging {
+            get {
+                return ResourceManager.GetString("FieldPackaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
         internal static string FormActionDelete {
@@ -636,6 +654,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка при удалении элемента. Попробуйте еще раз позже..
+        /// </summary>
+        internal static string ToastDeleteItemError {
+            get {
+                return ResourceManager.GetString("ToastDeleteItemError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to При попытке получить данные произошла ошибка. Попробуйте еще раз позже.
         /// </summary>
         internal static string ToastErrorGettingData {
@@ -677,6 +704,15 @@ namespace DeviceControl.Source.Shared.Localization {
         internal static string ToastUrlCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизвестная ошибка.
+        /// </summary>
+        internal static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
     }

@@ -60,7 +60,7 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
         }
         catch (DbServiceException)
         {
-            ToastService.ShowError("Неизвестная ошибка. Попробуйте позже");
+            ToastService.ShowError(Localizer["UnknownError"]);
         }
     }
 
@@ -86,7 +86,7 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
         }
         catch (DbServiceException)
         {
-            ToastService.ShowError("Неизвестная ошибка. Попробуйте позже");
+            ToastService.ShowError(Localizer["UnknownError"]);
         }
     }
 
@@ -101,7 +101,7 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
         }
         catch (DbServiceException)
         {
-            ToastService.ShowError("Неизвестная ошибка. Попробуйте позже");
+            ToastService.ShowError(Localizer["UnknownError"]);
         }
     }
 }

@@ -35,13 +35,6 @@
       MaxLength="32"
     />
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPcName"]"
-      @bind-Value="@DialogItem.PcName"
-      For="@(() => DialogItem.PcName)"
-      MaxLength="16"
-    />
-
     <SectionSelectSingleField
       TItem="LineTypeEnum"
       Label="@WsDataLocalizer["ColType"]"
@@ -49,6 +42,15 @@
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
       For="@(() => DialogItem.Type)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+      MaxLength="16"
     />
 
     <SectionSelectSingleField
@@ -61,6 +63,8 @@
       For="@(() => DialogItem.Printer)"
       IsFilterable
     />
+
+    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
 
     <SectionSelectSingleField
       TItem="ProductionSiteEntity"

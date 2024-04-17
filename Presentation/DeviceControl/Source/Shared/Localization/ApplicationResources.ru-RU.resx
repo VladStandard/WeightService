@@ -225,4 +225,16 @@
     <data name="SectionPluCharacteristics" xml:space="preserve">
         <value>Характеристики</value>
     </data>
+    <data name="ToastDeleteItemError" xml:space="preserve">
+        <value>Ошибка при удалении элемента. Попробуйте еще раз позже.</value>
+    </data>
+    <data name="UnknownError" xml:space="preserve">
+        <value>Неизвестная ошибка</value>
+    </data>
+    <data name="FieldPackaging" xml:space="preserve">
+        <value>Упаковка</value>
+    </data>
+    <data name="FieldLocation" xml:space="preserve">
+        <value>Местоположение</value>
+    </data>
 </root>

@@ -3,7 +3,7 @@
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -200,5 +200,17 @@
     </data>
     <data name="UnknownError" xml:space="preserve">
         <value>Unknown error</value>
+    </data>
+    <data name="LineIsNewWarningTitle" xml:space="preserve">
+        <value>The line is not set up</value>
+    </data>
+    <data name="LineIsNewWarningDescription" xml:space="preserve">
+        <value>Please contact technical support to set up the line. After setting up the line, click "Update".</value>
+    </data>
+    <data name="ToastErrorWhileGettingData" xml:space="preserve">
+        <value>Data acquisition error. Try again later.</value>
+    </data>
+    <data name="ToastPalletCreateError" xml:space="preserve">
+        <value>Error creating the pallet</value>
     </data>
 </root>

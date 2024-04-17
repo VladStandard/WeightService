@@ -132,6 +132,24 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        internal static string FieldLocation {
+            get {
+                return ResourceManager.GetString("FieldLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packaging.
+        /// </summary>
+        internal static string FieldPackaging {
+            get {
+                return ResourceManager.GetString("FieldPackaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string FormActionDelete {
@@ -636,6 +654,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error deleting an item. Try again later..
+        /// </summary>
+        internal static string ToastDeleteItemError {
+            get {
+                return ResourceManager.GetString("ToastDeleteItemError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while trying to retrieve the data. Try again later.
         /// </summary>
         internal static string ToastErrorGettingData {
@@ -677,6 +704,15 @@ namespace DeviceControl.Source.Shared.Localization {
         internal static string ToastUrlCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error.
+        /// </summary>
+        internal static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
     }

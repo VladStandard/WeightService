@@ -14,12 +14,7 @@
   <FieldsContent>
     <SectionAdminGuidField Value="@DialogItem.Uid" />
 
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColType"]"
-      Value="@GetTemplateTypeName(DialogItem.IsWeight)"
-    />
-
-    <FormDivider>Размер</FormDivider>
+    <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider>
 
     <SectionNumericField
       @bind-Value="@DialogItem.Width"
@@ -35,12 +30,17 @@
       For="@(() => DialogItem.Height)"
     />
 
-    <FormDivider>Описание</FormDivider>
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
 
     <SectionTextAreaField
       @bind-Value="@DialogItem.Name"
       Label="@WsDataLocalizer["ColTitle"]"
       For="@(() => DialogItem.Name)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetTemplateTypeName(DialogItem.IsWeight)"
     />
 
     <SectionTextAreaField

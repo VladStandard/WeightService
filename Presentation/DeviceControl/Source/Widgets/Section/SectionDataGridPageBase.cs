@@ -22,10 +22,8 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     private IJSObjectReference? Module { get; set; }
     protected DialogParameters DialogParameters { get; private set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await GetSectionData();
-        IsLoading = false;
         DialogParameters = new()
         {
             OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
@@ -42,6 +40,12 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
             ),
             OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback)
         };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetSectionData();
+        IsLoading = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -132,7 +136,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
         }
         catch
         {
-            ToastService.ShowError("Неизвестная ошибка. Попробуйте позже");
+            ToastService.ShowError(Localizer["ToastDeleteItemError"]);
         }
     }
 
@@ -167,6 +171,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     {
         try
         {
+            GC.SuppressFinalize(this);
             if (Module == null) return;
             await Module.DisposeAsync();
         }

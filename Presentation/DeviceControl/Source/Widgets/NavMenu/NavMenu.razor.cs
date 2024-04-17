@@ -4,7 +4,10 @@ using DeviceControl.Source.Shared.Auth.Policies;
 using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Services.Features.User;
 using Ws.Shared.Utils;
 
 namespace DeviceControl.Source.Widgets.NavMenu;
@@ -12,15 +15,26 @@ namespace DeviceControl.Source.Widgets.NavMenu;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Parameter, EditorRequired] public ClaimsPrincipal User { get; set; } = default!;
+    [Inject] private IUserService UserService { get; set; } = default!;
+
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+
 
     private bool IsProduction { get; set; }
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
+    private UserEntity User { get; set; } = new();
 
     protected override void OnInitialized()
     {
         IsProduction = !ConfigurationUtil.IsDevelop;
         MenuSections = CreateNavMenus();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+        if (userPrincipal is { Identity.Name: not null })
+            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
     }
 
     private IEnumerable<MenuSection> CreateNavMenus() =>

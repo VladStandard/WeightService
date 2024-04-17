@@ -134,6 +134,24 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string FieldLocation {
+            get {
+                return ResourceManager.GetString("FieldLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FieldPackaging {
+            get {
+                return ResourceManager.GetString("FieldPackaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string FormActionDelete {
             get {
                 return ResourceManager.GetString("FormActionDelete", resourceCulture);
@@ -638,6 +656,15 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string ToastDeleteItemError {
+            get {
+                return ResourceManager.GetString("ToastDeleteItemError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string ToastErrorGettingData {
             get {
                 return ResourceManager.GetString("ToastErrorGettingData", resourceCulture);
@@ -677,6 +704,15 @@ namespace DeviceControl.Source.Shared.Localization {
         internal static string ToastUrlCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
     }

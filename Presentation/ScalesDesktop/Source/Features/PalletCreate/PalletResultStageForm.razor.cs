@@ -57,7 +57,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch
         {
-            ToastService.ShowError("Ошибка при создании паллеты");
+            ToastService.ShowError(Localizer["ToastPalletCreateError"]);
         }
 
         IsLoading = false;

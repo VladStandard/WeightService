@@ -1,3 +1,4 @@
+using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
 using DeviceControl.Source.Widgets.Section;
 using FluentValidation;
@@ -19,6 +20,7 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
     [Inject] private IPluService PluService { get; set; } = default!;
     [Inject] private ITemplateService TemplateService { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
     # endregion
 
