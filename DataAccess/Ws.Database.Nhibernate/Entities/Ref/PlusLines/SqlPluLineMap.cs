@@ -7,7 +7,6 @@ internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
 {
     public SqlPluLineMap()
     {
-        Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.PlusLines);
 
         ComposedId(map =>

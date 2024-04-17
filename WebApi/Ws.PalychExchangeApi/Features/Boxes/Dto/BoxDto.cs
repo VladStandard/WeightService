@@ -24,9 +24,11 @@ internal sealed class BoxDtoValidator : AbstractValidator<BoxDto>
     {
         RuleFor(dto => dto.Uid)
             .NotEqual(Guid.Empty).WithMessage("UID - обязателен");
+
         RuleFor(dto => dto.Name)
             .NotEmpty().WithMessage("Наименование - обязательно")
             .MaximumLength(64).WithMessage("Наименование - не должно превышать 64 символа");
+
         RuleFor(dto => dto.Weight)
             .Must(ValidatorUtils.BeValidWeightDefault)
             .WithMessage("Вес - должен быть в [0, 1)");
