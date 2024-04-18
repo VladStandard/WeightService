@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
-using Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
+using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
 

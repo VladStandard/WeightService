@@ -22,7 +22,7 @@ public class PluEntity : EntityBase
     public virtual NestingEntity Nesting { get; set; } = new();
     public virtual ISet<CharacteristicEntity> Characteristics { get; set; } = new HashSet<CharacteristicEntity>();
     public virtual string Description { get; set; } = string.Empty;
-    public virtual decimal Weight { get; set;}
+    public virtual decimal Weight { get; set; }
     public virtual string Name { get; set; } = string.Empty;
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
 

@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;

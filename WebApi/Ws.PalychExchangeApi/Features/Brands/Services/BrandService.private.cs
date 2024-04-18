@@ -11,9 +11,13 @@ internal partial class BrandService
     private void ResolveUniqueNameDb(List<BrandDto> dtos)
     {
         HashSet<string> namesList = dtos.Select(dto => dto.Name).ToHashSet();
+        HashSet<Guid> uidList = dtos.Select(dto => dto.Uid).ToHashSet();
 
         HashSet<string> existingNames = DbContext.Brands
-            .Where(brand => namesList.Any(name => name.Equals(brand.Name)))
+            .Where(brand =>
+                namesList.Any(name => name.Equals(brand.Name)) &&
+                !uidList.Any(uid => uid.Equals(brand.Id))
+            )
             .Select(brand => brand.Name)
             .ToHashSet();
 

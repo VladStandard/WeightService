@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
 
-namespace Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
+namespace Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed partial class GroupedCharacteristicValidator : AbstractValidator<GroupedCharacteristic>

@@ -7,39 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.en-US.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ApplicationResources.en-US.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ApplicationResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Source\Shared\Localization\ApplicationResources.en-US.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ApplicationResources.en-US.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Source\Shared\Localization\ApplicationResources.ru-RU.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazor.Heroicons" Version="2.1.2.2" />
     <PackageReference Include="Blazorise" Version="1.5.1" />
     <PackageReference Include="Blazorise.DataGrid" Version="1.5.1" />
@@ -58,21 +25,8 @@
     <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="Source\Shared\UI\Form\InputNumberField.razor" />
-    <AdditionalFiles Include="Source\Shared\UI\Form\InputTextField.razor" />
-    <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenu.razor" />
-    <AdditionalFiles Include="Source\Widgets\NavMenu\NavMenuItem.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Source\Pages\Home\Home.razor" />
-    <_ContentIncludedByDefault Remove="Source\Features\NavMenu\NavMenu.razor" />
-    <_ContentIncludedByDefault Remove="Source\Features\NavMenu\NavMenuItem.razor" />
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="npm run build" ContinueOnError="true" />
   </Target>
-    
+
 </Project>

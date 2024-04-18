@@ -1,5 +1,4 @@
-using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models;
-using XmlWeightLabelModel=Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel.XmlWeightLabelModel;
+using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel;
 
 namespace Ws.Labels.Tests;
 

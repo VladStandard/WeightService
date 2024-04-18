@@ -1,7 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.PalychExchangeApi.Common;
 
-namespace Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
+namespace Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 internal record GroupedCharacteristic : BaseDto
 {

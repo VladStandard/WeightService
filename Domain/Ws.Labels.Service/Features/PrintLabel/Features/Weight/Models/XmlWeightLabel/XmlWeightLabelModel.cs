@@ -8,7 +8,8 @@ namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeight
 public partial class XmlWeightLabelModel : XmlLabelBaseModel
 {
     [XmlElement]
-    public string WeightStr {
+    public string WeightStr
+    {
         get => DecimalUtils.ToStrWithSep(Weight, ",");
         set => _ = value;
     }

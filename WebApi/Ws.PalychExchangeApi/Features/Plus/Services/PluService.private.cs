@@ -1,15 +1,10 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-using Ws.PalychExchangeApi.Features.Plus.Dto.PluDto;
+using Ws.PalychExchangeApi.Features.Plus.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
-file sealed record NumberIdPair
-{
-    public required Guid Id { get; set; }
-    public required short Number { get; set; }
-}
 
 internal sealed partial class PluService
 {
@@ -20,14 +15,14 @@ internal sealed partial class PluService
         HashSet<short> numbers = dtos.Select(dto => dto.Number).ToHashSet();
         HashSet<Guid> plusUid = dtos.Select(dto => dto.Uid).ToHashSet();
 
-        List<NumberIdPair> existingPairs = DbContext.Plus
+        List<short> existingNumbers = DbContext.Plus
             .Where(i => !plusUid.Contains(i.Id) && numbers.Contains(i.Number))
-            .Select(i => new NumberIdPair { Number = i.Number, Id = i.Id })
+            .Select(i => i.Number)
             .ToList();
 
         dtos.RemoveAll(dto =>
         {
-            if (!existingPairs.Any(uniq => dto.Uid != uniq.Id && dto.Number == uniq.Number)) return false;
+            if (!existingNumbers.Contains(dto.Number)) return false;
             OutputDto.AddError(dto.Uid, $"Номер плу - ({dto.Number}) не уникален (бд)");
             return true;
         });

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace ScalesDesktop.Source.Shared.UI.Form;
 
-public abstract class BasicInput<TValue>: ComponentBase
+public abstract class BasicInput<TValue> : ComponentBase
 {
     [Parameter] public virtual TValue? Value { get; set; }
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
