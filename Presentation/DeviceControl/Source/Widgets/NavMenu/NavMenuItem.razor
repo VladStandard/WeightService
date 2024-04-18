@@ -20,7 +20,7 @@
           Type="HeroiconType.Outline"
           class="h-4 w-4 shrink-0"/>
       </button>
-      <ul class="@Css.Class("flex flex-col gap-1 transition-opacity w-full", IsOpened ? "opacity-100 mt-2 mb-1" : "opacity-0 h-0 overflow-hidden")">
+      <ul class="@Css.Class("flex flex-col gap-1 transition-opacity w-full", IsOpened ? "visible mt-2 mb-1" : "invisible h-0 overflow-hidden")">
         @foreach (NavMenuItemModel item in Items)
         {
           <AuthorizeView Policy="@(item.RequiredClaim ?? "")">

@@ -7,7 +7,7 @@
   class="@Css.Class("relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors truncate hover:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50", Class)"
   disabled="@IsDisabled"
 >
-  <CheckIcon class="@Css.Class("mr-2 size-4 shrink-0", IsActive ? "opacity-100" : "opacity-0")"/>
+  <CheckIcon class="@Css.Class("mr-2 size-4 shrink-0", IsActive ? "visible" : "invisible")"/>
   <span class="line-clamp-1">@ChildContent</span>
 </button>
 

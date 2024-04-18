@@ -17,16 +17,8 @@ public sealed partial class LabelsPage : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         LabelContext.InitializeData();
+        LineContext.ConnectScale();
     }
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-            LineContext.ConnectScale();
-    }
-
-    public void Dispose()
-    {
-        LineContext.Dispose();
-    }
+    public void Dispose() => LineContext.Dispose();
 }
