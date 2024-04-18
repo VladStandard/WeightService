@@ -19,6 +19,7 @@ public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
             PrinterStatusEnum.IsDisabled => DeviceStatusEnum.IsDisabled,
             PrinterStatusEnum.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
             PrinterStatusEnum.Ready => DeviceStatusEnum.Connected,
+            PrinterStatusEnum.Busy => DeviceStatusEnum.Connected,
             _ => DeviceStatusEnum.Warning
         };
         StateHasChanged();

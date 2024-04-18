@@ -12,13 +12,13 @@
     <ArchiveBoxIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColBox"]</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(FormModel.Nesting!.Box)</span>
+  <span class="line-clamp-2">@FormModel.Nesting!.Box.Name</span>
 
   <div class="flex items-center text-muted-foreground">
     <ShoppingBagIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColBundle"]</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(FormModel.Plu.Bundle)</span>
+  <span class="line-clamp-2">@FormModel.Plu.Bundle.Name</span>
 
   <div class="flex items-center text-muted-foreground">
     <ScaleIcon class="size-4 mr-1" />

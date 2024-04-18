@@ -13,22 +13,22 @@
   <span class="line-clamp-2">@Plu.Number</span>
 
   <div class="flex text-muted-foreground">
-    <DocumentTextIcon class="size-4 mr-1 mt-2" />
+    <DocumentTextIcon class="size-4 mr-1 mt-1.5" />
     <h3>@WsDataLocalizer["ColName"]</h3>
   </div>
   <span class="line-clamp-2 xl:line-clamp-3">@Plu.FullName.Replace("|", "")</span>
 
-  <div class="flex items-center text-muted-foreground">
-    <ArchiveBoxIcon class="size-4 mr-1" />
+  <div class="flex text-muted-foreground">
+    <ArchiveBoxIcon class="size-4 mr-1 mt-1.5" />
     <h3>@WsDataLocalizer["ColBox"]</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBoxName(Plu.Nesting.Box)</span>
+  <span class="line-clamp-2">@Plu.Nesting.Box.Name</span>
 
   <div class="flex items-center text-muted-foreground">
     <ShoppingBagIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColBundle"]</h3>
   </div>
-  <span class="line-clamp-2">@NameFormatting.GetFormatBundleName(Plu.Bundle)</span>
+  <span class="line-clamp-2">@Plu.Bundle.Name</span>
 
   <div class="flex items-center text-muted-foreground">
     <InboxStackIcon class="size-4 mr-1" />

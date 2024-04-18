@@ -146,8 +146,9 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
         {
             SectionItems = await GetItemsAsync(SetSqlSearchingCast);
             IsFirstLoading = false;
-            SectionItems = SectionItems.Where(i => !i.IsNew).ToList();
-            if (SectionItems.Any()) await OpenDataGridEntityModal(SectionItems.First());
+            SectionItems = SectionItems.Where(i => !i.IsNew);
+            TItem? firstItem = SectionItems.FirstOrDefault();
+            if (firstItem != null) await OpenDataGridEntityModal(firstItem);
             return;
         }
 
