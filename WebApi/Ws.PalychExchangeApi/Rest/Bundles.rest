@@ -1,0 +1,35 @@
+﻿POST {{url}}/api/bundles/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Bundles Count="29">
+    <Bundle Uid="6fb921f4-4a6c-11e6-80cb-a4bf01016d50" Name="Пакет 20  грамм" Weight="0.02"/>
+    <Bundle Uid="b3fc6436-72ba-11e8-80ea-a4bf01016d50" Name="Пакет 4  грамм" Weight="0.004"/>
+    <Bundle Uid="be4e73d9-65a7-11e4-9409-001e6722b449" Name="Пакет 10 грамм" Weight="0.01"/>
+    <Bundle Uid="e1b272fb-65a7-11e4-9409-001e6722b449" Name="Пакет 14 грамм" Weight="0.014"/>
+    <Bundle Uid="fb21b824-65a7-11e4-9409-001e6722b449" Name="Пакет 16 грамм" Weight="0.016"/>
+    <Bundle Uid="53985139-dd3a-11e5-9423-001e6722b449" Name="Пакет 8 грамм" Weight="0.008"/>
+    <Bundle Uid="7c062b11-dd3a-11e5-9423-001e6722b449" Name="Пакет 11 грамм" Weight="0.011"/>
+    <Bundle Uid="88ddfe08-dd3a-11e5-9423-001e6722b449" Name="Пакет 12 грамм" Weight="0.012"/>
+    <Bundle Uid="b3a70d8b-dd3a-11e5-9423-001e6722b449" Name="Пакет 5  грамм" Weight="0.005"/>
+    <Bundle Uid="bf6a4ff9-dd3a-11e5-9423-001e6722b449" Name="Пакет 6  грамм" Weight="0.006"/>
+    <Bundle Uid="d541473b-dd3a-11e5-9423-001e6722b449" Name="Пакет 7  грамм" Weight="0.007"/>
+    <Bundle Uid="e0f63ab1-dd3a-11e5-9423-001e6722b449" Name="Пакет 17  грамм" Weight="0.017"/>
+    <Bundle Uid="60b10e14-15a0-11e9-a216-a4bf0139eb1b" Name="Пакет 30 грамм" Weight="1"/>
+    <Bundle Uid="7ab23147-18ae-11e9-a216-a4bf0139eb1b" Name="Пакет 50 грамм" Weight="1"/>
+    <Bundle Uid="a964c3eb-18ae-11e9-a216-a4bf0139eb1b" Name="Пакет 29 грамм" Weight="1"/>
+    <Bundle Uid="b853420d-18ae-11e9-a216-a4bf0139eb1b" Name="Пакет 19 грамм" Weight="1"/>
+    <Bundle Uid="2610172a-93f1-11e9-a217-a4bf0139eb1b" Name="Лоток 40  грамм" Weight="0.04"/>
+    <Bundle Uid="56ac4826-981e-11e9-a217-a4bf0139eb1b" Name="Лоток 25  грамм" Weight="0.025"/>
+    <Bundle Uid="ae9810df-f0e7-11e9-a219-a4bf0139eb1b" Name="Пакет 15 грамм" Weight="0.015"/>
+    <Bundle Uid="5f3394a7-271e-11ea-a21b-a4bf0139eb1b" Name="Пакет 74 грамм" Weight="1"/>
+    <Bundle Uid="3f8f0716-3376-11ea-a21b-a4bf0139eb1b" Name="Пакет 18 грамм" Weight="0.018"/>
+    <Bundle Uid="6ecc9122-4ccf-11ea-a21c-a4bf0139eb1b" Name="Пакет 32 грамм" Weight="1"/>
+    <Bundle Uid="6db003f1-53bf-11ea-a21c-a4bf0139eb1b" Name="Пакет 46 грамм" Weight="1"/>
+    <Bundle Uid="7f36eb8d-58a6-11ea-a21c-a4bf0139eb1b" Name="Пакет 35 грамм" Weight="1"/>
+    <Bundle Uid="f5e5bcfd-a368-11eb-bcd9-00155d8a4603" Name="Пакет 25  грамм" Weight="0.025"/>
+    <Bundle Uid="7bc510aa-04ce-11ec-bd11-00155df8551b" Name="Пакет 3  грамм" Weight="0.003"/>
+    <Bundle Uid="e35d05cb-632d-11ec-bd14-00155df8551b" Name="Лоток 43  грамм" Weight="0.43"/>
+    <Bundle Uid="618d6686-7ba6-11ed-bd20-00155d8a460f" Name="Лоток 18  грамм" Weight="0.018"/>
+    <Bundle Uid="9efccd0c-bf21-11ed-bd20-00155d8a460f" Name="Лоток 22 грамм" Weight="0.022"/>
+</Bundles>

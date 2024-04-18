@@ -1,0 +1,52 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref1c
+@using Blazor.Heroicons.Outline
+
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.BrandEntity>
+@attribute [Route($"{RouteUtils.SectionBrands}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+
+<PageHeader>
+  <span>@Localizer["SectionBrands"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="BrandEntity"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColStatus"]"
+        Width="5%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          @if (context.Name.StartsWith('я'))
+          {
+            <div class="w-full flex items-center justify-center">
+              <TrashIcon class="text-red-600 size-5"/>
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(BrandEntity.ChangeDt)"
+        Width="20%"/>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(BrandEntity.Name)"
+        Width="55%"/>
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

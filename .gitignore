@@ -250,7 +250,7 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
-# Visual Studio 6 
+# Visual Studio 6
 *.opt
 *.vbw
 *.plg
@@ -344,3 +344,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Node package manager
+**/pnpm-lock.yaml

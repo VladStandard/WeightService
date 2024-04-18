@@ -1,0 +1,20 @@
+@inherits SectionFieldBase<System.Net.IPAddress>
+
+<SectionInputWrapper
+  Path="@Path"
+  Label="@Label"
+  HtmlFor="@HtmlId"
+  ValueToCopy="@(IsCopyable ? Value?.ToString() : string.Empty)"
+>
+  <InputIpField
+    id="@HtmlId"
+    @bind-Value="@Value"
+    @bind-Value:after="OnValueChanged"
+    Placeholder="@Placeholder"
+    Disabled="Disabled"
+  />
+  @if (For != null)
+  {
+    <FieldValidation For="@For" />
+  }
+</SectionInputWrapper>

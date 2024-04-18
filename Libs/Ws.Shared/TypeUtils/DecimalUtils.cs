@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace Ws.Shared.TypeUtils;
 
@@ -10,16 +10,17 @@ public static class DecimalUtils
             .Replace(",", "");
         return StrUtils.ToLen(numStr, len);
     }
-    
+
     public static string ToStrWithSep(decimal number, string separator)
     {
-        NumberFormatInfo formatInfo = new() { NumberDecimalSeparator = separator};
+        NumberFormatInfo formatInfo = new() { NumberDecimalSeparator = separator };
         return number.ToString(formatInfo);
     }
-    
+
     public static decimal ConvertStrToDecimal(string? str)
     {
         string? attributeValue = str?.Replace(',', '.') ?? null;
-        return decimal.TryParse(attributeValue, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsed) ? parsed : default;
+        return decimal.TryParse(attributeValue, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsed)
+            ? parsed : default;
     }
 }

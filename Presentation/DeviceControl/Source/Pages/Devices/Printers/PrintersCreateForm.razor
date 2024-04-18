@@ -1,0 +1,46 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new PrintersCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      MaxLength="16"
+    />
+
+    <SectionIpField
+      Label="IP"
+      @bind-Value="@DialogItem.Ip"
+      For="@(() => DialogItem.Ip)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterTypeEnum"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="PrinterTypesEntities"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ProductionSiteEntity"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Items="ProductionSites"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="item => item.Name"
+      For="@(() => DialogItem.ProductionSite)"
+      Disabled="@(!IsSeniorSupport)"
+    />
+  </FieldsContent>
+</SectionForm>

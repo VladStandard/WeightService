@@ -1,0 +1,12 @@
+﻿POST {{url}}/api/brands/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Brands Count="6">
+    <Brand Uid="ceee208c-3985-11e4-9409-001e6722b449" IsDelete="0" Name="ВладимирскийСтандарт"/>
+    <Brand Uid="d539dc32-3985-11e4-9409-001e6722b449" IsDelete="0" Name="ВладПродукт"/>
+    <Brand Uid="87bd6166-b5b8-11e8-a214-a4bf0139eb1c" IsDelete="0" Name="Телятино"/>
+    <Brand Uid="ab979e68-1ab8-11eb-a22d-00155d8a4602" IsDelete="0" Name="Огогонь"/>
+    <Brand Uid="e8b651b8-a27e-11eb-bcd9-00155d8a4603" IsDelete="1" Name="Чудо-печка"/>
+    <Brand Uid="7519943a-35b4-11ed-bd20-00155d8a460f" IsDelete="False" Name="Владушка"/>
+</Brands>

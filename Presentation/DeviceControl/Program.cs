@@ -1,65 +1,51 @@
+using Blazorise;
+using Blazorise.Icons.FontAwesome;
+using DeviceControl.Source.App;
+using DeviceControl.Source.Shared.Auth.ClaimsTransform;
+using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders;
+using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
+using DeviceControl.Source.Shared.Auth.Policies;
+using DeviceControl.Source.Shared.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using MudBlazor.Services;
-using Ws.Services;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Ws.Domain.Services;
+using Ws.Labels.Service;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-#region Add
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddBlazorise().AddEmptyProviders().AddFontAwesomeIcons();
+builder.Services.AddFluentUIComponents();
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
-builder.Services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
+builder.Services.AddAuthorization(PolicyAuthUtils.RegisterAuthorization);
+builder.Services.AddLocalization();
+builder.Services.AddDomainServices();
+builder.Services.AddLabelsServices();
 
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<Redirector>();
 
-builder.Services.AddOptions();
-builder.Services.AddHttpClient();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllersWithViews();
-builder.Services.AddVsServices();
-builder.Services.AddMudServices();
+builder.Services.AddScoped<IClaimsTransformation, WsClaimsTransformation>();
+builder.Services.AddScoped<IClaimsCacheProvider, ClaimsInMemoryCacheProvider>();
 
-#endregion
-
-#region AddScoped
-
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<RouteService>();
-builder.Services.AddScoped<LocalStorageService>();
-builder.Services.AddScoped<JsService>();
-builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<ContextMenuService>();
-builder.Services.AddScoped<NotificationService>();
-builder.Services.AddScoped<IClaimsTransformation, CustomClaimsTransformation>();
-
-#endregion
-
-#region App
 
 WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
-}
-else
-{
-    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
 
-SqlCoreHelper.Instance.SetSessionFactory(false);
+app.UseStaticFiles();
+app.UseAntiforgery();
+app.UseRequestLocalization("ru-RU");
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();
-
-#endregion

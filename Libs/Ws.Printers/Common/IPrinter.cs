@@ -1,8 +1,8 @@
-﻿namespace Ws.Printers.Common;
+namespace Ws.Printers.Common;
 
 public interface IPrinter : IDisposable
 {
     public void RequestStatus();
     public void PrintLabel(string zpl);
-    public IPrinter Connect();
+    public void Connect();
 }

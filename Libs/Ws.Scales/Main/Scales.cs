@@ -1,4 +1,4 @@
-﻿using System.IO.Ports;
+using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Scales.Commands;
 using Ws.Scales.Common;
@@ -7,97 +7,75 @@ using Ws.Scales.Events;
 
 namespace Ws.Scales.Main;
 
-public class Scales : IScales
+public partial class Scales : IScales
 {
-    private SerialPort Port { get; set; }
+    private SerialPort Port { get; }
     private ScalesStatus Status { get; set; }
-    
+
     public Scales(string comPort)
     {
-        Port = new()
-        {
-            PortName = comPort.ToUpper(),
-            ReadTimeout = 0_100,
-            WriteTimeout = 0_100,
-            BaudRate = 19200,
-            Parity = Parity.Even,
-            StopBits = StopBits.One,
-            DataBits = 8,
-            Handshake = Handshake.RequestToSend,
-        };
+        Port = GenerateSerialPort(comPort);
         SetStatus(ScalesStatus.IsDisabled);
-        WeakReferenceMessenger.Default.Register<ScalesForceDisconnected>(this, ForceReconnect);
     }
 
-    #region Public
+    public void Calibrate() => ExecuteCommand(new CalibrateCommand(Port));
 
-    public void Calibrate()
+    public void StartWeightPolling()
     {
-        ExecuteCommand(new CalibrateMassaCommand(Port));
+        lock (_pollingLock)
+        {
+            if (!_cancelPollingToken.IsCancellationRequested)
+                return;
+
+            _cancelPollingToken = new();
+            CancellationToken cancellationToken = _cancelPollingToken.Token;
+
+
+            Task.Run(async () =>
+            {
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    ExecuteCommand(new GetMassaCommand(Port));
+                    await Task.Delay(200, cancellationToken);
+                }
+            }, cancellationToken);
+        }
     }
-    
-    public void SendGetWeight()
+
+    public void StopWeightPolling()
     {
-        ExecuteCommand(new GetMassaCommand(Port));
+        lock (_pollingLock)
+        {
+            if (_cancelPollingToken.IsCancellationRequested)
+                return;
+            _cancelPollingToken.Cancel();
+        }
     }
-    
+
     public void Connect()
     {
-        Disconnect();
-        SetStatus(ScalesStatus.IsForceDisconnected);
-        WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
-    }
-    
-    public void Disconnect()
-    {
-        SetStatus(ScalesStatus.IsDisabled);
-        if (Port.IsOpen) Port.Close();
-        Port.Dispose();
-    }
-    
-    #endregion
-    
-    #region Private
-
-    private void SetStatus(ScalesStatus status)
-    {
-        Status = status;
-        WeakReferenceMessenger.Default.Send(new GetScaleStatusEvent(Status));
-    }
-    
-    private void ExecuteCommand(ScaleCommandBase command)
-    {
-        if (Status == ScalesStatus.IsDisabled) return;
-        if (Status != ScalesStatus.IsConnect)
-        {
-            WeakReferenceMessenger.Default.Send(new ScalesForceDisconnected());
-            return;
-        }
-        command.Activate();
-    }
-    
-    private void ForceReconnect(Object recipient, ScalesForceDisconnected message)
-    {
-        if (Status == ScalesStatus.IsDisabled)
-            return;
         try
         {
-            if (Port.IsOpen) Port.Close();
+            StopWeightPolling();
             Port.Open();
             SetStatus(ScalesStatus.IsConnect);
         }
-        catch (Exception _)
+        catch (Exception)
         {
             SetStatus(ScalesStatus.IsForceDisconnected);
         }
     }
 
-    #endregion
-    
-    public void Dispose()
+    public void Disconnect()
     {
-        Disconnect();
+        SetStatus(ScalesStatus.IsDisabled);
+        StopWeightPolling();
+
+        if (Port.IsOpen) Port.Close();
+        Port.Dispose();
+
         WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
-        WeakReferenceMessenger.Default.Unregister<ScalesForceDisconnected>(this);
     }
+
+    public void Dispose() => Disconnect();
 }

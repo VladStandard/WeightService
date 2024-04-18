@@ -1,0 +1,20 @@
+@using Microsoft.Extensions.Localization
+@using Ws.Shared.Enums
+@using DeviceControl.Source.Widgets.Section
+@inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref.ProductionSiteEntity>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="main">
+    <ProductionSitesUpdateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  [
+    new(Localizer["SectionProductionSites"], "main"),
+  ];
+}

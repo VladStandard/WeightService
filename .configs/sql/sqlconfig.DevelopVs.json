@@ -1,12 +1,13 @@
 {
     "SqlSettings": {
         "DataSource": "CREATIO\\INS1",
-        "InitialCatalog": "SCALES",
-        "UserId": "scale01",
-        "Password": "scale01",
+        "InitialCatalog": "WEIGHT",
+        "UserId": "Devoloper",
+        "Password": "Hz&V5Gnq4d4584",
         "ConnectTimeout": 900,
         "IntegratedSecurity": false,
         "PersistSecurityInfo": false,
-        "TrustServerCertificate": true
+        "TrustServerCertificate": true,
+        "IsShowSql": true
     }
 }

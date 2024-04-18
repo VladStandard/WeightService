@@ -1,12 +1,13 @@
 {
     "SqlSettings": {
-        "DataSource": "PALYCH\\LUTON",
-        "InitialCatalog": "ScalesDB",
-        "UserId": "scale01",
-        "Password": "scale01",
+        "DataSource": "WMS2\\WMS",
+        "InitialCatalog": "SCALES_DB",
+        "UserId": "SCALES_DB_ARM",
+        "Password": "m8&V$FUWqm~o",
         "ConnectTimeout": 900,
         "IntegratedSecurity": false,
         "PersistSecurityInfo": false,
-        "TrustServerCertificate": true
+        "TrustServerCertificate": true,
+        "IsShowSql": false
     }
 }

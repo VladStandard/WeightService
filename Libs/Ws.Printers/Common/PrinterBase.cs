@@ -1,95 +1,72 @@
-﻿using System.Net.Sockets;
+using System.Net;
+using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
-using Ws.Printers.Commands;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
 namespace Ws.Printers.Common;
 
-public abstract class PrinterBase : IPrinter
+internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
 {
-    protected PrinterStatusEnum Status { get; set; }
-    protected TcpClient TcpClient { get; set; }
+    protected TcpClient TcpClient { get; set; } = new();
+    protected PrinterStatusEnum Status { get; set; } = PrinterStatusEnum.IsDisabled;
 
-    private readonly string _ip;
-    private readonly int _port;
-    
-    public PrinterBase(string ip, int port)
-    {
-        _ip = ip;
-        _port = port;
-        
-        TcpClient = new();
-        TcpClient.ReceiveTimeout = 0_200;
-        
-        SetStatus(PrinterStatusEnum.IsDisabled);
-        WeakReferenceMessenger.Default.Register<PrinterForceDisconnected>(this, ForceReconnectAsync);
-    }
+    #region Abstract
 
-    private async void ForceReconnectAsync(Object recipient, PrinterForceDisconnected message)
+    public abstract void RequestStatus();
+
+    #endregion
+
+    #region Public
+
+    public async void Connect()
     {
-        if (Status == PrinterStatusEnum.IsDisabled)
-            return;
         try
         {
             TcpClient.Dispose();
-            TcpClient = new();
-            TcpClient.ReceiveTimeout = 200;
-            
-            await TcpClient.ConnectAsync(_ip, _port).WaitAsync(TimeSpan.FromMilliseconds(200));
+            TcpClient = new() { ReceiveTimeout = 200 };
+            await TcpClient.ConnectAsync(ip, port).WaitAsync(TimeSpan.FromMilliseconds(200));
+
             SetStatus(PrinterStatusEnum.Ready);
         }
-        catch (Exception _)
+        catch (Exception)
         {
             SetStatus(PrinterStatusEnum.IsForceDisconnected);
         }
     }
+    public void Dispose() => Disconnect();
+    public void PrintLabel(string zpl) => ExecuteCommand(new(TcpClient, zpl));
 
-    public void PrintLabel(string zpl)
-    {
-        ExecuteCommand(new SendLabelCommand(TcpClient, zpl));
-    }
-    
-    public IPrinter Connect()
-    {
-        Disconnect();
-        SetStatus(PrinterStatusEnum.IsForceDisconnected);
-        WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
-        return this;
-    }
-    
-    public void Disconnect()
+    #endregion
+
+    #region Private
+
+    private void Disconnect()
     {
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(PrinterStatusEnum.IsDisabled));
         if (TcpClient.Connected) TcpClient.Close();
         TcpClient.Dispose();
     }
-    
-    public virtual void RequestStatus()
-    {
-    }
-    
-    
     private void SetStatus(PrinterStatusEnum state)
     {
         Status = state;
         WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
     }
-    
+
     protected void ExecuteCommand(PrinterCommandBase command)
     {
-        if (Status == PrinterStatusEnum.IsDisabled) return;
-        if (Status == PrinterStatusEnum.IsForceDisconnected)
+        if (Status is PrinterStatusEnum.IsDisabled) return;
+        if (Status is PrinterStatusEnum.IsForceDisconnected) Connect();
+
+        try
         {
-            WeakReferenceMessenger.Default.Send(new PrinterForceDisconnected());
-            return;
+            command.Request();
         }
-        command.Activate();
+        catch (Exception)
+        {
+            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+        }
     }
-    
-    public void Dispose()
-    {
-        Disconnect();
-        WeakReferenceMessenger.Default.Unregister<PrinterForceDisconnected>(this);
-    }
+
+    #endregion
 }

@@ -1,0 +1,128 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="DialogItem.ChangeDt"
+  CreateDate="DialogItem.CreateDt"
+  Validator="@(new PlusUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColNumber"]"
+      Value="@DialogItem.Number"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetPluTypeName(DialogItem.IsCheckWeight)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColWeight"]"
+      Value="@DialogItem.Weight"
+    />
+
+    <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColBrand"]"
+        Value="@DialogItem.Brand.Name"
+        Path="@Redirector.ToPath(DialogItem.Brand)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColShelfLifeDays"]"
+      Value="@DialogItem.ShelfLifeDays"
+    />
+
+    <SectionSelectSingleField
+      TItem="TemplateEntity"
+      Label="@WsDataLocalizer["ColTemplate"]"
+      Items="AllTemplates"
+      ValueChanged="(i) => DialogItem.TemplateUid = i.Uid"
+      Value="AllTemplates.SingleOrDefault(i => i.Uid == DialogItem.TemplateUid)"
+      ItemDisplayName="@(item => item.Name)"
+      Disabled="@(!IsForceSubmit)"
+      Path="@Redirector.ToTemplatePath(DialogItem.TemplateUid ?? Guid.Empty, UserPrincipal)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColStorageMethod"]"
+      Value="@DialogItem.StorageMethod"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColFullName"]"
+      @bind-Value="@DialogItem.FullName"
+      For="@(() => DialogItem.FullName)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColDescription"]"
+      @bind-Value="@DialogItem.Description"
+      For="@(() => DialogItem.Description)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <FormDivider>@Localizer["FieldPackaging"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBundle"]"
+      Value="@DialogItem.Bundle.Name"
+      Path="@Redirector.ToPath(DialogItem.Bundle)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColClip"]"
+      Value="@DialogItem.Clip.Name"
+      Path="@Redirector.ToPath(DialogItem.Clip)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColBarcode"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="Ean13"
+      Value="@DialogItem.Ean13"
+    />
+
+    @if (!DialogItem.IsCheckWeight)
+    {
+      <SectionReadOnlyField
+        Label="Itf14"
+        Value="@DialogItem.Itf14"
+      />
+    }
+
+    <SectionReadOnlyField
+      Label="Gtin"
+      Value="@DialogItem.Gtin"
+    />
+
+  </FieldsContent>
+
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}/{DialogItem.Uid}")" />
+    <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" />
+    @if (IsForceSubmit)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+    }
+  </ActionsContent>
+</SectionForm>
