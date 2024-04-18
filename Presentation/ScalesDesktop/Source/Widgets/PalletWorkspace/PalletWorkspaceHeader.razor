@@ -1,0 +1,44 @@
+@using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Shared.Localization
+@using ScalesDesktop.Source.Shared.Services
+@using Ws.Shared.Enums
+
+<div class="h-14 shrink-0 w-full grid grid-cols-4 border-b px-4">
+  <div class="flex h-full items-center">
+    <Button
+      Variant="ButtonVariant.Outline"
+      OnClick="@CloseCurrentPallet"
+    >
+      <ArrowLeftIcon class="size-4 mr-2"/>
+      @Localizer["BtnBack"]
+    </Button>
+  </div>
+  <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">
+    <ul class="size-full flex items-center gap-2 justify-center">
+      @foreach (EnumTypeModel<string> item in TabsList)
+      {
+        <li>
+          <Button
+            Variant="@(CurrentTabId == item.Value ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+            OnClick="@(() => CurrentTabId = item.Value)"
+            Disabled="@(CurrentTabId == item.Value)"
+            Class="disabled:!opacity-100"
+          >
+            @item.Name
+          </Button>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private PalletContext PalletContext { get; set; } = default!;
+
+  [Parameter] public string CurrentTabId { get; set; } = string.Empty;
+  [Parameter] public IEnumerable<EnumTypeModel<string>> TabsList { get; set; } = [];
+
+  private void CloseCurrentPallet() => PalletContext.ChangePallet(new());
+}

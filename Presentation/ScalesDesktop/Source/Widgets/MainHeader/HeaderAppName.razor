@@ -1,0 +1,22 @@
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Shared.Localization
+@using Ws.Shared.Utils
+
+<h2 class="@Css.Class("text-2xl", Class)">@AppName</h2>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  [Parameter] public string Class { get; set; } = string.Empty;
+
+  private string AppName { get; set; } = string.Empty;
+
+  protected override void OnInitialized() => AppName = GetAppName();
+
+  private string GetAppName()
+  {
+    string devString = ConfigurationUtil.IsDevelop ? "[DEV] " : string.Empty;
+    string versionString = VersionTracking.CurrentVersion;
+    return $"{devString} {Localizer["AppName"]} {versionString}";
+  }
+}

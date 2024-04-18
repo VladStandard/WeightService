@@ -1,0 +1,31 @@
+@using Ws.Shared.Enums
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Features
+@using Ws.Shared.Resources
+
+<div class="size-full flex flex-col overflow-hidden">
+  <PalletWorkspaceHeader
+    TabsList="TabsButtonList"
+    CurrentTabId="@CurrentTabId"
+  />
+  <div class="size-full flex flex-col grow overflow-hidden bg-secondary/[.3]">
+    <Tabs @bind-ActiveTabId="CurrentTabId">
+      <Tab Id="overview">
+        <PalletOverview />
+      </Tab>
+      <Tab Id="labels">
+        <LabelsGrid />
+      </Tab>
+    </Tabs>
+  </div>
+</div>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  private IEnumerable<EnumTypeModel<string>> TabsButtonList { get; set; } = [];
+  private string CurrentTabId { get; set; } = "overview";
+
+  protected override void OnInitialized() =>
+    TabsButtonList = [new(WsDataLocalizer["ColData"], "overview"), new(WsDataLocalizer["ColLabel"], "labels")];
+}
