@@ -69,9 +69,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
         try
         {
             string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
-            ExternalDevices.Printer.PrintLabel(zpl);
             LabelContext.Line.Counter += 1;
             LineService.Update(LabelContext.Line);
+            ExternalDevices.Printer.PrintLabel(zpl);
         }
         catch (LabelWeightGenerateException ex)
         {
@@ -83,9 +83,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
                 _ => Localizer["UnknownError"]
             });
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            ToastService.ShowError(Localizer["UnknownError"]);
+            ToastService.ShowError($"{Localizer["UnknownError"]}: {e}");
         }
 
         await InvokeAsync(StateHasChanged);

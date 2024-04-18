@@ -35,6 +35,10 @@ public sealed class LineEntity : EfEntityBase
     [Column("TYPE", TypeName = "varchar(12)")]
     public LineType Type { get; set; } = LineType.Tablet;
 
+    [Column("VERSION", TypeName = "varchar(16)")]
+    public string Version { get; set; } = string.Empty;
+
+
     public ICollection<PluEntity> Plus { get; set; } = [];
 
     #region Date
