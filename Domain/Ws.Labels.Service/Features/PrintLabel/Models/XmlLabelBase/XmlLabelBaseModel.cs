@@ -35,9 +35,9 @@ public abstract partial class XmlLabelBaseModel : ISerializable
 
     #region Barcodes
 
-    [XmlElement] public abstract  string BarCodeTop { get; set; }
-    [XmlElement] public abstract  string BarCodeRight { get; set; }
-    [XmlElement] public abstract  string BarCodeBottom { get; set; }
+    [XmlElement] public abstract string BarCodeTop { get; set; }
+    [XmlElement] public abstract string BarCodeRight { get; set; }
+    [XmlElement] public abstract string BarCodeBottom { get; set; }
 
     #endregion
 }

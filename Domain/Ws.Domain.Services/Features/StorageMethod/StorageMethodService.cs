@@ -24,13 +24,13 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
     [Transactional, Validate<StorageMethodUpdateValidator>]
     public StorageMethodEntity Update(StorageMethodEntity item)
     {
-       item = storageMethodRepo.Update(item);
+        item = storageMethodRepo.Update(item);
 
-       string zplKey =  $"STORAGE_METHODS:{item.Name}";
-       if (provider.KeyExists(zplKey))
-           provider.StringSet(zplKey, item.Zpl, TimeSpan.FromHours(1));
+        string zplKey = $"STORAGE_METHODS:{item.Name}";
+        if (provider.KeyExists(zplKey))
+            provider.StringSet(zplKey, item.Zpl, TimeSpan.FromHours(1));
 
-       return item;
+        return item;
     }
 
     [Transactional]

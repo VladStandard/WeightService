@@ -3,7 +3,8 @@ using System.Xml.Serialization;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Models.XmlLabelBase;
 
-public abstract partial class XmlLabelBaseModel {
+public abstract partial class XmlLabelBaseModel
+{
     [XmlIgnore] public required short Kneading { get; set; }
     [XmlIgnore] public required DateTime ExpirationDtValue { get; set; } = DateTime.MinValue;
     [XmlIgnore] public required DateTime ProductDtValue { get; set; } = DateTime.MinValue;

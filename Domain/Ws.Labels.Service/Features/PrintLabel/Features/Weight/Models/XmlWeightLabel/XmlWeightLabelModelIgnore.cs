@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+using System.Xml.Serialization;
 using Ws.Shared.TypeUtils;
 
 namespace Ws.Labels.Service.Features.PrintLabel.Features.Weight.Models.XmlWeightLabel;

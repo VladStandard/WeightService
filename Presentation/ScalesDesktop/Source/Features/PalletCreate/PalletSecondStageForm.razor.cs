@@ -26,6 +26,6 @@ public class PalletSecondStageFormValidator : AbstractValidator<PalletCreateMode
     {
         RuleFor(item => item.PalletWeight).GreaterThan(0).LessThanOrEqualTo(999);
         RuleFor(item => item.Count).GreaterThanOrEqualTo(1).LessThanOrEqualTo(240);
-        RuleFor(item => item.Kneading).GreaterThanOrEqualTo((short) 1).LessThanOrEqualTo((short) 999);
+        RuleFor(item => item.Kneading).GreaterThanOrEqualTo((short)1).LessThanOrEqualTo((short)999);
     }
 }

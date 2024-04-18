@@ -28,7 +28,7 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ITemp
         if (Guid.TryParse(generatePalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
             templateBody = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? string.Empty;
 
-        if (storageMethodService.GetStorageByNameFromCacheOrDb(generatePalletDto.Plu.StorageMethod) is {} storageMethod)
+        if (storageMethodService.GetStorageByNameFromCacheOrDb(generatePalletDto.Plu.StorageMethod) is { } storageMethod)
             storageMethodBody = storageMethod;
 
         if (templateBody == string.Empty) throw new();

@@ -24,6 +24,13 @@ internal sealed class SqlStorageMethodMap : ClassMapping<StorageMethodEntity>
             m.NotNullable(true);
         });
 
+        Property(x => x.CreateDt, m =>
+        {
+            m.Column("CHANGE_DT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(true);
+        });
+
         Property(x => x.Name, m =>
         {
             m.Column("NAME");

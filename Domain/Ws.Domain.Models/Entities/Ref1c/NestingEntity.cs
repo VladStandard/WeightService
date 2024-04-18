@@ -1,4 +1,4 @@
-﻿using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Common;
 
 namespace Ws.Domain.Models.Entities.Ref1c;
 
@@ -19,5 +19,5 @@ public class NestingEntity : EntityBase
 public static class NestingExtension
 {
     public static CharacteristicEntity ToCharacteristic(this NestingEntity nesting) => new()
-        { Name = "По умолчанию", Box = nesting.Box, BundleCount = nesting.BundleCount, PluUid = nesting.Uid };
+    { Name = "По умолчанию", Box = nesting.Box, BundleCount = nesting.BundleCount, PluUid = nesting.Uid };
 }

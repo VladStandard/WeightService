@@ -1,4 +1,4 @@
-﻿using Ws.Database.Nhibernate.Utils;
+using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Nestings;
