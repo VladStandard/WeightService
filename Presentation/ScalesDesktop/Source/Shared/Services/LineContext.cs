@@ -16,29 +16,31 @@ public class LineContext : IDisposable
     {
         LineService = lineService;
         ExternalDevices = externalDevices;
-        InitializeData();
+        ExternalDevices.SetupScales();
+        InitializeLineData();
     }
 
-    private void InitializeData()
+    private void InitializeLineData()
     {
         Line = LineService.GetCurrentLine();
+        if (!Line.IsExists) return;
 
-        if (Line.IsExists)
-        {
-            Line.Version = VersionTracking.CurrentVersion;
-            LineService.Update(Line);
-        }
+        if (Line.Version != VersionTracking.CurrentVersion)
+            UpdateLineVersion();
 
         PrinterEntity = Line.Printer;
         ExternalDevices.SetupPrinter(Line.Printer.Ip, 9100, Line.Printer.Type);
-        ExternalDevices.SetupScales();
+    }
+
+    private void UpdateLineVersion()
+    {
+        Line.Version = VersionTracking.CurrentVersion;
+        LineService.Update(Line);
     }
 
     public void ResetLine()
     {
-        Line = LineService.GetCurrentLine();
-        PrinterEntity = Line.Printer;
-        ExternalDevices.SetupPrinter(PrinterEntity.Ip, 9100, PrinterEntity.Type);
+        InitializeLineData();
         OnLineChanged?.Invoke();
     }
 

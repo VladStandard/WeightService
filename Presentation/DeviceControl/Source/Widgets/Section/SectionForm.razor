@@ -1,6 +1,7 @@
 @using Microsoft.Extensions.Localization
 @using vNext.BlazorComponents.FluentValidation
 @using FluentValidation
+
 <EditForm Model="@FormModel" OnValidSubmit="@OnSubmitAction" class="w-full flex flex-col overflow-y-auto overflow-x-hidden bg-secondary/[.3] dark:bg-inherit">
   <FluentValidationValidator Validator="Validator" />
   <div class="w-full flex bg-secondary/[.3] dark:bg-inherit">
@@ -19,7 +20,7 @@
   </div>
   <SectionFormFooter
     ChangeDate="ChangeDate"
-    CreateDate="ChangeDate"
+    CreateDate="CreateDate"
     OnCancelAction="OnCancelAction"
     OnSubmitAction="OnSubmitAction"
   />
@@ -36,4 +37,5 @@
   [Parameter] public EventCallback OnCancelAction { get; set; }
   [Parameter] public EventCallback OnSubmitAction { get; set; }
   [Parameter] public IValidator? Validator { get; set; }
+
 }

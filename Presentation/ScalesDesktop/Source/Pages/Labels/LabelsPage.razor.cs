@@ -14,9 +14,11 @@ public sealed partial class LabelsPage : ComponentBase, IDisposable
 
     # endregion
 
-    protected override void OnInitialized()
+    protected override void OnInitialized() => LabelContext.InitializeData();
+
+    protected override void OnAfterRender(bool firstRender)
     {
-        LabelContext.InitializeData();
+        if (!firstRender) return;
         LineContext.ConnectScale();
     }
 
