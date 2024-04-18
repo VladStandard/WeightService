@@ -51,19 +51,19 @@ internal sealed partial class CharacteristicService
     {
         HashSet<Guid> charUids = dtos.Select(x => x.Uid).ToHashSet();
 
-        List<Guid> existingPairs = DbContext.Characteristics
+        List<Guid> weightPlu = DbContext.Characteristics
             .Join(
                 DbContext.Plus, characteristic => characteristic.PluId, plu => plu.Id,
                 (characteristic, plu) => new { Characteristic = characteristic, Plu = plu }
             )
             .Where(pair => charUids.Contains(pair.Characteristic.Id) && pair.Plu.IsWeight == true)
-            .Select(pair => pair.Characteristic.Id)
+            .Select(pair => pair.Plu.Id)
             .ToList();
 
 
         dtos.RemoveAll(dto =>
         {
-            if (existingPairs.All(weightUid => dto.Uid != weightUid)) return false;
+            if (!weightPlu.Contains(dto.PluUid)) return false;
             OutputDto.AddError(dto.Uid, "Характеристика - принадлежит весовой плу");
             return true;
         });
@@ -120,7 +120,7 @@ internal sealed partial class CharacteristicService
         }
         finally
         {
-            dtos.RemoveAll(brandDto => deletedUid.Contains(brandDto.Uid));
+            dtos.RemoveAll(dto => deletedUid.Contains(dto.Uid));
         }
     }
 }

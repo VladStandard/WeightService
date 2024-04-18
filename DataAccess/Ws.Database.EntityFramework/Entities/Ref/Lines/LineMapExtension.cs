@@ -1,4 +1,3 @@
-using System.Data;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
@@ -26,7 +25,7 @@ internal static class LineMapExtension
                 l => l.HasOne(typeof(PluEntity))
                     .WithMany()
                     .HasForeignKey("PLU_UID")
-                    .OnDelete(DeleteBehavior.Restrict)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasPrincipalKey(nameof(PluEntity.Id)),
                 r => r.HasOne(typeof(LineEntity))
                     .WithMany()

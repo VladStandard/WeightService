@@ -21,10 +21,12 @@ internal partial class BrandService
             .Select(brand => brand.Name)
             .ToHashSet();
 
-        List<BrandDto> notUniqueBrandsDto = dtos.Where(dto => existingNames.Contains(dto.Name)).ToList();
-        OutputDto.AddError(notUniqueBrandsDto.Select(i => i.Uid), "Наименование не уникально (бд)");
-
-        dtos.RemoveAll(dto => existingNames.Contains(dto.Name));
+        dtos.RemoveAll(dto =>
+        {
+            if (!existingNames.Contains(dto.Name)) return false;
+            OutputDto.AddError(dto.Uid, "Наименование не уникально (бд)");
+            return true;
+        });
     }
 
     #endregion

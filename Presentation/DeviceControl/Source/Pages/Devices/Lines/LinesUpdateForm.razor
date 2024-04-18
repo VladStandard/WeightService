@@ -101,7 +101,10 @@
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}/{DialogItem.Uid}")" />
-    <SectionFormActionReset OnClick="@LineResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@LineResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
   </ActionsContent>
 </SectionForm>
