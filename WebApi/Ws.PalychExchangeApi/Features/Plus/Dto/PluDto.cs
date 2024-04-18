@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
 using Ws.PalychExchangeApi.Common;
 
-namespace Ws.PalychExchangeApi.Features.Plus.Dto.PluDto;
+namespace Ws.PalychExchangeApi.Features.Plus.Dto;
 
 [Serializable]
 public sealed record PluDto : BaseDto

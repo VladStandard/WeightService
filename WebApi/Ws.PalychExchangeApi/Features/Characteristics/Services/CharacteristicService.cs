@@ -1,8 +1,8 @@
 using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Characteristics.Common;
-using Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
-using Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
+using Ws.PalychExchangeApi.Features.Characteristics.Dto;
+using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
 

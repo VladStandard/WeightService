@@ -1,6 +1,6 @@
-using Ws.PalychExchangeApi.Features.Characteristics.Services.Models.GroupedCharacteristic;
+using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
-namespace Ws.PalychExchangeApi.Features.Characteristics.Dto.PluCharacteristicsWrapper;
+namespace Ws.PalychExchangeApi.Features.Characteristics.Dto;
 
 internal static class PluCharacteristicsWrapperExtensions
 {

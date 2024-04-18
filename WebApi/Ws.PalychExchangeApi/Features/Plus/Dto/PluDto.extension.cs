@@ -1,7 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
-namespace Ws.PalychExchangeApi.Features.Plus.Dto.PluDto;
+namespace Ws.PalychExchangeApi.Features.Plus.Dto;
 
 internal static class PluDtoExtensions
 {
