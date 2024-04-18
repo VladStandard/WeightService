@@ -1,5 +1,7 @@
 @using Blazor.Heroicons
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Shared.Localization
 
 <div class="rounded-md max-w-2xl max-h-full overflow-y-auto border shadow-sm bg-white p-6 w-full">
   <div class="flex flex-col space-y-1.5">
@@ -11,7 +13,7 @@
     </p>
   </div>
   <div class="grid">
-    <FuncCardItem IconName="@HeroiconName.Plus">
+    <FunctionalityDescriptionItem IconName="@HeroiconName.Plus">
       <CardTitle>
         @Localizer["FuncCardCreationTitle"]
       </CardTitle>
@@ -21,16 +23,16 @@
           <PlusIcon class="size-3"/>
         </span>
       </CardDescription>
-    </FuncCardItem>
-    <FuncCardItem IconName="@HeroiconName.Eye">
+    </FunctionalityDescriptionItem>
+    <FunctionalityDescriptionItem IconName="@HeroiconName.Eye">
       <CardTitle>
         @Localizer["FuncCardViewingTitle"]
       </CardTitle>
       <CardDescription>
         @Localizer["FuncCardViewingDescription"]
       </CardDescription>
-    </FuncCardItem>
-    <FuncCardItem IconName="@HeroiconName.Printer">
+    </FunctionalityDescriptionItem>
+    <FunctionalityDescriptionItem IconName="@HeroiconName.Printer">
       <CardTitle>
         @Localizer["FuncCardPCPrintingTitle"]
       </CardTitle>
@@ -40,8 +42,8 @@
           @Localizer["BtnPrintPC"]
         </span>
       </CardDescription>
-    </FuncCardItem>
-    <FuncCardItem IconName="@HeroiconName.Tag">
+    </FunctionalityDescriptionItem>
+    <FunctionalityDescriptionItem IconName="@HeroiconName.Tag">
       <CardTitle>
         @Localizer["FuncCardLabelPrintingTitle"]
       </CardTitle>
@@ -51,6 +53,12 @@
           @Localizer["BtnSelectedLabelsPrinting"]
         </span>
       </CardDescription>
-    </FuncCardItem>
+    </FunctionalityDescriptionItem>
   </div>
 </div>
+
+@code {
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+}

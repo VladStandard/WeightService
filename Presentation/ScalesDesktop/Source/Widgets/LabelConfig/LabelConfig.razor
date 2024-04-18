@@ -1,5 +1,13 @@
-@using ScalesDesktop.Source.Shared.UI
+@using ScalesDesktop.Source.Features
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
+@using ScalesDesktop.Source.Features.PluSelectDialog
+@using ScalesDesktop.Source.Shared.Localization
+@using ScalesDesktop.Source.Shared.Services
+@using Ws.Domain.Models.Entities.Ref1c
+
+@implements IDisposable
+
 <div class="w-full h-full flex flex-col overflow-hidden">
   <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b xl:px-8">
     <h2 class="text-xl line-clamp-1 text-center xl:text-2xl">
@@ -25,10 +33,7 @@
       </div>
       @if (LabelContext.Plu.IsNew)
       {
-        <div class="size-full flex flex-col items-center justify-center">
-          <ExclamationCircleIcon class="size-8" />
-          <span class="text-lg">@Localizer["LabelConfigEmptyPluWarning"]</span>
-        </div>
+        <UnselectedPluWarning />
       }
       else
       {
@@ -38,3 +43,28 @@
     <LineControl />
   </div>
 </div>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IDialogService DialogService { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
+
+  private async Task ShowPluSelectDialog()
+  {
+    PluDialogContent data = new() { Data = LabelContext.PluEntities.AsQueryable() };
+    IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
+    DialogResult result = await dialog.Result;
+    if (result is { Cancelled: false, Data: PluEntity pluEntity })
+      LabelContext.ChangePlu(pluEntity);
+  }
+
+  public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
+
+}
