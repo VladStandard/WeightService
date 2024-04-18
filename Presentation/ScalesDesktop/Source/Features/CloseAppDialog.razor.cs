@@ -3,7 +3,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
 
-namespace ScalesDesktop.Source.Pages.Home;
+namespace ScalesDesktop.Source.Features;
 
 public sealed partial class CloseAppDialog : ComponentBase, IDialogContentComponent
 {

@@ -6,7 +6,7 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Shared.Resources;
 
-namespace ScalesDesktop.Source.Widgets;
+namespace ScalesDesktop.Source.Features;
 
 public sealed partial class PalletOverview : ComponentBase, IDisposable
 {

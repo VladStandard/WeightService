@@ -7,7 +7,7 @@ using Ws.Scales.Enums;
 using Ws.Scales.Events;
 using Ws.Shared.Resources;
 
-namespace ScalesDesktop.Source.Features;
+namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 {

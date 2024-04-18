@@ -4,7 +4,7 @@ using ScalesDesktop.Source.Shared.Models.Enums;
 using Ws.Scales.Enums;
 using Ws.Scales.Events;
 
-namespace ScalesDesktop.Source.Features.StatusIcons;
+namespace ScalesDesktop.Source.Features.DeviceStatusIcons;
 
 public sealed partial class ScaleStatusIcon : ComponentBase, IDisposable
 {

@@ -1,8 +1,27 @@
-﻿@inherits LayoutComponentBase
+﻿@using ScalesDesktop.Source.Shared.Services
+@using ScalesDesktop.Source.Features
+@inherits LayoutComponentBase
 
 <div class="w-screen h-screen overflow-hidden text-black bg-secondary/90 overscroll-none">
-  @Body
+  @if (!LineContext.Line.IsExists)
+  {
+    <div class="size-full flex items-center justify-center">
+      <UnknownLineWarning />
+    </div>
+  }
+  else
+  {
+    @Body
+  }
 </div>
 
 <FluentDialogProvider />
 <FluentToastProvider Position="ToastPosition.TopCenter" />
+
+@code {
+  [Inject] private LineContext LineContext { get; set; } = default!;
+
+  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+
+  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+}

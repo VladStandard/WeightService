@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Features;
+using ScalesDesktop.Source.Features.PluSelectDialog;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Ref1c;
@@ -25,7 +25,7 @@ public sealed partial class LabelConfig : ComponentBase, IDisposable
     private async Task ShowPluSelectDialog()
     {
         PluDialogContent data = new() { Data = LabelContext.PluEntities.AsQueryable() };
-        IDialogReference dialog = await DialogService.ShowDialogAsync<PluDialog>(data, new());
+        IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
         DialogResult result = await dialog.Result;
         if (result is { Cancelled: false, Data: PluEntity pluEntity })
             LabelContext.ChangePlu(pluEntity);

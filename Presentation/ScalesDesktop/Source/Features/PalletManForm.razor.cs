@@ -9,7 +9,7 @@ using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.PalletMan;
 using Ws.Shared.Resources;
 
-namespace ScalesDesktop.Source.Widgets;
+namespace ScalesDesktop.Source.Features;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed partial class PalletManForm : ComponentBase

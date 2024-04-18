@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Print;
@@ -12,7 +11,7 @@ using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Shared.Resources;
 
-namespace ScalesDesktop.Source.Widgets;
+namespace ScalesDesktop.Source.Features;
 
 public sealed partial class LabelsGrid : ComponentBase, IDisposable
 {

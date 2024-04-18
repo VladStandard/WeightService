@@ -4,7 +4,7 @@ using ScalesDesktop.Source.Shared.Models.Enums;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 
-namespace ScalesDesktop.Source.Features.StatusIcons;
+namespace ScalesDesktop.Source.Features.DeviceStatusIcons;
 
 public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
 {
