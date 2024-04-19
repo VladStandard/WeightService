@@ -13,7 +13,7 @@ public sealed class TemplateEntity : EfEntityBase
     public string Body { get; set; } = string.Empty;
 
     [Column("IS_WEIGHT")]
-    public bool IsWeight { get; set; } = false;
+    public bool IsWeight { get; set; }
 
     [Column("WIDTH")]
     public short Width { get; set; }
@@ -27,5 +27,4 @@ public sealed class TemplateEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    // public virtual ICollection<PlusTemplatesFk> PlusTemplatesFks { get; set; } = new List<PlusTemplatesFk>();
 }

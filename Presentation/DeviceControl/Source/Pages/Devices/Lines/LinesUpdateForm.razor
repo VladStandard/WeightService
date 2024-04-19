@@ -16,6 +16,11 @@
   <FieldsContent>
     <SectionAdminGuidField Value="@DialogItem.Uid" />
 
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColVersion"]"
+      Value="@DialogItem.Version"
+    />
+
     <SectionNumericField
       Label="@WsDataLocalizer["ColNumber"]"
       @bind-Value="@DialogItem.Number"

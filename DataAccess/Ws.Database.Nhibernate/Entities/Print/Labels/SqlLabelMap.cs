@@ -35,7 +35,6 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
         {
             m.Column("BARCODE_TOP");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
             m.NotNullable(true);
         });
 
@@ -43,7 +42,6 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
         {
             m.Column("BARCODE_RIGHT");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
             m.NotNullable(true);
         });
 
@@ -51,7 +49,6 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
         {
             m.Column("BARCODE_BOTTOM");
             m.Type(NHibernateUtil.String);
-            m.Length(128);
             m.NotNullable(true);
         });
 
@@ -72,13 +69,6 @@ internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
             m.Scale(3);
             m.NotNullable(true);
         });
-
-        // ManyToOne(x => x.Pallet, m =>
-        // {
-        //     m.Column("PALLET_UID");
-        //     m.NotNullable(false);
-        //     m.Lazy(LazyRelation.NoLazy);
-        // });
 
         Property(x => x.ProductDt, m =>
         {

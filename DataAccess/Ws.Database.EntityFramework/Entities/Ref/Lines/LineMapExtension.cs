@@ -25,7 +25,7 @@ internal static class LineMapExtension
                 l => l.HasOne(typeof(PluEntity))
                     .WithMany()
                     .HasForeignKey("PLU_UID")
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasPrincipalKey(nameof(PluEntity.Id)),
                 r => r.HasOne(typeof(LineEntity))
                     .WithMany()

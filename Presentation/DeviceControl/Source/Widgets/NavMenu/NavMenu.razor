@@ -17,7 +17,7 @@
     <ul class="flex select-none w-full gap-1 mt-2 flex-col">
       @foreach (MenuSection menu in MenuSections)
       {
-        <li>
+        <li class="empty:hidden">
           <NavMenuItem
             Icon="@menu.Icon"
             Label="@menu.Label"

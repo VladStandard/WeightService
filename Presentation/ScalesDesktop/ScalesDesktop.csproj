@@ -49,7 +49,6 @@
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
         <PackageReference Include="itext7" Version="8.0.3" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
-        <PackageReference Include="MouseKeyHook" Version="5.7.1" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -67,6 +66,12 @@
       <ProjectReference Include="..\..\Libs\Ws.Printers\Ws.Printers.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All" />
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".Publish\dev.cmd" />
+      <Content Include=".Publish\prod.cmd" />
+      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

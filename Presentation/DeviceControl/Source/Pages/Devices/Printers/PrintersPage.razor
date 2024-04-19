@@ -13,6 +13,17 @@
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+  <div class="w-64">
+    <SelectSingle
+      TItem="ProductionSiteEntity"
+      Items="ProductionSiteEntities"
+      @bind-SelectedItem="ProductionSite"
+      @bind-SelectedItem:after="@UpdateData"
+      ItemDisplayName="item => item.Name"
+      IsDisabled="@(!IsSeniorSupport)"
+      IsFilterable
+    />
+  </div>
 </PageHeader>
 
 <DataGridWrapper>
@@ -20,31 +31,27 @@
     TItem="PrinterEntity"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-    IsGroupable
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(PrinterEntity.Name)"
-        Width="35%"
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(PrinterEntity.Type)"
+        Width="4rem"
+        Sortable
       />
       <DataGridColumn
-        Field="@nameof(PrinterEntity.Type)"
-        Width="0%"
-        Groupable
-        Grouping
-      />
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(PrinterEntity.Name)"
+        Width="40%"/>
       <DataGridColumn
         Caption="IP"
         Field="@nameof(PrinterEntity.Ip)"
         Width="25%"
-        Sortable="false"
-      />
+        Sortable="false"/>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColProductionSite"]"
         Field="ProductionSite.Name"
-        Width="40%"
-      />
+        Width="25%"/>
     </ColumnsContent>
     <ContextMenuContent>
       <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />

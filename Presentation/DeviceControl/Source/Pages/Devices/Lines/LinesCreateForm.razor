@@ -74,7 +74,7 @@
       @bind-Value:after="UpdateCurrentWarehouses"
       ItemDisplayName="item => item.Name"
       Path="@Redirector.ToPath(ProductionSiteEntity, UserPrincipal)"
-      Disabled="@(!IsAdmin)"
+      Disabled="@(!IsSeniorSupport)"
       IsFilterable
     />
 
