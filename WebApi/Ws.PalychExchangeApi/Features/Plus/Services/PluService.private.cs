@@ -1,3 +1,5 @@
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
@@ -64,6 +66,41 @@ internal sealed partial class PluService
             OutputDto.AddError(plus.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
         }
     }
+
+    private void DeleteNestings(List<PluDto> dtos)
+    {
+        List<Guid> uidToDelete = dtos.Where(dto => dto.IsDelete).Select(dto => dto.Uid).ToList();
+
+        if (!uidToDelete.Any()) return;
+
+        IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
+
+        try
+        {
+            List<object> parameters = uidToDelete.Select((uid, index) => new SqlParameter($"@p{index}", uid)).ToList<object>();
+
+            string inClause = string.Join(", ", parameters.Select((p, index) => $"@p{index}"));
+            string sql = $@"
+                DELETE FROM [dbo].[ARMS_PLUS_FK] WHERE PLU_UID IN ({inClause});
+                UPDATE [PRINT].[LABELS] SET PLU_UID = NULL WHERE PLU_UID IN ({inClause});
+                DELETE FROM [REF_1C].[PLUS] WHERE UID IN ({inClause});
+            ";
+            DbContext.Database.ExecuteSqlRaw(sql, parameters.ToArray());
+
+            transaction.Commit();
+            OutputDto.AddSuccess(uidToDelete);
+        }
+        catch (Exception ex)
+        {
+            OutputDto.AddError(uidToDelete, "Не предвиденная ошибка");
+            transaction.Rollback();
+        }
+        finally
+        {
+            dtos.RemoveAll(dto => uidToDelete.Contains(dto.Uid));
+        }
+    }
+
 
     private void SaveNestings(IEnumerable<PluDto> validDtos)
     {
