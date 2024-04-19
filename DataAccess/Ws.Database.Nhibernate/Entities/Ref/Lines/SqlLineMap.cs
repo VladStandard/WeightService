@@ -53,12 +53,12 @@ internal sealed class SqlLineMap : ClassMapping<LineEntity>
             m.NotNullable(true);
         });
 
-        // Property(x => x.Version, m =>
-        // {
-        //     m.Column("VERSION");
-        //     m.Type(NHibernateUtil.String);
-        //     m.NotNullable(true);
-        // });
+        Property(x => x.Version, m =>
+        {
+            m.Column("VERSION");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
 
         Property(x => x.PcName, m =>
         {

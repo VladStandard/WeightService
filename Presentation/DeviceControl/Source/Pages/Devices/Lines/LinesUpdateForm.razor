@@ -16,6 +16,11 @@
   <FieldsContent>
     <SectionAdminGuidField Value="@DialogItem.Uid" />
 
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColVersion"]"
+      Value="@DialogItem.Version"
+    />
+
     <SectionNumericField
       Label="@WsDataLocalizer["ColNumber"]"
       @bind-Value="@DialogItem.Number"
@@ -101,7 +106,10 @@
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}/{DialogItem.Uid}")" />
-    <SectionFormActionReset OnClick="@LineResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@LineResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
   </ActionsContent>
 </SectionForm>

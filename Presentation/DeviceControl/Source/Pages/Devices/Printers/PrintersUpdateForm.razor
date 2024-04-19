@@ -55,7 +55,11 @@
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
+
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
   </ActionsContent>
 </SectionForm>
