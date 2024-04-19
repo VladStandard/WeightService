@@ -2,6 +2,7 @@ using Ws.Database.Nhibernate.Entities.Ref.Warehouses;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Warehouse.Validators;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.Domain.Services.Features.Warehouse;
 
@@ -21,4 +22,11 @@ internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehou
 
     [Transactional]
     public void Delete(WarehouseEntity item) => warehouseRepo.Delete(item);
+
+    public IEnumerable<WarehouseEntity> GetAllWithoutDeveloper()
+    {
+        List<WarehouseEntity> data = warehouseRepo.GetAll().ToList();
+        data.RemoveAll(i => i.Uid.IsMax());
+        return data;
+    }
 }

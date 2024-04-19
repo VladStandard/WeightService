@@ -2,6 +2,7 @@ using Ws.PalychExchangeApi.Common;
 using Ws.PalychExchangeApi.Dto;
 using Ws.PalychExchangeApi.Features.Plus.Common;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
@@ -17,6 +18,8 @@ internal sealed partial class PluService(PluDtoValidator validator) : BaseServic
         List<PluDto> validDtos = FilterValidDtos(dtoWrapper.Plus);
 
         ResolveUniqueNumberDb(validDtos);
+
+        SetDefaultFk(validDtos);
 
         ResolveNotExistsFkDb(validDtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
         ResolveNotExistsFkDb(validDtos, DbContext.Clips, dto => dto.ClipUid, "Клипса - не найдена");

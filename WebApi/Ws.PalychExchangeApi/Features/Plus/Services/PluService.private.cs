@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
+using Ws.Shared.TypeUtils;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
@@ -30,6 +31,14 @@ internal sealed partial class PluService
 
     #endregion
 
+    private void SetDefaultFk(List<PluDto> validDtos)
+    {
+        validDtos.ForEach(i =>
+        {
+            i.ClipUid = i.ClipUid == Guid.Empty ? GuidUtils.MaxGuid : i.ClipUid;
+            i.BundleUid = i.BundleUid == Guid.Empty ? GuidUtils.MaxGuid : i.BundleUid;
+        });
+    }
 
     private void SavePlus(IReadOnlyCollection<PluDto> validDtos)
     {

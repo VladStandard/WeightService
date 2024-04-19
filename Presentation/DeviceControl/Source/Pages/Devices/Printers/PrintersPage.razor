@@ -31,31 +31,27 @@
     TItem="PrinterEntity"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-    IsGroupable
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(PrinterEntity.Name)"
-        Width="35%"
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(PrinterEntity.Type)"
+        Width="4rem"
+        Sortable
       />
       <DataGridColumn
-        Field="@nameof(PrinterEntity.Type)"
-        Width="0%"
-        Groupable
-        Grouping
-      />
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(PrinterEntity.Name)"
+        Width="40%"/>
       <DataGridColumn
         Caption="IP"
         Field="@nameof(PrinterEntity.Ip)"
         Width="25%"
-        Sortable="false"
-      />
+        Sortable="false"/>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColProductionSite"]"
         Field="ProductionSite.Name"
-        Width="40%"
-      />
+        Width="25%"/>
     </ColumnsContent>
     <ContextMenuContent>
       <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />

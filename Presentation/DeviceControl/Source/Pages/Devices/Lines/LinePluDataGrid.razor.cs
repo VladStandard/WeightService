@@ -47,7 +47,7 @@ public sealed partial class LinePluDataGrid : SectionDataGridPageBase<PluLineEnt
         if (userPrincipal is { Identity.Name: not null })
             User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
         var isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-        IsAllowToEdit  = isSeniorSupport || (User.ProductionSite != null && User.ProductionSite.Equals(LineEntity.Warehouse.ProductionSite));
+        IsAllowToEdit = isSeniorSupport || (User.ProductionSite != null && User.ProductionSite.Equals(LineEntity.Warehouse.ProductionSite));
 
         SelectPluEntities = [.. PluService.GetAll()];
         SelectedPluEntities = [.. LineService.GetLinePlus(LineEntity)];

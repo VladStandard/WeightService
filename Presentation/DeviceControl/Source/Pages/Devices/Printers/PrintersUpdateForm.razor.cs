@@ -13,6 +13,7 @@ using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
 using Ws.Shared.Resources;
+using Ws.Shared.TypeUtils;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -30,17 +31,18 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
 
     # endregion
 
-    private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
+    private List<ProductionSiteEntity> ProductionSites { get; set; } = [];
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();
     private UserEntity User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
+    private bool IsDeveloper { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        ProductionSites = ProductionSiteService.GetAll().ToList();
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
-        ProductionSites = ProductionSiteService.GetAll();
     }
 
     protected override async Task OnInitializedAsync()
@@ -48,13 +50,17 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
         await base.OnInitializedAsync();
         if (UserPrincipal is { Identity.Name: not null })
             User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
+
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
         IsOnlyView = !IsSeniorSupport && !(User.ProductionSite != null && User.ProductionSite.Equals(DialogItem.ProductionSite));
+
+        if (!IsDeveloper)
+            ProductionSites.RemoveAll(i => i.Uid.IsMax());
     }
 
     protected override PrinterEntity UpdateItemAction(PrinterEntity item) =>
         PrinterService.Update(item);
-
 
     protected override Task DeleteItemAction(PrinterEntity item)
     {

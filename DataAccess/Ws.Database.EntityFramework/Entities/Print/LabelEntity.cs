@@ -7,7 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Print;
 [Index(nameof(BarcodeTop), Name = $"UQ_{SqlTables.Plus}_BARCODE_TOP", IsUnique = true)]
 public class LabelEntity : EfEntityBase
 {
-    [Column("ZPL",  TypeName = "varchar(max)")]
+    [Column("ZPL", TypeName = "varchar(max)")]
     public virtual string Zpl { get; set; } = string.Empty;
 
     [Column("BARCODE_TOP", TypeName = "varchar"), StringLength(128)]

@@ -12,6 +12,7 @@ using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
 using Ws.Shared.Resources;
+using Ws.Shared.TypeUtils;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -28,17 +29,18 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
 
     # endregion
 
-    private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
+    private List<ProductionSiteEntity> ProductionSites { get; set; } = [];
     private IEnumerable<PrinterTypeEnum> PrinterTypesEntities { get; set; } = new List<PrinterTypeEnum>();
     private UserEntity User { get; set; } = new();
     private bool IsSeniorSupport { get; set; }
+    private bool IsDeveloper { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         PrinterTypesEntities = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
         DialogItem.ProductionSite.Name = Localizer["FormProductionSiteDefaultPlaceholder"];
-        ProductionSites = ProductionSiteService.GetAll();
+        ProductionSites = ProductionSiteService.GetAll().ToList();
     }
 
     protected override async Task OnInitializedAsync()
@@ -48,6 +50,10 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
             User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
         DialogItem.ProductionSite = User.ProductionSite ?? ProductionSites.FirstOrDefault() ?? new();
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
+
+        if (!IsDeveloper)
+            ProductionSites.RemoveAll(i => i.Uid.IsMax());
     }
 
     protected override PrinterEntity CreateItemAction(PrinterEntity item) =>
