@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Events;
+using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
@@ -17,7 +17,7 @@ using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
-public sealed partial class LabelPrintButton : ComponentBase, IDisposable
+public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 {
     # region Injects
 
@@ -28,6 +28,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
     [Inject] private ILineService LineService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
     #endregion
 
@@ -35,15 +36,29 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
+    private IJSObjectReference Module { get; set; } = null!;
 
     private const int PrinterRequestDelay = 100;
     private const int ButtonCooldownDelay = 500;
 
     protected override void OnInitialized()
     {
-        MouseSubscribe();
         PrinterStatusSubscribe();
         ScalesSubscribe();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/handle-mouse.js");
+        await Module.InvokeVoidAsync("initializeMiddleMouseEvent", DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable("HandleMiddleMouseClick")]
+    public async Task HandleMiddleMouseClick()
+    {
+        if (GetPrintLabelDisabledStatus()) return;
+        await PrintLabel();
     }
 
     private async Task PrintLabel()
@@ -179,21 +194,20 @@ public sealed partial class LabelPrintButton : ComponentBase, IDisposable
     private void PrinterStatusUnsubscribe() =>
         WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
 
-    private void MouseSubscribe() =>
-        WeakReferenceMessenger.Default.Register<MiddleBtnIsClickedEvent>(this, (_, _) =>
-        {
-            if (!GetPrintLabelDisabledStatus()) Task.Run(PrintLabel);
-        }
-        );
 
-    private void MouseUnsubscribe() =>
-        WeakReferenceMessenger.Default.Unregister<MiddleBtnIsClickedEvent>(this);
-
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        PrinterStatusUnsubscribe();
-        MouseUnsubscribe();
-        ScalesUnsubscribe();
+        try
+        {
+            PrinterStatusUnsubscribe();
+            ScalesUnsubscribe();
+            await Module.InvokeVoidAsync("removeMiddleMouseEvent");
+            await Module.DisposeAsync();
+        }
+        catch
+        {
+            // pass
+        }
     }
 
     # endregion
