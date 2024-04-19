@@ -13,6 +13,17 @@
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+  <div class="w-64">
+    <SelectSingle
+      TItem="ProductionSiteEntity"
+      Items="ProductionSiteEntities"
+      @bind-SelectedItem="ProductionSite"
+      @bind-SelectedItem:after="@UpdateData"
+      ItemDisplayName="item => item.Name"
+      IsDisabled="@(!IsSeniorSupport)"
+      IsFilterable
+    />
+  </div>
 </PageHeader>
 
 <DataGridWrapper>

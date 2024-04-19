@@ -45,6 +45,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         ProductionSiteEntity = DialogItem.Warehouse.ProductionSite;
         PrinterEntities = PrinterService.GetAll().Where(item => item.ProductionSite.Equals(ProductionSiteEntity));
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
@@ -58,6 +59,7 @@ public sealed partial class LinesUpdateForm : SectionFormBase<LineEntity>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
         if (UserPrincipal is { Identity.Name: not null })
             User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;

@@ -1,7 +1,7 @@
 @using Blazor.Heroicons.Outline
 @typeparam TItem
 
-<div class="size-full [&>form>table]:w-full [&>div>div>ul]:flex [&>div>div>ul]:justify-center [&>div>div>ul]:gap-1 [&>div>div>ul]:py-2 [&>div>div>ul]:border-t">
+<div class="size-full [&>form>table]:w-full [&>div>div>ul]:flex [&>div>div>ul]:justify-center [&>div>div>ul]:gap-1 [&>div>div>ul]:py-2 [&>div>div>ul_li:empty]:hidden [&>div>div>ul]:border-t">
   <DataGrid
     TItem="TItem"
     Data="Items"
@@ -82,9 +82,7 @@
     <TotalItemsShortTemplate>
       <div class="hidden"></div>
     </TotalItemsShortTemplate>
-    <PageSelectorTemplate>
-      <div class="hidden"></div>
-    </PageSelectorTemplate>
+    <PageSelectorTemplate />
     <PageSizesTemplate>
       <div class="hidden"></div>
     </PageSizesTemplate>

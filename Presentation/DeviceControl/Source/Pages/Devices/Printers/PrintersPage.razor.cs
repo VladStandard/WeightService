@@ -1,12 +1,15 @@
 using System.Security.Claims;
+using DeviceControl.Source.Shared.Auth.Policies;
 using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
 using DeviceControl.Source.Widgets.Section;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Printer;
+using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
 using Ws.Shared.Resources;
 
@@ -21,16 +24,30 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<PrinterEntity
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
+    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 
     #endregion
 
     private UserEntity User { get; set; } = new();
+    private ProductionSiteEntity ProductionSite { get; set; } = new();
+    private IEnumerable<ProductionSiteEntity> ProductionSiteEntities { get; set; } = [];
+    private bool IsSeniorSupport { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        ClaimsPrincipal userClaims = (await AuthState).User;
-        if (userClaims is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(userClaims.Identity.Name);
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+
+        if (userPrincipal is { Identity.Name: not null })
+        {
+            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
+            ProductionSite = User.ProductionSite ?? new();
+            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        }
+
+        if (IsSeniorSupport)
+            ProductionSiteEntities = ProductionSiteService.GetAll();
+
         await base.OnInitializedAsync();
     }
 
@@ -44,7 +61,7 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<PrinterEntity
         => await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}/{item.Uid.ToString()}");
 
     protected override IEnumerable<PrinterEntity> SetSqlSectionCast() =>
-        User.ProductionSite == null ? [] : PrinterService.GetAllByProductionSite(User.ProductionSite);
+        ProductionSite.IsNew ? [] : PrinterService.GetAllByProductionSite(ProductionSite);
 
     protected override IEnumerable<PrinterEntity> SetSqlSearchingCast()
     {

@@ -10,28 +10,31 @@
   <span>@Localizer["SectionLinePLU"]</span>
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-  <div class="w-64">
-    <SelectMultiple
-      TItem="PluEntity"
-      Items="@SelectPluEntities"
-      SelectedItems="@SelectedPluEntities"
-      ItemDisplayName="item => item.DisplayName"
-      IsFilterable
-    />
-  </div>
-  <Button
-    Size="ButtonSize.Icon"
-    OnClick="@SaveSelectedPluEntities"
-  >
-    <CheckIcon class="size-5" />
-  </Button>
-  <Button
-    Size="ButtonSize.Icon"
-    Variant="ButtonVariant.Destructive"
-    OnClick="@ResetSelectedPluEntities"
-  >
-    <ArrowUturnLeftIcon class="size-5" />
-  </Button>
+  @if (IsAllowToEdit)
+  {
+    <div class="w-96">
+      <SelectMultiple
+        TItem="PluEntity"
+        Items="@SelectPluEntities"
+        SelectedItems="@SelectedPluEntities"
+        ItemDisplayName="item => item.DisplayName"
+        IsFilterable
+      />
+    </div>
+    <Button
+      Size="ButtonSize.Icon"
+      OnClick="@SaveSelectedPluEntities"
+    >
+      <CheckIcon class="size-5" />
+    </Button>
+    <Button
+      Size="ButtonSize.Icon"
+      Variant="ButtonVariant.Destructive"
+      OnClick="@ResetSelectedPluEntities"
+    >
+      <ArrowUturnLeftIcon class="size-5" />
+    </Button>
+  }
 </PageHeader>
 
 <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
