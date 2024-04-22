@@ -48,7 +48,7 @@ internal class LabelWeightGenerator(
         {
             Resources = zplResourceService.GetAllResourcesFromCacheOrDb(),
             Template = LoadTemplate(dto.Plu.TemplateUid),
-            StorageMethod = LoadStorageMethod(dto.Plu.StorageMethod),
+            StorageMethod = LoadStorageMethod(dto.Plu.StorageMethod)
         };
 
         ZplInfo ready = LabelGeneratorUtils.GetZpl(zplPrintItems, labelXml);

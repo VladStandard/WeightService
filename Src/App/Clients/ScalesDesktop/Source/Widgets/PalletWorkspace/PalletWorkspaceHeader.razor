@@ -2,7 +2,6 @@
 @using Microsoft.Extensions.Localization
 @using ScalesDesktop.Source.Shared.Localization
 @using ScalesDesktop.Source.Shared.Services
-@using Ws.Shared.Enums
 <div class="h-14 shrink-0 w-full grid grid-cols-4 border-b px-4">
   <div class="flex h-full items-center">
     <Button
@@ -15,7 +14,7 @@
   </div>
   <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">
     <ul class="size-full flex items-center gap-2 justify-center">
-      @foreach (KeyValuePair<string, string> item in TabsList)
+      @foreach (KeyValuePair<Type, string> item in TabsList)
       {
         <li>
           <Button
@@ -36,8 +35,8 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
 
-  [Parameter] public string CurrentTabId { get; set; } = string.Empty;
-  [Parameter] public List<KeyValuePair<string, string>> TabsList { get; set; } = [];
+  [Parameter] public Type CurrentTabId { get; set; } = default!;
+  [Parameter] public List<KeyValuePair<Type, string>> TabsList { get; set; } = [];
 
   private void CloseCurrentPallet() => PalletContext.ChangePallet(new());
 }

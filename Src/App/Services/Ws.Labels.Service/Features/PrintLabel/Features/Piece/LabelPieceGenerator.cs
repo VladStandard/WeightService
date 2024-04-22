@@ -45,7 +45,7 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ITemp
         {
             Resources = zplResourceService.GetAllResourcesFromCacheOrDb(),
             Template = templateBody,
-            StorageMethod = storageMethodBody,
+            StorageMethod = storageMethodBody
         };
 
         PalletEntity pallet = new()
@@ -53,7 +53,7 @@ internal class LabelPieceGenerator(IZplResourceService zplResourceService, ITemp
             Barcode = string.Empty,
             Weight = generatePalletDto.Weight,
             ProdDt = generatePalletDto.ProductDt,
-            PalletMan = generatePalletDto.PalletMan,
+            PalletMan = generatePalletDto.PalletMan
         };
 
         IList<LabelEntity> labels = [];

@@ -19,7 +19,7 @@ internal static class GenerateWeightPluDtoExtension
             PluFullName = dto.Plu.FullName,
             PluDescription = dto.Plu.Description,
             Weight = dto.Weight,
-            Kneading = dto.Kneading,
+            Kneading = dto.Kneading
         };
 
     internal static LabelEntity ToLabel(this GenerateWeightLabelDto dto) =>

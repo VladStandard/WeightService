@@ -1,4 +1,3 @@
-@using Ws.Shared.Enums
 @typeparam TDialogItem
 
 
@@ -7,7 +6,7 @@
     <Tabs @bind-ActiveTabId="CurrentTabId">
         <DialogHeader>
           <ul class="flex gap-2">
-            @foreach (KeyValuePair<string, string> item in TabsList)
+            @foreach (KeyValuePair<Type, string> item in TabsList)
             {
               <li>
                 <Button
@@ -25,9 +24,15 @@
 </Dialog>
 
 @code {
-  [Parameter] public List<KeyValuePair<string, string>> TabsList { get; set; } = [new("Main", "main")];
   [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter, EditorRequired] public List<KeyValuePair<Type, string>> TabsList { get; set; } = default!;
   [Parameter, EditorRequired] public TDialogItem DialogItem { get; set; } = default!;
 
-  private string CurrentTabId { get; set; } = "main";
+  private Type CurrentTabId { get; set; } = default!;
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    if (TabsList.Count > 0) CurrentTabId = TabsList.FirstOrDefault().Key;
+  }
 }

@@ -4,5 +4,5 @@ public enum LabelGenExceptionEnum
 {
     Invalid,
     TemplateNotFound,
-    StorageMethodNotFound,
+    StorageMethodNotFound
 }

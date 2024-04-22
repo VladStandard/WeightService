@@ -1,15 +1,14 @@
 @using DeviceControl.Source.Pages.References1C.Plus.Characteristics
 @using DeviceControl.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
-@using Ws.Shared.Enums
 @inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="main">
+  <Tab Id="typeof(PlusUpdateForm)">
     <PlusUpdateForm />
   </Tab>
-  <Tab Id="characteristic">
+  <Tab Id="typeof(PieceCharacteristicsDataGrid)">
     @if (!DialogItem.IsCheckWeight)
     {
       <PieceCharacteristicsDataGrid/>
@@ -24,9 +23,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
   [
-    new("main", Localizer["SectionPLU"]),
-    new("characteristic", Localizer["SectionPluCharacteristics"]),
+    new(typeof(PlusUpdateForm), Localizer["SectionPLU"]),
+    new(typeof(PieceCharacteristicsDataGrid), Localizer["SectionPluCharacteristics"])
   ];
 }

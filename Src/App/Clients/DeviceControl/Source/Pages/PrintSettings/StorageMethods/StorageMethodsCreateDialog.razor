@@ -1,11 +1,10 @@
 @using DeviceControl.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
-@using Ws.Shared.Enums
 @inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref.StorageMethodEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="main">
+  <Tab Id="typeof(StorageMethodsCreateForm)">
     <StorageMethodsCreateForm />
   </Tab>
 </SectionDialog>
@@ -13,8 +12,8 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
   [
-    new("main", Localizer["SectionStorageMethods"]),
+    new(typeof(StorageMethodsCreateForm), Localizer["SectionStorageMethods"])
   ];
 }

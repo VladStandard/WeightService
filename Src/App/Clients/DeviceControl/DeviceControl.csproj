@@ -25,6 +25,11 @@
         <ProjectReference Include="..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Source\Widgets\Tests\SimpleDialog.razor" />
+      <_ContentIncludedByDefault Remove="Source\Widgets\Tests\TestMultiSelect.razor" />
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" ContinueOnError="true"/>
     </Target>

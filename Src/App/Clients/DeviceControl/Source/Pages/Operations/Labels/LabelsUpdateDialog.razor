@@ -1,14 +1,13 @@
 @using DeviceControl.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
-@using Ws.Shared.Enums
 @inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Print.LabelEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="main">
+  <Tab Id="typeof(LabelsUpdateForm)">
     <LabelsUpdateForm />
   </Tab>
-  <Tab Id="preview">
+  <Tab Id="typeof(LabelsPreview)">
     <LabelsPreview ZplCode="@DialogItem.Zpl" />
   </Tab>
 </SectionDialog>
@@ -16,9 +15,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
   [
-    new("main", Localizer["SectionLabels"]),
-    new("preview", Localizer["LabelsPreviewTitle"])
+    new(typeof(LabelsUpdateForm), Localizer["SectionLabels"]),
+    new(typeof(LabelsPreview), Localizer["LabelsPreviewTitle"])
   ];
 }

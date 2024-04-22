@@ -45,7 +45,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
             Line = LineContext.Line,
             Characteristic = FormModel.Nesting!,
             ProductDt = createDt,
-            Plu = FormModel.Plu,
+            Plu = FormModel.Plu
         };
 
         try

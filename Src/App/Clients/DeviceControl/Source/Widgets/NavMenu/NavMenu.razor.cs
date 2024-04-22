@@ -81,7 +81,7 @@ public sealed partial class NavMenu : ComponentBase
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
-                new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites),
+                new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites)
             ]
         },
         new()
@@ -105,7 +105,7 @@ public sealed partial class NavMenu : ComponentBase
             [
                 new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyEnum.Support),
                 new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyEnum.SupportSenior),
-                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyEnum.Admin),
+                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyEnum.Admin)
             ]
         },
         new()
@@ -118,7 +118,7 @@ public sealed partial class NavMenu : ComponentBase
                 // new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
                 // new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
             ]
-        },
+        }
     ];
 }
 

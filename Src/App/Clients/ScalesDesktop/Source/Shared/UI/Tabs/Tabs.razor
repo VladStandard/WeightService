@@ -4,6 +4,6 @@
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
-  [Parameter] public string ActiveTabId { get; set; } = string.Empty;
-  [Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
+  [Parameter, EditorRequired] public Type ActiveTabId { get; set; } = default!;
+  [Parameter] public EventCallback<Type> ActiveTabIdChanged { get; set; }
 }
