@@ -40,7 +40,7 @@
         <MauiAsset Include="wwwroot\inter.css" />
         <MauiAsset Include="wwwroot\libs\dialog-animation.js" />
         <MauiAsset Include="wwwroot\libs\focus-handler.js" />
-        <MauiAsset Include="wwwroot\libs\hjandle-barcode.s" />
+        <MauiAsset Include="wwwroot\libs\handle-barcode.js" />
         <MauiAsset Include="wwwroot\libs\select-resize.js" />
         <MauiAsset Include="wwwroot\libs\theme-utils.js" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />

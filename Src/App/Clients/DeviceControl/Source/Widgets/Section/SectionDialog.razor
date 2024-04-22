@@ -7,13 +7,13 @@
     <Tabs @bind-ActiveTabId="CurrentTabId">
         <DialogHeader>
           <ul class="flex gap-2">
-            @foreach (EnumTypeModel<string> item in TabsList)
+            @foreach (KeyValuePair<string, string> item in TabsList)
             {
               <li>
                 <Button
-                  Variant="@(CurrentTabId == item.Value ? ButtonVariant.Secondary : ButtonVariant.Outline)"
-                  OnClick="@(() => CurrentTabId = item.Value)">
-                  @item.Name
+                  Variant="@(CurrentTabId == item.Key ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                  OnClick="@(() => CurrentTabId = item.Key)">
+                  @item.Value
                 </Button>
               </li>
             }
@@ -25,7 +25,7 @@
 </Dialog>
 
 @code {
-  [Parameter] public List<EnumTypeModel<string>> TabsList { get; set; } = [new("Main", "main")];
+  [Parameter] public List<KeyValuePair<string, string>> TabsList { get; set; } = [new("Main", "main")];
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [Parameter, EditorRequired] public TDialogItem DialogItem { get; set; } = default!;
 

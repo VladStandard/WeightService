@@ -22,7 +22,7 @@
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
-  private IEnumerable<EnumTypeModel<string>> TabsButtonList { get; set; } = [];
+  private List<KeyValuePair<string, string>> TabsButtonList { get; set; } = [];
   private string CurrentTabId { get; set; } = "overview";
 
   protected override void OnInitialized() =>

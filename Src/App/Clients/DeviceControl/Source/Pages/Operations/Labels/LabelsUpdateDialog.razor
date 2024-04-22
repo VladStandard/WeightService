@@ -16,9 +16,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(Localizer["SectionLabels"], "main"),
-    new(Localizer["LabelsPreviewTitle"], "preview")
+    new("main", Localizer["SectionLabels"]),
+    new("preview", Localizer["LabelsPreviewTitle"])
   ];
 }

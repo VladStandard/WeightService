@@ -14,8 +14,8 @@
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
-  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(WsDataLocalizer["ColTables"], "main"),
+    new("main", WsDataLocalizer["ColTables"]),
   ];
 }

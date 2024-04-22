@@ -13,8 +13,8 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<EnumTypeModel<string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(Localizer["SectionPrinters"], "main"),
+    new("main", Localizer["SectionPrinters"])
   ];
 }

@@ -11,7 +11,7 @@ public class SectionDialogBase<TDialogItem> : ComponentBase, IDialogContentCompo
 {
     [Parameter] public SectionDialogContent<TDialogItem> Content { get; set; } = default!;
     protected TDialogItem DialogItem { get; private set; } = default!;
-    protected List<EnumTypeModel<string>> TabsList { get; private set; } = [];
+    protected List<KeyValuePair<string, string>> TabsList { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -19,7 +19,7 @@ public class SectionDialogBase<TDialogItem> : ComponentBase, IDialogContentCompo
         TabsList = InitializeTabList();
     }
 
-    protected virtual List<EnumTypeModel<string>> InitializeTabList() =>
+    protected virtual List<KeyValuePair<string, string>> InitializeTabList() =>
         [new("Main", "main")];
 }
 
