@@ -3,7 +3,7 @@
     <PropertyGroup>
         <Configurations>DevelopVS;ReleaseVS</Configurations>
         <Platforms>x64</Platforms>
-        <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Deterministic>true</Deterministic>
         <WarningLevel>9999</WarningLevel>
         <Prefer32Bit>false</Prefer32Bit>
