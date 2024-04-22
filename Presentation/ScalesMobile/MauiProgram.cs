@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,6 +18,11 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
+
+        const string currentLanguage = "ru-RU";
+        CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);
+        CultureInfo.DefaultThreadCurrentUICulture = new(currentLanguage);
+        builder.Services.AddLocalization();
 
         return builder.Build();
     }

@@ -21,4 +21,28 @@
     <data name="BtnBack" xml:space="preserve">
         <value>Назад</value>
     </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Весовая служба (TSD)</value>
+    </data>
+    <data name="HomeMenuDescription" xml:space="preserve">
+        <value>Выберите пункт</value>
+    </data>
+    <data name="ScanPageTitle" xml:space="preserve">
+        <value>Сканирование</value>
+    </data>
+    <data name="CreatePageTitle" xml:space="preserve">
+        <value>Создание</value>
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value>Выход</value>
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value>Данное действие необратимо. Для повторного входа в приложение потребуется системный администратор.</value>
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value>Вы хотите выйти из приложения?</value>
+    </data>
 </root>

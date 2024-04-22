@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net8.0-android</TargetFramework>
+        <TargetFramework>net8.0-android34.0</TargetFramework>
 
         <OutputType>Exe</OutputType>
         <RootNamespace>ScalesMobile</RootNamespace>
@@ -22,7 +22,7 @@
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">25.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -40,6 +40,7 @@
         <MauiAsset Include="wwwroot\inter.css" />
         <MauiAsset Include="wwwroot\libs\dialog-animation.js" />
         <MauiAsset Include="wwwroot\libs\focus-handler.js" />
+        <MauiAsset Include="wwwroot\libs\handle-barcode.js" />
         <MauiAsset Include="wwwroot\libs\select-resize.js" />
         <MauiAsset Include="wwwroot\libs\theme-utils.js" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -81,6 +82,8 @@
       <AdditionalFiles Include="Source\Shared\UI\Button.razor" />
       <AdditionalFiles Include="Source\Shared\UI\Dropdown.razor" />
       <AdditionalFiles Include="Source\Shared\UI\DropdownItem.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Stepper\Stepper.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Stepper\StepperItem.razor" />
     </ItemGroup>
 
     <ItemGroup>

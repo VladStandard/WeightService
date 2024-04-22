@@ -21,4 +21,28 @@
     <data name="BtnBack" xml:space="preserve">
         <value>Back</value>
     </data>
+    <data name="AppName" xml:space="preserve">
+        <value>Weight Service (TSD)</value>
+    </data>
+    <data name="HomeMenuDescription" xml:space="preserve">
+        <value>Select an item</value>
+    </data>
+    <data name="ScanPageTitle" xml:space="preserve">
+        <value>Scan</value>
+    </data>
+    <data name="CreatePageTitle" xml:space="preserve">
+        <value>Create</value>
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value>This action is irreversible. You will need a system administrator to log in to the application again.</value>
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value>Do you want to log out of the app?</value>
+    </data>
 </root>

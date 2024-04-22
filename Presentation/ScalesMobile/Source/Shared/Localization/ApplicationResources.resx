@@ -21,4 +21,28 @@
     <data name="BtnBack" xml:space="preserve">
         <value />
     </data>
+    <data name="AppName" xml:space="preserve">
+        <value />
+    </data>
+    <data name="HomeMenuDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ScanPageTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="CreatePageTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnExit" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnCancel" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ExitAppDialogDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ExitAppDialogTitle" xml:space="preserve">
+        <value />
+    </data>
 </root>

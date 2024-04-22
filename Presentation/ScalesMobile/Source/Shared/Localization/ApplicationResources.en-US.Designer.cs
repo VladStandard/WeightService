@@ -60,11 +60,83 @@ namespace ScalesMobile.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weight Service (TSD).
+        /// </summary>
+        internal static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string BtnBack {
             get {
                 return ResourceManager.GetString("BtnBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string BtnCancel {
+            get {
+                return ResourceManager.GetString("BtnCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string BtnExit {
+            get {
+                return ResourceManager.GetString("BtnExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string CreatePageTitle {
+            get {
+                return ResourceManager.GetString("CreatePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This action is irreversible. You will need a system administrator to log in to the application again..
+        /// </summary>
+        internal static string ExitAppDialogDescription {
+            get {
+                return ResourceManager.GetString("ExitAppDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to log out of the app?.
+        /// </summary>
+        internal static string ExitAppDialogTitle {
+            get {
+                return ResourceManager.GetString("ExitAppDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an item.
+        /// </summary>
+        internal static string HomeMenuDescription {
+            get {
+                return ResourceManager.GetString("HomeMenuDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan.
+        /// </summary>
+        internal static string ScanPageTitle {
+            get {
+                return ResourceManager.GetString("ScanPageTitle", resourceCulture);
             }
         }
     }
