@@ -12,6 +12,7 @@ using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
 using Ws.Shared.Resources;
+using Ws.Shared.TypeUtils;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -31,8 +32,9 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<PrinterEntity
 
     private UserEntity User { get; set; } = new();
     private ProductionSiteEntity ProductionSite { get; set; } = new();
-    private IEnumerable<ProductionSiteEntity> ProductionSiteEntities { get; set; } = [];
+    private List<ProductionSiteEntity> ProductionSiteEntities { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
+    private bool IsDeveloper { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,10 +45,14 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<PrinterEntity
             User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
             ProductionSite = User.ProductionSite ?? new();
             IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+            IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded || ProductionSite.Uid.IsMax();
         }
 
         if (IsSeniorSupport)
-            ProductionSiteEntities = ProductionSiteService.GetAll();
+            ProductionSiteEntities = ProductionSiteService.GetAll().ToList();
+
+        if (!IsDeveloper)
+            ProductionSiteEntities.RemoveAll(i => i.Uid.IsMax());
 
         await base.OnInitializedAsync();
     }

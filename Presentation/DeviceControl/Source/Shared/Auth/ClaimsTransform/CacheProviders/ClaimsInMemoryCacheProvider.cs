@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
-using DeviceControl.Source.Shared.Auth.Policies;
 using Microsoft.Extensions.Caching.Memory;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.User;

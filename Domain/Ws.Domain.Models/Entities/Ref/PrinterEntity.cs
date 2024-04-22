@@ -1,4 +1,5 @@
 // ReSharper disable VirtualMemberCallInConstructor, ClassWithVirtualMembersNeverInherited.Global
+
 using System.Diagnostics;
 using System.Net;
 using Ws.Domain.Models.Common;

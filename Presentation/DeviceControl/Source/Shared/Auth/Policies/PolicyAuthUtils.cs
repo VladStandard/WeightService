@@ -8,6 +8,7 @@ public static class PolicyAuthUtils
     public static void RegisterAuthorization(AuthorizationOptions options)
     {
         options.FallbackPolicy = options.DefaultPolicy;
+
         options.AddPolicy(PolicyEnum.Admin, builder =>
             builder.RequireRole(ClaimTypes.Role, RoleEnum.Admin)
         );
@@ -22,6 +23,14 @@ public static class PolicyAuthUtils
             builder.RequireAssertion(x =>
                 x.User.HasRole(
                     RoleEnum.Support, RoleEnum.Admin, RoleEnum.SupportSenior
+                )
+            )
+        );
+
+        options.AddPolicy(PolicyEnum.Developer, builder =>
+            builder.RequireAssertion(x =>
+                x.User.HasRole(
+                    RoleEnum.Developer, RoleEnum.Admin
                 )
             )
         );

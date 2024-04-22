@@ -68,6 +68,12 @@
       <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include=".Publish\dev.cmd" />
+      <Content Include=".Publish\prod.cmd" />
+      <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>

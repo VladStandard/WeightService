@@ -9,14 +9,16 @@ internal sealed partial class PluService(PluDtoValidator validator) : BaseServic
 {
     public ResponseDto Load(PlusWrapper dtoWrapper)
     {
-        dtoWrapper.Plus.RemoveAll(i => i.IsDelete);
-
         ResolveUniqueUidLocal(dtoWrapper.Plus);
+        DeleteNestings(dtoWrapper.Plus);
+
         ResolveUniqueLocal(dtoWrapper.Plus, dto => dto.Number, "Номер (внутри запроса) - не уникален");
 
         List<PluDto> validDtos = FilterValidDtos(dtoWrapper.Plus);
 
         ResolveUniqueNumberDb(validDtos);
+
+        SetDefaultFk(validDtos);
 
         ResolveNotExistsFkDb(validDtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
         ResolveNotExistsFkDb(validDtos, DbContext.Clips, dto => dto.ClipUid, "Клипса - не найдена");
