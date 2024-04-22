@@ -6,7 +6,6 @@ using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Labels.Service.Features.PrintLabel;
 using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
-using Ws.Labels.Service.Features.PrintLabel.Types.Piece.Dto;
 using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;

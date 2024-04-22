@@ -1,6 +1,6 @@
-@using Microsoft.Extensions.Localization
 @using Blazor.Heroicons.Outline
 @using DeviceControl.Source.Shared.Auth.Policies
+@using Microsoft.Extensions.Localization
 <AuthorizeView Policy="@PolicyEnum.Support">
   <SectionFormAction OnClick="@SwitchIsUnlocked" Class="@Class">
     @if (IsUnlocked)

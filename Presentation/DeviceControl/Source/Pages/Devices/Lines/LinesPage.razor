@@ -1,10 +1,9 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
-@using DeviceControl.Source.Shared.Auth.Policies
 @using Ws.Domain.Models.Enums
-@using Blazor.Heroicons.Outline
-
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.LineEntity>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
