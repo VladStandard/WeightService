@@ -1,6 +1,7 @@
 @using Blazor.Heroicons.Outline
 @using Microsoft.Extensions.Localization
 @using ScalesMobile.Source.Shared.Localization
+@using Ws.Domain.Models.Entities.Ref1c
 @attribute [Route(RouteUtils.Create)]
 
 <div class="size-full flex flex-col">
@@ -21,12 +22,17 @@
     </Stepper>
     @if (CurrentTabIndex == 1)
     {
-      <CreateFormFirstStage OnSuccessAction="@(() => CurrentTabIndex = 2)" />
+      <CreateFormFirstStage
+        @bind-PluEntity="PluEntity"
+        OnSuccessAction="@(() => CurrentTabIndex = 2)"
+      />
     }
   </div>
 </div>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  private PluEntity PluEntity { get; set; } = new();
   private int CurrentTabIndex { get; set; } = 1;
 }

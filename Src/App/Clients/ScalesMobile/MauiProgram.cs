@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Ws.Domain.Services;
 
 namespace ScalesMobile;
 
@@ -13,6 +14,7 @@ public static class MauiProgram
         builder.UseMauiApp<App>();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents();
+        // builder.Services.AddDomainServices();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();

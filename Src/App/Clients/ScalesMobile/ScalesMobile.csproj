@@ -115,6 +115,11 @@
       <MauiPlatformSpecificFolder Remove="Platforms\Windows\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+      <ProjectReference Include="..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
