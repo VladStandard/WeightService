@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\PrintLabel\Features\"/>
+        <Folder Include="Features\Generate\Features\" />
     </ItemGroup>
 
 </Project>

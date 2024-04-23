@@ -4,7 +4,6 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Events;
 using Ws.Shared.Resources;
-using Ws.Shared.TypeUtils;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
@@ -33,7 +32,7 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 
     private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
 
-    private string IntegerPart => DecimalUtils.ToStrToLen(Math.Truncate(Math.Abs(GetNetWeight)), 4);
+    private string IntegerPart => $"{Math.Truncate(Math.Abs(GetNetWeight)):0000}";
 
     private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
 

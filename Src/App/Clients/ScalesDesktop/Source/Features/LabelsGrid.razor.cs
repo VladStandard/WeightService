@@ -6,7 +6,7 @@ using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
-using Ws.Labels.Service.Features.PrintLabel;
+using Ws.Labels.Service.Features.Generate;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Shared.Resources;

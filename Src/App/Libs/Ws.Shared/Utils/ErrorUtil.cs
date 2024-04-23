@@ -15,8 +15,6 @@ public static class ErrorUtil
         }
     }
 
-    public static bool Suppress<T>(Action operation) where T : Exception
-    {
-        return Suppress(operation, typeof(T));
-    }
+    public static bool Suppress<T>(Action operation) where T : Exception =>
+        Suppress(operation, typeof(T));
 }

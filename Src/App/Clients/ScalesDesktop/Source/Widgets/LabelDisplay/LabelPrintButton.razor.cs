@@ -6,9 +6,9 @@ using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
-using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
-using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Features.Generate;
+using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 using Ws.Printers.Enums;
 using Ws.Printers.Events;
 using Ws.Scales.Enums;
@@ -88,7 +88,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
             LineService.Update(LabelContext.Line);
             ExternalDevices.Printer.PrintLabel(zpl);
         }
-        catch (LabelWeightGenerateException ex)
+        catch (LabelGenerateException ex)
         {
             ToastService.ShowError(ex.Code switch
             {
