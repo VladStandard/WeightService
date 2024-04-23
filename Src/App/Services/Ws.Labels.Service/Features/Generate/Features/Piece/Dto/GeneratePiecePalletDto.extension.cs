@@ -11,7 +11,7 @@ public static class LabelPiecePalletDtoMapper
             Kneading = palletDto.Kneading,
             ExpirationDtValue = palletDto.ExpirationDt,
             ProductDtValue = palletDto.ProductDt,
-            LineNumber =palletDto.Line.Number,
+            LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,
             LineName = palletDto.Line.Name,
             LineAddress = palletDto.Line.Warehouse.ProductionSite.Address,

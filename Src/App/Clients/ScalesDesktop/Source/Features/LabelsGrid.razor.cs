@@ -8,12 +8,12 @@ using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
+using Ws.Printers.Messages;
 using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 
-public sealed partial class LabelsGrid : ComponentBase, IDisposable
+public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<PrinterStatusMsg>
 {
     # region Injects
 
@@ -36,7 +36,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
 
     protected override void OnInitialized()
     {
-        PrinterStatusSubscribe();
+        WeakReferenceMessenger.Default.Register(this);
         StateChangedHandler = async () => await ResetDataGrid();
         PalletContext.OnStateChanged += StateChangedHandler;
     }
@@ -124,20 +124,13 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
             _ => Localizer["PrinterStatusUnknown"]
         });
 
-    private void PrintNotification(object sender, GetPrinterStatusEvent payload) => PrinterStatus = payload.Status;
-
-    private void PrinterStatusSubscribe() =>
-        WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, PrintNotification);
-
-    private void PrinterStatusUnsubscribe() =>
-        WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
-
     public void Dispose()
     {
-        PrinterStatusUnsubscribe();
         if (StateChangedHandler != null)
             PalletContext.OnStateChanged -= StateChangedHandler;
     }
+
+    public void Receive(PrinterStatusMsg message) => PrinterStatus = message.Status;
 }
 
 internal record DataItem

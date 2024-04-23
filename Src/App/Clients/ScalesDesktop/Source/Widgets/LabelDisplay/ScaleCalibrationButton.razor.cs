@@ -4,12 +4,12 @@ using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Enums;
-using Ws.Scales.Events;
+using Ws.Scales.Messages;
 using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
-public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
+public sealed partial class ScaleCalibrationButton : ComponentBase, IRecipient<ScaleStatusMsg>
 {
     #region Injects
 
@@ -26,7 +26,7 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
     private const int ButtonDebounceSeconds = 10;
 
 
-    protected override void OnInitialized() => ScalesSubscribe();
+    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register(this);
 
     private string GetCooldownString() =>
         $"{Localizer["BtnCooldown"]} {SecToOpen} {WsDataLocalizer["MeasureSec"]}";
@@ -49,17 +49,9 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
         StateHasChanged();
     }
 
-    private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
+    public void Receive(ScaleStatusMsg message)
     {
         IsScalesAvailable = message.Status is ScalesStatus.IsConnect;
         InvokeAsync(StateHasChanged);
     }
-
-    private void ScalesSubscribe() =>
-        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, UpdateScalesStatus);
-
-    private void ScalesUnsubscribe() =>
-        WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
-
-    public void Dispose() => ScalesUnsubscribe();
 }

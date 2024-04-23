@@ -1,7 +1,7 @@
 using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Scales.Common;
-using Ws.Scales.Events;
+using Ws.Scales.Messages;
 using Ws.Scales.Utils;
 
 namespace Ws.Scales.Commands;
@@ -25,6 +25,6 @@ internal class GetMassaCommand(SerialPort port) : ScaleCommandBase(port, MassaKC
 
         int weight = BitConverter.ToInt32(buffer.Skip(6).Take(4).ToArray(), 0);
         bool isStable = buffer[11] == 0x01;
-        WeakReferenceMessenger.Default.Send(new GetScaleMassaEvent(weight, isStable));
+        WeakReferenceMessenger.Default.Send(new ScaleMassaMsg(weight, isStable));
     }
 }

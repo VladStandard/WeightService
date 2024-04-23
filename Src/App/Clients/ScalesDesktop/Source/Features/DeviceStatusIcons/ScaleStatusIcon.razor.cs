@@ -2,18 +2,17 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Models.Enums;
 using Ws.Scales.Enums;
-using Ws.Scales.Events;
+using Ws.Scales.Messages;
 
 namespace ScalesDesktop.Source.Features.DeviceStatusIcons;
 
-public sealed partial class ScaleStatusIcon : ComponentBase, IDisposable
+public sealed partial class ScaleStatusIcon : ComponentBase, IRecipient<ScaleStatusMsg>
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.IsDisabled;
 
-    protected override void OnInitialized() =>
-        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, GetStatus);
+    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register(this);
 
-    private void GetStatus(object recipient, GetScaleStatusEvent message)
+    public void Receive(ScaleStatusMsg message)
     {
         DeviceStatus = message.Status switch
         {
@@ -30,6 +29,4 @@ public sealed partial class ScaleStatusIcon : ComponentBase, IDisposable
         DeviceStatusEnum.IsForceDisconnected => "bg-red-100 border-red-500 text-red-500",
         _ => "bg-green-100 border-green-500 text-green-500"
     };
-
-    public void Dispose() => WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
 }

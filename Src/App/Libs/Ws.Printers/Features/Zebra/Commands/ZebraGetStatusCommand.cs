@@ -3,8 +3,8 @@ using System.Text;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
 using Ws.Printers.Features.Zebra.Utils;
+using Ws.Printers.Messages;
 
 namespace Ws.Printers.Features.Zebra.Commands;
 
@@ -16,6 +16,6 @@ internal class ZebraGetStatusCommands(TcpClient tcp) : PrinterCommandBase(tcp, Z
         _ = stream.Read(buffer, 0, buffer.Length);
         string strStatus = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
         PrinterStatusEnum status = ZebraStatusParserUtils.ParseStatusString(strStatus);
-        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(status));
+        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(status));
     }
 }

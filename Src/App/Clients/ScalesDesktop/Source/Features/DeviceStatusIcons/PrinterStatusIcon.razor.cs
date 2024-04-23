@@ -2,17 +2,17 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Models.Enums;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
+using Ws.Printers.Messages;
 
 namespace ScalesDesktop.Source.Features.DeviceStatusIcons;
 
-public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
+public sealed partial class PrinterStatusIcon : ComponentBase, IRecipient<PrinterStatusMsg>
 {
     private DeviceStatusEnum DeviceStatus { get; set; } = DeviceStatusEnum.Connected;
 
-    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, GetStatus);
+    protected override void OnInitialized() => WeakReferenceMessenger.Default.Register(this);
 
-    private void GetStatus(object recipient, GetPrinterStatusEvent message)
+    public void Receive(PrinterStatusMsg message)
     {
         DeviceStatus = message.Status switch
         {
@@ -32,6 +32,4 @@ public sealed partial class PrinterStatusIcon : ComponentBase, IDisposable
         DeviceStatusEnum.Warning => "bg-amber-100 border-amber-500 text-amber-500",
         _ => "bg-green-100 border-green-500 text-green-500"
     };
-
-    public void Dispose() => WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
 }
