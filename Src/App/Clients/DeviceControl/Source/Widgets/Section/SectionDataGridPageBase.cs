@@ -7,20 +7,24 @@ using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable where TItem : EntityBase, new()
+public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable where TItem : EntityBase, new()
 {
-    [Inject] private IDialogService DialogService { get; set; } = default!;
+    #region Inject
+
+    [Inject] protected IDialogService DialogService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
+    #endregion
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
 
     protected IEnumerable<TItem> SectionItems { get; set; } = [];
-    protected bool IsLoading { get; set; } = true;
-    private bool IsFirstLoading { get; set; } = true;
     private IJSObjectReference? Module { get; set; }
     protected DialogParameters DialogParameters { get; private set; } = new();
+
+    protected bool IsLoading { get; set; } = true;
+    private bool IsFirstLoading { get; set; } = true;
 
     protected override void OnInitialized()
     {
@@ -54,8 +58,7 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
         Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
     }
 
-    protected virtual IEnumerable<TItem> SetSqlSectionCast() =>
-        throw new NotImplementedException();
+    protected abstract IEnumerable<TItem> SetSqlSectionCast();
 
     protected virtual IEnumerable<TItem> SetSqlSearchingCast() =>
         throw new NotImplementedException();
@@ -85,7 +88,6 @@ public class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable wh
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
         await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem> { Item = sectionEntity },
             DialogParameters);
-
 
     private Task HandleDialogCallback(DialogResult result)
     {

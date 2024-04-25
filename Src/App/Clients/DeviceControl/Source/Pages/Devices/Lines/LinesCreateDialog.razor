@@ -1,11 +1,11 @@
 @using DeviceControl.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
-@inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref.LineEntity>
+@inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Ref.LineEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="typeof(LinesCreateForm)">
-    <LinesCreateForm />
+    <LinesCreateForm ProductionSite="Content.ProductionSite" />
   </Tab>
 </SectionDialog>
 

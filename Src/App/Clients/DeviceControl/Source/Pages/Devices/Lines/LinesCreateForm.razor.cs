@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using DeviceControl.Source.Shared.Auth.Policies;
 using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
@@ -15,7 +14,6 @@ using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.User;
 using Ws.Domain.Services.Features.Warehouse;
 using Ws.Shared.Resources;
-using Ws.Shared.TypeUtils;
 
 namespace DeviceControl.Source.Pages.Devices.Lines;
 
@@ -35,20 +33,13 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
     # endregion
 
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+    [Parameter, EditorRequired] public ProductionSiteEntity ProductionSite { get; set; } = new();
 
-    private IEnumerable<PrinterEntity> PrinterEntities { get; set; } = [];
-    private List<WarehouseEntity> CachedWarehousesEntities { get; set; } = [];
+    private IEnumerable<PrinterEntity> Printers { get; set; } = [];
+    private IEnumerable<WarehouseEntity> Warehouses { get; set; } = [];
     private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = [];
-    private ProductionSiteEntity ProductionSiteEntity { get; set; } = new();
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
-
-    private IEnumerable<WarehouseEntity> WarehousesEntities =>
-        CachedWarehousesEntities.Where(item => item.ProductionSite.Equals(ProductionSiteEntity));
-
-    private IEnumerable<ProductionSiteEntity> ProductionSitesEntities =>
-        CachedWarehousesEntities.Select(warehouse => warehouse.ProductionSite)
-            .Where(productionSite => !productionSite.IsNew).ToHashSet();
 
     protected override void OnInitialized()
     {
@@ -57,7 +48,7 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
         GenerateLineNumber();
 
         LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
-        CachedWarehousesEntities = WarehouseService.GetAll().ToList();
+        Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
     }
 
     protected override async Task OnInitializedAsync()
@@ -66,14 +57,7 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
 
         IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-
-        ClaimsPrincipal userClaims = (await AuthState).User;
-        if (userClaims is { Identity.Name: not null })
-        {
-            UserEntity userEntity = UserService.GetItemByNameOrCreate(userClaims.Identity.Name);
-            ProductionSiteEntity = userEntity.ProductionSite ?? ProductionSitesEntities.FirstOrDefault() ?? new();
-            UpdateCurrentWarehouses();
-        }
+        UpdateCurrentWarehouses();
     }
 
     protected override LineEntity CreateItemAction(LineEntity item) =>
@@ -81,13 +65,9 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
 
     private void UpdateCurrentWarehouses()
     {
-        PrinterEntities = PrinterService.GetAllByProductionSite(ProductionSiteEntity);
-        DialogItem.Printer = PrinterEntities.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
-
-        DialogItem.Warehouse = WarehousesEntities.FirstOrDefault() ?? new();
-
-        if (!IsDeveloper)
-            CachedWarehousesEntities.RemoveAll(i => i.Uid.IsMax() || i.ProductionSite.Uid.IsMax());
+        Printers = PrinterService.GetAllByProductionSite(ProductionSite);
+        DialogItem.Printer = Printers.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
+        DialogItem.Warehouse = Warehouses.FirstOrDefault() ?? new();
     }
 
     private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);

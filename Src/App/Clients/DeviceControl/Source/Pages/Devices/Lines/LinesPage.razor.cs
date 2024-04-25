@@ -3,6 +3,7 @@ using DeviceControl.Source.Shared.Auth.Policies;
 using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
 using DeviceControl.Source.Widgets.Section;
+using DeviceControl.Source.Widgets.Section.Dialogs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -44,8 +45,10 @@ public sealed partial class LinesPage : SectionDataGridPageBase<LineEntity>
         {
             User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
             ProductionSite = User.ProductionSite ?? new();
-            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-            IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded || ProductionSite.Uid.IsMax();
+            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior))
+                .Succeeded;
+            IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
+                          ProductionSite.Uid.IsMax();
         }
 
         if (IsSeniorSupport)
@@ -56,8 +59,11 @@ public sealed partial class LinesPage : SectionDataGridPageBase<LineEntity>
 
         await base.OnInitializedAsync();
     }
+
     protected override async Task OpenSectionCreateForm()
-        => await OpenSectionModal<LinesCreateDialog>(new());
+        => await DialogService.ShowDialogAsync<LinesCreateDialog>(
+            new SectionDialogContentWithProductionSite<LineEntity> { Item = new(), ProductionSite = ProductionSite }
+            , DialogParameters);
 
     protected override async Task OpenDataGridEntityModal(LineEntity item)
         => await OpenSectionModal<LinesUpdateDialog>(item);

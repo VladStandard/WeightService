@@ -23,10 +23,7 @@ internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehou
     [Transactional]
     public void Delete(WarehouseEntity item) => warehouseRepo.Delete(item);
 
-    public IEnumerable<WarehouseEntity> GetAllWithoutDeveloper()
-    {
-        List<WarehouseEntity> data = warehouseRepo.GetAll().ToList();
-        data.RemoveAll(i => i.Uid.IsMax());
-        return data;
-    }
+    [Transactional]
+    public IEnumerable<WarehouseEntity> GetAllByProductionSite(ProductionSiteEntity productionSite) =>
+        warehouseRepo.GetAllByProductionSite(productionSite);
 }

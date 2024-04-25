@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
-using Ws.Domain.Models.Utils;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
@@ -10,7 +9,7 @@ namespace Ws.Domain.Models.Entities.Ref;
 public class UserEntity : EntityBase
 {
     public virtual string Name { get; set; } = string.Empty;
-    public virtual DateTime LoginDt { get; set; } = SqlTypeUtils.MinDateTime;
+    public virtual DateTime LoginDt { get; set; }
 
     public virtual ProductionSiteEntity? ProductionSite { get; set; }
     public virtual ISet<ClaimEntity> Claims { get; set; } = new HashSet<ClaimEntity>();

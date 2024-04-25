@@ -55,7 +55,7 @@
     <SectionSelectSingleField
       TItem="PrinterEntity"
       Label="@WsDataLocalizer["ColPrinter"]"
-      Items="PrinterEntities"
+      Items="Printers"
       @bind-Value="@DialogItem.Printer"
       ItemDisplayName="item => item.DisplayName"
       Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
@@ -65,22 +65,16 @@
 
     <FormDivider>@Localizer["FieldLocation"]</FormDivider>
 
-    <SectionSelectSingleField
-      TItem="ProductionSiteEntity"
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Items="ProductionSitesEntities"
-      @bind-Value="@ProductionSiteEntity"
-      @bind-Value:after="UpdateCurrentWarehouses"
-      ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(ProductionSiteEntity, UserPrincipal)"
-      Disabled="@(!IsSeniorSupport)"
-      IsFilterable
+      Value="@ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSite, UserPrincipal)"
     />
 
     <SectionSelectSingleField
       TItem="WarehouseEntity"
       Label="@WsDataLocalizer["ColWarehouse"]"
-      Items="WarehousesEntities"
+      Items="Warehouses"
       @bind-Value="@DialogItem.Warehouse"
       ItemDisplayName="item => item.Name"
       Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"

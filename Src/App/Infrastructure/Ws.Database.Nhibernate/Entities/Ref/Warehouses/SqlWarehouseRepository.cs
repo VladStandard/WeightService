@@ -14,4 +14,9 @@ public sealed class SqlWarehouseRepository : BaseRepository, IGetItemByUid<Wareh
     public WarehouseEntity Save(WarehouseEntity item) { Session.Save(item); return item; }
     public WarehouseEntity Update(WarehouseEntity item) { Session.Update(item); return item; }
     public void Delete(WarehouseEntity item) => Session.Delete(item);
+
+    public IEnumerable<WarehouseEntity> GetAllByProductionSite(ProductionSiteEntity productionSite) =>
+        Session.Query<WarehouseEntity>()
+            .Where(i => i.ProductionSite == productionSite)
+            .OrderBy(i => i.Name).ToList();
 }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Utils;
 
 namespace Ws.Domain.Models.Entities.Print;
 
@@ -21,8 +20,8 @@ public class LabelEntity : EntityBase
     public virtual Guid? PalletUid { get; set; }
     public virtual PluEntity? Plu { get; set; }
     public virtual LineEntity Line { get; set; } = new();
-    public virtual DateTime ProductDt { get; set; } = SqlTypeUtils.MinDateTime;
-    public virtual DateTime ExpirationDt { get; set; } = SqlTypeUtils.MinDateTime;
+    public virtual DateTime ProductDt { get; set; }
+    public virtual DateTime ExpirationDt { get; set; }
     public virtual decimal WeightGross => WeightNet + WeightTare;
 
     public override string ToString() => $"{CreateDt} : {Plu?.Name}";
