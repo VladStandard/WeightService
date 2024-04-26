@@ -1,0 +1,102 @@
+@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.ValueTypes
+@using Blazor.Heroicons.Outline
+@using Ws.Domain.Services.Features.Template
+@using Ws.Shared.Types
+
+<div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 dark:bg-inherit">
+  <div class="flex flex-col w-full space-y-4">
+    @if (UsedValues.Any())
+    {
+      <h3 class="col-span-2 text-center text-sm">Список значений</h3>
+    }
+    <ul class="flex flex-col mx-auto max-w-md w-full space-y-4">
+      @foreach (string item in UsedValues)
+      {
+        <li class="flex w-full items-end gap-2 last:pb-6">
+          @if (Values.Contains(item))
+          {
+            <SectionNumericField
+              TItem="int"
+              Label="@item"
+              Min="0"
+              Max="16"
+              Placeholder="Введите длину"
+              @bind-Value="@BarcodeValues[item].Len"/>
+          }
+          else
+          {
+            <SectionReadOnlyField Label="Константа" Value="@item"/>
+          }
+          <Button Size="ButtonSize.Icon" OnClick="@(() => RemoveValue(item))" Variant="ButtonVariant.Outline" Class="!size-10">
+            <TrashIcon class="size-4 text-destructive"/>
+          </Button>
+        </li>
+      }
+    </ul>
+    <div class="max-w-xl w-full gap-4 mx-auto grid grid-cols-1 lg:grid-cols-2">
+      <SectionSelectSingleField
+        TItem="string"
+        Label="Выберите переменную"
+        Items="@Values.Except(UsedValues)"
+        Placeholder="Выберите значение"
+        @bind-Value="ChoosedValue"
+        @bind-Value:after="@(() => { AddNewValue(ChoosedValue!); ChoosedValue = null; })"
+      />
+      <div class="flex gap-2 w-full items-end">
+        <SectionTextField
+          Label="Создание константы"
+          @bind-Value="ConstValue"
+          Placeholder="Введите название константы..."/>
+        <Button
+          Size="ButtonSize.Icon"
+          OnClick="@(() => { AddNewValue(ConstValue, true); ConstValue = string.Empty; })"
+          Variant="ButtonVariant.Outline"
+          Class="!size-10">
+          <CheckIcon class="size-4 text-green-500"/>
+        </Button>
+      </div>
+    </div>
+    <Button OnClick="@SubmitForm">Submit</Button>
+  </div>
+</div>
+
+@code {
+  [Inject] private ITemplateService TemplateService { get; set; } = default!;
+  [CascadingParameter(Name = "DialogItem")] protected TemplateEntity DialogItem { get; set; } = new();
+
+  private WsOrderedDictionary<string, BarcodeItem> BarcodeValues { get; set; } = [];
+  private IList<string> Values { get; set; } = ["gtin", "guid", "date"];
+  private IList<string> UsedValues { get; set; } = [];
+
+  private string ConstValue { get; set; } = string.Empty;
+  private string? ChoosedValue { get; set; }
+
+  protected override void OnInitialized()
+  {
+    UsedValues = DialogItem.BarcodeTopBody.Keys.ToList();
+    Values = DialogItem.BarcodeTopBody.Where(item => !item.Value.IsConst).Select(item => item.Key)
+      .ToList();;
+  }
+
+  private void AddNewValue(string newValue, bool isConst = false)
+  {
+    if (BarcodeValues.ContainsKey(newValue)) return;
+    UsedValues.Add(newValue);
+    BarcodeValues.Add(newValue, new() {IsConst = isConst});
+  }
+
+  private void RemoveValue(string valueToDelete)
+  {
+    if (!BarcodeValues.ContainsKey(valueToDelete)) return;
+    UsedValues.Remove(valueToDelete);
+    BarcodeValues.Remove(valueToDelete);
+  }
+
+  private void SubmitForm()
+  {
+    DialogItem.BarcodeTopBody = BarcodeValues;
+    TemplateService.Update(DialogItem);
+  }
+}
