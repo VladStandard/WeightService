@@ -4,10 +4,10 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(LabelsUpdateForm)">
+  <Tab Id="@typeof(LabelsUpdateForm).ToString()">
     <LabelsUpdateForm />
   </Tab>
-  <Tab Id="typeof(LabelsPreview)">
+  <Tab Id="@typeof(LabelsPreview).ToString()">
     <LabelsPreview ZplCode="@DialogItem.Zpl" />
   </Tab>
 </SectionDialog>
@@ -15,9 +15,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(LabelsUpdateForm), Localizer["SectionLabels"]),
-    new(typeof(LabelsPreview), Localizer["LabelsPreviewTitle"])
+    new(typeof(LabelsUpdateForm).ToString(), Localizer["SectionLabels"]),
+    new(typeof(LabelsPreview).ToString(), Localizer["LabelsPreviewTitle"])
   ];
 }

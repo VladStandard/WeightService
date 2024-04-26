@@ -4,7 +4,7 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(PrintersUpdateForm)">
+  <Tab Id="@typeof(PrintersUpdateForm).ToString()">
     <PrintersUpdateForm />
   </Tab>
 </SectionDialog>
@@ -12,8 +12,8 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(PrintersUpdateForm), Localizer["SectionPrinters"])
+    new(typeof(PrintersUpdateForm).ToString(), Localizer["SectionPrinters"])
   ];
 }

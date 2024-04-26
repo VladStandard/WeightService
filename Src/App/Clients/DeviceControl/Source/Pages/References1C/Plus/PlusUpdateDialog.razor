@@ -5,10 +5,10 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(PlusUpdateForm)">
+  <Tab Id="@typeof(PlusUpdateForm).ToString()">
     <PlusUpdateForm />
   </Tab>
-  <Tab Id="typeof(PieceCharacteristicsDataGrid)">
+  <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()">
     @if (!DialogItem.IsCheckWeight)
     {
       <PieceCharacteristicsDataGrid/>
@@ -23,9 +23,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(PlusUpdateForm), Localizer["SectionPLU"]),
-    new(typeof(PieceCharacteristicsDataGrid), Localizer["SectionPluCharacteristics"])
+    new(typeof(PlusUpdateForm).ToString(), Localizer["SectionPLU"]),
+    new(typeof(PieceCharacteristicsDataGrid).ToString(), Localizer["SectionPluCharacteristics"])
   ];
 }

@@ -5,7 +5,7 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(FileTablesDataGrid)">
+  <Tab Id="@typeof(FileTablesDataGrid).ToString()">
     <FileTablesDataGrid />
   </Tab>
 </SectionDialog>
@@ -13,8 +13,8 @@
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(FileTablesDataGrid), WsDataLocalizer["ColTables"])
+    new(typeof(FileTablesDataGrid).ToString(), WsDataLocalizer["ColTables"])
   ];
 }

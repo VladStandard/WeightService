@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Labels.Tests", "Src\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Components", "Src\App\Libs\Ws.Components\Ws.Components.csproj", "{E5B44205-9246-4C37-B8F4-893C881FBAF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Components.Tests", "Src\Tests\Ws.Components.Tests\Ws.Components.Tests.csproj", "{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -112,6 +114,10 @@ Global
 		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +138,7 @@ Global
 		{FEB05EDE-ACC1-4EC3-B5EF-C165E1463A15} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{E5B44205-9246-4C37-B8F4-893C881FBAF0} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
+		{305E98C0-AAFF-4E02-8A38-CDFCAD919C0A} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
