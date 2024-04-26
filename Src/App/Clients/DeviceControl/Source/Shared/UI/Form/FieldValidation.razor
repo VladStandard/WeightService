@@ -1,9 +1,0 @@
-@using System.Linq.Expressions
-@typeparam TValue
-
-
-<ValidationMessage For="@For" class="text-sm font-medium text-destructive" />
-
-@code {
-  [Parameter] public Expression<Func<TValue>>? For { get; set; }
-}

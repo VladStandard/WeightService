@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Shared.Tests", "Src\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Labels.Tests", "Src\Tests\Ws.Labels.Tests\Ws.Labels.Tests.csproj", "{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Components", "Src\App\Libs\Ws.Components\Ws.Components.csproj", "{E5B44205-9246-4C37-B8F4-893C881FBAF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -106,6 +108,10 @@ Global
 		{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{E5B44205-9246-4C37-B8F4-893C881FBAF0}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{5ECEE1B4-88CB-41DC-ACD2-16D6ED1FC459} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 		{FEB05EDE-ACC1-4EC3-B5EF-C165E1463A15} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 		{AF754CD4-63A6-447A-A2E7-ADD2BF6D9AFF} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
+		{E5B44205-9246-4C37-B8F4-893C881FBAF0} = {1819D2D3-A738-42BD-8473-928C0BCDB977}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
