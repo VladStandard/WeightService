@@ -10,9 +10,6 @@ internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterServic
     [Transactional]
     public PrinterEntity GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
 
-    [Transactional]
-    public IEnumerable<PrinterEntity> GetAll() => printerRepo.GetAll();
-
     [Transactional, Validate<PrinterNewValidator>]
     public PrinterEntity Create(PrinterEntity item) => printerRepo.Save(item);
 

@@ -20,13 +20,14 @@ builder.Services.AddFluentUIComponents();
 
 builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
 builder.Services.AddAuthorization(PolicyAuthUtils.RegisterAuthorization);
+
 builder.Services.AddLocalization();
 builder.Services.AddDomainServices();
 builder.Services.AddLabelsServices();
 
 builder.Services.AddMemoryCache();
-builder.Services.AddScoped<Redirector>();
 
+builder.Services.AddSingleton<Redirector>();
 builder.Services.AddScoped<IClaimsTransformation, WsClaimsTransformation>();
 builder.Services.AddScoped<IClaimsCacheProvider, ClaimsInMemoryCacheProvider>();
 
@@ -35,7 +36,7 @@ WebApplication app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
     app.UseHsts();
 }
 

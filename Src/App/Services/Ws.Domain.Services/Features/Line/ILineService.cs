@@ -5,9 +5,11 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Line;
 
-public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, ICreate<LineEntity>,
-    IUpdate<LineEntity>, IDelete<LineEntity>
+public interface ILineService : IGetItemByUid<LineEntity>, ICreate<LineEntity>, IUpdate<LineEntity>, IDelete<LineEntity>
 {
+    public void DeletePluLine(PluLineEntity item);
+    void AddPluLine(PluLineEntity pluLine);
+
     #region Queries
 
     public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site);
@@ -18,7 +20,4 @@ public interface ILineService : IGetItemByUid<LineEntity>, IGetAll<LineEntity>, 
     public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line);
 
     #endregion
-
-    public void DeletePluLine(PluLineEntity item);
-    void AddPluLine(PluLineEntity pluLine);
 }

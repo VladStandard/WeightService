@@ -19,9 +19,6 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<LineEntity> GetAll() => lineRepo.GetAll();
-
-    [Transactional]
     public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site)
         => lineRepo.GetAllByProductionSite(site);
 
