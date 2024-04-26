@@ -38,4 +38,10 @@ public class XmlPieceLabel : XmlLabelBaseModel
                $"(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;
     }
+
+    public override HashSet<string> GetTypes =>
+    [
+        nameof(PluGtin), nameof(BundleCount), nameof(ProductDate), nameof(ProductDateShort),
+        nameof(LineCounter), nameof(LineNumber), nameof(ProductTime), nameof(Kneading), nameof(PluNumber)
+    ];
 }

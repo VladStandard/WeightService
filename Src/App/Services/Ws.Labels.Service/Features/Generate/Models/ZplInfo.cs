@@ -1,4 +1,4 @@
-using XmlLabelBaseModel = Ws.Labels.Service.Features.Generate.Models.XmlLabelBase.XmlLabelBaseModel;
+using Ws.Labels.Service.Features.Generate.Models.XmlLabelBase;
 
 namespace Ws.Labels.Service.Features.Generate.Models;
 

@@ -42,4 +42,10 @@ public class XmlWeightLabel : XmlLabelBaseModel
         get => $"(01){PluGtin}(3103){Weight.ToStrWithLen(6)}(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;
     }
+
+    public override HashSet<string> GetTypes =>
+    [
+        nameof(PluGtin), nameof(Weight), nameof(ProductDate), nameof(ProductDateShort),
+        nameof(LineCounter), nameof(LineNumber), nameof(ProductTime), nameof(Kneading), nameof(PluNumber)
+    ];
 }
