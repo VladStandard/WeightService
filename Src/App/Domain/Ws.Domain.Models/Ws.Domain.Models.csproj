@@ -1,1 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+</Project>

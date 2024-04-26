@@ -160,7 +160,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
         LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
-        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.DefaultWeightTare;
+        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.GetWeightWithNesting;
 
     # region Event Subscribe and Unsubscribe
 

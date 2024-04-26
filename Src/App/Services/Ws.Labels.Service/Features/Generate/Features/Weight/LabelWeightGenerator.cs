@@ -63,7 +63,7 @@ internal class LabelWeightGenerator(
             ExpirationDt = labelXml.ExpirationDtValue,
             WeightNet = labelXml.Weight,
             Kneading = labelXml.Kneading,
-            WeightTare = dto.Plu.DefaultWeightTare,
+            WeightTare = dto.Plu.GetWeightWithNesting,
             Line = dto.Line,
             Plu = dto.Plu
         };

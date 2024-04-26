@@ -8,12 +8,15 @@ namespace Ws.Domain.Models.Entities.Ref;
 [DebuggerDisplay("{ToString()}")]
 public class TemplateEntity : EntityBase
 {
-    public virtual string Name { get; set; } = string.Empty;
-    public virtual string Body { get; set; } = string.Empty;
-
-    public virtual bool IsWeight { get; set; } = false;
     public virtual short Width { get; set; }
     public virtual short Height { get; set; }
+    public virtual bool IsWeight { get; set; }
+    public virtual string Body { get; set; } = string.Empty;
+    public virtual string Name { get; set; } = string.Empty;
+
+    public virtual string BarcodeTopJson { get; set; } = string.Empty;
+    public virtual string BarcodeRightJson { get; set; } = string.Empty;
+    public virtual string BarcodeBottomJson { get; set; } = string.Empty;
 
     public virtual string SizeView => $"{Width}x{Height}";
 
