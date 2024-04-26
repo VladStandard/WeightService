@@ -9,7 +9,7 @@ using Ws.Database.Nhibernate.Common;
 
 namespace Ws.Database.Nhibernate.Types;
 
-public class IpAddressType : UserType
+internal class IPAddressSqlType : UserType
 {
     public override SqlType[] SqlTypes => [SqlTypeFactory.GetString(15)];
 

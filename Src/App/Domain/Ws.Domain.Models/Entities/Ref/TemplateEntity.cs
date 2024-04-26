@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.ValueTypes;
 
 namespace Ws.Domain.Models.Entities.Ref;
 
@@ -13,16 +14,22 @@ public class TemplateEntity : EntityBase
     public virtual bool IsWeight { get; set; }
     public virtual string Body { get; set; } = string.Empty;
     public virtual string Name { get; set; } = string.Empty;
-
-    public virtual string BarcodeTopJson { get; set; } = string.Empty;
-    public virtual string BarcodeRightJson { get; set; } = string.Empty;
-    public virtual string BarcodeBottomJson { get; set; } = string.Empty;
+    public virtual Dictionary<string, BarcodeItem> BarcodeTopBody { get; set; } = [];
+    public virtual Dictionary<string, BarcodeItem> BarcodeRightBody { get; set; } = [];
+    public virtual Dictionary<string, BarcodeItem> BarcodeBottomBody { get; set; } = [];
 
     public virtual string SizeView => $"{Width}x{Height}";
 
     protected override bool CastEquals(EntityBase obj)
     {
         TemplateEntity item = (TemplateEntity)obj;
-        return Equals(Name, item.Name) && Equals(Body, item.Body);
+        return Equals(Name, item.Name) &&
+               Equals(Body, item.Body) &&
+               Equals(IsWeight, item.IsWeight) &&
+               Equals(Width, item.Width) &&
+               Equals(Height, item.Height) &&
+               Equals(BarcodeTopBody, item.BarcodeTopBody) &&
+               Equals(BarcodeRightBody, item.BarcodeRightBody) &&
+               Equals(BarcodeBottomBody, item.BarcodeBottomBody);
     }
 }
