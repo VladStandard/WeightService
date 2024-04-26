@@ -43,7 +43,7 @@ internal class SqlPrinterMap : ClassMapping<PrinterEntity>
         Property(x => x.Ip, m =>
         {
             m.Column("IP_V4");
-            m.Type<IpAddressType>();
+            m.Type<IPAddressSqlType>();
             m.NotNullable(true);
         });
 

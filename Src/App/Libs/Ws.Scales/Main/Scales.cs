@@ -1,9 +1,7 @@
 using System.IO.Ports;
-using CommunityToolkit.Mvvm.Messaging;
 using Ws.Scales.Commands;
 using Ws.Scales.Common;
 using Ws.Scales.Enums;
-using Ws.Scales.Events;
 
 namespace Ws.Scales.Main;
 
@@ -73,8 +71,6 @@ public partial class Scales : IScales
 
         if (Port.IsOpen) Port.Close();
         Port.Dispose();
-
-        WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
     }
 
     public void Dispose() => Disconnect();

@@ -4,8 +4,8 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Plu;
-using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Features.Piece.Dto;
+using Ws.Labels.Service.Features.Generate;
+using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;

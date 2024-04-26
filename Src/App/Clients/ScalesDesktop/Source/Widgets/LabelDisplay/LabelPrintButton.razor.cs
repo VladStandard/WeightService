@@ -6,18 +6,19 @@ using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
-using Ws.Labels.Service.Features.PrintLabel;
-using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Dto.PrintWeightPlu;
-using Ws.Labels.Service.Features.PrintLabel.Features.Weight.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Features.Generate;
+using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
+using Ws.Printers.Messages;
 using Ws.Scales.Enums;
-using Ws.Scales.Events;
+using Ws.Scales.Messages;
 using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
-public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
+public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
+    IRecipient<ScaleMassaMsg>, IRecipient<ScaleStatusMsg>, IRecipient<PrinterStatusMsg>
 {
     # region Injects
 
@@ -43,8 +44,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
     protected override void OnInitialized()
     {
-        PrinterStatusSubscribe();
-        ScalesSubscribe();
+        WeakReferenceMessenger.Default.RegisterAll(this);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -88,7 +88,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
             LineService.Update(LabelContext.Line);
             ExternalDevices.Printer.PrintLabel(zpl);
         }
-        catch (LabelWeightGenerateException ex)
+        catch (LabelGenerateException ex)
         {
             ToastService.ShowError(ex.Code switch
             {
@@ -160,47 +160,24 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
         LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>
-        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.DefaultWeightTare;
+        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.GetWeightWithNesting;
 
-    private void PrintNotification(object sender, GetPrinterStatusEvent payload) =>
-        PrinterStatus = payload.Status;
+    # region Event Subscribe and Unsubscribe
 
-    private void UpdateScalesInfo(object sender, GetScaleMassaEvent payload) =>
-        IsScalesStable = payload.IsStable;
+    public void Receive(PrinterStatusMsg message) => PrinterStatus = message.Status;
 
-    private void UpdateScalesStatus(object recipient, GetScaleStatusEvent message)
+    public void Receive(ScaleMassaMsg message) => IsScalesStable = message.IsStable;
+
+    public void Receive(ScaleStatusMsg message)
     {
         IsScalesDisconnected = message.Status is not ScalesStatus.IsConnect;
         InvokeAsync(StateHasChanged);
     }
 
-    # region Event Subscribe and Unsubscribe
-
-    private void ScalesSubscribe()
-    {
-        WeakReferenceMessenger.Default.Register<GetScaleStatusEvent>(this, UpdateScalesStatus);
-        WeakReferenceMessenger.Default.Register<GetScaleMassaEvent>(this, UpdateScalesInfo);
-    }
-
-    private void ScalesUnsubscribe()
-    {
-        WeakReferenceMessenger.Default.Unregister<GetScaleStatusEvent>(this);
-        WeakReferenceMessenger.Default.Unregister<GetScaleMassaEvent>(this);
-    }
-
-    private void PrinterStatusSubscribe() =>
-        WeakReferenceMessenger.Default.Register<GetPrinterStatusEvent>(this, PrintNotification);
-
-    private void PrinterStatusUnsubscribe() =>
-        WeakReferenceMessenger.Default.Unregister<GetPrinterStatusEvent>(this);
-
-
     public async ValueTask DisposeAsync()
     {
         try
         {
-            PrinterStatusUnsubscribe();
-            ScalesUnsubscribe();
             await Module.InvokeVoidAsync("removeMiddleMouseEvent");
             await Module.DisposeAsync();
         }

@@ -10,37 +10,37 @@ public class PluEntity : EntityBase
 {
     public virtual Guid? TemplateUid { get; set; }
     public virtual short Number { get; set; }
-    public virtual string FullName { get; set; } = string.Empty;
+    public virtual decimal Weight { get; set; }
+    public virtual bool IsCheckWeight { get; set; }
     public virtual short ShelfLifeDays { get; set; }
+
+    public virtual string Name { get; set; } = string.Empty;
     public virtual string Ean13 { get; set; } = string.Empty;
     public virtual string Itf14 { get; set; } = string.Empty;
-    public virtual bool IsCheckWeight { get; set; }
+    public virtual string FullName { get; set; } = string.Empty;
+    public virtual string Description { get; set; } = string.Empty;
+    public virtual string StorageMethod { get; set; } = string.Empty;
+
     public virtual BundleEntity Bundle { get; set; } = new();
     public virtual BrandEntity Brand { get; set; } = new();
     public virtual ClipEntity Clip { get; set; } = new();
-    public virtual string StorageMethod { get; set; } = string.Empty;
     public virtual NestingEntity Nesting { get; set; } = new();
     public virtual ISet<CharacteristicEntity> Characteristics { get; set; } = new HashSet<CharacteristicEntity>();
-    public virtual string Description { get; set; } = string.Empty;
-    public virtual decimal Weight { get; set; }
-    public virtual string Name { get; set; } = string.Empty;
+
+    #region Getters
+
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
 
-    public virtual IEnumerable<CharacteristicEntity> CharacteristicsWithNesting
-    {
-        get
-        {
-            List<CharacteristicEntity> characteristics = Characteristics.ToList();
-            characteristics.Insert(0, Nesting.ToCharacteristic());
-            return characteristics;
-        }
-    }
+    public virtual IEnumerable<CharacteristicEntity> CharacteristicsWithNesting =>
+        Characteristics.Prepend(Nesting.ToCharacteristic());
 
     public virtual string DisplayName => $"{Number} | {Name}";
 
-    public virtual decimal DefaultWeightTare => CalculateTotalWeight(Nesting.Box, Nesting.BundleCount);
+    public virtual decimal GetWeightWithNesting => CalculateTotalWeight(Nesting.Box, Nesting.BundleCount);
 
-    public virtual decimal GetWeightWithCharacteristic(CharacteristicEntity characteristic) =>
+    #endregion
+
+    public virtual decimal GetWeightByCharacteristic(CharacteristicEntity characteristic) =>
         CalculateTotalWeight(characteristic.Box, characteristic.BundleCount);
 
     private decimal CalculateTotalWeight(BoxEntity box, short bundleCount) =>

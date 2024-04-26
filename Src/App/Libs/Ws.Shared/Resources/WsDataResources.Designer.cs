@@ -9,8 +9,8 @@
 
 namespace Ws.Shared.Resources {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +22,15 @@ namespace Ws.Shared.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class WsDataResources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal WsDataResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Ws.Shared.Resources {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,7 +58,7 @@ namespace Ws.Shared.Resources {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -67,7 +67,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColActive", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -76,7 +76,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColAddress", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -85,7 +85,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBarcode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -94,7 +94,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBarcodeBottom", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -103,7 +103,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBarcodeRight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -112,7 +112,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBarcodeTop", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -121,7 +121,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBox", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -130,7 +130,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBoxWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -139,7 +139,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBrand", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -148,7 +148,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColBundle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -157,7 +157,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColChangeDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -166,7 +166,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColClip", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -175,7 +175,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColCount", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -184,7 +184,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColCounter", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -193,7 +193,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColCreateDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -202,7 +202,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColData", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -211,7 +211,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColDefault", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -220,7 +220,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -229,7 +229,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColDevice", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -238,7 +238,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -247,7 +247,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColExpirationDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -256,7 +256,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColFile", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -265,7 +265,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColFIO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -274,7 +274,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColFirstName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -283,7 +283,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColFullName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -292,7 +292,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColGrossWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -301,7 +301,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColHeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -310,7 +310,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColKneading", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -319,7 +319,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColLabel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -328,7 +328,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColLine", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -337,7 +337,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColLoginDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -346,7 +346,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColMaxTemp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -355,7 +355,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -364,7 +364,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColMinTemp", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -373,7 +373,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -382,7 +382,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColNesting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -391,7 +391,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColNetWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -400,7 +400,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColNumber", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -409,7 +409,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPallet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -418,7 +418,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPalletMan", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -427,7 +427,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPalletWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -436,7 +436,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPassword", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -445,7 +445,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPatronymic", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -454,7 +454,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPcName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -463,7 +463,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPercentages", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -472,7 +472,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPlu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -481,7 +481,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPluName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -490,7 +490,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPluNumber", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -499,7 +499,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPluPiece", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -508,7 +508,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPluWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -517,7 +517,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPort", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -526,7 +526,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColPrinter", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -535,7 +535,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColProductDt", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -544,7 +544,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColProductionSite", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -553,7 +553,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColRoles", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -562,7 +562,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColScheme", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -571,7 +571,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColShelfLifeDays", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -580,7 +580,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColSize", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -589,7 +589,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColStatus", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -598,7 +598,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColStorageMethod", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -607,7 +607,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColSurname", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -616,7 +616,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -625,7 +625,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTables", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -634,7 +634,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTareWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -643,7 +643,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTareWeightTotal", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -652,7 +652,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTemplate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -661,7 +661,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTemplatePiece", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -670,7 +670,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTemplateWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -679,7 +679,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -688,7 +688,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColType", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -697,7 +697,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColUser", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -706,7 +706,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColVersion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -715,7 +715,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColWarehouse", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -724,16 +724,16 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColWeight", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ColWeightTotal {
+        public static string ColWeightGross {
             get {
-                return ResourceManager.GetString("ColWeightTotal", resourceCulture);
+                return ResourceManager.GetString("ColWeightGross", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -742,7 +742,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("ColWidth", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -751,7 +751,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("MeasureKg", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
@@ -760,7 +760,7 @@ namespace Ws.Shared.Resources {
                 return ResourceManager.GetString("MeasureMb", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>

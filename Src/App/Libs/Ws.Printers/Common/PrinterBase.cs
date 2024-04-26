@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
+using Ws.Printers.Messages;
 
 namespace Ws.Printers.Common;
 
@@ -43,14 +43,14 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
 
     private void Disconnect()
     {
-        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(PrinterStatusEnum.IsDisabled));
+        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(PrinterStatusEnum.IsDisabled));
         if (TcpClient.Connected) TcpClient.Close();
         TcpClient.Dispose();
     }
     private void SetStatus(PrinterStatusEnum state)
     {
         Status = state;
-        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(Status));
+        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(Status));
     }
 
     protected void ExecuteCommand(PrinterCommandBase command)

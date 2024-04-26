@@ -2,7 +2,7 @@ using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
-using Ws.Printers.Events;
+using Ws.Printers.Messages;
 
 namespace Ws.Printers.Features.Tsc.Commands;
 
@@ -11,7 +11,7 @@ internal class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1
     protected override void Response(NetworkStream stream)
     {
         int buffer = stream.ReadByte();
-        WeakReferenceMessenger.Default.Send(new GetPrinterStatusEvent(GetStatus((byte)buffer)));
+        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(GetStatus((byte)buffer)));
     }
 
     private static PrinterStatusEnum GetStatus(byte value)

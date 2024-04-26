@@ -2,7 +2,7 @@ using System.IO.Ports;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Scales.Common;
 using Ws.Scales.Enums;
-using Ws.Scales.Events;
+using Ws.Scales.Messages;
 using Ws.Shared.Utils;
 
 namespace Ws.Scales.Main;
@@ -30,7 +30,7 @@ public partial class Scales
     private void SetStatus(ScalesStatus status)
     {
         Status = status;
-        WeakReferenceMessenger.Default.Send(new GetScaleStatusEvent(Status));
+        WeakReferenceMessenger.Default.Send(new ScaleStatusMsg(Status));
     }
 
     private void ExecuteCommand(ScaleCommandBase command)

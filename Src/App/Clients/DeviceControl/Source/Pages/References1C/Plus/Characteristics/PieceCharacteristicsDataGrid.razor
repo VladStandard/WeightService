@@ -62,11 +62,11 @@
           Sortable="false"
       />
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColWeightTotal"]"
+        Caption="@WsDataLocalizer["ColWeightGross"]"
         Width="15%"
       >
         <DisplayTemplate>
-          @Plu.GetWeightWithCharacteristic(context)
+          @Plu.GetWeightByCharacteristic(context)
         </DisplayTemplate>
       </DataGridColumn>
     </ColumnsContent>

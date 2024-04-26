@@ -1,3 +1,4 @@
+using Ws.Database.Nhibernate.Types;
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Ref;
 
@@ -60,6 +61,27 @@ internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
         {
             m.Column("BODY");
             m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.BarcodeTopBody, m =>
+        {
+            m.Column("BARCODE_TOP_BODY");
+            m.Type<BarcodeItemSqlType>();
+            m.NotNullable(true);
+        });
+
+        Property(x => x.BarcodeBottomBody, m =>
+        {
+            m.Column("BARCODE_BOTTOM_BODY");
+            m.Type<BarcodeItemSqlType>();
+            m.NotNullable(true);
+        });
+
+        Property(x => x.BarcodeRightBody, m =>
+        {
+            m.Column("BARCODE_RIGHT_BODY");
+            m.Type<BarcodeItemSqlType>();
             m.NotNullable(true);
         });
     }
