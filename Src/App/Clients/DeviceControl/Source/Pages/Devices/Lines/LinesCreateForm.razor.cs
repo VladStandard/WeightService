@@ -37,7 +37,7 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
 
     private IEnumerable<PrinterEntity> Printers { get; set; } = [];
     private IEnumerable<WarehouseEntity> Warehouses { get; set; } = [];
-    private IEnumerable<LineTypeEnum> LineTypesEntities { get; set; } = [];
+    private IEnumerable<LineTypeEnum> LineTypes { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
 
@@ -47,7 +47,8 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
         DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
         GenerateLineNumber();
 
-        LineTypesEntities = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
+        LineTypes = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
+        Printers = PrinterService.GetAllByProductionSite(ProductionSite);
         Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
     }
 
@@ -57,18 +58,13 @@ public sealed partial class LinesCreateForm : SectionFormBase<LineEntity>
 
         IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-        UpdateCurrentWarehouses();
+
+        DialogItem.Printer = Printers.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
+        DialogItem.Warehouse = Warehouses.FirstOrDefault() ?? new();
     }
 
     protected override LineEntity CreateItemAction(LineEntity item) =>
         LineService.Create(item);
-
-    private void UpdateCurrentWarehouses()
-    {
-        Printers = PrinterService.GetAllByProductionSite(ProductionSite);
-        DialogItem.Printer = Printers.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
-        DialogItem.Warehouse = Warehouses.FirstOrDefault() ?? new();
-    }
 
     private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);
 }

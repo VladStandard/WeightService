@@ -12,7 +12,7 @@ public abstract class SectionDialogWithProductionSite<TDialogItem> : ComponentBa
 {
     [Parameter] public SectionDialogContentWithProductionSite<TDialogItem> Content { get; set; } = default!;
     protected TDialogItem DialogItem { get; private set; } = default!;
-    protected List<KeyValuePair<Type, string>> TabsList { get; private set; } = [];
+    protected List<KeyValuePair<string, string>> TabsList { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -20,7 +20,7 @@ public abstract class SectionDialogWithProductionSite<TDialogItem> : ComponentBa
         TabsList = InitializeTabList();
     }
 
-    protected abstract List<KeyValuePair<Type, string>> InitializeTabList();
+    protected abstract List<KeyValuePair<string, string>> InitializeTabList();
 }
 
 public record SectionDialogContentWithProductionSite<TDialogItem> : SectionDialogContent<TDialogItem>

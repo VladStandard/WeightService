@@ -48,10 +48,6 @@
         Field="@nameof(PrinterEntity.Ip)"
         Width="25%"
         Sortable="false"/>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColProductionSite"]"
-        Field="ProductionSite.Name"
-        Width="25%"/>
     </ColumnsContent>
     <ContextMenuContent>
       <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />

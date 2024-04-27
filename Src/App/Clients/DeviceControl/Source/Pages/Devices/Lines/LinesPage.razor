@@ -38,7 +38,7 @@
       <DataGridColumn
         Field="@(nameof(LineEntity.Type))"
         Caption="@WsDataLocalizer["ColType"]"
-        Width="4rem"
+        Width="1rem"
       >
         <DisplayTemplate>
           <div class="size-full flex items-center justify-center">
@@ -63,12 +63,12 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColVersion"]"
         Field="@nameof(LineEntity.Version)"
-        Width="6rem"
+        Width="4rem"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColLine"]"
         Field="@nameof(LineEntity.Name)"
-        Width="15%"
+        Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColNumber"]"
@@ -86,14 +86,9 @@
         Width="20%"
       />
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColProductionSite"]"
-        Field="Warehouse.ProductionSite.Name"
-        Width="20%"
-      />
-      <DataGridColumn
         Caption="@WsDataLocalizer["ColCounter"]"
         Field="@nameof(LineEntity.Counter)"
-        Width="10%"
+        Width="20%"
       />
     </ColumnsContent>
     <ContextMenuContent>

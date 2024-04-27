@@ -3,6 +3,7 @@ using DeviceControl.Source.Shared.Auth.Policies;
 using DeviceControl.Source.Shared.Localization;
 using DeviceControl.Source.Shared.Utils;
 using DeviceControl.Source.Widgets.Section;
+using DeviceControl.Source.Widgets.Section.Dialogs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -58,7 +59,9 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<PrinterEntity
     }
 
     protected override async Task OpenSectionCreateForm()
-        => await OpenSectionModal<PrintersCreateDialog>(new());
+        => await DialogService.ShowDialogAsync<PrintersCreateDialog>(
+            new SectionDialogContentWithProductionSite<PrinterEntity>
+                { Item = new(), ProductionSite = ProductionSite }, DialogParameters);
 
     protected override async Task OpenDataGridEntityModal(PrinterEntity item)
         => await OpenSectionModal<PrintersUpdateDialog>(item);

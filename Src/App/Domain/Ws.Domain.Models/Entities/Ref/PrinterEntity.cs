@@ -14,7 +14,7 @@ public class PrinterEntity : EntityBase
     public virtual ProductionSiteEntity ProductionSite { get; set; } = new();
     public virtual PrinterTypeEnum Type { get; set; } = PrinterTypeEnum.Tsc;
     public virtual string Name { get; set; } = string.Empty;
-    public virtual string DisplayName => $"{Name} | {Ip}";
+    public virtual string DisplayName => IsExists ? $"{Name} | {Ip}" : Name;
 
     protected override bool CastEquals(EntityBase obj)
     {

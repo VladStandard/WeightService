@@ -27,20 +27,15 @@
     <SectionSelectSingleField
       TItem="PrinterTypeEnum"
       Label="@WsDataLocalizer["ColType"]"
-      Items="PrinterTypesEntities"
+      Items="PrinterTypes"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
       For="@(() => DialogItem.Type)"
     />
 
-    <SectionSelectSingleField
-      TItem="ProductionSiteEntity"
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Items="ProductionSites"
-      @bind-Value="@DialogItem.ProductionSite"
-      ItemDisplayName="item => item.Name"
-      For="@(() => DialogItem.ProductionSite)"
-      Disabled="@(!IsSeniorSupport)"
+      Value="@DialogItem.ProductionSite.Name"
     />
   </FieldsContent>
 </SectionForm>

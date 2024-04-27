@@ -37,7 +37,7 @@
     <SectionSelectSingleField
       TItem="LineTypeEnum"
       Label="@WsDataLocalizer["ColType"]"
-      Items="LineTypesEntities"
+      Items="LineTypes"
       @bind-Value="@DialogItem.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
       For="@(() => DialogItem.Type)"

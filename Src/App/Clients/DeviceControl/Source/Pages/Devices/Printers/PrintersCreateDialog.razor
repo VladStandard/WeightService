@@ -1,11 +1,11 @@
 @using DeviceControl.Source.Widgets.Section
 @using Microsoft.Extensions.Localization
-@inherits DeviceControl.Source.Widgets.Section.SectionDialogBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
+@inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Ref.PrinterEntity>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="@typeof(PrintersCreateForm).ToString()">
-    <PrintersCreateForm />
+    <PrintersCreateForm  ProductionSite="Content.ProductionSite" />
   </Tab>
 </SectionDialog>
 
