@@ -4,10 +4,10 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(LinesUpdateForm)">
+  <Tab Id="@typeof(LinesUpdateForm).ToString()">
     <LinesUpdateForm />
   </Tab>
-  <Tab Id="typeof(LinePluDataGrid)">
+  <Tab Id="@typeof(LinePluDataGrid).ToString()">
     <LinePluDataGrid />
   </Tab>
 </SectionDialog>
@@ -15,9 +15,9 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(LinesUpdateForm), Localizer["SectionLines"]),
-    new(typeof(LinePluDataGrid), Localizer["SectionLinePLU"])
+    new(typeof(LinesUpdateForm).ToString(), Localizer["SectionLines"]),
+    new(typeof(LinePluDataGrid).ToString(), Localizer["SectionLinePLU"])
   ];
 }

@@ -21,6 +21,18 @@ public sealed class TemplateEntity : EfEntityBase
     [Column("HEIGHT")]
     public short Height { get; set; }
 
+    [StringLength(2048)]
+    [Column("BARCODE_TOP_BODY")]
+    public string BarcodeTopBody { get; set; }
+
+    [StringLength(2048)]
+    [Column("BARCODE_BOTTOM_BODY")]
+    public string BarcodeBottomBody { get; set; }
+
+    [StringLength(2048)]
+    [Column("BARCODE_RIGHT_BODY")]
+    public string BarcodeRightBody { get; set; }
+
     #region Date
 
     public DateTime CreateDt { get; init; }

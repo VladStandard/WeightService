@@ -17,7 +17,7 @@ namespace Ws.Database.EntityFramework.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.17")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -809,6 +809,24 @@ namespace Ws.Database.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("UID");
+
+                    b.Property<string>("BarcodeBottomBody")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
+                        .HasColumnName("BARCODE_BOTTOM_BODY");
+
+                    b.Property<string>("BarcodeRightBody")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
+                        .HasColumnName("BARCODE_RIGHT_BODY");
+
+                    b.Property<string>("BarcodeTopBody")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
+                        .HasColumnName("BARCODE_TOP_BODY");
 
                     b.Property<string>("Body")
                         .IsRequired()

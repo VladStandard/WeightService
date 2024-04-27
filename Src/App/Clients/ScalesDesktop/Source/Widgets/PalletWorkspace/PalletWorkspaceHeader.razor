@@ -14,7 +14,7 @@
   </div>
   <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">
     <ul class="size-full flex items-center gap-2 justify-center">
-      @foreach (KeyValuePair<Type, string> item in TabsList)
+      @foreach (KeyValuePair<string, string> item in TabsList)
       {
         <li>
           <Button
@@ -35,8 +35,8 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
 
-  [Parameter] public Type CurrentTabId { get; set; } = default!;
-  [Parameter] public List<KeyValuePair<Type, string>> TabsList { get; set; } = [];
+  [Parameter] public string CurrentTabId { get; set; } = default!;
+  [Parameter] public List<KeyValuePair<string, string>> TabsList { get; set; } = [];
 
   private void CloseCurrentPallet() => PalletContext.ChangePallet(new());
 }

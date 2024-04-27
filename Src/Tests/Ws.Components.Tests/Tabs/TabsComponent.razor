@@ -1,0 +1,20 @@
+@using Ws.Components.Source.UI.Tabs
+
+<Tabs ActiveTabId="@CurrentTabId">
+  <Tab id="first">
+    <p>First tab</p>
+  </Tab>
+  <Tab id="second">
+    <p>Second tab</p>
+  </Tab>
+</Tabs>
+
+@code {
+  public string CurrentTabId { get; set; } = "first";
+
+  public void SetCurrentTabId(string newTabId)
+  {
+    CurrentTabId = newTabId;
+    StateHasChanged();
+  }
+}

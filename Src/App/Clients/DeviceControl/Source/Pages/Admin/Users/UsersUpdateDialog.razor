@@ -4,7 +4,7 @@
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="typeof(UsersUpdateForm)">
+  <Tab Id="@typeof(UsersUpdateForm).ToString()">
     <UsersUpdateForm />
   </Tab>
 </SectionDialog>
@@ -12,8 +12,8 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<Type, string>> InitializeTabList() =>
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
-    new(typeof(UsersUpdateForm), Localizer["SectionUsers"])
+    new(typeof(UsersUpdateForm).ToString(), Localizer["SectionUsers"])
   ];
 }

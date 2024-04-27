@@ -7,31 +7,41 @@ public class ErrorUtilTests
     [Fact]
     public void Throw_exception()
     {
-        Assert.Throws<NotImplementedException>(
-        () =>
-        {
-            ErrorUtil.Suppress<ArgumentNullException>(() => throw new NotImplementedException());
-        });
+        Action act = () => ErrorUtil.Suppress<ArgumentNullException>(() => throw new NotImplementedException());
+        act.Should().Throw<NotImplementedException>();
     }
 
     [Fact]
-    public void Suppress_exception()
-    {
-        Assert.True(ErrorUtil.Suppress<ArgumentNullException>(() => throw new ArgumentNullException()));
-    }
+    public void Suppress_exception() =>
+        ErrorUtil.Suppress<ArgumentNullException>(() => throw new ArgumentNullException())
+            .Should()
+            .Be(true);
 
     [Fact]
-    public void Suppress_without_exception()
-    {
-        Assert.False(ErrorUtil.Suppress<ArgumentNullException>(() => { }));
-    }
+    public void Suppress_without_exception() =>
+        ErrorUtil.Suppress<ArgumentNullException>(() => throw new ArgumentNullException())
+            .Should()
+            .Be(false);
 
     [Fact]
     public void Suppress_any_exception()
     {
-        Assert.True(ErrorUtil.Suppress(() => throw new ArgumentNullException(), typeof(ArgumentNullException),
-        typeof(NotImplementedException)));
-        Assert.True(ErrorUtil.Suppress(() => throw new NotImplementedException(), typeof(ArgumentNullException),
-        typeof(NotImplementedException)));
+        ErrorUtil.Suppress(() => throw new ArgumentNullException(), typeof(ArgumentNullException),
+                typeof(NotImplementedException))
+            .Should()
+            .Be(true);
+
+        ErrorUtil.Suppress(() => throw new NotImplementedException(), typeof(ArgumentNullException),
+                typeof(NotImplementedException))
+            .Should()
+            .Be(true);
+    }
+
+    [Fact]
+    public void Suppress_not_any_exception()
+    {
+        Action act = () => ErrorUtil.Suppress(() => throw new TypeUnloadedException(), typeof(ArgumentNullException),
+            typeof(NotImplementedException));
+        act.Should().Throw<TypeUnloadedException>();
     }
 }

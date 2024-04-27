@@ -10,7 +10,7 @@ public abstract class SectionDialogBase<TDialogItem> : ComponentBase, IDialogCon
 {
     [Parameter] public SectionDialogContent<TDialogItem> Content { get; set; } = default!;
     protected TDialogItem DialogItem { get; private set; } = default!;
-    protected List<KeyValuePair<Type, string>> TabsList { get; private set; } = [];
+    protected List<KeyValuePair<string, string>> TabsList { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -18,7 +18,7 @@ public abstract class SectionDialogBase<TDialogItem> : ComponentBase, IDialogCon
         TabsList = InitializeTabList();
     }
 
-    protected abstract List<KeyValuePair<Type, string>> InitializeTabList();
+    protected abstract List<KeyValuePair<string, string>> InitializeTabList();
 }
 
 public record SectionDialogContent<TDialogItem>

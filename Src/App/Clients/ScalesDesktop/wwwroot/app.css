@@ -67,35 +67,15 @@
 }
 
 @layer components {
-  * {
-    --type-ramp-base-font-size: unset;
-    --type-ramp-base-line-height: unset;
-    --neutral-foreground-rest: 0;
-    --type-ramp-base-font-variations: 0;
-  }
-
   fluent-data-grid {
-    --neutral-fill-stealth-rest: #ffffff;
     --accent-fill-rest: #18181b;
   }
 
-  fluent-menu {
-    @apply !max-w-[unset]
+  .fluent-toast {
+    @apply !bg-background !text-primary border
   }
 
-  fluent-dialog::part(overlay) {
-    @apply !bg-black/[.6]
-  }
-
-  fluent-anchored-region {
-    @apply !fixed
-  }
-
-  fluent-dialog::part(control) {
-    @apply max-w-[100vw] overflow-x-hidden !p-0 !w-[unset] !shadow-lg !bg-none !rounded-lg !border-none
-  }
-
-  .fluent-datepicker-popup {
-    @apply border-border !border !shadow-md !rounded-md !bg-background
+  .fluent-toast-action > svg {
+    @apply !fill-black
   }
 }

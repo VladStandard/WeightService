@@ -1,9 +1,0 @@
-<CascadingValue Value="this">
-  @ChildContent
-</CascadingValue>
-
-@code {
-  [Parameter] public RenderFragment? ChildContent { get; set; }
-  [Parameter] public Type ActiveTabId { get; set; } = default!;
-  [Parameter] public EventCallback<Type> ActiveTabIdChanged { get; set; }
-}

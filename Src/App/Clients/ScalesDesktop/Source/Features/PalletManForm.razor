@@ -1,4 +1,5 @@
 @using Ws.Domain.Models.Entities.Ref
+
 <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
   <div class="w-full pb-4 border-b">
     <h2 class="text-lg font-semibold leading-none tracking-tight">
@@ -12,7 +13,7 @@
     class="space-y-4 pt-3"
   >
     <DataAnnotationsValidator />
-    <InputLabelWrapper Label="@WsDataLocalizer["ColUser"]" HtmlFor="login-user">
+    <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
       <SelectSingle
         TItem="PalletManEntity"
         @bind-SelectedItem="@FormModel.User"
@@ -20,16 +21,16 @@
         Items="@GetAllPalletMen"
         Placeholder="@Localizer["UserSelectPlaceholder"]"
       />
-    </InputLabelWrapper>
-    <InputLabelWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlFor="login-password">
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlId="login-password">
       <InputTextField
         id="login-password"
         @bind-Value="@FormModel.Password"
         Type="TextInputType.Password"
         Placeholder="@Localizer["PasswordInputPlaceholder"]"
       />
-    </InputLabelWrapper>
-    <Button Type="BtnType.Submit" Class="!mt-4">
+    </FormFieldWrapper>
+    <Button Type="ButtonType.Submit" Class="!mt-4">
       @Localizer["BtnLogIn"]
     </Button>
   </EditForm>

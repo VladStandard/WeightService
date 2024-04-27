@@ -85,7 +85,7 @@ internal class LabelPieceGenerator(
             BarcodeRight = ready.BarcodeRight,
             BarcodeTop = ready.BarcodeTop,
             WeightNet = 0,
-            WeightTare = generatePalletDto.Plu.GetWeightWithCharacteristic(generatePalletDto.Characteristic),
+            WeightTare = generatePalletDto.Plu.GetWeightByCharacteristic(generatePalletDto.Characteristic),
             Kneading = generatePalletDto.Kneading,
             ProductDt = generatePalletDto.ProductDt,
             ExpirationDt = generatePalletDto.ExpirationDt,
