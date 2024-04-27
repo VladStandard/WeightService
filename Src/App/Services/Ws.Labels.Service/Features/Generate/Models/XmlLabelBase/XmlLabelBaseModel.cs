@@ -28,9 +28,9 @@ public abstract partial class XmlLabelBaseModel : IXmlBarcodeModel, ISerializabl
 
     #region Other
 
-    [XmlElement] public string ProductDateStr { get => $"{ProductDtValue:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDtValue:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public string KneadingStr { get => DigitUtils.ToStrLenWithZero((Int16)Kneading, 3); set => _ = value; }
+    [XmlElement] public string ProductDateStr { get => $"{ProductDt:dd.MM.yyyy}"; set => _ = value; }
+    [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
+    [XmlElement] public string KneadingStr { get => Kneading.ToStrLenWithZero(3); set => _ = value; }
 
     #endregion
 

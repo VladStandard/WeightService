@@ -2,17 +2,17 @@ namespace Ws.Domain.Models.ValueTypes;
 
 public class BarcodeItem
 {
-    public int Len { get; set; }
+    public string Property { get; set; } = string.Empty;
+    public string FormatStr { get; set; } = string.Empty;
+    public int Length { get; set; }
     public bool IsConst { get; set; }
 
     public override bool Equals(object? obj)
     {
-        if (obj == null || GetType() != obj.GetType())
-            return false;
-
-        BarcodeItem item = (BarcodeItem)obj;
-        return Len == item.Len && IsConst == item.IsConst;
+        if (obj is BarcodeItem item)
+            return Property == item.Property && FormatStr == item.FormatStr;
+        return false;
     }
 
-    public override int GetHashCode() => Len.GetHashCode() ^ IsConst.GetHashCode();
+    public override int GetHashCode() => HashCode.Combine(Property, FormatStr);
 }

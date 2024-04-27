@@ -13,7 +13,7 @@ public partial class TemplateTypesUtils
         public short Kneading { get; set; }
         public short PluNumber { get; set; }
         public string PluGtin { get; set; } = null!;
-        public DateTime ProductDtValue { get; set; }
+        public DateTime ProductDt { get; set; }
     }
 
     private class BarcodeWeightTemp : IXmlBarcodeWeightXml
@@ -35,7 +35,7 @@ public partial class TemplateTypesUtils
             new BarcodeFieldModel<short>(data.PluNumber, 3),
             new BarcodeFieldModel<string>(data.PluGtin, 14),
             new BarcodeFieldModel<short>(data.Kneading, 3),
-            new BarcodeFieldModel<DateTime>(data.ProductDtValue, 0, true),
+            new BarcodeFieldModel<DateTime>(data.ProductDt, 0, true),
         ];
     }
 }

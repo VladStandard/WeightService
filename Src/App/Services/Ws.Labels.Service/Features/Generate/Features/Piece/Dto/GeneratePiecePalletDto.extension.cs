@@ -9,8 +9,8 @@ public static class LabelPiecePalletDtoMapper
         return new XmlPieceLabel
         {
             Kneading = palletDto.Kneading,
-            ExpirationDtValue = palletDto.ExpirationDt,
-            ProductDtValue = palletDto.ProductDt,
+            ExpirationDt = palletDto.ExpirationDt,
+            ProductDt = palletDto.ProductDt,
             LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,
             LineName = palletDto.Line.Name,
