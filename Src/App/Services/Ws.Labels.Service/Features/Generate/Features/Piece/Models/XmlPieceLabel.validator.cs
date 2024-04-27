@@ -13,9 +13,9 @@ internal class XmlLabelPiecePalletValidator : AbstractValidator<XmlPieceLabel>
         RuleFor(i => i.PluFullName).NotEmpty().WithMessage("Полное имя плу не должно быть пустым");
         RuleFor(i => i.PluNumber).GreaterThanOrEqualTo((short)0).WithMessage("Номер плу должен быть >= 0");
         RuleFor(i => i.PluDescription).NotEmpty().WithMessage("Описание плу не должно быть пустым");
-        RuleFor(i => i.ExpirationDtValue).NotEmpty().WithMessage("Срок годности должен быть установлен");
-        RuleFor(i => i.ProductDtValue)
+        RuleFor(i => i.ExpirationDt).NotEmpty().WithMessage("Срок годности должен быть установлен");
+        RuleFor(i => i.ProductDt)
             .NotEmpty().WithMessage("Дата изготовления должна быть установлена")
-            .LessThan(x => x.ExpirationDtValue).WithMessage("Срок годности должен быть > Даты изготовления");
+            .LessThan(x => x.ExpirationDt).WithMessage("Срок годности должен быть > Даты изготовления");
     }
 }

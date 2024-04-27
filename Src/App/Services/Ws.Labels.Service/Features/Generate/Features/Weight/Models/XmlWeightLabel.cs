@@ -22,8 +22,8 @@ public class XmlWeightLabel : XmlLabelBaseModel, IXmlBarcodeWeightXml
     {
         get => $"298{LineNumber.ToStrLenWithZero(5)}" +
                $"{LineCounter.ToStrLenWithZero(8)}" +
-               $"{ProductDate}" +
-               $"{ProductTime}" +
+               $"{ProductDt:yyMMdd}" +
+               $"{ProductDt:HHmmss}" +
                $"{PluNumber.ToStrLenWithZero(3)}" +
                $"{Weight.ToStrWithLen(5)}" +
                $"{Kneading.ToStrLenWithZero(3)}";
@@ -40,7 +40,7 @@ public class XmlWeightLabel : XmlLabelBaseModel, IXmlBarcodeWeightXml
     [XmlElement]
     public override string BarCodeBottom
     {
-        get => $"(01){PluGtin}(3103){Weight.ToStrWithLen(6)}(11){ProductDate}(10){ProductDateShort}";
+        get => $"(01){PluGtin}(3103){Weight.ToStrWithLen(6)}(11){ProductDt:yyMMdd}(10){ProductDt:yyMM}";
         set => _ = value;
     }
 }

@@ -16,7 +16,7 @@ public class XmlPieceLabel : XmlLabelBaseModel, IXmlBarcodePieceXml
         get => $"233{LineNumber.ToStrLenWithZero(5)}" +
                $"{BundleCount.ToStrLenWithZero(2)}" +
                $"{LineCounter.ToStrLenWithZero(6)}" +
-               $"{ProductDate}{ProductTime}" +
+               $"{ProductDt:yyMMdd}{ProductDt:HHmmss}" +
                $"{PluNumber.ToStrLenWithZero(3)}" +
                $"00000{Kneading.ToStrLenWithZero(3)}";
         set => _ = value;
@@ -27,7 +27,7 @@ public class XmlPieceLabel : XmlLabelBaseModel, IXmlBarcodePieceXml
     {
         get => $"234{LineNumber.ToStrLenWithZero(5)}" +
                $"{LineCounter.ToStrLenWithZero(6)}" +
-               $"{ProductDate}";
+               $"{ProductDt:yyMMdd}";
         set => _ = value;
     }
 
@@ -36,7 +36,7 @@ public class XmlPieceLabel : XmlLabelBaseModel, IXmlBarcodePieceXml
     {
         get => $"(01){PluGtin}(37)" +
                $"{BundleCount.ToStrLenWithZero(8)}" +
-               $"(11){ProductDate}(10){ProductDateShort}";
+               $"(11){ProductDt:yyMMdd}(10){ProductDt:yyMM}";
         set => _ = value;
     }
 }
