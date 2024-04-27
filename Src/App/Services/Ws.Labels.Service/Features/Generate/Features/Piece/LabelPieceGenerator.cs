@@ -26,9 +26,6 @@ internal class LabelPieceGenerator(
         if (labelCount > 240)
             throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
 
-
-
-
         if (Guid.TryParse(generatePalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
             templateBody = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? string.Empty;
 

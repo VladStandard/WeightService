@@ -42,6 +42,7 @@ internal class LabelWeightGenerator(
             throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
 
         XmlWeightLabel labelXml = dto.ToXmlWeightLabel();
+
         ValidateXmlWeightLabel(labelXml);
 
         ZplPrintItems zplPrintItems = new()
@@ -50,6 +51,13 @@ internal class LabelWeightGenerator(
             Template = LoadTemplate(dto.Plu.TemplateUid),
             StorageMethod = LoadStorageMethod(dto.Plu.StorageMethod)
         };
+
+        var temp = templateService.GetItemByUid(dto.Plu.TemplateUid ?? Guid.Empty);
+
+        labelXml.BarcodeBottomTemplate = temp.BarcodeBottomBody.ToList();
+        labelXml.BarcodeRightTemplate = temp.BarcodeRightBody.ToList();
+        labelXml.BarcodeTopTemplate = temp.BarcodeTopBody.ToList();
+
 
         ZplInfo ready = LabelGeneratorUtils.GetZpl(zplPrintItems, labelXml);
 
