@@ -75,10 +75,6 @@
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Remove="package.json;package-lock.json" />
-    </ItemGroup>
-
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build"/>
     </Target>
