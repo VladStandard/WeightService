@@ -1,11 +1,12 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Ws.Labels.Service.Extensions;
+using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
 
 namespace Ws.Labels.Service.Features.Generate.Models.XmlLabelBase;
 
 [Serializable]
-public abstract partial class XmlLabelBaseModel : ISerializable
+public abstract partial class XmlLabelBaseModel : IXmlBarcodeModel, ISerializable
 {
     #region Line
 

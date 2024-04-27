@@ -1,11 +1,12 @@
 using System.Xml.Serialization;
 using Ws.Labels.Service.Extensions;
-using XmlLabelBaseModel = Ws.Labels.Service.Features.Generate.Models.XmlLabelBase.XmlLabelBaseModel;
+using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
+using Ws.Labels.Service.Features.Generate.Models.XmlLabelBase;
 
 namespace Ws.Labels.Service.Features.Generate.Features.Weight.Models;
 
 [Serializable]
-public class XmlWeightLabel : XmlLabelBaseModel
+public class XmlWeightLabel : XmlLabelBaseModel, IXmlBarcodeWeightXml
 {
     [XmlIgnore] public required decimal Weight { get; set; }
 
@@ -42,10 +43,4 @@ public class XmlWeightLabel : XmlLabelBaseModel
         get => $"(01){PluGtin}(3103){Weight.ToStrWithLen(6)}(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;
     }
-
-    public static HashSet<string> GetTypes =>
-    [
-        nameof(PluGtin), nameof(Weight), nameof(ProductDate), nameof(ProductDateShort),
-        nameof(LineCounter), nameof(LineNumber), nameof(ProductTime), nameof(Kneading), nameof(PluNumber)
-    ];
 }

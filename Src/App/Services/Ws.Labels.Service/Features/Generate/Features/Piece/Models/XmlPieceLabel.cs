@@ -1,11 +1,12 @@
 using System.Xml.Serialization;
 using Ws.Labels.Service.Extensions;
+using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
 using XmlLabelBaseModel = Ws.Labels.Service.Features.Generate.Models.XmlLabelBase.XmlLabelBaseModel;
 
 namespace Ws.Labels.Service.Features.Generate.Features.Piece.Models;
 
 [Serializable]
-public class XmlPieceLabel : XmlLabelBaseModel
+public class XmlPieceLabel : XmlLabelBaseModel, IXmlBarcodePieceXml
 {
     [XmlElement] public short BundleCount { get; set; }
 
@@ -38,10 +39,4 @@ public class XmlPieceLabel : XmlLabelBaseModel
                $"(11){ProductDate}(10){ProductDateShort}";
         set => _ = value;
     }
-
-    public static HashSet<string> GetTypes =>
-    [
-        nameof(PluGtin), nameof(BundleCount), nameof(ProductDate), nameof(ProductDateShort),
-        nameof(LineCounter), nameof(LineNumber), nameof(ProductTime), nameof(Kneading), nameof(PluNumber)
-    ];
 }
