@@ -30,12 +30,12 @@ public partial class TemplateTypesUtils
     {
         BarcodeBaseTemp data = new();
         return [
-            new BarcodeFieldModel<int>(data.LineNumber, 3),
-            new BarcodeFieldModel<int>(data.LineCounter, 7),
-            new BarcodeFieldModel<short>(data.PluNumber, 3),
-            new BarcodeFieldModel<string>(data.PluGtin, 14),
-            new BarcodeFieldModel<short>(data.Kneading, 3),
-            new BarcodeFieldModel<DateTime>(data.ProductDt, 0, true),
+            new BarcodeFieldModel<int>(nameof(BarcodeBaseTemp.LineNumber),5),
+            new BarcodeFieldModel<int>(nameof(BarcodeBaseTemp.LineCounter), 7),
+            new BarcodeFieldModel<short>(nameof(BarcodeBaseTemp.PluNumber), 3),
+            new BarcodeFieldModel<string>(nameof(BarcodeBaseTemp.PluGtin), 14),
+            new BarcodeFieldModel<short>(nameof(BarcodeBaseTemp.Kneading), 3),
+            new BarcodeFieldModel<DateTime>(nameof(BarcodeBaseTemp.ProductDt), 0, true),
         ];
     }
 }

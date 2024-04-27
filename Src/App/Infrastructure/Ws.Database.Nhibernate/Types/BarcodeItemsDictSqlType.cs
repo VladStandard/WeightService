@@ -13,12 +13,12 @@ internal class BarcodeItemSqlType : UserType
 {
     public override SqlType[] SqlTypes => [SqlTypeFactory.GetString(256)];
 
-    public override Type ReturnedType => typeof(HashSet<BarcodeItem>);
+    public override Type ReturnedType => typeof(List<BarcodeItem>);
 
     public override object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
     {
         object obj = NHibernateUtil.String.NullSafeGet(rs, names, session);
-        return obj == null || obj.ToString() == string.Empty ? new HashSet<BarcodeItem>() : JsonConvert.DeserializeObject<HashSet<BarcodeItem>>(obj.ToString());
+        return obj == null || obj.ToString() == string.Empty ? [] : JsonConvert.DeserializeObject<List<BarcodeItem>>(obj.ToString());
     }
 
     public override void NullSafeSet(DbCommand cmd, object? value, int index, ISessionImplementor session)

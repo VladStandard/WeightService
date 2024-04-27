@@ -15,9 +15,9 @@ public class TemplateEntity : EntityBase
     public virtual bool IsWeight { get; set; }
     public virtual string Body { get; set; } = string.Empty;
     public virtual string Name { get; set; } = string.Empty;
-    public virtual HashSet<BarcodeItem> BarcodeTopBody { get; set; } = [];
-    public virtual HashSet<BarcodeItem> BarcodeRightBody { get; set; } = [];
-    public virtual HashSet<BarcodeItem> BarcodeBottomBody { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeTopBody { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeRightBody { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeBottomBody { get; set; } = [];
 
     public virtual string SizeView => $"{Width}x{Height}";
 

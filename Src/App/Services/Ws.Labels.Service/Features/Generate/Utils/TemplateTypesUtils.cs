@@ -9,7 +9,7 @@ public static partial class TemplateTypesUtils
     {
         BarcodePieceTemp data = new();
         List<IBarcodeFieldModel> vars = GetBaseVariable();
-        vars.Add(new BarcodeFieldModel<short>(data.BundleCount, 2));
+        vars.Add(new BarcodeFieldModel<short>(nameof(BarcodePieceTemp.BundleCount), 2));
         return vars;
     }
 
@@ -17,7 +17,7 @@ public static partial class TemplateTypesUtils
     {
         BarcodeWeightTemp data = new();
         List<IBarcodeFieldModel> vars = GetBaseVariable();
-        vars.Add(new BarcodeFieldModel<decimal>(data.Weight, 5));
+        vars.Add(new BarcodeFieldModel<decimal>(nameof(BarcodeWeightTemp.Weight), 5));
         return vars;
     }
 }

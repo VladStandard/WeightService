@@ -1,31 +1,50 @@
 @using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Features.BarcodeConfigurator
+@using DeviceControl.Source.Widgets.Section
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ws.Domain.Services.Features.Template
 
 <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
   <Accordion Title="Верхний штрихкод">
-    <BarcodeConfigurator @bind-BarcodeDictionary="DialogItem.BarcodeTopBody" />
+    <BarcodeConfigurator
+      @bind-BarcodeDictionary="DialogItem.BarcodeTopBody"
+      IsWeight="DialogItem.IsWeight"
+    />
   </Accordion>
   <Accordion Title="Нижний штрихкод">
-    <BarcodeConfigurator @bind-BarcodeDictionary="DialogItem.BarcodeBottomBody" />
+    <BarcodeConfigurator
+      @bind-BarcodeDictionary="DialogItem.BarcodeBottomBody"
+      IsWeight="DialogItem.IsWeight"
+    />
   </Accordion>
   <Accordion Title="Боковой штрихкод">
-    <BarcodeConfigurator @bind-BarcodeDictionary="DialogItem.BarcodeRightBody" />
+    <BarcodeConfigurator
+      @bind-BarcodeDictionary="DialogItem.BarcodeRightBody"
+      IsWeight="DialogItem.IsWeight"
+    />
   </Accordion>
+  <div class="pt-4 flex justify-end">
+    <Button OnClick="@SubmitForm">
+      Сохранить изменения
+    </Button>
+  </div>
 </div>
 
 @code {
   [Inject] private ITemplateService TemplateService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
-  [CascadingParameter(Name = "DialogItem")] protected TemplateEntity DialogItem { get; set; } = new();
 
-  private void SubmitForm()
+  [CascadingParameter(Name = "DialogItem")] protected TemplateEntity DialogItem { get; set; } = new();
+  [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
+
+  private async Task SubmitForm()
   {
     try
     {
       TemplateService.Update(DialogItem);
       ToastService.ShowSuccess("Успешно обновлено");
+      await Dialog.CloseAsync(new SectionDialogContent<TemplateEntity>
+        { Item = DialogItem, DataAction = SectionDialogResultEnum.Update });
     }
     catch
     {

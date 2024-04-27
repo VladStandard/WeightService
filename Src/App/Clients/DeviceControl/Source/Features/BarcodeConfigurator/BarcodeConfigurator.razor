@@ -1,10 +1,10 @@
 @using Ws.Domain.Models.ValueTypes
-@using Ws.Labels.Service.Features.Generate.Features.Weight.Models
-@using Ws.Shared.Types
 @using Blazor.Heroicons.Outline
+@using Ws.Labels.Service.Features.Generate.Common
+@using Ws.Labels.Service.Features.Generate.Utils
 
 
-<div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
+<div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
   <div class="h-10 w-full flex items-center truncate px-3">
     Порядок
   </div>
@@ -15,16 +15,19 @@
     Тип
   </div>
   <div class="h-10 w-full flex items-center truncate px-3">
+    Маска
+  </div>
+  <div class="h-10 w-full flex items-center truncate px-3">
     Длина
   </div>
   <div></div>
-  @if (!BarcodeItems.Any())
+  @if (!BarcodeDictionary.Any())
   {
-    <div class="col-span-5 flex w-full h-10 items-center justify-center">
+    <div class="col-span-6 flex w-full h-10 items-center justify-center">
       Поля отсутствуют
     </div>
   }
-  @foreach (var item in BarcodeItems.Select((x, i) => new { Value = x, Index = i }) )
+  @foreach (var item in BarcodeDictionary.Select((x, i) => new { Value = x, Index = i }) )
   {
     <div class="size-full flex items-center px-3 text-sm">
       <div class="flex items-center w-full justify-between">
@@ -42,7 +45,7 @@
             Variant="ButtonVariant.Ghost"
             Size="ButtonSize.Icon"
             OnClick="@(() => SwapItems(item.Index, item.Index + 1))"
-            Disabled="@(item.Index == BarcodeItems.Count - 1)"
+            Disabled="@(item.Index == BarcodeDictionary.Count - 1)"
           >
             <ChevronDownIcon class="size-4"/>
           </Button>
@@ -50,35 +53,46 @@
       </div>
     </div>
     <div>
-      @if (item.Value.Type == BarcodeItemType.Variable)
+      @if (item.Value.IsConst)
       {
-        <SelectSingle
-          TItem="string"
-          Items="BarcodeVariables.Except(BarcodeItems.Select(x => x.Name))"
-          @bind-SelectedItem="@item.Value.Name"
-          Placeholder="Выберите переменную..."
+        <InputTextField
+          @bind-Value="@item.Value.Property"
+          @bind-Value:after="@(() => item.Value.Length = item.Value.Property.Length)"
+          Placeholder="Введите константу..."
           Class="!border-none !rounded-none"
         />
       }
       else
       {
-        <InputTextField
-          @bind-Value="@item.Value.Name"
-          @bind-Value:after="@(() => item.Value.Length = item.Value.Name?.Length ?? 0)"
-          Placeholder="Введите константу..."
+        <SelectSingle
+          TItem="string"
+          Items="@GetFilteredValues()"
+          @bind-SelectedItem="@item.Value.Property"
+          @bind-SelectedItem:after="@(() => { item.Value.Length = BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Length ?? 0; })"
+          Placeholder="Выберите переменную..."
           Class="!border-none !rounded-none"
         />
       }
     </div>
     <div>
       <SelectSingle
-        TItem="BarcodeItemType"
-        Items="[BarcodeItemType.Const, BarcodeItemType.Variable]"
-        ItemDisplayName="@(x => x == BarcodeItemType.Const ? "Константа" : "Переменная")"
-        @bind-SelectedItem="@item.Value.Type"
-        @bind-SelectedItem:after="@(() => { item.Value.Name = null; item.Value.Length = 0; })"
+        TItem="bool"
+        Items="[true, false]"
+        ItemDisplayName="@(x => x ? "Константа" : "Переменная")"
+        @bind-SelectedItem="@item.Value.IsConst"
+        @bind-SelectedItem:after="@(() => { item.Value.Property = string.Empty; item.Value.Length = 0; })"
         Class="!border-none !rounded-none"
       />
+    </div>
+    <div>
+      @if (BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Type == typeof(DateTime))
+      {
+        <InputTextField
+          @bind-Value="@item.Value.FormatStr"
+          Placeholder="Формат поля..."
+          Class="!border-none !rounded-none"
+        />
+      }
     </div>
     <div class="size-full flex items-center px-3 text-sm">
       @item.Value.Length
@@ -102,37 +116,28 @@
 </div>
 
 @code {
-  [Parameter] public WsOrderedDictionary<string, BarcodeItem> BarcodeDictionary { get; set; } = [];
-  [Parameter] public EventCallback<WsOrderedDictionary<string, BarcodeItem>> BarcodeDictionaryChanged { get; set; }
+  [Parameter] public IList<BarcodeItem> BarcodeDictionary { get; set; } = [];
+  [Parameter] public bool IsWeight { get; set; }
+  [Parameter] public EventCallback<IList<BarcodeItem>> BarcodeDictionaryChanged { get; set; }
   [Parameter] public string Class { get; set; } = string.Empty;
 
-  private IEnumerable<string> BarcodeVariables { get; } = XmlWeightLabel.GetTypes.ToList();
-  private IList<BarcodeTableItem> BarcodeItems { get; set; } = [];
+  private IList<IBarcodeFieldModel> BarcodeVariables { get; set; } = [];
 
-  protected override void OnInitialized() => BarcodeItems = ConvertBarcodeDictionary();
+  protected override void OnInitialized() =>
+    BarcodeVariables = IsWeight ? TemplateTypesUtils.GetVariablesForWeightTemplate() : TemplateTypesUtils.GetVariablesForPieceTemplate();
 
-  private IList<BarcodeTableItem> ConvertBarcodeDictionary()
+  private void DeleteBarcodeItem(int itemIndex) => BarcodeDictionary.RemoveAt(itemIndex);
+
+  private void AddBarcodeItem() => BarcodeDictionary.Add(new());
+
+  private void CleanBarcode() => BarcodeDictionary = [];
+
+  private IEnumerable<string> GetFilteredValues()
   {
-    List<BarcodeTableItem> barcodeTableItems = [];
-    foreach ((string? key, BarcodeItem? barcodeItem) in BarcodeDictionary)
-    {
-      BarcodeTableItem barcodeTableItem = new()
-      {
-        Name = key,
-        Length = barcodeItem.Len == 0 ? key.Length : barcodeItem.Len,
-        Type = barcodeItem.IsConst ? BarcodeItemType.Const : BarcodeItemType.Variable
-      };
-      barcodeTableItems.Add(barcodeTableItem);
-    }
-    return barcodeTableItems;
+    IEnumerable<string> currentValues = BarcodeDictionary.Select(y => y.Property);
+    return BarcodeVariables.Where(x => x.IsRepeatable || !currentValues.Contains(x.Name)).Select(x => x.Name);
   }
 
-  private void DeleteBarcodeItem(int itemIndex) => BarcodeItems.RemoveAt(itemIndex);
-
-  private void AddBarcodeItem() => BarcodeItems.Add(new());
-
-  private void CleanBarcode() => BarcodeItems = [];
-
   private void SwapItems(int oldIndex, int newIndex) =>
-    (BarcodeItems[oldIndex], BarcodeItems[newIndex]) = (BarcodeItems[newIndex], BarcodeItems[oldIndex]);
+    (BarcodeDictionary[oldIndex], BarcodeDictionary[newIndex]) = (BarcodeDictionary[newIndex], BarcodeDictionary[oldIndex]);
 }
