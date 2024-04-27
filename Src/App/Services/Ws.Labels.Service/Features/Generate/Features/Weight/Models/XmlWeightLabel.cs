@@ -43,7 +43,7 @@ public class XmlWeightLabel : XmlLabelBaseModel
         set => _ = value;
     }
 
-    public override HashSet<string> GetTypes =>
+    public static HashSet<string> GetTypes =>
     [
         nameof(PluGtin), nameof(Weight), nameof(ProductDate), nameof(ProductDateShort),
         nameof(LineCounter), nameof(LineNumber), nameof(ProductTime), nameof(Kneading), nameof(PluNumber)

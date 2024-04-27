@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240426112932_Add_BarcodesBodyColumns_to_TemplatesTable")]
+    [Migration("20240426134746_Add_BarcodesBodyColumns_to_TemplatesTable")]
     partial class Add_BarcodesBodyColumns_to_TemplatesTable
     {
         /// <inheritdoc />
@@ -815,20 +815,20 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("BarcodeBottomBody")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("BARCODE_BOTTOM_BODY");
 
                     b.Property<string>("BarcodeRightBody")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("BARCODE_RIGHT_BODY");
 
                     b.Property<string>("BarcodeTopBody")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)")
                         .HasColumnName("BARCODE_TOP_BODY");
 
                     b.Property<string>("Body")

@@ -11,8 +11,6 @@ public abstract partial class XmlLabelBaseModel
     [XmlIgnore] public string ProductDate => $"{ProductDtValue:yyMMdd}";
     [XmlIgnore] public string ProductTime => $"{ProductDtValue:HHmmss}";
     [XmlIgnore] public string ProductDateShort => $"{ProductDtValue:yyMM}";
-    public abstract HashSet<string> GetTypes { get; }
-
     public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
         throw new NotImplementedException();

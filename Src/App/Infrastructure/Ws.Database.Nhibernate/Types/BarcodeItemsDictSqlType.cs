@@ -5,6 +5,7 @@ using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using Ws.Database.Nhibernate.Common;
 using Ws.Domain.Models.ValueTypes;
+using Ws.Shared.Types;
 
 namespace Ws.Database.Nhibernate.Types;
 
@@ -17,7 +18,7 @@ internal class BarcodeItemSqlType : UserType
     public override object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
     {
         object obj = NHibernateUtil.String.NullSafeGet(rs, names, session);
-        return obj == null || obj.ToString() == string.Empty ? new Dictionary<string, BarcodeItem>() : JsonConvert.DeserializeObject<Dictionary<string, BarcodeItem>>(obj.ToString());
+        return obj == null || obj.ToString() == string.Empty ? null : JsonConvert.DeserializeObject<WsOrderedDictionary<string, BarcodeItem>>(obj.ToString());
     }
 
     public override void NullSafeSet(DbCommand cmd, object? value, int index, ISessionImplementor session)

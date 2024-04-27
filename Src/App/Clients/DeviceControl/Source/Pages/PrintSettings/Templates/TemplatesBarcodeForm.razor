@@ -3,6 +3,7 @@
 @using Ws.Domain.Models.ValueTypes
 @using Blazor.Heroicons.Outline
 @using Ws.Domain.Services.Features.Template
+@using Ws.Labels.Service.Features.Generate.Features.Weight.Models
 @using Ws.Shared.Types
 
 <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 dark:bg-inherit">
@@ -75,9 +76,9 @@
 
   protected override void OnInitialized()
   {
+    BarcodeValues = DialogItem.BarcodeTopBody;
     UsedValues = DialogItem.BarcodeTopBody.Keys.ToList();
-    Values = DialogItem.BarcodeTopBody.Where(item => !item.Value.IsConst).Select(item => item.Key)
-      .ToList();;
+    Values = XmlWeightLabel.GetTypes.ToList();
   }
 
   private void AddNewValue(string newValue, bool isConst = false)

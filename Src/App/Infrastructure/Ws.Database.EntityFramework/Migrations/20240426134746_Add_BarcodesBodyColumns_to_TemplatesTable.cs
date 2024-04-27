@@ -14,8 +14,8 @@ namespace Ws.Database.EntityFramework.Migrations
                 name: "BARCODE_BOTTOM_BODY",
                 schema: "ZPL",
                 table: "TEMPLATES",
-                type: "nvarchar(256)",
-                maxLength: 256,
+                type: "nvarchar(2048)",
+                maxLength: 2048,
                 nullable: false,
                 defaultValue: "");
 
@@ -23,8 +23,8 @@ namespace Ws.Database.EntityFramework.Migrations
                 name: "BARCODE_RIGHT_BODY",
                 schema: "ZPL",
                 table: "TEMPLATES",
-                type: "nvarchar(256)",
-                maxLength: 256,
+                type: "nvarchar(2048)",
+                maxLength: 2048,
                 nullable: false,
                 defaultValue: "");
 
@@ -32,8 +32,8 @@ namespace Ws.Database.EntityFramework.Migrations
                 name: "BARCODE_TOP_BODY",
                 schema: "ZPL",
                 table: "TEMPLATES",
-                type: "nvarchar(256)",
-                maxLength: 256,
+                type: "nvarchar(2048)",
+                maxLength: 2048,
                 nullable: false,
                 defaultValue: "");
         }
