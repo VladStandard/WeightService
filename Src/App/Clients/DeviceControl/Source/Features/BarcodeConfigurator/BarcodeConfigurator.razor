@@ -1,0 +1,138 @@
+@using Ws.Domain.Models.ValueTypes
+@using Ws.Labels.Service.Features.Generate.Features.Weight.Models
+@using Ws.Shared.Types
+@using Blazor.Heroicons.Outline
+
+
+<div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
+  <div class="h-10 w-full flex items-center truncate px-3">
+    Порядок
+  </div>
+  <div class="h-10 w-full flex items-center truncate px-3">
+    Название
+  </div>
+  <div class="h-10 w-full flex items-center truncate px-3">
+    Тип
+  </div>
+  <div class="h-10 w-full flex items-center truncate px-3">
+    Длина
+  </div>
+  <div></div>
+  @if (!BarcodeItems.Any())
+  {
+    <div class="col-span-5 flex w-full h-10 items-center justify-center">
+      Поля отсутствуют
+    </div>
+  }
+  @foreach (var item in BarcodeItems.Select((x, i) => new { Value = x, Index = i }) )
+  {
+    <div class="size-full flex items-center px-3 text-sm">
+      <div class="flex items-center w-full justify-between">
+        @(item.Index + 1)
+        <div class="flex gap-px">
+          <Button
+            Variant="ButtonVariant.Ghost"
+            Size="ButtonSize.Icon"
+            OnClick="@(() => SwapItems(item.Index, item.Index - 1))"
+            Disabled="@(item.Index == 0)"
+          >
+            <ChevronUpIcon class="size-4"/>
+          </Button>
+          <Button
+            Variant="ButtonVariant.Ghost"
+            Size="ButtonSize.Icon"
+            OnClick="@(() => SwapItems(item.Index, item.Index + 1))"
+            Disabled="@(item.Index == BarcodeItems.Count - 1)"
+          >
+            <ChevronDownIcon class="size-4"/>
+          </Button>
+        </div>
+      </div>
+    </div>
+    <div>
+      @if (item.Value.Type == BarcodeItemType.Variable)
+      {
+        <SelectSingle
+          TItem="string"
+          Items="BarcodeVariables.Except(BarcodeItems.Select(x => x.Name))"
+          @bind-SelectedItem="@item.Value.Name"
+          Placeholder="Выберите переменную..."
+          Class="!border-none !rounded-none"
+        />
+      }
+      else
+      {
+        <InputTextField
+          @bind-Value="@item.Value.Name"
+          @bind-Value:after="@(() => item.Value.Length = item.Value.Name?.Length ?? 0)"
+          Placeholder="Введите константу..."
+          Class="!border-none !rounded-none"
+        />
+      }
+    </div>
+    <div>
+      <SelectSingle
+        TItem="BarcodeItemType"
+        Items="[BarcodeItemType.Const, BarcodeItemType.Variable]"
+        ItemDisplayName="@(x => x == BarcodeItemType.Const ? "Константа" : "Переменная")"
+        @bind-SelectedItem="@item.Value.Type"
+        @bind-SelectedItem:after="@(() => { item.Value.Name = null; item.Value.Length = 0; })"
+        Class="!border-none !rounded-none"
+      />
+    </div>
+    <div class="size-full flex items-center px-3 text-sm">
+      @item.Value.Length
+    </div>
+    <div class="size-full flex items-center justify-center">
+      <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" OnClick="@(() => DeleteBarcodeItem(item.Index))">
+        <TrashIcon class="size-5 text-destructive" />
+      </Button>
+    </div>
+  }
+</div>
+<div class="flex w-full pt-4 gap-2 justify-end">
+  <Button Variant="ButtonVariant.Destructive" OnClick="@CleanBarcode">
+    <TrashIcon class="size-5 mr-2" />
+    Очистить
+  </Button>
+  <Button OnClick="@AddBarcodeItem">
+    <PlusIcon class="size-5 mr-2"/>
+    Добавить
+  </Button>
+</div>
+
+@code {
+  [Parameter] public WsOrderedDictionary<string, BarcodeItem> BarcodeDictionary { get; set; } = [];
+  [Parameter] public EventCallback<WsOrderedDictionary<string, BarcodeItem>> BarcodeDictionaryChanged { get; set; }
+  [Parameter] public string Class { get; set; } = string.Empty;
+
+  private IEnumerable<string> BarcodeVariables { get; } = XmlWeightLabel.GetTypes.ToList();
+  private IList<BarcodeTableItem> BarcodeItems { get; set; } = [];
+
+  protected override void OnInitialized() => BarcodeItems = ConvertBarcodeDictionary();
+
+  private IList<BarcodeTableItem> ConvertBarcodeDictionary()
+  {
+    List<BarcodeTableItem> barcodeTableItems = [];
+    foreach ((string? key, BarcodeItem? barcodeItem) in BarcodeDictionary)
+    {
+      BarcodeTableItem barcodeTableItem = new()
+      {
+        Name = key,
+        Length = barcodeItem.Len == 0 ? key.Length : barcodeItem.Len,
+        Type = barcodeItem.IsConst ? BarcodeItemType.Const : BarcodeItemType.Variable
+      };
+      barcodeTableItems.Add(barcodeTableItem);
+    }
+    return barcodeTableItems;
+  }
+
+  private void DeleteBarcodeItem(int itemIndex) => BarcodeItems.RemoveAt(itemIndex);
+
+  private void AddBarcodeItem() => BarcodeItems.Add(new());
+
+  private void CleanBarcode() => BarcodeItems = [];
+
+  private void SwapItems(int oldIndex, int newIndex) =>
+    (BarcodeItems[oldIndex], BarcodeItems[newIndex]) = (BarcodeItems[newIndex], BarcodeItems[oldIndex]);
+}

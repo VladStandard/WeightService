@@ -73,6 +73,10 @@
         <Content Include=".Publish\dev.cmd"/>
         <Content Include=".Publish\prod.cmd"/>
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1"/>
+        <Content Include="wwwroot\libs\select-resize.js">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

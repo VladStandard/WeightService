@@ -16,6 +16,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
+    [Parameter] public string Class { get; set; } = string.Empty;
 
     private ElementReference DropdownWrapper { get; set; }
     private IJSObjectReference Module { get; set; } = null!;

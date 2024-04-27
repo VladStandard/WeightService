@@ -6,7 +6,7 @@
     OnClick="@OpenDropdown"
     IsDisabled="@IsDisabled"
     IsActive="@IsOpen"
-    Class="select-button"
+    Class="@Css.Class("select-button", Class)"
   >
     <span class="pointer-events-none line-clamp-1">@GetToggleText</span>
   </SelectTrigger>
