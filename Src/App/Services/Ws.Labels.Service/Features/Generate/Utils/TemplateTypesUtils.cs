@@ -1,23 +1,22 @@
-using Ws.Labels.Service.Features.Generate.Common;
 using Ws.Labels.Service.Features.Generate.Models;
 
 namespace Ws.Labels.Service.Features.Generate.Utils;
 
 public static partial class TemplateTypesUtils
 {
-    public static List<IBarcodeFieldModel> GetVariablesForPieceTemplate()
+    public static List<BarcodeVariable> GetVariablesForPieceTemplate()
     {
         BarcodePieceTemp data = new();
-        List<IBarcodeFieldModel> vars = GetBaseVariable();
-        vars.Add(new BarcodeFieldModel<short>(nameof(BarcodePieceTemp.BundleCount), 2));
-        return vars;
+        List<BarcodeVariable> vars = GetBaseVariable();
+        vars.Add(BarcodeVariable.Build(() => data.BundleCount, 2));
+        return vars.OrderBy(i => i.Name).ToList();
     }
 
-    public static List<IBarcodeFieldModel> GetVariablesForWeightTemplate()
+    public static List<BarcodeVariable> GetVariablesForWeightTemplate()
     {
         BarcodeWeightTemp data = new();
-        List<IBarcodeFieldModel> vars = GetBaseVariable();
-        vars.Add(new BarcodeFieldModel<decimal>(nameof(BarcodeWeightTemp.Weight), 5));
-        return vars;
+        List<BarcodeVariable> vars = GetBaseVariable();
+        vars.Add(BarcodeVariable.Build(() => data.Weight, 5));
+        return vars.OrderBy(i => i.Name).ToList();
     }
 }

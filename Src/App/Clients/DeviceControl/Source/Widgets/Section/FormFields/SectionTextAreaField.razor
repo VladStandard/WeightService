@@ -4,7 +4,7 @@
   Path="@Path"
   Label="@Label"
   HtmlFor="@HtmlId"
-  ValueToCopy="@(IsCopyable ? Value : string.Empty)"
+  ValueToCopy="@(IsCopyable ? ValueToCopy ?? Value : string.Empty)"
   Size="SectionInputSize.Large"
 >
   <InputTextAreaField

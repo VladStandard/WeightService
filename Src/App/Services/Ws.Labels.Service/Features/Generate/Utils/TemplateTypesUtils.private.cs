@@ -1,4 +1,4 @@
-using Ws.Labels.Service.Features.Generate.Common;
+using System.Linq.Expressions;
 using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
 using Ws.Labels.Service.Features.Generate.Models;
 
@@ -26,16 +26,16 @@ public partial class TemplateTypesUtils
         public short BundleCount { get; set; }
     }
 
-    private static List<IBarcodeFieldModel> GetBaseVariable()
+    private static List<BarcodeVariable> GetBaseVariable()
     {
         BarcodeBaseTemp data = new();
         return [
-            new BarcodeFieldModel<int>(nameof(BarcodeBaseTemp.LineNumber),5),
-            new BarcodeFieldModel<int>(nameof(BarcodeBaseTemp.LineCounter), 7),
-            new BarcodeFieldModel<short>(nameof(BarcodeBaseTemp.PluNumber), 3),
-            new BarcodeFieldModel<string>(nameof(BarcodeBaseTemp.PluGtin), 14),
-            new BarcodeFieldModel<short>(nameof(BarcodeBaseTemp.Kneading), 3),
-            new BarcodeFieldModel<DateTime>(nameof(BarcodeBaseTemp.ProductDt), 0, true),
+            BarcodeVariable.Build( () => data.LineNumber,5),
+            BarcodeVariable.Build( () => data.LineCounter,7),
+            BarcodeVariable.Build( () => data.PluNumber,3),
+            BarcodeVariable.Build( () => data.PluGtin,14),
+            BarcodeVariable.Build( () => data.Kneading,3),
+            BarcodeVariable.Build( () => data.ProductDt,0, true),
         ];
     }
 }

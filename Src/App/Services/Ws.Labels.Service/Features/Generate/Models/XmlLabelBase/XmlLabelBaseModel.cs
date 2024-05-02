@@ -1,6 +1,5 @@
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
 
 namespace Ws.Labels.Service.Features.Generate.Models.XmlLabelBase;
@@ -30,15 +29,15 @@ public abstract partial class XmlLabelBaseModel : IXmlBarcodeModel, ISerializabl
 
     [XmlElement] public string ProductDateStr { get => $"{ProductDt:dd.MM.yyyy}"; set => _ = value; }
     [XmlElement] public string ExpirationDateStr { get => $"{ExpirationDt:dd.MM.yyyy}"; set => _ = value; }
-    [XmlElement] public string KneadingStr { get => Kneading.ToStrLenWithZero(3); set => _ = value; }
+    [XmlElement] public string KneadingStr { get => $"{Kneading:D3}"; set => _ = value; }
 
     #endregion
 
     #region Barcodes
 
-    [XmlElement] public abstract string BarCodeTop { get; set; }
-    [XmlElement] public abstract string BarCodeRight { get; set; }
-    [XmlElement] public abstract string BarCodeBottom { get; set; }
+    [XmlElement] public string BarCodeTop { get => GenerateBarcode(BarcodeTopTemplate); set => _ = value; }
+    [XmlElement] public string BarCodeRight { get => GenerateBarcode(BarcodeRightTemplate); set => _ = value; }
+    [XmlElement] public string BarCodeBottom { get => GenerateBarcode(BarcodeBottomTemplate); set => _ = value; }
 
     #endregion
 }

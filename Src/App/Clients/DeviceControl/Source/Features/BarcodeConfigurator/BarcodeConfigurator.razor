@@ -1,6 +1,6 @@
 @using Ws.Domain.Models.ValueTypes
 @using Blazor.Heroicons.Outline
-@using Ws.Labels.Service.Features.Generate.Common
+@using Ws.Labels.Service.Features.Generate.Models
 @using Ws.Labels.Service.Features.Generate.Utils
 
 
@@ -57,7 +57,7 @@
       {
         <InputTextField
           @bind-Value="@item.Value.Property"
-          @bind-Value:after="@(() => item.Value.Length = item.Value.Property.Length)"
+          @bind-Value:after="@(() => item.Value.Length = (ushort)item.Value.Property.Length)"
           Placeholder="Введите константу..."
           Class="!border-none !rounded-none"
         />
@@ -68,7 +68,7 @@
           TItem="string"
           Items="@GetFilteredValues()"
           @bind-SelectedItem="@item.Value.Property"
-          @bind-SelectedItem:after="@(() => { item.Value.Length = BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Length ?? 0; })"
+          @bind-SelectedItem:after="@(() => { item.Value.Length = (ushort)(BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Length ?? 0); })"
           Placeholder="Выберите переменную..."
           Class="!border-none !rounded-none"
         />
@@ -121,7 +121,7 @@
   [Parameter] public EventCallback<IList<BarcodeItem>> BarcodeDictionaryChanged { get; set; }
   [Parameter] public string Class { get; set; } = string.Empty;
 
-  private IList<IBarcodeFieldModel> BarcodeVariables { get; set; } = [];
+  private IList<BarcodeVariable> BarcodeVariables { get; set; } = [];
 
   protected override void OnInitialized() =>
     BarcodeVariables = IsWeight ? TemplateTypesUtils.GetVariablesForWeightTemplate() : TemplateTypesUtils.GetVariablesForPieceTemplate();

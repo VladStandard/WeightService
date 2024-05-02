@@ -18,6 +18,7 @@ public abstract class SectionFieldBase<TValue> : ComponentBase
     [Parameter] public string HtmlId { get; set; } = $"field-{Guid.NewGuid()}";
     [Parameter] public Expression<Func<TValue>>? For { get; set; }
     [Parameter] public string Path { get; set; } = string.Empty;
+    [Parameter] public string? ValueToCopy { get; set; }
 
     protected override void OnInitialized() =>
         Placeholder = string.IsNullOrEmpty(Placeholder) ? Localizer["InputDefaultPlaceholder"] : Placeholder;

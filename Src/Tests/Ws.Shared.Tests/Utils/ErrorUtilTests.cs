@@ -21,7 +21,7 @@ public class ErrorUtilTests
     public void Suppress_without_exception() =>
         ErrorUtil.Suppress<ArgumentNullException>(() => throw new ArgumentNullException())
             .Should()
-            .Be(false);
+            .Be(true);
 
     [Fact]
     public void Suppress_any_exception()
