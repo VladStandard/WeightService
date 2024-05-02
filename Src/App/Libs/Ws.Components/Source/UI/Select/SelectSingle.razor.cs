@@ -19,7 +19,6 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     [Parameter] public string Class { get; set; } = string.Empty;
 
     private ElementReference DropdownWrapper { get; set; }
-    private IJSObjectReference Module { get; set; } = null!;
     private string Id { get; } = $"id-{Guid.NewGuid()}";
     private string SearchString { get; set; } = string.Empty;
     private bool IsOpen { get; set; }
@@ -27,8 +26,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/select-resize.js");
-        await Module.InvokeVoidAsync("initializeResizeSelect", DropdownWrapper);
+        await JsRuntime.InvokeVoidAsync("subscribeElementResize", DropdownWrapper);
     }
 
     private async Task OpenDropdown()
@@ -36,7 +34,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
         if (IsDisabled) return;
         IsOpen = !IsOpen;
         await Task.Delay(10);
-        await Module.InvokeVoidAsync("updateDropdownWidth", DropdownWrapper);
+        await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 
     private async Task SetSelectedItem(TItem item)
@@ -66,8 +64,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     {
         try
         {
-            await Module.InvokeVoidAsync("removeResizeEvent", DropdownWrapper);
-            await Module.DisposeAsync();
+            await JsRuntime.InvokeVoidAsync("unsubscribeElementResize", DropdownWrapper);
         }
         catch
         {

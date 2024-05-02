@@ -73,10 +73,17 @@
         <Content Include=".Publish\dev.cmd"/>
         <Content Include=".Publish\prod.cmd"/>
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1"/>
-        <Content Include="wwwroot\libs\select-resize.js">
-          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="package.json" />
+      <None Include="package.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+      <Content Remove="package-lock.json" />
+      <None Include="package-lock.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

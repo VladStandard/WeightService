@@ -18,7 +18,6 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
 
     private ElementReference DropdownWrapper { get; set; }
     private bool IsOpen { get; set; }
-    private IJSObjectReference Module { get; set; } = null!;
     private string SearchString { get; set; } = string.Empty;
     private SelectVisibility SelectVisibility { get; set; } = SelectVisibility.All;
     private string Id { get; } = $"id-{Guid.NewGuid()}";
@@ -26,8 +25,7 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/select-resize.js");
-        await Module.InvokeVoidAsync("initializeResizeSelect", DropdownWrapper);
+        await JsRuntime.InvokeVoidAsync("subscribeElementResize", DropdownWrapper);
     }
 
     private async Task OpenDropdown()
@@ -35,7 +33,7 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
         if (IsDisabled) return;
         IsOpen = !IsOpen;
         await Task.Delay(10);
-        await Module.InvokeVoidAsync("updateDropdownWidth", DropdownWrapper);
+        await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 
     private async Task SwitchSelectedItem(TItem item)
@@ -58,8 +56,7 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
     {
         try
         {
-            await Module.InvokeVoidAsync("removeResizeEvent", DropdownWrapper);
-            await Module.DisposeAsync();
+            await JsRuntime.InvokeVoidAsync("unsubscribeElementResize", DropdownWrapper);
         }
         catch
         {

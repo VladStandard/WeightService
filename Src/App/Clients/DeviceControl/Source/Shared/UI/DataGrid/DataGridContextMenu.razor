@@ -18,18 +18,11 @@
   [Parameter] public EventCallback<bool> IsContextMenuOpenChanged { get; set; }
 
   public ElementReference DivRef { get; private set; }
-  private IJSObjectReference Module { get; set; } = null!;
-
-  protected override async Task OnAfterRenderAsync(bool firstRender)
-  {
-    if (!firstRender) return;
-    Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/focus-handler.js");
-  }
 
   private async Task CloseContextMenuAsync(FocusEventArgs args)
   {
     if (ChildContent == null || IsContextMenuOpen == false) return;
-    if (await Module.InvokeAsync<bool>("getIsNestedItem", DivRef)) return;
+    if (await JsRuntime.InvokeAsync<bool>("isElementContainsFocusedItem", DivRef)) return;
     IsContextMenuOpen = false;
     await IsContextMenuOpenChanged.InvokeAsync(IsContextMenuOpen);
   }

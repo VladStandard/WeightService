@@ -24,16 +24,9 @@ public sealed partial class DatabaseFilesPage : ComponentBase
     #endregion
 
     private IEnumerable<DbFileSizeInfoEntity> DbFileSizesData { get; set; } = [];
-    private IJSObjectReference? Module { get; set; }
     private bool IsLoading { get; set; }
 
     protected override async Task OnInitializedAsync() => await GetDatabaseData();
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender) return;
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
-    }
 
     private async Task GetDatabaseData()
     {
@@ -60,16 +53,10 @@ public sealed partial class DatabaseFilesPage : ComponentBase
             new()
             {
                 OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                    {
-                        if (Module == null) return;
-                        await Module.InvokeVoidAsync("animateDialogClosing", instance.Id);
-                    }
+                    await JsRuntime.InvokeVoidAsync("animateDialogClosing", instance.Id)
                 ),
                 OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                    {
-                        if (Module == null) return;
-                        await Module.InvokeVoidAsync("animateDialogOpening", instance.Id);
-                    }
+                    await JsRuntime.InvokeVoidAsync("animateDialogOpening", instance.Id)
                 )
             });
 }
