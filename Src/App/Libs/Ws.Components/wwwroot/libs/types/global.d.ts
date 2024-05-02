@@ -8,6 +8,7 @@ declare global {
     subscribeElementResize: (element: ResizableElement) => void
     unsubscribeElementResize: (element: ResizableElement) => void
     updateElementSize: (element: Element) => void
+    switchTheme: (theme: string) => void
   }
 }
 

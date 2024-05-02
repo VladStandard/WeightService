@@ -46,7 +46,7 @@
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColData"]"
       @bind-Value="@DialogItem.Body"
-      For="@(() => XmlUtil.GetPrettyXml(DialogItem.Body))"
+      For="@(() => DialogItem.Body)"
     />
 
   </FieldsContent>

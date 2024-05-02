@@ -47,8 +47,7 @@
     <SectionTextAreaField
       @bind-Value="@DialogItem.Body"
       Label="@WsDataLocalizer["ColData"]"
-      For="@(() => XmlUtil.GetPrettyXml(DialogItem.Body))"
-      ValueToCopy="@XmlUtil.GetPrettyXml(DialogItem.Body)"
+      For="@(() => DialogItem.Body)"
       IsCopyable
     />
 
