@@ -49,6 +49,17 @@
       <_ContentIncludedByDefault Remove="Source\Shared\UI\Tabs\Tabs.razor" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="package.json" />
+      <None Include="package.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+      <Content Remove="package-lock.json" />
+      <None Include="package-lock.json">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" ContinueOnError="true"/>
     </Target>

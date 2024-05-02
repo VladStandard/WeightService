@@ -7,7 +7,7 @@ using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisposable where TItem : EntityBase, new()
+public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem : EntityBase, new()
 {
     #region Inject
 
@@ -20,7 +20,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisp
     [Parameter] public string SearchingSectionItemId { get; set; } = string.Empty;
 
     protected IEnumerable<TItem> SectionItems { get; set; } = [];
-    private IJSObjectReference? Module { get; set; }
     protected DialogParameters DialogParameters { get; private set; } = new();
 
     protected bool IsLoading { get; set; } = true;
@@ -31,16 +30,11 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisp
         DialogParameters = new()
         {
             OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                {
-                    if (Module == null) return;
-                    await Module.InvokeVoidAsync("animateDialogClosing", instance.Id);
-                }
+                await JsRuntime.InvokeVoidAsync("animateDialogClosing", instance.Id)
+
             ),
             OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
-                {
-                    if (Module == null) return;
-                    await Module.InvokeVoidAsync("animateDialogOpening", instance.Id);
-                }
+                await JsRuntime.InvokeVoidAsync("animateDialogOpening", instance.Id)
             ),
             OnDialogResult = DialogService.CreateDialogCallback(this, HandleDialogCallback)
         };
@@ -50,12 +44,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisp
     {
         await GetSectionData();
         IsLoading = false;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender) return;
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/dialog-animation.js");
     }
 
     protected abstract IEnumerable<TItem> SetSqlSectionCast();
@@ -167,20 +155,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase, IAsyncDisp
         {
             ToastService.ShowError(Localizer["ToastErrorGettingData"]);
             return [];
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        try
-        {
-            GC.SuppressFinalize(this);
-            if (Module == null) return;
-            await Module.DisposeAsync();
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException or ArgumentNullException)
-        {
-            // pass error
         }
     }
 }

@@ -1,17 +1,26 @@
 {
   "name": "ws-components",
   "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify",
-    "tw": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --watch"
-  },
-  "author": "",
+  "type": "module",
+  "author": "WS",
   "license": "ISC",
+  "scripts": {
+    "format": "prettier wwwroot/libs --write",
+    "build": "rollup -c && tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify"
+  },
   "dependencies": {
+    "@rollup/plugin-multi-entry": "^6.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
-    "tailwindcss": "^3.4.3"
+    "prettier": "^3.2.5",
+    "rollup": "^4.17.2",
+    "rollup-plugin-multi-input": "^1.4.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tailwindcss": "^3.4.3",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   }
 }
