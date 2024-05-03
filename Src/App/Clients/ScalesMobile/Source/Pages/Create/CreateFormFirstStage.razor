@@ -23,14 +23,6 @@
       <div class="size-full items-center justify-center flex flex-col grow">
         <span class="text-sm">Значение штрихкода:</span>
         <span>@BarcodeValue</span>
-        @if (PluEntity.IsNew)
-        {
-          <span>Загрузка...</span>
-        }
-        else
-        {
-          <span>@PluEntity.Name</span>
-        }
       </div>
       <div class="w-full gap-2 flex flex-col shrink-0 py-3 px-2">
         <Button
@@ -51,57 +43,37 @@
 
 @code {
   [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
-  // [Inject] private ILabelService LabelService { get; set; } = default!;
 
   [Parameter] public EventCallback OnSuccessAction { get; set; }
   [Parameter] public PluEntity PluEntity { get; set; } = new();
   [Parameter] public EventCallback<PluEntity> PluEntityChanged { get; set; }
 
   private string BarcodeValue { get; set; } = "2991000300000038";
-  private IJSObjectReference Module { get; set; } = default!;
   private IEnumerable<LabelEntity> LabelEntities { get; set; } = [];
 
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {
     if (!firstRender) return;
-    Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/handle-barcode.js");
-    await Module.InvokeVoidAsync("initializeBarcodeEnterEvent", DotNetObjectReference.Create(this));
+    await JsRuntime.InvokeVoidAsync("subscribeBarcodeEnterEvent", DotNetObjectReference.Create(this), nameof(HandleInputEvent));
   }
 
-  [JSInvokable("HandleInputEvent")]
+  [JSInvokable]
   public void HandleInputEvent(string inputValue)
   {
     BarcodeValue = inputValue;
-
-    // if (!LabelEntities.Any())
-    //   LabelEntities = LabelService.GetAll();
-    //
-    // IEnumerable<LabelEntity> labelEntities = LabelEntities.ToList();
-    //
-    // LabelEntity? label =
-    //   labelEntities.FirstOrDefault(item => item.BarcodeBottom == BarcodeValue || item.BarcodeRight == BarcodeValue || item.BarcodeTop == BarcodeValue);
-    //
-    // if (label is { Plu: not null })
-    // {
-    //   PluEntity = label.Plu;
-    //   PluEntityChanged.InvokeAsync(PluEntity);
-    // }
-
     StateHasChanged();
   }
 
   private void ResetBarcode()
   {
     BarcodeValue = string.Empty;
-    PluEntity = new();
   }
 
   public async ValueTask DisposeAsync()
   {
     try
     {
-      await Module.InvokeVoidAsync("removeBarcodeEnterEvent");
-      await Module.DisposeAsync();
+      await JsRuntime.InvokeVoidAsync("unsubscribeBarcodeEnterEvent");
     }
     catch
     {
