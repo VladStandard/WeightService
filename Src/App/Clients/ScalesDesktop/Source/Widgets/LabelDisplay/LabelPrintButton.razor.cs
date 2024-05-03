@@ -37,7 +37,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
-    private IJSObjectReference Module { get; set; } = null!;
 
     private const int PrinterRequestDelay = 100;
     private const int ButtonCooldownDelay = 500;
@@ -50,11 +49,10 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
-        Module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./libs/handle-mouse.js");
-        await Module.InvokeVoidAsync("initializeMiddleMouseEvent", DotNetObjectReference.Create(this));
+        await JsRuntime.InvokeVoidAsync("subscribeMiddleMouseClickEvent", DotNetObjectReference.Create(this), nameof(HandleMiddleMouseClick));
     }
 
-    [JSInvokable("HandleMiddleMouseClick")]
+    [JSInvokable]
     public async Task HandleMiddleMouseClick()
     {
         if (GetPrintLabelDisabledStatus()) return;
@@ -178,8 +176,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
     {
         try
         {
-            await Module.InvokeVoidAsync("removeMiddleMouseEvent");
-            await Module.DisposeAsync();
+            await JsRuntime.InvokeVoidAsync("unsubscribeMiddleMouseClickEvent");
         }
         catch
         {

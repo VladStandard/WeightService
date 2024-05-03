@@ -2,6 +2,7 @@
 @using Blazor.Heroicons.Outline
 @using Ws.Labels.Service.Features.Generate.Models
 @using Ws.Labels.Service.Features.Generate.Utils
+@using Ws.Shared.Extensions
 
 
 <div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
@@ -104,15 +105,49 @@
     </div>
   }
 </div>
-<div class="flex w-full pt-4 gap-2 justify-end">
-  <Button Variant="ButtonVariant.Destructive" OnClick="@CleanBarcode">
-    <TrashIcon class="size-5 mr-2" />
-    Очистить
-  </Button>
-  <Button OnClick="@AddBarcodeItem">
-    <PlusIcon class="size-5 mr-2"/>
-    Добавить
-  </Button>
+<div class="flex w-full pt-4 gap-2 justify-between">
+  <div class="h-10 rounded-md px-0.5 overflow-hidden border">
+    <ol class="flex items-center h-full divide-x">
+      @foreach (BarcodeItem item in BarcodeDictionary)
+      {
+        <li class="h-full px-1.5 flex items-center">
+          @if (BarcodeVariables.FirstOrDefault(x => x.Name == item.Property)?.Type == typeof(DateTime))
+          {
+            @if (item.FormatStr.IsDateFormat())
+            {
+              <span>@DateTime.Now.ToString(item.FormatStr)</span>
+            }
+            else
+            {
+              <span class="text-destructive">Ошибка</span>
+            }
+          }
+          else if (item.IsConst)
+          {
+            <span>@item.Property</span>
+          }
+          else
+          {
+            Random random = new();
+            @for (int i = 0; i < item.Length; i++)
+            {
+              <span>@random.Next(0, 10)</span>
+            }
+          }
+        </li>
+      }
+    </ol>
+  </div>
+  <div class="gap-2 flex">
+    <Button Variant="ButtonVariant.Destructive" OnClick="@CleanBarcode">
+      <TrashIcon class="size-5 mr-2"/>
+      Очистить
+    </Button>
+    <Button OnClick="@AddBarcodeItem">
+      <PlusIcon class="size-5 mr-2"/>
+      Добавить
+    </Button>
+  </div>
 </div>
 
 @code {

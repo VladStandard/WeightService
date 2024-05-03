@@ -40,3 +40,10 @@
     </li>
   </ul>
 </Dropdown>
+
+@code {
+  private bool IsOpen { get; set; }
+
+  private async Task SetTheme(string theme) =>
+    await JsRuntime.InvokeVoidAsync("switchTheme", theme);
+}
