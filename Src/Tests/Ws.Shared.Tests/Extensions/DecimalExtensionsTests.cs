@@ -8,7 +8,7 @@ public class DecimalExtensionsTests
 {
     public static TheoryData<decimal, string, string> TestSepData()
     {
-        return new TheoryData<decimal, string, string>
+        return new()
         {
             { 234567.89m, "", "23456789" },
             { 1.89m, "/", "1/89" },

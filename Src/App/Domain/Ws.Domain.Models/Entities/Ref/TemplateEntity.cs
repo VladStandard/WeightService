@@ -3,7 +3,6 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.ValueTypes;
-using Ws.Shared.Types;
 
 namespace Ws.Domain.Models.Entities.Ref;
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.PalychExchangeApi.Features.Plus.Dto;
-using Ws.Shared.TypeUtils;
+using Ws.Shared.Constants;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
@@ -37,8 +37,8 @@ internal sealed partial class PluService
     {
         validDtos.ForEach(i =>
         {
-            i.ClipUid = i.ClipUid == Guid.Empty ? GuidUtils.MaxGuid : i.ClipUid;
-            i.BundleUid = i.BundleUid == Guid.Empty ? GuidUtils.MaxGuid : i.BundleUid;
+            i.ClipUid = i.ClipUid == Guid.Empty ? BaseConsts.GuidMax : i.ClipUid;
+            i.BundleUid = i.BundleUid == Guid.Empty ? BaseConsts.GuidMax : i.BundleUid;
         });
     }
 

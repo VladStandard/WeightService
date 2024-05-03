@@ -5,7 +5,6 @@ using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using Ws.Database.Nhibernate.Common;
 using Ws.Domain.Models.ValueTypes;
-using Ws.Shared.Types;
 
 namespace Ws.Database.Nhibernate.Types;
 

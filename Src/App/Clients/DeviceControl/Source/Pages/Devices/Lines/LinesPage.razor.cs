@@ -12,8 +12,8 @@ using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Line;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
+using Ws.Shared.Extensions;
 using Ws.Shared.Resources;
-using Ws.Shared.TypeUtils;
 
 namespace DeviceControl.Source.Pages.Devices.Lines;
 

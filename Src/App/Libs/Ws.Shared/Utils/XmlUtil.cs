@@ -1,6 +1,5 @@
 using System.Runtime.Serialization;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
 
@@ -8,18 +7,6 @@ namespace Ws.Shared.Utils;
 
 public static class XmlUtil
 {
-    public static string GetPrettyXml(string xml)
-    {
-        try
-        {
-            return string.IsNullOrEmpty(xml) ? string.Empty : XDocument.Parse(xml).ToString();
-        }
-        catch (XmlException)
-        {
-            return xml;
-        }
-    }
-
     public static string XsltTransformation(string xslInput, string xmlInput)
     {
         using StringReader stringReaderXslt = new(xslInput.Trim());
