@@ -1,52 +1,52 @@
 @using Ws.Domain.Models.ValueTypes
 @using Blazor.Heroicons.Outline
+@using Microsoft.Extensions.Localization
 @using Ws.Labels.Service.Features.Generate.Models
-@using Ws.Labels.Service.Features.Generate.Utils
-@using Ws.Shared.Extensions
+@using Ws.Shared.Resources
 
 
 <div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
   <div class="h-10 w-full flex items-center truncate px-3">
-    Порядок
+    @WsDataLocalizer["ColSequence"]
   </div>
   <div class="h-10 w-full flex items-center truncate px-3">
-    Название
+    @WsDataLocalizer["ColName"]
   </div>
   <div class="h-10 w-full flex items-center truncate px-3">
-    Тип
+    @WsDataLocalizer["ColType"]
   </div>
   <div class="h-10 w-full flex items-center truncate px-3">
-    Маска
+    @WsDataLocalizer["ColMask"]
   </div>
   <div class="h-10 w-full flex items-center truncate px-3">
-    Длина
+    @WsDataLocalizer["ColLength"]
   </div>
   <div></div>
   @if (!BarcodeDictionary.Any())
   {
     <div class="col-span-6 flex w-full h-10 items-center justify-center">
-      Поля отсутствуют
+      @Localizer["BarcodeEditorEmptyPlaceholder"]
     </div>
   }
-  @foreach (var item in BarcodeDictionary.Select((x, i) => new { Value = x, Index = i }) )
+  @foreach ((BarcodeItem value, int index) in BarcodeDictionary.Select((value, index) => (value, index)))
   {
     <div class="size-full flex items-center px-3 text-sm">
       <div class="flex items-center w-full justify-between">
-        @(item.Index + 1)
+        @(index + 1)
         <div class="flex gap-px">
           <Button
             Variant="ButtonVariant.Ghost"
             Size="ButtonSize.Icon"
-            OnClick="@(() => SwapItems(item.Index, item.Index - 1))"
-            Disabled="@(item.Index == 0)"
+            OnClick="@(() => SwapItems(index, index - 1))"
+            Disabled="@(index == 0)"
           >
             <ChevronUpIcon class="size-4"/>
           </Button>
           <Button
             Variant="ButtonVariant.Ghost"
             Size="ButtonSize.Icon"
-            OnClick="@(() => SwapItems(item.Index, item.Index + 1))"
-            Disabled="@(item.Index == BarcodeDictionary.Count - 1)"
+            OnClick="@(() => SwapItems(index, index + 1))"
+            Disabled="@(index == BarcodeDictionary.Count - 1)"
           >
             <ChevronDownIcon class="size-4"/>
           </Button>
@@ -54,12 +54,12 @@
       </div>
     </div>
     <div>
-      @if (item.Value.IsConst)
+      @if (value.IsConst)
       {
         <InputTextField
-          @bind-Value="@item.Value.Property"
-          @bind-Value:after="@(() => item.Value.Length = (ushort)item.Value.Property.Length)"
-          Placeholder="Введите константу..."
+          @bind-Value="@value.Property"
+          @bind-Value:after="@(() => value.Length = (ushort)value.Property.Length)"
+          Placeholder="@Localizer["BarcodeEditorConstInputPlaceholder"]"
           Class="!border-none !rounded-none"
         />
       }
@@ -68,9 +68,9 @@
         <SelectSingle
           TItem="string"
           Items="@GetFilteredValues()"
-          @bind-SelectedItem="@item.Value.Property"
-          @bind-SelectedItem:after="@(() => { item.Value.Length = (ushort)(BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Length ?? 0); })"
-          Placeholder="Выберите переменную..."
+          @bind-SelectedItem="@value.Property"
+          @bind-SelectedItem:after="@(() => { value.Length = (ushort)(BarcodeVariables.FirstOrDefault(x => x.Name == value.Property)?.Length ?? 0); })"
+          ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item)"
           Class="!border-none !rounded-none"
         />
       }
@@ -79,27 +79,27 @@
       <SelectSingle
         TItem="bool"
         Items="[true, false]"
-        ItemDisplayName="@(x => x ? "Константа" : "Переменная")"
-        @bind-SelectedItem="@item.Value.IsConst"
-        @bind-SelectedItem:after="@(() => { item.Value.Property = string.Empty; item.Value.Length = 0; })"
+        ItemDisplayName="@(item => item ? WsDataLocalizer["ColConst"] : WsDataLocalizer["ColVariable"])"
+        @bind-SelectedItem="@value.IsConst"
+        @bind-SelectedItem:after="@(() => { value.Property = string.Empty; value.Length = 0; })"
         Class="!border-none !rounded-none"
       />
     </div>
     <div class="!bg-background/[.8]">
-      @if (BarcodeVariables.FirstOrDefault(x => x.Name == item.Value.Property)?.Type == typeof(DateTime))
+      @if (BarcodeVariables.FirstOrDefault(x => x.Name == value.Property)?.Type == typeof(DateTime))
       {
         <InputTextField
-          @bind-Value="@item.Value.FormatStr"
-          Placeholder="Формат поля..."
+          @bind-Value="@value.FormatStr"
+          Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
           Class="!border-none !rounded-none !bg-background"
         />
       }
     </div>
     <div class="size-full flex items-center px-3 text-sm">
-      @item.Value.Length
+      @value.Length
     </div>
     <div class="size-full flex items-center justify-center">
-      <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" OnClick="@(() => DeleteBarcodeItem(item.Index))">
+      <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" OnClick="@(() => DeleteBarcodeItem(index))">
         <TrashIcon class="size-5 text-destructive" />
       </Button>
     </div>
@@ -113,16 +113,19 @@
   <div class="gap-2 flex">
     <Button Variant="ButtonVariant.Destructive" OnClick="@CleanBarcode">
       <TrashIcon class="size-5 md:mr-2"/>
-      <span class="hidden md:block">Очистить</span>
+      <span class="hidden md:block">@Localizer["BtnClear"]</span>
     </Button>
     <Button OnClick="@AddBarcodeItem">
       <PlusIcon class="size-5 md:mr-2"/>
-      <span class="hidden md:block">Добавить</span>
+      <span class="hidden md:block">@Localizer["BtnAdd"]</span>
     </Button>
   </div>
 </div>
 
 @code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
   [Parameter] public IList<BarcodeItem> BarcodeDictionary { get; set; } = [];
   [Parameter] public EventCallback<IList<BarcodeItem>> BarcodeDictionaryChanged { get; set; }
   [Parameter] public string Class { get; set; } = string.Empty;

@@ -41,5 +41,5 @@ public sealed partial class LabelsPreview
         }
     }
 
-    private string GetImageData() => $"data:image/png;base64,{ImageData}";
+    private string GetImageData => $"data:image/png;base64,{ImageData}";
 }

@@ -237,4 +237,22 @@
     <data name="FieldLocation" xml:space="preserve">
         <value />
     </data>
+    <data name="BtnClear" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnAdd" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BarcodeEditorConstInputPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BarcodeEditorVariableSelectPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BarcodeEditorEmptyPlaceholder" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BarcodeEditorMaskPlaceholder" xml:space="preserve">
+        <value />
+    </data>
 </root>

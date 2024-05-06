@@ -1,27 +1,28 @@
 @using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Features.BarcodeConfigurator
 @using DeviceControl.Source.Widgets.Section
-@using FluentValidation.Results
+@using Microsoft.Extensions.Localization
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ws.Domain.Models.ValueTypes
 @using Ws.Domain.Services.Features.Template
 @using Ws.Labels.Service.Features.Generate.Models
 @using Ws.Labels.Service.Features.Generate.Utils
+@using Ws.Shared.Resources
 
 <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
-  <Accordion Title="Верхний штрихкод">
+  <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeTopBody"
       BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
-  <Accordion Title="Нижний штрихкод">
+  <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeBottomBody"
       BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
-  <Accordion Title="Боковой штрихкод">
+  <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeRightBody"
       BarcodeVariables="BarcodeVariables"
@@ -29,7 +30,7 @@
   </Accordion>
   <div class="pt-4 flex justify-end">
     <Button OnClick="@SubmitForm">
-      Сохранить изменения
+      @Localizer["BtnSubmit"]
     </Button>
   </div>
 </div>
@@ -37,6 +38,8 @@
 @code {
   [Inject] private ITemplateService TemplateService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   [CascadingParameter(Name = "DialogItem")] protected TemplateEntity DialogItem { get; set; } = new();
   [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
@@ -53,13 +56,13 @@
     try
     {
       TemplateService.Update(DialogItem);
-      ToastService.ShowSuccess("Успешно обновлено");
+      ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
       await Dialog.CloseAsync(new SectionDialogContent<TemplateEntity>
         { Item = DialogItem, DataAction = SectionDialogResultEnum.Update });
     }
     catch
     {
-      ToastService.ShowError("Что то пошло не так");
+      ToastService.ShowError(Localizer["UnknownError"]);
     }
   }
 
@@ -68,29 +71,27 @@
     BarcodeItemValidator validator = new(BarcodeVariables);
     List<BarcodeError> validationErrors = [];
 
-    foreach (BarcodeItem item in DialogItem.BarcodeTopBody)
-    {
-      List<ValidationFailure>? error = validator.Validate(item).Errors;
-      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Верхний штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
-    }
-
-    foreach (BarcodeItem item in DialogItem.BarcodeBottomBody)
-    {
-      List<ValidationFailure>? error = validator.Validate(item).Errors;
-      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Нижний штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
-    }
-
-    foreach (BarcodeItem item in DialogItem.BarcodeRightBody)
-    {
-      List<ValidationFailure>? error = validator.Validate(item).Errors;
-      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Боковой штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
-    }
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopBody, WsDataLocalizer["ColBarcodeTop"], validator));
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomBody, WsDataLocalizer["ColBarcodeBottom"], validator));
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightBody, WsDataLocalizer["ColBarcodeBottom"], validator));
 
     if (!validationErrors.Any()) return true;
 
     foreach (BarcodeError barcodeError in validationErrors)
-      ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName}\n{barcodeError.Error}");
+      ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName} {barcodeError.Error}");
 
     return false;
   }
+
+  private List<BarcodeError> ValidateBarcodeItems(IEnumerable<BarcodeItem> barcodeItems, string barcodeType, BarcodeItemValidator validator) =>
+    barcodeItems
+      .Select(item => new { Item = item, validator.Validate(item).Errors })
+      .Where(x => x.Errors != null && x.Errors.Any())
+      .Select(x => new BarcodeError
+      {
+        Barcode = barcodeType,
+        ItemName = x.Item.Property,
+        Error = x.Errors.First().ErrorMessage
+      })
+      .ToList();
 }

@@ -237,4 +237,22 @@
     <data name="FieldLocation" xml:space="preserve">
         <value>Местоположение</value>
     </data>
+    <data name="BtnClear" xml:space="preserve">
+        <value>Очистить</value>
+    </data>
+    <data name="BtnAdd" xml:space="preserve">
+        <value>Добавить</value>
+    </data>
+    <data name="BarcodeEditorConstInputPlaceholder" xml:space="preserve">
+        <value>Введите константу...</value>
+    </data>
+    <data name="BarcodeEditorVariableSelectPlaceholder" xml:space="preserve">
+        <value>Выберите переменную...</value>
+    </data>
+    <data name="BarcodeEditorEmptyPlaceholder" xml:space="preserve">
+        <value>Отсутствуют поля</value>
+    </data>
+    <data name="BarcodeEditorMaskPlaceholder" xml:space="preserve">
+        <value>Введите маску...</value>
+    </data>
 </root>

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace DeviceControl.Source.Shared.Utils;
+namespace Ws.Components.Source.Utils;
 
 public static class BlazorCoreUtils
 {
