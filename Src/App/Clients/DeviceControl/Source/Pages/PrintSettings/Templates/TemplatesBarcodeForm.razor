@@ -1,26 +1,30 @@
 @using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Features.BarcodeConfigurator
 @using DeviceControl.Source.Widgets.Section
+@using FluentValidation.Results
 @using Microsoft.FluentUI.AspNetCore.Components
+@using Ws.Domain.Models.ValueTypes
 @using Ws.Domain.Services.Features.Template
+@using Ws.Labels.Service.Features.Generate.Models
+@using Ws.Labels.Service.Features.Generate.Utils
 
 <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
   <Accordion Title="Верхний штрихкод">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeTopBody"
-      IsWeight="DialogItem.IsWeight"
+      BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
   <Accordion Title="Нижний штрихкод">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeBottomBody"
-      IsWeight="DialogItem.IsWeight"
+      BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
   <Accordion Title="Боковой штрихкод">
     <BarcodeConfigurator
       @bind-BarcodeDictionary="DialogItem.BarcodeRightBody"
-      IsWeight="DialogItem.IsWeight"
+      BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
   <div class="pt-4 flex justify-end">
@@ -37,8 +41,15 @@
   [CascadingParameter(Name = "DialogItem")] protected TemplateEntity DialogItem { get; set; } = new();
   [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
 
+  private IList<BarcodeVariable> BarcodeVariables { get; set; } = [];
+
+  protected override void OnInitialized() => BarcodeVariables =
+    DialogItem.IsWeight ? TemplateTypesUtils.GetVariablesForWeightTemplate() : TemplateTypesUtils.GetVariablesForPieceTemplate();
+
   private async Task SubmitForm()
   {
+    if (!ValidateBarcodes()) return;
+
     try
     {
       TemplateService.Update(DialogItem);
@@ -50,5 +61,36 @@
     {
       ToastService.ShowError("Что то пошло не так");
     }
+  }
+
+  private bool ValidateBarcodes()
+  {
+    BarcodeItemValidator validator = new(BarcodeVariables);
+    List<BarcodeError> validationErrors = [];
+
+    foreach (BarcodeItem item in DialogItem.BarcodeTopBody)
+    {
+      List<ValidationFailure>? error = validator.Validate(item).Errors;
+      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Верхний штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
+    }
+
+    foreach (BarcodeItem item in DialogItem.BarcodeBottomBody)
+    {
+      List<ValidationFailure>? error = validator.Validate(item).Errors;
+      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Нижний штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
+    }
+
+    foreach (BarcodeItem item in DialogItem.BarcodeRightBody)
+    {
+      List<ValidationFailure>? error = validator.Validate(item).Errors;
+      if (error != null && error.Any()) validationErrors.Add(new() {Barcode = "Боковой штрихкод", ItemName = item.Property, Error = error.First().ErrorMessage});
+    }
+
+    if (!validationErrors.Any()) return true;
+
+    foreach (BarcodeError barcodeError in validationErrors)
+      ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName}\n{barcodeError.Error}");
+
+    return false;
   }
 }

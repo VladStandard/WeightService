@@ -76,13 +76,3 @@
   }
 }
 
-@layer components {
-  .fluent-toast {
-    @apply !bg-background !text-primary border
-  }
-
-  .fluent-toast-action > svg {
-    @apply !fill-black dark:!fill-white
-  }
-}
-
