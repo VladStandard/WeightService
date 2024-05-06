@@ -13,7 +13,6 @@ public class PluEntity : EntityBase
     public virtual decimal Weight { get; set; }
     public virtual bool IsCheckWeight { get; set; }
     public virtual short ShelfLifeDays { get; set; }
-
     public virtual string Name { get; set; } = string.Empty;
     public virtual string Ean13 { get; set; } = string.Empty;
     public virtual string Itf14 { get; set; } = string.Empty;
@@ -21,9 +20,9 @@ public class PluEntity : EntityBase
     public virtual string Description { get; set; } = string.Empty;
     public virtual string StorageMethod { get; set; } = string.Empty;
 
-    public virtual BundleEntity Bundle { get; set; } = new();
-    public virtual BrandEntity Brand { get; set; } = new();
     public virtual ClipEntity Clip { get; set; } = new();
+    public virtual BrandEntity Brand { get; set; } = new();
+    public virtual BundleEntity Bundle { get; set; } = new();
     public virtual NestingEntity Nesting { get; set; } = new();
     public virtual ISet<CharacteristicEntity> Characteristics { get; set; } = new HashSet<CharacteristicEntity>();
 

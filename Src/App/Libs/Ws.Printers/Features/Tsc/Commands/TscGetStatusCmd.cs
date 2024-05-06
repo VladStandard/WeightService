@@ -2,11 +2,12 @@ using System.Net.Sockets;
 using CommunityToolkit.Mvvm.Messaging;
 using Ws.Printers.Common;
 using Ws.Printers.Enums;
+using Ws.Printers.Features.Tsc.Constants;
 using Ws.Printers.Messages;
 
 namespace Ws.Printers.Features.Tsc.Commands;
 
-internal class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1B!?")
+internal class TscGetStatusCmd(TcpClient tcp) : PrinterCommandBase(tcp, TscCommandConsts.GetStatus)
 {
     protected override void Response(NetworkStream stream)
     {
@@ -14,7 +15,7 @@ internal class TscGetStatusCommand(TcpClient tcp) : PrinterCommandBase(tcp, "\x1
         WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(GetStatus((byte)buffer)));
     }
 
-    private static PrinterStatusEnum GetStatus(byte value)
+    internal static PrinterStatusEnum GetStatus(byte value)
     {
         return value switch
         {
