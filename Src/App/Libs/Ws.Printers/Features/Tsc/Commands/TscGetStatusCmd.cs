@@ -15,18 +15,18 @@ internal class TscGetStatusCmd(TcpClient tcp) : PrinterCommandBase(tcp, TscComma
         WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(GetStatus((byte)buffer)));
     }
 
-    internal static PrinterStatusEnum GetStatus(byte value)
+    internal static PrinterStatus GetStatus(byte value)
     {
         return value switch
         {
-            0x00 => PrinterStatusEnum.Ready,
-            0x01 => PrinterStatusEnum.HeadOpen,
-            0x02 => PrinterStatusEnum.PaperJam,
-            0x04 => PrinterStatusEnum.PaperOut,
-            0x08 => PrinterStatusEnum.RibbonOut,
-            0x10 => PrinterStatusEnum.Paused,
-            0x20 => PrinterStatusEnum.Busy,
-            _ => PrinterStatusEnum.Unknown
+            0x00 => PrinterStatus.Ready,
+            0x01 => PrinterStatus.HeadOpen,
+            0x02 => PrinterStatus.PaperJam,
+            0x04 => PrinterStatus.PaperOut,
+            0x08 => PrinterStatus.RibbonOut,
+            0x10 => PrinterStatus.Paused,
+            0x20 => PrinterStatus.Busy,
+            _ => PrinterStatus.Unknown
         };
     }
 }

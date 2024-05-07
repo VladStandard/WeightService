@@ -17,7 +17,7 @@ internal partial class ZebraGetStatusCmd(TcpClient tcp) : PrinterCommandBase(tcp
         string strStatus = Encoding.UTF8.GetString(buffer, 0, buffer.Length).Replace("\"", string.Empty);
         string[] arrayStatus = strStatus.Split(CmdSeparators, StringSplitOptions.RemoveEmptyEntries);
 
-        PrinterStatusEnum status = ParseStatusString(arrayStatus);
+        PrinterStatus status = ParseStatusString(arrayStatus);
         WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(status));
     }
 }

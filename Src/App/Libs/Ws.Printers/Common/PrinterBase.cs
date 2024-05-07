@@ -9,7 +9,7 @@ namespace Ws.Printers.Common;
 internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
 {
     protected TcpClient TcpClient { get; set; } = new();
-    protected PrinterStatusEnum Status { get; set; } = PrinterStatusEnum.IsDisabled;
+    protected PrinterStatus Status { get; set; } = PrinterStatus.IsDisabled;
 
     #region Abstract
 
@@ -27,11 +27,11 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
             TcpClient = new() { ReceiveTimeout = 200 };
             await TcpClient.ConnectAsync(ip, port).WaitAsync(TimeSpan.FromMilliseconds(200));
 
-            SetStatus(PrinterStatusEnum.Ready);
+            SetStatus(PrinterStatus.Ready);
         }
         catch (Exception)
         {
-            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+            SetStatus(PrinterStatus.IsForceDisconnected);
         }
     }
     public void Dispose() => Disconnect();
@@ -43,11 +43,11 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
 
     private void Disconnect()
     {
-        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(PrinterStatusEnum.IsDisabled));
+        WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(PrinterStatus.IsDisabled));
         if (TcpClient.Connected) TcpClient.Close();
         TcpClient.Dispose();
     }
-    private void SetStatus(PrinterStatusEnum state)
+    private void SetStatus(PrinterStatus state)
     {
         Status = state;
         WeakReferenceMessenger.Default.Send(new PrinterStatusMsg(Status));
@@ -55,8 +55,8 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
 
     protected void ExecuteCommand(PrinterCommandBase command)
     {
-        if (Status is PrinterStatusEnum.IsDisabled) return;
-        if (Status is PrinterStatusEnum.IsForceDisconnected) Connect();
+        if (Status is PrinterStatus.IsDisabled) return;
+        if (Status is PrinterStatus.IsForceDisconnected) Connect();
 
         try
         {
@@ -64,7 +64,7 @@ internal abstract class PrinterBase(IPAddress ip, int port) : IPrinter
         }
         catch (Exception)
         {
-            SetStatus(PrinterStatusEnum.IsForceDisconnected);
+            SetStatus(PrinterStatus.IsForceDisconnected);
         }
     }
 

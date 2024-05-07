@@ -8,31 +8,31 @@ internal partial class ZebraGetStatusCmd
 {
     private static readonly char[] CmdSeparators = [',', '\n', '\r'];
 
-    internal static PrinterStatusEnum ParseStatusString(IReadOnlyList<string> statusArray)
+    internal static PrinterStatus ParseStatusString(IReadOnlyList<string> statusArray)
     {
         try
         {
             if (statusArray.Count != ZebraBaseConsts.StatusStrLen)
-                return PrinterStatusEnum.Unknown;
+                return PrinterStatus.Unknown;
 
-            List<KeyValuePair<bool, PrinterStatusEnum>> statusMap =
+            List<KeyValuePair<bool, PrinterStatus>> statusMap =
             [
-                new(StateParse(statusArray, ZebraStatusIndex.PaperOut), PrinterStatusEnum.PaperOut),
-                new(StateParse(statusArray, ZebraStatusIndex.HeadOpen), PrinterStatusEnum.HeadOpen),
-                new(StateParse(statusArray, ZebraStatusIndex.Pause), PrinterStatusEnum.Paused),
-                new(StateParse(statusArray, ZebraStatusIndex.RibbonOut), PrinterStatusEnum.RibbonOut),
-                new(StateParse(statusArray, ZebraStatusIndex.HeightTemp), PrinterStatusEnum.Unknown),
-                new(StateParse(statusArray, ZebraStatusIndex.BufferFull), PrinterStatusEnum.Unknown)
+                new(StateParse(statusArray, ZebraStatusIndex.PaperOut), PrinterStatus.PaperOut),
+                new(StateParse(statusArray, ZebraStatusIndex.HeadOpen), PrinterStatus.HeadOpen),
+                new(StateParse(statusArray, ZebraStatusIndex.Pause), PrinterStatus.Paused),
+                new(StateParse(statusArray, ZebraStatusIndex.RibbonOut), PrinterStatus.RibbonOut),
+                new(StateParse(statusArray, ZebraStatusIndex.HeightTemp), PrinterStatus.Unknown),
+                new(StateParse(statusArray, ZebraStatusIndex.BufferFull), PrinterStatus.Unknown)
             ];
 
-            foreach (KeyValuePair<bool, PrinterStatusEnum> kvp in statusMap.Where(kvp => kvp.Key))
+            foreach (KeyValuePair<bool, PrinterStatus> kvp in statusMap.Where(kvp => kvp.Key))
                 return kvp.Value;
 
-            return PrinterStatusEnum.Ready;
+            return PrinterStatus.Ready;
         }
         catch (Exception)
         {
-            return PrinterStatusEnum.Unknown;
+            return PrinterStatus.Unknown;
         }
     }
 

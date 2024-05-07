@@ -13,9 +13,6 @@ internal static partial class LabelGeneratorUtils
     [GeneratedRegex(@"\[(?!@)([^[\]]+)]")]
     private static partial Regex RegexOfResources();
 
-    [GeneratedRegex(@"\^FH\^FD\s*(.*?)\s*\^FS", RegexOptions.Singleline)]
-    private static partial Regex RegexOfTextBlocks();
-
     public static ZplInfo GetZpl<TItem>(ZplPrintItems zplPrintItems, TItem labelModel) where TItem :
         XmlLabelBaseModel, ISerializable
     {
@@ -29,7 +26,6 @@ internal static partial class LabelGeneratorUtils
         string zpl = XmlUtil.XsltTransformation(template, xmlLabelContext.OuterXml);
 
         zpl = PrintCmdReplaceZplResources(zpl, zplPrintItems);
-        zpl = ReplaceValuesWithHex(zpl);
 
         return new(zpl, labelModel);
     }
@@ -50,24 +46,5 @@ internal static partial class LabelGeneratorUtils
             StringComparison.OrdinalIgnoreCase);
 
         return zpl;
-    }
-
-    private static string ReplaceValuesWithHex(string input)
-    {
-        return RegexOfTextBlocks().Replace(input, match =>
-        {
-            string text = match.Groups[1].Value;
-            string hexText = ConvertStringToHex(text);
-            return $"\n\n^FH^FD\n{hexText}\n^FS\n\n";
-        });
-    }
-
-    private static string ConvertStringToHex(string text)
-    {
-        StringBuilder zplBuilder = new();
-        byte[] bytes = Encoding.UTF8.GetBytes(text);
-        foreach (byte b in bytes)
-            zplBuilder.Append($"_{b:X2}");
-        return zplBuilder.ToString();
     }
 }
