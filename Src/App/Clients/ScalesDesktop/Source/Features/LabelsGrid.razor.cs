@@ -30,7 +30,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
     private List<LabelEntity> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
-    private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
+    private PrinterStatus PrinterStatus { get; set; } = PrinterStatus.Unknown;
     private Action? StateChangedHandler { get; set; }
     private const int PrinterRequestDelay = 100;
 
@@ -88,7 +88,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
         ExternalDevices.Printer.RequestStatus();
         await Task.Delay(PrinterRequestDelay);
 
-        if (PrinterStatus is not (PrinterStatusEnum.Ready or PrinterStatusEnum.Busy))
+        if (PrinterStatus is not (PrinterStatus.Ready or PrinterStatus.Busy))
         {
             PrintPrinterStatusMessage();
             return;
@@ -115,12 +115,12 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
     private void PrintPrinterStatusMessage() =>
         ToastService.ShowWarning(PrinterStatus switch
         {
-            PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
-            PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatusEnum.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatusEnum.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
+            PrinterStatus.IsDisabled => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatus.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
 

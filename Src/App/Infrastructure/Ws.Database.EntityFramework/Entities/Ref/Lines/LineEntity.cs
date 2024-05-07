@@ -32,10 +32,10 @@ public sealed class LineEntity : EfEntityBase
     [StringLength(32)]
     public string PcName { get; set; } = string.Empty;
 
-    [Column("TYPE", TypeName = "varchar(12)")]
+    [Column("TYPE")]
     public LineType Type { get; set; } = LineType.Tablet;
 
-    [Column("VERSION", TypeName = "varchar(16)")]
+    [Column("VERSION"), StringLength(16)]
     public string Version { get; set; } = string.Empty;
 
 

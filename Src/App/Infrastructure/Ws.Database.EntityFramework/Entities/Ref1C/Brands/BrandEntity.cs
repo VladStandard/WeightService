@@ -1,19 +1,9 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
-[Table(SqlTables.Brands, Schema = SqlSchemas.Ref1C)]
-[Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME", IsUnique = true)]
+[Table(SqlTables.Brands, Schema = SqlSchemas.Ref1C),
+ Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME", IsUnique = true)]
 public sealed class BrandEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(32)]
-    public string Name { get; set; } = string.Empty;
-
-    #region Date
-
-    public DateTime CreateDt { get; init; }
-    public DateTime ChangeDt { get; init; }
-
-    #endregion
 
     public BrandEntity() { }
 
@@ -23,5 +13,15 @@ public sealed class BrandEntity : EfEntityBase
         Name = name;
         ChangeDt = updateDate;
     }
+
+    [Column(SqlColumns.Name), StringLength(32)]
+    public string Name { get; set; } = string.Empty;
+
+    #region Date
+
+    public DateTime CreateDt { get; init; }
+    public DateTime ChangeDt { get; init; }
+
+    #endregion
     // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

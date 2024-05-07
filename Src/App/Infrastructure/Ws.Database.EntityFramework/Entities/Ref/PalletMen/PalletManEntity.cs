@@ -5,20 +5,16 @@ namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 // [Index(nameof(Uid1C), Name = $"UQ_{SqlTables.PalletMen}_UID_1C", IsUnique = true)]
 public sealed class PalletManEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(32)]
+    [Column(SqlColumns.Name), StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
-    [Column("SURNAME")]
-    [StringLength(32)]
+    [Column("SURNAME"), StringLength(32)]
     public string Surname { get; set; } = string.Empty;
 
-    [Column("PATRONYMIC")]
-    [StringLength(32)]
+    [Column("PATRONYMIC"), StringLength(32)]
     public string Patronymic { get; set; } = string.Empty;
 
-    [Column("PASSWORD")]
-    [StringLength(4)]
+    [Column("PASSWORD"), StringLength(4)]
     public string Password { get; set; } = string.Empty;
 
     #region Date

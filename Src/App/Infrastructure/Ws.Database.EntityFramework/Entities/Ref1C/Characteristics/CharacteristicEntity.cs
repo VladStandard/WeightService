@@ -6,12 +6,10 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 [Index(nameof(PluId), nameof(BoxId), nameof(BundleCount), Name = $"UQ_{SqlTables.Characteristics}_UNIQ", IsUnique = true)]
 public sealed class CharacteristicEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(64)]
+    [Column(SqlColumns.Name), StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
     [Column("BUNDLE_COUNT")]
-    [Range(1, 100)]
     public short BundleCount { get; set; }
 
     #region Box

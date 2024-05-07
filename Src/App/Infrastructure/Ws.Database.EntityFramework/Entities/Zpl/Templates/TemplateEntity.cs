@@ -4,12 +4,10 @@ namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 [Index(nameof(Name), nameof(IsWeight), Name = $"UQ_{SqlTables.Templates}_NAME_IS_WEIGHT", IsUnique = true)]
 public sealed class TemplateEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(64)]
+    [Column(SqlColumns.Name), StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
     [Column("BODY")]
-    [StringLength(10240)]
     public string Body { get; set; } = string.Empty;
 
     [Column("IS_WEIGHT")]
@@ -21,17 +19,14 @@ public sealed class TemplateEntity : EfEntityBase
     [Column("HEIGHT")]
     public short Height { get; set; }
 
-    [StringLength(2048)]
-    [Column("BARCODE_TOP_BODY")]
-    public string BarcodeTopBody { get; set; }
+    [Column("BARCODE_TOP_BODY"), StringLength(2048)]
+    public string BarcodeTopBody { get; set; } = string.Empty;
 
-    [StringLength(2048)]
-    [Column("BARCODE_BOTTOM_BODY")]
-    public string BarcodeBottomBody { get; set; }
+    [Column("BARCODE_BOTTOM_BODY"), StringLength(2048)]
+    public string BarcodeBottomBody { get; set; } = string.Empty;
 
-    [StringLength(2048)]
-    [Column("BARCODE_RIGHT_BODY")]
-    public string BarcodeRightBody { get; set; }
+    [Column("BARCODE_RIGHT_BODY"), StringLength(2048)]
+    public string BarcodeRightBody { get; set; } = string.Empty;
 
     #region Date
 

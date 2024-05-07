@@ -5,12 +5,10 @@ namespace Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 [Index(nameof(Address), Name = $"UQ_{SqlTables.ProductionSites}_ADDRESS", IsUnique = true)]
 public sealed class ProductionSiteEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(64)]
+    [Column(SqlColumns.Name), StringLength(64)]
     public string Name { get; set; } = string.Empty;
 
-    [Column("ADDRESS")]
-    [StringLength(128)]
+    [Column("ADDRESS"), StringLength(128)]
     public string Address { get; set; } = string.Empty;
 
     #region Date

@@ -8,16 +8,13 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 [Index(nameof(Number), Name = $"UQ_{SqlTables.Plus}_NUMBER", IsUnique = true)]
 public sealed class PluEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(100)]
+    [Column(SqlColumns.Name), StringLength(100)]
     public string Name { get; set; } = string.Empty;
 
-    [Column("FULL_NAME")]
-    [StringLength(200)]
+    [Column("FULL_NAME"), StringLength(200)]
     public string FullName { get; set; } = string.Empty;
 
-    [Column("DESCRIPTION")]
-    [StringLength(200)]
+    [Column("DESCRIPTION"), StringLength(200)]
     public string Description { get; set; } = string.Empty;
 
     [Column("NUMBER")]
@@ -26,12 +23,10 @@ public sealed class PluEntity : EfEntityBase
     [Column("SHELF_LIFE_DAYS")]
     public short ShelfLifeDays { get; set; }
 
-    [Column("EAN_13", TypeName = "varchar")]
-    [StringLength(13)]
+    [Column("EAN_13"), StringLength(13)]
     public string Ean13 { get; set; } = string.Empty;
 
-    [Column("ITF_14", TypeName = "varchar")]
-    [StringLength(14)]
+    [Column("ITF_14"), StringLength(14)]
     public string Itf14 { get; set; } = string.Empty;
 
     [Column("IS_WEIGHT")]
@@ -40,8 +35,7 @@ public sealed class PluEntity : EfEntityBase
     [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
 
-    [Column("STORAGE_METHOD")]
-    [StringLength(32)]
+    [Column("STORAGE_METHOD"), StringLength(32)]
     public string StorageMethod { get; set; } = string.Empty;
 
     [ForeignKey("BUNDLE_UID"), Column("BUNDLE_UID")]
