@@ -108,4 +108,8 @@
   .fluent-toast-action > svg {
     @apply !fill-black dark:!fill-white
   }
+
+  .fluent-tooltip-provider fluent-tooltip::part(tooltip) {
+    @apply !bg-background !text-popover-foreground !border-border !px-3 !py-1.5 !shadow-md after:hidden
+  }
 }

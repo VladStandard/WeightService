@@ -10,6 +10,7 @@ declare global {
     unsubscribeElementResize: (element: ResizableElement) => void
     updateElementSize: (element: Element) => void
     switchTheme: (theme: string) => void
+    initializeTheme: () => void
     subscribeBarcodeEnterEvent: (dotNetObjRef: DotNetObjectType, functionName: string) => void
     unsubscribeBarcodeEnterEvent: () => void
     subscribeMiddleMouseClickEvent: (dotNetObjReference: DotNetObjectType, functionName: string) => void

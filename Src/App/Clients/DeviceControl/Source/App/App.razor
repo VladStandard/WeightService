@@ -12,18 +12,12 @@
   <link rel="stylesheet" href="./_content/Ws.Components/app.min.css" />
   <link rel="stylesheet" href="DeviceControl.styles.css"/>
   <link rel="stylesheet" href="app.min.css"/>
-  <script>
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage)
-    && window.matchMedia('(prefers-color-scheme: dark)').matches))
-      document.documentElement.classList.add('dark')
-    else
-      document.documentElement.classList.remove('dark')
-  </script>
+  <script src="./_content/Ws.Components/index.js"></script>
+  <script>initializeTheme()</script>
   <HeadOutlet @rendermode="InteractiveServer"/>
 </head>
 <body class="min-h-screen font-['Inter'] bg-background overflow-x-hidden antialiased">
   <Routes @rendermode="InteractiveServer" />
-  <script src="./_content/Ws.Components/index.js"></script>
   <script src="_framework/blazor.web.js"></script>
 </body>
 </html>

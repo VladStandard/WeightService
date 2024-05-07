@@ -4,7 +4,7 @@
 
 @if (BarcodeDictionary.Any())
 {
-  <div class="h-9 text-sm rounded-md px-0.5 border">
+  <div class="h-9 text-sm rounded-md px-0.5 border bg-background">
     <ol class="flex items-center h-full divide-x">
       @foreach ((BarcodeItem item, int index) in BarcodeDictionary.Select((value, index) => (value, index)))
       {
