@@ -1,8 +1,9 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Devices
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.PrinterEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
@@ -15,7 +16,7 @@
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
   <div class="w-64">
     <SelectSingle
-      TItem="ProductionSiteEntity"
+      TItem="ProductionSite"
       Items="ProductionSiteEntities"
       @bind-SelectedItem="ProductionSite"
       @bind-SelectedItem:after="@UpdateData"
@@ -28,24 +29,24 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="PrinterEntity"
+    TItem="Printer"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Field="@nameof(PrinterEntity.Type)"
+        Field="@nameof(Printer.Type)"
         Width="4rem"
         Sortable
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(PrinterEntity.Name)"
+        Field="@nameof(Printer.Name)"
         Width="40%"/>
       <DataGridColumn
         Caption="IP"
-        Field="@nameof(PrinterEntity.Ip)"
+        Field="@nameof(Printer.Ip)"
         Width="25%"
         Sortable="false"/>
     </ColumnsContent>

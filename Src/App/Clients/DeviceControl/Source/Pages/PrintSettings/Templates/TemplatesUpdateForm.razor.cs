@@ -1,15 +1,9 @@
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Template;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.PrintSettings.Templates;
 
-public sealed partial class TemplatesUpdateForm : SectionFormBase<TemplateEntity>
+public sealed partial class TemplatesUpdateForm : SectionFormBase<Template>
 {
     #region Inject
 
@@ -19,10 +13,10 @@ public sealed partial class TemplatesUpdateForm : SectionFormBase<TemplateEntity
 
     #endregion
 
-    protected override TemplateEntity UpdateItemAction(TemplateEntity item) =>
+    protected override Template UpdateItemAction(Template item) =>
         TemplateService.Update(item);
 
-    protected override Task DeleteItemAction(TemplateEntity item)
+    protected override Task DeleteItemAction(Template item)
     {
         TemplateService.Delete(item);
         return Task.CompletedTask;
@@ -32,7 +26,7 @@ public sealed partial class TemplatesUpdateForm : SectionFormBase<TemplateEntity
         isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
 }
 
-public class TemplatesUpdateFormValidator : AbstractValidator<TemplateEntity>
+public class TemplatesUpdateFormValidator : AbstractValidator<Template>
 {
     public TemplatesUpdateFormValidator()
     {

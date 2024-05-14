@@ -1,5 +1,4 @@
 using Ws.Database.Nhibernate.Entities.Ref1c.Brands;
-using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Brand;
@@ -7,11 +6,11 @@ namespace Ws.Domain.Services.Features.Brand;
 internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
 {
     [Transactional]
-    public IEnumerable<BrandEntity> GetAll() => brandRepo.GetAll();
+    public IEnumerable<Models.Entities.Ref1c.Brand> GetAll() => brandRepo.GetAll();
 
     [Transactional]
-    public BrandEntity GetItemByUid(Guid uid) => brandRepo.GetByUid(uid);
+    public Models.Entities.Ref1c.Brand GetItemByUid(Guid uid) => brandRepo.GetByUid(uid);
 
     [Transactional]
-    public void Delete(BrandEntity item) => brandRepo.Delete(item);
+    public void Delete(Models.Entities.Ref1c.Brand item) => brandRepo.Delete(item);
 }

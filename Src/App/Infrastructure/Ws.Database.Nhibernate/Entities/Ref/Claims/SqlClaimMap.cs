@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Claims;
 
-internal sealed class SqlClaimMap : ClassMapping<ClaimEntity>
+internal sealed class SqlClaimMap : ClassMapping<Claim>
 {
     public SqlClaimMap()
     {

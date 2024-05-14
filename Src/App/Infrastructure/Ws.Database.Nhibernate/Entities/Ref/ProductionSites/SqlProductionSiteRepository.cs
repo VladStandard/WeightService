@@ -6,13 +6,13 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.ProductionSites;
 
-public sealed class SqlProductionSiteRepository : BaseRepository, IGetItemByUid<ProductionSiteEntity>,
-    IGetAll<ProductionSiteEntity>, IUpdate<ProductionSiteEntity>, ISave<ProductionSiteEntity>,
-    IDelete<ProductionSiteEntity>
+public sealed class SqlProductionSiteRepository : BaseRepository, IGetItemByUid<ProductionSite>,
+    IGetAll<ProductionSite>, IUpdate<ProductionSite>, ISave<ProductionSite>,
+    IDelete<ProductionSite>
 {
-    public ProductionSiteEntity GetByUid(Guid uid) => Session.Get<ProductionSiteEntity>(uid) ?? new();
-    public IEnumerable<ProductionSiteEntity> GetAll() => Session.Query<ProductionSiteEntity>().OrderBy(i => i.Name).ToList();
-    public ProductionSiteEntity Save(ProductionSiteEntity item) { Session.Save(item); return item; }
-    public ProductionSiteEntity Update(ProductionSiteEntity item) { Session.Update(item); return item; }
-    public void Delete(ProductionSiteEntity item) => Session.Delete(item);
+    public ProductionSite GetByUid(Guid uid) => Session.Get<ProductionSite>(uid) ?? new();
+    public IEnumerable<ProductionSite> GetAll() => Session.Query<ProductionSite>().OrderBy(i => i.Name).ToList();
+    public ProductionSite Save(ProductionSite item) { Session.Save(item); return item; }
+    public ProductionSite Update(ProductionSite item) { Session.Update(item); return item; }
+    public void Delete(ProductionSite item) => Session.Delete(item);
 }

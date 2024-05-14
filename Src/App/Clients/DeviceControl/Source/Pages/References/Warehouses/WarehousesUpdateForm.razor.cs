@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Warehouse;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References.Warehouses;
 
-public sealed partial class WarehousesUpdateForm : SectionFormBase<WarehouseEntity>
+public sealed partial class WarehousesUpdateForm : SectionFormBase<Warehouse>
 {
     #region Inject
     [Inject] private Redirector Redirector { get; set; } = default!;
@@ -20,7 +14,7 @@ public sealed partial class WarehousesUpdateForm : SectionFormBase<WarehouseEnti
 
     #endregion
 
-    private IEnumerable<ProductionSiteEntity> PlatformEntities { get; set; } = new List<ProductionSiteEntity>();
+    private IEnumerable<ProductionSite> PlatformEntities { get; set; } = new List<ProductionSite>();
 
     protected override void OnInitialized()
     {
@@ -28,17 +22,17 @@ public sealed partial class WarehousesUpdateForm : SectionFormBase<WarehouseEnti
         base.OnInitialized();
     }
 
-    protected override WarehouseEntity UpdateItemAction(WarehouseEntity item) =>
+    protected override Warehouse UpdateItemAction(Warehouse item) =>
         WarehouseService.Update(item);
 
-    protected override Task DeleteItemAction(WarehouseEntity item)
+    protected override Task DeleteItemAction(Warehouse item)
     {
         WarehouseService.Delete(item);
         return Task.CompletedTask;
     }
 }
 
-public class WarehousesUpdateFormValidator : AbstractValidator<WarehouseEntity>
+public class WarehousesUpdateFormValidator : AbstractValidator<Warehouse>
 {
     public WarehousesUpdateFormValidator()
     {

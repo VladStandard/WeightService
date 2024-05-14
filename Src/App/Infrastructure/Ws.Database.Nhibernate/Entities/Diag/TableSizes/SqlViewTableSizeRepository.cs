@@ -4,7 +4,7 @@ using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 
-public sealed class SqlViewTableSizeRepository : BaseRepository, IGetAll<TableSizeEntity>
+public sealed class SqlViewTableSizeRepository : BaseRepository, IGetAll<TableSize>
 {
-    public IEnumerable<TableSizeEntity> GetAll() => Session.Query<TableSizeEntity>().ToList();
+    public IEnumerable<TableSize> GetAll() => Session.Query<TableSize>().ToList();
 }

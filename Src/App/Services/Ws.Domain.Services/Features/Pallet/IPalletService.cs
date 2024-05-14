@@ -1,12 +1,11 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.Pallet;
 
 public interface IPalletService
 {
-    IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse);
+    IEnumerable<ViewPallet> GetAllViewByWarehouse(Models.Entities.Ref.Warehouse warehouse);
     ViewPallet GetViewByUid(Guid uid);
-    IEnumerable<LabelEntity> GetAllLabels(Guid palletUid);
-    void Create(PalletEntity pallet, IList<LabelEntity> labels);
+    IEnumerable<Models.Entities.Print.Label> GetAllLabels(Guid palletUid);
+    void Create(Models.Entities.Print.Pallet pallet, IList<Models.Entities.Print.Label> labels);
 }

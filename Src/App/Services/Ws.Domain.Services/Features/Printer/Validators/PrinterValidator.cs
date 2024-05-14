@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.Printer.Validators;
 
-internal abstract class PrinterValidator : AbstractValidator<PrinterEntity>
+internal abstract class PrinterValidator : AbstractValidator<Models.Entities.Devices.Printer>
 {
     protected PrinterValidator()
     {

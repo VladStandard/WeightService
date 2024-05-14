@@ -1,11 +1,5 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Features.Plu;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 

@@ -6,17 +6,17 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Warehouses;
 
-public sealed class SqlWarehouseRepository : BaseRepository, IGetItemByUid<WarehouseEntity>, IGetAll<WarehouseEntity>,
-    ISave<WarehouseEntity>, IUpdate<WarehouseEntity>, IDelete<WarehouseEntity>
+public sealed class SqlWarehouseRepository : BaseRepository, IGetItemByUid<Warehouse>, IGetAll<Warehouse>,
+    ISave<Warehouse>, IUpdate<Warehouse>, IDelete<Warehouse>
 {
-    public WarehouseEntity GetByUid(Guid uid) => Session.Get<WarehouseEntity>(uid) ?? new();
-    public IEnumerable<WarehouseEntity> GetAll() => Session.Query<WarehouseEntity>().OrderBy(i => i.Name).ToList();
-    public WarehouseEntity Save(WarehouseEntity item) { Session.Save(item); return item; }
-    public WarehouseEntity Update(WarehouseEntity item) { Session.Update(item); return item; }
-    public void Delete(WarehouseEntity item) => Session.Delete(item);
+    public Warehouse GetByUid(Guid uid) => Session.Get<Warehouse>(uid) ?? new();
+    public IEnumerable<Warehouse> GetAll() => Session.Query<Warehouse>().OrderBy(i => i.Name).ToList();
+    public Warehouse Save(Warehouse item) { Session.Save(item); return item; }
+    public Warehouse Update(Warehouse item) { Session.Update(item); return item; }
+    public void Delete(Warehouse item) => Session.Delete(item);
 
-    public IEnumerable<WarehouseEntity> GetAllByProductionSite(ProductionSiteEntity productionSite) =>
-        Session.Query<WarehouseEntity>()
+    public IEnumerable<Warehouse> GetAllByProductionSite(ProductionSite productionSite) =>
+        Session.Query<Warehouse>()
             .Where(i => i.ProductionSite == productionSite)
             .OrderBy(i => i.Name).ToList();
 }

@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResource;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.PrintSettings.TemplateResources;
 
-public sealed partial class TemplateResourcesCreateForm : SectionFormBase<ZplResourceEntity>
+public sealed partial class TemplateResourcesCreateForm : SectionFormBase<ZplResource>
 {
     #region Inject
 
@@ -17,11 +12,11 @@ public sealed partial class TemplateResourcesCreateForm : SectionFormBase<ZplRes
 
     #endregion
 
-    protected override ZplResourceEntity CreateItemAction(ZplResourceEntity item) =>
+    protected override ZplResource CreateItemAction(ZplResource item) =>
         ZplResourceService.Create(item);
 }
 
-public class TemplateResourcesCreateFormValidator : AbstractValidator<ZplResourceEntity>
+public class TemplateResourcesCreateFormValidator : AbstractValidator<ZplResource>
 {
     public TemplateResourcesCreateFormValidator()
     {

@@ -1,8 +1,5 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using ScalesDesktop.Source.Shared.Localization;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 

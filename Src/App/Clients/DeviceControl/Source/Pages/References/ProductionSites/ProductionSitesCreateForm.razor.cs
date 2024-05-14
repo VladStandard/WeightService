@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References.ProductionSites;
 
-public sealed partial class ProductionSitesCreateForm : SectionFormBase<ProductionSiteEntity>
+public sealed partial class ProductionSitesCreateForm : SectionFormBase<ProductionSite>
 {
     # region Injects
 
@@ -17,11 +12,11 @@ public sealed partial class ProductionSitesCreateForm : SectionFormBase<Producti
 
     # endregion
 
-    protected override ProductionSiteEntity CreateItemAction(ProductionSiteEntity item) =>
+    protected override ProductionSite CreateItemAction(ProductionSite item) =>
         ProductionSiteService.Create(item);
 }
 
-public class ProductionSitesCreateFormValidator : AbstractValidator<ProductionSiteEntity>
+public class ProductionSitesCreateFormValidator : AbstractValidator<ProductionSite>
 {
     public ProductionSitesCreateFormValidator()
     {

@@ -1,7 +1,8 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.CharacteristicEntity>
+@using Ws.Domain.Models.Entities.Ref1c.Plu
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plu.PluCharacteristic>
 @rendermode InteractiveServer
 
 <PageHeader>
@@ -12,7 +13,7 @@
 
 <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
   <DataGridContainer
-    TItem="CharacteristicEntity"
+    TItem="PluCharacteristic"
     Items="SectionItems"
     ItemsPerPage="6"
     IsForcePagination
@@ -20,13 +21,13 @@
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(CharacteristicEntity.Name)"
+        Field="@nameof(PluCharacteristic.Name)"
         Sortable="false"
         Width="15%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColCount"]"
-        Field="@nameof(CharacteristicEntity.BundleCount)"
+        Field="@nameof(PluCharacteristic.BundleCount)"
         Width="10%"
       />
       <DataGridColumn
@@ -49,7 +50,7 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColBox"]"
-        Field="@($"{nameof(CharacteristicEntity.Box)}.{nameof(BoxEntity.Weight)}")"
+        Field="@($"{nameof(PluCharacteristic.Box)}.{nameof(Box.Weight)}")"
         Width="15%"
         Sortable="false"
       />

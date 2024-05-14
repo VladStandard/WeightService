@@ -2,7 +2,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.Warehouse>
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,14 +17,14 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="WarehouseEntity"
+    TItem="Warehouse"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(WarehouseEntity.Name)"
+        Field="@nameof(Warehouse.Name)"
         Width="50%"
       />
       <DataGridColumn

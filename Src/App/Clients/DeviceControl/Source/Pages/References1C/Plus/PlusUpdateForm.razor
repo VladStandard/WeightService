@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.PluEntity>
+@using Ws.Domain.Models.Entities.Print
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref1c.Plu.PluEntity>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -43,7 +43,7 @@
     />
 
     <SectionSelectSingleField
-      TItem="TemplateEntity"
+      TItem="Template"
       Label="@WsDataLocalizer["ColTemplate"]"
       Items="AllTemplates"
       ValueChanged="(i) => DialogItem.TemplateUid = i.Uid"

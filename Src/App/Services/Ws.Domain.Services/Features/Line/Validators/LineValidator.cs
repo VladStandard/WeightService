@@ -1,8 +1,8 @@
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices.Arms;
 
 namespace Ws.Domain.Services.Features.Line.Validators;
 
-internal abstract class LineValidator : AbstractValidator<LineEntity>
+internal abstract class LineValidator : AbstractValidator<Arm>
 {
     protected LineValidator()
     {

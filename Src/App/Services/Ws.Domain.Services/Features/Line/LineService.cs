@@ -1,8 +1,8 @@
 using System.Net;
 using Ws.Database.Nhibernate.Entities.Ref.Lines;
 using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
-using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Line.Validators;
 
@@ -13,45 +13,45 @@ internal partial class LineService(SqlLineRepository lineRepo, SqlPluLineReposit
     #region Queries
 
     [Transactional]
-    public LineEntity GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
+    public Arm GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
 
     [Transactional]
-    public LineEntity GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
+    public Arm GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<LineEntity> GetAllByProductionSite(ProductionSiteEntity site)
+    public IEnumerable<Arm> GetAllByProductionSite(Models.Entities.Ref.ProductionSite site)
         => lineRepo.GetAllByProductionSite(site);
 
     [Transactional]
-    public IEnumerable<PluEntity> GetLinePlus(LineEntity line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
+    public IEnumerable<PluEntity> GetLinePlus(Arm line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
 
     [Transactional]
-    public IEnumerable<PluEntity> GetLineWeightPlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, true);
+    public IEnumerable<PluEntity> GetLineWeightPlus(Arm line) => GetPluEntitiesByWeightCheck(line, true);
 
     [Transactional]
-    public IEnumerable<PluEntity> GetLinePiecePlus(LineEntity line) => GetPluEntitiesByWeightCheck(line, false);
+    public IEnumerable<PluEntity> GetLinePiecePlus(Arm line) => GetPluEntitiesByWeightCheck(line, false);
 
     [Transactional]
-    public IEnumerable<PluLineEntity> GetLinePlusFk(LineEntity line) => pluLineRepo.GetListByLine(line);
+    public IEnumerable<ArmLine> GetLinePlusFk(Arm line) => pluLineRepo.GetListByLine(line);
 
     #endregion
 
     #region Commands
 
     [Transactional, Validate<LineNewValidator>]
-    public LineEntity Create(LineEntity line) => lineRepo.Save(line);
+    public Arm Create(Arm line) => lineRepo.Save(line);
 
     [Transactional, Validate<LineUpdateValidator>]
-    public LineEntity Update(LineEntity line) => lineRepo.Update(line);
+    public Arm Update(Arm line) => lineRepo.Update(line);
 
     [Transactional]
-    public void Delete(LineEntity item) => lineRepo.Delete(item);
+    public void Delete(Arm item) => lineRepo.Delete(item);
 
     [Transactional]
-    public void DeletePluLine(PluLineEntity item) => pluLineRepo.Delete(item);
+    public void DeletePluLine(ArmLine item) => pluLineRepo.Delete(item);
 
     [Transactional]
-    public void AddPluLine(PluLineEntity pluLine) => pluLineRepo.Save(pluLine);
+    public void AddPluLine(ArmLine armLine) => pluLineRepo.Save(armLine);
 
     #endregion
 }

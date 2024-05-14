@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Print;
-
 namespace Ws.Domain.Services.Features.Label.Validators;
 
-internal sealed class LabelNewValidator : AbstractValidator<LabelEntity>
+internal sealed class LabelNewValidator : AbstractValidator<Models.Entities.Print.Label>
 {
     public LabelNewValidator()
     {

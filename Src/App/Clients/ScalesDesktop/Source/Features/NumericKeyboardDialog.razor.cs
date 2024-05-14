@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Localization;
 
 namespace ScalesDesktop.Source.Features;
 

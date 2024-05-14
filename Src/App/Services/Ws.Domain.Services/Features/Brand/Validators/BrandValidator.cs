@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref1c;
-
 namespace Ws.Domain.Services.Features.Brand.Validators;
 
-internal abstract class BrandValidator : AbstractValidator<BrandEntity>
+internal abstract class BrandValidator : AbstractValidator<Models.Entities.Ref1c.Brand>
 {
     protected BrandValidator()
     {

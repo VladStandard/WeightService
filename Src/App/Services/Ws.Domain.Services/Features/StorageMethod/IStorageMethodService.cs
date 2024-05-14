@@ -1,12 +1,11 @@
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Common.Commands;
 using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.StorageMethod;
 
-public interface IStorageMethodService : IGetItemByUid<StorageMethodEntity>, IGetAll<StorageMethodEntity>,
-    ICreate<StorageMethodEntity>, IUpdate<StorageMethodEntity>, IDelete<StorageMethodEntity>
+public interface IStorageMethodService : IGetItemByUid<Models.Entities.Print.StorageMethod>, IGetAll<Models.Entities.Print.StorageMethod>,
+    ICreate<Models.Entities.Print.StorageMethod>, IUpdate<Models.Entities.Print.StorageMethod>, IDelete<Models.Entities.Print.StorageMethod>
 {
-    StorageMethodEntity GetByName(string name);
+    Models.Entities.Print.StorageMethod GetByName(string name);
     string? GetStorageByNameFromCacheOrDb(string name);
 }

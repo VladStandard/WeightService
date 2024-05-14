@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Characteristics;
 
-internal sealed class SqlCharacteristicsFkMap : ClassMapping<CharacteristicEntity>
+internal sealed class SqlCharacteristicsFkMap : ClassMapping<PluCharacteristic>
 {
     public SqlCharacteristicsFkMap()
     {

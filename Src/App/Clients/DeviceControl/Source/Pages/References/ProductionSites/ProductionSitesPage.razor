@@ -2,7 +2,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.ProductionSiteEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.ProductionSite>
 @attribute [Route($"{RouteUtils.SectionProductionSites}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,19 +17,19 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="ProductionSiteEntity"
+    TItem="ProductionSite"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(ProductionSiteEntity.Name)"
+        Field="@nameof(ProductionSite.Name)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColAddress"]"
-        Field="@nameof(ProductionSiteEntity.Address)"
+        Field="@nameof(ProductionSite.Address)"
         Width="80%"
       />
     </ColumnsContent>

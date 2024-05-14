@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMan;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
-public sealed partial class PalletMenCreateForm : SectionFormBase<PalletManEntity>
+public sealed partial class PalletMenCreateForm : SectionFormBase<PalletMan>
 {
     #region Inject
 
@@ -17,11 +12,11 @@ public sealed partial class PalletMenCreateForm : SectionFormBase<PalletManEntit
 
     #endregion
 
-    protected override PalletManEntity CreateItemAction(PalletManEntity item) =>
+    protected override PalletMan CreateItemAction(PalletMan item) =>
         PalletManService.Create(item);
 }
 
-public class PalletMenCreateFormValidator : AbstractValidator<PalletManEntity>
+public class PalletMenCreateFormValidator : AbstractValidator<PalletMan>
 {
     public PalletMenCreateFormValidator()
     {

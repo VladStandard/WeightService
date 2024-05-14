@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Users;
 
-internal sealed class SqlUserMap : ClassMapping<UserEntity>
+internal sealed class SqlUserMap : ClassMapping<User>
 {
     public SqlUserMap()
     {

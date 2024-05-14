@@ -1,10 +1,10 @@
 using Ws.Database.Nhibernate.Types;
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Templates;
 
-internal sealed class SqlTemplateMap : ClassMapping<TemplateEntity>
+internal sealed class SqlTemplateMap : ClassMapping<Template>
 {
     public SqlTemplateMap()
     {

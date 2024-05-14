@@ -1,5 +1,4 @@
 using Ws.Database.Nhibernate.Entities.Ref.PalletMen;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.PalletMan.Validators;
 
@@ -8,17 +7,17 @@ namespace Ws.Domain.Services.Features.PalletMan;
 internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletManService
 {
     [Transactional]
-    public PalletManEntity GetItemByUid(Guid uid) => palletManRepo.GetByUid(uid);
+    public Models.Entities.Users.PalletMan GetItemByUid(Guid uid) => palletManRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<PalletManEntity> GetAll() => palletManRepo.GetAll();
+    public IEnumerable<Models.Entities.Users.PalletMan> GetAll() => palletManRepo.GetAll();
 
     [Transactional, Validate<PalletManNewValidator>]
-    public PalletManEntity Create(PalletManEntity item) => palletManRepo.Save(item);
+    public Models.Entities.Users.PalletMan Create(Models.Entities.Users.PalletMan item) => palletManRepo.Save(item);
 
     [Transactional, Validate<PalletManUpdateValidator>]
-    public PalletManEntity Update(PalletManEntity item) => palletManRepo.Update(item);
+    public Models.Entities.Users.PalletMan Update(Models.Entities.Users.PalletMan item) => palletManRepo.Update(item);
 
     [Transactional]
-    public void Delete(PalletManEntity item) => palletManRepo.Delete(item);
+    public void Delete(Models.Entities.Users.PalletMan item) => palletManRepo.Delete(item);
 }

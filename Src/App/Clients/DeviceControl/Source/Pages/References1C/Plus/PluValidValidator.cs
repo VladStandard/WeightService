@@ -1,5 +1,4 @@
-using FluentValidation;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
@@ -7,7 +6,7 @@ public class PluValidValidator : AbstractValidator<PluEntity>
 {
     public PluValidValidator()
     {
-        RuleFor(item => item.Nesting).Custom((obj, context) =>
+        RuleFor(item => item.PluNesting).Custom((obj, context) =>
         {
             if (obj.IsNew)
                 context.AddFailure("Вложенность по умолчанию отсутствует");

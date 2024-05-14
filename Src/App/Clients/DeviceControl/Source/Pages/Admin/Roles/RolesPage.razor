@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.ClaimEntity>
+@using Ws.Domain.Models.Entities.Users
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.Claim>
 @attribute [Route($"{RouteUtils.SectionRoles}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,19 +17,19 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="ClaimEntity"
+    TItem="Claim"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColCreateDt"]"
-        Field="@nameof(ClaimEntity.CreateDt)"
+        Field="@nameof(Claim.CreateDt)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(ClaimEntity.Name)"
+        Field="@nameof(Claim.Name)"
         Width="80%"
       />
     </ColumnsContent>

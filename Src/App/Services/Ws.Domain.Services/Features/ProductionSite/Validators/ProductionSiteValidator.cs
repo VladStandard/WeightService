@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.ProductionSite.Validators;
 
-internal abstract class ProductionSiteValidator : AbstractValidator<ProductionSiteEntity>
+internal abstract class ProductionSiteValidator : AbstractValidator<Models.Entities.Ref.ProductionSite>
 {
     protected ProductionSiteValidator()
     {

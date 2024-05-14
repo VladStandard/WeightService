@@ -5,17 +5,17 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Nhibernate.Entities.Print.Pallets;
 
-public sealed class SqlPalletRepository : BaseRepository, ISave<PalletEntity>
+public sealed class SqlPalletRepository : BaseRepository, ISave<Pallet>
 {
-    public IEnumerable<ViewPallet> GetAllViewByWarehouse(WarehouseEntity warehouse) =>
+    public IEnumerable<ViewPallet> GetAllViewByWarehouse(Warehouse warehouse) =>
         Session.Query<ViewPallet>().Where(i => i.Warehouse == warehouse.Name)
             .OrderByDescending(i => i.CreateDt).ToList();
 
-    public IEnumerable<LabelEntity> GetAllLabels(Guid palletUid) =>
-        Session.Query<LabelEntity>().Where(i => i.PalletUid == palletUid)
+    public IEnumerable<Label> GetAllLabels(Guid palletUid) =>
+        Session.Query<Label>().Where(i => i.PalletUid == palletUid)
             .OrderByDescending(i => i.CreateDt).ToList();
 
     public ViewPallet GetViewByUid(Guid uid) => Session.Get<ViewPallet>(uid) ?? new();
 
-    public PalletEntity Save(PalletEntity item) { Session.Save(item); return item; }
+    public Pallet Save(Pallet item) { Session.Save(item); return item; }
 }

@@ -1,5 +1,4 @@
 using Force.DeepCloner;
-using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Models.Entities.Ref;
 
@@ -25,5 +24,5 @@ public abstract class SectionDialogWithProductionSite<TDialogItem> : ComponentBa
 
 public record SectionDialogContentWithProductionSite<TDialogItem> : SectionDialogContent<TDialogItem>
 {
-    public required ProductionSiteEntity ProductionSite { get; init; } = default!;
+    public required ProductionSite ProductionSite { get; init; } = default!;
 }

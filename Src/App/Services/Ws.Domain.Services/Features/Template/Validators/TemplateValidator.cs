@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.Template.Validators;
 
-internal abstract class TemplateValidator : AbstractValidator<TemplateEntity>
+internal abstract class TemplateValidator : AbstractValidator<Models.Entities.Print.Template>
 {
     protected TemplateValidator()
     {

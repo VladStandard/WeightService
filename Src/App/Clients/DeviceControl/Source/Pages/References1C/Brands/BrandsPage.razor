@@ -2,7 +2,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.BrandEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Brand>
 @attribute [Route($"{RouteUtils.SectionBrands}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
 
@@ -15,7 +15,7 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="BrandEntity"
+    TItem="Brand"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
@@ -36,11 +36,11 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(BrandEntity.ChangeDt)"
+        Field="@nameof(Brand.ChangeDt)"
         Width="20%"/>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(BrandEntity.Name)"
+        Field="@nameof(Brand.Name)"
         Width="55%"/>
     </ColumnsContent>
     <ContextMenuContent>

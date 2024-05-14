@@ -36,7 +36,7 @@ internal class LabelWeightGenerator(
 
     #endregion
 
-    public LabelEntity GenerateLabel(GenerateWeightLabelDto dto)
+    public Label GenerateLabel(GenerateWeightLabelDto dto)
     {
         if (!dto.Plu.IsCheckWeight)
             throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
@@ -61,7 +61,7 @@ internal class LabelWeightGenerator(
 
         ZplInfo ready = LabelGeneratorUtils.GetZpl(zplPrintItems, labelXml);
 
-        LabelEntity labelSql = new()
+        Label labelSql = new()
         {
             Zpl = ready.Zpl,
             BarcodeBottom = ready.BarcodeBottom,

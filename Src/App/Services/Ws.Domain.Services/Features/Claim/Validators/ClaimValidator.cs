@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.Claim.Validators;
 
-public abstract class ClaimValidator : AbstractValidator<ClaimEntity>
+public abstract class ClaimValidator : AbstractValidator<Models.Entities.Users.Claim>
 {
     protected ClaimValidator()
     {

@@ -1,11 +1,10 @@
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Common.Commands;
 using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Printer;
 
-public interface IPrinterService : IGetItemByUid<PrinterEntity>, ICreate<PrinterEntity>,
-    IUpdate<PrinterEntity>, IDelete<PrinterEntity>
+public interface IPrinterService : IGetItemByUid<Models.Entities.Devices.Printer>, ICreate<Models.Entities.Devices.Printer>,
+    IUpdate<Models.Entities.Devices.Printer>, IDelete<Models.Entities.Devices.Printer>
 {
-    IEnumerable<PrinterEntity> GetAllByProductionSite(ProductionSiteEntity site);
+    IEnumerable<Models.Entities.Devices.Printer> GetAllByProductionSite(Models.Entities.Ref.ProductionSite site);
 }

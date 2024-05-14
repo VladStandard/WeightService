@@ -49,7 +49,7 @@ internal class LabelPieceGenerator(
             StorageMethod = storageMethodBody
         };
 
-        PalletEntity pallet = new()
+        Pallet pallet = new()
         {
             Barcode = string.Empty,
             Weight = generatePalletDto.Weight,
@@ -57,12 +57,12 @@ internal class LabelPieceGenerator(
             PalletMan = generatePalletDto.PalletMan
         };
 
-        IList<LabelEntity> labels = [];
+        IList<Label> labels = [];
         for (int i = 0 ; i < labelCount ; i++)
         {
             labelXml = generatePalletDto.AdaptToXmlPieceLabel();
 
-            LabelEntity label = GenerateLabel(generatePalletDto, zplPrintItems, labelXml);
+            Label label = GenerateLabel(generatePalletDto, zplPrintItems, labelXml);
 
             labels.Add(label);
 
@@ -71,7 +71,7 @@ internal class LabelPieceGenerator(
         palletService.Create(pallet, labels);
     }
 
-    private static LabelEntity GenerateLabel(GeneratePiecePalletDto generatePalletDto, ZplPrintItems zplPrintItems, XmlPieceLabel labelXml)
+    private static Label GenerateLabel(GeneratePiecePalletDto generatePalletDto, ZplPrintItems zplPrintItems, XmlPieceLabel labelXml)
     {
         ZplInfo ready = LabelGeneratorUtils.GetZpl(zplPrintItems, labelXml);
 
@@ -82,7 +82,7 @@ internal class LabelPieceGenerator(
             BarcodeRight = ready.BarcodeRight,
             BarcodeTop = ready.BarcodeTop,
             WeightNet = 0,
-            WeightTare = generatePalletDto.Plu.GetWeightByCharacteristic(generatePalletDto.Characteristic),
+            WeightTare = generatePalletDto.Plu.GetWeightByCharacteristic(generatePalletDto.PluCharacteristic),
             Kneading = generatePalletDto.Kneading,
             ProductDt = generatePalletDto.ProductDt,
             ExpirationDt = generatePalletDto.ExpirationDt,

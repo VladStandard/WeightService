@@ -5,10 +5,10 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Bundles;
 
-public sealed class SqlBundleRepository : BaseRepository, IGetItemByUid<BundleEntity>, IGetAll<BundleEntity>
+public sealed class SqlBundleRepository : BaseRepository, IGetItemByUid<Bundle>, IGetAll<Bundle>
 {
-    public BundleEntity GetByUid(Guid uid) => Session.Get<BundleEntity>(uid);
+    public Bundle GetByUid(Guid uid) => Session.Get<Bundle>(uid);
 
-    public IEnumerable<BundleEntity> GetAll() =>
-        Session.Query<BundleEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
+    public IEnumerable<Bundle> GetAll() =>
+        Session.Query<Bundle>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
 }

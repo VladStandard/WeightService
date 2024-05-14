@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Nestings;
 
-internal sealed class SqlPluNestingFkMap : ClassMapping<NestingEntity>
+internal sealed class SqlPluNestingFkMap : ClassMapping<PluNesting>
 {
     public SqlPluNestingFkMap()
     {

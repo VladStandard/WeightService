@@ -1,9 +1,11 @@
 using System.Security.Claims;
-using DeviceControl.Source.Shared.Auth.Policies;
-using Microsoft.AspNetCore.Authorization;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Entities.Devices;
+using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace DeviceControl.Source.Shared.Utils;
 
@@ -34,29 +36,29 @@ public class Redirector(IAuthorizationService authorizationService)
 
     #endregion
 
-    public string ToPath(LineEntity line, ClaimsPrincipal user) =>
+    public string ToPath(Arm line, ClaimsPrincipal user) =>
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 
     public string ToPath(PluEntity item) => Link(item, RouteUtils.SectionPlus);
 
-    public string ToPath(PrinterEntity item, ClaimsPrincipal user) =>
+    public string ToPath(Printer item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToPath(WarehouseEntity item, ClaimsPrincipal user) =>
+    public string ToPath(Warehouse item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToPath(ProductionSiteEntity item, ClaimsPrincipal user) =>
+    public string ToPath(ProductionSite item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToPath(BundleEntity item) => Link(item, RouteUtils.SectionBundles);
+    public string ToPath(Bundle item) => Link(item, RouteUtils.SectionBundles);
 
-    public string ToPath(ClipEntity item) => Link(item, RouteUtils.SectionClips);
+    public string ToPath(Clip item) => Link(item, RouteUtils.SectionClips);
 
-    public string ToPath(BrandEntity item) => Link(item, RouteUtils.SectionBrands);
+    public string ToPath(Brand item) => Link(item, RouteUtils.SectionBrands);
 
-    public string ToPath(BoxEntity item) => Link(item, RouteUtils.SectionBoxes);
+    public string ToPath(Box item) => Link(item, RouteUtils.SectionBoxes);
 
-    public string ToPath(StorageMethodEntity item, ClaimsPrincipal user) =>
+    public string ToPath(StorageMethod item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>

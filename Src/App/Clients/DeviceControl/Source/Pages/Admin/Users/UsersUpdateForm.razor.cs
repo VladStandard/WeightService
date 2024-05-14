@@ -1,19 +1,13 @@
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Claim;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 
-public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
+public sealed partial class UsersUpdateForm : SectionFormBase<User>
 {
     #region Inject
     [Inject] private Redirector Redirector { get; set; } = default!;
@@ -26,8 +20,8 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
 
     #endregion
 
-    private HashSet<ClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<ProductionSiteEntity> ProductionSite { get; set; } = [];
+    private HashSet<Claim> RolesEntities { get; set; } = [];
+    private IEnumerable<ProductionSite> ProductionSite { get; set; } = [];
 
     protected override void OnInitialized()
     {
@@ -36,14 +30,14 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
         base.OnInitialized();
     }
 
-    protected override UserEntity UpdateItemAction(UserEntity item)
+    protected override User UpdateItemAction(User item)
     {
         UserService.Update(item);
         ClaimsCacheProvider.ClearCacheByUserName(item.Name);
         return item;
     }
 
-    protected override Task DeleteItemAction(UserEntity item)
+    protected override Task DeleteItemAction(User item)
     {
         ClaimsCacheProvider.ClearCacheByUserName(item.Name);
         UserService.Delete(item);
@@ -51,7 +45,7 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserEntity>
     }
 }
 
-public class UsersUpdateFormValidator : AbstractValidator<UserEntity>
+public class UsersUpdateFormValidator : AbstractValidator<User>
 {
     public UsersUpdateFormValidator()
     {

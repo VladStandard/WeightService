@@ -1,12 +1,7 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Ws.Domain.Models.Entities;
+using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Features.DatabaseFile;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Diagnostics.Database;
 
@@ -23,7 +18,7 @@ public sealed partial class DatabaseFilesPage : ComponentBase
 
     #endregion
 
-    private IEnumerable<DbFileSizeInfoEntity> DbFileSizesData { get; set; } = [];
+    private IEnumerable<DbFileSizeInfo> DbFileSizesData { get; set; } = [];
     private bool IsLoading { get; set; }
 
     protected override async Task OnInitializedAsync() => await GetDatabaseData();
@@ -41,15 +36,15 @@ public sealed partial class DatabaseFilesPage : ComponentBase
         StateHasChanged();
     }
 
-    private static async Task ContextFuncWrapper(DbFileSizeInfoEntity? item, EventCallback onComplete, Func<DbFileSizeInfoEntity, Task> action)
+    private static async Task ContextFuncWrapper(DbFileSizeInfo? item, EventCallback onComplete, Func<DbFileSizeInfo, Task> action)
     {
         await onComplete.InvokeAsync();
         if (item == null) return;
         await action(item);
     }
 
-    private async Task OpenDataGridEntityModal(DbFileSizeInfoEntity item)
-        => await DialogService.ShowDialogAsync<DatabaseFilesDialog>(new SectionDialogContent<DbFileSizeInfoEntity> { Item = item },
+    private async Task OpenDataGridEntityModal(DbFileSizeInfo item)
+        => await DialogService.ShowDialogAsync<DatabaseFilesDialog>(new SectionDialogContent<DbFileSizeInfo> { Item = item },
             new()
             {
                 OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>

@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Pallet;
 
 namespace ScalesDesktop.Source.Shared.Services;
@@ -8,7 +8,7 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
 {
     public ViewPallet CurrentPallet { get; private set; } = new();
     public IEnumerable<ViewPallet> PalletEntities { get; private set; } = [];
-    public PalletManEntity PalletMan { get; private set; } = new();
+    public PalletMan PalletMan { get; private set; } = new();
 
     public event Action? OnStateChanged;
 
@@ -25,9 +25,9 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
         OnStateChanged?.Invoke();
     }
 
-    public void SetPalletMan(PalletManEntity palletManEntity)
+    public void SetPalletMan(PalletMan palletMan)
     {
-        PalletMan = palletManEntity;
+        PalletMan = palletMan;
         OnStateChanged?.Invoke();
     }
 

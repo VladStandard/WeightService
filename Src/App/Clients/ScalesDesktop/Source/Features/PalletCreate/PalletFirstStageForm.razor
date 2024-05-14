@@ -1,5 +1,5 @@
 @using vNext.BlazorComponents.FluentValidation
-@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Ref1c.Plu
 <EditForm
   Model="FormModel"
   OnValidSubmit="@OnValidSubmit"
@@ -20,7 +20,7 @@
   </FormFieldWrapper>
   <FormFieldWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlId="nesting">
     <SelectSingle
-      TItem="CharacteristicEntity"
+      TItem="PluCharacteristic"
       Items="FormModel.Plu?.CharacteristicsWithNesting"
       @bind-SelectedItem="FormModel.Nesting"
       Placeholder="@Localizer["NestingSelectPlaceholder"]"

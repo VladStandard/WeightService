@@ -1,4 +1,4 @@
-@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Entities.Users
 
 <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
   <div class="w-full pb-4 border-b">
@@ -15,7 +15,7 @@
     <DataAnnotationsValidator />
     <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
       <SelectSingle
-        TItem="PalletManEntity"
+        TItem="PalletMan"
         @bind-SelectedItem="@FormModel.User"
         ItemDisplayName="@(item => item.FioShort)"
         Items="@GetAllPalletMen"

@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Domain.Models.Tests.Models;
 

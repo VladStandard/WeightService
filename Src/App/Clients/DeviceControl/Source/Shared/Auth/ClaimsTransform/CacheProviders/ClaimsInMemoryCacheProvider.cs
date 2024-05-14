@@ -1,8 +1,9 @@
 using System.Security.Claims;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
 using Microsoft.Extensions.Caching.Memory;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.User;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders;
 
@@ -34,7 +35,7 @@ internal class ClaimsInMemoryCacheProvider(IMemoryCache cache, IUserService user
 
     private List<Claim> GetUserRightsFromRepository(string username)
     {
-        UserEntity user = userService.GetItemByNameOrCreate(username);
+        User user = userService.GetItemByNameOrCreate(username);
         user.LoginDt = DateTime.Now;
         userService.Update(user);
         return user.Claims.Select(claim => new Claim(ClaimTypes.Role, claim.Name)).ToList();

@@ -1,0 +1,110 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Devices
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new LinesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColVersion"]"
+      Value="@DialogItem.Version"
+    />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColNumber"]"
+      @bind-Value="@DialogItem.Number"
+      Min="10000"
+      Max="99999"
+      For="@(() => DialogItem.Number)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      MaxLength="32"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColCounter"]"
+      @bind-Value="@DialogItem.Counter"
+      Min="0"
+      For="@(() => DialogItem.Counter)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionSelectSingleField
+      TItem="LineTypeEnum"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="LineTypes"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+      Disabled="IsOnlyView"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+      Disabled="IsOnlyView"
+      MaxLength="16"
+    />
+
+    <SectionSelectSingleField
+      TItem="Printer"
+      Label="@WsDataLocalizer["ColPrinter"]"
+      Items="Printers"
+      @bind-Value="@DialogItem.Printer"
+      ItemDisplayName="item => item.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
+      For="@(() => DialogItem.Printer)"
+      Disabled="IsOnlyView"
+      IsFilterable
+    />
+
+    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSite, UserPrincipal)"
+    />
+
+    <SectionSelectSingleField
+      TItem="Warehouse"
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Items="Warehouses"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
+      For="@(() => DialogItem.Warehouse)"
+      Disabled="IsOnlyView"
+      IsFilterable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}/{DialogItem.Uid}")" />
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
+  </ActionsContent>
+</SectionForm>

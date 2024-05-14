@@ -1,6 +1,3 @@
-using DeviceControl.Source.Shared.Localization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Labels.Service.Features.Render;
 using Ws.Labels.Service.Features.Render.Exceptions;

@@ -1,9 +1,10 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Devices.Arms
 @using Ws.Domain.Models.Entities.Print
 @using Ws.Domain.Models.Entities.Ref
-@using Ws.Domain.Models.Entities.Ref1c
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.LabelEntity>
+@using Ws.Domain.Models.Entities.Ref1c.Plu
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Label>
 @attribute [Route($"{RouteUtils.SectionLabels}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
 
@@ -16,7 +17,7 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="LabelEntity"
+    TItem="Label"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
     IsFilterable
@@ -24,44 +25,44 @@
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColCreateDt"]"
-        Field="@nameof(LabelEntity.CreateDt)"
+        Field="@nameof(Label.CreateDt)"
         Filterable="false"
         Width="10%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColProductDt"]"
-        Field="@nameof(LabelEntity.ProductDt)"
+        Field="@nameof(Label.ProductDt)"
         Filterable="false"
         Width="10%"
       />
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColPluNumber"]"
-        Field="@($"{nameof(LabelEntity.Plu)}.{nameof(PluEntity.Number)}")"
+        Field="@($"{nameof(Label.Plu)}.{nameof(PluEntity.Number)}")"
         Width="5%"
       />
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColBarcodeTop"]"
-        Field="@nameof(LabelEntity.BarcodeTop)"
+        Field="@nameof(Label.BarcodeTop)"
         Sortable="false"
         Width="20%"
       />
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColLine"]"
-        Field="@($"{nameof(LabelEntity.Line)}.{nameof(LineEntity.Name)}")"
+        Field="@($"{nameof(Label.Line)}.{nameof(Arm.Name)}")"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColWarehouse"]"
-        Field="@($"{nameof(LabelEntity.Line)}.{nameof(LineEntity.Warehouse)}.{nameof(WarehouseEntity.Name)}")"
+        Field="@($"{nameof(Label.Line)}.{nameof(Arm.Warehouse)}.{nameof(Warehouse.Name)}")"
         Width="20%"
       />
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Field="@($"{nameof(LabelEntity.Plu)}.{nameof(PluEntity.IsCheckWeight)}")"
+        Field="@($"{nameof(Label.Plu)}.{nameof(PluEntity.IsCheckWeight)}")"
         Filterable="false"
         Width="10%"
       >

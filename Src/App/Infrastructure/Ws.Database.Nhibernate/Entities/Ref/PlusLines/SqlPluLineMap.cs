@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices.Arms;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 
-internal sealed class SqlPluLineMap : ClassMapping<PluLineEntity>
+internal sealed class SqlPluLineMap : ClassMapping<ArmLine>
 {
     public SqlPluLineMap()
     {

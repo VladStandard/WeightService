@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref1c;
-
 namespace Ws.Domain.Services.Features.Box.Validators;
 
-internal abstract class BoxValidator : AbstractValidator<BoxEntity>
+internal abstract class BoxValidator : AbstractValidator<Models.Entities.Ref1c.Box>
 {
     protected BoxValidator()
     {

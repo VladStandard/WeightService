@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.ProductionSites;
 
-internal class SqlProductionSiteMap : ClassMapping<ProductionSiteEntity>
+internal class SqlProductionSiteMap : ClassMapping<ProductionSite>
 {
     public SqlProductionSiteMap()
     {

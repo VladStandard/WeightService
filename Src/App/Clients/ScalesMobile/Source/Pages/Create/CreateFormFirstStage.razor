@@ -1,6 +1,6 @@
 @using Blazor.Heroicons.Outline
 @using Ws.Domain.Models.Entities.Print
-@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Ref1c.Plu
 
 @implements IAsyncDisposable
 
@@ -49,7 +49,7 @@
   [Parameter] public EventCallback<PluEntity> PluEntityChanged { get; set; }
 
   private string BarcodeValue { get; set; } = "2991000300000038";
-  private IEnumerable<LabelEntity> LabelEntities { get; set; } = [];
+  private IEnumerable<Label> LabelEntities { get; set; } = [];
 
   protected override async Task OnAfterRenderAsync(bool firstRender)
   {

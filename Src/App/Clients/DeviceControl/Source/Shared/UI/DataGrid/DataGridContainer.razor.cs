@@ -1,6 +1,5 @@
 using System.Drawing;
 using Blazorise.DataGrid;
-using Microsoft.AspNetCore.Components;
 
 namespace DeviceControl.Source.Shared.UI.DataGrid;
 

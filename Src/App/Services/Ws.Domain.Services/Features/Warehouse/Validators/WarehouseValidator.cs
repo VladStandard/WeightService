@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.Warehouse.Validators;
 
-internal abstract class WarehouseValidator : AbstractValidator<WarehouseEntity>
+internal abstract class WarehouseValidator : AbstractValidator<Models.Entities.Ref.Warehouse>
 {
     protected WarehouseValidator()
     {

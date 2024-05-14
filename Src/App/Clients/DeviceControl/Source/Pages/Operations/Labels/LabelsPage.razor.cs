@@ -1,17 +1,11 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Label;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Operations.Labels;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class LabelsPage : SectionDataGridPageBase<LabelEntity>
+public sealed partial class LabelsPage : SectionDataGridPageBase<Label>
 {
     # region Injects
 
@@ -22,18 +16,18 @@ public sealed partial class LabelsPage : SectionDataGridPageBase<LabelEntity>
 
     # endregion
 
-    protected override async Task OpenDataGridEntityModal(LabelEntity item)
+    protected override async Task OpenDataGridEntityModal(Label item)
     {
-        LabelEntity labelItem = LabelService.GetItemByUid(item.Uid);
-        await DialogService.ShowDialogAsync<LabelsUpdateDialog>(new SectionDialogContent<LabelEntity> { Item = labelItem }, DialogParameters);
+        Label labelItem = LabelService.GetItemByUid(item.Uid);
+        await DialogService.ShowDialogAsync<LabelsUpdateDialog>(new SectionDialogContent<Label> { Item = labelItem }, DialogParameters);
     }
 
-    protected override async Task OpenItemInNewTab(LabelEntity item)
+    protected override async Task OpenItemInNewTab(Label item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionLabels}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<LabelEntity> SetSqlSectionCast() => LabelService.GetAll();
+    protected override IEnumerable<Label> SetSqlSectionCast() => LabelService.GetAll();
 
-    protected override IEnumerable<LabelEntity> SetSqlSearchingCast()
+    protected override IEnumerable<Label> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return new[] { LabelService.GetItemByUid(itemUid) };

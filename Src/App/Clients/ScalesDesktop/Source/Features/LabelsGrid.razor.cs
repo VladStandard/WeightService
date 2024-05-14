@@ -1,15 +1,12 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallet;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Printers.Enums;
 using Ws.Printers.Messages;
-using Ws.Shared.Resources;
+using Label = Ws.Domain.Models.Entities.Print.Label;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -27,7 +24,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
 
     # endregion
 
-    private List<LabelEntity> SelectedItems { get; set; } = [];
+    private List<Label> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
     private PrinterStatus PrinterStatus { get; set; } = PrinterStatus.Unknown;
@@ -49,7 +46,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
         set => LabelData = value;
     }
 
-    private void ToggleItem(LabelEntity item)
+    private void ToggleItem(Label item)
     {
         if (!SelectedItems.Remove(item))
             SelectedItems.Add(item);
@@ -63,7 +60,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
             .AsQueryable());
 
 
-    private IEnumerable<LabelEntity> GetLabelsData()
+    private IEnumerable<Label> GetLabelsData()
     {
         try
         {
@@ -95,7 +92,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
         }
 
         int errorIndex = 0;
-        foreach (LabelEntity item in SelectedItems)
+        foreach (Label item in SelectedItems)
         {
             try
             {
@@ -136,5 +133,5 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
 internal record DataItem
 {
     public int Id { get; init; }
-    public LabelEntity Label { get; init; } = new();
+    public Label Label { get; init; } = new();
 }

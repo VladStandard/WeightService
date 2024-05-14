@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref1c;
-
 namespace Ws.Domain.Services.Features.Clip.Validators;
 
-internal abstract class ClipValidator : AbstractValidator<ClipEntity>
+internal abstract class ClipValidator : AbstractValidator<Models.Entities.Ref1c.Clip>
 {
     protected ClipValidator()
     {

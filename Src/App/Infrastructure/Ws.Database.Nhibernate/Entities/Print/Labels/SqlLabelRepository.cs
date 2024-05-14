@@ -5,12 +5,12 @@ using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Print.Labels;
 
-public sealed class SqlLabelRepository : BaseRepository, IGetItemByUid<LabelEntity>, ISave<LabelEntity>
+public sealed class SqlLabelRepository : BaseRepository, IGetItemByUid<Label>, ISave<Label>
 {
-    public LabelEntity GetByUid(Guid uid) => Session.Get<LabelEntity>(uid) ?? new();
+    public Label GetByUid(Guid uid) => Session.Get<Label>(uid) ?? new();
 
-    public IEnumerable<LabelEntity> GetAll() => Session.Query<LabelEntity>()
+    public IEnumerable<Label> GetAll() => Session.Query<Label>()
         .OrderByDescending(i => i.CreateDt).ToList();
 
-    public LabelEntity Save(LabelEntity item) { Session.Merge(item); return item; }
+    public Label Save(Label item) { Session.Merge(item); return item; }
 }

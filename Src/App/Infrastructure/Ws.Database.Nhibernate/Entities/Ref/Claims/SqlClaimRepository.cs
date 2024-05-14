@@ -2,16 +2,16 @@ using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Commands;
 using Ws.Database.Nhibernate.Common.Queries.Item;
 using Ws.Database.Nhibernate.Common.Queries.List;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Claims;
 
-public sealed class SqlClaimRepository : BaseRepository, IGetItemByUid<ClaimEntity>, IGetAll<ClaimEntity>,
-    IUpdate<ClaimEntity>, ISave<ClaimEntity>, IDelete<ClaimEntity>
+public sealed class SqlClaimRepository : BaseRepository, IGetItemByUid<Claim>, IGetAll<Claim>,
+    IUpdate<Claim>, ISave<Claim>, IDelete<Claim>
 {
-    public ClaimEntity GetByUid(Guid uid) => Session.Get<ClaimEntity>(uid) ?? new();
-    public IEnumerable<ClaimEntity> GetAll() => Session.Query<ClaimEntity>().OrderBy(i => i.Name).ToList();
-    public ClaimEntity Save(ClaimEntity item) { Session.Save(item); return item; }
-    public ClaimEntity Update(ClaimEntity item) { Session.Update(item); return item; }
-    public void Delete(ClaimEntity item) => Session.Delete(item);
+    public Claim GetByUid(Guid uid) => Session.Get<Claim>(uid) ?? new();
+    public IEnumerable<Claim> GetAll() => Session.Query<Claim>().OrderBy(i => i.Name).ToList();
+    public Claim Save(Claim item) { Session.Save(item); return item; }
+    public Claim Update(Claim item) { Session.Update(item); return item; }
+    public void Delete(Claim item) => Session.Delete(item);
 }

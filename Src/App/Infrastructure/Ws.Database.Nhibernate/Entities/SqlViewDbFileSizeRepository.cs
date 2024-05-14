@@ -1,17 +1,17 @@
 using NHibernate.Transform;
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Queries.List;
-using Ws.Domain.Models.Entities;
+using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Database.Nhibernate.Entities;
 
-public class SqlViewDbFileSizeRepository : BaseRepository, IGetAll<DbFileSizeInfoEntity>
+public class SqlViewDbFileSizeRepository : BaseRepository, IGetAll<DbFileSizeInfo>
 {
-    public IEnumerable<DbFileSizeInfoEntity> GetAll()
+    public IEnumerable<DbFileSizeInfo> GetAll()
     {
-        const string fileNameAlias = nameof(DbFileSizeInfoEntity.FileName);
-        const string sizeMbAlias = nameof(DbFileSizeInfoEntity.SizeMb);
-        const string maxSizeMbAlias = nameof(DbFileSizeInfoEntity.MaxSizeMb);
+        const string fileNameAlias = nameof(DbFileSizeInfo.FileName);
+        const string sizeMbAlias = nameof(DbFileSizeInfo.SizeMb);
+        const string maxSizeMbAlias = nameof(DbFileSizeInfo.MaxSizeMb);
 
         const string sqlQuery =
             $"SELECT" +
@@ -22,7 +22,7 @@ public class SqlViewDbFileSizeRepository : BaseRepository, IGetAll<DbFileSizeInf
             $"\n ORDER BY [{sizeMbAlias}] DESC, [NAME]";
 
         ISQLQuery query = Session.CreateSQLQuery(sqlQuery);
-        query.SetResultTransformer(Transformers.AliasToBean<DbFileSizeInfoEntity>());
-        return query.List<DbFileSizeInfoEntity>().ToList();
+        query.SetResultTransformer(Transformers.AliasToBean<DbFileSizeInfo>());
+        return query.List<DbFileSizeInfo>().ToList();
     }
 }

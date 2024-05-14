@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Claim;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.Roles;
 
-public sealed partial class RolesUpdateForm : SectionFormBase<ClaimEntity>
+public sealed partial class RolesUpdateForm : SectionFormBase<Claim>
 {
     # region Injects
 
@@ -17,17 +12,17 @@ public sealed partial class RolesUpdateForm : SectionFormBase<ClaimEntity>
 
     # endregion
 
-    protected override ClaimEntity UpdateItemAction(ClaimEntity item) =>
+    protected override Claim UpdateItemAction(Claim item) =>
         ClaimService.Update(item);
 
-    protected override Task DeleteItemAction(ClaimEntity item)
+    protected override Task DeleteItemAction(Claim item)
     {
         ClaimService.Delete(item);
         return Task.CompletedTask;
     }
 }
 
-public class RolesUpdateFormValidator : AbstractValidator<ClaimEntity>
+public class RolesUpdateFormValidator : AbstractValidator<Claim>
 {
     public RolesUpdateFormValidator()
     {

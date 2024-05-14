@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Clips;
 
-internal sealed class SqlClipMap : ClassMapping<ClipEntity>
+internal sealed class SqlClipMap : ClassMapping<Clip>
 {
     public SqlClipMap()
     {

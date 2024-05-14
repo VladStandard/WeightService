@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.TemplateEntity>
+@using Ws.Domain.Models.Entities.Print
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Template>
 @attribute [Route($"{RouteUtils.SectionTemplates}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,25 +17,25 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="TemplateEntity"
+    TItem="Template"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColCreateDt"]"
-        Field="@nameof(TemplateEntity.CreateDt)"
+        Field="@nameof(Template.CreateDt)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColTitle"]"
-        Field="@nameof(TemplateEntity.Name)"
+        Field="@nameof(Template.Name)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
         Width="10%"
-        Field="@nameof(TemplateEntity.IsWeight)"
+        Field="@nameof(Template.IsWeight)"
         Groupable
         Grouping
       >
@@ -48,7 +48,7 @@
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColSize"]"
-        Field="@nameof(TemplateEntity.SizeView)"
+        Field="@nameof(Template.SizeView)"
         Width="20%"
       />
 

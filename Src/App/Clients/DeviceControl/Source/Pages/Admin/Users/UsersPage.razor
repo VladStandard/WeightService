@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.UserEntity>
+@using Ws.Domain.Models.Entities.Users
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.User>
 @attribute [Route($"{RouteUtils.SectionUsers}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.SupportSenior)]
 @rendermode InteractiveServer
@@ -17,14 +17,14 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="UserEntity"
+    TItem="User"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColActive"]"
-        Field="@nameof(UserEntity.LoginDt)"
+        Field="@nameof(User.LoginDt)"
         Width="8%"
       >
         <DisplayTemplate>
@@ -35,12 +35,12 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColLoginDt"]"
-        Field="@nameof(UserEntity.LoginDt)"
+        Field="@nameof(User.LoginDt)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(UserEntity.Name)"
+        Field="@nameof(User.Name)"
         Width="40%"
       />
       <DataGridColumn

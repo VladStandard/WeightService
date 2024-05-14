@@ -22,7 +22,7 @@ internal static class GenerateWeightPluDtoExtension
             Kneading = dto.Kneading
         };
 
-    internal static LabelEntity ToLabel(this GenerateWeightLabelDto dto) =>
+    internal static Label ToLabel(this GenerateWeightLabelDto dto) =>
         new()
         {
             WeightNet = dto.Weight,

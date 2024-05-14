@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.StorageMethodEntity>
+@using Ws.Domain.Models.Entities.Print
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.StorageMethod>
 @attribute [Route($"{RouteUtils.SectionStorageMethods}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,19 +17,19 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="StorageMethodEntity"
+    TItem="StorageMethod"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColCreateDt"]"
-        Field="@nameof(StorageMethodEntity.CreateDt)"
+        Field="@nameof(StorageMethod.CreateDt)"
         Width="15%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(StorageMethodEntity.Name)"
+        Field="@nameof(StorageMethod.Name)"
         Width="85%"
       />
     </ColumnsContent>

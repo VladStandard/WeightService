@@ -1,0 +1,86 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Devices
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Enums
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new LinesCreateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb">
+      <div class="w-full items-center flex gap-2">
+        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@DialogItem.Number" />
+        <Button
+          Size="ButtonSize.Icon"
+          Variant="ButtonVariant.Outline"
+          Class="shrink-0 !size-10"
+          OnClick="@GenerateLineNumber"
+        >
+          <ArrowPathIcon class="size-5" />
+        </Button>
+      </div>
+      <FieldValidation For="@(() => DialogItem.Number)"/>
+    </SectionInputWrapper>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      MaxLength="32"
+    />
+
+    <SectionSelectSingleField
+      TItem="LineTypeEnum"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="LineTypes"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@DialogItem.PcName"
+      For="@(() => DialogItem.PcName)"
+      MaxLength="16"
+    />
+
+    <SectionSelectSingleField
+      TItem="Printer"
+      Label="@WsDataLocalizer["ColPrinter"]"
+      Items="Printers"
+      @bind-Value="@DialogItem.Printer"
+      ItemDisplayName="item => item.DisplayName"
+      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
+      For="@(() => DialogItem.Printer)"
+      IsFilterable
+    />
+
+    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSite, UserPrincipal)"
+    />
+
+    <SectionSelectSingleField
+      TItem="Warehouse"
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Items="Warehouses"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
+      For="@(() => DialogItem.Warehouse)"
+      IsFilterable
+    />
+  </FieldsContent>
+</SectionForm>

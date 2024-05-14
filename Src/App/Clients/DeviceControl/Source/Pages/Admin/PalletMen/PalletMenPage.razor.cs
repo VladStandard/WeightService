@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMan;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class PalletMenPage : SectionDataGridPageBase<PalletManEntity>
+public sealed partial class PalletMenPage : SectionDataGridPageBase<PalletMan>
 {
     #region Inject
 
@@ -23,21 +17,21 @@ public sealed partial class PalletMenPage : SectionDataGridPageBase<PalletManEnt
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<PalletMenCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(PalletManEntity item)
+    protected override async Task OpenDataGridEntityModal(PalletMan item)
         => await OpenSectionModal<PalletMenUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(PalletManEntity item)
+    protected override async Task OpenItemInNewTab(PalletMan item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<PalletManEntity> SetSqlSectionCast() => PalletManService.GetAll();
+    protected override IEnumerable<PalletMan> SetSqlSectionCast() => PalletManService.GetAll();
 
-    protected override IEnumerable<PalletManEntity> SetSqlSearchingCast()
+    protected override IEnumerable<PalletMan> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [PalletManService.GetItemByUid(itemUid)];
     }
 
-    protected override Task DeleteItemAction(PalletManEntity item)
+    protected override Task DeleteItemAction(PalletMan item)
     {
         PalletManService.Delete(item);
         return Task.CompletedTask;

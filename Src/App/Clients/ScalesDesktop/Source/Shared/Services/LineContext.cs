@@ -1,4 +1,5 @@
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices;
+using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Services.Features.Line;
 
 namespace ScalesDesktop.Source.Shared.Services;
@@ -8,8 +9,8 @@ public class LineContext : IDisposable
     private ILineService LineService { get; }
     private ExternalDevicesService ExternalDevices { get; }
 
-    public LineEntity Line { get; private set; } = new();
-    public PrinterEntity PrinterEntity { get; private set; } = new();
+    public Arm Line { get; private set; } = new();
+    public Printer Printer { get; private set; } = new();
     public event Action? OnLineChanged;
 
     public LineContext(ILineService lineService, ExternalDevicesService externalDevices)
@@ -28,7 +29,7 @@ public class LineContext : IDisposable
         if (Line.Version != VersionTracking.CurrentVersion)
             UpdateLineVersion();
 
-        PrinterEntity = Line.Printer;
+        Printer = Line.Printer;
         ExternalDevices.SetupPrinter(Line.Printer.Ip, 9100, Line.Printer.Type);
     }
 

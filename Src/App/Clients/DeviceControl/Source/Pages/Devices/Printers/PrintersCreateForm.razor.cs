@@ -1,21 +1,15 @@
 using System.Net;
-using DeviceControl.Source.Shared.Auth.Policies;
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
+using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
-public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
+public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
 {
     # region Injects
 
@@ -28,9 +22,9 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
 
     # endregion
 
-    [Parameter, EditorRequired] public ProductionSiteEntity ProductionSite { get; set; } = new();
+    [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
     private IEnumerable<PrinterTypeEnum> PrinterTypes { get; set; } = new List<PrinterTypeEnum>();
-    private UserEntity User { get; set; } = new();
+    private User User { get; set; } = new();
     private bool IsSeniorSupport { get; set; }
 
     protected override void OnInitialized()
@@ -51,11 +45,11 @@ public sealed partial class PrintersCreateForm : SectionFormBase<PrinterEntity>
             .Succeeded;
     }
 
-    protected override PrinterEntity CreateItemAction(PrinterEntity item) =>
+    protected override Printer CreateItemAction(Printer item) =>
         PrinterService.Create(item);
 }
 
-public class PrintersCreateFormValidator : AbstractValidator<PrinterEntity>
+public class PrintersCreateFormValidator : AbstractValidator<Printer>
 {
     public PrintersCreateFormValidator()
     {

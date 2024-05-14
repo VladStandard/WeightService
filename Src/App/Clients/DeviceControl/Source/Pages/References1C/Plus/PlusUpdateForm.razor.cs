@@ -1,14 +1,7 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Print;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Features.Plu;
 using Ws.Domain.Services.Features.Template;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
@@ -24,7 +17,7 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
 
     # endregion
 
-    private IEnumerable<TemplateEntity> AllTemplates { get; set; } = [];
+    private IEnumerable<Template> AllTemplates { get; set; } = [];
 
 
     protected override void OnInitialized()

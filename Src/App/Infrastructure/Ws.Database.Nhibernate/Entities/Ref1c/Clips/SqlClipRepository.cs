@@ -5,10 +5,10 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Clips;
 
-public sealed class SqlClipRepository : BaseRepository, IGetItemByUid<ClipEntity>, IGetAll<ClipEntity>
+public sealed class SqlClipRepository : BaseRepository, IGetItemByUid<Clip>, IGetAll<Clip>
 {
-    public ClipEntity GetByUid(Guid uid) => Session.Get<ClipEntity>(uid) ?? new();
+    public Clip GetByUid(Guid uid) => Session.Get<Clip>(uid) ?? new();
 
-    public IEnumerable<ClipEntity> GetAll() =>
-        Session.Query<ClipEntity>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
+    public IEnumerable<Clip> GetAll() =>
+        Session.Query<Clip>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
 }

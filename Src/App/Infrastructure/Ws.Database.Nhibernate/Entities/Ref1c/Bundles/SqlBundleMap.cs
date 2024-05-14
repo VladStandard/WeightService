@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Bundles;
 
-internal sealed class SqlBundleMap : ClassMapping<BundleEntity>
+internal sealed class SqlBundleMap : ClassMapping<Bundle>
 {
     public SqlBundleMap()
     {

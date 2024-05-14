@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.StorageMethod.Validators;
 
-internal abstract class StorageMethodValidator : AbstractValidator<StorageMethodEntity>
+internal abstract class StorageMethodValidator : AbstractValidator<Models.Entities.Print.StorageMethod>
 {
     protected StorageMethodValidator()
     {

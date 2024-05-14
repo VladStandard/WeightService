@@ -1,7 +1,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.WarehouseEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.Warehouse>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -16,7 +16,7 @@
       For="@(() => DialogItem.Name)"
     />
     <SectionSelectSingleField
-      TItem="ProductionSiteEntity"
+      TItem="ProductionSite"
       Items="PlatformEntities"
       Label="@WsDataLocalizer["ColProductionSite"]"
       @bind-Value="@DialogItem.ProductionSite"

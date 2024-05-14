@@ -1,10 +1,10 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Enums;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Lines;
 
-internal sealed class SqlLineMap : ClassMapping<LineEntity>
+internal sealed class SqlLineMap : ClassMapping<Arm>
 {
     public SqlLineMap()
     {

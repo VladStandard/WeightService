@@ -1,11 +1,8 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Scales.Enums;
 using Ws.Scales.Messages;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 

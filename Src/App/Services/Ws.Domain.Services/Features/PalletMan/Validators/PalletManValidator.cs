@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.PalletMan.Validators;
 
-internal abstract class PalletManValidator : AbstractValidator<PalletManEntity>
+internal abstract class PalletManValidator : AbstractValidator<Models.Entities.Users.PalletMan>
 {
     protected PalletManValidator()
     {

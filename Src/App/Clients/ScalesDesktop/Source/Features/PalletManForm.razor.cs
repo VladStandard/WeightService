@@ -1,13 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMan;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -25,7 +22,7 @@ public sealed partial class PalletManForm : ComponentBase
     # endregion
 
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
-    private IEnumerable<PalletManEntity> GetAllPalletMen { get; set; } = [];
+    private IEnumerable<PalletMan> GetAllPalletMen { get; set; } = [];
 
     protected override void OnInitialized()
     {
@@ -52,7 +49,7 @@ public sealed partial class PalletManForm : ComponentBase
 public class PalletManFormModel
 {
     [Required(ErrorMessage = "Пользователь обязателен для заполнения")]
-    public PalletManEntity? User { get; set; }
+    public PalletMan? User { get; set; }
 
     [Required(ErrorMessage = "Пароль обязателен для заполнения")]
     [RegularExpression(@"\d{4}$", ErrorMessage = "Пароль должен состоять из 4 цифр")]

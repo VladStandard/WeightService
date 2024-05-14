@@ -1,13 +1,8 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Shared.Resources;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace DeviceControl.Source.Pages.References1C.Plus.Characteristics;
 
-public sealed partial class PieceCharacteristicsDataGrid : SectionDataGridPageBase<CharacteristicEntity>
+public sealed partial class PieceCharacteristicsDataGrid : SectionDataGridPageBase<PluCharacteristic>
 {
     # region Injects
 
@@ -18,5 +13,5 @@ public sealed partial class PieceCharacteristicsDataGrid : SectionDataGridPageBa
 
     [CascadingParameter(Name = "DialogItem")] public PluEntity Plu { get; set; } = null!;
 
-    protected override IEnumerable<CharacteristicEntity> SetSqlSectionCast() => Plu.CharacteristicsWithNesting;
+    protected override IEnumerable<PluCharacteristic> SetSqlSectionCast() => Plu.CharacteristicsWithNesting;
 }

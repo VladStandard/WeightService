@@ -1,12 +1,6 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
-using DeviceControl.Source.Shared.Auth.Policies;
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.User;
 using Ws.Shared.Utils;
 
@@ -22,7 +16,7 @@ public sealed partial class NavMenu : ComponentBase
 
     private bool IsProduction { get; set; }
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    private UserEntity User { get; set; } = new();
+    private User User { get; set; } = new();
 
     protected override void OnInitialized()
     {

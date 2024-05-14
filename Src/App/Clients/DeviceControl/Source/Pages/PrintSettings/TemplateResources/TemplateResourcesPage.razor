@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.ZplResourceEntity>
+@using Ws.Domain.Models.Entities.Print
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.ZplResource>
 @attribute [Route($"{RouteUtils.SectionTemplateResources}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -17,19 +17,19 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="ZplResourceEntity"
+    TItem="ZplResource"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(ZplResourceEntity.ChangeDt)"
+        Field="@nameof(ZplResource.ChangeDt)"
         Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(ZplResourceEntity.Name)"
+        Field="@nameof(ZplResource.Name)"
         Width="80%"
       />
     </ColumnsContent>

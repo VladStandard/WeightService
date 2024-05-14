@@ -1,17 +1,11 @@
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.User;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class UsersPage : SectionDataGridPageBase<UserEntity>
+public sealed partial class UsersPage : SectionDataGridPageBase<User>
 {
     #region Inject
 
@@ -25,22 +19,22 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserEntity>
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<UsersCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(UserEntity item)
+    protected override async Task OpenDataGridEntityModal(User item)
         => await OpenSectionModal<UsersUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(UserEntity item)
+    protected override async Task OpenItemInNewTab(User item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionUsers}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<UserEntity> SetSqlSectionCast() =>
+    protected override IEnumerable<User> SetSqlSectionCast() =>
         UserService.GetAll();
 
-    protected override IEnumerable<UserEntity> SetSqlSearchingCast()
+    protected override IEnumerable<User> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [UserService.GetItemByUid(itemUid)];
     }
 
-    protected override Task DeleteItemAction(UserEntity item)
+    protected override Task DeleteItemAction(User item)
     {
         ClaimsCacheProvider.ClearCacheByUserName(item.Name);
         UserService.Delete(item);

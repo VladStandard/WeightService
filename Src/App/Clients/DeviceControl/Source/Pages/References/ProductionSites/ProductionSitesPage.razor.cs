@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References.ProductionSites;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class ProductionSitesPage : SectionDataGridPageBase<ProductionSiteEntity>
+public sealed partial class ProductionSitesPage : SectionDataGridPageBase<ProductionSite>
 {
     #region Inject
 
@@ -23,21 +17,21 @@ public sealed partial class ProductionSitesPage : SectionDataGridPageBase<Produc
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<ProductionSitesCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(ProductionSiteEntity item)
+    protected override async Task OpenDataGridEntityModal(ProductionSite item)
         => await OpenSectionModal<ProductionSitesUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(ProductionSiteEntity item)
+    protected override async Task OpenItemInNewTab(ProductionSite item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<ProductionSiteEntity> SetSqlSectionCast() => ProductionSiteService.GetAll();
+    protected override IEnumerable<ProductionSite> SetSqlSectionCast() => ProductionSiteService.GetAll();
 
-    protected override IEnumerable<ProductionSiteEntity> SetSqlSearchingCast()
+    protected override IEnumerable<ProductionSite> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [ProductionSiteService.GetItemByUid(itemUid)];
     }
 
-    protected override Task DeleteItemAction(ProductionSiteEntity item)
+    protected override Task DeleteItemAction(ProductionSite item)
     {
         ProductionSiteService.Delete(item);
         return Task.CompletedTask;

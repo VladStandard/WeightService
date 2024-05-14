@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Claim;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.Roles;
 
-public sealed partial class RolesCreateForm : SectionFormBase<ClaimEntity>
+public sealed partial class RolesCreateForm : SectionFormBase<Claim>
 {
     # region Injects
 
@@ -17,11 +12,11 @@ public sealed partial class RolesCreateForm : SectionFormBase<ClaimEntity>
 
     # endregion
 
-    protected override ClaimEntity CreateItemAction(ClaimEntity item) =>
+    protected override Claim CreateItemAction(Claim item) =>
         ClaimService.Create(item);
 }
 
-public class RolesCreateFormValidator : AbstractValidator<ClaimEntity>
+public class RolesCreateFormValidator : AbstractValidator<Claim>
 {
     public RolesCreateFormValidator()
     {

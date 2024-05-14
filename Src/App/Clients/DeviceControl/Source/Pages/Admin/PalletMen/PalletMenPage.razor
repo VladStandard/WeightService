@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.PalletManEntity>
+@using Ws.Domain.Models.Entities.Users
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.PalletMan>
 @attribute [Route($"{RouteUtils.SectionPalletMen}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
@@ -17,19 +17,19 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="PalletManEntity"
+    TItem="PalletMan"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(PalletManEntity.ChangeDt)"
+        Field="@nameof(PalletMan.ChangeDt)"
         Width="40%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColFIO"]"
-        Field="@nameof(PalletManEntity.Fio)"
+        Field="@nameof(PalletMan.Fio)"
         Width="60%"
       />
     </ColumnsContent>

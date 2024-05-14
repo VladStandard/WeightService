@@ -1,11 +1,11 @@
 using Ws.Database.Nhibernate.Types;
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Enums;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Printers;
 
-internal class SqlPrinterMap : ClassMapping<PrinterEntity>
+internal class SqlPrinterMap : ClassMapping<Printer>
 {
     public SqlPrinterMap()
     {

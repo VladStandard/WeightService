@@ -4,8 +4,6 @@ using DeviceControl.Source.App;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
-using DeviceControl.Source.Shared.Auth.Policies;
-using DeviceControl.Source.Shared.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.FluentUI.AspNetCore.Components;

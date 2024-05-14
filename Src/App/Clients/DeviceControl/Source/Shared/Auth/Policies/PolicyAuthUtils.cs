@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceControl.Source.Shared.Auth.Policies;
 

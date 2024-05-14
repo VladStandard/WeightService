@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Warehouse;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References.Warehouses;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class WarehousesPage : SectionDataGridPageBase<WarehouseEntity>
+public sealed partial class WarehousesPage : SectionDataGridPageBase<Warehouse>
 {
     #region Inject
 
@@ -23,21 +17,21 @@ public sealed partial class WarehousesPage : SectionDataGridPageBase<WarehouseEn
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<WarehousesCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(WarehouseEntity item)
+    protected override async Task OpenDataGridEntityModal(Warehouse item)
         => await OpenSectionModal<WarehousesUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(WarehouseEntity item)
+    protected override async Task OpenItemInNewTab(Warehouse item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<WarehouseEntity> SetSqlSectionCast() => WarehouseService.GetAll();
+    protected override IEnumerable<Warehouse> SetSqlSectionCast() => WarehouseService.GetAll();
 
-    protected override IEnumerable<WarehouseEntity> SetSqlSearchingCast()
+    protected override IEnumerable<Warehouse> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [WarehouseService.GetItemByUid(itemUid)];
     }
 
-    protected override Task DeleteItemAction(WarehouseEntity item)
+    protected override Task DeleteItemAction(Warehouse item)
     {
         WarehouseService.Delete(item);
         return Task.CompletedTask;

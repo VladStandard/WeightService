@@ -1,9 +1,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
-using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Services.Features.Line;
 using Ws.Labels.Service.Features.Generate;
@@ -13,7 +11,6 @@ using Ws.Printers.Enums;
 using Ws.Printers.Messages;
 using Ws.Scales.Enums;
 using Ws.Scales.Messages;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
@@ -154,7 +151,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
         });
 
     private bool GetPrintLabelDisabledStatus() =>
-        LabelContext.Plu.IsNew || LabelContext.Plu.Nesting.IsNew ||
+        LabelContext.Plu.IsNew || LabelContext.Plu.PluNesting.IsNew ||
         LabelContext.Plu.IsCheckWeight & IsScalesDisconnected;
 
     private decimal GetWeight() =>

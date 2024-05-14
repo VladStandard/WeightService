@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.StorageMethod;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.PrintSettings.StorageMethods;
 
-public sealed partial class StorageMethodsCreateForm : SectionFormBase<StorageMethodEntity>
+public sealed partial class StorageMethodsCreateForm : SectionFormBase<StorageMethod>
 {
     #region Inject
 
@@ -17,11 +12,11 @@ public sealed partial class StorageMethodsCreateForm : SectionFormBase<StorageMe
 
     #endregion
 
-    protected override StorageMethodEntity CreateItemAction(StorageMethodEntity item) =>
+    protected override StorageMethod CreateItemAction(StorageMethod item) =>
         StorageMethodService.Create(item);
 }
 
-public class StorageMethodsCreateFormValidator : AbstractValidator<StorageMethodEntity>
+public class StorageMethodsCreateFormValidator : AbstractValidator<StorageMethod>
 {
     public StorageMethodsCreateFormValidator()
     {

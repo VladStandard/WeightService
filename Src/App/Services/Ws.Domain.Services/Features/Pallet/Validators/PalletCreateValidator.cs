@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Print;
-
 namespace Ws.Domain.Services.Features.Pallet.Validators;
 
-internal class PalletCreateValidator : AbstractValidator<PalletEntity>
+internal class PalletCreateValidator : AbstractValidator<Models.Entities.Print.Pallet>
 {
     public PalletCreateValidator()
     {

@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Warehouses;
 
-internal class SqlWarehouseMap : ClassMapping<WarehouseEntity>
+internal class SqlWarehouseMap : ClassMapping<Warehouse>
 {
     public SqlWarehouseMap()
     {

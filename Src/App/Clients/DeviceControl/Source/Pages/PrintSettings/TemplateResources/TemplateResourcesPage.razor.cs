@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResource;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.PrintSettings.TemplateResources;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplResourceEntity>
+public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplResource>
 {
     #region Inject
 
@@ -23,21 +17,21 @@ public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplR
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());
 
-    protected override async Task OpenDataGridEntityModal(ZplResourceEntity item)
+    protected override async Task OpenDataGridEntityModal(ZplResource item)
         => await OpenSectionModal<TemplateResourcesUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(ZplResourceEntity item)
+    protected override async Task OpenItemInNewTab(ZplResource item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionTemplateResources}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<ZplResourceEntity> SetSqlSectionCast() => ZplResourceService.GetAll();
+    protected override IEnumerable<ZplResource> SetSqlSectionCast() => ZplResourceService.GetAll();
 
-    protected override IEnumerable<ZplResourceEntity> SetSqlSearchingCast()
+    protected override IEnumerable<ZplResource> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [ZplResourceService.GetItemByUid(itemUid)];
     }
 
-    protected override Task DeleteItemAction(ZplResourceEntity item)
+    protected override Task DeleteItemAction(ZplResource item)
     {
         ZplResourceService.Delete(item);
         return Task.CompletedTask;

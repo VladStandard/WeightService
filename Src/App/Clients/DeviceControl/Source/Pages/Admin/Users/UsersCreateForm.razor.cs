@@ -1,17 +1,12 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Claim;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 
-public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
+public sealed partial class UsersCreateForm : SectionFormBase<User>
 {
     #region Inject
 
@@ -23,8 +18,8 @@ public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
 
     #endregion
 
-    private HashSet<ClaimEntity> RolesEntities { get; set; } = [];
-    private IEnumerable<ProductionSiteEntity> ProductionSites { get; set; } = [];
+    private HashSet<Claim> RolesEntities { get; set; } = [];
+    private IEnumerable<ProductionSite> ProductionSites { get; set; } = [];
 
     protected override void OnInitialized()
     {
@@ -34,11 +29,11 @@ public sealed partial class UsersCreateForm : SectionFormBase<UserEntity>
         base.OnInitialized();
     }
 
-    protected override UserEntity CreateItemAction(UserEntity item) =>
+    protected override User CreateItemAction(User item) =>
         UserService.Create(item);
 }
 
-public class UsersCreateFormValidator : AbstractValidator<UserEntity>
+public class UsersCreateFormValidator : AbstractValidator<User>
 {
     public UsersCreateFormValidator()
     {

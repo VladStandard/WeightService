@@ -2,7 +2,8 @@
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.UserEntity>
+@using Ws.Domain.Models.Entities.Users
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<User>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -20,7 +21,7 @@
     />
 
     <SectionSelectMultipleField
-      TItem="ClaimEntity"
+      TItem="Claim"
       Items="RolesEntities"
       Label="@WsDataLocalizer["ColRoles"]"
       @bind-Value="@DialogItem.Claims"
@@ -28,7 +29,7 @@
     />
 
     <SectionSelectSingleField
-      TItem="ProductionSiteEntity"
+      TItem="ProductionSite"
       Items="ProductionSite"
       Label="@WsDataLocalizer["ColProductionSite"]"
       Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"

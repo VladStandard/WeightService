@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Ws.Labels.Service.Features.Generate.Common.XmlBarcode;
 using Ws.Labels.Service.Features.Generate.Models;
 

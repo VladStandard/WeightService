@@ -1,5 +1,4 @@
 using Ws.Database.Nhibernate.Entities.Ref.Printers;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Printer.Validators;
 
@@ -8,18 +7,18 @@ namespace Ws.Domain.Services.Features.Printer;
 internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterService
 {
     [Transactional]
-    public PrinterEntity GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
+    public Models.Entities.Devices.Printer GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
 
     [Transactional, Validate<PrinterNewValidator>]
-    public PrinterEntity Create(PrinterEntity item) => printerRepo.Save(item);
+    public Models.Entities.Devices.Printer Create(Models.Entities.Devices.Printer item) => printerRepo.Save(item);
 
     [Transactional, Validate<PrinterUpdateValidator>]
-    public PrinterEntity Update(PrinterEntity item) => printerRepo.Update(item);
+    public Models.Entities.Devices.Printer Update(Models.Entities.Devices.Printer item) => printerRepo.Update(item);
 
     [Transactional]
-    public void Delete(PrinterEntity item) => printerRepo.Delete(item);
+    public void Delete(Models.Entities.Devices.Printer item) => printerRepo.Delete(item);
 
     [Transactional]
-    public IEnumerable<PrinterEntity> GetAllByProductionSite(ProductionSiteEntity site) =>
+    public IEnumerable<Models.Entities.Devices.Printer> GetAllByProductionSite(Models.Entities.Ref.ProductionSite site) =>
         printerRepo.GetAllByProductionSite(site);
 }

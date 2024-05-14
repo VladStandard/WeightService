@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Box;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Boxes;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class BoxesPage : SectionDataGridPageBase<BoxEntity>
+public sealed partial class BoxesPage : SectionDataGridPageBase<Box>
 {
     # region Injects
 
@@ -20,15 +14,15 @@ public sealed partial class BoxesPage : SectionDataGridPageBase<BoxEntity>
 
     # endregion
 
-    protected override async Task OpenDataGridEntityModal(BoxEntity item)
+    protected override async Task OpenDataGridEntityModal(Box item)
         => await OpenSectionModal<BoxesUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(BoxEntity item)
+    protected override async Task OpenItemInNewTab(Box item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<BoxEntity> SetSqlSectionCast() => BoxService.GetAll();
+    protected override IEnumerable<Box> SetSqlSectionCast() => BoxService.GetAll();
 
-    protected override IEnumerable<BoxEntity> SetSqlSearchingCast()
+    protected override IEnumerable<Box> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [BoxService.GetItemByUid(itemUid)];

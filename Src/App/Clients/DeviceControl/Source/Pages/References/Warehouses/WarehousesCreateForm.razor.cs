@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.Warehouse;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References.Warehouses;
 
-public sealed partial class WarehousesCreateForm : SectionFormBase<WarehouseEntity>
+public sealed partial class WarehousesCreateForm : SectionFormBase<Warehouse>
 {
     #region Inject
 
@@ -21,7 +15,7 @@ public sealed partial class WarehousesCreateForm : SectionFormBase<WarehouseEnti
 
     #endregion
 
-    private IEnumerable<ProductionSiteEntity> PlatformEntities { get; set; } = new List<ProductionSiteEntity>();
+    private IEnumerable<ProductionSite> PlatformEntities { get; set; } = new List<ProductionSite>();
 
     protected override void OnInitialized()
     {
@@ -30,11 +24,11 @@ public sealed partial class WarehousesCreateForm : SectionFormBase<WarehouseEnti
         base.OnInitialized();
     }
 
-    protected override WarehouseEntity CreateItemAction(WarehouseEntity item) =>
+    protected override Warehouse CreateItemAction(Warehouse item) =>
         WarehouseService.Create(item);
 }
 
-public class WarehousesCreateFormValidator : AbstractValidator<WarehouseEntity>
+public class WarehousesCreateFormValidator : AbstractValidator<Warehouse>
 {
     public WarehousesCreateFormValidator()
     {

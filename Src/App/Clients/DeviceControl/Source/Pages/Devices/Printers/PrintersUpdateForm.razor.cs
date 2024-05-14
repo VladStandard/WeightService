@@ -1,22 +1,14 @@
 using System.Net;
-using DeviceControl.Source.Shared.Auth.Policies;
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Devices;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Printer;
 using Ws.Domain.Services.Features.ProductionSite;
 using Ws.Domain.Services.Features.User;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
-public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
+public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
 {
     # region Injects
 
@@ -31,7 +23,7 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
     # endregion
 
     private IEnumerable<PrinterTypeEnum> PrinterTypes { get; set; } = new List<PrinterTypeEnum>();
-    private UserEntity User { get; set; } = new();
+    private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
 
@@ -51,17 +43,17 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterEntity>
         IsOnlyView = !IsSeniorSupport && !(User.ProductionSite != null && User.ProductionSite.Equals(DialogItem.ProductionSite));
     }
 
-    protected override PrinterEntity UpdateItemAction(PrinterEntity item) =>
+    protected override Printer UpdateItemAction(Printer item) =>
         PrinterService.Update(item);
 
-    protected override Task DeleteItemAction(PrinterEntity item)
+    protected override Task DeleteItemAction(Printer item)
     {
         PrinterService.Delete(item);
         return Task.CompletedTask;
     }
 }
 
-public class PrintersUpdateFormValidator : AbstractValidator<PrinterEntity>
+public class PrintersUpdateFormValidator : AbstractValidator<Printer>
 {
     public PrintersUpdateFormValidator()
     {

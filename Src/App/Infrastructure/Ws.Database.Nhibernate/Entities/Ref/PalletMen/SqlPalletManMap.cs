@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.PalletMen;
 
-internal sealed class SqlPalletManMap : ClassMapping<PalletManEntity>
+internal sealed class SqlPalletManMap : ClassMapping<PalletMan>
 {
     public SqlPalletManMap()
     {

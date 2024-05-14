@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 

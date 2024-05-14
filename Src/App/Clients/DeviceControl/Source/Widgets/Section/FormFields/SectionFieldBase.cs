@@ -1,7 +1,4 @@
 using System.Linq.Expressions;
-using DeviceControl.Source.Shared.Localization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 
 namespace DeviceControl.Source.Widgets.Section.FormFields;
 

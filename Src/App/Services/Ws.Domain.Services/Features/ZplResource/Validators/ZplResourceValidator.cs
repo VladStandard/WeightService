@@ -1,8 +1,6 @@
-using Ws.Domain.Models.Entities.Ref;
-
 namespace Ws.Domain.Services.Features.ZplResource.Validators;
 
-internal abstract class ZplResourceValidator : AbstractValidator<ZplResourceEntity>
+internal abstract class ZplResourceValidator : AbstractValidator<Models.Entities.Print.ZplResource>
 {
     protected ZplResourceValidator()
     {

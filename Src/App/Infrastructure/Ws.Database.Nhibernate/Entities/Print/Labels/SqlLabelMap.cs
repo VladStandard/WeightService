@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Print.Labels;
 
-internal sealed class SqlLabelMap : ClassMapping<LabelEntity>
+internal sealed class SqlLabelMap : ClassMapping<Label>
 {
     public SqlLabelMap()
     {

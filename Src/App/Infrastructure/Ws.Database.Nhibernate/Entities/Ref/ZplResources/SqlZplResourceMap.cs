@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.ZplResources;
 
-internal sealed class SqlZplResourceMap : ClassMapping<ZplResourceEntity>
+internal sealed class SqlZplResourceMap : ClassMapping<ZplResource>
 {
     public SqlZplResourceMap()
     {

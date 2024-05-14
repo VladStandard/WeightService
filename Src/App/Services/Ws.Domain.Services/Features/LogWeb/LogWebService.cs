@@ -1,5 +1,4 @@
 using Ws.Database.Nhibernate.Entities.Diag.LogWebs;
-using Ws.Domain.Models.Entities.Diag;
 using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.LogWeb;
@@ -7,14 +6,14 @@ namespace Ws.Domain.Services.Features.LogWeb;
 internal class LogWebService(SqlLogWebRepository logWebRepo) : ILogWebService
 {
     [Transactional]
-    public IEnumerable<LogWebEntity> GetAll() => logWebRepo.GetList();
+    public IEnumerable<Models.Entities.Diag.LogWeb> GetAll() => logWebRepo.GetList();
 
     [Transactional]
-    public LogWebEntity GetItemByUid(Guid uid) => logWebRepo.GetByUid(uid);
+    public Models.Entities.Diag.LogWeb GetItemByUid(Guid uid) => logWebRepo.GetByUid(uid);
 
     public void Save(DateTime requestStampDt, string request, string response, string url, int success, int errors)
     {
-        LogWebEntity webLog = new()
+        Models.Entities.Diag.LogWeb webLog = new()
         {
             CreateDt = requestStampDt,
             StampDt = DateTime.Now,

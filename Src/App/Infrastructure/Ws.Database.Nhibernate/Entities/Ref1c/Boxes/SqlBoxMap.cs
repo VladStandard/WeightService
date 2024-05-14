@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Boxes;
 
-internal class SqlBoxMap : ClassMapping<BoxEntity>
+internal class SqlBoxMap : ClassMapping<Box>
 {
     public SqlBoxMap()
     {

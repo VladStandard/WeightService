@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Brand;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Brands;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class BrandsPage : SectionDataGridPageBase<BrandEntity>
+public sealed partial class BrandsPage : SectionDataGridPageBase<Brand>
 {
     #region Inject
 
@@ -20,15 +14,15 @@ public sealed partial class BrandsPage : SectionDataGridPageBase<BrandEntity>
 
     #endregion
 
-    protected override async Task OpenDataGridEntityModal(BrandEntity item)
+    protected override async Task OpenDataGridEntityModal(Brand item)
         => await OpenSectionModal<BrandsUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(BrandEntity item)
+    protected override async Task OpenItemInNewTab(Brand item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<BrandEntity> SetSqlSectionCast() => BrandService.GetAll();
+    protected override IEnumerable<Brand> SetSqlSectionCast() => BrandService.GetAll();
 
-    protected override IEnumerable<BrandEntity> SetSqlSearchingCast()
+    protected override IEnumerable<Brand> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [BrandService.GetItemByUid(itemUid)];

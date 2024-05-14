@@ -2,7 +2,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.BoxEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Box>
 @attribute [Route($"{RouteUtils.SectionBoxes}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
 
@@ -15,7 +15,7 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="BoxEntity"
+    TItem="Box"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
   >
@@ -36,15 +36,15 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(BoxEntity.ChangeDt)"
+        Field="@nameof(Box.ChangeDt)"
         Width="20%"/>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(BoxEntity.Name)"
+        Field="@nameof(Box.Name)"
         Width="55%"/>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColWeight"]"
-        Field="@nameof(BoxEntity.Weight)"
+        Field="@nameof(Box.Weight)"
         Width="20%"/>
     </ColumnsContent>
     <ContextMenuContent>

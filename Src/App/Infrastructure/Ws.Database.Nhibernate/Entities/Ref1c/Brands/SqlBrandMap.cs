@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Brands;
 
-internal sealed class SqlBrandMap : ClassMapping<BrandEntity>
+internal sealed class SqlBrandMap : ClassMapping<Brand>
 {
     public SqlBrandMap()
     {

@@ -1,7 +1,5 @@
 @using Blazor.Heroicons.Outline
-@using Microsoft.Extensions.Localization
-@using Ws.Domain.Models.Entities.Ref1c
-@using Ws.Shared.Resources
+@using Ws.Domain.Models.Entities.Ref1c.Plu
 <div class="grid w-full overflow-hidden px-4 py-4 grid-cols-[auto_1fr] gap-y-2 gap-x-4 xl:text-xl">
   <div class="flex items-center text-muted-foreground">
     <MagnifyingGlassIcon class="size-4 mr-1" />
@@ -19,7 +17,7 @@
     <ArchiveBoxIcon class="size-4 mr-1 mt-1.5" />
     <h3>@WsDataLocalizer["ColBox"]</h3>
   </div>
-  <span class="line-clamp-2">@Plu.Nesting.Box.Name</span>
+  <span class="line-clamp-2">@Plu.PluNesting.Box.Name</span>
 
   <div class="flex items-center text-muted-foreground">
     <ShoppingBagIcon class="size-4 mr-1" />
@@ -31,7 +29,7 @@
     <InboxStackIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColCount"]</h3>
   </div>
-  <span class="line-clamp-2">@Plu.Nesting.BundleCount шт</span>
+  <span class="line-clamp-2">@Plu.PluNesting.BundleCount шт</span>
 </div>
 
 @code {

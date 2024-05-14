@@ -1,9 +1,9 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
 
-internal sealed class SqlStorageMethodMap : ClassMapping<StorageMethodEntity>
+internal sealed class SqlStorageMethodMap : ClassMapping<StorageMethod>
 {
     public SqlStorageMethodMap()
     {

@@ -1,10 +1,7 @@
 using Append.Blazor.Printing;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using ScalesDesktop.Features.Pallet.Viewer;
-using ScalesDesktop.Source.Shared.Localization;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Shared.Resources;
 
 namespace ScalesDesktop.Source.Features;
 

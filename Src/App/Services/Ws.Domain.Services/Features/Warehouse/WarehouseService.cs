@@ -1,5 +1,4 @@
 using Ws.Database.Nhibernate.Entities.Ref.Warehouses;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Warehouse.Validators;
 
@@ -8,21 +7,21 @@ namespace Ws.Domain.Services.Features.Warehouse;
 internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehouseService
 {
     [Transactional]
-    public WarehouseEntity GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
+    public Models.Entities.Ref.Warehouse GetItemByUid(Guid uid) => warehouseRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<WarehouseEntity> GetAll() => warehouseRepo.GetAll();
+    public IEnumerable<Models.Entities.Ref.Warehouse> GetAll() => warehouseRepo.GetAll();
 
     [Transactional, Validate<WarehouseNewValidator>]
-    public WarehouseEntity Create(WarehouseEntity item) => warehouseRepo.Save(item);
+    public Models.Entities.Ref.Warehouse Create(Models.Entities.Ref.Warehouse item) => warehouseRepo.Save(item);
 
     [Transactional, Validate<WarehouseUpdateValidator>]
-    public WarehouseEntity Update(WarehouseEntity item) => warehouseRepo.Update(item);
+    public Models.Entities.Ref.Warehouse Update(Models.Entities.Ref.Warehouse item) => warehouseRepo.Update(item);
 
     [Transactional]
-    public void Delete(WarehouseEntity item) => warehouseRepo.Delete(item);
+    public void Delete(Models.Entities.Ref.Warehouse item) => warehouseRepo.Delete(item);
 
     [Transactional]
-    public IEnumerable<WarehouseEntity> GetAllByProductionSite(ProductionSiteEntity productionSite) =>
+    public IEnumerable<Models.Entities.Ref.Warehouse> GetAllByProductionSite(Models.Entities.Ref.ProductionSite productionSite) =>
         warehouseRepo.GetAllByProductionSite(productionSite);
 }

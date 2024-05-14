@@ -1,6 +1,5 @@
 using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.ZplResources;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.ZplResource.Validators;
 
@@ -10,19 +9,19 @@ internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRe
     : IZplResourceService
 {
     [Transactional]
-    public ZplResourceEntity GetItemByUid(Guid uid) => zplResourceRepo.GetByUid(uid);
+    public Models.Entities.Print.ZplResource GetItemByUid(Guid uid) => zplResourceRepo.GetByUid(uid);
 
     [Transactional]
-    public IEnumerable<ZplResourceEntity> GetAll() => zplResourceRepo.GetAll().ToList();
+    public IEnumerable<Models.Entities.Print.ZplResource> GetAll() => zplResourceRepo.GetAll().ToList();
 
     [Transactional, Validate<ZplResourceNewValidator>]
-    public ZplResourceEntity Create(ZplResourceEntity item) => UpdateCache(zplResourceRepo.Save(item));
+    public Models.Entities.Print.ZplResource Create(Models.Entities.Print.ZplResource item) => UpdateCache(zplResourceRepo.Save(item));
 
     [Transactional, Validate<ZplResourceUpdateValidator>]
-    public ZplResourceEntity Update(ZplResourceEntity item) => UpdateCache(zplResourceRepo.Update(item));
+    public Models.Entities.Print.ZplResource Update(Models.Entities.Print.ZplResource item) => UpdateCache(zplResourceRepo.Update(item));
 
     [Transactional]
-    public void Delete(ZplResourceEntity item)
+    public void Delete(Models.Entities.Print.ZplResource item)
     {
         zplResourceRepo.Delete(item);
         provider.HDel("ZPL_RESOURCES", [item.Name]);

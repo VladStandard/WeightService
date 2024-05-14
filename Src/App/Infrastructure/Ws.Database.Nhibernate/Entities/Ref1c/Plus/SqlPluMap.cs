@@ -1,5 +1,5 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 
@@ -107,7 +107,7 @@ internal sealed class SqlPluMap : ClassMapping<PluEntity>
             m.Lazy(LazyRelation.NoLazy);
         });
 
-        OneToOne(x => x.Nesting, m =>
+        OneToOne(x => x.PluNesting, m =>
         {
             m.Cascade(Cascade.All);
             m.Lazy(LazyRelation.NoLazy);

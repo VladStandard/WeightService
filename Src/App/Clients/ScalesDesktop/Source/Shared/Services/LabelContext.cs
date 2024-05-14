@@ -1,6 +1,7 @@
 using ScalesDesktop.Source.Shared.Models;
-using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Ref1c;
+using Ws.Domain.Models.Entities.Devices;
+using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Features.Line;
 
 namespace ScalesDesktop.Source.Shared.Services;
@@ -10,8 +11,8 @@ public class LabelContext : IDisposable
     private ILineService LineService { get; }
     private LineContext LineContext { get; }
 
-    public LineEntity Line => LineContext.Line;
-    public PrinterEntity Printer => LineContext.PrinterEntity;
+    public Arm Line => LineContext.Line;
+    public Printer Printer => LineContext.Printer;
     public PluEntity Plu { get; private set; } = new();
     public WeightKneadingModel KneadingModel { get; private set; } = new();
     public IEnumerable<PluEntity> PluEntities { get; private set; } = [];

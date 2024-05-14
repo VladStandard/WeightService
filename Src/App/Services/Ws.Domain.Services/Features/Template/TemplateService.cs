@@ -1,6 +1,5 @@
 using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.Templates;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Template.Validators;
 
@@ -9,18 +8,18 @@ namespace Ws.Domain.Services.Features.Template;
 internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCachingProvider provider) : ITemplateService
 {
     [Transactional]
-    public IEnumerable<TemplateEntity> GetAll() => templateRepo.GetAll();
+    public IEnumerable<Models.Entities.Print.Template> GetAll() => templateRepo.GetAll();
 
     [Transactional]
-    public TemplateEntity GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
+    public Models.Entities.Print.Template GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
 
     [Transactional, Validate<TemplateNewValidator>]
-    public TemplateEntity Create(TemplateEntity item) => templateRepo.Save(item);
+    public Models.Entities.Print.Template Create(Models.Entities.Print.Template item) => templateRepo.Save(item);
 
     [Transactional, Validate<TemplateUpdateValidator>]
-    public TemplateEntity Update(TemplateEntity item)
+    public Models.Entities.Print.Template Update(Models.Entities.Print.Template item)
     {
-        TemplateEntity template = templateRepo.Update(item);
+        Models.Entities.Print.Template template = templateRepo.Update(item);
 
         string zplKey = $"TEMPLATES:{template.Uid}";
         if (provider.KeyExists(zplKey))
@@ -30,10 +29,10 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
     }
 
     [Transactional]
-    public void Delete(TemplateEntity item) => templateRepo.Delete(item);
+    public void Delete(Models.Entities.Print.Template item) => templateRepo.Delete(item);
 
     [Transactional]
-    public IEnumerable<TemplateEntity> GetTemplatesByIsWeight(bool isWeight) =>
+    public IEnumerable<Models.Entities.Print.Template> GetTemplatesByIsWeight(bool isWeight) =>
         templateRepo.GetTemplatesByIsWeight(isWeight);
 
     public string? GetTemplateByUidFromCacheOrDb(Guid templateUid)
@@ -43,7 +42,7 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
         if (provider.KeyExists(zplKey))
             return provider.StringGet(zplKey);
 
-        TemplateEntity temp = GetItemByUid(templateUid);
+        Models.Entities.Print.Template temp = GetItemByUid(templateUid);
 
         if (!temp.IsExists || temp.Body == string.Empty) return null;
 

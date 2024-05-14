@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMan;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
-public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletManEntity>
+public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
 {
     #region Inject
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
@@ -16,17 +11,17 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletManEntit
 
     #endregion
 
-    protected override PalletManEntity UpdateItemAction(PalletManEntity item) =>
+    protected override PalletMan UpdateItemAction(PalletMan item) =>
         PalletManService.Update(item);
 
-    protected override Task DeleteItemAction(PalletManEntity item)
+    protected override Task DeleteItemAction(PalletMan item)
     {
         PalletManService.Delete(item);
         return Task.CompletedTask;
     }
 }
 
-public class PalletMenUpdateFormValidator : AbstractValidator<PalletManEntity>
+public class PalletMenUpdateFormValidator : AbstractValidator<PalletMan>
 {
     public PalletMenUpdateFormValidator()
     {

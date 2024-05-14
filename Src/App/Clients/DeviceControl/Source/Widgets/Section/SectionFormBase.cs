@@ -1,9 +1,5 @@
 using System.Security.Claims;
-using DeviceControl.Source.Shared.Localization;
 using Force.DeepCloner;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Services.Exceptions;
 

@@ -1,16 +1,10 @@
-using DeviceControl.Source.Shared.Localization;
-using DeviceControl.Source.Shared.Utils;
-using DeviceControl.Source.Widgets.Section;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Services.Features.Clip;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.References1C.Clips;
 
 // ReSharper disable ClassNeverInstantiated.Global
-public sealed partial class ClipsPage : SectionDataGridPageBase<ClipEntity>
+public sealed partial class ClipsPage : SectionDataGridPageBase<Clip>
 {
     #region Inject
 
@@ -20,15 +14,15 @@ public sealed partial class ClipsPage : SectionDataGridPageBase<ClipEntity>
 
     #endregion
 
-    protected override async Task OpenDataGridEntityModal(ClipEntity item)
+    protected override async Task OpenDataGridEntityModal(Clip item)
         => await OpenSectionModal<ClipsUpdateDialog>(item);
 
-    protected override async Task OpenItemInNewTab(ClipEntity item)
+    protected override async Task OpenItemInNewTab(Clip item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionClips}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<ClipEntity> SetSqlSectionCast() => ClipService.GetAll();
+    protected override IEnumerable<Clip> SetSqlSectionCast() => ClipService.GetAll();
 
-    protected override IEnumerable<ClipEntity> SetSqlSearchingCast()
+    protected override IEnumerable<Clip> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
         return [ClipService.GetItemByUid(itemUid)];

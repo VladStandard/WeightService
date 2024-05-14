@@ -1,14 +1,9 @@
-using DeviceControl.Source.Widgets.Section;
-using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using Ws.Domain.Models.Entities.Ref;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Template;
-using Ws.Shared.Resources;
 
 namespace DeviceControl.Source.Pages.PrintSettings.Templates;
 
-public sealed partial class TemplatesCreateForm : SectionFormBase<TemplateEntity>
+public sealed partial class TemplatesCreateForm : SectionFormBase<Template>
 {
     #region Inject
 
@@ -17,14 +12,14 @@ public sealed partial class TemplatesCreateForm : SectionFormBase<TemplateEntity
 
     #endregion
 
-    protected override TemplateEntity CreateItemAction(TemplateEntity item) =>
+    protected override Template CreateItemAction(Template item) =>
         TemplateService.Create(item);
 
     private string GetTemplateTypeName(bool isWeight) =>
         isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
 }
 
-public class TemplatesCreateFormValidator : AbstractValidator<TemplateEntity>
+public class TemplatesCreateFormValidator : AbstractValidator<Template>
 {
     public TemplatesCreateFormValidator()
     {

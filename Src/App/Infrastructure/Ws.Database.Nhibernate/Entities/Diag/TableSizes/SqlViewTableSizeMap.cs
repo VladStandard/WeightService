@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Diag;
 
 namespace Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 
-internal class SqlViewTableSizeMap : ClassMapping<TableSizeEntity>
+internal class SqlViewTableSizeMap : ClassMapping<TableSize>
 {
     public SqlViewTableSizeMap()
     {

@@ -1,6 +1,5 @@
 using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.StorageMethods;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.StorageMethod.Validators;
 
@@ -9,20 +8,20 @@ namespace Ws.Domain.Services.Features.StorageMethod;
 internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo, IRedisCachingProvider provider) : IStorageMethodService
 {
     [Transactional]
-    public IEnumerable<StorageMethodEntity> GetAll() => storageMethodRepo.GetList();
+    public IEnumerable<Models.Entities.Print.StorageMethod> GetAll() => storageMethodRepo.GetList();
 
     [Transactional]
-    public StorageMethodEntity GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
+    public Models.Entities.Print.StorageMethod GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
 
     [Transactional]
-    public StorageMethodEntity GetByName(string name) => storageMethodRepo.GetItemByName(name);
+    public Models.Entities.Print.StorageMethod GetByName(string name) => storageMethodRepo.GetItemByName(name);
 
     [Transactional, Validate<StorageMethodNewValidator>]
-    public StorageMethodEntity Create(StorageMethodEntity item) => storageMethodRepo.Save(item);
+    public Models.Entities.Print.StorageMethod Create(Models.Entities.Print.StorageMethod item) => storageMethodRepo.Save(item);
 
 
     [Transactional, Validate<StorageMethodUpdateValidator>]
-    public StorageMethodEntity Update(StorageMethodEntity item)
+    public Models.Entities.Print.StorageMethod Update(Models.Entities.Print.StorageMethod item)
     {
         item = storageMethodRepo.Update(item);
 
@@ -34,7 +33,7 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
     }
 
     [Transactional]
-    public void Delete(StorageMethodEntity item) => storageMethodRepo.Delete(item);
+    public void Delete(Models.Entities.Print.StorageMethod item) => storageMethodRepo.Delete(item);
 
     public string? GetStorageByNameFromCacheOrDb(string name)
     {
@@ -43,7 +42,7 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
         if (provider.KeyExists(key))
             return provider.StringGet(key);
 
-        StorageMethodEntity temp = GetByName(name);
+        Models.Entities.Print.StorageMethod temp = GetByName(name);
 
         if (!temp.IsExists || temp.Zpl == string.Empty) return null;
 
