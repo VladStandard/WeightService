@@ -8,6 +8,17 @@ namespace Ws.Database.EntityFramework.Extensions;
 
 internal static class ModelBuilderExtensions
 {
+    public static void SetDefaultTypeForString(this ModelBuilder modelBuilder)
+    {
+        foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
+        foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
+        {
+            int? maxValue = property.GetMaxLength();
+            property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
+        }
+
+    }
+
     public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
@@ -35,9 +46,12 @@ internal static class ModelBuilderExtensions
                 Type converterType = typeof(EnumToStringConverter<>)
                     .MakeGenericType(property.PropertyType);
 
+                int maxLength = Enum.GetNames(property.PropertyType).Max(name => name.Length);
+
                 ValueConverter converter = (ValueConverter)Activator.CreateInstance(converterType)!;
 
-                modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion(converter);
+                modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion(converter)
+                    .HasColumnType($"varchar({maxLength})");
             }
         }
     }

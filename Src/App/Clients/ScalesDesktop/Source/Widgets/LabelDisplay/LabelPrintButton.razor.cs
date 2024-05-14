@@ -33,7 +33,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
 
     #endregion
 
-    private PrinterStatusEnum PrinterStatus { get; set; } = PrinterStatusEnum.Unknown;
+    private PrinterStatus PrinterStatus { get; set; } = PrinterStatus.Unknown;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
@@ -106,7 +106,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
 
     private bool ValidatePrinterStatus()
     {
-        if (PrinterStatus is PrinterStatusEnum.Ready or PrinterStatusEnum.Busy) return true;
+        if (PrinterStatus is PrinterStatus.Ready or PrinterStatus.Busy) return true;
         PrintPrinterStatusMessage();
         return false;
     }
@@ -144,12 +144,12 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
     private void PrintPrinterStatusMessage() =>
         ToastService.ShowWarning(PrinterStatus switch
         {
-            PrinterStatusEnum.IsDisabled => Localizer["PrinterStatusIsDisabled"],
-            PrinterStatusEnum.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatusEnum.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatusEnum.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatusEnum.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatusEnum.PaperJam => Localizer["PrinterStatusPaperJam"],
+            PrinterStatus.IsDisabled => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatus.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
 

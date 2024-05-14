@@ -33,7 +33,7 @@ public sealed partial class LabelsPreview
     {
         try
         {
-            ImageData = await RenderLabelService.GetZplPreviewBase64(ZplCode);
+            ImageData = await RenderLabelService.GetZplPreviewBase64(ZplCode, 60, 150);
         }
         catch (RenderLabelException)
         {

@@ -61,9 +61,11 @@ public class WsDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.SetDefaultTypeForString();
         modelBuilder.UseIpAddressConversion();
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
+
 
         modelBuilder.MapLine();
         modelBuilder.MapUser();

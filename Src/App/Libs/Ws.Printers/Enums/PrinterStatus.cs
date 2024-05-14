@@ -1,6 +1,6 @@
 namespace Ws.Printers.Enums;
 
-public enum PrinterStatusEnum
+public enum PrinterStatus
 {
     IsDisabled,
     IsForceDisconnected,

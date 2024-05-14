@@ -6,5 +6,5 @@ namespace Ws.Printers.Features.Zebra;
 
 internal class ZebraPrinter(IPAddress ip, int port) : PrinterBase(ip, port)
 {
-    public override void RequestStatus() => ExecuteCommand(new ZebraGetStatusCommands(TcpClient));
+    public override void RequestStatus() => ExecuteCommand(new ZebraGetStatusCmd(TcpClient));
 }

@@ -7,8 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Ref.Users;
 [Index(nameof(Name), Name = $"UQ_{SqlTables.Users}_NAME", IsUnique = true)]
 public sealed class UserEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name)]
-    [StringLength(32)]
+    [Column(SqlColumns.Name), StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     [ForeignKey("PRODUCTION_SITE_UID")]

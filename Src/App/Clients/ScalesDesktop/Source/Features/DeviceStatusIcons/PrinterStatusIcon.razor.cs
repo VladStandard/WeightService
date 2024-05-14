@@ -16,10 +16,10 @@ public sealed partial class PrinterStatusIcon : ComponentBase, IRecipient<Printe
     {
         DeviceStatus = message.Status switch
         {
-            PrinterStatusEnum.IsDisabled => DeviceStatusEnum.IsDisabled,
-            PrinterStatusEnum.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
-            PrinterStatusEnum.Ready => DeviceStatusEnum.Connected,
-            PrinterStatusEnum.Busy => DeviceStatusEnum.Connected,
+            PrinterStatus.IsDisabled => DeviceStatusEnum.IsDisabled,
+            PrinterStatus.IsForceDisconnected => DeviceStatusEnum.IsForceDisconnected,
+            PrinterStatus.Ready => DeviceStatusEnum.Connected,
+            PrinterStatus.Busy => DeviceStatusEnum.Connected,
             _ => DeviceStatusEnum.Warning
         };
         StateHasChanged();
