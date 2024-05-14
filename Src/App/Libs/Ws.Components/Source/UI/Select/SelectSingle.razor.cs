@@ -7,17 +7,57 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
 {
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
-    [Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = [];
-    [Parameter, EditorRequired] public TItem? SelectedItem { get; set; }
-    [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
+    /// <summary>
+    /// The collection of items to be displayed in the dropdown.
+    /// </summary>
+    [Parameter] public IEnumerable<TItem> Items { get; set; } = [];
+
+    /// <summary>
+    /// The currently selected item from the dropdown.
+    /// </summary>
+    [Parameter] public TItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Event called whenever the selection changed.
+    /// </summary>
     [Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// A function to determine the display text for each item in the dropdown.
+    /// </summary>
+    [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item!.ToString()!;
+
+    /// <summary>
+    /// Determines whether the dropdown allows filtering of items based on user input.
+    /// </summary>
     [Parameter] public bool IsFilterable { get; set; }
+
+    /// <summary>
+    /// Determines whether the select trigger is disabled.
+    /// </summary>
     [Parameter] public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// The placeholder text displayed when no item is selected.
+    /// </summary>
     [Parameter] public string Placeholder { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The placeholder text displayed in the search input when filtering is enabled.
+    /// </summary>
     [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The placeholder text displayed when no items match the filter criteria.
+    /// </summary>
     [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The custom CSS class to apply to the select trigger.
+    /// </summary>
     [Parameter] public string Class { get; set; } = string.Empty;
 
+    private const int ResizeTimeout = 10;
     private ElementReference DropdownWrapper { get; set; }
     private string Id { get; } = $"id-{Guid.NewGuid()}";
     private string SearchString { get; set; } = string.Empty;
@@ -33,7 +73,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await Task.Delay(10);
+        await Task.Delay(ResizeTimeout);
         await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 
@@ -52,13 +92,6 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
 
     private string GetToggleText =>
         SelectedItem != null ? ItemDisplayName(SelectedItem) : Placeholder;
-
-    private async Task HandleSearchingChange(ChangeEventArgs e)
-    {
-        SearchString = e.Value?.ToString() ?? string.Empty;
-        StateHasChanged();
-        await Task.Delay(100);
-    }
 
     public async ValueTask DisposeAsync()
     {

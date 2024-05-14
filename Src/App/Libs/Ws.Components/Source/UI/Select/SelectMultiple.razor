@@ -6,14 +6,14 @@
     OnClick="@OpenDropdown"
     IsDisabled="@IsDisabled"
     IsActive="@IsOpen"
-    Class="select-button"
+    Class="@Css.Class("width-sub-element", Class)"
   >
-    <span class="pointer-events-none line-clamp-1">Выбрано @SelectedItems.Count() объектов</span>
+    <span class="pointer-events-none line-clamp-1">Выбрано @SelectedItems.Count объектов</span>
   </SelectTrigger>
   <Dropdown
     Anchor="@Id"
     @bind-IsOpen="IsOpen"
-    Class="select-dropdown"
+    Class="width-ref-element"
     VerticalThreshold="@(Math.Max(Items.Count, 8) * 40)"
   >
     @if (IsFilterable)
