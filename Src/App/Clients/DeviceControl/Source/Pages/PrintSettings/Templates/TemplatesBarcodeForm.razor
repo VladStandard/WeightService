@@ -56,7 +56,7 @@
     {
       TemplateService.Update(DialogItem);
       ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
-      await Dialog.CloseAsync(new SectionDialogContent<TemplateEntity>
+      await Dialog.CloseAsync(new SectionDialogContent<Template>
         { Item = DialogItem, DataAction = SectionDialogResultEnum.Update });
     }
     catch
