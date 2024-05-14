@@ -7,8 +7,8 @@ import { ResizableElement } from './types/resizable-element-type.ts'
  * @return {void} This function does not return anything.
  */
 const resizeElement = (element: Element): void => {
-  const button = element.querySelector('.select-button') as HTMLElement | null
-  const dropdown = element.querySelector('.select-dropdown') as HTMLElement | null
+  const button = element.querySelector('.width-sub-element') as HTMLElement | null
+  const dropdown = element.querySelector('.width-ref-element') as HTMLElement | null
   if (dropdown && button) dropdown.style.width = `${button.offsetWidth}px`
 }
 

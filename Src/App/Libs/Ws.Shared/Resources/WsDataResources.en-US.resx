@@ -260,4 +260,19 @@
     <data name="ColBarcodeBottom" xml:space="preserve">
         <value>Barcode Bottom</value>
     </data>
+    <data name="ColMask" xml:space="preserve">
+        <value>Mask</value>
+    </data>
+    <data name="ColSequence" xml:space="preserve">
+        <value>Sequence</value>
+    </data>
+    <data name="ColConst" xml:space="preserve">
+        <value>Const</value>
+    </data>
+    <data name="ColVariable" xml:space="preserve">
+        <value>Variable</value>
+    </data>
+    <data name="ColLength" xml:space="preserve">
+        <value>Length</value>
+    </data>
 </root>

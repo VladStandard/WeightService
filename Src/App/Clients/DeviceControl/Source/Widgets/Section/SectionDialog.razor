@@ -3,23 +3,23 @@
 
 <Dialog Class="max-w-screen-lg !p-0">
   <CascadingValue Value="DialogItem" Name="DialogItem">
-    <Tabs @bind-ActiveTabId="CurrentTabId">
-        <DialogHeader>
-          <ul class="flex gap-2">
-            @foreach (KeyValuePair<string, string> item in TabsList)
-            {
-              <li>
-                <Button
-                  Variant="@(CurrentTabId == item.Key ? ButtonVariant.Secondary : ButtonVariant.Outline)"
-                  OnClick="@(() => CurrentTabId = item.Key)">
-                  @item.Value
-                </Button>
-              </li>
-            }
-          </ul>
-        </DialogHeader>
-        @ChildContent
-      </Tabs>
+    <Tabs ActiveTabId="@CurrentTabId">
+      <DialogHeader>
+        <ul class="flex gap-2">
+          @foreach (KeyValuePair<string, string> item in TabsList)
+          {
+            <li>
+              <Button
+                Variant="@(CurrentTabId == item.Key ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                OnClick="@(() => CurrentTabId = item.Key)">
+                @item.Value
+              </Button>
+            </li>
+          }
+        </ul>
+      </DialogHeader>
+      @ChildContent
+    </Tabs>
   </CascadingValue>
 </Dialog>
 

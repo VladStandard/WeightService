@@ -12,7 +12,7 @@ using ITable = iText.Layout.Element.Table;
 using Paragraph = iText.Layout.Element.Paragraph;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 
-namespace ScalesDesktop.Features.Pallet.Viewer;
+namespace ScalesDesktop.Source.Shared.Utils;
 
 public class PalletCard
 {

@@ -260,4 +260,19 @@
     <data name="ColBarcodeRight" xml:space="preserve">
         <value/>
     </data>
+    <data name="ColMask" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColSequence" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColConst" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColVariable" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColLength" xml:space="preserve">
+        <value />
+    </data>
 </root>

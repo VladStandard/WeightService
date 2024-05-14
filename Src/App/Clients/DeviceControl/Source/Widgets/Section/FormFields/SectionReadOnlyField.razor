@@ -4,7 +4,7 @@
   Label="@Label"
   HtmlFor="@HtmlId"
   Path="@Path"
-  ValueToCopy="@(IsCopyable ? Value?.ToString() : string.Empty)"
+  ValueToCopy="@(IsCopyable ? ValueToCopy ?? Value?.ToString() : string.Empty)"
   Size="@(IsLarge ? SectionInputSize.Large : SectionInputSize.Default)"
 >
   @if (IsLarge)

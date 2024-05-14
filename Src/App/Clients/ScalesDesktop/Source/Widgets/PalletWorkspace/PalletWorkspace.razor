@@ -5,7 +5,7 @@
     CurrentTabId="@CurrentTabId"
   />
   <div class="size-full flex flex-col grow overflow-hidden bg-secondary/[.3]">
-    <Tabs @bind-ActiveTabId="CurrentTabId">
+    <Tabs ActiveTabId="@CurrentTabId">
       <Tab Id="@typeof(PalletOverview).ToString()">
         <PalletOverview />
       </Tab>

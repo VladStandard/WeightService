@@ -2,13 +2,10 @@
   "name": "scales-mobile",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify",
-    "tw": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --watch"
+    "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify"
   },
-  "keywords": [],
-  "author": "",
+  "author": "WS",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.19",

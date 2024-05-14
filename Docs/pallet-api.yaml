@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+    title: PalletCard API
+    version: 1.0.0
+    description: API для создания/редактирования/удаления паллетных карт
+paths:
+    /pallet_cards:
+        post:
+            summary: Создание паллетных карт
+            requestBody:
+                required: true
+                content:
+                    application/xml:
+                        schema:
+                            $ref: '#/components/schemas/PalletCard'
+            responses:
+                '201':
+                    description: Created
+components:
+    schemas:
+        PalletCard:
+            type: object
+            properties:
+                CardId:
+                    type: integer
+                    description: Номер палетной карты
+                ArmId:
+                    type: integer
+                    description: Номер ARM
+                PalletManUid:
+                    type: string
+                    format: uuid
+                    description: Уникальный индетификатор создателя паллетной карты
+                WarehouseUid:
+                    type: string
+                    format: uuid
+                    description: Уникальный индетификатор склада
+                PluUid:
+                    type: string
+                    format: uuid
+                    description: Уникальный индетификатор нумеклатуры
+                CharacteristicUid:
+                    type: string
+                    format: uuid
+                    description: Уникальный индетификатор характеристики нумеклатуры
+
+                CardBarcode:
+                    type: string
+                    pattern: "^[0-9]+$"
+                    description: Штрихкод паллетной карты
+                CreationDate:
+                    type: string
+                    format: date-time
+                    description: Дата создания паллетной карты
+                PalletWeightKg:
+                    type: number
+                    format: double
+                    multipleOf: 0.001
+                    description: Вес паллетной карты в килограммах
+                TareWeightKg:
+                    type: number
+                    format: double
+                    multipleOf: 0.001
+                    description: Вес тар нумеклатур в килограммах
+                PluBundleCount:
+                    type: number
+                    description: Количество вложенности нумеклатуры
+                    minimum: 1
+
+                Labels:
+                    type: array
+                    description: Список этикеток
+                    items:
+                        type: object
+                        properties:
+                            CreationDate:
+                                type: string
+                                format: date-time
+                                description: Дата регистрации этикетки
+                            NetWeightKg:
+                                type: number
+                                format: double
+                                multipleOf: 0.001
+                                description: Вес нетто нуменклатуры в килограммах
+                            BarcodeTop:
+                                type: string
+                                pattern: "^[0-9]+$"
+                                description: Вверхний штрих-код этикетки
+                            BarcodeBottom:
+                                type: string
+                                pattern: "^[0-9]+$"
+                                description: Нижний штрих-код этикетки
+                            BarcodeRight:
+                                type: string
+                                pattern: "^[0-9]+$"
+                                description: Боковой штрих-код этикетки
+                        required:
+                            - CreationDate
+                            - NetWeightKg
+                            - BarcodeTop
+                            - BarcodeBottom
+                            - BarcodeRight
+            required:
+                - CardId
+                - ArmId
+                - PalletManUid
+                - WarehouseUid
+                - PluUid
+                - CharacteristicUid
+                - CardBarcode
+                - CreationDate
+                - PalletWeightKg
+                - TareWeightKg
+                - PluBundleCount
+                - Labels

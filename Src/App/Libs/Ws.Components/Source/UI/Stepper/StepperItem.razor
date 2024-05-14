@@ -9,26 +9,26 @@
           <div class="@Css.Class("h-0.5 w-full transition-colors", ParentStepper.CurrentIndex > Index ? "bg-primary" : "bg-border")"></div>
         </div>
       }
-      <button
-        @onclick="@(() => ParentStepper.SetCurrentIndex(Index))"
-        class="@Css.Class("relative border transition-colors flex size-8 items-center justify-center rounded-full", ParentStepper.CurrentIndex == Index ? "border-primary border-2 bg-background" : ParentStepper.CurrentIndex > Index ? "border-primary border-2 bg-primary" : "bg-background")"
-        disabled="@Disabled">
-        @if (ParentStepper.CurrentIndex == Index)
-        {
-          <div class="size-2.5 rounded-full overflow-hidden bg-primary"></div>
-        }
-        else if (ParentStepper.CurrentIndex > Index)
-        {
-          <CheckIcon class="h-5 text-secondary"/>
-        }
-        else
-        {
-          <span>@Index</span>
-        }
-        <span class="sr-only">Step @Index</span>
-      </button>
+    <button
+      @onclick="@(() => ParentStepper.SetCurrentIndex(Index))"
+      class="@Css.Class("relative border transition-colors flex size-8 items-center justify-center rounded-full", ParentStepper.CurrentIndex == Index ? "border-primary border-2 bg-background" : ParentStepper.CurrentIndex > Index ? "border-primary border-2 bg-primary" : "bg-background")"
+      disabled="@Disabled"
+    >
+      @if (ParentStepper.CurrentIndex == Index)
+      {
+        <div class="size-2.5 rounded-full overflow-hidden bg-primary"></div>
+      }
+      else if (ParentStepper.CurrentIndex > Index)
+      {
+        <CheckIcon class="h-5 text-secondary"/>
+      }
+      else
+      {
+        <span>@Index</span>
+      }
+      <span class="sr-only">Step @Index</span>
+    </button>
   </div>
-
   @if (!string.IsNullOrEmpty(Label))
   {
     <div class="absolute text-sm bottom-0 left-0 translate-x-[calc(-50%+1rem)] translate-y-full">
@@ -41,7 +41,7 @@
   [CascadingParameter] private Stepper ParentStepper { get; set; } = default!;
   [Parameter] public string Label { get; set; } = string.Empty;
   [Parameter] public bool Disabled { get; set; }
-  private int Index { get; set; }
+  public int Index { get; private set; }
 
   protected override void OnInitialized()
   {
