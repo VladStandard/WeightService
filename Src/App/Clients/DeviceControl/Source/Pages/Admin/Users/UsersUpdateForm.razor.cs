@@ -1,9 +1,9 @@
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Claim;
-using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Claims;
+using Ws.Domain.Services.Features.ProductionSites;
+using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 

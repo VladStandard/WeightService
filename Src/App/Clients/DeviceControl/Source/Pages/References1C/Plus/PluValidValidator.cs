@@ -2,7 +2,7 @@ using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
-public class PluValidValidator : AbstractValidator<PluEntity>
+public class PluValidValidator : AbstractValidator<Plu>
 {
     public PluValidValidator()
     {

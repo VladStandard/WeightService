@@ -1,6 +1,6 @@
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Label;
+using Ws.Domain.Services.Features.Labels;
 
 namespace DeviceControl.Source.Pages.Operations.Labels;
 

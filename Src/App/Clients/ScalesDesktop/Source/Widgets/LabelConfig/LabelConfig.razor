@@ -59,7 +59,7 @@
     PluDialogContent data = new() { Data = LabelContext.PluEntities.AsQueryable() };
     IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
     DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: PluEntity pluEntity })
+    if (result is { Cancelled: false, Data: Plu pluEntity })
       LabelContext.ChangePlu(pluEntity);
   }
 

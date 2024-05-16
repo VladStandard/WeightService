@@ -1,21 +1,21 @@
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Services.Features.Line;
+using Ws.Domain.Services.Features.Arms;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
 public class LineContext : IDisposable
 {
-    private ILineService LineService { get; }
+    private IArmService ArmService { get; }
     private ExternalDevicesService ExternalDevices { get; }
 
     public Arm Line { get; private set; } = new();
     public Printer Printer { get; private set; } = new();
     public event Action? OnLineChanged;
 
-    public LineContext(ILineService lineService, ExternalDevicesService externalDevices)
+    public LineContext(IArmService armService, ExternalDevicesService externalDevices)
     {
-        LineService = lineService;
+        ArmService = armService;
         ExternalDevices = externalDevices;
         ExternalDevices.SetupScales();
         InitializeLineData();
@@ -23,7 +23,7 @@ public class LineContext : IDisposable
 
     private void InitializeLineData()
     {
-        Line = LineService.GetCurrentLine();
+        Line = ArmService.GetCurrentLine();
         if (!Line.IsExists) return;
 
         if (Line.Version != VersionTracking.CurrentVersion)
@@ -36,7 +36,7 @@ public class LineContext : IDisposable
     private void UpdateLineVersion()
     {
         Line.Version = VersionTracking.CurrentVersion;
-        LineService.Update(Line);
+        ArmService.Update(Line);
     }
 
     public void ResetLine()

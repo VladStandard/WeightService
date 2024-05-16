@@ -3,9 +3,9 @@ using DeviceControl.Source.Widgets.Section.Dialogs;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Printer;
-using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Printers;
+using Ws.Domain.Services.Features.ProductionSites;
+using Ws.Domain.Services.Features.Users;
 using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;

@@ -2,10 +2,10 @@ using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
-using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.Printer;
-using Ws.Domain.Services.Features.User;
-using Ws.Domain.Services.Features.Warehouse;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Printers;
+using Ws.Domain.Services.Features.Users;
+using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -19,7 +19,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
 
     # endregion
@@ -56,7 +56,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     }
 
     protected override Arm CreateItemAction(Arm item) =>
-        LineService.Create(item);
+        ArmService.Create(item);
 
     private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);
 }

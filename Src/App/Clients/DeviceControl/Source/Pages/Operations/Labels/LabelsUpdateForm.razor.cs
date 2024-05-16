@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Plu;
+using Ws.Domain.Services.Features.Plus;
 
 namespace DeviceControl.Source.Pages.Operations.Labels;
 

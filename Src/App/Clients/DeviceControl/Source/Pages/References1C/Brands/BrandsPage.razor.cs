@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Features.Brand;
+using Ws.Domain.Services.Features.Brands;
 
 namespace DeviceControl.Source.Pages.References1C.Brands;
 

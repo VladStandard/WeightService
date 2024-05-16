@@ -1,7 +1,7 @@
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Ws.Domain.Models.Entities.Diag;
-using Ws.Domain.Services.Features.DatabaseFile;
+using Ws.Domain.Services.Features.DatabaseFiles;
 
 namespace DeviceControl.Source.Pages.Diagnostics.Database;
 

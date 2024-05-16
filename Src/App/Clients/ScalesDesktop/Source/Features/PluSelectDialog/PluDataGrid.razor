@@ -2,7 +2,7 @@
 @using Ws.Domain.Models.Entities.Ref1c.Plu
 
 <FluentDataGrid
-  TGridItem="PluEntity"
+  TGridItem="Plu"
   GridTemplateColumns="1fr 3fr"
   Items="Items"
   Pagination="Pagination"
@@ -27,8 +27,8 @@
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
-  [Parameter] public IQueryable<PluEntity> Items { get; set; } = new List<PluEntity>().AsQueryable();
-  [Parameter] public EventCallback<PluEntity> OnItemSelect { get; set; }
+  [Parameter] public IQueryable<Plu> Items { get; set; } = new List<Plu>().AsQueryable();
+  [Parameter] public EventCallback<Plu> OnItemSelect { get; set; }
 
   private PaginationState Pagination { get; } = new() { ItemsPerPage = 7 };
 }

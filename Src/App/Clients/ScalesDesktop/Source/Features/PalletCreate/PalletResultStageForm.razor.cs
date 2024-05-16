@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Services.Features.Plu;
+using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 

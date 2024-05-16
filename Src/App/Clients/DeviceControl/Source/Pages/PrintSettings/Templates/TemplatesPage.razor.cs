@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Template;
+using Ws.Domain.Services.Features.Templates;
 
 namespace DeviceControl.Source.Pages.PrintSettings.Templates;
 

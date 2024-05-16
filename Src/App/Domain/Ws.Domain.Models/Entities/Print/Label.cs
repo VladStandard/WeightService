@@ -18,7 +18,7 @@ public class Label : EntityBase
     public virtual decimal WeightTare { get; set; }
     public virtual short Kneading { get; set; }
     public virtual Guid? PalletUid { get; set; }
-    public virtual PluEntity? Plu { get; set; }
+    public virtual Plu? Plu { get; set; }
     public virtual Arm Line { get; set; } = new();
     public virtual DateTime ProductDt { get; set; }
     public virtual DateTime ExpirationDt { get; set; }

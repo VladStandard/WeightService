@@ -13,7 +13,7 @@ internal sealed class SqlPluNestingFkMap : ClassMapping<PluNesting>
         Id(x => x.Uid, m =>
         {
             m.Column("UID");
-            m.Generator(Generators.Foreign<PluEntity>(i => i.Uid));
+            m.Generator(Generators.Foreign<Plu>(i => i.Uid));
         });
 
         Property(x => x.BundleCount, m =>

@@ -9,7 +9,7 @@ namespace Ws.Domain.Models.Entities.Devices.Arms;
 [DebuggerDisplay("{ToString()}")]
 public class ArmLine : EntityBase
 {
-    public virtual PluEntity Plu { get; set; } = new();
+    public virtual Plu Plu { get; set; } = new();
     public virtual Arm Line { get; set; } = new();
 
     protected override bool CastEquals(EntityBase obj)

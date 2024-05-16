@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Pallet;
+using Ws.Domain.Services.Features.Pallets;
 
 namespace ScalesDesktop.Source.Shared.Services;
 

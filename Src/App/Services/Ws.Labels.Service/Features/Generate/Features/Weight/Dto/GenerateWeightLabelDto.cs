@@ -5,7 +5,7 @@ namespace Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 
 public class GenerateWeightLabelDto
 {
-    public required PluEntity Plu { get; init; }
+    public required Plu Plu { get; init; }
     public required Arm Line { get; init; }
     public required decimal Weight { get; init; }
     public required short Kneading { get; init; }

@@ -2,8 +2,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
-using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.Plu;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Plus;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -13,7 +13,7 @@ public sealed partial class PalletFirstStageForm : ComponentBase
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IPluService PluService { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private LineContext LineContext { get; set; } = default!;
 
     # endregion
@@ -22,10 +22,10 @@ public sealed partial class PalletFirstStageForm : ComponentBase
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public EventCallback OnCancelAction { get; set; }
 
-    private IEnumerable<PluEntity> PluEntities { get; set; } = [];
+    private IEnumerable<Plu> PluEntities { get; set; } = [];
 
 
-    protected override void OnInitialized() => PluEntities = LineService.GetLinePiecePlus(LineContext.Line);
+    protected override void OnInitialized() => PluEntities = ArmService.GetLinePiecePlus(LineContext.Line);
 
     private void SetPluNestings()
     {

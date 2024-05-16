@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.PalletMan;
+using Ws.Domain.Services.Features.PalletMen;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 

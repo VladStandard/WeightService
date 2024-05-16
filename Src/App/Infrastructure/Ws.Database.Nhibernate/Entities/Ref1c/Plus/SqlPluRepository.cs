@@ -5,11 +5,11 @@ using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 
-public sealed class SqlPluRepository : BaseRepository, IGetItemByUid<PluEntity>, IGetAll<PluEntity>
+public sealed class SqlPluRepository : BaseRepository, IGetItemByUid<Plu>, IGetAll<Plu>
 {
-    public PluEntity GetByUid(Guid uid) => Session.Get<PluEntity>(uid) ?? new();
-    public IEnumerable<PluEntity> GetAll() => Session.Query<PluEntity>().OrderBy(i => i.Number).ToList();
-    public PluEntity Update(PluEntity item)
+    public Plu GetByUid(Guid uid) => Session.Get<Plu>(uid) ?? new();
+    public IEnumerable<Plu> GetAll() => Session.Query<Plu>().OrderBy(i => i.Number).ToList();
+    public Plu Update(Plu item)
     {
         const string sql = "UPDATE REF_1C.PLUS SET TEMPLATE_UID = :newValue WHERE UID = :entityId";
         Session.CreateSQLQuery(sql)

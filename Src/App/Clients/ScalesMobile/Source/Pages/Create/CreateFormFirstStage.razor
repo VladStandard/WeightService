@@ -33,7 +33,7 @@
         </Button>
         <Button
           OnClick="@OnSuccessAction"
-          Disabled="@PluEntity.IsNew">
+          Disabled="@Plu.IsNew">
           Продолжить
         </Button>
       </div>
@@ -45,8 +45,8 @@
   [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
   [Parameter] public EventCallback OnSuccessAction { get; set; }
-  [Parameter] public PluEntity PluEntity { get; set; } = new();
-  [Parameter] public EventCallback<PluEntity> PluEntityChanged { get; set; }
+  [Parameter] public Plu Plu { get; set; } = new();
+  [Parameter] public EventCallback<Plu> PluEntityChanged { get; set; }
 
   private string BarcodeValue { get; set; } = "2991000300000038";
   private IEnumerable<Label> LabelEntities { get; set; } = [];

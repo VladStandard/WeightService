@@ -1,9 +1,9 @@
 using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Pallet;
-using Ws.Domain.Services.Features.StorageMethod;
-using Ws.Domain.Services.Features.Template;
-using Ws.Domain.Services.Features.ZplResource;
+using Ws.Domain.Services.Features.Pallets;
+using Ws.Domain.Services.Features.StorageMethods;
+using Ws.Domain.Services.Features.Templates;
+using Ws.Domain.Services.Features.ZplResources;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Models;

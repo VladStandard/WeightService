@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Features.Clip;
+using Ws.Domain.Services.Features.Clips;
 
 namespace DeviceControl.Source.Pages.References1C.Clips;
 

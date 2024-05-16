@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.StorageMethod;
+using Ws.Domain.Services.Features.StorageMethods;
 
 namespace DeviceControl.Source.Pages.PrintSettings.StorageMethods;
 

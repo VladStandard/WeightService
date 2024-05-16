@@ -8,7 +8,7 @@
   <FluentValidationValidator Validator="@(new PalletPluStageFormValidator())" />
   <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
     <SelectSingle
-      TItem="PluEntity"
+      TItem="Plu"
       Items="PluEntities"
       @bind-SelectedItem="@FormModel.Plu"
       @bind-SelectedItem:after="SetPluNestings"

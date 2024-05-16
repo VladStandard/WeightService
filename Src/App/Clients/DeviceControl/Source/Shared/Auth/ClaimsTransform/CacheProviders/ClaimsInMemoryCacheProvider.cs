@@ -2,7 +2,7 @@ using System.Security.Claims;
 using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
 using Microsoft.Extensions.Caching.Memory;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Users;
 using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders;

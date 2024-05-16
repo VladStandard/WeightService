@@ -11,7 +11,7 @@ public sealed partial class PieceCharacteristicsDataGrid : SectionDataGridPageBa
 
     # endregion
 
-    [CascadingParameter(Name = "DialogItem")] public PluEntity Plu { get; set; } = null!;
+    [CascadingParameter(Name = "DialogItem")] public Plu Plu { get; set; } = null!;
 
     protected override IEnumerable<PluCharacteristic> SetSqlSectionCast() => Plu.CharacteristicsWithNesting;
 }

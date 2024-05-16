@@ -3,9 +3,9 @@ using DeviceControl.Source.Widgets.Section.Dialogs;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.ProductionSites;
+using Ws.Domain.Services.Features.Users;
 using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
@@ -17,7 +17,7 @@ public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
@@ -65,18 +65,18 @@ public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
         => await OpenLinkInNewTab($"{RouteUtils.SectionLines}/{item.Uid.ToString()}");
 
     protected override IEnumerable<Arm> SetSqlSectionCast() =>
-        ProductionSite.IsNew ? [] : LineService.GetAllByProductionSite(ProductionSite)
+        ProductionSite.IsNew ? [] : ArmService.GetAllByProductionSite(ProductionSite)
             .OrderBy(item => item.Number);
 
     protected override IEnumerable<Arm> SetSqlSearchingCast()
     {
         Guid.TryParse(SearchingSectionItemId, out Guid itemUid);
-        return [LineService.GetItemByUid(itemUid)];
+        return [ArmService.GetItemByUid(itemUid)];
     }
 
     protected override Task DeleteItemAction(Arm item)
     {
-        LineService.Delete(item);
+        ArmService.Delete(item);
         return Task.CompletedTask;
     }
 

@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Claim;
+using Ws.Domain.Services.Features.Claims;
 
 namespace DeviceControl.Source.Pages.Admin.Roles;
 

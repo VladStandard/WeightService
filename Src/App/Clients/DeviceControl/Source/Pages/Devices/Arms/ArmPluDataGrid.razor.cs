@@ -3,9 +3,9 @@ using Force.DeepCloner;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.Plu;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Plus;
+using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -15,7 +15,7 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private IPluService PluService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
@@ -25,9 +25,9 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
 
     [CascadingParameter(Name = "DialogItem")] public Arm Arm { get; set; } = null!;
 
-    private HashSet<PluEntity> SelectPluEntities { get; set; } = [];
-    private HashSet<PluEntity> SelectedPluEntities { get; set; } = [];
-    private HashSet<PluEntity> SelectedPluEntitiesCopy { get; set; } = [];
+    private HashSet<Plu> SelectPluEntities { get; set; } = [];
+    private HashSet<Plu> SelectedPluEntities { get; set; } = [];
+    private HashSet<Plu> SelectedPluEntitiesCopy { get; set; } = [];
     private User User { get; set; } = new();
     private bool IsAllowToEdit { get; set; }
 
@@ -42,22 +42,22 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
         IsAllowToEdit = isSeniorSupport || (User.ProductionSite != null && User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
 
         SelectPluEntities = [.. PluService.GetAll()];
-        SelectedPluEntities = [.. LineService.GetLinePlus(Arm)];
+        SelectedPluEntities = [.. ArmService.GetLinePlus(Arm)];
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
 
     private async Task SaveSelectedPluEntities()
     {
-        foreach (PluEntity itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
+        foreach (Plu itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
             ArmLine? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
-            if (pluLineItem != null) LineService.DeletePluLine(pluLineItem);
+            if (pluLineItem != null) ArmService.DeletePluLine(pluLineItem);
         }
 
-        foreach (PluEntity pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
+        foreach (Plu pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
             ArmLine armLine = new() { Line = Arm, Plu = pluEntity };
-            LineService.AddPluLine(armLine);
+            ArmService.AddPluLine(armLine);
         }
 
         await UpdateData();
@@ -68,7 +68,7 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
 
     protected override IEnumerable<ArmLine> SetSqlSectionCast() =>
-        LineService.GetLinePlusFk(Arm);
+        ArmService.GetLinePlusFk(Arm);
 
     protected override async Task OpenItemInNewTab(ArmLine item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");

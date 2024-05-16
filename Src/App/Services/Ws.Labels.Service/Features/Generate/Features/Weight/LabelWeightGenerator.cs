@@ -1,8 +1,8 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Label;
-using Ws.Domain.Services.Features.StorageMethod;
-using Ws.Domain.Services.Features.Template;
-using Ws.Domain.Services.Features.ZplResource;
+using Ws.Domain.Services.Features.Labels;
+using Ws.Domain.Services.Features.StorageMethods;
+using Ws.Domain.Services.Features.Templates;
+using Ws.Domain.Services.Features.ZplResources;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Models;

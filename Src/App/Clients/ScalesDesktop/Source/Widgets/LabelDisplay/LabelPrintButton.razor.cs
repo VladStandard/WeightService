@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Services.Features.Line;
+using Ws.Domain.Services.Features.Arms;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
@@ -24,7 +24,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private ExternalDevicesService ExternalDevices { get; set; } = default!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
@@ -80,7 +80,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
         {
             string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
             LabelContext.Line.Counter += 1;
-            LineService.Update(LabelContext.Line);
+            ArmService.Update(LabelContext.Line);
             ExternalDevices.Printer.PrintLabel(zpl);
         }
         catch (LabelGenerateException ex)

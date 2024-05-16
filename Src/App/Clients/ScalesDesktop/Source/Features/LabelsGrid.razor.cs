@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Services.Features.Pallet;
+using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Printers.Enums;
 using Ws.Printers.Messages;

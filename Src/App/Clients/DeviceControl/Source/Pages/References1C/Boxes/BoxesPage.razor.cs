@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Features.Box;
+using Ws.Domain.Services.Features.Boxes;
 
 namespace DeviceControl.Source.Pages.References1C.Boxes;
 

@@ -2,9 +2,9 @@ using System.Net;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Models.Enums;
-using Ws.Domain.Services.Features.Printer;
-using Ws.Domain.Services.Features.ProductionSite;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Printers;
+using Ws.Domain.Services.Features.ProductionSites;
+using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 

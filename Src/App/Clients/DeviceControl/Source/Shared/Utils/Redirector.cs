@@ -39,7 +39,7 @@ public class Redirector(IAuthorizationService authorizationService)
     public string ToPath(Arm line, ClaimsPrincipal user) =>
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToPath(PluEntity item) => Link(item, RouteUtils.SectionPlus);
+    public string ToPath(Plu item) => Link(item, RouteUtils.SectionPlus);
 
     public string ToPath(Printer item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));

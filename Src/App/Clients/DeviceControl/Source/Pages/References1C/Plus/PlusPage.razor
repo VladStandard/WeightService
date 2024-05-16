@@ -3,7 +3,7 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref1c.Plu
 @using SortDirection=Blazorise.SortDirection
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plu.PluEntity>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plu.Plu>
 @attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
 
@@ -17,7 +17,7 @@
 
 <DataGridWrapper>
   <DataGridContainer
-    TItem="PluEntity"
+    TItem="Plu"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
     IsFilterable
@@ -52,20 +52,20 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColNumber"]"
-        Field="@nameof(PluEntity.Number)"
+        Field="@nameof(Plu.Number)"
         FilterMethod="DataGridColumnFilterMethod.StartsWith"
         Width="10%"
         SortDirection="SortDirection.Ascending"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(PluEntity.Name)"
+        Field="@nameof(Plu.Name)"
         FilterMethod="DataGridColumnFilterMethod.Contains"
         Width="45%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Field="@nameof(PluEntity.IsCheckWeight)"
+        Field="@nameof(Plu.IsCheckWeight)"
         Width="10%"
         Filterable="false"
       >
@@ -77,7 +77,7 @@
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(PluEntity.ChangeDt)"
+        Field="@nameof(Plu.ChangeDt)"
         Width="15%"
         Filterable="false"
       />

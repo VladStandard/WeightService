@@ -14,5 +14,5 @@ public sealed partial class PluSelectDialog : ComponentBase, IDialogContentCompo
 
 public record PluDialogContent
 {
-    public IQueryable<PluEntity> Data { get; init; } = new List<PluEntity>().AsQueryable();
+    public IQueryable<Plu> Data { get; init; } = new List<Plu>().AsQueryable();
 }

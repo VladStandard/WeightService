@@ -23,7 +23,7 @@
     @if (CurrentTabIndex == 1)
     {
       <CreateFormFirstStage
-        @bind-PluEntity="PluEntity"
+        @bind-PluEntity="Plu"
         OnSuccessAction="@(() => CurrentTabIndex = 2)"
       />
     }
@@ -33,6 +33,6 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  private PluEntity PluEntity { get; set; } = new();
+  private Plu Plu { get; set; } = new();
   private int CurrentTabIndex { get; set; } = 1;
 }

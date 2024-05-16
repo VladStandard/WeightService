@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.User;
+using Ws.Domain.Services.Features.Users;
 using Ws.Shared.Utils;
 
 namespace DeviceControl.Source.Widgets.NavMenu;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.PalletMan;
+using Ws.Domain.Services.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Features;
 

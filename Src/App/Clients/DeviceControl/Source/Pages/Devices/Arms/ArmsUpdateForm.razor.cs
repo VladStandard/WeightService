@@ -3,10 +3,10 @@ using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Models.Enums;
-using Ws.Domain.Services.Features.Line;
-using Ws.Domain.Services.Features.Printer;
-using Ws.Domain.Services.Features.User;
-using Ws.Domain.Services.Features.Warehouse;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Printers;
+using Ws.Domain.Services.Features.Users;
+using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -18,7 +18,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
-    [Inject] private ILineService LineService { get; set; } = default!;
+    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
@@ -55,11 +55,11 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
         IsOnlyView = !IsSeniorSupport && !productionSite.Equals(ProductionSite);
     }
 
-    protected override Arm UpdateItemAction(Arm item) => LineService.Update(item);
+    protected override Arm UpdateItemAction(Arm item) => ArmService.Update(item);
 
     protected override Task DeleteItemAction(Arm item)
     {
-        LineService.Delete(item);
+        ArmService.Delete(item);
         return Task.CompletedTask;
     }
 }

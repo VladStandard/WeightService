@@ -39,7 +39,7 @@
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColPluNumber"]"
-        Field="@($"{nameof(Label.Plu)}.{nameof(PluEntity.Number)}")"
+        Field="@($"{nameof(Label.Plu)}.{nameof(Plu.Number)}")"
         Width="5%"
       />
 
@@ -63,7 +63,7 @@
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Field="@($"{nameof(Label.Plu)}.{nameof(PluEntity.IsCheckWeight)}")"
+        Field="@($"{nameof(Label.Plu)}.{nameof(Plu.IsCheckWeight)}")"
         Filterable="false"
         Width="10%"
       >

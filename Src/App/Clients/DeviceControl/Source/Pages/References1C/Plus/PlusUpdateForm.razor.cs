@@ -1,11 +1,11 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
-using Ws.Domain.Services.Features.Plu;
-using Ws.Domain.Services.Features.Template;
+using Ws.Domain.Services.Features.Plus;
+using Ws.Domain.Services.Features.Templates;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
-public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
+public sealed partial class PlusUpdateForm : SectionFormBase<Plu>
 {
     # region Injects
 
@@ -26,14 +26,14 @@ public sealed partial class PlusUpdateForm : SectionFormBase<PluEntity>
         AllTemplates = TemplateService.GetTemplatesByIsWeight(DialogItem.IsCheckWeight);
     }
 
-    protected override PluEntity UpdateItemAction(PluEntity item) => PluService.Update(item);
+    protected override Plu UpdateItemAction(Plu item) => PluService.Update(item);
 
     private string GetPluTypeName(bool isWeight) =>
         isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];
 }
 
 
-public class PlusUpdateFormValidator : AbstractValidator<PluEntity>
+public class PlusUpdateFormValidator : AbstractValidator<Plu>
 {
     public PlusUpdateFormValidator()
     {

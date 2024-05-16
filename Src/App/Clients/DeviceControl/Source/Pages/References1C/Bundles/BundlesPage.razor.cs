@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Services.Features.Bundle;
+using Ws.Domain.Services.Features.Bundles;
 
 namespace DeviceControl.Source.Pages.References1C.Bundles;
 

@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Services.Features.Warehouse;
+using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.References.Warehouses;
 

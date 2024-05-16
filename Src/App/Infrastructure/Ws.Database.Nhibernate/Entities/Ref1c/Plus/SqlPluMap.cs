@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref1c.Plu;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 
-internal sealed class SqlPluMap : ClassMapping<PluEntity>
+internal sealed class SqlPluMap : ClassMapping<Plu>
 {
     public SqlPluMap()
     {

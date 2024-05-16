@@ -6,7 +6,7 @@ namespace Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 
 public record GeneratePiecePalletDto
 {
-    public required PluEntity Plu { get; init; }
+    public required Plu Plu { get; init; }
     public required Arm Line { get; init; }
     public required PalletMan PalletMan { get; init; }
     public required PluCharacteristic PluCharacteristic { get; init; }

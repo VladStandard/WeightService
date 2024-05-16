@@ -4,7 +4,7 @@ namespace ScalesDesktop.Source.Features.PalletCreate;
 
 public class PalletCreateModel
 {
-    public PluEntity? Plu { get; set; }
+    public Plu? Plu { get; set; }
     public PluCharacteristic? Nesting { get; set; }
     public int Count { get; set; } = 1;
     public decimal PalletWeight { get; set; }
