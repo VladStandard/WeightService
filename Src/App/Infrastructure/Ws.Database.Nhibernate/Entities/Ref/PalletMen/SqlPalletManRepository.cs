@@ -10,7 +10,7 @@ public class SqlPalletManRepository : BaseRepository, IGetItemByUid<PalletMan>, 
     ISave<PalletMan>, IUpdate<PalletMan>, IDelete<PalletMan>
 {
     public PalletMan GetByUid(Guid uid) => Session.Get<PalletMan>(uid) ?? new();
-    public IEnumerable<PalletMan> GetAll() => Session.Query<PalletMan>().OrderBy(i => i.Surname).ToList();
+    public IEnumerable<PalletMan> GetAll() => Session.Query<PalletMan>().OrderBy(i => i.Fio.Surname).ToList();
     public PalletMan Save(PalletMan item) { Session.Save(item); return item; }
     public PalletMan Update(PalletMan item) { Session.Update(item); return item; }
     public void Delete(PalletMan item) => Session.Delete(item);

@@ -1,3 +1,4 @@
+using ProjectionTools.Specifications;
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Commands;
 using Ws.Database.Nhibernate.Common.Queries.Item;
@@ -15,7 +16,10 @@ public sealed class SqlTemplateRepository : BaseRepository, IGetAll<Template>, I
     public Template Update(Template item) { Session.Update(item); return item; }
     public void Delete(Template item) => Session.Delete(item);
 
-    public IEnumerable<Template> GetTemplatesByIsWeight(bool isWeight) =>
-        Session.Query<Template>().Where(i => i.IsWeight == isWeight)
-            .OrderBy(i => i.Name).ToList();
+    #region Specs
+
+    public IEnumerable<Template> GetListBySpec(Specification<Template> spec) =>
+        Session.Query<Template>().Where(spec).OrderBy(i => i.Name).ToList();
+
+    #endregion
 }

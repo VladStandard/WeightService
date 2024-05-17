@@ -21,7 +21,7 @@ internal class IPAddressSqlType : UserType
         return obj == null ? null : IPAddress.Parse(obj.ToString() ?? string.Empty);
     }
 
-    public override void NullSafeSet(DbCommand cmd, Object? value, int index, ISessionImplementor session)
+    public override void NullSafeSet(DbCommand cmd, object? value, int index, ISessionImplementor session)
     {
         ((IDataParameter)cmd.Parameters[index]).Value = value == null ? DBNull.Value : value.ToString();
     }

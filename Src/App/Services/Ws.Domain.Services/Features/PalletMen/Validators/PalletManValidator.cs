@@ -6,13 +6,13 @@ internal abstract class PalletManValidator : AbstractValidator<PalletMan>
 {
     protected PalletManValidator()
     {
-        RuleFor(item => item.Name)
+        RuleFor(item => item.Fio.Name)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Surname)
+        RuleFor(item => item.Fio.Surname)
             .NotEmpty()
             .NotNull();
-        RuleFor(item => item.Patronymic)
+        RuleFor(item => item.Fio.Patronymic)
             .NotEmpty()
             .NotNull();
         RuleFor(item => item.Password)

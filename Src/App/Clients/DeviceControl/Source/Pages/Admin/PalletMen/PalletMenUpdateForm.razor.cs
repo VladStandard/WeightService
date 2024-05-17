@@ -25,9 +25,9 @@ public class PalletMenUpdateFormValidator : AbstractValidator<PalletMan>
 {
     public PalletMenUpdateFormValidator()
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Surname).NotEmpty();
-        RuleFor(item => item.Patronymic).NotEmpty();
+        RuleFor(item => item.Fio.Name).NotEmpty();
+        RuleFor(item => item.Fio.Surname).NotEmpty();
+        RuleFor(item => item.Fio.Patronymic).NotEmpty();
         RuleFor(item => item.Password).NotEmpty();
     }
 }

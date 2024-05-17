@@ -5,6 +5,7 @@ using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Aspects;
+using Ws.Domain.Services.Features.Arms.Specs;
 using Ws.Domain.Services.Features.Arms.Validators;
 
 namespace Ws.Domain.Services.Features.Arms;
@@ -14,14 +15,14 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
     #region Queries
 
     [Transactional]
-    public Arm GetCurrentLine() => lineRepo.GetByPcName(Dns.GetHostName());
+    public Arm GetCurrentLine() => lineRepo.GetItemBySpec(ArmSpecs.GetByPcName(Dns.GetHostName()));
 
     [Transactional]
     public Arm GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
     [Transactional]
     public IEnumerable<Arm> GetAllByProductionSite(ProductionSite site)
-        => lineRepo.GetAllByProductionSite(site);
+        => lineRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site));
 
     [Transactional]
     public IEnumerable<Plu> GetLinePlus(Arm line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
@@ -33,7 +34,7 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
     public IEnumerable<Plu> GetLinePiecePlus(Arm line) => GetPluEntitiesByWeightCheck(line, false);
 
     [Transactional]
-    public IEnumerable<ArmLine> GetLinePlusFk(Arm line) => pluLineRepo.GetListByLine(line);
+    public IEnumerable<ArmPlu> GetLinePlusFk(Arm line) => pluLineRepo.GetListByLine(line);
 
     #endregion
 
@@ -49,10 +50,10 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
     public void Delete(Arm item) => lineRepo.Delete(item);
 
     [Transactional]
-    public void DeletePluLine(ArmLine item) => pluLineRepo.Delete(item);
+    public void DeletePluLine(ArmPlu item) => pluLineRepo.Delete(item);
 
     [Transactional]
-    public void AddPluLine(ArmLine armLine) => pluLineRepo.Save(armLine);
+    public void AddPluLine(ArmPlu armPlu) => pluLineRepo.Save(armPlu);
 
     #endregion
 }

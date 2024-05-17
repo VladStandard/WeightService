@@ -31,22 +31,25 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletMan>
             m.NotNullable(true);
         });
 
-        Property(x => x.Name, m =>
+        Component(x => x.Fio, m =>
         {
-            m.Column("NAME");
-            m.Type(NHibernateUtil.String);
-        });
+            m.Property(y => y.Name, mm =>
+            {
+                mm.Column("NAME");
+                mm.Type(NHibernateUtil.String);
+            });
 
-        Property(x => x.Surname, m =>
-        {
-            m.Column("SURNAME");
-            m.Type(NHibernateUtil.String);
-        });
+            m.Property(y => y.Surname, mm =>
+            {
+                mm.Column("SURNAME");
+                mm.Type(NHibernateUtil.String);
+            });
 
-        Property(x => x.Patronymic, m =>
-        {
-            m.Column("PATRONYMIC");
-            m.Type(NHibernateUtil.String);
+            m.Property(y => y.Patronymic, mm =>
+            {
+                mm.Column("PATRONYMIC");
+                mm.Type(NHibernateUtil.String);
+            });
         });
 
         Property(x => x.Password, m =>

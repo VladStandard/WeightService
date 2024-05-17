@@ -23,20 +23,20 @@
 
     <SectionTextField
       Label="@WsDataLocalizer["ColFirstName"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
+      @bind-Value="@DialogItem.Fio.Name"
+      For="@(() => DialogItem.Fio.Name)"
     />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColSurname"]"
-      @bind-Value="@DialogItem.Surname"
-      For="@(() => DialogItem.Surname)"
+      @bind-Value="@DialogItem.Fio.Surname"
+      For="@(() => DialogItem.Fio.Surname)"
     />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColPatronymic"]"
-      @bind-Value="@DialogItem.Patronymic"
-      For="@(() => DialogItem.Patronymic)"
+      @bind-Value="@DialogItem.Fio.Patronymic"
+      For="@(() => DialogItem.Fio.Patronymic)"
     />
 
     <SectionTextField

@@ -2,6 +2,7 @@
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Users
+@using Ws.Domain.Models.ValueTypes
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.PalletMan>
 @attribute [Route($"{RouteUtils.SectionPalletMen}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -30,7 +31,7 @@
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColFIO"]"
-        Field="@nameof(PalletMan.Fio)"
+        Field=@($"{nameof(PalletMan.Fio)}.{nameof(Fio.DisplayFull)}")
         Width="60%"
       />
     </ColumnsContent>

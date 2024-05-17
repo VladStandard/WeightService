@@ -8,8 +8,8 @@ namespace Ws.Domain.Services.Features.Arms;
 
 public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, IDelete<Arm>
 {
-    public void DeletePluLine(ArmLine item);
-    void AddPluLine(ArmLine armLine);
+    public void DeletePluLine(ArmPlu item);
+    void AddPluLine(ArmPlu armPlu);
 
     #region Queries
 
@@ -18,7 +18,7 @@ public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, I
     public IEnumerable<Plu> GetLinePlus(Arm line);
     public IEnumerable<Plu> GetLineWeightPlus(Arm line);
     public IEnumerable<Plu> GetLinePiecePlus(Arm line);
-    public IEnumerable<ArmLine> GetLinePlusFk(Arm line);
+    public IEnumerable<ArmPlu> GetLinePlusFk(Arm line);
 
     #endregion
 }

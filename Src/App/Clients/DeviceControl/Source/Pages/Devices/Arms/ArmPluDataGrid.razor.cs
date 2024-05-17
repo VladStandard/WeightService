@@ -9,7 +9,7 @@ using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
-public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
+public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
 {
     # region Injects
 
@@ -50,14 +50,14 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
     {
         foreach (Plu itemToDelete in SelectedPluEntitiesCopy.Except(SelectedPluEntities))
         {
-            ArmLine? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
+            ArmPlu? pluLineItem = SectionItems.SingleOrDefault(i => i.Plu.Equals(itemToDelete));
             if (pluLineItem != null) ArmService.DeletePluLine(pluLineItem);
         }
 
         foreach (Plu pluEntity in SelectedPluEntities.Except(SelectedPluEntitiesCopy))
         {
-            ArmLine armLine = new() { Line = Arm, Plu = pluEntity };
-            ArmService.AddPluLine(armLine);
+            ArmPlu armPlu = new() { Line = Arm, Plu = pluEntity };
+            ArmService.AddPluLine(armPlu);
         }
 
         await UpdateData();
@@ -67,9 +67,9 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmLine>
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
 
-    protected override IEnumerable<ArmLine> SetSqlSectionCast() =>
+    protected override IEnumerable<ArmPlu> SetSqlSectionCast() =>
         ArmService.GetLinePlusFk(Arm);
 
-    protected override async Task OpenItemInNewTab(ArmLine item)
+    protected override async Task OpenItemInNewTab(ArmPlu item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");
 }

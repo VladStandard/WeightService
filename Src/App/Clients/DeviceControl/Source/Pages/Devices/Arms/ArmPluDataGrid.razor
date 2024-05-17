@@ -3,7 +3,7 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices.Arms
 @using Ws.Domain.Models.Entities.Ref1c.Plu
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.ArmLine>
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.ArmPlu>
 @rendermode InteractiveServer
 
 <PageHeader>
@@ -39,7 +39,7 @@
 
 <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
   <DataGridContainer
-    TItem="ArmLine"
+    TItem="ArmPlu"
     Items="SectionItems"
     ItemsPerPage="6"
     IsForcePagination
@@ -47,24 +47,23 @@
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColNumber"]"
-        Field="Plu.Number"
+        Field="@($"{nameof(ArmPlu.Plu)}.{nameof(Plu.Number)}")"
         Width="10%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Field="Plu.IsCheckWeight"
+        Field="@($"{nameof(ArmPlu.Plu)}.{nameof(Plu.IsCheckWeight)}")"
         Width="20%"
       >
         <DisplayTemplate>
           <span>
-            @(context.Plu.IsCheckWeight ?
-              WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
+            @(context.Plu.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
           </span>
         </DisplayTemplate>
       </DataGridColumn>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
-        Field="Plu.Name"
+        Field="@($"{nameof(ArmPlu.Plu)}.{nameof(Plu.Name)}")"
         Width="70%"
       />
     </ColumnsContent>

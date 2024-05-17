@@ -2,6 +2,7 @@ using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.Templates;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Aspects;
+using Ws.Domain.Services.Features.Templates.Specs;
 using Ws.Domain.Services.Features.Templates.Validators;
 
 namespace Ws.Domain.Services.Features.Templates;
@@ -10,6 +11,10 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
 {
     [Transactional]
     public IEnumerable<Template> GetAll() => templateRepo.GetAll();
+
+    [Transactional]
+    public IEnumerable<Template> GetTemplatesByIsWeight(bool isWeight) =>
+        templateRepo.GetListBySpec(isWeight ? TemplateSpec.GetForWeight : TemplateSpec.GetForPiece);
 
     [Transactional]
     public Template GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
@@ -31,10 +36,6 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
 
     [Transactional]
     public void Delete(Template item) => templateRepo.Delete(item);
-
-    [Transactional]
-    public IEnumerable<Template> GetTemplatesByIsWeight(bool isWeight) =>
-        templateRepo.GetTemplatesByIsWeight(isWeight);
 
     public string? GetTemplateByUidFromCacheOrDb(Guid templateUid)
     {

@@ -1,10 +1,10 @@
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
-using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
@@ -17,14 +17,12 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
-    [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
     [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
 
     # endregion
 
-    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
 
     private IEnumerable<Printer> Printers { get; set; } = [];
@@ -32,6 +30,8 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     private IEnumerable<LineTypeEnum> LineTypes { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
+
+    private readonly CreateArmBySite _createCommand = new();
 
     protected override void OnInitialized()
     {
@@ -56,12 +56,12 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     }
 
     protected override Arm CreateItemAction(Arm item) =>
-        ArmService.Create(item);
+        ArmService.Create(new(_createCommand));
 
     private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);
 }
 
-public class LinesCreateFormValidator : AbstractValidator<Arm>
+public class LinesCreateFormValidator : AbstractValidator<CreateArmBySite>
 {
     public LinesCreateFormValidator()
     {

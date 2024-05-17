@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
 
@@ -11,7 +12,7 @@ namespace Ws.Domain.Models.Entities.Devices.Arms;
 public class Arm : EntityBase
 {
     private int _counter;
-    public virtual int Counter { get => _counter; set { _counter = value > 1_000_000 ? 1 : value; } }
+    public virtual int Counter { get => _counter; set => _counter = value > 1_000_000 ? 1 : value; }
 
     public virtual int Number { get; set; }
     public virtual string Name { get; set; } = string.Empty;
@@ -21,6 +22,22 @@ public class Arm : EntityBase
     public virtual Printer Printer { get; set; } = new();
     public virtual Warehouse Warehouse { get; set; } = new();
     public virtual LineTypeEnum Type { get; set; } = LineTypeEnum.Tablet;
+
+    #region Constructors
+
+    public Arm() { } // DEFAULT
+
+    public Arm(CreateArmBySite command)
+    {
+        Number = command.Number;
+        Name = command.Name;
+        PcName = command.PcName;
+        Type = command.Type;
+        Printer = command.Printer;
+        Warehouse = command.Warehouse;
+    }
+
+    #endregion
 
     protected override bool CastEquals(EntityBase obj)
     {

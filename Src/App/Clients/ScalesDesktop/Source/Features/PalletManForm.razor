@@ -17,7 +17,7 @@
       <SelectSingle
         TItem="PalletMan"
         @bind-SelectedItem="@FormModel.User"
-        ItemDisplayName="@(item => item.FioShort)"
+        ItemDisplayName="@(item => item.Fio.DisplayShort)"
         Items="@GetAllPalletMen"
         Placeholder="@Localizer["UserSelectPlaceholder"]"
       />

@@ -2,30 +2,21 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.ValueTypes;
 
 namespace Ws.Domain.Models.Entities.Users;
 
 [DebuggerDisplay("{ToString()}")]
 public class PalletMan : EntityBase
 {
-    public virtual string Surname { get; set; } = string.Empty;
-    public virtual string Patronymic { get; set; } = string.Empty;
+    public virtual Fio Fio { get; set; } = new();
     public virtual string Password { get; set; } = string.Empty;
-    public virtual string Name { get; set; } = string.Empty;
-    public virtual string Fio => $"{Surname} {Name} {Patronymic}";
-
-    public virtual string FioShort =>
-        $"{Surname} {(string.IsNullOrEmpty(Name) ? "" : Name[..1].ToUpper())}." +
-        $"{(string.IsNullOrEmpty(Patronymic) ? "" : Patronymic[..1].ToUpper())}.";
 
     protected override bool CastEquals(EntityBase obj)
     {
         PalletMan item = (PalletMan)obj;
-        return Equals(Surname, item.Surname) &&
-               Equals(Patronymic, item.Patronymic) &&
-               Equals(Name, item.Name) &&
-               Equals(Password, item.Password);
+        return Equals(Fio, item.Fio) && Equals(Password, item.Password);
     }
 
-    public override string ToString() => FioShort;
+    public override string ToString() => Fio.DisplayShort;
 }

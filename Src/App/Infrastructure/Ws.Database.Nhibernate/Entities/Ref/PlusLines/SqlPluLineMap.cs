@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Devices.Arms;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 
-internal sealed class SqlPluLineMap : ClassMapping<ArmLine>
+internal sealed class SqlPluLineMap : ClassMapping<ArmPlu>
 {
     public SqlPluLineMap()
     {

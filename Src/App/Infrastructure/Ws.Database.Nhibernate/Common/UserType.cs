@@ -14,7 +14,7 @@ public abstract class UserType : IUserType
 
     public abstract object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner);
 
-    public abstract void NullSafeSet(DbCommand cmd, Object? value, int index, ISessionImplementor session);
+    public abstract void NullSafeSet(DbCommand cmd, object? value, int index, ISessionImplementor session);
 
     #endregion
 
@@ -22,7 +22,7 @@ public abstract class UserType : IUserType
 
     bool IUserType.Equals(object x, object y) => Equals(x, y);
 
-    public int GetHashCode(Object? x) => x == null ? 0 : x.GetHashCode();
+    public int GetHashCode(object? x) => x == null ? 0 : x.GetHashCode();
 
     public virtual object DeepCopy(object value) => value;
 

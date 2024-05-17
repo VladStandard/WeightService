@@ -15,7 +15,7 @@
   <FieldsContent>
     <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb">
       <div class="w-full items-center flex gap-2">
-        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@DialogItem.Number" />
+        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@_createCommand.Number" />
         <Button
           Size="ButtonSize.Icon"
           Variant="ButtonVariant.Outline"
@@ -25,13 +25,13 @@
           <ArrowPathIcon class="size-5" />
         </Button>
       </div>
-      <FieldValidation For="@(() => DialogItem.Number)"/>
+      <FieldValidation For="@(() => _createCommand.Number)"/>
     </SectionInputWrapper>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
+      @bind-Value="@_createCommand.Name"
+      For="@(() => _createCommand.Name)"
       MaxLength="32"
     />
 
@@ -39,17 +39,17 @@
       TItem="LineTypeEnum"
       Label="@WsDataLocalizer["ColType"]"
       Items="LineTypes"
-      @bind-Value="@DialogItem.Type"
+      @bind-Value="@_createCommand.Type"
       ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
-      For="@(() => DialogItem.Type)"
+      For="@(() => _createCommand.Type)"
     />
 
     <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColPcName"]"
-      @bind-Value="@DialogItem.PcName"
-      For="@(() => DialogItem.PcName)"
+      @bind-Value="@_createCommand.PcName"
+      For="@(() => _createCommand.PcName)"
       MaxLength="16"
     />
 
@@ -57,10 +57,10 @@
       TItem="Printer"
       Label="@WsDataLocalizer["ColPrinter"]"
       Items="Printers"
-      @bind-Value="@DialogItem.Printer"
+      @bind-Value="@_createCommand.Printer"
       ItemDisplayName="item => item.DisplayName"
-      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
-      For="@(() => DialogItem.Printer)"
+      Path="@Redirector.ToPath(_createCommand.Printer, UserPrincipal)"
+      For="@(() => _createCommand.Printer)"
       IsFilterable
     />
 
@@ -76,10 +76,10 @@
       TItem="Warehouse"
       Label="@WsDataLocalizer["ColWarehouse"]"
       Items="Warehouses"
-      @bind-Value="@DialogItem.Warehouse"
+      @bind-Value="@_createCommand.Warehouse"
       ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
-      For="@(() => DialogItem.Warehouse)"
+      Path="@Redirector.ToPath(_createCommand.Warehouse, UserPrincipal)"
+      For="@(() => _createCommand.Warehouse)"
       IsFilterable
     />
   </FieldsContent>

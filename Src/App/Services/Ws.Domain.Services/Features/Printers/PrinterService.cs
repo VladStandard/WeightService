@@ -2,6 +2,7 @@ using Ws.Database.Nhibernate.Entities.Ref.Printers;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
+using Ws.Domain.Services.Features.Printers.Specs;
 using Ws.Domain.Services.Features.Printers.Validators;
 
 namespace Ws.Domain.Services.Features.Printers;
@@ -22,5 +23,5 @@ internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterServic
 
     [Transactional]
     public IEnumerable<Printer> GetAllByProductionSite(ProductionSite site) =>
-        printerRepo.GetAllByProductionSite(site);
+        printerRepo.GetListBySpec(PrinterSpecs.GetByProductionSite(site));
 }

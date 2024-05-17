@@ -9,8 +9,8 @@ internal partial class ArmService
 {
     private static IEnumerable<Plu> GetPluEntitiesByWeightCheck(Arm line, bool isCheckWeight)
     {
-        QueryOver<ArmLine> queryOver =
-            QueryOver.Of<ArmLine>().Where(i => i.Line == line)
+        QueryOver<ArmPlu> queryOver =
+            QueryOver.Of<ArmPlu>().Where(i => i.Line == line)
                 .JoinQueryOver<Plu>(i => i.Plu).Where(plu => plu.IsCheckWeight == isCheckWeight);
         return new SqlPluLineRepository().GetListByQuery(queryOver).Select(pluLine => pluLine.Plu);
     }
