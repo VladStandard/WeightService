@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+
+<div class="size-full">
+  <div class="h-14 border-b w-full sticky flex items-center justify-center">
+    <div class="max-w-screen-2xl w-full mx-auto flex items-center justify-between">
+      <a href="/">
+        <h1>Blazor Keycloak</h1>
+      </a>
+      <div>
+        <AuthorizeView>
+          <Authorized>
+            <form method="post" action="Logout">
+              <button type="submit" class="flex items-center gap-2" href="MicrosoftIdentity/Account/SignOut">
+                <div class="size-8 flex items-center overflow-hidden rounded-full justify-center bg-muted">
+                  @context.User.Identity?.Name?[0]
+                </div>
+                <p>Log out</p>
+              </button>
+            </form>
+          </Authorized>
+          <NotAuthorized>
+            <form method="get" action="Login">
+              <button type="submit">Log in</button>
+            </form>
+          </NotAuthorized>
+        </AuthorizeView>
+      </div>
+    </div>
+  </div>
+  @Body
+</div>
