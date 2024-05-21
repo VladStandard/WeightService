@@ -7,11 +7,21 @@ namespace Ws.Domain.Services.Features.Claims;
 
 internal class ClaimService(SqlClaimRepository claimRepo) : IClaimService
 {
+    #region List
+
     [Transactional]
-    public IEnumerable<Claim> GetAll() => claimRepo.GetAll();
+    public IList<Claim> GetAll() => claimRepo.GetAll();
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public Claim GetItemByUid(Guid uid) => claimRepo.GetByUid(uid);
+
+    #endregion
+
+    #region CRUD
 
     [Transactional]
     public void Delete(Claim item) => claimRepo.Delete(item);
@@ -21,4 +31,6 @@ internal class ClaimService(SqlClaimRepository claimRepo) : IClaimService
 
     [Transactional, Validate<ClaimUpdateValidator>]
     public Claim Update(Claim item) => claimRepo.Update(item);
+
+    #endregion
 }

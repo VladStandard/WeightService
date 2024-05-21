@@ -4,7 +4,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace Ws.Domain.Services.Features.Arms.Specs;
 
-public static class ArmSpecs
+internal static class ArmSpecs
 {
     public static Specification<Arm> GetByProductionSite(ProductionSite item) =>
         new (x => x.Warehouse.ProductionSite == item);

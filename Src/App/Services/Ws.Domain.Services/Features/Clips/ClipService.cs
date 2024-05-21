@@ -6,9 +6,17 @@ namespace Ws.Domain.Services.Features.Clips;
 
 internal class ClipService(SqlClipRepository clipRepo) : IClipService
 {
+    #region List
+
     [Transactional]
-    public IEnumerable<Clip> GetAll() => clipRepo.GetAll();
+    public IList<Clip> GetAll() => clipRepo.GetAll();
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public Clip GetItemByUid(Guid uid) => clipRepo.GetByUid(uid);
+
+    #endregion
 }

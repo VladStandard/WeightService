@@ -9,6 +9,6 @@ public sealed class SqlClipRepository : BaseRepository, IGetItemByUid<Clip>, IGe
 {
     public Clip GetByUid(Guid uid) => Session.Get<Clip>(uid) ?? new();
 
-    public IEnumerable<Clip> GetAll() =>
+    public IList<Clip> GetAll() =>
         Session.Query<Clip>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
 }

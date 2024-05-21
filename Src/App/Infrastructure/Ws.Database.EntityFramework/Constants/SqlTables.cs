@@ -4,7 +4,6 @@ internal static class SqlTables
 {
     public const string Nestings = "NESTINGS";
     public const string Characteristics = "CHARACTERISTICS";
-    public const string PlusResources = "PLUS_RESOURCES";
     public const string Plus = "PLUS";
     public const string Arms = "ARMS";
     public const string Printers = "PRINTERS";

@@ -1,6 +1,6 @@
 namespace Ws.Domain.Services.Common.Queries;
 
-public interface IGetAll<out TItem>
+public interface IGetAll<TItem>
 {
-    IEnumerable<TItem> GetAll();
+    IList<TItem> GetAll();
 }

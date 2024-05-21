@@ -8,5 +8,5 @@ namespace Ws.Domain.Services.Features.Printers;
 public interface IPrinterService : IGetItemByUid<Printer>, ICreate<Printer>,
     IUpdate<Printer>, IDelete<Printer>
 {
-    IEnumerable<Printer> GetAllByProductionSite(ProductionSite site);
+    IList<Printer> GetAllByProductionSite(ProductionSite site);
 }

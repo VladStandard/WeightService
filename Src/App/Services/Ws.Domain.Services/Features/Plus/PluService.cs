@@ -5,17 +5,28 @@ using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Plus;
 
-internal class PluService(
-    SqlPluRepository pluRepo,
-    IRedisCachingProvider provider) : IPluService
+internal class PluService(SqlPluRepository pluRepo, IRedisCachingProvider provider) : IPluService
 {
-    #region Queries
+    #region Items
 
     [Transactional]
     public Plu GetItemByUid(Guid uid) => pluRepo.GetByUid(uid);
 
+    #endregion
+
+    #region List
+
     [Transactional]
-    public IEnumerable<Plu> GetAll() => pluRepo.GetAll();
+    public IList<Plu> GetAll() => pluRepo.GetAll();
+
+    #endregion
+
+    #region CRUD
+
+    [Transactional]
+    public Plu Update(Plu item) => pluRepo.Update(item);
+
+    #endregion
 
     public string GetPluCachedTemplate(Plu plu)
     {
@@ -35,9 +46,4 @@ internal class PluService(
 
         return "";
     }
-
-    #endregion
-
-    [Transactional]
-    public Plu Update(Plu item) => pluRepo.Update(item);
 }

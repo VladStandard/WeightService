@@ -9,15 +9,25 @@ namespace Ws.Domain.Services.Features.Templates;
 
 internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCachingProvider provider) : ITemplateService
 {
-    [Transactional]
-    public IEnumerable<Template> GetAll() => templateRepo.GetAll();
+    #region List
 
     [Transactional]
-    public IEnumerable<Template> GetTemplatesByIsWeight(bool isWeight) =>
+    public IList<Template> GetAll() => templateRepo.GetAll();
+
+    [Transactional]
+    public IList<Template> GetTemplatesByIsWeight(bool isWeight) =>
         templateRepo.GetListBySpec(isWeight ? TemplateSpec.GetForWeight : TemplateSpec.GetForPiece);
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public Template GetItemByUid(Guid uid) => templateRepo.GetByUid(uid);
+
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<TemplateNewValidator>]
     public Template Create(Template item) => templateRepo.Save(item);
@@ -36,6 +46,8 @@ internal class TemplateService(SqlTemplateRepository templateRepo, IRedisCaching
 
     [Transactional]
     public void Delete(Template item) => templateRepo.Delete(item);
+
+    #endregion
 
     public string? GetTemplateByUidFromCacheOrDb(Guid templateUid)
     {

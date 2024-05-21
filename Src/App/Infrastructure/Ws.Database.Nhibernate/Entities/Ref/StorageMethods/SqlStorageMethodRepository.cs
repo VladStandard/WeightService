@@ -10,7 +10,7 @@ public class SqlStorageMethodRepository : BaseRepository, IGetItemByUid<StorageM
 {
     public StorageMethod GetByUid(Guid uid) => Session.Get<StorageMethod>(uid) ?? new();
 
-    public IEnumerable<StorageMethod> GetList() =>
+    public IList<StorageMethod> GetList() =>
         Session.Query<StorageMethod>().OrderBy(i => i.Name).ToList();
 
     public StorageMethod GetItemByName(string name) =>

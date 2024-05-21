@@ -7,11 +7,21 @@ namespace Ws.Domain.Services.Features.ProductionSites;
 
 internal class ProductionSiteService(SqlProductionSiteRepository productionSiteRepo) : IProductionSiteService
 {
+    #region Items
+
     [Transactional]
     public ProductionSite GetItemByUid(Guid uid) => productionSiteRepo.GetByUid(uid);
 
+    #endregion
+
+    #region List
+
     [Transactional]
-    public IEnumerable<ProductionSite> GetAll() => productionSiteRepo.GetAll();
+    public IList<ProductionSite> GetAll() => productionSiteRepo.GetAll();
+
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<ProductionSiteNewValidator>]
     public ProductionSite Create(ProductionSite item) => productionSiteRepo.Save(item);
@@ -21,4 +31,6 @@ internal class ProductionSiteService(SqlProductionSiteRepository productionSiteR
 
     [Transactional]
     public void Delete(ProductionSite item) => productionSiteRepo.Delete(item);
+
+    #endregion
 }

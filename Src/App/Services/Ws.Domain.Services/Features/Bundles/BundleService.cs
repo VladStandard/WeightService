@@ -6,9 +6,17 @@ namespace Ws.Domain.Services.Features.Bundles;
 
 internal class BundleService(SqlBundleRepository bundleRepo) : IBundleService
 {
+    #region Items
+
     [Transactional]
     public Bundle GetItemByUid(Guid uid) => bundleRepo.GetByUid(uid);
 
+    #endregion
+
+    #region List
+
     [Transactional]
-    public IEnumerable<Bundle> GetAll() => bundleRepo.GetAll();
+    public IList<Bundle> GetAll() => bundleRepo.GetAll();
+
+    #endregion
 }

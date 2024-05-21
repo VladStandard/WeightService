@@ -9,7 +9,7 @@ public sealed class SqlLabelRepository : BaseRepository, IGetItemByUid<Label>, I
 {
     public Label GetByUid(Guid uid) => Session.Get<Label>(uid) ?? new();
 
-    public IEnumerable<Label> GetAll() => Session.Query<Label>()
+    public IList<Label> GetAll() => Session.Query<Label>()
         .OrderByDescending(i => i.CreateDt).ToList();
 
     public Label Save(Label item) { Session.Merge(item); return item; }

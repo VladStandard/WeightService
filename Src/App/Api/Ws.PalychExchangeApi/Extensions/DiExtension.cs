@@ -16,5 +16,4 @@ public static class DiExtension
         foreach (var validator in validatorTypes)
             services.AddTransient(validator);
     }
-
 }

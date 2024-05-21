@@ -7,12 +7,13 @@ using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Arms.Specs;
 using Ws.Domain.Services.Features.Arms.Validators;
+using Ws.Domain.Services.Features.Plus.Specs;
 
 namespace Ws.Domain.Services.Features.Arms;
 
 internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineRepository pluLineRepo) : IArmService
 {
-    #region Queries
+    #region Items
 
     [Transactional]
     public Arm GetCurrentLine() => lineRepo.GetItemBySpec(ArmSpecs.GetByPcName(Dns.GetHostName()));
@@ -20,25 +21,29 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
     [Transactional]
     public Arm GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
 
-    [Transactional]
-    public IEnumerable<Arm> GetAllByProductionSite(ProductionSite site)
-        => lineRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site));
+    #endregion
+
+    #region List
 
     [Transactional]
-    public IEnumerable<Plu> GetLinePlus(Arm line) => pluLineRepo.GetListByLine(line).Select(i => i.Plu);
+    public IList<Arm> GetAllByProductionSite(ProductionSite site) =>
+        lineRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
 
     [Transactional]
-    public IEnumerable<Plu> GetLineWeightPlus(Arm line) => GetPluEntitiesByWeightCheck(line, true);
+    public IList<Plu> GetArmWeightPlus(Arm arm) => GetPluListByArmAndSpec(arm, PluSpecs.GetWeight());
 
     [Transactional]
-    public IEnumerable<Plu> GetLinePiecePlus(Arm line) => GetPluEntitiesByWeightCheck(line, false);
+    public IList<Plu> GetArmPiecePlus(Arm arm) => GetPluListByArmAndSpec(arm, PluSpecs.GetPiece());
 
     [Transactional]
-    public IEnumerable<ArmPlu> GetLinePlusFk(Arm line) => pluLineRepo.GetListByLine(line);
+    public IList<Plu> GetArmAllPlus(Arm arm) => pluLineRepo.GetListByLine(arm).Select(i => i.Plu).ToList();
+
+    [Transactional]
+    public IList<ArmPlu> GetLinePlusFk(Arm arm) => pluLineRepo.GetListByLine(arm);
 
     #endregion
 
-    #region Commands
+    #region CRUD
 
     [Transactional, Validate<ArmNewValidator>]
     public Arm Create(Arm line) => lineRepo.Save(line);

@@ -8,7 +8,7 @@ namespace Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 public sealed class SqlPluRepository : BaseRepository, IGetItemByUid<Plu>, IGetAll<Plu>
 {
     public Plu GetByUid(Guid uid) => Session.Get<Plu>(uid) ?? new();
-    public IEnumerable<Plu> GetAll() => Session.Query<Plu>().OrderBy(i => i.Number).ToList();
+    public IList<Plu> GetAll() => Session.Query<Plu>().OrderBy(i => i.Number).ToList();
     public Plu Update(Plu item)
     {
         const string sql = "UPDATE REF_1C.PLUS SET TEMPLATE_UID = :newValue WHERE UID = :entityId";

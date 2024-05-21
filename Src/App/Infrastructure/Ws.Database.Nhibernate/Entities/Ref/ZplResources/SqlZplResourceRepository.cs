@@ -10,7 +10,7 @@ public class SqlZplResourceRepository : BaseRepository, IGetItemByUid<ZplResourc
     ISave<ZplResource>, IUpdate<ZplResource>, IDelete<ZplResource>
 {
     public ZplResource GetByUid(Guid uid) => Session.Get<ZplResource>(uid) ?? new();
-    public IEnumerable<ZplResource> GetAll() => Session.Query<ZplResource>().OrderBy(i => i.Name).ToList();
+    public IList<ZplResource> GetAll() => Session.Query<ZplResource>().OrderBy(i => i.Name).ToList();
     public ZplResource Save(ZplResource item) { Session.Save(item); return item; }
     public ZplResource Update(ZplResource item) { Session.Update(item); return item; }
     public void Delete(ZplResource item) => Session.Delete(item);

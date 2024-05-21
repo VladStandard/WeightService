@@ -1,6 +1,6 @@
 namespace Ws.Database.Nhibernate.Common.Queries.List;
 
-internal interface IGetAll<out TItem>
+internal interface IGetAll<TItem>
 {
-    IEnumerable<TItem> GetAll();
+    IList<TItem> GetAll();
 }

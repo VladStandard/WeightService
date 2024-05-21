@@ -9,6 +9,6 @@ public sealed class SqlBoxRepository : BaseRepository, IGetItemByUid<Box>, IGetA
 {
     public Box GetByUid(Guid uid) => Session.Get<Box>(uid) ?? new();
 
-    public IEnumerable<Box> GetAll() =>
+    public IList<Box> GetAll() =>
         Session.Query<Box>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
 }

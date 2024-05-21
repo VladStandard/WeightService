@@ -6,12 +6,24 @@ namespace Ws.Domain.Services.Features.Brands;
 
 internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
 {
+    #region List
+
     [Transactional]
-    public IEnumerable<Brand> GetAll() => brandRepo.GetAll();
+    public IList<Brand> GetAll() => brandRepo.GetAll();
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public Brand GetItemByUid(Guid uid) => brandRepo.GetByUid(uid);
 
+    #endregion
+
+    #region CRUD
+
     [Transactional]
     public void Delete(Brand item) => brandRepo.Delete(item);
+
+    #endregion
 }

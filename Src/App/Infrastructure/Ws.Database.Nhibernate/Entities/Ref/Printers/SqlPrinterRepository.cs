@@ -12,7 +12,7 @@ public class SqlPrinterRepository : BaseRepository, IGetItemByUid<Printer>, ISav
 
     #region Specs
 
-    public IEnumerable<Printer> GetListBySpec(Specification<Printer> spec) =>
+    public IList<Printer> GetListBySpec(Specification<Printer> spec) =>
         Session.Query<Printer>().Where(spec).OrderBy(i => i.Type).ToList();
 
     #endregion

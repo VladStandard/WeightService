@@ -10,7 +10,7 @@ public sealed class SqlClaimRepository : BaseRepository, IGetItemByUid<Claim>, I
     IUpdate<Claim>, ISave<Claim>, IDelete<Claim>
 {
     public Claim GetByUid(Guid uid) => Session.Get<Claim>(uid) ?? new();
-    public IEnumerable<Claim> GetAll() => Session.Query<Claim>().OrderBy(i => i.Name).ToList();
+    public IList<Claim> GetAll() => Session.Query<Claim>().OrderBy(i => i.Name).ToList();
     public Claim Save(Claim item) { Session.Save(item); return item; }
     public Claim Update(Claim item) { Session.Update(item); return item; }
     public void Delete(Claim item) => Session.Delete(item);

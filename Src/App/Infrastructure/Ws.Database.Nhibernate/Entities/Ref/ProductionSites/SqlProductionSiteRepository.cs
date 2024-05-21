@@ -11,7 +11,7 @@ public sealed class SqlProductionSiteRepository : BaseRepository, IGetItemByUid<
     IDelete<ProductionSite>
 {
     public ProductionSite GetByUid(Guid uid) => Session.Get<ProductionSite>(uid) ?? new();
-    public IEnumerable<ProductionSite> GetAll() => Session.Query<ProductionSite>().OrderBy(i => i.Name).ToList();
+    public IList<ProductionSite> GetAll() => Session.Query<ProductionSite>().OrderBy(i => i.Name).ToList();
     public ProductionSite Save(ProductionSite item) { Session.Save(item); return item; }
     public ProductionSite Update(ProductionSite item) { Session.Update(item); return item; }
     public void Delete(ProductionSite item) => Session.Delete(item);

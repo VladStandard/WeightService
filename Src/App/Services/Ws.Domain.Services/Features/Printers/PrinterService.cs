@@ -9,8 +9,22 @@ namespace Ws.Domain.Services.Features.Printers;
 
 internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterService
 {
+    #region Items
+
     [Transactional]
     public Printer GetItemByUid(Guid uid) => printerRepo.GetByUid(uid);
+
+    #endregion
+
+    #region List
+
+    [Transactional]
+    public IList<Printer> GetAllByProductionSite(ProductionSite site) =>
+        printerRepo.GetListBySpec(PrinterSpecs.GetByProductionSite(site));
+
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<PrinterNewValidator>]
     public Printer Create(Printer item) => printerRepo.Save(item);
@@ -21,7 +35,5 @@ internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterServic
     [Transactional]
     public void Delete(Printer item) => printerRepo.Delete(item);
 
-    [Transactional]
-    public IEnumerable<Printer> GetAllByProductionSite(ProductionSite site) =>
-        printerRepo.GetListBySpec(PrinterSpecs.GetByProductionSite(site));
+    #endregion
 }

@@ -6,9 +6,17 @@ namespace Ws.Domain.Services.Features.Boxes;
 
 internal class BoxService(SqlBoxRepository boxRepo) : IBoxService
 {
+    #region List
+
     [Transactional]
-    public IEnumerable<Box> GetAll() => boxRepo.GetAll();
+    public IList<Box> GetAll() => boxRepo.GetAll();
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public Box GetItemByUid(Guid uid) => boxRepo.GetByUid(uid);
+
+    #endregion
 }

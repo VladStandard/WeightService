@@ -9,15 +9,25 @@ namespace Ws.Domain.Services.Features.Pallets;
 
 internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository labelRepo) : IPalletService
 {
+    #region List
+
     [Transactional]
     public IEnumerable<ViewPallet> GetAllViewByWarehouse(Warehouse warehouse) =>
         palletRepo.GetAllViewByWarehouse(warehouse);
 
     [Transactional]
-    public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
+    public IEnumerable<Label> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
+
+    #endregion
+
+    #region Items
 
     [Transactional]
-    public IEnumerable<Label> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
+    public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
+
+    #endregion
+
+    #region CRUD
 
     [Transactional]
     public void Create(Pallet pallet, IList<Label> labels)
@@ -31,4 +41,6 @@ internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository 
             labelRepo.Save(label);
         }
     }
+
+    #endregion
 }

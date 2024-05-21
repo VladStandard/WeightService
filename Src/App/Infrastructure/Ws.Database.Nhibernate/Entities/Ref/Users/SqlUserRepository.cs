@@ -10,7 +10,7 @@ public sealed class SqlUserRepository : BaseRepository, IGetItemByUid<User>, IGe
     ISave<User>, IUpdate<User>, IDelete<User>
 {
     public User GetByUid(Guid uid) => Session.Get<User>(uid) ?? new();
-    public IEnumerable<User> GetAll() => Session.Query<User>().OrderBy(i => i.Name).ToList();
+    public IList<User> GetAll() => Session.Query<User>().OrderBy(i => i.Name).ToList();
 
     public User GetItemByUsername(string userName) => Session.Query<User>().FirstOrDefault(u =>
         u.Name.ToLower().Equals(userName.ToLower())) ?? new();

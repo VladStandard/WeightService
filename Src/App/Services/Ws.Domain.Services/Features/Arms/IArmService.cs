@@ -13,12 +13,12 @@ public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, I
 
     #region Queries
 
-    public IEnumerable<Arm> GetAllByProductionSite(ProductionSite site);
     public Arm GetCurrentLine();
-    public IEnumerable<Plu> GetLinePlus(Arm line);
-    public IEnumerable<Plu> GetLineWeightPlus(Arm line);
-    public IEnumerable<Plu> GetLinePiecePlus(Arm line);
-    public IEnumerable<ArmPlu> GetLinePlusFk(Arm line);
+    public IList<Plu> GetArmAllPlus(Arm line);
+    public IList<Plu> GetArmPiecePlus(Arm line);
+    public IList<Plu> GetArmWeightPlus(Arm line);
+    public IList<ArmPlu> GetLinePlusFk(Arm line);
+    public IList<Arm> GetAllByProductionSite(ProductionSite site);
 
     #endregion
 }

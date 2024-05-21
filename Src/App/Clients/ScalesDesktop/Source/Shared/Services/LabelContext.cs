@@ -28,7 +28,7 @@ public class LabelContext : IDisposable
 
     public void InitializeData()
     {
-        PluEntities = Line.IsExists ? ArmService.GetLineWeightPlus(Line) : [];
+        PluEntities = Line.IsExists ? ArmService.GetArmWeightPlus(Line) : [];
         Plu = new();
         KneadingModel = new();
         OnStateChanged?.Invoke();

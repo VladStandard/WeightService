@@ -7,15 +7,27 @@ namespace Ws.Domain.Services.Features.Labels;
 
 internal class LabelService(SqlLabelRepository labelRepo) : ILabelService
 {
+    #region List
+
+    [Transactional]
+    public IList<Label> GetAll() => labelRepo.GetAll();
+
+    #endregion
+
+    #region Items
+
     [Transactional]
     public Label GetItemByUid(Guid uid) => labelRepo.GetByUid(uid);
 
-    [Transactional]
-    public IEnumerable<Label> GetAll() => labelRepo.GetAll();
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<LabelNewValidator>]
     public Label Create(Label item)
     {
         return labelRepo.Save(item);
     }
+
+    #endregion
 }

@@ -1,3 +1,4 @@
+using ProjectionTools.Specifications;
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Commands;
 using Ws.Database.Nhibernate.Common.Queries.Item;
@@ -10,13 +11,11 @@ public sealed class SqlWarehouseRepository : BaseRepository, IGetItemByUid<Wareh
     ISave<Warehouse>, IUpdate<Warehouse>, IDelete<Warehouse>
 {
     public Warehouse GetByUid(Guid uid) => Session.Get<Warehouse>(uid) ?? new();
-    public IEnumerable<Warehouse> GetAll() => Session.Query<Warehouse>().OrderBy(i => i.Name).ToList();
+    public IList<Warehouse> GetAll() => Session.Query<Warehouse>().OrderBy(i => i.Name).ToList();
     public Warehouse Save(Warehouse item) { Session.Save(item); return item; }
     public Warehouse Update(Warehouse item) { Session.Update(item); return item; }
     public void Delete(Warehouse item) => Session.Delete(item);
 
-    public IEnumerable<Warehouse> GetAllByProductionSite(ProductionSite productionSite) =>
-        Session.Query<Warehouse>()
-            .Where(i => i.ProductionSite == productionSite)
-            .OrderBy(i => i.Name).ToList();
+    public IList<Warehouse> GetAllBySpec(Specification<Warehouse> spec) =>
+        Session.Query<Warehouse>().Where(spec).OrderBy(i => i.Name).ToList();
 }

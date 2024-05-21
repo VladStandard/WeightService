@@ -7,7 +7,7 @@ namespace Ws.Database.Nhibernate.Entities;
 
 public class SqlViewDbFileSizeRepository : BaseRepository, IGetAll<DbFileSizeInfo>
 {
-    public IEnumerable<DbFileSizeInfo> GetAll()
+    public IList<DbFileSizeInfo> GetAll()
     {
         const string fileNameAlias = nameof(DbFileSizeInfo.FileName);
         const string sizeMbAlias = nameof(DbFileSizeInfo.SizeMb);

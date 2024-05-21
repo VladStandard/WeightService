@@ -8,14 +8,24 @@ namespace Ws.Domain.Services.Features.StorageMethods;
 
 internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo, IRedisCachingProvider provider) : IStorageMethodService
 {
+    #region List
+
     [Transactional]
-    public IEnumerable<StorageMethod> GetAll() => storageMethodRepo.GetList();
+    public IList<StorageMethod> GetAll() => storageMethodRepo.GetList();
+
+    #endregion
+
+    #region Items
 
     [Transactional]
     public StorageMethod GetItemByUid(Guid uid) => storageMethodRepo.GetByUid(uid);
 
     [Transactional]
     public StorageMethod GetByName(string name) => storageMethodRepo.GetItemByName(name);
+
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<StorageMethodNewValidator>]
     public StorageMethod Create(StorageMethod item) => storageMethodRepo.Save(item);
@@ -35,6 +45,9 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
 
     [Transactional]
     public void Delete(StorageMethod item) => storageMethodRepo.Delete(item);
+
+
+    #endregion
 
     public string? GetStorageByNameFromCacheOrDb(string name)
     {

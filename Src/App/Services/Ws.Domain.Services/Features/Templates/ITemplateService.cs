@@ -11,6 +11,6 @@ public interface ITemplateService :
     IUpdate<Template>,
     IDelete<Template>
 {
-    IEnumerable<Template> GetTemplatesByIsWeight(bool isWeight);
+    IList<Template> GetTemplatesByIsWeight(bool isWeight);
     string? GetTemplateByUidFromCacheOrDb(Guid templateUid);
 }

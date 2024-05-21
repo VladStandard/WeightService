@@ -11,14 +11,14 @@ public sealed class SqlTemplateRepository : BaseRepository, IGetAll<Template>, I
     ISave<Template>, IUpdate<Template>, IDelete<Template>
 {
     public Template GetByUid(Guid id) => Session.Get<Template>(id) ?? new();
-    public IEnumerable<Template> GetAll() => Session.Query<Template>().OrderBy(i => i.Name).ToList();
+    public IList<Template> GetAll() => Session.Query<Template>().OrderBy(i => i.Name).ToList();
     public Template Save(Template item) { Session.Save(item); return item; }
     public Template Update(Template item) { Session.Update(item); return item; }
     public void Delete(Template item) => Session.Delete(item);
 
     #region Specs
 
-    public IEnumerable<Template> GetListBySpec(Specification<Template> spec) =>
+    public IList<Template> GetListBySpec(Specification<Template> spec) =>
         Session.Query<Template>().Where(spec).OrderBy(i => i.Name).ToList();
 
     #endregion

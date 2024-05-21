@@ -7,5 +7,5 @@ namespace Ws.Domain.Services.Features.Warehouses;
 public interface IWarehouseService : IGetAll<Warehouse>, IGetItemByUid<Warehouse>,
     ICreate<Warehouse>, IUpdate<Warehouse>, IDelete<Warehouse>
 {
-    public IEnumerable<Warehouse> GetAllByProductionSite(ProductionSite productionSite);
+    public IList<Warehouse> GetAllByProductionSite(ProductionSite productionSite);
 }

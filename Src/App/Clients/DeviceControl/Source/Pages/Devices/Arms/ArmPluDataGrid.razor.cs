@@ -17,8 +17,8 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private IPluService PluService { get; set; } = default!;
-    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
+    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private AuthenticationStateProvider AuthProvider { get; set; } = default!;
 
     # endregion
@@ -38,11 +38,11 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
         ClaimsPrincipal userPrincipal = (await AuthProvider.GetAuthenticationStateAsync()).User;
         if (userPrincipal is { Identity.Name: not null })
             User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
-        var isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
         IsAllowToEdit = isSeniorSupport || (User.ProductionSite != null && User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
 
         SelectPluEntities = [.. PluService.GetAll()];
-        SelectedPluEntities = [.. ArmService.GetLinePlus(Arm)];
+        SelectedPluEntities = [.. ArmService.GetArmAllPlus(Arm)];
         SelectedPluEntitiesCopy = SelectedPluEntities.DeepClone();
     }
 
@@ -67,8 +67,7 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
 
     private void ResetSelectedPluEntities() => SelectedPluEntities = SelectedPluEntitiesCopy.DeepClone();
 
-    protected override IEnumerable<ArmPlu> SetSqlSectionCast() =>
-        ArmService.GetLinePlusFk(Arm);
+    protected override IEnumerable<ArmPlu> SetSqlSectionCast() => ArmService.GetLinePlusFk(Arm);
 
     protected override async Task OpenItemInNewTab(ArmPlu item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");

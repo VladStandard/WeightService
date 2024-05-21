@@ -9,6 +9,6 @@ public sealed class SqlBundleRepository : BaseRepository, IGetItemByUid<Bundle>,
 {
     public Bundle GetByUid(Guid uid) => Session.Get<Bundle>(uid);
 
-    public IEnumerable<Bundle> GetAll() =>
+    public IList<Bundle> GetAll() =>
         Session.Query<Bundle>().OrderBy(i => i.Weight).ThenBy(i => i.Name).ToList();
 }

@@ -8,7 +8,6 @@ using Ws.Domain.Services.Features.Claims;
 using Ws.Domain.Services.Features.Clips;
 using Ws.Domain.Services.Features.DatabaseFiles;
 using Ws.Domain.Services.Features.Labels;
-using Ws.Domain.Services.Features.LogWebs;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Pallets;
 using Ws.Domain.Services.Features.Plus;
@@ -43,7 +42,6 @@ public static class DependencyInjection
         services.AddScoped<IDatabaseFileService, DatabaseFileService>();
         services.AddScoped<ILabelService, LabelService>();
         services.AddScoped<IArmService, ArmService>();
-        services.AddScoped<ILogWebService, LogWebService>();
         services.AddScoped<IPluService, PluService>();
         services.AddScoped<IPrinterService, PrinterService>();
         services.AddScoped<IProductionSiteService, ProductionSiteService>();

@@ -7,11 +7,21 @@ namespace Ws.Domain.Services.Features.PalletMen;
 
 internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletManService
 {
+    #region Items
+
     [Transactional]
     public PalletMan GetItemByUid(Guid uid) => palletManRepo.GetByUid(uid);
 
+    #endregion
+
+    #region List
+
     [Transactional]
-    public IEnumerable<PalletMan> GetAll() => palletManRepo.GetAll();
+    public IList<PalletMan> GetAll() => palletManRepo.GetAll();
+
+    #endregion
+
+    #region CRUD
 
     [Transactional, Validate<PalletManNewValidator>]
     public PalletMan Create(PalletMan item) => palletManRepo.Save(item);
@@ -21,4 +31,6 @@ internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletM
 
     [Transactional]
     public void Delete(PalletMan item) => palletManRepo.Delete(item);
+
+    #endregion
 }

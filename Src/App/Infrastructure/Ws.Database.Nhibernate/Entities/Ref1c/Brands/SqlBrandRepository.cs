@@ -11,7 +11,7 @@ public sealed class SqlBrandRepository : BaseRepository, IGetItemByUid<Brand>, I
 {
     public Brand GetByUid(Guid uid) => Session.Get<Brand>(uid) ?? new();
 
-    public IEnumerable<Brand> GetAll() => Session.Query<Brand>().OrderBy(i => i.Name).ToList();
+    public IList<Brand> GetAll() => Session.Query<Brand>().OrderBy(i => i.Name).ToList();
 
     public void Delete(Brand item) => Session.Delete(item);
 }

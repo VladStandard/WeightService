@@ -6,5 +6,5 @@ namespace Ws.Database.Nhibernate.Entities.Diag.TableSizes;
 
 public sealed class SqlViewTableSizeRepository : BaseRepository, IGetAll<TableSize>
 {
-    public IEnumerable<TableSize> GetAll() => Session.Query<TableSize>().ToList();
+    public IList<TableSize> GetAll() => Session.Query<TableSize>().ToList();
 }

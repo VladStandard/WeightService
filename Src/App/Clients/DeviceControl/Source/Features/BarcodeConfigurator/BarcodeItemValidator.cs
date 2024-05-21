@@ -1,7 +1,8 @@
-using FluentValidation;
 using Ws.Domain.Models.ValueTypes;
 using Ws.Labels.Service.Features.Generate.Models;
 using Ws.Shared.Extensions;
+
+namespace DeviceControl.Source.Features.BarcodeConfigurator;
 
 public class BarcodeItemValidator : AbstractValidator<BarcodeItem>
 {
