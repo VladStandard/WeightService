@@ -48,19 +48,4 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
 
 
     #endregion
-
-    public string? GetStorageByNameFromCacheOrDb(string name)
-    {
-        string key = $"STORAGE_METHODS:{name}";
-
-        if (provider.KeyExists(key))
-            return provider.StringGet(key);
-
-        StorageMethod temp = GetByName(name);
-
-        if (!temp.IsExists || temp.Zpl == string.Empty) return null;
-
-        provider.StringSet(key, temp.Zpl, TimeSpan.FromHours(1));
-        return temp.Zpl;
-    }
 }

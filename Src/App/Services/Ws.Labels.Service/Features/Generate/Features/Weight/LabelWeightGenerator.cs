@@ -1,37 +1,34 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Labels;
-using Ws.Domain.Services.Features.StorageMethods;
-using Ws.Domain.Services.Features.Templates;
-using Ws.Domain.Services.Features.ZplResources;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Models;
 using Ws.Labels.Service.Features.Generate.Models;
+using Ws.Labels.Service.Features.Generate.Models.Cache;
+using Ws.Labels.Service.Features.Generate.Services;
 using Ws.Labels.Service.Features.Generate.Utils;
 
 namespace Ws.Labels.Service.Features.Generate.Features.Weight;
 
 internal class LabelWeightGenerator(
-    IZplResourceService zplResourceService,
-    ITemplateService templateService,
-    IStorageMethodService storageMethodService,
+    CacheService cacheService,
     ILabelService labelService
     )
 {
     #region Private
 
-    private string LoadTemplate(Guid? templateUid) =>
-        templateService.GetTemplateByUidFromCacheOrDb(templateUid ?? Guid.Empty) ??
-               throw new LabelGenerateException(LabelGenExceptionEnum.TemplateNotFound);
+    private TemplateCache LoadTemplate(Guid? templateUid) =>
+        cacheService.GetTemplateByUidFromCacheOrDb(templateUid ?? Guid.Empty) ??
+               throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
     private string LoadStorageMethod(string name) =>
-        storageMethodService.GetStorageByNameFromCacheOrDb(name) ??
-            throw new LabelGenerateException(LabelGenExceptionEnum.StorageMethodNotFound);
+        cacheService.GetStorageByNameFromCacheOrDb(name) ??
+            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
     private static void ValidateXmlWeightLabel(XmlWeightLabel model)
     {
         if (!new XmlWeightLabelValidator().Validate(model).IsValid)
-            throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
     }
 
     #endregion
@@ -39,24 +36,24 @@ internal class LabelWeightGenerator(
     public Label GenerateLabel(GenerateWeightLabelDto dto)
     {
         if (!dto.Plu.IsCheckWeight)
-            throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
         XmlWeightLabel labelXml = dto.ToXmlWeightLabel();
 
         ValidateXmlWeightLabel(labelXml);
 
+        TemplateCache template = LoadTemplate(dto.Plu.TemplateUid);
+
         ZplPrintItems zplPrintItems = new()
         {
-            Resources = zplResourceService.GetAllResourcesFromCacheOrDb(),
-            Template = LoadTemplate(dto.Plu.TemplateUid),
+            Resources = cacheService.GetAllResourcesFromCacheOrDb(),
+            Template = template.Body,
             StorageMethod = LoadStorageMethod(dto.Plu.StorageMethod)
         };
 
-        var temp = templateService.GetItemByUid(dto.Plu.TemplateUid ?? Guid.Empty);
-
-        labelXml.BarcodeBottomTemplate = temp.BarcodeBottomBody.ToList();
-        labelXml.BarcodeRightTemplate = temp.BarcodeRightBody.ToList();
-        labelXml.BarcodeTopTemplate = temp.BarcodeTopBody.ToList();
+        labelXml.BarcodeBottomTemplate = template.BarcodeTopBody;
+        labelXml.BarcodeRightTemplate = template.BarcodeRightBody;
+        labelXml.BarcodeTopTemplate = template.BarcodeTopBody;
 
 
         ZplInfo ready = LabelGeneratorUtils.GetZpl(zplPrintItems, labelXml);

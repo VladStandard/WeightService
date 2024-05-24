@@ -5,7 +5,4 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.ZplResources;
 
 public interface IZplResourceService : IGetItemByUid<ZplResource>, IGetAll<ZplResource>,
-    ICreate<ZplResource>, IUpdate<ZplResource>, IDelete<ZplResource>
-{
-    Dictionary<string, string> GetAllResourcesFromCacheOrDb();
-}
+    ICreate<ZplResource>, IUpdate<ZplResource>, IDelete<ZplResource>;

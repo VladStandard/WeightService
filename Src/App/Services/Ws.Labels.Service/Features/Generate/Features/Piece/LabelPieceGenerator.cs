@@ -1,9 +1,6 @@
 using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallets;
-using Ws.Domain.Services.Features.StorageMethods;
-using Ws.Domain.Services.Features.Templates;
-using Ws.Domain.Services.Features.ZplResources;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Models;
@@ -12,27 +9,23 @@ using LabelGeneratorUtils = Ws.Labels.Service.Features.Generate.Utils.LabelGener
 
 namespace Ws.Labels.Service.Features.Generate.Features.Piece;
 
-internal class LabelPieceGenerator(
-    IPalletService palletService,
-    ITemplateService templateService,
-    IZplResourceService zplResourceService,
-    IStorageMethodService storageMethodService)
+internal class LabelPieceGenerator(IPalletService palletService)
 {
     public void GeneratePiecePallet(GeneratePiecePalletDto generatePalletDto, int labelCount)
     {
-        string templateBody = string.Empty;
+        Template template = new();
         string storageMethodBody = string.Empty;
 
         if (labelCount > 240)
-            throw new LabelGenerateException(LabelGenExceptionEnum.Invalid);
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        if (Guid.TryParse(generatePalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
-            templateBody = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? string.Empty;
+        // if (Guid.TryParse(generatePalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
+        //     template = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? new();
 
-        if (storageMethodService.GetStorageByNameFromCacheOrDb(generatePalletDto.Plu.StorageMethod) is { } storageMethod)
-            storageMethodBody = storageMethod;
+        // if (storageMethodService.GetStorageByNameFromCacheOrDb(generatePalletDto.Plu.StorageMethod) is { } storageMethod)
+        //     storageMethodBody = storageMethod;
 
-        if (templateBody == string.Empty) throw new();
+        if (template.IsNew) throw new();
         if (storageMethodBody == string.Empty) throw new();
 
         XmlPieceLabel labelXml = generatePalletDto.AdaptToXmlPieceLabel();
@@ -44,8 +37,8 @@ internal class LabelPieceGenerator(
 
         ZplPrintItems zplPrintItems = new()
         {
-            Resources = zplResourceService.GetAllResourcesFromCacheOrDb(),
-            Template = templateBody,
+            Resources = [],
+            Template = template.Body,
             StorageMethod = storageMethodBody
         };
 

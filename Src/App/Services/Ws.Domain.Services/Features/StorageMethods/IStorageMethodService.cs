@@ -8,5 +8,4 @@ public interface IStorageMethodService : IGetItemByUid<StorageMethod>, IGetAll<S
     ICreate<StorageMethod>, IUpdate<StorageMethod>, IDelete<StorageMethod>
 {
     StorageMethod GetByName(string name);
-    string? GetStorageByNameFromCacheOrDb(string name);
 }

@@ -12,5 +12,4 @@ public interface ITemplateService :
     IDelete<Template>
 {
     IList<Template> GetTemplatesByIsWeight(bool isWeight);
-    string? GetTemplateByUidFromCacheOrDb(Guid templateUid);
 }

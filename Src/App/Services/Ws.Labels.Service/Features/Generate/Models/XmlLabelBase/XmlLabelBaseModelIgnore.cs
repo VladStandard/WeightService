@@ -2,9 +2,9 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Ws.Domain.Models.ValueTypes;
 using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Features.Generate.Models.Cache;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Features.Generate.Models.XmlLabelBase;
@@ -15,16 +15,16 @@ public abstract partial class XmlLabelBaseModel
     [XmlIgnore] public required DateTime ExpirationDt { get; set; } = DateTime.MinValue;
     [XmlIgnore] public required DateTime ProductDt { get; set; } = DateTime.MinValue;
 
-    [XmlIgnore] public List<BarcodeItem> BarcodeRightTemplate { get; set; } = [];
-    [XmlIgnore] public List<BarcodeItem> BarcodeBottomTemplate { get; set; } = [];
-    [XmlIgnore] public List<BarcodeItem> BarcodeTopTemplate { get; set; } = [];
+    [XmlIgnore] public List<BarcodeItemCache> BarcodeRightTemplate { get; set; } = [];
+    [XmlIgnore] public List<BarcodeItemCache> BarcodeBottomTemplate { get; set; } = [];
+    [XmlIgnore] public List<BarcodeItemCache> BarcodeTopTemplate { get; set; } = [];
 
-    protected string GenerateBarcode(List<BarcodeItem> barcodeTemplate)
+    protected string GenerateBarcode(List<BarcodeItemCache> barcodeTemplate)
     {
         StringBuilder barcodeBuilder = new();
         try
         {
-            foreach (BarcodeItem item in barcodeTemplate)
+            foreach (BarcodeItemCache item in barcodeTemplate)
             {
                 PropertyInfo? propertyInfo = GetType().GetProperty(item.Property);
                 object? value = propertyInfo?.GetValue(this);
@@ -55,7 +55,7 @@ public abstract partial class XmlLabelBaseModel
             }
         } catch (Exception)
         {
-            throw new LabelGenerateException(LabelGenExceptionEnum.BarcodeError);
+            throw new LabelGenerateException(LabelGenExceptions.BarcodeError);
         }
         return barcodeBuilder.ToString();
     }

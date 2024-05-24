@@ -1,6 +1,6 @@
 namespace Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 
-public class LabelGenerateException(LabelGenExceptionEnum exception) : Exception
+public class LabelGenerateException(LabelGenExceptions exception) : Exception
 {
-    public readonly LabelGenExceptionEnum Code = exception;
+    public readonly LabelGenExceptions Code = exception;
 }

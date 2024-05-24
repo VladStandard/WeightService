@@ -87,9 +87,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
         {
             ToastService.ShowError(ex.Code switch
             {
-                LabelGenExceptionEnum.Invalid => Localizer["LabelGenErrorInvalid"],
-                LabelGenExceptionEnum.TemplateNotFound => Localizer["LabelGenErrorTemplateNotFound"],
-                LabelGenExceptionEnum.StorageMethodNotFound => Localizer["LabelGenErrorStorageMethodNotFound"],
+                LabelGenExceptions.Invalid => Localizer["LabelGenErrorInvalid"],
+                LabelGenExceptions.TemplateNotFound => Localizer["LabelGenErrorTemplateNotFound"],
+                LabelGenExceptions.StorageMethodNotFound => Localizer["LabelGenErrorStorageMethodNotFound"],
                 _ => Localizer["UnknownError"]
             });
         }

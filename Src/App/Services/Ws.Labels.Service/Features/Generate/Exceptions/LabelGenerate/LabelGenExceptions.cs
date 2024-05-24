@@ -1,6 +1,6 @@
 namespace Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 
-public enum LabelGenExceptionEnum
+public enum LabelGenExceptions
 {
     Invalid,
     BarcodeError,

@@ -26,10 +26,10 @@ internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRe
     #region CRUD
 
     [Transactional, Validate<ZplResourceNewValidator>]
-    public ZplResource Create(ZplResource item) => UpdateCache(zplResourceRepo.Save(item));
+    public ZplResource Create(ZplResource item) => zplResourceRepo.Save(item);
 
     [Transactional, Validate<ZplResourceUpdateValidator>]
-    public ZplResource Update(ZplResource item) => UpdateCache(zplResourceRepo.Update(item));
+    public ZplResource Update(ZplResource item) => zplResourceRepo.Update(item);
 
     [Transactional]
     public void Delete(ZplResource item)
@@ -39,17 +39,4 @@ internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRe
     }
 
     #endregion
-
-    [Transactional]
-    public Dictionary<string, string> GetAllResourcesFromCacheOrDb()
-    {
-        Dictionary<string, string>? cached = provider.HGetAll("ZPL_RESOURCES");
-
-        if (cached != null && cached.Count != 0) return cached;
-
-        cached = zplResourceRepo.GetAll().ToDictionary(i => i.Name, i => i.Zpl);
-        provider.HMSet("ZPL_RESOURCES", cached, TimeSpan.FromHours(1));
-
-        return cached;
-    }
 }
