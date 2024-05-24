@@ -26,6 +26,4 @@ public sealed class PrinterEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    // public ICollection<LineEntity> Lines { get; set; } = new List<LineEntity>();
 }

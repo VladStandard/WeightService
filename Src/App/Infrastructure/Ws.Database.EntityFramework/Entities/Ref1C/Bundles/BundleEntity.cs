@@ -28,5 +28,4 @@ public sealed class BundleEntity : EfEntityBase
         Weight = weight;
         ChangeDt = updateDate;
     }
-    // public virtual ICollection<PluEntity> Plus { get; set; } = new List<PluEntity>();
 }

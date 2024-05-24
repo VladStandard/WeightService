@@ -13,6 +13,4 @@ public sealed class ClaimEntity : EfEntityBase
     public List<UserEntity> Users { get; } = [];
 
     public DateTime CreateDt { get; init; }
-
-    // public virtual ICollection<UsersClaimsFk> UsersClaimsFks { get; set; } = new List<UsersClaimsFk>();
 }

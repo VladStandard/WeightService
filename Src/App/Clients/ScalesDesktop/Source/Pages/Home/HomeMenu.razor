@@ -14,7 +14,7 @@
     <p class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</p>
   </div>
   <ul class="flex flex-col gap-2">
-    @if (LineContext.Line.Type is LineTypeEnum.Tablet or LineTypeEnum.Universal)
+    @if (LineContext.Line.Type is ArmTypes.Tablet or ArmTypes.Universal)
     {
     <li>
       <a href="@RouteUtils.Labels">
@@ -25,7 +25,7 @@
       </a>
     </li>
     }
-    @if (LineContext.Line.Type is LineTypeEnum.Pc or LineTypeEnum.Universal)
+    @if (LineContext.Line.Type is ArmTypes.Pc or ArmTypes.Universal)
     {
     <li>
       <a href="@RouteUtils.Pallet">

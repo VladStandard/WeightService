@@ -7,13 +7,13 @@
   <div class="h-16 px-4 shrink-0 rounded-full flex items-center justify-center overflow-hidden bg-secondary">
     @switch (LineContext.Line.Type)
     {
-      case LineTypeEnum.Pc:
+      case ArmTypes.Pc:
         <ComputerDesktopIcon class="size-8"/>
         break;
-      case LineTypeEnum.Tablet:
+      case ArmTypes.Tablet:
         <DeviceTabletIcon class="size-8"/>
         break;
-      case LineTypeEnum.Universal:
+      case ArmTypes.Universal:
         <ServerIcon class="size-8"/>
         break;
       default:

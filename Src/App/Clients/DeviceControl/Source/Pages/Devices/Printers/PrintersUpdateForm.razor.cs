@@ -22,7 +22,7 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
 
     # endregion
 
-    private IEnumerable<PrinterTypeEnum> PrinterTypes { get; set; } = new List<PrinterTypeEnum>();
+    private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = new List<PrinterTypes>();
     private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
@@ -30,7 +30,7 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        PrinterTypes = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
+        PrinterTypes = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
     }
 
     protected override async Task OnInitializedAsync()

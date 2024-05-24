@@ -6,8 +6,7 @@ using Ws.Domain.Models.Entities.Ref1c;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Brands;
 
-public sealed class SqlBrandRepository : BaseRepository, IGetItemByUid<Brand>, IGetAll<Brand>,
-    IDelete<Brand>
+public sealed class SqlBrandRepository : BaseRepository, IGetItemByUid<Brand>, IGetAll<Brand>, IDelete<Brand>
 {
     public Brand GetByUid(Guid uid) => Session.Get<Brand>(uid) ?? new();
 

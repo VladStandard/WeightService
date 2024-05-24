@@ -23,14 +23,14 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
     # endregion
 
     [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
-    private IEnumerable<PrinterTypeEnum> PrinterTypes { get; set; } = new List<PrinterTypeEnum>();
+    private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = new List<PrinterTypes>();
     private User User { get; set; } = new();
     private bool IsSeniorSupport { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        PrinterTypes = Enum.GetValues(typeof(PrinterTypeEnum)).Cast<PrinterTypeEnum>().ToList();
+        PrinterTypes = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
         DialogItem.ProductionSite.Name = Localizer["FormProductionSiteDefaultPlaceholder"];
     }
 

@@ -4,10 +4,9 @@ using Ws.Database.Nhibernate.Common.Commands;
 using Ws.Database.Nhibernate.Common.Queries.Item;
 using Ws.Domain.Models.Entities.Devices.Arms;
 
-namespace Ws.Database.Nhibernate.Entities.Ref.Lines;
+namespace Ws.Database.Nhibernate.Entities.Ref.Arms;
 
-public sealed class SqlLineRepository : BaseRepository,
-    IGetItemByUid<Arm>, ISave<Arm>, IUpdate<Arm>, IDelete<Arm>
+public sealed class SqlArmRepository : BaseRepository, IGetItemByUid<Arm>, ISave<Arm>, IUpdate<Arm>, IDelete<Arm>
 {
     public Arm GetByUid(Guid uid) => Session.Get<Arm>(uid) ?? new();
 

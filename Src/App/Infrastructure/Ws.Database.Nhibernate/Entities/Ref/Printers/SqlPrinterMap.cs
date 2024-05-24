@@ -58,7 +58,7 @@ internal class SqlPrinterMap : ClassMapping<Printer>
         {
             m.Length(15);
             m.Column("TYPE");
-            m.Type<EnumStringType<PrinterTypeEnum>>();
+            m.Type<EnumStringType<PrinterTypes>>();
             m.NotNullable(true);
         });
     }

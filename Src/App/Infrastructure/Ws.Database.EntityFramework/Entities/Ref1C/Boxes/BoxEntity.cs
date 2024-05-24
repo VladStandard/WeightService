@@ -3,9 +3,6 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 [Table(SqlTables.Boxes, Schema = SqlSchemas.Ref1C)]
 public sealed class BoxEntity : EfEntityBase
 {
-
-    // public ICollection<PluNestingEntity> PlusNestingFks { get; set; } = [];
-
     public BoxEntity() { }
 
     public BoxEntity(Guid uid, string name, decimal weight, DateTime updateDate)

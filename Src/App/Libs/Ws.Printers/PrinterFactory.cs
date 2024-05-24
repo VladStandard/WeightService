@@ -8,11 +8,11 @@ namespace Ws.Printers;
 
 public static class PrinterFactory
 {
-    public static IPrinter Create(IPAddress ip, int port, PrinterTypeEnum type) =>
-        type switch
+    public static IPrinter Create(IPAddress ip, int port, PrinterTypes types) =>
+        types switch
         {
-            PrinterTypeEnum.Tsc => new TscPrinter(ip, port),
-            PrinterTypeEnum.Zebra => new ZebraPrinter(ip, port),
+            PrinterTypes.Tsc => new TscPrinter(ip, port),
+            PrinterTypes.Zebra => new ZebraPrinter(ip, port),
             _ => new TscPrinter(ip, port)
         };
 }

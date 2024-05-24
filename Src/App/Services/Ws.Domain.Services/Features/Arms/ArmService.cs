@@ -1,5 +1,5 @@
 using System.Net;
-using Ws.Database.Nhibernate.Entities.Ref.Lines;
+using Ws.Database.Nhibernate.Entities.Ref.Arms;
 using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
@@ -11,15 +11,15 @@ using Ws.Domain.Services.Features.Plus.Specs;
 
 namespace Ws.Domain.Services.Features.Arms;
 
-internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineRepository pluLineRepo) : IArmService
+internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository pluLineRepo) : IArmService
 {
     #region Items
 
     [Transactional]
-    public Arm GetCurrentLine() => lineRepo.GetItemBySpec(ArmSpecs.GetByPcName(Dns.GetHostName()));
+    public Arm GetCurrentLine() => armRepo.GetItemBySpec(ArmSpecs.GetByPcName(Dns.GetHostName()));
 
     [Transactional]
-    public Arm GetItemByUid(Guid uid) => lineRepo.GetByUid(uid);
+    public Arm GetItemByUid(Guid uid) => armRepo.GetByUid(uid);
 
     #endregion
 
@@ -27,7 +27,7 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
 
     [Transactional]
     public IList<Arm> GetAllByProductionSite(ProductionSite site) =>
-        lineRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
+        armRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
 
     [Transactional]
     public IList<Plu> GetArmWeightPlus(Arm arm) => GetPluListByArmAndSpec(arm, PluSpecs.GetWeight());
@@ -46,13 +46,13 @@ internal partial class ArmService(SqlLineRepository lineRepo, SqlPluLineReposito
     #region CRUD
 
     [Transactional, Validate<ArmNewValidator>]
-    public Arm Create(Arm line) => lineRepo.Save(line);
+    public Arm Create(Arm line) => armRepo.Save(line);
 
     [Transactional, Validate<ArmUpdateValidator>]
-    public Arm Update(Arm line) => lineRepo.Update(line);
+    public Arm Update(Arm line) => armRepo.Update(line);
 
     [Transactional]
-    public void Delete(Arm item) => lineRepo.Delete(item);
+    public void Delete(Arm item) => armRepo.Delete(item);
 
     [Transactional]
     public void DeletePluLine(ArmPlu item) => pluLineRepo.Delete(item);

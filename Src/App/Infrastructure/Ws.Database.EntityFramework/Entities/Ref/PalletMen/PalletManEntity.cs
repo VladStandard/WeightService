@@ -23,6 +23,4 @@ public sealed class PalletManEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    // public virtual ICollection<Pallet> Pallets { get; set; } = new List<Pallet>();
 }

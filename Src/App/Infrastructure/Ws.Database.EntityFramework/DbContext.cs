@@ -27,6 +27,8 @@ namespace Ws.Database.EntityFramework;
 
 public class WsDbContext : DbContext
 {
+    #region DbSet
+
     public DbSet<ZplResourceEntity> ZplResources { get; set; }
     public DbSet<PalletManEntity> PalletMen { get; set; }
     public DbSet<BrandEntity> Brands { get; set; }
@@ -38,24 +40,28 @@ public class WsDbContext : DbContext
     public DbSet<ClipEntity> Clips { get; set; }
     public DbSet<BundleEntity> Bundles { get; set; }
     public DbSet<WarehouseEntity> Warehouses { get; set; }
-    public DbSet<UserEntity> Users { get; set; }
     public DbSet<PrinterEntity> Printers { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
     public DbSet<LineEntity> Lines { get; set; }
     public DbSet<PluEntity> Plus { get; set; }
     public DbSet<NestingEntity> Nestings { get; set; }
     public DbSet<CharacteristicEntity> Characteristics { get; set; }
     public DbSet<LabelEntity> Labels { get; set; }
 
+
+    #endregion
+
     private static readonly ILoggerFactory MyLoggerFactory
         = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        SqlSettingsModels sqlCfg = LoadJsonConfig();
 
-        optionsBuilder.UseSqlServer(LoadJsonConfig().GetConnectionString());
+        optionsBuilder.UseSqlServer(sqlCfg.GetConnectionString());
         optionsBuilder.AddInterceptors(new ChangeDtInterceptor());
 
-        if (ConfigurationUtil.IsDevelop)
+        if (ConfigurationUtil.IsDevelop && sqlCfg.IsShowSql)
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
     }
 
@@ -71,7 +77,6 @@ public class WsDbContext : DbContext
         modelBuilder.MapUser();
         modelBuilder.MapNesting();
         modelBuilder.MapCharacteristic();
-        // modelBuilder.MapCharacteristic();
     }
 
     private static SqlSettingsModels LoadJsonConfig()

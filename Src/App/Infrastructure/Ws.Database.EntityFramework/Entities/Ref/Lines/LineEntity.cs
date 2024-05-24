@@ -38,7 +38,6 @@ public sealed class LineEntity : EfEntityBase
     [Column("VERSION"), StringLength(16)]
     public string Version { get; set; } = string.Empty;
 
-
     public ICollection<PluEntity> Plus { get; set; } = [];
 
     #region Date
@@ -47,8 +46,4 @@ public sealed class LineEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    // public virtual PrinterEntity PrinterU { get; set; } = null!;
-    //
-    // public virtual WarehouseEntity WarehouseU { get; set; } = null!;
 }

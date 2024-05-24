@@ -2,11 +2,11 @@ using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Enums;
 
-namespace Ws.Database.Nhibernate.Entities.Ref.Lines;
+namespace Ws.Database.Nhibernate.Entities.Ref.Arms;
 
-internal sealed class SqlLineMap : ClassMapping<Arm>
+internal sealed class SqlArmMap : ClassMapping<Arm>
 {
-    public SqlLineMap()
+    public SqlArmMap()
     {
         Schema(SqlSchemasUtils.Ref);
         Table(SqlTablesUtils.Lines);
@@ -70,7 +70,7 @@ internal sealed class SqlLineMap : ClassMapping<Arm>
         Property(x => x.Type, m =>
         {
             m.Column("TYPE");
-            m.Type<EnumStringType<LineTypeEnum>>();
+            m.Type<EnumStringType<ArmTypes>>();
             m.Length(8);
             m.NotNullable(true);
         });

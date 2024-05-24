@@ -13,7 +13,7 @@ public class Printer : EntityBase
 {
     public virtual IPAddress Ip { get; set; } = IPAddress.Parse("127.0.0.1");
     public virtual ProductionSite ProductionSite { get; set; } = new();
-    public virtual PrinterTypeEnum Type { get; set; } = PrinterTypeEnum.Tsc;
+    public virtual PrinterTypes Type { get; set; } = PrinterTypes.Tsc;
     public virtual string Name { get; set; } = string.Empty;
     public virtual string DisplayName => IsExists ? $"{Name} | {Ip}" : Name;
 

@@ -17,9 +17,4 @@ public sealed class ProductionSiteEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-    // public virtual ICollection<PrinterEntity> Printers { get; set; } = new List<PrinterEntity>();
-    //
-    // public virtual ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
-    //
-    // public virtual ICollection<WarehouseEntity> Warehouses { get; set; } = new List<WarehouseEntity>();
 }

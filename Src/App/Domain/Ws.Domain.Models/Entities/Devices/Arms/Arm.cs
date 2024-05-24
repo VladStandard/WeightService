@@ -21,7 +21,7 @@ public class Arm : EntityBase
 
     public virtual Printer Printer { get; set; } = new();
     public virtual Warehouse Warehouse { get; set; } = new();
-    public virtual LineTypeEnum Type { get; set; } = LineTypeEnum.Tablet;
+    public virtual ArmTypes Type { get; set; } = ArmTypes.Tablet;
 
     #region Constructors
 

@@ -46,13 +46,13 @@
           <div class="size-full flex items-center justify-center">
             @switch (context.Type)
             {
-              case LineTypeEnum.Pc:
+              case ArmTypes.Pc:
                 <ComputerDesktopIcon class="size-5"/>
                 break;
-              case LineTypeEnum.Tablet:
+              case ArmTypes.Tablet:
                 <DeviceTabletIcon class="size-5"/>
                 break;
-              case LineTypeEnum.Universal:
+              case ArmTypes.Universal:
                 <ServerIcon class="size-5"/>
                 break;
               default:

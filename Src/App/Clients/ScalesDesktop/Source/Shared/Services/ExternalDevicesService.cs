@@ -10,14 +10,14 @@ namespace ScalesDesktop.Source.Shared.Services;
 public class ExternalDevicesService : IDisposable
 {
     public IPrinter Printer { get; private set; } =
-        PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypeEnum.Tsc);
+        PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypes.Tsc);
 
     public IScales Scales { get; private set; } = new Scales("COM6");
 
-    public void SetupPrinter(IPAddress ip, int port, PrinterTypeEnum type)
+    public void SetupPrinter(IPAddress ip, int port, PrinterTypes types)
     {
         Printer.Dispose();
-        Printer = PrinterFactory.Create(ip, port, type);
+        Printer = PrinterFactory.Create(ip, port, types);
         Printer.Connect();
     }
 

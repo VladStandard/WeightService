@@ -18,6 +18,4 @@ public sealed class WarehouseEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    // public virtual ICollection<LineEntity> Lines { get; set; } = new List<LineEntity>();
 }

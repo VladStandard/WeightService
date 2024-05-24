@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ws.Database.EntityFramework.Converters;
 
 internal class IpAddressToIPv4StringConverter(ConverterMappingHints? mappingHints)
-    : ValueConverter<IPAddress?, string?>(ToString(),
-    ToIpAddress(),
-    DefaultHints.With(mappingHints))
+    : ValueConverter<IPAddress?, string?>(ToString(), ToIpAddress(), DefaultHints.With(mappingHints))
 {
     private static readonly ConverterMappingHints DefaultHints = new(size: 15);
 

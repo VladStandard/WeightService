@@ -13,7 +13,6 @@ public static partial class IpAddressParser
     {
         bool isIp = MyRegex().IsMatch(newIp);
         if (!isIp) return oldIp;
-        IPAddress.TryParse(newIp, out IPAddress? ip);
-        return ip ?? IPAddress.Parse("127.0.0.1");
+        return IPAddress.TryParse(newIp, out IPAddress? ip) ?  ip : IPAddress.Parse("127.0.0.1");
     }
 }

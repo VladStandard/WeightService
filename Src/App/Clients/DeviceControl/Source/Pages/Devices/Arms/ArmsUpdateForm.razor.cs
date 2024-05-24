@@ -27,7 +27,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
     private IEnumerable<Printer> Printers { get; set; } = [];
-    private IEnumerable<LineTypeEnum> LineTypes { get; set; } = [];
+    private IEnumerable<ArmTypes> LineTypes { get; set; } = [];
     private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
@@ -38,7 +38,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
         base.OnInitialized();
         Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
         Printers = PrinterService.GetAllByProductionSite(ProductionSite);
-        LineTypes = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
+        LineTypes = Enum.GetValues(typeof(ArmTypes)).Cast<ArmTypes>().ToList();
     }
 
     protected override async Task OnInitializedAsync()

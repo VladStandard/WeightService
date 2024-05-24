@@ -27,7 +27,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
 
     private IEnumerable<Printer> Printers { get; set; } = [];
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
-    private IEnumerable<LineTypeEnum> LineTypes { get; set; } = [];
+    private IEnumerable<ArmTypes> LineTypes { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
 
@@ -39,7 +39,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
         DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
         GenerateLineNumber();
 
-        LineTypes = Enum.GetValues(typeof(LineTypeEnum)).Cast<LineTypeEnum>().ToList();
+        LineTypes = Enum.GetValues(typeof(ArmTypes)).Cast<ArmTypes>().ToList();
         Printers = PrinterService.GetAllByProductionSite(ProductionSite);
         Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
     }
