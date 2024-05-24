@@ -10,18 +10,20 @@
       <div>
         <AuthorizeView>
           <Authorized>
-            <form method="post" action="Logout">
-              <button type="submit" class="flex items-center gap-2" href="MicrosoftIdentity/Account/SignOut">
+            <form method="post" action="/auth/logout">
+              <button type="submit" class="flex items-center gap-2">
                 <div class="size-8 flex items-center overflow-hidden rounded-full justify-center bg-muted">
                   @context.User.Identity?.Name?[0]
                 </div>
                 <p>Log out</p>
               </button>
+              <AntiforgeryToken />
             </form>
           </Authorized>
           <NotAuthorized>
-            <form method="get" action="Login">
+            <form method="get" action="/auth/login">
               <button type="submit">Log in</button>
+              <AntiforgeryToken />
             </form>
           </NotAuthorized>
         </AuthorizeView>

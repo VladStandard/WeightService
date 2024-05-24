@@ -2,7 +2,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace KeycloakBlazor.Source.Utils;
+namespace KeycloakBlazor.Source.Utils.Auth;
 
 public abstract class RoleMapping
 {
@@ -14,7 +14,7 @@ public abstract class RoleMapping
             claimsIdentity.AddClaim(new(ClaimTypes.Name, username.ToString()));
 
         if (context.User.RootElement.TryGetProperty("realm_access", out JsonElement realmAccess)
-            && realmAccess.TryGetProperty("roles", out var globalRoles))
+            && realmAccess.TryGetProperty("roles", out JsonElement globalRoles))
             foreach (JsonElement role in globalRoles.EnumerateArray())
                 claimsIdentity.AddClaim(new(ClaimTypes.Role, role.ToString()));
 

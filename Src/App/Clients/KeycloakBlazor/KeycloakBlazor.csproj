@@ -20,6 +20,8 @@
   <ItemGroup>
     <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.4.0" />
     <PackageReference Include="Keycloak.AuthServices.Common" Version="2.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
