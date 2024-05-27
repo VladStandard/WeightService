@@ -1,5 +1,8 @@
-@page "/auth"
+@using KeycloakBlazor.Source.Utils
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
+@attribute [Route($"{RouteUtils.TestAuth}")]
 
-You are authorized!!
+<div class="py-5">
+  You are authorized
+</div>

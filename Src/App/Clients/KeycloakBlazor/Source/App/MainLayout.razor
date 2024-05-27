@@ -1,16 +1,17 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
+﻿@using KeycloakBlazor.Source.Utils
+@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
 
 <div class="size-full">
   <div class="h-14 border-b w-full sticky flex items-center justify-center">
     <div class="max-w-screen-2xl w-full mx-auto flex items-center justify-between">
-      <a href="/">
+      <a href="@RouteUtils.Home">
         <h1>Blazor Keycloak</h1>
       </a>
       <div>
         <AuthorizeView>
           <Authorized>
-            <form method="post" action="/auth/logout">
+            <form method="post" action="@($"{RouteUtils.Authorization}/logout")">
               <button type="submit" class="flex items-center gap-2">
                 <div class="size-8 flex items-center overflow-hidden rounded-full justify-center bg-muted">
                   @context.User.Identity?.Name?[0]
@@ -21,7 +22,7 @@
             </form>
           </Authorized>
           <NotAuthorized>
-            <form method="get" action="/auth/login">
+            <form method="get" action="@($"{RouteUtils.Authorization}/login")">
               <button type="submit">Log in</button>
               <AntiforgeryToken />
             </form>
@@ -30,5 +31,7 @@
       </div>
     </div>
   </div>
-  @Body
+  <div class="min-h-full max-w-screen-2xl w-full mx-auto">
+    @Body
+  </div>
 </div>

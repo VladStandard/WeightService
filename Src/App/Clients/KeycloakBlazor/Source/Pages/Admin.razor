@@ -1,5 +1,30 @@
-@page "/admin"
+@using KeycloakBlazor.Source.Api.Keycloak
+@using KeycloakBlazor.Source.Utils
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles="blazor-admin")]
+@attribute [Route($"{RouteUtils.Admin}")]
 
-You are admin!!!
+<div class="py-5">
+  You have the role: blazor-admin
+  Response answer: @ResponseJson
+</div>
+
+@code {
+  [Inject] private IKeycloakApi KeycloakApi { get; set; } = default!;
+
+  private string? ResponseJson { get; set; } = "Empty";
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      IEnumerable<User> data = await KeycloakApi.GetAllUsers();
+      ResponseJson = data.ToString();
+    }
+    catch
+    {
+      // pass
+    }
+
+  }
+}
