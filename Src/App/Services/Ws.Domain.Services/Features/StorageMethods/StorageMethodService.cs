@@ -44,7 +44,11 @@ internal class StorageMethodService(SqlStorageMethodRepository storageMethodRepo
     }
 
     [Transactional]
-    public void Delete(StorageMethod item) => storageMethodRepo.Delete(item);
+    public void Delete(StorageMethod item)
+    {
+        storageMethodRepo.Delete(item);
+        provider.HDel($"STORAGE_METHODS:{item.Name}");
+    }
 
 
     #endregion

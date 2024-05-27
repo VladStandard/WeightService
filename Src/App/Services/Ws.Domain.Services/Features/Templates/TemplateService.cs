@@ -47,7 +47,11 @@ internal class TemplateService(
     }
 
     [Transactional]
-    public void Delete(Template item) => templateRepo.Delete(item);
+    public void Delete(Template item)
+    {
+        templateRepo.Delete(item);
+        provider.HDel($"TEMPLATES:{item.Uid}");
+    }
 
     #endregion
 }

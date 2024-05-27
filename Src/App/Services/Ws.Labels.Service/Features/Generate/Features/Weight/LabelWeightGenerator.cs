@@ -10,28 +10,9 @@ using Ws.Labels.Service.Features.Generate.Utils;
 
 namespace Ws.Labels.Service.Features.Generate.Features.Weight;
 
-internal class LabelWeightGenerator(
-    CacheService cacheService,
-    ILabelService labelService
-    )
+internal class LabelWeightGenerator(CacheService cacheService, ILabelService labelService)
 {
-    #region Private
-
-    private TemplateCache LoadTemplate(Guid? templateUid) =>
-        cacheService.GetTemplateByUidFromCacheOrDb(templateUid ?? Guid.Empty) ??
-               throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
-
-    private string LoadStorageMethod(string name) =>
-        cacheService.GetStorageByNameFromCacheOrDb(name) ??
-            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
-
-    private static void ValidateXmlWeightLabel(XmlWeightLabel model)
-    {
-        if (!new XmlWeightLabelValidator().Validate(model).IsValid)
-            throw new LabelGenerateException(LabelGenExceptions.Invalid);
-    }
-
-    #endregion
+    #region Public
 
     public Label GenerateLabel(GenerateWeightLabelDto dto)
     {
@@ -42,13 +23,17 @@ internal class LabelWeightGenerator(
 
         ValidateXmlWeightLabel(labelXml);
 
-        TemplateCache template = LoadTemplate(dto.Plu.TemplateUid);
+        TemplateCache template = cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
+                                 throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
+
+        string storageMethod = cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
+                               throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
         ZplPrintItems zplPrintItems = new()
         {
             Resources = cacheService.GetAllResourcesFromCacheOrDb(),
             Template = template.Body,
-            StorageMethod = LoadStorageMethod(dto.Plu.StorageMethod)
+            StorageMethod = storageMethod
         };
 
         labelXml.BarcodeBottomTemplate = template.BarcodeTopBody;
@@ -76,4 +61,16 @@ internal class LabelWeightGenerator(
 
         return labelSql;
     }
+
+    #endregion
+
+    #region Private
+
+    private static void ValidateXmlWeightLabel(XmlWeightLabel model)
+    {
+        if (!new XmlWeightLabelValidator().Validate(model).IsValid)
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
+    }
+
+    #endregion
 }

@@ -6,7 +6,7 @@ using Ws.Domain.Services.Features.ZplResources.Validators;
 
 namespace Ws.Domain.Services.Features.ZplResources;
 
-internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRedisCachingProvider provider)
+internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRedisCachingProvider provider)
     : IZplResourceService
 {
     #region Items
@@ -26,10 +26,24 @@ internal partial class ZplResourceService(SqlZplResourceRepository zplResourceRe
     #region CRUD
 
     [Transactional, Validate<ZplResourceNewValidator>]
-    public ZplResource Create(ZplResource item) => zplResourceRepo.Save(item);
+    public ZplResource Create(ZplResource item)
+    {
+        ZplResource data = zplResourceRepo.Save(item);
+        Dictionary<string, string>? cacheData = provider.HGetAll("ZPL_RESOURCES");
+        cacheData[data.Name] = data.Zpl;
+        provider.HMSet("ZPL_RESOURCES", cacheData, TimeSpan.FromHours(1));
+        return data;
+    }
 
     [Transactional, Validate<ZplResourceUpdateValidator>]
-    public ZplResource Update(ZplResource item) => zplResourceRepo.Update(item);
+    public ZplResource Update(ZplResource item)
+    {
+        ZplResource data = zplResourceRepo.Update(item);
+        Dictionary<string, string>? cacheData = provider.HGetAll("ZPL_RESOURCES");
+        cacheData[data.Name] = data.Zpl;
+        provider.HMSet("ZPL_RESOURCES", cacheData, TimeSpan.FromHours(1));
+        return data;
+    }
 
     [Transactional]
     public void Delete(ZplResource item)
