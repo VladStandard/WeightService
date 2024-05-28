@@ -22,14 +22,15 @@ internal static class LoginLogoutEndpointRouteBuilderExtensions
     private static AuthenticationProperties GetAuthProperties(string? returnUrl)
     {
         const string pathBase = "/";
+        string redirectUri = string.Empty;
 
         if (string.IsNullOrEmpty(returnUrl))
-            returnUrl = pathBase;
+            redirectUri = pathBase;
         else if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
-            returnUrl = new Uri(returnUrl, UriKind.Absolute).PathAndQuery;
+            redirectUri = new Uri(returnUrl, UriKind.Absolute).PathAndQuery;
         else if (returnUrl[0] != '/')
-            returnUrl = $"{pathBase}{returnUrl}";
+            redirectUri = $"{pathBase}{returnUrl}";
 
-        return new() { RedirectUri = returnUrl };
+        return new() { RedirectUri = redirectUri };
     }
 }

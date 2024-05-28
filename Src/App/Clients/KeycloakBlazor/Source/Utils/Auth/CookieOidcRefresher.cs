@@ -10,14 +10,11 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 
-namespace KeycloakBlazor;
+namespace KeycloakBlazor.Source.Utils.Auth;
 
 internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oidcOptionsMonitor)
 {
-    private readonly OpenIdConnectProtocolValidator oidcTokenValidator = new()
-    {
-        RequireNonce = false,
-    };
+    private OpenIdConnectProtocolValidator OidcTokenValidator { get; } = new() { RequireNonce = false };
 
     public async Task ValidateOrRefreshCookieAsync(CookieValidatePrincipalContext validateContext, string oidcScheme)
     {
@@ -30,12 +27,11 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
         if (now < accessTokenExpiration - TimeSpan.FromSeconds(15))
             return;
 
-
         OpenIdConnectConfiguration? oidcConfiguration = await oidcOptions.ConfigurationManager!.GetConfigurationAsync(validateContext.HttpContext.RequestAborted);
         string tokenEndpoint = oidcConfiguration.TokenEndpoint ?? throw new InvalidOperationException("Cannot refresh cookie. TokenEndpoint missing!");
 
         using HttpResponseMessage refreshResponse = await oidcOptions.Backchannel.PostAsync(tokenEndpoint,
-            new FormUrlEncodedContent(new Dictionary<string, string?>()
+            new FormUrlEncodedContent(new Dictionary<string, string?>
             {
                 ["grant_type"] = "refresh_token",
                 ["client_id"] = oidcOptions.ClientId,
@@ -55,9 +51,7 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
 
         TokenValidationParameters? validationParameters = oidcOptions.TokenValidationParameters.Clone();
         if (oidcOptions.ConfigurationManager is BaseConfigurationManager baseConfigurationManager)
-        {
             validationParameters.ConfigurationManager = baseConfigurationManager;
-        }
         else
         {
             validationParameters.ValidIssuer = oidcConfiguration.Issuer;
@@ -75,7 +69,7 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
         JwtSecurityToken? validatedIdToken = JwtSecurityTokenConverter.Convert(validationResult.SecurityToken as JsonWebToken);
         validatedIdToken.Payload["nonce"] = null;
 
-        oidcTokenValidator.ValidateTokenResponse(new()
+        OidcTokenValidator.ValidateTokenResponse(new()
         {
             ProtocolMessage = message,
             ClientId = oidcOptions.ClientId,
@@ -99,8 +93,11 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
         ]);
     }
 
-    private void MapKeyCloakRolesToRoleClaims(JwtSecurityToken token, ClaimsIdentity claimsIdentity)
+    private static void MapKeyCloakRolesToRoleClaims(JwtSecurityToken token, ClaimsIdentity claimsIdentity)
     {
+        string? userName = token.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
+        if (userName != null && !string.IsNullOrEmpty(userName)) claimsIdentity.AddClaim(new(ClaimTypes.Name, userName));
+
         string? resourceAccess = token.Claims.FirstOrDefault(x => x.Type == "resource_access")?.Value;
         if (resourceAccess == null) return;
 

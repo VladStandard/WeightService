@@ -2,12 +2,16 @@
 @attribute [Route($"{RouteUtils.Home}")]
 
 <div class="size-full py-5">
-  <div class="flex w-fit gap-2">
-    <a href="@RouteUtils.TestAuth" class="mt-4 bg-secondary rounded-md flex items-center px-6 pt-2 overflow-hidden w-64">
-      Check auth
+  <div class="flex w-fit gap-2 pt-4">
+    <a href="@RouteUtils.TestAuth">
+      <Button>
+        Check auth state
+      </Button>
     </a>
-    <a href="@RouteUtils.Admin" class="mt-4 bg-secondary rounded-md flex items-center px-6 pt-2 overflow-hidden w-64">
-      Check admin
+    <a href="@RouteUtils.Users">
+      <Button>
+        Keycloak users
+      </Button>
     </a>
   </div>
 </div>

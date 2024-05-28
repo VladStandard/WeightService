@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace KeycloakBlazor;
+namespace KeycloakBlazor.Source.Utils.Auth;
 
 public class ServerAuthorizationMessageHandler(IHttpContextAccessor httpContextAccessor) : DelegatingHandler
 {

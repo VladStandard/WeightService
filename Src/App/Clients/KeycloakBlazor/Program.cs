@@ -1,9 +1,9 @@
-using KeycloakBlazor;
 using KeycloakBlazor.Source.Api.Keycloak;
 using KeycloakBlazor.Source.App;
 using KeycloakBlazor.Source.Utils;
 using KeycloakBlazor.Source.Utils.Auth;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 const string OIDC_SCHEME = "KeycloakOidc";
@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(OIDC_SCHEME)
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.SignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-        options.Authority = oidcConfiguration.GetValue<string>("Authority");
+        options.Authority = $"{oidcConfiguration.GetValue<string>("Authority")}/realms/{oidcConfiguration.GetValue<string>("Realm")}";
         options.ClientId = oidcConfiguration.GetValue<string>("ClientId");
         options.ClientSecret = oidcConfiguration.GetValue<string>("ClientSecret");
         options.RequireHttpsMetadata = oidcConfiguration.GetValue<bool>("RequireHttpsMetadata");
@@ -48,11 +48,12 @@ builder.Services.ConfigureCookieOidcRefresh(CookieAuthenticationDefaults.Authent
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddFluentUIComponents();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
 builder.Services.AddHttpClient<IKeycloakApi, KeycloakApi>(client =>
-        client.BaseAddress = new("http://10.0.204.55:8006/admin/realms/blazor/"))
+        client.BaseAddress = new($"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}/"))
     .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
 WebApplication app = builder.Build();

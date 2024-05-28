@@ -2,8 +2,8 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
 
-<div class="size-full">
-  <div class="h-14 border-b w-full sticky flex items-center justify-center">
+<div class="w-full flex flex-col h-screen">
+  <div class="h-14 border-b w-full flex items-center justify-center">
     <div class="max-w-screen-2xl w-full mx-auto flex items-center justify-between">
       <a href="@RouteUtils.Home">
         <h1>Blazor Keycloak</h1>
@@ -14,7 +14,7 @@
             <form method="post" action="@($"{RouteUtils.Authorization}/logout")">
               <button type="submit" class="flex items-center gap-2">
                 <div class="size-8 flex items-center overflow-hidden rounded-full justify-center bg-muted">
-                  @context.User.Identity?.Name?[0]
+                  @context.User.Identity?.Name
                 </div>
                 <p>Log out</p>
               </button>
@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class="min-h-full max-w-screen-2xl w-full mx-auto">
+  <div class="h-full max-w-screen-2xl w-full mx-auto">
     @Body
   </div>
 </div>
