@@ -8,7 +8,6 @@
 
 @attribute [Authorize(Roles=$"{RoleEnum.Admin}")]
 @attribute [Route($"{RouteUtils.Users}")]
-@rendermode InteractiveServer
 
 <h2 class="py-5">You have the role: @RoleEnum.Admin</h2>
 

@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace KeycloakBlazor.Source.Utils.Auth;
 
-internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oidcOptionsMonitor)
+public sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oidcOptionsMonitor)
 {
     private OpenIdConnectProtocolValidator OidcTokenValidator { get; } = new() { RequireNonce = false };
 
@@ -24,7 +24,7 @@ internal sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> 
 
         OpenIdConnectOptions oidcOptions = oidcOptionsMonitor.Get(oidcScheme);
         DateTimeOffset now = oidcOptions.TimeProvider!.GetUtcNow();
-        if (now < accessTokenExpiration - TimeSpan.FromSeconds(15))
+        if (now < accessTokenExpiration - TimeSpan.FromMinutes(1))
             return;
 
         OpenIdConnectConfiguration? oidcConfiguration = await oidcOptions.ConfigurationManager!.GetConfigurationAsync(validateContext.HttpContext.RequestAborted);
