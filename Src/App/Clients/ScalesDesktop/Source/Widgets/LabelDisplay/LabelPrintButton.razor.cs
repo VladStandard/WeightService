@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using ScalesDesktop.Source.Shared.Services;
+using TscZebra.Plugin.Abstractions.Enums;
+using TscZebra.Plugin.Abstractions.Messages;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
-using Ws.Printers.Enums;
-using Ws.Printers.Messages;
 using Ws.Scales.Enums;
 using Ws.Scales.Messages;
 
@@ -30,7 +30,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
 
     #endregion
 
-    private PrinterStatus PrinterStatus { get; set; } = PrinterStatus.Unknown;
+    private PrinterStatuses PrinterStatus { get; set; } = PrinterStatuses.Unsupported;
     private bool IsScalesStable { get; set; }
     private bool IsScalesDisconnected { get; set; }
     private bool IsButtonClicked { get; set; }
@@ -103,7 +103,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable,
 
     private bool ValidatePrinterStatus()
     {
-        if (PrinterStatus is PrinterStatus.Ready or PrinterStatus.Busy) return true;
+        if (PrinterStatus is PrinterStatuses.Ready or PrinterStatuses.Busy) return true;
         PrintPrinterStatusMessage();
         return false;
     }

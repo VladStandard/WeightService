@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
-      <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-    </ItemGroup>
-</Project>

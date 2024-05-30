@@ -1,4 +1,5 @@
 using System.Net;
+using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Models.Enums;

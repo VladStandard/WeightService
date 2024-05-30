@@ -1,7 +1,7 @@
+using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Database.Nhibernate.Types;
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Devices;
-using Ws.Domain.Models.Enums;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Printers;
 
