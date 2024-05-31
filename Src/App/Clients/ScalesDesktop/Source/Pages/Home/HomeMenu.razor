@@ -1,8 +1,6 @@
 @using Blazor.Heroicons.Outline
-
 @using Microsoft.FluentUI.AspNetCore.Components
 @using ScalesDesktop.Source.Features
-
 @using ScalesDesktop.Source.Shared.Services
 @using Ws.Domain.Models.Enums
 
@@ -11,7 +9,7 @@
 <div class="w-full flex flex-col gap-6">
   <div class="flex flex-col space-y-1 text-center">
     <h2 class="text-2xl font-semibold">@Localizer["AppName"]</h2>
-    <p class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</p>
+    <h3 class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</h3>
   </div>
   <ul class="flex flex-col gap-2">
     @if (LineContext.Line.Type is ArmTypes.Tablet or ArmTypes.Universal)
@@ -48,10 +46,14 @@
 
 
 @code {
+  # region Injects
+
   [Inject] private LineContext LineContext { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
+
+  # endregion
 
   protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
 

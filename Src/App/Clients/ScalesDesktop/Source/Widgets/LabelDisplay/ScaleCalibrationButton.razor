@@ -1,8 +1,9 @@
+@using Ws.Scales.Enums
 <Button
   Variant="ButtonVariant.Secondary"
   Size="ButtonSize.Full"
   OnClick="@HandleButtonOpenScalesTerminal"
-  Disabled="@(!(IsScalesAvailable && !IsOnceClicked))"
+  Disabled="@(!(ScalesService.Status == ScalesStatus.IsConnect && !IsOnceClicked))"
   Class="border disabled:!opacity-70"
 >
   <div class="flex items-center flex-col">

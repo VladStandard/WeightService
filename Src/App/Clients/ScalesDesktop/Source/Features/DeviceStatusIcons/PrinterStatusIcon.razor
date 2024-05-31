@@ -1,4 +1,51 @@
 @using Blazor.Heroicons.Outline
-<StatusIconTemplate Class="@GetPrinterStatusStyle()">
-  <PrinterIcon class="size-8" />
-</StatusIconTemplate>
+@using ScalesDesktop.Source.Shared.Services
+@using TscZebra.Plugin.Abstractions.Enums
+
+@implements IDisposable
+
+<Button
+  id="printer-status"
+  Size="ButtonSize.Icon"
+  Variant="ButtonVariant.Outline"
+  OnClick="@PrinterService.ConnectAsync"
+  Class="relative !size-10"
+>
+  <div class="@Css.Class("size-3 rounded-full shadow-sm overflow-hidden absolute -top-1 -right-1", GetIndicatorStyle)"></div>
+  <PrinterIcon class="@Css.Class("size-6", GetIconStyle)"/>
+</Button>
+<Tooltip Anchor="printer-status">
+  <div class="flex flex-col">
+    <span class="text-sm">Status</span>
+    <span class="text-xs">@GetStatusText</span>
+  </div>
+</Tooltip>
+
+@code {
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+
+  protected override void OnInitialized() => PrinterService.OnStatusChanged += StateHasChanged;
+
+  private string GetIconStyle => PrinterService.Status switch
+  {
+    PrinterStatuses.IsDisconnected => "text-red-500",
+    PrinterStatuses.Busy or PrinterStatuses.Ready => "text-green-500",
+    _ => "text-amber-500"
+  };
+
+  private string GetIndicatorStyle => PrinterService.Status switch
+  {
+    PrinterStatuses.IsDisconnected => "bg-red-500 animate-ping",
+    PrinterStatuses.Busy or PrinterStatuses.Ready => "bg-green-500",
+    _ => "bg-amber-500 animate-ping"
+  };
+
+  private string GetStatusText => PrinterService.Status switch
+  {
+    PrinterStatuses.IsDisconnected => "Отключены",
+    PrinterStatuses.Busy or PrinterStatuses.Ready => "Готовы",
+    _ => "Требует внимание"
+  };
+
+  public void Dispose() => PrinterService.OnStatusChanged -= StateHasChanged;
+}

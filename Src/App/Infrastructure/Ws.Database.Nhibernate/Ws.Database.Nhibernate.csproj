@@ -8,7 +8,6 @@
         <PackageReference Include="NHibernate" Version="5.5.1" />
         <PackageReference Include="ProjectionTools" Version="1.0.17" />
         <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-        <PackageReference Include="TscZebra.Plugin.Abstractions" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />

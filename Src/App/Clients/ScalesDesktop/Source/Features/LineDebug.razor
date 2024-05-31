@@ -1,0 +1,15 @@
+@using ScalesDesktop.Source.Shared.Services
+
+@implements IDisposable
+
+<span class="text-right absolute text-gray-500 bottom-0 right-1 text-sm xl:text-base">
+  @LineContext.Line.PcName | @LineContext.Printer.Name
+</span>
+
+@code {
+  [Inject] private LineContext LineContext { get; set; } = default!;
+
+  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+
+  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+}

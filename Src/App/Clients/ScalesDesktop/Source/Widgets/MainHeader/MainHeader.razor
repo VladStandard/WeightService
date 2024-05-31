@@ -1,14 +1,15 @@
 @using Blazor.Heroicons.Outline
-<div class="w-full h-16 shrink-0">
+
+<div class="w-full h-16 shrink-0 border-b bg-background">
   <div class="size-full max-w-screen-2xl mx-auto px-8 flex items-center justify-between">
     <HeaderAppName Class="shrink-0" />
     <div class="flex grow size-full">
       @ChildContent
     </div>
     <a href="@RouteUtils.Home">
-      <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large" Class="!h-12">
-        <Bars3Icon class="size-6 mr-2"/>
-        <span class="text-lg">@Localizer["BtnMenu"]</span>
+      <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
+        <HomeIcon class="size-5 mr-2"/>
+        <span class="text-base">@Localizer["BtnMenu"]</span>
       </Button>
     </a>
   </div>

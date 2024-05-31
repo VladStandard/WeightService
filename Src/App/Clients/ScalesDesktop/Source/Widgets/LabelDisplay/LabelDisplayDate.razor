@@ -1,4 +1,5 @@
 @using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Shared.Services
 <LabelDisplayItem Label="@Localizer["ColDt"]">
   <div class="grid overflow-hidden grid-cols-7 size-full">
     <div class="col-span-2 size-full py-1 overflow-hidden">
@@ -33,3 +34,23 @@
     </div>
   </div>
 </LabelDisplayItem>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<WsDataResources> Localizer { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  private void IncreaseDate() =>
+    LabelContext.KneadingModel.ProductDate = LabelContext.KneadingModel.ProductDate.AddDays(1);
+
+  private void DecreaseDate() =>
+    LabelContext.KneadingModel.ProductDate = LabelContext.KneadingModel.ProductDate.AddDays(-1);
+
+  private void ResetDate() =>
+    LabelContext.KneadingModel.ProductDate = DateTime.Now;
+
+}

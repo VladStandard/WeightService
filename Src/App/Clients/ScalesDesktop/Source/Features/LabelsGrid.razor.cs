@@ -1,16 +1,14 @@
-using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
+using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service.Features.Generate;
-using Ws.Printers.Enums;
-using Ws.Printers.Messages;
 using Label = Ws.Domain.Models.Entities.Print.Label;
 
 namespace ScalesDesktop.Source.Features;
 
-public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<PrinterStatusMsg>
+public sealed partial class LabelsGrid : ComponentBase, IDisposable
 {
     # region Injects
 
@@ -19,7 +17,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
     [Inject] private IPalletService PalletService { get; set; } = default!;
     [Inject] private PalletContext PalletContext { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private ExternalDevicesService ExternalDevices { get; set; } = default!;
+    [Inject] private PrinterService PrinterService { get; set; } = default!;
     [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
 
     # endregion
@@ -27,13 +25,11 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
     private List<Label> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
-    private PrinterStatus PrinterStatus { get; set; } = PrinterStatus.Unknown;
     private Action? StateChangedHandler { get; set; }
     private const int PrinterRequestDelay = 100;
 
     protected override void OnInitialized()
     {
-        WeakReferenceMessenger.Default.Register(this);
         StateChangedHandler = async () => await ResetDataGrid();
         PalletContext.OnStateChanged += StateChangedHandler;
     }
@@ -82,12 +78,11 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
 
     private async Task PrintLabelsAsync()
     {
-        ExternalDevices.Printer.RequestStatus();
-        await Task.Delay(PrinterRequestDelay);
+        PrinterStatuses printerStatus = await PrinterService.GetStatusAsync();
 
-        if (PrinterStatus is not (PrinterStatus.Ready or PrinterStatus.Busy))
+        if (printerStatus is not (PrinterStatuses.Ready or PrinterStatuses.Busy))
         {
-            PrintPrinterStatusMessage();
+            PrintPrinterStatusMessage(printerStatus);
             return;
         }
 
@@ -97,7 +92,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
             try
             {
                 errorIndex += 1;
-                ExternalDevices.Printer.PrintLabel(item.Zpl);
+                await PrinterService.PrintZplAsync(item.Zpl);
             }
             catch
             {
@@ -109,15 +104,14 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
         await InvokeAsync(StateHasChanged);
     }
 
-    private void PrintPrinterStatusMessage() =>
-        ToastService.ShowWarning(PrinterStatus switch
+    private void PrintPrinterStatusMessage(PrinterStatuses printerStatus) =>
+        ToastService.ShowWarning(printerStatus switch
         {
-            PrinterStatus.IsDisabled => Localizer["PrinterStatusIsDisabled"],
-            PrinterStatus.IsForceDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
+            PrinterStatuses.IsDisconnected => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatuses.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatuses.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatuses.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatuses.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
 
@@ -126,8 +120,6 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable, IRecipient<
         if (StateChangedHandler != null)
             PalletContext.OnStateChanged -= StateChangedHandler;
     }
-
-    public void Receive(PrinterStatusMsg message) => PrinterStatus = message.Status;
 }
 
 internal record DataItem

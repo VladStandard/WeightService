@@ -1,0 +1,64 @@
+@using ScalesDesktop.Source.Shared.Services
+@using TscZebra.Plugin.Abstractions.Enums
+@using Ws.Scales.Enums
+
+@implements IDisposable
+
+@if (LabelContext.Plu.IsNew)
+{
+  <div class="flex w-full h-full items-center justify-center">
+    <span class="text-center text-xl xl:text-3xl">
+      @Localizer["DisplayPluSelectWarning"]
+    </span>
+  </div>
+}
+else if (ScalesService.Status is not ScalesStatus.IsConnect)
+{
+  <div class="flex flex-col gap-2 w-full h-full items-center justify-center">
+    <span class="text-center text-red-500 text-xl xl:text-3xl">
+      @Localizer["DisplayScalesDisconnectedWarning"]
+    </span>
+    <Button OnClick="@ScalesService.Connect">Переподключиться</Button>
+  </div>
+}
+else if (PrinterService.Status is PrinterStatuses.IsDisconnected)
+{
+  <div class="flex flex-col gap-2 w-full h-full items-center justify-center">
+    <span class="text-center text-red-500 text-xl xl:text-3xl">
+      Принтер не подключен
+    </span>
+    <Button OnClick="@PrinterService.ConnectAsync">Переподключиться</Button>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+
+  # endregion
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  protected override void OnInitialized()
+  {
+    LabelContext.OnStateChanged += StateHasChanged;
+    ScalesService.OnStatusChanged += StateHasChanged;
+    PrinterService.OnStatusChanged += StateHasChanged;
+  }
+
+  public void Dispose()
+  {
+    LabelContext.OnStateChanged -= StateHasChanged;
+    ScalesService.OnStatusChanged -= StateHasChanged;
+    PrinterService.OnStatusChanged -= StateHasChanged;
+  }
+}

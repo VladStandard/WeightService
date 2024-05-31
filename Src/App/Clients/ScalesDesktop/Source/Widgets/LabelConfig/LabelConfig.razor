@@ -4,6 +4,7 @@
 @using ScalesDesktop.Source.Shared.Services
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ws.Domain.Models.Entities.Ref1c.Plu
+
 @implements IDisposable
 
 <div class="w-full h-full flex flex-col overflow-hidden">
@@ -38,7 +39,7 @@
         <PluDescription Plu="@LabelContext.Plu" />
       }
     </div>
-    <LineControl />
+    <LineControl WithReconnect />
   </div>
 </div>
 

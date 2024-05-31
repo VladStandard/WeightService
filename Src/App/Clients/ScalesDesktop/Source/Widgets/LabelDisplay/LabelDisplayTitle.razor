@@ -1,0 +1,18 @@
+@using ScalesDesktop.Source.Shared.Services
+
+@implements IDisposable
+
+<div class="flex flex-col overflow-hidden items-center h-12 shrink-0 justify-center w-full px-4 border-b ">
+  <h1 class="text-xl font-medium line-clamp-1 text-center xl:text-2xl">
+    @LabelContext.Plu.DisplayName
+  </h1>
+</div>
+
+@code {
+
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
+
+  public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
+}

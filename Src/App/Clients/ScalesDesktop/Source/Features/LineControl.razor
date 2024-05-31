@@ -25,7 +25,7 @@
     <span class="font-medium truncate">@LineContext.Line.Name</span>
     <span class="truncate">@LineContext.Line.Warehouse.Name</span>
   </div>
-  <Button Class="shrink-0" OnClick="@(() => LineContext.ResetLine())">
+  <Button Class="shrink-0" OnClick="@ResetLine">
     <ArrowPathIcon class="size-4 mr-2"/>
     @Localizer["BtnUpdate"]
   </Button>
@@ -33,9 +33,19 @@
 
 @code {
   [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
+  [Parameter] public bool WithReconnect { get; set; }
+
   protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+
+  private async Task ResetLine()
+  {
+    LineContext.ResetLine();
+    PrinterService.Setup(LineContext.Printer.Ip, 9100, LineContext.Printer.Type);
+    if (WithReconnect) await PrinterService.ConnectAsync();
+  }
 
   public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
 }
