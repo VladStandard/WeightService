@@ -25,7 +25,11 @@
     <span class="font-medium truncate">@LineContext.Line.Name</span>
     <span class="truncate">@LineContext.Line.Warehouse.Name</span>
   </div>
-  <Button Class="shrink-0" OnClick="@ResetLine">
+  <Button
+    Class="shrink-0"
+    OnClick="@ResetLine"
+    Variant="ButtonVariant.Secondary"
+  >
     <ArrowPathIcon class="size-4 mr-2"/>
     @Localizer["BtnUpdate"]
   </Button>

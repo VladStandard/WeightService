@@ -5,21 +5,13 @@
 @implements IDisposable
 
 <Button
-  id="printer-status"
   Size="ButtonSize.Icon"
   Variant="ButtonVariant.Outline"
-  OnClick="@PrinterService.ConnectAsync"
   Class="relative !size-10"
 >
   <div class="@Css.Class("size-3 rounded-full shadow-sm overflow-hidden absolute -top-1 -right-1", GetIndicatorStyle)"></div>
   <PrinterIcon class="@Css.Class("size-6", GetIconStyle)"/>
 </Button>
-<Tooltip Anchor="printer-status">
-  <div class="flex flex-col">
-    <span class="text-sm">Status</span>
-    <span class="text-xs">@GetStatusText</span>
-  </div>
-</Tooltip>
 
 @code {
   [Inject] private PrinterService PrinterService { get; set; } = default!;
@@ -38,13 +30,6 @@
     PrinterStatuses.IsDisconnected => "bg-red-500 animate-ping",
     PrinterStatuses.Busy or PrinterStatuses.Ready => "bg-green-500",
     _ => "bg-amber-500 animate-ping"
-  };
-
-  private string GetStatusText => PrinterService.Status switch
-  {
-    PrinterStatuses.IsDisconnected => "Отключены",
-    PrinterStatuses.Busy or PrinterStatuses.Ready => "Готовы",
-    _ => "Требует внимание"
   };
 
   public void Dispose() => PrinterService.OnStatusChanged -= StateHasChanged;

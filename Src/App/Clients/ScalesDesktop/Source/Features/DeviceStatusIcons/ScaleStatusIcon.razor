@@ -4,16 +4,14 @@
 
 @implements IDisposable
 
-<Button id="scale-status" Size="ButtonSize.Icon" Variant="ButtonVariant.Outline" Class="relative !size-10">
+<Button
+  Size="ButtonSize.Icon"
+  Variant="ButtonVariant.Outline"
+  Class="relative !size-10"
+>
   <div class="@Css.Class("size-3 rounded-full shadow-sm overflow-hidden absolute -top-1 -right-1", GetIndicatorStyle)"></div>
   <ScaleIcon class="@Css.Class("size-6", GetIconStyle)"/>
 </Button>
-<Tooltip Anchor="scale-status">
-  <div class="flex flex-col">
-    <span class="text-sm">Status</span>
-    <span class="text-xs">@GetStatusText</span>
-  </div>
-</Tooltip>
 
 @code {
   [Inject] private ScalesService ScalesService { get; set; } = default!;
@@ -32,13 +30,6 @@
     ScalesStatus.IsDisabled => "bg-muted-foreground",
     ScalesStatus.IsForceDisconnected => "bg-red-500 animate-ping",
     _ => "bg-green-500"
-  };
-
-  private string GetStatusText => ScalesService.Status switch
-  {
-    ScalesStatus.IsDisabled => "Временно отключены",
-    ScalesStatus.IsForceDisconnected => "Нет соединения",
-    _ => "Соединены"
   };
 
   public void Dispose() => ScalesService.OnStatusChanged -= StateHasChanged;

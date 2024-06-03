@@ -1,12 +1,13 @@
 @using ScalesDesktop.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.Scales.Enums
+@using Blazor.Heroicons.Outline
 
 @implements IDisposable
 
 @if (LabelContext.Plu.IsNew)
 {
-  <div class="flex w-full h-full items-center justify-center">
+  <div class="flex size-full items-center justify-center">
     <span class="text-center text-xl xl:text-3xl">
       @Localizer["DisplayPluSelectWarning"]
     </span>
@@ -14,20 +15,36 @@
 }
 else if (ScalesService.Status is not ScalesStatus.IsConnect)
 {
-  <div class="flex flex-col gap-2 w-full h-full items-center justify-center">
-    <span class="text-center text-red-500 text-xl xl:text-3xl">
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
       @Localizer["DisplayScalesDisconnectedWarning"]
     </span>
-    <Button OnClick="@ScalesService.Connect">Переподключиться</Button>
+    <Button
+      OnClick="@ScalesService.Connect"
+      Variant="ButtonVariant.Outline"
+      Class="mt-4"
+    >
+      <ArrowPathIcon class="size-5 mr-2" />
+      Переподключиться
+    </Button>
   </div>
 }
 else if (PrinterService.Status is PrinterStatuses.IsDisconnected)
 {
-  <div class="flex flex-col gap-2 w-full h-full items-center justify-center">
-    <span class="text-center text-red-500 text-xl xl:text-3xl">
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
       Принтер не подключен
     </span>
-    <Button OnClick="@PrinterService.ConnectAsync">Переподключиться</Button>
+    <Button
+      OnClick="@PrinterService.ConnectAsync"
+      Variant="ButtonVariant.Outline"
+      Class="mt-4"
+    >
+      <ArrowPathIcon class="size-5 mr-2" />
+      Переподключиться
+    </Button>
   </div>
 }
 else
