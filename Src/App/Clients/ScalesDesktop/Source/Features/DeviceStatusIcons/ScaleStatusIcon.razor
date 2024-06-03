@@ -1,6 +1,6 @@
 @using Blazor.Heroicons.Outline
+@using MassaK.Plugin.Abstractions.Enums
 @using ScalesDesktop.Source.Shared.Services
-@using Ws.Scales.Enums
 
 @implements IDisposable
 
@@ -20,15 +20,15 @@
 
   private string GetIconStyle => ScalesService.Status switch
   {
-    ScalesStatus.IsDisabled => "text-muted-foreground",
-    ScalesStatus.IsForceDisconnected => "text-red-500",
+    MassaKStatus.IsDisabled => "text-muted-foreground",
+    MassaKStatus.IsDetached => "text-red-500",
     _ => "text-green-500"
   };
 
   private string GetIndicatorStyle => ScalesService.Status switch
   {
-    ScalesStatus.IsDisabled => "bg-muted-foreground",
-    ScalesStatus.IsForceDisconnected => "bg-red-500 animate-ping",
+    MassaKStatus.IsDisabled => "bg-muted-foreground",
+    MassaKStatus.IsDetached => "bg-red-500 animate-ping",
     _ => "bg-green-500"
   };
 

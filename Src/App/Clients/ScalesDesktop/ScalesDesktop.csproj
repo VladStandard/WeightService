@@ -27,8 +27,8 @@
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
 
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
@@ -48,6 +48,7 @@
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5"/>
         <PackageReference Include="itext7" Version="8.0.4" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
+        <PackageReference Include="MassaK.Plugin" Version="0.0.2" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2"/>
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
@@ -62,7 +63,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Libs\Ws.Components\Ws.Components.csproj" />
-        <ProjectReference Include="..\..\Libs\Ws.Scales\Ws.Scales.csproj" PrivateAssets="All"/>
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
         <ProjectReference Include="..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj"/>
         <ProjectReference Include="..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj"/>

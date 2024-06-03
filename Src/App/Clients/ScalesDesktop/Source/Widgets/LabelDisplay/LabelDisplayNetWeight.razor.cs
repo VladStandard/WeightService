@@ -23,7 +23,7 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
             StateHasChanged();
         };
         LabelContext.OnStateChanged += StateHasChanged;
-        ScalesService.OnStableChanged += StableStatusChangedHandler;
+        ScalesService.OnWeightChanged += StableStatusChangedHandler;
         ScalesService.StartPolling();
     }
 
@@ -41,6 +41,6 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
     {
         ScalesService.StopPolling();
         LabelContext.OnStateChanged -= StateHasChanged;
-        ScalesService.OnStableChanged -= StableStatusChangedHandler;
+        ScalesService.OnWeightChanged -= StableStatusChangedHandler;
     }
 }

@@ -1,3 +1,4 @@
+using MassaK.Plugin.Abstractions.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -8,7 +9,6 @@ using Ws.Domain.Services.Features.Arms;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
-using Ws.Scales.Enums;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
@@ -36,7 +36,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     {
         PrinterService.OnStatusChanged += StateHasChanged;
         ScalesService.OnStatusChanged += StateHasChanged;
-        ScalesService.OnStableChanged += StateHasChanged;
+        ScalesService.OnWeightChanged += StateHasChanged;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -158,7 +158,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     private bool GetPrintLabelDisabledStatus() =>
         LabelContext.Plu.IsNew ||
         LabelContext.Plu.PluNesting.IsNew ||
-        LabelContext.Plu.IsCheckWeight & ScalesService.Status != ScalesStatus.IsConnect;
+        LabelContext.Plu.IsCheckWeight & ScalesService.Status != MassaKStatus.IsReady;
 
     private decimal GetWeight() =>
         (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.GetWeightWithNesting;
@@ -169,7 +169,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     {
         PrinterService.OnStatusChanged -= StateHasChanged;
         ScalesService.OnStatusChanged -= StateHasChanged;
-        ScalesService.OnStableChanged -= StateHasChanged;
+        ScalesService.OnWeightChanged -= StateHasChanged;
 
         try
         {

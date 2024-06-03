@@ -1,48 +1,41 @@
-using CommunityToolkit.Mvvm.Messaging;
-using Ws.Scales.Common;
-using Ws.Scales.Enums;
-using Ws.Scales.Main;
-using Ws.Scales.Messages;
+using MassaK.Plugin;
+using MassaK.Plugin.Abstractions.Enums;
+using MassaK.Plugin.Abstractions.Events;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class ScalesService: IRecipient<ScaleStatusMsg>, IRecipient<ScaleMassaMsg>, IDisposable
+public class ScalesService(IDispatcher dispatcher) : IDisposable
 {
-    private IScales Scales { get; set; } = new Scales(DefaultComPort);
-    public ScalesStatus Status { get; private set; } = ScalesStatus.IsDisabled;
+    private IMassaK Scales { get; set; } = new MassaK.Plugin.Impl.MassaK(DefaultComPort);
+    public MassaKStatus Status { get; private set; } = MassaKStatus.IsDisabled;
     public bool IsStable { get; private set; }
     public int CurrentWeight { get; private set; }
 
     public event Action? OnStatusChanged;
-    public event Action? OnStableChanged;
+    public event Action? OnWeightChanged;
 
     private const string DefaultComPort = "COM6";
-    private readonly IDispatcher _dispatcher;
-
-    public ScalesService(IDispatcher dispatcher)
-    {
-        _dispatcher = dispatcher;
-        WeakReferenceMessenger.Default.Register<ScaleMassaMsg>(this);
-        WeakReferenceMessenger.Default.Register<ScaleStatusMsg>(this);
-    }
 
     public void Setup(string comPort = DefaultComPort)
     {
-        Scales.Dispose();
-        Scales = new Scales(comPort);
+        Scales.StatusChanged -= ScalesOnStatusChanged;
+        Scales.WeightChanged -= ScalesOnWeightChanged;
+        Scales = new MassaK.Plugin.Impl.MassaK(comPort);
+        Scales.StatusChanged += ScalesOnStatusChanged;
+        Scales.WeightChanged += ScalesOnWeightChanged;
     }
 
     public void Connect()
     {
         Scales.Connect();
-        Status = ScalesStatus.IsConnect;
+        Status = MassaKStatus.IsReady;
         OnStatusChanged?.Invoke();
     }
 
     public void Disconnect()
     {
         Scales.Disconnect();
-        Status = ScalesStatus.IsForceDisconnected;
+        Status = MassaKStatus.IsDisabled;
         OnStatusChanged?.Invoke();
     }
 
@@ -52,31 +45,27 @@ public class ScalesService: IRecipient<ScaleStatusMsg>, IRecipient<ScaleMassaMsg
 
     public void StartPolling() => Scales.StartWeightPolling();
 
-    public async void Receive(ScaleStatusMsg message)
-    {
-        await _dispatcher.DispatchAsync(() =>
+    private async void ScalesOnStatusChanged(object? sender, MassaKStatus e) =>
+        await dispatcher.DispatchAsync(() =>
         {
-            if (Status.Equals(message.Status)) return;
-            Status = message.Status;
+            if (Status.Equals(e)) return;
+            Status = e;
             OnStatusChanged?.Invoke();
         });
-    }
 
-    public async void Receive(ScaleMassaMsg message)
-    {
-        await _dispatcher.DispatchAsync(() =>
+    private async void ScalesOnWeightChanged(object? sender, WeightEventArg e) =>
+        await dispatcher.DispatchAsync(() =>
         {
-            IsStable = message.IsStable;
-            CurrentWeight = message.Weight;
-            OnStableChanged?.Invoke();
+            IsStable = e.IsStable;
+            CurrentWeight = e.Weight;
+            OnWeightChanged?.Invoke();
         });
-    }
 
     public void Dispose()
     {
         Scales.Dispose();
-        WeakReferenceMessenger.Default.Unregister<ScaleMassaMsg>(this);
-        WeakReferenceMessenger.Default.Unregister<ScaleStatusMsg>(this);
+        Scales.StatusChanged -= ScalesOnStatusChanged;
+        Scales.WeightChanged -= ScalesOnWeightChanged;
         GC.SuppressFinalize(this);
     }
 }

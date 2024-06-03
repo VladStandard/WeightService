@@ -1,9 +1,9 @@
-@using Ws.Scales.Enums
+@using MassaK.Plugin.Abstractions.Enums
 <Button
   Variant="ButtonVariant.Secondary"
   Size="ButtonSize.Full"
   OnClick="@HandleButtonOpenScalesTerminal"
-  Disabled="@(!(ScalesService.Status == ScalesStatus.IsConnect && !IsOnceClicked))"
+  Disabled="@(!(ScalesService.Status == MassaKStatus.IsReady && !IsOnceClicked))"
   Class="border disabled:!opacity-70"
 >
   <div class="flex items-center flex-col">
