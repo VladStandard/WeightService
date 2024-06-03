@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-      <PackageReference Include="System.IO.Ports" Version="8.0.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-    </ItemGroup>
-</Project>
