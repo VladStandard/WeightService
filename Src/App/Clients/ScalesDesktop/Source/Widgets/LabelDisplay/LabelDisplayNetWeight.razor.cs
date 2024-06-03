@@ -1,27 +1,30 @@
-using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Scales.Messages;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
-public sealed partial class LabelDisplayNetWeight : ComponentBase, IRecipient<ScaleMassaMsg>, IDisposable
+public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 {
     # region Injects
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
-    [Inject] private LineContext LineContext { get; set; } = default!;
+    [Inject] private ScalesService ScalesService { get; set; } = default!;
 
     # endregion
 
-    private bool IsStable { get; set; }
+    private Action? StableStatusChangedHandler { get; set; }
 
     protected override void OnInitialized()
     {
-        WeakReferenceMessenger.Default.Register(this);
+        StableStatusChangedHandler = () =>
+        {
+            LabelContext.KneadingModel.NetWeightG = ScalesService.CurrentWeight;
+            StateHasChanged();
+        };
         LabelContext.OnStateChanged += StateHasChanged;
-        LineContext.StartWeightPolling();
+        ScalesService.OnStableChanged += StableStatusChangedHandler;
+        ScalesService.StartPolling();
     }
 
     private decimal GetNetWeight => (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
@@ -34,15 +37,10 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IRecipient<Sc
 
     private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
 
-    public void Receive(ScaleMassaMsg message)
-    {
-        IsStable = message.IsStable;
-        LabelContext.KneadingModel.NetWeightG = message.Weight;
-        InvokeAsync(StateHasChanged);
-    }
-
     public void Dispose()
     {
+        ScalesService.StopPolling();
         LabelContext.OnStateChanged -= StateHasChanged;
+        ScalesService.OnStableChanged -= StableStatusChangedHandler;
     }
 }

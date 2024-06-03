@@ -1,0 +1,86 @@
+@using ScalesDesktop.Source.Shared.Services
+@using TscZebra.Plugin.Abstractions.Enums
+@using Ws.Scales.Enums
+@using Blazor.Heroicons.Outline
+
+@implements IDisposable
+
+@if (LabelContext.Plu.IsNew)
+{
+  <div class="flex size-full items-center justify-center p-6">
+    <div class="flex flex-col gap-2 text-center">
+      <h3 class="text-lg xl:text-xl">
+        Выберите ПЛУ
+      </h3>
+      <h4 class="text-muted-foreground text-sm xl:text-base">
+        Чтобы продолжить работу выберите в левом меню ПЛУ, с которой вы собираетесь работать
+      </h4>
+    </div>
+  </div>
+}
+else if (ScalesService.Status is not ScalesStatus.IsConnect)
+{
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
+      @Localizer["DisplayScalesDisconnectedWarning"]
+    </span>
+    <Button
+      OnClick="@ScalesService.Connect"
+      Variant="ButtonVariant.Outline"
+      Class="mt-4"
+    >
+      <ArrowPathIcon class="size-5 mr-2" />
+      Переподключиться
+    </Button>
+  </div>
+}
+else if (PrinterService.Status is PrinterStatuses.IsDisconnected)
+{
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
+      Принтер не подключен
+    </span>
+    <Button
+      OnClick="@PrinterService.ConnectAsync"
+      Variant="ButtonVariant.Outline"
+      Class="mt-4"
+    >
+      <ArrowPathIcon class="size-5 mr-2" />
+      Переподключиться
+    </Button>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+
+  # endregion
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  protected override void OnInitialized()
+  {
+    LabelContext.OnStateChanged += StateHasChanged;
+    ScalesService.OnStatusChanged += StateHasChanged;
+    PrinterService.OnStatusChanged += StateHasChanged;
+  }
+
+  public void Dispose()
+  {
+    LabelContext.OnStateChanged -= StateHasChanged;
+    ScalesService.OnStatusChanged -= StateHasChanged;
+    PrinterService.OnStatusChanged -= StateHasChanged;
+  }
+}

@@ -7,14 +7,13 @@
   Items="Items"
   Pagination="Pagination"
   OnRowFocus="@(row => OnItemSelect.InvokeAsync(row.Item))"
-  RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer md:[&_fluent-data-grid-cell]:!text-lg")"
+  RowClass="@(_ => "border-b [&_fluent-data-grid-cell]:!px-3 hover:bg-secondary/[.5] hover:cursor-pointer md:[&_fluent-data-grid-cell]:!text-lg")"
   Class="@Css.Class("[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_fluent-data-grid-cell]:!py-2 md:[&_fluent-data-grid-cell]:!py-3",
            "[&_.col-sort-button]:!text-primary [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1")"
 >
   <PropertyColumn
     Property="@(p => p.Number)"
-    Title="@WsDataLocalizer["ColNumber"]"
-    Sortable="true"
+    Title="@WsDataLocalizer["ColPluNumber"]"
   />
   <PropertyColumn
     Property="@(p => p.Name)"

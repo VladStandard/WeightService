@@ -1,6 +1,6 @@
 <LabelDisplayItem Label="@WsDataLocalizer["ColNetWeight"]">
   <div class="text-[2rem] flex items-end mx-auto px-4 text-center rounded-lg overflow-hidden xl:text-[2.5rem]
-             @(!IsStable || GetNetWeight <= 0 ? "text-destructive" : "text-green-400")"
+             @(!ScalesService.IsStable || GetNetWeight <= 0 ? "text-destructive" : "text-green-400")"
   >
     <span class="w-5 flex justify-center xl:w-6">@Sign</span>
     @foreach (char intChar in IntegerPart)

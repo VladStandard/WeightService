@@ -1,19 +1,18 @@
 @using Ws.Shared.Utils
-<h2 class="@Css.Class("text-2xl", Class)">@AppName</h2>
+
+<div class="flex items-center gap-2">
+  @if (ConfigurationUtil.IsDevelop)
+  {
+    <Badge>Dev</Badge>
+  }
+  <div class="flex pb-1">
+    <h2 class="@Css.Class("text-xl font-medium", Class)">@Localizer["AppName"]</h2>
+    <span class="pb-0.5 pl-1 text-sm">@VersionTracking.CurrentVersion</span>
+  </div>
+</div>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   [Parameter] public string Class { get; set; } = string.Empty;
-
-  private string AppName { get; set; } = string.Empty;
-
-  protected override void OnInitialized() => AppName = GetAppName();
-
-  private string GetAppName()
-  {
-    string devString = ConfigurationUtil.IsDevelop ? "[DEV] " : string.Empty;
-    string versionString = VersionTracking.CurrentVersion;
-    return $"{devString} {Localizer["AppName"]} {versionString}";
-  }
 }

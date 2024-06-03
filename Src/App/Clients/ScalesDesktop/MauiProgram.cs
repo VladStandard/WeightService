@@ -31,7 +31,8 @@ public static class MauiProgram
         builder.Services.AddLocalization();
 
         builder.Services.AddScoped<IPrintingService, PrintingService>();
-        builder.Services.AddSingleton<ExternalDevicesService>();
+        builder.Services.AddSingleton<ScalesService>();
+        builder.Services.AddSingleton<PrinterService>();
         builder.Services.AddSingleton<LineContext>();
         builder.Services.AddSingleton<LabelContext>();
         builder.Services.AddSingleton<PalletContext>();

@@ -1,29 +1,27 @@
-﻿@using ScalesDesktop.Source.Features
-@using ScalesDesktop.Source.Shared.Services
+﻿@using ScalesDesktop.Source.Shared.Services
+@using ScalesDesktop.Source.Features
 @using Microsoft.FluentUI.AspNetCore.Components
 
 @inherits LayoutComponentBase
 
-<div class="w-screen h-screen overflow-hidden text-black bg-secondary/90 overscroll-none">
-  @if (!LineContext.Line.IsExists)
-  {
-    <div class="size-full flex items-center justify-center">
-      <UnknownLineWarning />
-    </div>
-  }
-  else
-  {
+<div class="w-screen h-screen overflow-hidden text-black bg-secondary/[.3] overscroll-none">
+  <LineErrorBoundary>
     @Body
-  }
+  </LineErrorBoundary>
 </div>
 
 <FluentDialogProvider />
+<FluentTooltipProvider />
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
 
 @code {
   [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private ScalesService ScalesService { get; set; } = default!;
 
-  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
-
-  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+  protected override void OnInitialized()
+  {
+    ScalesService.Setup();
+    PrinterService.Setup(LineContext.Printer.Ip, 9100, LineContext.Printer.Type);
+  }
 }

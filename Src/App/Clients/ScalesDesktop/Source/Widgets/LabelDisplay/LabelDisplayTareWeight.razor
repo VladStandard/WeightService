@@ -1,5 +1,26 @@
+@using ScalesDesktop.Source.Shared.Services
+
+@implements IDisposable
+
 <LabelDisplayItem Label="@WsDataLocalizer["ColTareWeight"]">
   <span class="font-medium truncate text-xl xl:text-3xl">
     @($"{GetTareWeight}{WsDataLocalizer["MeasureKg"]}")
   </span>
 </LabelDisplayItem>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
+
+  private decimal GetTareWeight => LabelContext.Plu.GetWeightWithNesting;
+
+  public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
+
+}

@@ -12,7 +12,6 @@ public class LabelContext : IDisposable
     private LineContext LineContext { get; }
 
     public Arm Line => LineContext.Line;
-    public Printer Printer => LineContext.Printer;
     public Plu Plu { get; private set; } = new();
     public WeightKneadingModel KneadingModel { get; private set; } = new();
     public IEnumerable<Plu> PluEntities { get; private set; } = [];
@@ -36,7 +35,6 @@ public class LabelContext : IDisposable
 
     public void ChangePlu(Plu sqlPlu)
     {
-        // TODO: set default nesting
         if (Plu.Equals(sqlPlu)) return;
         Plu = sqlPlu;
         KneadingModel.KneadingCount = 1;
