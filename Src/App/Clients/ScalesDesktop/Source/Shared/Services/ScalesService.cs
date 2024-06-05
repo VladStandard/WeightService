@@ -11,8 +11,8 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
     public bool IsStable { get; private set; }
     public int CurrentWeight { get; private set; }
 
-    public event Action? OnStatusChanged;
-    public event Action? OnWeightChanged;
+    public event Action? StatusChanged;
+    public event Action? WeightChanged;
 
     private const string DefaultComPort = "COM6";
 
@@ -29,14 +29,14 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
     {
         Scales.Connect();
         Status = MassaKStatus.IsReady;
-        OnStatusChanged?.Invoke();
+        StatusChanged?.Invoke();
     }
 
     public void Disconnect()
     {
         Scales.Disconnect();
         Status = MassaKStatus.IsDisabled;
-        OnStatusChanged?.Invoke();
+        StatusChanged?.Invoke();
     }
 
     public void Calibrate() => Scales.Calibrate();
@@ -50,7 +50,7 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
         {
             if (Status.Equals(e)) return;
             Status = e;
-            OnStatusChanged?.Invoke();
+            StatusChanged?.Invoke();
         });
 
     private async void ScalesOnWeightChanged(object? sender, WeightEventArg e) =>
@@ -58,7 +58,7 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
         {
             IsStable = e.IsStable;
             CurrentWeight = e.Weight;
-            OnWeightChanged?.Invoke();
+            WeightChanged?.Invoke();
         });
 
     public void Dispose()

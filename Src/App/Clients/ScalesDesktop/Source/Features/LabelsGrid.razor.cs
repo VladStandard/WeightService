@@ -31,7 +31,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         StateChangedHandler = async () => await ResetDataGrid();
-        PalletContext.OnStateChanged += StateChangedHandler;
+        PalletContext.StateChanged += StateChangedHandler;
     }
 
     protected override async Task OnInitializedAsync() => await InitializeData();
@@ -118,7 +118,7 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
     public void Dispose()
     {
         if (StateChangedHandler != null)
-            PalletContext.OnStateChanged -= StateChangedHandler;
+            PalletContext.StateChanged -= StateChangedHandler;
     }
 }
 

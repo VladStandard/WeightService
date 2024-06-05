@@ -16,13 +16,13 @@ public class LabelContext : IDisposable
     public WeightKneadingModel KneadingModel { get; private set; } = new();
     public IEnumerable<Plu> PluEntities { get; private set; } = [];
 
-    public event Action? OnStateChanged;
+    public event Action? StateChanged;
 
     public LabelContext(IArmService armService, LineContext lineContext)
     {
         ArmService = armService;
         LineContext = lineContext;
-        LineContext.OnLineChanged += InitializeData;
+        LineContext.LineChanged += InitializeData;
     }
 
     public void InitializeData()
@@ -30,7 +30,7 @@ public class LabelContext : IDisposable
         PluEntities = Line.IsExists ? ArmService.GetArmWeightPlus(Line) : [];
         Plu = new();
         KneadingModel = new();
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 
     public void ChangePlu(Plu sqlPlu)
@@ -38,12 +38,12 @@ public class LabelContext : IDisposable
         if (Plu.Equals(sqlPlu)) return;
         Plu = sqlPlu;
         KneadingModel.KneadingCount = 1;
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 
     public void Dispose()
     {
-        LineContext.OnLineChanged -= InitializeData;
+        LineContext.LineChanged -= InitializeData;
         GC.SuppressFinalize(this);
     }
 }

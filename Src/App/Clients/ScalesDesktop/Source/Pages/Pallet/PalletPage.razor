@@ -41,12 +41,12 @@
   protected override void OnInitialized()
   {
     PalletContext.InitializeContext();
-    PalletContext.OnStateChanged += StateHasChanged;
+    PalletContext.StateChanged += StateHasChanged;
   }
 
   public void Dispose()
   {
     PalletContext.ResetPalletMan();
-    PalletContext.OnStateChanged -= StateHasChanged;
+    PalletContext.StateChanged -= StateHasChanged;
   }
 }

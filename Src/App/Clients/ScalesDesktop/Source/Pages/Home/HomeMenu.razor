@@ -55,9 +55,9 @@
 
   # endregion
 
-  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
 
   private async Task ShowCloseAppDialog() => await DialogService.ShowDialogAsync<CloseAppDialog>(new());
 
-  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
 }

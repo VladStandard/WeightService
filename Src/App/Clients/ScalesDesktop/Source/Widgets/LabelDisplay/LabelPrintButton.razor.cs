@@ -34,9 +34,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
     protected override void OnInitialized()
     {
-        PrinterService.OnStatusChanged += StateHasChanged;
-        ScalesService.OnStatusChanged += StateHasChanged;
-        ScalesService.OnWeightChanged += StateHasChanged;
+        PrinterService.StatusChanged += StateHasChanged;
+        ScalesService.StatusChanged += StateHasChanged;
+        ScalesService.WeightChanged += StateHasChanged;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -167,9 +167,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        PrinterService.OnStatusChanged -= StateHasChanged;
-        ScalesService.OnStatusChanged -= StateHasChanged;
-        ScalesService.OnWeightChanged -= StateHasChanged;
+        PrinterService.StatusChanged -= StateHasChanged;
+        ScalesService.StatusChanged -= StateHasChanged;
+        ScalesService.WeightChanged -= StateHasChanged;
 
         try
         {

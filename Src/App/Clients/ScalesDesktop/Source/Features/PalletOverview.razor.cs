@@ -18,7 +18,7 @@ public sealed partial class PalletOverview : ComponentBase, IDisposable
 
     private PalletCard PalletCard { get; set; } = new();
 
-    protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;
+    protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
 
     private async Task PrintPalletCard()
     {
@@ -26,5 +26,5 @@ public sealed partial class PalletOverview : ComponentBase, IDisposable
         await PrintingService.Print(new(palletCardBase64) { Base64 = true });
     }
 
-    public void Dispose() => PalletContext.OnStateChanged -= StateHasChanged;
+    public void Dispose() => PalletContext.StateChanged -= StateHasChanged;
 }

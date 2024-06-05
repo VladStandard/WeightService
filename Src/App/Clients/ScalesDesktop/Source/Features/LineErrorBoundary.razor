@@ -36,7 +36,7 @@ else
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
 
-  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
 
-  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
 }

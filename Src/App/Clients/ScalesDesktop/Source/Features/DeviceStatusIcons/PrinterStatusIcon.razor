@@ -1,4 +1,5 @@
 @using Blazor.Heroicons.Outline
+@using Microsoft.FluentUI.AspNetCore.Components
 @using ScalesDesktop.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
 
@@ -8,15 +9,23 @@
   Size="ButtonSize.Icon"
   Variant="ButtonVariant.Outline"
   Class="relative !size-10"
+  OnClick="PrintStatusMessage"
 >
   <div class="@Css.Class("size-3 rounded-full shadow-sm overflow-hidden absolute -top-1 -right-1", GetIndicatorStyle)"></div>
   <PrinterIcon class="@Css.Class("size-6", GetIconStyle)"/>
 </Button>
 
 @code {
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
 
-  protected override void OnInitialized() => PrinterService.OnStatusChanged += StateHasChanged;
+  # region Injects
+
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => PrinterService.StatusChanged += StateHasChanged;
 
   private string GetIconStyle => PrinterService.Status switch
   {
@@ -32,5 +41,30 @@
     _ => "bg-amber-500 animate-ping"
   };
 
-  public void Dispose() => PrinterService.OnStatusChanged -= StateHasChanged;
+  private async Task PrintStatusMessage()
+  {
+    PrinterStatuses printerStatus = await PrinterService.GetStatusAsync();
+    switch (printerStatus)
+    {
+      case PrinterStatuses.IsDisconnected:
+        ToastService.ShowError(Localizer["PrinterStatusDisconnected"]);
+        break;
+      case PrinterStatuses.Ready or PrinterStatuses.Busy:
+        ToastService.ShowSuccess(Localizer["PrinterStatusReady"]);
+        break;
+      default:
+        ToastService.ShowWarning(printerStatus switch
+        {
+          PrinterStatuses.Paused => Localizer["PrinterStatusPaused"],
+          PrinterStatuses.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+          PrinterStatuses.PaperOut => Localizer["PrinterStatusPaperOut"],
+          PrinterStatuses.PaperJam => Localizer["PrinterStatusPaperJam"],
+          _ => Localizer["PrinterStatusUnknown"]
+        });
+        break;
+    }
+  }
+
+
+  public void Dispose() => PrinterService.StatusChanged -= StateHasChanged;
 }

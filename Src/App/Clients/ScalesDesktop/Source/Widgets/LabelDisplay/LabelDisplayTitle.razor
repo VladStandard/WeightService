@@ -12,7 +12,7 @@
 
   [Inject] private LabelContext LabelContext { get; set; } = default!;
 
-  protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
+  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
 
-  public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
+  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
 }

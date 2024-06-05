@@ -275,4 +275,7 @@
     <data name="ColLength" xml:space="preserve">
         <value>Length</value>
     </data>
+    <data name="MeasurePc" xml:space="preserve">
+        <value>pc</value>
+    </data>
 </root>

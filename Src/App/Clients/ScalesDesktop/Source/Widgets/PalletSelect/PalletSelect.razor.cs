@@ -18,7 +18,7 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
 
     private string InputSearchCounter { get; set; } = string.Empty;
 
-    protected override void OnInitialized() => PalletContext.OnStateChanged += StateHasChanged;
+    protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
 
     private void ReloadData() => PalletContext.UpdatePalletData();
 
@@ -32,5 +32,5 @@ public sealed partial class PalletSelect : ComponentBase, IDisposable
 
     private async Task ShowCreateFormDialog() => await DialogService.ShowDialogAsync<PalletCreateDialog>(new());
 
-    public void Dispose() => PalletContext.OnStateChanged -= StateHasChanged;
+    public void Dispose() => PalletContext.StateChanged -= StateHasChanged;
 }

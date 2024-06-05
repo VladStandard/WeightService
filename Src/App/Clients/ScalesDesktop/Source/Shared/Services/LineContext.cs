@@ -9,7 +9,7 @@ public class LineContext
     private IArmService ArmService { get; }
     public Arm Line { get; private set; } = new();
     public Printer Printer { get; private set; } = new();
-    public event Action? OnLineChanged;
+    public event Action? LineChanged;
 
     public LineContext(IArmService armService)
     {
@@ -37,6 +37,6 @@ public class LineContext
     public void ResetLine()
     {
         InitializeLineData();
-        OnLineChanged?.Invoke();
+        LineChanged?.Invoke();
     }
 }

@@ -46,13 +46,13 @@
 
   protected override void OnInitialized()
   {
-    PalletContext.OnStateChanged += StateHasChanged;
-    LineContext.OnLineChanged += StateHasChanged;
+    PalletContext.StateChanged += StateHasChanged;
+    LineContext.LineChanged += StateHasChanged;
   }
 
   public void Dispose()
   {
-    PalletContext.OnStateChanged -= StateHasChanged;
-    LineContext.OnLineChanged -= StateHasChanged;
+    PalletContext.StateChanged -= StateHasChanged;
+    LineContext.LineChanged -= StateHasChanged;
   }
 }

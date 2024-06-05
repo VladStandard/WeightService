@@ -22,8 +22,8 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
             LabelContext.KneadingModel.NetWeightG = ScalesService.CurrentWeight;
             StateHasChanged();
         };
-        LabelContext.OnStateChanged += StateHasChanged;
-        ScalesService.OnWeightChanged += StableStatusChangedHandler;
+        LabelContext.StateChanged += StateHasChanged;
+        ScalesService.WeightChanged += StableStatusChangedHandler;
         ScalesService.StartPolling();
     }
 
@@ -40,7 +40,7 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
     public void Dispose()
     {
         ScalesService.StopPolling();
-        LabelContext.OnStateChanged -= StateHasChanged;
-        ScalesService.OnWeightChanged -= StableStatusChangedHandler;
+        LabelContext.StateChanged -= StateHasChanged;
+        ScalesService.WeightChanged -= StableStatusChangedHandler;
     }
 }

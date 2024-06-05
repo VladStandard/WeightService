@@ -19,7 +19,7 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 
     private const int ButtonDebounceSeconds = 10;
 
-    protected override void OnInitialized() => ScalesService.OnStatusChanged += StateHasChanged;
+    protected override void OnInitialized() => ScalesService.StatusChanged += StateHasChanged;
 
     private string GetCooldownString() =>
         $"{Localizer["BtnCooldown"]} {SecToOpen} {WsDataLocalizer["MeasureSec"]}";
@@ -42,5 +42,5 @@ public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
         StateHasChanged();
     }
 
-    public void Dispose() => ScalesService.OnStatusChanged -= StateHasChanged;
+    public void Dispose() => ScalesService.StatusChanged -= StateHasChanged;
 }

@@ -10,7 +10,7 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
     public IEnumerable<ViewPallet> PalletEntities { get; private set; } = [];
     public PalletMan PalletMan { get; private set; } = new();
 
-    public event Action? OnStateChanged;
+    public event Action? StateChanged;
 
     public void InitializeContext()
     {
@@ -22,19 +22,19 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
     {
         CurrentPallet = new();
         PalletEntities = GetPallets();
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 
     public void SetPalletMan(PalletMan palletMan)
     {
         PalletMan = palletMan;
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 
     public void ResetPalletMan()
     {
         PalletMan = new();
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 
     private IEnumerable<ViewPallet> GetPallets() => palletService.GetAllViewByWarehouse(lineContext.Line.Warehouse);
@@ -43,6 +43,6 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
     {
         if (CurrentPallet.Equals(palletView)) return;
         CurrentPallet = palletView;
-        OnStateChanged?.Invoke();
+        StateChanged?.Invoke();
     }
 }

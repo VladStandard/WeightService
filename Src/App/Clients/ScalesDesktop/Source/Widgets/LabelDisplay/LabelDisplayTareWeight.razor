@@ -17,10 +17,10 @@
 
   # endregion
 
-  protected override void OnInitialized() => LabelContext.OnStateChanged += StateHasChanged;
+  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
 
   private decimal GetTareWeight => LabelContext.Plu.GetWeightWithNesting;
 
-  public void Dispose() => LabelContext.OnStateChanged -= StateHasChanged;
+  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
 
 }

@@ -11,7 +11,7 @@
         <ComputerDesktopIcon class="size-8"/>
         break;
       case ArmTypes.Tablet:
-        <DeviceTabletIcon class="size-8"/>
+        <DeviceTabletIcon class="size-8 rotate-[270deg]"/>
         break;
       case ArmTypes.Universal:
         <ServerIcon class="size-8"/>
@@ -42,7 +42,7 @@
 
   [Parameter] public bool WithReconnect { get; set; }
 
-  protected override void OnInitialized() => LineContext.OnLineChanged += StateHasChanged;
+  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
 
   private async Task ResetLine()
   {
@@ -51,5 +51,5 @@
     if (WithReconnect) await PrinterService.ConnectAsync();
   }
 
-  public void Dispose() => LineContext.OnLineChanged -= StateHasChanged;
+  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
 }

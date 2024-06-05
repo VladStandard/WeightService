@@ -10,7 +10,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
 {
     private IZplPrinter Printer { get; set; } = PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypes.Tsc);
     public PrinterStatuses Status { get; private set; } = PrinterStatuses.IsDisconnected;
-    public event Action? OnStatusChanged;
+    public event Action? StatusChanged;
 
     public void Setup(IPAddress ip, int port, PrinterTypes types)
     {
@@ -32,7 +32,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         {
             Status = PrinterStatuses.IsDisconnected;
         }
-        OnStatusChanged?.Invoke();
+        StatusChanged?.Invoke();
     }
 
     public async Task<PrinterStatuses> GetStatusAsync()
@@ -45,7 +45,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         {
             Status = PrinterStatuses.IsDisconnected;
         }
-        OnStatusChanged?.Invoke();
+        StatusChanged?.Invoke();
         return Status;
     }
 
@@ -59,7 +59,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
     {
         Printer.Disconnect();
         Status = PrinterStatuses.IsDisconnected;
-        OnStatusChanged?.Invoke();
+        StatusChanged?.Invoke();
     }
 
     private async void OnPrinterStatusChanged(object? sender, PrinterStatuses e)
@@ -68,7 +68,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         {
             if (Status.Equals(e)) return;
             Status = e;
-            OnStatusChanged?.Invoke();
+            StatusChanged?.Invoke();
         });
     }
 

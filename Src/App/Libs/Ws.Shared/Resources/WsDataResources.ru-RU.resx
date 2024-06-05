@@ -275,4 +275,7 @@
     <data name="ColLength" xml:space="preserve">
         <value>Длина</value>
     </data>
+    <data name="MeasurePc" xml:space="preserve">
+        <value>шт</value>
+    </data>
 </root>

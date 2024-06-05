@@ -51,12 +51,6 @@
     <data name="CreatePalletFormHeader" xml:space="preserve">
         <value />
     </data>
-    <data name="DisplayPluSelectWarning" xml:space="preserve">
-        <value />
-    </data>
-    <data name="DisplayScalesDisconnectedWarning" xml:space="preserve">
-        <value />
-    </data>
     <data name="FuncCardCreationDescription" xml:space="preserve">
         <value />
     </data>
@@ -114,10 +108,7 @@
     <data name="PrinterStatusHeadOpen" xml:space="preserve">
         <value />
     </data>
-    <data name="PrinterStatusIsDisabled" xml:space="preserve">
-        <value />
-    </data>
-    <data name="PrinterStatusIsForceDisconnected" xml:space="preserve">
+    <data name="PrinterStatusDisconnected" xml:space="preserve">
         <value />
     </data>
     <data name="PrinterStatusPaperJam" xml:space="preserve">
@@ -183,9 +174,6 @@
     <data name="BtnMenu" xml:space="preserve">
         <value />
     </data>
-    <data name="LabelConfigEmptyPluWarning" xml:space="preserve">
-        <value />
-    </data>
     <data name="BtnNext" xml:space="preserve">
         <value />
     </data>
@@ -211,6 +199,36 @@
         <value />
     </data>
     <data name="ToastPalletCreateError" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PrinterStatusReady" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ScalesStatusReady" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ScalesStatusDetached" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ScalesStatusDisabled" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PluDescriptionNoDataTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PluDescriptionNoDataDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="BtnReconnect" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PluDisplayUnselectedTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PluDisplayUnselectedDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PluDisplayUnselectedStatusesInfo" xml:space="preserve">
         <value />
     </data>
 </root>
