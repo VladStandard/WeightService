@@ -158,7 +158,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     private bool GetPrintLabelDisabledStatus() =>
         LabelContext.Plu.IsNew ||
         LabelContext.Plu.PluNesting.IsNew ||
-        LabelContext.Plu.IsCheckWeight & ScalesService.Status != MassaKStatus.IsReady;
+        LabelContext.Plu.IsCheckWeight & ScalesService.Status != MassaKStatus.Ready;
 
     private decimal GetWeight() =>
         (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.GetWeightWithNesting;

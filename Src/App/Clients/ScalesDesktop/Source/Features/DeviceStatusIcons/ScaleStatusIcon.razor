@@ -24,15 +24,15 @@
 
   private string GetIconStyle => ScalesService.Status switch
   {
-    MassaKStatus.IsDisabled => "text-muted-foreground",
-    MassaKStatus.IsDetached => "text-red-500",
+    MassaKStatus.Disabled => "text-muted-foreground",
+    MassaKStatus.Detached => "text-red-500",
     _ => "text-green-500"
   };
 
   private string GetIndicatorStyle => ScalesService.Status switch
   {
-    MassaKStatus.IsDisabled => "bg-muted-foreground",
-    MassaKStatus.IsDetached => "bg-red-500 animate-ping",
+    MassaKStatus.Disabled => "bg-muted-foreground",
+    MassaKStatus.Detached => "bg-red-500 animate-ping",
     _ => "bg-green-500"
   };
 
@@ -41,13 +41,13 @@
     MassaKStatus scalesStatus = ScalesService.Status;
     switch (scalesStatus)
     {
-      case MassaKStatus.IsDetached:
+      case MassaKStatus.Detached:
         ToastService.ShowError(Localizer["ScalesStatusDetached"]);
         break;
-      case MassaKStatus.IsReady:
+      case MassaKStatus.Ready:
         ToastService.ShowSuccess(Localizer["ScalesStatusSuccess"]);
         break;
-      case MassaKStatus.IsDisabled:
+      case MassaKStatus.Disabled:
         ToastService.ShowWarning(Localizer["ScalesStatusDisabled"]);
         break;
       default:

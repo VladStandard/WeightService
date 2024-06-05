@@ -1,13 +1,14 @@
 using MassaK.Plugin;
 using MassaK.Plugin.Abstractions.Enums;
 using MassaK.Plugin.Abstractions.Events;
+using MassaK.Plugin.Impl;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
 public class ScalesService(IDispatcher dispatcher) : IDisposable
 {
-    private IMassaK Scales { get; set; } = new MassaK.Plugin.Impl.MassaK(DefaultComPort);
-    public MassaKStatus Status { get; private set; } = MassaKStatus.IsDisabled;
+    private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
+    public MassaKStatus Status { get; private set; } = MassaKStatus.Disabled;
     public bool IsStable { get; private set; }
     public int CurrentWeight { get; private set; }
 
@@ -18,24 +19,24 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
 
     public void Setup(string comPort = DefaultComPort)
     {
-        Scales.StatusChanged -= ScalesOnStatusChanged;
-        Scales.WeightChanged -= ScalesOnWeightChanged;
-        Scales = new MassaK.Plugin.Impl.MassaK(comPort);
-        Scales.StatusChanged += ScalesOnStatusChanged;
-        Scales.WeightChanged += ScalesOnWeightChanged;
+        Scales.OnStatusChanged -= ScalesOnStatusChanged;
+        Scales.OnWeightChanged -= ScalesOnWeightChanged;
+        Scales = new MassaUsb(comPort);
+        Scales.OnStatusChanged += ScalesOnStatusChanged;
+        Scales.OnWeightChanged += ScalesOnWeightChanged;
     }
 
     public void Connect()
     {
         Scales.Connect();
-        Status = MassaKStatus.IsReady;
+        Status = MassaKStatus.Ready;
         StatusChanged?.Invoke();
     }
 
     public void Disconnect()
     {
         Scales.Disconnect();
-        Status = MassaKStatus.IsDisabled;
+        Status = MassaKStatus.Disabled;
         StatusChanged?.Invoke();
     }
 
@@ -64,8 +65,8 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
     public void Dispose()
     {
         Scales.Dispose();
-        Scales.StatusChanged -= ScalesOnStatusChanged;
-        Scales.WeightChanged -= ScalesOnWeightChanged;
+        Scales.OnStatusChanged -= ScalesOnStatusChanged;
+        Scales.OnWeightChanged -= ScalesOnWeightChanged;
         GC.SuppressFinalize(this);
     }
 }
