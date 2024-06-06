@@ -50,14 +50,14 @@
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
         <PackageReference Include="MassaK.Plugin" Version="1.0.0" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2"/>
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4"/>
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.6" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.21" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.40" />
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.7.2" />
         <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240428000" />
-        <PackageReference Include="TscZebra.Plugin" Version="1.0.2" />
+        <PackageReference Include="TscZebra.Plugin" Version="1.0.3" />
         <PackageReference Include="vNext.BlazorComponents.FluentValidation" Version="1.1.3"/>
     </ItemGroup>
 

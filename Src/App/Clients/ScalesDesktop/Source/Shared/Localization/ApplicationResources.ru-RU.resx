@@ -220,7 +220,7 @@
         <value>Выберите ПЛУ, чтобы просмотреть информацию</value>
     </data>
     <data name="BtnReconnect" xml:space="preserve">
-        <value>Переподключиться</value>
+        <value>Переподключить</value>
     </data>
     <data name="PluDisplayUnselectedTitle" xml:space="preserve">
         <value>Настройте ПЛУ</value>
@@ -230,5 +230,8 @@
     </data>
     <data name="PluDisplayUnselectedStatusesInfo" xml:space="preserve">
         <value>Чтобы узнать текущее состояние принтера и весов нажмите на иконки</value>
+    </data>
+    <data name="ScalesStatusInitializing" xml:space="preserve">
+        <value>Определение весов</value>
     </data>
 </root>

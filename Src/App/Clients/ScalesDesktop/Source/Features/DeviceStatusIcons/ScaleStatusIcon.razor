@@ -26,6 +26,7 @@
   {
     MassaKStatus.Disabled => "text-muted-foreground",
     MassaKStatus.Detached => "text-red-500",
+    MassaKStatus.Initializing => "text-amber-500",
     _ => "text-green-500"
   };
 
@@ -33,6 +34,7 @@
   {
     MassaKStatus.Disabled => "bg-muted-foreground",
     MassaKStatus.Detached => "bg-red-500 animate-ping",
+    MassaKStatus.Initializing => "bg-amber-500",
     _ => "bg-green-500"
   };
 
@@ -45,10 +47,13 @@
         ToastService.ShowError(Localizer["ScalesStatusDetached"]);
         break;
       case MassaKStatus.Ready:
-        ToastService.ShowSuccess(Localizer["ScalesStatusSuccess"]);
+        ToastService.ShowSuccess(Localizer["ScalesStatusReady"]);
         break;
       case MassaKStatus.Disabled:
         ToastService.ShowWarning(Localizer["ScalesStatusDisabled"]);
+        break;
+      case MassaKStatus.Initializing:
+        ToastService.ShowWarning(Localizer["ScalesStatusInitializing"]);
         break;
       default:
         throw new ArgumentOutOfRangeException();

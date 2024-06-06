@@ -231,4 +231,7 @@
     <data name="PluDisplayUnselectedStatusesInfo" xml:space="preserve">
         <value />
     </data>
+    <data name="ScalesStatusInitializing" xml:space="preserve">
+        <value />
+    </data>
 </root>

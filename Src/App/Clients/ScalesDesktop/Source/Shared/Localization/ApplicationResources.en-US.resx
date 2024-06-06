@@ -231,4 +231,7 @@
     <data name="PluDisplayUnselectedStatusesInfo" xml:space="preserve">
         <value>To find out the current status of the printer and scales, click on the icons</value>
     </data>
+    <data name="ScalesStatusInitializing" xml:space="preserve">
+        <value>The scales are initializing</value>
+    </data>
 </root>

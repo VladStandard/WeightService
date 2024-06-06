@@ -6,7 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="Blazor.Heroicons" Version="2.1.2.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.7.2" />
     </ItemGroup>
 
