@@ -48,7 +48,7 @@
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5"/>
         <PackageReference Include="itext7" Version="8.0.4" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
-        <PackageReference Include="MassaK.Plugin" Version="1.0.1" />
+        <PackageReference Include="MassaK.Plugin" Version="1.0.2" />
         <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2"/>
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.6" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
