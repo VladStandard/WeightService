@@ -3,6 +3,6 @@
     <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TscZebra.Plugin.Abstractions" Version="1.0.2" />
+    <PackageReference Include="TscZebra.Plugin.Abstractions" Version="1.0.4" />
   </ItemGroup>
 </Project>

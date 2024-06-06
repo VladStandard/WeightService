@@ -1,6 +1,6 @@
 using System.Net;
 using TscZebra.Plugin;
-using TscZebra.Plugin.Abstractions.Common;
+using TscZebra.Plugin.Abstractions;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 
@@ -9,15 +9,15 @@ namespace ScalesDesktop.Source.Shared.Services;
 public class PrinterService(IDispatcher dispatcher): IDisposable
 {
     private IZplPrinter Printer { get; set; } = PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypes.Tsc);
-    public PrinterStatuses Status { get; private set; } = PrinterStatuses.IsDisconnected;
+    public PrinterStatus Status { get; private set; } = PrinterStatus.Disconnected;
     public event Action? StatusChanged;
 
     public void Setup(IPAddress ip, int port, PrinterTypes types)
     {
-        Printer.PrinterStatusChanged -= OnPrinterStatusChanged;
+        Printer.OnStatusChanged -= OnPrinterStatusChanged;
         Printer.Disconnect();
         Printer = PrinterFactory.Create(ip, port, types);
-        Printer.PrinterStatusChanged += OnPrinterStatusChanged;
+        Printer.OnStatusChanged += OnPrinterStatusChanged;
     }
 
     public async Task ConnectAsync()
@@ -25,17 +25,17 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         try
         {
             await Printer.ConnectAsync();
-            Status = PrinterStatuses.Ready;
+            Status = PrinterStatus.Ready;
             StartPolling(10);
         }
         catch (PrinterConnectionException)
         {
-            Status = PrinterStatuses.IsDisconnected;
+            Status = PrinterStatus.Disconnected;
         }
         StatusChanged?.Invoke();
     }
 
-    public async Task<PrinterStatuses> GetStatusAsync()
+    public async Task<PrinterStatus> GetStatusAsync()
     {
         try
         {
@@ -43,7 +43,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         }
         catch
         {
-            Status = PrinterStatuses.IsDisconnected;
+            Status = PrinterStatus.Disconnected;
         }
         StatusChanged?.Invoke();
         return Status;
@@ -58,11 +58,11 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
     public void Disconnect()
     {
         Printer.Disconnect();
-        Status = PrinterStatuses.IsDisconnected;
+        Status = PrinterStatus.Disconnected;
         StatusChanged?.Invoke();
     }
 
-    private async void OnPrinterStatusChanged(object? sender, PrinterStatuses e)
+    private async void OnPrinterStatusChanged(object? sender, PrinterStatus e)
     {
         await dispatcher.DispatchAsync(() =>
         {
@@ -74,7 +74,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
 
     public void Dispose()
     {
-        Printer.PrinterStatusChanged -= OnPrinterStatusChanged;
+        Printer.OnStatusChanged -= OnPrinterStatusChanged;
         Printer.Dispose();
         GC.SuppressFinalize(this);
     }

@@ -108,8 +108,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
     private async Task<bool> ValidatePrinterStatus()
     {
-        PrinterStatuses printerStatus = await PrinterService.GetStatusAsync();
-        if (printerStatus is PrinterStatuses.Ready or PrinterStatuses.Busy) return true;
+        PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
+        if (printerStatus is PrinterStatus.Ready or PrinterStatus.Busy) return true;
         PrintPrinterStatusMessage();
         return false;
     }
@@ -122,13 +122,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
             return false;
         }
 
-        if (GetWeight() <= 0)
-        {
-            ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
-            return false;
-        }
-
-        return true;
+        if (GetWeight() > 0) return true;
+        ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
+        return false;
     }
 
     private GenerateWeightLabelDto CreateLabelInfoDto() =>
@@ -147,11 +143,11 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     private void PrintPrinterStatusMessage() =>
         ToastService.ShowWarning(PrinterService.Status switch
         {
-            PrinterStatuses.IsDisconnected => Localizer["PrinterStatusIsForceDisconnected"],
-            PrinterStatuses.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatuses.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatuses.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatuses.PaperJam => Localizer["PrinterStatusPaperJam"],
+            PrinterStatus.Disconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
 

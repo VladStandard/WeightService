@@ -78,9 +78,9 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
 
     private async Task PrintLabelsAsync()
     {
-        PrinterStatuses printerStatus = await PrinterService.GetStatusAsync();
+        PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
 
-        if (printerStatus is not (PrinterStatuses.Ready or PrinterStatuses.Busy))
+        if (printerStatus is not (PrinterStatus.Ready or PrinterStatus.Busy))
         {
             PrintPrinterStatusMessage(printerStatus);
             return;
@@ -104,14 +104,14 @@ public sealed partial class LabelsGrid : ComponentBase, IDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    private void PrintPrinterStatusMessage(PrinterStatuses printerStatus) =>
+    private void PrintPrinterStatusMessage(PrinterStatus printerStatus) =>
         ToastService.ShowWarning(printerStatus switch
         {
-            PrinterStatuses.IsDisconnected => Localizer["PrinterStatusIsDisabled"],
-            PrinterStatuses.Paused => Localizer["PrinterStatusPaused"],
-            PrinterStatuses.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-            PrinterStatuses.PaperOut => Localizer["PrinterStatusPaperOut"],
-            PrinterStatuses.PaperJam => Localizer["PrinterStatusPaperJam"],
+            PrinterStatus.Disconnected => Localizer["PrinterStatusIsDisabled"],
+            PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
+            PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+            PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
+            PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
 

@@ -29,36 +29,36 @@
 
   private string GetIconStyle => PrinterService.Status switch
   {
-    PrinterStatuses.IsDisconnected => "text-red-500",
-    PrinterStatuses.Busy or PrinterStatuses.Ready => "text-green-500",
+    PrinterStatus.Disconnected => "text-red-500",
+    PrinterStatus.Busy or PrinterStatus.Ready => "text-green-500",
     _ => "text-amber-500"
   };
 
   private string GetIndicatorStyle => PrinterService.Status switch
   {
-    PrinterStatuses.IsDisconnected => "bg-red-500 animate-ping",
-    PrinterStatuses.Busy or PrinterStatuses.Ready => "bg-green-500",
+  PrinterStatus.Disconnected => "bg-red-500 animate-ping",
+  PrinterStatus.Busy or PrinterStatus.Ready => "bg-green-500",
     _ => "bg-amber-500 animate-ping"
   };
 
   private async Task PrintStatusMessage()
   {
-    PrinterStatuses printerStatus = await PrinterService.GetStatusAsync();
+    PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
     switch (printerStatus)
     {
-      case PrinterStatuses.IsDisconnected:
+      case PrinterStatus.Disconnected:
         ToastService.ShowError(Localizer["PrinterStatusDisconnected"]);
         break;
-      case PrinterStatuses.Ready or PrinterStatuses.Busy:
+      case PrinterStatus.Ready or PrinterStatus.Busy:
         ToastService.ShowSuccess(Localizer["PrinterStatusReady"]);
         break;
       default:
         ToastService.ShowWarning(printerStatus switch
         {
-          PrinterStatuses.Paused => Localizer["PrinterStatusPaused"],
-          PrinterStatuses.HeadOpen => Localizer["PrinterStatusHeadOpen"],
-          PrinterStatuses.PaperOut => Localizer["PrinterStatusPaperOut"],
-          PrinterStatuses.PaperJam => Localizer["PrinterStatusPaperJam"],
+          PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
+          PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
+          PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
+          PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
           _ => Localizer["PrinterStatusUnknown"]
         });
         break;
