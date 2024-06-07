@@ -18,6 +18,6 @@ public class ArmController(IArmService armService) : ControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<OutputDto<Arm>> Get([FromQuery] string name) =>
+    public ActionResult<OutputDto<ArmValue>> Get([FromQuery] string name) =>
         armService.GetByName(name) is { } arm ? Ok(arm) : NotFound();
 }

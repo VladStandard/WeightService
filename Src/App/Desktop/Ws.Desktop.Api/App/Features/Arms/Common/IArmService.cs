@@ -5,5 +5,5 @@ namespace Ws.Desktop.Api.App.Features.Arms.Common;
 
 public interface IArmService
 {
-    public OutputDto<Arm>? GetByName(string armName);
+    public OutputDto<ArmValue>? GetByName(string armName);
 }

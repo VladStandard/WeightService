@@ -5,7 +5,7 @@ using TscZebra.Plugin.Abstractions.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
-public sealed record Printer {
+public sealed record PrinterValue {
 
     [Required]
     [JsonPropertyName("name")]

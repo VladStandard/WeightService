@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
 [Serializable]
-public sealed record Arm {
+public sealed record ArmValue {
 
     [Required]
     [JsonPropertyName("id")]
@@ -28,5 +28,5 @@ public sealed record Arm {
 
     [Required]
     [JsonPropertyName("printer")]
-    public required Printer Printer { get; init; }
+    public required PrinterValue PrinterValue { get; init; }
 }
