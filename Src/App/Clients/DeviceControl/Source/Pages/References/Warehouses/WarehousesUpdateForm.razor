@@ -1,0 +1,40 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using Ws.Domain.Models.Entities.Ref
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Ref.Warehouse>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new WarehousesUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ProductionSite"
+      Items="PlatformEntities"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Path="@Redirector.ToPath(DialogItem.ProductionSite, UserPrincipal)"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="item => item.Name"
+      For="@(() => DialogItem.ProductionSite)"
+      IsFilterable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionWarehouses}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

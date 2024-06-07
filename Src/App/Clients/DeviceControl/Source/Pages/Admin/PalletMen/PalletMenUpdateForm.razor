@@ -1,0 +1,53 @@
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Users.PalletMan>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new PalletMenUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid"/>
+
+    @* <SectionGuidField *@
+    @*   Label="UID 1C" *@
+    @*   @bind-Value="@DialogItem.Uid1C" *@
+    @*   For="@(() => DialogItem.Uid1C)" *@
+    @*   IsCopyable *@
+    @* /> *@
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColFirstName"]"
+      @bind-Value="@DialogItem.Fio.Name"
+      For="@(() => DialogItem.Fio.Name)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColSurname"]"
+      @bind-Value="@DialogItem.Fio.Surname"
+      For="@(() => DialogItem.Fio.Surname)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPatronymic"]"
+      @bind-Value="@DialogItem.Fio.Patronymic"
+      For="@(() => DialogItem.Fio.Patronymic)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPassword"]"
+      @bind-Value="@DialogItem.Password"
+      For="@(() => DialogItem.Password)"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

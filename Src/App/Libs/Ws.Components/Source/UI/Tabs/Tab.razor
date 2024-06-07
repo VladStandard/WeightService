@@ -1,0 +1,10 @@
+@if (Control.ActiveTabId == Id)
+{
+  @ChildContent
+}
+
+@code {
+  [Parameter, EditorRequired] public string Id { get; set; } = default!;
+  [CascadingParameter] private Tabs Control { get; set; } = default!;
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+}

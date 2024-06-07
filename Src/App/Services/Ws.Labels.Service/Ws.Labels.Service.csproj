@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <PackageReference Include="BinaryKits.Zpl.Labelary" Version="1.0.2" />
+        <PackageReference Include="FluentValidation" Version="11.9.0"/>
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4"/>
+    </ItemGroup>
+
+    <Target Name="CleanGenerated">
+        <Delete Files="@(Generated)"/>
+    </Target>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
+        <ProjectReference Include="..\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Generated Remove="obj\**"/>
+        <EmbeddedResource Remove="obj\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Features\Generate\Features\" />
+    </ItemGroup>
+
+</Project>

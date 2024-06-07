@@ -1,0 +1,60 @@
+@using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Features
+@using ScalesDesktop.Source.Features.PluSelectDialog
+@using ScalesDesktop.Source.Shared.Services
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Ws.Domain.Models.Entities.Ref1c.Plu
+
+@implements IDisposable
+
+<div class="size-full bg-background border rounded-lg flex flex-col overflow-hidden">
+  <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b xl:px-8">
+    <h2 class="line-clamp-1 text-center font-medium xl:text-lg">
+      @Localizer["LabelConfigHeader"]
+    </h2>
+  </div>
+  <div class="flex flex-col gap-3 size-full p-4 overflow-hidden justify-between xl:p-6 xl:gap-4">
+    <div class="w-full h-10 lg:h-12 shrink-0">
+      <Button
+        Size="ButtonSize.Full"
+        Variant="ButtonVariant.Outline"
+        OnClick="@ShowPluSelectDialog"
+        Disabled="@LabelContext.Line.IsNew"
+      >
+        <div class="size-full font-normal px-5 flex items-center justify-between lg:text-lg">
+          <span class="truncate">
+            @(LabelContext.Plu.IsNew ? Localizer["PluSelectPlaceholder"] : LabelContext.Plu.DisplayName)
+          </span>
+          <ChevronDownIcon class="size-5"/>
+        </div>
+      </Button>
+    </div>
+    <PluDescription Plu="@LabelContext.Plu" />
+    <LineControl WithReconnect/>
+  </div>
+</div>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IDialogService DialogService { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
+
+  private async Task ShowPluSelectDialog()
+  {
+    PluDialogContent data = new() { Data = LabelContext.PluEntities.AsQueryable() };
+    IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
+    DialogResult result = await dialog.Result;
+    if (result is { Cancelled: false, Data: Plu pluEntity })
+      LabelContext.ChangePlu(pluEntity);
+  }
+
+  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
+
+}

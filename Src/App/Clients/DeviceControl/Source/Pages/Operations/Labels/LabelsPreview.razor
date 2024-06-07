@@ -1,0 +1,22 @@
+<div class="flex items-center min-h-72 w-full p-10 justify-center bg-secondary/[.3] dark:bg-inherit">
+  @if (IsLoading)
+  {
+    <Spinner Class="size-14 text-muted animate-spin fill-blue-600" />
+  }
+  else
+  {
+    @if (!string.IsNullOrEmpty(ImageData))
+    {
+      <div class="rounded-md bg-white border w-full border-black/[.2] overflow-hidden p-2">
+        <img
+          src="@GetImageData"
+          class="w-full h-full"
+          alt=""/>
+      </div>
+    }
+    else
+    {
+      <p>@Localizer["LabelsPreviewErrorMsg"]</p>
+    }
+  }
+</div>

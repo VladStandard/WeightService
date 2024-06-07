@@ -1,0 +1,25 @@
+@using MassaK.Plugin.Abstractions.Enums
+
+<LabelDisplayItem Label="@WsDataLocalizer["ColNetWeight"]">
+  @if (ScalesService.Status == MassaKStatus.Initializing)
+  {
+    <Spinner Class="size-8 inline text-gray-200 animate-spin fill-primary" />
+  }
+  else
+  {
+    <div class="text-[2rem] flex items-end mx-auto px-4 text-center rounded-lg overflow-hidden xl:text-[2.5rem]
+             @(!ScalesService.IsStable || GetNetWeight <= 0 ? "text-destructive" : "text-green-400")">
+      <span class="w-5 flex justify-center xl:w-6">@Sign</span>
+      @foreach (char intChar in IntegerPart)
+      {
+        <span class="w-5 flex justify-center xl:w-6">@intChar</span>
+      }
+      <span>,</span>
+      @foreach (char decChar in DecimalPart)
+      {
+        <span class="w-5 flex justify-center xl:w-6">@decChar</span>
+      }
+      <span>@WsDataLocalizer["MeasureKg"]</span>
+    </div>
+  }
+</LabelDisplayItem>

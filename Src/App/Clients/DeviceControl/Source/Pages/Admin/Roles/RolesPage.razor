@@ -1,0 +1,43 @@
+@using DeviceControl.Source.Shared.Auth.Policies
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Users
+@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.Claim>
+@attribute [Route($"{RouteUtils.SectionRoles}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@rendermode InteractiveServer
+
+<PageTitle>DeviceControl - @Localizer["SectionRoles"]</PageTitle>
+
+<PageHeader>
+  <span>@Localizer["SectionRoles"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="Claim"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCreateDt"]"
+        Field="@nameof(Claim.CreateDt)"
+        Width="20%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(Claim.Name)"
+        Width="80%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

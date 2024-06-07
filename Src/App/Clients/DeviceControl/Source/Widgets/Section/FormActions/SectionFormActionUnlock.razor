@@ -1,0 +1,31 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Shared.Auth.Policies
+@using Microsoft.Extensions.Localization
+<AuthorizeView Policy="@PolicyEnum.Support">
+  <SectionFormAction OnClick="@SwitchIsUnlocked" Class="@Class">
+    @if (IsUnlocked)
+    {
+      <LockClosedIcon class="size-4 mr-2"/>
+      <span>@Localizer["FormActionLock"]</span>
+    }
+    else
+    {
+      <LockOpenIcon class="size-4 mr-2"/>
+      <span>@Localizer["FormActionUnlock"]</span>
+    }
+  </SectionFormAction>
+</AuthorizeView>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  [Parameter] public bool IsUnlocked { get; set; }
+  [Parameter] public EventCallback<bool> IsUnlockedChanged { get; set; }
+  [Parameter] public string Class { get; set; } = string.Empty;
+
+  private async Task SwitchIsUnlocked()
+  {
+    IsUnlocked = !IsUnlocked;
+    await IsUnlockedChanged.InvokeAsync(IsUnlocked);
+  }
+}

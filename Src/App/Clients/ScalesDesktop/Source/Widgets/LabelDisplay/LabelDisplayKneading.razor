@@ -1,0 +1,55 @@
+@using Microsoft.FluentUI.AspNetCore.Components
+@using ScalesDesktop.Source.Features
+@using ScalesDesktop.Source.Shared.Services
+@implements IDisposable
+
+<LabelDisplayItem Label="@WsDataLocalizer["ColKneading"]">
+  <div class="grid grid-cols-7 items-center w-full h-full">
+    <div class="col-span-2"></div>
+    <div class="col-span-3 flex items-center justify-center size-full overflow-hidden">
+      <span class="text-xl font-medium xl:text-3xl">
+          @LabelContext.KneadingModel.KneadingCount
+        </span>
+    </div>
+    <div class="col-span-2 size-full overflow-hidden">
+      <Button
+        Size="ButtonSize.Full"
+        Variant="ButtonVariant.Outline"
+        OnClick="@ShowNumericKeyboard"
+      >
+        <span class="text-lg xl:text-2xl">
+          @Localizer["BtnEnter"]
+        </span>
+      </Button>
+    </div>
+
+  </div>
+</LabelDisplayItem>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IDialogService DialogService { get; set; } = default!;
+  [Inject] private LabelContext LabelContext { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
+
+  private async Task ShowNumericKeyboard()
+  {
+    NumericKeyboardDialogContent data = new() { Kneading = LabelContext.KneadingModel.KneadingCount };
+    IDialogReference dialog = await DialogService.ShowDialogAsync<NumericKeyboardDialog>(data, new());
+    DialogResult result = await dialog.Result;
+    if (result is { Cancelled: false, Data: int newKneading })
+    {
+      LabelContext.KneadingModel.KneadingCount = newKneading;
+      StateHasChanged();
+    }
+  }
+
+  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
+}

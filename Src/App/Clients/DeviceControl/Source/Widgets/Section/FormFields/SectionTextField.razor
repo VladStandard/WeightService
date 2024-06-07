@@ -1,0 +1,25 @@
+@inherits SectionFieldBase<string>
+
+<SectionInputWrapper
+  Path="@Path"
+  Label="@Label"
+  HtmlFor="@HtmlId"
+  ValueToCopy="@(IsCopyable ? ValueToCopy ?? Value : string.Empty)"
+>
+  <InputTextField
+    id="@HtmlId"
+    @bind-Value="@Value"
+    @bind-Value:after="OnValueChanged"
+    Placeholder="@Placeholder"
+    Disabled="Disabled"
+    maxlength="@(MaxLength <= 0 ? string.Empty : MaxLength)"
+  />
+  @if (For != null)
+  {
+    <FieldValidation For="@For" />
+  }
+</SectionInputWrapper>
+
+@code {
+  [Parameter] public short MaxLength { get; set; }
+}
