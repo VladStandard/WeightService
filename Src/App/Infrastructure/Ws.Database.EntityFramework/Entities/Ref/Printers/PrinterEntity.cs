@@ -1,4 +1,5 @@
 using System.Net;
+using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Printers;
@@ -15,7 +16,7 @@ public sealed class PrinterEntity : EfEntityBase
     public IPAddress Ip { get; set; } = IPAddress.Parse("127.0.0.1");
 
     [Column("TYPE")]
-    public PrinterType Type { get; set; } = PrinterType.Tsc;
+    public PrinterTypes Type { get; set; } = PrinterTypes.Tsc;
 
     [ForeignKey("PRODUCTION_SITE_UID")]
     public ProductionSiteEntity ProductionSite { get; set; } = new();

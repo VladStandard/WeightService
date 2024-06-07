@@ -106,16 +106,16 @@
         <value>Выбор ПЛУ</value>
     </data>
     <data name="PrinterStatusHeadOpen" xml:space="preserve">
-        <value>Открыта головка принтера</value>
+        <value>Открыта крышка принтера</value>
     </data>
     <data name="PrinterStatusDisconnected" xml:space="preserve">
         <value>Принтер не в сети</value>
     </data>
     <data name="PrinterStatusPaperJam" xml:space="preserve">
-        <value>В принтере замялась этикетка</value>
+        <value>Замялась этикетка в принтере</value>
     </data>
     <data name="PrinterStatusPaperOut" xml:space="preserve">
-        <value>Кончилась лента в принтере</value>
+        <value>Закончились этикетки в принтере</value>
     </data>
     <data name="PrinterStatusPaused" xml:space="preserve">
         <value>Принтер стоит на паузе</value>
@@ -211,7 +211,7 @@
         <value>Весы не подключены</value>
     </data>
     <data name="ScalesStatusDisabled" xml:space="preserve">
-        <value>Весы отключены</value>
+        <value>Весы выключены</value>
     </data>
     <data name="PluDescriptionNoDataTitle" xml:space="preserve">
         <value>Нет данных</value>
@@ -232,6 +232,6 @@
         <value>Чтобы узнать текущее состояние принтера и весов нажмите на иконки</value>
     </data>
     <data name="ScalesStatusInitializing" xml:space="preserve">
-        <value>Определение весов</value>
+        <value>Подготовка весов</value>
     </data>
 </root>
