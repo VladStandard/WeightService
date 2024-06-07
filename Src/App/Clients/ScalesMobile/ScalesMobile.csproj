@@ -21,6 +21,7 @@
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
+        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
     </PropertyGroup>
@@ -70,7 +71,19 @@
       <ProjectReference Include="..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj" />
     </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
+        <Exec Command="npm -v" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
+    </Target>
+
+    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
+        <Exec Command="npm install" />
+        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+    </Target>
+
+    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
 

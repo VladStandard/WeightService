@@ -33,6 +33,7 @@
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
         <NoWarn>CA1806,CA1416</NoWarn>
+        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
     <ItemGroup>
@@ -85,8 +86,20 @@
       </None>
     </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-        <Exec Command="npm run build"/>
+    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
+      <Exec Command="npm -v" ContinueOnError="true">
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+      </Exec>
+      <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
+    </Target>
+
+    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
+      <Exec Command="npm install" />
+      <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+    </Target>
+
+    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
+      <Exec Command="npm run build" />
     </Target>
 
 </Project>

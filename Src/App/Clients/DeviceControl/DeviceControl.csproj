@@ -4,6 +4,7 @@
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +26,7 @@
         <ProjectReference Include="..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj"/>
         <ProjectReference Include="..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
       <Content Remove="package.json" />
       <None Include="package.json">
@@ -37,8 +38,20 @@
       </None>
     </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-        <Exec Command="npm run build" ContinueOnError="true"/>
+    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
+        <Exec Command="npm -v" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
+    </Target>
+
+    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
+        <Exec Command="npm install" />
+        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+    </Target>
+
+    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build" />
     </Target>
 
 </Project>
