@@ -41,7 +41,7 @@ internal class TemplateService(
 
         string zplKey = $"TEMPLATES:{template.Uid}";
         if (provider.KeyExists(zplKey))
-            provider.StringSet(zplKey, template.Body, TimeSpan.FromHours(1));
+            provider.HDel(zplKey);
 
         return template;
     }
