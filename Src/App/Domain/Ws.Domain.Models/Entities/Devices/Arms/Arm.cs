@@ -5,6 +5,7 @@ using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Enums;
+using Ws.Shared.Enums;
 
 namespace Ws.Domain.Models.Entities.Devices.Arms;
 
@@ -21,7 +22,7 @@ public class Arm : EntityBase
 
     public virtual Printer Printer { get; set; } = new();
     public virtual Warehouse Warehouse { get; set; } = new();
-    public virtual ArmTypes Type { get; set; } = ArmTypes.Tablet;
+    public virtual ArmType Type { get; set; } = ArmType.Tablet;
 
     #region Constructors
 

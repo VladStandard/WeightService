@@ -3,6 +3,7 @@
 @using ScalesDesktop.Source.Features
 @using ScalesDesktop.Source.Shared.Services
 @using Ws.Domain.Models.Enums
+@using Ws.Shared.Enums
 
 @implements IDisposable
 
@@ -12,7 +13,7 @@
     <h3 class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</h3>
   </div>
   <ul class="flex flex-col gap-2">
-    @if (LineContext.Line.Type is ArmTypes.Tablet or ArmTypes.Universal)
+    @if (LineContext.Line.Type is ArmType.Tablet or ArmType.Universal)
     {
     <li>
       <a href="@RouteUtils.Labels">
@@ -23,7 +24,7 @@
       </a>
     </li>
     }
-    @if (LineContext.Line.Type is ArmTypes.Pc or ArmTypes.Universal)
+    @if (LineContext.Line.Type is ArmType.Pc or ArmType.Universal)
     {
     <li>
       <a href="@RouteUtils.Pallet">

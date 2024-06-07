@@ -4,6 +4,7 @@
 @using Ws.Domain.Models.Entities.Devices
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.Domain.Models.Enums
+@using Ws.Shared.Enums
 @inherits DeviceControl.Source.Widgets.Section.SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 
 <SectionForm
@@ -36,7 +37,7 @@
     />
 
     <SectionSelectSingleField
-      TItem="ArmTypes"
+      TItem="ArmType"
       Label="@WsDataLocalizer["ColType"]"
       Items="LineTypes"
       @bind-Value="@_createCommand.Type"

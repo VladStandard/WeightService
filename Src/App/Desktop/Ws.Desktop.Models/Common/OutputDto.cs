@@ -6,5 +6,5 @@ namespace Ws.Desktop.Models.Common;
 [Serializable]
 public record OutputDto<T>(
     [property: Required]
-    [property: JsonPropertyName("data")]
-    T Data);
+    [property: JsonPropertyName("data")] T Data
+);

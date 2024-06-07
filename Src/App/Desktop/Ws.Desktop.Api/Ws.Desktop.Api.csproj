@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <Folder Include="App\Features\Labels\" />
-      <Folder Include="App\Features\Plus\" />
     </ItemGroup>
 
     <ItemGroup>

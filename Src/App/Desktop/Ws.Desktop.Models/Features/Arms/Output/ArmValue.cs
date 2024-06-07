@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Ws.Shared.Converters.Json;
+using Ws.Shared.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
@@ -15,6 +17,11 @@ public sealed record ArmValue {
     public required string Name { get; init; }
 
     [Required]
+    [JsonPropertyName("type")]
+    [JsonConverter(typeof(EnumJsonConverter<ArmType>))]
+    public required ArmType Type { get; init; }
+
+    [Required]
     [JsonPropertyName("pcName")]
     public required string PcName { get; init; }
 
@@ -28,5 +35,5 @@ public sealed record ArmValue {
 
     [Required]
     [JsonPropertyName("printer")]
-    public required PrinterValue PrinterValue { get; init; }
+    public required PrinterValue Printer { get; init; }
 }

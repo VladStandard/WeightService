@@ -4,6 +4,7 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices.Arms
 @using Ws.Domain.Models.Entities.Ref
+@using Ws.Shared.Enums
 @using Ws.Domain.Models.Enums
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
@@ -46,13 +47,13 @@
           <div class="size-full flex items-center justify-center">
             @switch (context.Type)
             {
-              case ArmTypes.Pc:
+              case ArmType.Pc:
                 <ComputerDesktopIcon class="size-5"/>
                 break;
-              case ArmTypes.Tablet:
+              case ArmType.Tablet:
                 <DeviceTabletIcon class="size-5"/>
                 break;
-              case ArmTypes.Universal:
+              case ArmType.Universal:
                 <ServerIcon class="size-5"/>
                 break;
               default:

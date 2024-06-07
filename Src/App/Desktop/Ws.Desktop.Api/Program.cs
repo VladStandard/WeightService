@@ -1,8 +1,10 @@
-using TscZebra.Plugin.Abstractions.Enums;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Arms.Common;
 using Ws.Desktop.Api.App.Features.Arms.Impl;
-using Ws.Shared.Converters.Json;
+using Ws.Desktop.Api.App.Features.Plus.Common;
+using Ws.Desktop.Api.App.Features.Plus.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddEfCore();
 builder.Services.AddScoped<IArmService, ArmService>();
+builder.Services.AddScoped<IPluService, PluService>();
 
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
@@ -21,9 +24,7 @@ builder.Services.AddControllers()
     })
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.Converters.Add(new IpAddressJsonConverter());
-        options.JsonSerializerOptions.Converters.Add(new EnumJsonConverter<PrinterTypes>());
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
 

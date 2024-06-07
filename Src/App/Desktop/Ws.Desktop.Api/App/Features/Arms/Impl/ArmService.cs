@@ -1,4 +1,3 @@
-using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Arms.Common;
 using Ws.Desktop.Models.Common;
@@ -20,7 +19,8 @@ public class ArmService : IArmService
                 Name = i.Name,
                 PcName = i.PcName,
                 Warehouse = i.Warehouse.Name,
-                PrinterValue = new()
+                Type = i.Type,
+                Printer = new()
                 {
                     Ip = i.Printer.Ip,
                     Name = i.Printer.Name,

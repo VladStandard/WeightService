@@ -1,6 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref.Printers;
 using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Shared.Enums;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 
@@ -33,7 +34,7 @@ public sealed class LineEntity : EfEntityBase
     public string PcName { get; set; } = string.Empty;
 
     [Column("TYPE")]
-    public LineType Type { get; set; } = LineType.Tablet;
+    public ArmType Type { get; set; } = ArmType.Tablet;
 
     [Column("VERSION"), StringLength(16)]
     public string Version { get; set; } = string.Empty;

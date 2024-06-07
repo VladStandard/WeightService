@@ -6,6 +6,7 @@ using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.Warehouses;
+using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -27,7 +28,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
 
     private IEnumerable<Printer> Printers { get; set; } = [];
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
-    private IEnumerable<ArmTypes> LineTypes { get; set; } = [];
+    private IEnumerable<ArmType> LineTypes { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
 
@@ -39,7 +40,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
         DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
         GenerateLineNumber();
 
-        LineTypes = Enum.GetValues(typeof(ArmTypes)).Cast<ArmTypes>().ToList();
+        LineTypes = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
         Printers = PrinterService.GetAllByProductionSite(ProductionSite);
         Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
     }

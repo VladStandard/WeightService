@@ -7,6 +7,7 @@ using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
+using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -27,7 +28,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
     private IEnumerable<Printer> Printers { get; set; } = [];
-    private IEnumerable<ArmTypes> LineTypes { get; set; } = [];
+    private IEnumerable<ArmType> LineTypes { get; set; } = [];
     private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
@@ -38,7 +39,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
         base.OnInitialized();
         Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
         Printers = PrinterService.GetAllByProductionSite(ProductionSite);
-        LineTypes = Enum.GetValues(typeof(ArmTypes)).Cast<ArmTypes>().ToList();
+        LineTypes = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
     }
 
     protected override async Task OnInitializedAsync()
