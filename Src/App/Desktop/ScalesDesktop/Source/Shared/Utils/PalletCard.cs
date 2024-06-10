@@ -4,7 +4,6 @@ using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Properties;
-using Ws.Domain.Models.Entities.Print;
 using Border = iText.Layout.Borders.Border;
 using ICell = iText.Layout.Element.Cell;
 using IImage = iText.Layout.Element.Image;

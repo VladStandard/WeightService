@@ -8,8 +8,6 @@ using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
-using Ws.Labels.Service.Features.Generate;
-using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
