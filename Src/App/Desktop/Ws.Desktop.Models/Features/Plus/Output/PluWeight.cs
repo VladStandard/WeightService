@@ -36,5 +36,5 @@ public record PluWeight
 
     [Required]
     [JsonPropertyName("tareWeight")]
-    public required double TareWeight { get; init; }
+    public required decimal TareWeight { get; init; }
 };

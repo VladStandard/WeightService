@@ -31,7 +31,7 @@ public class PluService : IPluService
                     BundleCount = (byte)nesting.BundleCount,
                     Box = nesting.Box.Name,
                     Bundle = plu.Bundle.Name,
-                    TareWeight = Math.Round((double)(plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + (double)nesting.Box.Weight, 3)
+                    TareWeight = (decimal)Math.Round((double)(plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + (double)nesting.Box.Weight, 3)
                 })
             .ToList();
 
