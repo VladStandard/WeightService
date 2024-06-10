@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Enums;
 using Ws.Shared.Enums;
 
 namespace Ws.Domain.Models.Entities.Devices.Arms;

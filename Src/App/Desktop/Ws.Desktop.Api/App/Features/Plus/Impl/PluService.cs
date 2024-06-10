@@ -17,7 +17,7 @@ public class PluService : IPluService
             .DefaultIfEmpty()
             .ToList();
 
-        List<PluWeight> plus = context.Plus
+        List<PluWeight> data = context.Plus
             .Where(p => pluUidList.Contains(p.Id))
             .Join(context.Nestings,
                 plu => plu.Id,
@@ -31,11 +31,10 @@ public class PluService : IPluService
                     BundleCount = (byte)nesting.BundleCount,
                     Box = nesting.Box.Name,
                     Bundle = plu.Bundle.Name,
-                    TareWeight = 0
-                    // TareWeight = (plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + nesting.Box.Weight
+                    TareWeight = Math.Round((double)(plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + (double)nesting.Box.Weight, 3)
                 })
             .ToList();
 
-        return new (plus);
+        return new (data);
     }
 }
