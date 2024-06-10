@@ -1,6 +1,6 @@
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Enums;
+using Ws.Shared.Enums;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.Arms;
 
@@ -70,7 +70,7 @@ internal sealed class SqlArmMap : ClassMapping<Arm>
         Property(x => x.Type, m =>
         {
             m.Column("TYPE");
-            m.Type<EnumStringType<ArmTypes>>();
+            m.Type<EnumStringType<ArmType>>();
             m.Length(8);
             m.NotNullable(true);
         });

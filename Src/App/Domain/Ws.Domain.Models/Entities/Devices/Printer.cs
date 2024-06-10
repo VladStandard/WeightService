@@ -5,7 +5,6 @@ using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Enums;
 
 namespace Ws.Domain.Models.Entities.Devices;
 

@@ -1,11 +1,21 @@
 using Ws.Database.EntityFramework;
-using Ws.Desktop.Api.App.Features.Plus.Common;
+using Ws.Desktop.Api.App.Features.Plu.Weight.Common;
 using Ws.Desktop.Models.Common;
+using Ws.Desktop.Models.Features.Labels.Input;
+using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Output;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Plus;
+using Ws.Labels.Service.Features.Generate;
+using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 
-namespace Ws.Desktop.Api.App.Features.Plus.Impl;
+namespace Ws.Desktop.Api.App.Features.Plu.Weight.Impl;
 
-public class PluService : IPluService
+public class PluWeightService(
+    IPrintLabelService printLabelService,
+    IPluService pluService,
+    IArmService armService
+    ) : IPluWeightService
 {
     public OutputDto<List<PluWeight>> GetAllWeightByArm(Guid uid)
     {
@@ -36,5 +46,25 @@ public class PluService : IPluService
             .ToList();
 
         return new (data);
+    }
+
+    public OutputDto<WeightLabel> GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
+    {
+        var line = armService.GetItemByUid(armId);
+
+        GenerateWeightLabelDto dtoToCreate = new()
+        {
+            Plu = pluService.GetItemByUid(pluId),
+            Line = line,
+            Weight = dto.WeightNet,
+            Kneading = (short)dto.Kneading,
+            ProductDt = dto.ProductDt
+        };
+
+        line.Counter += 1;
+        armService.Update(line);
+
+        var label = printLabelService.GenerateWeightLabel(dtoToCreate);
+        return new(new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl });
     }
 }

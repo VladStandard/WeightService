@@ -1,1 +1,0 @@
-GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/plu/weight/
