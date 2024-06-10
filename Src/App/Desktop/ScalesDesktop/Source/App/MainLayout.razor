@@ -20,15 +20,11 @@
 
   protected override async Task OnInitializedAsync()
   {
+    ScalesService.Setup();
     await LineContext.UpdateArmData();
     if (LineContext is { Line: not null, Printer: not null })
-    {
-      ScalesService.Setup();
       PrinterService.Setup(LineContext.Printer.Ip, 9100, LineContext.Printer.Type);
-    }
     else
-    {
       ToastService.ShowError("Ошибка получения линии. Повторите запрос.");
-    }
   }
 }

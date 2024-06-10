@@ -2,7 +2,6 @@ using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Models.Enums;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.Users;

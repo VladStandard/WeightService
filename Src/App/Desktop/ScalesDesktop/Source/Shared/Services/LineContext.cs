@@ -15,7 +15,6 @@ public class LineContext(IDesktopApi desktopApi)
         try
         {
             Line = await desktopApi.GetArmByName(Dns.GetHostName());
-            await Task.Delay(2000);
         }
         catch
         {
@@ -31,6 +30,12 @@ public class LineContext(IDesktopApi desktopApi)
     //     Line.Version = VersionTracking.CurrentVersion;
     //     ArmService.Update(Line);
     // }
+
+    public void UpdateLineCounter(uint counter)
+    {
+        if (Line == null) return;
+        Line = Line with { Counter = counter };
+    }
 
     public async Task UpdateArmData()
     {

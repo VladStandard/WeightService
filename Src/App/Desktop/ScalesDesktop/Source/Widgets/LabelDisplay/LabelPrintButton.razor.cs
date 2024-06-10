@@ -2,13 +2,14 @@ using MassaK.Plugin.Abstractions.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
+using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Services;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
-using Ws.Domain.Services.Features.Arms;
+using Ws.Desktop.Models.Features.Labels.Input;
+using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
-using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
@@ -21,11 +22,10 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private PrinterService PrinterService { get; set; } = default!;
     [Inject] private ScalesService ScalesService { get; set; } = default!;
-    [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
-    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private LineContext LineContext { get; set; } = default!;
+    [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
 
     #endregion
 
@@ -68,14 +68,19 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     {
         if (!ValidateScalesStatus() || !await ValidatePrinterStatus()) return;
 
-        GenerateWeightLabelDto generateLabelDto = CreateLabelInfoDto();
+        CreateWeightLabelDto createDto = new()
+        {
+            Kneading = (ushort)LabelContext.KneadingModel.KneadingCount,
+            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
+            WeightNet = (decimal)LabelContext.KneadingModel.NetWeightG / 1000,
+            WeightTare = LabelContext.Plu?.TareWeight ?? 0
+        };
 
         try
         {
-            string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
-            // LineContext.Line.Counter += 1;
-            // ArmService.Update(LineContext.Line);
-            await PrinterService.PrintZplAsync(zpl);
+            WeightLabel label = await DesktopApi.CreatePluWeightLabel(LineContext.Line!.Id, LabelContext.Plu!.Id, createDto);
+            LineContext.UpdateLineCounter(label.ArmCounter);
+            await PrinterService.PrintZplAsync(label.Zpl);
         }
         catch (LabelGenerateException ex)
         {
@@ -127,16 +132,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
         ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
         return false;
     }
-
-    private GenerateWeightLabelDto CreateLabelInfoDto() =>
-        new()
-        {
-            Plu = new(), // fix
-            Line = new(), // fix
-            Weight = GetWeight(),
-            Kneading = (short)LabelContext.KneadingModel.KneadingCount,
-            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
-        };
 
     private static DateTime GetProductDt(DateTime time) =>
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
