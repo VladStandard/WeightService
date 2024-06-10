@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Text.Json;
 using Append.Blazor.Printing;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Logging;
@@ -7,10 +6,6 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Services;
 using ScalesDesktop.Source.Shared.Utils;
-using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Domain.Services;
-using Ws.Labels.Service;
-using Ws.Shared.Converters.Json;
 
 namespace ScalesDesktop;
 
@@ -23,8 +18,6 @@ public static class MauiProgram
         builder.UseMauiApp<App>().UseFullScreen();
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents();
-        builder.Services.AddDomainServices();
-        builder.Services.AddLabelsServices();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();

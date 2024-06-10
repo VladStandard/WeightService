@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Models.Entities.Print;
 
 namespace ScalesDesktop.Source.Widgets.PalletSelect;
 

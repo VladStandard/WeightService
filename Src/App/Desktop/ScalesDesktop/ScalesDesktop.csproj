@@ -65,8 +65,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
-        <ProjectReference Include="..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj"/>
-        <ProjectReference Include="..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj"/>
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj" />
     </ItemGroup>
 

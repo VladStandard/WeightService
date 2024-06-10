@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Domain.Services.Features.Pallets;
-using Ws.Labels.Service.Features.Generate;
-using Label = Ws.Domain.Models.Entities.Print.Label;
 
 namespace ScalesDesktop.Source.Features;
 

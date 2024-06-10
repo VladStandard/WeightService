@@ -1,5 +1,3 @@
-using Ws.Domain.Models.Entities.Ref1c.Plu;
-
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
 public class PalletCreateModel

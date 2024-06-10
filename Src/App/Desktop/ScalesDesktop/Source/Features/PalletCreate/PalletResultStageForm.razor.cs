@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Services.Features.Plus;
-using Ws.Labels.Service.Features.Generate;
-using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -13,9 +10,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IPrintLabelService PrintLabelService { get; set; } = default!;
     [Inject] private PalletContext PalletContext { get; set; } = default!;
-    [Inject] private IPluService PluService { get; set; } = default!;
     [Inject] private LineContext LineContext { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
 

@@ -1,9 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
-using Ws.Domain.Services.Features.Arms;
-using Ws.Domain.Services.Features.Plus;
+
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -12,8 +10,6 @@ public sealed partial class PalletFirstStageForm : ComponentBase
     # region Injects
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IPluService PluService { get; set; } = default!;
-    [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private LineContext LineContext { get; set; } = default!;
 
     # endregion
