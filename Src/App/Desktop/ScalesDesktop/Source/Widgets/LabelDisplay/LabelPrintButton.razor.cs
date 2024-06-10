@@ -25,6 +25,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] private LineContext LineContext { get; set; } = default!;
 
     #endregion
 
@@ -72,8 +73,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
         try
         {
             string zpl = PrintLabelService.GenerateWeightLabel(generateLabelDto).Zpl;
-            LabelContext.Line.Counter += 1;
-            ArmService.Update(LabelContext.Line);
+            // LineContext.Line.Counter += 1;
+            // ArmService.Update(LineContext.Line);
             await PrinterService.PrintZplAsync(zpl);
         }
         catch (LabelGenerateException ex)
@@ -130,8 +131,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     private GenerateWeightLabelDto CreateLabelInfoDto() =>
         new()
         {
-            Plu = LabelContext.Plu,
-            Line = LabelContext.Line,
+            Plu = new(), // fix
+            Line = new(), // fix
             Weight = GetWeight(),
             Kneading = (short)LabelContext.KneadingModel.KneadingCount,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate)
@@ -152,12 +153,10 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
         });
 
     private bool GetPrintLabelDisabledStatus() =>
-        LabelContext.Plu.IsNew ||
-        LabelContext.Plu.PluNesting.IsNew ||
-        LabelContext.Plu.IsCheckWeight & ScalesService.Status != MassaKStatus.Ready;
+        LabelContext.Plu == null || ScalesService.Status != MassaKStatus.Ready;
 
     private decimal GetWeight() =>
-        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu.GetWeightWithNesting;
+        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu?.TareWeight ?? 0;
 
     # region Event Subscribe and Unsubscribe
 

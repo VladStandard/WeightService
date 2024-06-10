@@ -3,6 +3,7 @@
 @using ScalesDesktop.Source.Features.PluSelectDialog
 @using ScalesDesktop.Source.Shared.Services
 @using Microsoft.FluentUI.AspNetCore.Components
+@using Ws.Desktop.Models.Features.Plus.Output
 @using Ws.Domain.Models.Entities.Ref1c.Plu
 
 @implements IDisposable
@@ -19,11 +20,10 @@
         Size="ButtonSize.Full"
         Variant="ButtonVariant.Outline"
         OnClick="@ShowPluSelectDialog"
-        Disabled="@LabelContext.Line.IsNew"
       >
         <div class="size-full font-normal px-5 flex items-center justify-between lg:text-lg">
           <span class="truncate">
-            @(LabelContext.Plu.IsNew ? Localizer["PluSelectPlaceholder"] : LabelContext.Plu.DisplayName)
+            @(LabelContext.Plu == null ? Localizer["PluSelectPlaceholder"] : LabelContext.Plu.Name)
           </span>
           <ChevronDownIcon class="size-5"/>
         </div>
@@ -51,7 +51,7 @@
     PluDialogContent data = new() { Data = LabelContext.PluEntities.AsQueryable() };
     IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
     DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: Plu pluEntity })
+    if (result is { Cancelled: false, Data: PluWeight pluEntity })
       LabelContext.ChangePlu(pluEntity);
   }
 

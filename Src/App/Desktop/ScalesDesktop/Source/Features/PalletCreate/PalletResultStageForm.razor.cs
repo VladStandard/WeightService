@@ -39,7 +39,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
             Weight = FormModel.PalletWeight,
             ExpirationDt = createDt.AddDays(FormModel.Plu!.ShelfLifeDays),
             Kneading = FormModel.Kneading,
-            Line = LineContext.Line,
+            Line = new(), // TODO: fix
             PluCharacteristic = FormModel.Nesting!,
             ProductDt = createDt,
             Plu = FormModel.Plu

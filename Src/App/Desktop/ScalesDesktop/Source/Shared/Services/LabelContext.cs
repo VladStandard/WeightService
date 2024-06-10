@@ -1,49 +1,59 @@
+using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Models;
-using Ws.Domain.Models.Entities.Devices;
-using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
-using Ws.Domain.Services.Features.Arms;
+using Ws.Desktop.Models.Features.Plus.Output;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
 public class LabelContext : IDisposable
 {
-    private IArmService ArmService { get; }
     private LineContext LineContext { get; }
+    private IDesktopApi DesktopApi { get; }
 
-    public Arm Line => LineContext.Line;
-    public Plu Plu { get; private set; } = new();
+    public PluWeight? Plu { get; private set; }
     public WeightKneadingModel KneadingModel { get; private set; } = new();
-    public IEnumerable<Plu> PluEntities { get; private set; } = [];
-
+    public IEnumerable<PluWeight> PluEntities { get; private set; } = [];
     public event Action? StateChanged;
 
-    public LabelContext(IArmService armService, LineContext lineContext)
+    public LabelContext(LineContext lineContext, IDesktopApi desktopApi)
     {
-        ArmService = armService;
+        DesktopApi = desktopApi;
         LineContext = lineContext;
-        LineContext.LineChanged += InitializeData;
+        LineContext.LineChanged += OnLineChanged;
     }
 
-    public void InitializeData()
+    private async void OnLineChanged() => await InitializeData();
+
+    public async Task InitializeData()
     {
-        PluEntities = Line.IsExists ? ArmService.GetArmWeightPlus(Line) : [];
-        Plu = new();
+        PluEntities = LineContext.Line != null ? await GetWeightPlu(LineContext.Line.Id) : [];
+        Plu = null;
         KneadingModel = new();
         StateChanged?.Invoke();
     }
 
-    public void ChangePlu(Plu sqlPlu)
+    public void ChangePlu(PluWeight newPlu)
     {
-        if (Plu.Equals(sqlPlu)) return;
-        Plu = sqlPlu;
+        if (Plu != null && Plu.Equals(newPlu)) return;
+        Plu = newPlu;
         KneadingModel.KneadingCount = 1;
         StateChanged?.Invoke();
     }
 
+    private async Task<PluWeight[]> GetWeightPlu(Guid armUid)
+    {
+        try
+        {
+            return await DesktopApi.GetPlusByArm(armUid);
+        }
+        catch
+        {
+            return [];
+        }
+    }
+
     public void Dispose()
     {
-        LineContext.LineChanged -= InitializeData;
+        LineContext.LineChanged -= OnLineChanged;
         GC.SuppressFinalize(this);
     }
 }

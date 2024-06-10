@@ -3,7 +3,7 @@
 
 @implements IDisposable
 
-@if (!LineContext.Line.IsExists)
+@if (LineContext.Line == null)
 {
   <div class="size-full flex items-center justify-center">
     <div class="flex max-w-sm flex-col items-center">
@@ -17,7 +17,7 @@
       <Button
         Size="ButtonSize.Large"
         Class="mt-4"
-        OnClick="@LineContext.ResetLine"
+        OnClick="@LineContext.UpdateArmData"
       >
         <ArrowPathIcon class="size-4 mr-2"/>
         @Localizer["BtnUpdate"]

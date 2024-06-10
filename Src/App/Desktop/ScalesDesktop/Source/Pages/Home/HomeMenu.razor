@@ -2,7 +2,6 @@
 @using Microsoft.FluentUI.AspNetCore.Components
 @using ScalesDesktop.Source.Features
 @using ScalesDesktop.Source.Shared.Services
-@using Ws.Domain.Models.Enums
 @using Ws.Shared.Enums
 
 @implements IDisposable
@@ -12,36 +11,43 @@
     <h2 class="text-2xl font-semibold">@Localizer["AppName"]</h2>
     <h3 class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</h3>
   </div>
-  <ul class="flex flex-col gap-2">
-    @if (LineContext.Line.Type is ArmType.Tablet or ArmType.Universal)
-    {
-    <li>
-      <a href="@RouteUtils.Labels">
-        <HomeMenuItem>
-          <TagIcon class="size-5 mr-3"/>
-          @WsDataLocalizer["ColLabel"]
+    <ul class="flex flex-col gap-2">
+      @if (LineContext.Line == null)
+      {
+        <Skeleton Class="w-full h-[50px]" />
+      }
+      else
+      {
+        @if (LineContext.Line.Type is ArmType.Tablet or ArmType.Universal)
+        {
+          <li>
+            <a href="@RouteUtils.Labels">
+              <HomeMenuItem>
+                <TagIcon class="size-5 mr-3"/>
+                @WsDataLocalizer["ColLabel"]
+              </HomeMenuItem>
+            </a>
+          </li>
+        }
+        @if (LineContext.Line.Type is ArmType.Pc or ArmType.Universal)
+        {
+          <li>
+            <a href="@RouteUtils.Pallet">
+              <HomeMenuItem>
+                <ClipboardIcon class="size-5 mr-3"/>
+                @WsDataLocalizer["ColPallet"]
+              </HomeMenuItem>
+            </a>
+          </li>
+        }
+      }
+      <li>
+        <HomeMenuItem OnClick="@ShowCloseAppDialog">
+          <ArrowRightStartOnRectangleIcon class="size-5 mr-3"/>
+          @Localizer["BtnExit"]
         </HomeMenuItem>
-      </a>
-    </li>
-    }
-    @if (LineContext.Line.Type is ArmType.Pc or ArmType.Universal)
-    {
-    <li>
-      <a href="@RouteUtils.Pallet">
-        <HomeMenuItem>
-          <ClipboardIcon class="size-5 mr-3"/>
-          @WsDataLocalizer["ColPallet"]
-        </HomeMenuItem>
-      </a>
-    </li>
-    }
-    <li>
-      <HomeMenuItem OnClick="@ShowCloseAppDialog">
-        <ArrowRightStartOnRectangleIcon class="size-5 mr-3"/>
-        @Localizer["BtnExit"]
-      </HomeMenuItem>
-    </li>
-  </ul>
+      </li>
+    </ul>
 </div>
 
 

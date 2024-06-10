@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Desktop.Models.Features.Plus.Output;
+
 
 namespace ScalesDesktop.Source.Features.PluSelectDialog;
 
@@ -14,5 +15,5 @@ public sealed partial class PluSelectDialog : ComponentBase, IDialogContentCompo
 
 public record PluDialogContent
 {
-    public IQueryable<Plu> Data { get; init; } = new List<Plu>().AsQueryable();
+    public IQueryable<PluWeight> Data { get; init; } = new List<PluWeight>().AsQueryable();
 }

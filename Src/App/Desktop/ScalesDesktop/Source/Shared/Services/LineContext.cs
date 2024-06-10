@@ -1,42 +1,40 @@
-using Ws.Domain.Models.Entities.Devices;
-using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Services.Features.Arms;
+using System.Net;
+using ScalesDesktop.Source.Shared.Api;
+using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class LineContext
+public class LineContext(IDesktopApi desktopApi)
 {
-    private IArmService ArmService { get; }
-    public Arm Line { get; private set; } = new();
-    public Printer Printer { get; private set; } = new();
+    public ArmValue? Line { get; private set; }
+    public PrinterValue? Printer => Line?.Printer;
     public event Action? LineChanged;
 
-    public LineContext(IArmService armService)
+    private async Task InitializeDataAsync()
     {
-        ArmService = armService;
-        InitializeLineData();
+        try
+        {
+            Line = await desktopApi.GetArmByName(Dns.GetHostName());
+            await Task.Delay(2000);
+        }
+        catch
+        {
+            // pass
+        }
+
+        // if (Line.Version != VersionTracking.CurrentVersion)
+        //     UpdateArmAppVersion();
     }
 
-    private void InitializeLineData()
+    // private void UpdateArmAppVersion()
+    // {
+    //     Line.Version = VersionTracking.CurrentVersion;
+    //     ArmService.Update(Line);
+    // }
+
+    public async Task UpdateArmData()
     {
-        Line = ArmService.GetCurrentLine();
-        if (!Line.IsExists) return;
-
-        if (Line.Version != VersionTracking.CurrentVersion)
-            UpdateLineVersion();
-
-        Printer = Line.Printer;
-    }
-
-    private void UpdateLineVersion()
-    {
-        Line.Version = VersionTracking.CurrentVersion;
-        ArmService.Update(Line);
-    }
-
-    public void ResetLine()
-    {
-        InitializeLineData();
+        await InitializeDataAsync();
         LineChanged?.Invoke();
     }
 }

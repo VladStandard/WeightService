@@ -1,11 +1,9 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.Pallets;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class PalletContext(LineContext lineContext, IPalletService palletService)
-{
+public class PalletContext {
     public ViewPallet CurrentPallet { get; private set; } = new();
     public IEnumerable<ViewPallet> PalletEntities { get; private set; } = [];
     public PalletMan PalletMan { get; private set; } = new();
@@ -37,7 +35,9 @@ public class PalletContext(LineContext lineContext, IPalletService palletService
         StateChanged?.Invoke();
     }
 
-    private IEnumerable<ViewPallet> GetPallets() => palletService.GetAllViewByWarehouse(lineContext.Line.Warehouse);
+    private IEnumerable<ViewPallet> GetPallets() => [];
+
+    // private IEnumerable<ViewPallet> GetPallets() => palletService.GetAllViewByWarehouse(lineContext.Line.Warehouse);
 
     public void ChangePallet(ViewPallet palletView)
     {

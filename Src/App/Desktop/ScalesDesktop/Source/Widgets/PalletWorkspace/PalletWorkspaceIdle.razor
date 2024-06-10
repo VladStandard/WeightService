@@ -28,7 +28,7 @@
     <div class="w-1/2 space-y-2">
       <FieldLabel>@WsDataLocalizer["ColWarehouse"]</FieldLabel>
       <InputTextField
-        Value="@LineContext.Line.Warehouse.Name"
+        Value="@LineContext.Line?.Warehouse"
         ReadOnly
       />
     </div>

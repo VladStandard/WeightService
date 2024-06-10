@@ -1,7 +1,7 @@
 @using Blazor.Heroicons.Outline
-@using Ws.Domain.Models.Entities.Ref1c.Plu
+@using Ws.Desktop.Models.Features.Plus.Output
 
-@if (Plu.IsNew)
+@if (Plu == null)
 {
   <div class="size-full flex items-center border justify-center bg-secondary/[.6] rounded-md overflow-hidden p-4">
     <div class="flex flex-col text-center">
@@ -42,7 +42,7 @@ else
       </div>
     </div>
     <div class="line-clamp-2">
-      @Plu.PluNesting.Box.Name
+      @Plu.Box
     </div>
 
     <div class="flex items-start">
@@ -52,7 +52,7 @@ else
       </div>
     </div>
     <div class="line-clamp-2">
-      @Plu.Bundle.Name
+      @Plu.Bundle
     </div>
 
     <div class="flex items-start">
@@ -62,7 +62,7 @@ else
       </div>
     </div>
     <div class="line-clamp-2">
-      @Plu.PluNesting.BundleCount @WsDataLocalizer["MeasurePc"]
+      @Plu.BundleCount @WsDataLocalizer["MeasurePc"]
     </div>
   </div>
 }
@@ -72,5 +72,5 @@ else
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  [Parameter] public Plu Plu { get; set; } = default!;
+  [Parameter] public PluWeight? Plu { get; set; }
 }

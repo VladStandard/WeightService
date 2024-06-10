@@ -19,7 +19,7 @@
 
   protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
 
-  private decimal GetTareWeight => LabelContext.Plu.GetWeightWithNesting;
+  private decimal GetTareWeight => LabelContext.Plu?.TareWeight ?? 0;
 
   public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
 

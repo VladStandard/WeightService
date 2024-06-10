@@ -25,7 +25,8 @@ public sealed partial class PalletFirstStageForm : ComponentBase
     private IEnumerable<Plu> PluEntities { get; set; } = [];
 
 
-    protected override void OnInitialized() => PluEntities = ArmService.GetArmPiecePlus(LineContext.Line);
+    protected override void OnInitialized() => PluEntities = [];
+    // protected override void OnInitialized() => PluEntities = ArmService.GetArmPiecePlus(LineContext.Line);
 
     private void SetPluNestings()
     {
