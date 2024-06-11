@@ -1,0 +1,40 @@
+@using ScalesDesktop.Source.Shared.Services
+@using Blazor.Heroicons.Outline
+@using Phetch.Core
+
+<UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
+  @if (query is { HasData: false, IsLoading: false })
+  {
+    <div class="size-full flex items-center justify-center">
+      <div class="flex max-w-sm flex-col items-center">
+        <ExclamationTriangleIcon class="size-24 text-destructive" />
+        <div class="flex flex-col text-center gap-2">
+          <h2 class="text-xl font-semibold">@Localizer["LineIsNewWarningTitle"]</h2>
+          <p class="text-sm">
+            @Localizer["LineIsNewWarningDescription"]
+          </p>
+        </div>
+        <Button
+          Size="ButtonSize.Large"
+          Class="mt-4"
+          OnClick="@query.Refetch"
+        >
+          <ArrowPathIcon class="size-4 mr-2"/>
+          @Localizer["BtnUpdate"]
+        </Button>
+      </div>
+    </div>
+  }
+  else
+  {
+    @ChildContent
+  }
+</UseParameterlessEndpoint>
+
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private ArmApi ArmApi { get; set; } = default!;
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+}

@@ -2,16 +2,17 @@ using MassaK.Plugin.Abstractions.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
-using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Services;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
+using Ws.Desktop.Models;
+using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 
 namespace ScalesDesktop.Source.Features;
 
-public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
+public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
 {
     # region Injects
 
@@ -22,10 +23,12 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     [Inject] private ScalesService ScalesService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] private ArmContext ArmContext { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
+    [Inject] private ArmApi ArmApi { get; set; } = default!;
 
     #endregion
+
+    [Parameter, EditorRequired] public ArmValue Arm { get; set; } = default!;
 
     private bool IsButtonClicked { get; set; }
 
@@ -68,7 +71,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
         CreateWeightLabelDto createDto = new()
         {
-            Kneading = (ushort)LabelContext.KneadingModel.KneadingCount,
+            Kneading = LabelContext.KneadingModel.KneadingCount,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
             WeightNet = (decimal)LabelContext.KneadingModel.NetWeightG / 1000,
             WeightTare = LabelContext.Plu?.TareWeight ?? 0
@@ -76,8 +79,8 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
         try
         {
-            WeightLabel label = await DesktopApi.CreatePluWeightLabel(ArmContext.Arm!.Id, LabelContext.Plu!.Id, createDto);
-            ArmContext.UpdateLineCounter(label.ArmCounter);
+            WeightLabel label = await DesktopApi.CreatePluWeightLabel(Arm.Id, LabelContext.Plu!.Id, createDto);
+            ArmApi.UpdateArmCounter(label.ArmCounter);
             await PrinterService.PrintZplAsync(label.Zpl);
         }
         catch (PrinterCommandBodyException)
@@ -122,7 +125,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
             return false;
         }
 
-        return false;
+        return true;
     }
 
     private static DateTime GetProductDt(DateTime time) =>

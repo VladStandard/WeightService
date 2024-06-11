@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Services;
+using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Features;
@@ -18,23 +18,11 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+    [Inject] private PalletApi PalletApi { get; set; } = default!;
 
     # endregion
 
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
-    private IEnumerable<PalletMan> PalletMen { get; set; } = [];
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            PalletMen = await DesktopApi.GetPalletMen();
-        }
-        catch
-        {
-            // pass
-        }
-    }
 
     private void HandleInvalidForm(EditContext context)
     {

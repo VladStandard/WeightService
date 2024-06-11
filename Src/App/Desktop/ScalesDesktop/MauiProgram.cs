@@ -4,9 +4,9 @@ using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Api;
+using Refit;
 using ScalesDesktop.Source.Shared.Services;
-using ScalesDesktop.Source.Shared.Utils;
+using Ws.Desktop.Models;
 
 namespace ScalesDesktop;
 
@@ -32,9 +32,12 @@ public static class MauiProgram
         builder.Services.AddScoped<IPrintingService, PrintingService>();
         builder.Services.AddSingleton<ScalesService>();
         builder.Services.AddSingleton<PrinterService>();
-        builder.Services.AddSingleton<ArmContext>();
         builder.Services.AddSingleton<LabelContext>();
         builder.Services.AddSingleton<PalletContext>();
+
+        builder.Services.AddScoped<PalletApi>();
+        builder.Services.AddScoped<ArmApi>();
+        builder.Services.AddScoped<PluApi>();
 
 #if DEBUG
         Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "DevelopVS");
@@ -45,16 +48,12 @@ public static class MauiProgram
         builder.Configuration.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: false, reloadOnChange: true);
         IConfigurationSection oidcConfiguration = builder.Configuration.GetSection("Api");
 
-        builder.Services.AddTransient<JsonContentHandler>();
-        builder.Services.AddHttpClient<IDesktopApi, DesktopApi>(client =>
-            {
-                client.BaseAddress = new($"{oidcConfiguration.GetValue<string>("BaseUrl") ?? ""}/api/");
-            })
+        builder.Services.AddRefitClient<IDesktopApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new($"{oidcConfiguration.GetValue<string>("BaseUrl") ?? ""}"))
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            })
-            .AddHttpMessageHandler<JsonContentHandler>();
+            });
 
         return builder;
     }

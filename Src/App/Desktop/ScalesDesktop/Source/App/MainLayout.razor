@@ -1,30 +1,15 @@
-﻿@using ScalesDesktop.Source.Shared.Services
+﻿@using Microsoft.FluentUI.AspNetCore.Components
 @using ScalesDesktop.Source.Features
-@using Microsoft.FluentUI.AspNetCore.Components
 
 @inherits LayoutComponentBase
 
-<div class="w-screen h-screen overflow-hidden text-black bg-secondary/[.3] overscroll-none">
+<ArmErrorBoundary>
+  <div class="w-screen h-screen overflow-hidden text-black bg-secondary/[.3] overscroll-none">
     @Body
-</div>
+  </div>
+</ArmErrorBoundary>
+
 
 <FluentDialogProvider />
 <FluentTooltipProvider />
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
-
-@code {
-  [Inject] private ArmContext ArmContext { get; set; } = default!;
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
-  [Inject] private IToastService ToastService { get; set; } = default!;
-
-  protected override async Task OnInitializedAsync()
-  {
-    ScalesService.Setup();
-    await ArmContext.UpdateArmData();
-    if (ArmContext is { Arm: not null, Printer: not null })
-      PrinterService.Setup(ArmContext.Printer.Ip, 9100, ArmContext.Printer.Type);
-    else
-      ToastService.ShowError("Ошибка получения линии. Повторите запрос.");
-  }
-}

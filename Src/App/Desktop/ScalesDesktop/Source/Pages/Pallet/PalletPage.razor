@@ -3,50 +3,47 @@
 @using ScalesDesktop.Source.Widgets.MainHeader
 
 @attribute [Route(RouteUtils.Pallet)]
-@implements IDisposable
 
-<LineErrorBoundary>
-  <div class="flex flex-col grow size-full">
-    <MainHeader />
-    <div class="size-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4 xl:p-10">
-      @if (PalletContext.PalletMan == null)
-      {
-        <PalletManForm />
-      }
-      else
-      {
-        <p>You are logged in</p>
-        @* <div class="size-full grid grid-rows-1 grid-cols-[24rem,2fr] rounded-lg shadow-sm bg-white border divide-x max-w-screen-2xl overflow-hidden"> *@
-        @*   <PalletSelect /> *@
-        @*   <div class="size-full overflow-hidden"> *@
-        @*     @if (PalletContext.CurrentPallet.IsNew) *@
-        @*     { *@
-        @*       <PalletWorkspaceIdle /> *@
-        @*     } *@
-        @*     else *@
-        @*     { *@
-        @*       <PalletWorkspace /> *@
-        @*     } *@
-        @*   </div> *@
-        @* </div> *@
-      }
-    </div>
+<div class="flex flex-col grow size-full">
+  <MainHeader />
+  <div class="size-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4 xl:p-10">
+    @if (PalletContext.PalletMan == null)
+    {
+      <PalletManForm />
+    }
+    else
+    {
+      <p>You are logged in</p>
+      @* <div class="size-full grid grid-rows-1 grid-cols-[24rem,2fr] rounded-lg shadow-sm bg-white border divide-x max-w-screen-2xl overflow-hidden"> *@
+      @*   <PalletSelect /> *@
+      @*   <div class="size-full overflow-hidden"> *@
+      @*     @if (PalletContext.CurrentPallet.IsNew) *@
+      @*     { *@
+      @*       <PalletWorkspaceIdle /> *@
+      @*     } *@
+      @*     else *@
+      @*     { *@
+      @*       <PalletWorkspace /> *@
+      @*     } *@
+      @*   </div> *@
+      @* </div> *@
+    }
   </div>
-</LineErrorBoundary>
+</div>
 
 @code {
 
   [Inject] private PalletContext PalletContext { get; set; } = default!;
 
-  protected override void OnInitialized()
-  {
-    // PalletContext.InitializeContext();
-    PalletContext.StateChanged += StateHasChanged;
-  }
-
-  public void Dispose()
-  {
-    // PalletContext.ResetPalletMan();
-    PalletContext.StateChanged -= StateHasChanged;
-  }
+  // protected override void OnInitialized()
+  // {
+  //   // PalletContext.InitializeContext();
+  //   PalletContext.StateChanged += StateHasChanged;
+  // }
+  //
+  // public void Dispose()
+  // {
+  //   // PalletContext.ResetPalletMan();
+  //   PalletContext.StateChanged -= StateHasChanged;
+  // }
 }

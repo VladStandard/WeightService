@@ -5,8 +5,9 @@ using MassaK.Plugin.Impl;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class ScalesService(IDispatcher dispatcher) : IDisposable
+public class ScalesService : IDisposable
 {
+    private readonly IDispatcher _dispatcher;
     private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
     public MassaKStatus Status { get; private set; } = MassaKStatus.Disabled;
     public bool IsStable { get; private set; }
@@ -16,6 +17,12 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
     public event Action? WeightChanged;
 
     private const string DefaultComPort = "COM6";
+
+    public ScalesService(IDispatcher dispatcher)
+    {
+        _dispatcher = dispatcher;
+        Setup();
+    }
 
     public void Setup(string comPort = DefaultComPort)
     {
@@ -47,7 +54,7 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
     public void StartPolling() => Scales.StartWeightPolling();
 
     private async void ScalesOnStatusChanged(object? sender, MassaKStatus e) =>
-        await dispatcher.DispatchAsync(() =>
+        await _dispatcher.DispatchAsync(() =>
         {
             if (Status.Equals(e)) return;
             Status = e;
@@ -55,7 +62,7 @@ public class ScalesService(IDispatcher dispatcher) : IDisposable
         });
 
     private async void ScalesOnWeightChanged(object? sender, WeightEventArg e) =>
-        await dispatcher.DispatchAsync(() =>
+        await _dispatcher.DispatchAsync(() =>
         {
             IsStable = e.IsStable;
             CurrentWeight = e.Weight;

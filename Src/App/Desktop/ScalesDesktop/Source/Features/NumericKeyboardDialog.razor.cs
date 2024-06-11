@@ -44,8 +44,8 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
 
     private async void SubmitInput()
     {
-        int.TryParse(Number, out int resultInt);
-        await Dialog.CloseAsync(int.Max(resultInt, 1));
+        ushort.TryParse(Number, out ushort resultInt);
+        await Dialog.CloseAsync(ushort.Max(resultInt, 1));
     }
 
     private void SetNumber(int newDigit)

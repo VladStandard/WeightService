@@ -3,7 +3,7 @@ using ScalesDesktop.Source.Shared.Services;
 
 namespace ScalesDesktop.Source.Features;
 
-public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
+public sealed partial class ScaleCalibration : ComponentBase, IDisposable
 {
     #region Injects
 

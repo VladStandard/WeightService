@@ -26,7 +26,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
         {
             await Printer.ConnectAsync();
             Status = PrinterStatus.Ready;
-            StartPolling(10);
+            StartPolling();
         }
         catch (PrinterConnectionException)
         {
@@ -54,6 +54,12 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
     public void StopPolling() => Printer.StopStatusPolling();
 
     public void StartPolling(ushort interval = 10) => Printer.StartStatusPolling(interval);
+
+    public void ManuallySetStatus(PrinterStatus status)
+    {
+        Status = status;
+        StatusChanged?.Invoke();
+    }
 
     public void Disconnect()
     {

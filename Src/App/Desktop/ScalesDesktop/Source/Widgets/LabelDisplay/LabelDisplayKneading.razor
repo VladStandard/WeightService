@@ -44,7 +44,7 @@
     NumericKeyboardDialogContent data = new() { Kneading = LabelContext.KneadingModel.KneadingCount };
     IDialogReference dialog = await DialogService.ShowDialogAsync<NumericKeyboardDialog>(data, new());
     DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: int newKneading })
+    if (result is { Cancelled: false, Data: ushort newKneading })
     {
       LabelContext.KneadingModel.KneadingCount = newKneading;
       StateHasChanged();
