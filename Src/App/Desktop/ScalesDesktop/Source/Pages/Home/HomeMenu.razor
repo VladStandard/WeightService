@@ -12,13 +12,13 @@
     <h3 class="text-sm text-muted-foreground">@Localizer["HomePageCardDescription"]</h3>
   </div>
     <ul class="flex flex-col gap-2">
-      @if (LineContext.Line == null)
+      @if (ArmContext.Arm == null)
       {
         <Skeleton Class="w-full h-[50px]" />
       }
       else
       {
-        @if (LineContext.Line.Type is ArmType.Tablet or ArmType.Universal)
+        @if (ArmContext.Arm.Type is ArmType.Tablet or ArmType.Universal)
         {
           <li>
             <a href="@RouteUtils.Labels">
@@ -29,7 +29,7 @@
             </a>
           </li>
         }
-        @if (LineContext.Line.Type is ArmType.Pc or ArmType.Universal)
+        @if (ArmContext.Arm.Type is ArmType.Pc or ArmType.Universal)
         {
           <li>
             <a href="@RouteUtils.Pallet">
@@ -55,16 +55,16 @@
 @code {
   # region Injects
 
-  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private ArmContext ArmContext { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
 
   # endregion
 
-  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
+  protected override void OnInitialized() => ArmContext.ArmChanged += StateHasChanged;
 
   private async Task ShowCloseAppDialog() => await DialogService.ShowDialogAsync<CloseAppDialog>(new());
 
-  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
+  public void Dispose() => ArmContext.ArmChanged -= StateHasChanged;
 }

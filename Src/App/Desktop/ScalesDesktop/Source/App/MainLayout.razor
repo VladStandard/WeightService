@@ -13,7 +13,7 @@
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
 
 @code {
-  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private ArmContext ArmContext { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private ScalesService ScalesService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
@@ -21,9 +21,9 @@
   protected override async Task OnInitializedAsync()
   {
     ScalesService.Setup();
-    await LineContext.UpdateArmData();
-    if (LineContext is { Line: not null, Printer: not null })
-      PrinterService.Setup(LineContext.Printer.Ip, 9100, LineContext.Printer.Type);
+    await ArmContext.UpdateArmData();
+    if (ArmContext is { Arm: not null, Printer: not null })
+      PrinterService.Setup(ArmContext.Printer.Ip, 9100, ArmContext.Printer.Type);
     else
       ToastService.ShowError("Ошибка получения линии. Повторите запрос.");
   }

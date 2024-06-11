@@ -53,7 +53,7 @@ public class PrinterService(IDispatcher dispatcher): IDisposable
 
     public void StopPolling() => Printer.StopStatusPolling();
 
-    public void StartPolling(ushort interval = 30) => Printer.StartStatusPolling(interval);
+    public void StartPolling(ushort interval = 10) => Printer.StartStatusPolling(interval);
 
     public void Disconnect()
     {

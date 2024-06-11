@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 
-
-namespace ScalesDesktop.Source.Widgets.LabelDisplay;
+namespace ScalesDesktop.Source.Features;
 
 public sealed partial class ScaleCalibrationButton : ComponentBase, IDisposable
 {

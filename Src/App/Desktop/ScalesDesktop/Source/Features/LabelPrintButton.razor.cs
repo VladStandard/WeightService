@@ -9,7 +9,7 @@ using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 
-namespace ScalesDesktop.Source.Widgets.LabelDisplay;
+namespace ScalesDesktop.Source.Features;
 
 public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 {
@@ -22,7 +22,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
     [Inject] private ScalesService ScalesService { get; set; } = default!;
     [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] private LineContext LineContext { get; set; } = default!;
+    [Inject] private ArmContext ArmContext { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
 
     #endregion
@@ -76,19 +76,9 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
         try
         {
-            WeightLabel label = await DesktopApi.CreatePluWeightLabel(LineContext.Line!.Id, LabelContext.Plu!.Id, createDto);
-            LineContext.UpdateLineCounter(label.ArmCounter);
+            WeightLabel label = await DesktopApi.CreatePluWeightLabel(ArmContext.Arm!.Id, LabelContext.Plu!.Id, createDto);
+            ArmContext.UpdateLineCounter(label.ArmCounter);
             await PrinterService.PrintZplAsync(label.Zpl);
-        }
-        catch (LabelGenerateException ex)
-        {
-            ToastService.ShowError(ex.Code switch
-            {
-                LabelGenExceptions.Invalid => Localizer["LabelGenErrorInvalid"],
-                LabelGenExceptions.TemplateNotFound => Localizer["LabelGenErrorTemplateNotFound"],
-                LabelGenExceptions.StorageMethodNotFound => Localizer["LabelGenErrorStorageMethodNotFound"],
-                _ => Localizer["UnknownError"]
-            });
         }
         catch (PrinterCommandBodyException)
         {
@@ -96,7 +86,7 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
         }
         catch (PrinterStatusException)
         {
-            ToastService.ShowError("Printer status error");
+            PrintPrinterStatusMessage();
         }
         catch (PrinterConnectionException)
         {
@@ -126,8 +116,12 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
             return false;
         }
 
-        if (GetWeight() > 0) return true;
-        ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
+        if (((decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu?.TareWeight ?? 0) < 0)
+        {
+            ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
+            return false;
+        }
+
         return false;
     }
 
@@ -147,9 +141,6 @@ public sealed partial class LabelPrintButton : ComponentBase, IAsyncDisposable
 
     private bool GetPrintLabelDisabledStatus() =>
         LabelContext.Plu == null || ScalesService.Status != MassaKStatus.Ready;
-
-    private decimal GetWeight() =>
-        (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu?.TareWeight ?? 0;
 
     # region Event Subscribe and Unsubscribe
 

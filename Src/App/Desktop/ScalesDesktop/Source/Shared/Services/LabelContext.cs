@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services;
 
 public class LabelContext : IDisposable
 {
-    private LineContext LineContext { get; }
+    private ArmContext ArmContext { get; }
     private IDesktopApi DesktopApi { get; }
 
     public PluWeight? Plu { get; private set; }
@@ -14,18 +14,18 @@ public class LabelContext : IDisposable
     public IEnumerable<PluWeight> PluEntities { get; private set; } = [];
     public event Action? StateChanged;
 
-    public LabelContext(LineContext lineContext, IDesktopApi desktopApi)
+    public LabelContext(ArmContext armContext, IDesktopApi desktopApi)
     {
         DesktopApi = desktopApi;
-        LineContext = lineContext;
-        LineContext.LineChanged += OnLineChanged;
+        ArmContext = armContext;
+        ArmContext.ArmChanged += OnArmChanged;
     }
 
-    private async void OnLineChanged() => await InitializeData();
+    private async void OnArmChanged() => await InitializeData();
 
     public async Task InitializeData()
     {
-        PluEntities = LineContext.Line != null ? await GetWeightPlu(LineContext.Line.Id) : [];
+        PluEntities = ArmContext.Arm != null ? await GetWeightPlu(ArmContext.Arm.Id) : [];
         Plu = null;
         KneadingModel = new();
         StateChanged?.Invoke();
@@ -53,7 +53,7 @@ public class LabelContext : IDisposable
 
     public void Dispose()
     {
-        LineContext.LineChanged -= OnLineChanged;
+        ArmContext.ArmChanged -= OnArmChanged;
         GC.SuppressFinalize(this);
     }
 }

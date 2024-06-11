@@ -6,14 +6,14 @@
 @implements IDisposable
 
 <div class="flex justify-between items-center w-full">
-  @if (LineContext.Line == null)
+  @if (ArmContext.Arm == null)
   {
     <Skeleton Class="size-16 !rounded-full shrink-0" />
   }
   else
   {
     <div class="size-16 shrink-0 rounded-full flex items-center justify-center bg-secondary">
-      @switch (LineContext.Line.Type)
+      @switch (ArmContext.Arm.Type)
       {
         case ArmType.Pc:
           <ComputerDesktopIcon class="size-8"/>
@@ -31,15 +31,15 @@
     </div>
   }
   <div class="flex w-full flex-col px-3 justify-start">
-    @if (LineContext.Line == null)
+    @if (ArmContext.Arm == null)
     {
       <Skeleton Class="w-32 h-6" />
       <Skeleton Class="w-32 h-6 mt-1" />
     }
     else
     {
-      <span class="font-medium truncate">@LineContext.Line.Name</span>
-      <span class="truncate">@LineContext.Line.Warehouse</span>
+      <span class="font-medium truncate">@ArmContext.Arm.Name</span>
+      <span class="truncate">@ArmContext.Arm.Warehouse</span>
     }
   </div>
   <Button
@@ -53,20 +53,20 @@
 </div>
 
 @code {
-  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private ArmContext ArmContext { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   [Parameter] public bool WithReconnect { get; set; }
 
-  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
+  protected override void OnInitialized() => ArmContext.ArmChanged += StateHasChanged;
 
   private async Task ResetLine()
   {
-    await LineContext.UpdateArmData();
-    PrinterService.Setup(LineContext.Printer?.Ip ?? new(0), 9100, LineContext.Printer?.Type ?? PrinterTypes.Zebra); // TODO: fix
+    await ArmContext.UpdateArmData();
+    PrinterService.Setup(ArmContext.Printer?.Ip ?? new(0), 9100, ArmContext.Printer?.Type ?? PrinterTypes.Zebra); // TODO: fix
     if (WithReconnect) await PrinterService.ConnectAsync();
   }
 
-  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
+  public void Dispose() => ArmContext.ArmChanged -= StateHasChanged;
 }

@@ -3,7 +3,7 @@
 
 @implements IDisposable
 
-@if (LineContext.Line == null)
+@if (ArmContext.Arm == null)
 {
   <div class="size-full flex items-center justify-center">
     <div class="flex max-w-sm flex-col items-center">
@@ -17,7 +17,7 @@
       <Button
         Size="ButtonSize.Large"
         Class="mt-4"
-        OnClick="@LineContext.UpdateArmData"
+        OnClick="@ArmContext.UpdateArmData"
       >
         <ArrowPathIcon class="size-4 mr-2"/>
         @Localizer["BtnUpdate"]
@@ -31,12 +31,12 @@ else
 }
 
 @code {
-  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private ArmContext ArmContext { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
 
-  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
+  protected override void OnInitialized() => ArmContext.ArmChanged += StateHasChanged;
 
-  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
+  public void Dispose() => ArmContext.ArmChanged -= StateHasChanged;
 }

@@ -1,37 +1,37 @@
-@* @using Ws.Domain.Models.Entities.Users *@
-@* *@
-@* <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full"> *@
-@*   <div class="w-full pb-4 border-b"> *@
-@*     <h2 class="text-lg font-semibold leading-none tracking-tight"> *@
-@*       @Localizer["PalletManFormHeader"] *@
-@*     </h2> *@
-@*   </div> *@
-@*   <EditForm *@
-@*     Model="FormModel" *@
-@*     OnValidSubmit="OnSubmit" *@
-@*     OnInvalidSubmit="HandleInvalidForm" *@
-@*     class="space-y-4 pt-3" *@
-@*   > *@
-@*     <DataAnnotationsValidator /> *@
-@*     <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user"> *@
-@*       <SelectSingle *@
-@*         TItem="PalletMan" *@
-@*         @bind-SelectedItem="@FormModel.User" *@
-@*         ItemDisplayName="@(item => item.Fio.DisplayShort)" *@
-@*         Items="@GetAllPalletMen" *@
-@*         Placeholder="@Localizer["UserSelectPlaceholder"]" *@
-@*       /> *@
-@*     </FormFieldWrapper> *@
-@*     <FormFieldWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlId="login-password"> *@
-@*       <InputTextField *@
-@*         id="login-password" *@
-@*         @bind-Value="@FormModel.Password" *@
-@*         Type="TextInputType.Password" *@
-@*         Placeholder="@Localizer["PasswordInputPlaceholder"]" *@
-@*       /> *@
-@*     </FormFieldWrapper> *@
-@*     <Button Type="ButtonType.Submit" Class="!mt-4"> *@
-@*       @Localizer["BtnLogIn"] *@
-@*     </Button> *@
-@*   </EditForm> *@
-@* </div> *@
+@using Ws.Desktop.Models.Features.PalletMen
+
+<div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-white w-full">
+  <div class="w-full pb-4 border-b">
+    <h2 class="text-lg font-semibold leading-none tracking-tight">
+      @Localizer["PalletManFormHeader"]
+    </h2>
+  </div>
+  <EditForm
+    Model="FormModel"
+    OnValidSubmit="OnSubmit"
+    OnInvalidSubmit="HandleInvalidForm"
+    class="space-y-4 pt-3"
+  >
+    <DataAnnotationsValidator />
+    <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
+      <SelectSingle
+        TItem="PalletMan"
+        @bind-SelectedItem="@FormModel.User"
+        ItemDisplayName="@(item => item.DisplayShortName)"
+        Items="@PalletMen"
+        Placeholder="@Localizer["UserSelectPlaceholder"]"
+      />
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlId="login-password">
+      <InputTextField
+        id="login-password"
+        @bind-Value="@FormModel.Password"
+        Type="TextInputType.Password"
+        Placeholder="@Localizer["PasswordInputPlaceholder"]"
+      />
+    </FormFieldWrapper>
+    <Button Type="ButtonType.Submit" Class="!mt-4">
+      @Localizer["BtnLogIn"]
+    </Button>
+  </EditForm>
+</div>

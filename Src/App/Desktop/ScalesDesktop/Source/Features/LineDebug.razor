@@ -3,13 +3,13 @@
 @implements IDisposable
 
 <span class="text-right absolute text-gray-500 bottom-0 right-1 text-sm xl:text-base">
-  @LineContext.Line.PcName | @LineContext.Printer.Name
+  @ArmContext.Arm.PcName | @ArmContext.Printer.Name
 </span>
 
 @code {
-  [Inject] private LineContext LineContext { get; set; } = default!;
+  [Inject] private ArmContext ArmContext { get; set; } = default!;
 
-  protected override void OnInitialized() => LineContext.LineChanged += StateHasChanged;
+  protected override void OnInitialized() => ArmContext.ArmChanged += StateHasChanged;
 
-  public void Dispose() => LineContext.LineChanged -= StateHasChanged;
+  public void Dispose() => ArmContext.ArmChanged -= StateHasChanged;
 }
